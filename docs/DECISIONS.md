@@ -52,3 +52,24 @@ Do not commit private graduation-design files, copyrighted reference packages th
 **Status:** Accepted
 
 Major design-direction changes require user approval. Ordinary recoverable engineering actions should be handled autonomously.
+
+
+## D-007 — Reuse-first engineering policy
+
+**Status:** Accepted
+
+Before implementing any major subsystem, search for compatible open-source implementations and evaluate license, maturity, safety, and integration cost.
+
+Decision order:
+
+**Adopt → Fork → Compose/Wrap → Minimal Custom Build**
+
+Custom infrastructure is justified only when existing projects cannot meet the requirement or create unacceptable product/technical risk.
+
+Current high-priority reuse candidates:
+- ArchFlow Studio — orchestration/product backbone candidate
+- SAIE — SketchUp execution layer candidate
+- SketchUp Architect Skill — architecture reasoning/precedent workflow candidate
+- VBO SkAgent — lightweight live-control fallback
+
+The product's intended differentiation is above the connector layer: case-to-design, architectural project context, workflow UX, continuous model-aware iteration, and end-to-end student/junior-designer delivery.
