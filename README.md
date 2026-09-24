@@ -1,64 +1,65 @@
 # AI Architecture Studio
 
-AI-native architecture workflow for design reasoning, SketchUp execution, and editable project generation.
+A lightweight AI architecture workspace that turns project inputs into an editable design workflow.
 
-## Product direction
+## Product flow
 
-The long-term workflow is:
+**Brief + Site + Reference + User Intent**  
+→ AI design reasoning  
+→ editable SketchUp model  
+→ basic drawing  
+→ render/output  
+→ presentation
 
-Brief + Site + Reference Cases + User Intent  
-→ AI Design Discussion  
-→ Confirmed Scheme  
-→ Editable 3D Model  
-→ Drawings  
-→ Rendering  
-→ Presentation
-
-The core product idea is not "AI image generation". The primary artifact should remain a real, editable architectural project.
+The product is not a browser CAD engine. SketchUp remains the real editable modeling application.
 
 ## Current milestone
 
-**SketchUp Agent Technical Spike**
+**Demo v0.1 — end-to-end local product demo**
 
-Before building the full web product, this repository first validates the highest-risk technical loop:
+For this demo, Codex itself acts as the temporary AI brain.
 
-Project Context  
-→ Agent  
-→ SketchUp Connector  
-→ Editable Model  
-→ Model State / Screenshot  
-→ AI Review  
-→ Continuous Modification
+The target architecture is:
 
-The current task is defined in [docs/CURRENT_TASK.md](docs/CURRENT_TASK.md).
+**Web Workspace → BrainAdapter → Local Connector/MCP → SketchUp**
 
-## Collaboration model
+Later, a real model API can replace the Codex brain behind the same adapter.
 
-- **Product planning / architecture / review:** ChatGPT GPT-5.6 Sol High
-- **Implementation:** Codex GPT-6 Luna Max or another execution agent
-- **GitHub:** single source of truth
+## Start here
 
-Execution agents should read [AGENTS.md](AGENTS.md) and [docs/CURRENT_TASK.md](docs/CURRENT_TASK.md) before doing work, then update [docs/HANDOFF.md](docs/HANDOFF.md) when finished.
+Codex should read:
 
-## Key docs
+1. [AGENTS.md](AGENTS.md)
+2. [docs/CURRENT_TASK.md](docs/CURRENT_TASK.md)
+3. [Demo v0.1 Spec](docs/DEMO_V0_1_SPEC.md)
+4. [Demo Architecture](docs/DEMO_ARCHITECTURE.md)
+5. [Schemas](docs/SCHEMAS_V0_1.md)
+6. [Open-Source Component Map](docs/OPEN_SOURCE_COMPONENT_MAP.md)
+7. [Codex Demo Runbook](docs/CODEX_DEMO_RUNBOOK.md)
 
-- [Product Vision](docs/PRODUCT_VISION.md)
-- [MVP PRD v0.1](docs/MVP_PRD_v0.1.md)
-- [Architecture Overview](docs/ARCHITECTURE_OVERVIEW.md)
-- [Technical Spike v0.1](docs/TECHNICAL_SPIKE_v0.1.md)
-- [Product & Architecture Decisions](docs/DECISIONS.md)
-- [Current Task](docs/CURRENT_TASK.md)
-- [Handoff](docs/HANDOFF.md)
+## Reuse policy
+
+Prefer:
+
+**Adopt → Fork → Wrap/Compose → Minimal Custom Build**
+
+High-value candidates already identified include:
+- existing user SketchUp MCP setup
+- SAIE
+- VBO SkAgent
+- ArchFlow Studio
+- SketchUp Architect Skill
 
 ## Repository safety
 
-This is a public repository. Do **not** commit:
+This is a public repository.
 
-- API keys, tokens, credentials, or secrets
+Do not commit:
+- API keys or credentials
 - private graduation-design files
-- copyrighted reference packages that cannot be redistributed
+- private SKP/DWG files
+- copyrighted reference packages
 - proprietary company data
 - machine-specific private paths
-- private SketchUp / DWG benchmark files
 
-Use sanitized fixtures or local-only benchmark paths instead.
+Runtime project data belongs under ignored local folders.
