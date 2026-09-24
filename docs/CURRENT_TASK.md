@@ -1,238 +1,214 @@
-# Current Task — Reuse-First Technical Due Diligence + Environment Audit
-
-## Milestone
-
-**SketchUp Agent Technical Spike — Phase A+B (revised)**
-
-## Why this task changed
-
-A broad GitHub survey found several projects that overlap heavily with the infrastructure we were about to build.
-
-Therefore the current priority is **not** to implement another SketchUp MCP bridge.
-
-The priority is to determine whether we can adopt, fork, compose, or wrap existing open-source projects and get to a usable MVP faster.
-
-Read first:
-
-1. `AGENTS.md`
-2. `docs/OPEN_SOURCE_REUSE_SURVEY.md`
-3. `docs/TECHNICAL_SPIKE_v0.1.md`
-4. `docs/ARCHITECTURE_OVERVIEW.md`
+# CURRENT TASK — Build Demo v0.1
 
 ## Objective
 
-Produce a concrete reuse decision for the AI Architecture Studio before any substantial custom connector development.
+Build a working **AI Architecture Studio Demo v0.1** now.
 
-At the end of this task, choose one of:
+Do not stop after research.
 
-- **ADOPT**
-- **FORK**
-- **COMPOSE**
-- **WRAP**
-- **BUILD_MINIMAL_CUSTOM**
+The demo should prove this product path:
 
-for each needed layer.
+**Brief + Site + Reference + User Intent → Codex brain → DesignIR → BuildPlan → SketchUp editable model → basic DXF → output/presentation preview**
 
-## Candidate set — required
+For this milestone, **Codex itself is the temporary AI brain**. A real model API will replace it later.
 
-Evaluate at minimum:
+## Required reading
 
-### Whole-workflow / orchestration candidate
-- `bingxijun/archflow-studio`
+1. `AGENTS.md`
+2. `docs/DEMO_V0_1_SPEC.md`
+3. `docs/DEMO_ARCHITECTURE.md`
+4. `docs/SCHEMAS_V0_1.md`
+5. `docs/OPEN_SOURCE_COMPONENT_MAP.md`
+6. `docs/CODEX_DEMO_RUNBOOK.md`
 
-### SketchUp execution candidates
-- `iamahsanmehmood/saie`
-- `vbosolution/vbo-sk-agent`
-- `gregtysick/sketchup-agent-control`
-- `mhyrr/sketchup-mcp`
+## Priority 1 — inspect and reuse the existing SketchUp connection
 
-### Architecture reasoning candidate
-- `Mentat-Uran/sketchup-architect-skill`
+The user already has Codex controlling SketchUp through MCP.
 
-### Architecture-pattern reference
-- `zhixiangggggggg/sketchup-planfloor-ai-agent`
+Inspect the actual local Codex/MCP configuration and determine whether it already provides the demo's minimum operations.
 
-Do not copy code from repositories without a confirmed compatible license.
+If yes:
+- use it,
+- wrap only the minimum needed adapter around it,
+- do not replace it.
 
-## Phase A — Environment Audit
+If no:
+- inspect SAIE first,
+- then VBO SkAgent,
+- then other compatible OSS,
+- choose the fastest safe option.
 
-Inspect what is actually accessible from the user's current development machine/session, including where possible:
+Do not build a generic MCP bridge from scratch unless all reuse paths fail.
 
-- Windows version
-- Python version/environment
-- installed SketchUp version
-- SketchUp plugin directory
-- Ruby/API constraints
-- Codex MCP configuration
-- ability to install an RBZ/plugin
-- ability to start localhost bridges
-- available ports
-- existing local project or SketchUp automation code
+## Priority 2 — build the local product demo
 
-If something cannot be detected, mark it **UNKNOWN** and provide the shortest verification step.
+Create a small local web app.
 
-Do not guess.
+Preferred implementation when no better repo-compatible choice exists:
+- Python/FastAPI backend
+- React/Vite frontend
 
-## Phase B — Reuse / Architecture Due Diligence
+But speed and reliability are more important than framework preference.
 
-For each required candidate, inspect real code/docs, not only the README.
+The UI must include one project workspace with:
 
-Compare at minimum:
+- Design
+- Model
+- Drawing
+- Render
+- Present
 
-- license / NOTICE obligations
-- project activity and apparent maturity
-- Windows support
-- SketchUp version support
-- Codex compatibility
-- installation friction
-- local bridge architecture
-- object identity / persistent IDs
-- query/readback ability
-- continuous modification
-- screenshot/viewport feedback
-- transaction / undo / backup behavior
-- state/project model
-- CAD integration
-- render handoff
-- test coverage
-- failure recovery
-- security model
-- how easy it is to embed behind our future Web Workspace
+Support:
+- brief text/file
+- site file/image
+- reference URL/image
+- user intent
+- project status
+- artifact previews
 
-## Special question — ArchFlow
+Create a synthetic example under `examples/demo_project/`.
 
-Determine whether `archflow-studio` can serve as our **product/orchestration backbone** rather than merely an inspiration.
+Never commit the user's private project assets.
 
-Inspect:
-- semantic model schema
-- project package
-- SketchUp Bridge
-- CAD Bridge
-- Design Core
-- run/version records
-- validators
-- render handoff
-- Codex plugin/skill layout
+## Priority 3 — implement shared project state
 
-Identify exactly what we would keep, replace, or add.
+Implement the small schemas in `docs/SCHEMAS_V0_1.md`:
 
-## Special question — SAIE
+- ProjectContext
+- DesignIR
+- BuildPlan
+- ModelState
+- OutputManifest
 
-Determine whether SAIE can serve as our **SketchUp execution layer**.
+Store real runtime projects under ignored `runtime/projects/`.
 
-Run or inspect the smallest possible proof if environment access allows.
+Do not create an oversized BIM ontology.
 
-Focus on:
-- ping / connection
-- scene summary
-- object query
-- wall/slab/opening tools
-- stable entity IDs
-- capture view
-- save/open/version safety
-- transaction behavior
+## Priority 4 — Codex brain mode
 
-Do not conduct destructive tests against the user's real graduation model.
+Implement a small BrainAdapter boundary.
 
-## Special question — SketchUp Architect Skill
+For this demo:
+- Codex is the real reasoning engine.
+- If a safe non-interactive Codex invocation is available locally, integrate it behind the adapter.
+- Otherwise implement Codex Job Mode and use the current Codex session to process the seeded demo job.
 
-Determine whether its precedent-research + brief-to-design logic can be used as the starting architecture-domain skill instead of writing our own prompt stack.
+The seeded demo must produce a real `design_ir.json` and `build_plan.json`.
 
-Map:
-- what can be reused directly
-- what should become product-owned project context
-- what is tied specifically to Codex/Skill runtime
+A mock brain may exist only for automated tests/UI fallback and must be clearly marked.
 
-## Required deliverables
+## Priority 5 — real SketchUp execution
 
-Create:
+Use a blank/disposable SketchUp model.
 
-1. `docs/ENVIRONMENT_AUDIT.md`
-2. `docs/OPEN_SOURCE_REUSE_EVALUATION.md`
-3. `docs/ADOPTION_PLAN.md`
+From the seeded DesignIR, create at minimum:
+- site/base
+- 3 editable building masses
+- 1 circulation/public-space object
 
-Update:
+Every important object must have a stable ID/name.
 
-4. `docs/HANDOFF.md`
+Then perform **two sequential edits against the same model**:
+1. change the height/floor count of one mass
+2. move or resize another mass/circulation object
 
-## OPEN_SOURCE_REUSE_EVALUATION.md must include
+Do not regenerate the entire model to fake continuity.
 
-A comparison table with:
+After build and each edit:
+- read back state
+- capture viewport evidence where possible
 
-- Candidate
-- Layer
-- Functional overlap
-- License
-- Maturity evidence
-- Integration effort
-- Major risks
-- Reuse decision
-- Reason
+## Priority 6 — basic drawing
 
-Do not use unsupported numeric scores merely for appearance.
+Generate a real DXF from the same DesignIR/shared state.
 
-## ADOPTION_PLAN.md must contain
+Minimum:
+- site boundary
+- mass footprints
+- circulation/public-space geometry
 
-A single recommended stack.
+Reuse ArchFlow DXF logic if doing so is faster and license-compatible; otherwise use a small deterministic generator.
 
-Example shape only:
+## Priority 7 — render/output preview
 
-- Orchestration: fork ArchFlow
-- SketchUp: adopt SAIE
-- Design reasoning: adapt SketchUp Architect Skill
-- Product-specific: build Web Workspace + Case-to-Design + Project Context
+Implement a RenderAdapter.
 
-The final recommendation may differ, but it must be explicit.
+Guaranteed demo fallback:
+- SketchUp viewport capture
 
-Also define:
+Optional:
+- if a compatible image-generation provider is already configured locally, generate an AI render
 
-### KEEP
-Existing code/components to preserve.
+No API key may be committed and lack of an image API must not block the demo.
 
-### REPLACE
-Components we should not use and why.
+## Priority 8 — presentation
 
-### BUILD
-Only genuinely missing pieces we need to implement.
+Generate one simple A3 landscape presentation preview from:
+- project title/concept
+- drawing
+- model screenshot
+- render/viewport image
 
-### FIRST LIVE TEST
-The single smallest real test to run next.
+HTML/CSS is acceptable.
+Export PDF/PNG if local tooling allows.
 
-## Do not do yet
+## Required developer UX
 
-Do **not**:
+Provide Windows-friendly scripts, for example:
 
-- build a new generic MCP server from scratch
-- rewrite a SketchUp Ruby bridge that an adopted project already supplies
-- build the full web UI
-- implement Rhino / Blender / CAD / Render product features
-- modify the real graduation model
-- upload private/copyrighted benchmark assets
-- copy unlicensed source code
-- start Phase C automatically
+- `scripts/setup.ps1`
+- `scripts/dev.ps1`
+- `scripts/demo.ps1`
+- `scripts/check.ps1`
+
+Exact names may differ if a better structure is justified.
+
+A new developer should have a short documented path to launch the demo.
+
+## Tests
+
+At minimum:
+- schema validation
+- project create/load
+- job lifecycle
+- DXF generation
+- presentation generation
+- adapter unit tests with fakes
+- any connector tests that can run safely
+
+If live SketchUp is available, also run a real smoke test.
 
 ## Acceptance criteria
 
-Phase A+B is accepted only if:
+Mark each as PASS / PARTIAL / FAIL in `docs/HANDOFF.md`.
 
-- the top open-source alternatives were inspected beyond marketing descriptions
-- licenses are explicitly checked
-- the recommended architecture minimizes unnecessary custom code
-- an explicit adopt/fork/compose/wrap/build decision exists per layer
-- ArchFlow and SAIE receive deeper inspection
-- unknowns are clearly marked
-- no private assets or secrets are committed
-- `docs/HANDOFF.md` is updated
-- the next live technical test is specific and minimal
+1. Local web app launches.
+2. Synthetic project can be created/loaded.
+3. Inputs are stored into ProjectContext.
+4. Codex produces a structured DesignIR and BuildPlan for the seeded demo.
+5. SketchUp connection is reused/adopted rather than unnecessarily rebuilt.
+6. Live SketchUp creates at least 3 editable named masses + 1 circulation object when the local environment permits.
+7. Two sequential model edits operate on the existing model.
+8. Model state/readback is persisted.
+9. A real basic DXF is generated.
+10. A render/viewport artifact is produced.
+11. An A3 presentation preview is generated.
+12. Private assets/secrets are not committed.
+13. Open-source licenses/notices are respected.
+14. `docs/HANDOFF.md` contains exact run instructions and honest evidence.
 
-## Execution behavior
+## Failure handling
 
-Use:
+If live SketchUp cannot be reached:
+- continue building the rest of the demo,
+- use an adapter fake only for UI/tests,
+- mark live-model criteria PARTIAL/FAIL,
+- document the exact blocker and shortest manual step needed.
 
-inspect → compare → verify → choose → document → handoff
+Do not claim live integration succeeded when it did not.
 
-The default bias is **reuse first**.
+## Final step
 
-Do not equate "we could build it" with "we should build it".
+Commit the finished milestone and stop.
 
-When an existing component satisfies the requirement with a compatible license and acceptable risk, prefer reuse.
+Do not start production cloud/API migration, auth, payments, Rhino, Blender, or full CAD.
