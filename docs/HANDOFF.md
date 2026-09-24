@@ -1,66 +1,81 @@
 # Handoff
 
-This file is the implementation agent → reviewer handoff.
+This file is the Codex → reviewer handoff.
 
 ## Current milestone
 
-SketchUp Agent Technical Spike
+AI Architecture Studio Demo v0.1
 
 ## Current task
 
-Phase A + B — Environment Audit + Existing Connector Evaluation
+Build the end-to-end local demo defined in `docs/CURRENT_TASK.md`.
 
 ## Completed
 
-None yet.
+None yet for Demo v0.1.
 
 ## Changed files
 
-None yet.
+Planning/bootstrap documents only.
 
 ## Tests / checks
 
-None yet.
+None yet for Demo v0.1.
 
 ## Current status
 
-Repository bootstrapped. Current task is ready for execution.
+Ready for Codex implementation.
 
 ## Known issues
 
-None recorded yet.
+- Live SketchUp capabilities depend on the user's current local MCP/SketchUp setup.
+- No production model API is required for this demo; Codex is the temporary brain.
+- AI rendering is optional for this milestone if no image API is configured.
 
 ## Blockers / questions
 
-None recorded yet.
+None required before implementation. Codex should inspect the local environment and proceed with the fastest safe reuse path.
 
 ## Recommended next step
 
-Execute `docs/CURRENT_TASK.md`.
+Execute `docs/CURRENT_TASK.md` end-to-end.
 
 ---
 
-## Handoff template for execution agents
+## Handoff template for Codex
 
-When finishing a task, replace the sections above with:
+Replace the sections above when finishing.
+
+### Architecture chosen
+State the final demo stack and why.
+
+### Open-source reuse
+List each external component/package/codebase used, exact license, and whether it was adopted, wrapped, vendored, or only referenced.
 
 ### Completed
-What was actually completed.
+What actually works.
 
 ### Changed files
-List important files and why they changed.
+Important files/directories and their purpose.
+
+### Run instructions
+Exact Windows-friendly commands.
 
 ### Tests / checks
-Commands or checks run and results.
+Commands and results.
 
 ### Acceptance criteria
-PASS / FAIL for each criterion in `docs/CURRENT_TASK.md`.
+PASS / PARTIAL / FAIL for every criterion in `docs/CURRENT_TASK.md`.
+
+### Live SketchUp evidence
+State exactly what happened in the real SketchUp session.
+Do not treat mocked/fake adapter output as live evidence.
 
 ### Known issues
-Remaining bugs, unknowns, risks, or compromises.
+Remaining bugs/risks/technical debt.
 
-### Blockers / questions
-Only unresolved items that truly require user/reviewer input.
+### Blockers
+Only real blockers.
 
 ### Recommended next step
-A concise recommendation. Do not begin it automatically unless the current task explicitly permits it.
+One concise recommendation. Do not start it automatically.
