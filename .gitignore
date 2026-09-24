@@ -1,0 +1,35 @@
+.env
+.env.*
+*.key
+*.pem
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+node_modules/
+dist/
+build/
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+*.log
+logs/
+tmp/
+temp/
+
+# Local/private benchmark assets
+local_assets/
+benchmark_private/
+private/
+*.skp
+*.dwg
+
+# Runtime outputs unless explicitly curated
+screenshots_runtime/
+exports_runtime/
