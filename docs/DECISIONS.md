@@ -73,3 +73,49 @@ Current high-priority reuse candidates:
 - VBO SkAgent — lightweight live-control fallback
 
 The product's intended differentiation is above the connector layer: case-to-design, architectural project context, workflow UX, continuous model-aware iteration, and end-to-end student/junior-designer delivery.
+
+
+## D-008 — Demo v0.1 architecture
+
+**Status:** Accepted
+
+Build a local end-to-end product demo rather than another research-only spike.
+
+Architecture:
+
+**Web Workspace → BrainAdapter → Local Connector/MCP → SketchUp**
+
+SketchUp remains the real editable modeler. The web app is the product interface, not a replacement CAD engine.
+
+## D-009 — Codex as temporary demo brain
+
+**Status:** Accepted
+
+For Demo v0.1, Codex itself may perform the architectural reasoning and tool orchestration.
+
+The product code must isolate reasoning behind a BrainAdapter/job boundary so a production model API can replace Codex later without rewriting project state or downstream execution.
+
+## D-010 — Existing MCP first
+
+**Status:** Accepted
+
+The user's already-working Codex → MCP → SketchUp connection is the first integration candidate.
+
+Do not replace it unless it lacks required capabilities.
+
+Fallback order:
+1. existing local MCP
+2. SAIE
+3. VBO SkAgent
+4. other compatible OSS
+5. minimal custom bridge only as last resort
+
+## D-011 — Demo vertical slice
+
+**Status:** Accepted
+
+Demo v0.1 must attempt the complete thin slice:
+
+DesignIR → editable SketchUp model → sequential edits → basic DXF → viewport/render artifact → simple A3 presentation.
+
+This milestone prioritizes a working integrated demo over extensive additional planning documents.
