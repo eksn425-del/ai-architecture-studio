@@ -1,18 +1,18 @@
 {
   "project_id": "demo-cultural-center",
-  "project_name": "Tidal Commons · Cultural House",
+  "project_name": "潮汐共享 · 滨水文化之家",
   "brief": {
     "source_files": [],
-    "summary": "A small civic and cultural house for a waterfront neighborhood. Bring a reading room, workshop, and public gallery together around a shaded pedestrian route.",
+    "summary": "为滨水社区设计一座小型公共文化建筑，将阅览、工作坊和公共展厅围绕一条有遮蔽的步行通道组织起来。",
     "requirements": [
-      "Keep the public ground route open from the east neighborhood edge to the waterfront.",
-      "Use three distinct but related program volumes.",
-      "Provide a sheltered outdoor gathering space."
+      "保持一条从东侧社区入口通往水岸的公共地面通道。",
+      "使用三个彼此独立但关系明确的功能体块。",
+      "提供一个有遮蔽的室外公共聚集空间。"
     ]
   },
   "site": {
     "source_files": [],
-    "summary": "Synthetic 60 m × 48 m waterfront test site. North is up; public approach enters from the east.",
+    "summary": "60 m × 48 m 的滨水测试场地，北向朝上，主要公共入口位于东侧。",
     "boundary": [[0, 0], [60, 0], [60, 48], [0, 48]],
     "north": 0,
     "access_points": [[60, 24], [0, 24]]
@@ -20,15 +20,15 @@
   "references": [
     {
       "type": "note",
-      "source": "Synthetic demo brief",
+      "source": "合成示例任务书",
       "observed_principles": [
-        "Layered public and quiet spaces",
-        "Deep roof edges for shade",
-        "A visible pedestrian link through the site"
+        "公共空间与安静空间分层组织",
+        "通过深屋檐形成遮阴",
+        "建立一条贯穿场地、清晰可见的步行联系"
       ]
     }
   ],
-  "user_intent": "Create a calm, porous cultural house with low, readable volumes and a clear public passage. Treat the entry sequence and outdoor room as part of the architecture.",
+  "user_intent": "希望形成一座安静、开放、可穿行的文化建筑，体块低矮清晰，公共通道明确，并把入口过程和室外公共空间也作为建筑设计的一部分。",
   "decisions": [],
   "unresolved": []
 }
