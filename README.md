@@ -1,53 +1,89 @@
 # AI Architecture Studio
 
-A lightweight AI architecture workspace that turns project inputs into an editable design workflow.
+AI Architecture Studio is a lightweight architecture workspace that packages a strong agent/model around real design software instead of rebuilding CAD or 3D tools from scratch.
 
-## Product flow
+## Product direction
 
-**Brief + Site + Reference + User Intent**  
-→ AI design reasoning  
+**任务书 + 场地 + 参考案例 + 用户想法**  
+→ 网站中的中文对话与项目上下文  
+→ Astra/Codex native agent  
+→ existing MCP / reusable open-source tools  
 → editable SketchUp model  
-→ basic drawing  
-→ render/output  
-→ presentation
+→ drawing / render / presentation outputs
 
-The product is not a browser CAD engine. SketchUp remains the real editable modeling application.
+SketchUp remains the real editable modeling application.
+
+The website is the product shell: inputs, project/session memory, conversation, outputs, version/history, and later packaging/billing.
 
 ## Current milestone
 
-**Thesis Modeling Showcase v0.1 — GPT-6 Astra collaborative modeling record**
+**Fast Assembly v1 — Astra-native Architecture Agent**
 
-The completed Product Alpha v0.2 remains the foundation. This follow-up adds a responsive case-study page at `/showcase` and a GitHub-readable [modeling case study](docs/THESIS_MODELING_CASE_STUDY.md). It documents how the Jinshan Neighbourhood Center's spatial cues were adapted to the user's real site and brief, shows selected SketchUp/CAD evidence, and distinguishes completed geometry checks from unresolved professional reviews.
+The previous Product Alpha v0.2 proved that the Chinese web workspace can connect to the existing Kongxing SketchUp MCP, build/edit a live SketchUp model, generate DXF, capture viewport images, and persist project state.
 
-The case page contains only user-requested web-optimized previews of the user's own model and CAD output. The original SKP/DWG, taskbook, site-source data, and reference-project images are not included. The app's synthetic starter project continues to operate without reading or modifying graduation-design source files.
+However, the old default modeling path over-constrained the agent through a tiny rectangular `DesignIR → BuildPlan → create_mass` workflow. That path remains useful as a legacy deterministic demo/test, but it is no longer the intended product architecture.
 
-Run the local app and open `http://127.0.0.1:8787/showcase` to view the case page. Pushing this repository does not deploy the app; no hosting service is configured here.
+The current milestone replaces it with a free-form agentic path:
 
-### Base product — Product Alpha v0.2
+**Web Workspace → Native Agent Runtime → existing SketchUp MCP / reusable OSS tools → SketchUp → screenshot/model readback → agent continuation**
 
-Codex acts as the temporary AI brain. A single Chinese conversation area refines the structured design before modeling and sends targeted edits to the existing model afterward. Public HTTP/HTTPS references are read with a size limit and private-network protection; unreadable pages prompt for screenshots or images.
+See:
 
-The target architecture is:
+- [Fast Assembly v1 strategy](docs/FAST_ASSEMBLY_V1.md)
+- [Current task](docs/CURRENT_TASK.md)
+- [Thesis Astra modeling benchmark](docs/THESIS_MODELING_CASE_STUDY.md)
 
-**Web Workspace → BrainAdapter → Local Connector/MCP → SketchUp**
+## Why this change
 
-Later, a real model API can replace the Codex brain behind the same adapter.
+The thesis benchmark demonstrates the quality level we actually want: iterative work with richer grouped massing, levels, skins, glazing, platforms/connections, site relationships, CAD coordination, and repeated visual checking.
 
-## Start here
+The product should **package that kind of agent capability**, not re-implement a weaker architecture brain one fixed tool at a time.
 
-Codex should read:
+## Reuse policy
 
-1. [AGENTS.md](AGENTS.md)
-2. [docs/CURRENT_TASK.md](docs/CURRENT_TASK.md)
-3. [Demo v0.1 Spec](docs/DEMO_V0_1_SPEC.md)
-4. [Demo Architecture](docs/DEMO_ARCHITECTURE.md)
-5. [Schemas](docs/SCHEMAS_V0_1.md)
-6. [Open-Source Component Map](docs/OPEN_SOURCE_COMPONENT_MAP.md)
-7. [Codex Demo Runbook](docs/CODEX_DEMO_RUNBOOK.md)
+Default engineering order:
 
-## Run the local demo (Windows)
+**Adopt → Fork → Wrap/Compose → Minimal Custom Build**
 
-From the repository folder, run:
+Current high-value reusable components:
+
+- existing Kongxing SketchUp MCP/plugin — first execution path
+- SketchUp Architect Skill — architecture reasoning / precedent workflow
+- ArchFlow Studio — project-state, CAD/output, SketchUp scripting patterns
+- SAIE — richer SketchUp execution if the existing connector is insufficient
+- VBO SkAgent — lightweight fallback / direct Ruby bridge path
+
+Only reuse source with a clear compatible license and preserve required attribution/NOTICE files.
+
+## What we do not build
+
+Unless a future task explicitly requires it, this project does not build:
+
+- a browser CAD engine
+- a new 3D modeling engine
+- a foundation model
+- a generic MCP framework
+- a custom replacement for a working open-source/local connector
+
+Most project code should stay focused on glue, adapters, project/session management, safe orchestration, architecture-specific workflow/skills, and product UX.
+
+## Current product foundation
+
+The existing local product already includes:
+
+- Simplified-Chinese workspace
+- brief/site/reference/user-intent inputs
+- public reference URL ingestion with safe fallback to screenshots/images
+- persistent conversation/project state
+- existing Kongxing MCP reuse
+- real editable SketchUp model control
+- viewport capture
+- DXF / presentation outputs
+- `/showcase` thesis modeling case study
+
+## Local development
+
+From the repository folder on Windows:
 
 ```powershell
 .\scripts\setup.ps1
@@ -55,41 +91,29 @@ From the repository folder, run:
 .\scripts\dev.ps1
 ```
 
-Open `http://127.0.0.1:8787`. The demo seeds a synthetic waterfront cultural-house project; no graduation-design files are read or modified. `open_blank_sketchup.ps1` copies SketchUp's Simple template into ignored `runtime/` before opening it, then starts the already-installed Kongxing extension through SketchUp's RubyStartup entry point.
+Open `http://127.0.0.1:8787`.
 
-In the workspace:
+The active milestone requires real local SketchUp/MCP validation, so Codex handles those local execution steps. ChatGPT handles GitHub review, planning, safe remote edits, and milestone definitions. See [COLLABORATION.md](docs/COLLABORATION.md).
 
-1. Add project text or files, then use **讨论与修改** to refine the design in Chinese, or use **生成方案**. The local Codex CLI writes `DesignIR` and `BuildPlan`, then the app writes a basic DXF, SVG plan preview, and A3 HTML board.
-2. Confirm the active SketchUp document is disposable and click **在 SketchUp 中建模**. The app reuses the existing `kongxing_sketchup` MCP from `~/.codex/config.toml`. If the bridge needs restarting later, use **Extensions → Kongxing AI → Start Local Bridge** in SketchUp.
-3. Continue in the same conversation to make a targeted change to an existing mass or straight public route. Width, depth, height, floors, and position edits preserve the stable object ID and do not rebuild the model. The app reads SketchUp state and captures the viewport after build and edits.
+## Thesis modeling benchmark
 
-All user uploads, generated projects, jobs, model files, screenshots, and local Codex schema files stay under ignored `runtime/` or `artifacts/`. The separate, user-requested public case study tracks only its web-optimized screenshot exports under `app/static/showcase/assets/`; it never includes raw SKP/DWG or source documents. To run checks, use `.\scripts\check.ps1`.
+The sanitized case-study page is available locally at:
 
-The Codex CLI runs with a read-only sandbox for design reasoning. If it is unavailable, the app writes a Codex Job Mode request under `runtime/jobs/` for the active Codex session. It never presents the test fake as the product brain.
+`http://127.0.0.1:8787/showcase`
 
-## Reuse policy
+GitHub-readable record:
 
-Prefer:
+[docs/THESIS_MODELING_CASE_STUDY.md](docs/THESIS_MODELING_CASE_STUDY.md)
 
-**Adopt → Fork → Wrap/Compose → Minimal Custom Build**
+The repository contains only user-approved web-optimized previews. Raw SKP/DWG files, taskbook/source packages, reference-image packages, API keys, and private machine paths must not be committed.
 
-High-value candidates already identified include:
-- existing user SketchUp MCP setup
-- SAIE
-- VBO SkAgent
-- ArchFlow Studio
-- SketchUp Architect Skill
+## Codex start point
 
-## Repository safety
+Codex should read only what the current task requires, starting with:
 
-This is a public repository.
-
-Do not commit:
-- API keys or credentials
-- private graduation-design files
-- private SKP/DWG files
-- copyrighted reference packages
-- proprietary company data
-- machine-specific private paths
-
-Runtime project data belongs under ignored local folders.
+1. `AGENTS.md`
+2. `docs/CURRENT_TASK.md`
+3. `docs/FAST_ASSEMBLY_V1.md`
+4. `docs/THESIS_MODELING_CASE_STUDY.md`
+5. `docs/OPEN_SOURCE_COMPONENT_MAP.md`
+6. `docs/HANDOFF.md`
