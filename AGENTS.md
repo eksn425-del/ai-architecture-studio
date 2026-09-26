@@ -29,10 +29,59 @@ To avoid conflicts, ChatGPT and Codex do not edit the same repository state at t
 
 See `docs/COLLABORATION.md` for the full division of responsibilities.
 
+## Assembly-first rule
+
+This project is now optimized for **speed to usable product**, not for proving that we can rebuild every subsystem ourselves.
+
+Before writing new infrastructure or architecture-specific tool code:
+
+1. check the already surveyed reusable components,
+2. inspect the actual license,
+3. adopt/fork/wrap the fastest compatible implementation,
+4. write only the missing glue.
+
+Do not spend a milestone creating a cleaner custom replacement for a working connector, agent runtime, CAD exporter, or architecture skill.
+
+## Product architecture rule
+
+The product is **not** a new CAD/3D engine and is **not** a weaker in-house architecture model.
+
+Target architecture:
+
+**Web Workspace → Astra/native agent runtime → existing MCP / reusable OSS tools → SketchUp / CAD software**
+
+SketchUp remains the real editable modeling application.
+
+The website manages inputs, project/session context, conversation, outputs, and product UX.
+
+The agent/model should retain broad reasoning and tool-use freedom. Do not force normal architecture modeling through the old tiny `DesignIR → BuildPlan → create_mass` action set.
+
+`DesignIR` may remain as project memory / structured state, but it must not be the mandatory geometry generator or restrict all geometry to axis-aligned rectangles.
+
+## Reuse priorities
+
+Prefer, in order of practical fit:
+
+1. the user's already-working Kongxing SketchUp MCP/plugin,
+2. SketchUp Architect Skill for architecture reasoning/precedent workflow,
+3. ArchFlow Studio for reusable project-state/CAD/output pieces,
+4. SAIE for richer SketchUp execution when the existing connector is insufficient,
+5. VBO SkAgent as a lightweight fallback,
+6. other clearly licensed MIT/Apache/BSD code,
+7. minimal custom implementation only for missing glue.
+
+Never copy source from a repository without a clear compatible license.
+
+## Current prototype brain rule
+
+During local prototype work, Codex/Astra may act as the temporary native agent and may directly use the configured local MCP/tooling when the current task requires it.
+
+The product should still preserve a replaceable runtime boundary so a production model/API path can be plugged in later without rewriting the web workspace or project storage.
+
 ## Safety and repository hygiene
 
 - Never commit API keys, tokens, credentials, secrets, or private machine paths.
-- Never commit the user's private graduation-design assets, private SKP/DWG files, or copyrighted reference packages.
+- Never commit the user's private graduation-design source assets, private SKP/DWG files, taskbook/source packages, or copyrighted reference packages unless the user explicitly approved a sanitized public derivative.
 - Runtime/user project data belongs under ignored local runtime folders.
 - Never modify the user's original model. Use a blank/disposable model or a copy.
 - Prefer localhost-only bridges for local software control.
@@ -46,19 +95,5 @@ Ask only when:
 - a critical input is missing and no safe fallback exists,
 - an irreversible/destructive action is required,
 - or a choice would materially change product scope.
-
-## Product rule
-
-The product is **not** a new CAD/3D engine.
-
-The intended architecture is:
-
-**Web Workspace → Brain/Agent → Local Connector/MCP → SketchUp**
-
-SketchUp remains the real editable modeling application.
-
-## Current brain rule
-
-During the local prototype stage, Codex may act as the temporary AI brain. The codebase should keep reasoning behind a `BrainAdapter`-style boundary so a real model API can replace Codex later without rewriting the product workflow.
 
 Do not add Rhino/Revit/Blender support, payments, authentication, or production cloud infrastructure unless `docs/CURRENT_TASK.md` explicitly includes them.
