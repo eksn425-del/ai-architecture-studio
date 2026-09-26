@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATIC = Path(__file__).resolve().parent / "static"
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tif", ".tiff"}
 SAFE_FILENAME_RE = re.compile(r"[^\w.() -]+", re.UNICODE)
+mimetypes.add_type("image/webp", ".webp")
 
 
 class JobCompletion(BaseModel):
@@ -235,6 +236,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     def index() -> FileResponse:
         return FileResponse(STATIC / "index.html", media_type="text/html; charset=utf-8")
+
+    @app.get("/showcase", response_class=HTMLResponse, include_in_schema=False)
+    def showcase() -> FileResponse:
+        return FileResponse(STATIC / "showcase" / "index.html", media_type="text/html; charset=utf-8")
 
     @app.get("/api/status")
     def status() -> dict[str, Any]:

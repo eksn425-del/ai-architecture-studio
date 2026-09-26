@@ -11,4 +11,4 @@ Set-Location $repoRoot
 if ($LASTEXITCODE -ne 0) { throw 'Python syntax check failed.' }
 & $pythonPath -m pytest -q
 if ($LASTEXITCODE -ne 0) { throw 'Demo checks failed.' }
-Write-Host 'All Product Alpha v0.2 checks passed.' -ForegroundColor Green
+Write-Host 'All workspace and case-study checks passed.' -ForegroundColor Green

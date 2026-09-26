@@ -1,4 +1,31 @@
-# CURRENT TASK — Product Alpha v0.2
+# CURRENT TASK — Thesis Modeling Showcase v0.1
+
+## Status: Complete
+
+The requested case-study page, GitHub-readable documentation, user-approved image exports, local checks, and handoff record are complete. No later milestone has been started.
+
+## Objective
+
+Create a detailed Chinese case-study page in AI Architecture Studio that explains how the user's graduation-design concept was developed with Codex GPT-6 Astra, SketchUp, and CAD, and shows selected results in a form suitable for web review.
+
+## Scope
+
+- Use the referenced Codex task and the local project QA record as the evidence source; distinguish verified results from open design checks.
+- Add a responsive `/showcase` route and an entry point from the studio workspace.
+- Add a GitHub-readable case-study document with the same story, metrics, image captions, and limitations.
+- Include only user-requested, web-optimized images derived from the user's own SketchUp/CAD previews. Do not add SKP/DWG source files, taskbook uploads, reference packages, raw design graphs, or local machine paths. Link to the official Jinshan Neighbourhood Center page for attribution; do not copy its images.
+- Preserve accurate status: scheme-level output is not a reviewed construction set; code compliance, structure, accessibility, fire egress, and conflicting area figures need professional review.
+- Keep the existing Alpha workflow intact. Do not add a deployment platform, cloud service, or another product milestone.
+
+## Verification and handoff
+
+- Test the `/showcase` route and its curated assets, run `scripts/check.ps1`, and verify the page over the local app.
+- Update `README.md` and `docs/HANDOFF.md` with evidence and public-asset boundaries.
+- Commit and push the completed task to `origin/main`, confirm the remote SHA, then stop.
+
+---
+
+## Previous completed task — Product Alpha v0.2
 
 ## Objective
 

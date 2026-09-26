@@ -15,7 +15,15 @@ The product is not a browser CAD engine. SketchUp remains the real editable mode
 
 ## Current milestone
 
-**Product Alpha v0.2 — Chinese conversational architecture workspace**
+**Thesis Modeling Showcase v0.1 — GPT-6 Astra collaborative modeling record**
+
+The completed Product Alpha v0.2 remains the foundation. This follow-up adds a responsive case-study page at `/showcase` and a GitHub-readable [modeling case study](docs/THESIS_MODELING_CASE_STUDY.md). It documents how the Jinshan Neighbourhood Center's spatial cues were adapted to the user's real site and brief, shows selected SketchUp/CAD evidence, and distinguishes completed geometry checks from unresolved professional reviews.
+
+The case page contains only user-requested web-optimized previews of the user's own model and CAD output. The original SKP/DWG, taskbook, site-source data, and reference-project images are not included. The app's synthetic starter project continues to operate without reading or modifying graduation-design source files.
+
+Run the local app and open `http://127.0.0.1:8787/showcase` to view the case page. Pushing this repository does not deploy the app; no hosting service is configured here.
+
+### Base product — Product Alpha v0.2
 
 Codex acts as the temporary AI brain. A single Chinese conversation area refines the structured design before modeling and sends targeted edits to the existing model afterward. Public HTTP/HTTPS references are read with a size limit and private-network protection; unreadable pages prompt for screenshots or images.
 
@@ -55,7 +63,7 @@ In the workspace:
 2. Confirm the active SketchUp document is disposable and click **在 SketchUp 中建模**. The app reuses the existing `kongxing_sketchup` MCP from `~/.codex/config.toml`. If the bridge needs restarting later, use **Extensions → Kongxing AI → Start Local Bridge** in SketchUp.
 3. Continue in the same conversation to make a targeted change to an existing mass or straight public route. Width, depth, height, floors, and position edits preserve the stable object ID and do not rebuild the model. The app reads SketchUp state and captures the viewport after build and edits.
 
-All uploads, generated projects, jobs, model files, screenshots, and local Codex schema files stay under ignored `runtime/` or `artifacts/`. To run checks, use `.\scripts\check.ps1`.
+All user uploads, generated projects, jobs, model files, screenshots, and local Codex schema files stay under ignored `runtime/` or `artifacts/`. The separate, user-requested public case study tracks only its web-optimized screenshot exports under `app/static/showcase/assets/`; it never includes raw SKP/DWG or source documents. To run checks, use `.\scripts\check.ps1`.
 
 The Codex CLI runs with a read-only sandbox for design reasoning. If it is unavailable, the app writes a Codex Job Mode request under `runtime/jobs/` for the active Codex session. It never presents the test fake as the product brain.
 
