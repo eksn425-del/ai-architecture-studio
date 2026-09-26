@@ -1,11 +1,27 @@
 const state = { projectId: null, project: null, tab: "design", busy: false, toastTimer: null };
 const $ = (id) => document.getElementById(id);
 
+const modelStatusLabels = {
+  ready: "方案研究",
+  building: "正在建模",
+  built: "模型已建立",
+  partial: "部分完成",
+  unavailable: "连接不可用",
+};
+
+const artifactTypeLabels = {
+  dxf: "DXF 图纸",
+  "drawing-preview": "图纸预览",
+  viewport: "模型视口",
+  presentation: "A3 展板",
+  skp: "SketchUp 模型",
+};
+
 async function api(path, options = {}) {
   const response = await fetch(path, options);
   const contentType = response.headers.get("content-type") || "";
   const body = contentType.includes("application/json") ? await response.json() : await response.text();
-  if (!response.ok) throw new Error(body?.detail || body?.error || `Request failed (${response.status})`);
+  if (!response.ok) throw new Error(body?.detail || body?.error || `请求失败（${response.status}）`);
   return body;
 }
 
@@ -31,7 +47,7 @@ function setBusy(button, busy, label) {
   if (main) {
     if (busy) {
       button.dataset.originalLabel = main.textContent;
-      main.textContent = label || "Working…";
+      main.textContent = label || "处理中…";
     } else if (button.dataset.originalLabel) {
       main.textContent = button.dataset.originalLabel;
       delete button.dataset.originalLabel;
@@ -60,8 +76,8 @@ function updateHeader() {
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
-  $("sidebar-project-status").textContent = model.status === "ready" ? "Design study" : model.status.replaceAll("_", " ");
-  $("project-subtitle").textContent = project.design_ir?.concept?.summary || context.site.summary || "An open civic room between neighborhood and water.";
+  $("sidebar-project-status").textContent = modelStatusLabels[model.status] || String(model.status || "").replaceAll("_", " ");
+  $("project-subtitle").textContent = project.design_ir?.concept?.summary || context.site.summary || "在社区与水岸之间形成开放、可穿行的公共空间。";
   $("brief").value = context.brief.summary || "";
   $("site-note").value = context.site.summary || "";
   $("intent").value = context.user_intent || "";
@@ -70,7 +86,7 @@ function updateHeader() {
   const built = (model.objects || []).length > 0;
   const status = $("project-status");
   status.classList.toggle("built", built);
-  status.innerHTML = `<i></i> ${built ? "MODEL BUILT" : prepared ? "DESIGN PREPARED" : "INPUTS READY"}`;
+  status.innerHTML = `<i></i> ${built ? "模型已建立" : prepared ? "方案已生成" : "输入已就绪"}`;
   $("build-model").disabled = !prepared || !$("disposable-confirm").checked || state.busy || built;
   $("edit-height").disabled = !built || state.busy || !project.design_ir.objects.some((item) => item.type === "building_mass");
   const masses = (model.objects || []).filter((item) => item.object_type === "building_mass");
@@ -96,23 +112,24 @@ function setStage(stage, complete) {
 function renderArtifacts() {
   const artifacts = allArtifacts();
   const unique = [...new Map(artifacts.map((item) => [item.path, item])).values()];
-  $("artifact-total").textContent = `${unique.length} ${unique.length === 1 ? "file" : "files"}`;
+  $("artifact-total").textContent = `${unique.length} 个文件`;
   const container = $("artifact-list");
   if (!unique.length) {
-    container.innerHTML = '<div class="artifact-empty">Design artifacts will collect here as the project takes shape.</div>';
+    container.innerHTML = '<div class="artifact-empty">方案、模型、图纸和展示成果会集中显示在这里。</div>';
     $("artifact-links").innerHTML = "";
     return;
   }
   container.innerHTML = unique.slice(-6).map((item) => {
     const extension = item.path.split(".").at(-1).toUpperCase();
     const name = item.path.split("/").at(-1);
-    return `<a class="artifact-card" href="${item.url}" target="_blank" rel="noreferrer"><span class="artifact-glyph">${extension.slice(0, 4)}</span><span class="artifact-copy"><strong>${escapeHtml(name)}</strong><small>${escapeHtml(item.type.replaceAll("-", " ").toUpperCase())}</small></span></a>`;
+    const typeLabel = artifactTypeLabels[item.type] || item.type.replaceAll("-", " ").toUpperCase();
+    return `<a class="artifact-card" href="${item.url}" target="_blank" rel="noreferrer"><span class="artifact-glyph">${extension.slice(0, 4)}</span><span class="artifact-copy"><strong>${escapeHtml(name)}</strong><small>${escapeHtml(typeLabel)}</small></span></a>`;
   }).join("");
   const dxf = artifactByType("dxf");
   const board = artifactByType("presentation");
   $("artifact-links").innerHTML = [
-    dxf ? `<a class="artifact-link" href="${dxf.url}" download>↓ DXF</a>` : "",
-    board ? `<a class="artifact-link" href="${board.url}" target="_blank" rel="noreferrer">↗ A3 board</a>` : "",
+    dxf ? `<a class="artifact-link" href="${dxf.url}" download>↓ 下载 DXF</a>` : "",
+    board ? `<a class="artifact-link" href="${board.url}" target="_blank" rel="noreferrer">↗ 查看 A3 展板</a>` : "",
   ].join("");
 }
 
@@ -134,50 +151,49 @@ function renderPreview() {
   const title = $("preview-title");
   const caption = $("preview-caption");
   const meta = $("preview-meta");
-  const projectId = encodeURIComponent(state.projectId);
   const drawing = artifactByType("drawing-preview");
   const capture = artifactByType("viewport");
   const board = artifactByType("presentation");
   const ir = project.design_ir;
   const objects = project.model_state?.objects || [];
   if (state.tab === "design") {
-    title.textContent = "Design intent";
-    caption.textContent = ir ? "Site plan and massing concept" : "Design intent and concept";
-    meta.textContent = ir ? `${ir.objects.filter((item) => item.type === "building_mass").length} MASSES · METERS` : "WAITING FOR PREPARE DESIGN";
+    title.textContent = "设计意图";
+    caption.textContent = ir ? "场地与体块方案" : "设计意图与概念";
+    meta.textContent = ir ? `${ir.objects.filter((item) => item.type === "building_mass").length} 个建筑体块 · 米制` : "等待生成方案";
     if (ir && drawing) {
       const masses = ir.objects.filter((item) => item.type === "building_mass");
       canvas.className = "preview-canvas";
-      canvas.innerHTML = `<img class="drawing-preview" src="${drawing.url}" alt="Generated site plan"><div class="design-summary"><strong>${escapeHtml(ir.concept.summary || "Design concept")}</strong><p>${masses.length} building masses · ${ir.objects.filter((item) => item.type === "circulation").length} public-space routes</p></div><div class="canvas-stamp">01 <span>/</span> 05</div>`;
+      canvas.innerHTML = `<img class="drawing-preview" src="${drawing.url}" alt="生成的场地图"><div class="design-summary"><strong>${escapeHtml(ir.concept.summary || "设计概念")}</strong><p>${masses.length} 个建筑体块 · ${ir.objects.filter((item) => item.type === "circulation").length} 条公共空间/流线</p></div><div class="canvas-stamp">01 <span>/</span> 05</div>`;
     } else {
       canvas.className = "preview-canvas empty-design";
-      canvas.innerHTML = '<div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">A PLACE TO MEET THE WATER</div><div class="poster-title">A public room,<br><em>held lightly.</em></div><div class="poster-rule"></div><div class="poster-foot"><span>60° 00′ N<br>WATERFRONT SITE</span><span>DESIGN STUDY<br>CODEX BRAIN</span></div><div class="poster-sketch"><svg viewBox="0 0 510 220" aria-hidden="true"><path d="M13 184H497M44 178V93H156V178M175 178V66H281V178M301 178V106H457V178" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M44 94L81 62L156 94M175 67L217 36L281 67M301 107L356 78L457 107M0 204H510" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6"/></svg></div></div><div class="canvas-stamp">01 <span>/</span> 05</div>';
+      canvas.innerHTML = '<div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">面向水岸的公共空间</div><div class="poster-title">一座开放、<br><em>轻盈的公共客厅。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>60° 00′ N<br>滨水场地</span><span>方案研究<br>CODEX 大脑</span></div><div class="poster-sketch"><svg viewBox="0 0 510 220" aria-hidden="true"><path d="M13 184H497M44 178V93H156V178M175 178V66H281V178M301 178V106H457V178" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M44 94L81 62L156 94M175 67L217 36L281 67M301 107L356 78L457 107M0 204H510" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6"/></svg></div></div><div class="canvas-stamp">01 <span>/</span> 05</div>';
     }
   } else if (state.tab === "model") {
-    title.textContent = "Editable model";
-    caption.textContent = "SketchUp geometry · stable object names";
-    meta.textContent = objects.length ? `${objects.length} OBJECTS · ${project.model_state.status.toUpperCase()}` : "WAITING FOR SKETCHUP BUILD";
-    const image = capture ? `<img class="preview-image" src="${capture.url}" alt="SketchUp viewport capture">` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">LIVE GEOMETRY</div><div class="poster-title">Model in<br><em>SketchUp.</em></div><div class="poster-rule"></div><div class="poster-foot"><span>STABLE OBJECT IDS<br>EDITABLE GROUPS</span><span>BUILD WHEN READY</span></div></div></div>';
+    title.textContent = "可编辑模型";
+    caption.textContent = "SketchUp 真实几何 · 稳定对象名称";
+    meta.textContent = objects.length ? `${objects.length} 个对象 · ${modelStatusLabels[project.model_state.status] || project.model_state.status}` : "等待 SketchUp 建模";
+    const image = capture ? `<img class="preview-image" src="${capture.url}" alt="SketchUp 视口截图">` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">真实几何</div><div class="poster-title">模型将在<br><em>SketchUp 中生成。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>稳定对象 ID<br>可编辑分组</span><span>准备后开始建模</span></div></div></div>';
     const chips = objects.map((item) => `<span class="model-object-chip"><b>${escapeHtml(item.stable_id)}</b>${escapeHtml(item.name)}</span>`).join("");
     canvas.className = "preview-canvas model-preview-content";
     canvas.innerHTML = `${image}${objects.length ? `<div class="model-summary">${chips}</div>` : ""}`;
   } else if (state.tab === "drawing") {
-    title.textContent = "Site drawing";
-    caption.textContent = "Basic DXF generated from the shared DesignIR";
-    meta.textContent = drawing ? "SITE · MASSES · PUBLIC ROUTE" : "WAITING FOR DESIGN PREPARATION";
+    title.textContent = "场地图纸";
+    caption.textContent = "由同一份 DesignIR 生成基础 DXF";
+    meta.textContent = drawing ? "场地 · 建筑体块 · 公共流线" : "等待生成方案";
     canvas.className = "preview-canvas";
-    canvas.innerHTML = drawing ? `<img class="drawing-preview" src="${drawing.url}" alt="Site drawing preview"><div class="canvas-stamp">XY <span>/</span> M</div>` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">DRAWING ADAPTER</div><div class="poster-title">A clear plan,<br><em>in true scale.</em></div><div class="poster-rule"></div><div class="poster-foot"><span>SITE BOUNDARY<br>MASS FOOTPRINTS</span><span>DXF · METERS</span></div></div></div>';
+    canvas.innerHTML = drawing ? `<img class="drawing-preview" src="${drawing.url}" alt="场地图纸预览"><div class="canvas-stamp">XY <span>/</span> M</div>` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">图纸适配器</div><div class="poster-title">清晰、真实比例的<br><em>基础图纸。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>场地边界<br>体块轮廓</span><span>DXF · 米制</span></div></div></div>';
   } else if (state.tab === "render") {
-    title.textContent = "Viewport render";
-    caption.textContent = "SketchUp viewport capture · RenderAdapter fallback";
-    meta.textContent = capture ? "LIVE SKETCHUP CAPTURE" : "CAPTURE AFTER MODEL BUILD";
+    title.textContent = "视口渲染";
+    caption.textContent = "SketchUp 视口截图 · RenderAdapter 当前回退方案";
+    meta.textContent = capture ? "SketchUp 实时截图" : "模型建立后生成截图";
     canvas.className = "preview-canvas";
-    canvas.innerHTML = capture ? `<img class="preview-image" src="${capture.url}" alt="SketchUp viewport render"><div class="canvas-stamp">SU <span>/</span> LIVE</div>` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">RENDER ADAPTER</div><div class="poster-title">A view from<br><em>the model.</em></div><div class="poster-rule"></div><div class="poster-foot"><span>SKETCHUP VIEWPORT<br>NO IMAGE API REQUIRED</span><span>RENDER FALLBACK</span></div></div></div>';
+    canvas.innerHTML = capture ? `<img class="preview-image" src="${capture.url}" alt="SketchUp 视口渲染"><div class="canvas-stamp">SU <span>/</span> LIVE</div>` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">渲染适配器</div><div class="poster-title">直接来自<br><em>真实模型的视角。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>SKETCHUP 视口<br>当前无需图像 API</span><span>渲染回退方案</span></div></div></div>';
   } else {
-    title.textContent = "A3 presentation";
-    caption.textContent = "Landscape presentation preview · HTML";
-    meta.textContent = board ? "A3 LANDSCAPE · READY" : "GENERATED AFTER DESIGN PREPARATION";
+    title.textContent = "A3 排版";
+    caption.textContent = "横版展示预览 · HTML";
+    meta.textContent = board ? "A3 横版 · 已生成" : "生成方案后自动创建";
     canvas.className = "preview-canvas";
-    canvas.innerHTML = board ? `<iframe class="preview-frame" title="A3 presentation preview" src="${board.url}"></iframe>` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">A3 LANDSCAPE</div><div class="poster-title">The project,<br><em>in one frame.</em></div><div class="poster-rule"></div><div class="poster-foot"><span>CONCEPT<br>PLAN + MODEL</span><span>HTML PREVIEW</span></div></div></div>';
+    canvas.innerHTML = board ? `<iframe class="preview-frame" title="A3 排版预览" src="${board.url}"></iframe>` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">A3 横版</div><div class="poster-title">把整个项目，<br><em>放进一张版面。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>概念<br>图纸 + 模型</span><span>HTML 预览</span></div></div></div>';
   }
 }
 
@@ -185,13 +201,13 @@ async function loadProject(projectId) {
   state.projectId = projectId;
   state.project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
   updateHeader();
-  setStatus(state.project.design_ir ? "Design plan and site drawing are ready." : "Workspace ready. Add a brief, then prepare the design.");
+  setStatus(state.project.design_ir ? "方案和场地图纸已准备完成。" : "工作区已就绪。添加任务书后即可生成方案。");
 }
 
 async function boot() {
   try {
     const [runtime, projects] = await Promise.all([api("/api/status"), api("/api/projects")]);
-    $("brain-status").textContent = runtime.codex_available ? "Codex Brain · ready" : "Codex Job Mode · ready";
+    $("brain-status").textContent = runtime.codex_available ? "Codex 大脑 · 已就绪" : "Codex 任务模式 · 已就绪";
     $("brain-status").previousElementSibling.classList.toggle("ready", runtime.codex_available);
     if (projects.length) await loadProject(projects[0].project_id);
   } catch (error) {
@@ -209,7 +225,7 @@ async function uploadFile(category, file, targetId) {
     chip.title = result.path;
     chip.textContent = result.filename;
     $(targetId).append(chip);
-    showToast(`${result.filename} saved to this project's local inputs.`);
+    showToast(`${result.filename} 已保存到当前项目的本地输入目录。`);
   } catch (error) { showToast(error.message, true); }
 }
 
@@ -217,9 +233,9 @@ async function prepareDesign() {
   if (state.busy) return;
   state.busy = true;
   const button = $("prepare-design");
-  setBusy(button, true, "Codex is thinking…");
+  setBusy(button, true, "Codex 正在分析…");
   $("build-model").disabled = true;
-  setStatus("Codex is turning your inputs into DesignIR and a BuildPlan.");
+  setStatus("Codex 正在把你的资料整理成 DesignIR 和 BuildPlan。");
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/prepare`, {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -232,14 +248,14 @@ async function prepareDesign() {
       }),
     });
     if (result.status === "awaiting_codex") {
-      $("prepare-note").textContent = `Job ${result.job.job_id} is ready for the active Codex session.`;
-      setStatus("Codex Job Mode: request package saved; awaiting structured DesignIR and BuildPlan.");
-      showToast("Codex CLI was unavailable. A reviewable Job Mode request was saved.", true);
+      $("prepare-note").textContent = `任务 ${result.job.job_id} 已生成，等待当前 Codex 会话处理。`;
+      setStatus("Codex 任务模式：请求包已保存，等待返回结构化 DesignIR 和 BuildPlan。");
+      showToast("当前无法直接调用 Codex CLI，已保存可继续执行的任务包。", true);
     } else {
       state.project = result.project;
       updateHeader();
-      setStatus("Codex returned a valid plan. Site drawing and A3 preview are ready.");
-      showToast("DesignIR, BuildPlan, DXF, drawing preview, and A3 board created.");
+      setStatus("Codex 已返回有效方案，场地图纸和 A3 预览已生成。");
+      showToast("DesignIR、BuildPlan、DXF、图纸预览和 A3 展板已创建。");
       setTab("design");
     }
   } catch (error) {
@@ -254,24 +270,24 @@ async function prepareDesign() {
 
 async function checkConnector() {
   if (!state.projectId) return;
-  $("connector-state").textContent = "Checking…";
+  $("connector-state").textContent = "正在检查…";
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
-    $("connector-state").textContent = result.reachable ? "Connected · SketchUp" : "Bridge not reachable";
+    $("connector-state").textContent = result.reachable ? "已连接 · SketchUp" : "本地桥接未响应";
     $("connector-state").style.color = result.reachable ? "#557568" : "#a0523a";
-    setStatus(result.reachable ? "Existing SketchUp MCP and local bridge responded." : result.detail || "Open SketchUp and start the Kongxing Local Bridge.", result.reachable ? "ready" : "error");
-    if (result.reachable) showToast("Existing SketchUp MCP and local bridge are reachable.");
-    else showToast(result.detail || "SketchUp bridge is not reachable yet.", true);
-  } catch (error) { $("connector-state").textContent = "Unavailable"; showToast(error.message, true); }
+    setStatus(result.reachable ? "现有 SketchUp MCP 与本地桥接已正常响应。" : result.detail || "请打开 SketchUp，并启动 Kongxing Local Bridge。", result.reachable ? "ready" : "error");
+    if (result.reachable) showToast("现有 SketchUp MCP 与本地桥接连接正常。");
+    else showToast(result.detail || "SketchUp 本地桥接暂未连接。", true);
+  } catch (error) { $("connector-state").textContent = "不可用"; showToast(error.message, true); }
 }
 
 async function buildModel() {
   if (state.busy) return;
-  if (!$("disposable-confirm").checked) return showToast("Open a blank or disposable model before building.", true);
+  if (!$("disposable-confirm").checked) return showToast("请先打开一个空白或可丢弃的 SketchUp 模型。", true);
   state.busy = true;
   const button = $("build-model");
-  setBusy(button, true, "Building editable groups…");
-  setStatus("Sending the approved BuildPlan through the existing SketchUp MCP.");
+  setBusy(button, true, "正在建立可编辑模型…");
+  setStatus("正在通过现有 SketchUp MCP 执行确认后的 BuildPlan。");
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/build`, {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ confirm_disposable_model: true }),
@@ -279,8 +295,8 @@ async function buildModel() {
     state.project = result.project;
     updateHeader();
     setTab("model");
-    setStatus(`SketchUp readback complete · ${result.completed_ids.length} named objects created on the existing model.`);
-    showToast("Editable SketchUp model built and saved. It is ready for sequential edits.");
+    setStatus(`SketchUp 回读完成 · 已在当前模型中创建 ${result.completed_ids.length} 个命名对象。`);
+    showToast("可编辑 SketchUp 模型已建立并保存，可以继续连续修改。");
   } catch (error) {
     setStatus(error.message, "error");
     showToast(error.message, true);
@@ -295,8 +311,8 @@ async function applyEdit(instruction) {
   if (state.busy) return;
   state.busy = true;
   const button = instruction.startsWith("Raise") ? $("edit-height") : $("edit-position");
-  setBusy(button, true, "Planning and editing…");
-  setStatus("Codex is planning one targeted edit against the current model state.");
+  setBusy(button, true, "正在规划并修改…");
+  setStatus("Codex 正在根据当前模型状态规划一次定向修改。");
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/edit`, {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ instruction }),
@@ -304,8 +320,8 @@ async function applyEdit(instruction) {
     state.project = result.project;
     updateHeader();
     setTab("model");
-    setStatus(`${result.edit_plan.target_id} changed in place. Connector readback and viewport were captured.`);
-    showToast(`Sequential edit applied to ${result.edit_plan.target_id}; the model was not rebuilt.`);
+    setStatus(`${result.edit_plan.target_id} 已原位修改，并完成连接器回读和视口截图。`);
+    showToast(`已修改 ${result.edit_plan.target_id}，没有重新生成整个模型。`);
   } catch (error) {
     setStatus(error.message, "error");
     showToast(error.message, true);
@@ -347,7 +363,7 @@ $("create-project-form").addEventListener("submit", async (event) => {
     });
     $("project-dialog").close();
     await loadProject(result.project_id);
-    showToast("New local project created. Add a site note and design intent.");
+    showToast("新的本地项目已创建，请继续添加场地说明和设计想法。");
   } catch (error) { showToast(error.message, true); }
 });
 
