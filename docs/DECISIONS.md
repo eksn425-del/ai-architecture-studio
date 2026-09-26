@@ -35,11 +35,9 @@ Project Context
 
 ## D-004 — Development model routing
 
-**Status:** Accepted
+**Status:** Historical / superseded in part by D-012
 
-- GPT-5.6 Sol High: product planning, architecture decisions, and review.
-- GPT-6 Luna Max or another execution agent: implementation, testing, repetitive engineering work.
-- Astra is not required for routine development.
+Earlier prototype routing used ChatGPT for planning/review and Codex for implementation. This division of development responsibilities remains useful, but product-level architecture intelligence is now explicitly assigned to a native Astra-class agent path rather than an in-house fixed geometry planner.
 
 ## D-005 — Public repository safety
 
@@ -53,10 +51,9 @@ Do not commit private graduation-design files, copyrighted reference packages th
 
 Major design-direction changes require user approval. Ordinary recoverable engineering actions should be handled autonomously.
 
-
 ## D-007 — Reuse-first engineering policy
 
-**Status:** Accepted
+**Status:** Accepted and strengthened by D-013
 
 Before implementing any major subsystem, search for compatible open-source implementations and evaluate license, maturity, safety, and integration cost.
 
@@ -67,17 +64,16 @@ Decision order:
 Custom infrastructure is justified only when existing projects cannot meet the requirement or create unacceptable product/technical risk.
 
 Current high-priority reuse candidates:
-- ArchFlow Studio — orchestration/product backbone candidate
-- SAIE — SketchUp execution layer candidate
+- ArchFlow Studio — project-state/CAD/output candidate
+- SAIE — richer SketchUp execution candidate
 - SketchUp Architect Skill — architecture reasoning/precedent workflow candidate
 - VBO SkAgent — lightweight live-control fallback
 
-The product's intended differentiation is above the connector layer: case-to-design, architectural project context, workflow UX, continuous model-aware iteration, and end-to-end student/junior-designer delivery.
-
+The product's intended differentiation is above the connector layer: architecture workflow UX, context continuity, packaging, ease of use, and delivery for students/junior designers.
 
 ## D-008 — Demo v0.1 architecture
 
-**Status:** Accepted
+**Status:** Accepted as prototype foundation
 
 Build a local end-to-end product demo rather than another research-only spike.
 
@@ -89,11 +85,11 @@ SketchUp remains the real editable modeler. The web app is the product interface
 
 ## D-009 — Codex as temporary demo brain
 
-**Status:** Accepted
+**Status:** Historical prototype decision
 
-For Demo v0.1, Codex itself may perform the architectural reasoning and tool orchestration.
+For Demo v0.1, Codex performed architectural reasoning and tool orchestration behind a BrainAdapter/job boundary.
 
-The product code must isolate reasoning behind a BrainAdapter/job boundary so a production model API can replace Codex later without rewriting project state or downstream execution.
+This proved the web-to-model chain but is no longer the intended final modeling architecture when it is constrained by the old fixed geometry schema.
 
 ## D-010 — Existing MCP first
 
@@ -112,10 +108,73 @@ Fallback order:
 
 ## D-011 — Demo vertical slice
 
-**Status:** Accepted
+**Status:** Historical / superseded for normal product modeling
 
-Demo v0.1 must attempt the complete thin slice:
+Demo v0.1 used:
 
 DesignIR → editable SketchUp model → sequential edits → basic DXF → viewport/render artifact → simple A3 presentation.
 
-This milestone prioritizes a working integrated demo over extensive additional planning documents.
+This remains useful as a regression/legacy demo, but the fixed rectangular BuildPlan is no longer the primary modeling path.
+
+## D-012 — Astra-native architecture intelligence
+
+**Status:** Accepted
+
+Do not build a weaker in-house architecture brain around a tiny action vocabulary.
+
+The normal product path should preserve the broad reasoning and tool-use ability of an Astra-class/native agent.
+
+Target:
+
+**Web Workspace → Native Agent Runtime → existing MCP / reusable OSS tools → SketchUp/CAD → screenshot/model readback → agent continuation**
+
+The thesis modeling workflow is the quality reference.
+
+## D-013 — Assembly-first startup strategy
+
+**Status:** Accepted
+
+Optimize for speed to usable/sellable product.
+
+Before custom implementation, prefer:
+
+**Adopt → Fork → Wrap/Compose → Minimal Glue**
+
+Do not rebuild a working connector, CAD exporter, architecture skill, agent runtime, or software-control layer merely for architectural cleanliness.
+
+Reuse source only with a clear compatible license and preserve attribution/NOTICE requirements.
+
+## D-014 — DesignIR becomes project memory
+
+**Status:** Accepted
+
+DesignIR may store structured project context such as:
+
+- brief/program
+- site constraints
+- reference principles
+- user-confirmed decisions
+- area targets
+- important identities
+- current design summary
+
+It must not be the mandatory geometry generator or restrict all geometry to axis-aligned rectangles.
+
+Complex geometry may be created directly by the native agent through existing SketchUp tools or safe project scripts.
+
+## D-015 — Product value is packaging and workflow
+
+**Status:** Accepted
+
+The product's value is not inventing a new foundation model or modeling kernel.
+
+The value is packaging strong existing intelligence and professional-software control into a simple architecture-student/junior-designer workflow:
+
+- upload project materials
+- discuss design in Chinese
+- start/continue an agent session
+- generate and edit real SketchUp/CAD outputs
+- retain context/history/versions
+- hide MCP, scripts, prompts, and setup complexity
+
+Future monetization should build on convenience, workflow integration, packaging, and distribution rather than proprietary low-level geometry infrastructure.
