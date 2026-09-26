@@ -37,6 +37,28 @@ Codex should read:
 6. [Open-Source Component Map](docs/OPEN_SOURCE_COMPONENT_MAP.md)
 7. [Codex Demo Runbook](docs/CODEX_DEMO_RUNBOOK.md)
 
+## Run the local demo (Windows)
+
+From the repository folder, run:
+
+```powershell
+.\scripts\setup.ps1
+.\scripts\open_blank_sketchup.ps1
+.\scripts\dev.ps1
+```
+
+Open `http://127.0.0.1:8787`. The demo seeds a synthetic waterfront cultural-house project; no graduation-design files are read or modified. `open_blank_sketchup.ps1` copies SketchUp's Simple template into ignored `runtime/` before opening it, then starts the already-installed Kongxing extension through SketchUp's RubyStartup entry point.
+
+In the workspace:
+
+1. Add project text or files and click **Prepare design**. The local Codex CLI writes `DesignIR` and `BuildPlan`, then the app writes a basic DXF, SVG plan preview, and A3 HTML board.
+2. Confirm the active SketchUp document is disposable and click **Build in SketchUp**. The app reuses the existing `kongxing_sketchup` MCP from `~/.codex/config.toml`. If the bridge needs restarting later, use **Extensions → Kongxing AI → Start Local Bridge** in SketchUp.
+3. Apply the two sequential edits. The app reads SketchUp state and captures the viewport after build and after each edit.
+
+All uploads, generated projects, jobs, model files, screenshots, and local Codex schema files stay under ignored `runtime/` or `artifacts/`. To run checks, use `.\scripts\check.ps1`.
+
+The Codex CLI runs with a read-only sandbox for design reasoning. If it is unavailable, the app writes a Codex Job Mode request under `runtime/jobs/` for the active Codex session. It never presents the test fake as the product brain.
+
 ## Reuse policy
 
 Prefer:

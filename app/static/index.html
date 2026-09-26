@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f2efe8">
+    <title>AI Architecture Studio · Demo 0.1</title>
+    <link rel="stylesheet" href="/static/studio.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="AI Architecture Studio home">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span><b>AI Architecture Studio</b><small>Local design workspace</small></span>
+        </a>
+        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">Checking local runtime</span><span class="divider"></span><span class="version">DEMO 0.1</span></div>
+        <button class="new-project" id="new-project"><span>＋</span> New project</button>
+      </header>
+
+      <div class="studio-layout">
+        <aside class="sidebar">
+          <div class="sidebar-label">Workspace</div>
+          <div class="project-switcher"><span class="project-glyph">TC</span><span class="project-switch-copy"><strong id="sidebar-project-name">Tidal Commons</strong><small id="sidebar-project-status">Loading project</small></span><span class="chevron">⌄</span></div>
+          <div class="sidebar-label stages-label">Project stages</div>
+          <nav class="stage-nav" aria-label="Project stages">
+            <button class="stage-link active" data-tab="design"><span class="stage-icon">01</span><span>Design</span><span class="stage-check" id="stage-design">●</span></button>
+            <button class="stage-link" data-tab="model"><span class="stage-icon">02</span><span>Model</span><span class="stage-check" id="stage-model">○</span></button>
+            <button class="stage-link" data-tab="drawing"><span class="stage-icon">03</span><span>Drawing</span><span class="stage-check" id="stage-drawing">○</span></button>
+            <button class="stage-link" data-tab="render"><span class="stage-icon">04</span><span>Render</span><span class="stage-check" id="stage-render">○</span></button>
+            <button class="stage-link" data-tab="present"><span class="stage-icon">05</span><span>Present</span><span class="stage-check" id="stage-present">○</span></button>
+          </nav>
+          <div class="sidebar-bottom">
+            <div class="connection-card"><span class="connection-icon">⌁</span><div><small>SketchUp connector</small><strong id="connector-state">Not checked</strong></div><button id="check-connector" aria-label="Check SketchUp connection">↗</button></div>
+            <div class="sidebar-foot"><span>Codex brain</span><span class="local-chip">● LOCAL</span></div>
+          </div>
+        </aside>
+
+        <main class="main-content">
+          <div class="workspace-heading">
+            <div><div class="eyebrow">Project workspace <span>/</span> Design study</div><h1 id="project-title">Tidal Commons · Cultural House</h1><p id="project-subtitle">An open civic room between neighborhood and water.</p></div>
+            <div class="heading-meta"><span class="status-pill" id="project-status"><i></i> INPUTS READY</span><span class="updated-meta">v0.1 <span>·</span> meters</span></div>
+          </div>
+
+          <div class="tab-strip" role="tablist" aria-label="Workspace views">
+            <button class="tab-button active" data-tab="design" role="tab">Design <span class="tab-count">01</span></button>
+            <button class="tab-button" data-tab="model" role="tab">Model <span class="tab-count">02</span></button>
+            <button class="tab-button" data-tab="drawing" role="tab">Drawing <span class="tab-count">03</span></button>
+            <button class="tab-button" data-tab="render" role="tab">Render <span class="tab-count">04</span></button>
+            <button class="tab-button" data-tab="present" role="tab">Present <span class="tab-count">05</span></button>
+          </div>
+
+          <div class="content-grid">
+            <section class="control-column">
+              <div class="section-heading"><div><span class="section-index">A</span><h2>Project inputs</h2></div><span class="quiet-tag">SYNTHETIC EXAMPLE</span></div>
+              <label class="field-label" for="project-name">Project name</label>
+              <input id="project-name" class="text-field" value="Tidal Commons · Cultural House" maxlength="120">
+
+              <div class="input-block">
+                <label class="field-label" for="brief">Brief <span>Text or file</span></label>
+                <textarea id="brief" class="text-area" rows="4">A small civic and cultural house for a waterfront neighborhood. Bring a reading room, workshop, and public gallery together around a shaded pedestrian route.</textarea>
+                <label class="file-pick"><span>＋ Add brief file</span><input id="brief-file" type="file" accept=".txt,.md,.pdf,.docx,.png,.jpg,.jpeg"></label>
+                <div class="file-list" id="brief-files"></div>
+              </div>
+
+              <div class="input-block">
+                <label class="field-label" for="site-note">Site <span>Context or image</span></label>
+                <textarea id="site-note" class="text-area compact" rows="2">Synthetic 60 m × 48 m waterfront test site. North is up; public approach enters from the east.</textarea>
+                <label class="file-pick"><span>＋ Add site image</span><input id="site-file" type="file" accept="image/*,.pdf,.dxf"></label>
+                <div class="file-list" id="site-files"></div>
+              </div>
+
+              <div class="input-block">
+                <label class="field-label" for="reference-url">Reference <span>URL or image</span></label>
+                <input id="reference-url" class="text-field" placeholder="https://…" value="">
+                <label class="file-pick"><span>＋ Add reference image</span><input id="reference-file" type="file" accept="image/*"></label>
+                <div class="file-list" id="reference-files"></div>
+              </div>
+
+              <div class="input-block intent-block">
+                <label class="field-label" for="intent">Your design intent <span>What matters most?</span></label>
+                <textarea id="intent" class="text-area" rows="3">Create a calm, porous cultural house with low, readable volumes and a clear public passage. Treat the entry sequence and outdoor room as part of the architecture.</textarea>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-top"><span class="brain-orbit"><i></i><i></i><i></i></span><div><strong>Prepare a design</strong><small>Codex structures your brief into an editable plan.</small></div></div>
+                <button class="button-primary" id="prepare-design"><span>Prepare design</span><span class="button-arrow">↗</span></button>
+                <div class="action-note" id="prepare-note">Creates DesignIR, BuildPlan and a site drawing.</div>
+              </div>
+
+              <div class="model-actions" id="model-actions">
+                <div class="section-heading compact-heading"><div><span class="section-index">B</span><h2>SketchUp model</h2></div><span class="quiet-tag">LIVE GEOMETRY</span></div>
+                <label class="confirm-row"><input type="checkbox" id="disposable-confirm"><span>I have a blank or disposable SketchUp model open.</span></label>
+                <button class="button-secondary" id="build-model" disabled><span>Build in SketchUp</span><span class="button-arrow">↗</span></button>
+                <div class="sequential-edits" id="sequential-edits">
+                  <div class="edit-heading"><span>Sequential edits</span><span id="edit-count">0 / 2</span></div>
+                  <button class="edit-button" id="edit-height" disabled><span class="edit-number">01</span><span><strong>Raise one mass by a floor</strong><small>Keep its footprint and identity</small></span><span>↗</span></button>
+                  <button class="edit-button" id="edit-position" disabled><span class="edit-number">02</span><span><strong>Shift another mass east</strong><small>Move 3 m, preserve its size</small></span><span>↗</span></button>
+                </div>
+              </div>
+            </section>
+
+            <section class="preview-column">
+              <div class="preview-topline"><div><span class="section-index">LIVE VIEW</span><h2 id="preview-title">Design intent</h2></div><div class="preview-actions" id="artifact-links"></div></div>
+              <div class="preview-stage" id="preview-stage">
+                <div class="preview-canvas empty-design" id="preview-canvas">
+                  <div class="canvas-grid"></div>
+                  <div class="empty-poster"><div class="poster-kicker">A PLACE TO MEET THE WATER</div><div class="poster-title">A public room,<br><em>held lightly.</em></div><div class="poster-rule"></div><div class="poster-foot"><span>60° 00′ N<br>WATERFRONT SITE</span><span>DESIGN STUDY<br>CODEX BRAIN</span></div><div class="poster-sketch"><svg viewBox="0 0 510 220" aria-hidden="true"><path d="M13 184H497M44 178V93H156V178M175 178V66H281V178M301 178V106H457V178" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M44 94L81 62L156 94M175 67L217 36L281 67M301 107L356 78L457 107M0 204H510" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6"/><path d="M44 105H156M175 78H281M301 118H457" stroke="currentColor" stroke-width=".6"/></svg></div></div>
+                  <div class="canvas-stamp">01 <span>/</span> 05</div>
+                </div>
+                <div class="preview-caption"><span id="preview-caption">Design intent and concept</span><span id="preview-meta">WAITING FOR PREPARE DESIGN</span></div>
+              </div>
+              <div class="artifact-strip">
+                <div class="artifact-head"><span>Project artifacts</span><span id="artifact-total">0 files</span></div>
+                <div class="artifact-list" id="artifact-list"><div class="artifact-empty">Design artifacts will collect here as the project takes shape.</div></div>
+              </div>
+              <div class="status-line" id="status-line"><span class="status-pulse"></span><span>Workspace ready. Add a brief, then prepare the design.</span><span class="status-time">LOCAL ONLY</span></div>
+            </section>
+          </div>
+
+          <footer class="page-footer"><span>AI ARCHITECTURE STUDIO <i>×</i> CODEX <i>×</i> SKETCHUP</span><span>Project data stays on this machine <span class="footer-dot">●</span></span></footer>
+        </main>
+      </div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <dialog id="project-dialog"><form method="dialog" id="create-project-form"><div class="dialog-kicker">New local project</div><h2>Start with a brief.</h2><label class="field-label" for="new-project-name">Project name</label><input class="text-field" id="new-project-name" required placeholder="e.g. Riverside reading room"><label class="field-label" for="new-project-brief">Brief</label><textarea class="text-area" id="new-project-brief" rows="4" placeholder="What are you designing?"></textarea><div class="dialog-actions"><button class="button-quiet" value="cancel">Cancel</button><button class="button-primary" id="create-project-submit" value="default">Create project <span class="button-arrow">↗</span></button></div></form></dialog>
+    </div>
+    <script src="/static/studio.js" defer></script>
+  </body>
+</html>

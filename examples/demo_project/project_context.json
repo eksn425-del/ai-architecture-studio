@@ -1,0 +1,34 @@
+{
+  "project_id": "demo-cultural-center",
+  "project_name": "Tidal Commons · Cultural House",
+  "brief": {
+    "source_files": [],
+    "summary": "A small civic and cultural house for a waterfront neighborhood. Bring a reading room, workshop, and public gallery together around a shaded pedestrian route.",
+    "requirements": [
+      "Keep the public ground route open from the east neighborhood edge to the waterfront.",
+      "Use three distinct but related program volumes.",
+      "Provide a sheltered outdoor gathering space."
+    ]
+  },
+  "site": {
+    "source_files": [],
+    "summary": "Synthetic 60 m × 48 m waterfront test site. North is up; public approach enters from the east.",
+    "boundary": [[0, 0], [60, 0], [60, 48], [0, 48]],
+    "north": 0,
+    "access_points": [[60, 24], [0, 24]]
+  },
+  "references": [
+    {
+      "type": "note",
+      "source": "Synthetic demo brief",
+      "observed_principles": [
+        "Layered public and quiet spaces",
+        "Deep roof edges for shade",
+        "A visible pedestrian link through the site"
+      ]
+    }
+  ],
+  "user_intent": "Create a calm, porous cultural house with low, readable volumes and a clear public passage. Treat the entry sequence and outdoor room as part of the architecture.",
+  "decisions": [],
+  "unresolved": []
+}
