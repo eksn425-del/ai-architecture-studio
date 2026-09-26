@@ -30,6 +30,11 @@ class Site(Model):
 class Reference(Model):
     type: Literal["url", "image", "note"] = "note"
     source: str = ""
+    status: Literal["pending", "readable", "unreadable"] = "pending"
+    title: str = ""
+    excerpt: str = ""
+    fetched_at: str = ""
+    error: str = ""
     observed_principles: list[str] = Field(default_factory=list)
 
 
@@ -37,6 +42,13 @@ class Decision(Model):
     id: str
     statement: str
     source: str = "Codex"
+
+
+class ConversationMessage(Model):
+    role: Literal["user", "assistant"]
+    phase: Literal["pre_build", "after_build"]
+    content: str = Field(min_length=1, max_length=2000)
+    created_at: str = ""
 
 
 class ProjectContext(Model):
@@ -48,6 +60,7 @@ class ProjectContext(Model):
     user_intent: str = ""
     decisions: list[Decision] = Field(default_factory=list)
     unresolved: list[str] = Field(default_factory=list)
+    conversation: list[ConversationMessage] = Field(default_factory=list)
 
 
 class Concept(Model):
@@ -194,6 +207,15 @@ class CreateProjectRequest(Model):
 
 class EditRequest(Model):
     instruction: str = Field(min_length=3, max_length=1200)
+
+
+class ConversationRequest(Model):
+    message: str = Field(min_length=1, max_length=1200)
+    project_name: str = ""
+    brief: str = ""
+    site_note: str = ""
+    reference_url: str = ""
+    user_intent: str = ""
 
 
 class EditPlan(Model):

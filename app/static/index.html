@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f2efe8">
-    <title>AI Architecture Studio · Demo 0.1</title>
+    <title>AI Architecture Studio · Product Alpha 0.2</title>
     <link rel="stylesheet" href="/static/studio.css">
   </head>
   <body>
@@ -14,7 +14,7 @@
           <span class="brand-mark"><i></i><i></i><i></i></span>
           <span><b>AI Architecture Studio</b><small>本地建筑设计工作台</small></span>
         </a>
-        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">正在检查本地运行环境</span><span class="divider"></span><span class="version">DEMO 0.1</span></div>
+        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">正在检查本地运行环境</span><span class="divider"></span><span class="version">ALPHA 0.2</span></div>
         <button class="new-project" id="new-project"><span>＋</span> 新建项目</button>
       </header>
 
@@ -39,7 +39,7 @@
         <main class="main-content">
           <div class="workspace-heading">
             <div><div class="eyebrow">项目工作区 <span>/</span> 方案研究</div><h1 id="project-title">潮汐共享 · 滨水文化之家</h1><p id="project-subtitle">在社区与水岸之间形成开放、可穿行的公共空间。</p></div>
-            <div class="heading-meta"><span class="status-pill" id="project-status"><i></i> 输入已就绪</span><span class="updated-meta">v0.1 <span>·</span> 米</span></div>
+            <div class="heading-meta"><span class="status-pill" id="project-status"><i></i> 输入已就绪</span><span class="updated-meta">v0.2 <span>·</span> 米</span></div>
           </div>
 
           <div class="tab-strip" role="tablist" aria-label="工作区视图">
@@ -73,6 +73,7 @@
               <div class="input-block">
                 <label class="field-label" for="reference-url">参考案例 <span>网址或图片</span></label>
                 <input id="reference-url" class="text-field" placeholder="https://…" value="">
+                <div class="reference-status" id="reference-status" aria-live="polite"></div>
                 <label class="file-pick"><span>＋ 添加参考图片</span><input id="reference-file" type="file" accept="image/*"></label>
                 <div class="file-list" id="reference-files"></div>
               </div>
@@ -81,6 +82,17 @@
                 <label class="field-label" for="intent">你的设计想法 <span>你最在意什么？</span></label>
                 <textarea id="intent" class="text-area" rows="3">希望形成一座安静、开放、可穿行的文化建筑，体块低矮清晰，公共通道明确，并把入口过程和室外公共空间也作为建筑设计的一部分。</textarea>
               </div>
+
+              <section class="conversation-panel" aria-labelledby="conversation-title">
+                <div class="conversation-heading"><div><span class="section-index">AI</span><h2 id="conversation-title">讨论与修改</h2></div><span class="quiet-tag" id="conversation-phase">生成前讨论</span></div>
+                <div class="conversation-history" id="conversation-history" aria-live="polite"></div>
+                <form class="conversation-form" id="conversation-form">
+                  <label class="sr-only" for="conversation-input">输入中文设计要求或模型修改指令</label>
+                  <textarea id="conversation-input" class="text-area conversation-input" rows="3" maxlength="1200" placeholder="补充设计想法，或根据参考案例继续讨论…"></textarea>
+                  <button class="button-primary conversation-send" id="conversation-send" type="submit"><span>发送消息</span><span class="button-arrow">↗</span></button>
+                </form>
+                <div class="conversation-hint" id="conversation-hint">生成方案前可继续调整设计方向；建模后可在同一对话中修改当前模型。</div>
+              </section>
 
               <div class="action-card">
                 <div class="action-card-top"><span class="brain-orbit"><i></i><i></i><i></i></span><div><strong>生成方案</strong><small>Codex 会把你的资料整理成可编辑的建筑方案。</small></div></div>
@@ -93,7 +105,7 @@
                 <label class="confirm-row"><input type="checkbox" id="disposable-confirm"><span>我已经打开一个空白或可丢弃的 SketchUp 模型。</span></label>
                 <button class="button-secondary" id="build-model" disabled><span>在 SketchUp 中建模</span><span class="button-arrow">↗</span></button>
                 <div class="sequential-edits" id="sequential-edits">
-                  <div class="edit-heading"><span>连续修改</span><span id="edit-count">0 / 2</span></div>
+                  <div class="edit-heading"><span>修改示例（可选）</span><span id="edit-count">0 / 2</span></div>
                   <button class="edit-button" id="edit-height" disabled><span class="edit-number">01</span><span><strong>将一个体块提高一层</strong><small>保持轮廓和对象身份不变</small></span><span>↗</span></button>
                   <button class="edit-button" id="edit-position" disabled><span class="edit-number">02</span><span><strong>将另一个体块向东移动</strong><small>移动 3 米，尺寸保持不变</small></span><span>↗</span></button>
                 </div>

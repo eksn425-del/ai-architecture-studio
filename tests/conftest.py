@@ -54,12 +54,26 @@ class FakeBrain:
 
     def __init__(self):
         self.edit_calls = 0
+        self.prepare_calls: list[tuple[list[str], dict[str, Any] | None]] = []
 
-    def prepare(self, context: ProjectContext, images: list[Path] | None = None):
-        return sample_design(context.project_id), sample_plan(context.project_id), "Three calm pavilions frame the route."
+    def prepare(self, context: ProjectContext, images: list[Path] | None = None, previous_design: DesignIR | None = None):
+        messages = [message.content for message in context.conversation]
+        self.prepare_calls.append((messages, previous_design.model_dump(mode="json") if previous_design else None))
+        design = previous_design.model_copy(deep=True) if previous_design else sample_design(context.project_id)
+        if any("街道" in message and ("宽" in message or "加宽" in message) for message in messages):
+            route = next(item for item in design.objects if item.type == "circulation")
+            route.width = 7.0 if route.width < 7.0 else 8.0
+        return design, sample_plan(context.project_id), "已根据讨论调整公共空间与体块关系。"
 
     def plan_edit(self, context: ProjectContext, design: DesignIR, model_state: dict[str, Any], instruction: str) -> EditPlan:
         self.edit_calls += 1
+        if ("街道" in instruction or "流线" in instruction) and ("宽" in instruction or "加宽" in instruction):
+            route = next(item for item in model_state["objects"] if item["object_type"] == "circulation")
+            return EditPlan(target_id=route["stable_id"], patch={"route_width": 8.0}, rationale="已将公共流线调整至 8 米宽。")
+        if "宽度" in instruction or "宽" in instruction:
+            return EditPlan(target_id="MASS_01", patch={"width": 15.0}, rationale="扩大阅览体块的宽度。")
+        if "进深" in instruction:
+            return EditPlan(target_id="MASS_01", patch={"depth": 14.0}, rationale="调整阅览体块的进深。")
         if self.edit_calls == 1:
             return EditPlan(target_id="MASS_01", patch={"floors": 3, "height": 10.8}, rationale="Add one floor while preserving the footprint.")
         return EditPlan(target_id="MASS_02", patch={"origin": [27, 8, 0]}, rationale="Shift east by three meters.")

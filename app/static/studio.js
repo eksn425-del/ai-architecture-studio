@@ -5,6 +5,7 @@ const modelStatusLabels = {
   ready: "方案研究",
   building: "正在建模",
   built: "模型已建立",
+  edited: "已完成修改",
   partial: "部分完成",
   unavailable: "连接不可用",
 };
@@ -32,6 +33,18 @@ function showToast(message, isError = false) {
   toast.classList.add("visible");
   clearTimeout(state.toastTimer);
   state.toastTimer = setTimeout(() => toast.classList.remove("visible"), 5200);
+}
+
+function friendlyError(error) {
+  const message = String(error?.message || "");
+  if (!message || /^[\u0000-\u00ff]*$/.test(message)) {
+    if (/ECONNREFUSED|bridge connection failed/i.test(message)) return "SketchUp 本地桥接未响应，请检查 SketchUp 是否已打开并启动 Kongxing Local Bridge。";
+    if (/not the disposable|blank-disposable/i.test(message)) return "当前 SketchUp 模型不是空白演示模型，请先打开本地生成的空白副本。";
+    if (/already has a live|new project/i.test(message)) return "该项目已绑定 SketchUp 模型，请新建项目后再开始新的建模。";
+    if (/Codex output failed|deterministic validation/i.test(message)) return "Codex 返回的方案未通过校验，请调整要求后重试。";
+    return "操作未能完成，请检查本地运行状态后重试。";
+  }
+  return message;
 }
 
 function setStatus(message, tone = "ready") {
@@ -82,6 +95,18 @@ function updateHeader() {
   $("site-note").value = context.site.summary || "";
   $("intent").value = context.user_intent || "";
   $("reference-url").value = context.references.find((item) => item.type === "url")?.source || "";
+  const urlReference = context.references.find((item) => item.type === "url");
+  const referenceStatus = $("reference-status");
+  if (urlReference?.status === "readable") {
+    referenceStatus.textContent = `已读取网页${urlReference.title ? `：${urlReference.title}` : ""}，正文摘要将用于方案分析。`;
+    referenceStatus.classList.remove("unreadable");
+  } else if (urlReference?.status === "unreadable") {
+    referenceStatus.textContent = urlReference.error || "网页暂时无法读取，请上传网页截图或参考图片。";
+    referenceStatus.classList.add("unreadable");
+  } else {
+    referenceStatus.textContent = "";
+    referenceStatus.classList.remove("unreadable");
+  }
   const prepared = !!project.design_ir && !!project.build_plan;
   const built = (model.objects || []).length > 0;
   const status = $("project-status");
@@ -94,13 +119,35 @@ function updateHeader() {
   $("edit-count").textContent = `${Math.min(editedCount, 2)} / 2`;
   $("edit-position").disabled = !built || state.busy || editedCount < 1 || masses.length < 2 || !!masses[1]?.last_change;
   $("edit-height").disabled = !built || state.busy || !masses.length || !!masses[0]?.last_change;
+  $("conversation-phase").textContent = built ? "修改当前模型" : prepared ? "调整已生成方案" : "生成前讨论";
+  $("conversation-input").placeholder = built ? "描述要修改的体块或公共流线，例如：把公共街道加宽到 8 米…" : "补充设计想法，或根据参考案例继续讨论…";
+  $("conversation-hint").textContent = built
+    ? "对话会针对当前 SketchUp 模型执行定向修改，并保留现有对象。"
+    : "生成方案前可继续讨论设计方向；发送后会更新结构化方案。";
+  $("conversation-send").disabled = state.busy || !$("conversation-input").value.trim();
   setStage("design", true);
   setStage("model", prepared);
   setStage("drawing", !!artifactByType("dxf"));
   setStage("render", !!artifactByType("viewport"));
   setStage("present", !!artifactByType("presentation"));
   renderArtifacts();
+  renderConversation();
   renderPreview();
+}
+
+function renderConversation() {
+  const messages = state.project?.context?.conversation || [];
+  const history = $("conversation-history");
+  if (!messages.length) {
+    history.innerHTML = '<div class="conversation-empty">可以直接用中文描述想法，Codex 会把讨论落实到方案或当前模型。</div>';
+    return;
+  }
+  history.innerHTML = messages.map((message) => {
+    const isUser = message.role === "user";
+    const speaker = isUser ? "你" : "Codex · 设计回应";
+    return `<article class="chat-message ${isUser ? "user" : "assistant"}"><header><span>${speaker}</span><span>${message.phase === "after_build" ? "模型修改" : "方案讨论"}</span></header><p>${escapeHtml(message.content)}</p></article>`;
+  }).join("");
+  history.scrollTop = history.scrollHeight;
 }
 
 function setStage(stage, complete) {
@@ -211,7 +258,7 @@ async function boot() {
     $("brain-status").previousElementSibling.classList.toggle("ready", runtime.codex_available);
     if (projects.length) await loadProject(projects[0].project_id);
   } catch (error) {
-    showToast(error.message, true);
+    showToast(friendlyError(error), true);
   }
 }
 
@@ -226,7 +273,7 @@ async function uploadFile(category, file, targetId) {
     chip.textContent = result.filename;
     $(targetId).append(chip);
     showToast(`${result.filename} 已保存到当前项目的本地输入目录。`);
-  } catch (error) { showToast(error.message, true); }
+  } catch (error) { showToast(friendlyError(error), true); }
 }
 
 async function prepareDesign() {
@@ -254,13 +301,15 @@ async function prepareDesign() {
     } else {
       state.project = result.project;
       updateHeader();
-      setStatus("Codex 已返回有效方案，场地图纸和 A3 预览已生成。");
-      showToast("DesignIR、BuildPlan、DXF、图纸预览和 A3 展板已创建。");
+      const warnings = result.reference_warnings || [];
+      setStatus(warnings.length ? "方案已生成；参考网页无法读取，请上传网页截图或参考图片。" : "Codex 已返回有效方案，场地图纸和 A3 预览已生成。");
+      $("prepare-note").textContent = warnings.length ? "参考网页暂时无法读取，请上传网页截图或参考图片。" : "已更新结构化方案和场地图纸。";
+      showToast(warnings.length ? "方案已生成。参考网页无法读取，请上传网页截图或参考图片。" : "方案、DXF、图纸预览和 A3 展板已创建。");
       setTab("design");
     }
   } catch (error) {
-    setStatus(error.message, "error");
-    showToast(error.message, true);
+    setStatus(friendlyError(error), "error");
+    showToast(friendlyError(error), true);
   } finally {
     state.busy = false;
     setBusy(button, false);
@@ -275,10 +324,10 @@ async function checkConnector() {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
     $("connector-state").textContent = result.reachable ? "已连接 · SketchUp" : "本地桥接未响应";
     $("connector-state").style.color = result.reachable ? "#557568" : "#a0523a";
-    setStatus(result.reachable ? "现有 SketchUp MCP 与本地桥接已正常响应。" : result.detail || "请打开 SketchUp，并启动 Kongxing Local Bridge。", result.reachable ? "ready" : "error");
+    setStatus(result.reachable ? "现有 SketchUp MCP 与本地桥接已正常响应。" : friendlyError(new Error(result.detail || "")), result.reachable ? "ready" : "error");
     if (result.reachable) showToast("现有 SketchUp MCP 与本地桥接连接正常。");
-    else showToast(result.detail || "SketchUp 本地桥接暂未连接。", true);
-  } catch (error) { $("connector-state").textContent = "不可用"; showToast(error.message, true); }
+    else showToast(friendlyError(new Error(result.detail || "")), true);
+  } catch (error) { $("connector-state").textContent = "不可用"; showToast(friendlyError(error), true); }
 }
 
 async function buildModel() {
@@ -298,8 +347,8 @@ async function buildModel() {
     setStatus(`SketchUp 回读完成 · 已在当前模型中创建 ${result.completed_ids.length} 个命名对象。`);
     showToast("可编辑 SketchUp 模型已建立并保存，可以继续连续修改。");
   } catch (error) {
-    setStatus(error.message, "error");
-    showToast(error.message, true);
+    setStatus(friendlyError(error), "error");
+    showToast(friendlyError(error), true);
   } finally {
     state.busy = false;
     setBusy(button, false);
@@ -323,8 +372,45 @@ async function applyEdit(instruction) {
     setStatus(`${result.edit_plan.target_id} 已原位修改，并完成连接器回读和视口截图。`);
     showToast(`已修改 ${result.edit_plan.target_id}，没有重新生成整个模型。`);
   } catch (error) {
-    setStatus(error.message, "error");
-    showToast(error.message, true);
+    setStatus(friendlyError(error), "error");
+    showToast(friendlyError(error), true);
+  } finally {
+    state.busy = false;
+    setBusy(button, false);
+    updateHeader();
+  }
+}
+
+async function sendConversation(event) {
+  event.preventDefault();
+  const message = $("conversation-input").value.trim();
+  if (!message || state.busy) return;
+  state.busy = true;
+  const button = $("conversation-send");
+  setBusy(button, true, "Codex 正在处理…");
+  const built = !!state.project?.model_state?.objects?.length;
+  setStatus(built ? "Codex 正在为当前 SketchUp 模型规划定向修改。" : "Codex 正在根据讨论更新结构化方案。");
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/conversation`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message,
+        project_name: $("project-name").value,
+        brief: $("brief").value,
+        site_note: $("site-note").value,
+        reference_url: $("reference-url").value,
+        user_intent: $("intent").value,
+      }),
+    });
+    state.project = result.project;
+    $("conversation-input").value = "";
+    updateHeader();
+    setStatus(result.reply);
+    showToast(result.phase === "after_build" ? "已更新当前 SketchUp 模型，未重新生成整个模型。" : "讨论已写入，结构化方案已更新。");
+    if (result.phase === "after_build") setTab("model");
+  } catch (error) {
+    setStatus(friendlyError(error), "error");
+    showToast(friendlyError(error), true);
   } finally {
     state.busy = false;
     setBusy(button, false);
@@ -333,6 +419,10 @@ async function applyEdit(instruction) {
 }
 
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
+$("conversation-form").addEventListener("submit", sendConversation);
+$("conversation-input").addEventListener("input", () => {
+  $("conversation-send").disabled = state.busy || !$("conversation-input").value.trim();
+});
 $("prepare-design").addEventListener("click", prepareDesign);
 $("build-model").addEventListener("click", buildModel);
 $("disposable-confirm").addEventListener("change", updateHeader);
@@ -364,7 +454,7 @@ $("create-project-form").addEventListener("submit", async (event) => {
     $("project-dialog").close();
     await loadProject(result.project_id);
     showToast("新的本地项目已创建，请继续添加场地说明和设计想法。");
-  } catch (error) { showToast(error.message, true); }
+  } catch (error) { showToast(friendlyError(error), true); }
 });
 
 boot();

@@ -15,9 +15,9 @@ The product is not a browser CAD engine. SketchUp remains the real editable mode
 
 ## Current milestone
 
-**Demo v0.1 — end-to-end local product demo**
+**Product Alpha v0.2 — Chinese conversational architecture workspace**
 
-For this demo, Codex itself acts as the temporary AI brain.
+Codex acts as the temporary AI brain. A single Chinese conversation area refines the structured design before modeling and sends targeted edits to the existing model afterward. Public HTTP/HTTPS references are read with a size limit and private-network protection; unreadable pages prompt for screenshots or images.
 
 The target architecture is:
 
@@ -51,9 +51,9 @@ Open `http://127.0.0.1:8787`. The demo seeds a synthetic waterfront cultural-hou
 
 In the workspace:
 
-1. Add project text or files and click **Prepare design**. The local Codex CLI writes `DesignIR` and `BuildPlan`, then the app writes a basic DXF, SVG plan preview, and A3 HTML board.
-2. Confirm the active SketchUp document is disposable and click **Build in SketchUp**. The app reuses the existing `kongxing_sketchup` MCP from `~/.codex/config.toml`. If the bridge needs restarting later, use **Extensions → Kongxing AI → Start Local Bridge** in SketchUp.
-3. Apply the two sequential edits. The app reads SketchUp state and captures the viewport after build and after each edit.
+1. Add project text or files, then use **讨论与修改** to refine the design in Chinese, or use **生成方案**. The local Codex CLI writes `DesignIR` and `BuildPlan`, then the app writes a basic DXF, SVG plan preview, and A3 HTML board.
+2. Confirm the active SketchUp document is disposable and click **在 SketchUp 中建模**. The app reuses the existing `kongxing_sketchup` MCP from `~/.codex/config.toml`. If the bridge needs restarting later, use **Extensions → Kongxing AI → Start Local Bridge** in SketchUp.
+3. Continue in the same conversation to make a targeted change to an existing mass or straight public route. Width, depth, height, floors, and position edits preserve the stable object ID and do not rebuild the model. The app reads SketchUp state and captures the viewport after build and edits.
 
 All uploads, generated projects, jobs, model files, screenshots, and local Codex schema files stay under ignored `runtime/` or `artifacts/`. To run checks, use `.\scripts\check.ps1`.
 

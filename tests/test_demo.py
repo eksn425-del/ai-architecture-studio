@@ -8,8 +8,9 @@ from fastapi.testclient import TestClient
 
 from app.brain import BrainUnavailable, CodexBrainAdapter
 from app.generators import generate_drawing, generate_presentation
-from app.main import _validate_plan, create_app
-from app.models import BuildPlan, DesignIR, ModelState, OutputManifest
+from app.main import _safe_readback, _validate_plan, create_app
+from app.models import BuildPlan, DesignIR, EditPlan, ModelState, OutputManifest
+from app.references import FetchResult, ReferenceIngestor
 from app.sketchup_mcp import SketchUpAdapter
 from app.store import ProjectStore
 from tests.conftest import FakeBrain, FakeSketchUp, sample_context, sample_design, sample_plan
@@ -121,6 +122,11 @@ def test_sketchup_adapter_wraps_existing_tools():
     assert client.calls[1][1]["entity_id"] == 712
 
 
+def test_connector_readback_preserves_geometry_bounds():
+    result = _safe_readback({"entity_id": 712, "bounds_m": {"width": 15.0, "depth": 8.0}, "model_bounds_m": {"width": 60.0}})
+    assert result == {"bounds_m": {"width": 15.0, "depth": 8.0}, "model_bounds_m": {"width": 60.0}}
+
+
 def test_sketchup_adapter_saves_a_copy_without_changing_active_model_path(tmp_path: Path, monkeypatch):
     generated_scripts = tmp_path / "generated_scripts"
     monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(generated_scripts))
@@ -142,7 +148,7 @@ def test_sketchup_adapter_saves_a_copy_without_changing_active_model_path(tmp_pa
 
 def test_brain_job_lifecycle_and_project_prepare(tmp_path: Path):
     class OfflineBrain(FakeBrain):
-        def prepare(self, context, images=None):
+        def prepare(self, context, images=None, previous_design=None):
             raise BrainUnavailable("Codex CLI is not available.")
 
     app = create_app(tmp_path / "runtime", brain=OfflineBrain(), sketchup=FakeSketchUp())
@@ -222,3 +228,166 @@ def test_partial_build_can_resume_without_duplicate_geometry(tmp_path: Path):
     create_calls = [call for call in sketchup.calls if call[0] in {"create_mass", "create_circulation"}]
     assert len(create_calls) == 5
     assert sketchup.save_attempts == 2
+
+
+def test_reference_ingestor_blocks_private_network_and_extracts_visible_text(monkeypatch):
+    blocked = ReferenceIngestor().ingest("http://127.0.0.1/private")
+    assert blocked["status"] == "unreadable"
+    assert "不允许读取本机" in blocked["error"]
+
+    def private_dns(_host, _port, type=None):
+        return [(2, 1, 6, "", ("10.0.0.7", 80))]
+
+    monkeypatch.setattr("app.references.socket.getaddrinfo", private_dns)
+    private = ReferenceIngestor().ingest("https://studio.example/design")
+    assert private["status"] == "unreadable"
+    assert "不允许读取本机" in private["error"]
+
+    class ReadablePage(ReferenceIngestor):
+        def _validate_and_resolve(self, raw_url):
+            from urllib.parse import urlsplit
+            return urlsplit(raw_url), ["93.184.216.34"], 443
+
+        def _request_once(self, parts, port, address, path):
+            body = b"<html><head><title>Waterfront Library</title><script>ignore me</script></head><body><nav>menu text</nav><main><h1>Public route and shaded courtyard</h1><p>Readable architectural precedent with an open public passage.</p></main></body></html>"
+            return FetchResult(200, "text/html; charset=utf-8", body)
+
+    readable = ReadablePage().ingest("https://studio.example/design")
+    assert readable["status"] == "readable"
+    assert readable["title"] == "Waterfront Library"
+    assert "Public route" in readable["excerpt"]
+    assert "ignore me" not in readable["excerpt"]
+    assert "menu text" not in readable["excerpt"]
+
+    class RedirectToLocal(ReferenceIngestor):
+        requests = 0
+
+        def _validate_and_resolve(self, raw_url):
+            from urllib.parse import urlsplit
+            if self.requests:
+                return super()._validate_and_resolve(raw_url)
+            return urlsplit(raw_url), ["93.184.216.34"], 443
+
+        def _request_once(self, parts, port, address, path):
+            self.requests += 1
+            return FetchResult(302, "text/html", b"", "http://127.0.0.1/private")
+
+    redirected = RedirectToLocal().ingest("https://studio.example/design")
+    assert redirected["status"] == "unreadable"
+    assert "不允许读取本机" in redirected["error"]
+
+
+def test_reference_fetch_enforces_response_size_cap(monkeypatch):
+    class FakeResponse:
+        status = 200
+        def getheader(self, key, default=None):
+            return {"Content-Length": "11", "Content-Type": "text/plain"}.get(key, default)
+    class FakeConnection:
+        sock = None
+        def __init__(self, *args):
+            pass
+        def request(self, *args, **kwargs):
+            pass
+        def getresponse(self):
+            return FakeResponse()
+        def close(self):
+            pass
+
+    monkeypatch.setattr("app.references._PinnedHTTPConnection", FakeConnection)
+    from urllib.parse import urlsplit
+    try:
+        ReferenceIngestor(max_bytes=10)._request_once(urlsplit("http://example.com/"), 80, "93.184.216.34", "/")
+    except ValueError as error:
+        assert "1 MB" in str(error)
+    else:
+        raise AssertionError("oversized pages should be rejected")
+
+
+def test_prepare_persists_reference_ingestion_and_screenshot_fallback(tmp_path: Path):
+    app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp())
+    client = TestClient(app)
+    client.get("/api/projects")
+    response = client.post("/api/projects/demo-cultural-center/prepare", json={"reference_url": "http://localhost:45678/case"})
+    assert response.status_code == 200
+    assert response.json()["reference_warnings"]
+    project = client.get("/api/projects/demo-cultural-center").json()
+    reference = next(item for item in project["context"]["references"] if item["type"] == "url")
+    assert reference["status"] == "unreadable"
+    assert "上传网页截图或参考图片" in reference["error"]
+
+
+def test_chinese_conversation_refines_design_before_build(tmp_path: Path):
+    brain = FakeBrain()
+    app = create_app(tmp_path / "runtime", brain=brain, sketchup=FakeSketchUp())
+    client = TestClient(app)
+    client.get("/api/projects")
+    first = client.post("/api/projects/demo-cultural-center/conversation", json={
+        "message": "公共街道再宽一点，两个主要体块之间更开放。",
+        "project_name": "潮汐共享 · 滨水文化之家",
+        "brief": "为滨水社区设计公共文化空间。",
+        "site_note": "60 m × 48 m 合成场地。",
+        "user_intent": "保持低矮、开放。",
+    })
+    assert first.status_code == 200
+    route = next(item for item in first.json()["project"]["design_ir"]["objects"] if item["type"] == "circulation")
+    assert route["width"] == 7.0
+
+    second = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "公共街道再加宽一些。"})
+    assert second.status_code == 200
+    route = next(item for item in second.json()["project"]["design_ir"]["objects"] if item["type"] == "circulation")
+    assert route["width"] == 8.0
+    assert brain.prepare_calls[-1][1] is not None
+    messages = second.json()["project"]["context"]["conversation"]
+    assert [item["role"] for item in messages] == ["user", "assistant", "user", "assistant"]
+
+
+def test_chinese_conversation_edits_same_built_model_and_width_depth_routes(tmp_path: Path):
+    brain, sketchup = FakeBrain(), FakeSketchUp()
+    app = create_app(tmp_path / "runtime", brain=brain, sketchup=sketchup)
+    client = TestClient(app)
+    client.get("/api/projects")
+    assert client.post("/api/projects/demo-cultural-center/prepare", json={}).status_code == 200
+    assert client.post("/api/projects/demo-cultural-center/build", json={"confirm_disposable_model": True}).status_code == 200
+
+    chat = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "公共街道请加宽到 8 米。"})
+    assert chat.status_code == 200
+    same_route = next(item for item in chat.json()["project"]["model_state"]["objects"] if item["object_type"] == "circulation")
+    assert same_route["width"] == 8.0
+    route_call = next(call for call in reversed(sketchup.calls) if call[0] == "modify_object")
+    assert route_call[1]["connector_ref"] == same_route["connector_ref"]
+    assert route_call[1]["scale"] == [1, 1.6, 1]
+
+    width = client.post("/api/projects/demo-cultural-center/edit", json={"instruction": "把阅览体块宽度扩大到 15 米。"})
+    depth = client.post("/api/projects/demo-cultural-center/edit", json={"instruction": "把阅览体块进深改为 14 米。"})
+    assert width.status_code == depth.status_code == 200
+    mass = next(item for item in depth.json()["project"]["model_state"]["objects"] if item["stable_id"] == "MASS_01")
+    assert mass["width"] == 15.0
+    assert mass["depth"] == 14.0
+    assert len([call for call in sketchup.calls if call[0] == "modify_object"]) == 3
+
+
+def test_invalid_dimension_edit_is_rejected_before_connector_call(tmp_path: Path):
+    class InvalidWidthBrain(FakeBrain):
+        def plan_edit(self, context, design, model_state, instruction):
+            return EditPlan(target_id="MASS_01", patch={"width": 0.2}, rationale="invalid test")
+
+    sketchup = FakeSketchUp()
+    app = create_app(tmp_path / "runtime", brain=InvalidWidthBrain(), sketchup=sketchup)
+    client = TestClient(app)
+    client.get("/api/projects")
+    assert client.post("/api/projects/demo-cultural-center/prepare", json={}).status_code == 200
+    assert client.post("/api/projects/demo-cultural-center/build", json={"confirm_disposable_model": True}).status_code == 200
+    response = client.post("/api/projects/demo-cultural-center/edit", json={"instruction": "扩大体块宽度。"})
+    assert response.status_code == 502
+    assert not [call for call in sketchup.calls if call[0] == "modify_object"]
+
+
+def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_path: Path):
+    app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp())
+    page = TestClient(app).get("/")
+    assert page.status_code == 200
+    assert 'lang="zh-CN"' in page.text
+    assert "讨论与修改" in page.text
+    assert "发送消息" in page.text
+    assert "修改示例（可选）" in page.text
+    assert "ALPHA 0.2" in page.text

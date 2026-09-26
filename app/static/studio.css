@@ -116,7 +116,25 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .file-pick input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 .file-list { display: flex; flex-wrap: wrap; gap: 4px; }
 .file-chip { max-width: 100%; overflow: hidden; padding: 4px 6px; border: 1px solid #d8d4c8; color: #68776e; background: #eeece5; font: 8px var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+.reference-status { min-height: 0; margin-top: 5px; color: #7d887e; font-size: 9px; line-height: 1.45; }
+.reference-status.unreadable { color: #9b523e; }
+.reference-status:empty { display: none; }
 .intent-block { margin-top: 15px; }
+.conversation-panel { margin-top: 16px; padding: 12px; border: 1px solid #cfcbbf; background: #f0eee6; }
+.conversation-heading { display: flex; align-items: center; justify-content: space-between; min-height: 24px; margin-bottom: 9px; }
+.conversation-heading > div { display: flex; align-items: center; gap: 8px; }
+.conversation-heading h2 { margin: 0; color: var(--ink); font: 500 14px var(--serif); }
+.conversation-history { display: flex; flex-direction: column; gap: 6px; max-height: 230px; min-height: 40px; overflow-y: auto; margin-bottom: 8px; }
+.conversation-empty { align-self: center; padding: 10px 3px; color: #8a9388; font-size: 9px; line-height: 1.5; }
+.chat-message { padding: 7px 8px; border-left: 2px solid #a7b3a7; background: #e8e9df; }
+.chat-message.user { border-left-color: var(--rust); background: #eee7dc; }
+.chat-message header { display: flex; justify-content: space-between; margin-bottom: 3px; color: #68796f; font-size: 8px; }
+.chat-message p { margin: 0; color: #455655; font-size: 9px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.conversation-form { display: grid; gap: 7px; }
+.conversation-input { min-height: 64px; background: #faf8f2; }
+.conversation-send { min-height: 33px; }
+.conversation-hint { margin-top: 6px; color: #899087; font-size: 8px; line-height: 1.45; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .action-card { margin-top: 16px; padding: 12px; border: 1px solid #cec9bb; background: #eae5d9; }
 .action-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .action-card-top strong, .action-card-top small { display: block; }
