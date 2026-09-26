@@ -1,161 +1,212 @@
-# CURRENT TASK — Thesis Modeling Showcase v0.1
+# CURRENT TASK — Fast Assembly v1: Astra-native Architecture Agent
 
-## Status: Complete
-
-The requested case-study page, GitHub-readable documentation, user-approved image exports, local checks, and handoff record are complete. No later milestone has been started.
+## Status: Ready to execute
 
 ## Objective
 
-Create a detailed Chinese case-study page in AI Architecture Studio that explains how the user's graduation-design concept was developed with Codex GPT-6 Astra, SketchUp, and CAD, and shows selected results in a form suitable for web review.
+Replace the product's restrictive box-modeling path with a **native agentic SketchUp workflow** that behaves much closer to the successful thesis Astra workflow.
 
-## Scope
+The target loop is:
 
-- Use the referenced Codex task and the local project QA record as the evidence source; distinguish verified results from open design checks.
-- Add a responsive `/showcase` route and an entry point from the studio workspace.
-- Add a GitHub-readable case-study document with the same story, metrics, image captions, and limitations.
-- Include only user-requested, web-optimized images derived from the user's own SketchUp/CAD previews. Do not add SKP/DWG source files, taskbook uploads, reference packages, raw design graphs, or local machine paths. Link to the official Jinshan Neighbourhood Center page for attribution; do not copy its images.
-- Preserve accurate status: scheme-level output is not a reviewed construction set; code compliance, structure, accessibility, fire egress, and conflicting area figures need professional review.
-- Keep the existing Alpha workflow intact. Do not add a deployment platform, cloud service, or another product milestone.
+**任务书 + 场地 + 参考案例 + 用户想法 → 网站对话 → Astra/Codex native agent → existing SketchUp MCP / reusable OSS tools → real editable model → screenshot/readback → agent self-check/correction → continue conversation**
 
-## Verification and handoff
-
-- Test the `/showcase` route and its curated assets, run `scripts/check.ps1`, and verify the page over the local app.
-- Update `README.md` and `docs/HANDOFF.md` with evidence and public-asset boundaries.
-- Commit and push the completed task to `origin/main`, confirm the remote SHA, then stop.
-
----
-
-## Previous completed task — Product Alpha v0.2
-
-## Objective
-
-Turn the working Demo v0.1 into a **Chinese, real-input, conversational Alpha**.
-
-The important user loop is now:
-
-**任务书 + 场地 + 参考案例 + 设计想法 → 与 AI 讨论/调整 → 生成方案 → SketchUp 建模 → 继续用自然语言修改同一个模型**
-
-Do not rebuild the connector or restart architecture research.
+This is a fast assembly milestone. Do not build another architecture engine.
 
 ## Before starting
 
-1. Run `git pull --ff-only`.
-2. Read `AGENTS.md` and `docs/COLLABORATION.md`.
-3. Run the existing checks before changing code.
-4. Open the local app and confirm the Simplified-Chinese UI changes currently on `origin/main`.
+1. `git pull --ff-only`
+2. Confirm the working tree is clean.
+3. Read:
+   - `AGENTS.md`
+   - `docs/FAST_ASSEMBLY_V1.md`
+   - `docs/THESIS_MODELING_CASE_STUDY.md`
+   - `docs/OPEN_SOURCE_COMPONENT_MAP.md`
+   - `docs/HANDOFF.md`
+4. Run the current checks once.
 
-## Priority 1 — verify the Chinese product UI
+## Core product decision
 
-The user-facing website must be Simplified Chinese.
+The old default path:
 
-Check all visible states, buttons, toast/status messages, modal copy, preview labels, and artifact labels.
+`Codex/Astra → strict DesignIR → strict BuildPlan → fixed create_mass/create_circulation`
 
-Internal schema/tool names such as `DesignIR`, `BuildPlan`, `DXF`, stable IDs, and MCP tool names may remain English.
+is now **legacy/demo logic**, not the main product architecture.
 
-Do not spend time redesigning the visual style unless Chinese text causes layout problems.
+Do not keep extending that fixed action list.
 
-## Priority 2 — make reference URLs real inputs
+`DesignIR` may remain as project memory and structured context, but it must not force all geometry to rectangles or act as the only way to model.
 
-The current app stores a reference URL but does not actually ingest its content.
+## Priority 1 — reuse before code
 
-Add a small `ReferenceIngestor` boundary that, for ordinary public HTTP/HTTPS pages:
+Do a short implementation-focused reuse pass, not another long research report.
 
-- validates the URL
-- blocks localhost/private-network targets
-- uses a timeout and response-size limit
-- extracts page title and useful visible text
-- stores a concise reference excerpt/metadata in project context or a dedicated reference artifact
-- passes that material to the Codex brain during design preparation
+### Existing connector first
 
-Do not build a crawler platform.
+Inspect the user's already-working `kongxing_sketchup` MCP and actual tool list.
 
-If a page is JS-heavy or cannot be read safely, keep the URL and tell the user to upload screenshots/images instead of pretending the page was analyzed.
+If it already exposes the generic/project-script capability used in the thesis workflow, keep it as the main execution path.
 
-Uploaded reference images should continue to be passed to the Codex brain.
+Do not replace a working connector.
 
-## Priority 3 — add one real Chinese AI conversation box
+### Reuse candidates
 
-Replace the demo feeling of fixed buttons with one simple conversation area.
+Check these only for code/skills that directly save implementation time:
 
-The user should be able to type Chinese natural-language instructions.
+- `Mentat-Uran/sketchup-architect-skill` — architecture reasoning / precedent workflow
+- `bingxijun/archflow-studio` — project state, CAD/output, SketchUp scripting patterns
+- `iamahsanmehmood/saie` — richer SketchUp tool execution if Kongxing lacks a required capability
+- `vbosolution/vbo-sk-agent` — fallback direct Ruby / bridge path
 
-### Before SketchUp build
+Before copying source, verify the current repository license. Preserve required license/NOTICE/attribution.
 
-A message should be able to refine the design intent and regenerate/update the structured design state before the user builds.
+If a candidate does not immediately help this milestone, skip it. Do not integrate code just to increase reuse count.
 
-Examples:
-- “公共街道再宽一点，两个主要体块之间更开放。”
-- “参考案例的屋顶关系可以借鉴，但不要直接复制造型。”
+Document the final reuse choice briefly in `docs/HANDOFF.md`.
 
-### After SketchUp build
+## Priority 2 — add a native AgentRuntime
 
-The same conversation area should send targeted edits to the existing live model through the current BrainAdapter + SketchUpAdapter path.
+Create a separate runtime path for **free-form agentic modeling**.
 
-Do not rebuild the whole model to satisfy an edit.
+The normal web conversation should be able to hand the current project context and user message to a local Codex/Astra agent that retains access to the configured SketchUp MCP/tooling.
 
-Keep the two existing demo edit buttons only as optional examples/shortcuts, not as the main interaction.
+The agent must be allowed to:
 
-## Priority 4 — expand safe model edits slightly
+- reason over the brief/site/reference/user conversation,
+- decide its own sequence of SketchUp operations,
+- use richer existing MCP tools or safe project Ruby scripts when needed,
+- inspect model state / screenshots,
+- perform more than one tool call for one user request,
+- correct its own result before replying when practical.
 
-Current edit support is mostly floor/height/origin.
+Do not force the agent to emit a tiny fixed `BuildPlan` first.
 
-Add only the minimum safe extra operations needed for useful alpha conversations, preferably:
+### Implementation rule
 
-- width/depth change of an existing rectangular mass
-- circulation/public-route width change
+Prefer the shortest working route supported by the local Codex environment.
 
-Use stable IDs and deterministic validation.
+If the Codex CLI can be safely launched with the user's configured MCP servers/tools, wrap that behind a new `NativeAgentRuntime` / equivalent boundary.
 
-Do not add a large generic SketchUp tool surface in this milestone.
+If the CLI cannot provide a reliable tool-enabled session non-interactively, use the smallest recoverable local-session/job handoff that lets the active Codex session perform the tool loop. Do not invent a new MCP protocol.
 
-## Priority 5 — keep the working v0.1 pipeline intact
+Keep the existing deterministic BrainAdapter path only for tests/legacy fallback.
 
-The following must continue to work:
+## Priority 3 — make the web UI use the native agent path
 
+The Chinese conversation panel becomes the primary interaction.
+
+User flow:
+
+1. upload / enter project inputs,
+2. talk with the agent,
+3. click/start an agentic modeling session on a disposable SketchUp copy,
+4. continue giving natural-language design instructions,
+5. receive concise Chinese responses plus updated model screenshot/status.
+
+The normal product path must no longer present “three rectangles + fixed edit buttons” as the main modeling experience.
+
+The old example buttons may be hidden under a legacy/demo section or removed from the primary flow.
+
+## Priority 4 — use project memory, not a geometry cage
+
+Keep structured state only where it helps continuity:
+
+- brief/program requirements
+- site constraints
+- reference principles
+- user-confirmed decisions
+- target areas/metrics
+- stable names/IDs where useful
+- current design summary
+- session history
+
+The agent is free to create richer SketchUp geometry that cannot be represented by the old rectangular object schema.
+
+Do not block valid geometry just because it is not expressible in `SCHEMAS_V0_1.md`.
+
+## Priority 5 — thesis-style benchmark
+
+Use a **local/private benchmark copy** of the thesis workflow. Do not commit private source assets.
+
+The benchmark should use the same style of inputs that made the thesis Astra workflow successful:
+
+- real or sanitized task requirements
+- real/sanitized site context
+- reference precedent principles/images available locally
+- user design intent
+
+From a blank/disposable SketchUp model, prove that the new native-agent path can create something materially richer than the old box demo.
+
+### Minimum evidence
+
+The benchmark result should include, in one agentic session:
+
+- multiple building volumes / groups,
+- at least one non-trivial form beyond an axis-aligned rectangular box (for example sloped/stepped/curved/non-orthogonal geometry),
+- more than one level or vertical relationship,
+- at least one platform/bridge/public-space/site relationship,
+- screenshot/model inspection,
+- at least one agent-initiated correction or user-requested revision against the same model.
+
+Do not hard-code these exact forms into the app. They must come from the agent/tool loop.
+
+The thesis showcase is the quality reference, not a file to overwrite.
+
+## Priority 6 — keep useful existing product pieces
+
+Do not break:
+
+- Chinese web workspace
+- file/reference input
 - project persistence
-- Codex as temporary brain
-- existing Kongxing SketchUp MCP reuse
-- editable SketchUp geometry
-- model readback/state
-- DXF generation
+- existing Kongxing MCP connection
 - viewport capture
-- A3 presentation preview
+- safe disposable-model workflow
+- `/showcase`
+- DXF/presentation outputs where still compatible
 
-AI photorealistic rendering is **not required in v0.2**. Keep the RenderAdapter boundary and current viewport fallback.
+If an old feature depends on the legacy rectangle schema, isolate it instead of forcing the new agent back into that schema.
 
 ## Tests
 
-Add/adjust tests for:
+Keep the existing automated tests passing where they still represent valid product behavior.
 
-- reference URL safety and extraction
-- conversation before build
-- conversation after build
-- new width/depth/route-width edit validation
-- existing v0.1 regression coverage
+Add focused tests for:
 
-Run `scripts/check.ps1`.
+- native runtime/session lifecycle
+- web conversation → native agent request
+- safe disposable-model gating
+- persistence of agent messages/session metadata
+- legacy path remaining isolated
 
-If SketchUp is available, run a real smoke test with at least:
-
-1. one Chinese pre-build design refinement
-2. build into a disposable model
-3. one Chinese post-build natural-language edit against the same model
+Do not write dozens of tests for a geometry ontology we are no longer using.
 
 ## Acceptance criteria
 
-1. All normal user-facing website copy is Simplified Chinese.
-2. Public reference URL content is actually ingested when safe/readable.
-3. Unreadable URLs fail honestly and offer image upload as fallback.
-4. A Chinese conversation box exists.
-5. A pre-build Chinese instruction can update/regenerate the design state.
-6. A post-build Chinese instruction modifies the existing SketchUp model without full regeneration.
-7. At least one additional safe dimension edit beyond height/origin works.
-8. Existing v0.1 DXF, viewport, presentation, project persistence, and MCP integration still pass.
-9. `docs/HANDOFF.md` is updated with exact local evidence.
-10. Completed work is committed **and pushed to `origin/main`**.
+Mark each PASS / PARTIAL / FAIL in `docs/HANDOFF.md`.
+
+1. Normal product UI uses the native agent path rather than the fixed box BuildPlan as its primary modeling route.
+2. The native agent can access the already-configured SketchUp MCP/tooling without a newly invented connector.
+3. One user request may result in multiple agent-chosen SketchUp operations.
+4. The agent can inspect screenshot/model state and continue or correct the same model.
+5. The local benchmark produces geometry materially richer than the old three-box demo.
+6. At least one non-trivial form, vertical relationship, and platform/connection/site relationship are demonstrated.
+7. A follow-up natural-language request modifies the same model rather than rebuilding it from scratch.
+8. Chinese web/project/file/conversation experience still works.
+9. Private thesis assets, API keys, machine paths, and raw SKP/DWG sources are not committed.
+10. Any reused source has a verified compatible license and preserved attribution/NOTICE requirements.
+11. `docs/HANDOFF.md` records exactly what was reused, what is real, what remains legacy, and the local benchmark evidence.
+12. Completed work is committed and pushed to `origin/main`.
+
+## What NOT to do
+
+- Do not add more fixed `create_*` actions just to cover every architecture shape.
+- Do not build a new generic MCP server.
+- Do not build a browser CAD/3D engine.
+- Do not retrain or fine-tune a model.
+- Do not spend the milestone on another competitor report.
+- Do not add auth, payments, deployment, Rhino, Blender, or Revit.
+- Do not claim quality based only on automated mocks; run the real local SketchUp benchmark.
 
 ## Final step
 
-Stop after Product Alpha v0.2 is implemented, tested, handed off, and pushed.
-
-Do not add production model APIs, payments, auth, Rhino/Blender/Revit, or full photorealistic rendering yet.
+Update `docs/HANDOFF.md`, run the relevant checks and real SketchUp benchmark, commit, push to `origin/main`, confirm the remote SHA, and stop.
