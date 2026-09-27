@@ -1,184 +1,203 @@
-# CURRENT TASK — Cost / Quality Router v1
+# CURRENT TASK — Thesis Parity v1: Reference-Rich Multimodal Benchmark
 
-## Status: Complete — Cost / Quality Router v1 delivered; no local Qwen credential was available for a live run.
+## Status: Ready for Codex/local execution
 
 ## Objective
 
-Keep the successful **Architecture Skill + project Ruby + SketchUp QA** environment, but make the model replaceable so product economics do not depend on Astra for every turn.
+Reproduce the information conditions that produced the user's successful direct graduation-design Codex workflow, then compare the **website** under two controlled model settings:
 
-Target product:
+- Premium parity candidate: current Astra-class local Codex route at **low** reasoning.
+- Economy stress candidate: `gpt-6-luna` at **max** reasoning for this benchmark only.
 
-**same project context + same architecture skill + same Kongxing/OSS tool layer + same QA → cheap model by default → premium Astra only when useful**
+Both variants must receive the same real taskbook/site/Jinshan precedent image package, the same Architecture Skill, the same guarded Ruby, the same Kongxing SketchUp tools, and the same user-message sequence.
 
-Read `docs/MODEL_ROUTER_V1.md` before implementation.
+Read `docs/THESIS_PARITY_V1.md` first.
+
+## Important correction from previous benchmarks
+
+The previous model-router benchmark was text-heavy and did **not** reproduce the multimodal precedent evidence that the successful thesis workflow used. Therefore it is not sufficient evidence about reference-rich modeling quality.
+
+Do not judge this milestone until real precedent images are confirmed to reach the model.
 
 ## Before starting
 
 1. `git pull --ff-only`
-2. Confirm clean worktree.
+2. Confirm the worktree is clean.
 3. Read:
    - `AGENTS.md`
-   - `docs/MODEL_ROUTER_V1.md`
+   - `docs/THESIS_PARITY_V1.md`
    - `docs/HANDOFF.md`
    - `docs/DECISIONS.md`
+   - `docs/THESIS_MODELING_CASE_STUDY.md`
    - `docs/OPEN_SOURCE_COMPONENT_MAP.md`
-4. Run current tests once.
+4. Run the current automated tests once.
+5. Validate the new multimodal code path locally before spending quota on the full benchmark.
 
-## Priority 1 — separate model provider from architecture capability
+## Priority 1 — validate the multimodal migration already pushed
 
-Do not fork the current Skill/Ruby/MCP logic per provider.
+The repository now includes project-reference image discovery and provider-side image attachment.
 
-Introduce the smallest reusable model runtime/provider boundary so the same agent loop can use different backends.
+Validate on Windows/local Codex:
 
-Keep:
+- `inputs/reference/` images are discovered before site/brief images,
+- generated `outputs/` images are never fed back as precedent,
+- unsupported/oversized images are skipped,
+- Codex App Server accepts the emitted `local_image` turn inputs,
+- uploaded reference images are actually visible to both tested Codex models,
+- no private path is exposed in user-facing transcript/output.
 
-- architecture skill context
-- project memory
-- Kongxing MCP
-- guarded project Ruby
-- screenshots/readback
-- same-model session/revision
-- Chinese UI
+Add/fix focused tests as needed. Do not begin the expensive real benchmark if image delivery is not proven.
 
-Provider-specific code should handle only model API/session/tool-call differences.
+## Priority 2 — reconstruct the successful historical workflow locally
 
-## Priority 2 — reuse provider plumbing
+The user will make the successful graduation-design Codex conversation/history available locally.
 
-Do a short implementation-focused check of `BerriAI/litellm`.
+Use it to reconstruct:
 
-Its non-enterprise code is MIT-licensed and already supports multiple providers including OpenAI, DashScope/Qwen and Z.AI/Zhipu-style backends.
+- which taskbook/site/reference materials were present,
+- the actual order of user requests,
+- which Jinshan images/drawings mattered,
+- which SketchUp/CAD actions the successful direct workflow used,
+- which iterations materially improved the result.
 
-Preferred order:
+Do not publish private transcript content or hidden reasoning. Record only a sanitized execution trace / benchmark manifest. Keep private transcripts and source assets under ignored local runtime.
 
-1. use LiteLLM as a dependency/wrapper if it cleanly preserves multimodal + tool calling,
-2. otherwise use the providers' OpenAI-compatible APIs behind one very small adapter,
-3. do not build a large custom provider framework.
+## Priority 3 — build one identical private benchmark package
 
-Do not copy `enterprise/` code.
+Use local/private files only; do not commit them.
 
-## Priority 3 — Economy model: GPT-6 Luna first
+Required:
 
-Add a real Economy path using `gpt-6-luna` with the same architecture Skill + tools + Ruby + QA as Astra.
+- current graduation-design taskbook,
+- actual site CAD/DXF/coordinate material used in the successful workflow,
+- ECADI Jinshan Neighbourhood Center URL:
+  `https://www.ecadi.com/index.php?m=index&a=news&id=175`
+- selected Jinshan effect images and technical drawings,
+- the user's own design intent,
+- sanitized/reconstructed prompt sequence from the successful historical run.
 
-Do not weaken Luna by giving it a smaller tool set or worse context.
+Stage reference images under the benchmark project's `inputs/reference/` so the website sends them as first-class multimodal inputs.
 
-Use the lowest reasoning setting that still supports the required agent/tool loop for the chosen API/runtime.
+The historical successful final model screenshots/CAD are **evaluation references only**, not model input, unless the historical transcript proves they were also original inputs.
 
-Track:
+## Priority 4 — use real taskbook constraints
 
-- model id
-- reasoning setting
-- input/output tokens if available
-- tool calls
-- retries
-- latency
-- screenshot/model QA
+At minimum, track/check the taskbook values documented in `THESIS_PARITY_V1.md`:
 
-## Priority 4 — one Chinese low-cost candidate
+- site area 11,490.510 m² in taskbook,
+- FAR < 1.82 / table 1.82,
+- height <= 24 m,
+- total area 28,400 m²,
+- above-grade counted area about 20,900 m²,
+- footprint < 5,520 m²,
+- density < 48.05%,
+- green ratio 20%,
+- culture 8,000 m²,
+- library 4,000 m²,
+- sports 8,000 m²,
+- reception 900 m²,
+- underground parking / partial civil defense 7,500 m².
 
-Add **one**, not many, Chinese candidate.
+If the local site CAD conflicts with the taskbook, record the conflict and model behavior. Do not silently choose a number.
 
-Preferred first choices:
+## Priority 5 — controlled model comparison
 
-- Qwen3-VL Flash/Plus family where the selected region/provider supports multimodal input and function calling, or
-- GLM family where the selected provider supports reliable tool calling and image input.
+### Variant A — Premium parity
 
-Use environment/local secrets only. Never commit keys.
+Use the actual current local Codex model ID that corresponds to the successful Astra/Extra-class route and record it exactly.
 
-If no usable provider credential exists locally, complete the provider adapter/config path and record the missing live credential as the only blocker; do not fake benchmark results.
+Expected current repo route: `gpt-6-astra`.
 
-## Priority 5 — controlled quality/cost benchmark
+Reasoning effort: **low**.
 
-Use the same sanitized architecture benchmark and the same SketchUp tool environment.
+### Variant B — Luna stress
 
-Compare at least:
+Model: `gpt-6-luna`.
 
-- **Premium reference:** Astra Low + Skill + Ruby
-- **Economy OpenAI:** Luna + same Skill + Ruby
-- **Economy China:** one Qwen/GLM candidate + same Skill + Ruby, if a real credential is available
+Reasoning effort: **max** for this benchmark only.
 
-Use matched viewpoints and objective QA.
+Use the newly supported environment override rather than changing the product's normal defaults permanently.
 
-Compare:
+### Common environment
 
-1. program/adjacency coherence
-2. plan/section/vertical relation
-3. site/entrance/public-space logic
-4. facade openings/envelope detail
-5. tool/Ruby success
-6. screenshot self-check/correction
-7. same-model follow-up reliability
-8. semantic IDs / audit defects
-9. token cost
-10. wall-clock latency
+Both variants must use:
 
-Do not judge only by entity count.
+- identical taskbook/site/reference files,
+- identical image filenames/order,
+- identical user-message sequence,
+- identical Architecture Skill revision,
+- identical Kongxing MCP tools,
+- identical guarded project Ruby path,
+- separate blank disposable SketchUp copies,
+- matched review cameras/views.
 
-## Priority 6 — simple routing, not a new AI router
+Do not let one route receive better references, more tools, a different prompt sequence, or hidden manual fixes.
 
-Implement a deterministic v1 policy only after the benchmark plumbing works:
+## Priority 6 — compare to the historical direct-Codex result
 
-- default → Economy
-- user selects “精修” → Premium for that turn
-- Economy QA fails twice / tool loop stalls → allow one Premium rescue turn
-- return to Economy for routine follow-ups when possible
+The real quality bar is no longer “better than three boxes”.
 
-Do not silently use Astra every turn.
+Compare the website outputs against the successful historical thesis result on:
 
-Expose current mode/model in local status and session state.
+1. taskbook compliance,
+2. Jinshan precedent understanding/adaptation,
+3. site/entry/road relationships,
+4. clustered massing and silhouette,
+5. plan/section/level logic,
+6. openings/envelope/platform/bridge/stair detail,
+7. semantic/editable model structure,
+8. screenshot self-check and correction,
+9. targeted same-model revisions,
+10. CAD/drawing continuity where available.
 
-## Priority 7 — continue capability migration only when it directly improves quality
+Record strengths and failures honestly; do not invent a numeric architecture score unless the rubric is explicitly defined in the benchmark notes.
 
-Do not stop reusing external work.
+## Priority 7 — CAD secondary parity check
 
-If the benchmark exposes a tool gap, prefer adopting the smallest useful capability from existing OSS:
+The historical direct workflow also produced strong CAD output.
 
-- SAIE: openings, slabs/roofs, snapshots, BIM metadata, reports, DXF parse, batch operations
-- ArchFlow Studio: state/CAD/output patterns
-- VBO SkAgent: fallback Ruby/control path
+After the model comparison, test whether the current website can derive useful CAD/drawing output from the rich model without routing back through the legacy rectangle-only DesignIR.
 
-Do not integrate everything proactively. Only move capability that fixes an observed benchmark gap.
+If current CAD export cannot represent the agentic model, record that as a separate capability gap. Do not downgrade the 3D model to fit the old schema.
 
-## Cost target
+## Tests / local verification
 
-Record real usage rather than guessing.
+At minimum:
 
-We want two sellable tiers:
-
-- **Economy / Standard:** cheap enough for repeated student iterations.
-- **Premium / Refine:** higher-cost Astra path for difficult concept/refinement turns.
-
-The long-term goal is that most turns run on the cheap model while expensive-model usage is a minority of turns.
+- run `scripts/check.ps1`,
+- test `app/reference_assets.py`,
+- prove Codex App Server accepts `local_image`,
+- verify the same image set reaches Astra Low and Luna Max,
+- run one cheap smoke turn before the full modeling run,
+- run the real SketchUp benchmark,
+- inspect matched screenshots manually,
+- preserve benchmark metadata under ignored runtime and safe summary/evidence in `docs/HANDOFF.md`.
 
 ## Acceptance criteria
 
-Mark PASS / PARTIAL / FAIL in `docs/HANDOFF.md`.
-
-1. Architecture Skill/Ruby/MCP/QA are model-independent rather than Astra-specific.
-2. A reusable provider/runtime boundary exists without duplicating the architecture loop.
-3. Existing Astra Low path still works.
-4. GPT-6 Luna runs the same benchmark with the same Skill + Ruby + SketchUp tools.
-5. One Chinese provider path exists; if credentials are available, it is live-benchmarked honestly.
-6. Model/mode/token/latency/tool-call metadata are persisted for benchmark runs where available.
-7. Matched screenshots and QA compare quality, not just completion.
-8. Economy vs Premium routing is deterministic and visible.
-9. Premium is not silently used for every turn.
-10. No new MCP server, CAD engine, or geometry ontology is built.
-11. Any reused code/dependency has compatible licensing and attribution.
-12. Existing Chinese workspace, disposable-model gate, session continuity and project safety remain working.
-13. Tests pass; real SketchUp benchmark evidence is recorded.
-14. Work is committed and pushed to `origin/main`.
+1. Real uploaded reference images reach the local Codex model — PASS/FAIL.
+2. Generated output screenshots are not reused as precedent input — PASS/FAIL.
+3. Historical successful prompt/input sequence is reconstructed sufficiently for a fair product test — PASS/PARTIAL/FAIL.
+4. Astra-class Low website run completes with the full reference-rich package — PASS/FAIL.
+5. Luna Max website run completes with the exact same package — PASS/FAIL.
+6. Matched screenshots compare both against the historical direct-Codex result — PASS/FAIL.
+7. Premium quality is judged against the thesis result, not the old coarse benchmark — PASS/FAIL.
+8. Luna result is assessed for commercial usability, not merely tool-call completion — PASS/FAIL.
+9. Same-model natural-language revision is tested for both variants — PASS/FAIL.
+10. Taskbook/site conflicts are disclosed rather than silently reconciled — PASS/FAIL.
+11. Private taskbook/site/reference packages/transcripts/source SKP/DWG stay out of Git — PASS/FAIL.
+12. Tests pass and completed work is committed/pushed to `origin/main` — PASS/FAIL.
 
 ## What NOT to do
 
-- Do not improve Luna by secretly raising Astra usage.
-- Do not compare different tool sets or different briefs and call it a model comparison.
-- Do not add five providers at once.
-- Do not build a learned model router.
-- Do not rebuild LiteLLM/provider SDK functionality unless integration truly requires it.
-- Do not add auth/payments/cloud deployment in this milestone.
-- Do not commit API keys or private thesis assets.
+- Do not run another synthetic text-only benchmark and call it thesis parity.
+- Do not feed the successful final thesis model screenshots into the model unless they were historical original inputs.
+- Do not change both model and reference package at the same time.
+- Do not improve Luna by silently invoking Astra.
+- Do not replace the current Architecture Skill/Ruby/MCP stack during the comparison.
+- Do not force complex agentic geometry back into legacy DesignIR rectangles.
+- Do not publish private thesis assets, transcripts, credentials, or machine paths.
 
 ## Final step
 
-Run tests and real local benchmarks, update `docs/HANDOFF.md`, commit, push to `origin/main`, verify the remote SHA, then stop.
+Update `docs/HANDOFF.md` with the real multimodal delivery evidence, exact model IDs/efforts, reference-image count/hash/filenames (safe names only), matched screenshots, taskbook compliance findings, CAD findings, and remaining gaps. Commit, push to `origin/main`, verify remote SHA, then stop for ChatGPT review.
