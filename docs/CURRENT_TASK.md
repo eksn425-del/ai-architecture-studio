@@ -1,212 +1,229 @@
-# CURRENT TASK — Fast Assembly v1: Astra-native Architecture Agent
+# CURRENT TASK — Quality Lift v1: Astra Low + Architecture Skill + Ruby
 
 ## Status: Ready to execute
 
 ## Objective
 
-Replace the product's restrictive box-modeling path with a **native agentic SketchUp workflow** that behaves much closer to the successful thesis Astra workflow.
+Improve modeling quality **without increasing model reasoning effort** and without rebuilding another architecture engine.
 
-The target loop is:
+The last Fast Assembly v1 milestone proved that the native agent path works, but the output is still only a coarse architectural model compared with the user's successful thesis workflow.
 
-**任务书 + 场地 + 参考案例 + 用户想法 → 网站对话 → Astra/Codex native agent → existing SketchUp MCP / reusable OSS tools → real editable model → screenshot/readback → agent self-check/correction → continue conversation**
+The working hypothesis for this milestone is:
 
-This is a fast assembly milestone. Do not build another architecture engine.
+**the main quality gap comes from missing architecture workflow guidance and insufficient free-form SketchUp scripting capability, not from needing a higher reasoning setting.**
+
+Target stack:
+
+**Chinese Web Workspace → current local Astra model at LOW reasoning → thin architecture skill → existing Kongxing MCP + safe task-specific Ruby/project scripts → SketchUp → screenshot/model readback → self-check/revision**
+
+Do not solve this by switching to high/xhigh/max reasoning.
 
 ## Before starting
 
-1. `git pull --ff-only`
-2. Confirm the working tree is clean.
-3. Read:
+1. Run `git pull --ff-only` and confirm the working tree is clean.
+2. Read:
    - `AGENTS.md`
    - `docs/FAST_ASSEMBLY_V1.md`
    - `docs/THESIS_MODELING_CASE_STUDY.md`
-   - `docs/OPEN_SOURCE_COMPONENT_MAP.md`
    - `docs/HANDOFF.md`
-4. Run the current checks once.
+   - `docs/OPEN_SOURCE_COMPONENT_MAP.md`
+3. Run the current automated checks once.
+4. Keep the current local Astra model identifier unless the local Codex installation itself requires a different valid identifier.
 
-## Core product decision
+## Priority 1 — lower reasoning effort
 
-The old default path:
+The current native-agent runtime writes `model_reasoning_effort = "high"`.
 
-`Codex/Astra → strict DesignIR → strict BuildPlan → fixed create_mass/create_circulation`
+Change the normal product default to:
 
-is now **legacy/demo logic**, not the main product architecture.
+`model_reasoning_effort = "low"`
 
-Do not keep extending that fixed action list.
+Requirements:
 
-`DesignIR` may remain as project memory and structured context, but it must not force all geometry to rectangles or act as the only way to model.
+- do not use `high`, `xhigh`, `max`, or another higher setting as the quality fix in this milestone,
+- allow an environment/config override only for debugging/experiments,
+- expose the active model identifier + reasoning effort in local status/HANDOFF so we know exactly what was tested,
+- keep credentials local; do not add an API key.
 
-## Priority 1 — reuse before code
+The user's successful thesis workflow is evidence that a low reasoning setting can already produce substantially richer results when the tool/workflow environment is good.
 
-Do a short implementation-focused reuse pass, not another long research report.
+## Priority 2 — reuse the MIT SketchUp Architect Skill
 
-### Existing connector first
+Use `Mentat-Uran/sketchup-architect-skill` as the primary architecture-workflow source.
 
-Inspect the user's already-working `kongxing_sketchup` MCP and actual tool list.
+Do not rewrite its ideas from memory if direct reuse is faster.
 
-If it already exposes the generic/project-script capability used in the thesis workflow, keep it as the main execution path.
+Choose the shortest maintainable reuse mode:
 
-Do not replace a working connector.
+- external local dependency/cache, or
+- vendor only the files actually needed, preserving the MIT license and attribution.
 
-### Reuse candidates
+At minimum, make the native agent receive the useful parts of the skill covering:
 
-Check these only for code/skills that directly save implementation time:
+- brief / program interpretation,
+- precedent principles rather than form copying,
+- area / adjacency / circulation / site / level reasoning,
+- building as spaces + section + envelope + openings, not decorated boxes,
+- named/semantic model elements for later revision,
+- inspectable incremental modeling,
+- multi-view/model QA and revision,
+- project continuity across turns.
 
-- `Mentat-Uran/sketchup-architect-skill` — architecture reasoning / precedent workflow
-- `bingxijun/archflow-studio` — project state, CAD/output, SketchUp scripting patterns
-- `iamahsanmehmood/saie` — richer SketchUp tool execution if Kongxing lacks a required capability
-- `vbosolution/vbo-sk-agent` — fallback direct Ruby / bridge path
+Do **not** dump the entire repository into every prompt. Build a thin, relevant skill context.
 
-Before copying source, verify the current repository license. Preserve required license/NOTICE/attribution.
+The normal user should not see or manage the skill manually.
 
-If a candidate does not immediately help this milestone, skip it. Do not integrate code just to increase reuse count.
+## Priority 3 — give the agent safe task-specific Ruby capability
 
-Document the final reuse choice briefly in `docs/HANDOFF.md`.
+The architecture skill explicitly recommends task-specific Ruby for precise/repetitive SketchUp geometry.
 
-## Priority 2 — add a native AgentRuntime
+The current agent should be able to create richer geometry without us adding dozens of fixed `create_*` tools.
 
-Create a separate runtime path for **free-form agentic modeling**.
+Reuse the existing Kongxing connector first.
 
-The normal web conversation should be able to hand the current project context and user message to a local Codex/Astra agent that retains access to the configured SketchUp MCP/tooling.
+If its existing project-script/eval capability can execute a project-local Ruby file safely, expose a small host-side helper that lets the agent:
 
-The agent must be allowed to:
+1. provide Ruby source for the current project,
+2. write it only under an ignored project-local runtime script directory,
+3. execute it only against the verified disposable/current project SketchUp model,
+4. capture tool result + model readback + screenshot,
+5. revise the same script/model when needed.
 
-- reason over the brief/site/reference/user conversation,
-- decide its own sequence of SketchUp operations,
-- use richer existing MCP tools or safe project Ruby scripts when needed,
-- inspect model state / screenshots,
-- perform more than one tool call for one user request,
-- correct its own result before replying when practical.
+This helper is glue around the existing connector, **not a new MCP server**.
 
-Do not force the agent to emit a tiny fixed `BuildPlan` first.
+Safety:
 
-### Implementation rule
+- never allow arbitrary filesystem targets,
+- never modify a source thesis model,
+- keep scripts/runtime ignored,
+- reject paths outside the active project runtime,
+- preserve the active-model gate,
+- keep destructive reset/delete operations explicit and scoped.
 
-Prefer the shortest working route supported by the local Codex environment.
+If Kongxing genuinely cannot support this without rebuilding infrastructure, inspect SAIE's MIT `execute_ruby`/advanced tool path or VBO SkAgent and adopt the smallest compatible existing implementation. Do not build a generic Ruby bridge from scratch.
 
-If the Codex CLI can be safely launched with the user's configured MCP servers/tools, wrap that behind a new `NativeAgentRuntime` / equivalent boundary.
+## Priority 4 — improve the agent loop, not the action vocabulary
 
-If the CLI cannot provide a reliable tool-enabled session non-interactively, use the smallest recoverable local-session/job handoff that lets the active Codex session perform the tool loop. Do not invent a new MCP protocol.
+One architecture request may require several steps:
 
-Keep the existing deterministic BrainAdapter path only for tests/legacy fallback.
+- understand program/site/reference,
+- decide spatial organization,
+- generate/update Ruby or use existing MCP tools,
+- execute,
+- inspect model state,
+- capture useful views,
+- critique the result against the brief/reference principles,
+- correct geometry,
+- reply only after the result is materially coherent.
 
-## Priority 3 — make the web UI use the native agent path
+Do not expand the legacy rectangular DesignIR/BuildPlan action list.
 
-The Chinese conversation panel becomes the primary interaction.
+DesignIR remains optional project memory only.
 
-User flow:
+## Priority 5 — A/B quality benchmark at LOW reasoning
 
-1. upload / enter project inputs,
-2. talk with the agent,
-3. click/start an agentic modeling session on a disposable SketchUp copy,
-4. continue giving natural-language design instructions,
-5. receive concise Chinese responses plus updated model screenshot/status.
+Run a controlled local benchmark using the **same model + same low reasoning effort + same input** so the effect of skill/tooling is visible.
 
-The normal product path must no longer present “three rectangles + fixed edit buttons” as the main modeling experience.
+Use a sanitized thesis-style brief/site/reference package or an equivalent private local benchmark. Do not commit private source files.
 
-The old example buttons may be hidden under a legacy/demo section or removed from the primary flow.
+### Baseline A
 
-## Priority 4 — use project memory, not a geometry cage
+- current native-agent workflow,
+- LOW reasoning,
+- no new architecture skill injection,
+- current MCP tools only.
 
-Keep structured state only where it helps continuity:
+### Variant B
 
-- brief/program requirements
-- site constraints
-- reference principles
-- user-confirmed decisions
-- target areas/metrics
-- stable names/IDs where useful
-- current design summary
-- session history
+- same current Astra model,
+- same LOW reasoning,
+- thin SketchUp Architect Skill context,
+- safe task-specific Ruby/project-script capability,
+- same inputs.
 
-The agent is free to create richer SketchUp geometry that cannot be represented by the old rectangular object schema.
+Capture comparable viewpoints for both.
 
-Do not block valid geometry just because it is not expressible in `SCHEMAS_V0_1.md`.
+The purpose is to answer:
 
-## Priority 5 — thesis-style benchmark
+**Does architecture skill + scripting materially improve output quality at the same low reasoning level?**
 
-Use a **local/private benchmark copy** of the thesis workflow. Do not commit private source assets.
+Do not compare low vs high in this milestone.
 
-The benchmark should use the same style of inputs that made the thesis Astra workflow successful:
+## Quality acceptance — no more “it is a building now” bar
 
-- real or sanitized task requirements
-- real/sanitized site context
-- reference precedent principles/images available locally
-- user design intent
+Variant B must be visibly beyond the previous coarse pavilion benchmark.
 
-From a blank/disposable SketchUp model, prove that the new native-agent path can create something materially richer than the old box demo.
+For the benchmark, aim to demonstrate several of the following without hard-coding the exact solution:
 
-### Minimum evidence
+- program-driven multiple spaces/volumes rather than generic wings,
+- meaningful plan/section/level relationships,
+- non-trivial roof/envelope/stepped/curved/non-orthogonal geometry where appropriate,
+- real openings / facade rhythm rather than only solid masses,
+- circulation or vertical circulation that relates to levels,
+- public-space/site/entry relationships,
+- platforms/bridges/courtyards/terraces where justified,
+- semantic groups/components that can be revised locally,
+- multi-view inspection and at least one agent-initiated correction.
 
-The benchmark result should include, in one agentic session:
+The reference target is the *quality logic* of the thesis Astra workflow, not literal copying of the thesis form.
 
-- multiple building volumes / groups,
-- at least one non-trivial form beyond an axis-aligned rectangular box (for example sloped/stepped/curved/non-orthogonal geometry),
-- more than one level or vertical relationship,
-- at least one platform/bridge/public-space/site relationship,
-- screenshot/model inspection,
-- at least one agent-initiated correction or user-requested revision against the same model.
-
-Do not hard-code these exact forms into the app. They must come from the agent/tool loop.
-
-The thesis showcase is the quality reference, not a file to overwrite.
-
-## Priority 6 — keep useful existing product pieces
+## Priority 6 — keep existing Fast Assembly v1 product pieces
 
 Do not break:
 
-- Chinese web workspace
-- file/reference input
-- project persistence
-- existing Kongxing MCP connection
-- viewport capture
-- safe disposable-model workflow
-- `/showcase`
-- DXF/presentation outputs where still compatible
-
-If an old feature depends on the legacy rectangle schema, isolate it instead of forcing the new agent back into that schema.
+- Chinese workspace,
+- native agent session continuity,
+- project/file/reference input,
+- existing Kongxing MCP reuse,
+- active disposable-model safety gate,
+- screenshot/model readback,
+- same-model natural-language revision,
+- `/showcase`,
+- legacy deterministic path as isolated fallback/tests.
 
 ## Tests
 
-Keep the existing automated tests passing where they still represent valid product behavior.
+Keep existing tests passing and add only focused tests for:
 
-Add focused tests for:
+- default reasoning effort is low,
+- optional safe config override,
+- architecture skill loader/context construction,
+- project-local Ruby script path restrictions,
+- active-model gating for script execution,
+- same-model script revision lifecycle,
+- baseline/variant benchmark metadata persistence.
 
-- native runtime/session lifecycle
-- web conversation → native agent request
-- safe disposable-model gating
-- persistence of agent messages/session metadata
-- legacy path remaining isolated
-
-Do not write dozens of tests for a geometry ontology we are no longer using.
+Do not create a large new geometry ontology or dozens of fixed modeling tools.
 
 ## Acceptance criteria
 
-Mark each PASS / PARTIAL / FAIL in `docs/HANDOFF.md`.
+Mark PASS / PARTIAL / FAIL in `docs/HANDOFF.md`.
 
-1. Normal product UI uses the native agent path rather than the fixed box BuildPlan as its primary modeling route.
-2. The native agent can access the already-configured SketchUp MCP/tooling without a newly invented connector.
-3. One user request may result in multiple agent-chosen SketchUp operations.
-4. The agent can inspect screenshot/model state and continue or correct the same model.
-5. The local benchmark produces geometry materially richer than the old three-box demo.
-6. At least one non-trivial form, vertical relationship, and platform/connection/site relationship are demonstrated.
-7. A follow-up natural-language request modifies the same model rather than rebuilding it from scratch.
-8. Chinese web/project/file/conversation experience still works.
-9. Private thesis assets, API keys, machine paths, and raw SKP/DWG sources are not committed.
-10. Any reused source has a verified compatible license and preserved attribution/NOTICE requirements.
-11. `docs/HANDOFF.md` records exactly what was reused, what is real, what remains legacy, and the local benchmark evidence.
-12. Completed work is committed and pushed to `origin/main`.
+1. Native product default uses the current Astra model at **low** reasoning effort.
+2. Active model + reasoning setting are recorded in local status/HANDOFF.
+3. MIT SketchUp Architect Skill is reused directly or selectively with correct license/attribution.
+4. The native agent receives a thin architecture skill context rather than a giant generic prompt dump.
+5. The agent can use safe task-specific Ruby/project scripts through an existing connector/reused OSS path.
+6. No new generic MCP/SketchUp bridge is built.
+7. A/B benchmark uses the same model, same low reasoning, same input; only skill/tool environment changes.
+8. Variant B is visibly and architecturally richer than baseline A and the prior coarse Fast Assembly benchmark.
+9. Variant B performs model/screenshot inspection and at least one correction before completion.
+10. Follow-up natural-language revision changes the same model without full rebuild.
+11. Existing Chinese workspace/session/project safety features still work.
+12. Private thesis assets, credentials, machine paths, raw SKP/DWG and runtime Ruby scripts are not committed.
+13. `docs/HANDOFF.md` contains the A/B setup, screenshots/evidence, reused upstream source/license, exact local model/reasoning setting, and remaining quality gaps.
+14. Completed work is committed and pushed to `origin/main`.
 
 ## What NOT to do
 
-- Do not add more fixed `create_*` actions just to cover every architecture shape.
-- Do not build a new generic MCP server.
-- Do not build a browser CAD/3D engine.
-- Do not retrain or fine-tune a model.
-- Do not spend the milestone on another competitor report.
-- Do not add auth, payments, deployment, Rhino, Blender, or Revit.
-- Do not claim quality based only on automated mocks; run the real local SketchUp benchmark.
+- Do not raise reasoning effort to solve quality.
+- Do not add another long competitor report.
+- Do not implement dozens of bespoke `create_*` geometry tools.
+- Do not build another MCP server.
+- Do not retrain/fine-tune a model.
+- Do not replace SketchUp with a browser modeler.
+- Do not add auth/payments/cloud deployment/Rhino/Blender/Revit.
 
 ## Final step
 
-Update `docs/HANDOFF.md`, run the relevant checks and real SketchUp benchmark, commit, push to `origin/main`, confirm the remote SHA, and stop.
+Run checks and the real local A/B SketchUp benchmark, update `docs/HANDOFF.md`, commit, push to `origin/main`, verify the remote SHA, and stop.
