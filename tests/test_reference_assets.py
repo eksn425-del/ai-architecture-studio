@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from app.reference_assets import (
-    MAX_REFERENCE_IMAGE_BYTES,
     discover_project_reference_images,
     image_data_url,
     reference_image_label,
@@ -31,11 +30,9 @@ def test_reference_image_discovery_skips_unsupported_and_oversized(tmp_path: Pat
     project = tmp_path / "project"
     valid = _write(project / "inputs" / "reference" / "valid.jpg")
     _write(project / "inputs" / "reference" / "unsupported.bmp")
-    oversized = project / "inputs" / "reference" / "too-large.png"
-    oversized.parent.mkdir(parents=True, exist_ok=True)
-    oversized.write_bytes(b"x" * (MAX_REFERENCE_IMAGE_BYTES + 1))
+    _write(project / "inputs" / "reference" / "too-large.png", b"x" * 11)
 
-    assert discover_project_reference_images(project) == [valid.resolve()]
+    assert discover_project_reference_images(project, max_bytes=10) == [valid.resolve()]
 
 
 def test_reference_image_data_url_and_label(tmp_path: Path) -> None:
