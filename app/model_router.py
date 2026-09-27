@@ -10,6 +10,7 @@ from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 
 
 RoutingTier = Literal["economy", "premium"]
+_ALLOWED_REASONING = {"low", "medium", "high", "xhigh", "max"}
 
 
 @dataclass(frozen=True)
@@ -22,6 +23,14 @@ class ModelRoute:
 
     def as_dict(self) -> dict[str, str]:
         return asdict(self)
+
+
+def _reasoning_effort(env_name: str, default: str) -> str:
+    value = os.environ.get(env_name, default).strip().lower()
+    if value not in _ALLOWED_REASONING:
+        allowed = ", ".join(sorted(_ALLOWED_REASONING))
+        raise ValueError(f"{env_name} must be one of: {allowed}.")
+    return value
 
 
 class DeterministicModelRouter:
@@ -41,7 +50,10 @@ class DeterministicModelRouter:
             economy_model = os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-luna")
             if "astra" in economy_model.casefold():
                 raise ValueError("Economy cannot use an Astra model; select Premium explicitly for GPT-6 Astra.")
-            self.economy_route = ModelRoute("economy", "codex-app-server", economy_model, "low", "codex-managed (not exposed)")
+            economy_effort = _reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "low")
+            self.economy_route = ModelRoute(
+                "economy", "codex-app-server", economy_model, economy_effort, "codex-managed (not exposed)",
+            )
         else:
             self.economy_route = ModelRoute(
                 "economy", "litellm", self.china_runtime.model, "provider-default", self.china_runtime.region,
@@ -49,7 +61,10 @@ class DeterministicModelRouter:
         premium_model = os.environ.get("ARCH_STUDIO_PREMIUM_MODEL", "gpt-6-astra")
         if premium_model != "gpt-6-astra":
             raise ValueError("Premium v1 is fixed to GPT-6 Astra; economy configuration remains provider-independent.")
-        self.premium_route = ModelRoute("premium", "codex-app-server", premium_model, "low", "codex-managed (not exposed)")
+        premium_effort = _reasoning_effort("ARCH_STUDIO_PREMIUM_REASONING_EFFORT", "low")
+        self.premium_route = ModelRoute(
+            "premium", "codex-app-server", premium_model, premium_effort, "codex-managed (not exposed)",
+        )
         self.providers = {
             "codex-app-server": codex_runtime,
             "litellm": self.china_runtime,
