@@ -10,6 +10,7 @@ from typing import Any
 
 from .agent_tools import AgentToolSurface
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
+from .reference_assets import discover_project_reference_images, image_data_url, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 
 
@@ -77,9 +78,18 @@ class LiteLLMRuntime:
             raise NativeAgentUnavailable(str(error)) from error
 
         selected_model = model or self.model
+        prompt_text = prompt.rstrip() + (("\n\n" + architecture_skill_context.strip()) if architecture_skill_context else "")
+        reference_images = discover_project_reference_images(project_dir)
+        if reference_images:
+            prompt_text += "\n\n" + reference_image_label(reference_images)
+            user_content: str | list[dict[str, Any]] = [{"type": "text", "text": prompt_text}]
+            for image_path in reference_images:
+                user_content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
+        else:
+            user_content = prompt_text
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": developer_instructions},
-            {"role": "user", "content": prompt.rstrip() + (("\n\n" + architecture_skill_context.strip()) if architecture_skill_context else "")},
+            {"role": "user", "content": user_content},
         ]
         tools = [_to_litellm_tool(tool) for tool in tool_context.dynamic_tools] if mcp_enabled else []
         started = time.monotonic()
