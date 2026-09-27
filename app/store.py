@@ -10,7 +10,7 @@ from typing import TypeVar
 
 from pydantic import BaseModel
 
-from .models import BuildPlan, DesignIR, ModelState, OutputManifest, ProjectContext
+from .models import AgentSession, BuildPlan, DesignIR, ModelState, OutputManifest, ProjectContext
 
 
 T = TypeVar("T", bound=BaseModel)
@@ -20,6 +20,7 @@ STATE_FILES: dict[str, type[BaseModel]] = {
     "design_ir.json": DesignIR,
     "build_plan.json": BuildPlan,
     "model_state.json": ModelState,
+    "agent_session.json": AgentSession,
     "output_manifest.json": OutputManifest,
 }
 
@@ -72,6 +73,7 @@ class ProjectStore:
         context.project_id = project_id
         self.save(context, context_path)
         self.save(ModelState(project_id=project_id), directory / "state" / "model_state.json")
+        self.save(AgentSession(project_id=project_id), directory / "state" / "agent_session.json")
         self.save(OutputManifest(project_id=project_id), directory / "state" / "output_manifest.json")
         return context
 
@@ -85,6 +87,7 @@ class ProjectStore:
         directory = self.ensure_layout(project_id)
         self.save(context, directory / "state" / "project_context.json")
         self.save(ModelState(project_id=project_id), directory / "state" / "model_state.json")
+        self.save(AgentSession(project_id=project_id), directory / "state" / "agent_session.json")
         self.save(OutputManifest(project_id=project_id), directory / "state" / "output_manifest.json")
         return context
 
@@ -112,6 +115,8 @@ class ProjectStore:
             return self.load(model_type, path)
         if model_type is ModelState:
             value = ModelState(project_id=project_id)
+        elif model_type is AgentSession:
+            value = AgentSession(project_id=project_id)
         elif model_type is OutputManifest:
             value = OutputManifest(project_id=project_id)
         else:
@@ -137,6 +142,7 @@ class ProjectStore:
             "design_ir": self.load_state(project_id, "design_ir.json", DesignIR) if (self.project_dir(project_id) / "state/design_ir.json").exists() else None,
             "build_plan": self.load_state(project_id, "build_plan.json", BuildPlan) if (self.project_dir(project_id) / "state/build_plan.json").exists() else None,
             "model_state": self.load_state(project_id, "model_state.json", ModelState),
+            "agent_session": self.load_state(project_id, "agent_session.json", AgentSession),
             "output_manifest": self.load_state(project_id, "output_manifest.json", OutputManifest),
         }
 

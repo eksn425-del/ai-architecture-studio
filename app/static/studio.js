@@ -1,10 +1,11 @@
-const state = { projectId: null, project: null, tab: "design", busy: false, toastTimer: null };
+const state = { projectId: null, project: null, tab: "design", busy: false, toastTimer: null, nativeAgentAvailable: false };
 const $ = (id) => document.getElementById(id);
 
 const modelStatusLabels = {
   ready: "方案研究",
   building: "正在建模",
   built: "模型已建立",
+  agentic: "Agent 自由建模",
   edited: "已完成修改",
   partial: "部分完成",
   unavailable: "连接不可用",
@@ -86,6 +87,8 @@ function updateHeader() {
   if (!project) return;
   const context = project.context;
   const model = project.model_state;
+  const agent = project.agent_session || {};
+  const agentReady = agent.status === "ready" && !!agent.model_path;
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
@@ -108,10 +111,10 @@ function updateHeader() {
     referenceStatus.classList.remove("unreadable");
   }
   const prepared = !!project.design_ir && !!project.build_plan;
-  const built = (model.objects || []).length > 0;
+  const built = (model.objects || []).length > 0 || agentReady || model.status === "agentic";
   const status = $("project-status");
   status.classList.toggle("built", built);
-  status.innerHTML = `<i></i> ${built ? "模型已建立" : prepared ? "方案已生成" : "输入已就绪"}`;
+  status.innerHTML = `<i></i> ${agentReady ? "Agent 会话已连接" : built ? "模型已建立" : prepared ? "方案已生成" : "输入已就绪"}`;
   $("build-model").disabled = !prepared || !$("disposable-confirm").checked || state.busy || built;
   $("edit-height").disabled = !built || state.busy || !project.design_ir.objects.some((item) => item.type === "building_mass");
   const masses = (model.objects || []).filter((item) => item.object_type === "building_mass");
@@ -119,12 +122,17 @@ function updateHeader() {
   $("edit-count").textContent = `${Math.min(editedCount, 2)} / 2`;
   $("edit-position").disabled = !built || state.busy || editedCount < 1 || masses.length < 2 || !!masses[1]?.last_change;
   $("edit-height").disabled = !built || state.busy || !masses.length || !!masses[0]?.last_change;
-  $("conversation-phase").textContent = built ? "修改当前模型" : prepared ? "调整已生成方案" : "生成前讨论";
-  $("conversation-input").placeholder = built ? "描述要修改的体块或公共流线，例如：把公共街道加宽到 8 米…" : "补充设计想法，或根据参考案例继续讨论…";
-  $("conversation-hint").textContent = built
-    ? "对话会针对当前 SketchUp 模型执行定向修改，并保留现有对象。"
-    : "生成方案前可继续讨论设计方向；发送后会更新结构化方案。";
-  $("conversation-send").disabled = state.busy || !$("conversation-input").value.trim();
+  $("agent-session-state").textContent = agentReady
+    ? `已连接同一份 SketchUp 空白副本 · ${agent.model_path.split("/").at(-1)}`
+    : agent.status === "conversation" ? "Codex 对话已建立 · SketchUp 建模工具尚未启用" : "尚未打开项目专属空白副本";
+  $("start-agent-session").disabled = state.busy || !state.nativeAgentAvailable;
+  $("start-agent-session").querySelector("span:first-child").textContent = agentReady ? "重连此项目的同一份模型" : "打开空白副本并连接 Agent";
+  $("conversation-phase").textContent = agentReady ? "Agent 修改当前模型" : "Agent 设计讨论";
+  $("conversation-input").placeholder = agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
+  $("conversation-hint").textContent = agentReady
+    ? "每轮对话都在同一份 SketchUp 副本上执行；Agent 可连续调用工具、查看截图/状态并保存检查点。"
+    : "可以先讨论与上传项目资料；未启动空白模型前，SketchUp 工具保持关闭。";
+  $("conversation-send").disabled = state.busy || !state.nativeAgentAvailable || !$("conversation-input").value.trim();
   setStage("design", true);
   setStage("model", prepared);
   setStage("drawing", !!artifactByType("dxf"));
@@ -144,8 +152,9 @@ function renderConversation() {
   }
   history.innerHTML = messages.map((message) => {
     const isUser = message.role === "user";
-    const speaker = isUser ? "你" : "Codex · 设计回应";
-    return `<article class="chat-message ${isUser ? "user" : "assistant"}"><header><span>${speaker}</span><span>${message.phase === "after_build" ? "模型修改" : "方案讨论"}</span></header><p>${escapeHtml(message.content)}</p></article>`;
+    const speaker = isUser ? "你" : "Codex · 建筑 Agent";
+    const phase = message.phase === "agent" ? "Agent 对话 / 建模" : message.phase === "after_build" ? "模型修改" : "方案讨论";
+    return `<article class="chat-message ${isUser ? "user" : "assistant"}"><header><span>${speaker}</span><span>${phase}</span></header><p>${escapeHtml(message.content)}</p></article>`;
   }).join("");
   history.scrollTop = history.scrollHeight;
 }
@@ -218,7 +227,7 @@ function renderPreview() {
   } else if (state.tab === "model") {
     title.textContent = "可编辑模型";
     caption.textContent = "SketchUp 真实几何 · 稳定对象名称";
-    meta.textContent = objects.length ? `${objects.length} 个对象 · ${modelStatusLabels[project.model_state.status] || project.model_state.status}` : "等待 SketchUp 建模";
+    meta.textContent = objects.length ? `${objects.length} 个对象 · ${modelStatusLabels[project.model_state.status] || project.model_state.status}` : project.agent_session?.status === "ready" ? `${project.agent_session.model || "Codex Agent"} · 自由几何` : "等待启动 Agent 模型会话";
     const image = capture ? `<img class="preview-image" src="${capture.url}" alt="SketchUp 视口截图">` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">真实几何</div><div class="poster-title">模型将在<br><em>SketchUp 中生成。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>稳定对象 ID<br>可编辑分组</span><span>准备后开始建模</span></div></div></div>';
     const chips = objects.map((item) => `<span class="model-object-chip"><b>${escapeHtml(item.stable_id)}</b>${escapeHtml(item.name)}</span>`).join("");
     canvas.className = "preview-canvas model-preview-content";
@@ -254,8 +263,9 @@ async function loadProject(projectId) {
 async function boot() {
   try {
     const [runtime, projects] = await Promise.all([api("/api/status"), api("/api/projects")]);
-    $("brain-status").textContent = runtime.codex_available ? "Codex 大脑 · 已就绪" : "Codex 任务模式 · 已就绪";
-    $("brain-status").previousElementSibling.classList.toggle("ready", runtime.codex_available);
+    state.nativeAgentAvailable = !!runtime.native_agent_available;
+    $("brain-status").textContent = state.nativeAgentAvailable ? `Codex Agent · ${runtime.native_agent_model} 已就绪` : "Codex Agent · 尚未配置";
+    $("brain-status").previousElementSibling.classList.toggle("ready", state.nativeAgentAvailable);
     if (projects.length) await loadProject(projects[0].project_id);
   } catch (error) {
     showToast(friendlyError(error), true);
@@ -330,6 +340,32 @@ async function checkConnector() {
   } catch (error) { $("connector-state").textContent = "不可用"; showToast(friendlyError(error), true); }
 }
 
+async function startAgentSession() {
+  if (!state.projectId || state.busy || !state.nativeAgentAvailable) return;
+  state.busy = true;
+  const button = $("start-agent-session");
+  setBusy(button, true, "正在启动 SketchUp 空白副本…");
+  setStatus("正在复制 SketchUp Simple 模板，并校验活动模型路径。原始模型不会参与本次会话。");
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/session`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ confirm_disposable_model: true }),
+    });
+    state.project = result.project;
+    updateHeader();
+    setTab("model");
+    setStatus("项目专属空白副本已校验；现在可以用自然语言要求 Agent 建模。", "ready");
+    showToast("Codex Agent 已连接到项目专属 SketchUp 空白副本。", false);
+  } catch (error) {
+    setStatus(friendlyError(error), "error");
+    showToast(friendlyError(error), true);
+  } finally {
+    state.busy = false;
+    setBusy(button, false);
+    updateHeader();
+  }
+}
+
 async function buildModel() {
   if (state.busy) return;
   if (!$("disposable-confirm").checked) return showToast("请先打开一个空白或可丢弃的 SketchUp 模型。", true);
@@ -388,8 +424,8 @@ async function sendConversation(event) {
   state.busy = true;
   const button = $("conversation-send");
   setBusy(button, true, "Codex 正在处理…");
-  const built = !!state.project?.model_state?.objects?.length;
-  setStatus(built ? "Codex 正在为当前 SketchUp 模型规划定向修改。" : "Codex 正在根据讨论更新结构化方案。");
+  const built = state.project?.agent_session?.status === "ready";
+  setStatus(built ? "Codex Agent 正在查看当前模型并执行这一轮自然语言设计任务。" : "Codex Agent 正在根据项目资料讨论设计；此时 SketchUp 工具保持关闭。");
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/conversation`, {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -406,8 +442,9 @@ async function sendConversation(event) {
     $("conversation-input").value = "";
     updateHeader();
     setStatus(result.reply);
-    showToast(result.phase === "after_build" ? "已更新当前 SketchUp 模型，未重新生成整个模型。" : "讨论已写入，结构化方案已更新。");
-    if (result.phase === "after_build") setTab("model");
+    const calls = result.agent?.tool_calls?.length || 0;
+    showToast(built ? `Agent 已处理当前模型${calls ? ` · ${calls} 种 MCP 工具` : ""}，可继续提出修改。` : "设计讨论已写入当前 Codex Agent 会话。", false);
+    if (built) setTab("model");
   } catch (error) {
     setStatus(friendlyError(error), "error");
     showToast(friendlyError(error), true);
@@ -421,8 +458,9 @@ async function sendConversation(event) {
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
 $("conversation-form").addEventListener("submit", sendConversation);
 $("conversation-input").addEventListener("input", () => {
-  $("conversation-send").disabled = state.busy || !$("conversation-input").value.trim();
+  $("conversation-send").disabled = state.busy || !state.nativeAgentAvailable || !$("conversation-input").value.trim();
 });
+$("start-agent-session").addEventListener("click", startAgentSession);
 $("prepare-design").addEventListener("click", prepareDesign);
 $("build-model").addEventListener("click", buildModel);
 $("disposable-confirm").addEventListener("change", updateHeader);

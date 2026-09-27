@@ -87,11 +87,14 @@ From the repository folder on Windows:
 
 ```powershell
 .\scripts\setup.ps1
-.\scripts\open_blank_sketchup.ps1
 .\scripts\dev.ps1
 ```
 
 Open `http://127.0.0.1:8787`.
+
+Load or create a project, enter its brief/site/reference context, and use the Chinese conversation panel to discuss the design. Click **打开空白副本并连接 Agent** when ready to model; the workspace creates or reconnects to a disposable SketchUp copy under that project's ignored `runtime/` directory. Continue issuing natural-language modeling and revision requests in the same conversation. Run automated checks with `.\scripts\check.ps1`.
+
+`.\scripts\open_blank_sketchup.ps1` remains available for the legacy deterministic build flow and connector troubleshooting.
 
 The active milestone requires real local SketchUp/MCP validation, so Codex handles those local execution steps. ChatGPT handles GitHub review, planning, safe remote edits, and milestone definitions. See [COLLABORATION.md](docs/COLLABORATION.md).
 

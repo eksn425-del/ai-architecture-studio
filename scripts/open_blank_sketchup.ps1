@@ -1,5 +1,20 @@
+param(
+    [Parameter(Mandatory = $false)]
+    [ValidatePattern('^[a-z0-9][a-z0-9-]{0,55}$')]
+    [string]$ProjectId = 'demo-cultural-center',
+    [Parameter(Mandatory = $false)]
+    [string]$RuntimeRoot = '',
+    [Parameter(Mandatory = $false)]
+    [string]$ModelPath = ''
+)
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$runtimeRootResolved = if ([string]::IsNullOrWhiteSpace($RuntimeRoot)) { Join-Path $repoRoot 'runtime' } else { [System.IO.Path]::GetFullPath($RuntimeRoot) }
+$expectedProjectsRoot = [System.IO.Path]::GetFullPath((Join-Path $runtimeRootResolved 'projects')).TrimEnd('\') + '\'
+$modelDirectory = [System.IO.Path]::GetFullPath((Join-Path $runtimeRootResolved "projects\$ProjectId\outputs\model"))
+if (-not $modelDirectory.StartsWith($expectedProjectsRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw 'The disposable SketchUp copy must stay under this project runtime directory.'
+}
 $uninstallRoots = @(
     'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall',
     'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall'
@@ -31,11 +46,20 @@ if (-not $template) {
     throw 'The SketchUp Simple template was not found; create a new blank model from SketchUp instead.'
 }
 
-$modelDirectory = Join-Path $repoRoot 'runtime\projects\demo-cultural-center\outputs\model'
 New-Item -ItemType Directory -Force -Path $modelDirectory | Out-Null
-$stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-$modelPath = Join-Path $modelDirectory "blank-disposable-$stamp.skp"
-Copy-Item -LiteralPath $template -Destination $modelPath
+if (-not [string]::IsNullOrWhiteSpace($ModelPath)) {
+    $modelPath = [System.IO.Path]::GetFullPath($ModelPath)
+    if (-not $modelPath.StartsWith(($modelDirectory.TrimEnd('\') + '\'), [System.StringComparison]::OrdinalIgnoreCase) -or
+        [System.IO.Path]::GetExtension($modelPath) -ne '.skp' -or
+        -not [System.IO.Path]::GetFileName($modelPath).StartsWith('blank-disposable-', [System.StringComparison]::OrdinalIgnoreCase) -or
+        -not (Test-Path -LiteralPath $modelPath -PathType Leaf)) {
+        throw 'The requested SketchUp session file is not a valid project disposable copy.'
+    }
+} else {
+    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+    $modelPath = Join-Path $modelDirectory "blank-disposable-$stamp.skp"
+    Copy-Item -LiteralPath $template -Destination $modelPath
+}
 $bridgeStartup = Join-Path $PSScriptRoot 'start_existing_sketchup_bridge.rb'
 if (-not (Test-Path $bridgeStartup)) {
     throw 'Bridge startup helper is missing from scripts.'

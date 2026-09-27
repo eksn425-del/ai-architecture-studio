@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f2efe8">
-    <title>AI Architecture Studio · Product Alpha 0.2</title>
+    <title>AI Architecture Studio · Fast Assembly v1</title>
     <link rel="stylesheet" href="/static/studio.css">
   </head>
   <body>
@@ -14,7 +14,7 @@
           <span class="brand-mark"><i></i><i></i><i></i></span>
           <span><b>AI Architecture Studio</b><small>本地建筑设计工作台</small></span>
         </a>
-        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">正在检查本地运行环境</span><span class="divider"></span><span class="version">ALPHA 0.2</span></div>
+        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">正在检查本地运行环境</span><span class="divider"></span><span class="version">FAST ASSEMBLY V1</span></div>
         <a class="showcase-link" href="/showcase">建模案例 ↗</a>
         <button class="new-project" id="new-project"><span>＋</span> 新建项目</button>
       </header>
@@ -84,17 +84,27 @@
                 <textarea id="intent" class="text-area" rows="3">希望形成一座安静、开放、可穿行的文化建筑，体块低矮清晰，公共通道明确，并把入口过程和室外公共空间也作为建筑设计的一部分。</textarea>
               </div>
 
+              <section class="agent-session-card" aria-labelledby="agent-session-title">
+                <div class="conversation-heading"><div><span class="section-index">AGENT</span><h2 id="agent-session-title">自由建模会话</h2></div><span class="quiet-tag">Codex · Astra</span></div>
+                <p class="agent-session-description">对话由本机 Codex App Server 驱动。启动后，它可连续调用现有 Kongxing SketchUp 工具、读取模型状态并迭代修改。</p>
+                <div class="agent-session-status" id="agent-session-state" aria-live="polite">尚未打开项目专属空白副本</div>
+                <button class="button-primary" id="start-agent-session"><span>打开空白副本并连接 Agent</span><span class="button-arrow">↗</span></button>
+                <small class="agent-session-note">会自动复制 SketchUp Simple 模板到本项目 runtime；原始毕设模型不会被使用。</small>
+              </section>
+
               <section class="conversation-panel" aria-labelledby="conversation-title">
                 <div class="conversation-heading"><div><span class="section-index">AI</span><h2 id="conversation-title">讨论与修改</h2></div><span class="quiet-tag" id="conversation-phase">生成前讨论</span></div>
                 <div class="conversation-history" id="conversation-history" aria-live="polite"></div>
                 <form class="conversation-form" id="conversation-form">
                   <label class="sr-only" for="conversation-input">输入中文设计要求或模型修改指令</label>
-                  <textarea id="conversation-input" class="text-area conversation-input" rows="3" maxlength="1200" placeholder="补充设计想法，或根据参考案例继续讨论…"></textarea>
+                  <textarea id="conversation-input" class="text-area conversation-input" rows="3" maxlength="1200" placeholder="先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…"></textarea>
                   <button class="button-primary conversation-send" id="conversation-send" type="submit"><span>发送消息</span><span class="button-arrow">↗</span></button>
                 </form>
-                <div class="conversation-hint" id="conversation-hint">生成方案前可继续调整设计方向；建模后可在同一对话中修改当前模型。</div>
+                <div class="conversation-hint" id="conversation-hint">可以先讨论设计；启动模型会话后，对话将由 Agent 直接落实到同一份 SketchUp 副本。</div>
               </section>
 
+              <details class="legacy-workflow">
+                <summary>旧版规则化建模流程（兼容与回归测试）</summary>
               <div class="action-card">
                 <div class="action-card-top"><span class="brain-orbit"><i></i><i></i><i></i></span><div><strong>生成方案</strong><small>Codex 会把你的资料整理成可编辑的建筑方案。</small></div></div>
                 <button class="button-primary" id="prepare-design"><span>生成方案</span><span class="button-arrow">↗</span></button>
@@ -111,6 +121,7 @@
                   <button class="edit-button" id="edit-position" disabled><span class="edit-number">02</span><span><strong>将另一个体块向东移动</strong><small>移动 3 米，尺寸保持不变</small></span><span>↗</span></button>
                 </div>
               </div>
+              </details>
             </section>
 
             <section class="preview-column">

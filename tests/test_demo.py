@@ -1,17 +1,20 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+import tomllib
 
 import ezdxf
 from fastapi.testclient import TestClient
 
 from app.brain import BrainUnavailable, CodexBrainAdapter
 from app.generators import generate_drawing, generate_presentation
-from app.main import _safe_readback, _validate_plan, create_app
-from app.models import BuildPlan, DesignIR, EditPlan, ModelState, OutputManifest
+from app.main import _disposable_model_path, _safe_readback, _sanitize_agent_reply, _validate_plan, create_app
+from app.models import AgentSession, BuildPlan, DesignIR, EditPlan, ModelState, OutputManifest
+from app.native_agent import AgentTurnResult, CodexAppServerRuntime
 from app.references import FetchResult, ReferenceIngestor
-from app.sketchup_mcp import SketchUpAdapter
+from app.sketchup_mcp import SketchUpAdapter, _generated_script_dir
 from app.store import ProjectStore
 from tests.conftest import FakeBrain, FakeSketchUp, sample_context, sample_design, sample_plan
 
@@ -318,7 +321,8 @@ def test_prepare_persists_reference_ingestion_and_screenshot_fallback(tmp_path: 
 
 def test_chinese_conversation_refines_design_before_build(tmp_path: Path):
     brain = FakeBrain()
-    app = create_app(tmp_path / "runtime", brain=brain, sketchup=FakeSketchUp())
+    native = FakeNativeAgent()
+    app = create_app(tmp_path / "runtime", brain=brain, sketchup=FakeSketchUp(), native_agent=native)
     client = TestClient(app)
     client.get("/api/projects")
     first = client.post("/api/projects/demo-cultural-center/conversation", json={
@@ -329,14 +333,14 @@ def test_chinese_conversation_refines_design_before_build(tmp_path: Path):
         "user_intent": "保持低矮、开放。",
     })
     assert first.status_code == 200
-    route = next(item for item in first.json()["project"]["design_ir"]["objects"] if item["type"] == "circulation")
-    assert route["width"] == 7.0
+    assert first.json()["project"]["design_ir"] is None
+    assert native.calls[-1]["mcp_enabled"] is False
 
     second = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "公共街道再加宽一些。"})
     assert second.status_code == 200
-    route = next(item for item in second.json()["project"]["design_ir"]["objects"] if item["type"] == "circulation")
-    assert route["width"] == 8.0
-    assert brain.prepare_calls[-1][1] is not None
+    assert native.calls[-1]["mcp_enabled"] is False
+    assert native.calls[-1]["thread_id"] == "thr-fast-assembly"
+    assert not brain.prepare_calls
     messages = second.json()["project"]["context"]["conversation"]
     assert [item["role"] for item in messages] == ["user", "assistant", "user", "assistant"]
 
@@ -349,21 +353,13 @@ def test_chinese_conversation_edits_same_built_model_and_width_depth_routes(tmp_
     assert client.post("/api/projects/demo-cultural-center/prepare", json={}).status_code == 200
     assert client.post("/api/projects/demo-cultural-center/build", json={"confirm_disposable_model": True}).status_code == 200
 
-    chat = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "公共街道请加宽到 8 米。"})
-    assert chat.status_code == 200
-    same_route = next(item for item in chat.json()["project"]["model_state"]["objects"] if item["object_type"] == "circulation")
-    assert same_route["width"] == 8.0
-    route_call = next(call for call in reversed(sketchup.calls) if call[0] == "modify_object")
-    assert route_call[1]["connector_ref"] == same_route["connector_ref"]
-    assert route_call[1]["scale"] == [1, 1.6, 1]
-
     width = client.post("/api/projects/demo-cultural-center/edit", json={"instruction": "把阅览体块宽度扩大到 15 米。"})
     depth = client.post("/api/projects/demo-cultural-center/edit", json={"instruction": "把阅览体块进深改为 14 米。"})
     assert width.status_code == depth.status_code == 200
     mass = next(item for item in depth.json()["project"]["model_state"]["objects"] if item["stable_id"] == "MASS_01")
     assert mass["width"] == 15.0
     assert mass["depth"] == 14.0
-    assert len([call for call in sketchup.calls if call[0] == "modify_object"]) == 3
+    assert len([call for call in sketchup.calls if call[0] == "modify_object"]) == 2
 
 
 def test_invalid_dimension_edit_is_rejected_before_connector_call(tmp_path: Path):
@@ -389,5 +385,161 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
     assert 'lang="zh-CN"' in page.text
     assert "讨论与修改" in page.text
     assert "发送消息" in page.text
-    assert "修改示例（可选）" in page.text
-    assert "ALPHA 0.2" in page.text
+    assert "旧版规则化建模流程" in page.text
+    assert "自由建模会话" in page.text
+    assert "FAST ASSEMBLY V1" in page.text
+
+
+class FakeNativeAgent:
+    available = True
+    model = "gpt-6-astra"
+
+    def __init__(self):
+        self.calls = []
+
+    def respond(self, **kwargs):
+        self.calls.append(kwargs)
+        return AgentTurnResult(
+            thread_id=kwargs.get("thread_id") or "thr-fast-assembly",
+            reply="已根据要求完成建筑设计推演。" if kwargs["mcp_enabled"] else "已记录设计方向。",
+            tool_calls=([{"server": "kongxing_sketchup", "tool": "sketchup_create_gable_roof"},
+                         {"server": "kongxing_sketchup", "tool": "sketchup_export_view_image"}]
+                        if kwargs["mcp_enabled"] else []),
+            model_name=self.model,
+        )
+
+
+class DisconnectedFakeSketchUp(FakeSketchUp):
+    def ping(self):
+        if not self.active_model_path:
+            from app.sketchup_mcp import ConnectorUnavailable
+            raise ConnectorUnavailable("SketchUp bridge is not running.")
+        return super().ping()
+
+
+def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tmp_path: Path):
+    runtime = tmp_path / "runtime"
+    sketchup = DisconnectedFakeSketchUp()
+    native = FakeNativeAgent()
+    blank_path = runtime / "projects" / "demo-cultural-center" / "outputs" / "model" / "blank-disposable-test.skp"
+
+    def launch(project_id, runtime_root, existing_model_path=None):
+        assert project_id == "demo-cultural-center"
+        assert existing_model_path is None
+        blank_path.parent.mkdir(parents=True, exist_ok=True)
+        blank_path.write_bytes(b"disposable copy")
+        sketchup.active_model_path = str(blank_path)
+        return blank_path
+
+    app = create_app(runtime, brain=FakeBrain(), sketchup=sketchup, native_agent=native,
+                     disposable_model_launcher=launch)
+    client = TestClient(app)
+    client.get("/api/projects")
+
+    discussion = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "入口希望面向东侧。"})
+    assert discussion.status_code == 200
+    assert native.calls[-1]["mcp_enabled"] is False
+    assert not [call for call in sketchup.calls if call[0] in {"create_mass", "create_circulation", "modify_object"}]
+
+    started = client.post("/api/projects/demo-cultural-center/agent/session", json={"confirm_disposable_model": True})
+    assert started.status_code == 200
+    assert started.json()["session"]["status"] == "ready"
+    assert started.json()["session"]["model_path"].endswith("blank-disposable-test.skp")
+
+    modeled = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "增加一个坡顶，并把公共连廊接到场地入口。"})
+    assert modeled.status_code == 200
+    assert native.calls[-1]["mcp_enabled"] is True
+    assert native.calls[-1]["thread_id"] == "thr-fast-assembly"
+    assert len(modeled.json()["agent"]["tool_calls"]) == 2
+    project = modeled.json()["project"]
+    assert project["agent_session"]["status"] == "ready"
+    assert project["agent_session"]["thread_id"] == "thr-fast-assembly"
+    assert project["model_state"]["model_path"].endswith("fast-assembly-agent.skp")
+    assert any(item["type"] == "viewport" for item in project["output_manifest"]["render"])
+    assert [item["phase"] for item in project["context"]["conversation"]] == ["agent", "agent", "agent", "agent"]
+
+
+def test_native_agent_refuses_original_or_switched_sketchup_model(tmp_path: Path):
+    runtime = tmp_path / "runtime"
+    sketchup = FakeSketchUp()
+    native = FakeNativeAgent()
+    app = create_app(runtime, brain=FakeBrain(), sketchup=sketchup, native_agent=native)
+    client = TestClient(app)
+    client.get("/api/projects")
+    project_dir = runtime / "projects" / "demo-cultural-center"
+    blank_path = project_dir / "outputs" / "model" / "blank-disposable-test.skp"
+    blank_path.parent.mkdir(parents=True, exist_ok=True)
+    blank_path.write_bytes(b"disposable copy")
+    store = ProjectStore(runtime)
+    session = AgentSession(project_id="demo-cultural-center", status="ready", thread_id="thr-existing", model_path="outputs/model/blank-disposable-test.skp")
+    store.save_state("demo-cultural-center", session, "agent_session.json")
+    sketchup.active_model_path = str(tmp_path / "private-original.skp")
+
+    response = client.post("/api/projects/demo-cultural-center/conversation", json={"message": "移动二层体块。"})
+    assert response.status_code == 409
+    assert not native.calls
+    assert not [call for call in sketchup.calls if call[0] == "modify_object"]
+
+
+def test_native_runtime_isolates_mcp_allowlist_and_uses_codex_login_cache(tmp_path: Path, monkeypatch):
+    source_home = tmp_path / "user-codex"
+    source_home.mkdir()
+    (source_home / "config.toml").write_text(
+        'model = "gpt-6-luna"\n'
+        '[mcp_servers.kongxing_sketchup]\ncommand = "node"\nargs = ["server.mjs"]\n'
+        '[mcp_servers.honglu-autocad]\nurl = "http://127.0.0.1:9000/mcp"\n',
+        encoding="utf-8",
+    )
+    (source_home / "auth.json").write_text("opaque test login cache", encoding="utf-8")
+    monkeypatch.setenv("CODEX_HOME", str(source_home))
+    class ToolClient:
+        def list_tools(self):
+            return [
+                {"name": "sketchup_health", "description": "Read bridge health.", "inputSchema": {"type": "object", "properties": {}}},
+                {"name": "sketchup_create_gable_roof", "description": "Create a gable roof.", "inputSchema": {"type": "object", "properties": {"rise_m": {"type": "number"}}}},
+            ]
+
+    runtime = CodexAppServerRuntime(tmp_path / "runtime", codex_executable="codex-test",
+                                   sketchup_mcp=ToolClient(), home_root=tmp_path / "codex-home")
+
+    runtime._prepare_home(mcp_enabled=True)
+    isolated = tomllib.loads((runtime.home / "config.toml").read_text(encoding="utf-8"))
+    assert isolated["model"] == "gpt-6-astra"
+    assert "mcp_servers" not in isolated
+    assert os.path.samefile(source_home / "auth.json", runtime.home / "auth.json")
+    dynamic_tools = runtime._dynamic_tools()
+    assert [tool["name"] for tool in dynamic_tools] == ["sketchup_health", "sketchup_create_gable_roof"]
+    assert dynamic_tools[1]["inputSchema"]["properties"]["rise_m"]["type"] == "number"
+
+    runtime._prepare_home(mcp_enabled=False)
+    no_tools = tomllib.loads((runtime.home / "config.toml").read_text(encoding="utf-8"))
+    assert "mcp_servers" not in no_tools
+
+
+def test_disposable_model_identity_check_allows_only_project_runtime_copy(tmp_path: Path):
+    project_dir = tmp_path / "runtime" / "projects" / "demo-cultural-center"
+    allowed = project_dir / "outputs" / "model" / "blank-disposable-demo.skp"
+    allowed.parent.mkdir(parents=True)
+    allowed.write_bytes(b"blank")
+    assert _disposable_model_path(str(allowed), project_dir) == allowed.resolve()
+    assert _disposable_model_path(str(tmp_path / "private-thesis.skp"), project_dir) is None
+    assert _disposable_model_path(str(project_dir / "outputs/model/private.skp"), project_dir) is None
+
+
+def test_agent_reply_hides_host_local_paths():
+    reply = "查看截图：[完成截图](R:/connector-runtime/screenshots/view.png)，记录在 D:\\demo\\model.skp"
+    sanitized = _sanitize_agent_reply(reply)
+    assert "R:/connector-runtime" not in sanitized
+    assert "D:\\demo" not in sanitized
+    assert "完成截图（本机路径已隐藏）" in sanitized
+    assert "[本机路径已隐藏]" in sanitized
+
+
+def test_generated_sketchup_script_dir_uses_local_environment(tmp_path: Path, monkeypatch):
+    monkeypatch.delenv("ARCHFLOW_GENERATED_SCRIPT_DIR", raising=False)
+    monkeypatch.setenv("PROGRAMDATA", str(tmp_path / "program-data"))
+    assert _generated_script_dir() == tmp_path / "program-data" / "archflow-mcp" / "generated_scripts"
+
+    override = tmp_path / "connector-scripts"
+    monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(override))
+    assert _generated_script_dir() == override

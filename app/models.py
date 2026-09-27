@@ -46,7 +46,7 @@ class Decision(Model):
 
 class ConversationMessage(Model):
     role: Literal["user", "assistant"]
-    phase: Literal["pre_build", "after_build"]
+    phase: Literal["pre_build", "after_build", "agent"]
     content: str = Field(min_length=1, max_length=2000)
     created_at: str = ""
 
@@ -172,6 +172,20 @@ class ModelState(Model):
     last_operation: dict[str, Any] | None = None
     connector_readback: dict[str, Any] | None = None
     status: str = "ready"
+
+
+class AgentSession(Model):
+    project_id: str
+    status: Literal["idle", "conversation", "ready", "failed"] = "idle"
+    thread_id: str = ""
+    model: str = "gpt-6-astra"
+    model_path: str = ""
+    started_at: str = ""
+    updated_at: str = ""
+    last_reply: str = ""
+    last_tool_calls: list[dict[str, str]] = Field(default_factory=list)
+    last_model_info: dict[str, Any] = Field(default_factory=dict)
+    error: str = ""
 
 
 class Artifact(Model):

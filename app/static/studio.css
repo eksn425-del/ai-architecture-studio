@@ -123,6 +123,11 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .reference-status:empty { display: none; }
 .intent-block { margin-top: 15px; }
 .conversation-panel { margin-top: 16px; padding: 12px; border: 1px solid #cfcbbf; background: #f0eee6; }
+.agent-session-card { margin-top: 18px; padding: 13px; border: 1px solid #bfc6ba; background: linear-gradient(135deg, #e9ede5, #f3f0e7); }
+.agent-session-description { margin: 3px 0 12px; color: #65756c; font-size: 10px; line-height: 1.55; }
+.agent-session-status { padding: 8px 9px; border-left: 2px solid #869989; color: #51655b; background: #f5f4ed; font-size: 10px; }
+.agent-session-card .button-primary { width: 100%; margin-top: 10px; }
+.agent-session-note { display: block; margin-top: 8px; color: #898f83; font-size: 8px; line-height: 1.5; }
 .conversation-heading { display: flex; align-items: center; justify-content: space-between; min-height: 24px; margin-bottom: 9px; }
 .conversation-heading > div { display: flex; align-items: center; gap: 8px; }
 .conversation-heading h2 { margin: 0; color: var(--ink); font: 500 14px var(--serif); }
@@ -138,6 +143,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .conversation-hint { margin-top: 6px; color: #899087; font-size: 8px; line-height: 1.45; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .action-card { margin-top: 16px; padding: 12px; border: 1px solid #cec9bb; background: #eae5d9; }
+.legacy-workflow { margin-top: 20px; border-top: 1px solid var(--line-dark); color: #717c73; }
+.legacy-workflow summary { padding: 10px 0; cursor: pointer; color: #7c8177; font-size: 9px; }
 .action-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .action-card-top strong, .action-card-top small { display: block; }
 .action-card-top strong { font: 500 13px var(--serif); }
