@@ -68,6 +68,7 @@ Current high-priority reuse candidates:
 - SAIE — richer SketchUp execution candidate
 - SketchUp Architect Skill — architecture reasoning/precedent workflow candidate
 - VBO SkAgent — lightweight live-control fallback
+- LiteLLM — provider/model compatibility candidate for multi-model routing
 
 The product's intended differentiation is above the connector layer: architecture workflow UX, context continuity, packaging, ease of use, and delivery for students/junior designers.
 
@@ -118,17 +119,17 @@ This remains useful as a regression/legacy demo, but the fixed rectangular Build
 
 ## D-012 — Astra-native architecture intelligence
 
-**Status:** Accepted
+**Status:** Accepted as quality reference, generalized by D-018
 
 Do not build a weaker in-house architecture brain around a tiny action vocabulary.
 
-The normal product path should preserve the broad reasoning and tool-use ability of an Astra-class/native agent.
+The normal product path should preserve the broad reasoning and tool-use ability proven by an Astra-class/native agent.
 
 Target:
 
 **Web Workspace → Native Agent Runtime → existing MCP / reusable OSS tools → SketchUp/CAD → screenshot/model readback → agent continuation**
 
-The thesis modeling workflow is the quality reference.
+The thesis modeling workflow remains the quality reference.
 
 ## D-013 — Assembly-first startup strategy
 
@@ -140,7 +141,7 @@ Before custom implementation, prefer:
 
 **Adopt → Fork → Wrap/Compose → Minimal Glue**
 
-Do not rebuild a working connector, CAD exporter, architecture skill, agent runtime, or software-control layer merely for architectural cleanliness.
+Do not rebuild a working connector, CAD exporter, architecture skill, agent runtime, provider compatibility layer, or software-control layer merely for architectural cleanliness.
 
 Reuse source only with a clear compatible license and preserve attribution/NOTICE requirements.
 
@@ -185,7 +186,7 @@ Future monetization should build on convenience, workflow integration, packaging
 
 Do not treat higher reasoning effort as the default solution to architecture-modeling quality.
 
-The native product path should default to the currently configured Astra-class model at **low** reasoning effort unless a specific experiment proves otherwise.
+The premium/reference path should default to the currently configured Astra-class model at **low** reasoning effort unless a specific experiment proves otherwise.
 
 Quality work should first improve:
 
@@ -201,12 +202,69 @@ Higher reasoning settings remain optional diagnostics, not the product's normal 
 
 **Status:** Accepted
 
-The preferred quality stack is:
+The proven quality stack is:
 
-**Astra-class agent at low reasoning + thin architecture skill + existing MCP + safe task-specific Ruby/project scripts + visual/model QA**.
+**strong model at low reasoning + thin architecture skill + existing MCP + safe task-specific Ruby/project scripts + visual/model QA**.
 
 Reuse `Mentat-Uran/sketchup-architect-skill` (MIT) directly or selectively rather than rewriting its architectural workflow from scratch.
 
-Use the existing Kongxing connector first for project-local Ruby/script execution. If it cannot safely provide the required scripting path, prefer compatible existing OSS such as SAIE or VBO before custom infrastructure.
+Use the existing Kongxing connector first for project-local Ruby/script execution. If it cannot safely provide a required capability, prefer compatible existing OSS such as SAIE or VBO before custom infrastructure.
 
 Do not compensate by adding dozens of bespoke fixed geometry actions.
+
+## D-018 — Architecture capability must be model-independent
+
+**Status:** Accepted
+
+The architecture workflow must not depend on one premium model.
+
+Keep architecture capability in reusable layers:
+
+**project context + thin skill + MCP/Ruby tools + screenshot/model QA + session continuity**
+
+and place model providers behind a small runtime/provider boundary.
+
+The same workflow should be benchmarkable with GPT-6 Luna, Astra, Qwen/GLM-class models, or future compatible providers without duplicating the architecture stack.
+
+## D-019 — Economy + Premium product tiers
+
+**Status:** Accepted
+
+The product should support two practical model modes:
+
+- **Economy / Standard:** low-cost multimodal/tool-capable model handles most ordinary turns.
+- **Premium / Refine:** Astra-class model is used for explicitly requested refinement or as a limited rescue path when objective QA/tool execution shows the economy model is stuck.
+
+Do not silently route all work to Premium.
+
+Start with a deterministic router:
+
+- Economy by default
+- Premium on explicit user choice
+- one Premium rescue turn after repeated Economy QA/tool-loop failure
+- return to Economy for routine follow-up when possible
+
+A learned/AI model router is unnecessary at this stage.
+
+## D-020 — Cost and quality are benchmarked together
+
+**Status:** Accepted
+
+A candidate model is not accepted because it is cheap or because it can call tools.
+
+For the same sanitized architecture task, same Skill, same SketchUp tools, and same QA loop, record:
+
+- architecture quality
+- tool success/retries
+- same-model revision reliability
+- screenshot/model audit defects
+- input/output token usage
+- estimated model cost
+- wall-clock latency
+
+The startup target is at least one commercially viable operating point:
+
+1. a low-cost model that produces useful architecture through the shared Skill/tool stack, or
+2. a premium model that produces sufficiently high quality to justify a higher-priced user tier.
+
+The preferred end state is both, with most turns handled by Economy and Premium used only where it materially improves results.
