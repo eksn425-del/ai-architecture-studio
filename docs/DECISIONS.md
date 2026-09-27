@@ -178,3 +178,35 @@ The value is packaging strong existing intelligence and professional-software co
 - hide MCP, scripts, prompts, and setup complexity
 
 Future monetization should build on convenience, workflow integration, packaging, and distribution rather than proprietary low-level geometry infrastructure.
+
+## D-016 — Low reasoning is the default quality baseline
+
+**Status:** Accepted
+
+Do not treat higher reasoning effort as the default solution to architecture-modeling quality.
+
+The native product path should default to the currently configured Astra-class model at **low** reasoning effort unless a specific experiment proves otherwise.
+
+Quality work should first improve:
+
+- architecture workflow context,
+- professional tool access,
+- task-specific scripting,
+- model inspection,
+- iteration continuity.
+
+Higher reasoning settings remain optional diagnostics, not the product's normal quality strategy.
+
+## D-017 — Thin architecture skill + task-specific Ruby
+
+**Status:** Accepted
+
+The preferred quality stack is:
+
+**Astra-class agent at low reasoning + thin architecture skill + existing MCP + safe task-specific Ruby/project scripts + visual/model QA**.
+
+Reuse `Mentat-Uran/sketchup-architect-skill` (MIT) directly or selectively rather than rewriting its architectural workflow from scratch.
+
+Use the existing Kongxing connector first for project-local Ruby/script execution. If it cannot safely provide the required scripting path, prefer compatible existing OSS such as SAIE or VBO before custom infrastructure.
+
+Do not compensate by adding dozens of bespoke fixed geometry actions.
