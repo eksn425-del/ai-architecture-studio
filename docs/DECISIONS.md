@@ -268,3 +268,36 @@ The startup target is at least one commercially viable operating point:
 2. a premium model that produces sufficiently high quality to justify a higher-priced user tier.
 
 The preferred end state is both, with most turns handled by Economy and Premium used only where it materially improves results.
+
+## D-021 — Precedent images are first-class architecture input
+
+**Status:** Accepted
+
+Do not treat a precedent URL's extracted text as equivalent to the original multimodal reference package.
+
+For architecture tasks where the user supplies effect images, plans, diagrams, sections, or technical drawings, those images are first-class model input alongside the taskbook/site/user conversation.
+
+The product should preserve a clear boundary:
+
+**taskbook/site constraints + precedent text + precedent images/drawings + user intent → agent reasoning → SketchUp/CAD**
+
+Generated model screenshots and final thesis outputs are not automatically recycled as precedent evidence. This prevents circular benchmarks and accidental self-conditioning.
+
+The current local runtime should attach safe project-local images from `inputs/reference`, then `inputs/site`, then `inputs/brief`, while excluding generated `outputs/` images.
+
+## D-022 — Historical workflow parity before further model conclusions
+
+**Status:** Accepted
+
+The user's successful direct graduation-design Codex workflow is the current product quality reference. Before concluding that a premium or economy model is intrinsically weaker, reproduce the successful workflow's information conditions as closely as practical:
+
+- same taskbook/site evidence,
+- same Jinshan precedent URL and key image/drawing set,
+- same meaningful user-prompt sequence,
+- same Architecture Skill/Ruby/MCP environment,
+- separate disposable SketchUp copies,
+- matched review views.
+
+Astra-class Low vs Luna Max is a controlled benchmark configuration, not a permanent product-default decision. Product defaults remain independent from benchmark-only reasoning overrides.
+
+If the website premium path remains materially worse than the historical direct result under equivalent inputs, migrate the missing capability/input/feedback loop before raising reasoning effort or rewriting the architecture engine.
