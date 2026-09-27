@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .agent_tools import AgentToolSurface
+from .reference_assets import discover_project_reference_images, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 
 
@@ -92,12 +93,15 @@ class CodexAppServerRuntime:
             full_prompt = prompt.rstrip()
             if architecture_skill_context:
                 full_prompt += "\n\n" + architecture_skill_context.strip()
+            reference_images = discover_project_reference_images(project_dir)
+            if reference_images:
+                full_prompt += "\n\n" + reference_image_label(reference_images)
             return self._run_turn(
                 project_dir=project_dir.resolve(), thread_id=thread_id,
                 prompt=full_prompt, mcp_enabled=mcp_enabled,
                 developer_instructions=developer_instructions, dynamic_tools=tools.dynamic_tools,
                 tool_handler=tools.dispatch, model=selected_model,
-                reasoning_effort=selected_effort,
+                reasoning_effort=selected_effort, reference_images=reference_images,
             )
 
     def _dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
@@ -149,7 +153,8 @@ class CodexAppServerRuntime:
                   mcp_enabled: bool, developer_instructions: str,
                   dynamic_tools: list[dict[str, Any]],
                   tool_handler: Callable[[str, dict[str, Any]], dict[str, Any]],
-                  model: str, reasoning_effort: str) -> AgentTurnResult:
+                  model: str, reasoning_effort: str,
+                  reference_images: list[Path]) -> AgentTurnResult:
         started = time.monotonic()
         environment = os.environ.copy()
         environment["CODEX_HOME"] = str(self.home)
@@ -212,12 +217,14 @@ class CodexAppServerRuntime:
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
 
+            turn_input: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
+            turn_input.extend({"type": "local_image", "path": str(path)} for path in reference_images)
             self._send(process, {
                 "id": request_id,
                 "method": "turn/start",
                 "params": {
                     "threadId": resolved_thread_id,
-                    "input": [{"type": "text", "text": prompt}],
+                    "input": turn_input,
                     "cwd": str(project_dir),
                     "model": model,
                     "approvalPolicy": "never",
