@@ -179,13 +179,41 @@ class AgentSession(Model):
     status: Literal["idle", "conversation", "ready", "failed"] = "idle"
     thread_id: str = ""
     model: str = "gpt-6-astra"
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"] = "low"
     model_path: str = ""
+    model_guid: str = ""
     started_at: str = ""
     updated_at: str = ""
     last_reply: str = ""
     last_tool_calls: list[dict[str, str]] = Field(default_factory=list)
     last_model_info: dict[str, Any] = Field(default_factory=dict)
+    ruby_state: dict[str, dict[str, Any]] = Field(default_factory=dict)
     error: str = ""
+
+
+class QualityBenchmarkRun(Model):
+    benchmark_id: str
+    variant: Literal["A", "B"]
+    project_id: str
+    model: str
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"]
+    input_sha256: str
+    model_guid: str = ""
+    sketchup_version: str = ""
+    architecture_skill: bool = False
+    ruby_enabled: bool = False
+    skill_revision: str = ""
+    script_ids: list[str] = Field(default_factory=list)
+    screenshots: list[str] = Field(default_factory=list)
+    tool_calls: list[dict[str, str]] = Field(default_factory=list)
+    metrics: dict[str, Any] = Field(default_factory=dict)
+    inspected: bool = False
+    correction_count: int = 0
+    same_model_followup: bool = False
+    status: Literal["planned", "running", "complete", "partial", "failed"] = "planned"
+    notes: list[str] = Field(default_factory=list)
+    created_at: str = ""
+    updated_at: str = ""
 
 
 class Artifact(Model):

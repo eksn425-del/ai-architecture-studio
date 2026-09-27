@@ -1,6 +1,6 @@
 # CURRENT TASK — Quality Lift v1: Astra Low + Architecture Skill + Ruby
 
-## Status: Ready to execute
+## Status: Completed (2026-09-27; see `docs/HANDOFF.md`)
 
 ## Objective
 

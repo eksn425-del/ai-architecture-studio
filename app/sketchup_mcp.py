@@ -235,27 +235,34 @@ class SketchUpAdapter:
         })
         return result if isinstance(result, dict) else {"result": result}
 
-    def capture_view(self, output_path: Path, width: int = 1500, height: int = 950) -> dict[str, Any]:
+    def capture_view(self, output_path: Path, width: int = 1500, height: int = 950,
+                     zoom_extents: bool = True) -> dict[str, Any]:
         result = self.client.call("sketchup_export_view_image", {
             "output_path": str(output_path.resolve()),
             "width": width,
             "height": height,
-            "zoom_extents": True,
+            "zoom_extents": zoom_extents,
         })
         return result if isinstance(result, dict) else {"result": result}
 
-    def set_camera(self, eye_m: list[float], target_m: list[float]) -> dict[str, Any]:
-        result = self.client.call("sketchup_set_camera", {"eye_m": eye_m, "target_m": target_m})
+    def set_camera(self, eye_m: list[float], target_m: list[float],
+                   up_m: list[float] | None = None) -> dict[str, Any]:
+        result = self.client.call("sketchup_set_camera", {
+            "eye_m": eye_m,
+            "target_m": target_m,
+            "up": up_m or [0, 0, 1],
+        })
         return result if isinstance(result, dict) else {"result": result}
 
-    def get_active_model_path(self) -> str:
+    def get_active_model_identity(self) -> dict[str, Any]:
         generated_dir = _generated_script_dir()
         generated_dir.mkdir(parents=True, exist_ok=True)
         script_path = generated_dir / f"studio-model-path-{os.urandom(6).hex()}.rb"
         script = (
             "# ARCHFLOW_GENERATED_SCRIPT\n"
             "model = Sketchup.active_model\n"
-            "{ model_path: model.path, model_name: model.title }\n"
+            "{ model_path: model.path, model_name: model.title, model_guid: model.guid, "
+            "active_context: !model.active_path.nil?, main_thread: Thread.current == Thread.main }\n"
         )
         script_path.write_text(script, encoding="utf-8")
         try:
@@ -265,16 +272,34 @@ class SketchUpAdapter:
             })
         finally:
             script_path.unlink(missing_ok=True)
+        candidates = [result]
         if isinstance(result, dict):
-            path = result.get("model_path") or result.get("path")
-            if isinstance(path, str) and path:
-                return path
-            nested = result.get("result")
-            if isinstance(nested, dict):
-                path = nested.get("model_path") or nested.get("path")
-                if isinstance(path, str) and path:
-                    return path
-        raise MCPCallError("The SketchUp MCP did not return the active model path, so the disposable-model safety check cannot pass.")
+            candidates.append(result.get("result"))
+            text = result.get("text")
+            if isinstance(text, str):
+                try:
+                    candidates.append(json.loads(text))
+                except json.JSONDecodeError:
+                    pass
+        for candidate in candidates:
+            if isinstance(candidate, dict):
+                path = candidate.get("model_path") or candidate.get("path")
+                guid = candidate.get("model_guid")
+                if isinstance(path, str) and path and isinstance(guid, str) and guid:
+                    if candidate.get("main_thread") is False:
+                        raise MCPCallError("SketchUp Ruby evaluation did not run on the main thread.")
+                    return {
+                        "model_path": path,
+                        "model_name": str(candidate.get("model_name") or Path(path).name),
+                        "model_guid": guid,
+                        "active_context": bool(candidate.get("active_context", False)),
+                        "main_thread": bool(candidate.get("main_thread", True)),
+                    }
+        raise MCPCallError("The SketchUp MCP did not return the active model path and GUID, so the disposable-model safety check cannot pass.")
+
+    def get_active_model_path(self) -> str:
+        identity = self.get_active_model_identity()
+        return str(identity["model_path"])
 
     def save_model(self, target_path: Path, operation_name: str = "AI Architecture Studio Demo checkpoint") -> dict[str, Any]:
         target_path.parent.mkdir(parents=True, exist_ok=True)

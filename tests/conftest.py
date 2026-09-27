@@ -85,6 +85,7 @@ class FakeSketchUp:
         self.calls: list[tuple[str, dict[str, Any]]] = []
         self.entity_id = 500
         self.active_model_path = ""
+        self.active_model_guid = "fake-sketchup-guid"
 
     def ping(self):
         self.calls.append(("ping", {}))
@@ -99,6 +100,17 @@ class FakeSketchUp:
         if not self.active_model_path:
             raise RuntimeError("No connected SketchUp model.")
         return self.active_model_path
+
+    def get_active_model_identity(self):
+        self.calls.append(("get_active_model_identity", {}))
+        if not self.active_model_path:
+            raise RuntimeError("No connected SketchUp model.")
+        return {
+            "model_path": self.active_model_path,
+            "model_guid": self.active_model_guid,
+            "active_context": False,
+            "main_thread": True,
+        }
 
     def create_mass(self, **kwargs):
         self.entity_id += 1

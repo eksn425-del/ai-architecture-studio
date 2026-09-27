@@ -393,6 +393,7 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
 class FakeNativeAgent:
     available = True
     model = "gpt-6-astra"
+    reasoning_effort = "low"
 
     def __init__(self):
         self.calls = []
@@ -407,6 +408,15 @@ class FakeNativeAgent:
                         if kwargs["mcp_enabled"] else []),
             model_name=self.model,
         )
+
+
+def test_local_status_exposes_native_model_and_reasoning_effort(tmp_path: Path):
+    native = FakeNativeAgent()
+    app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp(), native_agent=native)
+    response = TestClient(app).get("/api/status")
+    assert response.status_code == 200
+    assert response.json()["native_agent_model"] == "gpt-6-astra"
+    assert response.json()["native_agent_reasoning_effort"] == "low"
 
 
 class DisconnectedFakeSketchUp(FakeSketchUp):

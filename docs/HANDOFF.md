@@ -1,5 +1,59 @@
 # Handoff — AI Architecture Studio
 
+## Latest task — Quality Lift v1: Astra Low + Architecture Skill + Ruby
+
+### Delivered
+
+- Kept the current native model `gpt-6-astra` and changed the normal reasoning effort from high to **low**. `ARCH_STUDIO_CODEX_REASONING_EFFORT` remains an explicit local experiment override (`low`, `medium`, `high`, `xhigh`, or `max`); no higher effort was used to improve this benchmark. The API/local session status records both active settings.
+- Selectively vendored the MIT-licensed `Mentat-Uran/sketchup-architect-skill` at commit `8be9ec80359cd90a7cfc5d9b03d2b0cf86188772`, retaining its `LICENSE` and attribution in `app/vendor/sketchup_architect/UPSTREAM.md`. The agent receives a bounded selection of workflow sections (under 12,500 characters) on modeling turns, not a repository dump.
+- Added a project-local Ruby execution helper that exposes one task-specific script tool through the already configured Kongxing connector's `sketchup_eval_project_file`. It checks the active model path, fresh SketchUp GUID, and edit context; refreshes that GUID after existing MCP tools edit the model during the same turn; stores source/reports only under ignored project runtime; scopes revision geometry to an owned root; returns readback and an image; and keeps the raw connector eval tool hidden. No MCP server or connector was rebuilt.
+- Reasserted the host-owned project-root identity after agent source runs, preventing script metadata from changing the root's project identity. Added source checks for file/process access, Ruby reflection/dispatch, model escape paths, and whole-document erase/save operations. **These checks are static guardrails, not an isolated Ruby sandbox**; this milestone does not claim hostile Ruby can be securely contained inside SketchUp.
+- Added focused tests for low/default configuration, the override, prompt context selection, Ruby path/source/model guards, the active-model gate, same-root revision and screenshot lifecycle, camera up-vector handling, and benchmark persistence.
+
+### Controlled real SketchUp A/B benchmark
+
+- Both variants used the exact same active disposable SketchUp document, model `gpt-6-astra`, reasoning effort **low**, and sanitized synthetic input hash `58603e178062c85398a4ff0208c06c377c5673f6235feb52e1d30762f4b84c60` (60 × 48 m waterfront community learning center). Only B received the selected architecture skill and the project Ruby tool. SketchUp version: `24.0.484`.
+- A used the existing MCP tools without skill injection or project Ruby. Its view shows a simpler pair of roof-heavy masses, site road, and a limited visible courtyard/connection. B produced a two-level program with separated learning/workshop and independently entered hall volumes, real façade openings, a south public path and entry, east service access, and a north waterfront terrace. In the matched exterior view B has visibly richer openings and façade rhythm. The plan view remains roof-obscured, so it does **not** establish that the internal layout is legible from above.
+- B's Ruby transaction readback covered 277 groups, 3,252 edges, 1,626 faces, and 12 text entities inside the owned project root. The vendored upstream read-only audit completed its traversal, but reported 34 duplicate semantic-ID categories (repeated wall pieces, furniture, columns, and shading members). This is a QA defect; `complete: true` means the walk finished, not that the geometry passed. No code or claim treats it as a clean audit.
+- After the first B screenshot, the agent called undo, added a replacement mass, and reset the camera; this is recorded as one agent-initiated correction. A same-thread natural-language follow-up extended the south entry canopy on the same SketchUp document and captured a second pair of views. After identifying and fixing the helper reload boundary, a second real Kongxing → SketchUp project-script revision committed as revision 2 even though the audit module was already loaded; the root stayed bound to `fast-assembly-synthetic-pavilion`. An audit-verified disposable checkpoint remains only under ignored `runtime/`. No `.skp`, runtime Ruby, private thesis asset, API key, or machine path is included below.
+
+![Quality Lift A — matched top view](images/quality-lift-v1-a-plan.png)
+
+![Quality Lift A — matched exterior view](images/quality-lift-v1-a-exterior.png)
+
+![Quality Lift B — matched top view; roofs obscure room planning](images/quality-lift-v1-b-plan.png)
+
+![Quality Lift B — matched exterior view](images/quality-lift-v1-b-exterior.png)
+
+![Quality Lift B — same-model canopy follow-up](images/quality-lift-v1-b-followup-exterior.png)
+
+### Acceptance criteria
+
+1. Native product defaults to the current Astra model at low effort — **PASS**.
+2. Active model and effort appear in local status/session state — **PASS**.
+3. MIT SketchUp Architect Skill is reused with attribution — **PASS**.
+4. The agent receives selected bounded workflow context — **PASS**.
+5. Project Ruby path/model/revision guardrails work through the existing connector — **PARTIAL** (static source restrictions are not a secure Ruby sandbox).
+6. No new MCP/SketchUp bridge was built — **PASS**.
+7. A/B used the same model, low effort, and input; only skill/tool availability changed — **PASS**.
+8. B is visibly more detailed than A in matched screenshots — **PASS**, with roof-obscured plan and repeated semantic IDs recorded as remaining QA gaps.
+9. B inspected its output and made an agent-initiated correction — **PASS**.
+10. Natural-language follow-up changed the same SketchUp document — **PASS**.
+11. Existing workspace/session/model safety behavior remains covered — **PASS** (`scripts/check.ps1`).
+12. Private source models/assets, credentials, runtime scripts, and local model files are not included — **PASS**.
+13. Handoff includes settings, A/B method, screenshots, license, and gaps — **PASS**.
+14. Implementation is committed and pushed to `origin/main` — **PASS** (see the current handoff commit in Git history).
+
+### Checks and local verification
+
+- `scripts/check.ps1`: **35 passed**, one existing Starlette/httpx deprecation warning.
+- `git diff --check`: passed.
+- Existing Kongxing connection reached SketchUp 2024; active path remained the project-local `blank-disposable-20260927-104818.skp`. The upstream model audit ran against its owned root and the audit-verified checkpoint was saved locally under ignored `runtime/`.
+- Screenshot files above were inspected. The model audit deliberately remains a recorded failure category, not an acceptance pass.
+- `.gitignore` continues to exclude `runtime/`, local `.skp`/`.dwg` files, scripts, and generated state; only sanitized synthetic viewport PNGs were curated into this handoff.
+
+---
+
 ## Latest task — Fast Assembly v1: Astra-native Architecture Agent
 
 ### Delivered

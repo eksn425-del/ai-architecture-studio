@@ -264,7 +264,7 @@ async function boot() {
   try {
     const [runtime, projects] = await Promise.all([api("/api/status"), api("/api/projects")]);
     state.nativeAgentAvailable = !!runtime.native_agent_available;
-    $("brain-status").textContent = state.nativeAgentAvailable ? `Codex Agent · ${runtime.native_agent_model} 已就绪` : "Codex Agent · 尚未配置";
+    $("brain-status").textContent = state.nativeAgentAvailable ? `Codex Agent · ${runtime.native_agent_model} · ${(runtime.native_agent_reasoning_effort || "low").toUpperCase()} 已就绪` : "Codex Agent · 尚未配置";
     $("brain-status").previousElementSibling.classList.toggle("ready", state.nativeAgentAvailable);
     if (projects.length) await loadProject(projects[0].project_id);
   } catch (error) {

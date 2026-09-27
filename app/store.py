@@ -10,7 +10,7 @@ from typing import TypeVar
 
 from pydantic import BaseModel
 
-from .models import AgentSession, BuildPlan, DesignIR, ModelState, OutputManifest, ProjectContext
+from .models import AgentSession, BuildPlan, DesignIR, ModelState, OutputManifest, ProjectContext, QualityBenchmarkRun
 
 
 T = TypeVar("T", bound=BaseModel)
@@ -128,6 +128,28 @@ class ProjectStore:
         if filename not in STATE_FILES:
             raise ValueError("Unknown state file")
         self.save(model, self.ensure_layout(project_id) / "state" / filename)
+
+    def save_benchmark_run(self, run: QualityBenchmarkRun) -> Path:
+        project_dir = self.ensure_layout(run.project_id)
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,55}", run.benchmark_id):
+            raise ValueError("benchmark_id must contain lowercase letters, numbers, and hyphens.")
+        directory = project_dir / "state" / "benchmarks"
+        directory.mkdir(parents=True, exist_ok=True)
+        path = directory / f"quality-{run.benchmark_id}-{run.variant}.json"
+        if not path.resolve().is_relative_to(directory.resolve()):
+            raise ValueError("Benchmark metadata path resolved outside project state.")
+        self.save(run, path)
+        return path
+
+    def load_benchmark_runs(self, project_id: str) -> list[QualityBenchmarkRun]:
+        directory = self.project_dir(project_id) / "state" / "benchmarks"
+        if not directory.is_dir():
+            return []
+        return [
+            self.load(QualityBenchmarkRun, path)
+            for path in sorted(directory.glob("quality-*.json"))
+            if path.is_file() and not path.is_symlink()
+        ]
 
     def load_context(self, project_id: str) -> ProjectContext:
         context = self.load_state(project_id, "project_context.json", ProjectContext)

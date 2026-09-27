@@ -10,8 +10,9 @@ import time
 import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
+from .project_ruby import ProjectRubyExecutor
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 
 
@@ -26,6 +27,7 @@ class AgentTurnResult:
     status: str = "completed"
     tool_calls: list[dict[str, str]] = field(default_factory=list)
     model_name: str = ""
+    reasoning_effort: str = "low"
 
 
 class CodexAppServerRuntime:
@@ -34,10 +36,15 @@ class CodexAppServerRuntime:
     def __init__(self, runtime_root: Path, *, codex_executable: str | None = None,
                  model: str | None = None, timeout_seconds: int = 300,
                  sketchup_mcp: ConfiguredSketchUpMCP | None = None,
-                 home_root: Path | None = None):
+                 home_root: Path | None = None,
+                 reasoning_effort: str | None = None):
         self.runtime_root = runtime_root.resolve()
         self.codex_executable = codex_executable or os.environ.get("CODEX_CLI_PATH") or shutil.which("codex")
         self.model = model or os.environ.get("ARCH_STUDIO_CODEX_MODEL", "gpt-6-astra")
+        effort = reasoning_effort or os.environ.get("ARCH_STUDIO_CODEX_REASONING_EFFORT", "low")
+        if effort not in {"low", "medium", "high", "xhigh", "max"}:
+            raise ValueError("ARCH_STUDIO_CODEX_REASONING_EFFORT must be one of low, medium, high, xhigh, or max.")
+        self.reasoning_effort = effort
         self.timeout_seconds = timeout_seconds
         configured_home = home_root
         if configured_home is None and os.environ.get("ARCH_STUDIO_CODEX_HOME"):
@@ -54,19 +61,36 @@ class CodexAppServerRuntime:
         return bool(self.codex_executable)
 
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
-                mcp_enabled: bool, developer_instructions: str) -> AgentTurnResult:
+                mcp_enabled: bool, developer_instructions: str,
+                model_path: Path | None = None, model_guid: str = "",
+                ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
+                architecture_skill_context: str = "") -> AgentTurnResult:
         if not self.codex_executable:
             raise NativeAgentUnavailable("Codex CLI is unavailable; install/sign in to Codex CLI to start the native agent.")
         with self._lock:
-            dynamic_tools = self._dynamic_tools() if mcp_enabled else []
+            executor = None
+            if mcp_enabled and ruby_enabled:
+                if model_path is None or not model_guid:
+                    raise NativeAgentUnavailable("The guarded project Ruby tool requires a verified disposable model path and GUID.")
+                executor = ProjectRubyExecutor(
+                    self.runtime_root, project_dir.name, expected_model_path=model_path,
+                    expected_model_guid=model_guid, mcp=self.sketchup_mcp, ruby_state=ruby_state,
+                )
+            dynamic_tools = self._dynamic_tools(ruby_enabled=executor is not None) if mcp_enabled else []
             self._prepare_home(mcp_enabled=mcp_enabled)
+            full_prompt = prompt.rstrip()
+            if architecture_skill_context:
+                full_prompt += "\n\n" + architecture_skill_context.strip()
             return self._run_turn(
                 project_dir=project_dir.resolve(), thread_id=thread_id,
-                prompt=prompt, mcp_enabled=mcp_enabled,
+                prompt=full_prompt, mcp_enabled=mcp_enabled,
                 developer_instructions=developer_instructions, dynamic_tools=dynamic_tools,
+                tool_handler=lambda name, arguments: self._dispatch_tool(
+                    name, arguments, project_dir=project_dir.resolve(), project_ruby=executor,
+                ),
             )
 
-    def _dynamic_tools(self) -> list[dict[str, Any]]:
+    def _dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
         try:
             discovered = self.sketchup_mcp.list_tools()
         except (ConnectorUnavailable, MCPCallError) as error:
@@ -78,6 +102,10 @@ class CodexAppServerRuntime:
             schema = item.get("inputSchema")
             if not isinstance(name, str) or not isinstance(schema, dict) or name in seen:
                 continue
+            # The connector's raw path-taking eval endpoint is host infrastructure,
+            # never a model-facing tool. Project Ruby is exposed through the guard below.
+            if name == "sketchup_eval_project_file" or name.startswith("archflow_"):
+                continue
             seen.add(name)
             tools.append({
                 "type": "function",
@@ -85,9 +113,60 @@ class CodexAppServerRuntime:
                 "description": str(item.get("description") or f"Call the existing Kongxing SketchUp MCP tool {name}."),
                 "inputSchema": schema,
             })
+        if ruby_enabled:
+            tools.append({
+                "type": "function",
+                "name": "sketchup_run_project_ruby",
+                "description": (
+                    "Run task-specific Ruby source inside SketchUp on this verified disposable project model. "
+                    "Source is stored only in the ignored project runtime. Use the same script_id to revise the existing script/model; "
+                    "each revision replaces geometry only inside this script's owned project root and returns transaction readback plus a screenshot. "
+                    "The source must use the supplied local variables model and root. Do not access files, processes, network, reflection, other models, or whole-model edit/save APIs."
+                ),
+                "inputSchema": {
+                    "type": "object",
+                    "required": ["script_id", "ruby_source"],
+                    "properties": {
+                        "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
+                        "ruby_source": {"type": "string", "maxLength": 120000},
+                    },
+                    "additionalProperties": False,
+                },
+            })
         if not tools:
             raise NativeAgentUnavailable("The configured Kongxing SketchUp MCP returned no callable tool schemas.")
         return tools
+
+    def _dispatch_tool(self, name: str, arguments: dict[str, Any], *, project_dir: Path,
+                       project_ruby: ProjectRubyExecutor | None) -> dict[str, Any]:
+        if name == "sketchup_run_project_ruby":
+            if project_ruby is None:
+                raise MCPCallError("The project Ruby tool is not enabled for this session.")
+            return project_ruby.run(arguments)
+        if name == "sketchup_export_view_image":
+            # Keep the existing screenshot tool, but anchor its file write in this project.
+            output_path = project_dir / "outputs" / "renders" / f"agent-view-{uuid.uuid4().hex[:10]}.png"
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            safe_arguments = dict(arguments)
+            safe_arguments["output_path"] = str(output_path.resolve())
+            try:
+                result = self.sketchup_mcp.call_for_agent(name, safe_arguments)
+            finally:
+                if project_ruby is not None:
+                    project_ruby.refresh_active_model_snapshot()
+            if output_path.is_file() and output_path.stat().st_size <= 8 * 1024 * 1024:
+                import base64
+                result.setdefault("contentItems", []).append({
+                    "type": "inputImage",
+                    "imageUrl": "data:image/png;base64," + base64.b64encode(output_path.read_bytes()).decode("ascii"),
+                })
+            return result
+        try:
+            result = self.sketchup_mcp.call_for_agent(name, arguments)
+        finally:
+            if project_ruby is not None:
+                project_ruby.refresh_active_model_snapshot()
+        return result
 
     def _prepare_home(self, *, mcp_enabled: bool) -> None:
         source_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser()
@@ -113,7 +192,7 @@ class CodexAppServerRuntime:
 
         lines = [
             f"model = {json.dumps(self.model)}",
-            'model_reasoning_effort = "high"',
+            f"model_reasoning_effort = {json.dumps(self.reasoning_effort)}",
             'approval_policy = "never"',
             'sandbox_mode = "read-only"',
             "mcp_optional_startup_grace_ms = 0",
@@ -125,7 +204,8 @@ class CodexAppServerRuntime:
 
     def _run_turn(self, *, project_dir: Path, thread_id: str | None, prompt: str,
                   mcp_enabled: bool, developer_instructions: str,
-                  dynamic_tools: list[dict[str, Any]]) -> AgentTurnResult:
+                  dynamic_tools: list[dict[str, Any]],
+                  tool_handler: Callable[[str, dict[str, Any]], dict[str, Any]]) -> AgentTurnResult:
         environment = os.environ.copy()
         environment["CODEX_HOME"] = str(self.home)
         command = [str(self.codex_executable), "app-server"]
@@ -170,7 +250,7 @@ class CodexAppServerRuntime:
                 "runtimeWorkspaceRoots": [str(project_dir)],
                 "sandbox": "read-only",
                 "approvalPolicy": "never",
-                "serviceName": "ai_architecture_studio_fast_assembly_v1",
+                "serviceName": "ai_architecture_studio_quality_lift_v1",
                 "developerInstructions": developer_instructions,
             }
             if mcp_enabled:
@@ -217,7 +297,7 @@ class CodexAppServerRuntime:
                     try:
                         if call["tool"] not in {str(tool.get("name", "")) for tool in dynamic_tools}:
                             raise MCPCallError("The agent requested a tool that is not in this turn's Kongxing MCP allowlist.")
-                        output = self.sketchup_mcp.call_for_agent(call["tool"], params.get("arguments") or {})
+                        output = tool_handler(call["tool"], params.get("arguments") or {})
                     except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                         output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
                     self._send(process, {"id": message["id"], "result": output})
@@ -254,6 +334,7 @@ class CodexAppServerRuntime:
                 status=turn_status,
                 tool_calls=_dedupe_calls(tool_calls),
                 model_name=self.model,
+                reasoning_effort=self.reasoning_effort,
             )
         except (BrokenPipeError, OSError, TimeoutError, json.JSONDecodeError) as error:
             raise NativeAgentUnavailable(f"Codex app-server communication failed: {error}") from error
