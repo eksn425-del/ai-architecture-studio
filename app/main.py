@@ -27,6 +27,7 @@ from .models import (
     DesignIR, EditPlan, EditRequest, ModelObject, ModelState, OutputManifest,
     PrepareRequest, ProjectContext, Reference,
 )
+from .model_router import DeterministicModelRouter
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, _resolve_server
@@ -143,9 +144,11 @@ def _bounded_dimension(value: Any, label: str, minimum: float = 0.5, maximum: fl
     return dimension
 
 
-def _append_conversation(context: ProjectContext, role: str, phase: str, content: str) -> None:
+def _append_conversation(context: ProjectContext, role: str, phase: str, content: str,
+                         metadata: dict[str, Any] | None = None) -> None:
     context.conversation.append(ConversationMessage(
         role=role, phase=phase, content=content[:2000], created_at=utc_now(),
+        metadata=metadata or {},
     ))
     context.conversation = context.conversation[-40:]
 
@@ -163,6 +166,13 @@ def _sanitize_agent_reply(value: str) -> str:
         sanitized,
     )
     return sanitized
+
+
+def _is_agent_loop_stall(value: str) -> bool:
+    folded = value.casefold()
+    return any(marker in folded for marker in (
+        "tool loop", "tool-call limit", "agent turn exceeded", "ended without a completed turn",
+    ))
 
 
 def _disposable_model_path(path_value: str, project_dir: Path) -> Path | None:
@@ -325,11 +335,12 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                disposable_model_launcher: Any | None = None) -> FastAPI:
     runtime = runtime_root or Path(__import__("os").environ.get("ARCH_STUDIO_RUNTIME_DIR", ROOT / "runtime"))
     store = ProjectStore(runtime)
-    app = FastAPI(title="AI Architecture Studio Fast Assembly", version="1.0.0")
+    app = FastAPI(title="AI Architecture Studio Model Router", version="1.1.0")
     app.mount("/static", StaticFiles(directory=STATIC), name="static")
     app.state.store = store
     app.state.brain = brain or CodexBrainAdapter()
     app.state.native_agent = native_agent or CodexAppServerRuntime(store.root)
+    app.state.model_router = DeterministicModelRouter(app.state.native_agent, runtime_root=store.root)
     app.state.sketchup = sketchup or SketchUpAdapter()
     app.state.reference_ingestor = reference_ingestor or ReferenceIngestor()
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
@@ -355,9 +366,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "app": "ready",
             "brain": "Codex CLI" if app.state.brain.available else "Codex Job Mode",
             "codex_available": app.state.brain.available,
-            "native_agent_available": app.state.native_agent.available,
-            "native_agent_model": app.state.native_agent.model,
-            "native_agent_reasoning_effort": getattr(app.state.native_agent, "reasoning_effort", "low"),
+            "native_agent_available": app.state.model_router.available,
+            "native_agent_model": app.state.model_router.economy_route.model,
+            "native_agent_reasoning_effort": app.state.model_router.economy_route.reasoning_effort,
+            "model_router": app.state.model_router.status(),
             "sketchup_configured": connector_configured,
             "sketchup_detail": connector_detail,
             "runtime": "local",
@@ -545,8 +557,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     def start_agent_session(project_id: str, request: dict[str, Any]) -> dict[str, Any]:
         if request.get("confirm_disposable_model") is not True:
             raise HTTPException(status_code=400, detail="Confirm that AI Architecture Studio may open a blank disposable SketchUp copy.")
-        if not app.state.native_agent.available:
-            raise HTTPException(status_code=503, detail="Codex app-server is unavailable. Install/sign in to Codex CLI first.")
+        if not app.state.model_router.available:
+            raise HTTPException(status_code=503, detail="No configured local model provider is available.")
         try:
             project_dir = store.ensure_layout(project_id)
             session: AgentSession = store.load_state(project_id, "agent_session.json", AgentSession)
@@ -619,10 +631,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 raise HTTPException(status_code=502, detail="SketchUp 没有返回活动模型 GUID，无法安全绑定本次 Agent 会话。")
             model_info = adapter.get_model_info()
             relative_model_path = _relative(project_dir, Path(live_path))
+            economy_route = app.state.model_router.economy_route
             session.status = "ready"
             session.model_path = relative_model_path
-            session.model = app.state.native_agent.model
-            session.reasoning_effort = getattr(app.state.native_agent, "reasoning_effort", "low")
+            session.model = economy_route.model
+            session.reasoning_effort = economy_route.reasoning_effort
+            session.routing_tier = "economy"
+            session.provider = economy_route.provider
+            session.region = economy_route.region
             session.started_at = session.started_at or utc_now()
             session.model_guid = str(live_identity.get("model_guid") or "")
             session.updated_at = utc_now()
@@ -943,12 +959,30 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 context.references[index] = Reference.model_validate(app.state.reference_ingestor.ingest(reference.source))
 
         phase = "agent"
-        _append_conversation(context, "user", phase, request.message.strip())
+        requested_tier = request.tier
+        auto_rescue = requested_tier == "economy" and session.premium_rescue_pending
+        effective_tier = "premium" if auto_rescue else requested_tier
+        route = app.state.model_router.route(effective_tier)
+        route_reason = (
+            "连续两次 SketchUp 工具失败后的一次性 Premium rescue"
+            if auto_rescue else
+            "用户本轮显式选择精修" if requested_tier == "premium" else
+            "默认 Economy"
+        )
+        if auto_rescue:
+            session.premium_rescue_pending = False
+            session.economy_tool_failure_streak = 0
+        _append_conversation(context, "user", phase, request.message.strip(), {
+            "requested_tier": requested_tier,
+            "effective_tier": effective_tier,
+            "routing_reason": route_reason,
+        })
         project_dir = store.ensure_layout(project_id)
         store.save(context, project_dir / "state" / "project_context.json")
         mcp_enabled = session.status == "ready" and bool(session.model_path)
         adapter: SketchUpAdapter = app.state.sketchup
         model_info: dict[str, Any] | None = None
+        active_model: Path | None = None
         if mcp_enabled:
             active_model = _disposable_model_path(str((project_dir / session.model_path).resolve()), project_dir)
             if active_model is None or not active_model.is_file():
@@ -967,8 +1001,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 # after geometry edits/checkpoints; the disposable path remains the
                 # persistent session boundary, so take a fresh GUID for this turn.
                 session.model_guid = str(live_identity["model_guid"])
-                session.model = app.state.native_agent.model
-                session.reasoning_effort = getattr(app.state.native_agent, "reasoning_effort", "low")
+                session.model = route.model
+                session.reasoning_effort = route.reasoning_effort
+                session.routing_tier = effective_tier
+                session.provider = route.provider
+                session.region = route.region
                 model_info = adapter.get_model_info()
             except HTTPException:
                 raise
@@ -982,7 +1019,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             model_info=model_info, architecture_skill_context=skill_context,
         )
         try:
-            result = app.state.native_agent.respond(
+            result = app.state.model_router.respond(
+                tier=effective_tier,
                 project_dir=project_dir,
                 thread_id=session.thread_id or None,
                 prompt=prompt,
@@ -1003,14 +1041,32 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         except (NativeAgentUnavailable, ConnectorUnavailable) as error:
             session.status = "ready" if mcp_enabled else "conversation"
             session.error = str(error)[:1200]
+            if effective_tier == "economy" and _is_agent_loop_stall(str(error)):
+                session.economy_tool_failure_streak += 1
+                session.premium_rescue_pending = session.economy_tool_failure_streak >= 2
             session.updated_at = utc_now()
             store.save_state(project_id, session, "agent_session.json")
             raise HTTPException(status_code=503, detail=str(error)) from error
 
         session.thread_id = result.thread_id
         session.status = "ready" if mcp_enabled else "conversation"
-        session.model = result.model_name or app.state.native_agent.model
-        session.reasoning_effort = result.reasoning_effort or getattr(app.state.native_agent, "reasoning_effort", "low")
+        session.model = result.model_name or route.model
+        session.reasoning_effort = result.reasoning_effort or route.reasoning_effort
+        session.routing_tier = effective_tier
+        session.provider = result.provider_name or route.provider
+        session.region = result.region or route.region
+        session.input_tokens = result.input_tokens
+        session.output_tokens = result.output_tokens
+        session.latency_ms = result.latency_ms
+        session.tool_call_count = result.tool_call_count or len(result.tool_calls)
+        session.failed_tool_calls = result.failed_tool_calls
+        if effective_tier == "economy":
+            if result.failed_tool_calls:
+                session.economy_tool_failure_streak += result.failed_tool_calls
+                if session.economy_tool_failure_streak >= 2:
+                    session.premium_rescue_pending = True
+            elif result.tool_call_count or result.tool_calls:
+                session.economy_tool_failure_streak = 0
         session.updated_at = utc_now()
         session.last_tool_calls = result.tool_calls[-40:]
         session.error = ""
@@ -1050,7 +1106,21 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 session.error = f"Model action completed, but readback/capture/checkpoint failed: {error}"[:1200]
                 reply += "\n\nSketchUp 的模型回读、截图或检查点保存未完成；请检查本机桥接后重试。"
         session.last_reply = reply[:2000]
-        _append_conversation(context, "assistant", phase, reply)
+        turn_metadata = {
+            "tier": effective_tier,
+            "provider": session.provider,
+            "model": session.model,
+            "reasoning_effort": session.reasoning_effort,
+            "region": session.region,
+            "input_tokens": session.input_tokens,
+            "output_tokens": session.output_tokens,
+            "latency_ms": session.latency_ms,
+            "tool_call_count": session.tool_call_count,
+            "failed_tool_calls": session.failed_tool_calls,
+            "routing_reason": route_reason,
+            "premium_rescue_pending": session.premium_rescue_pending,
+        }
+        _append_conversation(context, "assistant", phase, reply, turn_metadata)
         store.save_state(project_id, session, "agent_session.json")
         store.save(context, project_dir / "state" / "project_context.json")
         return {
@@ -1059,6 +1129,16 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "agent": {
                 "model": session.model,
                 "reasoning_effort": session.reasoning_effort,
+                "tier": effective_tier,
+                "provider": session.provider,
+                "region": session.region,
+                "input_tokens": session.input_tokens,
+                "output_tokens": session.output_tokens,
+                "latency_ms": session.latency_ms,
+                "tool_call_count": session.tool_call_count,
+                "failed_tool_calls": session.failed_tool_calls,
+                "routing_reason": route_reason,
+                "premium_rescue_pending": session.premium_rescue_pending,
                 "session_status": session.status,
                 "tool_calls": session.last_tool_calls,
                 "model_info": session.last_model_info if mcp_enabled else {},

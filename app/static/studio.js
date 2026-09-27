@@ -1,5 +1,29 @@
-const state = { projectId: null, project: null, tab: "design", busy: false, toastTimer: null, nativeAgentAvailable: false };
+const state = { projectId: null, project: null, tab: "design", busy: false, toastTimer: null, nativeAgentAvailable: false, modelRouter: null };
 const $ = (id) => document.getElementById(id);
+
+function routeInfo(tier) {
+  const fallback = tier === "premium"
+    ? { model: "gpt-6-astra", provider: "codex-app-server" }
+    : { model: "gpt-6-luna", provider: "codex-app-server" };
+  return state.modelRouter?.[tier] || fallback;
+}
+
+function routeAvailable(tier) {
+  const route = routeInfo(tier);
+  if (!state.modelRouter) return state.nativeAgentAvailable;
+  return !!state.modelRouter.providers?.[route.provider]?.available;
+}
+
+function refreshTierLabels() {
+  const select = $("conversation-tier");
+  if (!select) return;
+  const economy = select.querySelector('option[value="economy"]');
+  const premium = select.querySelector('option[value="premium"]');
+  const economyRoute = routeInfo("economy");
+  const premiumRoute = routeInfo("premium");
+  economy.textContent = `Economy · ${economyRoute.model}（默认${routeAvailable("economy") ? "" : " · 未配置"}）`;
+  premium.textContent = `精修 · ${premiumRoute.model}（仅本轮${routeAvailable("premium") ? "" : " · 未配置"}）`;
+}
 
 const modelStatusLabels = {
   ready: "方案研究",
@@ -83,6 +107,7 @@ function allArtifacts() {
 }
 
 function updateHeader() {
+  refreshTierLabels();
   const project = state.project;
   if (!project) return;
   const context = project.context;
@@ -124,15 +149,18 @@ function updateHeader() {
   $("edit-height").disabled = !built || state.busy || !masses.length || !!masses[0]?.last_change;
   $("agent-session-state").textContent = agentReady
     ? `已连接同一份 SketchUp 空白副本 · ${agent.model_path.split("/").at(-1)}`
-    : agent.status === "conversation" ? "Codex 对话已建立 · SketchUp 建模工具尚未启用" : "尚未打开项目专属空白副本";
+    : agent.status === "conversation" ? "Agent 对话已建立 · SketchUp 建模工具尚未启用" : "尚未打开项目专属空白副本";
   $("start-agent-session").disabled = state.busy || !state.nativeAgentAvailable;
   $("start-agent-session").querySelector("span:first-child").textContent = agentReady ? "重连此项目的同一份模型" : "打开空白副本并连接 Agent";
-  $("conversation-phase").textContent = agentReady ? "Agent 修改当前模型" : "Agent 设计讨论";
+  const hasAgentTurn = agent.status === "conversation" || agent.status === "ready";
+  const activeTier = hasAgentTurn ? agent.routing_tier : "economy";
+  const activeModel = hasAgentTurn && agent.model ? agent.model : routeInfo("economy").model;
+  $("model-tier-status").textContent = (activeTier === "premium" ? "精修 · " : "Economy · ") + activeModel;
   $("conversation-input").placeholder = agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
   $("conversation-hint").textContent = agentReady
     ? "每轮对话都在同一份 SketchUp 副本上执行；Agent 可连续调用工具、查看截图/状态并保存检查点。"
     : "可以先讨论与上传项目资料；未启动空白模型前，SketchUp 工具保持关闭。";
-  $("conversation-send").disabled = state.busy || !state.nativeAgentAvailable || !$("conversation-input").value.trim();
+  $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
   setStage("design", true);
   setStage("model", prepared);
   setStage("drawing", !!artifactByType("dxf"));
@@ -147,14 +175,25 @@ function renderConversation() {
   const messages = state.project?.context?.conversation || [];
   const history = $("conversation-history");
   if (!messages.length) {
-    history.innerHTML = '<div class="conversation-empty">可以直接用中文描述想法，Codex 会把讨论落实到方案或当前模型。</div>';
+    history.innerHTML = '<div class="conversation-empty">可以直接用中文描述想法，建筑 Agent 会把讨论落实到方案或当前模型。</div>';
     return;
   }
   history.innerHTML = messages.map((message) => {
     const isUser = message.role === "user";
-    const speaker = isUser ? "你" : "Codex · 建筑 Agent";
+    const speaker = isUser ? "你" : "建筑 Agent";
     const phase = message.phase === "agent" ? "Agent 对话 / 建模" : message.phase === "after_build" ? "模型修改" : "方案讨论";
-    return `<article class="chat-message ${isUser ? "user" : "assistant"}"><header><span>${speaker}</span><span>${phase}</span></header><p>${escapeHtml(message.content)}</p></article>`;
+    const meta = message.metadata || {};
+    const detail = !isUser && meta.model
+      ? '<small class="chat-metadata">' + escapeHtml(meta.tier === "premium" ? "精修" : "Economy")
+        + " · " + escapeHtml(meta.model)
+        + (Number.isInteger(meta.input_tokens) ? " · " + meta.input_tokens + " 输入 token" : "")
+        + (Number.isInteger(meta.output_tokens) ? " · " + meta.output_tokens + " 输出 token" : "")
+        + (Number.isFinite(meta.latency_ms) ? " · " + meta.latency_ms + " ms" : " · 耗时未报告")
+        + "</small>"
+      : "";
+    return '<article class="chat-message ' + (isUser ? "user" : "assistant") + '"><header><span>'
+      + speaker + "</span><span>" + phase + "</span></header><p>" + escapeHtml(message.content)
+      + "</p>" + detail + "</article>";
   }).join("");
   history.scrollTop = history.scrollHeight;
 }
@@ -264,7 +303,14 @@ async function boot() {
   try {
     const [runtime, projects] = await Promise.all([api("/api/status"), api("/api/projects")]);
     state.nativeAgentAvailable = !!runtime.native_agent_available;
-    $("brain-status").textContent = state.nativeAgentAvailable ? `Codex Agent · ${runtime.native_agent_model} · ${(runtime.native_agent_reasoning_effort || "low").toUpperCase()} 已就绪` : "Codex Agent · 尚未配置";
+    state.modelRouter = runtime.model_router || null;
+    refreshTierLabels();
+    const economyRoute = routeInfo("economy");
+    const premiumRoute = routeInfo("premium");
+    const routeStatus = routeAvailable("economy")
+      ? `Economy · ${economyRoute.model} · ${(economyRoute.reasoning_effort || "low").toUpperCase()} 已就绪`
+      : routeAvailable("premium") ? `Economy 未配置 · 精修 ${premiumRoute.model} 可用` : "本地模型提供方尚未配置";
+    $("brain-status").textContent = `建筑 Agent · ${routeStatus}`;
     $("brain-status").previousElementSibling.classList.toggle("ready", state.nativeAgentAvailable);
     if (projects.length) await loadProject(projects[0].project_id);
   } catch (error) {
@@ -423,14 +469,17 @@ async function sendConversation(event) {
   if (!message || state.busy) return;
   state.busy = true;
   const button = $("conversation-send");
-  setBusy(button, true, "Codex 正在处理…");
+  const requestedTier = $("conversation-tier").value;
+  const route = routeInfo(requestedTier);
+  setBusy(button, true, `${requestedTier === "premium" ? "精修" : "Economy"} · ${route.model} 处理中…`);
   const built = state.project?.agent_session?.status === "ready";
-  setStatus(built ? "Codex Agent 正在查看当前模型并执行这一轮自然语言设计任务。" : "Codex Agent 正在根据项目资料讨论设计；此时 SketchUp 工具保持关闭。");
+  setStatus(built ? "建筑 Agent 正在查看当前模型并执行这一轮自然语言设计任务。" : "建筑 Agent 正在根据项目资料讨论设计；此时 SketchUp 工具保持关闭。");
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/conversation`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
+        tier: requestedTier,
         project_name: $("project-name").value,
         brief: $("brief").value,
         site_note: $("site-note").value,
@@ -440,10 +489,13 @@ async function sendConversation(event) {
     });
     state.project = result.project;
     $("conversation-input").value = "";
+    $("conversation-tier").value = "economy";
     updateHeader();
     setStatus(result.reply);
     const calls = result.agent?.tool_calls?.length || 0;
-    showToast(built ? `Agent 已处理当前模型${calls ? ` · ${calls} 种 MCP 工具` : ""}，可继续提出修改。` : "设计讨论已写入当前 Codex Agent 会话。", false);
+    const agent = result.agent || {};
+    showToast((agent.tier === "premium" ? "精修" : "Economy") + " · " + (agent.model || "Agent")
+      + " 已处理" + (built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
     if (built) setTab("model");
   } catch (error) {
     setStatus(friendlyError(error), "error");
@@ -458,8 +510,9 @@ async function sendConversation(event) {
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
 $("conversation-form").addEventListener("submit", sendConversation);
 $("conversation-input").addEventListener("input", () => {
-  $("conversation-send").disabled = state.busy || !state.nativeAgentAvailable || !$("conversation-input").value.trim();
+  $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
 });
+$("conversation-tier").addEventListener("change", updateHeader);
 $("start-agent-session").addEventListener("click", startAgentSession);
 $("prepare-design").addEventListener("click", prepareDesign);
 $("build-model").addEventListener("click", buildModel);

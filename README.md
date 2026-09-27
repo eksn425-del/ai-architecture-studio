@@ -6,7 +6,7 @@ AI Architecture Studio is a lightweight architecture workspace that packages a s
 
 **任务书 + 场地 + 参考案例 + 用户想法**  
 → 网站中的中文对话与项目上下文  
-→ Astra/Codex native agent  
+→ 按 Economy / Premium 路由的原生 Agent Runtime
 → existing MCP / reusable open-source tools  
 → editable SketchUp model  
 → drawing / render / presentation outputs
@@ -17,20 +17,21 @@ The website is the product shell: inputs, project/session memory, conversation, 
 
 ## Current milestone
 
-**Fast Assembly v1 — Astra-native Architecture Agent**
+**Cost / Quality Router v1 — GPT-6 Luna Economy + GPT-6 Astra Premium**
 
-The previous Product Alpha v0.2 proved that the Chinese web workspace can connect to the existing Kongxing SketchUp MCP, build/edit a live SketchUp model, generate DXF, capture viewport images, and persist project state.
+Fast Assembly v1 proved that the Chinese web workspace can connect to the existing Kongxing SketchUp MCP and use the shared Architecture Skill, guarded project Ruby, live SketchUp tools, screenshots, and model readback.
 
-However, the old default modeling path over-constrained the agent through a tiny rectangular `DesignIR → BuildPlan → create_mass` workflow. That path remains useful as a legacy deterministic demo/test, but it is no longer the intended product architecture.
+Cost / Quality Router v1 keeps that architecture capability provider-independent. Economy defaults to GPT-6 Luna at low reasoning effort; Premium is an explicit one-turn GPT-6 Astra Low choice. Repeated SketchUp tool failures can mark one visible Premium rescue for the next Economy request. A successful Premium turn does not change later routine turns from Economy.
 
-The current milestone replaces it with a free-form agentic path:
+Both tiers use the same project context, architecture Skill, Kongxing MCP tools, guarded Ruby tool, screenshot inspection, and SketchUp quality loop:
 
-**Web Workspace → Native Agent Runtime → existing SketchUp MCP / reusable OSS tools → SketchUp → screenshot/model readback → agent continuation**
+**Web Workspace → Model Router → interchangeable provider adapter → shared architecture/tool runtime → SketchUp**
 
 See:
 
-- [Fast Assembly v1 strategy](docs/FAST_ASSEMBLY_V1.md)
+- [Cost / Quality Router v1](docs/MODEL_ROUTER_V1.md)
 - [Current task](docs/CURRENT_TASK.md)
+- [Decisions](docs/DECISIONS.md)
 - [Thesis Astra modeling benchmark](docs/THESIS_MODELING_CASE_STUDY.md)
 
 ## Why this change
@@ -75,7 +76,9 @@ The existing local product already includes:
 - brief/site/reference/user-intent inputs
 - public reference URL ingestion with safe fallback to screenshots/images
 - persistent conversation/project state
+- explicit Economy / Premium route and per-turn model/token/latency metadata
 - existing Kongxing MCP reuse
+- provider-independent shared SketchUp tool surface
 - real editable SketchUp model control
 - viewport capture
 - DXF / presentation outputs
@@ -95,6 +98,25 @@ Open `http://127.0.0.1:8787`.
 Load or create a project, enter its brief/site/reference context, and use the Chinese conversation panel to discuss the design. Click **打开空白副本并连接 Agent** when ready to model; the workspace creates or reconnects to a disposable SketchUp copy under that project's ignored `runtime/` directory. Continue issuing natural-language modeling and revision requests in the same conversation. Run automated checks with `.\scripts\check.ps1`.
 
 `.\scripts\open_blank_sketchup.ps1` remains available for the legacy deterministic build flow and connector troubleshooting.
+
+Optional Qwen setup through LiteLLM:
+
+```powershell
+.\scripts\setup.ps1 -InstallModelProviders
+$env:ARCH_STUDIO_ECONOMY_PROVIDER = 'litellm'
+$env:ARCH_STUDIO_CHINA_REGION = 'international' # or 'beijing'
+# Configure DASHSCOPE_API_KEY in the local process/user secret store before starting the app.
+```
+
+Economy remains the signed-in local Codex App Server by default and needs no Developer API key. No Qwen request is sent until a usable local DashScope credential is configured.
+
+Run the controlled Luna/Astra SketchUp comparison with:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\model_router_benchmark.py
+```
+
+The benchmark reads examples/model_router_v1/input.json, opens separate disposable SketchUp copies, and stores raw run metrics/screenshots under ignored runtime/. Matched-view screenshots and the reviewed comparison are summarized in docs/HANDOFF.md.
 
 The active milestone requires real local SketchUp/MCP validation, so Codex handles those local execution steps. ChatGPT handles GitHub review, planning, safe remote edits, and milestone definitions. See [COLLABORATION.md](docs/COLLABORATION.md).
 

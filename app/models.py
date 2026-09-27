@@ -49,6 +49,7 @@ class ConversationMessage(Model):
     phase: Literal["pre_build", "after_build", "agent"]
     content: str = Field(min_length=1, max_length=2000)
     created_at: str = ""
+    metadata: dict[str, Any] = Field(default_factory=dict)
 
 
 class ProjectContext(Model):
@@ -178,8 +179,18 @@ class AgentSession(Model):
     project_id: str
     status: Literal["idle", "conversation", "ready", "failed"] = "idle"
     thread_id: str = ""
-    model: str = "gpt-6-astra"
-    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"] = "low"
+    model: str = "gpt-6-luna"
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max", "provider-default"] = "low"
+    routing_tier: Literal["economy", "premium"] = "economy"
+    provider: str = "codex-app-server"
+    region: str = "codex-managed (not exposed)"
+    input_tokens: int | None = None
+    output_tokens: int | None = None
+    latency_ms: int = 0
+    tool_call_count: int = 0
+    failed_tool_calls: int = 0
+    economy_tool_failure_streak: int = 0
+    premium_rescue_pending: bool = False
     model_path: str = ""
     model_guid: str = ""
     started_at: str = ""
@@ -193,10 +204,10 @@ class AgentSession(Model):
 
 class QualityBenchmarkRun(Model):
     benchmark_id: str
-    variant: Literal["A", "B"]
+    variant: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9-]{0,30}$")
     project_id: str
     model: str
-    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"]
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max", "provider-default"]
     input_sha256: str
     model_guid: str = ""
     sketchup_version: str = ""
@@ -207,6 +218,13 @@ class QualityBenchmarkRun(Model):
     screenshots: list[str] = Field(default_factory=list)
     tool_calls: list[dict[str, str]] = Field(default_factory=list)
     metrics: dict[str, Any] = Field(default_factory=dict)
+    provider: str = ""
+    region: str = ""
+    input_tokens: int | None = None
+    output_tokens: int | None = None
+    latency_ms: int | None = None
+    tool_call_count: int = 0
+    failed_tool_calls: int = 0
     inspected: bool = False
     correction_count: int = 0
     same_model_followup: bool = False
@@ -253,6 +271,7 @@ class EditRequest(Model):
 
 class ConversationRequest(Model):
     message: str = Field(min_length=1, max_length=1200)
+    tier: Literal["economy", "premium"] = "economy"
     project_name: str = ""
     brief: str = ""
     site_note: str = ""

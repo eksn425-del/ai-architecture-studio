@@ -1,3 +1,7 @@
+param(
+    [switch]$InstallModelProviders
+)
+
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $venvPath = Join-Path $repoRoot '.venv'
@@ -9,4 +13,8 @@ if (-not (Test-Path (Join-Path $venvPath 'Scripts/python.exe'))) {
 
 & (Join-Path $venvPath 'Scripts/python.exe') -m pip install --upgrade pip
 & (Join-Path $venvPath 'Scripts/python.exe') -m pip install -r (Join-Path $repoRoot 'requirements.txt')
-Write-Host 'AI Architecture Studio Demo environment is ready.' -ForegroundColor Green
+if ($InstallModelProviders) {
+    & (Join-Path $venvPath 'Scripts/python.exe') -m pip install -r (Join-Path $repoRoot 'requirements-model-providers.txt')
+    Write-Host 'Optional LiteLLM model provider adapter is installed.' -ForegroundColor Cyan
+}
+Write-Host 'AI Architecture Studio environment is ready.' -ForegroundColor Green

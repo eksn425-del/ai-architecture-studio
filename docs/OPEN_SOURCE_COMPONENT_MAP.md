@@ -119,6 +119,14 @@ natural language → structured plan → validation → transactional execution 
 
 Initial survey did not find a clear top-level reuse license, so do not copy source code until Codex confirms reuse rights.
 
+## 8. LiteLLM — optional model-provider compatibility layer
+
+Repository: https://github.com/BerriAI/litellm
+
+Use the optional Python dependency for the Qwen / DashScope provider adapter. The project does not vendor or fork LiteLLM source; its package declares `litellm>=1.80,<2` in `requirements-model-providers.txt`. The repository's non-enterprise source is MIT-licensed; retain the upstream license notices when distributing the dependency. See the [LiteLLM license](https://github.com/BerriAI/litellm/blob/main/LICENSE), [DashScope provider documentation](https://docs.litellm.ai/docs/providers/dashscope), and [Z.AI provider documentation](https://docs.litellm.ai/docs/providers/zai).
+
+The adapter is deliberately limited to provider request/response handling. Architecture Skill context, project-scoped Ruby, the Kongxing SketchUp tool schemas, and screenshot/readback behavior stay in the shared agent-tool layer. Live Qwen benchmarking still requires a local DashScope credential.
+
 ## Demo rule
 
 The fastest compatible working path wins.

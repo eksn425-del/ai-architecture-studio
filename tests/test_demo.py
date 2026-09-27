@@ -387,13 +387,14 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
     assert "发送消息" in page.text
     assert "旧版规则化建模流程" in page.text
     assert "自由建模会话" in page.text
-    assert "FAST ASSEMBLY V1" in page.text
+    assert "MODEL ROUTER V1" in page.text
 
 
 class FakeNativeAgent:
     available = True
-    model = "gpt-6-astra"
+    model = "gpt-6-luna"
     reasoning_effort = "low"
+    failed_tool_calls = 0
 
     def __init__(self):
         self.calls = []
@@ -406,7 +407,8 @@ class FakeNativeAgent:
             tool_calls=([{"server": "kongxing_sketchup", "tool": "sketchup_create_gable_roof"},
                          {"server": "kongxing_sketchup", "tool": "sketchup_export_view_image"}]
                         if kwargs["mcp_enabled"] else []),
-            model_name=self.model,
+            model_name=kwargs.get("model", self.model),
+            failed_tool_calls=self.failed_tool_calls,
         )
 
 
@@ -415,7 +417,7 @@ def test_local_status_exposes_native_model_and_reasoning_effort(tmp_path: Path):
     app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp(), native_agent=native)
     response = TestClient(app).get("/api/status")
     assert response.status_code == 200
-    assert response.json()["native_agent_model"] == "gpt-6-astra"
+    assert response.json()["native_agent_model"] == "gpt-6-luna"
     assert response.json()["native_agent_reasoning_effort"] == "low"
 
 
@@ -467,6 +469,47 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
     assert project["model_state"]["model_path"].endswith("fast-assembly-agent.skp")
     assert any(item["type"] == "viewport" for item in project["output_manifest"]["render"])
     assert [item["phase"] for item in project["context"]["conversation"]] == ["agent", "agent", "agent", "agent"]
+    premium = client.post(
+        "/api/projects/demo-cultural-center/conversation",
+        json={"message": "请精修一次入口和公共空间的模型表现。", "tier": "premium"},
+    )
+    assert premium.status_code == 200
+    assert premium.json()["agent"]["model"] == "gpt-6-astra"
+    assert premium.json()["agent"]["tier"] == "premium"
+    assert premium.json()["agent"]["reasoning_effort"] == "low"
+    routine = client.post(
+        "/api/projects/demo-cultural-center/conversation",
+        json={"message": "读取模型状态并简要报告。"},
+    )
+    assert routine.status_code == 200
+    assert routine.json()["agent"]["model"] == "gpt-6-luna"
+    assert routine.json()["agent"]["tier"] == "economy"
+
+
+def test_two_economy_tool_failures_allow_one_visible_premium_rescue(tmp_path: Path):
+    class FailingToolNative(FakeNativeAgent):
+        failed_tool_calls = 1
+
+    app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp(), native_agent=FailingToolNative())
+    client = TestClient(app)
+    client.get("/api/projects")
+    project_path = "/api/projects/demo-cultural-center/conversation"
+
+    first = client.post(project_path, json={"message": "先讨论入口。", "tier": "economy"})
+    second = client.post(project_path, json={"message": "再讨论路径。", "tier": "economy"})
+    assert first.json()["agent"]["model"] == second.json()["agent"]["model"] == "gpt-6-luna"
+    assert second.json()["agent"]["premium_rescue_pending"] is True
+
+    rescue = client.post(project_path, json={"message": "继续检查失败的工具调用。", "tier": "economy"})
+    assert rescue.status_code == 200
+    assert rescue.json()["agent"]["model"] == "gpt-6-astra"
+    assert rescue.json()["agent"]["tier"] == "premium"
+    assert "一次性 Premium rescue" in rescue.json()["agent"]["routing_reason"]
+    assert rescue.json()["agent"]["premium_rescue_pending"] is False
+
+    followup = client.post(project_path, json={"message": "恢复普通迭代。", "tier": "economy"})
+    assert followup.status_code == 200
+    assert followup.json()["agent"]["model"] == "gpt-6-luna"
 
 
 def test_native_agent_refuses_original_or_switched_sketchup_model(tmp_path: Path):
@@ -514,7 +557,7 @@ def test_native_runtime_isolates_mcp_allowlist_and_uses_codex_login_cache(tmp_pa
 
     runtime._prepare_home(mcp_enabled=True)
     isolated = tomllib.loads((runtime.home / "config.toml").read_text(encoding="utf-8"))
-    assert isolated["model"] == "gpt-6-astra"
+    assert isolated["model"] == "gpt-6-luna"
     assert "mcp_servers" not in isolated
     assert os.path.samefile(source_home / "auth.json", runtime.home / "auth.json")
     dynamic_tools = runtime._dynamic_tools()

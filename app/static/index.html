@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f2efe8">
-    <title>AI Architecture Studio · Fast Assembly v1</title>
+    <title>AI Architecture Studio · Cost / Quality Router v1</title>
     <link rel="stylesheet" href="/static/studio.css">
   </head>
   <body>
@@ -14,7 +14,7 @@
           <span class="brand-mark"><i></i><i></i><i></i></span>
           <span><b>AI Architecture Studio</b><small>本地建筑设计工作台</small></span>
         </a>
-        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">正在检查本地运行环境</span><span class="divider"></span><span class="version">FAST ASSEMBLY V1</span></div>
+        <div class="topbar-center"><span class="signal-dot"></span><span id="brain-status">正在检查本地运行环境</span><span class="divider"></span><span class="version">MODEL ROUTER V1</span></div>
         <a class="showcase-link" href="/showcase">建模案例 ↗</a>
         <button class="new-project" id="new-project"><span>＋</span> 新建项目</button>
       </header>
@@ -85,17 +85,22 @@
               </div>
 
               <section class="agent-session-card" aria-labelledby="agent-session-title">
-                <div class="conversation-heading"><div><span class="section-index">AGENT</span><h2 id="agent-session-title">自由建模会话</h2></div><span class="quiet-tag">Codex · Astra</span></div>
-                <p class="agent-session-description">对话由本机 Codex App Server 驱动。启动后，它可连续调用现有 Kongxing SketchUp 工具、读取模型状态并迭代修改。</p>
+                <div class="conversation-heading"><div><span class="section-index">AGENT</span><h2 id="agent-session-title">自由建模会话</h2></div><span class="quiet-tag">Economy · GPT-6 Luna</span></div>
+                <p class="agent-session-description">本机 Agent Runtime 复用同一份建筑 Skill、Kongxing SketchUp 工具、项目 Ruby 和截图回读；Economy 默认使用 GPT-6 Luna。</p>
                 <div class="agent-session-status" id="agent-session-state" aria-live="polite">尚未打开项目专属空白副本</div>
                 <button class="button-primary" id="start-agent-session"><span>打开空白副本并连接 Agent</span><span class="button-arrow">↗</span></button>
                 <small class="agent-session-note">会自动复制 SketchUp Simple 模板到本项目 runtime；原始毕设模型不会被使用。</small>
               </section>
 
               <section class="conversation-panel" aria-labelledby="conversation-title">
-                <div class="conversation-heading"><div><span class="section-index">AI</span><h2 id="conversation-title">讨论与修改</h2></div><span class="quiet-tag" id="conversation-phase">生成前讨论</span></div>
+                <div class="conversation-heading"><div><span class="section-index">AI</span><h2 id="conversation-title">讨论与修改</h2></div><span class="quiet-tag" id="model-tier-status">Economy</span></div>
                 <div class="conversation-history" id="conversation-history" aria-live="polite"></div>
                 <form class="conversation-form" id="conversation-form">
+                  <label class="field-label routing-tier-label" for="conversation-tier">本轮模型档位</label>
+                  <select id="conversation-tier" class="select-control">
+                    <option value="economy">Economy / 标准（默认）</option>
+                    <option value="premium">精修 / Premium（仅本轮）</option>
+                  </select>
                   <label class="sr-only" for="conversation-input">输入中文设计要求或模型修改指令</label>
                   <textarea id="conversation-input" class="text-area conversation-input" rows="3" maxlength="1200" placeholder="先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…"></textarea>
                   <button class="button-primary conversation-send" id="conversation-send" type="submit"><span>发送消息</span><span class="button-arrow">↗</span></button>

@@ -138,6 +138,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .chat-message header { display: flex; justify-content: space-between; margin-bottom: 3px; color: #68796f; font-size: 8px; }
 .chat-message p { margin: 0; color: #455655; font-size: 9px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
 .conversation-form { display: grid; gap: 7px; }
+.routing-tier-label { margin-bottom: -3px; }
+.select-control { width: 100%; min-height: 34px; padding: 0 9px; border: 1px solid #d0cec3; border-radius: 0; background: #f9f7f1; color: var(--ink); font: 10px var(--sans); }
+.select-control:focus { border-color: #71857e; outline: none; }
+.chat-metadata { display: block; margin-top: 4px; color: #829087; font: 8px var(--mono); }
 .conversation-input { min-height: 64px; background: #faf8f2; }
 .conversation-send { min-height: 33px; }
 .conversation-hint { margin-top: 6px; color: #899087; font-size: 8px; line-height: 1.45; }
