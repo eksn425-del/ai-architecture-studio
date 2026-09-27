@@ -1,229 +1,184 @@
-# CURRENT TASK — Quality Lift v1: Astra Low + Architecture Skill + Ruby
+# CURRENT TASK — Cost / Quality Router v1
 
-## Status: Completed (2026-09-27; see `docs/HANDOFF.md`)
+## Status: Ready to execute
 
 ## Objective
 
-Improve modeling quality **without increasing model reasoning effort** and without rebuilding another architecture engine.
+Keep the successful **Architecture Skill + project Ruby + SketchUp QA** environment, but make the model replaceable so product economics do not depend on Astra for every turn.
 
-The last Fast Assembly v1 milestone proved that the native agent path works, but the output is still only a coarse architectural model compared with the user's successful thesis workflow.
+Target product:
 
-The working hypothesis for this milestone is:
+**same project context + same architecture skill + same Kongxing/OSS tool layer + same QA → cheap model by default → premium Astra only when useful**
 
-**the main quality gap comes from missing architecture workflow guidance and insufficient free-form SketchUp scripting capability, not from needing a higher reasoning setting.**
-
-Target stack:
-
-**Chinese Web Workspace → current local Astra model at LOW reasoning → thin architecture skill → existing Kongxing MCP + safe task-specific Ruby/project scripts → SketchUp → screenshot/model readback → self-check/revision**
-
-Do not solve this by switching to high/xhigh/max reasoning.
+Read `docs/MODEL_ROUTER_V1.md` before implementation.
 
 ## Before starting
 
-1. Run `git pull --ff-only` and confirm the working tree is clean.
-2. Read:
+1. `git pull --ff-only`
+2. Confirm clean worktree.
+3. Read:
    - `AGENTS.md`
-   - `docs/FAST_ASSEMBLY_V1.md`
-   - `docs/THESIS_MODELING_CASE_STUDY.md`
+   - `docs/MODEL_ROUTER_V1.md`
    - `docs/HANDOFF.md`
+   - `docs/DECISIONS.md`
    - `docs/OPEN_SOURCE_COMPONENT_MAP.md`
-3. Run the current automated checks once.
-4. Keep the current local Astra model identifier unless the local Codex installation itself requires a different valid identifier.
+4. Run current tests once.
 
-## Priority 1 — lower reasoning effort
+## Priority 1 — separate model provider from architecture capability
 
-The current native-agent runtime writes `model_reasoning_effort = "high"`.
+Do not fork the current Skill/Ruby/MCP logic per provider.
 
-Change the normal product default to:
+Introduce the smallest reusable model runtime/provider boundary so the same agent loop can use different backends.
 
-`model_reasoning_effort = "low"`
+Keep:
 
-Requirements:
+- architecture skill context
+- project memory
+- Kongxing MCP
+- guarded project Ruby
+- screenshots/readback
+- same-model session/revision
+- Chinese UI
 
-- do not use `high`, `xhigh`, `max`, or another higher setting as the quality fix in this milestone,
-- allow an environment/config override only for debugging/experiments,
-- expose the active model identifier + reasoning effort in local status/HANDOFF so we know exactly what was tested,
-- keep credentials local; do not add an API key.
+Provider-specific code should handle only model API/session/tool-call differences.
 
-The user's successful thesis workflow is evidence that a low reasoning setting can already produce substantially richer results when the tool/workflow environment is good.
+## Priority 2 — reuse provider plumbing
 
-## Priority 2 — reuse the MIT SketchUp Architect Skill
+Do a short implementation-focused check of `BerriAI/litellm`.
 
-Use `Mentat-Uran/sketchup-architect-skill` as the primary architecture-workflow source.
+Its non-enterprise code is MIT-licensed and already supports multiple providers including OpenAI, DashScope/Qwen and Z.AI/Zhipu-style backends.
 
-Do not rewrite its ideas from memory if direct reuse is faster.
+Preferred order:
 
-Choose the shortest maintainable reuse mode:
+1. use LiteLLM as a dependency/wrapper if it cleanly preserves multimodal + tool calling,
+2. otherwise use the providers' OpenAI-compatible APIs behind one very small adapter,
+3. do not build a large custom provider framework.
 
-- external local dependency/cache, or
-- vendor only the files actually needed, preserving the MIT license and attribution.
+Do not copy `enterprise/` code.
 
-At minimum, make the native agent receive the useful parts of the skill covering:
+## Priority 3 — Economy model: GPT-6 Luna first
 
-- brief / program interpretation,
-- precedent principles rather than form copying,
-- area / adjacency / circulation / site / level reasoning,
-- building as spaces + section + envelope + openings, not decorated boxes,
-- named/semantic model elements for later revision,
-- inspectable incremental modeling,
-- multi-view/model QA and revision,
-- project continuity across turns.
+Add a real Economy path using `gpt-6-luna` with the same architecture Skill + tools + Ruby + QA as Astra.
 
-Do **not** dump the entire repository into every prompt. Build a thin, relevant skill context.
+Do not weaken Luna by giving it a smaller tool set or worse context.
 
-The normal user should not see or manage the skill manually.
+Use the lowest reasoning setting that still supports the required agent/tool loop for the chosen API/runtime.
 
-## Priority 3 — give the agent safe task-specific Ruby capability
+Track:
 
-The architecture skill explicitly recommends task-specific Ruby for precise/repetitive SketchUp geometry.
+- model id
+- reasoning setting
+- input/output tokens if available
+- tool calls
+- retries
+- latency
+- screenshot/model QA
 
-The current agent should be able to create richer geometry without us adding dozens of fixed `create_*` tools.
+## Priority 4 — one Chinese low-cost candidate
 
-Reuse the existing Kongxing connector first.
+Add **one**, not many, Chinese candidate.
 
-If its existing project-script/eval capability can execute a project-local Ruby file safely, expose a small host-side helper that lets the agent:
+Preferred first choices:
 
-1. provide Ruby source for the current project,
-2. write it only under an ignored project-local runtime script directory,
-3. execute it only against the verified disposable/current project SketchUp model,
-4. capture tool result + model readback + screenshot,
-5. revise the same script/model when needed.
+- Qwen3-VL Flash/Plus family where the selected region/provider supports multimodal input and function calling, or
+- GLM family where the selected provider supports reliable tool calling and image input.
 
-This helper is glue around the existing connector, **not a new MCP server**.
+Use environment/local secrets only. Never commit keys.
 
-Safety:
+If no usable provider credential exists locally, complete the provider adapter/config path and record the missing live credential as the only blocker; do not fake benchmark results.
 
-- never allow arbitrary filesystem targets,
-- never modify a source thesis model,
-- keep scripts/runtime ignored,
-- reject paths outside the active project runtime,
-- preserve the active-model gate,
-- keep destructive reset/delete operations explicit and scoped.
+## Priority 5 — controlled quality/cost benchmark
 
-If Kongxing genuinely cannot support this without rebuilding infrastructure, inspect SAIE's MIT `execute_ruby`/advanced tool path or VBO SkAgent and adopt the smallest compatible existing implementation. Do not build a generic Ruby bridge from scratch.
+Use the same sanitized architecture benchmark and the same SketchUp tool environment.
 
-## Priority 4 — improve the agent loop, not the action vocabulary
+Compare at least:
 
-One architecture request may require several steps:
+- **Premium reference:** Astra Low + Skill + Ruby
+- **Economy OpenAI:** Luna + same Skill + Ruby
+- **Economy China:** one Qwen/GLM candidate + same Skill + Ruby, if a real credential is available
 
-- understand program/site/reference,
-- decide spatial organization,
-- generate/update Ruby or use existing MCP tools,
-- execute,
-- inspect model state,
-- capture useful views,
-- critique the result against the brief/reference principles,
-- correct geometry,
-- reply only after the result is materially coherent.
+Use matched viewpoints and objective QA.
 
-Do not expand the legacy rectangular DesignIR/BuildPlan action list.
+Compare:
 
-DesignIR remains optional project memory only.
+1. program/adjacency coherence
+2. plan/section/vertical relation
+3. site/entrance/public-space logic
+4. facade openings/envelope detail
+5. tool/Ruby success
+6. screenshot self-check/correction
+7. same-model follow-up reliability
+8. semantic IDs / audit defects
+9. token cost
+10. wall-clock latency
 
-## Priority 5 — A/B quality benchmark at LOW reasoning
+Do not judge only by entity count.
 
-Run a controlled local benchmark using the **same model + same low reasoning effort + same input** so the effect of skill/tooling is visible.
+## Priority 6 — simple routing, not a new AI router
 
-Use a sanitized thesis-style brief/site/reference package or an equivalent private local benchmark. Do not commit private source files.
+Implement a deterministic v1 policy only after the benchmark plumbing works:
 
-### Baseline A
+- default → Economy
+- user selects “精修” → Premium for that turn
+- Economy QA fails twice / tool loop stalls → allow one Premium rescue turn
+- return to Economy for routine follow-ups when possible
 
-- current native-agent workflow,
-- LOW reasoning,
-- no new architecture skill injection,
-- current MCP tools only.
+Do not silently use Astra every turn.
 
-### Variant B
+Expose current mode/model in local status and session state.
 
-- same current Astra model,
-- same LOW reasoning,
-- thin SketchUp Architect Skill context,
-- safe task-specific Ruby/project-script capability,
-- same inputs.
+## Priority 7 — continue capability migration only when it directly improves quality
 
-Capture comparable viewpoints for both.
+Do not stop reusing external work.
 
-The purpose is to answer:
+If the benchmark exposes a tool gap, prefer adopting the smallest useful capability from existing OSS:
 
-**Does architecture skill + scripting materially improve output quality at the same low reasoning level?**
+- SAIE: openings, slabs/roofs, snapshots, BIM metadata, reports, DXF parse, batch operations
+- ArchFlow Studio: state/CAD/output patterns
+- VBO SkAgent: fallback Ruby/control path
 
-Do not compare low vs high in this milestone.
+Do not integrate everything proactively. Only move capability that fixes an observed benchmark gap.
 
-## Quality acceptance — no more “it is a building now” bar
+## Cost target
 
-Variant B must be visibly beyond the previous coarse pavilion benchmark.
+Record real usage rather than guessing.
 
-For the benchmark, aim to demonstrate several of the following without hard-coding the exact solution:
+We want two sellable tiers:
 
-- program-driven multiple spaces/volumes rather than generic wings,
-- meaningful plan/section/level relationships,
-- non-trivial roof/envelope/stepped/curved/non-orthogonal geometry where appropriate,
-- real openings / facade rhythm rather than only solid masses,
-- circulation or vertical circulation that relates to levels,
-- public-space/site/entry relationships,
-- platforms/bridges/courtyards/terraces where justified,
-- semantic groups/components that can be revised locally,
-- multi-view inspection and at least one agent-initiated correction.
+- **Economy / Standard:** cheap enough for repeated student iterations.
+- **Premium / Refine:** higher-cost Astra path for difficult concept/refinement turns.
 
-The reference target is the *quality logic* of the thesis Astra workflow, not literal copying of the thesis form.
-
-## Priority 6 — keep existing Fast Assembly v1 product pieces
-
-Do not break:
-
-- Chinese workspace,
-- native agent session continuity,
-- project/file/reference input,
-- existing Kongxing MCP reuse,
-- active disposable-model safety gate,
-- screenshot/model readback,
-- same-model natural-language revision,
-- `/showcase`,
-- legacy deterministic path as isolated fallback/tests.
-
-## Tests
-
-Keep existing tests passing and add only focused tests for:
-
-- default reasoning effort is low,
-- optional safe config override,
-- architecture skill loader/context construction,
-- project-local Ruby script path restrictions,
-- active-model gating for script execution,
-- same-model script revision lifecycle,
-- baseline/variant benchmark metadata persistence.
-
-Do not create a large new geometry ontology or dozens of fixed modeling tools.
+The long-term goal is that most turns run on the cheap model while expensive-model usage is a minority of turns.
 
 ## Acceptance criteria
 
 Mark PASS / PARTIAL / FAIL in `docs/HANDOFF.md`.
 
-1. Native product default uses the current Astra model at **low** reasoning effort.
-2. Active model + reasoning setting are recorded in local status/HANDOFF.
-3. MIT SketchUp Architect Skill is reused directly or selectively with correct license/attribution.
-4. The native agent receives a thin architecture skill context rather than a giant generic prompt dump.
-5. The agent can use safe task-specific Ruby/project scripts through an existing connector/reused OSS path.
-6. No new generic MCP/SketchUp bridge is built.
-7. A/B benchmark uses the same model, same low reasoning, same input; only skill/tool environment changes.
-8. Variant B is visibly and architecturally richer than baseline A and the prior coarse Fast Assembly benchmark.
-9. Variant B performs model/screenshot inspection and at least one correction before completion.
-10. Follow-up natural-language revision changes the same model without full rebuild.
-11. Existing Chinese workspace/session/project safety features still work.
-12. Private thesis assets, credentials, machine paths, raw SKP/DWG and runtime Ruby scripts are not committed.
-13. `docs/HANDOFF.md` contains the A/B setup, screenshots/evidence, reused upstream source/license, exact local model/reasoning setting, and remaining quality gaps.
-14. Completed work is committed and pushed to `origin/main`.
+1. Architecture Skill/Ruby/MCP/QA are model-independent rather than Astra-specific.
+2. A reusable provider/runtime boundary exists without duplicating the architecture loop.
+3. Existing Astra Low path still works.
+4. GPT-6 Luna runs the same benchmark with the same Skill + Ruby + SketchUp tools.
+5. One Chinese provider path exists; if credentials are available, it is live-benchmarked honestly.
+6. Model/mode/token/latency/tool-call metadata are persisted for benchmark runs where available.
+7. Matched screenshots and QA compare quality, not just completion.
+8. Economy vs Premium routing is deterministic and visible.
+9. Premium is not silently used for every turn.
+10. No new MCP server, CAD engine, or geometry ontology is built.
+11. Any reused code/dependency has compatible licensing and attribution.
+12. Existing Chinese workspace, disposable-model gate, session continuity and project safety remain working.
+13. Tests pass; real SketchUp benchmark evidence is recorded.
+14. Work is committed and pushed to `origin/main`.
 
 ## What NOT to do
 
-- Do not raise reasoning effort to solve quality.
-- Do not add another long competitor report.
-- Do not implement dozens of bespoke `create_*` geometry tools.
-- Do not build another MCP server.
-- Do not retrain/fine-tune a model.
-- Do not replace SketchUp with a browser modeler.
-- Do not add auth/payments/cloud deployment/Rhino/Blender/Revit.
+- Do not improve Luna by secretly raising Astra usage.
+- Do not compare different tool sets or different briefs and call it a model comparison.
+- Do not add five providers at once.
+- Do not build a learned model router.
+- Do not rebuild LiteLLM/provider SDK functionality unless integration truly requires it.
+- Do not add auth/payments/cloud deployment in this milestone.
+- Do not commit API keys or private thesis assets.
 
 ## Final step
 
-Run checks and the real local A/B SketchUp benchmark, update `docs/HANDOFF.md`, commit, push to `origin/main`, verify the remote SHA, and stop.
+Run tests and real local benchmarks, update `docs/HANDOFF.md`, commit, push to `origin/main`, verify the remote SHA, then stop.
