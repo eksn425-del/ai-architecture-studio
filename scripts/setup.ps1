@@ -1,6 +1,7 @@
 param(
     [switch]$InstallModelProviders,
-    [switch]$InstallSaie
+    [switch]$InstallSaie,
+    [string]$SaieVersion = '1.0.0'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -20,8 +21,8 @@ if ($InstallModelProviders) {
     Write-Host 'Optional LiteLLM model provider adapter is installed.' -ForegroundColor Cyan
 }
 if ($InstallSaie) {
-    Write-Host 'Installing upstream SAIE package (MIT). SAIE currently targets SketchUp 2025 upstream; verify the local SketchUp/plugin version before enabling it in AI Architecture Studio.' -ForegroundColor Yellow
-    & $python -m pip install saie
+    Write-Host "Installing upstream SAIE $SaieVersion (MIT). Current upstream documentation targets SketchUp 2025; verify the local SketchUp/plugin version before enabling it in AI Architecture Studio." -ForegroundColor Yellow
+    & $python -m pip install "saie==$SaieVersion"
     Write-Host 'SAIE Python/MCP package installed. Do not enable ARCH_STUDIO_ENABLE_SAIE until the SAIE SketchUp plugin is installed and `saie ping` succeeds.' -ForegroundColor Cyan
 }
 Write-Host 'AI Architecture Studio environment is ready.' -ForegroundColor Green
