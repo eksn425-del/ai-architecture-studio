@@ -1,5 +1,27 @@
 # Handoff — AI Architecture Studio
 
+## Latest task — SAIE 1.0.0 / SketchUp 2024 compatibility and standalone workspace acceptance (2026-09-28)
+
+### Local execution evidence
+
+| Gate | Result |
+| --- | --- |
+| Starting repository state | **PASS** — `git pull --ff-only` fast-forwarded to `a5affff8c065c79d4dea5d9ddcfdf602c1b050ca`; `main` and `origin/main` matched and the worktree was clean before execution. |
+| Baseline `scripts/check.ps1` | **PASS** — 62 tests passed; one existing Starlette/httpx deprecation warning. |
+| SAIE package and source | **PASS** — upstream `iamahsanmehmood/saie` revision `eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f` was checked out detached and installed editable as `saie 1.0.0` in the ignored project venv. Metadata is under ignored `runtime/saie-compat/source.json`. |
+| Upstream SketchUp 2024 plugin install | **BLOCKED before file copy** — `scripts/prepare_saie_2024.ps1 -InstallPlugin` prepared the exact source and invoked upstream `scripts/install_plugin.ps1 -Version 2024 -Force`, which exited at line 90 with `A parameter cannot be found that matches parameter name 'or'.` The failing expression is `if (Test-Path $dstDir -or Test-Path $dstLdr) {`. Both the destination plugin directory and loader were confirmed absent afterward; no existing SAIE installation was overwritten. |
+| SketchUp 2024.0.484 plugin load / Ruby Console | **NOT TESTED** — the installer stopped before copying the plugin. SketchUp was running with a disposable blank model, and no thesis/source model was opened. No Ruby load error can be reported because the extension was not installed. |
+| `saie.exe ping` and live tool list | **NOT RUN** — the runbook connectivity gate requires a successfully loaded plugin. Tool count and required tool names are therefore unavailable. |
+| SAIE deterministic wall/opening/slab/roof/edit/delete smoke | **N/A after installer blocker** — no custom geometry code or substitute tool was used. |
+| Website `saie__...` discovery | **N/A after installer blocker** — the backend list was not treated as live without a successful plugin connection. |
+| Temporary installer correction attempt | **BLOCKED by the active execution host policy** before execution. The pinned SAIE checkout and original upstream installer remained unchanged; no temporary correction file was left behind. The host policy was not bypassed. |
+| Standalone workspace-write probe | **BLOCKED PENDING USER POWERSHELL RUN** — it was not run inside Codex because the runbook requires a normal Windows PowerShell session outside this host. Expected result: `runtime/projects/workspace-write-probe/runtime/workspace-write-result.json`. From ordinary PowerShell, run `cd <repo-root>`, then run `.\.venv\Scripts\python.exe scripts\workspace_write_probe.py`; do not use `danger-full-access`. |
+| Astra / architecture-quality benchmark | **NOT RUN**, as required. |
+
+The remaining SAIE blocker is the upstream installer’s PowerShell syntax error. The plugin itself has not been classified as compatible or incompatible with SketchUp 2024.0.484. The workspace-write gate also remains pending external PowerShell evidence. This handoff records tool-installation evidence only; no private thesis asset or original model was used or changed.
+
+---
+
 ## Latest task — OSS Takeover v1 (2026-09-28)
 
 ### Delivered
