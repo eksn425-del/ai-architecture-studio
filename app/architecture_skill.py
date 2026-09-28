@@ -27,6 +27,18 @@ less similar. Never let precedent fidelity override explicit project constraints
 that a copied detail is technically verified.
 """.strip()
 
+_EXECUTION_REUSE_NOTE = """
+## Execution-tool preference
+
+Use mature semantic tools before inventing geometry code. When several tools can perform the
+same operation, prefer in this order: a namespaced reusable OSS semantic tool (for example
+`saie__...`) when available; an existing named Kongxing SketchUp tool; guarded project Ruby
+only for genuinely project-specific geometry that the mature tools cannot express. Prefer
+stable semantic IDs, batch operations, model queries, and screenshot/readback verification.
+Do not compensate for a missing capability by assuming the result succeeded or by reducing a
+requested complex form to a generic box.
+""".strip()
+
 _SECTIONS: tuple[tuple[str, tuple[tuple[str, int], ...]], ...] = (
     ("references/architectural-design.md", (
         ("Establish the design basis", 750),
@@ -100,6 +112,7 @@ def load_architecture_skill_context(*, max_chars: int = MAX_CONTEXT_CHARS) -> st
         "Architecture workflow context (selectively reused under the MIT license).",
         f"Source: {UPSTREAM_NAME} @ {UPSTREAM_REVISION}; see app/vendor/sketchup_architect/LICENSE.",
         _PRECEDENT_FIDELITY_NOTE,
+        _EXECUTION_REUSE_NOTE,
     ]
     remaining = max_chars - sum(len(item) + 2 for item in blocks)
     for relative_path, headings in _SECTIONS:
