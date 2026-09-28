@@ -32,6 +32,7 @@ The next milestone therefore stops spending model quota and migrates mature exec
 See:
 
 - [Current task](docs/CURRENT_TASK.md)
+- [OSS Takeover review](docs/OSS_TAKEOVER_V1_REVIEW.md)
 - [Remote changeset already implemented by ChatGPT](docs/REMOTE_CHANGESET_V1.md)
 - [OSS Takeover v1](docs/OSS_TAKEOVER_V1.md)
 - [Open-source component map](docs/OPEN_SOURCE_COMPONENT_MAP.md)
@@ -63,7 +64,7 @@ Default engineering order:
 
 Current priority components:
 
-- **SAIE (MIT)** — mature walls/openings/slabs/roofs/components/materials/BIM/query/view/batch/DXF tool surface; upstream package is currently `1.0.0` and upstream documentation targets SketchUp 2025, so local compatibility must be verified before enabling.
+- **SAIE (MIT)** — mature walls/openings/slabs/roofs/components/materials/BIM/query/view/batch/DXF tool surface. Upstream package `1.0.0` tests SketchUp 2025; upstream installation docs explicitly say SketchUp 2024 may work but is untested, and its Windows installer accepts `-Version 2024`, so 2024 should be compatibility-tested rather than treated as a proven blocker.
 - **Kongxing SketchUp MCP** — existing verified local identity/lifecycle bridge and fallback named tools.
 - **ArchFlow Studio (Apache-2.0 source)** — semantic project state, validation/metrics, DXF/output, generated Ruby, standard views and run records. It is now adopted as an external ignored checkout + CLI backend instead of being treated only as inspiration.
 - **Supex (MIT)** — agentic project-script / introspection patterns and advanced-geometry ideas; upstream currently describes macOS/SketchUp 2026 as the primary tested path, so do not port the whole stack to Windows without a supported route.
@@ -79,7 +80,7 @@ Do not build a new geometry primitive or professional-software subsystem when a 
 - `app/agent_tools.py` — composes optional namespaced OSS tools beside Kongxing instead of reimplementing them.
 - `app/native_agent.py` — restores a Direct-Codex-like project coding harness with an ignored `agent_workspace`, Codex `workspace-write`, network disabled, and only that generated workspace writable.
 - `app/architecture_skill.py` — no longer lets blanket anti-copy guidance suppress a user-requested strong precedent adaptation and tells agents to prefer mature semantic OSS tools before custom Ruby.
-- `scripts/setup.ps1 -InstallSaie` — opt-in install of pinned upstream SAIE `1.0.0`; it does **not** silently install/enable an incompatible SketchUp plugin.
+- `scripts/setup.ps1 -InstallSaie` — opt-in install of pinned upstream SAIE `1.0.0`; it does **not** silently install/enable the SketchUp plugin.
 - `scripts/install_archflow.ps1` — clones upstream ArchFlow into ignored `.local/oss/archflow-studio`, installs it editable, and reports `ARCHFLOW_CORE_SKILL`.
 - `scripts/oss_backend_cli.py` — no-LLM status/list/call utility for enabled SAIE/ArchFlow backends.
 - `tests/test_oss_takeover.py` — composition, path-boundary, precedent-fidelity, workspace-write and ArchFlow adapter regression tests.
@@ -178,7 +179,7 @@ Optional SAIE package install:
 .\scripts\setup.ps1 -InstallSaie
 ```
 
-SAIE upstream currently targets SketchUp 2025. Do not set `ARCH_STUDIO_ENABLE_SAIE=1` until its SketchUp plugin is installed locally and the upstream bridge passes its own connectivity check. The **live FastMCP tool list** is authoritative for the installed version; do not hard-code an older registry listing.
+SAIE upstream tests SketchUp 2025 and states that SketchUp 2024 may work but is untested. The upstream Windows plugin installer can target 2024 explicitly. Do not set `ARCH_STUDIO_ENABLE_SAIE=1` until the local plugin actually loads and `saie ping` succeeds. The **live FastMCP tool list** is authoritative for the installed version; do not hard-code an older registry listing.
 
 ## Budget rule for the current milestone
 
@@ -204,8 +205,9 @@ Codex should start with:
 
 1. `AGENTS.md`
 2. `docs/CURRENT_TASK.md`
-3. `docs/REMOTE_CHANGESET_V1.md`
-4. `docs/OSS_TAKEOVER_V1.md`
-5. `docs/HANDOFF.md`
-6. `docs/OPEN_SOURCE_COMPONENT_MAP.md`
-7. `THIRD_PARTY_NOTICES.md`
+3. `docs/OSS_TAKEOVER_V1_REVIEW.md`
+4. `docs/REMOTE_CHANGESET_V1.md`
+5. `docs/OSS_TAKEOVER_V1.md`
+6. `docs/HANDOFF.md`
+7. `docs/OPEN_SOURCE_COMPONENT_MAP.md`
+8. `THIRD_PARTY_NOTICES.md`
