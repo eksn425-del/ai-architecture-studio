@@ -9,7 +9,7 @@ This repository uses GitHub as the single source of truth between ChatGPT planni
 3. Read only the linked product/architecture docs needed for the current task.
 4. Execute the current task end-to-end; do not stop after analysis unless a real blocker prevents implementation.
 5. Prefer reuse over rebuilding infrastructure:
-   **Adopt → Fork → Wrap/Compose → Minimal Custom Build**.
+   **Adopt → Fork/Wrap → Compose → Minimal Custom Build**.
 6. Run relevant tests/checks and, when available, a real SketchUp smoke test.
 7. Update `docs/HANDOFF.md` before finishing.
 8. Commit the work with a clear message.
@@ -29,18 +29,23 @@ To avoid conflicts, ChatGPT and Codex do not edit the same repository state at t
 
 See `docs/COLLABORATION.md` for the full division of responsibilities.
 
-## Assembly-first rule
+## Assembly-first / OSS takeover rule
 
-This project is now optimized for **speed to usable product**, not for proving that we can rebuild every subsystem ourselves.
+This project is optimized for **speed to usable product**, not for proving that we can rebuild every subsystem ourselves.
 
-Before writing new infrastructure or architecture-specific tool code:
+Before writing new infrastructure, geometry code, CAD output code, or architecture-specific tool code:
 
-1. check the already surveyed reusable components,
-2. inspect the actual license,
-3. adopt/fork/wrap the fastest compatible implementation,
-4. write only the missing glue.
+1. inspect the already surveyed reusable components at implementation level,
+2. confirm license and local compatibility,
+3. install/adopt the upstream package or wrap the smallest useful module,
+4. compose it into the existing tool surface,
+5. write only the missing glue.
 
-Do not spend a milestone creating a cleaner custom replacement for a working connector, agent runtime, CAD exporter, or architecture skill.
+A new custom geometry tool requires a short explanation of why SAIE / ArchFlow / Supex / the existing connector cannot provide the capability.
+
+Do not spend a milestone creating a cleaner custom replacement for a working connector, agent runtime, CAD exporter, architecture skill, geometry primitive, model-inspection layer, or output pipeline.
+
+During **OSS Takeover v1**, do not spend premium-model quota to compensate for missing execution capability. Tool installation, schema inspection, deterministic geometry tests, CAD tests, and integration tests must be done without an architecture-generation model call.
 
 ## Product architecture rule
 
@@ -48,7 +53,7 @@ The product is **not** a new CAD/3D engine and is **not** a weaker in-house arch
 
 Target architecture:
 
-**Web Workspace → Astra/native agent runtime → existing MCP / reusable OSS tools → SketchUp / CAD software**
+**Web Workspace → replaceable Agent Runtime → Architecture Skill / project context → composed OSS execution tools → SketchUp / CAD → screenshot/model readback → revision**
 
 SketchUp remains the real editable modeling application.
 
@@ -60,23 +65,51 @@ The agent/model should retain broad reasoning and tool-use freedom. Do not force
 
 ## Reuse priorities
 
-Prefer, in order of practical fit:
+Prefer according to actual capability fit rather than historical order:
 
-1. the user's already-working Kongxing SketchUp MCP/plugin,
-2. SketchUp Architect Skill for architecture reasoning/precedent workflow,
-3. ArchFlow Studio for reusable project-state/CAD/output pieces,
-4. SAIE for richer SketchUp execution when the existing connector is insufficient,
-5. VBO SkAgent as a lightweight fallback,
-6. other clearly licensed MIT/Apache/BSD code,
-7. minimal custom implementation only for missing glue.
+1. **SAIE (MIT)** for mature SketchUp semantic execution when locally compatible: walls/openings/slabs/roofs/components/materials/BIM attributes/query/view/batch/DXF utilities.
+2. **existing Kongxing SketchUp MCP/plugin** for verified disposable-model identity, lifecycle, existing local tools, and guarded transport.
+3. **Supex (MIT)** for agentic project-script / introspection patterns and advanced geometry ideas when platform-compatible; do not port the whole macOS/SketchUp-2026 stack to Windows without a clear supported path.
+4. **ArchFlow Studio (Apache-2.0 source)** for semantic project state, DXF/output, generated Ruby, metrics and run-record pieces.
+5. **SketchUp Architect Skill (MIT)** for architectural reasoning, continuity and precedent workflow.
+6. **VBO SkAgent (MIT)** as a lightweight fallback if the active local execution path is blocked.
+7. other clearly licensed MIT/Apache/BSD code.
+8. minimal custom implementation only for missing glue.
+
+PlanFloor AI Agent is currently architecture-study-only unless a compatible reuse license is verified. Its workflow/Skill boundaries may be studied; do not copy unlicensed source.
 
 Never copy source from a repository without a clear compatible license.
 
+## Precedent fidelity rule
+
+Do not impose a blanket “make it unlike the reference” rule.
+
+The user owns the precedent-fidelity decision:
+
+- if the user asks for principles only, abstract the principles;
+- if the user asks for a strong formal adaptation, concrete massing, silhouette, roof, bridge/platform, facade rhythm and spatial-sequence logic may be carried over and transformed to fit the real site/program/constraints.
+
+Taskbook/site/regulatory constraints still win. Do not claim unverified technical compliance.
+
 ## Current prototype brain rule
 
-During local prototype work, Codex/Astra may act as the temporary native agent and may directly use the configured local MCP/tooling when the current task requires it.
+During local prototype work, Codex/Astra/Sol/Luna may act as the temporary native agent when the current task explicitly requires it.
 
-The product should still preserve a replaceable runtime boundary so a production model/API path can be plugged in later without rewriting the web workspace or project storage.
+The product must preserve a replaceable runtime boundary so a production model/API path can be plugged in later without rewriting the web workspace or project storage.
+
+Do not interpret a model benchmark failure as proof that the model is bad until the same input evidence and execution capability are available. Conversely, do not use a stronger/more expensive model as a substitute for missing tools.
+
+## Agentic-coding workspace rule
+
+Direct Codex succeeded partly because it had a real coding harness. The product may restore that pattern only through a dedicated generated workspace:
+
+- use an ignored per-project agent workspace under runtime;
+- if Codex App Server uses `workspace-write`, make only that generated workspace writable;
+- keep network disabled for modeling turns unless a future task explicitly changes this;
+- taskbook/site/reference/source files are not writable roots;
+- original repository/source code is not a writable modeling root;
+- dynamic SketchUp tools still require the verified disposable model boundary;
+- never use `danger-full-access` for the modeling runtime.
 
 ## Safety and repository hygiene
 
@@ -85,7 +118,8 @@ The product should still preserve a replaceable runtime boundary so a production
 - Runtime/user project data belongs under ignored local runtime folders.
 - Never modify the user's original model. Use a blank/disposable model or a copy.
 - Prefer localhost-only bridges for local software control.
-- Preserve required open-source license and NOTICE files when code is reused.
+- Preserve required open-source license and NOTICE files when code is reused or vendored.
+- Optional OSS backends must not expose whole-document open/save/clear or raw arbitrary execution if the website already owns a safer lifecycle boundary.
 
 ## Autonomy boundary
 
