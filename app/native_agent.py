@@ -24,19 +24,12 @@ class NativeAgentUnavailable(RuntimeError):
 def _app_server_turn_input(prompt: str, reference_images: list[Path]) -> list[dict[str, str]]:
     """Build App Server input items; its JSON enum is camelCase ``localImage``."""
     turn_input = [{"type": "text", "text": prompt}]
-    # The live App Server rejects the Python-style `local_image` spelling and
-    # explicitly requires the wire variant `localImage`.
     turn_input.extend({"type": "localImage", "path": str(path)} for path in reference_images)
     return turn_input
 
 
 def _agent_workspace(project_dir: Path) -> Path:
-    """Return the only filesystem location a modeling Codex turn may write.
-
-    Source taskbooks, site files and precedent assets stay outside this ignored
-    generated workspace. SketchUp edits still happen only through dynamic tools
-    after the verified disposable-model checks in the host application.
-    """
+    """Return the only filesystem location a modeling Codex turn may write."""
     project_root = project_dir.resolve()
     runtime_dir = (project_root / "runtime").resolve()
     workspace = (runtime_dir / "agent_workspace").resolve()
@@ -50,11 +43,7 @@ def _agent_workspace(project_dir: Path) -> Path:
 
 
 def _workspace_write_policy(workspace: Path) -> dict[str, Any]:
-    """Build the current Codex App Server workspace-write policy.
-
-    The writable root is intentionally narrower than the project directory and
-    network access is disabled for architecture-modeling turns.
-    """
+    """Build the current Codex App Server workspace-write policy."""
     return {
         "type": "workspaceWrite",
         "writableRoots": [str(workspace.resolve())],
@@ -62,6 +51,25 @@ def _workspace_write_policy(workspace: Path) -> dict[str, Any]:
         "excludeTmpdirEnvVar": True,
         "excludeSlashTmp": True,
     }
+
+
+def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: bool) -> str:
+    """Supersede the historical Kongxing-only wording once OSS tools are composed.
+
+    The older web layer still passes a Kongxing-only sentence. Keeping the override
+    here lets the runtime migrate safely without a second source of truth for which
+    dynamic tools are actually authorized this turn.
+    """
+    if not mcp_enabled:
+        return developer_instructions
+    return developer_instructions.rstrip() + (
+        "\n\nOSS Takeover execution override: the dynamic tools supplied on this turn are the authoritative "
+        "allowed SketchUp tool surface. Namespaced reusable OSS tools such as saie__* are allowed when "
+        "present, even if an older host sentence mentions Kongxing-only operation. Prefer mature semantic "
+        "OSS tools first, existing Kongxing named tools second, and guarded project Ruby only for geometry "
+        "the mature tools cannot express. Keep every operation on the already verified disposable model; "
+        "do not use whole-document lifecycle tools or arbitrary raw Ruby from imported backends."
+    )
 
 
 @dataclass
@@ -143,12 +151,16 @@ class CodexAppServerRuntime:
             reference_images = discover_project_reference_images(project_dir)
             if reference_images:
                 full_prompt += "\n\n" + reference_image_label(reference_images)
+            effective_developer_instructions = _composed_tool_instructions(
+                developer_instructions, mcp_enabled=mcp_enabled,
+            )
             return self._run_turn(
                 project_dir=project_dir.resolve(), agent_workspace=agent_workspace,
                 thread_id=thread_id, prompt=full_prompt, mcp_enabled=mcp_enabled,
-                developer_instructions=developer_instructions, dynamic_tools=tools.dynamic_tools,
-                tool_handler=tools.dispatch, model=selected_model,
-                reasoning_effort=selected_effort, reference_images=reference_images,
+                developer_instructions=effective_developer_instructions,
+                dynamic_tools=tools.dynamic_tools, tool_handler=tools.dispatch,
+                model=selected_model, reasoning_effort=selected_effort,
+                reference_images=reference_images,
             )
 
     def _dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
@@ -179,8 +191,6 @@ class CodexAppServerRuntime:
             try:
                 os.link(source_auth, target_auth)
             except OSError:
-                # The isolated app-server home lives under ignored local runtime data.
-                # Copy only Codex's own login cache; no API key or MCP credential is read here.
                 shutil.copy2(source_auth, target_auth)
         if not target_auth.is_file():
             raise NativeAgentUnavailable("Codex login cache is unavailable. Sign in to Codex CLI on this computer first.")
