@@ -1,238 +1,127 @@
-# CURRENT TASK — OSS Takeover v1: validate and finish mature SketchUp/CAD migration
+# CURRENT TASK — OSS Takeover v1 rework: SAIE 2024 compatibility + standalone workspace validation
 
-## Status: Ready for Codex/local execution
+## Status: Ready for one focused local rework
 
-## Objective
+Read `docs/OSS_TAKEOVER_V1_REVIEW.md` first.
 
-Stop spending model quota to compensate for a weak execution stack.
+Do **not** start another architecture-quality benchmark. Do **not** call Astra. Luna Max may be used only as the coding/local integration agent.
 
-The last reference-rich benchmark showed that the website's Astra path is still materially below the user's successful direct Codex/Astra thesis workflow, Luna Max is operationally too slow in the current long-context loop, and Sol building quality remains unproven. The next milestone is therefore **open-source execution capability migration**, not another model-quality benchmark.
+## Why this rework exists
 
-ChatGPT has already implemented the GitHub-only part of this migration. Read `docs/REMOTE_CHANGESET_V1.md` and `docs/OSS_TAKEOVER_V1.md` before changing code locally.
+The previous local run correctly completed the ArchFlow migration and preserved the Kongxing path, but two gates remain unresolved.
 
-### Hard budget rule for this milestone
-
-- **Do not call Astra.**
-- Do not run Luna/Sol architecture-generation benchmarks.
-- Luna Max may be used as the local **coding/implementation agent** executing this task, but it should not spend quota designing/building the thesis benchmark.
-- Installation, schema inspection, deterministic tool smoke tests, unit tests and local integration tests do not require an architecture LLM.
+1. **SAIE was classified too early as blocked.** Upstream `docs/INSTALL.md` says SketchUp 2025 is tested while **2024 may work but is untested**, and upstream `scripts/install_plugin.ps1` explicitly supports `-Version 2024 -Force`. The workstation's SketchUp 2024.0.484 therefore needs one real reversible compatibility attempt before SAIE is called incompatible.
+2. **Codex workspace-write was tested from inside a nested Codex/Luna coding host whose outer policy forced read-only.** The product policy shape is correct, but standalone Windows acceptance still needs a test outside that host. Do not weaken the sandbox to make the nested-host test pass.
 
 ## Before starting
 
 1. `git pull --ff-only`
-2. Confirm worktree is clean and remote HEAD includes ChatGPT's OSS Takeover commits.
+2. Confirm the worktree is clean.
 3. Read:
    - `AGENTS.md`
-   - `docs/CURRENT_TASK.md`
-   - `docs/REMOTE_CHANGESET_V1.md`
-   - `docs/OSS_TAKEOVER_V1.md`
+   - `docs/OSS_TAKEOVER_V1_REVIEW.md`
    - `docs/HANDOFF.md`
-   - `docs/OPEN_SOURCE_COMPONENT_MAP.md`
    - `THIRD_PARTY_NOTICES.md`
-4. Run `scripts/check.ps1` once. The current remote changes have not been executed on the user's Windows runtime yet, so fix any real API/syntax/regression issue you find rather than assuming the remote code is already locally validated.
-5. Do not overwrite or publish private thesis assets/runtime files.
+4. Run `scripts/check.ps1` once.
+5. Use only disposable/generated models and ignored `.local/` / `runtime/` paths.
 
-## Priority 1 — validate ChatGPT's remote migration code
+## Priority 1 — real SAIE 1.0.0 compatibility smoke on SketchUp 2024
 
-The repository now already includes:
+Use the actual upstream source; do not reimplement SAIE.
 
-- `app/oss_backends.py`: standards-based MCP SDK wrapper for optional SAIE plus a project-scoped ArchFlow CLI adapter;
-- `app/agent_tools.py`: composed/namespaced OSS tool surface;
-- `app/native_agent.py`: project-local `workspace-write` Codex harness with network disabled and a narrow writable root;
-- `app/architecture_skill.py`: user-controlled strong precedent adaptation + OSS-before-custom-Ruby guidance;
-- `scripts/setup.ps1 -InstallSaie` pinned by default to current upstream SAIE `1.0.0`;
-- `scripts/install_archflow.ps1`: ignored upstream ArchFlow checkout + editable install;
-- `scripts/oss_backend_cli.py`: no-LLM backend inspection/call utility;
-- `tests/test_oss_takeover.py`;
-- `docs/OSS_TAKEOVER_V1.md` and `docs/REMOTE_CHANGESET_V1.md`.
+Clone or refresh upstream `iamahsanmehmood/saie` under an ignored path such as:
 
-Validate locally:
+`.local/oss/saie`
 
-- Python syntax/imports and current tests;
-- optional backends disabled by default;
-- Kongxing-only path unchanged when SAIE/ArchFlow are disabled;
-- App Server accepts the current `workspaceWrite` payload/config on Windows;
-- no secret/path leakage;
-- no taskbook/site/reference/source asset becomes writable or committed.
+Pin/record the tested upstream revision and SAIE version.
 
-Fix ordinary issues directly. Do not roll back the reuse-first direction just to preserve an old test assumption.
+Install the Python package from that checkout or use the existing project venv, then use the **upstream** Windows plugin installer with SketchUp 2024 explicitly selected. Upstream itself documents:
 
-## Priority 2 — prove the dedicated writable Codex workspace
+```powershell
+.\scripts\install_plugin.ps1 -Version 2024 -Force
+```
 
-The GitHub code already creates:
+Prefer a reversible copy/symlink install and keep a record of which files were installed.
 
-`runtime/projects/<project-id>/runtime/agent_workspace/`
+Then launch SketchUp 2024 and check the Ruby Console / Extensions menu.
 
-and configures Codex App Server `workspace-write` with that directory as the explicit writable root, network disabled, and the App Server cwd/runtime root set to that generated workspace.
+### Minimum connectivity gate
 
-Local Codex must prove:
+Prove, in order:
 
-- a harmless generated file can be created/edited inside `agent_workspace`;
-- a write attempt into the project `inputs/` tree is denied;
-- taskbook/site/reference/source directories are not writable roots;
-- the verified disposable SketchUp model boundary still works after the sandbox change;
-- no `danger-full-access` is used.
+1. the plugin loads without a fatal Ruby error;
+2. the local SAIE bridge starts;
+3. `saie ping` succeeds;
+4. the live MCP server lists tools;
+5. `ARCH_STUDIO_ENABLE_SAIE=1` makes namespaced `saie__...` tools appear in the website tool surface.
 
-This is a validation/fix task, not a request to design a second sandbox.
+If any step fails, stop there and capture the **exact** error. A real load/API incompatibility is then a valid blocker. Do not patch large parts of SAIE during this milestone.
 
-## Priority 3 — inspect the actual local SketchUp version before enabling SAIE
+### Deterministic no-LLM geometry smoke
 
-SAIE upstream package metadata is currently version `1.0.0`, and the current upstream FastMCP server documents SketchUp 2025.
-
-Record:
-
-- installed SketchUp version(s);
-- active Kongxing plugin/version if discoverable;
-- whether SketchUp 2025 is available on this workstation.
-
-Then choose:
-
-### If a compatible SketchUp 2025 environment is available
-
-1. Run `scripts/setup.ps1 -InstallSaie`.
-2. Install the **upstream SAIE SketchUp plugin** using upstream instructions; do not invent a replacement plugin.
-3. Prove `saie ping` / bridge connectivity.
-4. Set `ARCH_STUDIO_ENABLE_SAIE=1` only after the upstream bridge works.
-5. Use the **live FastMCP tool list as authoritative**. Do not hard-code the older `tools/registry.py` list; current upstream `mcp_server/server.py` exposes the richer mm-based tool surface.
-6. Verify the website discovers namespaced `saie__...` tools.
-
-### If only an incompatible SketchUp version is available
-
-Do not force-install or rewrite SAIE for that version in this milestone.
-
-Instead:
-
-- inspect SAIE source for the narrowest compatible modules/schemas/Ruby operations that can be reused legally;
-- record the exact compatibility blocker;
-- keep Kongxing as the active SketchUp bridge while completing the ArchFlow/workspace parts.
-
-## Priority 4 — deterministic SAIE/Kongxing capability smoke, with zero architecture LLM calls
-
-If SAIE is locally compatible, build a disposable deterministic smoke model by calling the real upstream tools directly from Python/CLI/tests — **not through Astra/Luna/Sol**.
+Only if connectivity succeeds, open a completely disposable blank SketchUp model and call upstream tools directly — no Astra/Luna/Sol architecture generation.
 
 Minimum evidence:
 
 - wall network;
-- at least one true door/window opening;
+- one real door/window opening;
 - slab;
-- non-flat roof (gable/shed/hip if exposed by the live upstream server);
+- non-flat roof if exposed by the live server;
 - stable semantic/AI IDs;
-- `scene_summary` / entity inspection / model verification or equivalent live queries;
-- inline snapshot or canonical screenshot;
-- one modify/delete/repair cycle on the same model;
-- model remains editable in SketchUp.
+- scene/entity/model verification query;
+- snapshot/canonical view;
+- one modify operation;
+- one delete/repair cycle on the same model;
+- resulting SketchUp entities remain editable.
 
-Prefer SAIE's existing batch / verification / attributes / view tools. Do not recreate them in our repo.
+Use the live upstream tool schemas as authoritative. Do not hard-code the older registry list.
 
-If an upstream tool is unavailable in the installed package, document the exact version/tool list rather than inventing a fake equivalent.
+If the smoke passes, keep SAIE optional and namespaced. Do not replace Kongxing's verified model-identity/lifecycle boundary until a separate decision proves that is better.
 
-## Priority 5 — validate the direct ArchFlow adoption already added remotely
+## Priority 2 — standalone workspace-write acceptance
 
-ChatGPT has already inspected the implementation and wrapped the upstream Apache-2.0 `archflow` CLI rather than copying its CAD engine. The upstream pipeline contains semantic model validation/metrics, semantic DXF generation, generated SketchUp Ruby and review/run artifacts.
+The previous failure occurred inside a Codex-managed coding host whose outer command policy was read-only. Do not try to escape that outer policy.
 
-Local steps:
+Prepare a small deterministic probe/script that can be run from a **normal Windows PowerShell session outside Codex/Luna** and that exercises the same product App Server configuration:
 
-1. Run `scripts/install_archflow.ps1`.
-2. Set the `ARCHFLOW_CORE_SKILL` path printed by the script.
-3. Prove `archflow doctor --json`.
-4. Set `ARCH_STUDIO_ENABLE_ARCHFLOW=1`.
-5. Verify `archflow__doctor`, `archflow__check_project`, `archflow__plan_run`, and `archflow__run` appear in the composed website tool surface.
-6. Create a tiny generated ArchFlow project **inside `agent_workspace` only**.
-7. Without any architecture LLM, prove upstream validation/metrics/DXF/generated-Ruby/review outputs.
-8. Do not execute generated ArchFlow Ruby against the user's private thesis/source model during this milestone.
+- `workspace-write`;
+- the single generated `runtime/agent_workspace` writable root;
+- network disabled;
+- a harmless write inside the workspace should succeed;
+- a harmless write into a synthetic sibling `inputs/` sentinel should fail;
+- no private project input is touched;
+- no `danger-full-access`.
 
-If the wrapper needs a small Windows/path/API fix, make that glue fix. Do not rewrite ArchFlow's semantic DXF/validation/generator code.
+If Codex itself cannot execute this standalone test because it is trapped inside the outer read-only host, leave the script/instructions ready and record that the user must run it from normal PowerShell. Do not falsely mark it PASS.
 
-## Priority 6 — Supex: take the workflow pattern; only take runtime code if Windows-compatible
+## Priority 3 — verification
 
-Inspect `darwin/supex` (MIT) for:
+Run:
 
-- project script lifecycle;
-- model introspection;
-- screenshot verification;
-- Ruby runtime/REPL concepts;
-- VCAD integration boundaries.
-
-Current upstream docs say macOS/SketchUp 2026 is the primary tested path. On this Windows milestone:
-
-- do not waste time porting the whole product;
-- do not add Rust/VCAD build complexity unless a clearly supported Windows path already exists;
-- reuse small cross-platform MIT modules only if they immediately save code;
-- otherwise record that its key project-script pattern is now represented by our isolated `agent_workspace` harness.
-
-## Priority 7 — inspect PlanFloor architecture, but do not copy unlicensed source
-
-Inspect the current upstream location/redirect for the PlanFloor AI Agent and its staged planning/validation/transaction/readback design and Skill boundaries.
-
-Unless a compatible reuse license is found, copy **no source code**.
-
-Record reusable architectural ideas only.
-
-## Priority 8 — verify future cheap-model tool guidance
-
-The remote Architecture Skill/runtime now tells future models to prefer:
-
-1. mature namespaced semantic OSS tool when available (`saie__...` / other adopted backend),
-2. existing Kongxing named tool,
-3. guarded project Ruby for genuinely project-specific geometry,
-4. never invent a new custom host tool during a modeling turn.
-
-Verify this survives the local App Server path. Do not add dozens of new `create_xxx` functions to our codebase.
-
-## Priority 9 — tests and evidence
-
-Required automated/local checks:
-
-- `scripts/check.ps1`;
-- focused OSS-tool composition tests;
-- Kongxing-only regression path;
-- SAIE live tool discovery when enabled (if locally compatible);
-- deterministic geometry smoke with no architecture model call (if locally compatible);
-- App Server dedicated workspace-write smoke;
-- ArchFlow doctor + deterministic semantic artifact smoke;
-- source/private asset isolation;
-- `git diff --check`.
-
-## Acceptance criteria
-
-1. Existing Kongxing-only workflow still works when optional OSS backends are disabled — PASS/FAIL.
-2. Dedicated Codex `workspace-write` harness works on Windows while project inputs remain non-writable — PASS/FAIL.
-3. SAIE compatibility decision is based on actual local SketchUp/upstream version — PASS/PARTIAL/FAIL.
-4. If compatible, real SAIE MCP/plugin is installed and website exposes real namespaced tools — PASS/FAIL/N/A with blocker.
-5. If SAIE runs, deterministic no-LLM smoke demonstrates mature wall/opening/slab/roof/query/view/edit operations — PASS/FAIL/N/A with blocker.
-6. No raw SAIE `execute_ruby` or whole-document lifecycle tool bypasses our project boundary — PASS/FAIL.
-7. ArchFlow CLI is actually adopted locally and deterministic validation/metrics/DXF/Ruby/review artifacts are proven in `agent_workspace` — PASS/PARTIAL/FAIL.
-8. Supex patterns are inspected; no unnecessary Windows port/reimplementation is started — PASS/FAIL.
-9. PlanFloor source is not copied without a compatible license — PASS/FAIL.
-10. Strong precedent adaptation is no longer suppressed by a blanket anti-copy rule — PASS/FAIL.
-11. No Astra call and no architecture-quality model benchmark is performed in this milestone — PASS/FAIL.
-12. Tests pass, HANDOFF is updated, work is committed and pushed to `origin/main` — PASS/FAIL.
-
-## What NOT to do
-
-- Do not call Astra.
-- Do not run another thesis-quality model benchmark yet.
-- Do not choose a new architecture model based on this milestone.
-- Do not build our own wall/opening/roof/BIM engine if SAIE already provides it.
-- Do not rebuild ArchFlow semantic DXF/validation/Ruby generation.
-- Do not build a new generic MCP server.
-- Do not replace the working Kongxing identity/lifecycle bridge unless the replacement proves locally better.
-- Do not port the entire Supex stack to Windows just because it is interesting.
-- Do not copy PlanFloor code without a compatible license.
-- Do not make taskbook/site/reference/source directories writable to the model.
-- Do not commit private thesis files, runtime models, screenshots, credentials or machine paths.
-
-## Final step
+```powershell
+.\scripts\check.ps1
+git diff --check
+git status
+```
 
 Update `docs/HANDOFF.md` with:
 
-- exact local SketchUp version;
-- workspace-write acceptance evidence;
-- exact SAIE package/plugin version or compatibility blocker;
-- imported live tool list/count and deterministic smoke evidence;
-- ArchFlow doctor/artifact evidence;
-- Supex/PlanFloor findings;
-- test results;
-- remaining blockers.
+- exact SAIE upstream revision/version;
+- whether SAIE actually loaded in SketchUp 2024;
+- exact `saie ping` result or exact Ruby/bridge error;
+- live tool count if connected;
+- deterministic wall/opening/slab/roof/query/view/edit smoke result if connected;
+- standalone workspace-write probe status;
+- tests and remaining blockers.
 
-Commit, push to `origin/main`, verify the remote SHA, then stop for ChatGPT review. Do not begin a model-quality benchmark after push.
+Commit and push `origin/main`, verify the remote SHA, then stop for ChatGPT review.
+
+## Do not do
+
+- no Astra call;
+- no architecture-quality benchmark;
+- no large SAIE fork/port unless a very small compatibility fix is proven necessary first;
+- no new custom wall/opening/roof/BIM engine;
+- no new generic MCP server;
+- no `danger-full-access` workaround;
+- no private thesis/source assets in Git.
