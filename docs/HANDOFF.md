@@ -1,5 +1,54 @@
 # Handoff — AI Architecture Studio
 
+## Latest task — Thesis Parity v1: reference-rich local benchmark
+
+### Multimodal delivery and input parity
+
+- Fixed the Codex App Server image wire type to `localImage` (the earlier `local_image` spelling was rejected), typed uploaded `Reference` objects correctly, retained DOCX table text when extracting the real taskbook, and selected/normalized the DWG-derived redline in a unitless survey-coordinate DXF. These fixes have focused regression tests.
+- A no-tool smoke turn sent two different Jinshan images to `gpt-6-astra` Low and `gpt-6-luna` Max. Both correctly distinguished the mountain-like aerial rendering from the annotated plan. Captured `turn/start` payloads contained `text` plus two `localImage` items; neither turn accessed SketchUp. Generated `outputs/` images were excluded, and user-facing replies were checked for absolute-path leaks.
+- The formal A/B package contains the same private taskbook, DWG-derived site material, ECADI URL, user intent, and eight images in this order: `reference-01.png` through `reference-06.png`, `site-image-01.png`, `site-plan.png`. Their SHA-256 values, in order, are `6303706ddb71f3fca81e7ba942b4f9cf180a6c54a640ebe4973253ce147a5356`, `27e261107d098ed7eba952ee76a521087ed0fede1e8d728ad4e110c567f0882e`, `2e097d26dc0222613125a6d1b060ad77d696c1ec2ea5f622a45362fd100d88a8`, `77187c01284eeeb0d66b7801da46babf396f09a1f391a03cb66264bd43fcb965`, `4d3c743d776e0e5c65c3b22959c3b53d7282906f34adb526a939186e91642b49`, `b542107d07b4e83094de5c63d01bcc07535905405b316c48614c6a63d17d195f`, `cfb1f6aad1283c897fec5aec60a64d6e131ff22480de4f018f45496bde33cb85`, and `ebd7371ab6ebecc755407402effed385000f9d704d58ceedba69a8af625b0bcc`. The image set and names match across both isolated projects. The same five reconstructed historical prompts, Architecture Skill revision `8be9ec80359cd90a7cfc5d9b03d2b0cf86188772`, guarded project Ruby, and Kongxing tool surface were used.
+- The original successful thesis SKP/CAD and screenshots were used only for read-only quality comparison. The benchmark used separate blank/disposable SketchUp copies. Private assets, runtime screenshots, transcripts, and models remain in ignored local `runtime/` or their original private locations; no private source package is committed.
+
+### Observed modeling quality and constraints
+
+- Astra Low completed all five turns on its own disposable model: 3,465,579 ms across completed turns, 50 SketchUp tool calls, four failed calls. Native App Server API token counts and service region were unavailable. One interrupted fifth turn was resumed from its last completed disposable checkpoint with the same prompt, and this recovery is recorded in the local result.
+- The model has a six-volume cluster, ground public lanes, a long-side entry, linked upper platforms/bridges, stairs, glazing and a claimed 20,900 m² above-grade program. Its reported maximum height is 23.75 m and six main footprints total 5,225 m². This is an editable schematic, but the matched exterior and plan screenshots show regular flat-topped box volumes, repetitive glass bands, limited landscape/context and weaker spatial/silhouette detail than the historical thesis's varied rising white envelopes, integrated bridges, layered platforms and surrounding roads/water/greenery. The agent explicitly chose not to reproduce the mountain-like roof form. Interior room planning, fire/structure/accessibility, and an agentic CAD drawing were not demonstrated. This is **below the historical thesis quality bar** despite completing tool calls.
+- Taskbook site area is 11,490.510 m²; this DWG-derived redline is 10,970.033 m², and an older DXF was 9,640.041 m². The model preserved the present redline and disclosed the conflict. The reported 20,900 m² counted above-grade area implies FAR approximately 1.905 on that redline, exceeding 1.82. Green ratio 20% was not met or independently verified. The taskbook also contains conflicting 6,500/7,500 m² underground-area statements; no basement geometry was built. Reported program/height values are agent readback, not a permit-grade compliance audit.
+- The historical direct workflow documented nine varied volumes, 42 floor slabs and a separate 13,511-primitive CAD preview in [the public case study](THESIS_MODELING_CASE_STUDY.md), after several focused shape, skin, bridge, entry and road revisions. Its own reported FAR/site-area discrepancy also remained unresolved; visual quality is separate from full compliance. This five-turn website reproduction preserved broad prompts and evidence classes but not every original interaction or modeling operation. The benchmark prompt also said not to copy the precedent's concrete form; that may have encouraged the flat-roof abstraction. These differences limit attribution of the visual gap to model capability alone.
+
+### Acceptance and limits at experiment end
+
+| Gate | Outcome |
+| --- | --- |
+| Real multimodal image delivery to Astra Low and Luna Max | **PASS**; both distinguished an aerial rendering from a plan, and formal turns used the eight-image wire payload. |
+| Astra Low full five-turn run | **PASS for execution, FAIL for historical thesis visual quality**; six flat-topped schematic volumes lack the original varied white envelopes and scene depth. |
+| Luna Max full five-turn run | **FAIL / incomplete**; one site turn completed, then road refinement exceeded 30 minutes and a recovery was stopped after more than 55 minutes. |
+| Sol Medium follow-up | **PARTIAL**; two site turns completed faster than Luna, third building turn ended at the user's request. Its building quality remains unknown. |
+| Same-model revisions | **Astra: PASS for execution, with visual gaps. Sol: site revision only. Luna: no completed second turn.** |
+| Taskbook/site conflicts | **PASS for disclosure**; FAR and green ratio remain open as described above. |
+| CAD continuity from the agentic model | **UNVERIFIED**; do not treat the legacy DesignIR DXF as equivalent. |
+| Source asset isolation | **PASS**; no original thesis SKP/DWG, taskbook, reference image package, transcript, runtime data or credential is staged for Git. |
+
+The user ended the experiment after inspecting the early results. Sol Medium is the selected provisional standard-tier route because Luna Max was not operationally usable here, but this run does **not** prove Sol can deliver a good building. No extra Astra modeling was run after the quota instruction.
+
+### Verification and local evidence
+
+- `scripts/check.ps1`: **50 passed**, one existing Starlette/httpx deprecation warning.
+- Formal screenshots are captured under each ignored run's `projects/<project-id>/outputs/renders/` as `matched-plan.png`, `matched-exterior.png`, and `matched-entry.png`; these are private local review artifacts. The historical thesis screenshots were inspected read-only at corresponding overall/entry views. No private images were copied into Git.
+- The website's legacy rectangle DesignIR/CAD exporter was not used to replace agentic geometry. A corresponding CAD/drawing from the generated rich model remains an unverified capability gap.
+
+### Luna Max status and latency diagnosis
+
+Luna uses `gpt-6-luna` / Codex App Server / Max / Economy, with no Astra rescue. Its first, site-only turn completed in 1,022,641 ms (19 tool calls, zero failed). The second prompt is also site/road-only, so no building is expected until the third prompt. The second turn exceeded an initial 30-minute App Server wait. A recovery reopened a copy of the last completed disposable checkpoint and resent the identical second prompt on the same Luna thread. The App Server log recorded multiple WebSocket disconnections and an HTTP fallback. The recovered attempt spent about ten minutes in model reasoning before its first SketchUp tool call. One local rollout sample reported 167,200 input tokens (141,184 cached) and 9,146 output tokens for a sampling step; these are diagnostic usage values, not an API cost or a per-turn total. The eight source PNGs total about 7.1 MB and are reattached on each turn, enlarging context/processing load with Max effort. This identifies severe Max-effort/context latency with some transport retries. At the user request, the recovery was stopped after more than 55 minutes without a completed second turn to conserve quota and compare Sol Medium instead. Luna therefore has one completed site turn and no building output; its architectural quality cannot be scored from this run. No further Astra modeling calls were made.
+
+### Standard-tier route decision
+
+- Per the user's follow-up, the prototype Economy default is now `gpt-6-sol` at **medium** effort. `gpt-6-astra` at **low** remains the explicit Premium route. The Sol comparison uses the same private package, historical prompt sequence and tools from a new blank SketchUp copy. Luna Max remains a benchmark override, not the product default.
+- An Economy request now always stays on Economy, even after repeated tool failures. The product can suggest Premium, but only a user-selected Premium turn calls Astra. This also prevents an unattended Sol benchmark from consuming Astra quota through rescue.
+- Sol Medium completed two site-only turns on its own blank SketchUp copy: **534,187 ms / 7 calls** for the initial redline and roads, then **521,281 ms / 2 calls** for revised entry/road layout; all 9 calls succeeded and both turns verified the same eight `localImage` inputs. Luna Max's same first turn took 1,022,641 ms / 19 calls. Sol reached the third, architecture-building prompt, but the user ended this experiment before that turn returned; no completed Sol building or final matched architectural views exist. The local Sol result is marked `interrupted_by_user` after two completed turns, not `complete`. The site screenshots show a five-point redline, adjacent roads and three schematic access stubs; they do not establish architectural quality. One Sol reply contained an invalid placeholder screenshot link, also recorded as a presentation defect.
+
+---
+
 ## Latest task — Cost / Quality Router v1
 
 ### Delivered

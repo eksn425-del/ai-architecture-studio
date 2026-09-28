@@ -301,3 +301,13 @@ The user's successful direct graduation-design Codex workflow is the current pro
 Astra-class Low vs Luna Max is a controlled benchmark configuration, not a permanent product-default decision. Product defaults remain independent from benchmark-only reasoning overrides.
 
 If the website premium path remains materially worse than the historical direct result under equivalent inputs, migrate the missing capability/input/feedback loop before raising reasoning effort or rewriting the architecture engine.
+
+## D-023 — Sol Medium standard tier after Luna Max latency failure
+
+**Status:** Accepted for the local prototype; Sol architectural quality remains unproven.
+
+The reference-rich Luna Max run completed only the site-base turn in 17 minutes, then failed a 30-minute road-refinement wait and was stopped after more than 55 minutes on a recovery attempt without a completed second turn. It never reached the first building prompt. This is a standard-tier usability failure, not evidence about the quality of a completed Luna building.
+
+Per the user's follow-up, set **Economy / Standard** to `gpt-6-sol` at **medium** effort and keep **Premium / Refine** at `gpt-6-astra` at **low** effort. Sol was tested on the same private taskbook, eight reference/site images, historical prompt order, Architecture Skill, Ruby and Kongxing SketchUp tools from a separate blank model. It completed two site turns; the user ended the run before the first building turn returned, so this is a provisional route choice rather than a building-quality pass. Astra is an existing reference only; no further Astra modeling calls are needed in this comparison.
+
+This supersedes the automatic Premium rescue in D-019: repeated Economy failures may recommend Premium, but only an explicit user selection routes a turn to Astra. The model/provider boundary remains replaceable and the benchmark-only Luna Max override remains available for diagnosis.

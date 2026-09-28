@@ -4,14 +4,16 @@ import json
 import os
 from pathlib import Path
 import tomllib
+import warnings
 
 import ezdxf
+from docx import Document
 from fastapi.testclient import TestClient
 
 from app.brain import BrainUnavailable, CodexBrainAdapter
 from app.generators import generate_drawing, generate_presentation
-from app.main import _disposable_model_path, _safe_readback, _sanitize_agent_reply, _validate_plan, create_app
-from app.models import AgentSession, BuildPlan, DesignIR, EditPlan, ModelState, OutputManifest
+from app.main import _disposable_model_path, _extract_brief_text, _read_site_boundary, _safe_readback, _sanitize_agent_reply, _validate_plan, create_app
+from app.models import AgentSession, BuildPlan, DesignIR, EditPlan, ModelState, OutputManifest, Reference
 from app.native_agent import AgentTurnResult, CodexAppServerRuntime
 from app.references import FetchResult, ReferenceIngestor
 from app.sketchup_mcp import SketchUpAdapter, _generated_script_dir
@@ -85,6 +87,85 @@ def test_uploaded_brief_is_stored_in_project_context(tmp_path: Path):
     project = client.get("/api/projects/demo-cultural-center").json()
     assert path in project["context"]["brief"]["source_files"]
     assert (tmp_path / "runtime/projects/demo-cultural-center" / path).read_text(encoding="utf-8") == "Keep a clear route through the site."
+
+
+def test_uploaded_reference_is_typed_and_serializes_without_warning(tmp_path: Path):
+    app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp())
+    client = TestClient(app)
+    client.get("/api/projects")
+    initial_reference_count = len(app.state.store.load_context("demo-cultural-center").references)
+
+    with warnings.catch_warnings(record=True) as emitted:
+        warnings.simplefilter("always")
+        upload = client.post(
+            "/api/projects/demo-cultural-center/inputs/reference",
+            params={"filename": "jinshan-view.png"},
+            content=b"reference-image-bytes",
+        )
+
+    assert upload.status_code == 200
+    context = app.state.store.load_context("demo-cultural-center")
+    assert len(context.references) == initial_reference_count + 1
+    uploaded_reference = context.references[-1]
+    assert isinstance(uploaded_reference, Reference)
+    assert uploaded_reference.source == upload.json()["path"]
+    assert not any("Pydantic serializer warnings" in str(item.message) for item in emitted)
+
+
+def test_docx_brief_extraction_includes_table_content(tmp_path: Path):
+    path = tmp_path / "table-taskbook.docx"
+    document = Document()
+    document.add_paragraph("Design taskbook")
+    table = document.add_table(rows=2, cols=2)
+    table.cell(0, 0).text = "Above-grade area"
+    table.cell(0, 1).text = "20,900 m2"
+    table.cell(1, 0).merge(table.cell(1, 1)).text = "Underground parking: 7,500 m2; do not omit from total area."
+    document.save(path)
+
+    extracted = _extract_brief_text(path)
+
+    assert "Design taskbook" in extracted
+    assert "Above-grade area" in extracted
+    assert "20,900 m2" in extracted
+    assert "Underground parking: 7,500 m2" in extracted
+    assert extracted.count("Underground parking: 7,500 m2") == 1
+
+
+def test_unknown_unit_site_dxf_prefers_redline_and_normalizes_survey_coordinates(tmp_path: Path):
+    path = tmp_path / "site.dxf"
+    document = ezdxf.new()
+    document.units = 0
+    modelspace = document.modelspace()
+    modelspace.add_lwpolyline(
+        [
+            (462_552_000, 2_703_650_000),
+            (462_652_000, 2_703_650_000),
+            (462_652_000, 2_703_750_000),
+            (462_552_000, 2_703_750_000),
+            (462_552_000, 2_703_650_000),
+        ],
+        dxfattribs={"layer": "用地红线"},
+    )
+    modelspace.add_lwpolyline(
+        [
+            (462_400_000, 2_703_400_000),
+            (462_760_000, 2_703_400_000),
+            (462_760_000, 2_703_700_000),
+            (462_400_000, 2_703_700_000),
+        ],
+        close=True,
+        dxfattribs={"layer": "PUB_TITLE"},
+    )
+    document.saveas(path)
+
+    result = _read_site_boundary(path)
+
+    assert result is not None
+    boundary, note = result
+    assert boundary == [(0.0, 0.0), (100.0, 0.0), (100.0, 100.0), (0.0, 100.0)]
+    assert "用地红线" in note
+    assert "10000.000 m²" in note
+    assert "millimeters inferred" in note
 
 
 def test_dxf_and_presentation_generation(tmp_path: Path):
@@ -392,8 +473,8 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
 
 class FakeNativeAgent:
     available = True
-    model = "gpt-6-luna"
-    reasoning_effort = "low"
+    model = "gpt-6-sol"
+    reasoning_effort = "medium"
     failed_tool_calls = 0
 
     def __init__(self):
@@ -417,8 +498,8 @@ def test_local_status_exposes_native_model_and_reasoning_effort(tmp_path: Path):
     app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp(), native_agent=native)
     response = TestClient(app).get("/api/status")
     assert response.status_code == 200
-    assert response.json()["native_agent_model"] == "gpt-6-luna"
-    assert response.json()["native_agent_reasoning_effort"] == "low"
+    assert response.json()["native_agent_model"] == "gpt-6-sol"
+    assert response.json()["native_agent_reasoning_effort"] == "medium"
 
 
 class DisconnectedFakeSketchUp(FakeSketchUp):
@@ -482,11 +563,11 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
         json={"message": "读取模型状态并简要报告。"},
     )
     assert routine.status_code == 200
-    assert routine.json()["agent"]["model"] == "gpt-6-luna"
+    assert routine.json()["agent"]["model"] == "gpt-6-sol"
     assert routine.json()["agent"]["tier"] == "economy"
 
 
-def test_two_economy_tool_failures_allow_one_visible_premium_rescue(tmp_path: Path):
+def test_economy_failures_suggest_premium_but_never_call_astra_without_selection(tmp_path: Path):
     class FailingToolNative(FakeNativeAgent):
         failed_tool_calls = 1
 
@@ -497,19 +578,23 @@ def test_two_economy_tool_failures_allow_one_visible_premium_rescue(tmp_path: Pa
 
     first = client.post(project_path, json={"message": "先讨论入口。", "tier": "economy"})
     second = client.post(project_path, json={"message": "再讨论路径。", "tier": "economy"})
-    assert first.json()["agent"]["model"] == second.json()["agent"]["model"] == "gpt-6-luna"
+    assert first.json()["agent"]["model"] == second.json()["agent"]["model"] == "gpt-6-sol"
     assert second.json()["agent"]["premium_rescue_pending"] is True
 
-    rescue = client.post(project_path, json={"message": "继续检查失败的工具调用。", "tier": "economy"})
-    assert rescue.status_code == 200
-    assert rescue.json()["agent"]["model"] == "gpt-6-astra"
-    assert rescue.json()["agent"]["tier"] == "premium"
-    assert "一次性 Premium rescue" in rescue.json()["agent"]["routing_reason"]
-    assert rescue.json()["agent"]["premium_rescue_pending"] is False
+    continued = client.post(project_path, json={"message": "继续检查失败的工具调用。", "tier": "economy"})
+    assert continued.status_code == 200
+    assert continued.json()["agent"]["model"] == "gpt-6-sol"
+    assert continued.json()["agent"]["tier"] == "economy"
+    assert continued.json()["agent"]["premium_rescue_pending"] is True
+
+    premium = client.post(project_path, json={"message": "我选择精修。", "tier": "premium"})
+    assert premium.status_code == 200
+    assert premium.json()["agent"]["model"] == "gpt-6-astra"
+    assert premium.json()["agent"]["premium_rescue_pending"] is False
 
     followup = client.post(project_path, json={"message": "恢复普通迭代。", "tier": "economy"})
     assert followup.status_code == 200
-    assert followup.json()["agent"]["model"] == "gpt-6-luna"
+    assert followup.json()["agent"]["model"] == "gpt-6-sol"
 
 
 def test_native_agent_refuses_original_or_switched_sketchup_model(tmp_path: Path):
@@ -557,7 +642,7 @@ def test_native_runtime_isolates_mcp_allowlist_and_uses_codex_login_cache(tmp_pa
 
     runtime._prepare_home(mcp_enabled=True)
     isolated = tomllib.loads((runtime.home / "config.toml").read_text(encoding="utf-8"))
-    assert isolated["model"] == "gpt-6-luna"
+    assert isolated["model"] == "gpt-6-sol"
     assert "mcp_servers" not in isolated
     assert os.path.samefile(source_home / "auth.json", runtime.home / "auth.json")
     dynamic_tools = runtime._dynamic_tools()

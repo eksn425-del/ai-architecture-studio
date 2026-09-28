@@ -21,6 +21,15 @@ class NativeAgentUnavailable(RuntimeError):
     pass
 
 
+def _app_server_turn_input(prompt: str, reference_images: list[Path]) -> list[dict[str, str]]:
+    """Build App Server input items; its JSON enum is camelCase ``localImage``."""
+    turn_input = [{"type": "text", "text": prompt}]
+    # The live App Server rejects the Python-style `local_image` spelling and
+    # explicitly requires the wire variant `localImage`.
+    turn_input.extend({"type": "localImage", "path": str(path)} for path in reference_images)
+    return turn_input
+
+
 @dataclass
 class AgentTurnResult:
     thread_id: str
@@ -48,8 +57,8 @@ class CodexAppServerRuntime:
                  reasoning_effort: str | None = None):
         self.runtime_root = runtime_root.resolve()
         self.codex_executable = codex_executable or os.environ.get("CODEX_CLI_PATH") or shutil.which("codex")
-        self.model = model or os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-luna")
-        effort = reasoning_effort or os.environ.get("ARCH_STUDIO_CODEX_REASONING_EFFORT", "low")
+        self.model = model or os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-sol")
+        effort = reasoning_effort or os.environ.get("ARCH_STUDIO_CODEX_REASONING_EFFORT", "medium")
         if effort not in {"low", "medium", "high", "xhigh", "max"}:
             raise ValueError("ARCH_STUDIO_CODEX_REASONING_EFFORT must be one of low, medium, high, xhigh, or max.")
         self.reasoning_effort = effort
@@ -217,8 +226,7 @@ class CodexAppServerRuntime:
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
 
-            turn_input: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
-            turn_input.extend({"type": "local_image", "path": str(path)} for path in reference_images)
+            turn_input = _app_server_turn_input(prompt, reference_images)
             self._send(process, {
                 "id": request_id,
                 "method": "turn/start",

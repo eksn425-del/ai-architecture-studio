@@ -268,8 +268,38 @@ def _extract_brief_text(path: Path) -> str:
             return "\n".join((page.extract_text() or "") for page in reader.pages[:30])[:30000]
         if suffix == ".docx":
             from docx import Document
+            from docx.oxml.table import CT_Tbl
+            from docx.oxml.text.paragraph import CT_P
+            from docx.table import Table
+            from docx.text.paragraph import Paragraph
+
             document = Document(str(path))
-            return "\n".join(paragraph.text for paragraph in document.paragraphs if paragraph.text.strip())[:30000]
+            excerpts: list[str] = []
+            for child in document.element.body.iterchildren():
+                if isinstance(child, CT_P):
+                    value = Paragraph(child, document).text.strip()
+                    if value:
+                        excerpts.append(value)
+                elif isinstance(child, CT_Tbl):
+                    table = Table(child, document)
+                    seen_cells = set()
+                    for row in table.rows:
+                        cells: list[str] = []
+                        for cell in row.cells:
+                            xml_cell = cell._tc
+                            if xml_cell in seen_cells:
+                                continue
+                            seen_cells.add(xml_cell)
+                            value = " / ".join(
+                                paragraph.text.strip()
+                                for paragraph in cell.paragraphs
+                                if paragraph.text.strip()
+                            )
+                            if value:
+                                cells.append(value)
+                        if cells:
+                            excerpts.append(" | ".join(cells))
+            return "\n".join(excerpts)[:30000]
     except Exception:
         return ""
     return ""
@@ -296,17 +326,73 @@ def _read_site_boundary(path: Path) -> tuple[list[tuple[float, float]], str] | N
     try:
         import ezdxf
         document = ezdxf.readfile(path)
-        unit_scale = {1: 0.0254, 2: 0.3048, 4: 0.001, 5: 0.01, 6: 1.0, 7: 1000.0}.get(document.units, 1.0)
-        candidates: list[tuple[float, list[tuple[float, float]]]] = []
+        unit_scales = {1: 0.0254, 2: 0.3048, 4: 0.001, 5: 0.01, 6: 1.0, 7: 1000.0}
+        candidates: list[dict[str, Any]] = []
         for entity in document.modelspace().query("LWPOLYLINE"):
-            if entity.closed:
-                points = [(float(point[0]) * unit_scale, float(point[1]) * unit_scale) for point in entity.get_points()]
-                if len(points) >= 3:
-                    area = abs(sum(points[i][0] * points[(i + 1) % len(points)][1] - points[(i + 1) % len(points)][0] * points[i][1] for i in range(len(points))) / 2)
-                    candidates.append((area, points))
+            points = [(float(point[0]), float(point[1])) for point in entity.get_points()]
+            if len(points) < 3:
+                continue
+            repeated_end = math.dist(points[0], points[-1]) <= 0.01
+            if not entity.closed and not repeated_end:
+                continue
+            if repeated_end:
+                points.pop()
+            if len(points) < 3:
+                continue
+            area = abs(sum(
+                points[i][0] * points[(i + 1) % len(points)][1]
+                - points[(i + 1) % len(points)][0] * points[i][1]
+                for i in range(len(points))
+            ) / 2)
+            layer = str(entity.dxf.layer)
+            candidates.append({"area": area, "points": points, "layer": layer})
         if not candidates:
             return None
-        return max(candidates, key=lambda item: item[0])[1], f"DXF units converted to meters (INSUNITS={document.units})."
+        boundary_hints = ("用地红线", "红线", "用地", "site-boundary", "site_boundary", "redline", "boundary")
+        preferred = [
+            candidate for candidate in candidates
+            if any(hint.casefold() in candidate["layer"].casefold() for hint in boundary_hints)
+        ]
+        if preferred:
+            candidates = preferred
+        else:
+            candidates = [
+                candidate for candidate in candidates
+                if not any(hint in candidate["layer"].casefold() for hint in ("title", "frame", "sheet", "图框"))
+            ]
+        if not candidates:
+            return None
+        selected = max(candidates, key=lambda item: item["area"])
+
+        unit_scale = unit_scales.get(document.units)
+        unit_label = {1: "inches", 2: "feet", 4: "millimeters", 5: "centimeters", 6: "meters", 7: "kilometers"}.get(document.units)
+        points = selected["points"]
+        coordinate_magnitude = max(abs(value) for point in points for value in point)
+        extent = max(
+            max(point[axis] for point in points) - min(point[axis] for point in points)
+            for axis in (0, 1)
+        )
+        if unit_scale is None:
+            if coordinate_magnitude >= 1_000_000 or extent >= 10_000:
+                unit_scale, unit_label = 0.001, "millimeters inferred from survey-coordinate scale"
+            else:
+                unit_scale, unit_label = 1.0, "meters assumed for local-scale unitless coordinates"
+
+        scaled = [(point[0] * unit_scale, point[1] * unit_scale) for point in points]
+        origin_x = min(point[0] for point in scaled)
+        origin_y = min(point[1] for point in scaled)
+        local_points = [(x - origin_x, y - origin_y) for x, y in scaled]
+        width = max(point[0] for point in local_points) - min(point[0] for point in local_points)
+        depth = max(point[1] for point in local_points) - min(point[1] for point in local_points)
+        area_m2 = selected["area"] * unit_scale * unit_scale
+        if area_m2 <= 0 or area_m2 > 100_000_000 or max(width, depth) > 100_000:
+            return None
+        note = (
+            f"DXF boundary layer '{selected['layer']}' converted to local meters using {unit_label}; "
+            f"origin translated to the local bounding-box corner; boundary area {area_m2:.3f} m² "
+            f"and extents {width:.3f} × {depth:.3f} m (INSUNITS={document.units})."
+        )
+        return local_points, note
     except Exception:
         return None
 
@@ -432,7 +518,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         context = store.load_context(project_id)
         source_list = getattr(context.brief if category == "brief" else context.site if category == "site" else context, "source_files") if category != "reference" else None
         if category == "reference":
-            context.references.append({"type": "image" if destination.suffix.lower() in IMAGE_SUFFIXES else "note", "source": relative})
+            context.references.append(Reference(
+                type="image" if destination.suffix.lower() in IMAGE_SUFFIXES else "note",
+                source=relative,
+            ))
         else:
             if relative not in source_list:
                 source_list.append(relative)
@@ -960,16 +1049,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
         phase = "agent"
         requested_tier = request.tier
-        auto_rescue = requested_tier == "economy" and session.premium_rescue_pending
-        effective_tier = "premium" if auto_rescue else requested_tier
+        effective_tier = requested_tier
         route = app.state.model_router.route(effective_tier)
         route_reason = (
-            "连续两次 SketchUp 工具失败后的一次性 Premium rescue"
-            if auto_rescue else
             "用户本轮显式选择精修" if requested_tier == "premium" else
             "默认 Economy"
         )
-        if auto_rescue:
+        if requested_tier == "premium":
             session.premium_rescue_pending = False
             session.economy_tool_failure_streak = 0
         _append_conversation(context, "user", phase, request.message.strip(), {

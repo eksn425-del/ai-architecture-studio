@@ -40,7 +40,8 @@ def test_router_is_economy_by_default_and_premium_is_explicit(tmp_path, monkeypa
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_MODEL", raising=False)
     router = DeterministicModelRouter(FakeCodex(), runtime_root=tmp_path)
 
-    assert router.route("economy").model == "gpt-6-luna"
+    assert router.route("economy").model == "gpt-6-sol"
+    assert router.route("economy").reasoning_effort == "medium"
     assert router.route("economy").tier == "economy"
     assert router.route("premium").model == "gpt-6-astra"
     assert router.route("premium").reasoning_effort == "low"

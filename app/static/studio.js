@@ -4,7 +4,7 @@ const $ = (id) => document.getElementById(id);
 function routeInfo(tier) {
   const fallback = tier === "premium"
     ? { model: "gpt-6-astra", provider: "codex-app-server" }
-    : { model: "gpt-6-luna", provider: "codex-app-server" };
+    : { model: "gpt-6-sol", reasoning_effort: "medium", provider: "codex-app-server" };
   return state.modelRouter?.[tier] || fallback;
 }
 
@@ -496,6 +496,9 @@ async function sendConversation(event) {
     const agent = result.agent || {};
     showToast((agent.tier === "premium" ? "精修" : "Economy") + " · " + (agent.model || "Agent")
       + " 已处理" + (built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
+    if (agent.premium_rescue_pending && requestedTier === "economy") {
+      showToast("普通档连续遇到工具问题；如需使用 Astra Low，请显式选择精修。", true);
+    }
     if (built) setTab("model");
   } catch (error) {
     setStatus(friendlyError(error), "error");

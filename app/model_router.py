@@ -47,10 +47,10 @@ class DeterministicModelRouter:
         if self.economy_provider not in {"codex", "litellm"}:
             raise ValueError("ARCH_STUDIO_ECONOMY_PROVIDER must be 'codex' or 'litellm'.")
         if self.economy_provider == "codex":
-            economy_model = os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-luna")
+            economy_model = os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-sol")
             if "astra" in economy_model.casefold():
                 raise ValueError("Economy cannot use an Astra model; select Premium explicitly for GPT-6 Astra.")
-            economy_effort = _reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "low")
+            economy_effort = _reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "medium")
             self.economy_route = ModelRoute(
                 "economy", "codex-app-server", economy_model, economy_effort, "codex-managed (not exposed)",
             )
@@ -111,5 +111,5 @@ class DeterministicModelRouter:
                     "model": self.china_runtime.model,
                 },
             },
-            "premium_rescue_policy": "after two failed SketchUp tool calls across turns, the next Economy request may use one visible Premium rescue turn",
+            "premium_rescue_policy": "after repeated Economy failures, suggest Premium; only an explicit Premium request uses Astra",
         }

@@ -6,6 +6,7 @@ from types import ModuleType, SimpleNamespace
 
 from app.litellm_runtime import LiteLLMRuntime
 from app.model_router import DeterministicModelRouter
+from app.native_agent import _app_server_turn_input
 
 
 class FakeCodex:
@@ -14,8 +15,19 @@ class FakeCodex:
     model = "gpt-6-luna"
 
 
+def test_codex_app_server_turn_input_uses_local_image_wire_variant(tmp_path: Path):
+    first = tmp_path / "reference-01.png"
+    second = tmp_path / "reference-02.png"
+
+    turn_input = _app_server_turn_input("Describe both images.", [first, second])
+
+    assert [item["type"] for item in turn_input] == ["text", "localImage", "localImage"]
+    assert [item["path"] for item in turn_input[1:]] == [str(first), str(second)]
+
+
 def test_router_allows_explicit_benchmark_reasoning_overrides(tmp_path, monkeypatch):
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_PROVIDER", raising=False)
+    monkeypatch.setenv("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-luna")
     monkeypatch.setenv("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "max")
     monkeypatch.setenv("ARCH_STUDIO_PREMIUM_REASONING_EFFORT", "low")
 

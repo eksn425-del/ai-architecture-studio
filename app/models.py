@@ -179,8 +179,8 @@ class AgentSession(Model):
     project_id: str
     status: Literal["idle", "conversation", "ready", "failed"] = "idle"
     thread_id: str = ""
-    model: str = "gpt-6-luna"
-    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max", "provider-default"] = "low"
+    model: str = "gpt-6-sol"
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max", "provider-default"] = "medium"
     routing_tier: Literal["economy", "premium"] = "economy"
     provider: str = "codex-app-server"
     region: str = "codex-managed (not exposed)"

@@ -31,6 +31,7 @@ The controlled local comparison is:
 
 - premium parity candidate: current Astra-class Codex route at **low** reasoning,
 - economy stress candidate: `gpt-6-luna` at **max** reasoning for this benchmark only,
+- follow-up standard-tier candidate: `gpt-6-sol` at **medium** reasoning, using the same private package and SketchUp toolchain,
 - historical successful direct-Codex thesis output: evaluation reference only.
 
 Both live variants must receive the same files, same images, same Architecture Skill, same Ruby/MCP tools, same prompt sequence, and separate blank disposable SketchUp copies.
@@ -133,7 +134,7 @@ The old synthetic router benchmark remains available:
 
 For the current thesis-parity experiment, follow `docs/CURRENT_TASK.md` and `docs/THESIS_PARITY_V1.md`; the taskbook/site/reference package and historical transcript remain private/local and must not be committed.
 
-Benchmark-only Codex effort overrides are explicit environment settings. Defaults remain low unless the experiment says otherwise:
+The product defaults to Sol Medium for Economy and Astra Low for explicit Premium. Benchmark-only Codex overrides remain available:
 
 ```powershell
 $env:ARCH_STUDIO_ECONOMY_MODEL = 'gpt-6-luna'
