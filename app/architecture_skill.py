@@ -8,6 +8,25 @@ UPSTREAM_NAME = "Mentat-Uran/sketchup-architect-skill"
 VENDOR_ROOT = Path(__file__).resolve().parent / "vendor" / "sketchup_architect"
 MAX_CONTEXT_CHARS = 12_500
 
+# The upstream skill correctly warns against blindly copying a precedent, but the
+# product also serves workflows where the user deliberately asks for a strong
+# formal adaptation of a named case study. Earlier thesis-parity runs over-weighted
+# the anti-copy wording and the agent explicitly avoided the precedent's key roof /
+# silhouette language. Keep authorship with the user: strong adaptation is allowed
+# when it is requested, while taskbook/site constraints still win.
+_PRECEDENT_FIDELITY_NOTE = """
+## User-controlled precedent fidelity
+
+Precedent use is controlled by the user's design intent, not by a blanket anti-copy rule.
+If the user asks only for principles, transfer principles. If the user asks for a strong
+adaptation of a specific precedent, it is acceptable to carry over concrete massing,
+silhouette, roof, bridge, platform, facade-rhythm, circulation, and spatial-sequence logic
+and then transform it to fit the actual site, program, dimensions, access, and regulations.
+Do not flatten a requested strong-form reference into generic boxes merely to make it look
+less similar. Never let precedent fidelity override explicit project constraints or pretend
+that a copied detail is technically verified.
+""".strip()
+
 _SECTIONS: tuple[tuple[str, tuple[tuple[str, int], ...]], ...] = (
     ("references/architectural-design.md", (
         ("Establish the design basis", 750),
@@ -80,6 +99,7 @@ def load_architecture_skill_context(*, max_chars: int = MAX_CONTEXT_CHARS) -> st
     blocks = [
         "Architecture workflow context (selectively reused under the MIT license).",
         f"Source: {UPSTREAM_NAME} @ {UPSTREAM_REVISION}; see app/vendor/sketchup_architect/LICENSE.",
+        _PRECEDENT_FIDELITY_NOTE,
     ]
     remaining = max_chars - sum(len(item) + 2 for item in blocks)
     for relative_path, headings in _SECTIONS:
