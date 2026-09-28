@@ -30,6 +30,40 @@ def _app_server_turn_input(prompt: str, reference_images: list[Path]) -> list[di
     return turn_input
 
 
+def _agent_workspace(project_dir: Path) -> Path:
+    """Return the only filesystem location a modeling Codex turn may write.
+
+    Source taskbooks, site files and precedent assets stay outside this ignored
+    generated workspace. SketchUp edits still happen only through dynamic tools
+    after the verified disposable-model checks in the host application.
+    """
+    project_root = project_dir.resolve()
+    runtime_dir = (project_root / "runtime").resolve()
+    workspace = (runtime_dir / "agent_workspace").resolve()
+    if not runtime_dir.is_relative_to(project_root) or not workspace.is_relative_to(runtime_dir):
+        raise ValueError("Agent workspace resolved outside this project runtime.")
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    workspace.mkdir(parents=True, exist_ok=True)
+    if runtime_dir.is_symlink() or workspace.is_symlink():
+        raise ValueError("Agent workspace directories may not be symbolic links.")
+    return workspace
+
+
+def _workspace_write_policy(workspace: Path) -> dict[str, Any]:
+    """Build the current Codex App Server workspace-write policy.
+
+    The writable root is intentionally narrower than the project directory and
+    network access is disabled for architecture-modeling turns.
+    """
+    return {
+        "type": "workspaceWrite",
+        "writableRoots": [str(workspace.resolve())],
+        "networkAccess": False,
+        "excludeTmpdirEnvVar": True,
+        "excludeSlashTmp": True,
+    }
+
+
 @dataclass
 class AgentTurnResult:
     thread_id: str
@@ -48,7 +82,7 @@ class AgentTurnResult:
 
 
 class CodexAppServerRuntime:
-    """Runs Codex app-server with a private, Kongxing-only MCP configuration."""
+    """Runs Codex app-server with project-local tools and an isolated writable workspace."""
 
     def __init__(self, runtime_root: Path, *, codex_executable: str | None = None,
                  model: str | None = None, timeout_seconds: int = 300,
@@ -96,9 +130,13 @@ class CodexAppServerRuntime:
                     project_dir=project_dir, mcp_enabled=mcp_enabled, model_path=model_path,
                     model_guid=model_guid, ruby_enabled=ruby_enabled, ruby_state=ruby_state,
                 )
+                agent_workspace = _agent_workspace(project_dir)
             except (RuntimeError, ValueError) as error:
                 raise NativeAgentUnavailable(str(error)) from error
-            self._prepare_home(mcp_enabled=mcp_enabled, model=selected_model, reasoning_effort=selected_effort)
+            self._prepare_home(
+                mcp_enabled=mcp_enabled, model=selected_model,
+                reasoning_effort=selected_effort, agent_workspace=agent_workspace,
+            )
             full_prompt = prompt.rstrip()
             if architecture_skill_context:
                 full_prompt += "\n\n" + architecture_skill_context.strip()
@@ -106,8 +144,8 @@ class CodexAppServerRuntime:
             if reference_images:
                 full_prompt += "\n\n" + reference_image_label(reference_images)
             return self._run_turn(
-                project_dir=project_dir.resolve(), thread_id=thread_id,
-                prompt=full_prompt, mcp_enabled=mcp_enabled,
+                project_dir=project_dir.resolve(), agent_workspace=agent_workspace,
+                thread_id=thread_id, prompt=full_prompt, mcp_enabled=mcp_enabled,
                 developer_instructions=developer_instructions, dynamic_tools=tools.dynamic_tools,
                 tool_handler=tools.dispatch, model=selected_model,
                 reasoning_effort=selected_effort, reference_images=reference_images,
@@ -124,13 +162,14 @@ class CodexAppServerRuntime:
         return self.tool_surface.dispatch(name, arguments, project_dir=project_dir, project_ruby=project_ruby)
 
     def _prepare_home(self, *, mcp_enabled: bool, model: str | None = None,
-                      reasoning_effort: str | None = None) -> None:
+                      reasoning_effort: str | None = None,
+                      agent_workspace: Path | None = None) -> None:
         source_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser()
         source_config = source_home / "config.toml"
         if not source_config.is_file():
             raise NativeAgentUnavailable("Codex config.toml was not found; the local native agent is not configured.")
         try:
-            config = _toml_load(source_config)
+            _toml_load(source_config)
         except Exception as error:
             raise NativeAgentUnavailable(f"Could not read Codex configuration: {error}") from error
         self.home.mkdir(parents=True, exist_ok=True)
@@ -146,19 +185,25 @@ class CodexAppServerRuntime:
         if not target_auth.is_file():
             raise NativeAgentUnavailable("Codex login cache is unavailable. Sign in to Codex CLI on this computer first.")
 
+        workspace = agent_workspace.resolve() if agent_workspace is not None else self.runtime_root
         lines = [
             f"model = {json.dumps(model or self.model)}",
             f"model_reasoning_effort = {json.dumps(reasoning_effort or self.reasoning_effort)}",
             'approval_policy = "never"',
-            'sandbox_mode = "read-only"',
+            'sandbox_mode = "workspace-write"',
             "mcp_optional_startup_grace_ms = 0",
+            "",
+            "[sandbox_workspace_write]",
+            "network_access = false",
+            f"writable_roots = [{json.dumps(str(workspace))}]",
         ]
         temp_config = self.home / f"config.{uuid.uuid4().hex}.tmp"
         config_path = self.home / "config.toml"
         temp_config.write_text("\n".join(lines) + "\n", encoding="utf-8")
         temp_config.replace(config_path)
 
-    def _run_turn(self, *, project_dir: Path, thread_id: str | None, prompt: str,
+    def _run_turn(self, *, project_dir: Path, agent_workspace: Path,
+                  thread_id: str | None, prompt: str,
                   mcp_enabled: bool, developer_instructions: str,
                   dynamic_tools: list[dict[str, Any]],
                   tool_handler: Callable[[str, dict[str, Any]], dict[str, Any]],
@@ -177,7 +222,7 @@ class CodexAppServerRuntime:
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=log_handle,
-                cwd=project_dir,
+                cwd=agent_workspace,
                 env=environment,
                 bufsize=0,
             )
@@ -197,7 +242,7 @@ class CodexAppServerRuntime:
         request_id = 0
         buffered: list[dict[str, Any]] = []
         try:
-            initialized = self._request(process, events, request_id, "initialize", {
+            self._request(process, events, request_id, "initialize", {
                 "clientInfo": {"name": "ai-architecture-studio", "title": "AI Architecture Studio", "version": "0.1.0"},
                 "capabilities": {"experimentalApi": True},
             }, buffered)
@@ -205,11 +250,11 @@ class CodexAppServerRuntime:
             self._notify(process, "initialized", {})
             thread_params: dict[str, Any] = {
                 "model": model,
-                "cwd": str(project_dir),
-                "runtimeWorkspaceRoots": [str(project_dir)],
-                "sandbox": "read-only",
+                "cwd": str(agent_workspace),
+                "runtimeWorkspaceRoots": [str(agent_workspace)],
+                "sandbox": "workspace-write",
                 "approvalPolicy": "never",
-                "serviceName": "ai_architecture_studio_quality_lift_v1",
+                "serviceName": "ai_architecture_studio_oss_takeover_v1",
                 "developerInstructions": developer_instructions,
             }
             if mcp_enabled:
@@ -233,10 +278,11 @@ class CodexAppServerRuntime:
                 "params": {
                     "threadId": resolved_thread_id,
                     "input": turn_input,
-                    "cwd": str(project_dir),
+                    "cwd": str(agent_workspace),
+                    "runtimeWorkspaceRoots": [str(agent_workspace)],
                     "model": model,
                     "approvalPolicy": "never",
-                    "sandboxPolicy": {"type": "readOnly"},
+                    "sandboxPolicy": _workspace_write_policy(agent_workspace),
                 },
             })
             deadline = time.monotonic() + self.timeout_seconds
@@ -264,11 +310,11 @@ class CodexAppServerRuntime:
                     tool_call_count += 1
                     try:
                         if call["tool"] not in {str(tool.get("name", "")) for tool in dynamic_tools}:
-                            raise MCPCallError("The agent requested a tool that is not in this turn's Kongxing MCP allowlist.")
+                            raise MCPCallError("The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist.")
                         output = tool_handler(call["tool"], params.get("arguments") or {})
                         if output.get("success") is False or output.get("isError") is True:
                             failed_tool_calls += 1
-                    except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
+                    except (ConnectorUnavailable, MCPCallError, OSError, RuntimeError, ValueError) as error:
                         failed_tool_calls += 1
                         output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
                     self._send(process, {"id": message["id"], "result": output})
@@ -277,7 +323,7 @@ class CodexAppServerRuntime:
                 if isinstance(item, dict) and item.get("type") in {"mcpToolCall", "mcp_tool_call"}:
                     tool_calls.append(_tool_summary(item))
                 elif isinstance(item, dict) and item.get("type") == "dynamicToolCall":
-                    tool_calls.append({"server": "kongxing_sketchup", "tool": str(item.get("tool", "dynamic_tool"))})
+                    tool_calls.append({"server": "sketchup_tool_surface", "tool": str(item.get("tool", "dynamic_tool"))})
                 elif method in {"item/started", "item/completed"} and isinstance(item, dict):
                     if item.get("type") in {"mcpToolCall", "mcp_tool_call"}:
                         tool_calls.append(_tool_summary(item))
@@ -285,7 +331,7 @@ class CodexAppServerRuntime:
                         reply = _message_text(item)
                 elif "mcpToolCall" in method and isinstance(params, dict):
                     tool_calls.append({
-                        "server": str(params.get("server", "kongxing_sketchup")),
+                        "server": str(params.get("server", "sketchup_tool_surface")),
                         "tool": str(params.get("tool", "mcp_tool")),
                     })
                 if method == "turn/completed":
@@ -381,7 +427,7 @@ def _toml_literal(value: Any) -> str:
 
 def _tool_summary(item: dict[str, Any]) -> dict[str, str]:
     return {
-        "server": str(item.get("server") or item.get("serverName") or "kongxing_sketchup"),
+        "server": str(item.get("server") or item.get("serverName") or "sketchup_tool_surface"),
         "tool": str(item.get("tool") or item.get("toolName") or item.get("name") or "mcp_tool"),
     }
 
