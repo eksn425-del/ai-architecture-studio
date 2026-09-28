@@ -23,9 +23,8 @@ class AgentToolSurface:
     """Compose the existing Kongxing bridge with reusable OSS execution engines.
 
     Kongxing remains the verified model-identity/lifecycle bridge. Optional OSS
-    backends (currently SAIE when explicitly enabled) contribute mature modeling,
-    query, BIM and view tools under a namespaced dynamic-tool surface rather than
-    being reimplemented here.
+    backends contribute mature modeling/query/CAD operations under a namespaced
+    dynamic-tool surface rather than being reimplemented here.
     """
 
     def __init__(self, runtime_root: Path, sketchup_mcp: ConfiguredSketchUpMCP,
@@ -56,12 +55,7 @@ class AgentToolSurface:
 
     @staticmethod
     def _dynamic_tool(name: str, description: str, schema: dict[str, Any]) -> dict[str, Any]:
-        return {
-            "type": "function",
-            "name": name,
-            "description": description,
-            "inputSchema": schema,
-        }
+        return {"type": "function", "name": name, "description": description, "inputSchema": schema}
 
     def dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
         try:
@@ -75,8 +69,6 @@ class AgentToolSurface:
             schema = item.get("inputSchema")
             if not isinstance(name, str) or not isinstance(schema, dict) or name in seen:
                 continue
-            # The connector's raw path-taking eval endpoint is host infrastructure,
-            # never a model-facing tool. Project Ruby is exposed through the guard below.
             if name == "sketchup_eval_project_file" or name.startswith("archflow_"):
                 continue
             seen.add(name)
@@ -86,16 +78,11 @@ class AgentToolSurface:
                 schema,
             ))
 
-        # Mature OSS engines are namespaced so their semantic operations can live
-        # beside the existing connector without collisions. They are optional:
-        # local Codex must first install/verify the upstream plugin on the user's
-        # actual SketchUp version before ARCH_STUDIO_ENABLE_SAIE is enabled.
         for backend_id, backend in sorted(self.oss_backends.items()):
             try:
                 backend_tools = backend.list_tools()
             except Exception:
-                # An optional backend must never break the already-working local
-                # connector. Local diagnostics can inspect the backend separately.
+                # Optional reuse must never break the already-working Kongxing-only path.
                 continue
             for item in backend_tools:
                 raw_name = item.get("name")
@@ -106,10 +93,9 @@ class AgentToolSurface:
                 if public_name in seen:
                     continue
                 seen.add(public_name)
-                description = str(item.get("description") or raw_name)
                 tools.append(self._dynamic_tool(
                     public_name,
-                    f"[{backend_id} reusable OSS backend] {description}",
+                    f"[{backend_id} reusable OSS backend] {str(item.get('description') or raw_name)}",
                     schema,
                 ))
 
@@ -150,7 +136,7 @@ class AgentToolSurface:
             if backend is None:
                 raise MCPCallError(f"Optional OSS backend {backend_id!r} is not active for this session.")
             try:
-                return backend.call_for_agent(raw_name, arguments)
+                return backend.call_for_agent(raw_name, arguments, project_dir=project_dir)
             finally:
                 if project_ruby is not None:
                     project_ruby.refresh_active_model_snapshot()
