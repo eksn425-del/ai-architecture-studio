@@ -31,8 +31,9 @@ The next milestone therefore stops spending model quota and migrates mature exec
 
 See:
 
-- [OSS Takeover v1](docs/OSS_TAKEOVER_V1.md)
 - [Current task](docs/CURRENT_TASK.md)
+- [Remote changeset already implemented by ChatGPT](docs/REMOTE_CHANGESET_V1.md)
+- [OSS Takeover v1](docs/OSS_TAKEOVER_V1.md)
 - [Open-source component map](docs/OPEN_SOURCE_COMPONENT_MAP.md)
 - [Decisions](docs/DECISIONS.md)
 - [Thesis Astra modeling case](docs/THESIS_MODELING_CASE_STUDY.md)
@@ -46,9 +47,9 @@ Web Workspace
       -> composed tool surface
           -> Kongxing SketchUp MCP (verified local identity/lifecycle)
           -> optional SAIE MCP tools (semantic modeling/query/view)
+          -> optional ArchFlow CLI tools (semantic validation/DXF/Ruby/review artifacts)
           -> guarded project Ruby (project-specific geometry only)
-          -> future ArchFlow CAD/state/output pieces
-      -> SketchUp
+      -> SketchUp / CAD artifacts
       -> screenshot / model readback / revision
 ```
 
@@ -62,10 +63,10 @@ Default engineering order:
 
 Current priority components:
 
-- **SAIE (MIT)** — mature walls/openings/slabs/roofs/components/materials/BIM/query/view/batch/DXF tool surface; upstream currently targets SketchUp 2025, so local compatibility must be verified before enabling.
+- **SAIE (MIT)** — mature walls/openings/slabs/roofs/components/materials/BIM/query/view/batch/DXF tool surface; upstream package is currently `1.0.0` and upstream documentation targets SketchUp 2025, so local compatibility must be verified before enabling.
 - **Kongxing SketchUp MCP** — existing verified local identity/lifecycle bridge and fallback named tools.
+- **ArchFlow Studio (Apache-2.0 source)** — semantic project state, validation/metrics, DXF/output, generated Ruby, standard views and run records. It is now adopted as an external ignored checkout + CLI backend instead of being treated only as inspiration.
 - **Supex (MIT)** — agentic project-script / introspection patterns and advanced-geometry ideas; upstream currently describes macOS/SketchUp 2026 as the primary tested path, so do not port the whole stack to Windows without a supported route.
-- **ArchFlow Studio (Apache-2.0 source)** — semantic project state, DXF/output, generated Ruby, metrics, standard views and run records.
 - **SketchUp Architect Skill (MIT)** — architectural reasoning, precedent workflow, model continuity and QA.
 - **VBO SkAgent (MIT)** — lightweight fallback/direct-control candidate.
 - **PlanFloor AI Agent** — architecture-study-only until a compatible top-level reuse license is verified.
@@ -74,11 +75,15 @@ Do not build a new geometry primitive or professional-software subsystem when a 
 
 ## Remote changes already prepared for OSS Takeover
 
-- `app/oss_backends.py` — optional standards-based MCP SDK wrapper for installed OSS servers.
+- `app/oss_backends.py` — optional official-MCP-SDK adapter for installed SAIE plus a project-scoped ArchFlow CLI backend.
 - `app/agent_tools.py` — composes optional namespaced OSS tools beside Kongxing instead of reimplementing them.
-- `app/architecture_skill.py` — no longer lets blanket anti-copy guidance suppress a user-requested strong precedent adaptation.
-- `scripts/setup.ps1 -InstallSaie` — opt-in install of upstream SAIE Python/MCP package; it does **not** silently install/enable an incompatible SketchUp plugin.
-- `tests/test_oss_takeover.py` — composition and safety-boundary regression tests.
+- `app/native_agent.py` — restores a Direct-Codex-like project coding harness with an ignored `agent_workspace`, Codex `workspace-write`, network disabled, and only that generated workspace writable.
+- `app/architecture_skill.py` — no longer lets blanket anti-copy guidance suppress a user-requested strong precedent adaptation and tells agents to prefer mature semantic OSS tools before custom Ruby.
+- `scripts/setup.ps1 -InstallSaie` — opt-in install of pinned upstream SAIE `1.0.0`; it does **not** silently install/enable an incompatible SketchUp plugin.
+- `scripts/install_archflow.ps1` — clones upstream ArchFlow into ignored `.local/oss/archflow-studio`, installs it editable, and reports `ARCHFLOW_CORE_SKILL`.
+- `scripts/oss_backend_cli.py` — no-LLM status/list/call utility for enabled SAIE/ArchFlow backends.
+- `tests/test_oss_takeover.py` — composition, path-boundary, precedent-fidelity, workspace-write and ArchFlow adapter regression tests.
+- `THIRD_PARTY_NOTICES.md` — license/reuse boundaries.
 
 When SAIE is locally verified, enable it with:
 
@@ -87,6 +92,16 @@ $env:ARCH_STUDIO_ENABLE_SAIE = '1'
 ```
 
 The website then exposes upstream tools under names such as `saie__create_wall`, while blocking imported whole-document lifecycle operations and raw `execute_ruby` from bypassing the website's own model boundary.
+
+Install/adopt ArchFlow locally with:
+
+```powershell
+.\scripts\install_archflow.ps1
+# Then set the ARCHFLOW_CORE_SKILL path printed by the script.
+$env:ARCH_STUDIO_ENABLE_ARCHFLOW = '1'
+```
+
+The website then exposes `archflow__doctor`, `archflow__check_project`, `archflow__plan_run`, and `archflow__run` for manifests confined to the generated `agent_workspace`.
 
 ## Precedent fidelity
 
@@ -108,6 +123,7 @@ Unless a future task explicitly requires it, this project does not build:
 - a foundation model;
 - a new generic MCP framework;
 - another custom wall/opening/roof/BIM engine;
+- a replacement for ArchFlow semantic DXF/validation/Ruby generation;
 - a custom replacement for a working open-source/local connector;
 - a Windows port of a large experimental stack merely for architectural cleanliness.
 
@@ -124,12 +140,13 @@ The local product includes:
 - persistent conversation/project state;
 - explicit Economy / Premium routing;
 - existing Kongxing MCP reuse;
-- provider-independent shared SketchUp tool surface;
+- provider-independent composed SketchUp/CAD tool surface;
 - guarded task-specific Ruby;
-- optional namespaced OSS MCP tool composition;
+- project-local writable Codex agent workspace with source inputs outside its writable root;
+- optional namespaced SAIE and ArchFlow tool composition;
 - real editable SketchUp model control;
 - viewport capture/readback;
-- legacy DXF / presentation outputs;
+- legacy DXF / presentation outputs while ArchFlow semantic outputs are adopted;
 - `/showcase` thesis modeling case study.
 
 ## Local development
@@ -161,13 +178,13 @@ Optional SAIE package install:
 .\scripts\setup.ps1 -InstallSaie
 ```
 
-SAIE upstream currently targets SketchUp 2025. Do not set `ARCH_STUDIO_ENABLE_SAIE=1` until its SketchUp plugin is installed locally and the upstream bridge passes its own connectivity check.
+SAIE upstream currently targets SketchUp 2025. Do not set `ARCH_STUDIO_ENABLE_SAIE=1` until its SketchUp plugin is installed locally and the upstream bridge passes its own connectivity check. The **live FastMCP tool list** is authoritative for the installed version; do not hard-code an older registry listing.
 
 ## Budget rule for the current milestone
 
 Do **not** call Astra and do not run a Luna/Sol thesis-quality benchmark during OSS Takeover v1.
 
-The current local work is package/tool installation, deterministic SketchUp smoke tests, App Server workspace integration, ArchFlow/Supex code reuse, and automated tests. Luna Max may be used by the user as the **coding agent** implementing this milestone, but it should not spend quota generating the architecture benchmark.
+The current local work is package/tool installation, deterministic SketchUp smoke tests, App Server workspace validation, ArchFlow deterministic artifact validation, Supex/PlanFloor inspection, and automated tests. Luna Max may be used by the user as the **coding agent** implementing this milestone, but it should not spend quota generating the architecture benchmark.
 
 ## Thesis modeling benchmark
 
@@ -187,7 +204,8 @@ Codex should start with:
 
 1. `AGENTS.md`
 2. `docs/CURRENT_TASK.md`
-3. `docs/OSS_TAKEOVER_V1.md`
-4. `docs/HANDOFF.md`
-5. `docs/OPEN_SOURCE_COMPONENT_MAP.md`
-6. `docs/DECISIONS.md`
+3. `docs/REMOTE_CHANGESET_V1.md`
+4. `docs/OSS_TAKEOVER_V1.md`
+5. `docs/HANDOFF.md`
+6. `docs/OPEN_SOURCE_COMPONENT_MAP.md`
+7. `THIRD_PARTY_NOTICES.md`
