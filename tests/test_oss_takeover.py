@@ -1,9 +1,13 @@
+import json
+import sys
 from pathlib import Path
+
+import pytest
 
 from app.agent_tools import AgentToolSurface
 from app.architecture_skill import load_architecture_skill_context
 from app.native_agent import _agent_workspace, _composed_tool_instructions, _workspace_write_policy
-from app.oss_backends import DEFAULT_BLOCKED_TOOLS, SdkStdioMCPBackend
+from app.oss_backends import ArchFlowCLIBackend, DEFAULT_BLOCKED_TOOLS, SdkStdioMCPBackend
 
 
 class FakeKongxing:
@@ -44,8 +48,8 @@ class FakeSaie:
             },
         ]
 
-    def call_for_agent(self, name, arguments):
-        self.calls.append((name, arguments))
+    def call_for_agent(self, name, arguments, *, project_dir=None):
+        self.calls.append((name, arguments, project_dir))
         return {"success": True, "contentItems": [{"type": "inputText", "text": name}]}
 
 
@@ -75,7 +79,7 @@ def test_agent_surface_dispatches_oss_tool_without_reimplementing_it(tmp_path: P
         project_ruby=None,
     )
 
-    assert saie.calls == [("create_wall", {"ai_id": "wall-a"})]
+    assert saie.calls == [("create_wall", {"ai_id": "wall-a"}, tmp_path.resolve())]
     assert result["success"] is True
     assert kongxing.calls == []
 
@@ -138,3 +142,40 @@ def test_composed_tool_override_supersedes_legacy_kongxing_only_instruction() ->
     assert "saie__* are allowed" in effective
     assert "mature semantic OSS tools first" in effective
     assert _composed_tool_instructions(legacy, mcp_enabled=False) == legacy
+
+
+def test_archflow_backend_exposes_upstream_semantic_pipeline_tools(tmp_path: Path) -> None:
+    backend = ArchFlowCLIBackend(command=sys.executable)
+    names = {tool["name"] for tool in backend.list_tools()}
+
+    assert {"doctor", "check_project", "plan_run", "run"}.issubset(names)
+
+    project = tmp_path / "projects" / "demo"
+    workspace = project / "runtime" / "agent_workspace"
+    workspace.mkdir(parents=True)
+    manifest = workspace / "archflow.project.json"
+    manifest.write_text(json.dumps({
+        "schema_version": "0.1",
+        "project": {"id": "demo", "title": "Demo", "mode": "concept"},
+        "inputs": {"site_cad": None, "requirements": None, "legal_sources": []},
+        "model": {"building_model": "model/building_model.json"},
+        "pipeline": {"output_root": "outputs/runs", "execute_sketchup": False, "render_provider": "none"},
+    }), encoding="utf-8")
+
+    assert backend._manifest(project, "archflow.project.json") == manifest.resolve()
+    with pytest.raises(ValueError, match="relative"):
+        backend._manifest(project, str(manifest.resolve()))
+    with pytest.raises(ValueError):
+        backend._manifest(project, "../outside.json")
+
+
+def test_archflow_backend_rejects_manifest_that_requests_sketchup_execution(tmp_path: Path) -> None:
+    backend = ArchFlowCLIBackend(command=sys.executable)
+    project = tmp_path / "projects" / "demo"
+    workspace = project / "runtime" / "agent_workspace"
+    workspace.mkdir(parents=True)
+    manifest = workspace / "unsafe.json"
+    manifest.write_text(json.dumps({"pipeline": {"execute_sketchup": True}}), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="execute_sketchup"):
+        backend._manifest(project, "unsafe.json")
