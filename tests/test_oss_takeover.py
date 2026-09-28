@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from app.agent_tools import AgentToolSurface
+from app.architecture_skill import load_architecture_skill_context
 from app.oss_backends import DEFAULT_BLOCKED_TOOLS, SdkStdioMCPBackend
 
 
@@ -82,3 +83,17 @@ def test_saie_lifecycle_and_raw_ruby_tools_are_blocked_by_default() -> None:
     assert {"execute_ruby", "clear_model", "open_file", "save_as"}.issubset(DEFAULT_BLOCKED_TOOLS)
     backend = SdkStdioMCPBackend("saie", "definitely-not-installed-saie-mcp")
     assert backend.available is False
+
+
+def test_architecture_context_allows_user_requested_strong_precedent_adaptation() -> None:
+    context = load_architecture_skill_context()
+    assert "User-controlled precedent fidelity" in context
+    assert "strong adaptation" in context
+    assert "Do not flatten a requested strong-form reference into generic boxes" in context
+
+
+def test_architecture_context_prefers_mature_oss_tools_before_project_ruby() -> None:
+    context = load_architecture_skill_context()
+    assert "Execution-tool preference" in context
+    assert "saie__" in context
+    assert "guarded project Ruby" in context
