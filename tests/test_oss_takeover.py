@@ -2,7 +2,7 @@ from pathlib import Path
 
 from app.agent_tools import AgentToolSurface
 from app.architecture_skill import load_architecture_skill_context
-from app.native_agent import _agent_workspace, _workspace_write_policy
+from app.native_agent import _agent_workspace, _composed_tool_instructions, _workspace_write_policy
 from app.oss_backends import DEFAULT_BLOCKED_TOOLS, SdkStdioMCPBackend
 
 
@@ -127,3 +127,14 @@ def test_workspace_write_policy_allows_only_agent_workspace_and_no_network(tmp_p
         "excludeSlashTmp": True,
     }
     assert str((project / "inputs").resolve()) not in policy["writableRoots"]
+
+
+def test_composed_tool_override_supersedes_legacy_kongxing_only_instruction() -> None:
+    legacy = "Use only the whitelisted kongxing_sketchup MCP."
+    effective = _composed_tool_instructions(legacy, mcp_enabled=True)
+
+    assert legacy in effective
+    assert "dynamic tools supplied on this turn are the authoritative" in effective
+    assert "saie__* are allowed" in effective
+    assert "mature semantic OSS tools first" in effective
+    assert _composed_tool_instructions(legacy, mcp_enabled=False) == legacy
