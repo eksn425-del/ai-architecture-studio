@@ -2,6 +2,7 @@ from pathlib import Path
 
 from app.agent_tools import AgentToolSurface
 from app.architecture_skill import load_architecture_skill_context
+from app.native_agent import _agent_workspace, _workspace_write_policy
 from app.oss_backends import DEFAULT_BLOCKED_TOOLS, SdkStdioMCPBackend
 
 
@@ -97,3 +98,32 @@ def test_architecture_context_prefers_mature_oss_tools_before_project_ruby() -> 
     assert "Execution-tool preference" in context
     assert "saie__" in context
     assert "guarded project Ruby" in context
+
+
+def test_agent_workspace_is_nested_under_generated_project_runtime(tmp_path: Path) -> None:
+    project = tmp_path / "runtime" / "projects" / "demo"
+    (project / "inputs" / "brief").mkdir(parents=True)
+    source = project / "inputs" / "brief" / "taskbook.txt"
+    source.write_text("private source input", encoding="utf-8")
+
+    workspace = _agent_workspace(project)
+
+    assert workspace == (project / "runtime" / "agent_workspace").resolve()
+    assert workspace.is_dir()
+    assert not source.is_relative_to(workspace)
+
+
+def test_workspace_write_policy_allows_only_agent_workspace_and_no_network(tmp_path: Path) -> None:
+    project = tmp_path / "projects" / "demo"
+    workspace = _agent_workspace(project)
+
+    policy = _workspace_write_policy(workspace)
+
+    assert policy == {
+        "type": "workspaceWrite",
+        "writableRoots": [str(workspace.resolve())],
+        "networkAccess": False,
+        "excludeTmpdirEnvVar": True,
+        "excludeSlashTmp": True,
+    }
+    assert str((project / "inputs").resolve()) not in policy["writableRoots"]
