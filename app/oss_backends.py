@@ -34,7 +34,7 @@ def _truthy_env(name: str, default: bool = False) -> bool:
 
 def _content_item(part: Any) -> dict[str, str] | None:
     if hasattr(part, "model_dump"):
-        value = part.model_dump(exclude_none=True)
+        value = part.model_dump(exclude_none=True, by_alias=True)
     elif isinstance(part, dict):
         value = part
     else:
@@ -42,7 +42,7 @@ def _content_item(part: Any) -> dict[str, str] | None:
             "type": getattr(part, "type", ""),
             "text": getattr(part, "text", None),
             "data": getattr(part, "data", None),
-            "mimeType": getattr(part, "mimeType", None),
+            "mimeType": getattr(part, "mimeType", getattr(part, "mime_type", None)),
         }
     kind = str(value.get("type") or "")
     if kind == "text" and isinstance(value.get("text"), str):
@@ -96,14 +96,25 @@ class SdkStdioMCPBackend:
                 result = await session.list_tools()
         tools: list[dict[str, Any]] = []
         for tool in result.tools:
-            value = tool.model_dump(exclude_none=True) if hasattr(tool, "model_dump") else dict(tool)
-            name = value.get("name")
-            schema = value.get("inputSchema") or value.get("input_schema")
+            if hasattr(tool, "model_dump"):
+                value = tool.model_dump(exclude_none=True, by_alias=True)
+            elif isinstance(tool, dict):
+                value = tool
+            else:
+                value = {}
+            name = getattr(tool, "name", None) or value.get("name")
+            schema = (
+                getattr(tool, "inputSchema", None)
+                or getattr(tool, "input_schema", None)
+                or value.get("inputSchema")
+                or value.get("input_schema")
+            )
+            description = getattr(tool, "description", None) or value.get("description")
             if not isinstance(name, str) or name in self.blocked_tools or not isinstance(schema, dict):
                 continue
             tools.append({
                 "name": name,
-                "description": str(value.get("description") or f"{self.backend_id} tool {name}"),
+                "description": str(description or f"{self.backend_id} tool {name}"),
                 "inputSchema": schema,
             })
         return tools
@@ -127,9 +138,10 @@ class SdkStdioMCPBackend:
                 await session.initialize()
                 result = await session.call_tool(name, arguments)
         content_items = [item for part in result.content if (item := _content_item(part)) is not None]
+        is_error = bool(getattr(result, "isError", getattr(result, "is_error", False)))
         return {
-            "success": not bool(getattr(result, "isError", False)),
-            "isError": bool(getattr(result, "isError", False)),
+            "success": not is_error,
+            "isError": is_error,
             "contentItems": content_items,
         }
 
