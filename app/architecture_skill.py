@@ -18,8 +18,8 @@ _PRECEDENT_FIDELITY_NOTE = """
 ## User-controlled precedent fidelity
 
 Precedent use is controlled by the user's design intent, not by a blanket anti-copy rule.
-If the user asks only for principles, transfer principles. If the user asks for a strong
-adaptation of a specific precedent, it is acceptable to carry over concrete massing,
+If the user asks only for principles, transfer principles. If the user asks for a strong adaptation
+of a specific precedent, it is acceptable to carry over concrete massing,
 silhouette, roof, bridge, platform, facade-rhythm, circulation, and spatial-sequence logic
 and then transform it to fit the actual site, program, dimensions, access, and regulations.
 Do not flatten a requested strong-form reference into generic boxes merely to make it look

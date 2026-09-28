@@ -38,7 +38,7 @@ def main() -> int:
             "archflow_enabled_env": os.environ.get("ARCH_STUDIO_ENABLE_ARCHFLOW", ""),
             "active_backends": sorted(backends),
         }
-        print(json.dumps(payload, indent=2, ensure_ascii=False))
+        print(json.dumps(payload, indent=2, ensure_ascii=True))
         return 0
 
     backend = backends.get(args.backend)
@@ -50,14 +50,14 @@ def main() -> int:
                     "hint": "Install/verify the upstream package first, then enable its ARCH_STUDIO flag.",
                 },
                 indent=2,
-                ensure_ascii=False,
+                ensure_ascii=True,
             ),
             file=sys.stderr,
         )
         return 2
 
     if args.action == "list":
-        print(json.dumps(backend.list_tools(), indent=2, ensure_ascii=False))
+        print(json.dumps(backend.list_tools(), indent=2, ensure_ascii=True))
         return 0
 
     if not args.tool:
@@ -70,7 +70,7 @@ def main() -> int:
         raise SystemExit("--arguments must decode to a JSON object")
     project_dir = args.project_dir.resolve() if args.project_dir else None
     result = backend.call_for_agent(args.tool, arguments, project_dir=project_dir)
-    print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
+    print(json.dumps(result, indent=2, ensure_ascii=True, default=str))
     return 0 if result.get("success") else 3
 
 

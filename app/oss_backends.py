@@ -248,6 +248,9 @@ class ArchFlowCLIBackend:
 
     def _run(self, args: list[str], *, workspace: Path) -> dict[str, Any]:
         env = os.environ.copy()
+        # ArchFlow is a Python CLI. Force its redirected stdout/stderr streams to
+        # UTF-8 so Windows' active code page cannot corrupt Chinese paths/results.
+        env["PYTHONIOENCODING"] = "utf-8"
         if self.core_skill:
             env["ARCHFLOW_CORE_SKILL"] = self.core_skill
         completed = subprocess.run(

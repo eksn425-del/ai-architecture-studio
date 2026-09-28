@@ -1,5 +1,36 @@
 # Handoff — AI Architecture Studio
 
+## Latest task — OSS Takeover v1 (2026-09-28)
+
+### Delivered
+
+- Kept the existing Kongxing SketchUp MCP. The live SketchUp 2024.0.484 plugin reported bridge 0.1.0, `connected: true`, and listened on localhost port 45678. A disposable copy of SketchUp's shipped Simple template was opened under ignored `runtime/`; its active model path and GUID matched that copy. Read-only model context and a PNG viewport capture succeeded. No original SKP/DWG or thesis input was opened.
+- The existing Kongxing server exposes 19 tools. The product composes 15 Kongxing modeling/readback tools with four namespaced ArchFlow tools (`archflow__doctor`, `archflow__check_project`, `archflow__plan_run`, `archflow__run`). SAIE was not enabled.
+- Installed upstream ArchFlow Studio editable from the ignored `.local/oss/archflow-studio` checkout at commit `6438b9a4117b614cb6b22332dfb97a259d6824a3`. `ARCHFLOW_CORE_SKILL` was set to the upstream bundled skill and `archflow doctor --json` returned `ready` for Python, the core skill, and bundled CAD/SketchUp bridge capabilities.
+- Ran ArchFlow's namespaced validation, build-plan, and build tools on a generated one-storey, 6 m × 6 m synthetic room inside the ignored project `runtime/agent_workspace`. The manifest has `execute_sketchup: false` and `render_provider: none`; the completed upstream run reports `succeeded`, `executes_sketchup: false`, and no SKP output. Its artifacts include `semantic_plans.dxf`, `build_model.rb`, `metrics.json`, `validation_report.json`, `review_report.md`, `parsed_requirements.yaml`, render-view prompts, and an immutable `run.json`. The validation result is `WARNING` with five review issues; calculated site area is 100 m², footprint/gross floor area 36 m², coverage/FAR 36%, and modeled height 3,000 mm. The result is a pipeline integration fixture, not an approved design.
+- Reviewed [SAIE](https://github.com/iamahsanmehmood/saie), [Supex](https://github.com/darwin/supex), [ArchFlow](https://github.com/bingxijun/archflow-studio), and [PlanFloor](https://github.com/zhixiangggggggg/sketchup-planfloor-ai-agent) upstream docs/licenses. SAIE documents SketchUp 2025 as its plugin target, while this machine has 2024.0.484, so its package/plugin was not installed into an unsupported version. Supex is MIT-licensed but describes an experimental macOS / SketchUp 2026 workflow, so only its project-script/inspect/revise pattern was retained. PlanFloor's current README targets SketchUp 2025 and the repository root has no compatible top-level license file, so no code was copied. ArchFlow's source is Apache-2.0; its brand/media exclusions remain respected by keeping the checkout local.
+- Fixed a test-discovery issue so `scripts/check.ps1` runs only repository-owned tests, not third-party tests from Codex's generated runtime plugin cache. Made the local backend CLI emit ASCII-safe JSON and forced UTF-8 on ArchFlow child processes; this fixed Windows GBK/Unicode path failures during `plan_run` and build. Preserved the precedent-fidelity phrase that the existing regression test expects. Added tests for nested App Server context isolation and Unicode child output.
+
+### Workspace-write acceptance blocker
+
+- The App Server was configured for Luna Max coding work with `workspace-write`, a single writable root at the generated `runtime/agent_workspace`, and network access disabled. A tiny filesystem-only App Server turn attempted one write inside the workspace and one write to a synthetic sibling input sentinel. The host's `codex-run` execution layer rejected even the in-workspace write with `blocked by policy`; the outside write was not created. A separate `codex exec --sandbox workspace-write` probe reported its effective sandbox as `read-only` and likewise created no file.
+- Therefore, the required real `workspace-write` proof is **BLOCKED by the current desktop execution policy**. The code passes the configured policy to App Server, but this host session cannot demonstrate a write inside its writable root. Do not treat the sandbox acceptance gate as passed. No private inputs were used or changed.
+
+### Acceptance and verification
+
+| Gate | Result |
+| --- | --- |
+| Existing Kongxing MCP to real SketchUp | **PASS** for live health, disposable-model identity, read-only context, and screenshot. |
+| SAIE live semantic modeling cycle | **BLOCKED**; the installed SketchUp is 2024.0.484 and upstream targets 2025. Do not force-install it or claim the wall/opening/slab/roof/modify/delete/repair cycle. |
+| ArchFlow upstream install, doctor, and namespaced tools | **PASS**. |
+| ArchFlow semantic DXF / model metrics / Ruby / review artifact run | **PASS** with SketchUp execution disabled; artifacts remain under ignored runtime. |
+| App Server workspace-write and input immutability proof | **BLOCKED** by the host's read-only command policy; no outside file was created. |
+| Supex / PlanFloor reuse decision | **PASS** for license/platform inspection; no source copied. |
+| `scripts/check.ps1` | **PASS**, 62 tests; one existing Starlette/httpx deprecation warning. |
+| Private inputs and runtime hygiene | **PASS**; ArchFlow checkout, Codex sandbox fixtures, model copy, logs, and screenshot remain under ignored `.local/` or `runtime/`. |
+
+This milestone stops here. Do not start a model-quality benchmark or another milestone until the SketchUp 2025 compatibility and host workspace-write blockers are resolved and reviewed.
+
 ## Latest task — Thesis Parity v1: reference-rich local benchmark
 
 ### Multimodal delivery and input parity

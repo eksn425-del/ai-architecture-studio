@@ -21,6 +21,22 @@ class NativeAgentUnavailable(RuntimeError):
     pass
 
 
+_PARENT_CODEX_CONTEXT_ENV = {
+    "CODEX_APP_TOOLS_PIPE_PATH",
+    "CODEX_SESSION_ID",
+    "CODEX_THREAD_ID",
+    "CODEX_CI",
+}
+
+
+def _app_server_environment(parent_environment: dict[str, str]) -> dict[str, str]:
+    """Detach a nested App Server from the desktop thread's tool/permission context."""
+    environment = parent_environment.copy()
+    for name in _PARENT_CODEX_CONTEXT_ENV:
+        environment.pop(name, None)
+    return environment
+
+
 def _app_server_turn_input(prompt: str, reference_images: list[Path]) -> list[dict[str, str]]:
     """Build App Server input items; its JSON enum is camelCase ``localImage``."""
     turn_input = [{"type": "text", "text": prompt}]
@@ -220,7 +236,7 @@ class CodexAppServerRuntime:
                   model: str, reasoning_effort: str,
                   reference_images: list[Path]) -> AgentTurnResult:
         started = time.monotonic()
-        environment = os.environ.copy()
+        environment = _app_server_environment(dict(os.environ))
         environment["CODEX_HOME"] = str(self.home)
         command = [str(self.codex_executable), "app-server"]
         log_path = self.runtime_root / "logs" / "codex-app-server.log"

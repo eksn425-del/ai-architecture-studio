@@ -6,7 +6,12 @@ import pytest
 
 from app.agent_tools import AgentToolSurface
 from app.architecture_skill import load_architecture_skill_context
-from app.native_agent import _agent_workspace, _composed_tool_instructions, _workspace_write_policy
+from app.native_agent import (
+    _agent_workspace,
+    _app_server_environment,
+    _composed_tool_instructions,
+    _workspace_write_policy,
+)
 from app.oss_backends import ArchFlowCLIBackend, DEFAULT_BLOCKED_TOOLS, SdkStdioMCPBackend
 
 
@@ -133,6 +138,30 @@ def test_workspace_write_policy_allows_only_agent_workspace_and_no_network(tmp_p
     assert str((project / "inputs").resolve()) not in policy["writableRoots"]
 
 
+def test_nested_app_server_does_not_inherit_parent_thread_permissions_or_tool_pipe() -> None:
+    parent = {
+        "CODEX_APP_TOOLS_PIPE_PATH": "host-tool-pipe",
+        "CODEX_PERMISSION_PROFILE": ":danger-full-access",
+        "CODEX_SESSION_ID": "parent-session",
+        "CODEX_THREAD_ID": "parent-thread",
+        "CODEX_CI": "1",
+        "CODEX_MCP_NODE_PATH": "node-runtime",
+        "PATH": "system-path",
+    }
+
+    child = _app_server_environment(parent)
+
+    assert not ({
+        "CODEX_APP_TOOLS_PIPE_PATH",
+        "CODEX_SESSION_ID",
+        "CODEX_THREAD_ID",
+        "CODEX_CI",
+    } & child.keys())
+    assert child["CODEX_PERMISSION_PROFILE"] == ":danger-full-access"
+    assert child["CODEX_MCP_NODE_PATH"] == "node-runtime"
+    assert child["PATH"] == "system-path"
+
+
 def test_composed_tool_override_supersedes_legacy_kongxing_only_instruction() -> None:
     legacy = "Use only the whitelisted kongxing_sketchup MCP."
     effective = _composed_tool_instructions(legacy, mcp_enabled=True)
@@ -179,3 +208,14 @@ def test_archflow_backend_rejects_manifest_that_requests_sketchup_execution(tmp_
 
     with pytest.raises(ValueError, match="execute_sketchup"):
         backend._manifest(project, "unsafe.json")
+
+
+def test_archflow_subprocess_output_remains_utf8_on_windows(tmp_path: Path) -> None:
+    script = tmp_path / "emit_unicode.py"
+    script.write_text("print('模型校验通过')\n", encoding="utf-8")
+    backend = ArchFlowCLIBackend(command=sys.executable)
+
+    result = backend._run([str(script)], workspace=tmp_path)
+
+    assert result["success"] is True
+    assert result["contentItems"][0]["text"] == "模型校验通过"
