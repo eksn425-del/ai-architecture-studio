@@ -1,6 +1,34 @@
 # Handoff — AI Architecture Studio
 
-## Latest task — SAIE 1.0.0 / SketchUp 2024 compatibility and standalone workspace acceptance (2026-09-28)
+## Latest task — SAIE 1.0.0 real SketchUp 2024 execution (2026-09-28 continuation)
+
+The continuation started from clean `main` at `e6ba979cd2b90892bffb088e11caeaefca7312ff`. The pinned upstream SAIE checkout remains clean at `eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f`. No SAIE Ruby or Python source was edited.
+
+| Gate | Result and direct evidence |
+| --- | --- |
+| SketchUp and disposable document | **PASS** — Kongxing health reported SketchUp `24.0.484`, bridge `0.1.0`, and `connected: true`. The active model identity matched the new ignored `runtime/projects/saie-2024-smoke/outputs/model/blank-disposable-20260928-224541.skp` before any save. |
+| SAIE 2024 installation | **PASS with installer workaround** — the prescribed `prepare_saie_2024.ps1 -InstallPlugin` first failed in upstream `install_plugin.ps1` line 90 (details in the initial-attempt record below). The exact pinned `ruby_plugin/su_mcp_bridge` tree and loader were then copied to SketchUp 2024's empty plugin destination, and the upstream default user config was seeded without replacing an existing config. The installed loader SHA-256 matched the source. This was file installation only, not a source patch or plugin fork. |
+| Python package / MCP SDK | **PASS after local dependency correction** — the editable install's `.pth` did not expose the upstream modules from this Unicode workspace, so `saie.exe ping` initially failed with `ModuleNotFoundError: No module named 'su_mcp_bridge'`. A normal wheel was built from the same pinned checkout and installed into the ignored project venv. Upstream SAIE imports `mcp.server.fastmcp`, so MCP SDK `2.2.0` failed to start its server; installing compatible `mcp 1.30.0` resolved that local dependency mismatch. No dependency is vendored into Git. |
+| Plugin load / connectivity | **PASS for live bridge** — SketchUp owned the localhost listener on port `9876`. On the new disposable model, `saie.exe ping` returned `PONG  plugin_v1.0.0 (latency: 111.65ms)`. The Extensions menu and Ruby Console were not directly inspected, so this result rests on the live port, process ownership, and ping. |
+| Live SAIE tools | **PASS for discovery** — the real FastMCP server listed 59 tools. All ten runbook names were present: `create_wall`, `modify_wall`, `delete_wall`, `cut_opening`, `create_slab`, `create_roof`, `scene_summary`, `inspect_entity`, `verify_model`, and `view_snapshot`. List evidence is ignored at `runtime/saie-compat/live-tools.json`. |
+| Deterministic no-LLM geometry smoke | **FAIL** — the prescribed `scripts/saie_2024_smoke.py` ran against the new disposable document. Ping, initial scene summary, four `create_wall` calls, `cut_opening`, `create_slab` and `create_roof` returned without upstream errors. The first `verify_model` returned error code `-32603` and `undefined method '[]' for nil:NilClass`. The script stopped there; its planned modify/delete/repair sequence was not run. |
+| Post-failure readback and view | **PARTIAL** — `scene_summary` reported 3 wall entities, 2 groups, 1 roof and 7 raw entities. `inspect_entity` found SketchUp GUIDs for `W_SOUTH`, `SLAB_GF` and `ROOF_MAIN`, but `DOOR_SOUTH_01` was not found; `W_SOUTH` reported `wall_spec: null` and `openings_spec: [null]`. SAIE `view_snapshot` produced the screenshots below. The south elevation shows no visible door opening. The opening and model verification are therefore not accepted despite the earlier `cut_opening` call returning success. |
+| Editable model preservation | **PASS for native entity/save evidence; edit cycle unverified** — SAIE entity inspection returned SketchUp GUIDs for groups and the roof; Kongxing verified the disposable active path. Its existing `save_copy` path saved an ignored 112,259-byte partial checkpoint at `runtime/saie-compat/smoke-20260928T144611Z/partial-after-verify-failure.skp`. No same-model modification was claimed. |
+| Website-composed tool surface | **PASS** — live `AgentToolSurface.dynamic_tools()` exposed 74 names: 15 existing Kongxing `sketchup_...` tools beside 59 `saie__...` tools; all ten required SAIE names were present with the namespace. No architecture model was invoked. |
+| Standalone workspace-write | **BLOCKED PENDING USER POWERSHELL RUN** — this must be launched from ordinary PowerShell outside the Codex host, per `docs/LOCAL_EXECUTION_RUNBOOK_V1.md`. No nested-host result is claimed; expected ignored result is `runtime/projects/workspace-write-probe/runtime/workspace-write-result.json`. |
+| Repository checks and scope | **PASS** — `scripts/check.ps1` passed 62 tests after the local SAIE/MCP installations. No Astra call, architecture-quality benchmark, source SKP/DWG, taskbook, or private model was used. |
+
+The prescribed smoke evidence is under ignored `runtime/saie-compat/smoke-20260928T144611Z/`. These two curated images are from that synthetic disposable SketchUp document; they show partial geometry and the missing visible door, not an architectural quality result:
+
+![SAIE 2024 partial wall, slab and gable roof geometry in SketchUp](images/saie-2024-smoke-iso.jpg)
+
+![SAIE 2024 south elevation after the opening call; no door is visible](images/saie-2024-smoke-south.jpg)
+
+**Acceptance remains incomplete.** SAIE 1.0.0 loads and connects on SketchUp 2024.0.484, but the opening/verification defect stopped the required full tool cycle. The upstream installer syntax, editable-install path handling, broad MCP dependency range, and standalone workspace-write proof remain follow-up items. Do not infer full SketchUp 2024 compatibility from ping or tool discovery.
+
+---
+
+## Previous attempt — SAIE 1.0.0 / SketchUp 2024 compatibility and standalone workspace acceptance (2026-09-28)
 
 ### Local execution evidence
 
