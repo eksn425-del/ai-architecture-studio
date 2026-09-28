@@ -26,7 +26,7 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - Upstream: `bingxijun/archflow-studio`
 - Source license: Apache License 2.0
 - Upstream branding/media: separate restrictions apply; do not reuse branding or showcase media merely because source code is Apache-2.0.
-- Use in this repository: implementation-level evaluation for semantic project state, validation/metrics, DXF/output, generated SketchUp Ruby, standard views and run records. Concrete modules may be adopted/wrapped with attribution as recorded in future commits.
+- Use in this repository: the upstream source is cloned only into ignored `.local/oss/` by `scripts/install_archflow.ps1` and installed editable. `app/oss_backends.py` wraps the upstream `archflow` CLI for doctor/check/plan/run operations on manifests confined to the generated agent workspace. ArchFlow remains the implementation owner of semantic validation, metrics, DXF/Ruby/review artifact generation; its source is not copied into this repository.
 
 ## LiteLLM
 
