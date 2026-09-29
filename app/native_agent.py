@@ -298,6 +298,20 @@ class CodexAppServerRuntime:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
 
             turn_input = _app_server_turn_input(prompt, reference_images)
+            evidence_dir = project_dir / "runtime" / "agent_events"
+            evidence_dir.mkdir(parents=True, exist_ok=True)
+            evidence_path = evidence_dir / f"{uuid.uuid4().hex}.jsonl"
+
+            def record(event: dict[str, Any]) -> None:
+                with evidence_path.open("a", encoding="utf-8") as handle:
+                    handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+            record({"event": "turn_input", "thread_id": resolved_thread_id,
+                    "model": model, "reasoning_effort": reasoning_effort,
+                    "input_types": [item["type"] for item in turn_input],
+                    "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],
+                    "sandbox_policy": {"type": "workspaceWrite", "networkAccess": False},
+                    "tool_names": [tool["name"] for tool in dynamic_tools]})
             self._send(process, {
                 "id": request_id,
                 "method": "turn/start",
@@ -307,6 +321,7 @@ class CodexAppServerRuntime:
                     "cwd": str(agent_workspace),
                     "runtimeWorkspaceRoots": [str(agent_workspace)],
                     "model": model,
+                    "effort": reasoning_effort,
                     "approvalPolicy": "never",
                     "sandboxPolicy": _workspace_write_policy(agent_workspace),
                 },
@@ -327,6 +342,11 @@ class CodexAppServerRuntime:
                     raise NativeAgentUnavailable(str(message["error"].get("message", "Codex turn could not start.")))
                 method = str(message.get("method", ""))
                 params = message.get("params") or {}
+                if method in {"item/started", "item/completed", "turn/completed"}:
+                    event_item = params.get("item") or {}
+                    record({"event": method, "item_type": event_item.get("type"),
+                            "status": event_item.get("status") or (params.get("turn") or {}).get("status"),
+                            "text": _message_text(event_item) if event_item.get("type") in {"agentMessage", "agent_message"} else ""})
                 usage = _extract_token_usage(params)
                 input_tokens = usage[0] if usage[0] is not None else input_tokens
                 output_tokens = usage[1] if usage[1] is not None else output_tokens
@@ -344,6 +364,9 @@ class CodexAppServerRuntime:
                         failed_tool_calls += 1
                         output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
                     self._send(process, {"id": message["id"], "result": output})
+                    record({"event": "tool_result", "tool": call["tool"],
+                            "success": output.get("success", not output.get("isError", False)),
+                            "content_types": [part.get("type") for part in output.get("contentItems", [])]})
                     continue
                 item = params.get("item") or {}
                 if isinstance(item, dict) and item.get("type") in {"mcpToolCall", "mcp_tool_call"}:

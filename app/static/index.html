@@ -96,6 +96,12 @@
                 <div class="conversation-heading"><div><span class="section-index">AI</span><h2 id="conversation-title">讨论与修改</h2></div><span class="quiet-tag" id="model-tier-status">Economy</span></div>
                 <div class="conversation-history" id="conversation-history" aria-live="polite"></div>
                 <form class="conversation-form" id="conversation-form">
+                  <label class="field-label" for="workflow-mode">工作方式</label>
+                  <select id="workflow-mode" class="select-control">
+                    <option value="image_reconstruction" selected>图片 → SketchUp 复刻</option>
+                    <option value="architecture_design">建筑方案设计</option>
+                  </select>
+                  <p id="workflow-help">上传参考图片 → 打开空白副本 → 发送复刻要求。Agent 会建模、看截图并修正，无需任务书或场地。</p>
                   <label class="field-label routing-tier-label" for="conversation-tier">本轮模型档位</label>
                   <select id="conversation-tier" class="select-control">
                     <option value="economy">Economy / 标准（默认）</option>

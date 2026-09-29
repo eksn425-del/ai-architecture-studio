@@ -1,5 +1,12 @@
 from pathlib import Path
 
+from fastapi.testclient import TestClient
+from app.main import create_app
+from app.models import AgentSession
+from app.store import ProjectStore
+from tests.conftest import FakeBrain, FakeSketchUp
+from tests.test_demo import FakeNativeAgent
+
 from app.codex_parity import prepare_codex_parity_workspace
 from app.image_to_sketchup_skill import MAX_CONTEXT_CHARS, load_image_to_sketchup_skill_context
 from app.models import ConversationRequest
@@ -71,3 +78,39 @@ def test_workspace_seeds_and_preserves_reconstruction_card(tmp_path: Path) -> No
     prepare_codex_parity_workspace(workspace)
 
     assert card.read_text(encoding="utf-8") == custom
+
+
+def test_conversation_routes_reconstruction_and_preserves_session(tmp_path: Path) -> None:
+    runtime = tmp_path / "runtime"
+    native = FakeNativeAgent()
+    sketchup = FakeSketchUp()
+    client = TestClient(create_app(runtime, brain=FakeBrain(), sketchup=sketchup, native_agent=native))
+    client.get("/api/projects")
+    store = ProjectStore(runtime)
+    project_id = "demo-cultural-center"
+    model = store.project_dir(project_id) / "outputs/model/blank-disposable-test.skp"
+    model.parent.mkdir(parents=True, exist_ok=True)
+    model.write_bytes(b"test disposable")
+    sketchup.active_model_path = str(model)
+    store.save_state(project_id, AgentSession(project_id=project_id, status="ready",
+                     model_path="outputs/model/blank-disposable-test.skp", thread_id="thr-fast-assembly"), "agent_session.json")
+    for message in ("按图片复刻", "调整阳台"):
+        response = client.post(f"/api/projects/{project_id}/conversation", json={
+            "message": message, "workflow_mode": "image_reconstruction"})
+        assert response.status_code == 200
+        call = native.calls[-1]
+        assert "Image → SketchUp reconstruction workflow" in call["prompt"]
+        assert "visual target to reconstruct" in call["prompt"]
+        assert "source image is the target appearance" in call["developer_instructions"]
+        assert call["thread_id"] == "thr-fast-assembly"
+        assert response.json()["agent"]["workflow_mode"] == "image_reconstruction"
+        assert response.json()["project"]["context"]["conversation"][-1]["metadata"]["workflow_mode"] == "image_reconstruction"
+    response = client.post(f"/api/projects/{project_id}/conversation", json={"message": "讨论建筑方案"})
+    assert response.status_code == 200
+    assert "Architecture workflow context" in native.calls[-1]["prompt"]
+
+
+def test_ui_sends_workflow_mode_and_defaults_to_reconstruction() -> None:
+    static = Path(__file__).resolve().parents[1] / "app/static"
+    assert 'value="image_reconstruction" selected' in (static / "index.html").read_text(encoding="utf-8")
+    assert 'workflow_mode: $("workflow-mode").value' in (static / "studio.js").read_text(encoding="utf-8")

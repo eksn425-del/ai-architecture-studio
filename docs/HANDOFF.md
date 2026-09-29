@@ -1,5 +1,41 @@
 # Handoff — AI Architecture Studio
 
+## Latest attempt — Image → SketchUp v1 / Luna Max (2026-09-30)
+
+**PARTIAL / BLOCKED; architectural reconstruction is not accepted.** Started from clean `main` at `93105f2ce692705994cf57b2fe3e5ab347fe8aa2`; `git pull --ff-only` reported up to date. The user's latest instruction explicitly overrides the milestone's Sol Low benchmark selection: use **gpt-6-luna / max**, with no Astra modeling call or automatic upgrade. The coding host is separate from the tested runtime; no claim is made that this integration work was performed by Sol. Two small live Luna Max turns were run: workspace-write probe and image inspection. No building generation turn was run after the prerequisite failed.
+
+### Implementation and tests
+
+- Restored the accidentally removed `EditPlan` compatibility schema. Baseline `scripts/check.ps1` could not even collect tests because imports failed; after the fix and integration, **73 tests pass**.
+- Wired the existing repo-owned `workflow_context` helpers into the conversation endpoint: reconstruction Skill, reconstruction instructions, source fidelity, and workflow metadata in user/assistant records and API output. Architecture-design remains the default for API clients omitting the field; the website selector defaults to image reconstruction.
+- Added the workflow selector and reference-image-first help text. Reconstruction does not extract taskbook files or require brief/site inputs. Existing persistent thread/model handling remains in place; regression tests exercise two reconstruction messages with the same thread and the architecture-design fallback.
+- App Server now explicitly receives the requested `effort` on `turn/start`, including resumed turns. Added local ignored event evidence with model/effort, ordered source filenames, actual input types, tool names, tool-result image types and completion status. Image bytes and credentials are not logged by this diagnostic.
+- Reused existing Skill, App Server, Kongxing, SAIE composition and guarded workspace Ruby; no geometry engine or MCP was added. The preceding local architecture review already inspected the Stultus Apache-2.0 and Supex MIT patterns; no new upstream source was copied in this attempt.
+
+### Live evidence
+
+| Gate | Result |
+| --- | --- |
+| Actual uploaded source | **PASS**. Website upload endpoint stored the user's image in ignored `runtime/projects/image-luna-max-v1-20260930/inputs/reference/`. App Server evidence records `input_types: [text, localImage]` and exactly one source filename; outputs are excluded by the existing discovery tests. |
+| Luna image comprehension | **PASS for basic image inspection only**. HTTP 200 from the real conversation endpoint using `image_reconstruction`, Economy, `gpt-6-luna`, `max`. Luna described three glazed upper levels, possible ground/base level, roughly four glazing divisions, shallow glass-railed balconies, dark rooftop pergola, garage grille and stone wall. Hidden depth and total floor count were explicitly uncertain. |
+| Image probe metrics | 100,969 ms; zero dynamic tool calls, zero dynamic tool failures. Region: Codex-managed, not exposed. Input/output tokens were not reported by the current collector and remain null; monetary cost is unavailable. This is not reconstruction latency or a model-quality benchmark. |
+| Workspace-write prerequisite | **FAIL / BLOCKED**. Existing `scripts/workspace_write_probe.py --model gpt-6-luna --effort max` was attempted from this host. `inside_write_succeeded=false`, `outside_write_absent=true`; Luna reported both shell write attempts were rejected before execution. A missing outside file alone does not establish sandbox isolation. This is a nested-host failure, not the separately required ordinary-PowerShell acceptance. No permission escalation, alternate write mechanism or unrestricted modeling runtime was used. |
+| SketchUp connectivity | **PASS, read-only**. Existing Kongxing ping reports SketchUp `24.0.484`, bridge `0.1.0`, connected. Identity still matches the existing five-building comparison document; no geometry, camera, save, or model switch was performed this attempt. |
+| Reconstruction card | Seeded at `runtime/projects/image-luna-max-v1-20260930/runtime/agent_workspace/notes/reconstruction_card.md`; remains unfilled because the live call was explicitly image inspection only. Operational card writing is **not accepted**. |
+| Actual building / three passes / same-script visual correction | **NOT RUN** after workspace-write failed. No new SKP or building screenshot exists. No screenshot-based self-correction is claimed. |
+
+Private local evidence: `runtime/reviews/image-luna-v1/vision-result.json`, the project's `runtime/agent_events/*.jsonl`, and `runtime/projects/workspace-write-probe/runtime/workspace-write-result.json`. None is committed. Source images, transcripts, original models and generated files remain ignored.
+
+Quality gates are all **NOT EVALUATED**, not PASS: modeled floor count; bay rhythm; silhouette/proportions; balcony/recess depth; repeated editable window systems; roof/pergola; facade depth layers; material zoning; named editable geometry; source-matched screenshots; visual correction. Vision description does not prove those geometry gates.
+
+### Resume prerequisite
+
+From a normal PowerShell outside this Codex host, run `.\.venv\Scripts\python.exe scripts\workspace_write_probe.py --model gpt-6-luna --effort max`. It must prove inside-write success and outside-write denial. If that also fails, diagnose the supported Codex sandbox setup; do not bypass it or author the model on Luna's behalf. Then continue this same milestone with the same uploaded image, Economy configured via `ARCH_STUDIO_ECONOMY_MODEL=gpt-6-luna` and `ARCH_STUDIO_ECONOMY_REASONING_EFFORT=max`, a new verified disposable model, and the three-pass reconstruction workflow. Existing global defaults have not been silently switched. Stop after this milestone; no thesis/design benchmark.
+
+Repository checks: `scripts/check.ps1` **73 passed**; JavaScript syntax and `git diff --check` checked before handoff. This commit hands off partial integration and the blocker, not a completed Image → SketchUp milestone.
+
+---
+
 ## Latest task — SAIE 2024 compatibility and Codex Parity v1 (2026-09-29)
 
 Started with `git pull --ff-only` to `1aada8e` and a clean `main`. This run used Sol only for code and local integration. No Astra call, architecture-quality benchmark, thesis asset, source SKP/DWG, or production API key was used. Every live geometry test used a new `blank-disposable-*.skp` copy under ignored `runtime/projects/`.

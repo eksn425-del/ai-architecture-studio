@@ -269,6 +269,12 @@ class EditRequest(Model):
     instruction: str = Field(min_length=3, max_length=1200)
 
 
+class EditPlan(Model):
+    target_id: str
+    patch: dict[str, Any]
+    rationale: str = ""
+
+
 class ConversationRequest(Model):
     message: str = Field(min_length=1, max_length=1200)
     tier: Literal["economy", "premium"] = "economy"

@@ -156,7 +156,9 @@ function updateHeader() {
   const activeTier = hasAgentTurn ? agent.routing_tier : "economy";
   const activeModel = hasAgentTurn && agent.model ? agent.model : routeInfo("economy").model;
   $("model-tier-status").textContent = (activeTier === "premium" ? "精修 · " : "Economy · ") + activeModel;
-  $("conversation-input").placeholder = agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
+  $("conversation-input").placeholder = $("workflow-mode").value === "image_reconstruction"
+    ? "按这张图尽可能还原成可编辑 SketchUp 模型"
+    : agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
   $("conversation-hint").textContent = agentReady
     ? "每轮对话都在同一份 SketchUp 副本上执行；Agent 可连续调用工具、查看截图/状态并保存检查点。"
     : "可以先讨论与上传项目资料；未启动空白模型前，SketchUp 工具保持关闭。";
@@ -296,7 +298,7 @@ async function loadProject(projectId) {
   state.projectId = projectId;
   state.project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
   updateHeader();
-  setStatus(state.project.design_ir ? "方案和场地图纸已准备完成。" : "工作区已就绪。添加任务书后即可生成方案。");
+  setStatus(state.project.design_ir ? "方案和场地图纸已准备完成。" : "工作区已就绪。上传参考图片，打开空白副本后即可开始复刻。");
 }
 
 async function boot() {
@@ -480,6 +482,7 @@ async function sendConversation(event) {
       body: JSON.stringify({
         message,
         tier: requestedTier,
+        workflow_mode: $("workflow-mode").value,
         project_name: $("project-name").value,
         brief: $("brief").value,
         site_note: $("site-note").value,
@@ -516,6 +519,15 @@ $("conversation-input").addEventListener("input", () => {
   $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
 });
 $("conversation-tier").addEventListener("change", updateHeader);
+$("workflow-mode").addEventListener("change", () => {
+  const reconstruction = $("workflow-mode").value === "image_reconstruction";
+  $("workflow-help").textContent = reconstruction
+    ? "上传参考图片 → 打开空白副本 → 发送复刻要求。Agent 会建模、看截图并修正，无需任务书或场地。"
+    : "结合任务书、场地与参考资料讨论建筑方案，启动空白模型后继续建模。";
+  $("conversation-input").placeholder = reconstruction
+    ? "按这张图尽可能还原成可编辑 SketchUp 模型"
+    : "输入设计方向或模型修改要求…";
+});
 $("start-agent-session").addEventListener("click", startAgentSession);
 $("prepare-design").addEventListener("click", prepareDesign);
 $("build-model").addEventListener("click", buildModel);
