@@ -1,6 +1,6 @@
 # Selected Supex agent workflow guidance
 
-Source: `darwin/supex`, main branch agent guide, MIT license. This repository vendors only the workflow ideas needed by AI Architecture Studio; it does not vendor the Supex runtime.
+Source: `darwin/supex` agent guide at revision `66c9eed0921c418be3f1bd4ef5f100f6b5f2ad4c` (release v0.3.0), MIT license. This repository vendors only the workflow ideas needed by AI Architecture Studio; it does not vendor the Supex runtime.
 
 ## File-based Ruby loop
 
