@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
+from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
@@ -37,6 +38,9 @@ class AgentToolSurface:
     def prepare(self, *, project_dir: Path, mcp_enabled: bool, model_path: Path | None,
                 model_guid: str, ruby_enabled: bool,
                 ruby_state: dict[str, dict[str, Any]] | None) -> AgentToolContext:
+        resolved_project_dir = project_dir.resolve()
+        prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
+
         executor = None
         if mcp_enabled and ruby_enabled:
             if model_path is None or not model_guid:
@@ -46,7 +50,6 @@ class AgentToolSurface:
                 expected_model_guid=model_guid, mcp=self.sketchup_mcp, ruby_state=ruby_state,
             )
         dynamic_tools = self.dynamic_tools(ruby_enabled=executor is not None) if mcp_enabled else []
-        resolved_project_dir = project_dir.resolve()
         return AgentToolContext(
             dynamic_tools=dynamic_tools,
             dispatch=lambda name, arguments: self.dispatch(
