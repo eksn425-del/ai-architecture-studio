@@ -193,7 +193,8 @@ def main() -> int:
             "second_success": bool(second.get("success")),
             "note": "Deterministic persistent-script harness smoke only; no architecture model was called.",
         }
-        if payload["revision_progression"] != [1, 2] or not payload["same_root"]:
+        if (payload["revision_progression"] != [1, 2] or not payload["same_root"]
+                or not payload["first_success"] or not payload["second_success"]):
             raise RuntimeError(f"Persistent revision/root continuity failed: {payload}")
         _write_json(evidence_dir / "result.json", payload)
         print(f"PASS: Codex parity persistent-script smoke completed. Evidence: {evidence_dir}")

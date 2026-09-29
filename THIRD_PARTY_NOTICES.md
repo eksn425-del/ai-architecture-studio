@@ -14,6 +14,7 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - License: MIT
 - Use in this repository: optional external package / MCP backend. SAIE source is not vendored here. `app/oss_backends.py` provides a thin standards-based adapter to an installed upstream MCP server.
 - Current upstream compatibility note: SketchUp 2025 is the tested target. Upstream `docs/INSTALL.md` explicitly says SketchUp 2024 may work but is untested, and the upstream Windows installer accepts `-Version 2024`. Local 2024 compatibility must therefore be tested rather than treated as a proven incompatibility.
+- Local SketchUp 2024 compatibility uses pinned upstream revision `eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f` plus the small MIT-covered source patch in `patches/saie/saie-2024-compat.patch`. The patch repairs the opening cutter orientation and SketchUp attribute serialization; `scripts/apply_saie_2024_patch.ps1` checks the upstream SHA before applying it. The upstream license remains in the installed SAIE source checkout.
 
 ## Supex
 

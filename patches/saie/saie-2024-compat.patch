@@ -1,0 +1,262 @@
+diff --git a/ruby_plugin/su_mcp_bridge/ops/opening.rb b/ruby_plugin/su_mcp_bridge/ops/opening.rb
+index 70ff323..c352d21 100644
+--- a/ruby_plugin/su_mcp_bridge/ops/opening.rb
++++ b/ruby_plugin/su_mcp_bridge/ops/opening.rb
+@@ -1,4 +1,5 @@
+ require_relative '../logger'
++require_relative 'spec_store'
+ 
+ module SUMCPBridge
+   module Ops
+@@ -33,6 +34,7 @@ module SUMCPBridge
+ 
+         wall_group = SUMCPBridge::AI_ID.find(wall_ai_id)
+         return { "error" => "Wall not found: #{wall_ai_id}" } unless wall_group
++        wall_spec = wall_group.get_attribute("su_mcp_bridge", "wall_spec")
+ 
+         # Derive the wall's local frame from its footprint (long edge of the
+         # bottom face). This is robust to diagonal walls.
+@@ -45,6 +47,8 @@ module SUMCPBridge
+         # Persist this opening's spec on the surviving wall group so we can
+         # rebuild it later if `ops.opening.modify` is called.
+         _record_opening_on_wall(result[:new_wall], ai_id, wall_ai_id, params)
++        result[:new_wall].set_attribute("su_mcp_bridge", "wall_spec", wall_spec) if wall_spec.is_a?(String)
++        result[:new_wall].set_attribute("su_mcp_bridge", "type", "wall")
+ 
+         tags = params["tags"] || []
+         SUMCPBridge::AI_ID.set(result[:new_wall], wall_ai_id, tags: tags)
+@@ -83,6 +87,7 @@ module SUMCPBridge
+ 
+           wall_group = SUMCPBridge::AI_ID.find(wall_ai_id)
+           return { "error" => "Wall not found: #{wall_ai_id}" } unless wall_group
++          wall_spec = wall_group.get_attribute("su_mcp_bridge", "wall_spec")
+ 
+           frame = _wall_local_frame(wall_group)
+           return { "error" => "Could not determine wall frame for #{wall_ai_id}" } unless frame
+@@ -93,13 +98,10 @@ module SUMCPBridge
+           # Build the world transform (same for all openings on this wall)
+           oversize = frame[:thickness] + 10.0
+           z_axis = Geom::Vector3d.new(0, 0, 1)
+-          local_to_world = Geom::Transformation.axes(
+-            frame[:origin], frame[:x_axis], frame[:y_axis], z_axis
+-          )
+-          center_shift = Geom::Transformation.translation(
+-            Geom::Vector3d.new(0, frame[:thickness] / 2.0, 0)
++          center = frame[:origin].offset(frame[:y_axis], frame[:thickness] / 2.0)
++          full_transform = Geom::Transformation.axes(
++            center, frame[:x_axis], z_axis.cross(frame[:x_axis]), z_axis
+           )
+-          full_transform = local_to_world * center_shift
+ 
+           model.start_operation("Batch cut #{openings.length} openings on #{wall_ai_id}", true)
+ 
+@@ -125,6 +127,7 @@ module SUMCPBridge
+               Geom::Point3d.new(x0, y1, z0)
+             ]
+             face = sub.entities.add_face(pts)
++            face.reverse! if face && face.normal.z < 0
+             face.pushpull(z1 - z0) if face
+             sub.explode  # merge into parent cutter group
+           end
+@@ -166,6 +169,9 @@ module SUMCPBridge
+             results << { "ai_id" => ai_id, "status" => "cut" }
+           end
+ 
++          new_wall.set_attribute("su_mcp_bridge", "wall_spec", wall_spec) if wall_spec.is_a?(String)
++          new_wall.set_attribute("su_mcp_bridge", "type", "wall")
++
+           tags = params["tags"] || []
+           SUMCPBridge::AI_ID.set(new_wall, wall_ai_id, tags: tags)
+           SUMCPBridge::AI_ID.replace_pointer(wall_ai_id, new_wall)
+@@ -211,14 +217,15 @@ module SUMCPBridge
+         return { "error" => "Wall not found: #{wall_ai_id}" } unless wall_group
+ 
+         # Read the existing wall spec + openings list from attributes.
+-        wall_spec = wall_group.get_attribute("su_mcp_bridge", "wall_spec")
+-        openings_spec = wall_group.get_attribute("su_mcp_bridge", "openings_spec") || []
++        wall_spec = SUMCPBridge::Ops::SpecStore.read(wall_group.get_attribute("su_mcp_bridge", "wall_spec"), :hash)
++        openings_spec = SUMCPBridge::Ops::SpecStore.read(wall_group.get_attribute("su_mcp_bridge", "openings_spec"), :array)
++        return { "error" => "missing wall_spec on wall #{wall_ai_id}" } unless wall_spec
+ 
+         # Update or remove the opening.
+-        new_openings = openings_spec.reject { |o| o["ai_id"] == ai_id }
++        new_openings = openings_spec.select { |o| o.is_a?(Hash) && o["ai_id"] != ai_id }
+ 
+         if params["delete"] != true
+-          updated = openings_spec.find { |o| o["ai_id"] == ai_id } || { "ai_id" => ai_id, "wall_id" => wall_ai_id }
++          updated = openings_spec.find { |o| o.is_a?(Hash) && o["ai_id"] == ai_id } || { "ai_id" => ai_id, "wall_id" => wall_ai_id }
+           %w[offset_mm width_mm height_mm sill_mm offset width height sill kind].each do |k|
+             updated[k] = params[k] if params.key?(k)
+           end
+@@ -232,7 +239,6 @@ module SUMCPBridge
+         model.commit_operation
+ 
+         # Re-create wall from saved spec. wall_spec is a hash of params identical to ops.wall.create.
+-        return { "error" => "missing wall_spec on wall #{wall_ai_id}" } unless wall_spec
+         SUMCPBridge::Ops::Wall.create(wall_spec)
+ 
+         # Re-cut all openings on the rebuilt wall.
+@@ -350,12 +356,9 @@ module SUMCPBridge
+ 
+         # World transform: rotate local frame so x_axis -> world frame x_axis at origin.
+         z_axis = Geom::Vector3d.new(0, 0, 1)
++        center = frame[:origin].offset(frame[:y_axis], frame[:thickness] / 2.0)
+         local_to_world = Geom::Transformation.axes(
+-          frame[:origin], frame[:x_axis], frame[:y_axis], z_axis
+-        )
+-        # Shift origin from corner to wall-thickness centerline so y=0 = wall center.
+-        center_shift = Geom::Transformation.translation(
+-          Geom::Vector3d.new(0, frame[:thickness] / 2.0, 0)
++          center, frame[:x_axis], z_axis.cross(frame[:x_axis]), z_axis
+         )
+ 
+         model.start_operation("Cut opening", true)
+@@ -371,10 +374,11 @@ module SUMCPBridge
+           Geom::Point3d.new(x0, y1, z0)
+         ]
+         face = ce.add_face(pts)
++        face.reverse! if face && face.normal.z < 0
+         face.pushpull(z1 - z0)
+ 
+         # Transform cutter from local frame to world frame.
+-        cutter.transform!(local_to_world * center_shift)
++        cutter.transform!(local_to_world)
+ 
+         begin
+           new_wall = cutter.subtract(wall_group)
+@@ -389,7 +393,7 @@ module SUMCPBridge
+           frame_group = nil
+           if generate_frame && !generate_frame.empty?
+             frame_group = _build_frame_in_opening(
+-              model, local_to_world * center_shift,
++              model, local_to_world,
+               x0, x1, z0, z1,
+               frame[:thickness],
+               generate_frame
+@@ -502,18 +506,18 @@ module SUMCPBridge
+ 
+       # Append/refresh this opening's spec on the wall's attribute dict.
+       def self._record_opening_on_wall(wall_group, ai_id, wall_ai_id, params)
+-        existing = wall_group.get_attribute("su_mcp_bridge", "openings_spec") || []
+-        existing.reject! { |o| o["ai_id"] == ai_id }
++        existing = SUMCPBridge::Ops::SpecStore.read(wall_group.get_attribute("su_mcp_bridge", "openings_spec"), :array)
++        existing.reject! { |o| o.is_a?(Hash) && o["ai_id"] == ai_id }
+         existing << params.merge("ai_id" => ai_id, "wall_id" => wall_ai_id)
+-        wall_group.set_attribute("su_mcp_bridge", "openings_spec", existing)
++        wall_group.set_attribute("su_mcp_bridge", "openings_spec", SUMCPBridge::Ops::SpecStore.write(existing))
+       end
+ 
+       # Search all walls for the one carrying this opening in its attribute list.
+       def self._find_wall_for_opening(model, ai_id)
+         model.active_entities.each do |ent|
+           next unless ent.is_a?(Sketchup::Group) && ent.valid?
+-          ops = ent.get_attribute("su_mcp_bridge", "openings_spec") || []
+-          return ent.get_attribute("su_mcp_bridge", "ai_id") if ops.any? { |o| o["ai_id"] == ai_id }
++          ops = SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "openings_spec"), :array)
++          return ent.get_attribute("su_mcp_bridge", "ai_id") if ops.any? { |o| o.is_a?(Hash) && o["ai_id"] == ai_id }
+         end
+         nil
+       end
+diff --git a/ruby_plugin/su_mcp_bridge/ops/query.rb b/ruby_plugin/su_mcp_bridge/ops/query.rb
+index 7be266f..b694c76 100644
+--- a/ruby_plugin/su_mcp_bridge/ops/query.rb
++++ b/ruby_plugin/su_mcp_bridge/ops/query.rb
+@@ -1,4 +1,5 @@
+ require_relative '../logger'
++require_relative 'spec_store'
+ 
+ module SUMCPBridge
+   module Ops
+@@ -35,7 +36,7 @@ module SUMCPBridge
+           }
+ 
+           # Echo back the original spec (wall_spec / openings_spec / etc.) for debugging.
+-          spec = ent.get_attribute("su_mcp_bridge", "wall_spec") if type == "wall"
++          spec = SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "wall_spec"), :hash) if type == "wall"
+           spec = ent.get_attribute("su_mcp_bridge", "roof_spec") if type == "roof"
+           spec = ent.get_attribute("su_mcp_bridge", "component_spec") if type == "component"
+           entry["spec"] = spec if spec
+@@ -143,7 +144,7 @@ module SUMCPBridge
+ 
+           # Attach SAIE specs
+           if type == "wall"
+-            spec = ent.get_attribute("su_mcp_bridge", "wall_spec")
++            spec = SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "wall_spec"), :hash)
+             entry["spec"] = spec if spec
+           end
+           if type == "roof"
+@@ -154,7 +155,7 @@ module SUMCPBridge
+             spec = ent.get_attribute("su_mcp_bridge", "component_spec")
+             entry["spec"] = spec if spec
+           end
+-          openings = ent.get_attribute("su_mcp_bridge", "openings_spec")
++          openings = SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "openings_spec"), :array)
+           entry["openings"] = openings if openings && !openings.empty?
+ 
+           tags = SUMCPBridge::AI_ID.get_tags(ent)
+@@ -252,8 +253,8 @@ module SUMCPBridge
+           "bounds" => {
+             "min" => bb.min.to_a, "max" => bb.max.to_a
+           },
+-          "wall_spec"     => ent.get_attribute("su_mcp_bridge", "wall_spec"),
+-          "openings_spec" => ent.get_attribute("su_mcp_bridge", "openings_spec"),
++          "wall_spec"     => SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "wall_spec"), :hash),
++          "openings_spec" => SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "openings_spec"), :array),
+           "roof_spec"     => ent.get_attribute("su_mcp_bridge", "roof_spec"),
+           "component_spec" => ent.get_attribute("su_mcp_bridge", "component_spec")
+         }
+@@ -273,8 +274,9 @@ module SUMCPBridge
+           present[ai_id] = ent.respond_to?(:guid) ? ent.guid : nil if ai_id
+           
+           # Openings exist as metadata on the wall, not as standalone entities
+-          ops = ent.get_attribute("su_mcp_bridge", "openings_spec") || []
++          ops = SUMCPBridge::Ops::SpecStore.read(ent.get_attribute("su_mcp_bridge", "openings_spec"), :array)
+           ops.each do |op|
++            next unless op.is_a?(Hash)
+             op_id = op["ai_id"]
+             present[op_id] = "opening_on_#{ai_id}" if op_id
+           end
+diff --git a/ruby_plugin/su_mcp_bridge/ops/spec_store.rb b/ruby_plugin/su_mcp_bridge/ops/spec_store.rb
+new file mode 100644
+index 0000000..bec6f71
+--- /dev/null
++++ b/ruby_plugin/su_mcp_bridge/ops/spec_store.rb
+@@ -0,0 +1,19 @@
++require 'json'
++
++module SUMCPBridge
++  module Ops
++    module SpecStore
++      def self.read(value, kind)
++        parsed = value.is_a?(String) ? JSON.parse(value) : value
++        valid = kind == :array ? parsed.is_a?(Array) : parsed.is_a?(Hash)
++        valid ? parsed : (kind == :array ? [] : nil)
++      rescue JSON::ParserError, TypeError
++        kind == :array ? [] : nil
++      end
++
++      def self.write(value)
++        JSON.generate(value)
++      end
++    end
++  end
++end
+diff --git a/ruby_plugin/su_mcp_bridge/ops/wall.rb b/ruby_plugin/su_mcp_bridge/ops/wall.rb
+index 73e4754..e4c6bf5 100644
+--- a/ruby_plugin/su_mcp_bridge/ops/wall.rb
++++ b/ruby_plugin/su_mcp_bridge/ops/wall.rb
+@@ -1,4 +1,5 @@
+ require_relative '../logger'
++require_relative 'spec_store'
+ 
+ module SUMCPBridge
+   module Ops
+@@ -42,7 +43,7 @@ module SUMCPBridge
+         # future "rebuild this wall" op) can reconstruct the wall verbatim.
+         # The attribute survives boolean subtract because SketchUp copies the
+         # attribute dictionary onto the surviving group.
+-        group.set_attribute("su_mcp_bridge", "wall_spec", params)
++        group.set_attribute("su_mcp_bridge", "wall_spec", SUMCPBridge::Ops::SpecStore.write(params))
+         group.set_attribute("su_mcp_bridge", "type", "wall")
+ 
+         SUMCPBridge::Logger.debug("ops.wall.create #{ai_id} -> guid=#{group.guid} (#{upserted ? 'upserted' : 'created'})")

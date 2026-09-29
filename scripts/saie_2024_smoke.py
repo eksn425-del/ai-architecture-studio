@@ -85,6 +85,18 @@ def upstream_error(value: dict[str, Any]) -> str | None:
     return None
 
 
+def tool_payload(value: dict[str, Any]) -> dict[str, Any]:
+    for item in value.get("contentItems") or []:
+        if isinstance(item, dict) and item.get("type") == "inputText":
+            try:
+                parsed = json.loads(str(item.get("text") or ""))
+            except json.JSONDecodeError:
+                continue
+            if isinstance(parsed, dict):
+                return parsed
+    raise RuntimeError("SAIE did not return a JSON object for required verification.")
+
+
 def persist_inline_images(step: str, value: dict[str, Any], output_dir: Path) -> list[str]:
     paths: list[str] = []
     for index, item in enumerate(value.get("contentItems") or []):
@@ -132,7 +144,7 @@ def main() -> int:
         print(f"[SAIE smoke] {name}")
         value = backend.call_for_agent(name, arguments or {})
         error = upstream_error(value)
-        images = persist_inline_images(name, value, output_dir)
+        images = persist_inline_images(f"{len(steps) + 1:02d}-{name}", value, output_dir)
         record = {"tool": name, "arguments": arguments or {}, "result": compact_result(value), "images": images}
         steps.append(record)
         if error:
@@ -194,7 +206,7 @@ def main() -> int:
                 "base_z_mm": 3000,
             },
         )
-        call(
+        initial_verify = tool_payload(call(
             "verify_model",
             {
                 "expected_ids": [
@@ -207,8 +219,15 @@ def main() -> int:
                     "ROOF_MAIN",
                 ]
             },
-        )
-        call("inspect_entity", {"ai_id": "W_SOUTH"})
+        ))
+        if initial_verify.get("status") != "clean":
+            raise RuntimeError(f"Initial SAIE ID verification diverged: {initial_verify}")
+        south = tool_payload(call("inspect_entity", {"ai_id": "W_SOUTH"}))
+        openings = south.get("openings_spec") or []
+        if south.get("type") != "wall" or not isinstance(south.get("wall_spec"), dict) or not any(
+            isinstance(item, dict) and item.get("ai_id") == "DOOR_SOUTH_01" for item in openings
+        ):
+            raise RuntimeError(f"SAIE wall/opening metadata did not round-trip: {south}")
         call("view_snapshot", {"width": 1000, "height": 750, "quality": 75, "source": "view"})
 
         # Same-model edit proof.
@@ -222,7 +241,9 @@ def main() -> int:
                 "level": "GF",
             },
         )
-        call("inspect_entity", {"ai_id": "W_EAST"})
+        east = tool_payload(call("inspect_entity", {"ai_id": "W_EAST"}))
+        if (east.get("wall_spec") or {}).get("thickness_mm") != 250:
+            raise RuntimeError(f"Modified wall spec did not persist: {east}")
 
         # Delete/repair proof on a wall without the test opening.
         call("delete_wall", {"ai_id": "W_NORTH"})
@@ -236,7 +257,7 @@ def main() -> int:
                 "level": "GF",
             },
         )
-        call(
+        final_verify = tool_payload(call(
             "verify_model",
             {
                 "expected_ids": [
@@ -249,7 +270,9 @@ def main() -> int:
                     "ROOF_MAIN",
                 ]
             },
-        )
+        ))
+        if final_verify.get("status") != "clean":
+            raise RuntimeError(f"Final SAIE ID verification diverged: {final_verify}")
         call("scene_summary")
         call("view_snapshot", {"width": 1000, "height": 750, "quality": 75, "source": "view"})
     except Exception as error:

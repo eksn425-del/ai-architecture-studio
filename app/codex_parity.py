@@ -59,10 +59,11 @@ Keep this file short and durable. Update it when the user confirms or materially
 
 def prepare_codex_parity_workspace(workspace: Path) -> Path:
     """Seed a persistent project-coding workspace without overwriting agent work."""
-    root = workspace.expanduser().resolve()
-    root.mkdir(parents=True, exist_ok=True)
-    if root.is_symlink():
+    requested_root = workspace.expanduser()
+    if requested_root.is_symlink():
         raise ValueError("Agent workspace may not be a symbolic link.")
+    root = requested_root.resolve()
+    root.mkdir(parents=True, exist_ok=True)
 
     for name in ("scripts", "notes", "qa"):
         directory = root / name

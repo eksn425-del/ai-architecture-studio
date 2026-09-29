@@ -63,13 +63,6 @@ _SECTIONS: tuple[tuple[str, tuple[tuple[str, int], ...]], ...] = (
         ("Develop plan and section together", 1_150),
         ("Make form, facade and site follow the scheme", 650),
     )),
-    ("references/precedent-research.md", (
-        ("Synthesize before designing", 950),
-    )),
-    ("references/project-continuity.md", (
-        ("Identity and ownership", 750),
-        ("Revision protocol", 900),
-    )),
     ("references/ruby-modeling.md", (
         ("Prepare and inspect", 650),
         ("Coordinates and geometry", 750),
@@ -80,6 +73,13 @@ _SECTIONS: tuple[tuple[str, tuple[tuple[str, int], ...]], ...] = (
         ("Two complementary reviews", 800),
         ("Iterate against evidence", 500),
         ("Completion report", 500),
+    )),
+    ("references/precedent-research.md", (
+        ("Synthesize before designing", 950),
+    )),
+    ("references/project-continuity.md", (
+        ("Identity and ownership", 750),
+        ("Revision protocol", 900),
     )),
 )
 

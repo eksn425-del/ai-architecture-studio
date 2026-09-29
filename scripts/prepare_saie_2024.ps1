@@ -35,9 +35,11 @@ if (-not (Test-Path (Join-Path $saieRoot '.git'))) {
 git -C $saieRoot checkout --detach $saieRevision
 if ($LASTEXITCODE -ne 0) { throw "Could not checkout pinned SAIE revision $saieRevision." }
 
+& (Join-Path $PSScriptRoot 'apply_saie_2024_patch.ps1') -SourceRoot $saieRoot
+
 Write-Host 'Installing pinned SAIE checkout into the project venv...' -ForegroundColor Cyan
-& $python -m pip install -e $saieRoot
-if ($LASTEXITCODE -ne 0) { throw 'SAIE editable install failed.' }
+& $python -m pip install $saieRoot 'mcp==1.30.0'
+if ($LASTEXITCODE -ne 0) { throw 'Pinned SAIE and MCP 1.30.0 install failed.' }
 
 $actualRevision = (git -C $saieRoot rev-parse HEAD).Trim()
 $metadata = [ordered]@{
@@ -53,17 +55,19 @@ $metadata = [ordered]@{
 $metadata | ConvertTo-Json -Depth 4 | Set-Content -Path $metadataPath -Encoding UTF8
 
 if ($InstallPlugin) {
-    $installer = Join-Path $saieRoot 'scripts\install_plugin.ps1'
-    if (-not (Test-Path $installer)) {
-        throw "Upstream installer missing: $installer"
+    if ($Symlink) { throw 'The reproducible 2024 compatibility install uses a copied plugin; -Symlink is unsupported.' }
+    $pluginsDir = Join-Path $env:APPDATA "SketchUp\SketchUp $Version\SketchUp\Plugins"
+    if (-not (Test-Path -LiteralPath $pluginsDir)) { throw "SketchUp plugin directory not found: $pluginsDir" }
+    $sourcePlugin = Join-Path $saieRoot 'ruby_plugin\su_mcp_bridge'
+    $sourceLoader = Join-Path $saieRoot 'ruby_plugin\su_mcp_bridge.rb'
+    if (-not (Test-Path -LiteralPath $sourcePlugin) -or -not (Test-Path -LiteralPath $sourceLoader)) {
+        throw 'Pinned SAIE Ruby plugin sources are incomplete.'
     }
-    Write-Host "Installing the unmodified upstream SAIE plugin into SketchUp $Version..." -ForegroundColor Yellow
-    if ($Symlink) {
-        & $installer -Version $Version -Symlink -Force
-    } else {
-        & $installer -Version $Version -Force
-    }
-    if ($LASTEXITCODE -ne 0) { throw 'Upstream SAIE plugin installer failed.' }
+    $installedPlugin = Join-Path $pluginsDir 'su_mcp_bridge'
+    New-Item -ItemType Directory -Force -Path $installedPlugin | Out-Null
+    Copy-Item -Path (Join-Path $sourcePlugin '*') -Destination $installedPlugin -Recurse -Force
+    Copy-Item -LiteralPath $sourceLoader -Destination (Join-Path $pluginsDir 'su_mcp_bridge.rb') -Force
+    Write-Host "Installed patched SAIE Ruby plugin into SketchUp $Version. Restart SketchUp before ping/smoke." -ForegroundColor Green
 }
 
 $saieMcp = Join-Path $repoRoot '.venv\Scripts\saie-mcp.exe'
