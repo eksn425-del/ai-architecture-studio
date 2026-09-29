@@ -18,8 +18,9 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 ## Supex
 
 - Upstream: `darwin/supex`
+- Adopted guidance revision: `66c9eed0921c418be3f1bd4ef5f100f6b5f2ad4c` (v0.3.0)
 - License: MIT
-- Use in this repository: selected agent-workflow guidance is now vendored under `app/vendor/supex_agent_guide/` with the upstream MIT license preserved. The adopted behavior is file-based Ruby authoring, execute/inspect/revise loops, project persistence, organized geometry and multi-view visual QA.
+- Use in this repository: selected agent-workflow guidance is vendored under `app/vendor/supex_agent_guide/` with the upstream MIT license preserved. The adopted behavior is file-based Ruby authoring, execute/inspect/revise loops, project persistence, organized geometry and multi-view visual QA.
 - Runtime boundary: the Supex macOS/SketchUp-2026 runtime, REPL, VCAD sidecar/viewer and transport stack are **not** copied into this repository because they are not currently a proven Windows/SketchUp-2024 fit. AI Architecture Studio implements only the minimal glue needed to apply the reusable workflow to its existing guarded Kongxing/SAIE/ArchFlow stack.
 
 ## ArchFlow Studio
