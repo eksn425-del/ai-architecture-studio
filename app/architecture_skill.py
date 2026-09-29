@@ -39,6 +39,21 @@ Do not compensate for a missing capability by assuming the result succeeded or b
 requested complex form to a generic box.
 """.strip()
 
+_CODEX_PARITY_NOTE = """
+## Persistent project-coding loop
+
+For non-trivial SketchUp design work, behave like an agentic coding environment rather than a
+one-shot tool caller. The current working directory is the project's persistent agent workspace.
+Read its README.md before a developed modeling task. Keep durable design decisions in
+`notes/design_notes.md`. Author project-specific Ruby under `scripts/`, then execute and revise
+that same file with `sketchup_run_workspace_ruby` instead of repeatedly emitting large disposable
+inline snippets. Ordinary walls/openings/slabs/roofs should still prefer proven semantic OSS tools.
+After every meaningful modeling pass, inspect model state and multiple useful views. Compare the
+result against the brief, site, section/circulation logic and requested precedent fidelity, then
+revise the same model/scripts. A first-pass rough massing model is not completion when the user
+asked for a developed building with recognizable formal/spatial reference logic.
+""".strip()
+
 _SECTIONS: tuple[tuple[str, tuple[tuple[str, int], ...]], ...] = (
     ("references/architectural-design.md", (
         ("Establish the design basis", 750),
@@ -113,6 +128,7 @@ def load_architecture_skill_context(*, max_chars: int = MAX_CONTEXT_CHARS) -> st
         f"Source: {UPSTREAM_NAME} @ {UPSTREAM_REVISION}; see app/vendor/sketchup_architect/LICENSE.",
         _PRECEDENT_FIDELITY_NOTE,
         _EXECUTION_REUSE_NOTE,
+        _CODEX_PARITY_NOTE,
     ]
     remaining = max_chars - sum(len(item) + 2 for item in blocks)
     for relative_path, headings in _SECTIONS:
