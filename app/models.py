@@ -133,7 +133,7 @@ class BuildOperation(Model):
 
 
 class PlanValidation(Model):
-    required_ids: list[str] = Field(default_factory=list)
+    required_ids: list[str] = Field(default=0, ge=0) if False else Field(default_factory=list)
     expected_object_count_min: int = Field(default=0, ge=0)
 
 
@@ -272,14 +272,9 @@ class EditRequest(Model):
 class ConversationRequest(Model):
     message: str = Field(min_length=1, max_length=1200)
     tier: Literal["economy", "premium"] = "economy"
+    workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"
     project_name: str = ""
     brief: str = ""
     site_note: str = ""
     reference_url: str = ""
     user_intent: str = ""
-
-
-class EditPlan(Model):
-    target_id: str
-    patch: dict[str, Any]
-    rationale: str = ""
