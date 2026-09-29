@@ -1,50 +1,42 @@
-# CURRENT TASK — OSS Takeover v1.1: repair SAIE opening/metadata path, then finish deterministic smoke
+# CURRENT TASK — finish SAIE repair, then validate Codex Parity v1 foundation
 
-## Status: Ready for Codex / Luna Max local execution
+## Status: Ready for Codex / Sol local execution
 
-ChatGPT has reviewed the real SketchUp 2024 smoke at commit `192f80e147c04b331c9ebaaea4c8d8bf74a825de` and localized the remaining failure.
+ChatGPT has already completed the GitHub-side design and implementation work that can be done remotely. **Sol is the local coding/integration executor, not the product architecture model in this milestone.**
 
-**Do not rediscover the problem from scratch.** Read `docs/SAIE_2024_SMOKE_REVIEW.md` first and execute the focused repair below.
+Do not rediscover the architecture from scratch. Execute the two local validation tracks below in order.
 
-## What is already proven
-
-- SketchUp `2024.0.484` can load/connect to upstream SAIE 1.0.0 sufficiently for `saie ping` to return `PONG plugin_v1.0.0`.
-- Live SAIE MCP discovery returns 59 tools.
-- The website composes 15 Kongxing tools + 59 namespaced `saie__...` tools.
-- Deterministic SAIE calls created wall/slab/gable-roof geometry in a disposable SketchUp model.
-- The smoke stopped specifically in the opening / metadata / verify path.
-- No architecture LLM is needed for this repair.
-
-## Hard scope and budget rules
-
-- **No Astra calls.**
-- No Luna/Sol architecture-generation benchmark.
-- Luna Max is coding/local-integration only.
-- No thesis/Jinshan building test.
-- No new generic MCP server.
-- No custom replacement wall/opening/slab/roof engine.
-- Use only disposable models and ignored `.local/` / `runtime/` files.
-
-## Read in this order
+## Read in this exact order
 
 1. `AGENTS.md`
 2. `docs/SAIE_2024_SMOKE_REVIEW.md`
-3. `docs/HANDOFF.md`
-4. `THIRD_PARTY_NOTICES.md`
-5. upstream pinned files:
-   - `.local/oss/saie/ruby_plugin/su_mcp_bridge/ops/opening.rb`
-   - `.local/oss/saie/ruby_plugin/su_mcp_bridge/ops/wall.rb`
-   - `.local/oss/saie/ruby_plugin/su_mcp_bridge/ops/query.rb`
+3. `docs/CODEX_PARITY_V1.md`
+4. `docs/HANDOFF.md`
+5. `THIRD_PARTY_NOTICES.md`
+6. relevant code already written by ChatGPT:
+   - `app/codex_parity.py`
+   - `app/workspace_ruby.py`
+   - `app/agent_tools.py`
+   - `app/architecture_skill.py`
+   - `scripts/saie_2024_smoke.py`
+   - `scripts/codex_parity_smoke.py`
+   - `tests/test_codex_parity.py`
 
-Pinned upstream revision remains:
+## Hard budget / scope rules
 
-`eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f`
-
-Do not silently change upstream versions during this task.
+- **Do not call Astra.**
+- Do not run a thesis/Jinshan architecture-quality benchmark.
+- Do not use Sol/Luna as the website architecture designer yet.
+- Sol may write code, run local tests, install/patch the pinned OSS checkout, execute deterministic SketchUp smoke tests and inspect screenshots.
+- Use only disposable/generated models and ignored `.local/` / `runtime/` paths.
+- Do not touch the user's thesis/source SKP/DWG.
+- Do not add another generic MCP server or a new custom wall/opening/roof engine.
 
 ---
 
-## Phase 0 — baseline
+# TRACK A — finish SAIE 1.0.0 / SketchUp 2024 compatibility repair
+
+## A0 — baseline
 
 Run:
 
@@ -54,170 +46,204 @@ git status
 .\scripts\check.ps1
 ```
 
-Confirm the user repository is clean and tests pass before repair work.
+Confirm the repository includes ChatGPT's latest Codex-parity files and the worktree is clean before local edits.
 
-Confirm `.local/oss/saie` is still the exact pinned upstream checkout before applying a local experiment patch.
+Pinned SAIE revision remains:
 
----
+`eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f`
 
-## Phase 1 — confirm the already-identified defects with the smallest possible diagnostic
+Do not silently change upstream revisions.
 
-Use a brand-new disposable SketchUp document.
+## A1 — focused opening diagnostic
 
-Do not run the entire architecture smoke first. Isolate one 6 m wall and one door opening.
+Use a brand-new disposable SketchUp model.
 
-### 1A. Boolean direction
+The previous live run already proved SAIE loads in SketchUp `2024.0.484`, `saie ping` works and 59 tools are discovered. The remaining failure is localized to opening/metadata/verify.
 
-Pinned upstream `opening.rb` currently calls:
+In ignored `.local/oss/saie`, test the already-identified minimal boolean correction first:
 
 ```ruby
+# pinned upstream currently
 new_wall = cutter.subtract(wall_group)
-```
 
-SketchUp Ruby semantics are receiver minus argument. The intended door cut is wall minus cutter.
-
-In the ignored local SAIE checkout only, test the minimal change:
-
-```ruby
+# diagnostic candidate
 new_wall = wall_group.subtract(cutter)
 ```
 
-Apply the equivalent change to `batch_cut` only if/when the single-opening test proves it is correct.
+Do not redesign the opening engine. Accept the change only if a single wall + door test produces a real visible void and editable native geometry.
 
-Evidence required before accepting the change:
+## A2 — metadata compatibility repair
 
-- before/after viewport capture;
-- visible real void through the wall;
-- resulting object remains normal editable SketchUp geometry;
-- no private/source model touched.
-
-If reversing the boolean does not produce a correct opening, revert that local experiment and record exact geometry/readback evidence. Do not invent a new opening engine.
-
-### 1B. Metadata serialization
-
-The live smoke read back:
+The previous live smoke read back:
 
 - `wall_spec: null`
 - `openings_spec: [null]`
+- `verify_model`: `undefined method '[]' for nil:NilClass`
 
-Pinned SAIE stores raw Hash / Array<Hash> objects with `set_attribute`.
+Implement the smallest compatibility patch in the ignored upstream checkout so wall/opening specs are serialized to a SketchUp-safe representation (JSON text is acceptable) and parsed when read.
 
-Implement the smallest local upstream compatibility patch that serializes wall/opening specs to JSON strings before writing SketchUp attributes and parses them when reading.
-
-Update only the affected upstream paths needed by:
+Patch only the upstream locations required for:
 
 - wall create/rebuild;
 - opening record/find/modify/delete;
-- query entity/deep_scan/export/verify.
+- query entity/deep-scan/export/verify.
 
 Requirements:
 
-- preserve backward tolerance for missing or malformed legacy values;
-- `query.verify` must skip malformed entries instead of raising `nil["ai_id"]`;
-- after a fresh create+cut, `inspect_entity(W_SOUTH)` must return a non-null reconstructable wall spec and real opening metadata;
-- do not create a separate home-grown project-state engine.
+- tolerate missing/malformed legacy values;
+- `verify_model` must never crash because one metadata entry is nil/malformed;
+- fresh `inspect_entity(W_SOUTH)` must return reconstructable wall/opening metadata;
+- no new home-grown project-state engine.
 
-### 1C. Verify implementation
+## A3 — full deterministic SAIE smoke
 
-After metadata repair, `verify_model` must return a structured result instead of throwing:
-
-`undefined method '[]' for nil:NilClass`
-
-Also compare actual code to upstream changelog's claim about recovering IDs after booleans. If top-level traversal remains sufficient for our fresh repaired objects, do not over-engineer recursion in this milestone. If the boolean result nests/reparents IDs, make the smallest upstream-compatible traversal fix and prove it with the disposable model.
-
----
-
-## Phase 2 — rerun the deterministic SAIE smoke completely
-
-After the focused single-wall diagnostic passes, restart from a new disposable blank model and rerun:
+Restart from a new disposable blank model and run:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\saie_2024_smoke.py
 ```
 
-If the existing smoke stops on the first error before collecting later evidence, improve **our smoke harness only** so it records all required failure evidence while still returning FAIL when a required gate fails. Do not hide upstream failures.
+Full PASS requires, on the same model:
 
-Full acceptance requires all of these on the same disposable model:
+1. four stable-ID walls;
+2. visible real door opening in `W_SOUTH`;
+3. slab;
+4. 25-degree gable roof;
+5. successful `verify_model`;
+6. usable `inspect_entity(W_SOUTH)` metadata;
+7. screenshot/readback;
+8. successful `modify_wall` on `W_EAST`;
+9. delete + recreate/repair of `W_NORTH`;
+10. successful final verify;
+11. native editable SketchUp geometry.
 
-1. four walls created with stable IDs;
-2. visible door opening actually cut into `W_SOUTH`;
-3. slab created;
-4. 25-degree gable roof created;
-5. `verify_model` completes and finds expected IDs;
-6. `inspect_entity(W_SOUTH)` shows usable wall/opening metadata;
-7. screenshot/view readback works;
-8. `modify_wall` succeeds on `W_EAST`;
-9. delete + recreate/repair of `W_NORTH` succeeds;
-10. final verify succeeds;
-11. resulting geometry remains editable SketchUp entities.
+If the focused patch succeeds, make it reproducible in our repository without vendoring SAIE wholesale:
 
-Save ignored evidence under `runtime/saie-compat/`.
+- small patch file under `patches/saie/`;
+- deterministic apply/install script;
+- exact upstream revision guard;
+- pin/record the locally working MCP SDK (`mcp 1.30.0` worked in the previous live run);
+- update `THIRD_PARTY_NOTICES.md` only as needed.
 
----
-
-## Phase 3 — make the successful compatibility patch reproducible
-
-Only if the local upstream patch makes the full smoke pass:
-
-Do **not** vendor the whole SAIE repository.
-
-Instead add a very small repo-owned compatibility mechanism, for example:
-
-- a unified patch file under `patches/saie/`, plus
-- a deterministic apply script under `scripts/`,
-
-that targets exactly upstream revision:
-
-`eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f`
-
-Requirements:
-
-- fail closed if the upstream revision/file context does not match;
-- document every patched upstream file and why;
-- retain MIT attribution in `THIRD_PARTY_NOTICES.md`;
-- keep upstream checkout ignored under `.local/oss/saie`;
-- do not fork/copy unrelated SAIE source.
-
-Update `scripts/prepare_saie_2024.ps1` only if needed so a future clean machine can reproduce:
-
-prepare pinned upstream -> apply our tiny compatibility patch -> install plugin/package -> smoke.
-
-Also pin/record the locally working MCP SDK range/version (`mcp 1.30.0` was the successful runtime in the previous smoke) rather than allowing an incompatible major version to silently break FastMCP startup.
+If a small patch cannot make this reliable and would turn into a large fork, stop Track A and record **REJECT SAIE 2024** with the exact blocker. Do not keep expanding the patch indefinitely.
 
 ---
 
-## Phase 4 — website integration regression
+# TRACK B — validate ChatGPT's Codex Parity v1 foundation
 
-With repaired SAIE running:
+Start Track B after Track A reaches either PASS or a documented REJECT decision. Track B itself does not require an architecture model.
 
-- prove the product still exposes 15 Kongxing tools plus the live namespaced SAIE tools;
-- prove no raw SAIE `execute_ruby` or whole-document lifecycle escape is exposed through the website backend;
-- keep Kongxing as the current model identity/lifecycle boundary;
-- do not call an architecture model.
+## B0 — repository tests for the new parity code
 
-Run repository tests and add focused regression tests for any repo-owned compatibility/apply logic added in Phase 3.
+Run `scripts/check.ps1` after pulling ChatGPT's changes.
 
----
+Fix only concrete regressions in the newly added parity code. Do not remove the reuse-first architecture merely to satisfy an old assumption.
 
-## Phase 5 — standalone workspace-write remains a separate acceptance item
+Confirm tests cover:
 
-This is not the cause of the SAIE opening failure.
+- persistent workspace seeding without overwriting agent files;
+- workspace Ruby path confinement to `agent_workspace/scripts/`;
+- `sketchup_run_workspace_ruby` exposure;
+- continued hiding of raw `sketchup_eval_project_file` from the agent surface.
 
-If the user has not yet run the standalone probe from ordinary Windows PowerShell outside Codex, leave it clearly pending. Do not waste this Codex session trying to defeat the outer host policy.
+## B1 — inspect the persistent workspace created by the product
 
-Command for the user later:
+For a disposable project, verify this exists:
+
+```text
+runtime/projects/<project>/runtime/agent_workspace/
+├─ README.md
+├─ .architecture-studio.json
+├─ notes/design_notes.md
+├─ scripts/
+└─ qa/
+```
+
+Edit `notes/design_notes.md`, re-run the seeding path, and prove the existing note is preserved.
+
+## B2 — deterministic file-based modeling smoke
+
+Prepare/open a verified disposable model whose path is under:
+
+`runtime/projects/codex-parity-smoke/outputs/model/`
+
+and whose filename begins with:
+
+`blank-disposable-`
+
+Then run exactly:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\codex_parity_smoke.py
+```
+
+This script does **not** call Astra/Luna/Sol for architecture. It validates the direct-Codex-style project coding loop that ChatGPT added:
+
+1. write `agent_workspace/scripts/parity_geometry.rb` revision 1;
+2. execute it through the existing guarded `ProjectRubyExecutor`;
+3. revise the same file;
+4. execute revision 2 on the same owned project root;
+5. prove revision progression `[1, 2]` and the same `root_pid`;
+6. capture `iso`, `top`, `south`, `east` screenshots;
+7. preserve the Ruby file and ignored evidence for inspection.
+
+PASS requires ordinary editable SketchUp geometry and a real source file that remains available for the next turn/revision.
+
+If the deterministic script reveals a small repo-owned bug, fix the glue. Do not replace the workflow with another one-shot inline generator.
+
+## B3 — composed tool surface
+
+With the locally available backends enabled, prove the website tool surface still composes rather than replaces:
+
+- Kongxing named tools;
+- namespaced `saie__...` tools if Track A passed;
+- `sketchup_run_workspace_ruby`;
+- guarded short-inline `sketchup_run_project_ruby` as fallback;
+- ArchFlow where configured.
+
+Raw `sketchup_eval_project_file`, imported raw Ruby escape tools and unsafe whole-document lifecycle operations must remain hidden from the model-facing surface.
+
+## B4 — architecture-skill context
+
+Verify `load_architecture_skill_context()`:
+
+- remains within its configured context bound;
+- still contains the essential SketchUp Architect sections used by existing tests;
+- includes persistent project-coding / execute-inspect-revise guidance;
+- includes the vendored selected Supex workflow guidance;
+- retains strong-precedent adaptation behavior.
+
+If the extra Supex context pushes required architecture sections out of the bounded context, compact the selected Supex excerpt/context rather than deleting the parity workflow.
+
+## B5 — standalone workspace-write remains user-side acceptance
+
+Do not fight the outer Codex sandbox.
+
+If not already run, leave this exact command for the user to execute later from **ordinary Windows PowerShell outside Codex**:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\workspace_write_probe.py
 ```
 
-Expected result path:
-
-`runtime/projects/workspace-write-probe/runtime/workspace-write-result.json`
+Mark it `BLOCKED PENDING USER POWERSHELL RUN` until real evidence exists.
 
 ---
 
-## Final verification
+# What NOT to do after the deterministic passes
+
+Do not automatically continue into:
+
+- Jinshan thesis benchmark;
+- Astra architecture generation;
+- Luna/Sol model-quality comparison;
+- rendering/productization/auth/billing;
+- more custom create_xxx geometry tools.
+
+The next expensive architecture benchmark will be authorized only after ChatGPT reviews this foundation.
+
+---
+
+# Final verification and handoff
 
 Run:
 
@@ -227,32 +253,31 @@ git diff --check
 git status
 ```
 
-Update `docs/HANDOFF.md` with:
+Update `docs/HANDOFF.md` with a compact evidence table containing:
 
-- exact pinned SAIE revision/version;
-- exact local compatibility patch files/lines or reason patch was rejected;
-- single-wall visible-opening diagnostic result;
-- metadata readback result;
-- full deterministic smoke PASS/FAIL by gate;
-- final live tool count;
-- website namespaced-tool result;
-- exact ignored evidence directory;
-- test count;
+- starting repo SHA;
+- SketchUp version;
+- SAIE Track A outcome: PASS or documented REJECT;
+- exact compatibility patch files if any;
+- full SAIE deterministic smoke gates;
+- Codex parity workspace seed PASS/FAIL;
+- persistent Ruby revision `[1,2]` + same-root PASS/FAIL;
+- paths of the four parity screenshots/evidence;
+- composed tool-surface inventory;
+- architecture-skill bounded-context test result;
+- `scripts/check.ps1` count/result;
 - standalone workspace-write status;
 - remaining blockers.
 
-Commit only repo-owned changes (patch/apply script/tests/docs, not the ignored upstream checkout), push `origin/main`, verify remote SHA, then **stop**.
+Commit only repo-owned files, push `origin/main`, verify the remote SHA, then **stop** and wait for ChatGPT review.
 
-## Acceptance decision
+## Milestone acceptance
 
-The milestone is ready to move forward only when either:
+This milestone passes when:
 
-### PASS
-
-SAIE on SketchUp 2024 completes the full deterministic wall/opening/slab/roof/query/view/edit/repair cycle with a reproducible minimal compatibility patch.
-
-### REJECT SAIE 2024
-
-A focused minimal patch cannot make the real opening/metadata path reliable without effectively maintaining a large SAIE fork. In that case record the exact blocker and stop; ChatGPT will choose the next OSS backend/strategy.
-
-Do not run an architecture-quality model benchmark in either outcome.
+- the mature execution stack has a clear SAIE decision;
+- persistent file-based project Ruby works end-to-end on a disposable SketchUp model;
+- the same source can be revised and re-run on the same owned model root;
+- multi-view evidence is produced;
+- semantic OSS tools remain composed beside project-specific coding;
+- no architecture-quality model quota was spent.
