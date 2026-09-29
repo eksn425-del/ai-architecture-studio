@@ -10,7 +10,7 @@ This repository uses GitHub as the single source of truth between ChatGPT planni
 4. Execute the current task end-to-end; do not stop after analysis unless a real blocker prevents implementation.
 5. Prefer reuse over rebuilding infrastructure:
    **Adopt → Fork/Wrap → Compose → Minimal Custom Build**.
-6. Run relevant tests/checks and, when available, a real SketchUp smoke test.
+6. Run relevant tests/checks and, when available, a real SketchUp smoke/quality test.
 7. Update `docs/HANDOFF.md` before finishing.
 8. Commit the work with a clear message.
 9. **Push the completed commit to `origin/main` before reporting completion.** A local-only commit is not considered handed off.
@@ -45,7 +45,27 @@ A new custom geometry tool requires a short explanation of why SAIE / ArchFlow /
 
 Do not spend a milestone creating a cleaner custom replacement for a working connector, agent runtime, CAD exporter, architecture skill, geometry primitive, model-inspection layer, or output pipeline.
 
-During **OSS Takeover v1**, do not spend premium-model quota to compensate for missing execution capability. Tool installation, schema inspection, deterministic geometry tests, CAD tests, and integration tests must be done without an architecture-generation model call.
+## Current product focus — Image → SketchUp first
+
+The current milestone is intentionally narrower than full architecture design.
+
+Target:
+
+**one user-provided architectural image → cost-efficient multimodal model → dedicated reconstruction Skill + mature SketchUp tools → developed editable SketchUp model → source-matched screenshot QA → same-model revision**
+
+Do not combine taskbook + site + precedent into a new design until this image-reconstruction workflow is repeatable.
+
+For `image_reconstruction`:
+
+- the uploaded image is the visual target, not merely a precedent;
+- do not weaken requested fidelity with blanket anti-copy wording;
+- fill/update `notes/reconstruction_card.md` before substantial geometry;
+- build recognizable primary form first, then facade depth/repeated systems/material zones, then visually compare and revise;
+- a few white boxes are an automatic failure when the source visibly contains developed facade/roof geometry;
+- use one representative repeated module and component/instance repetition where possible;
+- tool-return success alone is not completion.
+
+The first quality benchmark uses the Economy Sol route and starts at low reasoning. Do not call Astra unless a future `CURRENT_TASK.md` explicitly authorizes it.
 
 ## Product architecture rule
 
@@ -53,13 +73,13 @@ The product is **not** a new CAD/3D engine and is **not** a weaker in-house arch
 
 Target architecture:
 
-**Web Workspace → replaceable Agent Runtime → Architecture Skill / project context → composed OSS execution tools → SketchUp / CAD → screenshot/model readback → revision**
+**Web Workspace → replaceable Agent Runtime → workflow-specific Skill/context → composed OSS execution tools → SketchUp / CAD → screenshot/model readback → revision**
 
 SketchUp remains the real editable modeling application.
 
 The website manages inputs, project/session context, conversation, outputs, and product UX.
 
-The agent/model should retain broad reasoning and tool-use freedom. Do not force normal architecture modeling through the old tiny `DesignIR → BuildPlan → create_mass` action set.
+The agent/model should retain broad reasoning and tool-use freedom. Do not force normal modeling through the old tiny `DesignIR → BuildPlan → create_mass` action set.
 
 `DesignIR` may remain as project memory / structured state, but it must not be the mandatory geometry generator or restrict all geometry to axis-aligned rectangles.
 
@@ -70,26 +90,33 @@ Prefer according to actual capability fit rather than historical order:
 1. **SAIE (MIT)** for mature SketchUp semantic execution when locally compatible: walls/openings/slabs/roofs/components/materials/BIM attributes/query/view/batch/DXF utilities.
 2. **existing Kongxing SketchUp MCP/plugin** for verified disposable-model identity, lifecycle, existing local tools, and guarded transport.
 3. **Supex (MIT)** for agentic project-script / introspection patterns and advanced geometry ideas when platform-compatible; do not port the whole macOS/SketchUp-2026 stack to Windows without a clear supported path.
-4. **ArchFlow Studio (Apache-2.0 source)** for semantic project state, DXF/output, generated Ruby, metrics and run-record pieces.
-5. **SketchUp Architect Skill (MIT)** for architectural reasoning, continuity and precedent workflow.
-6. **VBO SkAgent (MIT)** as a lightweight fallback if the active local execution path is blocked.
-7. other clearly licensed MIT/Apache/BSD code.
-8. minimal custom implementation only for missing glue.
+4. **Stultus (Apache-2.0)** for portable patterns around Codex/Claude → Ruby execution → scene readback → screenshot → revision/Undo on SketchUp 2024. Reuse only pieces that improve the current stack; do not replace a working connector just to copy architecture.
+5. **ArchFlow Studio (Apache-2.0 source)** for semantic project state, DXF/output, generated Ruby, metrics and run-record pieces.
+6. **SketchUp Architect Skill (MIT)** for later/full architectural reasoning, continuity and precedent workflow.
+7. **VBO SkAgent (MIT)** as a lightweight fallback if the active local execution path is blocked.
+8. other clearly licensed MIT/Apache/BSD code.
+9. minimal custom implementation only for missing glue.
 
-PlanFloor AI Agent is currently architecture-study-only unless a compatible reuse license is verified. Its workflow/Skill boundaries may be studied; do not copy unlicensed source.
+**ADAI SketchUp Skill + Managed MCP is CPAL-1.0.** Its public source-first reconstruction, task/method-card, guided/autonomous, visual-evidence and experience-pack concepts may be studied, but do not copy its covered source into this repository without an explicit license/compliance decision.
+
+The observed Pylon `pylon-sketchup2model` demonstration is a product-quality reference from user-provided screenshots only; no public source has been established.
+
+PlanFloor AI Agent is architecture-study-only unless a compatible reuse license is verified. Its workflow/Skill boundaries may be studied; do not copy unlicensed source.
 
 Never copy source from a repository without a clear compatible license.
 
-## Precedent fidelity rule
+## Precedent / source fidelity rule
 
 Do not impose a blanket “make it unlike the reference” rule.
 
-The user owns the precedent-fidelity decision:
+For `image_reconstruction`, the source image is the target appearance to reconstruct as editable geometry.
+
+For later `architecture_design`, the user owns the precedent-fidelity decision:
 
 - if the user asks for principles only, abstract the principles;
 - if the user asks for a strong formal adaptation, concrete massing, silhouette, roof, bridge/platform, facade rhythm and spatial-sequence logic may be carried over and transformed to fit the real site/program/constraints.
 
-Taskbook/site/regulatory constraints still win. Do not claim unverified technical compliance.
+Taskbook/site/regulatory constraints still win in design mode. Do not claim unverified technical compliance.
 
 ## Current prototype brain rule
 
@@ -97,7 +124,7 @@ During local prototype work, Codex/Astra/Sol/Luna may act as the temporary nativ
 
 The product must preserve a replaceable runtime boundary so a production model/API path can be plugged in later without rewriting the web workspace or project storage.
 
-Do not interpret a model benchmark failure as proof that the model is bad until the same input evidence and execution capability are available. Conversely, do not use a stronger/more expensive model as a substitute for missing tools.
+Do not interpret a model benchmark failure as proof that the model is bad until the same input evidence and execution capability are available. Conversely, do not use a stronger/more expensive model as a substitute for missing tools or workflow guidance.
 
 ## Agentic-coding workspace rule
 
@@ -109,7 +136,8 @@ Direct Codex succeeded partly because it had a real coding harness. The product 
 - taskbook/site/reference/source files are not writable roots;
 - original repository/source code is not a writable modeling root;
 - dynamic SketchUp tools still require the verified disposable model boundary;
-- never use `danger-full-access` for the modeling runtime.
+- never use `danger-full-access` for the modeling runtime;
+- for image reconstruction, keep `notes/reconstruction_card.md` and persistent Ruby source under `scripts/` so the same parameters/model can be revised across turns.
 
 ## Safety and repository hygiene
 
