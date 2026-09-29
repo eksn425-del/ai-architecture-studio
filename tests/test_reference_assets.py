@@ -43,4 +43,6 @@ def test_reference_image_data_url_and_label(tmp_path: Path) -> None:
 
     assert data_url.startswith("data:image/png;base64,")
     assert "precedent.png" in label
-    assert "first-class design evidence" in label
+    assert "first-class visual evidence" in label
+    assert "image-reconstruction mode" in label
+    assert "target appearance" in label
