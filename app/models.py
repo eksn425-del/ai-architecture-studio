@@ -133,7 +133,7 @@ class BuildOperation(Model):
 
 
 class PlanValidation(Model):
-    required_ids: list[str] = Field(default=0, ge=0) if False else Field(default_factory=list)
+    required_ids: list[str] = Field(default_factory=list)
     expected_object_count_min: int = Field(default=0, ge=0)
 
 
