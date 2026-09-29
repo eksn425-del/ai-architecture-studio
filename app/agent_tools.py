@@ -9,6 +9,7 @@ from typing import Any, Callable
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
+from .workspace_ruby import run_workspace_ruby
 
 
 @dataclass
@@ -102,9 +103,29 @@ class AgentToolSurface:
         if ruby_enabled:
             tools.append({
                 "type": "function",
+                "name": "sketchup_run_workspace_ruby",
+                "description": (
+                    "Execute a persistent Ruby file that the agent authored under the current agent_workspace/scripts directory. "
+                    "Prefer this over large one-off inline Ruby for non-trivial project-specific geometry: write/revise the file in the workspace, "
+                    "then run the same relative path again so the project keeps an inspectable coding history. Execution still goes through the same "
+                    "guarded disposable-model transaction used by sketchup_run_project_ruby."
+                ),
+                "inputSchema": {
+                    "type": "object",
+                    "required": ["script_id", "relative_path"],
+                    "properties": {
+                        "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
+                        "relative_path": {"type": "string", "pattern": "^scripts/[A-Za-z0-9_.-]+\\.rb$", "maxLength": 160},
+                    },
+                    "additionalProperties": False,
+                },
+            })
+            tools.append({
+                "type": "function",
                 "name": "sketchup_run_project_ruby",
                 "description": (
                     "Run task-specific Ruby source inside SketchUp on this verified disposable project model. "
+                    "Use this for short project-specific geometry snippets; for non-trivial or revisable work prefer sketchup_run_workspace_ruby. "
                     "Source is stored only in the ignored project runtime. Use the same script_id to revise the existing script/model; "
                     "each revision replaces geometry only inside this script's owned project root and returns transaction readback plus a screenshot. "
                     "The source must use the supplied local variables model and root. Do not access files, processes, network, reflection, other models, or whole-model edit/save APIs."
@@ -125,6 +146,15 @@ class AgentToolSurface:
 
     def dispatch(self, name: str, arguments: dict[str, Any], *, project_dir: Path,
                  project_ruby: ProjectRubyExecutor | None) -> dict[str, Any]:
+        if name == "sketchup_run_workspace_ruby":
+            if project_ruby is None:
+                raise MCPCallError("The workspace Ruby tool is not enabled for this session.")
+            return run_workspace_ruby(
+                project_ruby,
+                agent_workspace=project_dir / "runtime" / "agent_workspace",
+                arguments=arguments,
+            )
+
         if name == "sketchup_run_project_ruby":
             if project_ruby is None:
                 raise MCPCallError("The project Ruby tool is not enabled for this session.")
