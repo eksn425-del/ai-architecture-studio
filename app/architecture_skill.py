@@ -6,6 +6,7 @@ from pathlib import Path
 UPSTREAM_REVISION = "8be9ec80359cd90a7cfc5d9b03d2b0cf86188772"
 UPSTREAM_NAME = "Mentat-Uran/sketchup-architect-skill"
 VENDOR_ROOT = Path(__file__).resolve().parent / "vendor" / "sketchup_architect"
+SUPEX_GUIDE_PATH = Path(__file__).resolve().parent / "vendor" / "supex_agent_guide" / "WORKFLOW_EXCERPT.md"
 MAX_CONTEXT_CHARS = 12_500
 
 # The upstream skill correctly warns against blindly copying a precedent, but the
@@ -119,16 +120,24 @@ def _excerpt_section(section: str, max_chars: int) -> str:
     return "".join(output).strip()
 
 
+def _load_supex_workflow_excerpt() -> str:
+    if not SUPEX_GUIDE_PATH.is_file():
+        raise FileNotFoundError("Vendored Supex workflow excerpt is missing.")
+    return SUPEX_GUIDE_PATH.read_text(encoding="utf-8").strip()
+
+
 def load_architecture_skill_context(*, max_chars: int = MAX_CONTEXT_CHARS) -> str:
-    """Load a compact set of original upstream sections for an architecture turn."""
+    """Load compact reusable architecture + agentic SketchUp workflow context."""
     if max_chars < 512:
         raise ValueError("Architecture skill context limit must be at least 512 characters.")
     blocks = [
-        "Architecture workflow context (selectively reused under the MIT license).",
-        f"Source: {UPSTREAM_NAME} @ {UPSTREAM_REVISION}; see app/vendor/sketchup_architect/LICENSE.",
+        "Architecture workflow context (selectively reused under open-source licenses).",
+        f"Architecture source: {UPSTREAM_NAME} @ {UPSTREAM_REVISION}; see app/vendor/sketchup_architect/LICENSE.",
+        "Agentic SketchUp workflow source: darwin/supex selected guidance; see app/vendor/supex_agent_guide/LICENSE.",
         _PRECEDENT_FIDELITY_NOTE,
         _EXECUTION_REUSE_NOTE,
         _CODEX_PARITY_NOTE,
+        _load_supex_workflow_excerpt(),
     ]
     remaining = max_chars - sum(len(item) + 2 for item in blocks)
     for relative_path, headings in _SECTIONS:
