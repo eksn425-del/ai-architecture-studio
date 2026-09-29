@@ -30,7 +30,11 @@ def test_workspace_seeds_and_preserves_reconstruction_card(tmp_path: Path) -> No
     card = workspace / "notes" / "reconstruction_card.md"
 
     assert card.is_file()
-    assert "Floor count" in card.read_text(encoding="utf-8") or "Floor count" not in card.read_text(encoding="utf-8")
+    seeded = card.read_text(encoding="utf-8")
+    assert "Source and confidence" in seeded
+    assert "Facade depth stack" in seeded
+    assert "Pass 1" in seeded
+
     custom = "# Image reconstruction card\n\n- custom observation survives\n"
     card.write_text(custom, encoding="utf-8")
 
