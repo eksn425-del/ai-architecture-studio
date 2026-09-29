@@ -1,42 +1,78 @@
-# CURRENT TASK — finish SAIE repair, then validate Codex Parity v1 foundation
+# CURRENT TASK — Image → SketchUp v1
 
-## Status: Ready for Codex / Sol local execution
+## Status: Ready for Codex / Sol local integration
 
-ChatGPT has already completed the GitHub-side design and implementation work that can be done remotely. **Sol is the local coding/integration executor, not the product architecture model in this milestone.**
+The product focus has changed deliberately.
 
-Do not rediscover the architecture from scratch. Execute the two local validation tracks below in order.
+**Do not continue full taskbook/site/precedent architecture design yet.**
+
+The immediate product target is:
+
+> **one architectural reference image → cost-efficient multimodal model + strong Skill/MCP → developed editable SketchUp reconstruction**
+
+The quality reference is the user-provided PylonLab demonstration: a single facade image becomes a recognizable multi-storey SketchUp model with glazing modules, balconies, rails, layered facade depth, ground-floor special treatment, roof pergola/louvers and basic materials. We do not have Pylon's private Skill source and must not pretend we do.
+
+ChatGPT has already completed the GitHub-side work it can safely do remotely. **Sol is the local coding/integration executor for this milestone.**
+
+---
 
 ## Read in this exact order
 
 1. `AGENTS.md`
-2. `docs/SAIE_2024_SMOKE_REVIEW.md`
-3. `docs/CODEX_PARITY_V1.md`
-4. `docs/HANDOFF.md`
-5. `THIRD_PARTY_NOTICES.md`
-6. relevant code already written by ChatGPT:
-   - `app/codex_parity.py`
-   - `app/workspace_ruby.py`
-   - `app/agent_tools.py`
-   - `app/architecture_skill.py`
-   - `scripts/saie_2024_smoke.py`
-   - `scripts/codex_parity_smoke.py`
-   - `tests/test_codex_parity.py`
+2. `docs/IMAGE_TO_SKETCHUP_V1.md`
+3. `docs/HANDOFF.md`
+4. `app/image_to_sketchup_skill.py`
+5. `app/reference_assets.py`
+6. `app/codex_parity.py`
+7. `app/native_agent.py`
+8. `app/main.py`
+9. `app/static/index.html`
+10. `app/static/studio.js`
+11. `tests/test_image_to_sketchup.py`
+12. `tests/test_reference_assets.py`
 
-## Hard budget / scope rules
+Also review the already-integrated execution stack:
 
-- **Do not call Astra.**
-- Do not run a thesis/Jinshan architecture-quality benchmark.
-- Do not use Sol/Luna as the website architecture designer yet.
-- Sol may write code, run local tests, install/patch the pinned OSS checkout, execute deterministic SketchUp smoke tests and inspect screenshots.
-- Use only disposable/generated models and ignored `.local/` / `runtime/` paths.
-- Do not touch the user's thesis/source SKP/DWG.
-- Do not add another generic MCP server or a new custom wall/opening/roof engine.
+- SAIE compatibility patch and tools;
+- `app/agent_tools.py`;
+- `app/workspace_ruby.py`;
+- `sketchup_run_workspace_ruby`;
+- Kongxing readback/view tools.
 
 ---
 
-# TRACK A — finish SAIE 1.0.0 / SketchUp 2024 compatibility repair
+# What ChatGPT already changed
 
-## A0 — baseline
+Do not redo these from scratch:
+
+- added `app/image_to_sketchup_skill.py` with a source-first, three-pass reconstruction workflow;
+- added explicit `ConversationRequest.workflow_mode` with `image_reconstruction` / `architecture_design`;
+- changed reference-image guidance so reconstruction images are allowed to be the actual visual target instead of being weakened into generic precedent principles;
+- upgraded the persistent Agent workspace to seed `notes/reconstruction_card.md`;
+- documented the milestone in `docs/IMAGE_TO_SKETCHUP_V1.md`;
+- added focused tests for the reconstruction Skill/workspace/reference label.
+
+Your job is to finish the host/UI wiring, run local tests, and perform one real low-cost reconstruction benchmark.
+
+---
+
+# Hard scope / cost rules
+
+- **Do not call Astra.**
+- Do not run the thesis/Jinshan benchmark.
+- Do not combine taskbook + site + precedent in this milestone.
+- Do not add another generic MCP server.
+- Do not add a new custom wall/opening/slab/roof engine already covered by SAIE.
+- Use Sol as the website reconstruction model for the real benchmark; start with **low reasoning**.
+- If and only if the full image/tool pipeline is proven correct but Sol Low cannot reliably follow the guided workflow, one Sol Medium retry is allowed. Record both separately. Do not silently raise reasoning.
+- Use only disposable/generated SketchUp models.
+- Do not commit the user's reference image or generated SKP/screenshots unless they are explicitly sanitized public fixtures. Keep benchmark evidence under ignored `runtime/` and summarize it in `HANDOFF.md`.
+
+---
+
+# TRACK A — wire explicit reconstruction mode end-to-end
+
+## A1 — baseline
 
 Run:
 
@@ -46,204 +82,259 @@ git status
 .\scripts\check.ps1
 ```
 
-Confirm the repository includes ChatGPT's latest Codex-parity files and the worktree is clean before local edits.
+Fix concrete regressions from ChatGPT's remote changes first.
 
-Pinned SAIE revision remains:
+## A2 — backend workflow routing
 
-`eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f`
+Wire `ConversationRequest.workflow_mode` through the `/api/projects/{project_id}/conversation` path.
 
-Do not silently change upstream revisions.
+For `workflow_mode == "image_reconstruction"`:
 
-## A1 — focused opening diagnostic
+1. import/use `load_image_to_sketchup_skill_context()` instead of the broad architecture-design Skill;
+2. pass a reconstruction-specific prompt/developer instruction;
+3. make the Agent treat uploaded reference image(s) as the **visual target to reconstruct**, not merely precedent inspiration;
+4. explicitly tell it to ignore taskbook/site/program fields unless the user asks for them;
+5. require use of `notes/reconstruction_card.md` before substantial geometry;
+6. require the three-pass workflow from `docs/IMAGE_TO_SKETCHUP_V1.md`;
+7. keep the same persistent thread/model/workspace across revisions;
+8. include `workflow_mode` in conversation metadata / handoff evidence.
 
-Use a brand-new disposable SketchUp model.
+For `architecture_design`, preserve the existing behavior.
 
-The previous live run already proved SAIE loads in SketchUp `2024.0.484`, `saie ping` works and 59 tools are discovered. The remaining failure is localized to opening/metadata/verify.
+Do not route reconstruction through legacy DesignIR/BuildPlan.
 
-In ignored `.local/oss/saie`, test the already-identified minimal boolean correction first:
+## A3 — multimodal proof
 
-```ruby
-# pinned upstream currently
-new_wall = cutter.subtract(wall_group)
+Before spending a real reconstruction turn, prove that a file uploaded to:
 
-# diagnostic candidate
-new_wall = wall_group.subtract(cutter)
-```
+`inputs/reference/`
 
-Do not redesign the opening engine. Accept the change only if a single wall + door test produces a real visible void and editable native geometry.
-
-## A2 — metadata compatibility repair
-
-The previous live smoke read back:
-
-- `wall_spec: null`
-- `openings_spec: [null]`
-- `verify_model`: `undefined method '[]' for nil:NilClass`
-
-Implement the smallest compatibility patch in the ignored upstream checkout so wall/opening specs are serialized to a SketchUp-safe representation (JSON text is acceptable) and parsed when read.
-
-Patch only the upstream locations required for:
-
-- wall create/rebuild;
-- opening record/find/modify/delete;
-- query entity/deep-scan/export/verify.
+reaches the Codex App Server as a real `localImage` input during `image_reconstruction`.
 
 Requirements:
 
-- tolerate missing/malformed legacy values;
-- `verify_model` must never crash because one metadata entry is nil/malformed;
-- fresh `inspect_entity(W_SOUTH)` must return reconstructable wall/opening metadata;
-- no new home-grown project-state engine.
+- at least one real reference image;
+- filename/order visible in logs or controlled diagnostic evidence;
+- generated output screenshots must **not** be rediscovered as source images;
+- no fake OCR/text description substituted for the actual multimodal image.
 
-## A3 — full deterministic SAIE smoke
+If necessary, add a small test/diagnostic helper. Do not log private image bytes.
 
-Restart from a new disposable blank model and run:
+## A4 — UI mode selector
 
-```powershell
-.\.venv\Scripts\python.exe scripts\saie_2024_smoke.py
-```
+Add an explicit workflow selector to the web UI near the model tier:
 
-Full PASS requires, on the same model:
+- `图片 → SketchUp 复刻` (`image_reconstruction`) — make this the UI default for the current milestone;
+- `建筑方案设计` (`architecture_design`) — retain as secondary/legacy path.
 
-1. four stable-ID walls;
-2. visible real door opening in `W_SOUTH`;
-3. slab;
-4. 25-degree gable roof;
-5. successful `verify_model`;
-6. usable `inspect_entity(W_SOUTH)` metadata;
-7. screenshot/readback;
-8. successful `modify_wall` on `W_EAST`;
-9. delete + recreate/repair of `W_NORTH`;
-10. successful final verify;
-11. native editable SketchUp geometry.
+`studio.js` must send `workflow_mode` in the conversation request.
 
-If the focused patch succeeds, make it reproducible in our repository without vendoring SAIE wholesale:
+When reconstruction mode is selected, update the visible helper text so the user understands the minimal flow:
 
-- small patch file under `patches/saie/`;
-- deterministic apply/install script;
-- exact upstream revision guard;
-- pin/record the locally working MCP SDK (`mcp 1.30.0` worked in the previous live run);
-- update `THIRD_PARTY_NOTICES.md` only as needed.
+1. upload one reference image;
+2. start the disposable SketchUp Agent session;
+3. say e.g. `按这张图尽可能还原成可编辑 SketchUp 模型`;
+4. the Agent will inspect, build, screenshot and revise.
 
-If a small patch cannot make this reliable and would turn into a large fork, stop Track A and record **REJECT SAIE 2024** with the exact blocker. Do not keep expanding the patch indefinitely.
+Do not require taskbook/site inputs in this mode.
 
 ---
 
-# TRACK B — validate ChatGPT's Codex Parity v1 foundation
+# TRACK B — strengthen the cheap-model reconstruction harness
 
-Start Track B after Track A reaches either PASS or a documented REJECT decision. Track B itself does not require an architecture model.
+## B1 — independent method-card behavior
 
-## B0 — repository tests for the new parity code
+Use the repo-owned `notes/reconstruction_card.md` as an operational card, not decoration.
 
-Run `scripts/check.ps1` after pulling ChatGPT's changes.
+Before geometry the Agent must fill at least:
 
-Fix only concrete regressions in the newly added parity code. Do not remove the reuse-first architecture merely to satisfy an old assumption.
+- view type/confidence;
+- assumed scale anchor;
+- overall proportions;
+- floor count/levels;
+- bay/grid rhythm;
+- major solids/voids;
+- facade depth stack;
+- repeated modules;
+- balcony/canopy/roof logic;
+- material/color zones;
+- unseen-depth assumptions.
 
-Confirm tests cover:
+The card must persist into later turns and be revised rather than recreated.
 
-- persistent workspace seeding without overwriting agent files;
-- workspace Ruby path confinement to `agent_workspace/scripts/`;
-- `sketchup_run_workspace_ruby` exposure;
-- continued hiding of raw `sketchup_eval_project_file` from the agent surface.
+## B2 — execution strategy
 
-## B1 — inspect the persistent workspace created by the product
+Prefer:
 
-For a disposable project, verify this exists:
+1. SAIE for ordinary semantic construction/query/edit;
+2. persistent workspace Ruby for repeated facade systems and custom geometry;
+3. Kongxing for verified document identity/lifecycle/view operations;
+4. ArchFlow only if directly useful.
 
-```text
-runtime/projects/<project>/runtime/agent_workspace/
-├─ README.md
-├─ .architecture-studio.json
-├─ notes/design_notes.md
-├─ scripts/
-└─ qa/
-```
+For repeated facade elements:
 
-Edit `notes/design_notes.md`, re-run the seeding path, and prove the existing note is preserved.
+- build one representative module;
+- inspect it;
+- use SketchUp component definitions/instances or an equivalent shared recipe;
+- drive repetition from shared parameters.
 
-## B2 — deterministic file-based modeling smoke
+Do not model every window/rail/louver as an unrelated one-off object if a repeated module is obvious.
 
-Prepare/open a verified disposable model whose path is under:
+## B3 — inspect public donor projects, but do not restart architecture design
 
-`runtime/projects/codex-parity-smoke/outputs/model/`
+Review current public code only for directly reusable reconstruction mechanics:
 
-and whose filename begins with:
+### Stultus — Apache-2.0
 
-`blank-disposable-`
+Inspect portable code/ideas around:
 
-Then run exactly:
+- `execute_ruby`;
+- scene readback;
+- viewport screenshot;
+- one-step Undo/transaction;
+- selection/entity context;
+- continued Codex session.
 
-```powershell
-.\.venv\Scripts\python.exe scripts\codex_parity_smoke.py
-```
+Reuse only pieces that improve our current Windows + SketchUp 2024 stack. Do not replace the working connector merely because Stultus has another bridge.
 
-This script does **not** call Astra/Luna/Sol for architecture. It validates the direct-Codex-style project coding loop that ChatGPT added:
+### Supex — MIT
 
-1. write `agent_workspace/scripts/parity_geometry.rb` revision 1;
-2. execute it through the existing guarded `ProjectRubyExecutor`;
-3. revise the same file;
-4. execute revision 2 on the same owned project root;
-5. prove revision progression `[1, 2]` and the same `root_pid`;
-6. capture `iso`, `top`, `south`, `east` screenshots;
-7. preserve the Ruby file and ignored evidence for inspection.
+Keep/reuse the persistent script + execute → inspect → revise pattern and exact entity introspection helpers where portable.
 
-PASS requires ordinary editable SketchUp geometry and a real source file that remains available for the next turn/revision.
+### ADAI SketchUp Skill + Managed MCP — CPAL-1.0
 
-If the deterministic script reveals a small repo-owned bug, fix the glue. Do not replace the workflow with another one-shot inline generator.
+Study only the public workflow concepts relevant to this milestone:
 
-## B3 — composed tool surface
+- source-first reconstruction;
+- method/task cards;
+- guided vs autonomous execution;
+- visual evidence/review;
+- experience-pack idea.
 
-With the locally available backends enabled, prove the website tool surface still composes rather than replaces:
+**Do not copy ADAI covered source into this repository without a separate license/compliance decision.** The repo-owned reconstruction Skill must remain independently authored.
 
-- Kongxing named tools;
-- namespaced `saie__...` tools if Track A passed;
-- `sketchup_run_workspace_ruby`;
-- guarded short-inline `sketchup_run_project_ruby` as fallback;
-- ArchFlow where configured.
+### PylonLab demonstration
 
-Raw `sketchup_eval_project_file`, imported raw Ruby escape tools and unsafe whole-document lifecycle operations must remain hidden from the model-facing surface.
-
-## B4 — architecture-skill context
-
-Verify `load_architecture_skill_context()`:
-
-- remains within its configured context bound;
-- still contains the essential SketchUp Architect sections used by existing tests;
-- includes persistent project-coding / execute-inspect-revise guidance;
-- includes the vendored selected Supex workflow guidance;
-- retains strong-precedent adaptation behavior.
-
-If the extra Supex context pushes required architecture sections out of the bounded context, compact the selected Supex excerpt/context rather than deleting the parity workflow.
-
-## B5 — standalone workspace-write remains user-side acceptance
-
-Do not fight the outer Codex sandbox.
-
-If not already run, leave this exact command for the user to execute later from **ordinary Windows PowerShell outside Codex**:
-
-```powershell
-.\.venv\Scripts\python.exe scripts\workspace_write_probe.py
-```
-
-Mark it `BLOCKED PENDING USER POWERSHELL RUN` until real evidence exists.
+Use only as a visible quality target inferred from the user's screenshots. No public source has been established, so there is nothing to copy.
 
 ---
 
-# What NOT to do after the deterministic passes
+# TRACK C — real one-image benchmark with Sol
 
-Do not automatically continue into:
+Do this only after Tracks A/B tests pass.
 
-- Jinshan thesis benchmark;
-- Astra architecture generation;
-- Luna/Sol model-quality comparison;
-- rendering/productization/auth/billing;
-- more custom create_xxx geometry tools.
+## C0 — user/local source image
 
-The next expensive architecture benchmark will be authorized only after ChatGPT reviews this foundation.
+Use one local architectural exterior/facade reference image that the user supplies or explicitly chooses. Keep it in ignored project `inputs/reference/`; do not commit it.
+
+Prefer a source with medium complexity similar to the Pylon example:
+
+- 3–5 storeys;
+- repeated glazing bays;
+- balconies/rails;
+- a distinctive roof/canopy/pergola;
+- at least one special ground-floor zone;
+- visible material/color changes.
+
+## C1 — start clean
+
+Create a new project and a brand-new verified `blank-disposable-*.skp`.
+
+Set:
+
+- workflow: `image_reconstruction`;
+- tier: Economy;
+- product model: Sol;
+- reasoning: **low** for the first run.
+
+Do not provide a taskbook or site. The point is pure image → model.
+
+## C2 — first user instruction
+
+Use a short natural instruction, not a giant benchmark prompt, for example:
+
+> 按这张参考图尽可能还原成可编辑的 SketchUp 建筑模型。先分析比例、层数、开间、阳台/开口、屋顶和材质分区，再建模；完成后对照参考图看截图并自己修正明显差异。
+
+The strength must come from the Skill/MCP/workflow, not from a one-off giant prompt.
+
+## C3 — required modeling passes
+
+The same Agent turn/session may use many tools. Evidence must show:
+
+### Pass 1
+
+- global envelope;
+- storey levels;
+- bay rhythm;
+- major recess/projection;
+- main balcony/terrace masses;
+- main roof/canopy;
+- largest openings/voids.
+
+### Pass 2
+
+- repeated glazing/door modules;
+- frames/mullions;
+- balcony railings;
+- louvers/pergola/fins where visible;
+- ground-floor special treatment;
+- major material/color zones.
+
+### Pass 3
+
+- source-matched screenshot;
+- oblique/isometric screenshot;
+- Agent states concrete visual mismatches;
+- Agent modifies the **same model / same persistent script(s)**;
+- final screenshots captured again.
+
+## C4 — acceptance
+
+PASS only if the model is visibly a developed reconstruction, not merely a working tool demo.
+
+Required where visible in the source:
+
+- approximate floor count correct;
+- major bay count/rhythm correct;
+- recognizable overall proportions/silhouette;
+- balconies/recesses/projections represented with depth;
+- repeated windows/doors as editable systems;
+- roof/canopy/pergola logic represented;
+- at least two facade depth layers;
+- basic material/color zoning;
+- editable named groups/components;
+- source-matched screenshot QA;
+- at least one self-correction after visual inspection.
+
+**Automatic FAIL:** primarily a few white boxes, flat facade without source-defining depth, no visual comparison, or tool-success claims without resemblance.
+
+## C5 — cost evidence
+
+Record:
+
+- model and reasoning effort;
+- total latency;
+- input/output tokens when available;
+- tool call count and failures;
+- number of modeling/revision passes;
+- whether Sol Low passed.
+
+If Sol Low fails after the workflow/toolchain is clearly functioning, one Sol Medium retry is allowed using a new blank model and the same source/instruction. Do not call Astra.
 
 ---
 
-# Final verification and handoff
+# Tests to add/fix
+
+At minimum cover:
+
+- `ConversationRequest.workflow_mode`;
+- reconstruction Skill context bound and required quality gates;
+- reconstruction card seeding + preservation;
+- reference-image label no longer forces anti-copy behavior;
+- conversation routing selects image reconstruction context when requested;
+- UI sends `workflow_mode`;
+- architecture-design path remains backward compatible;
+- generated screenshots are not treated as source references.
 
 Run:
 
@@ -253,31 +344,28 @@ git diff --check
 git status
 ```
 
-Update `docs/HANDOFF.md` with a compact evidence table containing:
+---
+
+# Handoff requirements
+
+Update `docs/HANDOFF.md` with:
 
 - starting repo SHA;
-- SketchUp version;
-- SAIE Track A outcome: PASS or documented REJECT;
-- exact compatibility patch files if any;
-- full SAIE deterministic smoke gates;
-- Codex parity workspace seed PASS/FAIL;
-- persistent Ruby revision `[1,2]` + same-root PASS/FAIL;
-- paths of the four parity screenshots/evidence;
-- composed tool-surface inventory;
-- architecture-skill bounded-context test result;
-- `scripts/check.ps1` count/result;
-- standalone workspace-write status;
-- remaining blockers.
+- code changes made locally;
+- test count/result;
+- exact SketchUp version;
+- exact Sol model + reasoning used for the benchmark;
+- proof actual source image reached the model;
+- reconstruction-card path and summary;
+- tool surface used (SAIE/Kongxing/workspace Ruby counts or relevant calls);
+- screenshot/evidence paths under ignored runtime;
+- whether the Agent performed a visual self-correction;
+- quality checklist PASS/FAIL item by item;
+- cost/time/token evidence;
+- blockers and next step.
 
-Commit only repo-owned files, push `origin/main`, verify the remote SHA, then **stop** and wait for ChatGPT review.
+Commit repo-owned files, push `origin/main`, verify remote SHA, then **stop**. Do not automatically move on to taskbook/site/new-design generation.
 
 ## Milestone acceptance
 
-This milestone passes when:
-
-- the mature execution stack has a clear SAIE decision;
-- persistent file-based project Ruby works end-to-end on a disposable SketchUp model;
-- the same source can be revised and re-run on the same owned model root;
-- multi-view evidence is produced;
-- semantic OSS tools remain composed beside project-specific coding;
-- no architecture-quality model quota was spent.
+Image → SketchUp v1 is accepted only when a **cost-efficient Sol run** can take one real image and produce a recognizably similar, developed, editable SketchUp model through the product workflow. Connection/tool smoke success alone is not acceptance.
