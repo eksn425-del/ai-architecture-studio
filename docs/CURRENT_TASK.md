@@ -178,22 +178,30 @@ Do not require taskbook/site fields in image reconstruction mode. Keep them visu
 
 ---
 
-# TRACK E — workspace-write prerequisite
+# TRACK E — workspace-write external acceptance (non-blocking during Codex work)
 
-The previous nested Codex host blocked the App Server write probe. Do not bypass it.
-
-From an **ordinary PowerShell outside the Codex host**, run the existing standalone probe. Use Sol Low for parity unless the script requires an explicit flag:
+The previous nested Codex host blocked the App Server write probe because the outer coding host imposed its own filesystem policy. The repository therefore contains a standalone acceptance probe for a **normal PowerShell outside the Codex host**:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\workspace_write_probe.py --model gpt-6-sol --effort low
 ```
 
-Required:
+The eventual acceptance result should prove:
 
 - write inside `agent_workspace` succeeds;
 - write outside the allowed workspace is denied/absent.
 
-If this still fails, diagnose supported Codex sandbox configuration before running the expensive/full reconstruction turn.
+**Important execution rule:** this external probe is **not a reason to interrupt the user or stop ordinary Codex coding/integration work**.
+
+When running inside Codex:
+
+1. do not repeatedly ask the user to open PowerShell at the beginning of the task;
+2. if the nested host cannot prove the external sandbox behavior, record `workspace_write_external = pending` in HANDOFF and continue Tracks A–D and F;
+3. continue all repository code work, tests, UI work, tool-profile integration and competitor observation that do not require this external proof;
+4. request the one-time ordinary-PowerShell probe only immediately before the first real website reconstruction benchmark **if no equivalent live website run has already demonstrated workspace write success**;
+5. never bypass sandbox/approval controls merely to make the probe pass.
+
+A pending external probe is therefore **not a blocker for coding or competitor inspection**. It is only a final runtime acceptance gate before claiming the website reconstruction benchmark is valid.
 
 ---
 
@@ -234,7 +242,10 @@ with sections `Observed facts`, `Inference`, `Implications for our product`.
 
 # TRACK G — real parity benchmark
 
-Only after Tracks A–E pass.
+Proceed after Tracks A–D are integrated and tested. Track E may remain `pending_external` while coding continues, but **before claiming a real website geometry benchmark as valid**, obtain either:
+
+- the standalone ordinary-PowerShell workspace-write PASS; or
+- equivalent direct evidence from a normal website launch outside the nested Codex host showing the Agent can write its workspace while protected inputs remain unchanged.
 
 Use the **same reference image** that already produced a good result in direct Codex.
 
