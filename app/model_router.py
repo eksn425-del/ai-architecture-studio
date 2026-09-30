@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from .litellm_runtime import LiteLLMRuntime
-from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
+from .native_agent import NativeAgentUnavailable
 
 
 RoutingTier = Literal["economy", "premium"]
@@ -34,7 +34,7 @@ def _reasoning_effort(env_name: str, default: str) -> str:
 
 
 class DeterministicModelRouter:
-    """Two explicit tiers over replaceable providers; no model judges its own route."""
+    """Explicit replaceable model tiers; the Skill/Agent/bridge stack is shared."""
 
     def __init__(self, codex_runtime: Any, china_runtime: LiteLLMRuntime | None = None,
                  runtime_root: Path | None = None):
@@ -50,7 +50,9 @@ class DeterministicModelRouter:
             economy_model = os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-sol")
             if "astra" in economy_model.casefold():
                 raise ValueError("Economy cannot use an Astra model; select Premium explicitly for GPT-6 Astra.")
-            economy_effort = _reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "medium")
+            # Direct-Codex evidence shows Sol Low is already capable when the harness is strong.
+            # Keep Low as the product/parity baseline; improve Skill/Harness before raising effort.
+            economy_effort = _reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "low")
             self.economy_route = ModelRoute(
                 "economy", "codex-app-server", economy_model, economy_effort, "codex-managed (not exposed)",
             )
@@ -87,7 +89,7 @@ class DeterministicModelRouter:
         if not bool(getattr(provider, "available", False)):
             if selection.provider == "litellm":
                 raise NativeAgentUnavailable(
-                    "The Qwen Economy provider is configured but unavailable. Set DASHSCOPE_API_KEY or switch Economy to the local Codex provider."
+                    "The configured Economy provider is unavailable. Check its credential/dependency or switch Economy to the local Codex provider."
                 )
             raise NativeAgentUnavailable("The local Codex App Server is unavailable.")
         return provider.respond(
