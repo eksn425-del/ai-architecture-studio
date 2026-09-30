@@ -185,7 +185,8 @@ class AgentSession(Model):
     provider: str = "codex-app-server"
     region: str = "codex-managed (not exposed)"
     workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"
-    reconstruction_state: Literal["idle", "planned", "building"] = "idle"
+    reconstruction_state: Literal["idle", "clarifying", "planned", "building"] = "idle"
+    clarification_rounds: int = Field(default=0, ge=0, le=8)
     input_tokens: int | None = None
     output_tokens: int | None = None
     latency_ms: int = 0
@@ -281,7 +282,7 @@ class ConversationRequest(Model):
     message: str = Field(min_length=1, max_length=1200)
     tier: Literal["economy", "premium"] = "economy"
     workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"
-    agent_action: Literal["auto", "plan", "execute"] = "auto"
+    agent_action: Literal["auto", "clarify", "plan", "execute"] = "auto"
     project_name: str = ""
     brief: str = ""
     site_note: str = ""
