@@ -4,13 +4,38 @@ import base64
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Literal
 
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workspace_ruby import run_workspace_ruby
+
+
+ToolProfile = Literal["full", "reconstruction_coding"]
+
+_RECONSTRUCTION_KONGXING_KEYWORDS = (
+    "health", "context", "inspect", "select", "view", "camera", "undo", "transform",
+)
+_RECONSTRUCTION_SAIE_TOOLS = {
+    "scene_summary",
+    "inspect_entity",
+    "verify_model",
+    "view_snapshot",
+    "capture_canonical",
+    "deep_scan",
+    "export_model_json",
+    "create_wall",
+    "modify_wall",
+    "delete_wall",
+    "cut_opening",
+    "modify_opening",
+    "delete_opening",
+    "create_slab",
+    "create_roof",
+    "batch_operations",
+}
 
 
 @dataclass
@@ -22,11 +47,13 @@ class AgentToolContext:
 
 
 class AgentToolSurface:
-    """Compose the existing Kongxing bridge with reusable OSS execution engines.
+    """Compose the existing SketchUp bridge with reusable OSS execution engines.
 
-    Kongxing remains the verified model-identity/lifecycle bridge. Optional OSS
-    backends contribute mature modeling/query/CAD operations under a namespaced
-    dynamic-tool surface rather than being reimplemented here.
+    ``full`` preserves the broad architecture tool surface.
+    ``reconstruction_coding`` intentionally keeps a much smaller Direct-Codex-like
+    surface: persistent Ruby is primary, the connector handles view/readback/lifecycle,
+    and selected SAIE semantic tools remain available as helpers. This prevents a cheap
+    model from spending its context choosing among dozens of overlapping operations.
     """
 
     def __init__(self, runtime_root: Path, sketchup_mcp: ConfiguredSketchUpMCP,
@@ -37,7 +64,8 @@ class AgentToolSurface:
 
     def prepare(self, *, project_dir: Path, mcp_enabled: bool, model_path: Path | None,
                 model_guid: str, ruby_enabled: bool,
-                ruby_state: dict[str, dict[str, Any]] | None) -> AgentToolContext:
+                ruby_state: dict[str, dict[str, Any]] | None,
+                tool_profile: ToolProfile = "full") -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
@@ -49,7 +77,10 @@ class AgentToolSurface:
                 self.runtime_root, project_dir.name, expected_model_path=model_path,
                 expected_model_guid=model_guid, mcp=self.sketchup_mcp, ruby_state=ruby_state,
             )
-        dynamic_tools = self.dynamic_tools(ruby_enabled=executor is not None) if mcp_enabled else []
+        dynamic_tools = self.dynamic_tools(
+            ruby_enabled=executor is not None,
+            tool_profile=tool_profile,
+        ) if mcp_enabled else []
         return AgentToolContext(
             dynamic_tools=dynamic_tools,
             dispatch=lambda name, arguments: self.dispatch(
@@ -61,7 +92,27 @@ class AgentToolSurface:
     def _dynamic_tool(name: str, description: str, schema: dict[str, Any]) -> dict[str, Any]:
         return {"type": "function", "name": name, "description": description, "inputSchema": schema}
 
-    def dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
+    @staticmethod
+    def _allow_kongxing(name: str, tool_profile: ToolProfile) -> bool:
+        if tool_profile == "full":
+            return True
+        folded = name.casefold()
+        if name in {"sketchup_eval_project_file", "sketchup_create_mass", "sketchup_create_road"}:
+            return False
+        return any(keyword in folded for keyword in _RECONSTRUCTION_KONGXING_KEYWORDS)
+
+    @staticmethod
+    def _allow_backend_tool(backend_id: str, raw_name: str, tool_profile: ToolProfile) -> bool:
+        if tool_profile == "full":
+            return True
+        if backend_id == "saie":
+            return raw_name in _RECONSTRUCTION_SAIE_TOOLS
+        # ArchFlow and other broad backends are useful later, but they add noise to
+        # the single-image reconstruction loop and are therefore hidden here.
+        return False
+
+    def dynamic_tools(self, *, ruby_enabled: bool = False,
+                      tool_profile: ToolProfile = "full") -> list[dict[str, Any]]:
         try:
             discovered = self.sketchup_mcp.list_tools()
         except (ConnectorUnavailable, MCPCallError) as error:
@@ -74,6 +125,8 @@ class AgentToolSurface:
             if not isinstance(name, str) or not isinstance(schema, dict) or name in seen:
                 continue
             if name == "sketchup_eval_project_file" or name.startswith("archflow_"):
+                continue
+            if not self._allow_kongxing(name, tool_profile):
                 continue
             seen.add(name)
             tools.append(self._dynamic_tool(
@@ -93,13 +146,15 @@ class AgentToolSurface:
                 schema = item.get("inputSchema")
                 if not isinstance(raw_name, str) or not isinstance(schema, dict):
                     continue
+                if not self._allow_backend_tool(backend_id, raw_name, tool_profile):
+                    continue
                 public_name = f"{backend_id}__{raw_name}"
                 if public_name in seen:
                     continue
                 seen.add(public_name)
                 tools.append(self._dynamic_tool(
                     public_name,
-                    f"[{backend_id} reusable OSS backend] {str(item.get('description') or raw_name)}",
+                    f"[{backend_id} reusable OSS helper] {str(item.get('description') or raw_name)}",
                     schema,
                 ))
 
@@ -108,10 +163,11 @@ class AgentToolSurface:
                 "type": "function",
                 "name": "sketchup_run_workspace_ruby",
                 "description": (
-                    "Execute a persistent Ruby file that the agent authored under the current agent_workspace/scripts directory. "
-                    "Prefer this over large one-off inline Ruby for non-trivial project-specific geometry: write/revise the file in the workspace, "
-                    "then run the same relative path again so the project keeps an inspectable coding history. Execution still goes through the same "
-                    "guarded disposable-model transaction used by sketchup_run_project_ruby."
+                    "PRIMARY project-specific modeling tool. Execute a persistent Ruby file authored under "
+                    "agent_workspace/scripts. For image reconstruction, prefer this for repeated/custom geometry, "
+                    "components, facade systems, canopies, louvers and other source-specific work. Revise and rerun the "
+                    "same file so the project keeps an inspectable coding history. The guarded transaction returns "
+                    "model readback plus a screenshot."
                 ),
                 "inputSchema": {
                     "type": "object",
@@ -123,26 +179,25 @@ class AgentToolSurface:
                     "additionalProperties": False,
                 },
             })
-            tools.append({
-                "type": "function",
-                "name": "sketchup_run_project_ruby",
-                "description": (
-                    "Run task-specific Ruby source inside SketchUp on this verified disposable project model. "
-                    "Use this for short project-specific geometry snippets; for non-trivial or revisable work prefer sketchup_run_workspace_ruby. "
-                    "Source is stored only in the ignored project runtime. Use the same script_id to revise the existing script/model; "
-                    "each revision replaces geometry only inside this script's owned project root and returns transaction readback plus a screenshot. "
-                    "The source must use the supplied local variables model and root. Do not access files, processes, network, reflection, other models, or whole-model edit/save APIs."
-                ),
-                "inputSchema": {
-                    "type": "object",
-                    "required": ["script_id", "ruby_source"],
-                    "properties": {
-                        "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
-                        "ruby_source": {"type": "string", "maxLength": 120000},
+            if tool_profile == "full":
+                tools.append({
+                    "type": "function",
+                    "name": "sketchup_run_project_ruby",
+                    "description": (
+                        "Run a short task-specific Ruby snippet inside SketchUp on this verified disposable project model. "
+                        "For non-trivial or revisable work prefer sketchup_run_workspace_ruby. Source is stored only in the "
+                        "ignored project runtime. Use the same script_id to revise the existing script/model."
+                    ),
+                    "inputSchema": {
+                        "type": "object",
+                        "required": ["script_id", "ruby_source"],
+                        "properties": {
+                            "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
+                            "ruby_source": {"type": "string", "maxLength": 120000},
+                        },
+                        "additionalProperties": False,
                     },
-                    "additionalProperties": False,
-                },
-            })
+                })
         if not tools:
             raise RuntimeError("The configured SketchUp tool stack returned no callable schemas.")
         return tools
