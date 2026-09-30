@@ -7,13 +7,13 @@ from .image_to_sketchup_skill import load_image_to_sketchup_skill_context
 
 
 WorkflowMode = Literal["architecture_design", "image_reconstruction"]
-AgentAction = Literal["auto", "plan", "execute"]
+AgentAction = Literal["auto", "clarify", "plan", "execute"]
 ToolProfile = Literal["full", "reconstruction_coding"]
 
 
 def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool) -> str:
-    # Planning turns still need the reconstruction Skill even when SketchUp tools
-    # are withheld. Architecture-design keeps its historical behavior.
+    # Clarification/planning turns still need the reconstruction Skill even when
+    # SketchUp tools are withheld. Architecture-design keeps its historical behavior.
     if mode == "image_reconstruction":
         return load_image_to_sketchup_skill_context()
     if not mcp_enabled:
@@ -32,15 +32,17 @@ def workflow_reference_categories(mode: WorkflowMode) -> tuple[str, ...]:
 def workflow_prompt_note(mode: WorkflowMode, action: AgentAction = "auto") -> str:
     if mode == "image_reconstruction":
         stage = (
-            "This is a PLANNING turn: inspect the reference image, update notes/reconstruction_card.md, propose a compact geometry plan, and do not edit SketchUp geometry."
+            "This is a CLARIFICATION turn: inspect the reference image, identify only the high-impact unknowns that materially change the model, ask at most four concise questions, and do not edit SketchUp geometry."
+            if action == "clarify" else
+            "This is a PARAMETER/PLAN turn: use the user's answers plus the image to update notes/reconstruction_card.md with explicit assumptions and estimated dimensions, propose a compact geometry plan, and do not edit SketchUp geometry."
             if action == "plan" else
             "This is an EXECUTION turn: use the approved reconstruction card/plan, author or revise persistent Ruby, build in the same disposable SketchUp model, inspect screenshots/readback, and correct visible mismatches before replying."
             if action == "execute" else
-            "Follow the reconstruction session state: plan before the first substantial build; after approval, continue execution/revision on the same model and persistent scripts."
+            "Follow the reconstruction lifecycle: clarify important unknowns first, then parameterize/plan, then execute only after approval, and continue revisions on the same model/scripts."
         )
         return (
-            "Current workflow: IMAGE_TO_SKETCHUP_RECONSTRUCTION. The uploaded files under inputs/reference are the visual "
-            "target to reconstruct as editable SketchUp geometry. Ignore taskbook, site, program and unrelated design context. "
+            "Current workflow: IMAGE_TO_SKETCHUP_RECONSTRUCTION. Files under inputs/reference are the visual target to "
+            "reconstruct as editable SketchUp geometry. Ignore taskbook, site, program and unrelated design context. "
             "Do not weaken the source into generic precedent principles. " + stage
         )
     return (
@@ -57,17 +59,25 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
         "The static source guard is not a sandbox. Work only on the verified blank-disposable model."
     )
     if mode == "image_reconstruction":
-        if action == "plan":
+        if action == "clarify":
             task = (
-                "You are the image-to-SketchUp reconstruction planner. Inspect the actual source image(s), update "
-                "notes/reconstruction_card.md, infer coherent proportions/modules, and return a concise construction plan for "
-                "approval. Do not edit SketchUp geometry in this turn."
+                "You are the image-to-SketchUp reconstruction requirements agent. Inspect the actual source image. Ask only "
+                "questions whose answers materially change reconstruction: intended use/viewing, scope, any known dimension, "
+                "permission to infer unseen geometry, and desired detail level. Ask no more than four concise questions. "
+                "If the user already supplied an answer, do not ask it again. Do not edit SketchUp geometry."
+            )
+        elif action == "plan":
+            task = (
+                "You are the image-to-SketchUp reconstruction planner. Convert the image plus confirmed answers into a "
+                "practical parameter card: scope, assumptions, coherent estimated dimensions, levels/bays, major solids/voids, "
+                "repeated components, roof/canopy, materials and persistent-script plan. Clearly label inferred values as estimates. "
+                "Update notes/reconstruction_card.md and return the compact plan for approval. Do not edit SketchUp geometry."
             )
         else:
             task = (
                 "You are the image-to-SketchUp reconstruction coding agent. The source image is the target appearance. "
                 "Use the approved reconstruction card. Prefer persistent workspace Ruby/components for project-specific and "
-                "repeated geometry; use SAIE as a helper for ordinary semantic elements. Execute, inspect actual screenshots/model "
+                "repeated geometry; use SAIE only as a helper for ordinary semantic elements. Execute, inspect actual screenshots/model "
                 "state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing."
             )
     else:
