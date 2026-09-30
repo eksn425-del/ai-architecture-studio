@@ -13,21 +13,39 @@ This Skill reconstructs visible architecture from user-supplied reference image(
 
 The final model should be recognizable from the source viewpoint and editable as organized SketchUp groups/components. A few white boxes are an automatic failure when the source visibly contains developed roofs, balconies, openings, frames, louvers, rails, facade depth or material zoning.
 
-## Working method
+## Core workflow
 
-Use a Direct-Codex-like coding loop:
+Use a professional reconstruction loop:
 
-**inspect source → write/update reconstruction card → propose geometry plan → approval → author/revise persistent Ruby → execute → inspect screenshot/model → revise the same scripts/model**.
+**inspect source → clarify high-impact unknowns → parameterize assumptions → user approval → author/revise persistent Ruby → execute → inspect screenshots/model → revise the same scripts/model**.
 
-For image reconstruction, persistent workspace Ruby is the primary authoring mechanism for repeated or custom geometry. Use SAIE only as a mature helper for ordinary semantic construction/query/edit where it is simpler. Kongxing remains the verified SketchUp bridge, lifecycle and viewport/readback boundary. Do not create dozens of unrelated one-off tool calls when one parameterized script/component system can express the visible pattern.
+Do not start substantial geometry while scope, scale/inference policy or requested detail is still unclear.
 
-## Method card A — source decomposition
+## Method card A — clarify only what changes the model
 
-Before geometry, inspect every source image and update `notes/reconstruction_card.md` with:
+Before planning, inspect the image and ask only the questions that materially affect reconstruction. Maximum four concise questions per clarification turn.
 
-- source view type and confidence;
-- one coherent inferred scale anchor if no measurement exists;
-- overall width / height / likely depth;
+Priority questions:
+
+1. **Use / viewing requirement** — only match the source view, or must the model support multi-angle viewing and later editing?
+2. **Scope** — which visible parts must be modeled: main building, bridge, chimney, landscape/hardscape, simple vegetation, interior glimpses?
+3. **Known scale** — is any reliable dimension known (overall width/depth, floor height, opening width, chimney height, etc.)? One anchor is enough.
+4. **Inference / detail** — may unseen backsides/depths be reasonably inferred, and what visible detail level matters?
+
+Do not ask questions already answered by the user. Do not ask about low-impact micro-details. If there is no known size, propose a coherent visual estimate later instead of blocking.
+
+## Method card B — parameter card, not vague prose
+
+After the user's clarification response, update `notes/reconstruction_card.md` with a compact parameter card. Clearly separate **known**, **estimated**, and **assumed** values.
+
+Record:
+
+- intended use / required views;
+- included and excluded scope;
+- known dimension anchor, if any;
+- unseen-geometry policy;
+- requested detail level;
+- overall width / height / inferred depth;
 - floor count and floor-line heights;
 - bay count / main axes;
 - major solids and negative spaces;
@@ -37,39 +55,32 @@ Before geometry, inspect every source image and update `notes/reconstruction_car
 - roof/parapet/overhang profile;
 - major material/color zones;
 - repeated elements that should be components/instances;
-- conservative assumptions for unseen geometry.
+- persistent script/component plan.
 
-Do not block on exact dimensions. Preserve proportions first and make shared dimensions easy to revise later.
+Estimated dimensions are a modeling baseline, not a claim of real-world measurement. Preserve source proportions first and make shared dimensions easy to revise later.
 
-## Method card B — geometry plan before execution
+## Method card C — explicit approval gate
 
-Before the first substantial build, summarize a compact construction plan for user approval. It should describe:
+Before the first substantial build, summarize the parameter/construction plan for approval. The user must be able to see the important assumptions and change them before SketchUp is edited.
 
-1. primary envelope and levels;
-2. bay/module grid;
-3. main voids/recesses/projections;
-4. facade depth layers;
-5. repeated component families;
-6. roof/canopy/pergola strategy;
-7. major material zones;
-8. the persistent Ruby files/components you intend to use.
+Planning is not completion. In clarify/plan mode do not edit SketchUp geometry.
 
-Planning is not completion. In plan mode do not edit SketchUp geometry.
+## Method card D — Pass 1: recognizable primary form
 
-## Method card C — Pass 1: recognizable primary form
+After approval, use persistent workspace Ruby as the primary project-specific authoring mechanism. Use SAIE only as a helper for ordinary semantic elements when it is genuinely simpler.
 
-After approval, build the primary form in the verified disposable model:
+Build:
 
 - overall envelope and levels;
-- bay grid;
+- bay/module grid;
 - major recesses/projections;
 - principal balconies/terraces;
 - main roof/canopy;
 - largest openings/negative spaces.
 
-From the source viewpoint it should already be recognizable before detail work.
+From the source viewpoint the building should already be recognizable before detail work.
 
-## Method card D — Pass 2: repeated facade systems
+## Method card E — Pass 2: repeated facade systems
 
 Add the source-defining systems:
 
@@ -82,7 +93,7 @@ Add the source-defining systems:
 
 Build one representative repeated module correctly, inspect it, then instance/array it from shared parameters. Prefer components/instances and clear semantic names over loose faces. Real visible openings/depth should be geometric, not faked only with color.
 
-## Method card E — Pass 3: visual QA and correction
+## Method card F — Pass 3: visual QA and correction
 
 Capture at least:
 
@@ -101,19 +112,20 @@ Inspect the actual screenshots and compare:
 8. material/color zoning;
 9. missing defining details.
 
-State concrete mismatches, revise the same persistent script(s)/model, execute again, and capture the corrected views. Do not report completion merely because tools succeeded.
+State concrete mismatches, revise the same persistent script(s)/model, execute again, and capture corrected views. Do not report completion merely because tools succeeded.
 
 ## Cheap-model discipline
 
-For cost-efficient models, reduce open-ended invention:
+For cost-efficient models:
 
-- follow the reconstruction card and method cards in order;
-- prefer explicit shared parameters;
-- use persistent files rather than huge transient snippets;
+- reduce open-ended invention before execution by clarifying scope/scale/inference once;
+- use an explicit parameter card instead of long free-form context;
+- prefer shared parameters and persistent files;
 - batch repeated work;
+- keep the tool surface small;
 - inspect screenshots after each major pass;
 - revise instead of restarting;
-- keep the tool surface small and use coding for project-specific geometry.
+- never switch to a stronger model merely to hide missing workflow/tool capability.
 
 ## Scope
 
