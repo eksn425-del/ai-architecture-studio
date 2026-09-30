@@ -38,10 +38,11 @@ class FakeCodex:
 def test_router_is_economy_by_default_and_premium_is_explicit(tmp_path, monkeypatch):
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_PROVIDER", raising=False)
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_MODEL", raising=False)
+    monkeypatch.delenv("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", raising=False)
     router = DeterministicModelRouter(FakeCodex(), runtime_root=tmp_path)
 
-    assert router.route("economy").model == "gpt-6-sol"
-    assert router.route("economy").reasoning_effort == "medium"
+    assert router.route("economy").model == "gpt-6.1-sol"
+    assert router.route("economy").reasoning_effort == "low"
     assert router.route("economy").tier == "economy"
     assert router.route("premium").model == "gpt-6-astra"
     assert router.route("premium").reasoning_effort == "low"
