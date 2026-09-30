@@ -1,98 +1,165 @@
 # AI Architecture Studio
 
-AI Architecture Studio is a lightweight architecture workspace that packages strong existing AI + open-source professional-software automation around real design tools instead of rebuilding CAD or 3D engines from scratch.
+AI Architecture Studio is a lightweight architecture workspace that packages strong existing AI + professional-software automation around real design tools instead of rebuilding CAD or 3D engines from scratch.
 
 ## Product direction
 
-The long-term product remains:
+Long term:
 
 **任务书 + 场地 + 参考案例文字/图片/图纸 + 用户想法**  
-→ 网站中的中文对话与项目上下文  
+→ 中文项目工作区 / 方案讨论  
 → replaceable Agent Runtime  
-→ Skills + composed reusable OSS tools  
+→ task Skills + persistent coding harness + professional-software bridge  
 → editable SketchUp / CAD  
-→ screenshot/readback/revision  
-→ drawing / render / presentation outputs
+→ AI render / diagrams / presentation outputs
 
 SketchUp remains the real editable modeling application.
 
-The website is the product shell: inputs, project/session memory, conversation, outputs, version/history, provider routing, and later packaging/billing.
+The website is the product shell: project inputs, conversation, project memory, approval states, outputs, history, provider routing and later packaging/billing.
+
+## Core product thesis
+
+The foundation model is **replaceable**. The durable product capability should be:
+
+> **Agent Harness × Task Skill × Professional Software Bridge**
+
+A stronger model may improve quality, but the product should not depend on one premium model to compensate for a weak workflow.
+
+The key evidence is practical: direct Codex with a cost-efficient coding model can already produce developed SketchUp architecture from one reference image. The website must therefore first reproduce the useful parts of that Agent environment rather than invent another weaker planner.
 
 ## Current milestone
 
-**Image → SketchUp v1 — first make one reference image reliably become a developed editable SketchUp model with a cost-efficient model.**
+**Skill-first Image → SketchUp / Direct-Codex Parity v1**
 
-Do **not** combine taskbook + site + precedent yet.
+Immediate target:
 
-The current target is intentionally narrow:
-
-> upload one architectural facade/exterior image  
-> → cost-efficient multimodal Sol-class model  
-> → dedicated image-reconstruction Skill + mature SketchUp tools  
-> → editable SketchUp reconstruction  
+> one architectural reference image  
+> → cost-efficient multimodal/coding model  
+> → dedicated Image Reconstruction Skill  
+> → plan / approval  
+> → persistent Ruby + thin SketchUp bridge + SAIE helpers  
+> → editable developed SketchUp model  
 > → source-matched screenshot QA  
 > → same-model correction
 
-A few white boxes are an automatic failure when the source image visibly contains developed facade/roof geometry.
+Do **not** combine taskbook + site + precedent into new design yet.
 
-The user-provided PylonLab demonstration is the immediate visual quality reference: a single facade image becomes a multi-storey SketchUp model with repeated glazing bays, balconies, rails, layered facade depth, a special ground-floor zone, roof pergola/louvers and basic material zoning. The observed `pylon-sketchup2model` Skill appears private; no public source has been established, so no Pylon code is copied.
+A few white boxes are an automatic failure when the source contains developed roof, facade, balcony, opening, railing/louver or material-depth systems.
 
 See:
 
 - [Current task](docs/CURRENT_TASK.md)
+- [Skill-first Agent refactor](docs/SKILL_FIRST_AGENT_REFACTOR_V1.md)
 - [Image → SketchUp v1](docs/IMAGE_TO_SKETCHUP_V1.md)
 - [Handoff](docs/HANDOFF.md)
 - [Open-source component map](docs/OPEN_SOURCE_COMPONENT_MAP.md)
 - [Decisions](docs/DECISIONS.md)
-- [Thesis Astra modeling case](docs/THESIS_MODELING_CASE_STUDY.md)
 
-## Current execution architecture
+## Target execution architecture
 
 ```text
-Web Workspace
-  -> workflow router
-      -> Image Reconstruction Skill (current focus)
-      -> Architecture Design Skill (later/full design)
-  -> Agent Runtime
-      -> source image as multimodal input
-      -> persistent reconstruction card + project workspace
-      -> composed tool surface
-          -> Kongxing SketchUp MCP (verified local identity/lifecycle)
-          -> SAIE semantic tools (wall/opening/slab/roof/query/edit)
-          -> persistent workspace Ruby (repeated/custom facade geometry)
-          -> optional ArchFlow artifacts
-      -> SketchUp
-      -> source-matched screenshot / readback / revision
+Reference image(s)
+      |
+      v
+Image Reconstruction Skill / method cards
+      |
+      v
+Persistent coding Agent harness
+plan -> approve -> write/revise files -> execute -> inspect -> correct
+      |
+      +-------------------+
+      |                   |
+      v                   v
+workspace Ruby          SAIE helpers
+project-specific        ordinary semantic elements
+      |                   |
+      +---------+---------+
+                v
+       thin SketchUp bridge
+identity / transport / readback / camera / view / lifecycle
+                |
+                v
+             SketchUp
+                |
+                v
+source-matched screenshot -> visual mismatch -> same-model revision
 ```
 
-The old rectangle-only `DesignIR -> BuildPlan -> create_mass` flow remains a regression/legacy path, not the normal modeling architecture.
+The old rectangle-only `DesignIR -> BuildPlan -> create_mass` flow remains a legacy regression path, not the normal modeling architecture.
 
-## Image reconstruction workflow
+## Reconstruction interaction
 
-The repo now seeds a persistent:
+### 1. Analyze / plan
+
+The Agent receives the real reference image as multimodal input, fills:
 
 `runtime/projects/<project>/runtime/agent_workspace/notes/reconstruction_card.md`
 
-Before substantial geometry the Agent should record:
+and derives:
 
-- source view type and confidence;
-- inferred scale anchor;
-- overall proportions;
-- floor lines and bay rhythm;
-- major solids/voids;
+- scale/proportion assumptions;
+- floor levels and bay rhythm;
+- solids / voids;
 - facade depth stack;
-- repeated windows/doors/railings/louvers;
+- repeated window/door/rail/louver systems;
 - balcony/canopy/roof logic;
-- material/color zones;
-- unseen-depth assumptions.
+- material zones;
+- persistent script/component strategy.
 
-Then build in three passes:
+It proposes a compact geometry plan and waits for approval. SketchUp geometry tools are withheld during this planning turn.
 
-1. **Primary recognizable form** — envelope, levels, bays, large voids, balconies, main roof/canopy.
-2. **Facade system** — repeated glazing/door modules, frames, rails, fins/louvers, soffits, piers and material zones.
-3. **Visual QA** — source-matched view + oblique view, explicit mismatch list, correction on the same model/scripts.
+### 2. Approve / execute
+
+After approval the same Agent thread/workspace authors or revises persistent Ruby under `agent_workspace/scripts/` and executes it through the verified disposable SketchUp session.
+
+### 3. Inspect / revise
+
+The Agent must inspect actual source-matched and oblique screenshots, state concrete visual mismatches, revise the same scripts/model and capture again.
 
 Tool success alone is never completion.
+
+## Tool philosophy
+
+Image reconstruction uses a deliberately **small coding-first tool profile**.
+
+Primary:
+
+- `sketchup_run_workspace_ruby` for project-specific/repeated geometry.
+
+Helpers:
+
+- selected SAIE wall/opening/slab/roof/query/view operations;
+- Kongxing model identity, view/camera/readback/transform/undo-style operations actually exposed locally.
+
+Hidden in reconstruction mode:
+
+- legacy `create_mass/create_road` path;
+- raw `sketchup_eval_project_file` exposed to the model;
+- ArchFlow/CAD tools;
+- broad overlapping tool catalogs that make cheap models choose among dozens of equivalent operations.
+
+The exact live tool list is verified locally. Never add fake compatibility tool names merely to match a document.
+
+## Context philosophy
+
+Cheap-model reconstruction context should stay small:
+
+Include:
+
+- actual `inputs/reference/` images as multimodal input;
+- Image Reconstruction Skill;
+- reconstruction card / persistent workspace state;
+- recent reconstruction conversation;
+- SketchUp readback during execution.
+
+Exclude unless explicitly requested:
+
+- taskbook;
+- site;
+- program;
+- old DesignIR/BuildPlan;
+- unrelated precedent text;
+- generated outputs as source images.
 
 ## Reuse policy
 
@@ -100,109 +167,96 @@ Default engineering order:
 
 **Adopt package → wrap/compose → vendor only the needed licensed module → minimal custom glue**
 
-Current components:
+Current code donors / references:
 
-- **SAIE (MIT)** — mature walls/openings/slabs/roofs/components/materials/BIM/query/view/batch/DXF surface. A small local compatibility patch is already validated for the tested SketchUp 2024.0.484 wall/opening/slab/roof/query/edit path.
-- **Kongxing SketchUp MCP** — existing verified local identity/lifecycle bridge and named-tool fallback.
-- **ArchFlow Studio (Apache-2.0 source)** — semantic state, validation/metrics, DXF/output, generated Ruby and review artifacts where useful.
-- **Supex (MIT)** — persistent project-script / execute → inspect → revise patterns and exact-entity introspection ideas.
-- **Stultus (Apache-2.0)** — useful public reference for Codex/Claude controlling SketchUp 2024 through Ruby execution, scene readback, screenshots, Undo-scoped steps, selection context and continued sessions. Reuse only portable pieces that improve the current stack; do not replace a working connector just to copy its architecture.
-- **SketchUp Architect Skill (MIT)** — retained for later/full architecture reasoning and design continuity.
-- **ADAI SketchUp Skill + Managed MCP (CPAL-1.0)** — study its source-first reconstruction, method/task-card, guided/autonomous, visual-evidence and experience-pack ideas. Do not copy covered source into this commercial repository without an explicit license/compliance decision.
-- **Pylon `pylon-sketchup2model`** — visual product reference only from user-provided screenshots; no public source established.
+- **SAIE (MIT)** — mature walls/openings/slabs/roofs/query/view/edit helpers; the tested SketchUp 2024 path uses a small compatibility patch.
+- **Kongxing SketchUp MCP** — verified local identity/lifecycle/transport bridge.
+- **Supex (MIT)** — persistent project-script / execute → inspect → revise pattern and introspection ideas.
+- **Stultus (Apache-2.0)** — public reference for Codex/Claude controlling SketchUp through Ruby execution, scene readback, screenshots, Undo-scoped steps, selection context and continued sessions.
+- **ArchFlow Studio (Apache-2.0)** — later semantic validation/DXF/output/review pieces.
+- **SketchUp Architect Skill (MIT)** — later/full architecture reasoning and design continuity.
+- **ADAI SketchUp Skill + Managed MCP (CPAL-1.0)** — workflow concepts only unless a separate licensing decision permits source reuse.
+- **Pylon / competitor desktop products** — visible quality/workflow references only when source is not publicly reusable.
 
-Do not build a new geometry primitive or professional-software subsystem when a compatible reusable implementation already exists.
+Do not rewrite a geometry primitive, connector, Agent runtime or professional-software subsystem when a compatible reusable implementation already exists.
 
-## Current product foundation
+## Current remote refactor
 
-The local product includes:
+ChatGPT has already prepared repo-side changes for the current local integration round:
 
-- Simplified-Chinese workspace;
-- project-local reference-image discovery for multimodal turns;
-- explicit Economy / Premium routing;
-- existing Kongxing MCP reuse;
-- optional namespaced SAIE and ArchFlow composition;
-- guarded task-specific Ruby;
-- persistent project-local writable Codex agent workspace;
-- `notes/reconstruction_card.md` for image-driven reconstruction;
-- real editable SketchUp model control;
-- viewport capture/readback;
-- same-file/same-model script revision;
-- legacy DXF / presentation outputs;
-- `/showcase` thesis modeling case study.
+- reconstruction lifecycle (`idle -> planned -> building`);
+- explicit `agent_action = auto|plan|execute`;
+- `app/reconstruction_runtime.py` for deterministic plan/execute policy and small context;
+- reference-only source-image scope;
+- shorter coding-first Image Reconstruction Skill;
+- Direct-Codex-style persistent workspace instructions;
+- `reconstruction_coding` tool profile;
+- focused regression tests;
+- exact Codex local tasks in `docs/CURRENT_TASK.md`.
 
-## What we do not build
+These changes are not accepted until local Windows + SketchUp tests pass.
 
-Unless a future task explicitly requires it, this project does not build:
+## Product research rule
 
-- a browser CAD engine;
-- a new 3D modeling engine;
-- a foundation model;
-- a new generic MCP framework;
-- another custom wall/opening/roof/BIM engine;
-- a replacement for working open-source/local connectors;
-- a large Windows port of an experimental stack merely for architectural cleanliness.
+When inspecting a competitor desktop package the user legitimately possesses, separate:
 
-Most project code should stay focused on glue, adapters, project/session management, safe orchestration, context, workflow UX, packaging, and delivery.
+- **observed facts** — files, runtime processes, local ports, MCP tool schemas, visible approval flow;
+- **inference** — likely internal responsibilities;
+- **our implementation** — only public/open-source or independently authored code.
+
+Do not bypass licensing/DRM or copy proprietary Skill/source into this public repository.
+
+## What we do not build now
+
+- browser CAD/3D engine;
+- foundation model;
+- another generic MCP framework;
+- another wall/opening/roof engine;
+- full taskbook/site/new-design workflow before image reconstruction parity;
+- render/PPT pipeline before the modeling loop is commercially useful.
 
 ## Local development
-
-From the repository folder on Windows:
 
 ```powershell
 .\scripts\setup.ps1
 .\scripts\dev.ps1
+.\scripts\check.ps1
 ```
 
 Open `http://127.0.0.1:8787`.
 
-Run automated checks with:
-
-```powershell
-.\scripts\check.ps1
-```
-
-When the locally validated SAIE backend is enabled:
+When locally validated SAIE is enabled:
 
 ```powershell
 $env:ARCH_STUDIO_ENABLE_SAIE = '1'
 ```
 
-The website composes upstream tools under names such as `saie__create_wall` beside Kongxing and the guarded workspace-Ruby path.
+## Current benchmark rule
 
-## Budget rule for the current milestone
+Do **not** call Astra for this milestone.
 
-Do **not** call Astra for Image → SketchUp v1.
-
-The first real reconstruction benchmark must use the Economy Sol route, starting at low reasoning. Only if the multimodal/tool workflow is proven correct and Sol Low cannot follow the guided Skill may one Sol Medium retry be used. Record both separately.
-
-The goal is specifically to prove that a relatively inexpensive model becomes useful because the product supplies the reconstruction method, tool recipes, persistent parameters and screenshot feedback loop.
+Use the same reference image and the same cost-efficient model/effort that already succeeds in direct Codex. Compare direct Codex vs website. If the website is materially worse, inspect missing Agent-harness capability before changing the foundation model or adding another MCP.
 
 ## Later roadmap
 
-After image reconstruction is repeatable:
+Only after Image → SketchUp is repeatable:
 
 **taskbook + site + precedent images + user intent**  
-→ precedent grammar / reference reconstruction  
+→ scheme discussion / precedent grammar  
 → adapt to real constraints  
-→ create a new design  
-→ editable SU / CAD / render / presentation.
+→ editable SU/CAD  
+→ AI render  
+→ diagrams / PPT / PDF.
 
-That later phase must reuse the Image → SketchUp reconstruction stack rather than starting another modeling engine.
+The later architecture workflow must reuse the same Skill/Agent/bridge foundation rather than starting another modeling engine.
 
 ## Codex start point
 
-Codex / Sol should start with:
-
 1. `AGENTS.md`
 2. `docs/CURRENT_TASK.md`
-3. `docs/IMAGE_TO_SKETCHUP_V1.md`
+3. `docs/SKILL_FIRST_AGENT_REFACTOR_V1.md`
 4. `docs/HANDOFF.md`
-5. `app/image_to_sketchup_skill.py`
-6. `app/reference_assets.py`
-7. `app/codex_parity.py`
-8. `app/main.py`
-9. `app/static/index.html`
-10. `app/static/studio.js`
+5. local Windows / SketchUp integration
+6. optional competitor-desktop architecture observation described in `CURRENT_TASK.md`
 
-Raw user reference images, generated SKP/screenshots, private thesis/source packages, API keys, historical private transcripts, and machine paths must not be committed.
+Raw user reference images, generated SKP/screenshots, private source packages, API keys, private transcripts and machine paths must not be committed.
