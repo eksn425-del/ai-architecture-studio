@@ -6,7 +6,7 @@ The user paused the previous Codex run. Start only from the latest `main`.
 
 ## Single product goal
 
-> **one architectural reference image → Sol Low + strong task Skill + Direct-Codex-like coding harness + thin SketchUp bridge → developed editable SketchUp model comparable to the known-good direct Codex result**
+> **one architectural reference image → GPT-6.1 Sol Low + strong task Skill + Direct-Codex-like coding harness + thin SketchUp bridge → developed editable SketchUp model comparable to the known-good direct Codex result**
 
 Do not expand into taskbook/site/new-design/render/PPT in this milestone.
 
@@ -31,6 +31,12 @@ Read first:
 
 `docs/REMOTE_REFACTOR_HANDOFF_2026-09-30.md` and this file supersede older HANDOFF wording that treated the standalone workspace-write probe as a blocking acceptance gate.
 
+## Benchmark model lock
+
+For this milestone use **`gpt-6.1-sol` at `low` reasoning** for both the known-good direct Codex path and the website parity path.
+
+Do not silently fall back to `gpt-6-sol`, raise reasoning effort, or route to Astra. If `gpt-6.1-sol` is unavailable in a specific local execution path, record that exact limitation and continue all non-dependent work; do not substitute a different benchmark model and still call the comparison parity.
+
 ## What ChatGPT already changed remotely
 
 Do not redesign these from scratch:
@@ -48,7 +54,7 @@ Do not redesign these from scratch:
 - persistent workspace Ruby remains the primary project-specific geometry path;
 - SAIE is a helper library, not the orchestration center;
 - reconstruction context must remain reference-only and small;
-- Sol Low remains the parity model;
+- GPT-6.1 Sol Low is now the parity baseline;
 - external workspace-write probe is non-blocking and must not interrupt the user during ordinary implementation.
 
 These remote changes are not accepted until local tests and real SketchUp execution pass.
@@ -219,9 +225,9 @@ Only after the website lifecycle/tool wiring is functioning.
 
 Use the same reference image that already produced a good result in direct Codex.
 
-A = known-good direct Codex + GPT-6 Sol Low result.
+A = direct Codex + **GPT-6.1 Sol Low**.
 
-B = website + GPT-6 Sol Low + latest reconstruction Skill + latest Agent harness.
+B = website + **GPT-6.1 Sol Low** + latest reconstruction Skill + latest Agent harness.
 
 Do not use Astra.
 
@@ -251,7 +257,7 @@ Automatic FAIL:
 - no screenshot comparison;
 - no persistent coding evidence;
 - no same-model correction;
-- silent model upgrade to Astra;
+- silent model or reasoning-effort substitution;
 - declaring success based only on tool/test connectivity.
 
 ---
