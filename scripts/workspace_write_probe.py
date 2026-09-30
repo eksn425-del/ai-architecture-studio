@@ -17,11 +17,12 @@ from app.native_agent import CodexAppServerRuntime, NativeAgentUnavailable  # no
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         description=(
-            "Standalone Codex App Server workspace-write acceptance probe. Run this from a normal Windows PowerShell "
-            "session outside Codex/Luna. It uses a tiny Luna Low turn and synthetic ignored files only."
+            "Optional standalone Codex App Server workspace-write diagnostic. It is NOT a normal implementation prerequisite "
+            "and must not be used as a reason to pause the user. Run from a normal Windows PowerShell outside the Codex coding "
+            "host only when persistent workspace writes are the actual blocker. It uses synthetic ignored files only."
         )
     )
-    p.add_argument("--model", default="gpt-6-luna")
+    p.add_argument("--model", default="gpt-6-sol")
     p.add_argument("--effort", default="low", choices=("low", "medium", "high", "xhigh", "max"))
     return p
 
@@ -99,7 +100,10 @@ def main() -> int:
         "outside_write_absent": outside_absent,
         "error": error,
         "reply": reply,
-        "note": "Run from normal PowerShell outside the Codex/Luna coding host. Synthetic ignored project only.",
+        "note": (
+            "Optional diagnostic. A Codex-host failure may be recorded as pending_external and must not block unrelated "
+            "implementation. Run outside Codex only if real reconstruction is blocked by workspace writes."
+        ),
     }
     result_path.parent.mkdir(parents=True, exist_ok=True)
     result_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -108,7 +112,7 @@ def main() -> int:
         print(f"PASS: workspace write succeeded and outside write stayed blocked. Evidence: {result_path}")
         return 0
     print(json.dumps(payload, ensure_ascii=False, indent=2), file=sys.stderr)
-    print(f"FAIL/BLOCKED: evidence saved to {result_path}", file=sys.stderr)
+    print(f"FAIL/BLOCKED diagnostic: evidence saved to {result_path}", file=sys.stderr)
     return 3
 
 
