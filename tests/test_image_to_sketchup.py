@@ -1,20 +1,21 @@
 from pathlib import Path
 
 from fastapi.testclient import TestClient
-from app.main import create_app
-from app.models import AgentSession
-from app.store import ProjectStore
-from tests.conftest import FakeBrain, FakeSketchUp
-from tests.test_demo import FakeNativeAgent
 
 from app.codex_parity import prepare_codex_parity_workspace
 from app.image_to_sketchup_skill import MAX_CONTEXT_CHARS, load_image_to_sketchup_skill_context
-from app.models import ConversationRequest
+from app.main import create_app
+from app.models import AgentSession, ConversationRequest
+from app.store import ProjectStore
 from app.workflow_context import (
     load_workflow_skill_context,
     workflow_developer_instructions,
     workflow_prompt_note,
+    workflow_reference_categories,
+    workflow_tool_profile,
 )
+from tests.conftest import FakeBrain, FakeSketchUp
+from tests.test_demo import FakeNativeAgent
 
 
 def test_image_to_sketchup_skill_is_bounded_and_quality_focused() -> None:
@@ -22,44 +23,62 @@ def test_image_to_sketchup_skill_is_bounded_and_quality_focused() -> None:
 
     assert len(context) <= MAX_CONTEXT_CHARS
     assert "reconstruction_card.md" in context
-    assert "box collection is not an acceptable completion" in context
+    assert "white boxes are an automatic failure" in context
     assert "Pass 1" in context
     assert "Pass 2" in context
     assert "Pass 3" in context
     assert "source-matched" in context
-    assert "cost-efficient model" in context
+    assert "persistent workspace Ruby" in context
+    assert "geometry plan before execution" in context
 
 
-def test_conversation_request_supports_explicit_reconstruction_mode() -> None:
-    request = ConversationRequest(message="按参考图建模", workflow_mode="image_reconstruction")
+def test_conversation_request_supports_explicit_reconstruction_mode_and_action() -> None:
+    request = ConversationRequest(
+        message="按参考图建模",
+        workflow_mode="image_reconstruction",
+        agent_action="plan",
+    )
 
     assert request.workflow_mode == "image_reconstruction"
+    assert request.agent_action == "plan"
     assert ConversationRequest(message="继续").workflow_mode == "architecture_design"
 
 
 def test_reconstruction_workflow_selects_dedicated_skill_and_target_fidelity() -> None:
-    context = load_workflow_skill_context("image_reconstruction", mcp_enabled=True)
-    prompt_note = workflow_prompt_note("image_reconstruction")
-    developer = workflow_developer_instructions("image_reconstruction", mcp_enabled=True)
+    context = load_workflow_skill_context("image_reconstruction", mcp_enabled=False)
+    prompt_note = workflow_prompt_note("image_reconstruction", "plan")
+    developer = workflow_developer_instructions("image_reconstruction", mcp_enabled=False, action="plan")
 
-    assert "Image → SketchUp reconstruction workflow" in context
-    assert "visual target to reconstruct" in prompt_note
+    assert "Image → SketchUp reconstruction skill" in context
+    assert "inputs/reference" in prompt_note
     assert "Ignore taskbook" in prompt_note
-    assert "reconstruction_card.md" in prompt_note
-    assert "rough white-box massing" in prompt_note
-    assert "source image is the target appearance" in developer
-    assert "SAIE semantic tools" in developer
+    assert "PLANNING turn" in prompt_note
+    assert "reconstruction_card.md" in developer
+    assert "Do not edit SketchUp geometry" in developer
+    assert workflow_tool_profile("image_reconstruction") == "reconstruction_coding"
+    assert workflow_reference_categories("image_reconstruction") == ("reference",)
+
+
+def test_reconstruction_execution_is_coding_first() -> None:
+    developer = workflow_developer_instructions("image_reconstruction", mcp_enabled=True, action="execute")
+    prompt_note = workflow_prompt_note("image_reconstruction", "execute")
+
+    assert "reconstruction coding agent" in developer
     assert "persistent workspace Ruby" in developer
+    assert "SAIE as a helper" in developer
+    assert "EXECUTION turn" in prompt_note
+    assert "correct visible mismatches" in prompt_note
 
 
 def test_architecture_workflow_remains_available_and_tools_can_be_disabled() -> None:
     architecture = load_workflow_skill_context("architecture_design", mcp_enabled=True)
-    no_tools = load_workflow_skill_context("image_reconstruction", mcp_enabled=False)
+    no_tools = load_workflow_skill_context("architecture_design", mcp_enabled=False)
     developer = workflow_developer_instructions("architecture_design", mcp_enabled=False)
 
     assert "Architecture workflow context" in architecture
     assert no_tools == ""
-    assert "SketchUp tools are not enabled" in developer
+    assert "SketchUp geometry tools are withheld" in developer
+    assert workflow_tool_profile("architecture_design") == "full"
 
 
 def test_workspace_seeds_and_preserves_reconstruction_card(tmp_path: Path) -> None:
@@ -70,7 +89,8 @@ def test_workspace_seeds_and_preserves_reconstruction_card(tmp_path: Path) -> No
     seeded = card.read_text(encoding="utf-8")
     assert "Source and confidence" in seeded
     assert "Facade depth stack" in seeded
-    assert "Pass 1" in seeded
+    assert "Construction plan" in seeded
+    assert "Approval" in seeded
 
     custom = "# Image reconstruction card\n\n- custom observation survives\n"
     card.write_text(custom, encoding="utf-8")
@@ -92,16 +112,26 @@ def test_conversation_routes_reconstruction_and_preserves_session(tmp_path: Path
     model.parent.mkdir(parents=True, exist_ok=True)
     model.write_bytes(b"test disposable")
     sketchup.active_model_path = str(model)
-    store.save_state(project_id, AgentSession(project_id=project_id, status="ready",
-                     model_path="outputs/model/blank-disposable-test.skp", thread_id="thr-fast-assembly"), "agent_session.json")
+    store.save_state(
+        project_id,
+        AgentSession(
+            project_id=project_id,
+            status="ready",
+            model_path="outputs/model/blank-disposable-test.skp",
+            thread_id="thr-fast-assembly",
+        ),
+        "agent_session.json",
+    )
     for message in ("按图片复刻", "调整阳台"):
-        response = client.post(f"/api/projects/{project_id}/conversation", json={
-            "message": message, "workflow_mode": "image_reconstruction"})
+        response = client.post(
+            f"/api/projects/{project_id}/conversation",
+            json={"message": message, "workflow_mode": "image_reconstruction"},
+        )
         assert response.status_code == 200
         call = native.calls[-1]
-        assert "Image → SketchUp reconstruction workflow" in call["prompt"]
-        assert "visual target to reconstruct" in call["prompt"]
-        assert "source image is the target appearance" in call["developer_instructions"]
+        assert "Image → SketchUp reconstruction skill" in call["prompt"]
+        assert "IMAGE_TO_SKETCHUP_RECONSTRUCTION" in call["prompt"]
+        assert "image-to-SketchUp reconstruction coding agent" in call["developer_instructions"]
         assert call["thread_id"] == "thr-fast-assembly"
         assert response.json()["agent"]["workflow_mode"] == "image_reconstruction"
         assert response.json()["project"]["context"]["conversation"][-1]["metadata"]["workflow_mode"] == "image_reconstruction"
