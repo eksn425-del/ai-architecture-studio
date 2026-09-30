@@ -25,18 +25,20 @@ The foundation model is **replaceable**. The durable product capability should b
 
 A stronger model may improve quality, but the product should not depend on one premium model to compensate for a weak workflow.
 
-The key evidence is practical: direct Codex with a cost-efficient coding model can already produce developed SketchUp architecture from one reference image. The website must therefore first reproduce the useful parts of that Agent environment rather than invent another weaker planner.
+The practical evidence is already strong: direct Codex with a cost-efficient coding model can create developed SketchUp architecture from one reference image. The website must therefore reproduce the useful parts of that Agent environment rather than invent another weaker planner.
 
 ## Current milestone
 
-**Skill-first Image → SketchUp / Direct-Codex Parity v1**
+**Image → SketchUp / Direct-Codex Parity v2**
 
 Immediate target:
 
 > one architectural reference image  
-> → cost-efficient multimodal/coding model  
+> → Sol Low / replaceable cost-efficient model  
 > → dedicated Image Reconstruction Skill  
-> → plan / approval  
+> → clarify high-impact unknowns  
+> → parameter card with KNOWN / ESTIMATED / ASSUMED values  
+> → user approval  
 > → persistent Ruby + thin SketchUp bridge + SAIE helpers  
 > → editable developed SketchUp model  
 > → source-matched screenshot QA  
@@ -49,6 +51,7 @@ A few white boxes are an automatic failure when the source contains developed ro
 See:
 
 - [Current task](docs/CURRENT_TASK.md)
+- [Execution guardrails](docs/EXECUTION_GUARDRAILS.md)
 - [Skill-first Agent refactor](docs/SKILL_FIRST_AGENT_REFACTOR_V1.md)
 - [Image → SketchUp v1](docs/IMAGE_TO_SKETCHUP_V1.md)
 - [Handoff](docs/HANDOFF.md)
@@ -61,11 +64,15 @@ See:
 Reference image(s)
       |
       v
-Image Reconstruction Skill / method cards
+Image Reconstruction Skill
+inspect -> clarify -> parameterize -> approve
+      |
+      v
+Replaceable coding/multimodal model
       |
       v
 Persistent coding Agent harness
-plan -> approve -> write/revise files -> execute -> inspect -> correct
+write/revise files -> execute -> inspect -> correct
       |
       +-------------------+
       |                   |
@@ -76,7 +83,7 @@ project-specific        ordinary semantic elements
       +---------+---------+
                 v
        thin SketchUp bridge
-identity / transport / readback / camera / view / lifecycle
+identity / transport / readback / camera / screenshot / lifecycle
                 |
                 v
              SketchUp
@@ -89,30 +96,40 @@ The old rectangle-only `DesignIR -> BuildPlan -> create_mass` flow remains a leg
 
 ## Reconstruction interaction
 
-### 1. Analyze / plan
+### 1. Clarify
 
-The Agent receives the real reference image as multimodal input, fills:
+The Agent receives the real reference image as multimodal input and asks only questions that materially change reconstruction, normally no more than four:
+
+- source-view-only vs multi-angle / later editing;
+- model scope;
+- any known dimension anchor;
+- permission to infer unseen geometry and desired visible detail.
+
+If the user already supplied an answer, do not ask it again. Unknown exact dimensions should not block progress.
+
+### 2. Parameterize / plan
+
+The Agent writes:
 
 `runtime/projects/<project>/runtime/agent_workspace/notes/reconstruction_card.md`
 
-and derives:
+The card separates:
 
-- scale/proportion assumptions;
-- floor levels and bay rhythm;
-- solids / voids;
-- facade depth stack;
-- repeated window/door/rail/louver systems;
-- balcony/canopy/roof logic;
-- material zones;
-- persistent script/component strategy.
+- **KNOWN** — source/user-provided facts;
+- **ESTIMATED** — coherent visual dimensions used as a modeling baseline;
+- **ASSUMED** — conservative unseen-geometry/detail rules.
 
-It proposes a compact geometry plan and waits for approval. SketchUp geometry tools are withheld during this planning turn.
+It also records levels/bays, solids/voids, facade depth, repeated components, roof/canopy, material zones and the persistent-script strategy.
 
-### 2. Approve / execute
+The user can modify parameters or approve execution. SketchUp geometry is not edited during clarification/planning.
+
+### 3. Execute
 
 After approval the same Agent thread/workspace authors or revises persistent Ruby under `agent_workspace/scripts/` and executes it through the verified disposable SketchUp session.
 
-### 3. Inspect / revise
+Persistent code is the primary project-specific geometry mechanism. SAIE is a helper library, not the orchestration center.
+
+### 4. Inspect / revise
 
 The Agent must inspect actual source-matched and oblique screenshots, state concrete visual mismatches, revise the same scripts/model and capture again.
 
@@ -134,11 +151,11 @@ Helpers:
 Hidden in reconstruction mode:
 
 - legacy `create_mass/create_road` path;
-- raw `sketchup_eval_project_file` exposed to the model;
+- raw project-file eval exposed to the model;
 - ArchFlow/CAD tools;
 - broad overlapping tool catalogs that make cheap models choose among dozens of equivalent operations.
 
-The exact live tool list is verified locally. Never add fake compatibility tool names merely to match a document.
+Tool count is not product capability. Never add fake compatibility tool names merely to match a document.
 
 ## Context philosophy
 
@@ -148,9 +165,9 @@ Include:
 
 - actual `inputs/reference/` images as multimodal input;
 - Image Reconstruction Skill;
-- reconstruction card / persistent workspace state;
+- reconstruction parameter card / persistent workspace state;
 - recent reconstruction conversation;
-- SketchUp readback during execution.
+- SketchUp readback/screenshots during execution.
 
 Exclude unless explicitly requested:
 
@@ -159,7 +176,8 @@ Exclude unless explicitly requested:
 - program;
 - old DesignIR/BuildPlan;
 - unrelated precedent text;
-- generated outputs as source images.
+- generated outputs as source images;
+- long benchmark prose.
 
 ## Reuse policy
 
@@ -169,34 +187,35 @@ Default engineering order:
 
 Current code donors / references:
 
+- **Kongxing SketchUp MCP** — verified local identity/lifecycle/transport/readback bridge.
 - **SAIE (MIT)** — mature walls/openings/slabs/roofs/query/view/edit helpers; the tested SketchUp 2024 path uses a small compatibility patch.
-- **Kongxing SketchUp MCP** — verified local identity/lifecycle/transport bridge.
 - **Supex (MIT)** — persistent project-script / execute → inspect → revise pattern and introspection ideas.
 - **Stultus (Apache-2.0)** — public reference for Codex/Claude controlling SketchUp through Ruby execution, scene readback, screenshots, Undo-scoped steps, selection context and continued sessions.
 - **ArchFlow Studio (Apache-2.0)** — later semantic validation/DXF/output/review pieces.
 - **SketchUp Architect Skill (MIT)** — later/full architecture reasoning and design continuity.
 - **ADAI SketchUp Skill + Managed MCP (CPAL-1.0)** — workflow concepts only unless a separate licensing decision permits source reuse.
-- **Pylon / competitor desktop products** — visible quality/workflow references only when source is not publicly reusable.
+- **Pylon / Building-Xuezhang** — visible quality/workflow references only when source is not publicly reusable.
 
 Do not rewrite a geometry primitive, connector, Agent runtime or professional-software subsystem when a compatible reusable implementation already exists.
 
-## Current remote refactor
+## Lessons now encoded in the repo
 
-ChatGPT has already prepared repo-side changes for the current local integration round:
+The prototype previously made several mistakes: tool-count chasing, synthetic white-box acceptance, broad context, premature generalization and asking the user to perform internal engineering probes.
 
-- reconstruction lifecycle (`idle -> planned -> building`);
-- explicit `agent_action = auto|plan|execute`;
-- `app/reconstruction_runtime.py` for deterministic plan/execute policy and small context;
-- reference-only source-image scope;
-- shorter coding-first Image Reconstruction Skill;
-- Direct-Codex-style persistent workspace instructions;
-- `reconstruction_coding` tool profile;
-- focused regression tests;
-- exact Codex local tasks in `docs/CURRENT_TASK.md`.
+`docs/EXECUTION_GUARDRAILS.md` now makes the corrective rules explicit:
 
-These changes are not accepted until local Windows + SketchUp tests pass.
+- success-first, not architecture-first;
+- copy proven working patterns before generalizing;
+- do not rebuild a weaker Codex;
+- do not use a stronger model to hide a harness problem;
+- do not interrupt the user for non-critical internal checks;
+- real visual parity before product expansion.
 
-## Product research rule
+## Competitor/product research rule
+
+Observed public/user-provided competitor workflows may guide product behavior. For example, a useful general pattern is:
+
+> image → clarify important unknowns → AI proposes coherent estimated dimensions/assumptions → user confirms → modeling begins → continued edits reuse the same model.
 
 When inspecting a competitor desktop package the user legitimately possesses, separate:
 
@@ -235,7 +254,7 @@ $env:ARCH_STUDIO_ENABLE_SAIE = '1'
 
 Do **not** call Astra for this milestone.
 
-Use the same reference image and the same cost-efficient model/effort that already succeeds in direct Codex. Compare direct Codex vs website. If the website is materially worse, inspect missing Agent-harness capability before changing the foundation model or adding another MCP.
+Use the same reference image and the same Sol Low setting that already succeeds in direct Codex. Compare direct Codex vs website. If the website is materially worse, inspect missing Agent-harness capability before changing the foundation model or adding another MCP.
 
 ## Later roadmap
 
@@ -253,10 +272,11 @@ The later architecture workflow must reuse the same Skill/Agent/bridge foundatio
 ## Codex start point
 
 1. `AGENTS.md`
-2. `docs/CURRENT_TASK.md`
-3. `docs/SKILL_FIRST_AGENT_REFACTOR_V1.md`
-4. `docs/HANDOFF.md`
-5. local Windows / SketchUp integration
-6. optional competitor-desktop architecture observation described in `CURRENT_TASK.md`
+2. `docs/EXECUTION_GUARDRAILS.md`
+3. `docs/CURRENT_TASK.md`
+4. `docs/SKILL_FIRST_AGENT_REFACTOR_V1.md`
+5. `docs/HANDOFF.md`
+6. local Windows / SketchUp integration
+7. optional competitor-desktop architecture observation described in `CURRENT_TASK.md`
 
 Raw user reference images, generated SKP/screenshots, private source packages, API keys, private transcripts and machine paths must not be committed.
