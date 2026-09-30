@@ -6,16 +6,17 @@ This repository uses GitHub as the single source of truth between ChatGPT planni
 
 1. Before starting local work, run `git pull --ff-only` and confirm the working tree is clean.
 2. Read `docs/CURRENT_TASK.md` first.
-3. Read only the linked product/architecture docs needed for the current task.
-4. Execute the current task end-to-end; do not stop after analysis unless a real blocker prevents implementation.
-5. Prefer reuse over rebuilding infrastructure:
+3. Read `docs/EXECUTION_GUARDRAILS.md` before any substantial implementation or local benchmark.
+4. Read only the linked product/architecture docs needed for the current task.
+5. Execute the current task end-to-end; do not stop after analysis unless a real blocker prevents implementation.
+6. Prefer reuse over rebuilding infrastructure:
    **Adopt → Fork/Wrap → Compose → Minimal Custom Build**.
-6. Run relevant tests/checks and, when available, a real SketchUp smoke/quality test.
-7. Update `docs/HANDOFF.md` before finishing.
-8. Commit the work with a clear message.
-9. **Push the completed commit to `origin/main` before reporting completion.** A local-only commit is not considered handed off.
-10. Confirm `origin/main` contains the completed commit.
-11. Do not start a new milestone that is not in `docs/CURRENT_TASK.md`.
+7. Run relevant tests/checks and, when available, a real SketchUp smoke/quality test.
+8. Update `docs/HANDOFF.md` before finishing.
+9. Commit the work with a clear message.
+10. **Push the completed commit to `origin/main` before reporting completion.** A local-only commit is not considered handed off.
+11. Confirm `origin/main` contains the completed commit.
+12. Do not start a new milestone that is not in `docs/CURRENT_TASK.md`.
 
 ## Repository ownership / turn-taking
 
@@ -28,6 +29,21 @@ To avoid conflicts, ChatGPT and Codex do not edit the same repository state at t
 - When Codex finishes, it must commit + push + update `docs/HANDOFF.md`; ownership then returns to ChatGPT for review.
 
 See `docs/COLLABORATION.md` for the full division of responsibilities.
+
+## Success-first execution rule
+
+The current prototype previously over-valued clean architecture, tool count and synthetic PASS states while user-visible SketchUp output remained weak. Do not repeat that pattern.
+
+For the current product focus:
+
+- user-visible reconstruction quality is the milestone outcome;
+- connectivity/tests/tool discovery are prerequisites, not product success;
+- do not replace a proven direct-Codex-like coding loop with a smaller custom planner/action vocabulary;
+- do not switch to a stronger model merely to hide missing Skill/Agent/MCP capability;
+- do not ask the user to perform internal engineering chores unless they truly block the next user-visible milestone and cannot be done from the current environment;
+- non-critical external checks must be recorded as `pending_external` and work should continue.
+
+`docs/EXECUTION_GUARDRAILS.md` is normative for the current milestone.
 
 ## Assembly-first / OSS takeover rule
 
@@ -59,7 +75,9 @@ For `image_reconstruction`:
 
 - the uploaded image is the visual target, not merely a precedent;
 - do not weaken requested fidelity with blanket anti-copy wording;
-- fill/update `notes/reconstruction_card.md` before substantial geometry;
+- first clarify only high-impact unknowns: intended use/views, scope, any known dimension, unseen-geometry inference permission, visible detail level;
+- then fill/update `notes/reconstruction_card.md` with KNOWN / ESTIMATED / ASSUMED parameters before substantial geometry;
+- show the parameter/construction plan for user approval before editing SketchUp;
 - build recognizable primary form first, then facade depth/repeated systems/material zones, then visually compare and revise;
 - a few white boxes are an automatic failure when the source visibly contains developed facade/roof geometry;
 - use one representative repeated module and component/instance repetition where possible;
@@ -73,13 +91,13 @@ The product is **not** a new CAD/3D engine and is **not** a weaker in-house arch
 
 Target architecture:
 
-**Web Workspace → replaceable Agent Runtime → workflow-specific Skill/context → composed OSS execution tools → SketchUp / CAD → screenshot/model readback → revision**
+**Web Workspace → replaceable Agent Runtime → workflow-specific Skill/context → persistent coding workspace → thin professional-software bridge + reusable helpers → SketchUp / CAD → screenshot/model readback → revision**
 
 SketchUp remains the real editable modeling application.
 
 The website manages inputs, project/session context, conversation, outputs, and product UX.
 
-The agent/model should retain broad reasoning and tool-use freedom. Do not force normal modeling through the old tiny `DesignIR → BuildPlan → create_mass` action set.
+The agent/model should retain broad reasoning and coding freedom. Do not force normal modeling through the old tiny `DesignIR → BuildPlan → create_mass` action set.
 
 `DesignIR` may remain as project memory / structured state, but it must not be the mandatory geometry generator or restrict all geometry to axis-aligned rectangles.
 
@@ -87,19 +105,22 @@ The agent/model should retain broad reasoning and tool-use freedom. Do not force
 
 Prefer according to actual capability fit rather than historical order:
 
-1. **SAIE (MIT)** for mature SketchUp semantic execution when locally compatible: walls/openings/slabs/roofs/components/materials/BIM attributes/query/view/batch/DXF utilities.
-2. **existing Kongxing SketchUp MCP/plugin** for verified disposable-model identity, lifecycle, existing local tools, and guarded transport.
-3. **Supex (MIT)** for agentic project-script / introspection patterns and advanced geometry ideas when platform-compatible; do not port the whole macOS/SketchUp-2026 stack to Windows without a clear supported path.
-4. **Stultus (Apache-2.0)** for portable patterns around Codex/Claude → Ruby execution → scene readback → screenshot → revision/Undo on SketchUp 2024. Reuse only pieces that improve the current stack; do not replace a working connector just to copy architecture.
-5. **ArchFlow Studio (Apache-2.0 source)** for semantic project state, DXF/output, generated Ruby, metrics and run-record pieces.
-6. **SketchUp Architect Skill (MIT)** for later/full architectural reasoning, continuity and precedent workflow.
-7. **VBO SkAgent (MIT)** as a lightweight fallback if the active local execution path is blocked.
-8. other clearly licensed MIT/Apache/BSD code.
-9. minimal custom implementation only for missing glue.
+1. **existing Kongxing SketchUp MCP/plugin** for verified disposable-model identity, lifecycle, existing local readback/view tools, and guarded transport.
+2. **persistent workspace Ruby / Direct-Codex-style coding loop** for project-specific/repeated reconstruction geometry.
+3. **SAIE (MIT)** for mature SketchUp semantic helpers when locally compatible: walls/openings/slabs/roofs/components/materials/BIM attributes/query/view/batch/DXF utilities.
+4. **Supex (MIT)** for agentic project-script / introspection patterns and advanced geometry ideas when platform-compatible; do not port the whole macOS/SketchUp-2026 stack to Windows without a clear supported path.
+5. **Stultus (Apache-2.0)** for portable patterns around Codex/Claude → Ruby execution → scene readback → screenshot → revision/Undo on SketchUp 2024. Reuse only pieces that improve the current stack; do not replace a working connector just to copy architecture.
+6. **ArchFlow Studio (Apache-2.0 source)** for later semantic project state, DXF/output, generated Ruby, metrics and run-record pieces.
+7. **SketchUp Architect Skill (MIT)** for later/full architectural reasoning, continuity and precedent workflow.
+8. **VBO SkAgent (MIT)** as a lightweight fallback if the active local execution path is blocked.
+9. other clearly licensed MIT/Apache/BSD code.
+10. minimal custom implementation only for missing glue.
 
 **ADAI SketchUp Skill + Managed MCP is CPAL-1.0.** Its public source-first reconstruction, task/method-card, guided/autonomous, visual-evidence and experience-pack concepts may be studied, but do not copy its covered source into this repository without an explicit license/compliance decision.
 
 The observed Pylon `pylon-sketchup2model` demonstration is a product-quality reference from user-provided screenshots only; no public source has been established.
+
+Building-Xuezhang desktop/SU automation is an observed competitor reference. Its public/user-provided workflow may guide product behavior (clarify → parameterize → approve → execute → continue editing), but proprietary implementation must not be copied.
 
 PlanFloor AI Agent is architecture-study-only unless a compatible reuse license is verified. Its workflow/Skill boundaries may be studied; do not copy unlicensed source.
 
@@ -154,8 +175,10 @@ Direct Codex succeeded partly because it had a real coding harness. The product 
 Solve ordinary engineering decisions autonomously. Do not repeatedly ask the user for implementation details.
 
 Ask only when:
-- a critical input is missing and no safe fallback exists,
+- a critical product input is missing and no safe fallback exists,
 - an irreversible/destructive action is required,
-- or a choice would materially change product scope.
+- or a choice would materially change product scope or user-visible reconstruction assumptions.
+
+Do **not** interrupt the user for internal probes, reversible local setup choices, routine test failures, tool discovery, or non-critical environment checks. Record those as evidence/pending work and continue whenever possible.
 
 Do not add Rhino/Revit/Blender support, payments, authentication, or production cloud infrastructure unless `docs/CURRENT_TASK.md` explicitly includes them.
