@@ -4,34 +4,39 @@ import json
 from pathlib import Path
 
 
-WORKSPACE_VERSION = 2
+WORKSPACE_VERSION = 3
 
 _WORKSPACE_README = """# Architecture Agent Workspace
 
 This directory is the agent's persistent project-coding workspace. Treat it like a small software project, not a scratchpad.
 
-## Required working loop
+## Image reconstruction loop
 
-1. Read the current user request and source/reference images before editing geometry.
-2. For image reconstruction, update `notes/reconstruction_card.md` before substantial modeling.
-3. For architecture design, record durable decisions in `notes/design_notes.md`.
-4. For non-trivial project-specific SketchUp geometry, author or revise a `.rb` file under `scripts/` instead of emitting a large one-off inline snippet.
-5. Execute that file with the `sketchup_run_workspace_ruby` tool.
-6. Inspect model state and capture multiple useful views with the available SketchUp/SAIE tools.
-7. Compare the actual result against the source image or project constraints.
-8. Revise the same script/file and re-run it instead of abandoning project history.
-9. Store concise QA findings under `qa/` when a material correction is needed.
+1. Inspect the actual source image(s).
+2. Update `notes/reconstruction_card.md` before substantial modeling.
+3. Produce a compact geometry/construction plan and wait for approval when the host is in plan mode.
+4. After approval, author or revise durable `.rb` files under `scripts/`.
+5. Execute the same files with `sketchup_run_workspace_ruby`.
+6. Inspect returned screenshots/model state.
+7. Correct the same scripts/model rather than restarting.
+8. Save concise visual QA notes under `qa/` when useful.
+
+## Architecture-design loop
+
+For later design workflows, record durable design decisions in `notes/design_notes.md`, keep project-specific code under `scripts/`, execute, inspect and revise the same model.
 
 ## Tool split
 
-- Mature semantic operations such as ordinary walls/openings/slabs/roofs/query should prefer namespaced OSS tools such as `saie__...` when they are available and proven.
-- Existing Kongxing tools remain the verified document identity/lifecycle boundary.
-- Project-specific geometry that is awkward for semantic tools should use persistent Ruby files under `scripts/` and `sketchup_run_workspace_ruby`.
-- ArchFlow owns semantic validation/DXF/Ruby/review artifacts where its adopted backend applies.
+- **Primary for reconstruction:** persistent workspace Ruby for project-specific and repeated geometry.
+- **Helper library:** SAIE semantic tools for ordinary walls/openings/slabs/roofs/query/edit when simpler than custom code.
+- **Bridge/lifecycle:** Kongxing for verified model identity, viewport/camera/readback and transport.
+- **Later engineering outputs:** ArchFlow for validation/DXF/Ruby/review where relevant.
+
+Do not choose a large set of tiny one-off tool calls when a parameterized Ruby/component system better expresses the source. A successful tool call is not a successful model.
 
 ## Modeling quality rule
 
-A successful tool call is not a successful model. For image reconstruction, do not stop at rough massing when the source visibly contains developed facade/roof geometry: match silhouette, floors/bays, major voids, depth layers, repeated modules, roof/canopy and material zones, then visually inspect and revise. For design work, do not stop after the first rough massing pass when the user requested a developed building.
+For image reconstruction, a few boxes are not completion when the source contains developed facade/roof geometry. Match silhouette, storeys/bays, major voids, facade depth, repeated modules, roof/canopy and material zones, then compare source-matched screenshots and revise.
 
 Never write private source inputs into this workspace. Never modify the user's original SKP/DWG; work only on the verified disposable project model.
 """
@@ -95,11 +100,17 @@ Use this for image-to-SketchUp work. Replace placeholders with observations from
 
 - pending
 
-## Build plan
+## Construction plan
 
+- Persistent Ruby files/components: pending
+- SAIE helper operations, if any: pending
 - Pass 1 — silhouette + levels + bay grid: pending
 - Pass 2 — facade depth + repeated components + material zones: pending
 - Pass 3 — source-matched screenshot QA + corrections: pending
+
+## Approval
+
+- Status: pending plan
 
 ## Current visual mismatches
 
@@ -166,12 +177,10 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
 
 def codex_parity_instructions() -> str:
     return (
-        "Codex parity workflow: the current working directory is a persistent architecture-agent workspace. "
-        "Read README.md before non-trivial modeling. For image reconstruction, update notes/reconstruction_card.md "
-        "from the actual source image before substantial geometry. Keep durable project-specific Ruby under scripts/; "
-        "prefer sketchup_run_workspace_ruby for complex forms so the same file can be revised and re-run across turns. "
-        "Use mature semantic OSS tools for ordinary building elements, then use model queries and multiple screenshots "
-        "to inspect the result. Do not stop at first-pass rough massing when the source visibly contains developed form: "
-        "iterate the same model and scripts until silhouette, floors/bays, major voids, depth layers, repeated facade "
-        "modules and roof/canopy are recognizably aligned with the source."
+        "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
+        "For image reconstruction, inspect the source, update notes/reconstruction_card.md, plan before first execution, "
+        "then author/revise durable Ruby under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated "
+        "geometry; use SAIE as a helper library for ordinary semantic elements, not as the primary orchestration strategy. "
+        "Inspect actual screenshots/model state after substantial edits and revise the same files/model until the source-defining "
+        "silhouette, floors/bays, voids, facade depth, repeated systems and roof/canopy are recognizably aligned."
     )
