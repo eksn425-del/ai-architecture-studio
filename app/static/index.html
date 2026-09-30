@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f2efe8">
-    <title>AI Architecture Studio · Cost / Quality Router v1</title>
+    <title>AI Architecture Studio · 图片复刻</title>
     <link rel="stylesheet" href="/static/studio.css">
   </head>
   <body>
@@ -85,8 +85,8 @@
               </div>
 
               <section class="agent-session-card" aria-labelledby="agent-session-title">
-                <div class="conversation-heading"><div><span class="section-index">AGENT</span><h2 id="agent-session-title">自由建模会话</h2></div><span class="quiet-tag">Economy · GPT-6 Sol</span></div>
-                <p class="agent-session-description">本机 Agent Runtime 复用同一份建筑 Skill、Kongxing SketchUp 工具、项目 Ruby 和截图回读；Economy 默认使用 GPT-6 Sol Medium。</p>
+                <div class="conversation-heading"><div><span class="section-index">AGENT</span><h2 id="agent-session-title">自由建模会话</h2></div><span class="quiet-tag">Economy · GPT-6.1 Sol</span></div>
+                <p class="agent-session-description">先澄清目标，再确认参数与计划，批准后建模。Economy 默认使用 GPT-6.1 Sol Low；后续修改持续使用同一份模型和脚本。</p>
                 <div class="agent-session-status" id="agent-session-state" aria-live="polite">尚未打开项目专属空白副本</div>
                 <button class="button-primary" id="start-agent-session"><span>打开空白副本并连接 Agent</span><span class="button-arrow">↗</span></button>
                 <small class="agent-session-note">会自动复制 SketchUp Simple 模板到本项目 runtime；原始毕设模型不会被使用。</small>
@@ -101,7 +101,10 @@
                     <option value="image_reconstruction" selected>图片 → SketchUp 复刻</option>
                     <option value="architecture_design">建筑方案设计</option>
                   </select>
-                  <p id="workflow-help">上传参考图片 → 打开空白副本 → 发送复刻要求。Agent 会建模、看截图并修正，无需任务书或场地。</p>
+                  <p id="workflow-help">上传参考图片 → 分析并生成计划 → 打开空白副本 → 批准执行。分析阶段不会修改 SketchUp。</p>
+                  <div id="reconstruction-state" role="status" aria-live="polite">待分析</div>
+                  <button class="button-secondary" id="approve-reconstruction" type="button" hidden><span>批准执行</span><span>↗</span></button>
+                  <button class="button-secondary" id="revise-reconstruction-plan" type="button" hidden>修改参数</button>
                   <label class="field-label routing-tier-label" for="conversation-tier">本轮模型档位</label>
                   <select id="conversation-tier" class="select-control">
                     <option value="economy">Economy / 标准（默认）</option>
@@ -109,7 +112,7 @@
                   </select>
                   <label class="sr-only" for="conversation-input">输入中文设计要求或模型修改指令</label>
                   <textarea id="conversation-input" class="text-area conversation-input" rows="3" maxlength="1200" placeholder="先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…"></textarea>
-                  <button class="button-primary conversation-send" id="conversation-send" type="submit"><span>发送消息</span><span class="button-arrow">↗</span></button>
+                  <button class="button-primary conversation-send" id="conversation-send" type="submit"><span>分析图片 / 生成建模计划</span><span class="button-arrow">↗</span></button>
                 </form>
                 <div class="conversation-hint" id="conversation-hint">可以先讨论设计；启动模型会话后，对话将由 Agent 直接落实到同一份 SketchUp 副本。</div>
               </section>

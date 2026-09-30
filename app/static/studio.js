@@ -4,7 +4,7 @@ const $ = (id) => document.getElementById(id);
 function routeInfo(tier) {
   const fallback = tier === "premium"
     ? { model: "gpt-6-astra", provider: "codex-app-server" }
-    : { model: "gpt-6-sol", reasoning_effort: "medium", provider: "codex-app-server" };
+    : { model: "gpt-6.1-sol", reasoning_effort: "low", provider: "codex-app-server" };
   return state.modelRouter?.[tier] || fallback;
 }
 
@@ -141,7 +141,7 @@ function updateHeader() {
   status.classList.toggle("built", built);
   status.innerHTML = `<i></i> ${agentReady ? "Agent 会话已连接" : built ? "模型已建立" : prepared ? "方案已生成" : "输入已就绪"}`;
   $("build-model").disabled = !prepared || !$("disposable-confirm").checked || state.busy || built;
-  $("edit-height").disabled = !built || state.busy || !project.design_ir.objects.some((item) => item.type === "building_mass");
+  $("edit-height").disabled = !built || state.busy || !project.design_ir?.objects.some((item) => item.type === "building_mass");
   const masses = (model.objects || []).filter((item) => item.object_type === "building_mass");
   const editedCount = masses.filter((item) => item.last_change).length;
   $("edit-count").textContent = `${Math.min(editedCount, 2)} / 2`;
@@ -163,6 +163,20 @@ function updateHeader() {
     ? "每轮对话都在同一份 SketchUp 副本上执行；Agent 可连续调用工具、查看截图/状态并保存检查点。"
     : "可以先讨论与上传项目资料；未启动空白模型前，SketchUp 工具保持关闭。";
   $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
+  const reconstruction = $("workflow-mode").value === "image_reconstruction";
+  const reconstructionState = agent.reconstruction_state || "idle";
+  $("reconstruction-state").hidden = !reconstruction;
+  $("reconstruction-state").textContent = {idle: "待分析", clarifying: "等待补充信息", planned: "等待批准", building: "建模/修改中"}[reconstructionState] || "待分析";
+  $("revise-reconstruction-plan").hidden = !reconstruction || !["planned", "building"].includes(reconstructionState);
+  $("revise-reconstruction-plan").disabled = state.busy;
+  $("approve-reconstruction").hidden = !reconstruction || reconstructionState !== "planned";
+  $("approve-reconstruction").disabled = state.busy || !agentReady || !routeAvailable($("conversation-tier").value);
+  if (!state.busy) $("conversation-send").querySelector("span:first-child").textContent = !reconstruction ? "发送消息" : {idle: "分析图片", clarifying: "提交回答 / 生成建模计划", planned: "修改参数 / 更新计划", building: "发送修改要求"}[reconstructionState];
+  if (reconstruction) $("conversation-hint").textContent = reconstructionState === "planned"
+    ? agentReady ? "计划已生成。点击批准执行后，Agent 将开始建模。" : "计划已生成。先打开空白副本，再点击批准执行。"
+    : reconstructionState === "building" ? "继续修改同一份模型；Agent 将查看截图并修正。" : "先分析参考图片并生成计划，SketchUp 保持原样。";
+  for (const id of ["brief", "site-note", "intent"]) $(id).closest(".input-block").hidden = reconstruction;
+  $("reference-url").hidden = reconstruction;
   setStage("design", true);
   setStage("model", prepared);
   setStage("drawing", !!artifactByType("dxf"));
@@ -465,9 +479,9 @@ async function applyEdit(instruction) {
   }
 }
 
-async function sendConversation(event) {
-  event.preventDefault();
-  const message = $("conversation-input").value.trim();
+async function sendConversation(event, agentAction = "auto") {
+  event?.preventDefault();
+  const message = agentAction === "execute" ? "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。" : $("conversation-input").value.trim();
   if (!message || state.busy) return;
   state.busy = true;
   const button = $("conversation-send");
@@ -475,7 +489,10 @@ async function sendConversation(event) {
   const route = routeInfo(requestedTier);
   setBusy(button, true, `${requestedTier === "premium" ? "精修" : "Economy"} · ${route.model} 处理中…`);
   const built = state.project?.agent_session?.status === "ready";
-  setStatus(built ? "建筑 Agent 正在查看当前模型并执行这一轮自然语言设计任务。" : "建筑 Agent 正在根据项目资料讨论设计；此时 SketchUp 工具保持关闭。");
+  const reconstruction = $("workflow-mode").value === "image_reconstruction";
+  const resolvedAction = agentAction;
+  $("approve-reconstruction").disabled = true;
+  setStatus(reconstruction && agentAction !== "execute" && state.project?.agent_session?.reconstruction_state !== "building" ? "正在分析图片与建模参数，SketchUp 不会被修改。" : "Agent 正在建模/修改并检查截图。");
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/conversation`, {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -483,6 +500,7 @@ async function sendConversation(event) {
         message,
         tier: requestedTier,
         workflow_mode: $("workflow-mode").value,
+        agent_action: resolvedAction,
         project_name: $("project-name").value,
         brief: $("brief").value,
         site_note: $("site-note").value,
@@ -498,7 +516,7 @@ async function sendConversation(event) {
     const calls = result.agent?.tool_calls?.length || 0;
     const agent = result.agent || {};
     showToast((agent.tier === "premium" ? "精修" : "Economy") + " · " + (agent.model || "Agent")
-      + " 已处理" + (built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
+      + " 已处理" + (agent.agent_action === "clarify" ? "图片澄清" : agent.agent_action === "plan" ? "建模计划，等待批准" : built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
     if (agent.premium_rescue_pending && requestedTier === "economy") {
       showToast("普通档连续遇到工具问题；如需使用 Astra Low，请显式选择精修。", true);
     }
@@ -515,6 +533,8 @@ async function sendConversation(event) {
 
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
 $("conversation-form").addEventListener("submit", sendConversation);
+$("approve-reconstruction").addEventListener("click", (event) => sendConversation(event, "execute"));
+$("revise-reconstruction-plan").addEventListener("click", (event) => sendConversation(event, "plan"));
 $("conversation-input").addEventListener("input", () => {
   $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
 });
@@ -522,11 +542,12 @@ $("conversation-tier").addEventListener("change", updateHeader);
 $("workflow-mode").addEventListener("change", () => {
   const reconstruction = $("workflow-mode").value === "image_reconstruction";
   $("workflow-help").textContent = reconstruction
-    ? "上传参考图片 → 打开空白副本 → 发送复刻要求。Agent 会建模、看截图并修正，无需任务书或场地。"
+    ? "上传参考图片 → 分析并生成计划 → 打开空白副本 → 批准执行。分析阶段不会修改 SketchUp。"
     : "结合任务书、场地与参考资料讨论建筑方案，启动空白模型后继续建模。";
   $("conversation-input").placeholder = reconstruction
     ? "按这张图尽可能还原成可编辑 SketchUp 模型"
     : "输入设计方向或模型修改要求…";
+  updateHeader();
 });
 $("start-agent-session").addEventListener("click", startAgentSession);
 $("prepare-design").addEventListener("click", prepareDesign);

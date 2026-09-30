@@ -15,12 +15,12 @@ from app.sketchup_mcp import SketchUpAdapter
 from app.store import ProjectStore
 
 
-def test_native_agent_defaults_to_sol_medium_and_allows_experiment_override(tmp_path, monkeypatch):
+def test_native_agent_defaults_to_sol_low_and_allows_experiment_override(tmp_path, monkeypatch):
     monkeypatch.delenv("ARCH_STUDIO_CODEX_REASONING_EFFORT", raising=False)
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_MODEL", raising=False)
     default = CodexAppServerRuntime(tmp_path / "runtime", codex_executable="codex-test")
-    assert default.model == "gpt-6-sol"
-    assert default.reasoning_effort == "medium"
+    assert default.model == "gpt-6.1-sol"
+    assert default.reasoning_effort == "low"
 
     monkeypatch.setenv("ARCH_STUDIO_CODEX_REASONING_EFFORT", "medium")
     experiment = CodexAppServerRuntime(tmp_path / "runtime", codex_executable="codex-test")

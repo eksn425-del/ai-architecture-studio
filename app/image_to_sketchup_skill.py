@@ -36,7 +36,7 @@ Do not ask questions already answered by the user. Do not ask about low-impact m
 
 ## Method card B — parameter card, not vague prose
 
-After the user's clarification response, update `notes/reconstruction_card.md` with a compact parameter card. Clearly separate **known**, **estimated**, and **assumed** values.
+After the user's clarification response, update `notes/reconstruction_card.md` with a compact parameter card. Clearly label values as KNOWN / ESTIMATED / ASSUMED.
 
 Record:
 

@@ -12,6 +12,7 @@ from .agent_tools import AgentToolSurface
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
 from .reference_assets import discover_project_reference_images, image_data_url, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
+from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 
 
 class LiteLLMRuntime:
@@ -25,7 +26,9 @@ class LiteLLMRuntime:
         self.runtime_root = runtime_root.resolve()
         self.sketchup_mcp = sketchup_mcp or ConfiguredSketchUpMCP(timeout_seconds=180)
         self.tool_surface = AgentToolSurface(self.runtime_root, self.sketchup_mcp)
-        self.model = model or os.environ.get("ARCH_STUDIO_CHINA_MODEL", "dashscope/qwen3-vl-flash")
+        self.model = model or os.environ.get("ARCH_STUDIO_API_MODEL") or os.environ.get("ARCH_STUDIO_CHINA_MODEL", "dashscope/qwen3-vl-flash")
+        self.key_env = os.environ.get("ARCH_STUDIO_API_KEY_ENV", "DASHSCOPE_API_KEY")
+        self.custom_api_base = os.environ.get("ARCH_STUDIO_API_BASE", "").strip()
         self.region = (region or os.environ.get("ARCH_STUDIO_CHINA_REGION", "international")).lower()
         if self.region not in {"international", "beijing"}:
             raise ValueError("ARCH_STUDIO_CHINA_REGION must be 'international' or 'beijing'.")
@@ -33,7 +36,7 @@ class LiteLLMRuntime:
 
     @property
     def credential_configured(self) -> bool:
-        return bool(os.environ.get("DASHSCOPE_API_KEY", "").strip())
+        return bool(os.environ.get(self.key_env, "").strip())
 
     @property
     def dependency_installed(self) -> bool:
@@ -48,6 +51,10 @@ class LiteLLMRuntime:
 
     @property
     def api_base(self) -> str:
+        if self.custom_api_base:
+            return self.custom_api_base
+        if not self.model.startswith("dashscope/"):
+            return ""
         if self.region == "beijing":
             return "https://dashscope.aliyuncs.com/compatible-mode/v1"
         return "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
@@ -57,11 +64,12 @@ class LiteLLMRuntime:
                 model_path: Path | None = None, model_guid: str = "",
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
-                reasoning_effort: str | None = None) -> AgentTurnResult:
-        api_key = os.environ.get("DASHSCOPE_API_KEY", "").strip()
+                reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
+                tool_profile: ToolProfile = "full") -> AgentTurnResult:
+        api_key = os.environ.get(self.key_env, "").strip()
         if not api_key:
             raise NativeAgentUnavailable(
-                "Qwen is configured through LiteLLM, but DASHSCOPE_API_KEY is not set; no provider request was sent."
+                f"LiteLLM credential {self.key_env} is not set; no provider request was sent."
             )
         try:
             from litellm import completion
@@ -73,15 +81,16 @@ class LiteLLMRuntime:
             tool_context = self.tool_surface.prepare(
                 project_dir=project_dir, mcp_enabled=mcp_enabled, model_path=model_path,
                 model_guid=model_guid, ruby_enabled=ruby_enabled, ruby_state=ruby_state,
+                tool_profile=tool_profile, workspace_tools_enabled=workflow_mode == "image_reconstruction",
             )
         except RuntimeError as error:
             raise NativeAgentUnavailable(str(error)) from error
 
         selected_model = model or self.model
         prompt_text = prompt.rstrip() + (("\n\n" + architecture_skill_context.strip()) if architecture_skill_context else "")
-        reference_images = discover_project_reference_images(project_dir)
+        reference_images = discover_project_reference_images(project_dir, categories=workflow_reference_categories(workflow_mode))
         if reference_images:
-            prompt_text += "\n\n" + reference_image_label(reference_images)
+            prompt_text += "\n\n" + reference_image_label(reference_images, reconstruction=workflow_mode == "image_reconstruction")
             user_content: str | list[dict[str, Any]] = [{"type": "text", "text": prompt_text}]
             for image_path in reference_images:
                 user_content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
@@ -91,7 +100,30 @@ class LiteLLMRuntime:
             {"role": "system", "content": developer_instructions},
             {"role": "user", "content": user_content},
         ]
-        tools = [_to_litellm_tool(tool) for tool in tool_context.dynamic_tools] if mcp_enabled else []
+        # Preserve actual tool messages across turns, not just a cosmetic thread id.
+        resolved_thread = thread_id if thread_id and thread_id.startswith("litellm-") else f"litellm-{uuid.uuid4().hex}"
+        if not resolved_thread.removeprefix("litellm-").isalnum():
+            raise NativeAgentUnavailable("Invalid provider thread id.")
+        history_dir = project_dir / "runtime" / "provider_sessions"
+        history_dir.mkdir(parents=True, exist_ok=True)
+        history_path = history_dir / f"{resolved_thread}.json"
+        if history_path.exists():
+            saved = json.loads(history_path.read_text(encoding="utf-8"))
+            if saved.get("model") != selected_model or saved.get("region") != self.region:
+                raise NativeAgentUnavailable("Provider/model changed; start a new provider session explicitly.")
+            messages = [messages[0], *saved["messages"], messages[1]]
+        tools = [_to_litellm_tool(tool) for tool in tool_context.dynamic_tools]
+        evidence_dir = project_dir / "runtime" / "agent_events"
+        evidence_dir.mkdir(parents=True, exist_ok=True)
+        evidence_path = evidence_dir / f"{uuid.uuid4().hex}.jsonl"
+        def record(event: dict[str, Any]) -> None:
+            with evidence_path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+        record({"event": "turn_input", "model": selected_model, "tool_profile": tool_profile,
+                "workflow_mode": workflow_mode, "reference_categories": list(workflow_reference_categories(workflow_mode)),
+                "reference_files": [p.relative_to(project_dir).as_posix() for p in reference_images],
+                "input_types": ["text"] + ["image_url"] * len(reference_images),
+                "tool_names": [t["name"] for t in tool_context.dynamic_tools]})
         started = time.monotonic()
         input_tokens: int | None = None
         output_tokens: int | None = None
@@ -104,9 +136,10 @@ class LiteLLMRuntime:
                 "model": selected_model,
                 "messages": messages,
                 "api_key": api_key,
-                "api_base": self.api_base,
                 "timeout": 240,
             }
+            if self.api_base:
+                kwargs["api_base"] = self.api_base
             if tools:
                 kwargs["tools"] = tools
                 kwargs["tool_choice"] = "auto"
@@ -116,8 +149,8 @@ class LiteLLMRuntime:
             except Exception as error:
                 raise NativeAgentUnavailable(f"LiteLLM request failed for {selected_model}: {error}") from error
             usage = _usage_from_response(response)
-            input_tokens = usage[0] if usage[0] is not None else input_tokens
-            output_tokens = usage[1] if usage[1] is not None else output_tokens
+            input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
+            output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
             message = _response_message(response)
             raw_tool_calls = message.get("tool_calls") or []
             last_reply = _message_content(message)
@@ -148,14 +181,20 @@ class LiteLLMRuntime:
                     failed_tool_calls += 1
                     output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
                 text_result, images = _tool_result_parts(output)
+                record({"event": "tool_result", "tool": name, "success": output.get("success", not output.get("isError", False)), "image_count": len(images)})
                 messages.append({"role": "tool", "tool_call_id": call_id, "content": text_result})
                 if images:
                     content: list[dict[str, Any]] = [{"type": "text", "text": f"Visual readback from SketchUp tool {name}."}]
                     content.extend({"type": "image_url", "image_url": {"url": image}} for image in images)
                     messages.append({"role": "user", "content": content})
 
+        messages.append({"role": "assistant", "content": last_reply})
+        history_tmp = history_path.with_suffix(".tmp")
+        history_tmp.write_text(json.dumps({"model": selected_model, "region": self.region,
+                                           "messages": messages[1:]}, ensure_ascii=False), encoding="utf-8")
+        history_tmp.replace(history_path)
         return AgentTurnResult(
-            thread_id=thread_id or f"litellm-{uuid.uuid4().hex}",
+            thread_id=resolved_thread,
             reply=last_reply or "已完成这轮推演；模型操作记录已保存。",
             status="completed",
             tool_calls=tool_calls[-40:],

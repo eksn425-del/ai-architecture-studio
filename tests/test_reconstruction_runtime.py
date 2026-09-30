@@ -37,7 +37,7 @@ def test_auto_reconstruction_plans_after_clarification() -> None:
 
 def test_auto_reconstruction_executes_after_approved_plan() -> None:
     session = AgentSession(project_id="demo", reconstruction_state="planned")
-    request = ConversationRequest(message="批准执行", workflow_mode="image_reconstruction")
+    request = ConversationRequest(message="批准执行", workflow_mode="image_reconstruction", agent_action="execute")
 
     policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=True)
     assert policy.action == "execute"
@@ -67,9 +67,8 @@ def test_explicit_execute_still_requires_ready_sketchup_session() -> None:
     )
 
     validate_reconstruction_action(session, "execute")
-    policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=False)
-    assert policy.action == "execute"
-    assert policy.tools_enabled is False
+    with pytest.raises(ValueError):
+        build_reconstruction_turn_policy(session, request, sketchup_session_ready=False)
 
 
 def test_reconstruction_context_excludes_brief_and_site() -> None:

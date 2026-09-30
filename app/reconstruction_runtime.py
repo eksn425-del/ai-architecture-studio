@@ -29,7 +29,7 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
 
     idle -> clarify
     clarifying -> plan
-    planned/building -> execute
+    planned -> plan until explicit approval; building -> execute
 
     The user/host may explicitly request clarify/plan/execute. Execution is validated
     separately and must never occur before an approved plan exists.
@@ -40,7 +40,7 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
         return "clarify"
     if session.reconstruction_state == "clarifying":
         return "plan"
-    return "execute"
+    return "execute" if session.reconstruction_state == "building" else "plan"
 
 
 def validate_reconstruction_action(session: AgentSession, action: ResolvedAction) -> None:
@@ -65,6 +65,8 @@ def build_reconstruction_turn_policy(
 ) -> ReconstructionTurnPolicy:
     action = resolve_reconstruction_action(session, request)
     validate_reconstruction_action(session, action)
+    if action == "execute" and not sketchup_session_ready:
+        raise ValueError("请先打开当前项目的 SketchUp 空白副本，再批准执行。")
     user_gate: Literal["clarification", "approval", "none"] = (
         "clarification" if action == "clarify" else
         "approval" if action == "plan" else

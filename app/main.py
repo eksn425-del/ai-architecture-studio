@@ -20,7 +20,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ValidationError
 
 from .brain import BrainUnavailable, CodexBrainAdapter
-from .workflow_context import load_workflow_skill_context, workflow_developer_instructions, workflow_prompt_note
+from .workflow_context import load_workflow_skill_context, workflow_developer_instructions, workflow_prompt_note, workflow_tool_profile
+from .reconstruction_runtime import build_reconstruction_turn_policy, require_reconstruction_reference, reconstruction_context_payload
 from .generators import generate_drawing, generate_presentation
 from .models import (
     AgentSession, Artifact, BuildPlan, ConversationMessage, ConversationRequest, CreateProjectRequest,
@@ -218,7 +219,17 @@ def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_mo
 
 def _agent_prompt(context: ProjectContext, message: str, *, mcp_enabled: bool,
                   model_info: dict[str, Any] | None = None,
-                  architecture_skill_context: str = "", workflow_mode: str = "architecture_design") -> str:
+                  architecture_skill_context: str = "", workflow_mode: str = "architecture_design",
+                  agent_action: str = "auto") -> str:
+    if workflow_mode == "image_reconstruction":
+        return (
+            "AI Architecture Studio. Reply in concise Simplified Chinese.\n"
+            + workflow_prompt_note(workflow_mode, agent_action) + "\n"
+            + json.dumps(reconstruction_context_payload(context), ensure_ascii=False)
+            + ("\nCurrent SketchUp readback: " + json.dumps(_safe_readback(model_info), ensure_ascii=False) if model_info else "")
+            + "\n" + architecture_skill_context
+            + "\nLatest user request: " + message.strip()
+        )
     mode = (
         "A Kongxing SketchUp MCP session is active on the verified blank disposable project copy. You may freely choose and sequence the available SketchUp tools."
         if mcp_enabled else
@@ -1045,9 +1056,21 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if request.reference_url.strip():
                 context.references.append(Reference(type="url", source=request.reference_url.strip()[:1200]))
         for index, reference in enumerate(context.references):
+            if request.workflow_mode == "image_reconstruction":
+                continue
             if reference.type == "url" and reference.status == "pending":
                 context.references[index] = Reference.model_validate(app.state.reference_ingestor.ingest(reference.source))
 
+        project_dir = store.ensure_layout(project_id)
+        session_ready = session.status == "ready" and bool(session.model_path)
+        policy = None
+        if request.workflow_mode == "image_reconstruction":
+            try:
+                require_reconstruction_reference(project_dir)
+                policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=session_ready)
+            except ValueError as error:
+                raise HTTPException(status_code=409, detail=str(error)) from error
+        action = policy.action if policy else request.agent_action
         phase = "agent"
         requested_tier = request.tier
         effective_tier = requested_tier
@@ -1061,13 +1084,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             session.economy_tool_failure_streak = 0
         _append_conversation(context, "user", phase, request.message.strip(), {
             "workflow_mode": request.workflow_mode,
+            "agent_action": action,
             "requested_tier": requested_tier,
             "effective_tier": effective_tier,
             "routing_reason": route_reason,
         })
         project_dir = store.ensure_layout(project_id)
         store.save(context, project_dir / "state" / "project_context.json")
-        mcp_enabled = session.status == "ready" and bool(session.model_path)
+        mcp_enabled = policy.tools_enabled if policy else session_ready
         adapter: SketchUpAdapter = app.state.sketchup
         model_info: dict[str, Any] | None = None
         active_model: Path | None = None
@@ -1107,6 +1131,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             native_context, request.message, mcp_enabled=mcp_enabled,
             model_info=model_info, architecture_skill_context=skill_context,
             workflow_mode=request.workflow_mode,
+            agent_action=action,
         )
         try:
             result = app.state.model_router.respond(
@@ -1120,10 +1145,12 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 ruby_enabled=mcp_enabled,
                 ruby_state=session.ruby_state,
                 architecture_skill_context="",
-                developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled),
+                workflow_mode=request.workflow_mode,
+                tool_profile=workflow_tool_profile(request.workflow_mode),
+                developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled, action=action),
             )
         except (NativeAgentUnavailable, ConnectorUnavailable) as error:
-            session.status = "ready" if mcp_enabled else "conversation"
+            session.status = "ready" if session_ready else "conversation"
             session.error = str(error)[:1200]
             if effective_tier == "economy" and _is_agent_loop_stall(str(error)):
                 session.economy_tool_failure_streak += 1
@@ -1133,7 +1160,24 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             raise HTTPException(status_code=503, detail=str(error)) from error
 
         session.thread_id = result.thread_id
-        session.status = "ready" if mcp_enabled else "conversation"
+        session.status = "ready" if session_ready else "conversation"
+        session.workflow_mode = request.workflow_mode
+        if policy:
+            card = project_dir / "runtime" / "agent_workspace" / "notes" / "reconstruction_card.md"
+            if action == "clarify":
+                session.reconstruction_state = "clarifying"
+                session.clarification_rounds += 1
+            elif action == "plan":
+                # Do not claim a saved plan if the coding harness only returned text.
+                text = card.read_text(encoding="utf-8") if card.is_file() else ""
+                if not text.strip() or "- Overall width / height / depth: pending" in text:
+                    session.error = "建模计划未完成：Agent 尚未填写 reconstruction_card。"
+                    session.updated_at = utc_now()
+                    store.save_state(project_id, session, "agent_session.json")
+                    raise HTTPException(status_code=422, detail=session.error)
+                session.reconstruction_state = "planned"
+            else:
+                session.reconstruction_state = "building"
         session.model = result.model_name or route.model
         session.reasoning_effort = result.reasoning_effort or route.reasoning_effort
         session.routing_tier = effective_tier
@@ -1192,6 +1236,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session.last_reply = reply[:2000]
         turn_metadata = {
             "workflow_mode": request.workflow_mode,
+            "agent_action": action,
+            "reconstruction_state": session.reconstruction_state,
             "tier": effective_tier,
             "provider": session.provider,
             "model": session.model,
@@ -1213,6 +1259,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "reply": reply,
             "agent": {
                 "workflow_mode": request.workflow_mode,
+                "agent_action": action,
+                "reconstruction_state": session.reconstruction_state,
+                "tool_profile": workflow_tool_profile(request.workflow_mode),
                 "model": session.model,
                 "reasoning_effort": session.reasoning_effort,
                 "tier": effective_tier,

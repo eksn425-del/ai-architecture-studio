@@ -15,6 +15,7 @@ from typing import Any, Callable
 from .agent_tools import AgentToolSurface
 from .reference_assets import discover_project_reference_images, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
+from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 
 
 class NativeAgentUnavailable(RuntimeError):
@@ -69,7 +70,7 @@ def _workspace_write_policy(workspace: Path) -> dict[str, Any]:
     }
 
 
-def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: bool) -> str:
+def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: bool, tool_profile: str = "full") -> str:
     """Supersede the historical Kongxing-only wording once OSS tools are composed.
 
     The older web layer still passes a Kongxing-only sentence. Keeping the override
@@ -78,6 +79,8 @@ def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: boo
     """
     if not mcp_enabled:
         return developer_instructions
+    if tool_profile == "reconstruction_coding":
+        return developer_instructions + "\nUse persistent workspace Ruby as the primary reconstruction tool. SAIE is a helper library; supplied dynamic tools are the authoritative allowlist."
     return developer_instructions.rstrip() + (
         "\n\nOSS Takeover execution override: the dynamic tools supplied on this turn are the authoritative "
         "allowed SketchUp tool surface. Namespaced reusable OSS tools such as saie__* are allowed when "
@@ -115,8 +118,8 @@ class CodexAppServerRuntime:
                  reasoning_effort: str | None = None):
         self.runtime_root = runtime_root.resolve()
         self.codex_executable = codex_executable or os.environ.get("CODEX_CLI_PATH") or shutil.which("codex")
-        self.model = model or os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-sol")
-        effort = reasoning_effort or os.environ.get("ARCH_STUDIO_CODEX_REASONING_EFFORT", "medium")
+        self.model = model or os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6.1-sol")
+        effort = reasoning_effort or os.environ.get("ARCH_STUDIO_CODEX_REASONING_EFFORT", "low")
         if effort not in {"low", "medium", "high", "xhigh", "max"}:
             raise ValueError("ARCH_STUDIO_CODEX_REASONING_EFFORT must be one of low, medium, high, xhigh, or max.")
         self.reasoning_effort = effort
@@ -141,7 +144,8 @@ class CodexAppServerRuntime:
                 model_path: Path | None = None, model_guid: str = "",
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
-                reasoning_effort: str | None = None) -> AgentTurnResult:
+                reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
+                tool_profile: ToolProfile = "full") -> AgentTurnResult:
         if not self.codex_executable:
             raise NativeAgentUnavailable("Codex CLI is unavailable; install/sign in to Codex CLI to start the native agent.")
         with self._lock:
@@ -153,6 +157,7 @@ class CodexAppServerRuntime:
                 tools = self.tool_surface.prepare(
                     project_dir=project_dir, mcp_enabled=mcp_enabled, model_path=model_path,
                     model_guid=model_guid, ruby_enabled=ruby_enabled, ruby_state=ruby_state,
+                    tool_profile=tool_profile,
                 )
                 agent_workspace = _agent_workspace(project_dir)
             except (RuntimeError, ValueError) as error:
@@ -164,11 +169,11 @@ class CodexAppServerRuntime:
             full_prompt = prompt.rstrip()
             if architecture_skill_context:
                 full_prompt += "\n\n" + architecture_skill_context.strip()
-            reference_images = discover_project_reference_images(project_dir)
+            reference_images = discover_project_reference_images(project_dir, categories=workflow_reference_categories(workflow_mode))
             if reference_images:
-                full_prompt += "\n\n" + reference_image_label(reference_images)
+                full_prompt += "\n\n" + reference_image_label(reference_images, reconstruction=workflow_mode == "image_reconstruction")
             effective_developer_instructions = _composed_tool_instructions(
-                developer_instructions, mcp_enabled=mcp_enabled,
+                developer_instructions, mcp_enabled=mcp_enabled, tool_profile=tool_profile,
             )
             return self._run_turn(
                 project_dir=project_dir.resolve(), agent_workspace=agent_workspace,
@@ -177,6 +182,7 @@ class CodexAppServerRuntime:
                 dynamic_tools=tools.dynamic_tools, tool_handler=tools.dispatch,
                 model=selected_model, reasoning_effort=selected_effort,
                 reference_images=reference_images,
+                workflow_mode=workflow_mode, tool_profile=tool_profile,
             )
 
     def _dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
@@ -197,7 +203,7 @@ class CodexAppServerRuntime:
         if not source_config.is_file():
             raise NativeAgentUnavailable("Codex config.toml was not found; the local native agent is not configured.")
         try:
-            _toml_load(source_config)
+            user_config = _toml_load(source_config)
         except Exception as error:
             raise NativeAgentUnavailable(f"Could not read Codex configuration: {error}") from error
         self.home.mkdir(parents=True, exist_ok=True)
@@ -223,6 +229,11 @@ class CodexAppServerRuntime:
             "network_access = false",
             f"writable_roots = [{json.dumps(str(workspace))}]",
         ]
+        # Preserve the user's supported Windows sandbox implementation selection.
+        # The project still uses workspace-write, never full access.
+        windows = user_config.get("windows", {})
+        if isinstance(windows, dict) and windows.get("sandbox") in {"elevated", "unelevated"}:
+            lines.extend(["", "[windows]", f"sandbox = {json.dumps(windows['sandbox'])}"])
         temp_config = self.home / f"config.{uuid.uuid4().hex}.tmp"
         config_path = self.home / "config.toml"
         temp_config.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -234,7 +245,8 @@ class CodexAppServerRuntime:
                   dynamic_tools: list[dict[str, Any]],
                   tool_handler: Callable[[str, dict[str, Any]], dict[str, Any]],
                   model: str, reasoning_effort: str,
-                  reference_images: list[Path]) -> AgentTurnResult:
+                  reference_images: list[Path], workflow_mode: WorkflowMode = "architecture_design",
+                  tool_profile: ToolProfile = "full") -> AgentTurnResult:
         started = time.monotonic()
         environment = _app_server_environment(dict(os.environ))
         environment["CODEX_HOME"] = str(self.home)
@@ -283,12 +295,10 @@ class CodexAppServerRuntime:
                 "serviceName": "ai_architecture_studio_oss_takeover_v1",
                 "developerInstructions": developer_instructions,
             }
-            if mcp_enabled:
-                thread_params["dynamicTools"] = dynamic_tools
+            thread_params["dynamicTools"] = dynamic_tools if mcp_enabled else []
             if thread_id:
                 thread_params = {"threadId": thread_id, "developerInstructions": developer_instructions}
-                if mcp_enabled:
-                    thread_params["dynamicTools"] = dynamic_tools
+                thread_params["dynamicTools"] = dynamic_tools if mcp_enabled else []
                 thread = self._request(process, events, request_id, "thread/resume", thread_params, buffered)
             else:
                 thread = self._request(process, events, request_id, "thread/start", thread_params, buffered)
@@ -308,6 +318,8 @@ class CodexAppServerRuntime:
 
             record({"event": "turn_input", "thread_id": resolved_thread_id,
                     "model": model, "reasoning_effort": reasoning_effort,
+                    "workflow_mode": workflow_mode, "tool_profile": tool_profile,
+                    "reference_categories": list(workflow_reference_categories(workflow_mode)),
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],
                     "sandbox_policy": {"type": "workspaceWrite", "networkAccess": False},

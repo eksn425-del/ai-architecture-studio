@@ -42,6 +42,12 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - Reuse license status in this project: not yet verified as compatible.
 - Use in this repository: architecture/workflow study only. No source should be copied until a compatible license is confirmed.
 
+## Building-Xuezhang desktop observation
+
+- Use: read-only observation of user-accessible installation structure, tool schemas and the user's local execution history.
+- No compatible redistribution license for the competitor's own SketchUp Skill/bridge/application was established. No proprietary source, prompts, generated project scripts or private assets were copied into this repository.
+- License files in bundled third-party runtimes apply to those individual packages only. Later reuse must obtain and attribute the corresponding upstream package; it does not authorize copying the enclosing application.
+
 ## Other surveyed projects
 
 VBO SkAgent and SketchUp Agent Control are retained as fallback/reference candidates under the license status recorded in `docs/OPEN_SOURCE_COMPONENT_MAP.md`. If source is later vendored or copied, add the exact upstream revision, license text, and reuse boundary here in the same commit.

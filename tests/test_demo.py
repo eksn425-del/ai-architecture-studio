@@ -465,7 +465,7 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
     assert page.status_code == 200
     assert 'lang="zh-CN"' in page.text
     assert "讨论与修改" in page.text
-    assert "发送消息" in page.text
+    assert "分析图片" in page.text
     assert "旧版规则化建模流程" in page.text
     assert "自由建模会话" in page.text
     assert "MODEL ROUTER V1" in page.text
@@ -498,8 +498,8 @@ def test_local_status_exposes_native_model_and_reasoning_effort(tmp_path: Path):
     app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=FakeSketchUp(), native_agent=native)
     response = TestClient(app).get("/api/status")
     assert response.status_code == 200
-    assert response.json()["native_agent_model"] == "gpt-6-sol"
-    assert response.json()["native_agent_reasoning_effort"] == "medium"
+    assert response.json()["native_agent_model"] == "gpt-6.1-sol"
+    assert response.json()["native_agent_reasoning_effort"] == "low"
 
 
 class DisconnectedFakeSketchUp(FakeSketchUp):
@@ -563,7 +563,7 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
         json={"message": "读取模型状态并简要报告。"},
     )
     assert routine.status_code == 200
-    assert routine.json()["agent"]["model"] == "gpt-6-sol"
+    assert routine.json()["agent"]["model"] == "gpt-6.1-sol"
     assert routine.json()["agent"]["tier"] == "economy"
 
 
@@ -578,12 +578,12 @@ def test_economy_failures_suggest_premium_but_never_call_astra_without_selection
 
     first = client.post(project_path, json={"message": "先讨论入口。", "tier": "economy"})
     second = client.post(project_path, json={"message": "再讨论路径。", "tier": "economy"})
-    assert first.json()["agent"]["model"] == second.json()["agent"]["model"] == "gpt-6-sol"
+    assert first.json()["agent"]["model"] == second.json()["agent"]["model"] == "gpt-6.1-sol"
     assert second.json()["agent"]["premium_rescue_pending"] is True
 
     continued = client.post(project_path, json={"message": "继续检查失败的工具调用。", "tier": "economy"})
     assert continued.status_code == 200
-    assert continued.json()["agent"]["model"] == "gpt-6-sol"
+    assert continued.json()["agent"]["model"] == "gpt-6.1-sol"
     assert continued.json()["agent"]["tier"] == "economy"
     assert continued.json()["agent"]["premium_rescue_pending"] is True
 
@@ -594,7 +594,7 @@ def test_economy_failures_suggest_premium_but_never_call_astra_without_selection
 
     followup = client.post(project_path, json={"message": "恢复普通迭代。", "tier": "economy"})
     assert followup.status_code == 200
-    assert followup.json()["agent"]["model"] == "gpt-6-sol"
+    assert followup.json()["agent"]["model"] == "gpt-6.1-sol"
 
 
 def test_native_agent_refuses_original_or_switched_sketchup_model(tmp_path: Path):
@@ -642,7 +642,7 @@ def test_native_runtime_isolates_mcp_allowlist_and_uses_codex_login_cache(tmp_pa
 
     runtime._prepare_home(mcp_enabled=True)
     isolated = tomllib.loads((runtime.home / "config.toml").read_text(encoding="utf-8"))
-    assert isolated["model"] == "gpt-6-sol"
+    assert isolated["model"] == "gpt-6.1-sol"
     assert "mcp_servers" not in isolated
     assert os.path.samefile(source_home / "auth.json", runtime.home / "auth.json")
     dynamic_tools = runtime._dynamic_tools()

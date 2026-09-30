@@ -11,6 +11,7 @@ from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workspace_ruby import run_workspace_ruby
+from .workspace_files import workspace_file_tools, workspace_file_call
 
 
 ToolProfile = Literal["full", "reconstruction_coding"]
@@ -65,7 +66,7 @@ class AgentToolSurface:
     def prepare(self, *, project_dir: Path, mcp_enabled: bool, model_path: Path | None,
                 model_guid: str, ruby_enabled: bool,
                 ruby_state: dict[str, dict[str, Any]] | None,
-                tool_profile: ToolProfile = "full") -> AgentToolContext:
+                tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False) -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
@@ -81,9 +82,13 @@ class AgentToolSurface:
             ruby_enabled=executor is not None,
             tool_profile=tool_profile,
         ) if mcp_enabled else []
+        if workspace_tools_enabled:
+            dynamic_tools.extend(workspace_file_tools())
         return AgentToolContext(
             dynamic_tools=dynamic_tools,
-            dispatch=lambda name, arguments: self.dispatch(
+            dispatch=lambda name, arguments: workspace_file_call(
+                resolved_project_dir / "runtime" / "agent_workspace", name, arguments,
+            ) if workspace_tools_enabled and name in {"workspace_read", "workspace_write"} else self.dispatch(
                 name, arguments, project_dir=resolved_project_dir, project_ruby=executor,
             ),
         )

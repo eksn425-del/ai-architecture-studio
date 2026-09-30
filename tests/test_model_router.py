@@ -120,6 +120,6 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
     assert result.reply == "SketchUp 状态正常，视口已检查。"
     assert result.provider_name == "litellm"
     assert result.region == "beijing"
-    assert (result.input_tokens, result.output_tokens) == (123, 45)
+    assert (result.input_tokens, result.output_tokens) == (246, 90)
     assert result.tool_call_count == 1
     assert result.failed_tool_calls == 0

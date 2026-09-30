@@ -63,7 +63,7 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
             task = (
                 "You are the image-to-SketchUp reconstruction requirements agent. Inspect the actual source image. Ask only "
                 "questions whose answers materially change reconstruction: intended use/viewing, scope, any known dimension, "
-                "permission to infer unseen geometry, and desired detail level. Ask no more than four concise questions. "
+                "permission to infer unseen geometry, and desired detail level. Ask at most four concise questions. "
                 "If the user already supplied an answer, do not ask it again. Do not edit SketchUp geometry."
             )
         elif action == "plan":

@@ -1,5 +1,52 @@
 # Handoff — AI Architecture Studio
 
+## Latest integration — own Agent / competitor observation (2026-10-01)
+
+**PARTIAL: lifecycle integration and real image/parameter persistence verified; architectural parity NOT accepted.** The user resumed implementation after a read-only competitor review. Pulled latest remote `main` at `cda4f0f`, preserving the interrupted local work in a stash before merging. The current clarification-first task and GPT-6.1 Sol Low baseline supersede historical Luna/old-probe gates below.
+
+### Delivered
+
+- Connected `reconstruction_runtime` to the conversation endpoint: reference required, compact reconstruction context, clarify/plan/execute stages, clarification count and action/state/profile metadata.
+- Clarification/planning do not access SketchUp through the application adapter, even when a session is ready. Geometry/readback/save/capture are reserved for approved execution.
+- Fixed a remote approval ambiguity: `planned + auto` updates the plan; only explicit `execute` crosses the first approval gate. `building + auto` continues modifications. Explicit execute without a planned state or ready disposable model returns 409.
+- A text-only plan without a completed parameter-card file returns 422 instead of falsely marking success. Same thread/workspace is retained across stages.
+- Both runtimes receive typed workflow/profile and reference-only image scope. Native start/resume explicitly supplies an empty dynamic-tool list during clarification/planning; dispatch still checks the active allowlist.
+- LiteLLM now has bounded notes/qa Markdown and scripts Ruby file tools confined to the generated workspace, persisted actual provider/tool conversation history, reference-image and tool-result evidence, and summed usage across tool-loop requests.
+- API model, credential environment-variable name and optional endpoint are configurable through LiteLLM. This is an implemented configuration path with mocked checks, not a claim that every provider/model has passed real modeling.
+- UI shows waiting for information, waiting for approval and building/editing; includes explicit approval and parameter-revision controls. Fixed absent-DesignIR access in agent-only projects. Native/session/UI defaults aligned with GPT-6.1 Sol Low.
+- Fixed isolated Codex configuration discarding the user's supported `[windows].sandbox` selection. Preserve only supported elevated/unelevated values while retaining workspace-write, generated writable root and disabled modeling network. No unrestricted sandbox or alternate write bypass was used.
+- Added sanitized `COMPETITOR_DESKTOP_ARCHITECTURE_OBSERVATION.md` and `OWN_AGENT_IMPLEMENTATION_PLAN.md`. Proprietary sources, histories, screenshots, generated thesis scripts and assets were not copied into Git.
+
+### Checks
+
+- `scripts/check.ps1`: **91 passed**, Python compilation passed.
+- `node --check app/static/studio.js`: passed.
+- `git diff --check`: passed before handoff.
+- Tests cover explicit approval, clarify/plan/build continuation, same thread/workspace, missing reference/card rejection, no SU calls during prebuild stages, LiteLLM source scope/file tools/history, provider configuration and Windows sandbox setting preservation. Existing architecture-design checks remain passing.
+
+### Real runtime evidence
+
+All evidence and the user reference remain under ignored runtime folders. The current user/competitor optimization model was not touched, switched or disconnected.
+
+| Check | Observed result |
+| --- | --- |
+| Website upload and clarification | HTTP 200 through real FastAPI conversation path with GPT-6.1 Sol Low. Event evidence includes `[text, localImage]`, reference-only category and no dynamic SketchUp tools. Reply identifies upper glazed balconies, side walls, dark frame, rooftop slats and front wall/gate, then asks four material reconstruction questions. 53,188 ms endpoint elapsed; native latency 53,047 ms. |
+| First parameter turn | HTTP 422 after 268,015 ms: parameter card remained unfilled. This failure was retained as evidence. |
+| Supported Windows config fix | New GPT-6.1 Sol Low standalone workspace probe passed: exact inside file written, outside write denied/absent. The user waived the original ordinary-external-PowerShell requirement; this was run through the available shell, not claimed to be user-started external validation. |
+| Same-thread parameter retry | HTTP 200 after 211,875 ms; native latency 211,735 ms. Same native thread; actual populated parameter card with KNOWN/ESTIMATED/ASSUMED, dimensions, facade depth, component plan and source/oblique correction plan. State is planned; no SU geometry executed. |
+| Token/cost measurement | Native collector did not provide input/output tokens for these turns: null, not zero. Region is not exposed. Dynamic/MCP call count is zero for these prebuild turns; this does not count native shell authoring. No monetary estimate fabricated. |
+| Reconstruction and parity | **Pending, not PASS.** No website building turn, final SKP, source-matched model capture, oblique model capture or visual correction was produced in this integration. The user's SU is occupied by competitor modeling on a private experiment copy; no independent generated session was commandeered. |
+
+### Remaining work for acceptance
+
+1. On an independent generated SketchUp session, approve this parameter plan and execute via persistent Ruby using GPT-6.1 Sol Low.
+2. Verify the actual live profile, same-root revision, source-matched and oblique captures, concrete mismatch feedback and at least one correction.
+3. Compare to a verified Direct Codex reference with the exact same model/effort/image. Do not relabel earlier results with unverified model identity as this baseline.
+4. Validate additional API providers with real credentials only when available. The current configurable-provider and LiteLLM persistence checks are synthetic; no paid third-party API test is claimed.
+5. Provider history currently grows with successful turns and has no production context compaction or concurrent-session queue. Deployment, authentication, billing and additional software connectors remain later milestones.
+
+No Astra inference was called. A successful parameter card and 91 passing tests establish integration prerequisites, not developed-building quality or commercial readiness.
+
 ## Latest attempt — Image → SketchUp v1 / Luna Max (2026-09-30)
 
 **PARTIAL / BLOCKED; architectural reconstruction is not accepted.** Started from clean `main` at `93105f2ce692705994cf57b2fe3e5ab347fe8aa2`; `git pull --ff-only` reported up to date. The user's latest instruction explicitly overrides the milestone's Sol Low benchmark selection: use **gpt-6-luna / max**, with no Astra modeling call or automatic upgrade. The coding host is separate from the tested runtime; no claim is made that this integration work was performed by Sol. Two small live Luna Max turns were run: workspace-write probe and image inspection. No building generation turn was run after the prerequisite failed.
