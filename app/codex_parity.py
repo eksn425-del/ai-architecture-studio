@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-WORKSPACE_VERSION = 3
+WORKSPACE_VERSION = 4
 
 _WORKSPACE_README = """# Architecture Agent Workspace
 
@@ -13,13 +13,14 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 ## Image reconstruction loop
 
 1. Inspect the actual source image(s).
-2. Update `notes/reconstruction_card.md` before substantial modeling.
-3. Produce a compact geometry/construction plan and wait for approval when the host is in plan mode.
-4. After approval, author or revise durable `.rb` files under `scripts/`.
-5. Execute the same files with `sketchup_run_workspace_ruby`.
-6. Inspect returned screenshots/model state.
-7. Correct the same scripts/model rather than restarting.
-8. Save concise visual QA notes under `qa/` when useful.
+2. Clarify only high-impact unknowns that materially change the model.
+3. Update `notes/reconstruction_card.md` with confirmed scope plus KNOWN / ESTIMATED / ASSUMED parameters.
+4. Show the compact parameter/construction plan and wait for approval.
+5. After approval, author or revise durable `.rb` files under `scripts/`.
+6. Execute the same files with `sketchup_run_workspace_ruby`.
+7. Inspect returned screenshots/model state.
+8. Correct the same scripts/model rather than restarting.
+9. Save concise visual QA notes under `qa/` when useful.
 
 ## Architecture-design loop
 
@@ -62,57 +63,89 @@ Keep this file short and durable. Update it when the user confirms or materially
 - Pending first model/review pass.
 """
 
-_RECONSTRUCTION_CARD = """# Image reconstruction card
+_RECONSTRUCTION_CARD = """# Image reconstruction parameter card
 
-Use this for image-to-SketchUp work. Replace placeholders with observations from the actual source image before substantial geometry.
+Use this for image-to-SketchUp work. Replace placeholders with observations and user-confirmed assumptions before substantial geometry.
 
-## Source and confidence
+## 1. Intended use / required views
+
+- Primary use: pending
+- Must support multi-angle viewing / later editing: pending
+
+## 2. Scope
+
+- Include: pending
+- Exclude / simplify: pending
+- Interior requirement: pending
+
+## 3. Scale anchors
+
+- Known dimension(s): none provided yet
+- Visual scale anchor(s): pending
+- Dimension confidence: pending
+
+## 4. Unseen geometry policy
+
+- May infer unseen depth/backside: pending
+- Inference rule: simplest coherent continuation unless user says otherwise
+
+## 5. Detail target
+
+- Visible detail level: pending
+- Micro-detail intentionally omitted: pending
+
+## 6. Source and confidence
 
 - View type: pending
-- Known dimension / scale anchor: pending
 - Overall confidence: pending
-- Unseen geometry assumptions: pending
+- Major ambiguity: pending
 
-## Global proportions
+## 7. Estimated modeling dimensions
 
-- Overall width / height / inferred depth: pending
+Mark each value as KNOWN / ESTIMATED / ASSUMED.
+
+- Overall width / height / depth: pending
 - Floor count and floor-line heights: pending
-- Primary vertical axes / bay count: pending
+- Primary bay/module dimensions: pending
+- Major opening / balcony / roof projection dimensions: pending
 
-## Major form and voids
+These values are a modeling baseline, not a claim of real-world measurement.
+
+## 8. Major form and voids
 
 - Main solids: pending
 - Main recesses / negative spaces: pending
 - Balconies / terraces / canopies: pending
 - Roof / parapet / overhang: pending
 
-## Facade depth stack
+## 9. Facade depth stack
 
 1. pending
 
-## Repeated modules
+## 10. Repeated modules
 
 - Windows / doors: pending
 - Railings / fins / louvers / frames: pending
 - Shared parameters / component candidates: pending
 
-## Materials / colors
+## 11. Materials / colors
 
 - pending
 
-## Construction plan
+## 12. Persistent build plan
 
-- Persistent Ruby files/components: pending
+- Script/component family plan: pending
 - SAIE helper operations, if any: pending
-- Pass 1 — silhouette + levels + bay grid: pending
-- Pass 2 — facade depth + repeated components + material zones: pending
-- Pass 3 — source-matched screenshot QA + corrections: pending
+- Pass 1 — recognizable primary form: pending
+- Pass 2 — facade systems / material zones: pending
+- Pass 3 — source-matched screenshot QA + correction: pending
 
-## Approval
+## 13. Approval
 
-- Status: pending plan
+- Parameter card approved by user: no
+- User-requested changes before build: pending
 
-## Current visual mismatches
+## 14. Current visual mismatches
 
 - Pending first screenshot comparison.
 """
@@ -152,6 +185,7 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "notes_dir": "notes",
         "qa_dir": "qa",
         "reconstruction_card": "notes/reconstruction_card.md",
+        "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "inspect", "revise"],
     }
     if not manifest.exists():
         manifest.write_text(
@@ -178,9 +212,11 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
 def codex_parity_instructions() -> str:
     return (
         "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
-        "For image reconstruction, inspect the source, update notes/reconstruction_card.md, plan before first execution, "
-        "then author/revise durable Ruby under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated "
-        "geometry; use SAIE as a helper library for ordinary semantic elements, not as the primary orchestration strategy. "
-        "Inspect actual screenshots/model state after substantial edits and revise the same files/model until the source-defining "
-        "silhouette, floors/bays, voids, facade depth, repeated systems and roof/canopy are recognizably aligned."
+        "For image reconstruction, inspect the source, clarify only high-impact unknowns, then update "
+        "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters. "
+        "Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
+        "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use SAIE as a helper "
+        "library for ordinary semantic elements, not as the primary orchestration strategy. Inspect actual screenshots/model state "
+        "after substantial edits and revise the same files/model until the source-defining silhouette, floors/bays, voids, facade "
+        "depth, repeated systems and roof/canopy are recognizably aligned."
     )
