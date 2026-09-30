@@ -14,19 +14,22 @@ Read first:
 
 1. `AGENTS.md`
 2. `docs/EXECUTION_GUARDRAILS.md`
-3. `docs/SKILL_FIRST_AGENT_REFACTOR_V1.md`
-4. `app/reconstruction_runtime.py`
-5. `app/image_to_sketchup_skill.py`
-6. `app/codex_parity.py`
-7. `app/workflow_context.py`
-8. `app/agent_tools.py`
-9. `app/reference_assets.py`
-10. `app/native_agent.py`
-11. `app/litellm_runtime.py`
-12. `app/main.py`
-13. `app/static/index.html`
-14. `app/static/studio.js`
-15. `docs/HANDOFF.md`
+3. `docs/REMOTE_REFACTOR_HANDOFF_2026-09-30.md`
+4. `docs/SKILL_FIRST_AGENT_REFACTOR_V1.md`
+5. `app/reconstruction_runtime.py`
+6. `app/image_to_sketchup_skill.py`
+7. `app/codex_parity.py`
+8. `app/workflow_context.py`
+9. `app/agent_tools.py`
+10. `app/reference_assets.py`
+11. `app/native_agent.py`
+12. `app/litellm_runtime.py`
+13. `app/main.py`
+14. `app/static/index.html`
+15. `app/static/studio.js`
+16. `docs/HANDOFF.md`
+
+`docs/REMOTE_REFACTOR_HANDOFF_2026-09-30.md` and this file supersede older HANDOFF wording that treated the standalone workspace-write probe as a blocking acceptance gate.
 
 ## What ChatGPT already changed remotely
 
