@@ -7,26 +7,41 @@ from .image_to_sketchup_skill import load_image_to_sketchup_skill_context
 
 
 WorkflowMode = Literal["architecture_design", "image_reconstruction"]
+AgentAction = Literal["auto", "plan", "execute"]
+ToolProfile = Literal["full", "reconstruction_coding"]
 
 
 def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool) -> str:
-    if not mcp_enabled:
-        return ""
+    # Planning turns still need the reconstruction Skill even when SketchUp tools
+    # are withheld. Architecture-design keeps its historical behavior.
     if mode == "image_reconstruction":
         return load_image_to_sketchup_skill_context()
+    if not mcp_enabled:
+        return ""
     return load_architecture_skill_context()
 
 
-def workflow_prompt_note(mode: WorkflowMode) -> str:
+def workflow_tool_profile(mode: WorkflowMode) -> ToolProfile:
+    return "reconstruction_coding" if mode == "image_reconstruction" else "full"
+
+
+def workflow_reference_categories(mode: WorkflowMode) -> tuple[str, ...]:
+    return ("reference",) if mode == "image_reconstruction" else ("reference", "site", "brief")
+
+
+def workflow_prompt_note(mode: WorkflowMode, action: AgentAction = "auto") -> str:
     if mode == "image_reconstruction":
+        stage = (
+            "This is a PLANNING turn: inspect the reference image, update notes/reconstruction_card.md, propose a compact geometry plan, and do not edit SketchUp geometry."
+            if action == "plan" else
+            "This is an EXECUTION turn: use the approved reconstruction card/plan, author or revise persistent Ruby, build in the same disposable SketchUp model, inspect screenshots/readback, and correct visible mismatches before replying."
+            if action == "execute" else
+            "Follow the reconstruction session state: plan before the first substantial build; after approval, continue execution/revision on the same model and persistent scripts."
+        )
         return (
-            "Current workflow: IMAGE_TO_SKETCHUP_RECONSTRUCTION. The uploaded reference image(s) are the visual "
-            "target to reconstruct as editable SketchUp geometry, not merely precedent inspiration. Ignore taskbook, "
-            "site, program and unrelated design context unless the user explicitly asks to combine them. Inspect the "
-            "actual image before substantial geometry, fill/update notes/reconstruction_card.md, follow the three-pass "
-            "reconstruction workflow, capture a source-matched view plus an oblique view, state concrete mismatches and "
-            "revise the same model/scripts. Do not report completion at rough white-box massing if the source contains "
-            "developed facade, balcony, roof/canopy, opening, louver/rail or material-depth systems."
+            "Current workflow: IMAGE_TO_SKETCHUP_RECONSTRUCTION. The uploaded files under inputs/reference are the visual "
+            "target to reconstruct as editable SketchUp geometry. Ignore taskbook, site, program and unrelated design context. "
+            "Do not weaken the source into generic precedent principles. " + stage
         )
     return (
         "Current workflow: ARCHITECTURE_DESIGN. Treat project brief/site/user intent as design context and use references "
@@ -34,20 +49,27 @@ def workflow_prompt_note(mode: WorkflowMode) -> str:
     )
 
 
-def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool) -> str:
+def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
+                                    action: AgentAction = "auto") -> str:
     safety = (
         "When using project Ruby, modify only the supplied owned root and create unique semantic IDs for sibling elements. "
         "Never use project Ruby to access files, processes, network, reflection, other models, or whole-model edit/save APIs. "
         "The static source guard is not a sandbox. Work only on the verified blank-disposable model."
     )
     if mode == "image_reconstruction":
-        task = (
-            "You are the image-to-SketchUp reconstruction agent inside AI Architecture Studio. Reply in Simplified Chinese. "
-            "The source image is the target appearance. Use the reconstruction card and shared parameters to translate visible "
-            "proportions, floors/bays, solids/voids, facade depth, repeated modules, roof/canopy and material zones into editable "
-            "SketchUp geometry. Prefer SAIE semantic tools for ordinary construction and persistent workspace Ruby/components "
-            "for repeated/custom facade systems. Inspect screenshots and correct visual mismatches before completion."
-        )
+        if action == "plan":
+            task = (
+                "You are the image-to-SketchUp reconstruction planner. Inspect the actual source image(s), update "
+                "notes/reconstruction_card.md, infer coherent proportions/modules, and return a concise construction plan for "
+                "approval. Do not edit SketchUp geometry in this turn."
+            )
+        else:
+            task = (
+                "You are the image-to-SketchUp reconstruction coding agent. The source image is the target appearance. "
+                "Use the approved reconstruction card. Prefer persistent workspace Ruby/components for project-specific and "
+                "repeated geometry; use SAIE as a helper for ordinary semantic elements. Execute, inspect actual screenshots/model "
+                "state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing."
+            )
     else:
         task = (
             "You are the architecture design agent inside AI Architecture Studio. Reply in Simplified Chinese. Use project "
@@ -56,6 +78,6 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool) ->
     tool_state = (
         "The composed whitelisted SketchUp tool surface is enabled for this verified disposable model."
         if mcp_enabled else
-        "SketchUp tools are not enabled in this turn; do not perform or claim geometry edits."
+        "SketchUp geometry tools are withheld in this turn; do not perform or claim geometry edits."
     )
     return f"{task} {safety} {tool_state}"
