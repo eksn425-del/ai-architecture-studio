@@ -47,11 +47,11 @@ class DeterministicModelRouter:
         if self.economy_provider not in {"codex", "litellm"}:
             raise ValueError("ARCH_STUDIO_ECONOMY_PROVIDER must be 'codex' or 'litellm'.")
         if self.economy_provider == "codex":
-            economy_model = os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6-sol")
+            economy_model = os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6.1-sol")
             if "astra" in economy_model.casefold():
                 raise ValueError("Economy cannot use an Astra model; select Premium explicitly for GPT-6 Astra.")
-            # Direct-Codex evidence shows Sol Low is already capable when the harness is strong.
-            # Keep Low as the product/parity baseline; improve Skill/Harness before raising effort.
+            # Current parity baseline: GPT-6.1 Sol Low in both direct Codex and the website.
+            # Improve Skill/Harness/tool parity before raising reasoning effort or using Premium.
             economy_effort = _reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "low")
             self.economy_route = ModelRoute(
                 "economy", "codex-app-server", economy_model, economy_effort, "codex-managed (not exposed)",
