@@ -1,55 +1,70 @@
-# Skill-first Agent Refactor v1
+# Skill-first Agent Refactor v2
 
 ## Why this refactor exists
 
-The current repository proved connectivity, safety, OSS reuse and deterministic SketchUp execution, but the product-quality gap remained obvious:
+The repository proved connectivity, safety, OSS reuse and deterministic SketchUp execution, but those engineering wins did not automatically create good architecture.
 
-- direct Codex + a cost-efficient model can already create developed SketchUp architecture from an image;
-- the website, using the same class of model, often produced weak or no geometry;
-- adding more fixed tools did not close that gap;
-- the strongest public/observed competitor pattern is not "one secret foundation model" but **task Skill + persistent Agent harness + professional-software bridge**.
+The decisive evidence is now consistent across the user's direct Codex tests and competitor/product examples:
 
-The product therefore changes its center of gravity.
+- direct Codex + a cost-efficient model can already create developed SketchUp architecture from one image;
+- the website with the same model class was materially worse;
+- adding more fixed tools did not close the gap;
+- strong products use a task Skill + persistent Agent harness + software bridge, not one secret foundation model;
+- good reconstruction products reduce uncertainty **before** building by clarifying scope/scale/inference/detail and turning the image into an explicit parameter baseline.
+
+The product center therefore becomes:
+
+> **replaceable model + strong task Skill + persistent coding Agent + thin professional-software bridge**
 
 ## Old mental model
 
 ```text
 Model
-  -> long architecture prompt
+  -> broad project prompt
   -> many MCP/OSS tools
   -> SketchUp
 ```
 
-This over-emphasized tool count and under-emphasized the coding Agent loop. It also overloaded cheap models with overlapping actions and broad project context.
+Problems:
+
+- too much context for a cheap model;
+- overlapping tools encouraged shallow one-off calls;
+- fixed action vocabularies reduced coding freedom;
+- success was measured by connectivity more than final visual quality;
+- exact uncertainties were left for the model to invent during execution.
 
 ## Target mental model
 
 ```text
+Reference image
+      |
+      v
+Task Skill
+inspect -> clarify -> parameterize -> approve
+      |
+      v
 Replaceable multimodal/coding model
-             |
-             v
-Task Skill / Method Cards
-             |
-             v
+      |
+      v
 Persistent coding Agent harness
-plan -> approve -> write/revise files -> execute -> inspect -> correct
-             |
-      +------+------+
-      |             |
-      v             v
-workspace Ruby    SAIE helpers
-(project-specific) (ordinary semantic elements)
-      |             |
-      +------+------+
-             v
-Thin SketchUp bridge / MCP
-identity + execution + readback + view + undo/lifecycle
-             |
-             v
-         SketchUp
+write/revise files -> execute -> inspect -> correct
+      |
+   +--+------------------+
+   |                     |
+   v                     v
+workspace Ruby        SAIE helpers
+(project-specific)    (ordinary semantics)
+   |                     |
+   +----------+----------+
+              v
+      thin SketchUp bridge
+identity + execution + readback + screenshot + lifecycle
+              |
+              v
+          SketchUp
 ```
 
-The product moat should sit in the **Skill + Agent workflow + project continuity + software bridge UX**, not in a hard-coded dependency on one model.
+The moat should sit in **Skill + Agent workflow + project continuity + software-bridge UX**, not in hard dependence on one foundation model.
 
 ## Current milestone: one image -> developed editable SketchUp
 
@@ -57,80 +72,86 @@ Do not combine taskbook/site/program yet.
 
 Input:
 
-- one or more reference images under `inputs/reference/`;
-- one short user instruction.
+- one or more images under `inputs/reference/`;
+- one short user reconstruction request.
 
 Output:
 
-- recognizable editable SketchUp model;
+- user-confirmed reconstruction assumptions/parameters;
+- developed editable SketchUp model;
 - persistent scripts/components;
 - source-matched screenshot;
+- oblique screenshot;
 - at least one visual correction on the same model.
 
 A few white boxes are a failure even if every tool call succeeds.
 
-## Product interaction: plan -> approve -> execute
+## Reconstruction interaction
 
-The first reconstruction turn should behave like a professional modeling assistant rather than immediately emitting geometry.
+### Stage 1 — Clarify
 
-### Plan
+The Agent first inspects the image and asks only questions whose answers materially change the model. Maximum four concise questions.
 
-The Agent:
+Priority:
 
-1. inspects the actual multimodal image;
-2. fills `notes/reconstruction_card.md`;
-3. derives proportions, levels, bays, solids/voids, facade depth, repeated modules, roof/canopy and material zones;
-4. proposes a compact geometry/construction plan;
-5. waits for user approval.
+1. intended use / source-view-only vs multi-angle editing;
+2. model scope;
+3. any known dimension anchor;
+4. permission to infer unseen geometry and desired visible detail.
 
-SketchUp geometry tools are withheld during this planning turn.
+Do not ask low-value micro-detail questions. Do not ask again when the user already answered.
 
-### Approve
+### Stage 2 — Parameterize / Plan
 
-The user may:
+Use image + user answers to write `notes/reconstruction_card.md`.
 
-- approve execution;
-- modify parameters/assumptions;
-- cancel.
+The card must clearly separate:
 
-### Execute
+- **KNOWN** — user/source-provided dimensions or facts;
+- **ESTIMATED** — visual proportional estimates used as a modeling baseline;
+- **ASSUMED** — conservative rules for unseen geometry/detail.
 
-After approval the same thread/workspace:
+Then produce a compact geometry/construction plan and wait for user approval.
 
-1. authors/revises persistent Ruby in `agent_workspace/scripts/`;
+### Stage 3 — Execute
+
+After approval, the same Agent thread/workspace:
+
+1. authors/revises persistent Ruby under `agent_workspace/scripts/`;
 2. uses `sketchup_run_workspace_ruby` as the primary project-specific modeling path;
-3. uses selected SAIE tools only as helpers for ordinary semantic construction/query/edit;
-4. uses the existing connector for model identity, camera/view/readback and safe transport;
-5. inspects returned screenshots/model state;
-6. revises the same scripts/model until source-defining mismatches are corrected.
+3. uses selected SAIE tools only when they simplify ordinary semantic construction/query/edit;
+4. uses the connector for model identity, view/readback and safe transport;
+5. builds recognizable primary form;
+6. adds repeated facade systems/material zones;
+7. captures source-matched + oblique screenshots;
+8. states concrete mismatches;
+9. revises the same scripts/model.
 
 ## Tool-surface rule
 
-Image reconstruction should not expose the whole historical 80-tool surface.
+Image reconstruction should not expose the historical full tool surface.
 
-`reconstruction_coding` profile should expose:
+`reconstruction_coding` should expose only what improves the direct-Codex-like workbench:
 
-- a small set of Kongxing readback/view/camera/selection/transform/undo-style tools actually present;
-- selected SAIE wall/opening/slab/roof/query/view helpers;
-- `sketchup_run_workspace_ruby`;
-- no legacy `create_mass/create_road` path;
-- no raw `sketchup_eval_project_file` to the model;
-- no ArchFlow/CAD tools during this milestone;
-- no transient inline `sketchup_run_project_ruby` in the reconstruction profile.
+- persistent workspace Ruby;
+- real available scene/entity/model readback;
+- camera/view/screenshot;
+- selection/transform/undo/lifecycle where available;
+- selected SAIE wall/opening/slab/roof/query/view helpers.
 
-The exact live tool list must be verified locally; do not invent tool names that the installed connector does not expose.
+Hide legacy massing/road actions, ArchFlow/CAD tools and unrelated backends in this milestone.
+
+Tool count is not product capability.
 
 ## Context rule
 
-Cheap-model reconstruction context must be small.
+Cheap-model reconstruction context should contain only:
 
-Include:
-
-- source image(s) as actual multimodal input;
-- Image -> SketchUp Skill;
-- `reconstruction_card.md` and persistent workspace state;
-- only recent reconstruction conversation;
-- current SketchUp readback when executing.
+- actual reference image(s) as multimodal input;
+- dedicated reconstruction Skill;
+- reconstruction parameter card;
+- recent reconstruction conversation;
+- current SketchUp readback/screenshots during execution.
 
 Exclude unless explicitly requested:
 
@@ -139,83 +160,57 @@ Exclude unless explicitly requested:
 - program;
 - unrelated precedent URL text;
 - old DesignIR/BuildPlan;
-- generated output screenshots as source reference.
+- generated outputs as source references;
+- large internal benchmark prose.
 
 ## Model rule
 
-The reconstruction workflow must be model-independent.
+The workflow must stay model-independent.
 
-Use a replaceable provider boundary. Quality should come first from Skill/Harness/Bridge. A stronger model can remain an optional premium tier, but it must not be required to compensate for a weak Agent environment.
+The first parity target is deliberately:
 
-For the first local parity test use the same cheap model/effort that succeeds in direct Codex, so the comparison isolates the website harness rather than model intelligence.
+> **website + GPT-6 Sol Low ~= direct Codex + GPT-6 Sol Low**
 
-## What has already been implemented remotely
+Do not use Astra to mask missing Skill, coding-harness or bridge capability.
 
-- `app/models.py`
-  - reconstruction lifecycle state on `AgentSession`;
-  - explicit `agent_action = auto|plan|execute` on `ConversationRequest`.
-- `app/reconstruction_runtime.py`
-  - deterministic plan/execute policy;
-  - reference-only image scope;
-  - small reconstruction context payload;
-  - low-effort preference metadata.
-- `app/reference_assets.py`
-  - category-scoped image discovery;
-  - reconstruction-specific source label.
-- `app/image_to_sketchup_skill.py`
-  - independent, source-first, coding-first method cards;
-  - explicit planning/approval and three-pass QA loop.
-- `app/codex_parity.py`
-  - workspace README/card updated for Direct-Codex-style persistent coding.
-- `app/agent_tools.py`
-  - `reconstruction_coding` tool profile;
-  - persistent workspace Ruby is primary;
-  - selected SAIE helper tools only;
-  - broad ArchFlow/legacy massing tools hidden in reconstruction.
-- focused tests for the above pure-Python behavior.
+## Reuse rule
 
-These changes still require local integration and test execution before they are accepted.
+Use licensed donors according to fit:
 
-## Local investigation: competitor desktop package
+- Kongxing: existing verified local bridge/lifecycle/readback;
+- SAIE (MIT): ordinary semantic construction/query helpers;
+- Supex (MIT): persistent-code / execute-inspect-revise ideas and portable modules;
+- Stultus (Apache-2.0): SketchUp 2024 coding/readback/screenshot/undo patterns;
+- ArchFlow (Apache-2.0): later semantic/CAD/artifact pipeline;
+- SketchUp Architect Skill (MIT): later full-design reasoning;
+- ADAI (CPAL-1.0): study task/method-card, guided/autonomous and experience-pack ideas without copying covered source;
+- Pylon / Building-Xuezhang: product/workflow references from observed behavior, not proprietary code donors.
 
-The user will provide access to the installed/installer package they legitimately possess.
+## Competitor lesson now adopted
 
-Codex may inspect only what is locally accessible through ordinary installation/files/process/network-local behavior. The goal is architectural comparison, not copying proprietary covered source or bypassing licensing/DRM.
+Observed competitor teaching behavior shows a useful sequence:
 
-Record observed facts separately from inference:
+> image -> ask high-impact questions -> user answers -> AI proposes coherent estimated dimensions/assumptions -> user confirms -> modeling begins -> continued edits reuse the same model.
 
-- installer/file layout;
-- SketchUp `.rbz`/Ruby plugin structure if legitimately readable;
-- local ports/processes;
-- MCP protocol/tool schemas exposed at runtime;
-- whether the bridge is thin or contains substantial geometry logic;
-- how the desktop app selects Skills/models;
-- plan/approval/execution state;
-- whether execution appears script-driven or fixed-tool-driven;
-- readback/screenshot/undo/model-lifecycle behavior;
-- model/provider independence.
+This is a product mechanism, not a proprietary implementation detail. Our host should implement the same general workflow with our own code and licensed/open components.
 
-Do not copy proprietary implementation into this repository. Use public/open-source donors for code and competitor observations only to guide architecture.
+## User-interruption rule
 
-## Acceptance test
+Internal engineering checks must not become user workflow.
 
-Use the **same reference image** for:
+- run what can be run autonomously;
+- if a non-critical external check cannot run inside Codex, record `pending_external` and continue;
+- do not stop the task merely to ask the user to run a sandbox probe, inspect a port, or make a reversible setup choice;
+- only surface a request when it truly blocks the next user-visible reconstruction milestone and cannot be resolved otherwise.
 
-A. direct Codex + cheap model/effort (existing successful reference)
+## Acceptance
 
-B. website + same model/effort + Image Reconstruction Skill + Direct-Codex-like harness
+Use the same known-good source image for:
 
-Compare only end results and workflow evidence:
+A. direct Codex + Sol Low
 
-- silhouette/proportion;
-- levels/bays;
-- roof/canopy;
-- facade depth;
-- repeated windows/rails/louvers;
-- material zoning;
-- editability/naming;
-- source-matched screenshot;
-- visual self-correction;
-- time/cost/tool failures.
+B. website + Sol Low
 
-If B is still materially worse, inspect missing Agent-harness capability before changing foundation model or adding another generic MCP.
+PASS requires B to be recognizably comparable in developed architectural detail, with persistent coding evidence, source-matched screenshots and same-model visual correction.
+
+Connection success, test success, tool count, or a white-box model are not acceptance.
