@@ -8,7 +8,8 @@ from .models import AgentSession, ConversationRequest, ProjectContext
 from .reference_assets import discover_project_reference_images
 
 
-ResolvedAction = Literal["plan", "execute"]
+ResolvedAction = Literal["clarify", "plan", "execute"]
+ReconstructionState = Literal["idle", "clarifying", "planned", "building"]
 
 
 @dataclass(frozen=True)
@@ -18,20 +19,42 @@ class ReconstructionTurnPolicy:
     tool_profile: Literal["reconstruction_coding"]
     reference_categories: tuple[str, ...]
     reasoning_effort_preference: Literal["low"]
+    user_gate: Literal["clarification", "approval", "none"]
 
 
 def resolve_reconstruction_action(session: AgentSession, request: ConversationRequest) -> ResolvedAction:
-    """Resolve the Building-Xuezhang-style plan -> approval -> execution lifecycle.
+    """Resolve the reconstruction dialogue without asking the coding host to improvise policy.
 
-    ``auto`` means plan until the user has a confirmed plan, then keep editing the
-    same model. Explicit ``execute`` is rejected by the host unless a plan already
-    exists; this function only resolves intent and does not perform that validation.
+    Default flow:
+
+    idle -> clarify
+    clarifying -> plan
+    planned/building -> execute
+
+    The user/host may explicitly request clarify/plan/execute. Execution is validated
+    separately and must never occur before an approved plan exists.
     """
-    if request.agent_action == "plan":
+    if request.agent_action in {"clarify", "plan", "execute"}:
+        return request.agent_action
+    if session.reconstruction_state == "idle":
+        return "clarify"
+    if session.reconstruction_state == "clarifying":
         return "plan"
-    if request.agent_action == "execute":
-        return "execute"
-    return "execute" if session.reconstruction_state in {"planned", "building"} else "plan"
+    return "execute"
+
+
+def validate_reconstruction_action(session: AgentSession, action: ResolvedAction) -> None:
+    """Reject only transitions that could modify SketchUp before user approval."""
+    if action == "execute" and session.reconstruction_state not in {"planned", "building"}:
+        raise ValueError("图片复刻必须先完成澄清和建模参数/计划确认，之后才能执行 SketchUp 建模。")
+
+
+def next_reconstruction_state(session: AgentSession, action: ResolvedAction) -> ReconstructionState:
+    if action == "clarify":
+        return "clarifying"
+    if action == "plan":
+        return "planned"
+    return "building"
 
 
 def build_reconstruction_turn_policy(
@@ -41,12 +64,19 @@ def build_reconstruction_turn_policy(
     sketchup_session_ready: bool,
 ) -> ReconstructionTurnPolicy:
     action = resolve_reconstruction_action(session, request)
+    validate_reconstruction_action(session, action)
+    user_gate: Literal["clarification", "approval", "none"] = (
+        "clarification" if action == "clarify" else
+        "approval" if action == "plan" else
+        "none"
+    )
     return ReconstructionTurnPolicy(
         action=action,
         tools_enabled=bool(action == "execute" and sketchup_session_ready),
         tool_profile="reconstruction_coding",
         reference_categories=("reference",),
         reasoning_effort_preference="low",
+        user_gate=user_gate,
     )
 
 
@@ -62,12 +92,12 @@ def require_reconstruction_reference(project_dir: Path) -> list[Path]:
     return images
 
 
-def reconstruction_context_payload(context: ProjectContext) -> dict[str, object]:
+def reconstruction_context_payload(context: ProjectContext, session: AgentSession | None = None) -> dict[str, object]:
     """Keep cheap-model reconstruction context deliberately small.
 
     Taskbook/site/program fields are intentionally excluded. The model gets the
-    source image as multimodal input, the current reconstruction Skill, and only the
-    recent conversation needed to preserve revision continuity.
+    actual source image as multimodal input, a task Skill, and only the recent
+    reconstruction conversation needed to preserve decision continuity.
     """
     recent = [
         {
@@ -80,7 +110,7 @@ def reconstruction_context_payload(context: ProjectContext) -> dict[str, object]
                 if key in {"workflow_mode", "agent_action", "reconstruction_state"}
             },
         }
-        for message in context.conversation[-8:]
+        for message in context.conversation[-10:]
     ]
     references = [
         {
@@ -92,9 +122,13 @@ def reconstruction_context_payload(context: ProjectContext) -> dict[str, object]
         for reference in context.references
         if reference.type == "image"
     ]
-    return {
+    payload: dict[str, object] = {
         "project_id": context.project_id,
         "project_name": context.project_name,
         "reference_images": references,
         "recent_conversation": recent,
     }
+    if session is not None:
+        payload["reconstruction_state"] = session.reconstruction_state
+        payload["clarification_rounds"] = session.clarification_rounds
+    return payload
