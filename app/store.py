@@ -69,7 +69,8 @@ class ProjectStore:
         if context_path.exists():
             return self.load(ProjectContext, context_path)
         seed_path = self.examples_root / "project_context.json"
-        context = ProjectContext.model_validate_json(seed_path.read_text(encoding="utf-8"))
+        context = (ProjectContext.model_validate_json(seed_path.read_text(encoding="utf-8"))
+                   if seed_path.is_file() else ProjectContext(project_name="我的第一个建模会话"))
         context.project_id = project_id
         self.save(context, context_path)
         self.save(ModelState(project_id=project_id), directory / "state" / "model_state.json")

@@ -28,7 +28,7 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     Default flow:
 
     idle -> clarify
-    clarifying -> plan
+    clarifying -> clarify until the user requests a plan
     planned -> plan until explicit approval; building -> execute
 
     The user/host may explicitly request clarify/plan/execute. Execution is validated
@@ -39,7 +39,7 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     if session.reconstruction_state == "idle":
         return "clarify"
     if session.reconstruction_state == "clarifying":
-        return "plan"
+        return "clarify"
     return "execute" if session.reconstruction_state == "building" else "plan"
 
 
@@ -76,7 +76,7 @@ def build_reconstruction_turn_policy(
         action=action,
         tools_enabled=bool(action == "execute" and sketchup_session_ready),
         tool_profile="reconstruction_coding",
-        reference_categories=("reference",),
+        reference_categories=("reference", "brief", "site"),
         reasoning_effort_preference="low",
         user_gate=user_gate,
     )
@@ -97,9 +97,9 @@ def require_reconstruction_reference(project_dir: Path) -> list[Path]:
 def reconstruction_context_payload(context: ProjectContext, session: AgentSession | None = None) -> dict[str, object]:
     """Keep cheap-model reconstruction context deliberately small.
 
-    Taskbook/site/program fields are intentionally excluded. The model gets the
-    actual source image as multimodal input, a task Skill, and only the recent
-    reconstruction conversation needed to preserve decision continuity.
+    Include explicitly uploaded document/site/URL evidence and recent dialogue.
+    Historical outputs and unprovided synthetic project briefs remain excluded;
+    the actual target image is supplied separately as multimodal input.
     """
     recent = [
         {
@@ -130,6 +130,10 @@ def reconstruction_context_payload(context: ProjectContext, session: AgentSessio
         "reference_images": references,
         "recent_conversation": recent,
     }
+    # Include only explicitly supplied project inputs, never historical outputs.
+    payload["provided_documents"] = context.brief.summary[:30000] if context.brief.source_files or context.site.source_files or any(ref.type == "note" and ref.source.startswith("inputs/") for ref in context.references) else ""
+    payload["provided_site"] = {"summary": context.site.summary[:8000], "boundary": context.site.boundary} if context.site.source_files else {}
+    payload["provided_urls"] = [reference.model_dump(mode="json") for reference in context.references if reference.type == "url"]
     if session is not None:
         payload["reconstruction_state"] = session.reconstruction_state
         payload["clarification_rounds"] = session.clarification_rounds

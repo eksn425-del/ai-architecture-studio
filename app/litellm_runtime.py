@@ -27,6 +27,7 @@ class LiteLLMRuntime:
         self.sketchup_mcp = sketchup_mcp or ConfiguredSketchUpMCP(timeout_seconds=180)
         self.tool_surface = AgentToolSurface(self.runtime_root, self.sketchup_mcp)
         self.model = model or os.environ.get("ARCH_STUDIO_API_MODEL") or os.environ.get("ARCH_STUDIO_CHINA_MODEL", "dashscope/qwen3-vl-flash")
+        self.session_api_key = ""
         self.key_env = os.environ.get("ARCH_STUDIO_API_KEY_ENV", "DASHSCOPE_API_KEY")
         self.custom_api_base = os.environ.get("ARCH_STUDIO_API_BASE", "").strip()
         self.region = (region or os.environ.get("ARCH_STUDIO_CHINA_REGION", "international")).lower()
@@ -36,7 +37,7 @@ class LiteLLMRuntime:
 
     @property
     def credential_configured(self) -> bool:
-        return bool(os.environ.get(self.key_env, "").strip())
+        return bool(self.session_api_key or os.environ.get(self.key_env, "").strip())
 
     @property
     def dependency_installed(self) -> bool:
@@ -66,7 +67,7 @@ class LiteLLMRuntime:
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
                 tool_profile: ToolProfile = "full") -> AgentTurnResult:
-        api_key = os.environ.get(self.key_env, "").strip()
+        api_key = self.session_api_key or os.environ.get(self.key_env, "").strip()
         if not api_key:
             raise NativeAgentUnavailable(
                 f"LiteLLM credential {self.key_env} is not set; no provider request was sent."
@@ -147,7 +148,8 @@ class LiteLLMRuntime:
             try:
                 response = completion(**kwargs)
             except Exception as error:
-                raise NativeAgentUnavailable(f"LiteLLM request failed for {selected_model}: {error}") from error
+                safe_error = str(error).replace(api_key, "[credential hidden]")
+                raise NativeAgentUnavailable(f"LiteLLM request failed for {selected_model}: {safe_error}") from None
             usage = _usage_from_response(response)
             input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
             output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
@@ -170,6 +172,7 @@ class LiteLLMRuntime:
                 call_id, name, arguments = _tool_call_parts(call)
                 tool_call_count += 1
                 tool_calls.append({"server": "kongxing_sketchup", "tool": name})
+                record({"event": "tool_started", "tool": name})
                 allowed = {str(tool.get("name", "")) for tool in tool_context.dynamic_tools}
                 try:
                     if name not in allowed:

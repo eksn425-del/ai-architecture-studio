@@ -100,7 +100,7 @@ def test_uploaded_reference_is_typed_and_serializes_without_warning(tmp_path: Pa
         upload = client.post(
             "/api/projects/demo-cultural-center/inputs/reference",
             params={"filename": "jinshan-view.png"},
-            content=b"reference-image-bytes",
+            content=__import__("base64").b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l1sAAAAASUVORK5CYII="),
         )
 
     assert upload.status_code == 200
@@ -465,12 +465,12 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
     assert page.status_code == 200
     assert 'lang="zh-CN"' in page.text
     assert "AI 建模对话" in page.text
-    assert "分析图片" in page.text
+    assert "信息已确认，整理建模计划" in page.text
     assert "历史建模会话" in page.text
     assert "模型与文件" in page.text
     assert page.text.count('id="conversation-input"') == 1
     assert page.text.count('id="conversation-form"') == 1
-    assert 'id="reference-file" type="file" accept="image/*" multiple' in page.text
+    assert 'id="reference-file" type="file" accept="image/*,.pdf,.docx,.txt,.md,.csv,.dxf,.dwg" multiple' in page.text
     assert 'id="approve-reconstruction"' in page.text
     assert 'id="result-panel"' in page.text
     assert "旧版规则化建模流程" not in page.text

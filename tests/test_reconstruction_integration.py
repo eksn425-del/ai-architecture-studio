@@ -54,7 +54,8 @@ def test_lifecycle_requires_explicit_approval_and_preserves_thread(tmp_path):
     assert first.json()["agent"]["reconstruction_state"] == "clarifying"
     assert first.json()["project"]["agent_session"]["clarification_rounds"] == 1
     assert not su.calls
-    second = send(client)
+    assert send(client).json()["agent"]["reconstruction_state"] == "clarifying"
+    second = send(client, "plan")
     assert second.json()["agent"]["reconstruction_state"] == "planned"
     assert not su.calls
     assert send(client).json()["agent"]["agent_action"] == "plan"
@@ -74,8 +75,8 @@ def test_missing_reference_and_missing_card_are_rejected(tmp_path):
     assert not su.calls
     (project / "inputs/reference/house.png").unlink()
     count = len(agent.calls)
-    assert send(client).status_code == 409
-    assert len(agent.calls) == count
+    assert send(client).status_code == 200
+    assert len(agent.calls) == count + 1
 
 
 def test_workspace_tools_allow_notes_ruby_and_reject_escape(tmp_path):
@@ -88,7 +89,7 @@ def test_workspace_tools_allow_notes_ruby_and_reject_escape(tmp_path):
             workspace_file_call(root, "workspace_write", {"relative_path": path, "content": "x"})
 
 
-def test_litellm_reconstruction_retains_history_and_only_reference(tmp_path, monkeypatch):
+def test_litellm_reconstruction_retains_history_and_uploaded_evidence(tmp_path, monkeypatch):
     import sys
     from types import ModuleType, SimpleNamespace
     from app.litellm_runtime import LiteLLMRuntime
@@ -113,8 +114,8 @@ def test_litellm_reconstruction_retains_history_and_only_reference(tmp_path, mon
     assert second.thread_id == first.thread_id
     assert any(m["role"] == "assistant" for m in seen[1]["messages"])
     text = seen[0]["messages"][1]["content"][0]["text"]
-    assert "reference.png" in text and "site.png" not in text and "brief.png" not in text
-    assert len(seen[0]["messages"][1]["content"]) == 2
+    assert "reference.png" in text and "site.png" in text and "brief.png" in text
+    assert len(seen[0]["messages"][1]["content"]) == 4
 
 
 def test_provider_configuration_reuses_litellm_without_dashscope_lock(tmp_path, monkeypatch):
@@ -190,7 +191,7 @@ def test_interrupted_committed_build_checkpoints_and_retains_execution_thread(tm
 
     client, agent, su, project = setup_project(tmp_path, InterruptedAgent())
     send(client)
-    send(client)
+    send(client, "plan")
     assert send(client, "execute").status_code == 503
     session = json.loads((project / "state/agent_session.json").read_text(encoding="utf-8"))
     assert session["thread_id"] == "execution-thread"

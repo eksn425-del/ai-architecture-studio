@@ -65,3 +65,16 @@ Inspected the running desktop's AI task-assistant and SU automatic-modeling page
 ## Unverified items
 
 Full desktop source, protected/compiled internal logic, cloud services, credential handling, provider request routing, token billing, global undo guarantees and final model quality remain unverified. Nothing here claims the entire competitor application has been recovered.
+
+
+## 2026-10-01 — 再次实际观察新人入口
+
+本轮通过原生鼠标打开用户已安装的建筑学长电脑版，进入 AI 建模 → SU 自动建模。观察到左侧功能/历史、中央聊天、底部输入、附件入口、模型选择、Skills 标识和教程。SU 页的空态直接告诉用户把建模交给助手；输入提示明确先从教程安装 suMCP。教程按钮打开用户可访问的飞书文档。
+
+界面显示 gpt-6.1-sol，但本轮没有向竞品发送请求，也没有测试其模型调用、延迟、收费或最终几何质量；不能从界面推断内部运行模型。既有历史/安装观察见上文，没有新增复制专有 Skill、桥接代码或二进制。
+
+采用的产品行为：聊天优先、统一附件入口、只在建模前教连接、展示明确批准动作、保留历史和继续修改。我们使用自己的布局细节、样式、文案与代码；公开 MIT Markdown parser / BSD pywebview 替代自行造渲染器和桌面壳。
+
+建议先做 Windows 本地工作台：用户建模软件、MCP、项目文件同机，网站界面和替换模型接口继续复用。纯云网页若要控制本机 SU，仍需另一个本地连接组件；桌面形式不能自动提升模型质量。该判断来自本机流程观察和 MCP transport 的 stdio / localhost HTTP 机制，不代表竞品全部架构已经可见。
+
+参考：[MCP stdio transport](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/transports/stdio.mdx)、[MCP Streamable HTTP](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/transports/streamable-http.mdx)、[pywebview](https://pywebview.flowrl.com/)。

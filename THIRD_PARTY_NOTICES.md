@@ -2,6 +2,12 @@
 
 AI Architecture Studio intentionally composes existing open-source building blocks rather than reimplementing every subsystem. This file records the current reuse boundaries. Upstream licenses remain authoritative.
 
+## Local desktop shell
+
+- pywebview 6.2.1 (`r0x0r/pywebview`): BSD license; adopted as a thin native WebView shell around the existing FastAPI/frontend, without copying competitor UI source.
+- PyInstaller 6.x: GPL with its distribution exception; build tooling for the local executable, not a new Agent runtime. Upstream license/exception must accompany redistributed build tooling where applicable.
+- The generated local package does not include SketchUp, proprietary competitor assets, private project inputs, Codex credentials or the machine's Kongxing installation. Connector/plugin distribution and clean-machine acceptance remain separate release gates.
+
 ## SketchUp Architect Skill
 
 - Upstream: `Mentat-Uran/sketchup-architect-skill`
@@ -51,3 +57,9 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 ## Other surveyed projects
 
 VBO SkAgent and SketchUp Agent Control are retained as fallback/reference candidates under the license status recorded in `docs/OPEN_SOURCE_COMPONENT_MAP.md`. If source is later vendored or copied, add the exact upstream revision, license text, and reuse boundary here in the same commit.
+
+## markdown-it 14.1.0
+
+MIT licensed upstream `markdown-it/markdown-it`, npm distribution 14.1.0 (package shasum `3c3c5992883c633db4714ccb4d7b5935d98b7d45`). Only upstream browser minified bundle and LICENSE are vendored in `app/static/vendor/markdown-it/`. Used for safe chat/parameter Markdown rendering with HTML disabled and restricted links/images.
+
+The full pywebview BSD license is retained at `app/vendor/pywebview/LICENSE`. Desktop packaging excludes private runtime project data and locally installed proprietary connector/plugin files.

@@ -311,3 +311,10 @@ The reference-rich Luna Max run completed only the site-base turn in 17 minutes,
 Per the user's follow-up, set **Economy / Standard** to `gpt-6-sol` at **medium** effort and keep **Premium / Refine** at `gpt-6-astra` at **low** effort. Sol was tested on the same private taskbook, eight reference/site images, historical prompt order, Architecture Skill, Ruby and Kongxing SketchUp tools from a separate blank model. It completed two site turns; the user ended the run before the first building turn returned, so this is a provisional route choice rather than a building-quality pass. Astra is an existing reference only; no further Astra modeling calls are needed in this comparison.
 
 This supersedes the automatic Premium rescue in D-019: repeated Economy failures may recommend Premium, but only an explicit user selection routes a turn to Astra. The model/provider boundary remains replaceable and the benchmark-only Luna Max override remains available for diagnosis.
+
+
+## 2026-10-01 — user-directed novice workflow and local delivery recommendation
+
+The latest user request explicitly extends this local turn beyond the old image-only milestone: natural conversation, pasted images, uploaded task/site evidence, connection teaching, real progress, SKP download and replaceable API settings. It authorizes preserving explicitly supplied evidence, not inventing taskbook/site content or a new CAD engine. Auto in clarifying now stays conversational; explicit plan requests precede approval and execution.
+
+Recommend Windows local workbench first, keeping the existing web workspace and runtime boundary. Added a BSD pywebview shell and locally built PyInstaller executable. This is a local prototype delivery, not an accepted commercial rollout. No accounts, payment, cloud deployment or new professional-software engine added. A distributable licensed bridge/plugin package, independent API inference/quality validation and clean-machine first-run acceptance remain release gates.

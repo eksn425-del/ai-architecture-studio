@@ -24,15 +24,15 @@ def test_auto_reconstruction_clarifies_before_planning() -> None:
     assert next_reconstruction_state(session, policy.action) == "clarifying"
 
 
-def test_auto_reconstruction_plans_after_clarification() -> None:
+def test_auto_reconstruction_continues_discussion_after_clarification() -> None:
     session = AgentSession(project_id="demo", reconstruction_state="clarifying", clarification_rounds=1)
     request = ConversationRequest(message="1多角度；2含外部；3无尺寸；4允许推测", workflow_mode="image_reconstruction")
 
     policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=True)
-    assert policy.action == "plan"
+    assert policy.action == "clarify"
     assert policy.tools_enabled is False
-    assert policy.user_gate == "approval"
-    assert next_reconstruction_state(session, policy.action) == "planned"
+    assert policy.user_gate == "clarification"
+    assert next_reconstruction_state(session, policy.action) == "clarifying"
 
 
 def test_auto_reconstruction_executes_after_approved_plan() -> None:

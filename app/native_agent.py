@@ -398,6 +398,7 @@ class CodexAppServerRuntime:
                     call = _tool_summary(params)
                     tool_calls.append(call)
                     tool_call_count += 1
+                    record({"event": "tool_started", "tool": call["tool"]})
                     try:
                         if call["tool"] not in {str(tool.get("name", "")) for tool in dynamic_tools}:
                             raise MCPCallError("The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist.")

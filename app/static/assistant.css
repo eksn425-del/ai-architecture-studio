@@ -15,3 +15,9 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 .model-view-gallery{display:flex;gap:8px;overflow-x:auto;padding:10px;width:100%;box-sizing:border-box}.model-view-gallery a{flex:0 0 96px}.model-view-gallery img{width:96px;height:65px;object-fit:contain;background:#e5e7e5;border-radius:6px}
 
 .agent-error{font-size:12px;line-height:1.5;color:#955128;background:#fbf1df;padding:8px 12px;border-radius:8px;margin:6px 0}
+
+.attachment-list{display:flex;flex-wrap:wrap;gap:6px;padding:4px 10px}.attachment-list a{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}#prepare-plan{margin-bottom:8px}#connect-dialog{max-width:620px}.conversation-form:focus-within{border-color:#638572}
+
+.markdown-content{line-height:1.65;overflow-wrap:anywhere}.markdown-content table{border-collapse:collapse;width:100%;font-size:13px}.markdown-content th,.markdown-content td{border:1px solid var(--line,#ddd);padding:7px;text-align:left}.markdown-content pre{overflow:auto;white-space:pre-wrap;background:#f4f5f6;padding:12px;border-radius:8px}.markdown-content p{white-space:normal}.markdown-content li{margin:5px 0}.markdown-content a{color:#245b9a}
+
+@media(min-width:760px) and (max-width:1050px){.result-panel{position:static;width:300px;max-width:38%;box-shadow:none}}

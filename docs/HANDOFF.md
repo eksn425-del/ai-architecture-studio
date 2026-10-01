@@ -1,5 +1,23 @@
 # Handoff — AI Architecture Studio
 
+## Latest local execution — novice chat, real reconstruction and desktop shell (2026-10-01)
+
+Pulled clean/up-to-date main `0f06f485a1a7f000508fd737fb4ed899016839b9`. Latest user requested a simpler real first-user path, paste/document/site/URL input, connection lesson, explicit approval, actual progress and final SKP download; also asked which delivery form fits MCP. User-directed scope extension and recommendation are recorded in DECISIONS. Existing Skill/persistent Ruby/Kongxing architecture retained; no new CAD engine, generic MCP, Astra or competitor proprietary source.
+
+- Actual UI novice test: new project `architecture-project-d478d`, real Ctrl+V image paste, one synthetic task TXT plus 30×30m DXF, simple Chinese conversation, explicit plan, connection lesson, fresh generated SketchUp file and approval. Clarification145.344s / second chat164.875s / plan206.875s; none edited SU. First build476.735s,19 dynamic calls,1 failure; developed geometry and r1–r3. Ordinary follow-up299.969s,22 calls,0 failures; front/rear/left/right/roof inspection, r4, same root37843 retained.
+- Final model384,022bytes. Actual browser download and artifact SHA-256 both `2c239348d52c01b300f15fb735855559e8684cb4ba74a48d2f41f1759f850952`. Inspected all five final exterior views. Balcony/glazing/frames/slats/garage/stair/roof rail/site present; inferred sides, simplified materials/environment and generic window rhythm remain. Not exact source fidelity, professional compliance or a quality parity benchmark. Four-total-floor user input intentionally superseded apparent extra source floors.
+- Product fixes: continuous clarification; explicit plan button; unified paste/drag/upload and image normalization; real uploaded document/site/URL context; clear DWG/scanned-PDF limitations; MIT markdown-it safe tables/lists; connection teaching and approval; actual sanitized stage/tool/failure/commit/screenshot progress; blank output hidden; narrow result panel obstruction repaired; model API settings memory-only via existing LiteLLM; no incompatible provider/model thread reuse; loopback/Host/same-origin boundary.
+- Read-only competitor UI observation: AI建模 → SU自动建模, attachment/model/Skills/tutorial entries, tutorial leading to Feishu. No competitor inference performed. Updated COMPETITOR_DESKTOP_ARCHITECTURE_OBSERVATION.
+- Recommend Windows local workbench first. Adopted BSD pywebview6.2.1 / PyInstaller6.22.3, retained license. Actual EXE built and launched; own fresh per-user runtime, blank starter session, model dialog and native-mouse/keyboard creation of a second session work. Fixed build data paths and missing legacy seed failure encountered during actual packaging test. Standalone existing MCP command config supported; no Kongxing/SketchUp/Codex credential/private data bundled. Build outputs remain ignored.
+- `scripts/check.ps1`: **114 passed**. Native browser real build/revision/download, desktop build/start/UI, JS `node --check` and `git diff --check` passed. New regressions cover repeated text-first chat, real document/DXF evidence, URL ingestion, image validation, current progress, in-memory BYOK configuration, local boundary, standalone MCP and packaged missing-example startup.
+
+See [novice acceptance report](NOVICE_FIRST_RUN_ACCEPTANCE.md) and [user guide](USER_GUIDE.md). Private source/model/Ruby/chat/screenshot files are local only.
+
+### Commercial readiness is not claimed
+
+Configured-machine modeling flow works. A licensed distributable bridge/plugin installer, clean-machine first-run validation, independent live BYOK inference/quality, shorter measured latency, unattended recovery and full dependency release review remain gates. No spare customer API credential was supplied, so BYOK configuration/contracts are tested but live API modeling success is not invented. Current preset still relies on local Codex credentials. No payment/account/cloud deployment was added.
+
+
 ## Latest local execution — six-view villa through real website UI (2026-10-01)
 
 User requested a real first-user flow, six reference views, a new disposable SketchUp model, inferred interiors and environment, with fixes during usage. Started from clean, up-to-date main `ed4e9c8`. Browser clicks/file chooser/text input performed the product actions; website GPT-6.1 Sol Low authored and executed the modeling Ruby through existing Kongxing. Outer integration agent fixed infrastructure/UX and inspected screenshots, without supplying building geometry. No Astra or provider substitution.

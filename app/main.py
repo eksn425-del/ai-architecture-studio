@@ -13,11 +13,12 @@ import time
 import uuid
 from pathlib import Path, PureWindowsPath
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel, ValidationError
 
 from .brain import BrainUnavailable, CodexBrainAdapter
@@ -29,7 +30,7 @@ from .models import (
     DesignIR, EditPlan, EditRequest, ModelObject, ModelState, OutputManifest,
     PrepareRequest, ProjectContext, Reference,
 )
-from .model_router import DeterministicModelRouter
+from .model_router import DeterministicModelRouter, ModelRoute
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, _resolve_server
@@ -322,12 +323,16 @@ def _context_with_brief_files(store: ProjectStore, project_id: str, context: Pro
     enriched = context.model_copy(deep=True)
     excerpts: list[str] = []
     project_dir = store.project_dir(project_id)
-    for relative in context.brief.source_files:
+    relatives = [*context.brief.source_files, *context.site.source_files,
+                 *(ref.source for ref in context.references if ref.type == "note" and ref.source.startswith("inputs/"))]
+    for relative in relatives:
         file_path = (project_dir / Path(relative)).resolve()
         if file_path.is_relative_to(project_dir.resolve()) and file_path.is_file():
             text = _extract_brief_text(file_path).strip()
             if text:
                 excerpts.append(f"[{file_path.name}]\n{text}")
+            elif file_path.suffix.lower() in {".dwg", ".pdf", ".docx"}:
+                excerpts.append(f"[{file_path.name}] 未提取到可读文本。DWG 需提供带尺寸的 PDF/图片或 DXF；扫描件需提供清晰截图。不得声称已读懂该文件。")
     if excerpts:
         enriched.brief.summary = (enriched.brief.summary + "\n\nUploaded brief extracts:\n" + "\n\n".join(excerpts))[:50000]
     return enriched
@@ -435,12 +440,25 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     runtime = runtime_root or Path(__import__("os").environ.get("ARCH_STUDIO_RUNTIME_DIR", ROOT / "runtime"))
     store = ProjectStore(runtime)
     app = FastAPI(title="AI Architecture Studio Model Router", version="1.1.0")
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "[::1]", "testserver"])
+
+    @app.middleware("http")
+    async def local_workspace_boundary(request: Request, call_next):
+        if request.client and request.client.host not in {"127.0.0.1", "::1", "testclient"}:
+            return JSONResponse({"detail": "此工作台只允许本机访问。"}, status_code=403)
+        origin = request.headers.get("origin")
+        if request.method not in {"GET", "HEAD", "OPTIONS"} and origin and origin != str(request.base_url).rstrip("/"):
+            return JSONResponse({"detail": "请从当前工作台提交操作。"}, status_code=403)
+        return await call_next(request)
+
     app.mount("/static", StaticFiles(directory=STATIC), name="static")
     app.state.agent_lock = threading.Lock()
+    app.state.active_turns = {}
     app.state.store = store
     app.state.brain = brain or CodexBrainAdapter()
     app.state.native_agent = native_agent or CodexAppServerRuntime(store.root)
     app.state.model_router = DeterministicModelRouter(app.state.native_agent, runtime_root=store.root)
+    app.state.preset_route = app.state.model_router.economy_route
     app.state.sketchup = sketchup or SketchUpAdapter()
     app.state.reference_ingestor = reference_ingestor or ReferenceIngestor()
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
@@ -452,6 +470,44 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     @app.get("/showcase", response_class=HTMLResponse, include_in_schema=False)
     def showcase() -> FileResponse:
         return FileResponse(STATIC / "showcase" / "index.html", media_type="text/html; charset=utf-8")
+
+    @app.post("/api/model-settings")
+    async def model_settings(request: Request) -> dict[str, Any]:
+        if request.client and request.client.host not in {"127.0.0.1", "::1", "testclient"}:
+            raise HTTPException(status_code=403, detail="模型设置仅支持本机工作台。")
+        origin = request.headers.get("origin")
+        if origin and origin != str(request.base_url).rstrip("/"):
+            raise HTTPException(status_code=403, detail="模型设置必须来自当前工作台。")
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等当前回合结束后再切换模型。")
+        try:
+            data = await request.json()
+            router = app.state.model_router
+            provider = router.china_runtime
+            if data.get("mode") == "preset":
+                provider.session_api_key = ""
+                router.economy_route = app.state.preset_route
+            else:
+                model = str(data.get("model", "")).strip()
+                key = str(data.get("api_key", "")).strip()
+                base = str(data.get("api_base", "")).strip()
+                parsed = urlsplit(base)
+                if not model or len(model) > 160 or "astra" in model.lower() or not key or len(key) > 4096:
+                    raise HTTPException(status_code=400, detail="请填写可用的模型名称与 API Key；本轮不提供 Astra 路由。")
+                if base and (parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment):
+                    raise HTTPException(status_code=400, detail="API Base 请使用不含凭据、查询参数的 HTTPS 地址。")
+                if not provider.dependency_installed:
+                    raise HTTPException(status_code=409, detail="本机尚未安装 LiteLLM，暂不能启用自带 API。")
+                provider.model = model
+                provider.custom_api_base = base
+                provider.session_api_key = key
+                provider.region = "user-configured (not verified)"
+                router.economy_route = ModelRoute("economy", "litellm", model, "provider-default", provider.region)
+            return router.status()
+        except (ValueError, AttributeError):
+            raise HTTPException(status_code=400, detail="模型设置格式不正确。") from None
+        finally:
+            app.state.agent_lock.release()
 
     @app.get("/api/status")
     def status() -> dict[str, Any]:
@@ -526,6 +582,28 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         raw_name = PureWindowsPath(filename).name
         raw_name = Path(raw_name).name
         safe_name = SAFE_FILENAME_RE.sub("_", raw_name).strip(" .") or "upload"
+        suffix = Path(safe_name).suffix.lower()
+        if suffix not in IMAGE_SUFFIXES | {".gif", ".pdf", ".docx", ".txt", ".md", ".csv", ".dxf", ".dwg"}:
+            raise HTTPException(status_code=415, detail="支持图片、PDF、DOCX、TXT、MD、CSV、DXF、DWG；旧版 DOC 请转换为 DOCX/PDF。")
+        if suffix in IMAGE_SUFFIXES | {".gif"}:
+            try:
+                from PIL import Image
+                original = Image.open(io.BytesIO(content))
+                if original.width * original.height > 40_000_000:
+                    raise ValueError("image dimensions too large")
+                original.seek(0)
+                original.thumbnail((2400, 2400))
+                normalized = io.BytesIO()
+                original.convert("RGB").save(normalized, format="PNG")
+                content = normalized.getvalue()
+                safe_name = Path(safe_name).stem + ".png"
+                if len(content) > 8 * 1024 * 1024:
+                    raise ValueError("normalized image too large")
+            except Exception as error:
+                raise HTTPException(status_code=415, detail="图片无法读取或过大，请转换为较小的 PNG/JPG。") from error
+            from .reference_assets import discover_project_reference_images
+            if len(discover_project_reference_images(project_dir)) >= 8:
+                raise HTTPException(status_code=409, detail="每个会话最多使用 8 张图片，请新建会话或减少参考图。")
         destination = project_dir / "inputs" / category / f"{uuid.uuid4().hex[:10]}-{safe_name}"
         destination.write_bytes(content)
         relative = _relative(project_dir, destination)
@@ -545,7 +623,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     context.site.boundary, units_note = boundary
                     context.site.summary = (context.site.summary + " " + units_note).strip()
         store.save(context, project_dir / "state" / "project_context.json")
-        return {"path": relative, "filename": safe_name, "category": category, "bytes": len(content)}
+        readable = _extract_brief_text(destination) if category != "reference" or destination.suffix.lower() not in IMAGE_SUFFIXES else ""
+        note = "图片已接入视觉分析" if destination.suffix.lower() in IMAGE_SUFFIXES else f"已读取 {len(readable)} 字" if readable else "已保存；DWG/扫描件需补带尺寸的 PDF、图片或 DXF" if suffix in {".dwg", ".pdf"} else "已保存，分析时会报告可读取的信息"
+        return {"path": relative, "filename": safe_name, "category": category, "bytes": len(content), "read_status": note}
 
     def _prepare_project(project_id: str, request: PrepareRequest,
                          previous_design: DesignIR | None = None) -> dict[str, Any]:
@@ -1114,9 +1194,52 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if not app.state.agent_lock.acquire(blocking=False):
             raise HTTPException(status_code=409, detail="另一个 Agent 回合正在运行，请等待完成后继续。")
         try:
+            app.state.active_turns[project_id] = {"started": time.time(), "action": request.agent_action,
+                "baseline": store.load_state(project_id, "agent_session.json", AgentSession).ruby_state}
             return converse_turn(project_id, request)
         finally:
+            app.state.active_turns.pop(project_id, None)
             app.state.agent_lock.release()
+
+    @app.get("/api/projects/{project_id}/agent/progress")
+    def agent_progress(project_id: str) -> dict[str, Any]:
+        project_dir = store.ensure_layout(project_id)
+        active = app.state.active_turns.get(project_id)
+        if not active:
+            return {"running": False}
+        started = active["started"]
+        events = sorted((project_dir / "runtime/agent_events").glob("*.jsonl"), key=lambda p: p.stat().st_mtime)
+        calls = failures = 0
+        stage = "正在读取资料与思考"
+        if events and events[-1].stat().st_mtime >= started:
+            for line in events[-1].read_bytes()[-262144:].decode("utf-8", errors="replace").splitlines():
+                try:
+                    item = json.loads(line)
+                except ValueError:
+                    continue
+                if item.get("event") in {"tool_started", "tool_result"}:
+                    calls += int(item.get("event") == "tool_result")
+                    failures += int(item.get("event") == "tool_result" and item.get("success") is False)
+                    tool = item.get("tool", "")
+                    stage = "正在执行建模脚本" if "ruby" in tool else "正在检查模型截图" if "image" in tool or "camera" in tool else "正在读取模型状态"
+                elif item.get("item_type") == "commandExecution":
+                    stage = "正在编写或检查模型脚本"
+        committed = []
+        state_file = project_dir / "runtime/project_ruby_state.json"
+        if state_file.is_file() and state_file.stat().st_mtime >= started:
+            try:
+                scripts = json.loads(state_file.read_text(encoding="utf-8")).get("scripts", {})
+                committed = [int(v.get("revision", 0)) for k, v in scripts.items()
+                             if int(v.get("revision", 0)) > int(active["baseline"].get(k, {}).get("revision", 0))]
+            except (ValueError, OSError):
+                pass
+        captures = [p for p in (project_dir / "outputs/renders").glob("agent-view-*.png") if p.stat().st_mtime >= started]
+        capture = max(captures, key=lambda p: p.stat().st_mtime) if captures else None
+        if active["action"] != "execute":
+            stage = "正在整理建模计划" if active["action"] == "plan" else "正在分析资料与交流"
+        return {"running": True, "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
+                "tool_calls": calls, "failed_tool_calls": failures, "committed_revisions": committed,
+                "preview_url": _artifact(project_id, project_dir, capture, "viewport").url if capture else None}
 
     def converse_turn(project_id: str, request: ConversationRequest) -> dict[str, Any]:
         try:
@@ -1139,9 +1262,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             context.references = [reference for reference in context.references if reference.type != "url"]
             if request.reference_url.strip():
                 context.references.append(Reference(type="url", source=request.reference_url.strip()[:1200]))
+        for source in re.findall(r"https?://[^\s<>\"）)]+", request.message)[:2]:
+            if not any(ref.type == "url" and ref.source == source for ref in context.references):
+                context.references.append(Reference(type="url", source=source[:1200]))
         for index, reference in enumerate(context.references):
-            if request.workflow_mode == "image_reconstruction":
-                continue
             if reference.type == "url" and reference.status == "pending":
                 context.references[index] = Reference.model_validate(app.state.reference_ingestor.ingest(reference.source))
 
@@ -1150,15 +1274,17 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         policy = None
         if request.workflow_mode == "image_reconstruction":
             try:
-                require_reconstruction_reference(project_dir)
                 policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=session_ready)
             except ValueError as error:
                 raise HTTPException(status_code=409, detail=str(error)) from error
         action = policy.action if policy else request.agent_action
+        if project_id in app.state.active_turns:
+            app.state.active_turns[project_id]["action"] = action
         phase = "agent"
         requested_tier = request.tier
         effective_tier = requested_tier
         route = app.state.model_router.route(effective_tier)
+        runtime_thread = session.thread_id if session.provider == route.provider and session.model == route.model else None
         route_reason = (
             "用户本轮显式选择精修" if requested_tier == "premium" else
             "默认 Economy"
@@ -1208,8 +1334,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             except (ConnectorUnavailable, MCPCallError) as error:
                 raise HTTPException(status_code=502, detail=f"SketchUp 当前无法完成模型身份校验：{error}") from error
 
-        native_context = (_context_with_brief_files(store, project_id, context)
-                          if request.workflow_mode == "architecture_design" else context)
+        native_context = _context_with_brief_files(store, project_id, context)
         skill_context = load_workflow_skill_context(request.workflow_mode, mcp_enabled=mcp_enabled)
         prompt = _agent_prompt(
             native_context, request.message, mcp_enabled=mcp_enabled,
@@ -1285,7 +1410,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             result = app.state.model_router.respond(
                 tier=effective_tier,
                 project_dir=project_dir,
-                thread_id=session.thread_id or None,
+                thread_id=runtime_thread or None,
                 prompt=prompt,
                 mcp_enabled=mcp_enabled,
                 model_path=active_model if mcp_enabled else None,
@@ -1336,7 +1461,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             card = project_dir / "runtime" / "agent_workspace" / "notes" / "reconstruction_card.md"
             if action == "clarify":
                 session.reconstruction_state = "clarifying"
-                session.clarification_rounds += 1
+                session.clarification_rounds = min(8, session.clarification_rounds + 1)
             elif action == "plan":
                 # Do not claim a saved plan if the coding harness only returned text.
                 text = card.read_text(encoding="utf-8") if card.is_file() else ""

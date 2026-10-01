@@ -27,6 +27,17 @@ def _toml_load(path: Path) -> dict[str, Any]:
 
 
 def _resolve_server() -> tuple[list[str], dict[str, str], str | None]:
+    standalone = os.environ.get("ARCH_STUDIO_MCP_CONFIG", "")
+    if standalone:
+        try:
+            server = json.loads(Path(standalone).read_text(encoding="utf-8"))
+            command = str(server.get("command", ""))
+            resolved = shutil.which(command) or (command if Path(command).is_file() else "")
+            if not resolved or not isinstance(server.get("args", []), list):
+                raise ValueError("invalid executable/arguments")
+            return [resolved, *map(str, server.get("args", []))], {str(k):str(v) for k,v in server.get("env", {}).items()}, server.get("cwd")
+        except (OSError, ValueError, AttributeError, TypeError) as error:
+            raise ConnectorUnavailable("The standalone SketchUp connector configuration is unavailable or invalid.") from error
     codex_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
     config_path = codex_home / "config.toml"
     if not config_path.exists():
