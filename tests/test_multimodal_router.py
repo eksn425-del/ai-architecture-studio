@@ -6,13 +6,20 @@ from types import ModuleType, SimpleNamespace
 
 from app.litellm_runtime import LiteLLMRuntime
 from app.model_router import DeterministicModelRouter
-from app.native_agent import _app_server_turn_input
+from app.native_agent import CodexAppServerRuntime, _app_server_turn_input
 
 
 class FakeCodex:
     available = True
     runtime_root = None
     model = "gpt-6-luna"
+
+
+def test_native_timeout_accommodates_real_reconstruction_turns(tmp_path: Path):
+    runtime = CodexAppServerRuntime(tmp_path, home_root=tmp_path / "home")
+    assert runtime.timeout_seconds == 900
+    bounded = CodexAppServerRuntime(tmp_path, home_root=tmp_path / "home", timeout_seconds=60)
+    assert bounded.timeout_seconds == 60
 
 
 def test_codex_app_server_turn_input_uses_local_image_wire_variant(tmp_path: Path):

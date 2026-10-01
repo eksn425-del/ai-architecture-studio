@@ -123,7 +123,7 @@ class CodexAppServerRuntime:
     """Runs Codex app-server with project-local tools and an isolated writable workspace."""
 
     def __init__(self, runtime_root: Path, *, codex_executable: str | None = None,
-                 model: str | None = None, timeout_seconds: int = 300,
+                 model: str | None = None, timeout_seconds: int = 900,
                  sketchup_mcp: ConfiguredSketchUpMCP | None = None,
                  home_root: Path | None = None,
                  reasoning_effort: str | None = None):

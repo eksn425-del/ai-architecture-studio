@@ -22,6 +22,28 @@
 * { box-sizing: border-box; }
 html, body { min-width: 320px; min-height: 100%; margin: 0; }
 body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 13px; }
+[hidden] { display: none !important; }
+.heading-meta select { max-width: 240px; }
+.reconstruction-guide { padding: 16px 18px; margin: 12px 0 24px; border: 1px solid var(--line-dark); background: var(--paper-highlight); }
+.reconstruction-guide ol { display: flex; gap: 18px; flex-wrap: wrap; padding: 0; margin: 0 0 12px; list-style: none; color: var(--rust); font-size: 13px; }
+.reconstruction-guide p { color: var(--ink-soft); font-size: 13px; line-height: 1.7; }
+.reconstruction-guide summary { cursor: pointer; font-size: 12px; }
+.reference-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+.reference-gallery a { color: var(--ink-soft); text-decoration: none; }
+.reference-gallery img { width: 100%; height: 120px; object-fit: contain; display: block; background: #e5e4dc; }
+.reference-gallery span { font-size: 11px; }
+#parameter-plan { margin: 14px 0; border: 1px solid var(--line-dark); padding: 12px; }
+#parameter-plan summary { cursor: pointer; font-size: 13px; }
+#parameter-plan pre { max-height: 360px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.7 var(--sans); }
+.operation-progress { padding: 12px; margin-top: 12px; border-left: 3px solid var(--rust); background: #eee8dc; font-size: 13px; line-height: 1.7; }
+.reconstruction-empty { padding: 70px 36px; color: var(--ink-soft); }
+.reconstruction-empty span { color: var(--rust); letter-spacing: .15em; font: 11px var(--mono); }
+.reconstruction-empty h2 { margin: 20px 0; font: 32px var(--serif); }
+.reconstruction-empty p { font-size: 14px; line-height: 1.8; }
+.reconstruction-mode [data-tab="drawing"], .reconstruction-mode [data-tab="render"], .reconstruction-mode [data-tab="present"], .reconstruction-mode .legacy-workflow { display: none; }
+.reconstruction-mode .conversation-history { max-height: 450px; }
+.reconstruction-mode .chat-message p, .reconstruction-mode .text-area, .reconstruction-mode .select-control, .reconstruction-mode .text-field { font-size: 13px; }
+.reconstruction-mode .field-label, .reconstruction-mode .agent-session-description, .reconstruction-mode .conversation-hint { font-size: 12px; line-height: 1.6; }
 button, input, textarea { font: inherit; }
 button { color: inherit; }
 button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }

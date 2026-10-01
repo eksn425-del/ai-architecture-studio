@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f2efe8">
     <title>AI Architecture Studio · 图片复刻</title>
-    <link rel="stylesheet" href="/static/studio.css">
+    <link rel="stylesheet" href="/static/studio.css?v=workflow-20261001-2">
   </head>
   <body>
     <div class="app-shell">
@@ -40,7 +40,7 @@
         <main class="main-content">
           <div class="workspace-heading">
             <div><div class="eyebrow">项目工作区 <span>/</span> 方案研究</div><h1 id="project-title">潮汐共享 · 滨水文化之家</h1><p id="project-subtitle">在社区与水岸之间形成开放、可穿行的公共空间。</p></div>
-            <div class="heading-meta"><span class="status-pill" id="project-status"><i></i> 输入已就绪</span><span class="updated-meta">v0.2 <span>·</span> 米</span></div>
+            <div class="heading-meta"><label for="project-select">切换项目</label><select id="project-select" class="select-control" aria-label="切换项目"></select><span class="status-pill" id="project-status"><i></i> 输入已就绪</span></div>
           </div>
 
           <div class="tab-strip" role="tablist" aria-label="工作区视图">
@@ -51,9 +51,14 @@
             <button class="tab-button" data-tab="present" role="tab">排版 <span class="tab-count">05</span></button>
           </div>
 
+          <section class="reconstruction-guide" id="reconstruction-guide" aria-label="图片建模流程">
+            <ol><li>1 上传图片</li><li>2 分析与补充</li><li>3 确认计划</li><li>4 批准建模</li><li>5 查看与修改</li></ol>
+            <p id="next-step">新建项目，上传建筑图片，再点击分析图片。</p>
+            <details><summary>第一次使用？查看操作说明</summary><p>图片决定目标外观。可以说明已知尺寸、是否补全背面、需要哪些细节。AI 先分析并给出计划；你批准后才开始建模。完成后在模型视图查看截图、下载 SKP，并继续发送修改要求。一次处理可能需要数分钟，请保持页面打开。</p><p>启动建模前，请先保存并关闭其他 SketchUp 文档。本网站会打开当前项目的独立模型；切换网页项目不会切换 SketchUp 的活动文档。</p></details>
+          </section>
           <div class="content-grid">
             <section class="control-column">
-              <div class="section-heading"><div><span class="section-index">A</span><h2>项目输入</h2></div><span class="quiet-tag">示例项目</span></div>
+              <div class="section-heading"><div><span class="section-index">A</span><h2>项目输入</h2></div><span class="quiet-tag">本地项目</span></div>
               <label class="field-label" for="project-name">项目名称</label>
               <input id="project-name" class="text-field" value="潮汐共享 · 滨水文化之家" maxlength="120">
 
@@ -77,6 +82,7 @@
                 <div class="reference-status" id="reference-status" aria-live="polite"></div>
                 <label class="file-pick"><span>＋ 添加参考图片</span><input id="reference-file" type="file" accept="image/*"></label>
                 <div class="file-list" id="reference-files"></div>
+                <div id="reference-gallery" class="reference-gallery" aria-label="已上传的参考图片"></div>
               </div>
 
               <div class="input-block intent-block">
@@ -88,8 +94,8 @@
                 <div class="conversation-heading"><div><span class="section-index">AGENT</span><h2 id="agent-session-title">自由建模会话</h2></div><span class="quiet-tag">Economy · GPT-6.1 Sol</span></div>
                 <p class="agent-session-description">先澄清目标，再确认参数与计划，批准后建模。Economy 默认使用 GPT-6.1 Sol Low；后续修改持续使用同一份模型和脚本。</p>
                 <div class="agent-session-status" id="agent-session-state" aria-live="polite">尚未打开项目专属空白副本</div>
-                <button class="button-primary" id="start-agent-session"><span>打开空白副本并连接 Agent</span><span class="button-arrow">↗</span></button>
-                <small class="agent-session-note">会自动复制 SketchUp Simple 模板到本项目 runtime；原始毕设模型不会被使用。</small>
+                <button class="button-primary" id="start-agent-session"><span>打开项目模型并连接 SketchUp</span><span class="button-arrow">↗</span></button>
+                <small class="agent-session-note">首次自动新建独立模型，后续继续使用它。请先保存并关闭其他 SketchUp 文档。</small>
               </section>
 
               <section class="conversation-panel" aria-labelledby="conversation-title">
@@ -103,7 +109,8 @@
                   </select>
                   <p id="workflow-help">上传参考图片 → 分析并生成计划 → 打开空白副本 → 批准执行。分析阶段不会修改 SketchUp。</p>
                   <div id="reconstruction-state" role="status" aria-live="polite">待分析</div>
-                  <button class="button-secondary" id="approve-reconstruction" type="button" hidden><span>批准执行</span><span>↗</span></button>
+                  <details id="parameter-plan" hidden><summary>查看建模参数与假设</summary><pre id="parameter-plan-content"></pre></details>
+                  <button class="button-secondary" id="approve-reconstruction" type="button" hidden><span>批准计划并开始建模</span><span>↗</span></button>
                   <button class="button-secondary" id="revise-reconstruction-plan" type="button" hidden>修改参数</button>
                   <label class="field-label routing-tier-label" for="conversation-tier">本轮模型档位</label>
                   <select id="conversation-tier" class="select-control">
@@ -115,6 +122,7 @@
                   <button class="button-primary conversation-send" id="conversation-send" type="submit"><span>分析图片 / 生成建模计划</span><span class="button-arrow">↗</span></button>
                 </form>
                 <div class="conversation-hint" id="conversation-hint">可以先讨论设计；启动模型会话后，对话将由 Agent 直接落实到同一份 SketchUp 副本。</div>
+                <div id="operation-progress" class="operation-progress" role="status" aria-live="polite" hidden></div>
               </section>
 
               <details class="legacy-workflow">
@@ -160,8 +168,8 @@
         </main>
       </div>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
-      <dialog id="project-dialog"><form method="dialog" id="create-project-form"><div class="dialog-kicker">新建本地项目</div><h2>从任务书开始。</h2><label class="field-label" for="new-project-name">项目名称</label><input class="text-field" id="new-project-name" required placeholder="例如：滨水阅读中心"><label class="field-label" for="new-project-brief">任务书</label><textarea class="text-area" id="new-project-brief" rows="4" placeholder="你准备设计什么？"></textarea><div class="dialog-actions"><button class="button-quiet" value="cancel">取消</button><button class="button-primary" id="create-project-submit" value="default">创建项目 <span class="button-arrow">↗</span></button></div></form></dialog>
+      <dialog id="project-dialog"><form method="dialog" id="create-project-form"><div class="dialog-kicker">新建本地项目</div><h2>从一张建筑图片开始。</h2><label class="field-label" for="new-project-name">项目名称</label><input class="text-field" id="new-project-name" required placeholder="例如：别墅图片复刻"><label class="field-label" for="new-project-brief">目标说明（可选）</label><textarea class="text-area" id="new-project-brief" rows="4" placeholder="创建后上传图片，并在对话中说明尺寸或细节要求。"></textarea><div class="dialog-actions"><button class="button-quiet" id="cancel-project" type="button">取消</button><button class="button-primary" id="create-project-submit" type="submit">创建项目 <span class="button-arrow">↗</span></button></div></form></dialog>
     </div>
-    <script src="/static/studio.js" defer></script>
+    <script src="/static/studio.js?v=workflow-20261001-2" defer></script>
   </body>
 </html>

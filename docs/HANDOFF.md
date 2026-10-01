@@ -1,5 +1,19 @@
 # Handoff — AI Architecture Studio
 
+## Latest local execution — self-service reconstruction UX (2026-10-01)
+
+User requested a usable manual website workflow and asked to adopt the observed Building-Xuezhang interaction logic. Started from an up-to-date clean `main` at `5298762`. Applied the frontend-design skill within the existing reconstruction milestone; no proprietary competitor code was copied.
+
+- Added functional project selection and remembered last selection, five-step guidance, persistent reference thumbnails, readable saved reconstruction card, direct SKP download and clear next-step prompts. Reconstruction hides unrelated legacy drawings/render/presentation stages.
+- Explicit approval remains the backend execution gate. Parameter revision now focuses the message field and sends `plan`, including from an existing model, rather than silently doing nothing or accidentally sending an execution request. Replanning requires renewed approval afterward.
+- Added elapsed waiting feedback and locked project/input controls during requests, prevented duplicate project creation, fixed cancel accidentally submitting the project form, and enforced `[hidden]` against button styling. Elapsed seconds are not tool events or a progress percentage.
+- Normal Codex runtime default timeout increased from 300 to 900 seconds, based on the previous real 600-second plan and 353-second execution. Explicit caller overrides remain honored; added regression coverage. Existing sandbox/model/approval boundaries remain in place.
+- Browser validation at the already running local website: Jinshan project survives reload, both source thumbnails persist, actual card text loads, parameter revision changes submit label, cancel closes the dialog with project count unchanged (14), and output SKP remains linked. Latest model is displayed, not recreated. No extra model inference or SketchUp geometry mutation occurred this UX turn; previous real-model evidence remains below.
+- `scripts/check.ps1`: **95 passed**, compilation checks passed. `node --check app/static/studio.js` passed. Browser console had no captured errors during verification. `git diff --check` passed.
+- Added Chinese `docs/USER_GUIDE.md` with exact clicks, current instance vs standard dev port, input examples and honest limitations. Current UI is a usable local prototype, not arbitrary-provider self-service or production delivery. Tool streaming, background recovery and multi-project modeling queues remain pending; Direct-Codex visual parity remains unaccepted.
+
+Private reference images, generated screenshots, models and runtime data remain ignored and are excluded from this handoff commit.
+
 ## Latest local execution — website / Jinshan / Sol Low (2026-10-01)
 
 **Real reconstruction executed; formal Direct-Codex parity remains unaccepted.** The user explicitly requested the Jinshan case in a new SketchUp model through the website, using `gpt-6.1-sol` / `low`. No Astra inference or model/effort substitution was used. Started this work after an up-to-date fast-forward pull at `c865469`; continued interrupted local changes on the next user request.
