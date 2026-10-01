@@ -1,5 +1,18 @@
 # Handoff — AI Architecture Studio
 
+## Latest local execution — chat-first AI modeling UI (2026-10-01)
+
+User rejected the previous form-heavy page and requested the layout of the already open Building-Xuezhang desktop, restyled as our product and focused only on AI modeling. Pulled clean, up-to-date main at `7506b8a`. Used computer-use for live desktop observation and frontend-design for implementation.
+
+- Observed AI task-assistant / SU automatic-modeling pages: left capability/history sidebar, spacious central chat, bottom composer with attachments/model/Skill/send. Inspected a conversation without submitting messages or invoking tools. Updated sanitized competitor observations; proprietary UI source/assets and private conversation contents are not committed.
+- Replaced the landing workspace with K Studio: soft gray/forest-green palette, left modeling-session history, central chat, fixed bottom image/input/model/send toolbar and an optional model/files drawer. No drawing/render/PPT/provider-console/legacy-rule controls appear in normal UI. Existing backend compatibility paths remain intact with hidden controls; image reconstruction remains the sole visible mode.
+- New-session optional goal is placed in the message composer for the first reconstruction turn, rather than being lost in the excluded taskbook context. The create dialog resets on opening; project creation still cannot trigger inference or model editing by itself.
+- Kept explicit parameter approval, plan-only parameter revision, same-project workspace/model continuity and guarded bridge execution. Model-provider state no longer claims live SketchUp connectivity merely because a model path was saved. Connection details are in the result drawer; actual connection still requires the existing session/probe.
+- Added empty-state prompt chips, collapsed per-turn diagnostic records, safe escaped bold/inline-code display, help dialog, keyboard drawer dismissal and a narrow-screen session menu. Default visible route remains GPT-6.1 Sol Low. No inference/Astra call, SU geometry mutation or new quality benchmark occurred.
+- Browser checks against the restarted real local website: new session creation, empty state, history switching, reload memory, source thumbnails, parameter-card read, result drawer open/close and existing SKP download link. Uploaded one existing reference into a generated UI-trial session: send enabled, first-execution approval hidden. No model request was submitted. Screenshots remain ignored under runtime/reviews/chat-ui. Narrow-screen CSS/menu added; real mobile device validation remains pending.
+- Fixed a boot regression from moving the runtime indicator (old sibling lookup became null), verified in browser after cache-version refresh. Updated the obsolete page-copy regression to the new single-composer/approval/result contract. `scripts/check.ps1`: **95 passed**; JS syntax and `git diff --check` passed. No claim of new architectural-quality acceptance.
+- Updated Chinese USER_GUIDE to exact new controls. Streaming tools, background recovery and direct-Codex quality parity remain unresolved from the previous handoff.
+
 ## Latest local execution — self-service reconstruction UX (2026-10-01)
 
 User requested a usable manual website workflow and asked to adopt the observed Building-Xuezhang interaction logic. Started from an up-to-date clean `main` at `5298762`. Applied the frontend-design skill within the existing reconstruction milestone; no proprietary competitor code was copied.

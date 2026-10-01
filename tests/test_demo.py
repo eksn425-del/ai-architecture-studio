@@ -464,11 +464,17 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
     page = TestClient(app).get("/")
     assert page.status_code == 200
     assert 'lang="zh-CN"' in page.text
-    assert "讨论与修改" in page.text
+    assert "AI 建模对话" in page.text
     assert "分析图片" in page.text
-    assert "旧版规则化建模流程" in page.text
-    assert "自由建模会话" in page.text
-    assert "MODEL ROUTER V1" in page.text
+    assert "历史建模会话" in page.text
+    assert "模型与文件" in page.text
+    assert page.text.count('id="conversation-input"') == 1
+    assert page.text.count('id="conversation-form"') == 1
+    assert 'id="approve-reconstruction"' in page.text
+    assert 'id="result-panel"' in page.text
+    assert "旧版规则化建模流程" not in page.text
+    assert "MODEL ROUTER V1" not in page.text
+    assert "AI 绘图" not in page.text
 
 
 class FakeNativeAgent:

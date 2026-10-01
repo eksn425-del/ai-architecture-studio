@@ -4,6 +4,17 @@ Date: 2026-09-30. Read-only inspection of a legitimately installed package and t
 
 ## Observed facts
 
+### Live UI observation — 2026-10-01
+
+Inspected the running desktop's AI task-assistant and SU automatic-modeling pages through ordinary window interaction, including an existing user conversation. No message was submitted, model tool invoked or proprietary source copied.
+
+- Narrow left sidebar groups capabilities and lists conversation history below them. SU modeling is selected under AI modeling.
+- Main workspace has a centered page title, spacious conversation area, and an empty-state introduction with small suggestion chips.
+- Input composer is fixed near the bottom. Attachment entry, model dropdown, dialogue mode, Skill entry and send arrow share its toolbar.
+- Existing conversation places user messages on the right; history selection changes the central conversation rather than opening a separate project form.
+- The visible SU page selected GPT-6.1 Sol. This is UI evidence only, not provider-request verification.
+- Product implication: our current scope adopts the sidebar/history/chat/composer arrangement, keeps only AI modeling, and reveals parameter approval and outputs contextually. Our visual assets, styling and implementation are original. Unavailable competitor capabilities are not shown as working features.
+
 ### Installation and reuse boundaries
 
 - The desktop installation contains .NET runtime/WPF/WebView2 libraries, a WebUI, isolated Python and Node runtimes, Skills, system prompts, settings and local history storage.
