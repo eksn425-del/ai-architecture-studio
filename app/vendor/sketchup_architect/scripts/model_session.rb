@@ -85,7 +85,7 @@ module CodexSketchupArchitect
       raise 'Could not start operation' unless model.start_operation('SketchUp Architect revision', true)
       opened = true
       if root
-        root.make_unique
+        root.make_unique if root.definition.instances.length > 1
       else
         root = model.entities.add_group
         root.name = 'Architecture ' + project_id
@@ -95,11 +95,15 @@ module CodexSketchupArchitect
       yield(model, root)
       raise 'Active model switched during operation' unless Sketchup.active_model == model
       raise 'Build removed its owned root' unless root.valid?
+      raise 'Build left an empty owned root; use readback tools for inspection' if root.entities.length.zero?
       root.set_attribute(DICT, 'revision', expected_revision + 1)
+      # A commit can invalidate a Ruby entity wrapper on SketchUp 2024.
+      # Capture the persistent identity while it is valid, before committing.
+      committed_root_pid = root.persistent_id
       raise 'Could not commit operation' unless model.commit_operation
       opened = false
       committed = true
-      record.merge!(status: 'committed', revision: expected_revision + 1, root_pid: root.persistent_id)
+      record.merge!(status: 'committed', revision: expected_revision + 1, root_pid: committed_root_pid)
       record[:scenes_after] = scene_inventory(model)
       write_report(path, record)
       record

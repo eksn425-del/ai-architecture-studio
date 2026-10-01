@@ -290,6 +290,20 @@ class CodexAppServerRuntime:
         reader.start()
         request_id = 0
         buffered: list[dict[str, Any]] = []
+        resolved_thread_id = ""
+        tool_calls: list[dict[str, str]] = []
+        tool_call_count = failed_tool_calls = 0
+        input_tokens = output_tokens = None
+
+        def interrupted(error: NativeAgentUnavailable) -> NativeAgentUnavailable:
+            error.partial_result = AgentTurnResult(
+                thread_id=resolved_thread_id, reply="", status="interrupted",
+                tool_calls=_dedupe_calls(tool_calls), model_name=model,
+                reasoning_effort=reasoning_effort, input_tokens=input_tokens,
+                output_tokens=output_tokens, latency_ms=round((time.monotonic() - started) * 1000),
+                tool_call_count=tool_call_count, failed_tool_calls=failed_tool_calls)
+            return error
+
         try:
             self._request(process, events, request_id, "initialize", {
                 "clientInfo": {"name": "ai-architecture-studio", "title": "AI Architecture Studio", "version": "0.1.0"},
@@ -438,8 +452,10 @@ class CodexAppServerRuntime:
                 tool_call_count=tool_call_count,
                 failed_tool_calls=failed_tool_calls,
             )
+        except NativeAgentUnavailable as error:
+            raise interrupted(error)
         except (BrokenPipeError, OSError, TimeoutError, json.JSONDecodeError) as error:
-            raise NativeAgentUnavailable(f"Codex app-server communication failed: {error}") from error
+            raise interrupted(NativeAgentUnavailable(f"Codex app-server communication failed: {error}")) from error
         finally:
             if process.poll() is None:
                 process.terminate()

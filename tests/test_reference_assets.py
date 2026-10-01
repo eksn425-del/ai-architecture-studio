@@ -46,3 +46,16 @@ def test_reference_image_data_url_and_label(tmp_path: Path) -> None:
     assert "first-class visual evidence" in label
     assert "requested fidelity" in label
     assert "reconstruction target" in reference_image_label([image], reconstruction=True)
+
+
+def test_all_six_reconstruction_views_reach_native_input(tmp_path: Path) -> None:
+    from app.native_agent import _app_server_turn_input
+
+    project = tmp_path / "project"
+    for view in ("front", "rear", "left", "right", "top", "threequarter"):
+        _write(project / "inputs" / "reference" / f"villa_{view}.png")
+    _write(project / "outputs" / "renders" / "agent.png")
+    images = discover_project_reference_images(project, categories=("reference",))
+    assert len(images) == 6
+    inputs = _app_server_turn_input("Reconstruct all six views.", images)
+    assert len([item for item in inputs if item["type"] == "localImage"]) == 6

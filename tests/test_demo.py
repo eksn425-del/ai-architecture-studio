@@ -470,6 +470,7 @@ def test_workspace_copy_is_simplified_chinese_and_has_one_conversation_box(tmp_p
     assert "模型与文件" in page.text
     assert page.text.count('id="conversation-input"') == 1
     assert page.text.count('id="conversation-form"') == 1
+    assert 'id="reference-file" type="file" accept="image/*" multiple' in page.text
     assert 'id="approve-reconstruction"' in page.text
     assert 'id="result-panel"' in page.text
     assert "旧版规则化建模流程" not in page.text
@@ -687,3 +688,28 @@ def test_generated_sketchup_script_dir_uses_local_environment(tmp_path: Path, mo
     override = tmp_path / "connector-scripts"
     monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(override))
     assert _generated_script_dir() == override
+
+
+def test_agent_reply_hides_angle_bracket_windows_links_with_spaces():
+    text = _sanitize_agent_reply("[打开模型](<E:/private work/model.skp>)")
+    assert "private work" not in text
+    assert "model.skp" not in text
+    assert "打开模型" in text
+
+
+def test_model_identity_is_independent_of_checkpoint_root_guard(tmp_path):
+    class Client:
+        def call(self, name, arguments):
+            source = Path(arguments["script_path"]).read_text(encoding="utf-8")
+            assert "expected_root_ids" not in source
+            return {"model_path": str(tmp_path / "blank-disposable.skp"), "model_guid": "identity"}
+    assert SketchUpAdapter(Client()).get_active_model_identity()["model_guid"] == "identity"
+
+def test_checkpoint_guard_checks_owned_root_before_save(tmp_path):
+    class Client:
+        def call(self, name, arguments):
+            source = Path(arguments["script_path"]).read_text(encoding="utf-8")
+            assert source.index("Owned model root is missing") < source.index("model.save_copy")
+            assert "entities.length > 0" in source
+            return {"saved": True}
+    SketchUpAdapter(Client()).save_model(tmp_path / "model.skp", expected_root_ids=[123])

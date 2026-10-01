@@ -1,6 +1,7 @@
 const state = { projectId: null, project: null, tab: "design", busy: false, toastTimer: null, nativeAgentAvailable: false, modelRouter: null, planEditing: false };
 const $ = (id) => document.getElementById(id);
 let projectList = [];
+let pendingMessage = null;
 let progressTimer = null;
 let planRequestId = 0;
 
@@ -32,7 +33,8 @@ function showResults(open) {
 }
 
 function chatText(content) {
-  return escapeHtml(content).replace(/`([^`\n]+)`/g, "<code>$1</code>").replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+  const readable = content.replace(/\[([^\]]+)\]\(<?[^)]*\[本机路径已隐藏\][^)]*\)/g, "$1（请从「模型与文件」查看）");
+  return escapeHtml(readable).replace(/`([^`\n]+)`/g, "<code>$1</code>").replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
 }
 
 function beginProgress(label) {
@@ -127,6 +129,7 @@ function showToast(message, isError = false) {
 function friendlyError(error) {
   const message = String(error?.message || "");
   if (!message || /^[\u0000-\u00ff]*$/.test(message)) {
+    if (/has not opened the recovery copy/i.test(message)) return "请切换到 SketchUp，处理恢复副本时的保存提示，再点击恢复按钮完成同步；原生成模型已保留。";
     if (/ECONNREFUSED|bridge connection failed/i.test(message)) return "SketchUp 本地桥接未响应，请检查 SketchUp 是否已打开并启动 Kongxing Local Bridge。";
     if (/not the disposable|blank-disposable/i.test(message)) return "当前 SketchUp 模型不是空白演示模型，请先打开本地生成的空白副本。";
     if (/already has a live|new project/i.test(message)) return "该项目已绑定 SketchUp 模型，请新建项目后再开始新的建模。";
@@ -177,18 +180,23 @@ function updateHeader() {
   const context = project.context;
   const model = project.model_state;
   const agent = project.agent_session || {};
+  $("agent-error").hidden = !agent.error || state.busy;
+  $("agent-error").textContent = agent.error ? "上轮未正常完成。已保留项目记录；请查看模型。模型异常时，打开「模型与文件」恢复上轮修改前的模型，再继续。" : "";
   const agentReady = agent.status === "ready" && !!agent.model_path;
   const reconstructionMode = $("workflow-mode").value === "image_reconstruction";
   document.body.classList.toggle("reconstruction-mode", reconstructionMode);
   document.querySelector('.tab-button[data-tab="design"]').childNodes[0].textContent = reconstructionMode ? "图片与计划 " : "方案设计 ";
   $("project-select").disabled = state.busy;
   $("new-project").disabled = state.busy;
+  $("conversation-input").disabled = state.busy;
+  $("recover-agent-checkpoint").hidden = state.project?.agent_session?.reconstruction_state !== "building";
+  $("recover-agent-checkpoint").disabled = state.busy;
   renderProjectHistory();
   for (const id of ["workflow-mode", "conversation-tier", "reference-file", "brief-file", "site-file", "project-name"]) $(id).disabled = state.busy;
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
-  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<a href="${projectFileUrl(ref.source)}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="已上传的建筑参考图"><span>查看原图 ↗</span></a>`).join("");
+  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a>`).join("");
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
@@ -268,7 +276,8 @@ function updateHeader() {
 }
 
 function renderConversation() {
-  const messages = state.project?.context?.conversation || [];
+  const messages = [...(state.project?.context?.conversation || [])];
+  if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {}});
   const history = $("conversation-history");
   if (!messages.length) {
     history.innerHTML = '<div class="welcome"><div class="welcome-symbol">◇</div><h2>把建模交给 AI</h2><p>上传一张建筑图片，告诉我你想还原什么。</p><div class="suggestions"><button class="suggestion" data-prompt="按参考图片还原建筑，保留屋顶、窗洞与立面细节。">从图片还原建筑</button><button class="suggestion" data-prompt="没有实测尺寸，请按图像比例估算并标明，允许推断背面。">估算尺寸与补全背面</button><button class="suggestion" data-prompt="请生成可编辑 SketchUp 模型，检查正面、背面和侧面截图。">多角度检查与修改</button></div></div>';
@@ -291,6 +300,7 @@ function renderConversation() {
       + speaker + "</span><span>" + phase + "</span></header><p>" + chatText(message.content)
       + "</p>" + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
+  if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><header><span>建筑 Agent</span></header><p>正在查看参考图片、处理本轮要求，请稍候…</p></article>');
   history.scrollTop = history.scrollHeight;
 }
 
@@ -354,7 +364,7 @@ function renderPreview() {
     caption.textContent = "以图片为外观目标 · 未知尺寸会标记为估算";
     meta.textContent = `${sourceImages().length} 张参考图片`;
     canvas.className = "preview-canvas";
-    canvas.innerHTML = sourceImages().length ? `<img class="preview-image" src="${projectFileUrl(sourceImages()[0].source)}" alt="本项目建筑参考图">` : '<div class="reconstruction-empty"><span>IMAGE → SKETCHUP</span><h2>从一张建筑图片开始</h2><p>上传参考图，AI 会先分析并确认建模计划。<br>批准后在独立 SketchUp 模型中执行。</p></div>';
+    canvas.innerHTML = sourceImages().length ? `<div class="reference-sheet">${sourceImages().map((ref)=>`<a href="${projectFileUrl(ref.source)}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>${escapeHtml(ref.source.split('/').at(-1))}</span></a>`).join("")}</div>` : '<div class="reconstruction-empty"><span>IMAGE → SKETCHUP</span><h2>从一张建筑图片开始</h2><p>上传参考图，AI 会先分析并确认建模计划。<br>批准后在独立 SketchUp 模型中执行。</p></div>';
     return;
   }
   if (state.tab === "design") {
@@ -376,7 +386,9 @@ function renderPreview() {
     const image = capture ? `<img class="preview-image" src="${capture.url}" alt="SketchUp 视口截图">` : '<div class="preview-canvas empty-design"><div class="canvas-grid"></div><div class="empty-poster"><div class="poster-kicker">真实几何</div><div class="poster-title">模型将在<br><em>SketchUp 中生成。</em></div><div class="poster-rule"></div><div class="poster-foot"><span>稳定对象 ID<br>可编辑分组</span><span>准备后开始建模</span></div></div></div>';
     const chips = objects.map((item) => `<span class="model-object-chip"><b>${escapeHtml(item.stable_id)}</b>${escapeHtml(item.name)}</span>`).join("");
     canvas.className = "preview-canvas model-preview-content";
-    canvas.innerHTML = `${image}${objects.length ? `<div class="model-summary">${chips}</div>` : ""}`;
+    const views = [...new Map(allArtifacts().filter(item => item.type === "viewport").map(item => [item.path, item])).values()].slice(-12);
+    const gallery = views.length > 1 ? `<div class="model-view-gallery" aria-label="历史检查截图">${views.map((item, i) => `<a href="${item.url}" target="_blank" rel="noreferrer" title="查看模型截图 ${i + 1}"><img src="${item.url}" alt="历史检查截图 ${i + 1}" loading="lazy"></a>`).join("")}</div>` : "";
+    canvas.innerHTML = `${image}${gallery}${objects.length ? `<div class="model-summary">${chips}</div>` : ""}`;
   } else if (state.tab === "drawing") {
     title.textContent = "场地图纸";
     caption.textContent = "由同一份 DesignIR 生成基础 DXF";
@@ -433,10 +445,9 @@ async function boot() {
   }
 }
 
-async function uploadFile(category, file, targetId) {
-  if (!state.projectId || !file || state.busy) return;
-  state.busy = true;
-  updateHeader();
+async function uploadFile(category, file, targetId, manageBusy = true) {
+  if (!state.projectId || !file || (manageBusy && state.busy)) return false;
+  if (manageBusy) { state.busy = true; updateHeader(); }
   try {
     const url = `/api/projects/${encodeURIComponent(state.projectId)}/inputs/${category}?filename=${encodeURIComponent(file.name)}`;
     const result = await api(url, { method: "POST", headers: { "Content-Type": file.type || "application/octet-stream" }, body: file });
@@ -447,8 +458,25 @@ async function uploadFile(category, file, targetId) {
     $(targetId).append(chip);
     state.project = await api(`/api/projects/${encodeURIComponent(state.projectId)}`);
     showToast(`${result.filename} 已保存到当前项目的本地输入目录。`);
-  } catch (error) { showToast(friendlyError(error), true); }
-  finally { state.busy = false; updateHeader(); }
+    return true;
+  } catch (error) { showToast(friendlyError(error), true); return false; }
+  finally { if (manageBusy) { state.busy = false; updateHeader(); } }
+}
+
+async function uploadReferences(files) {
+  if (!state.projectId || state.busy || !files.length) return;
+  if (files.length + sourceImages().length > 8) { showToast("每个会话最多使用 8 张参考图，避免超出模型的输入范围。请减少本次选择的图片数量。", true); $("reference-file").value = ""; return; }
+  state.busy = true;
+  let completed = 0;
+  beginProgress(`正在上传 ${files.length} 张参考图片`);
+  try {
+    for (const file of files) {
+      const ok = await uploadFile("reference", file, "reference-files", false);
+      if (ok) completed++;
+      updateHeader();
+    }
+    showToast(`已上传 ${completed} / ${files.length} 张参考图片${completed < files.length ? "，失败的图片请重新上传" : "。请描述建模要求后发送"}。`, completed < files.length);
+  } finally { endProgress(); state.busy = false; $("reference-file").value = ""; updateHeader(); }
 }
 
 async function prepareDesign() {
@@ -588,8 +616,9 @@ async function applyEdit(instruction) {
 async function sendConversation(event, agentAction = "auto") {
   event?.preventDefault();
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
-  const message = agentAction === "execute" ? "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。" : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
+  const message = agentAction === "execute" ? ($("conversation-input").value.trim() || "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。") : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
+  pendingMessage = message;
   state.busy = true;
   const button = $("conversation-send");
   const requestedTier = $("conversation-tier").value;
@@ -618,6 +647,7 @@ async function sendConversation(event, agentAction = "auto") {
       }),
     });
     state.project = result.project;
+    pendingMessage = null;
     state.planEditing = false;
     await loadParameterPlan();
     $("conversation-input").value = "";
@@ -630,9 +660,12 @@ async function sendConversation(event, agentAction = "auto") {
       + " 已处理" + (agent.agent_action === "clarify" ? "图片澄清" : agent.agent_action === "plan" ? "建模计划，等待批准" : built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
     if (agent.agent_action === "execute") { setTab("model"); showResults(true); }
   } catch (error) {
+    await loadProject(state.projectId).catch(() => {});
+    $("conversation-input").value = message;
     setStatus(friendlyError(error), "error");
     showToast(friendlyError(error), true);
   } finally {
+    pendingMessage = null;
     endProgress();
     state.busy = false;
     setBusy(button, false);
@@ -671,7 +704,8 @@ $("disposable-confirm").addEventListener("change", updateHeader);
 $("check-connector").addEventListener("click", checkConnector);
 $("brief-file").addEventListener("change", (event) => uploadFile("brief", event.target.files[0], "brief-files"));
 $("site-file").addEventListener("change", (event) => uploadFile("site", event.target.files[0], "site-files"));
-$("reference-file").addEventListener("change", (event) => uploadFile("reference", event.target.files[0], "reference-files"));
+$("reference-file").multiple = true;
+$("reference-file").addEventListener("change", (event) => uploadReferences(Array.from(event.target.files)));
 $("edit-height").addEventListener("click", () => {
   const masses = state.project?.model_state?.objects.filter((item) => item.object_type === "building_mass") || [];
   const target = masses[0];
@@ -750,3 +784,16 @@ $("create-project-form").addEventListener("submit", async (event) => {
 });
 
 boot();
+
+$("recover-agent-checkpoint").addEventListener("click", async () => {
+  if (state.busy) return;
+  state.busy = true; updateHeader();
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/recover`, {method: "POST"});
+    state.project = result.project; showToast(result.reply); setStatus(result.reply);
+  } catch (error) {
+    state.project = await api(`/api/projects/${encodeURIComponent(state.projectId)}`).catch(() => state.project);
+    showToast(friendlyError(error), true);
+  }
+  finally { state.busy = false; updateHeader(); }
+});

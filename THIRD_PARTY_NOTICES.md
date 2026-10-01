@@ -6,7 +6,7 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 - Upstream: `Mentat-Uran/sketchup-architect-skill`
 - License: MIT
-- Use in this repository: selected source/reference material is vendored under `app/vendor/sketchup_architect/` with the upstream license preserved.
+- Use in this repository: selected source/reference material is vendored under `app/vendor/sketchup_architect/` with the upstream license preserved. Local compatibility patch (2026-10-01) rejects empty owned roots before commit, captures persistent IDs before committing, and avoids unnecessary make_unique on singly instanced groups.
 
 ## SAIE — SketchUp Automation & Intelligence Engine
 

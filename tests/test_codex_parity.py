@@ -63,7 +63,10 @@ def test_workspace_ruby_reads_persistent_file_then_uses_existing_guarded_executo
         arguments={"script_id": "scheme", "relative_path": "scripts/scheme.rb"},
     )
     assert result["success"] is True
-    assert executor.arguments == {"script_id": "scheme", "ruby_source": source}
+    assert executor.arguments == {"script_id": "scheme", "ruby_source": source, "update_mode": "replace"}
+    run_workspace_ruby(executor, agent_workspace=workspace,
+                       arguments={"script_id": "scheme", "relative_path": "scripts/scheme.rb", "update_mode": "edit"})
+    assert executor.arguments["update_mode"] == "edit"
 
 
 def test_agent_tool_surface_exposes_workspace_file_execution_when_ruby_enabled(tmp_path):
@@ -81,3 +84,19 @@ def test_agent_tool_surface_exposes_workspace_file_execution_when_ruby_enabled(t
     assert "sketchup_eval_project_file" not in names
     assert "sketchup_run_workspace_ruby" in names
     assert "sketchup_run_project_ruby" in names
+
+
+def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
+    from app.project_ruby import ProjectRubyExecutor
+    executor = object.__new__(ProjectRubyExecutor)
+    executor.expected_model_path = tmp_path / "blank-disposable.skp"
+    executor.expected_model_guid = "snapshot"
+    executor.project_id = "test-project"
+    paths = (tmp_path / "source.rb", tmp_path / "report.json", 2, 123)
+    replace = executor._build_transport_script(*paths)
+    edit = executor._build_transport_script(*paths, update_mode="edit")
+    assert "root.entities.to_a.each { |entity| entity.erase! }" in replace
+    assert "root.entities.to_a.each { |entity| entity.erase! }" not in edit
+    helper = Path("app/vendor/sketchup_architect/scripts/model_session.rb").read_text(encoding="utf-8")
+    assert "if root.entities.length.zero?" in helper
+    assert helper.index("committed_root_pid = root.persistent_id") < helper.index("unless model.commit_operation")

@@ -171,3 +171,67 @@ def test_execution_without_actual_tool_calls_is_not_building(tmp_path):
     assert result.status_code == 422
     session = ProjectStore(tmp_path / "runtime").load_state("demo-cultural-center", "agent_session.json", AgentSession)
     assert session.reconstruction_state == "planned"
+
+
+def test_interrupted_committed_build_checkpoints_and_retains_execution_thread(tmp_path):
+    from app.native_agent import AgentTurnResult, NativeAgentUnavailable
+    import json
+
+    class InterruptedAgent(PlanningAgent):
+        def respond(self, **kwargs):
+            if kwargs["mcp_enabled"]:
+                kwargs["ruby_state"]["house"] = {"revision": 2, "root_pid": 123}
+                error = NativeAgentUnavailable("Timed out waiting for Codex app-server event.")
+                error.partial_result = AgentTurnResult(
+                    thread_id="execution-thread", reply="", status="interrupted",
+                    tool_call_count=4, failed_tool_calls=1, latency_ms=900000)
+                raise error
+            return super().respond(**kwargs)
+
+    client, agent, su, project = setup_project(tmp_path, InterruptedAgent())
+    send(client)
+    send(client)
+    assert send(client, "execute").status_code == 503
+    session = json.loads((project / "state/agent_session.json").read_text(encoding="utf-8"))
+    assert session["thread_id"] == "execution-thread"
+    assert session["reconstruction_state"] == "building"
+    assert session["tool_call_count"] == 4
+    assert session["failed_tool_calls"] == 1
+    assert "尚未完成" in session["last_reply"]
+    state = json.loads((project / "state/model_state.json").read_text(encoding="utf-8"))
+    assert state["last_operation"]["status"] == "interrupted"
+    assert state["model_path"].endswith("fast-assembly-agent.skp")
+    assert send(client).status_code == 503
+
+
+def test_checkpoint_recovery_is_confined_to_generated_project_copy(tmp_path):
+    client, agent, su, project = setup_project(tmp_path)
+    assert client.post("/api/projects/demo-cultural-center/agent/recover").status_code == 409
+    snapshot = project / "outputs/model/previous-agent-checkpoint.skp"
+    snapshot.write_bytes(b"owned checkpoint")
+    import json
+    (project / "runtime/previous-agent-ruby-state.json").parent.mkdir(parents=True, exist_ok=True)
+    (project / "runtime/previous-agent-ruby-state.json").write_text(json.dumps({"house": {"revision": 1, "root_pid": 123}}), encoding="utf-8")
+    def restore(target, expected):
+        assert expected.name == "blank-disposable-test.skp"
+        assert target.parent == snapshot.parent
+        assert target.read_bytes() == b"owned checkpoint"
+        su.active_model_path = str(target)
+    su.restore_disposable_model = restore
+    result = client.post("/api/projects/demo-cultural-center/agent/recover")
+    assert result.status_code == 200
+    assert result.json()["project"]["agent_session"]["ruby_state"]["house"]["revision"] == 1
+    assert result.json()["project"]["agent_session"]["model_path"].startswith("outputs/model/blank-disposable-recovery-")
+
+
+def test_agent_turn_and_recovery_cannot_overlap(tmp_path):
+    client, agent, su, project = setup_project(tmp_path)
+    lock = client.app.state.agent_lock
+    lock.acquire()
+    try:
+        assert send(client).status_code == 409
+        assert client.post("/api/projects/demo-cultural-center/agent/recover").status_code == 409
+        assert not agent.calls
+    finally:
+        lock.release()
+    assert send(client).status_code == 200

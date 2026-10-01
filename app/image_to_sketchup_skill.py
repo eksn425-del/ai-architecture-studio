@@ -114,6 +114,14 @@ Inspect the actual screenshots and compare:
 
 State concrete mismatches, revise the same persistent script(s)/model, execute again, and capture corrected views. Do not report completion merely because tools succeeded.
 
+## Replacement versus incremental edits
+
+The workspace Ruby tool defaults to update_mode=replace: it clears the owned root and executes the COMPLETE reconstruction source. Keep that full source as a persistent baseline, never overwrite it with inspection-only code or a partial patch. For a small correction, write a separate patch file and call the same existing script_id with update_mode=edit; this retains its owned root. Use model readback/camera tools to inspect. Do not create a new script_id for edits to an existing building.
+
+## Finite modeling turns
+
+Keep each execution turn bounded and checkpointable. After one substantive geometry pass and at most two targeted correction passes, return a concise progress report with actual screenshots and remaining work. For large multi-view/interior requests, continue the same script/root in subsequent turns rather than running an unbounded QA loop until the host timeout. A checkpoint is partial progress, never proof that all requested detail is complete. Honor a user request for readback/checkpoint only without rebuilding geometry.
+
 ## Cheap-model discipline
 
 For cost-efficient models:

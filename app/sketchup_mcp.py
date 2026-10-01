@@ -301,17 +301,49 @@ class SketchUpAdapter:
         identity = self.get_active_model_identity()
         return str(identity["model_path"])
 
-    def save_model(self, target_path: Path, operation_name: str = "AI Architecture Studio Demo checkpoint") -> dict[str, Any]:
+    def restore_disposable_model(self, target_path: Path, expected_path: Path) -> None:
+        """Host-owned lifecycle action, never exposed as an agent execution tool."""
+        identity = self.get_active_model_identity()
+        if Path(str(identity.get("model_path") or "")).resolve() != expected_path.resolve():
+            raise MCPCallError("The active model changed before recovery.")
+        if identity.get("active_context"):
+            raise MCPCallError("Exit the active edit context before recovering a checkpoint.")
+        if target_path.parent.resolve() != expected_path.parent.resolve() or not target_path.name.startswith("blank-disposable-"):
+            raise MCPCallError("Recovery must stay in the same disposable project folder.")
+        scripts = _generated_script_dir()
+        scripts.mkdir(parents=True, exist_ok=True)
+        script_path = scripts / f"studio-recover-{os.urandom(6).hex()}.rb"
+        target = json.dumps(str(target_path.resolve()), ensure_ascii=False)
+        expected = json.dumps(str(expected_path.resolve()), ensure_ascii=False)
+        script_path.write_text(
+            "# ARCHFLOW_GENERATED_SCRIPT\n"
+            f"raise 'Active recovery model changed' unless Sketchup.active_model.path == {expected}\n"
+            "raise 'Could not save the disposable recovery source' unless Sketchup.active_model.save\n"
+            f"UI.start_timer(0.1, false) {{ raise 'Active recovery model changed' unless Sketchup.active_model.path == {expected}; Sketchup.open_file({target}) }}\n"
+            "{ recovery_scheduled: true }\n", encoding="utf-8")
+        try:
+            self.client.call("sketchup_eval_project_file", {"script_path": str(script_path.resolve()),
+                             "operation_name": "Restore generated model checkpoint"})
+        finally:
+            script_path.unlink(missing_ok=True)
+
+    def save_model(self, target_path: Path, operation_name: str = "AI Architecture Studio Demo checkpoint", expected_root_ids: list[int] | None = None) -> dict[str, Any]:
         target_path.parent.mkdir(parents=True, exist_ok=True)
         generated_dir = _generated_script_dir()
         generated_dir.mkdir(parents=True, exist_ok=True)
         script_path = generated_dir / f"studio-save-{os.urandom(6).hex()}.rb"
         # JSON string literals are valid Ruby string literals for Windows paths.
         ruby_target = json.dumps(str(target_path.resolve()), ensure_ascii=False)
+        root_guard = ""
+        if expected_root_ids:
+            ids = json.dumps([int(pid) for pid in expected_root_ids])
+            root_guard = (f"roots = {ids}.map {{ |pid| model.find_entity_by_persistent_id(pid) }}\n"
+                          "raise 'Owned model root is missing or empty; previous checkpoint retained' unless roots.any? { |r| r.is_a?(Sketchup::Group) && r.valid? && r.entities.length > 0 }\n")
         script = (
             "# ARCHFLOW_GENERATED_SCRIPT\n"
             "model = Sketchup.active_model\n"
-            f"model.save_copy({ruby_target})\n"
+            + root_guard +
+            f"raise 'SketchUp checkpoint save failed' unless model.save_copy({ruby_target})\n"
             f"{{ saved: true, path: model.path, operation: {json.dumps(operation_name)} }}\n"
         )
         script_path.write_text(script, encoding="utf-8")

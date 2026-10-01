@@ -125,7 +125,7 @@ class ProjectRubyExecutor:
         return json.dumps(value, ensure_ascii=False)
 
     def _build_transport_script(self, script_path: Path, report_path: Path,
-                                expected_revision: int, root_pid: int | None) -> str:
+                                expected_revision: int, root_pid: int | None, update_mode: str = "replace") -> str:
         helper_path = Path(__file__).resolve().parent / "vendor" / "sketchup_architect" / "scripts" / "model_session.rb"
         ruby_lines = [
             "# ARCHFLOW_GENERATED_SCRIPT",
@@ -138,7 +138,7 @@ class ProjectRubyExecutor:
             f"source_path = {self._ruby_string(str(script_path))}",
             f"source = File.read(source_path, encoding: 'UTF-8')",
             f"CodexSketchupArchitect.run(project_id: {self._ruby_string(self.project_id)}, expected_guid: {self._ruby_string(self.expected_model_guid)}, expected_revision: {expected_revision}, report_path: {self._ruby_string(str(report_path))}, root_pid: {root_pid!r}) do |model, root|",
-            "  root.entities.to_a.each { |entity| entity.erase! }",
+            *(["  root.entities.to_a.each { |entity| entity.erase! }"] if update_mode == "replace" else []),
             "  eval(source, binding, File.basename(source_path), 1)",
             f"  root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', {self._ruby_string(self.project_id)})",
             "  root.set_attribute(CodexSketchupArchitect::DICT, 'role', 'project_root')",
@@ -150,6 +150,9 @@ class ProjectRubyExecutor:
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
         script_id = str(arguments.get("script_id") or "")
         ruby_source = validate_project_ruby_source(script_id, arguments.get("ruby_source"))
+        update_mode = str(arguments.get("update_mode") or "replace")
+        if update_mode not in {"replace", "edit"}:
+            raise ValueError("update_mode must be replace or edit.")
         identity_before = self._assert_active_model()
         scripts_dir = self._project_runtime_path()
         script_path = scripts_dir / f"{script_id}.rb"
@@ -160,6 +163,8 @@ class ProjectRubyExecutor:
         old = self.ruby_state.get(script_id, {})
         revision = int(old.get("revision", 0))
         root_pid = old.get("root_pid")
+        if update_mode == "edit" and root_pid is None:
+            raise ValueError("edit requires an existing script_id and owned root; create it with replace first.")
         if root_pid is not None:
             root_pid = int(root_pid)
         source_hash = hashlib.sha256(ruby_source.encode("utf-8")).hexdigest()
@@ -175,7 +180,7 @@ class ProjectRubyExecutor:
         transport_path = transport_dir / f"studio-project-ruby-{uuid.uuid4().hex}.rb"
         if transport_path.exists() or transport_path.is_symlink():
             raise MCPCallError("Could not allocate a fresh Kongxing transport shim.")
-        transport_script = self._build_transport_script(script_path, report_path, revision, root_pid)
+        transport_script = self._build_transport_script(script_path, report_path, revision, root_pid, update_mode=update_mode)
         transport_path.write_text(transport_script, encoding="utf-8", newline="\n")
         try:
             result = self.mcp.call("sketchup_eval_project_file", {

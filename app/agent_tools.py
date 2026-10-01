@@ -172,7 +172,10 @@ class AgentToolSurface:
                     "agent_workspace/scripts. For image reconstruction, prefer this for repeated/custom geometry, "
                     "components, facade systems, canopies, louvers and other source-specific work. Revise and rerun the "
                     "same file so the project keeps an inspectable coding history. The guarded transaction returns "
-                    "model readback plus a screenshot."
+                    "model readback plus a screenshot. update_mode=replace (default) CLEARS the owned root before running "
+                    "the complete reconstruction script. update_mode=edit retains that existing script_id root for "
+                    "incremental corrections. Never use replace with inspection-only or partial patch code; use readback "
+                    "tools for inspection. edit requires the same existing script_id."
                 ),
                 "inputSchema": {
                     "type": "object",
@@ -180,6 +183,7 @@ class AgentToolSurface:
                     "properties": {
                         "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
                         "relative_path": {"type": "string", "pattern": "^scripts/[A-Za-z0-9_.-]+\\.rb$", "maxLength": 160},
+                        "update_mode": {"type": "string", "enum": ["replace", "edit"], "default": "replace"},
                     },
                     "additionalProperties": False,
                 },
