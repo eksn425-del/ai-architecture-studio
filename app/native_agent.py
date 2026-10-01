@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import queue
@@ -68,6 +69,16 @@ def _workspace_write_policy(workspace: Path) -> dict[str, Any]:
         "excludeTmpdirEnvVar": True,
         "excludeSlashTmp": True,
     }
+
+
+def _thread_tool_fingerprint(tools: list[dict[str, Any]]) -> str:
+    return hashlib.sha256(json.dumps(tools, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def _can_resume_tools(thread_id: str | None, registrations: dict[str, str], tools: list[dict[str, Any]]) -> bool:
+    # App Server ThreadResumeParams has no dynamicTools field. Tools are fixed
+    # at thread/start; never pretend an ignored resume field upgraded a thread.
+    return bool(thread_id and registrations.get(thread_id) == _thread_tool_fingerprint(tools))
 
 
 def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: bool, tool_profile: str = "full") -> str:
@@ -295,10 +306,13 @@ class CodexAppServerRuntime:
                 "serviceName": "ai_architecture_studio_oss_takeover_v1",
                 "developerInstructions": developer_instructions,
             }
-            thread_params["dynamicTools"] = dynamic_tools if mcp_enabled else []
-            if thread_id:
+            registered_tools = dynamic_tools if mcp_enabled else []
+            thread_params["dynamicTools"] = registered_tools
+            registry_path = project_dir / "runtime" / "native_thread_tools.json"
+            registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
+            previous_thread_id = thread_id
+            if _can_resume_tools(thread_id, registrations, registered_tools):
                 thread_params = {"threadId": thread_id, "developerInstructions": developer_instructions}
-                thread_params["dynamicTools"] = dynamic_tools if mcp_enabled else []
                 thread = self._request(process, events, request_id, "thread/resume", thread_params, buffered)
             else:
                 thread = self._request(process, events, request_id, "thread/start", thread_params, buffered)
@@ -306,6 +320,8 @@ class CodexAppServerRuntime:
             resolved_thread_id = str((thread.get("thread") or {}).get("id") or thread_id or "")
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
+            registrations[resolved_thread_id] = _thread_tool_fingerprint(registered_tools)
+            registry_path.write_text(json.dumps(registrations, indent=2), encoding="utf-8")
 
             turn_input = _app_server_turn_input(prompt, reference_images)
             evidence_dir = project_dir / "runtime" / "agent_events"
@@ -319,6 +335,8 @@ class CodexAppServerRuntime:
             record({"event": "turn_input", "thread_id": resolved_thread_id,
                     "model": model, "reasoning_effort": reasoning_effort,
                     "workflow_mode": workflow_mode, "tool_profile": tool_profile,
+                    "previous_thread_id": previous_thread_id,
+                    "thread_transition": "resumed" if previous_thread_id == resolved_thread_id else "started_with_registered_tools",
                     "reference_categories": list(workflow_reference_categories(workflow_mode)),
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],
@@ -378,6 +396,7 @@ class CodexAppServerRuntime:
                     self._send(process, {"id": message["id"], "result": output})
                     record({"event": "tool_result", "tool": call["tool"],
                             "success": output.get("success", not output.get("isError", False)),
+                            "error": " ".join(str(part.get("text", "")) for part in output.get("contentItems", []) if part.get("type") == "inputText")[:2000] if output.get("success") is False or output.get("isError") else "",
                             "content_types": [part.get("type") for part in output.get("contentItems", [])]})
                     continue
                 item = params.get("item") or {}

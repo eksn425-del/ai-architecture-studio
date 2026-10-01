@@ -4,7 +4,19 @@ import json
 from pathlib import Path
 
 
-WORKSPACE_VERSION = 4
+WORKSPACE_VERSION = 5
+
+_WORKSPACE_AGENTS = """# Modeling runtime scope
+
+This generated workspace is a modeling job, not a repository maintenance job.
+The outer integration agent owns git pull, repository tests, HANDOFF, commit and push.
+Do not perform those chores here. Spend this turn on the requested reconstruction.
+Write only project scripts, notes and QA inside this workspace. Reference inputs are read-only.
+Use only the verified disposable SketchUp model through the supplied tools.
+Follow the current host stage: clarify/plan cannot edit geometry; approved execute may
+revise persistent Ruby, inspect screenshots and improve the same owned model root.
+Never edit original/private SKP/DWG or repository source. Keep modeling network disabled.
+"""
 
 _WORKSPACE_README = """# Architecture Agent Workspace
 
@@ -165,6 +177,10 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         if directory.is_symlink() or not directory.resolve().is_relative_to(root):
             raise ValueError("Codex parity workspace subdirectories must remain inside the agent workspace.")
 
+    instructions = root / "AGENTS.md"
+    if not instructions.exists():
+        instructions.write_text(_WORKSPACE_AGENTS, encoding="utf-8", newline="\n")
+
     readme = root / "README.md"
     if not readme.exists():
         readme.write_text(_WORKSPACE_README, encoding="utf-8", newline="\n")
@@ -211,6 +227,8 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
 
 def codex_parity_instructions() -> str:
     return (
+        "This is a generated modeling job; the outer integration agent handles repository maintenance. "
+        "Do not run git pull, repository tests, commit or push during modeling. "
         "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
         "For image reconstruction, inspect the source, clarify only high-impact unknowns, then update "
         "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters. "

@@ -14,6 +14,7 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     prepare_codex_parity_workspace(workspace)
 
     assert (workspace / "README.md").is_file()
+    assert "outer integration agent" in (workspace / "AGENTS.md").read_text(encoding="utf-8")
     assert (workspace / "scripts").is_dir()
     assert (workspace / "notes" / "design_notes.md").is_file()
     assert (workspace / "qa").is_dir()
@@ -21,8 +22,11 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
 
     notes = workspace / "notes" / "design_notes.md"
     notes.write_text("USER CONFIRMED DECISION\n", encoding="utf-8")
+    instructions = workspace / "AGENTS.md"
+    instructions.write_text("PROJECT MODELING RULES\n", encoding="utf-8")
     prepare_codex_parity_workspace(workspace)
     assert notes.read_text(encoding="utf-8") == "USER CONFIRMED DECISION\n"
+    assert instructions.read_text(encoding="utf-8") == "PROJECT MODELING RULES\n"
 
 
 def test_workspace_ruby_path_is_confined_to_scripts(tmp_path):

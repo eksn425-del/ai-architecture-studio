@@ -1,5 +1,43 @@
 # Handoff — AI Architecture Studio
 
+## Latest local execution — website / Jinshan / Sol Low (2026-10-01)
+
+**Real reconstruction executed; formal Direct-Codex parity remains unaccepted.** The user explicitly requested the Jinshan case in a new SketchUp model through the website, using `gpt-6.1-sol` / `low`. No Astra inference or model/effort substitution was used. Started this work after an up-to-date fast-forward pull at `c865469`; continued interrupted local changes on the next user request.
+
+### Runtime fixes
+
+- Verified the installed App Server JSON schema: `thread/start` accepts `dynamicTools`; `thread/resume` does not. Removed the ignored resume field. Persist tool fingerprints and start a tool-equipped native execution thread at the planning/execution boundary; later execution turns resume that thread. Project conversation, approved card, Ruby workspace and disposable model remain continuous. Earlier claims of identical native thread identity across stages are superseded by this finding.
+- Reject execution with zero tool calls instead of marking a text-only reply as building. This is a prerequisite guard, not visual-quality acceptance; readback-only turns can still be recorded as building and must not be interpreted as completed geometry.
+- Seed generated-workspace `AGENTS.md` and clarify that repository maintenance belongs to the outer integration agent. The modeling agent previously wasted time trying repository pull/HANDOFF operations outside its writable workspace. Existing project instructions/notes are preserved.
+- Persist committed Ruby root/revision metadata atomically immediately after the guarded transaction, before screenshots/readback or further inference. Reload metadata for the same disposable path on subsequent executions. Revision/root ownership checks remain enforced by the existing upstream helper.
+- Local diagnostic events now retain bounded tool failure text, never image bytes or credentials.
+
+### Evidence and failures
+
+The real FastAPI website conversation endpoint was exercised over localhost; it invoked Codex App Server, the generated Ruby workspace and the existing Kongxing bridge in SketchUp 2024. No architecture geometry was authored by the outer integration agent. All case images, generated Ruby, screenshots, model files and raw events remain ignored under runtime.
+
+- Uploaded two actual local Jinshan reference images (aerial appearance and auxiliary floor plan). App Server events show `text, localImage, localImage`, reference-only scope, `gpt-6.1-sol` / `low`, workspace-write and modeling network disabled.
+- Clarification completed in 103,328 ms; already supplied scope, unknown scale and unseen-geometry permission were recognized. Parameter planning completed in 600,562 ms and wrote KNOWN/ESTIMATED/ASSUMED values, including estimated 150 × 48 × 34 m cluster. User had explicitly authorized direct modeling; approval was carried into execution.
+- First execution returned a tool-free refusal in 591,156 ms. The old endpoint wrongly saved an empty checkpoint. This failure led to the real protocol fix above; it is not a successful building turn.
+- Registered execution then authored persistent `scripts/jinshan.rb`, built curved tapered peaks, glazed podiums, terraces/rails, recessed openings, fine ribs, planting instances, a road/water strip and a waterfront bridge/pavilion. Transaction reports show revisions 1 and 2 on root 718383, with actual screenshot results delivered back as `inputImage`. Initial rendering-option errors were corrected by the modeling agent. It compared screenshots and revised mesh visibility, bridge extent and planting.
+- That request was interrupted before endpoint completion/checkpoint; SketchUp was no longer running on continuation. Opened the same generated project file and accepted its available automatic recovery. This restored revision 1, not the later revision 2 recorded in previous transient reports.
+- Recovery turn: HTTP 200, 170,688 ms endpoint / 166,640 ms native, 10 calls / 3 failures. Agent authored additional platform/opening/rib changes, but ownership guard rejected creation because the root already existed; it correctly reported that revisions had not reached the model. Checkpoint preserved the recovered model (~7.2 MB).
+- Next continuation: HTTP 200, 111,906 ms endpoint / 109,390 ms native, 7 calls / 2 failures. Restoring revision 2 from the latest committed report was insufficient: actual automatic recovery was older and the existing helper rejected `Revision mismatch`. A read-only inspection through the installed bridge verified the exact disposable path, top-level root, project identity and actual revision 1 with 2,217 root entities. Host metadata was aligned to that inspected state; no guard was weakened and no replacement root was created.
+- Native tokens and billing cost remain unavailable/null; region is Codex-managed and not exposed. Dynamic-tool counts exclude native shell/file authoring. Failed calls are retained rather than hidden; no Premium rescue ran.
+- Final corrected continuation completed: HTTP 200, **356,313 ms** endpoint / **353,500 ms** native, **13 dynamic calls / 1 failed call** (unsupported color name, corrected using RGB). Resumed the same registered execution thread and committed revisions **2 → 3 → 4 on the same root 718383**. Verified triangulated smooth white shells, deeper/third-tier openings, connected platforms, lighter rail rhythm, entrance steps and repeated glazed ground-floor bays on both sides. Agent independently identified the solid podium mismatch from its screenshots and replaced that treatment. Final aerial/back images and mismatch notes are in `runtime/projects/sol-low/runtime/agent_workspace/qa/`; screenshot evidence also remains in outputs/renders. The website saved `outputs/model/fast-assembly-agent.skp`, **9,015,919 bytes**, and reported no checkpoint error. This is developed editable reconstruction with actual same-model correction, not a blank fixture.
+- The UI's `premium_rescue_pending` flag remains true after historical failures; every subsequent request explicitly selected Economy and no Premium model was invoked. It is a stale/over-sensitive rescue suggestion, not evidence that Astra was called.
+- Saved the active generated disposable document through SketchUp's normal Save UI as well (**9,015,793 bytes**), preserving the website's original model path for later reopening. Only this runtime-generated file was replaced; original/private files were not involved. The independent website checkpoint remains available. Existing optional InstantRoad/TT_Lib extension warnings were observed; Kongxing and this reconstruction worked without installing/changing those unrelated extensions.
+
+### Acceptance limits
+
+This user-selected Jinshan run is not a completed controlled A/B benchmark: no independently verified Direct Codex + GPT-6.1 Sol Low result on identical evidence was established. Final visual review confirms recognizable peaks/bridge, developed curved ribs and recesses, connected terraces, repeated glazing, inferred backsides and steps. Peaks/windows are still too regular, platform levels too simplified, and waterfront pavilion/shoreline geometry coarse compared to the source. Do not claim architectural parity or commercial readiness based on the endpoint status or test suite. Remaining acceptance work is a verified same-model/effort Direct Codex comparison and better source-fidelity review, rather than more tool-count/connectivity work.
+
+Private originals and competitor proprietary implementation were not edited or committed. Source images and SKP remain excluded by `.gitignore`. The working website is localhost-only.
+
+### Checks
+
+`scripts/check.ps1`: **94 passed**, compilation/checks passed. Regression checks cover tool-registration transition, zero-call refusal, workspace instruction preservation and committed metadata surviving an interrupted screenshot. Final diff/push verification is recorded by the completion commit.
+
 ## Latest integration — own Agent / competitor observation (2026-10-01)
 
 **PARTIAL: lifecycle integration and real image/parameter persistence verified; architectural parity NOT accepted.** The user resumed implementation after a read-only competitor review. Pulled latest remote `main` at `cda4f0f`, preserving the interrupted local work in a stash before merging. The current clarification-first task and GPT-6.1 Sol Low baseline supersede historical Luna/old-probe gates below.

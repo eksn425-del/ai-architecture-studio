@@ -143,6 +143,21 @@ def _executor(tmp_path: Path, *, active_model: Path | None = None, state=None):
     return executor, adapter, mcp, model_path
 
 
+def test_committed_revision_survives_interrupted_capture(tmp_path):
+    executor, adapter, mcp, model_path = _executor(tmp_path)
+    def failed_capture(path):
+        raise OSError("capture interrupted")
+    adapter.capture_view = failed_capture
+    with pytest.raises(OSError, match="interrupted"):
+        executor.run({"script_id": "main", "ruby_source": "root.name = 'Restorable'"})
+    restored = ProjectRubyExecutor(
+        executor.runtime_root, executor.project_id, expected_model_path=model_path,
+        expected_model_guid="guid-live", mcp=mcp, ruby_state={}, adapter=adapter,
+    )
+    assert restored.ruby_state["main"]["revision"] == 1
+    assert restored.ruby_state["main"]["root_pid"] == 701
+
+
 def test_project_ruby_path_and_source_restrictions(tmp_path):
     executor, _adapter, _mcp, model_path = _executor(tmp_path)
     with pytest.raises(ValueError, match="script_id"):

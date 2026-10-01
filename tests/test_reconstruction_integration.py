@@ -145,3 +145,29 @@ def test_native_home_preserves_supported_windows_sandbox_choice(tmp_path, monkey
     assert config["sandbox_mode"] == "workspace-write"
     assert config["sandbox_workspace_write"]["network_access"] is False
     assert config["sandbox_workspace_write"]["writable_roots"] == [str(workspace.resolve())]
+
+
+def test_native_tools_require_registered_execution_thread():
+    from app.native_agent import _can_resume_tools, _thread_tool_fingerprint
+    tools = [{"name": "sketchup_run_workspace_ruby", "inputSchema": {"type": "object"}}]
+    registrations = {"planner": _thread_tool_fingerprint([]), "builder": _thread_tool_fingerprint(tools)}
+    assert _can_resume_tools("planner", registrations, [])
+    assert not _can_resume_tools("planner", registrations, tools)
+    assert _can_resume_tools("builder", registrations, tools)
+    assert not _can_resume_tools("builder", registrations, [])
+    assert not _can_resume_tools("legacy-untracked", registrations, tools)
+
+
+def test_execution_without_actual_tool_calls_is_not_building(tmp_path):
+    class NoToolsAgent(PlanningAgent):
+        def respond(self, **kwargs):
+            result = super().respond(**kwargs)
+            result.tool_calls = []
+            result.tool_call_count = 0
+            return result
+    client, agent, su, project = setup_project(tmp_path, NoToolsAgent())
+    assert send(client, "plan").status_code == 200
+    result = send(client, "execute")
+    assert result.status_code == 422
+    session = ProjectStore(tmp_path / "runtime").load_state("demo-cultural-center", "agent_session.json", AgentSession)
+    assert session.reconstruction_state == "planned"

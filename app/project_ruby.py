@@ -73,6 +73,15 @@ class ProjectRubyExecutor:
             raise ValueError("Ruby tools require a blank-disposable .skp model copy.")
         if not self.expected_model_guid:
             raise ValueError("Ruby tools require a verified active model GUID.")
+        self.state_path = self.project_dir / "runtime" / "project_ruby_state.json"
+        if self.state_path.is_symlink():
+            raise ValueError("Project Ruby state may not be a symbolic link.")
+        if self.state_path.is_file():
+            saved = json.loads(self.state_path.read_text(encoding="utf-8"))
+            if saved.get("model_path") == str(self.expected_model_path):
+                for script_id, state in saved.get("scripts", {}).items():
+                    if int(state.get("revision", 0)) > int(self.ruby_state.get(script_id, {}).get("revision", 0)):
+                        self.ruby_state[script_id] = state
 
     def _assert_active_model(self) -> dict[str, Any]:
         identity = self.adapter.get_active_model_identity()
@@ -197,6 +206,19 @@ class ProjectRubyExecutor:
         # SketchUp can refresh a document GUID after a successful edit/save; the path
         # and upstream-owned root/revision are the persistent project identity.
         self.expected_model_guid = str(identity_after["model_guid"])
+        # Persist at the transaction boundary, before screenshot/model readback
+        # or the model's next inference can fail or the web request is interrupted.
+        self.ruby_state[script_id] = {
+            "model_guid": self.expected_model_guid,
+            "revision": new_revision,
+            "root_pid": root_pid,
+            "source_sha256": source_hash,
+            "last_report": report_path.relative_to(self.project_dir).as_posix(),
+        }
+        self.state_path.parent.mkdir(parents=True, exist_ok=True)
+        temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
+        temporary_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
+        temporary_state.replace(self.state_path)
         model_info = self.adapter.get_model_info()
         image_path = self.project_dir / "outputs" / "renders" / f"ruby-{script_id}-r{new_revision}.png"
         if image_path.is_symlink():

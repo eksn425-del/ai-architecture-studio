@@ -1177,6 +1177,12 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     raise HTTPException(status_code=422, detail=session.error)
                 session.reconstruction_state = "planned"
             else:
+                if not (result.tool_call_count or result.tool_calls):
+                    session.reconstruction_state = "planned"
+                    session.error = "本轮没有实际建模工具调用，模型尚未完成；请检查执行会话。"
+                    session.updated_at = utc_now()
+                    store.save_state(project_id, session, "agent_session.json")
+                    raise HTTPException(status_code=422, detail=session.error)
                 session.reconstruction_state = "building"
         session.model = result.model_name or route.model
         session.reasoning_effort = result.reasoning_effort or route.reasoning_effort

@@ -115,7 +115,9 @@ Then produce a compact geometry/construction plan and wait for user approval.
 
 ### Stage 3 — Execute
 
-After approval, the same Agent thread/workspace:
+After approval, the same project/workspace/model continues. On the locally verified Codex App Server protocol, dynamic tools are registered only at `thread/start`; `thread/resume` cannot add them. The first transition from tool-free planning to execution therefore starts a tool-equipped native thread, carrying the approved parameter card and project conversation. Subsequent execution revisions resume that execution thread. Do not claim native thread identity is unchanged across this boundary.
+
+The execution Agent:
 
 1. authors/revises persistent Ruby under `agent_workspace/scripts/`;
 2. uses `sketchup_run_workspace_ruby` as the primary project-specific modeling path;
