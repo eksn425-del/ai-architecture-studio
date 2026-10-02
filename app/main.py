@@ -12,6 +12,7 @@ import threading
 import subprocess
 import time
 import uuid
+from datetime import datetime
 from pathlib import Path, PureWindowsPath
 from typing import Any
 from urllib.parse import quote, urlsplit
@@ -155,6 +156,35 @@ def _append_conversation(context: ProjectContext, role: str, phase: str, content
         metadata=metadata or {},
     ))
     context.conversation = context.conversation[-40:]
+
+
+def _reference_attachments(context: ProjectContext, project_dir: Path, *, submit: bool = False) -> list[str]:
+    """Bind uploads to their sending turn; project evidence remains independently stored."""
+    pending = []
+    for ref in context.references:
+        if not ref.source.startswith("inputs/") or ref.submitted_at:
+            continue
+        source = (project_dir / ref.source).resolve()
+        if not source.is_relative_to((project_dir / "inputs").resolve()) or not source.is_file():
+            continue
+        # Upgrade legacy conversations without attributing newly uploaded files
+        # to earlier messages. Original file mtime precedes its first sending turn.
+        for message in context.conversation:
+            if message.role != "user" or "attachments" in message.metadata:
+                continue
+            try:
+                sent_time = datetime.fromisoformat(message.created_at).timestamp()
+            except ValueError:
+                continue
+            if source.stat().st_mtime <= sent_time:
+                message.metadata.setdefault("legacy_attachments", []).append(ref.source)
+                ref.submitted_at = message.created_at
+                break
+        if not ref.submitted_at:
+            pending.append(ref.source)
+            if submit:
+                ref.submitted_at = utc_now()
+    return pending
 
 
 def _sanitize_agent_reply(value: str) -> str:
@@ -503,6 +533,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 elif data.get("mode") == "glm-international":
                     model = "zai/glm-5.3-flash"
                     base = "https://api.z.ai/api/paas/v4"
+                # Changing effort for the same connection never requires reading
+                # or returning the existing memory-only credential.
+                if not key and model == provider.model and base == provider.api_base:
+                    key = provider.session_api_key
+                default_effort = "high" if data.get("mode") in {"glm", "glm-international"} else "low" if data.get("mode") == "deepseek" else "provider-default"
+                effort = str(data.get("reasoning_effort", default_effort))
+                if effort not in {"low", "high", "max", "provider-default"}:
+                    raise HTTPException(status_code=400, detail="当前 API 档位支持 Low、High、Max 或供应商默认。")
                 parsed = urlsplit(base)
                 if not model or len(model) > 160 or "astra" in model.lower() or not key or len(key) > 4096:
                     raise HTTPException(status_code=400, detail="请填写可用的模型名称与 API Key；本轮不提供 Astra 路由。")
@@ -514,7 +552,6 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 provider.custom_api_base = base
                 provider.session_api_key = key
                 provider.region = "user-configured (not verified)"
-                effort = "low" if data.get("mode") in {"deepseek", "glm", "glm-international"} else "provider-default"
                 router.economy_route = ModelRoute("economy", "litellm", model, effort, provider.region)
             return router.status()
         except (ValueError, AttributeError):
@@ -576,6 +613,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     @app.get("/api/projects/{project_id}")
     def get_project(project_id: str) -> dict[str, Any]:
         try:
+            if app.state.agent_lock.acquire(blocking=False):
+                try:
+                    context = store.load_context(project_id)
+                    _reference_attachments(context, store.project_dir(project_id))
+                    store.save(context, store.project_dir(project_id) / "state/project_context.json")
+                finally:
+                    app.state.agent_lock.release()
             return store.load_project(project_id)
         except (ValueError, FileNotFoundError, ValidationError) as error:
             raise HTTPException(status_code=404, detail=str(error)) from error
@@ -1329,6 +1373,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         started = active["started"]
         events = sorted((project_dir / "runtime/agent_events").glob("*.jsonl"), key=lambda p: p.stat().st_mtime)
         calls = failures = 0
+        api_started = api_responded = script_written = False
         stage = "正在读取资料与思考"
         if events and events[-1].stat().st_mtime >= started:
             for line in events[-1].read_bytes()[-262144:].decode("utf-8", errors="replace").splitlines():
@@ -1336,6 +1381,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     item = json.loads(line)
                 except ValueError:
                     continue
+                api_started |= item.get("event") == "provider_started"
+                api_responded |= item.get("event") == "provider_response"
+                script_written |= item.get("event") == "tool_result" and item.get("tool") in {"workspace_write", "workspace_write_file"} and item.get("success") is not False
                 if item.get("event") in {"tool_started", "tool_result"}:
                     calls += int(item.get("event") == "tool_result")
                     failures += int(item.get("event") == "tool_result" and item.get("success") is False)
@@ -1356,7 +1404,15 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         capture = max(captures, key=lambda p: p.stat().st_mtime) if captures else None
         if active["action"] != "execute":
             stage = "正在整理建模计划" if active["action"] == "plan" else "正在分析资料与交流"
+        checks = [
+            {"label": "模型 API", "status": "done" if api_responded else "running", "detail": "供应商已实际返回" if api_responded else "请求已发出，正在等待供应商" if api_started else "正在准备请求"},
+            {"label": "本轮任务", "status": "running", "detail": stage + ("；批准前不修改 SketchUp" if active["action"] != "execute" else "")},
+            {"label": "工作区文件", "status": "done" if script_written else "pending", "detail": "已有真实文件写入；不等于模型建好" if script_written else "等待文件操作"},
+            {"label": "实际模型修改", "status": "done" if committed else "blocked" if failures else "pending", "detail": "已提交模型修改" if committed else f"已发生 {failures} 次工具失败，正在处理" if failures else "尚无本轮几何提交"},
+            {"label": "截图回读", "status": "done" if capture else "pending", "detail": "已有本轮真实截图；质量需继续检查" if capture else "等待截图"},
+        ]
         return {"running": True, "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
+                "checks": checks,
                 "tool_calls": calls, "failed_tool_calls": failures, "committed_revisions": committed,
                 "preview_url": _artifact(project_id, project_dir, capture, "viewport").url if capture else None}
 
@@ -1417,6 +1473,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "requested_tier": requested_tier,
             "effective_tier": effective_tier,
             "routing_reason": route_reason,
+            "attachments": _reference_attachments(context, project_dir, submit=True),
         })
         project_dir = store.ensure_layout(project_id)
         store.save(context, project_dir / "state" / "project_context.json")
@@ -1591,9 +1648,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     raise HTTPException(status_code=422, detail=session.error)
                 session.reconstruction_state = "planned"
             else:
-                if not (result.tool_call_count or result.tool_calls):
+                if not (result.tool_call_count or result.tool_calls) or not any(int(item.get("revision", 0)) > 0 for item in session.ruby_state.values()):
                     session.reconstruction_state = "planned"
-                    session.error = "本轮没有实际建模工具调用，模型尚未完成；请检查执行会话。"
+                    session.error = "本轮尚无已提交的建模几何。已保留脚本；写文件或工具返回不等于已建模，请查看执行记录后继续。"
                     session.updated_at = utc_now()
                     store.save_state(project_id, session, "agent_session.json")
                     raise HTTPException(status_code=422, detail=session.error)

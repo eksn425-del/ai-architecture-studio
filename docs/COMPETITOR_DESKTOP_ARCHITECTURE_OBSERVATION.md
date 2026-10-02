@@ -78,3 +78,7 @@ Full desktop source, protected/compiled internal logic, cloud services, credenti
 建议先做 Windows 本地工作台：用户建模软件、MCP、项目文件同机，网站界面和替换模型接口继续复用。纯云网页若要控制本机 SU，仍需另一个本地连接组件；桌面形式不能自动提升模型质量。该判断来自本机流程观察和 MCP transport 的 stdio / localhost HTTP 机制，不代表竞品全部架构已经可见。
 
 参考：[MCP stdio transport](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/transports/stdio.mdx)、[MCP Streamable HTTP](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/transports/streamable-http.mdx)、[pywebview](https://pywebview.flowrl.com/)。
+
+## 2026-10-02 visible desktop revisit
+
+Opened the installed task assistant and clicked AI建模 → SU自动建模. Observed the simple idea-description entry, examples, attachment/model/Skills/tutorial controls and a SketchUp plugin tutorial. Did not submit a competitor inference request, issue a competitor MCP command, inspect protected binaries or copy proprietary implementation. Step-by-step completed checkmarks/blocker reporting are user-reported behavior; this visit did not independently exercise a paid execution to verify it. Adopted a factual host-event checklist in our own UI using our existing execution records.

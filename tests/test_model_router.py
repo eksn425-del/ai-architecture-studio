@@ -201,3 +201,31 @@ def test_litellm_skill_is_once_in_current_system_not_repeated_history(tmp_path, 
     assert sum(json.dumps(m).count("UNIQUE_SKILL") for m in seen[-1]) == 1
     assert "UNIQUE_SKILL" in seen[-1][0]["content"]
     assert any(m.get("content") == "first" for m in seen[-1])
+
+@pytest.mark.parametrize('mode', ['limit', 'provider_error'])
+def test_interrupted_litellm_turn_reports_current_usage_and_checkpoint(tmp_path, monkeypatch, mode):
+    import json
+    runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient())
+    runtime.session_api_key = 'test-only-key'
+    runtime.max_tool_calls = 1
+    calls = []
+    def completion(**kw):
+        calls.append(kw)
+        if len(calls) == 2 and mode == 'provider_error':
+            raise RuntimeError('fixture unavailable')
+        return SimpleNamespace(choices=[SimpleNamespace(message={'content':None,'tool_calls':[
+            {'id':str(len(calls)), 'function':{'name':'sketchup_health','arguments':'{}'}}]})],
+            usage={'prompt_tokens':100, 'completion_tokens':10})
+    module = ModuleType('litellm')
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, 'litellm', module)
+    with pytest.raises(NativeAgentUnavailable) as captured:
+        runtime.respond(project_dir=tmp_path, thread_id='litellm-checkpoint', prompt='inspect',
+                        mcp_enabled=True, ruby_enabled=False, developer_instructions='test')
+    result = captured.value.partial_result
+    assert result.tool_call_count == 1 and result.failed_tool_calls == 0
+    assert result.input_tokens == (200 if mode == 'limit' else 100)
+    assert result.output_tokens == (20 if mode == 'limit' else 10)
+    assert result.thread_id == 'litellm-checkpoint'
+    history = json.loads((tmp_path / 'runtime/provider_sessions/litellm-checkpoint.json').read_text())
+    assert len([m for m in history['messages'] if m['role']=='tool']) == 1

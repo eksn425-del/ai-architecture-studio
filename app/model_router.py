@@ -76,6 +76,8 @@ class DeterministicModelRouter:
 
     @property
     def available(self) -> bool:
+        if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":
+            return self.china_runtime.available
         return any(bool(getattr(provider, "available", False)) for provider in self.providers.values())
 
     def route(self, tier: RoutingTier) -> ModelRoute:
@@ -108,7 +110,7 @@ class DeterministicModelRouter:
             "economy": self.economy_route.as_dict(),
             "premium": self.premium_route.as_dict(),
             "providers": {
-                "codex-app-server": {"available": bool(getattr(self.codex_runtime, "available", False))},
+                "codex-app-server": {"available": os.environ.get("ARCH_STUDIO_STANDALONE") != "1" and bool(getattr(self.codex_runtime, "available", False))},
                 "litellm": {
                     "available": self.china_runtime.available,
                     "credential_configured": self.china_runtime.credential_configured,

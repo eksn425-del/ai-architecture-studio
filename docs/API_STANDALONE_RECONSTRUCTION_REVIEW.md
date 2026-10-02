@@ -47,3 +47,13 @@ Real browser download matched the generated SKP exactly: SHA-256 `d7189351893584
 - Fix the narrow-layout result panel crowding the composer and blocking ordinary send. Wrap composer controls and close results when focusing input on narrow screens.
 
 The API-only localhost service was restarted to load these fixes. Restart clears the memory-only Key; the configuration dialog is ready for re-entry. These new runtime changes pass local regressions but have not yet completed a new live building run. The desktop executable was rebuilt successfully. Fresh local profile startup is demonstrated; clean-machine installation and distributable bridge licensing/setup remain pending. No commercial-ready or exact-reconstruction claim.
+
+## Six-view user-session recovery / High (2026-10-02)
+
+The earlier single-view measurement remains historical Low evidence. The GLM preset and standalone launcher now default to High; users can choose Low/High/Max or provider default. High is the middle available GLM tier, not an invented Medium. Same-connection effort changes do not need another Key entry while the process lives.
+
+Actual user session was trapped in clarifying despite an affirmative start. Chat requests were real, but execution tools were intentionally withheld. Corrected the approval transition and explained the gate to the model. Browser approval produced 8 committed revisions in one owned model root, 540.078 seconds, 33 tools / 2 failures, 1,859,915 input and 29,350 output tokens summed across provider calls. Actual High was recorded on each provider event. Six images moved into the historical user message and remain vision evidence, without six fresh duplicate image blocks every turn.
+
+Manual source comparison still rejects quality: excessively pyramidal roof, wrong floor/window composition, simplified glass/materials, and no interior visual verification. The model self-reported QA does not supersede this assessment. Ordinary same-model browser correction is being measured separately; see HANDOFF for its final result. These trials differ in both input count and effort, so they cannot establish a controlled one-view/six-view improvement.
+
+Correction: approximately 742s, 48 tools / 1 failure, 6,185,576 input / 27,824 output tokens; 48-call budget interruption, owned root retained to r16, saved/downloaded checkpoint. Final quality FAIL/partial: wrong street/pool view mapping, roof/facade mismatch, blank side and floating pieces; interior not accepted. Added interruption usage/checkpoint reporting regression, without claiming a live rerun. This context growth and poor self-QA are release blockers despite functioning execution.

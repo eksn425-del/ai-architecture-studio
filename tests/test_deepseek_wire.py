@@ -7,12 +7,14 @@ from app.litellm_runtime import LiteLLMRuntime
 from tests.test_model_router import ToolClient
 
 
-@pytest.mark.parametrize("model,base,host", [
-    ("deepseek/deepseek-flash", "https://api.deepseek.com", "api.deepseek.com"),
-    ("zai/glm-5.3-flash", "https://open.bigmodel.cn/api/paas/v4", "open.bigmodel.cn"),
-    ("zai/glm-5.3-flash", "https://api.z.ai/api/paas/v4", "api.z.ai"),
+@pytest.mark.parametrize("model,base,host,effort", [
+    ("deepseek/deepseek-flash", "https://api.deepseek.com", "api.deepseek.com", "low"),
+    ("zai/glm-5.3-flash", "https://open.bigmodel.cn/api/paas/v4", "open.bigmodel.cn", "low"),
+    ("zai/glm-5.3-flash", "https://api.z.ai/api/paas/v4", "api.z.ai", "low"),
+    ("zai/glm-5.3-flash", "https://open.bigmodel.cn/api/paas/v4", "open.bigmodel.cn", "high"),
+    ("zai/glm-5.3-flash", "https://open.bigmodel.cn/api/paas/v4", "open.bigmodel.cn", "max"),
 ])
-def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, model, base, host):
+def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, model, base, host, effort):
     monkeypatch.setenv("LITELLM_LOCAL_MODEL_COST_MAP", "True")
     litellm = pytest.importorskip("litellm")
     import httpx
@@ -24,9 +26,11 @@ def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, m
         seen.append(body)
         assert request.url.host == host
         assert body["model"] == model.split("/", 1)[1]
-        assert body["reasoning_effort"] == "low"
+        assert body["reasoning_effort"] == effort
         assert any(p["type"] == "image_url" for m in body["messages"] if isinstance(m.get("content"), list)
                    for p in m["content"])
+        image_urls = [p["image_url"]["url"] for m in body["messages"] if isinstance(m.get("content"), list) for p in m["content"] if p["type"] == "image_url"]
+        assert len(image_urls) == len(set(image_urls))
         if len(seen) == 1:
             message = {"role":"assistant", "content":None, "reasoning_content":"tool reasoning",
                        "tool_calls":[{"id":"h", "type":"function", "function":{"name":"sketchup_health","arguments":"{}"}}]}
@@ -56,7 +60,7 @@ def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, m
         runtime.session_api_key = "test-only-placeholder"
         runtime.custom_api_base = base
         result = runtime.respond(project_dir=tmp_path, thread_id=None, prompt="check", mcp_enabled=True,
-                                 developer_instructions="test", ruby_enabled=False, reasoning_effort="low")
+                                 developer_instructions="test", ruby_enabled=False, reasoning_effort=effort)
         runtime.respond(project_dir=tmp_path, thread_id=result.thread_id, prompt="again", mcp_enabled=True,
-                        developer_instructions="test", ruby_enabled=False, reasoning_effort="low")
+                        developer_instructions="test", ruby_enabled=False, reasoning_effort=effort)
     assert len(seen) == 3

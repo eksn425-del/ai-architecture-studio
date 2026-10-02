@@ -49,16 +49,37 @@ def test_standalone_profile_rejects_codex_and_premium(tmp_path, monkeypatch):
         app.state.model_router.route("premium")
 
 
-def test_glm_domestic_preset_uses_exact_endpoint_and_low(tmp_path, monkeypatch):
+def test_glm_domestic_preset_uses_exact_endpoint_and_high(tmp_path, monkeypatch):
     from app.litellm_runtime import LiteLLMRuntime
     monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))
     app, client, _, _, _ = workspace(tmp_path)
     result = client.post("/api/model-settings", json={"mode":"glm", "api_key":"test-only-glm-key"})
     assert result.status_code == 200
     assert result.json()["economy"]["model"] == "zai/glm-5.3-flash"
-    assert result.json()["economy"]["reasoning_effort"] == "low"
+    assert result.json()["economy"]["reasoning_effort"] == "high"
     assert app.state.model_router.china_runtime.api_base == "https://open.bigmodel.cn/api/paas/v4"
     assert "test-only-glm-key" not in result.text
+    changed = client.post("/api/model-settings", json={"mode":"glm", "reasoning_effort":"max"})
+    assert changed.status_code == 200
+    assert changed.json()["economy"]["reasoning_effort"] == "max"
+    assert app.state.model_router.china_runtime.session_api_key == "test-only-glm-key"
+    assert client.post("/api/model-settings", json={"mode":"glm", "reasoning_effort":"medium"}).status_code == 400
+
+
+def test_uploaded_images_bind_once_to_conversation_and_remain_model_evidence(tmp_path):
+    app, client, project, agent, _ = workspace(tmp_path)
+    image = io.BytesIO()
+    Image.new("RGB", (12, 12), "white").save(image, "PNG")
+    uploaded = client.post(f"/api/projects/{project}/inputs/reference?filename=front.png", content=image.getvalue()).json()["path"]
+    first = client.post(f"/api/projects/{project}/conversation", json={"message":"先看看图片", "workflow_mode":"image_reconstruction"}).json()
+    assert first["project"]["context"]["conversation"][0]["metadata"]["attachments"] == [uploaded]
+    assert first["project"]["context"]["references"][0]["submitted_at"]
+    second = client.post(f"/api/projects/{project}/conversation", json={"message":"先聊一下", "workflow_mode":"image_reconstruction"}).json()
+    assert second["project"]["context"]["conversation"][-2]["metadata"]["attachments"] == []
+    other = client.post(f"/api/projects/{project}/inputs/reference?filename=rear.png", content=image.getvalue()).json()["path"]
+    third = client.post(f"/api/projects/{project}/conversation", json={"message":"先聊一下", "workflow_mode":"image_reconstruction"}).json()
+    assert third["project"]["context"]["conversation"][-2]["metadata"]["attachments"] == [other]
+    assert len(third["project"]["context"]["references"]) == 2
 
 
 def test_text_first_and_repeated_chat_do_not_edit_su(tmp_path):
@@ -228,3 +249,27 @@ def test_project_delete_restore_and_busy_guard(tmp_path):
     assert model.read_bytes() == b"test-only retained fixture"
     assert not client.get("/api/trash").json() and not su.calls
     assert client.post("/api/trash/../../outside/restore").status_code == 404
+
+def test_legacy_attachment_migration_is_idempotent_and_busy_safe(tmp_path):
+    import os
+    from app.main import _append_conversation
+    app, client, project, _, _ = workspace(tmp_path)
+    data = io.BytesIO()
+    Image.new('RGB', (12, 12)).save(data, 'PNG')
+    path = client.post(f'/api/projects/{project}/inputs/reference?filename=legacy.png', content=data.getvalue()).json()['path']
+    root = app.state.store.project_dir(project)
+    os.utime(root / path, (1, 1))
+    context = app.state.store.load_context(project)
+    _append_conversation(context, 'user', 'agent', '还原这张图片')
+    app.state.store.save(context, root / 'state/project_context.json')
+    app.state.agent_lock.acquire()
+    try:
+        busy = client.get(f'/api/projects/{project}').json()
+        assert not busy['context']['references'][0]['submitted_at']
+    finally:
+        app.state.agent_lock.release()
+    migrated = client.get(f'/api/projects/{project}').json()['context']
+    assert migrated['conversation'][0]['metadata']['legacy_attachments'] == [path]
+    again = client.get(f'/api/projects/{project}').json()['context']
+    assert again['conversation'][0]['metadata']['legacy_attachments'] == [path]
+    assert (root / path).is_file()

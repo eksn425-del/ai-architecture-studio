@@ -12,6 +12,8 @@ from tests.test_demo import FakeNativeAgent
 
 class PlanningAgent(FakeNativeAgent):
     def respond(self, **kwargs):
+        if kwargs["mcp_enabled"]:
+            kwargs["ruby_state"]["fixture"] = {"revision": 1, "root_pid": 1}
         if "PARAMETER/PLAN turn" in kwargs["prompt"]:
             workspace = prepare_codex_parity_workspace(kwargs["project_dir"] / "runtime/agent_workspace")
             (workspace / "notes/reconstruction_card.md").write_text(
@@ -54,7 +56,7 @@ def test_lifecycle_requires_explicit_approval_and_preserves_thread(tmp_path):
     assert first.json()["agent"]["reconstruction_state"] == "clarifying"
     assert first.json()["project"]["agent_session"]["clarification_rounds"] == 1
     assert not su.calls
-    assert send(client).json()["agent"]["reconstruction_state"] == "clarifying"
+    assert send(client).json()["agent"]["reconstruction_state"] == "planned"
     second = send(client, "plan")
     assert second.json()["agent"]["reconstruction_state"] == "planned"
     assert not su.calls
@@ -77,6 +79,17 @@ def test_missing_reference_and_missing_card_are_rejected(tmp_path):
     count = len(agent.calls)
     assert send(client).status_code == 200
     assert len(agent.calls) == count + 1
+
+
+def test_file_writes_alone_cannot_be_reported_as_building(tmp_path):
+    client, agent, su, project = setup_project(tmp_path, FakeNativeAgent())
+    store = ProjectStore(project.parents[1])
+    session = store.load_state("demo-cultural-center", "agent_session.json", AgentSession)
+    session.reconstruction_state = "planned"
+    store.save_state("demo-cultural-center", session, "agent_session.json")
+    result = send(client, "execute")
+    assert result.status_code == 422
+    assert "已提交" in result.json()["detail"]
 
 
 def test_workspace_tools_allow_notes_ruby_and_reject_escape(tmp_path):

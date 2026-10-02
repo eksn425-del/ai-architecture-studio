@@ -30,6 +30,7 @@ class Site(Model):
 class Reference(Model):
     type: Literal["url", "image", "note"] = "note"
     source: str = ""
+    submitted_at: str = ""
     status: Literal["pending", "readable", "unreadable"] = "pending"
     title: str = ""
     excerpt: str = ""

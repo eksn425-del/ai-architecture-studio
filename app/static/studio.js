@@ -15,6 +15,23 @@ function projectFileUrl(path) {
   return `/api/projects/${encodeURIComponent(state.projectId)}/files/${path.split("/").map(encodeURIComponent).join("/")}`;
 }
 
+function pendingImages() { return sourceImages().filter(ref => !ref.submitted_at); }
+
+function renderWorkflowChecks(progress = null) {
+  const agent = state.project?.agent_session || {};
+  const geometry = Object.values(agent.ruby_state || {}).some(v => v.revision > 0);
+  const plan = ["planned", "building"].includes(agent.reconstruction_state);
+  const items = progress?.checks || [
+    {label:"模型 API", status:routeAvailable("economy") ? "done" : "blocked", detail:routeAvailable("economy") ? "已配置；本轮调用状态见进度" : "请配置模型连接"},
+    {label:"参考资料", status:sourceImages().length ? "done" : "pending", detail:`${sourceImages().length} 张项目图片；发送后仍保留上下文`},
+    {label:"建模计划", status:plan ? "done" : "pending", detail:plan ? "参数已整理" : "回答关键问题后生成计划"},
+    {label:"SketchUp 连接", status:agent.status === "ready" ? "done" : "pending", detail:agent.status === "ready" ? "已绑定独立模型；执行前再核验" : "建模前连接独立模型"},
+    {label:"实际模型修改", status:geometry ? "done" : "pending", detail:geometry ? "已有已提交几何" : "尚未提交几何；写脚本不等于已建模"},
+    {label:"截图与导出", status:artifactByType("skp") && geometry ? "done" : "pending", detail:artifactByType("skp") && geometry ? "已有模型文件；还需检查还原质量" : "等待模型检查与保存"},
+  ];
+  $("workflow-checklist").innerHTML = items.map(item => `<li class="check-${escapeHtml(item.status)}"><span>${item.status === "done" ? "✓" : item.status === "blocked" ? "!" : item.status === "running" ? "◷" : "○"}</span><div><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.detail || "")}</small></div></li>`).join("");
+}
+
 async function refreshProjects() {
   const projects = await api("/api/projects");
   projectList = projects;
@@ -209,7 +226,8 @@ function updateHeader() {
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
-  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="image-remove" title="移除图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
+  $("reference-gallery").hidden = !!pendingMessage;
+  $("reference-gallery").innerHTML = pendingImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="image-remove" title="移除图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
@@ -289,12 +307,13 @@ function updateHeader() {
   setStage("present", !!artifactByType("presentation"));
   renderArtifacts();
   renderConversation();
+  renderWorkflowChecks();
   renderPreview();
 }
 
 function renderConversation() {
   const messages = [...(state.project?.context?.conversation || [])];
-  if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {}});
+  if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingImages().map(ref => ref.source)}});
   const history = $("conversation-history");
   if (!messages.length) {
     history.innerHTML = '<div class="welcome"><div class="welcome-symbol">◇</div><h2>把建模交给 AI</h2><p>图片、文字或任务资料都可以。简单说你想做什么，AI 会帮你补充确认。</p><div class="suggestions"><button class="suggestion" data-prompt="按参考图片还原建筑，保留屋顶、窗洞与立面细节。">从图片还原建筑</button><button class="suggestion" data-prompt="没有实测尺寸，请按图像比例估算并标明，允许推断背面。">估算尺寸与补全背面</button><button class="suggestion" data-prompt="请生成可编辑 SketchUp 模型，检查正面、背面和侧面截图。">多角度检查与修改</button></div></div>';
@@ -305,6 +324,13 @@ function renderConversation() {
     const speaker = isUser ? "你" : "建筑 Agent";
     const phase = message.phase === "agent" ? "Agent 对话 / 建模" : message.phase === "after_build" ? "模型修改" : "方案讨论";
     const meta = message.metadata || {};
+    const attachments = [...(meta.attachments || []), ...(meta.legacy_attachments || [])];
+    const media = attachments.map(path => {
+      const ref = (state.project.context.references || []).find(r => r.source === path);
+      if (!ref) return `<small class="removed-attachment">已移除附件</small>`;
+      const url = projectFileUrl(path);
+      return ref.type === "image" ? `<div class="sent-image"><a href="${url}" target="_blank" rel="noreferrer"><img src="${url}" alt="已发送参考图 ${escapeHtml(path.split('/').at(-1))}"></a><button class="image-remove" data-delete-image="${escapeHtml(path)}" aria-label="删除已发送图片 ${escapeHtml(path.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>` : `<a href="${url}" target="_blank" rel="noreferrer">${escapeHtml(path.split('/').at(-1))}</a>`;
+    }).join("");
     const detail = !isUser && meta.model
       ? '<small class="chat-metadata">' + escapeHtml(meta.tier === "premium" ? "精修" : "Economy")
         + " · " + escapeHtml(meta.model)
@@ -315,7 +341,7 @@ function renderConversation() {
       : "";
     return '<article class="chat-message ' + (isUser ? "user" : "assistant") + '"><header><span>'
       + speaker + "</span><span>" + phase + '</span></header><div class="markdown-content">' + chatText(message.content)
-      + "</div>" + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
+      + "</div>" + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
   if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><header><span>建筑 Agent</span></header><p>正在查看参考图片、处理本轮要求，请稍候…</p></article>');
   history.scrollTop = history.scrollHeight;
@@ -630,6 +656,9 @@ async function applyEdit(instruction) {
 async function sendConversation(event, agentAction = "auto") {
   event?.preventDefault();
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
+  const typed = $("conversation-input").value.trim();
+  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && !/不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(typed) && /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(typed)) agentAction = "execute";
+  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned") agentAction = "plan";
   if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") { $("connect-dialog").showModal(); return; }
   const message = agentAction === "execute" ? ($("conversation-input").value.trim() || "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。") : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
@@ -645,6 +674,7 @@ async function sendConversation(event, agentAction = "auto") {
   const executesModel = agentAction === "execute" || (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "building");
   if (executesModel) showResults(true);
   beginProgress(executesModel ? "正在建模与检查截图" : "正在分析图片与建模计划");
+  $("workflow-progress").open = true;
   $("approve-reconstruction").disabled = true;
   setStatus(reconstruction && !executesModel ? "正在分析图片与建模参数，SketchUp 不会被修改。" : "Agent 正在建模/修改并检查截图。");
   try {
@@ -862,6 +892,7 @@ function startLiveProgress() {
     try {
       const p = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
       if (generation !== progressGeneration || !state.busy || !p.running) return;
+      renderWorkflowChecks(p);
       $("operation-progress").textContent = `${p.stage} · ${p.elapsed_seconds} 秒 · 已调用 ${p.tool_calls} 次工具${p.failed_tool_calls ? `（${p.failed_tool_calls} 次失败）` : ""}${p.action !== "execute" ? " · 不改动 SketchUp" : p.committed_revisions.length ? " · SU 已提交实际模型修改" : " · 尚无新的模型提交"}`;
       if (p.preview_url) {
         $("preview-canvas").innerHTML = `<img src="${escapeHtml(p.preview_url)}" alt="建模中的最新 SketchUp 截图">`;
@@ -885,7 +916,7 @@ $("model-settings-form").addEventListener("submit", async event => {
   event.preventDefault();
   $("model-settings-status").textContent = "正在设置连接…";
   try {
-    state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value})});
+    state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value})});
     refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeAvailable("economy") ? "已就绪" : "未配置"}`; $("model-settings-dialog").close();
     showToast("模型连接已设置；尚未发送测试请求。下次交流将使用此模型。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
@@ -909,7 +940,7 @@ async function deleteProject(id) {
   } catch(error) { showToast(friendlyError(error), true); }
   finally { state.busy = false; updateHeader(); }
 }
-$("reference-gallery").addEventListener("click", async event => {
+async function removeReferenceImage(event) {
   const button = event.target.closest("[data-delete-image]");
   if (!button || state.busy) return;
   state.busy = true; updateHeader();
@@ -920,7 +951,9 @@ $("reference-gallery").addEventListener("click", async event => {
     showToast("图片已移入回收站；请重新整理建模计划。已有模型保持不变。");
   } catch(error) { showToast(friendlyError(error), true); }
   finally { state.busy = false; updateHeader(); }
-});
+}
+$("reference-gallery").addEventListener("click", removeReferenceImage);
+$("conversation-history").addEventListener("click", removeReferenceImage);
 async function showTrash() {
   const items = await api("/api/trash");
   $("trash-list").innerHTML = items.map(item => `<div class="trash-row"><span>${item.kind === "image" ? "图片" : "项目"} · ${escapeHtml(item.label)}</span><button class="button-quiet" data-restore="${item.id}">恢复</button></div>`).join("") || "回收站为空";

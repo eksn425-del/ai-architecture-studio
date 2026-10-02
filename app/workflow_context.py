@@ -67,7 +67,8 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "questions whose answers materially change reconstruction: intended use/viewing, scope, any known dimension, "
                 "permission to infer unseen geometry, and desired detail level. Ask at most four concise questions. "
                 "If the user already supplied an answer, do not ask it again. Continue natural discussion without forcing a plan after one reply. "
-                "Use explicitly provided document/site evidence and explain unsupported inputs. Reply in concise Chinese for a novice. Do not edit SketchUp geometry."
+                "Use explicitly provided document/site evidence and explain unsupported inputs. Reply in concise Chinese for a novice. Do not edit SketchUp geometry. "
+                "Do not write building scripts or promise execution during clarification. Withheld tools are the intentional approval gate, not broken tools waiting to recover."
             )
         elif action == "plan":
             task = (

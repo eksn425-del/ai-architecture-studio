@@ -121,6 +121,23 @@ class LiteLLMRuntime:
             saved = json.loads(history_path.read_text(encoding="utf-8"))
             if saved.get("model") != selected_model or saved.get("region") != self.region:
                 raise NativeAgentUnavailable("Provider/model changed; start a new provider session explicitly.")
+            # Images already in real history remain visible to the model. Do not
+            # append the identical six-image package again on every user reply.
+            seen_images: set[str] = set()
+            for old_message in saved["messages"]:
+                content = old_message.get("content")
+                if isinstance(content, list):
+                    kept = []
+                    for block in content:
+                        url = block.get("image_url", {}).get("url") if block.get("type") == "image_url" else None
+                        if url and url in seen_images:
+                            continue
+                        if url:
+                            seen_images.add(url)
+                        kept.append(block)
+                    old_message["content"] = kept
+            if isinstance(user_content, list):
+                messages[1]["content"] = [block for block in user_content if block.get("type") != "image_url" or block["image_url"]["url"] not in seen_images]
             if skill:
                 # Migrate exact duplicated Skill text from pre-existing sessions.
                 for old_message in saved["messages"]:
@@ -154,6 +171,22 @@ class LiteLLMRuntime:
         failed_tool_calls = 0
         modeling_failure_streak = 0
         last_reply = ""
+
+        def interrupted(detail: str) -> NativeAgentUnavailable:
+            # Preserve real usage/checkpoint state even when a bounded turn stops.
+            save_history()
+            error = NativeAgentUnavailable(detail)
+            error.partial_result = AgentTurnResult(
+                thread_id=resolved_thread, reply="本轮中断；已有工作与记录已保留。",
+                status="interrupted", tool_calls=tool_calls[-40:], model_name=selected_model,
+                reasoning_effort=reasoning_effort or "provider-default",
+                provider_name=self.provider_name, region=self.region,
+                input_tokens=input_tokens, output_tokens=output_tokens,
+                latency_ms=round((time.monotonic() - started) * 1000),
+                tool_call_count=tool_call_count, failed_tool_calls=failed_tool_calls,
+            )
+            return error
+
         while True:
             kwargs: dict[str, Any] = {
                 "model": selected_model,
@@ -180,11 +213,12 @@ class LiteLLMRuntime:
                     kwargs["parallel_tool_calls"] = False
             try:
                 request_started = time.monotonic()
+                record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default"})
                 response = completion(**kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
                 record({"event": "provider_failed", "model": selected_model, "detail": safe_error[:1000]})
-                raise NativeAgentUnavailable(f"LiteLLM request failed for {selected_model}: {safe_error}") from None
+                raise interrupted(f"LiteLLM request failed for {selected_model}: {safe_error}") from None
             usage = _usage_from_response(response)
             record({"event": "provider_response", "requested_model": selected_model,
                     "response_model": getattr(response, "model", None), "reasoning_effort": reasoning_effort or "provider-default",
@@ -198,7 +232,7 @@ class LiteLLMRuntime:
             if not raw_tool_calls:
                 break
             if tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
-                raise NativeAgentUnavailable(
+                raise interrupted(
                     f"LiteLLM tool loop reached the configured {self.max_tool_calls}-call limit."
                 )
             assistant_message = {
@@ -243,7 +277,7 @@ class LiteLLMRuntime:
             save_history()
             if modeling_failure_streak >= 3:
                 record({"event": "retry_budget_exhausted", "failed_modeling_calls": modeling_failure_streak})
-                raise NativeAgentUnavailable(
+                raise interrupted(
                     "建模脚本连续 3 次执行失败，本轮已停止重试以避免重复消耗。"
                     "已有模型和完整工具记录已保留；请检查错误、修订同一脚本后继续。"
                 )

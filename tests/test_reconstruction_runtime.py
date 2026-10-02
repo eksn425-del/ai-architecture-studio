@@ -24,15 +24,15 @@ def test_auto_reconstruction_clarifies_before_planning() -> None:
     assert next_reconstruction_state(session, policy.action) == "clarifying"
 
 
-def test_auto_reconstruction_continues_discussion_after_clarification() -> None:
+def test_auto_reconstruction_plans_after_clarification_answers() -> None:
     session = AgentSession(project_id="demo", reconstruction_state="clarifying", clarification_rounds=1)
     request = ConversationRequest(message="1多角度；2含外部；3无尺寸；4允许推测", workflow_mode="image_reconstruction")
 
     policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=True)
-    assert policy.action == "clarify"
+    assert policy.action == "plan"
     assert policy.tools_enabled is False
-    assert policy.user_gate == "clarification"
-    assert next_reconstruction_state(session, policy.action) == "clarifying"
+    assert policy.user_gate == "approval"
+    assert next_reconstruction_state(session, policy.action) == "planned"
 
 
 def test_auto_reconstruction_executes_after_approved_plan() -> None:
@@ -88,3 +88,16 @@ def test_reconstruction_context_excludes_brief_and_site() -> None:
     assert "house.png" in serialized
     assert payload["reconstruction_state"] == "clarifying"
     assert payload["clarification_rounds"] == 1
+
+
+@pytest.mark.parametrize("message", ["已确认，开始建模吧", "批准执行", "开始建模"])
+def test_natural_approval_opens_execution_after_plan(message):
+    session = AgentSession(project_id="demo", reconstruction_state="planned")
+    request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
+    assert build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled
+
+@pytest.mark.parametrize("message", ["不要开始建模", "你开始建模了吗？", "先别执行", "确认但尺寸改为12米再建模", "我不同意开始建模", "如果我说开始建模会怎样", "还未批准执行"])
+def test_non_approval_does_not_execute(message):
+    session = AgentSession(project_id="demo", reconstruction_state="planned")
+    request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
+    assert not build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 from typing import Literal
 
 from .models import AgentSession, ConversationRequest, ProjectContext
@@ -10,6 +11,13 @@ from .reference_assets import discover_project_reference_images
 
 ResolvedAction = Literal["clarify", "plan", "execute"]
 ReconstructionState = Literal["idle", "clarifying", "planned", "building"]
+
+
+def explicit_build_approval(message: str) -> bool:
+    """Recognize affirmative execution, never questions/negation or parameter edits."""
+    if re.search(r"不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
+        return False
+    return bool(re.search(r"(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)", message))
 
 
 @dataclass(frozen=True)
@@ -28,7 +36,7 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     Default flow:
 
     idle -> clarify
-    clarifying -> clarify until the user requests a plan
+    clarifying -> plan after answers (explicit discussion can continue)
     planned -> plan until explicit approval; building -> execute
 
     The user/host may explicitly request clarify/plan/execute. Execution is validated
@@ -39,7 +47,9 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     if session.reconstruction_state == "idle":
         return "clarify"
     if session.reconstruction_state == "clarifying":
-        return "clarify"
+        return "clarify" if re.search(r"先聊|先讨论|只聊|只分析|[?？]", request.message) else "plan"
+    if session.reconstruction_state == "planned" and explicit_build_approval(request.message):
+        return "execute"
     return "execute" if session.reconstruction_state == "building" else "plan"
 
 

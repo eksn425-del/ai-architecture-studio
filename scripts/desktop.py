@@ -44,7 +44,7 @@ def main() -> None:
                 os.environ["ARCH_STUDIO_API_KEY_ENV"] = "ZAI_API_KEY"
                 os.environ["ARCH_STUDIO_API_BASE"] = ("https://api.z.ai/api/paas/v4" if args.api_provider == "glm-international"
                                                     else "https://open.bigmodel.cn/api/paas/v4")
-            os.environ["ARCH_STUDIO_ECONOMY_REASONING_EFFORT"] = "low"
+            os.environ["ARCH_STUDIO_ECONOMY_REASONING_EFFORT"] = "low" if args.api_provider == "deepseek" else "high"
             # Even missing config must fail explicitly rather than borrow Codex's installation.
             os.environ["ARCH_STUDIO_MCP_CONFIG"] = str(bridge)
         elif bridge.is_file():
