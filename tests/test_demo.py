@@ -705,6 +705,16 @@ def test_model_identity_is_independent_of_checkpoint_root_guard(tmp_path):
             return {"model_path": str(tmp_path / "blank-disposable.skp"), "model_guid": "identity"}
     assert SketchUpAdapter(Client()).get_active_model_identity()["model_guid"] == "identity"
 
+
+def test_unsaved_model_identity_reports_connection_separately_from_binding():
+    import pytest
+    class Client:
+        def call(self, name, arguments):
+            return {"model_path": "", "model_guid": "unsaved", "main_thread": True}
+    from app.sketchup_mcp import MCPCallError
+    with pytest.raises(MCPCallError, match="未保存的无标题模型"):
+        SketchUpAdapter(Client()).get_active_model_identity()
+
 def test_checkpoint_guard_checks_owned_root_before_save(tmp_path):
     class Client:
         def call(self, name, arguments):

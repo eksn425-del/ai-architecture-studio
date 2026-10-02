@@ -1,5 +1,15 @@
 # Handoff — AI Architecture Studio
 
+## Reconstruction reliability follow-up / independent implementation (2026-10-02)
+
+User authorized improvements informed by readable competitor implementation after pausing modeling. Up-to-date main was pulled; eight files already contained the prior paused engineering repairs, so a clean starting tree is not claimed. No proprietary Skill/bridge code was imported, no provider substitution, paid inference or SketchUp modification occurred.
+
+- Added original concise reconstruction guidance addressing actual GLM failures: explicit metric conversion/representative-section readback, face-normal/extrusion/thin-roof checks, a source-defining opening in the first recognizable form, timeout readback before retry, building-focused camera framing and corrections persisted to source. The full Skill is 9,849 characters within its existing 10,000 cap; safety/continuity guidance remains present. No claim these instructions alone fix model quality.
+- Completed the pending engineering repairs: zero SDK/LiteLLM retries with the existing ZAI parameter override; narrowed negative-approval recognition so approved requests with unrelated 'do not' clauses can execute; specific unsaved-model binding/API-timeout errors. These changes do not implement automatic blank-model save/binding or guarantee uninterrupted modeling.
+- Installed-library HTTP mock regression verifies one actual domestic-GLM wire request on a 503, instead of silent SDK retries. This is transport evidence, not a paid provider test. Approval negatives and complete Skill retention have regressions.
+- scripts/check.ps1:155 passed,2 dependency warnings. Node syntax and git diff --check passed. Reconstruction quality remains FAIL/incomplete at the paused GLM checkpoint; no real acceptance run was performed for these changes. The known developed Sol six-view model remains the baseline.
+- Desktop package rebuilt successfully; the desktop shortcut now targets a separate updated version, preserving the running installation. Installed EXE hash matches the build; PYZ inspection confirms the new geometry guidance is included. Updated-package runtime startup remains pending; running instances retain their previously loaded code until restart. Memory-only API credentials require re-entry after restart. No auth/payment/cloud work or new generic MCP/geometry engine.
+
 ## Local desktop installation / modeling paused (2026-10-02)
 
 User paused the poor GLM single-image modeling run, then requested an E-drive desktop installation. No new inference, modeling, model replacement or quality acceptance was performed for installation.

@@ -51,7 +51,9 @@ def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, m
             handler = OpenAI(api_key="test-only-placeholder", base_url=base, http_client=client)
         else:
             handler = HTTPHandler(client=client)
-        monkeypatch.setattr(litellm, "completion", lambda **kw: original(**kw, client=handler))
+        def local_completion(**kw):
+            return original(**kw, client=handler)
+        monkeypatch.setattr(litellm, "completion", local_completion)
         image = tmp_path / "inputs/reference/test.png"
         image.parent.mkdir(parents=True)
         from PIL import Image
@@ -64,3 +66,28 @@ def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, m
         runtime.respond(project_dir=tmp_path, thread_id=result.thread_id, prompt="again", mcp_enabled=True,
                         developer_instructions="test", ruby_enabled=False, reasoning_effort=effort)
     assert len(seen) == 3
+
+
+def test_glm_server_failure_is_not_silently_retried(tmp_path, monkeypatch):
+    monkeypatch.setenv("LITELLM_LOCAL_MODEL_COST_MAP", "True")
+    litellm = pytest.importorskip("litellm")
+    import httpx
+    from openai import OpenAI
+    from app.native_agent import NativeAgentUnavailable
+    requests = []
+    def fail(request):
+        requests.append(request.url.host)
+        return httpx.Response(503, json={"error": {"message": "local unavailable", "type": "server_error"}}, request=request)
+    original = litellm.completion
+    with httpx.Client(transport=httpx.MockTransport(fail)) as client:
+        handler = OpenAI(api_key="test-only-placeholder", base_url="https://open.bigmodel.cn/api/paas/v4", http_client=client)
+        def local_completion(**kw):
+            assert kw["max_retries"] == 0
+            return original(**kw, client=handler)
+        monkeypatch.setattr(litellm, "completion", local_completion)
+        runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient(), model="zai/glm-5.3-flash")
+        runtime.session_api_key = "test-only-placeholder"
+        runtime.custom_api_base = "https://open.bigmodel.cn/api/paas/v4"
+        with pytest.raises(NativeAgentUnavailable):
+            runtime.respond(project_dir=tmp_path, thread_id=None, prompt="test", mcp_enabled=False, developer_instructions="test", ruby_enabled=False, reasoning_effort="high")
+    assert requests == ["open.bigmodel.cn"]

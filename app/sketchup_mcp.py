@@ -294,6 +294,8 @@ class SketchUpAdapter:
                     pass
         for candidate in candidates:
             if isinstance(candidate, dict):
+                if candidate.get("model_path") == "" and candidate.get("model_guid"):
+                    raise MCPCallError("SketchUp 当前是未保存的无标题模型，插件已连接但尚不能绑定项目。请先保存当前工作并关闭此模型，再由网站打开本会话的独立副本；不会修改原模型。")
                 path = candidate.get("model_path") or candidate.get("path")
                 guid = candidate.get("model_guid")
                 if isinstance(path, str) and path and isinstance(guid, str) and guid:

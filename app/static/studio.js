@@ -158,6 +158,12 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/APITimeoutError|LiteLLM request failed.*Timeout|Request timed out/i.test(message)) {
+    return "模型 API 请求超时，本轮未完成；这不代表 MCP 断开。项目记录已保留，请分阶段重试，先建主体并截图，再补细节。";
+  }
+  if (/active model path and GUID|active model could not be verified/i.test(message)) {
+    return "SketchUp 插件已响应，但当前模型尚不能绑定。若是未保存的无标题模型，请先保存当前工作并关闭它，再由网站打开独立副本；不要直接在原模型上建模。";
+  }
   if (!message || /^[\u0000-\u00ff]*$/.test(message)) {
     if (/has not opened the recovery copy/i.test(message)) return "请切换到 SketchUp，处理恢复副本时的保存提示，再点击恢复按钮完成同步；原生成模型已保留。";
     if (/ECONNREFUSED|bridge connection failed/i.test(message)) return "SketchUp 本地桥接未响应，请检查 SketchUp 是否已打开并启动 Kongxing Local Bridge。";

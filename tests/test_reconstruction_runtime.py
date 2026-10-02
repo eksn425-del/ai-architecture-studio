@@ -90,13 +90,13 @@ def test_reconstruction_context_excludes_brief_and_site() -> None:
     assert payload["clarification_rounds"] == 1
 
 
-@pytest.mark.parametrize("message", ["已确认，开始建模吧", "批准执行", "开始建模"])
+@pytest.mark.parametrize("message", ["已确认，开始建模吧", "批准执行", "开始建模", "已批准计划，请继续建模，不要一次写完全部细节", "确认开始建模，不要反复确认"])
 def test_natural_approval_opens_execution_after_plan(message):
     session = AgentSession(project_id="demo", reconstruction_state="planned")
     request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
     assert build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled
 
-@pytest.mark.parametrize("message", ["不要开始建模", "你开始建模了吗？", "先别执行", "确认但尺寸改为12米再建模", "我不同意开始建模", "如果我说开始建模会怎样", "还未批准执行"])
+@pytest.mark.parametrize("message", ["不要开始建模", "不要现在开始建模", "你开始建模了吗？", "先别执行", "确认但尺寸改为12米再建模", "我不同意开始建模", "如果我说开始建模会怎样", "还未批准执行"])
 def test_non_approval_does_not_execute(message):
     session = AgentSession(project_id="demo", reconstruction_state="planned")
     request = ConversationRequest(message=message, workflow_mode="image_reconstruction")

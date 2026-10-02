@@ -85,6 +85,8 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
 
     def completion(**kwargs):
         seen.append(kwargs)
+        assert kwargs["max_retries"] == 0
+        assert kwargs["num_retries"] == 0
         if len(seen) == 1:
             message = {
                 "content": None,

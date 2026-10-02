@@ -211,9 +211,17 @@ class LiteLLMRuntime:
                 "messages": request_messages,
                 "api_key": api_key,
                 "timeout": 240,
+                # A user-visible turn must not silently wait through several
+                # full SDK timeout/retry cycles before reporting a failure.
+                "max_retries": 0,
+                "num_retries": 0,
             }
             if self.api_base:
                 kwargs["api_base"] = self.api_base
+            if selected_model.startswith("zai/"):
+                # The installed ZAI map omits this SDK option. Use LiteLLM's
+                # documented override so zero reaches the OpenAI SDK client.
+                kwargs["allowed_openai_params"] = ["max_retries"]
             if reasoning_effort in {"low", "high", "max"}:
                 if selected_model.startswith("zai/"):
                     # ZAI's current LiteLLM mapping does not advertise reasoning_effort.

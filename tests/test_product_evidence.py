@@ -58,6 +58,17 @@ def test_skill_keeps_text_inference_view_mapping_and_safety_visible():
         assert text in skill
 
 
+def test_skill_geometry_checks_and_framing_fit_without_truncating_safety():
+    from app.image_to_sketchup_skill import MAX_CONTEXT_CHARS, _IMAGE_TO_SKETCHUP_CONTEXT
+    skill = load_image_to_sketchup_skill_context()
+    assert skill == _IMAGE_TO_SKETCHUP_CONTEXT
+    assert len(skill) <= MAX_CONTEXT_CHARS
+    for text in ("numeric lengths are inches", "face normals", "not a filled wedge",
+                 "source-defining opening", "model readback before retrying",
+                 "rather than zooming to the entire site", "verified disposable/generated model"):
+        assert text in skill
+
+
 def test_responses_only_model_rejected_before_credential_or_tool_request(tmp_path):
     from app.litellm_runtime import LiteLLMRuntime
     from app.native_agent import NativeAgentUnavailable

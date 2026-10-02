@@ -15,7 +15,7 @@ ReconstructionState = Literal["idle", "clarifying", "planned", "building"]
 
 def explicit_build_approval(message: str) -> bool:
     """Recognize affirmative execution, never questions/negation or parameter edits."""
-    if re.search(r"不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
+    if re.search(r"不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
         return False
     return bool(re.search(r"(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)", message))
 

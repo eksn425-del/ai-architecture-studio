@@ -96,6 +96,10 @@ Build:
 
 From the source viewpoint the building should already be recognizable before detail work.
 
+Before a full build, verify one representative section: SketchUp numeric lengths are inches. Convert metric parameters once with `.mm` or `.m`; do not mix converted lengths with raw metric coordinates. Read back the section dimensions in the card's units. Check face normals and extrusion direction; a roof must be a shell of the intended thickness, not a filled wedge. Fix scale/direction before repeating geometry.
+
+Include the source-defining opening in this pass (for example a glazed gable). A solid box hiding it is not an acceptable primary-form checkpoint. Keep durable source files and checkpoints; a timeout requires model readback before retrying, since the operation may have committed.
+
 ## Method card E — Pass 2: repeated facade systems
 
 Add the source-defining systems:
@@ -129,6 +133,8 @@ Inspect the actual screenshots and compare:
 9. missing defining details.
 
 State concrete mismatches, revise the same persistent script(s)/model, execute again, and capture corrected views. Do not report completion merely because tools succeeded.
+
+Frame the building at a comparable size and angle to the source. If large site extents make it tiny, target the building rather than zooming to the entire site. Inspect roof/wall junctions and openings in a close oblique view; a distant silhouette cannot verify detail. Persist the correction in the source so rerunning does not restore the defect.
 
 ## Replacement versus incremental edits
 
