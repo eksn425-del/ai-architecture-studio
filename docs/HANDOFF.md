@@ -758,3 +758,8 @@ None for Demo v0.1.
 ## Recommended next step
 
 Stop at Demo v0.1 as requested. Any later milestone should be explicitly started by the user.
+
+## Competitor installation reinspection (2026-10-02)
+
+Read-only review of installed SketchUp Skill, quality references, bridge source, agent rules, configuration key names and dependency manifest. Findings and reuse boundaries added to COMPETITOR_DESKTOP_ARCHITECTURE_OBSERVATION.md. No proprietary source/credentials/private history adopted, no model inference, no product code changes or modeling. Previous engineering changes remain local while modeling is paused. Documentation-only check: git diff --check.
+

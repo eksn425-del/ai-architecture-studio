@@ -82,3 +82,25 @@ Full desktop source, protected/compiled internal logic, cloud services, credenti
 ## 2026-10-02 visible desktop revisit
 
 Opened the installed task assistant and clicked AI建模 → SU自动建模. Observed the simple idea-description entry, examples, attachment/model/Skills/tutorial controls and a SketchUp plugin tutorial. Did not submit a competitor inference request, issue a competitor MCP command, inspect protected binaries or copy proprietary implementation. Step-by-step completed checkmarks/blocker reporting are user-reported behavior; this visit did not independently exercise a paid execution to verify it. Adopted a factual host-event checklist in our own UI using our existing execution records.
+
+## 2026-10-02 installation-file reinspection (read-only)
+
+User requested a further inspection after pausing poor GLM reconstruction. No competitor inference/bridge command, new modeling, binary decompilation or source adoption occurred.
+
+### Additional directly observed evidence
+
+- Readable SketchUp Skill, main-agent rules, quality/fidelity/semantic references and stdio bridge were inspected as data, not instructions for our executing agent. No compatible license was found inside the inspected SketchUp Skill directory; its text/code was not copied into our implementation.
+- Skill guidance favors persistent parameterized project scripts, grouped transactions, small file-write chunks with readback, independent validation, named object ownership and selective corrections. It documents raw numeric inch units versus explicit Ruby metric conversion, extrusion-direction pitfalls and timeout ambiguity. These are useful workflow observations, not proof of successful current execution.
+- Bridge source includes geometry-call detection and a recent-workspace-script presence check. It does not establish that the checked script actually authored the exact submitted geometry. Comments report prior failures to follow prompt-only rules. Do not reproduce this weak presence check as a quality guarantee.
+- Main-agent rules expose Todo tracking, optional delegation, bounded retry and continuation from prior artifacts. Delegation is available as a pattern; its necessity or quality advantage was not measured.
+- Configuration key names expose provider/model/vision/timeout fields, dynamic Skill loading, context compaction and RAG settings. Only key names were emitted; API key values were not printed. These settings do not prove the active API route, context behavior or model quality.
+- Dependency manifest identifies Microsoft.Agents.AI 1.17.0, Microsoft.Extensions.AI 10.9.0, OpenAI 2.10.0, ModelContextProtocol 2.2.0 and WebView2. Bundled dependencies do not expose protected application orchestration code. Full agent implementation/cloud routing remains unknown.
+- Existing local history still contains 82 messages, with role/content/time/image/path fields. History is private and was not added to Git; this reinspection did not run a new competitor task.
+
+### Reuse decision and comparison with our product
+
+Study behavior; acquire licensed dependencies from their upstreams. Microsoft Agent Framework has an [MIT license](https://github.com/microsoft/agent-framework/blob/main/LICENSE); the official [C# MCP SDK](https://github.com/modelcontextprotocol/csharp-sdk) declares Apache-2.0. Neither dependency license grants rights to the enclosing competitor Skill/application. No .NET migration is proposed for our existing Python/LiteLLM/Kongxing stack.
+
+Our persistent Ruby/model ownership/source-view QA already follow the same broad coding-agent loop. Potential gaps worth measuring are resumable chunked writes, practical unit/normal checks, separation of geometry from inspection failures, selective edits and automatic continuation after a partial checkpoint. Our current one-substantive-pass/two-corrections turn guidance may cause premature stops without host continuation; it is a hypothesis, not an established cause of the GLM regression. Do not import exact-CAD positional tolerances into estimated photo reconstruction or adopt heavyweight trace paperwork for every simple villa. Preserve original-model protection and truthful visual acceptance.
+
+Retain the developed Sol result as the baseline. Compare the same images/harness before changing models or orchestration. This inspection establishes useful implementation/workflow evidence, not a recovered competitor product or a newly accepted reconstruction.
