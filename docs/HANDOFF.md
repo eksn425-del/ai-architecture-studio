@@ -1,5 +1,16 @@
 # Handoff — AI Architecture Studio
 
+## Local desktop installation / modeling paused (2026-10-02)
+
+User paused the poor GLM single-image modeling run, then requested an E-drive desktop installation. No new inference, modeling, model replacement or quality acceptance was performed for installation.
+
+- Rebuilt the existing PyInstaller/pywebview desktop package successfully with current local source; installed the application outside the repository and created a normal Windows desktop shortcut directly targeting the EXE.
+- Shortcut launches a local application profile whose runtime directory links to the existing ignored project runtime. Existing conversations/assets/models remain in place. Explicit local bridge configuration was copied only into the private installation profile; no credentials/config contents entered Git.
+- Launched the desktop shortcut and visually verified the K Studio chat UI, historical conversations and model selector. This proves local startup on this computer, not fresh-machine installation or successful reconstruction. No model request was submitted.
+- An optional PowerShell launcher creation was rejected by automatic approval review (`blocked by policy`, no specific reason returned). Used a direct EXE shortcut instead; automatic attach-to-port behavior was not installed.
+- API keys remain process-memory only and must be re-entered after restarting the application. No API key was copied from the existing server.
+- Previous GLM retry/approval/unsaved-model error repairs remain uncommitted local changes while that modeling task is paused. The installed candidate includes them; this installation handoff does not claim their live reconstruction acceptance or GitHub delivery. The latest single-image GLM quality result remains FAIL / incomplete.
+
 ## Latest product reliability repair / no-spend research (2026-10-02)
 
 Started from clean, up-to-date `02f86cdc5d17713b246c0f7ce73cea4451f6b01d`. Latest user explicitly requested broader novice-product/competitor work, then selected **no new API spending**. No model inference, Astra rescue, original SKP/DWG edits, proprietary code reuse or new modeling engine in this turn.
