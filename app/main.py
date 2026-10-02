@@ -537,8 +537,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             directory.is_dir() and (directory / "state" / "project_context.json").exists()
             for directory in store.projects_root.iterdir()
         )
-        if not has_saved_project:
+        if not has_saved_project and not (store.root / "trash").exists():
             store.ensure_seed_project()
+        store.projects_root.mkdir(parents=True, exist_ok=True)
         items: list[dict[str, Any]] = []
         for directory in sorted(store.projects_root.iterdir(), key=lambda item: item.name):
             context_file = directory / "state" / "project_context.json"
@@ -565,6 +566,111 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             return store.load_project(project_id)
         except (ValueError, FileNotFoundError, ValidationError) as error:
             raise HTTPException(status_code=404, detail=str(error)) from error
+
+    def invalidate_reference_plan(project_id: str) -> None:
+        session = store.load_state(project_id, "agent_session.json", AgentSession)
+        session.thread_id = ""
+        session.reconstruction_state = "clarifying"
+        session.last_reply = "参考图片已变化，请重新整理并批准建模计划。已有模型保持不变。"
+        store.save_state(project_id, session, "agent_session.json")
+
+    @app.get("/api/trash")
+    def list_trash() -> list[dict[str, Any]]:
+        items = []
+        for record in (store.root / "trash").glob("*/record.json"):
+            data = json.loads(record.read_text(encoding="utf-8"))
+            items.append({k: data[k] for k in ("id", "kind", "label", "project_id")})
+        return items[::-1]
+
+    @app.delete("/api/projects/{project_id}")
+    def remove_project(project_id: str) -> dict[str, str]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等当前建模回合结束后再删除。")
+        try:
+            try:
+                context = store.load_context(project_id)
+            except (ValueError, FileNotFoundError):
+                raise HTTPException(status_code=404, detail="项目不存在。") from None
+            item_id = uuid.uuid4().hex
+            target = store.root / "trash" / item_id
+            target.mkdir(parents=True)
+            data = {"id": item_id, "kind": "project", "label": context.project_name, "project_id": project_id}
+            (target / "record.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            try:
+                store.project_dir(project_id).rename(target / "project")
+            except OSError:
+                (target / "record.json").unlink()
+                raise HTTPException(status_code=409, detail="项目文件正在使用，请关闭相关文件后重试。") from None
+            return {"deleted_id": item_id}
+        finally:
+            app.state.agent_lock.release()
+
+    @app.delete("/api/projects/{project_id}/reference-image")
+    def remove_reference_image(project_id: str, path: str) -> dict[str, str]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等当前建模回合结束后再删除。")
+        try:
+            try:
+                context = store.load_context(project_id)
+            except (ValueError, FileNotFoundError):
+                raise HTTPException(status_code=404, detail="项目不存在。") from None
+            reference = next((r for r in context.references if r.type == "image" and r.source == path), None)
+            source = (store.project_dir(project_id) / path).resolve()
+            allowed = (store.project_dir(project_id) / "inputs/reference").resolve()
+            if not reference or not source.is_relative_to(allowed) or not source.is_file() or source.suffix.lower() not in IMAGE_SUFFIXES:
+                raise HTTPException(status_code=404, detail="参考图片不存在。")
+            item_id = uuid.uuid4().hex
+            target = store.root / "trash" / item_id
+            target.mkdir(parents=True)
+            data = {"id": item_id, "kind": "image", "label": source.name, "project_id": project_id,
+                    "path": path, "reference": reference.model_dump(mode="json")}
+            (target / "record.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            try:
+                source.rename(target / "image")
+            except OSError:
+                (target / "record.json").unlink()
+                raise HTTPException(status_code=409, detail="图片正在使用，请稍后重试。") from None
+            context.references = [r for r in context.references if r.source != path]
+            store.save(context, store.project_dir(project_id) / "state/project_context.json")
+            invalidate_reference_plan(project_id)
+            return {"deleted_id": item_id}
+        finally:
+            app.state.agent_lock.release()
+
+    @app.post("/api/trash/{item_id}/restore")
+    def restore_deleted(item_id: str) -> dict[str, str]:
+        if not re.fullmatch(r"[a-f0-9]{32}", item_id):
+            raise HTTPException(status_code=404, detail="回收项目不存在。")
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等当前建模回合结束后再恢复。")
+        try:
+            target = store.root / "trash" / item_id
+            record = target / "record.json"
+            if not record.is_file():
+                raise HTTPException(status_code=404, detail="回收项目不存在。")
+            data = json.loads(record.read_text(encoding="utf-8"))
+            project_id = data["project_id"]
+            project_dir = store.project_dir(project_id)
+            if data["kind"] == "project":
+                if project_dir.exists():
+                    raise HTTPException(status_code=409, detail="同名项目目录已存在，无法恢复。")
+                (target / "project").rename(project_dir)
+            else:
+                if not (project_dir / "state/project_context.json").is_file():
+                    raise HTTPException(status_code=409, detail="请先从回收站恢复该图片所属项目。")
+                destination = (project_dir / data["path"]).resolve()
+                if not destination.is_relative_to((project_dir / "inputs/reference").resolve()) or destination.exists():
+                    raise HTTPException(status_code=409, detail="图片路径不可恢复。")
+                context = store.load_context(project_id)
+                (target / "image").rename(destination)
+                context.references.append(Reference.model_validate(data["reference"]))
+                store.save(context, project_dir / "state/project_context.json")
+                invalidate_reference_plan(project_id)
+            record.unlink()
+            target.rmdir()
+            return {"project_id": project_id}
+        finally:
+            app.state.agent_lock.release()
 
     @app.post("/api/projects/{project_id}/inputs/{category}")
     async def upload_input(project_id: str, category: str, request: Request, filename: str = "upload") -> dict[str, Any]:

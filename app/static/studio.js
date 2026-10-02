@@ -26,7 +26,7 @@ async function refreshProjects() {
 
 function renderProjectHistory() {
   $("session-count").textContent = projectList.length;
-  $("project-history").innerHTML = projectList.map((p) => `<button class="history-item${p.project_id === state.projectId ? " active" : ""}" data-project="${escapeHtml(p.project_id)}" title="${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}><span>◷</span><span>${escapeHtml(p.project_name)}</span></button>`).join("");
+  $("project-history").innerHTML = projectList.map((p) => `<div class="history-row"><button class="history-item${p.project_id === state.projectId ? " active" : ""}" data-project="${escapeHtml(p.project_id)}" title="${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}><span>◷</span><span>${escapeHtml(p.project_name)}</span></button><button class="delete-label" data-delete-project="${escapeHtml(p.project_id)}" aria-label="删除项目 ${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}>删除</button></div>`).join("");
 }
 
 function showResults(open) {
@@ -209,7 +209,7 @@ function updateHeader() {
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
-  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a>`).join("");
+  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="delete-label" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>删除</button></div>`).join("");
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
@@ -753,6 +753,8 @@ $("conversation-history").addEventListener("click", (event) => {
   updateHeader();
 });
 $("project-history").addEventListener("click", async (event) => {
+  const removal = event.target.closest("[data-delete-project]");
+  if (removal) { await deleteProject(removal.dataset.deleteProject); return; }
   const item = event.target.closest("[data-project]");
   if (!item || state.busy || item.dataset.project === state.projectId) return;
   state.busy = true;
@@ -879,4 +881,54 @@ $("model-settings-form").addEventListener("submit", async event => {
     showToast("模型连接已设置；尚未发送测试请求。下次交流将使用此模型。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
   finally { $("api-key").value = ""; }
+});
+
+async function deleteProject(id) {
+  if (state.busy) return;
+  state.busy = true; updateHeader();
+  try {
+    await api(`/api/projects/${encodeURIComponent(id)}`, {method:"DELETE"});
+    const projects = await refreshProjects();
+    if (id === state.projectId) {
+      if (projects.length) await loadProject(projects[0].project_id);
+      else {
+        const fresh = await api("/api/projects", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({project_name:"新建模会话"})});
+        await refreshProjects(); await loadProject(fresh.project_id);
+      }
+    }
+    showToast("项目已移入回收站，可以恢复。打开的 SU 模型不会被清空。");
+  } catch(error) { showToast(friendlyError(error), true); }
+  finally { state.busy = false; updateHeader(); }
+}
+$("reference-gallery").addEventListener("click", async event => {
+  const button = event.target.closest("[data-delete-image]");
+  if (!button || state.busy) return;
+  state.busy = true; updateHeader();
+  try {
+    await api(`/api/projects/${encodeURIComponent(state.projectId)}/reference-image?path=${encodeURIComponent(button.dataset.deleteImage)}`, {method:"DELETE"});
+    state.planEditing = false;
+    await loadProject(state.projectId);
+    showToast("图片已移入回收站；请重新整理建模计划。已有模型保持不变。");
+  } catch(error) { showToast(friendlyError(error), true); }
+  finally { state.busy = false; updateHeader(); }
+});
+async function showTrash() {
+  const items = await api("/api/trash");
+  $("trash-list").innerHTML = items.map(item => `<div class="trash-row"><span>${item.kind === "image" ? "图片" : "项目"} · ${escapeHtml(item.label)}</span><button class="button-quiet" data-restore="${item.id}">恢复</button></div>`).join("") || "回收站为空";
+}
+$("trash-open").addEventListener("click", async () => {
+  try { await showTrash(); $("trash-dialog").showModal(); }
+  catch(error) { showToast(friendlyError(error), true); }
+});
+$("trash-close").addEventListener("click", () => $("trash-dialog").close());
+$("trash-list").addEventListener("click", async event => {
+  const button = event.target.closest("[data-restore]");
+  if (!button || state.busy) return;
+  button.disabled = true; state.busy = true;
+  try {
+    const result = await api(`/api/trash/${button.dataset.restore}/restore`, {method:"POST"});
+    await refreshProjects(); await loadProject(result.project_id); await showTrash();
+    showToast("已恢复到原项目。");
+  } catch(error) { showToast(friendlyError(error), true); button.disabled = false; }
+  finally { state.busy = false; updateHeader(); }
 });

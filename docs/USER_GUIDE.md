@@ -45,3 +45,7 @@
 开发者安装 `requirements-desktop.txt`，运行 `scripts/desktop.py` 或构建脚本 `scripts/build_desktop.ps1`。桌面数据默认位于本机应用数据目录的 KStudio/runtime，与仓库私有实验分离。
 
 独立连接器可通过应用数据目录 KStudio/bridge.json 提供已有 MCP 的 command、args、可选 env/cwd。环境变量 `ARCH_STUDIO_MCP_CONFIG` 也可指定配置。配置包含的凭据须保持本地；这不是新 MCP 实现。目前还需可分发的插件安装包、许可证确认和干净机器安装验证，才能去掉开发者配置步骤。
+
+## 删除图片或项目
+
+图片缩略图下方和左侧每个项目右侧都有 **删除**。点击后移入本机 **回收站**，可以恢复。删除或恢复参考图后需要重新整理并批准计划；已有 SU 模型不会被清空。建模回合运行时删除不可用。项目删除会收起本机项目文件，若该模型仍在 SU 中打开，请先关闭它，再连接其他项目。

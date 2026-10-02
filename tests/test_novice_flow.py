@@ -146,3 +146,45 @@ def test_readable_dxf_site_reaches_reconstruction_context(tmp_path):
     response = client.post(f"/api/projects/{project}/conversation", json={"message":"结合上传的场地分析", "workflow_mode":"image_reconstruction"})
     assert response.status_code == 200
     assert "provided_site" in agent.calls[-1]["prompt"] and "30.0" in agent.calls[-1]["prompt"]
+
+
+def test_image_delete_restore_invalidates_plan_without_editing_model(tmp_path):
+    app, client, project, _, su = workspace(tmp_path)
+    buffer = io.BytesIO()
+    Image.new("RGB", (10,10)).save(buffer,"PNG")
+    path = client.post(f"/api/projects/{project}/inputs/reference?filename=pasted.png",content=buffer.getvalue()).json()["path"]
+    from app.models import AgentSession
+    session = app.state.store.load_state(project,"agent_session.json",AgentSession)
+    session.thread_id = "old-visual-thread"
+    session.reconstruction_state = "planned"
+    app.state.store.save_state(project,session,"agent_session.json")
+    response = client.delete(f"/api/projects/{project}/reference-image",params={"path":path})
+    assert response.status_code == 200
+    assert not (app.state.store.project_dir(project)/path).exists()
+    current = client.get(f"/api/projects/{project}").json()
+    assert current["agent_session"]["reconstruction_state"] == "clarifying"
+    assert current["agent_session"]["thread_id"] == ""
+    assert client.post(f"/api/trash/{response.json()['deleted_id']}/restore").status_code == 200
+    assert (app.state.store.project_dir(project)/path).is_file()
+    assert not su.calls
+    assert client.delete(f"/api/projects/{project}/reference-image",params={"path":"../../outside.png"}).status_code == 404
+
+
+def test_project_delete_restore_and_busy_guard(tmp_path):
+    app, client, project, _, su = workspace(tmp_path)
+    root = app.state.store.project_dir(project)
+    model = root / "outputs/model/retained.skp"
+    model.write_bytes(b"test-only retained fixture")
+    app.state.agent_lock.acquire()
+    try:
+        assert client.delete(f"/api/projects/{project}").status_code == 409
+    finally:
+        app.state.agent_lock.release()
+    result = client.delete(f"/api/projects/{project}")
+    assert result.status_code == 200 and not root.exists()
+    assert client.get("/api/projects").json() == []
+    assert len(client.get("/api/trash").json()) == 1
+    assert client.post(f"/api/trash/{result.json()['deleted_id']}/restore").status_code == 200
+    assert model.read_bytes() == b"test-only retained fixture"
+    assert not client.get("/api/trash").json() and not su.calls
+    assert client.post("/api/trash/../../outside/restore").status_code == 404

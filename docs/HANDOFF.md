@@ -1,5 +1,14 @@
 # Handoff — AI Architecture Studio
 
+## Latest user-requested fix — image/project deletion (2026-10-02)
+
+Started from clean, up-to-date main `174082d`. Added visible 删除 labels to pasted/uploaded reference thumbnails and each left-hand project/history row. Deletion moves generated project data or registered reference input into ignored local runtime/trash; a 回收站 dialog provides restoration, including after restart. No permanent purge UI, no original assets or SketchUp geometry edits.
+
+Reference delete/restore resets the visual thread and invalidates approval (clarifying), preserving existing model/root/revisions; user must regenerate and approve a plan against current inputs. Active modeling lock rejects delete/restore while a turn runs. Paths are confined to registered project reference inputs; arbitrary output/source paths are rejected. Deleting current project selects another, or creates a fresh blank conversation if none remain; GET no longer recreates the old demo ID after deletion, preserving restoration.
+
+Real browser clicks verified: fresh test project → actual Ctrl+V test PNG → delete image → recover image → delete project → recover project. No model inference or new SketchUp benchmark requested or performed. `scripts/check.ps1`: 116 passed; JS syntax and git whitespace checks passed. Regression coverage includes plan/thread invalidation, unchanged saved model bytes, busy guard, traversal rejection, last-project removal and restoration. Desktop package rebuilt successfully with scripts/build_desktop.ps1; updated EXE remains under ignored runtime/desktop-dist.
+
+
 ## Latest local execution — novice chat, real reconstruction and desktop shell (2026-10-01)
 
 Pulled clean/up-to-date main `0f06f485a1a7f000508fd737fb4ed899016839b9`. Latest user requested a simpler real first-user path, paste/document/site/URL input, connection lesson, explicit approval, actual progress and final SKP download; also asked which delivery form fits MCP. User-directed scope extension and recommendation are recorded in DECISIONS. Existing Skill/persistent Ruby/Kongxing architecture retained; no new CAD engine, generic MCP, Astra or competitor proprietary source.

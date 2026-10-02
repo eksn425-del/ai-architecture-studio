@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=20261001-10"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=20261002-1"></head>
 <body>
 <div class="assistant-shell">
   <aside class="sidebar" aria-label="建模会话">
     <a class="brand" href="/" aria-label="K Studio 首页"><span class="brand-mark">K／</span><span><b>K Studio</b><small>AI ARCHITECTURE</small></span></a>
     <button id="new-project" class="new-project"><span>＋</span> 新建建模会话</button>
     <div class="mode-label">◇　AI 建模 <small>SketchUp</small></div>
-    <div class="history-heading">历史会话 <span id="session-count"></span></div><nav id="project-history" class="project-history" aria-label="历史建模会话"></nav>
+    <div class="history-heading">历史会话 <span id="session-count"></span></div><button id="trash-open" class="button-quiet">回收站</button><nav id="project-history" class="project-history" aria-label="历史建模会话"></nav>
     <div class="sidebar-bottom"><span class="signal-dot"></span><span>本地工作台<small id="brain-status">正在连接模型…</small></span><button id="help-toggle" class="icon-button" aria-label="使用说明">?</button></div>
   </aside>
   <main class="main-content">
@@ -44,9 +44,10 @@
 <dialog id="model-settings-dialog"><form id="model-settings-form"><div class="dialog-kicker">本机模型连接</div><h2>选择建模模型</h2><label for="provider-mode">连接方式</label><select id="provider-mode"><option value="preset">预设 GPT-6.1 Sol Low</option><option value="byok">使用自己的 API（LiteLLM）</option></select><div id="byok-fields" hidden><label for="api-model">供应商模型名称</label><input id="api-model" placeholder="填写供应商提供的 LiteLLM 模型标识"><label for="api-base">API Base（可选，HTTPS）</label><input id="api-base" type="url" placeholder="https://…/v1"><label for="api-key">API Key</label><input id="api-key" type="password" autocomplete="off"><p>仅保存在本机服务内存，重启失效。调用会将本项目资料发送给你选择的供应商；请确认模型支持图片与工具调用。不同模型质量尚未逐一验证。</p></div><p id="model-settings-status" role="status"></p><div class="dialog-actions"><button id="model-settings-close" type="button" class="button-quiet">取消</button><button class="button-primary" type="submit">使用此模型</button></div></form></dialog>
 <dialog id="help-dialog"><div class="dialog-kicker">快速开始</div><h2>先聊清楚，再开始建模</h2><ol class="help-steps"><li>新建会话，上传、粘贴图片或拖入资料，也可以先直接提问。</li><li>简单说「请根据这些资料帮我建模」，与 AI 交流缺少的信息。</li><li>确认后点击「整理建模计划」，查看估算与范围。</li><li>批准之前按连接教学检查 MCP、打开独立 SU 模型。</li><li>批准后查看真实工具进度与截图，下载 SKP；继续对话可修改。</li></ol><p>支持图片、PDF、DOCX、TXT、MD、CSV、DXF、DWG。DWG 只保存原文件，需补带尺寸的 PDF/图片；扫描 PDF 需清晰截图。网址可直接粘贴，读取失败会提示补截图。聊天与计划不会改动 SU。</p><button id="help-close" class="button-primary">开始使用</button></dialog>
 <dialog id="project-dialog"><form id="create-project-form"><div class="dialog-kicker">新建会话</div><h2>这次想建什么？</h2><label for="new-project-name">会话名称</label><input id="new-project-name" required maxlength="120" placeholder="例如：山墙玻璃别墅"><label for="new-project-brief">目标说明（可选）</label><textarea id="new-project-brief" rows="3" placeholder="创建后上传图片，在对话中补充要求。"></textarea><div class="dialog-actions"><button id="cancel-project" type="button" class="button-quiet">取消</button><button id="create-project-submit" type="submit" class="button-primary">创建会话 <span>↗</span></button></div></form></dialog>
+<dialog id="trash-dialog"><h2>回收站</h2><p>删除的图片和项目保留在本机，可随时恢复。</p><div id="trash-list"></div><button id="trash-close" class="button-primary">关闭</button></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <!-- Compatibility elements for existing backend paths, outside the modeling UI. -->
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
-<script src="/static/studio.js?v=onboarding-20261001-3" defer></script>
+<script src="/static/studio.js?v=deletion-20261002-1" defer></script>
 </body></html>
