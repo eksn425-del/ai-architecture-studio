@@ -88,7 +88,11 @@ class LiteLLMRuntime:
             raise NativeAgentUnavailable(str(error)) from error
 
         selected_model = model or self.model
-        prompt_text = prompt.rstrip() + (("\n\n" + architecture_skill_context.strip()) if architecture_skill_context else "")
+        # The current Skill belongs once in the system context, not once per saved
+        # user turn. Persistent notes/scripts and actual tool exchanges stay intact.
+        skill = architecture_skill_context.strip()
+        prompt_text = prompt.rstrip()
+        system_text = developer_instructions + (("\n\n" + skill) if skill else "")
         reference_images = discover_project_reference_images(project_dir, categories=workflow_reference_categories(workflow_mode))
         if reference_images:
             prompt_text += "\n\n" + reference_image_label(reference_images, reconstruction=workflow_mode == "image_reconstruction")
@@ -98,7 +102,7 @@ class LiteLLMRuntime:
         else:
             user_content = prompt_text
         messages: list[dict[str, Any]] = [
-            {"role": "system", "content": developer_instructions},
+            {"role": "system", "content": system_text},
             {"role": "user", "content": user_content},
         ]
         # Preserve actual tool messages across turns, not just a cosmetic thread id.
@@ -108,10 +112,27 @@ class LiteLLMRuntime:
         history_dir = project_dir / "runtime" / "provider_sessions"
         history_dir.mkdir(parents=True, exist_ok=True)
         history_path = history_dir / f"{resolved_thread}.json"
+        def save_history() -> None:
+            history_tmp = history_path.with_suffix(".tmp")
+            history_tmp.write_text(json.dumps({"model": selected_model, "region": self.region,
+                                               "messages": messages[1:]}, ensure_ascii=False), encoding="utf-8")
+            history_tmp.replace(history_path)
         if history_path.exists():
             saved = json.loads(history_path.read_text(encoding="utf-8"))
             if saved.get("model") != selected_model or saved.get("region") != self.region:
                 raise NativeAgentUnavailable("Provider/model changed; start a new provider session explicitly.")
+            if skill:
+                # Migrate exact duplicated Skill text from pre-existing sessions.
+                for old_message in saved["messages"]:
+                    if old_message.get("role") != "user":
+                        continue
+                    content = old_message.get("content")
+                    if isinstance(content, str):
+                        old_message["content"] = content.replace(skill, "")
+                    elif isinstance(content, list):
+                        for block in content:
+                            if block.get("type") == "text":
+                                block["text"] = block.get("text", "").replace(skill, "")
             messages = [messages[0], *saved["messages"], messages[1]]
         tools = [_to_litellm_tool(tool) for tool in tool_context.dynamic_tools]
         evidence_dir = project_dir / "runtime" / "agent_events"
@@ -131,6 +152,7 @@ class LiteLLMRuntime:
         tool_calls: list[dict[str, str]] = []
         tool_call_count = 0
         failed_tool_calls = 0
+        modeling_failure_streak = 0
         last_reply = ""
         while True:
             kwargs: dict[str, Any] = {
@@ -141,16 +163,33 @@ class LiteLLMRuntime:
             }
             if self.api_base:
                 kwargs["api_base"] = self.api_base
+            if reasoning_effort in {"low", "high", "max"}:
+                if selected_model.startswith("zai/"):
+                    # ZAI's current LiteLLM mapping does not advertise reasoning_effort.
+                    kwargs["extra_body"] = {"thinking": {"type": "enabled"}, "reasoning_effort": reasoning_effort}
+                else:
+                    kwargs["reasoning_effort"] = reasoning_effort
+                if selected_model.startswith("deepseek/"):
+                    # Installed LiteLLM enables thinking but consumes effort in its mapping.
+                    # Forward the vendor field too so measured Low is actually Low on the wire.
+                    kwargs["extra_body"] = {"reasoning_effort": reasoning_effort}
             if tools:
                 kwargs["tools"] = tools
                 kwargs["tool_choice"] = "auto"
-                kwargs["parallel_tool_calls"] = False
+                if not selected_model.startswith("zai/"):
+                    kwargs["parallel_tool_calls"] = False
             try:
+                request_started = time.monotonic()
                 response = completion(**kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
+                record({"event": "provider_failed", "model": selected_model, "detail": safe_error[:1000]})
                 raise NativeAgentUnavailable(f"LiteLLM request failed for {selected_model}: {safe_error}") from None
             usage = _usage_from_response(response)
+            record({"event": "provider_response", "requested_model": selected_model,
+                    "response_model": getattr(response, "model", None), "reasoning_effort": reasoning_effort or "provider-default",
+                    "latency_ms": round((time.monotonic() - request_started) * 1000),
+                    "input_tokens": usage[0], "output_tokens": usage[1]})
             input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
             output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
             message = _response_message(response)
@@ -167,6 +206,9 @@ class LiteLLMRuntime:
                 "content": message.get("content"),
                 "tool_calls": raw_tool_calls,
             }
+            # DeepSeek thinking tool turns require this field on subsequent calls.
+            if message.get("reasoning_content") is not None:
+                assistant_message["reasoning_content"] = message["reasoning_content"]
             messages.append(assistant_message)
             for call in raw_tool_calls:
                 call_id, name, arguments = _tool_call_parts(call)
@@ -184,18 +226,33 @@ class LiteLLMRuntime:
                     failed_tool_calls += 1
                     output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
                 text_result, images = _tool_result_parts(output)
-                record({"event": "tool_result", "tool": name, "success": output.get("success", not output.get("isError", False)), "image_count": len(images)})
+                succeeded = output.get("success", not output.get("isError", False))
+                event = {"event": "tool_result", "tool": name, "success": succeeded, "image_count": len(images)}
+                if not succeeded:
+                    event["error"] = text_result.replace(api_key, "[credential hidden]")[:1500]
+                record(event)
+                if name == "sketchup_run_workspace_ruby":
+                    modeling_failure_streak = 0 if succeeded else modeling_failure_streak + 1
                 messages.append({"role": "tool", "tool_call_id": call_id, "content": text_result})
                 if images:
                     content: list[dict[str, Any]] = [{"type": "text", "text": f"Visual readback from SketchUp tool {name}."}]
                     content.extend({"type": "image_url", "image_url": {"url": image}} for image in images)
                     messages.append({"role": "user", "content": content})
+            # Checkpoint complete function-call exchanges, including failed attempts.
+            # Repeated full-script generation must not silently spend the whole call budget.
+            save_history()
+            if modeling_failure_streak >= 3:
+                record({"event": "retry_budget_exhausted", "failed_modeling_calls": modeling_failure_streak})
+                raise NativeAgentUnavailable(
+                    "建模脚本连续 3 次执行失败，本轮已停止重试以避免重复消耗。"
+                    "已有模型和完整工具记录已保留；请检查错误、修订同一脚本后继续。"
+                )
 
-        messages.append({"role": "assistant", "content": last_reply})
-        history_tmp = history_path.with_suffix(".tmp")
-        history_tmp.write_text(json.dumps({"model": selected_model, "region": self.region,
-                                           "messages": messages[1:]}, ensure_ascii=False), encoding="utf-8")
-        history_tmp.replace(history_path)
+        final_message = {"role": "assistant", "content": last_reply}
+        if message.get("reasoning_content") is not None:
+            final_message["reasoning_content"] = message["reasoning_content"]
+        messages.append(final_message)
+        save_history()
         return AgentTurnResult(
             thread_id=resolved_thread,
             reply=last_reply or "已完成这轮推演；模型操作记录已保存。",

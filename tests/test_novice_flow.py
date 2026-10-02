@@ -21,6 +21,46 @@ def workspace(tmp_path):
     return app, client, project, agent, su
 
 
+def test_deepseek_preset_is_api_only_and_credential_not_returned(tmp_path, monkeypatch):
+    from app.litellm_runtime import LiteLLMRuntime
+    monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))
+    app, client, _, _, _ = workspace(tmp_path)
+    result = client.post("/api/model-settings", json={"mode": "deepseek", "api_key": "test-secret-not-real"})
+    assert result.status_code == 200
+    assert result.json()["economy"]["provider"] == "litellm"
+    assert result.json()["economy"]["model"] == "deepseek/deepseek-flash"
+    assert result.json()["economy"]["reasoning_effort"] == "low"
+    assert "test-secret-not-real" not in result.text
+    assert app.state.model_router.china_runtime.api_base == "https://api.deepseek.com"
+
+
+def test_standalone_profile_rejects_codex_and_premium(tmp_path, monkeypatch):
+    import pytest
+    from app.native_agent import NativeAgentUnavailable
+    monkeypatch.setenv("ARCH_STUDIO_STANDALONE", "1")
+    monkeypatch.setenv("ARCH_STUDIO_ECONOMY_PROVIDER", "litellm")
+    monkeypatch.setenv("ARCH_STUDIO_API_MODEL", "deepseek/deepseek-flash")
+    monkeypatch.setenv("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "low")
+    app, client, _, _, _ = workspace(tmp_path)
+    assert client.post("/api/model-settings", json={"mode":"preset"}).status_code == 409
+    assert app.state.model_router.route("economy").model == "deepseek/deepseek-flash"
+    assert app.state.model_router.route("economy").reasoning_effort == "low"
+    with pytest.raises(NativeAgentUnavailable, match="cannot invoke Codex"):
+        app.state.model_router.route("premium")
+
+
+def test_glm_domestic_preset_uses_exact_endpoint_and_low(tmp_path, monkeypatch):
+    from app.litellm_runtime import LiteLLMRuntime
+    monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))
+    app, client, _, _, _ = workspace(tmp_path)
+    result = client.post("/api/model-settings", json={"mode":"glm", "api_key":"test-only-glm-key"})
+    assert result.status_code == 200
+    assert result.json()["economy"]["model"] == "zai/glm-5.3-flash"
+    assert result.json()["economy"]["reasoning_effort"] == "low"
+    assert app.state.model_router.china_runtime.api_base == "https://open.bigmodel.cn/api/paas/v4"
+    assert "test-only-glm-key" not in result.text
+
+
 def test_text_first_and_repeated_chat_do_not_edit_su(tmp_path):
     app, client, project, agent, su = workspace(tmp_path)
     for _ in range(10):

@@ -50,6 +50,23 @@ module CodexSketchupArchitect
     {available: false, error: error.class.name + ': ' + error.message}
   end
 
+  # Empty nested groups are not a geometry checkpoint. Avoid revisiting shared
+  # definitions (and malformed recursive definitions) during this readback.
+  def self.has_geometry?(entities, seen = {})
+    entities.any? do |entity|
+      if entity.is_a?(Sketchup::Face) || entity.is_a?(Sketchup::Edge)
+        true
+      elsif entity.is_a?(Sketchup::Group) || entity.is_a?(Sketchup::ComponentInstance)
+        definition = entity.definition
+        next false if seen[definition.object_id]
+        seen[definition.object_id] = true
+        has_geometry?(definition.entities, seen)
+      else
+        false
+      end
+    end
+  end
+
   # expected_guid is a freshly inspected snapshot token, not a permanent identity.
   # root_pid=nil creates a new owned root; otherwise updates the specified owned root.
   # The yielded block may modify ONLY that root and explicitly scoped scene/material data.
@@ -96,6 +113,7 @@ module CodexSketchupArchitect
       raise 'Active model switched during operation' unless Sketchup.active_model == model
       raise 'Build removed its owned root' unless root.valid?
       raise 'Build left an empty owned root; use readback tools for inspection' if root.entities.length.zero?
+      raise 'Build left only empty containers; no geometry checkpoint' unless has_geometry?(root.entities)
       root.set_attribute(DICT, 'revision', expected_revision + 1)
       # A commit can invalidate a Ruby entity wrapper on SketchUp 2024.
       # Capture the persistent identity while it is valid, before committing.

@@ -16,6 +16,9 @@ def main() -> None:
     sys.path.insert(0, str(root))
     parser = argparse.ArgumentParser()
     parser.add_argument("--attach", type=int, help="Reuse an already running local workbench port for UI validation")
+    parser.add_argument("--data-dir", type=Path, help="Use a separate local application profile")
+    parser.add_argument("--standalone", action="store_true", help="Use an API and an explicit bridge.json; no Codex config fallback")
+    parser.add_argument("--api-provider", choices=("glm", "glm-international", "deepseek"), default="glm")
     args = parser.parse_args()
     import webview
     webview.settings["ALLOW_DOWNLOADS"] = True
@@ -25,11 +28,26 @@ def main() -> None:
     else:
         import uvicorn
         from app.main import create_app
-        data = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "KStudio"
+        data = args.data_dir.resolve() if args.data_dir else Path(os.environ.get("LOCALAPPDATA", Path.home())) / "KStudio"
         data.mkdir(parents=True, exist_ok=True)
         runtime = data / "runtime"
         bridge = data / "bridge.json"
-        if bridge.is_file():
+        if args.standalone:
+            os.environ["ARCH_STUDIO_STANDALONE"] = "1"
+            os.environ["ARCH_STUDIO_ECONOMY_PROVIDER"] = "litellm"
+            if args.api_provider == "deepseek":
+                os.environ["ARCH_STUDIO_API_MODEL"] = "deepseek/deepseek-flash"
+                os.environ["ARCH_STUDIO_API_KEY_ENV"] = "DEEPSEEK_API_KEY"
+                os.environ["ARCH_STUDIO_API_BASE"] = "https://api.deepseek.com"
+            else:
+                os.environ["ARCH_STUDIO_API_MODEL"] = "zai/glm-5.3-flash"
+                os.environ["ARCH_STUDIO_API_KEY_ENV"] = "ZAI_API_KEY"
+                os.environ["ARCH_STUDIO_API_BASE"] = ("https://api.z.ai/api/paas/v4" if args.api_provider == "glm-international"
+                                                    else "https://open.bigmodel.cn/api/paas/v4")
+            os.environ["ARCH_STUDIO_ECONOMY_REASONING_EFFORT"] = "low"
+            # Even missing config must fail explicitly rather than borrow Codex's installation.
+            os.environ["ARCH_STUDIO_MCP_CONFIG"] = str(bridge)
+        elif bridge.is_file():
             os.environ["ARCH_STUDIO_MCP_CONFIG"] = str(bridge)
         with socket.socket() as probe:
             probe.bind(("127.0.0.1", 0))

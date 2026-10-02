@@ -5,6 +5,7 @@ import io
 import json
 import math
 import mimetypes
+import os
 import re
 import shutil
 import threading
@@ -485,12 +486,23 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             router = app.state.model_router
             provider = router.china_runtime
             if data.get("mode") == "preset":
+                if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":
+                    raise HTTPException(status_code=409, detail="独立 API 模式请配置自己的 API，不能切换到 Codex。")
                 provider.session_api_key = ""
                 router.economy_route = app.state.preset_route
             else:
                 model = str(data.get("model", "")).strip()
                 key = str(data.get("api_key", "")).strip()
                 base = str(data.get("api_base", "")).strip()
+                if data.get("mode") == "deepseek":
+                    model = "deepseek/deepseek-flash"
+                    base = "https://api.deepseek.com"
+                elif data.get("mode") == "glm":
+                    model = "zai/glm-5.3-flash"
+                    base = "https://open.bigmodel.cn/api/paas/v4"
+                elif data.get("mode") == "glm-international":
+                    model = "zai/glm-5.3-flash"
+                    base = "https://api.z.ai/api/paas/v4"
                 parsed = urlsplit(base)
                 if not model or len(model) > 160 or "astra" in model.lower() or not key or len(key) > 4096:
                     raise HTTPException(status_code=400, detail="请填写可用的模型名称与 API Key；本轮不提供 Astra 路由。")
@@ -502,7 +514,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 provider.custom_api_base = base
                 provider.session_api_key = key
                 provider.region = "user-configured (not verified)"
-                router.economy_route = ModelRoute("economy", "litellm", model, "provider-default", provider.region)
+                effort = "low" if data.get("mode") in {"deepseek", "glm", "glm-international"} else "provider-default"
+                router.economy_route = ModelRoute("economy", "litellm", model, effort, provider.region)
             return router.status()
         except (ValueError, AttributeError):
             raise HTTPException(status_code=400, detail="模型设置格式不正确。") from None
@@ -1444,7 +1457,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         skill_context = load_workflow_skill_context(request.workflow_mode, mcp_enabled=mcp_enabled)
         prompt = _agent_prompt(
             native_context, request.message, mcp_enabled=mcp_enabled,
-            model_info=model_info, architecture_skill_context=skill_context,
+            model_info=model_info, architecture_skill_context="" if request.workflow_mode == "image_reconstruction" else skill_context,
             workflow_mode=request.workflow_mode,
             agent_action=action,
         )
@@ -1523,7 +1536,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 model_guid=session.model_guid if mcp_enabled else "",
                 ruby_enabled=mcp_enabled,
                 ruby_state=session.ruby_state,
-                architecture_skill_context="",
+                architecture_skill_context=skill_context if request.workflow_mode == "image_reconstruction" else "",
                 workflow_mode=request.workflow_mode,
                 tool_profile=workflow_tool_profile(request.workflow_mode),
                 developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled, action=action),

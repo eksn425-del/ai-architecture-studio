@@ -175,7 +175,14 @@ class AgentToolSurface:
                     "model readback plus a screenshot. update_mode=replace (default) CLEARS the owned root before running "
                     "the complete reconstruction script. update_mode=edit retains that existing script_id root for "
                     "incremental corrections. Never use replace with inspection-only or partial patch code; use readback "
-                    "tools for inspection. edit requires the same existing script_id."
+                      "tools for inspection. edit requires the same existing script_id. "
+                      "Ruby runs inside a host-owned transaction with injected model and root (Sketchup::Group). "
+                      "Create geometry only under root.entities, e.g. g=root.entities.add_group; "
+                      "g.entities.add_face(...). Do not redefine root, use Sketchup.active_model/active_entities, "
+                      "or call start_operation/commit_operation/abort_operation/save/export: the host owns these. "
+                      "A Group has .entities; Sketchup::Entities does not. "
+                      "Isolate adjacent solids in child groups/components: pushpull can merge/delete coplanar faces. "
+                      "Do not reuse a Face after pushpull unless valid?. Pass model explicitly into Ruby def helpers."
                 ),
                 "inputSchema": {
                     "type": "object",

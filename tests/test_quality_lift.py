@@ -176,6 +176,8 @@ def test_project_ruby_path_and_source_restrictions(tmp_path):
         with pytest.raises(ValueError, match="blocked"):
             validate_project_ruby_source("main", source)
     assert validate_project_ruby_source("main", "box = root.entities.add_group; model.active_view.zoom_extents")
+    with pytest.raises(ValueError, match="Remove all active_model"):
+        validate_project_ruby_source("main", "model.start_operation('build', true) if model.respond_to?(:start_operation)")
     with pytest.raises(ValueError, match="disposable"):
         ProjectRubyExecutor(
             tmp_path / "runtime", "quality-test",

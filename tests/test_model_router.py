@@ -123,3 +123,81 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
     assert (result.input_tokens, result.output_tokens) == (246, 90)
     assert result.tool_call_count == 1
     assert result.failed_tool_calls == 0
+
+
+def test_deepseek_preserves_thinking_through_tools_and_next_turn(tmp_path, monkeypatch):
+    runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient(), model="deepseek/deepseek-flash")
+    runtime.session_api_key = "test-only-key"
+    runtime.custom_api_base = "https://api.deepseek.com"
+    seen = []
+
+    def completion(**kwargs):
+        import copy
+        seen.append(copy.deepcopy(kwargs))
+        assert kwargs["reasoning_effort"] == "low"
+        assert kwargs["extra_body"]["reasoning_effort"] == "low"
+        assert kwargs["model"] == "deepseek/deepseek-flash"
+        if len(seen) == 1:
+            message = {"content": None, "reasoning_content": "tool-thought", "tool_calls": [
+                {"id": "health", "function": {"name": "sketchup_health", "arguments": "{}"}}]}
+        else:
+            previous = [m for m in kwargs["messages"] if m["role"] == "assistant"]
+            assert previous[0]["reasoning_content"] == "tool-thought"
+            if len(seen) == 3:
+                assert previous[-1]["reasoning_content"] == "final-thought"
+            message = {"content": "checked", "reasoning_content": "final-thought"}
+        return SimpleNamespace(choices=[SimpleNamespace(message=message)], usage={})
+
+    module = ModuleType("litellm")
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, "litellm", module)
+    result = runtime.respond(project_dir=tmp_path, thread_id=None, prompt="check", mcp_enabled=True,
+                             developer_instructions="test", ruby_enabled=False, reasoning_effort="low")
+    runtime.respond(project_dir=tmp_path, thread_id=result.thread_id, prompt="again", mcp_enabled=True,
+                    developer_instructions="test", ruby_enabled=False, reasoning_effort="low")
+    assert len(seen) == 3
+
+
+def test_litellm_stops_repeated_modeling_failures_and_checkpoints_history(tmp_path, monkeypatch):
+    import json
+    runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient())
+    runtime.session_api_key = "test-only-key"
+    tool = {"name": "sketchup_run_workspace_ruby", "inputSchema": {"type": "object"}}
+    monkeypatch.setattr(runtime.tool_surface, "prepare", lambda **kw: SimpleNamespace(
+        dynamic_tools=[tool], dispatch=lambda *args: {"success": False, "text": "blocked script"}))
+    seen = []
+    def completion(**kw):
+        seen.append(kw)
+        return SimpleNamespace(choices=[SimpleNamespace(message={"content": None, "tool_calls": [
+            {"id": str(len(seen)), "function": {"name": tool["name"], "arguments": "{}"}}]})], usage={})
+    module = ModuleType("litellm")
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, "litellm", module)
+    with pytest.raises(NativeAgentUnavailable, match="连续 3 次"):
+        runtime.respond(project_dir=tmp_path, thread_id="litellm-test", prompt="build", mcp_enabled=True,
+                        developer_instructions="test")
+    assert len(seen) == 3
+    saved = json.loads((tmp_path / "runtime/provider_sessions/litellm-test.json").read_text(encoding="utf-8"))
+    assert sum(m["role"] == "tool" for m in saved["messages"]) == 3
+    events = next((tmp_path / "runtime/agent_events").glob("*.jsonl")).read_text(encoding="utf-8")
+    assert "retry_budget_exhausted" in events and "blocked script" in events
+
+
+def test_litellm_skill_is_once_in_current_system_not_repeated_history(tmp_path, monkeypatch):
+    import json
+    runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient())
+    runtime.session_api_key = "test-only-key"
+    seen = []
+    def completion(**kw):
+        seen.append(json.loads(json.dumps(kw["messages"])))
+        return SimpleNamespace(choices=[SimpleNamespace(message={"content": "ok"})], usage={})
+    module = ModuleType("litellm")
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, "litellm", module)
+    result = runtime.respond(project_dir=tmp_path, thread_id=None, prompt="first", mcp_enabled=False,
+                             developer_instructions="test", architecture_skill_context="UNIQUE_SKILL")
+    runtime.respond(project_dir=tmp_path, thread_id=result.thread_id, prompt="second", mcp_enabled=False,
+                    developer_instructions="test", architecture_skill_context="UNIQUE_SKILL")
+    assert sum(json.dumps(m).count("UNIQUE_SKILL") for m in seen[-1]) == 1
+    assert "UNIQUE_SKILL" in seen[-1][0]["content"]
+    assert any(m.get("content") == "first" for m in seen[-1])

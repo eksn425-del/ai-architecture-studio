@@ -57,8 +57,10 @@ class DeterministicModelRouter:
                 "economy", "codex-app-server", economy_model, economy_effort, "codex-managed (not exposed)",
             )
         else:
+            api_effort = (_reasoning_effort("ARCH_STUDIO_ECONOMY_REASONING_EFFORT", "low")
+                          if os.environ.get("ARCH_STUDIO_ECONOMY_REASONING_EFFORT") else "provider-default")
             self.economy_route = ModelRoute(
-                "economy", "litellm", self.china_runtime.model, "provider-default", self.china_runtime.region,
+                "economy", "litellm", self.china_runtime.model, api_effort, self.china_runtime.region,
             )
         premium_model = os.environ.get("ARCH_STUDIO_PREMIUM_MODEL", "gpt-6-astra")
         if premium_model != "gpt-6-astra":
@@ -80,6 +82,8 @@ class DeterministicModelRouter:
         if tier == "economy":
             return self.economy_route
         if tier == "premium":
+            if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":
+                raise NativeAgentUnavailable("Standalone API mode cannot invoke Codex or Astra.")
             return self.premium_route
         raise ValueError("Model tier must be 'economy' or 'premium'.")
 

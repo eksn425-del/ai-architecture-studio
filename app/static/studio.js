@@ -26,7 +26,7 @@ async function refreshProjects() {
 
 function renderProjectHistory() {
   $("session-count").textContent = projectList.length;
-  $("project-history").innerHTML = projectList.map((p) => `<div class="history-row"><button class="history-item${p.project_id === state.projectId ? " active" : ""}" data-project="${escapeHtml(p.project_id)}" title="${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}><span>◷</span><span>${escapeHtml(p.project_name)}</span></button><button class="delete-label" data-delete-project="${escapeHtml(p.project_id)}" aria-label="删除项目 ${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}>删除</button></div>`).join("");
+  $("project-history").innerHTML = projectList.map((p) => `<div class="history-row"><button class="history-item${p.project_id === state.projectId ? " active" : ""}" data-project="${escapeHtml(p.project_id)}" title="${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}><span>◷</span><span>${escapeHtml(p.project_name)}</span></button></div>`).join("");
 }
 
 function showResults(open) {
@@ -209,7 +209,7 @@ function updateHeader() {
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
-  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="delete-label" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>删除</button></div>`).join("");
+  $("reference-gallery").innerHTML = sourceImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="image-remove" title="移除图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
@@ -687,6 +687,9 @@ async function sendConversation(event, agentAction = "auto") {
 
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
 $("conversation-form").addEventListener("submit", sendConversation);
+$("conversation-input").addEventListener("focus", () => {
+  if (window.innerWidth <= 1050) showResults(false);
+});
 $("approve-reconstruction").addEventListener("click", (event) => sendConversation(event, "execute"));
 $("revise-reconstruction-plan").addEventListener("click", () => {
   state.planEditing = true;
@@ -871,7 +874,13 @@ function startLiveProgress() {
 
 $("model-settings-toggle").addEventListener("click", () => $("model-settings-dialog").showModal());
 $("model-settings-close").addEventListener("click", () => { $("api-key").value = ""; $("model-settings-dialog").close(); });
-$("provider-mode").addEventListener("change", () => $("byok-fields").hidden = $("provider-mode").value !== "byok");
+$("provider-mode").addEventListener("change", () => {
+  const mode = $("provider-mode").value;
+  const presets = {deepseek:["deepseek/deepseek-flash","https://api.deepseek.com"], glm:["zai/glm-5.3-flash","https://open.bigmodel.cn/api/paas/v4"], "glm-international":["zai/glm-5.3-flash","https://api.z.ai/api/paas/v4"]};
+  $("byok-fields").hidden = mode === "preset";
+  $("api-model").readOnly = !!presets[mode]; $("api-base").readOnly = !!presets[mode];
+  if (presets[mode]) { [$("api-model").value,$("api-base").value] = presets[mode]; }
+});
 $("model-settings-form").addEventListener("submit", async event => {
   event.preventDefault();
   $("model-settings-status").textContent = "正在设置连接…";
@@ -932,3 +941,23 @@ $("trash-list").addEventListener("click", async event => {
   } catch(error) { showToast(friendlyError(error), true); button.disabled = false; }
   finally { state.busy = false; updateHeader(); }
 });
+
+let menuProjectId = null;
+function closeProjectMenu() { $("project-context-menu").hidden = true; menuProjectId = null; }
+$("project-history").addEventListener("contextmenu", event => {
+  const item = event.target.closest("[data-project]");
+  if (!item) return;
+  event.preventDefault(); if (state.busy) return;
+  menuProjectId = item.dataset.project;
+  const menu = $("project-context-menu"); menu.hidden = false;
+  menu.style.left = `${Math.max(0, Math.min(event.clientX, innerWidth - menu.offsetWidth - 8))}px`;
+  menu.style.top = `${Math.max(0, Math.min(event.clientY, innerHeight - menu.offsetHeight - 8))}px`;
+  $("project-context-delete").focus();
+});
+$("project-context-delete").addEventListener("click", async () => {
+  const id = menuProjectId; closeProjectMenu(); if (id) await deleteProject(id);
+});
+document.addEventListener("pointerdown", event => { if (!event.target.closest("#project-context-menu")) closeProjectMenu(); });
+document.addEventListener("keydown", event => { if (event.key === "Escape") closeProjectMenu(); });
+window.addEventListener("resize", closeProjectMenu);
+document.addEventListener("scroll", closeProjectMenu, true);

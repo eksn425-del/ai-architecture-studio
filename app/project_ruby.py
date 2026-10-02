@@ -47,7 +47,13 @@ def validate_project_ruby_source(script_id: str, ruby_source: str) -> str:
         raise ValueError("ruby_source exceeds the 120 KB project-script limit.")
     match = _FORBIDDEN_SOURCE.search(ruby_source)
     if match:
-        raise ValueError(f"Ruby source contains a blocked host, reflection, whole-model, or process operation: {match.group(0)!r}.")
+        raise ValueError(
+            f"Ruby source contains a blocked host, reflection, whole-model, or process operation: {match.group(0)!r}. "
+            "The host already injects model and root (Sketchup::Group) and owns the transaction/save. "
+            "Remove all active_model and start/commit/abort_operation calls, including conditional ones. "
+            "Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly "
+            "or be lambdas capturing them, because Ruby def does not capture local variables."
+        )
     return ruby_source
 
 

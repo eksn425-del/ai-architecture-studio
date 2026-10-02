@@ -84,6 +84,11 @@ def test_agent_tool_surface_exposes_workspace_file_execution_when_ruby_enabled(t
     assert "sketchup_eval_project_file" not in names
     assert "sketchup_run_workspace_ruby" in names
     assert "sketchup_run_project_ruby" in names
+    ruby_tool = next(t for t in surface.dynamic_tools(ruby_enabled=True)
+                     if t["name"] == "sketchup_run_workspace_ruby")
+    assert "root.entities" in ruby_tool["description"]
+    assert "host-owned transaction" in ruby_tool["description"]
+    assert "Do not redefine root" in ruby_tool["description"]
 
 
 def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
@@ -99,4 +104,6 @@ def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
     assert "root.entities.to_a.each { |entity| entity.erase! }" not in edit
     helper = Path("app/vendor/sketchup_architect/scripts/model_session.rb").read_text(encoding="utf-8")
     assert "if root.entities.length.zero?" in helper
+    assert "unless has_geometry?(root.entities)" in helper
+    assert "seen[definition.object_id]" in helper
     assert helper.index("committed_root_pid = root.persistent_id") < helper.index("unless model.commit_operation")

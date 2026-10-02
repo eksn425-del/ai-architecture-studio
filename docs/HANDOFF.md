@@ -1,5 +1,18 @@
 # Handoff — AI Architecture Studio
 
+## Latest local API integration — domestic GLM / novice UI (2026-10-02)
+
+Started from clean, up-to-date main `79f34149d32e1aaaa8f7da4ce7f51be53bdb2cd1`. User extended the image-reconstruction work to independent API delivery and selected domestic BigModel GLM-5.3-Flash. No Astra/Codex building fallback, proprietary competitor code, new provider framework or geometry engine.
+
+- Replaced prominent delete labels with thumbnail corner × and project right-click menu; reversible trash/restore remains. Improved narrow composer/result-panel behavior after a real send obstruction.
+- Domestic GLM preset, Low effort and image/tool/thinking continuity use existing LiteLLM. Installed serializer contract tests cover domestic GLM/international GLM/DeepSeek; distinguish mocked transport from live calls. Standalone desktop API profile uses only explicit bridge configuration and rejects Codex/Premium. EXE rebuild succeeded; second-machine installation and bridge packaging remain pending.
+- Real website → domestic GLM Low → disposable SU single-view run: build819.032s/36calls/12failures; revision468.547s/33calls/1failure. Provider-summed usage build1,931,784input/41,383output; revision3,632,547input/15,011output. Initial floor count needed correction. Building root37853 retained through r8 after earlier empty probe. Six exterior views were actually read back, side walls repaired, final model downloaded with matching SHA256 `d718935189358438e8fe1527a7693564e806cf80f06e48ee7c07f97828279a86`.
+- **Quality FAIL / partial:** opaque-looking right glazing, incorrect heavy/white frames, dangling panels and weak material detail persist. Agent's QA optimism is not acceptance. Single-view rear/interior inference is schematic. Six-view comparison is pending; do not report this product as commercially ready.
+- Derived fixes: explicit injected root/Ruby scope contract, recursive empty-container rejection, Skill once in system context, tool-history checkpointing and three-failed-execution stop. Rebuilt service now runs API-only with these changes. New live building validation requires Key re-entry after restart (Key remains memory-only), not an outer permission probe.
+- `scripts/check.ps1`: 125 passed with two dependency warnings; final rerun recorded below if different. Private images/models/generated Ruby/logs/screenshots remain ignored; no original model edited. See [API review](API_STANDALONE_RECONSTRUCTION_REVIEW.md) for measurements and release gaps.
+
+
+
 ## Latest user-requested fix — image/project deletion (2026-10-02)
 
 Started from clean, up-to-date main `174082d`. Added visible 删除 labels to pasted/uploaded reference thumbnails and each left-hand project/history row. Deletion moves generated project data or registered reference input into ignored local runtime/trash; a 回收站 dialog provides restoration, including after restart. No permanent purge UI, no original assets or SketchUp geometry edits.

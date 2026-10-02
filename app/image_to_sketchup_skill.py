@@ -65,6 +65,18 @@ Before the first substantial build, summarize the parameter/construction plan fo
 
 Planning is not completion. In clarify/plan mode do not edit SketchUp geometry.
 
+## Evidence across views and unseen geometry
+
+Record views, floors, openings, materials and landmarks in the card. Reconcile dimensions; flag contradictions for approval. Views constrain ONE building; never promise zero errors.
+
+With approved inference, complete rear/sides/roof as ASSUMED. Continue levels, wall thickness, roof/drainage and facade vocabulary; infer rear openings, circulation and service spaces. Avoid blank backs or blindly mirrored fronts. Stairs must reach requested floors; doors need usable landings and balcony access. Interiors without evidence are schematic assumptions.
+
+## Materials and full-building QA
+
+Check glass, frames, slab/soffit depth, stone joints, timber and metal profiles. Match color/scale; use local licensed textures or simplified materials plus relief geometry. Flat color is not photographic texture. Inspect face orientation.
+
+Inspect front/rear/both sides/roof/oblique for multi-angle delivery. Match each supplied view; compare silhouette, floors, openings, projections and materials. Check inferred sides for alignment, access and roof continuity. Record defects/corrections/uncertainty in notes/visual_qa.md. Correct largest mismatches first; batch repeated detail, avoid per-member calls/full rebuilds. Unchecked required views mean partial delivery, not completion or construction verification.
+
 ## Method card D — Pass 1: recognizable primary form
 
 After approval, use persistent workspace Ruby as the primary project-specific authoring mechanism. Use SAIE only as a helper for ordinary semantic elements when it is genuinely simpler.
