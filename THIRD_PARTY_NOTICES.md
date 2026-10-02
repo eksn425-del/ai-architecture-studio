@@ -41,6 +41,7 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 - Upstream: `BerriAI/litellm`
 - Use in this repository: optional external dependency for provider compatibility; source is not vendored here. See `requirements-model-providers.txt`.
+- Public source review on 2026-10-02: `7d50a31eb5b080c29438f97be7701e117938ce88`. Upstream root LICENSE grants MIT to non-enterprise source; `enterprise/` has separate licensing. This project uses the SDK, not enterprise-covered features. No new LiteLLM source was vendored in this review.
 
 ## PlanFloor AI Agent
 

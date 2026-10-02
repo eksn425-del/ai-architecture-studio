@@ -23,7 +23,7 @@ function renderWorkflowChecks(progress = null) {
   const plan = ["planned", "building"].includes(agent.reconstruction_state);
   const items = progress?.checks || [
     {label:"模型 API", status:routeAvailable("economy") ? "done" : "blocked", detail:routeAvailable("economy") ? "已配置；本轮调用状态见进度" : "请配置模型连接"},
-    {label:"参考资料", status:sourceImages().length ? "done" : "pending", detail:`${sourceImages().length} 张项目图片；发送后仍保留上下文`},
+    {label:"建模需求", status:sourceImages().length || state.project?.context?.conversation?.length ? "done" : "pending", detail:sourceImages().length ? `${sourceImages().length} 张项目图片；发送后仍保留上下文` : "也可以用文字描述建筑；AI 会先整理假设与计划"},
     {label:"建模计划", status:plan ? "done" : "pending", detail:plan ? "参数已整理" : "回答关键问题后生成计划"},
     {label:"SketchUp 连接", status:agent.status === "ready" ? "done" : "pending", detail:agent.status === "ready" ? "已绑定独立模型；执行前再核验" : "建模前连接独立模型"},
     {label:"实际模型修改", status:geometry ? "done" : "pending", detail:geometry ? "已有已提交几何" : "尚未提交几何；写脚本不等于已建模"},
@@ -264,14 +264,14 @@ function updateHeader() {
   $("agent-session-state").textContent = agentReady
     ? `已绑定项目独立模型 · ${agent.model_path.split("/").at(-1)}。实时连接请通过检查连接确认。`
     : agent.status === "conversation" ? "Agent 对话已建立 · SketchUp 建模工具尚未启用" : "尚未打开项目专属空白副本";
-  $("start-agent-session").disabled = state.busy || !routeAvailable("economy");
+  $("start-agent-session").disabled = state.busy;
   if (!state.busy) $("start-agent-session").querySelector("span:first-child").textContent = agentReady ? "重连 SketchUp" : "连接 SketchUp";
   const hasAgentTurn = agent.status === "conversation" || agent.status === "ready";
   const activeTier = hasAgentTurn ? agent.routing_tier : "economy";
   const activeModel = hasAgentTurn && agent.model ? agent.model : routeInfo("economy").model;
   $("model-tier-status").textContent = (activeTier === "premium" ? "精修 · " : "Economy · ") + activeModel;
   $("conversation-input").placeholder = $("workflow-mode").value === "image_reconstruction"
-    ? "按这张图尽可能还原成可编辑 SketchUp 模型"
+    ? sourceImages().length ? "根据这些图片还原建筑，或继续描述修改要求" : "描述你想建的建筑，也可粘贴一张或多个视角图片"
     : agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
   $("conversation-hint").textContent = agentReady
     ? "每轮对话都在同一份 SketchUp 副本上执行；Agent 可连续调用工具、查看截图/状态并保存检查点。"
@@ -287,7 +287,7 @@ function updateHeader() {
   $("model-settings-toggle").disabled = state.busy;
   renderAttachments();
   $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || (!$("conversation-input").value.trim() && !(reconstruction && reconstructionState === "idle" && hasImages));
-  $("next-step").textContent = !hasImages ? "下一步：上传建筑参考图片。" : {idle: "下一步：描述目标或直接点击「分析图片」。", clarifying: "下一步：回答 AI 的问题；若信息已齐全，输入「按上述要求生成计划」。", planned: agentReady ? "下一步：查看参数计划，修改不合适的估算，或批准并开始建模。" : "下一步：查看计划，然后打开项目模型，再批准建模。", building: "下一步：查看模型截图或下载 SKP；在对话中输入具体修改要求。"}[reconstructionState];
+  $("next-step").textContent = {idle: hasImages ? "下一步：描述目标或直接点击「分析图片」。" : "下一步：描述建筑，或上传一张/多个视角参考图。", clarifying: "下一步：回答关键问题；信息齐全后整理计划。", planned: agentReady ? "下一步：查看估算，批准并开始建模。" : "下一步：查看计划，连接 SketchUp 后批准建模。", building: "下一步：查看截图或下载 SKP；继续输入修改要求。"}[reconstructionState];
   $("revise-reconstruction-plan").hidden = !reconstruction || !["planned", "building"].includes(reconstructionState);
   $("revise-reconstruction-plan").disabled = state.busy;
   $("approve-reconstruction").hidden = !reconstruction || reconstructionState !== "planned";
@@ -574,7 +574,7 @@ async function checkConnector() {
 }
 
 async function startAgentSession() {
-  if (!state.projectId || state.busy || !routeAvailable("economy")) return;
+  if (!state.projectId || state.busy) return;
   state.busy = true;
   const button = $("start-agent-session");
   setBusy(button, true, "正在启动 SketchUp 空白副本…");
@@ -590,7 +590,7 @@ async function startAgentSession() {
     setTab("model");
     showResults(false);
     setStatus("项目专属空白副本已校验；现在可以用自然语言要求 Agent 建模。", "ready");
-    showToast("Codex Agent 已连接到项目专属 SketchUp 空白副本。", false);
+    showToast("已连接到本会话的 SketchUp 独立模型。", false);
   } catch (error) {
     setStatus(friendlyError(error), "error");
     showToast(friendlyError(error), true);
@@ -658,7 +658,6 @@ async function sendConversation(event, agentAction = "auto") {
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
   const typed = $("conversation-input").value.trim();
   if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && !/不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(typed) && /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(typed)) agentAction = "execute";
-  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned") agentAction = "plan";
   if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") { $("connect-dialog").showModal(); return; }
   const message = agentAction === "execute" ? ($("conversation-input").value.trim() || "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。") : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
@@ -883,7 +882,19 @@ $("connect-check").addEventListener("click", async () => {
   } catch (_) { $("connect-status").textContent = "连接未就绪，请检查 SketchUp 与插件是否已启动。"; }
 });
 $("connect-open").addEventListener("click", async () => {
-  $("connect-dialog").close(); await startAgentSession();
+  if (state.busy || $("connect-open").disabled) return;
+  $("connect-open").disabled = true;
+  $("connect-status").textContent = "正在自动检查连接；成功后打开本会话独立模型…";
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
+    if (!result.reachable) {
+      $("connect-status").textContent = "插件尚未响应。请按上方步骤安装并启动插件，再点击自动连接；不会修改已有模型。";
+      return;
+    }
+    $("connect-dialog").close();
+    await startAgentSession();
+  } catch (error) { $("connect-status").textContent = friendlyError(error); }
+  finally { $("connect-open").disabled = false; }
 });
 function startLiveProgress() {
   const generation = ++progressGeneration;

@@ -28,8 +28,9 @@ def test_codex_app_server_turn_input_uses_local_image_wire_variant(tmp_path: Pat
 
     turn_input = _app_server_turn_input("Describe both images.", [first, second])
 
-    assert [item["type"] for item in turn_input] == ["text", "localImage", "localImage"]
-    assert [item["path"] for item in turn_input[1:]] == [str(first), str(second)]
+    assert [item["type"] for item in turn_input] == ["text", "text", "localImage", "text", "localImage"]
+    assert [item["path"] for item in turn_input if item["type"] == "localImage"] == [str(first), str(second)]
+    assert first.name in turn_input[1]["text"] and second.name in turn_input[3]["text"]
 
 
 def test_router_allows_explicit_benchmark_reasoning_overrides(tmp_path, monkeypatch):

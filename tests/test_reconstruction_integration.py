@@ -128,7 +128,10 @@ def test_litellm_reconstruction_retains_history_and_uploaded_evidence(tmp_path, 
     assert any(m["role"] == "assistant" for m in seen[1]["messages"])
     text = seen[0]["messages"][1]["content"][0]["text"]
     assert "reference.png" in text and "site.png" in text and "brief.png" in text
-    assert len(seen[0]["messages"][1]["content"]) == 4
+    assert len(seen[0]["messages"][1]["content"]) == 7
+    blocks = seen[0]["messages"][1]["content"]
+    assert all(blocks[i - 1]["type"] == "text" and ".png" in blocks[i - 1]["text"]
+               for i, block in enumerate(blocks) if block["type"] == "image_url")
 
 
 def test_provider_configuration_reuses_litellm_without_dashscope_lock(tmp_path, monkeypatch):

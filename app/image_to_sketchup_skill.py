@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-MAX_CONTEXT_CHARS = 8_000
+MAX_CONTEXT_CHARS = 10_000
 
 
 _IMAGE_TO_SKETCHUP_CONTEXT = r"""
@@ -67,7 +67,11 @@ Planning is not completion. In clarify/plan mode do not edit SketchUp geometry.
 
 ## Evidence across views and unseen geometry
 
+First classify the supplied evidence: one image, multiple views of ONE building, or text only. For text only, plan a proposed design from the user's description; do not claim to have inspected a photo or recovered an existing building. Do not demand an image if the user wants a text-described building. Use the same approval, persistent coding, editable model and QA loop.
+
 Record views, floors, openings, materials and landmarks in the card. Reconcile dimensions; flag contradictions for approval. Views constrain ONE building; never promise zero errors.
+
+For every supplied image, record its exact filename, visible landmarks (street/gate/pool/stair), viewing side, floor lines and major openings before deciding front/rear. Filename labels are hints, not proof. Do not silently swap the street entrance and pool facade. Match each QA screenshot to a named source image using the same landmarks. If a view interpretation changes, correct the card and affected geometry before calling the result acceptable.
 
 With approved inference, complete rear/sides/roof as ASSUMED. Continue levels, wall thickness, roof/drainage and facade vocabulary; infer rear openings, circulation and service spaces. Avoid blank backs or blindly mirrored fronts. Stairs must reach requested floors; doors need usable landings and balcony access. Interiors without evidence are schematic assumptions.
 

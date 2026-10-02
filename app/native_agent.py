@@ -42,7 +42,9 @@ def _app_server_environment(parent_environment: dict[str, str]) -> dict[str, str
 def _app_server_turn_input(prompt: str, reference_images: list[Path]) -> list[dict[str, str]]:
     """Build App Server input items; its JSON enum is camelCase ``localImage``."""
     turn_input = [{"type": "text", "text": prompt}]
-    turn_input.extend({"type": "localImage", "path": str(path)} for path in reference_images)
+    for index, path in enumerate(reference_images, 1):
+        turn_input.append({"type": "text", "text": f"Source image {index}: {path.parent.name}/{path.name}. This label identifies the following image; verify its view from visible landmarks."})
+        turn_input.append({"type": "localImage", "path": str(path)})
     return turn_input
 
 

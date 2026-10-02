@@ -25,7 +25,7 @@ from pydantic import BaseModel, ValidationError
 
 from .brain import BrainUnavailable, CodexBrainAdapter
 from .workflow_context import load_workflow_skill_context, workflow_developer_instructions, workflow_prompt_note, workflow_tool_profile
-from .reconstruction_runtime import build_reconstruction_turn_policy, require_reconstruction_reference, reconstruction_context_payload
+from .reconstruction_runtime import build_reconstruction_turn_policy, reconstruction_context_payload
 from .generators import generate_drawing, generate_presentation
 from .models import (
     AgentSession, Artifact, BuildPlan, ConversationMessage, ConversationRequest, CreateProjectRequest,
@@ -533,6 +533,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 elif data.get("mode") == "glm-international":
                     model = "zai/glm-5.3-flash"
                     base = "https://api.z.ai/api/paas/v4"
+                from .litellm_runtime import requires_responses_tools
+                if requires_responses_tools(model):
+                    raise HTTPException(status_code=409, detail="GPT-6.1 Sol 的 API 工具调用需要 Responses，当前尚未开放这条建模路线。请使用已接入的 GLM/DeepSeek；Codex 登录路线仅用于本机研发。")
                 # Changing effort for the same connection never requires reading
                 # or returning the existing memory-only credential.
                 if not key and model == provider.model and base == provider.api_base:
@@ -901,10 +904,16 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     @app.post("/api/projects/{project_id}/agent/session")
     def start_agent_session(project_id: str, request: dict[str, Any]) -> dict[str, Any]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="建模回合正在执行；结束后才能连接或切换模型。")
+        try:
+            return _start_agent_session(project_id, request)
+        finally:
+            app.state.agent_lock.release()
+
+    def _start_agent_session(project_id: str, request: dict[str, Any]) -> dict[str, Any]:
         if request.get("confirm_disposable_model") is not True:
             raise HTTPException(status_code=400, detail="Confirm that AI Architecture Studio may open a blank disposable SketchUp copy.")
-        if not app.state.model_router.available:
-            raise HTTPException(status_code=503, detail="No configured local model provider is available.")
         try:
             project_dir = store.ensure_layout(project_id)
             session: AgentSession = store.load_state(project_id, "agent_session.json", AgentSession)

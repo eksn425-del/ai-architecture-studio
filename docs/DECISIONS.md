@@ -1,5 +1,13 @@
 # Product & Architecture Decisions
 
+## 2026-10-02 — user-approved product repair/research, no new inference spend
+
+The user requested novice input coverage (single image, multiple views, text), connection/progress/revision reliability, OSS/commercial research and a low-cost launch proposal. They then explicitly chose **no spending: product fixes and research first**. This extends the old single-image task for free contract/UX checks and research, not for new paid/native model runs or acceptance claims. Taskbook/site design quality remains a later unaccepted capability; do not introduce payments, cloud infrastructure, other modeling software or a new geometry/provider engine.
+
+Keep a single writing Agent with persistent Ruby and existing bridge/helper capabilities. Investigate a separate Visual Critic only with a measured comparison; it is not mandatory. Preserve approval/disposable identity/owned root/checkpoint guards, relax accidental frontend re-planning and image-required wording for text descriptions. SDK compatibility must be proven before marketing a model preset: GPT-6.1 Sol API tools require Responses; current Chat Completions adapter rejects that route before sending a request. Native Codex remains a development path.
+
+See [product review](PRODUCT_RELIABILITY_AND_LAUNCH_REVIEW_2026-10-02.md). Propose Windows local delivery and invited beta first. Three-input free fixture tests do not establish building quality; GLM historical quality remains FAIL/partial and fresh-machine installation remains pending.
+
 ## D-001 — Product form
 
 **Status:** Accepted

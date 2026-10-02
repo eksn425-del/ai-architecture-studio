@@ -140,6 +140,10 @@ def reconstruction_context_payload(context: ProjectContext, session: AgentSessio
         "reference_images": references,
         "recent_conversation": recent,
     }
+    target_images = [reference for reference in context.references
+                     if reference.type == "image" and reference.source.startswith("inputs/reference/")]
+    payload["input_mode"] = ("multi_view" if len(target_images) > 1 else
+                             "single_image" if target_images else "text_description")
     # Include only explicitly supplied project inputs, never historical outputs.
     payload["provided_documents"] = context.brief.summary[:30000] if context.brief.source_files or context.site.source_files or any(ref.type == "note" and ref.source.startswith("inputs/") for ref in context.references) else ""
     payload["provided_site"] = {"summary": context.site.summary[:8000], "boundary": context.site.boundary} if context.site.source_files else {}

@@ -15,6 +15,11 @@ from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallEr
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 
 
+def requires_responses_tools(model: str) -> bool:
+    # Official GPT-6 docs: Chat Completions supports conversation, not tools.
+    return model.removeprefix("openai/") in {"gpt-6.1-sol", "gpt-6-astra"}
+
+
 class LiteLLMRuntime:
     """Optional LiteLLM chat-completion adapter for multimodal/function-call providers."""
 
@@ -67,6 +72,8 @@ class LiteLLMRuntime:
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
                 tool_profile: ToolProfile = "full") -> AgentTurnResult:
+        if requires_responses_tools(model or self.model):
+            raise NativeAgentUnavailable("当前 API 建模适配器使用 Chat Completions；GPT-6.1 Sol / Astra 的工具调用需要 Responses API。尚未开放此 API 建模路线，没有发送请求或自动切换模型。")
         api_key = self.session_api_key or os.environ.get(self.key_env, "").strip()
         if not api_key:
             raise NativeAgentUnavailable(
@@ -97,7 +104,8 @@ class LiteLLMRuntime:
         if reference_images:
             prompt_text += "\n\n" + reference_image_label(reference_images, reconstruction=workflow_mode == "image_reconstruction")
             user_content: str | list[dict[str, Any]] = [{"type": "text", "text": prompt_text}]
-            for image_path in reference_images:
+            for index, image_path in enumerate(reference_images, 1):
+                user_content.append({"type": "text", "text": f"Source image {index}: {image_path.parent.name}/{image_path.name}. Verify this view using visible landmarks."})
                 user_content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
         else:
             user_content = prompt_text
@@ -131,13 +139,22 @@ class LiteLLMRuntime:
                     for block in content:
                         url = block.get("image_url", {}).get("url") if block.get("type") == "image_url" else None
                         if url and url in seen_images:
+                            if kept and kept[-1].get("type") == "text" and kept[-1].get("text", "").startswith("Source image "):
+                                kept.pop()
                             continue
                         if url:
                             seen_images.add(url)
                         kept.append(block)
                     old_message["content"] = kept
             if isinstance(user_content, list):
-                messages[1]["content"] = [block for block in user_content if block.get("type") != "image_url" or block["image_url"]["url"] not in seen_images]
+                kept = []
+                for block in user_content:
+                    if block.get("type") == "image_url" and block["image_url"]["url"] in seen_images:
+                        if kept and kept[-1].get("type") == "text" and kept[-1].get("text", "").startswith("Source image "):
+                            kept.pop()
+                        continue
+                    kept.append(block)
+                messages[1]["content"] = kept
             if skill:
                 # Migrate exact duplicated Skill text from pre-existing sessions.
                 for old_message in saved["messages"]:
@@ -188,9 +205,10 @@ class LiteLLMRuntime:
             return error
 
         while True:
+            request_messages = _current_visual_context(messages)
             kwargs: dict[str, Any] = {
                 "model": selected_model,
-                "messages": messages,
+                "messages": request_messages,
                 "api_key": api_key,
                 "timeout": 240,
             }
@@ -213,7 +231,8 @@ class LiteLLMRuntime:
                     kwargs["parallel_tool_calls"] = False
             try:
                 request_started = time.monotonic()
-                record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default"})
+                record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
+                        "context_messages": len(request_messages), "obsolete_readbacks_removed": _image_count(messages) - _image_count(request_messages)})
                 response = completion(**kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
@@ -302,6 +321,44 @@ class LiteLLMRuntime:
             tool_call_count=tool_call_count,
             failed_tool_calls=failed_tool_calls,
         )
+
+
+def _image_count(messages: list[dict[str, Any]]) -> int:
+    return sum(block.get("type") == "image_url" for message in messages
+               if isinstance(message.get("content"), list) for block in message["content"])
+
+
+def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: int = 6) -> list[dict[str, Any]]:
+    """Drop only obsolete generated screenshots on the wire, keep source/history intact.
+
+    Never slice tool exchanges, reasoning fields, user inputs or source images.
+    The full local history remains available for audit/recovery. This is a small
+    product-specific filter, not a replacement for provider compaction.
+    """
+    remaining = readback_images
+    result = []
+    for message in reversed(messages):
+        content = message.get("content")
+        is_readback = (message.get("role") == "user" and isinstance(content, list)
+                       and bool(content) and content[0].get("type") == "text"
+                       and content[0].get("text", "").startswith("Visual readback from SketchUp tool "))
+        if not is_readback:
+            result.append(message)
+            continue
+        kept = []
+        omitted = 0
+        for block in reversed(content):
+            if block.get("type") == "image_url":
+                if remaining <= 0:
+                    omitted += 1
+                    continue
+                remaining -= 1
+            kept.append(block)
+        kept.reverse()
+        if omitted:
+            kept.append({"type": "text", "text": "Earlier generated screenshot omitted from active context; it is historical evidence, not the current model. Use current screenshots or capture the required view again."})
+        result.append({**message, "content": kept})
+    return list(reversed(result))
 
 
 def _to_litellm_tool(tool: dict[str, Any]) -> dict[str, Any]:
