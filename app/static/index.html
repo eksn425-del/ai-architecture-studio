@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=20261002-8"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=20261003-compact"></head>
 <body>
 <div class="assistant-shell">
   <aside class="sidebar" aria-label="建模会话">
@@ -15,14 +15,14 @@
     <div class="workbench">
       <section class="chat-column" aria-label="AI 建模对话">
         <div id="conversation-history" class="conversation-history" aria-live="polite"></div>
-        <details id="workflow-progress" class="workflow-progress"><summary>建模步骤与连接状态</summary><ol id="workflow-checklist"></ol></details><div class="composer-area">
-          <div id="reconstruction-state" class="turn-state" role="status">待分析</div>
+        <details id="workflow-progress" class="workflow-progress"><summary>连接与任务进度 <span>点击查看步骤</span></summary><ol id="workflow-checklist"></ol></details><div class="composer-area">
+          <div class="composer-controls"><div id="reconstruction-state" class="turn-state" role="status">待分析</div>
           <details id="parameter-plan" class="parameter-plan" hidden><summary>建模计划与参数 <span>展开查看</span></summary><div id="parameter-plan-content" class="markdown-content"></div></details>
           <div class="approval-actions"><button id="revise-reconstruction-plan" class="button-quiet" type="button" hidden>修改参数</button><button id="approve-reconstruction" class="button-primary" type="button" hidden><span>批准计划并开始建模</span><span>↗</span></button></div>
-          <button id="prepare-plan" class="button-quiet" type="button" hidden>信息已确认，整理建模计划</button>
+          <button id="prepare-plan" class="button-quiet" type="button" hidden>信息已确认，整理建模计划</button></div>
           <form id="conversation-form" class="conversation-form">
             <div id="reference-gallery" class="reference-gallery" aria-label="已上传的参考图片"></div>
-            <label class="sr-only" for="conversation-input">输入建模要求或修改指令</label><textarea id="conversation-input" rows="3" maxlength="1200" placeholder="上传建筑图片，描述你想建的模型…"></textarea>
+            <label class="sr-only" for="conversation-input">输入建模要求或修改指令</label><textarea id="conversation-input" rows="2" maxlength="1200" placeholder="上传建筑图片，描述你想建的模型…"></textarea>
             <div id="attachment-list" class="attachment-list" aria-label="已上传资料"></div>
             <button id="model-settings-toggle" type="button" class="button-quiet">模型 / 自带 API</button>
             <div class="composer-toolbar"><label class="file-pick"><span>＋</span><span>图片 / 文件</span><input id="reference-file" type="file" accept="image/*,.pdf,.docx,.txt,.md,.csv,.dxf,.dwg" multiple aria-label="上传图片或文件"></label><label class="sr-only" for="conversation-tier">建模模型</label><select id="conversation-tier" class="model-select"><option value="economy">GPT-6.1 Sol · Low</option><option value="premium" hidden disabled>Premium</option></select><span class="skill-tag">可粘贴图片或拖入文件</span><button id="conversation-send" class="send-button" type="submit" aria-label="发送建模要求"><span>发送</span><span aria-hidden="true">↑</span></button></div>
@@ -50,5 +50,5 @@
 <!-- Compatibility elements for existing backend paths, outside the modeling UI. -->
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
-<script src="/static/studio.js?v=deletion-20261002-8" defer></script>
+<script src="/static/studio.js?v=deletion-20261003-compact" defer></script>
 </body></html>

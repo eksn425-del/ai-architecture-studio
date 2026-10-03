@@ -154,7 +154,8 @@ def test_deepseek_preserves_thinking_through_tools_and_next_turn(tmp_path, monke
 
     def completion(**kwargs):
         import copy
-        seen.append(copy.deepcopy(kwargs))
+        assert kwargs["client"].client._trust_env is False
+        seen.append(copy.deepcopy({k: v for k, v in kwargs.items() if k != "client"}))
         assert kwargs["reasoning_effort"] == "low"
         assert kwargs["extra_body"]["reasoning_effort"] == "low"
         assert kwargs["model"] == "deepseek/deepseek-flash"

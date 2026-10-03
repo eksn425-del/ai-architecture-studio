@@ -80,6 +80,7 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
         else:
             task = (
                 "You are the image-to-SketchUp reconstruction coding agent. The source image is the target appearance. "
+                "The user has clicked approval: scope and estimated parameters are approved. Do not ask for approval again, return another plan, or stop after writing a script. Execute the persistent Ruby now, then inspect and revise. Use the approved assumptions for unresolved noncritical details. If execution is blocked, report the exact failed tool and cause. "
                 "Use the approved reconstruction card. Prefer persistent workspace Ruby/components for project-specific and "
                 "repeated geometry; use SAIE only as a helper for ordinary semantic elements. Execute, inspect actual screenshots/model "
                 "state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing."

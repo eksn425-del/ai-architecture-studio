@@ -6,6 +6,7 @@ let progressTimer = null;
 let liveProgressTimer = null;
 let progressGeneration = 0;
 let planRequestId = 0;
+let pendingExecutionProject = null;
 
 function sourceImages() {
   return (state.project?.context?.references || []).filter((ref) => ref.type === "image" && ref.source.startsWith("inputs/reference/"));
@@ -158,6 +159,7 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/WinError 10061|Server disconnected without sending a response|ConnectError|ProxyError/i.test(message)) return "模型 API 连接中断；已保留图片、计划和脚本。请重试执行，当前无需恢复或重新创建模型。";
   if (/APITimeoutError|LiteLLM request failed.*Timeout|Request timed out/i.test(message)) {
     return "模型 API 请求超时，本轮未完成；这不代表 MCP 断开。项目记录已保留，请分阶段重试，先建主体并截图，再补细节。";
   }
@@ -217,7 +219,7 @@ function updateHeader() {
   const model = project.model_state;
   const agent = project.agent_session || {};
   $("agent-error").hidden = !agent.error || state.busy;
-  $("agent-error").textContent = agent.error ? "上轮未正常完成。已保留项目记录；请查看模型。模型异常时，打开「模型与文件」恢复上轮修改前的模型，再继续。" : "";
+  $("agent-error").textContent = agent.error ? friendlyError(new Error(agent.error)) : "";
   const agentReady = agent.status === "ready" && !!agent.model_path;
   const reconstructionMode = $("workflow-mode").value === "image_reconstruction";
   document.body.classList.toggle("reconstruction-mode", reconstructionMode);
@@ -666,7 +668,7 @@ async function sendConversation(event, agentAction = "auto") {
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
   const typed = $("conversation-input").value.trim();
   if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && !/不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(typed) && /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(typed)) agentAction = "execute";
-  if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") { $("connect-dialog").showModal(); return; }
+  if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") { pendingExecutionProject = state.projectId; $("connect-dialog").showModal(); return; }
   const message = agentAction === "execute" ? ($("conversation-input").value.trim() || "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。") : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
   pendingMessage = message;
@@ -679,9 +681,9 @@ async function sendConversation(event, agentAction = "auto") {
   const reconstruction = $("workflow-mode").value === "image_reconstruction";
   const resolvedAction = agentAction;
   const executesModel = agentAction === "execute" || (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "building");
-  if (executesModel) showResults(true);
+  showResults(false);
   beginProgress(executesModel ? "正在建模与检查截图" : "正在分析图片与建模计划");
-  $("workflow-progress").open = true;
+  $("workflow-progress").open = false;
   $("approve-reconstruction").disabled = true;
   setStatus(reconstruction && !executesModel ? "正在分析图片与建模参数，SketchUp 不会被修改。" : "Agent 正在建模/修改并检查截图。");
   try {
@@ -881,7 +883,7 @@ $("prepare-plan").addEventListener("click", event => {
   if (!$("conversation-input").value.trim()) $("conversation-input").value = "信息已确认，请整理建模计划，标明估算与需要我确认的内容。";
   sendConversation(event, "plan");
 });
-$("connect-close").addEventListener("click", () => $("connect-dialog").close());
+$("connect-close").addEventListener("click", () => { pendingExecutionProject = null; $("connect-dialog").close(); });
 $("connect-check").addEventListener("click", async () => {
   if (state.busy || $("connect-check").disabled || $("connect-open").disabled) return;
   $("connect-check").disabled = true;
@@ -899,7 +901,13 @@ $("connect-open").addEventListener("click", async () => {
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
     $("connect-status").textContent = result.reachable ? "MCP 已连接，正在打开并校验项目副本…" : "正在启动 SketchUp，并尝试连接已安装的插件…";
-    if (await startAgentSession()) $("connect-dialog").close();
+    if (await startAgentSession()) {
+      $("connect-dialog").close();
+      if (pendingExecutionProject === state.projectId) {
+        pendingExecutionProject = null;
+        await sendConversation(null, "execute");
+      }
+    }
   } catch (error) { $("connect-status").textContent = friendlyError(error); }
   finally { $("connect-open").disabled = false; }
 });

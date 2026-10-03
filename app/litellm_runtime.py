@@ -241,7 +241,15 @@ class LiteLLMRuntime:
                 request_started = time.monotonic()
                 record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
                         "context_messages": len(request_messages), "obsolete_readbacks_removed": _image_count(messages) - _image_count(request_messages)})
-                response = completion(**kwargs)
+                # Domestic official endpoint is reachable directly; stale local
+                # proxy settings must not break a configured API connection.
+                if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
+                    import httpx
+                    from litellm.llms.custom_httpx.http_handler import HTTPHandler
+                    with httpx.Client(trust_env=False, timeout=240) as direct_client:
+                        response = completion(**kwargs, client=HTTPHandler(client=direct_client))
+                else:
+                    response = completion(**kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
                 record({"event": "provider_failed", "model": selected_model, "detail": safe_error[:1000]})

@@ -1,3 +1,18 @@
+## Chat-first UI and explicit execution repair (2026-10-03)
+
+User report: five-view DeepSeek plan was generated, repeated approval attempts did not produce geometry, and fixed status/plan/composer blocks obscured conversation.
+
+Evidence: the failed execute run wrote persistent house_full.rb, then the provider request failed with a disconnected response. No geometry execution was recorded in that run. Previous connection-refused errors also existed. This is not evidence of damaged SketchUp geometry or of poor model reconstruction quality.
+
+Changes:
+- Chat takes the main viewport. Connection checklist and parameter card are closed by default and expand as overlays; state, plan and approval controls share one compact row. Execution no longer automatically opens the reference sidebar.
+- Explicit execute instructs the same agent to use approved assumptions and execute persistent Ruby, inspect and revise, without asking for approval again. If connection is required, successful connection resumes the pending approved execution for that same project.
+- Network failures show retained-project/retry guidance rather than model recovery advice. Official DeepSeek requests use an HTTP client with trust_env=False, avoiding inherited local proxy settings; no silent retries and no global proxy change.
+
+Validation: scripts/check.ps1: 160 passed (two dependency warnings); real installed LiteLLM serialization tests preserve images, reasoning/tool history and wire model deepseek-flash. Mock contract asserts official DeepSeek client ignores environment proxies. Approval instruction regression assertions added. Desktop rebuilt and installed as version 20261003-chat-execution, desktop shortcut updated. Mouse inspection in the installed app confirmed compact controls, preserved five-view project, expanded parameter-card overlay and correct network error guidance.
+
+Pending live verification: the old desktop was already closed, so its memory-only API key was unavailable. The new desktop is open at the original project with the DeepSeek configuration dialog prepared; user must enter the key locally. No model substitution or paid request was performed. Read-only connector probe currently returns ECONNREFUSED at the configured local bridge; SketchUp/plugin must be started/reconnected before execution. Do not claim real reconstruction success from these code/UI checks.
+
 # Handoff — AI Architecture Studio
 
 ## Desktop DeepSeek request repair and follow-up diagnosis (2026-10-03)

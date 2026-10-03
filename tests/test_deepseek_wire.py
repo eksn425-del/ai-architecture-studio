@@ -52,7 +52,8 @@ def test_api_wire_keeps_images_low_effort_and_reasoning(tmp_path, monkeypatch, m
         else:
             handler = HTTPHandler(client=client)
         def local_completion(**kw):
-            return original(**kw, client=handler)
+            kw["client"] = handler
+            return original(**kw)
         monkeypatch.setattr(litellm, "completion", local_completion)
         image = tmp_path / "inputs/reference/test.png"
         image.parent.mkdir(parents=True)
@@ -83,7 +84,8 @@ def test_glm_server_failure_is_not_silently_retried(tmp_path, monkeypatch):
         handler = OpenAI(api_key="test-only-placeholder", base_url="https://open.bigmodel.cn/api/paas/v4", http_client=client)
         def local_completion(**kw):
             assert kw["max_retries"] == 0
-            return original(**kw, client=handler)
+            kw["client"] = handler
+            return original(**kw)
         monkeypatch.setattr(litellm, "completion", local_completion)
         runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient(), model="zai/glm-5.3-flash")
         runtime.session_api_key = "test-only-placeholder"
