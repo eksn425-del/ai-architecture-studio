@@ -1,5 +1,15 @@
 # Handoff — AI Architecture Studio
 
+## Desktop DeepSeek request repair and follow-up diagnosis (2026-10-03)
+
+- User reported generic HTTP 500 before provider usage. Reproduced the installed, windowed executable's provider import without any credential: LiteLLM raised `ValueError: Unknown encoding cl100k_base`, with no discovered tiktoken plugins. Source-environment tests had missed this packaging defect.
+- Packaging now explicitly includes `tiktoken_ext.openai_public` and preloaded cl100k/o200k vocabularies; the frozen desktop sets its bundled cache path. Added a credential-free `--diagnose-provider` check. The rebuilt and installed executable passes that check. Provider dependency exceptions now become actionable, credential-redacted errors rather than an unhandled 500.
+- The custom API form now normalizes the official DeepSeek model ID on the exact official API host to LiteLLM's internal provider-prefixed ID. Wire tests confirm the actual HTTP body uses `deepseek-flash`, not the prefix or retired aliases. Same-connection effort changes still reuse the memory-only credential.
+- Updated the installed desktop version and existing desktop shortcut, retaining the shared local profile and project history. Restart cleared the old memory-only credential; the user subsequently configured DeepSeek and retried. No credential was read, returned or persisted by this repair.
+- A later user screenshot reports WinError 10061, separate from the fixed packaging problem. Historical provider events confirm connection refusal without a provider reply. The machine uses a loopback HTTP proxy on port2080. At diagnosis time both environment-proxied and direct unauthenticated requests reached the official models endpoint (HTTP401, expected without a Key). This demonstrates current reachability, not proof of which endpoint refused the earlier request or credential validity.
+- The user's latest actual retry completed planning with DeepSeek (session state planned, empty error; 37,849 input / 11,712 output tokens reported). Their next execute turn was already active during inspection; it was not restarted or interrupted. No modeling-quality success is claimed and no alternative model was called.
+- Validation: `scripts/check.ps1` 160 passed, two existing dependency warnings; whitespace checks passed. Installed frozen import check passed. Runtime logs, tokenizer cache, reference images and model outputs remain ignored. Real building output from the active user turn is not an acceptance result for this repair.
+
 ## Desktop MCP connection repair (2026-10-03)
 
 User requested repair of the two connection buttons. Pulled latest main (already up to date), started with a clean tree, and scoped this turn to connectivity. Modeling remains paused; no model API requests were sent.

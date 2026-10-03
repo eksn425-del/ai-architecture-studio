@@ -35,6 +35,25 @@ class FakeCodex:
     model = "gpt-6-luna"
 
 
+def test_provider_import_failure_is_actionable_and_redacted(tmp_path, monkeypatch):
+    import builtins
+    original_import = builtins.__import__
+    def broken_import(name, *args, **kwargs):
+        if name == "litellm":
+            raise ValueError("packaged dependency failed test-only-secret")
+        return original_import(name, *args, **kwargs)
+    runtime = LiteLLMRuntime(tmp_path)
+    runtime.session_api_key = "test-only-secret"
+    monkeypatch.setattr(builtins, "__import__", broken_import)
+    with pytest.raises(NativeAgentUnavailable) as caught:
+        runtime.respond(project_dir=tmp_path, thread_id=None, prompt="check",
+                        mcp_enabled=False, developer_instructions="test")
+    assert "ValueError" in str(caught.value)
+    assert "尚未发送" in str(caught.value)
+    assert "test-only-secret" not in str(caught.value)
+    assert not (tmp_path / "runtime/agent_workspace").exists()
+
+
 def test_router_is_economy_by_default_and_premium_is_explicit(tmp_path, monkeypatch):
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_PROVIDER", raising=False)
     monkeypatch.delenv("ARCH_STUDIO_ECONOMY_MODEL", raising=False)

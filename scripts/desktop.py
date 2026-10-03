@@ -13,13 +13,27 @@ from pathlib import Path
 def main() -> None:
     os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "True")
     root = Path(__file__).resolve().parents[1]
+    tokenizer_cache = Path(getattr(sys, "_MEIPASS", root)) / "tokenizer-cache"
+    if tokenizer_cache.is_dir():
+        os.environ["TIKTOKEN_CACHE_DIR"] = str(tokenizer_cache)
     sys.path.insert(0, str(root))
     parser = argparse.ArgumentParser()
     parser.add_argument("--attach", type=int, help="Reuse an already running local workbench port for UI validation")
     parser.add_argument("--data-dir", type=Path, help="Use a separate local application profile")
     parser.add_argument("--standalone", action="store_true", help="Use an API and an explicit bridge.json; no Codex config fallback")
+    parser.add_argument("--diagnose-provider", type=Path, help="Write a credential-free packaged provider import check and exit")
     parser.add_argument("--api-provider", choices=("glm", "glm-international", "deepseek"), default="glm")
     args = parser.parse_args()
+    if args.diagnose_provider:
+        import json
+        import traceback
+        try:
+            from litellm import completion
+            result = {"ok": callable(completion)}
+        except Exception:
+            result = {"ok": False, "traceback": traceback.format_exc()}
+        args.diagnose_provider.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+        return
     import webview
     webview.settings["ALLOW_DOWNLOADS"] = True
     server = None

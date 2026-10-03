@@ -49,6 +49,21 @@ def test_standalone_profile_rejects_codex_and_premium(tmp_path, monkeypatch):
         app.state.model_router.route("premium")
 
 
+def test_custom_deepseek_official_model_name_gets_provider_prefix(tmp_path, monkeypatch):
+    from app.litellm_runtime import LiteLLMRuntime
+    monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))
+    app, client, _, _, _ = workspace(tmp_path)
+    settings = {"mode": "byok", "model": "deepseek-flash", "api_base": "https://api.deepseek.com",
+                "api_key": "test-only-key", "reasoning_effort": "provider-default"}
+    result = client.post("/api/model-settings", json=settings)
+    assert result.status_code == 200
+    assert result.json()["economy"]["model"] == "deepseek/deepseek-flash"
+    settings.pop("api_key")
+    settings["reasoning_effort"] = "low"
+    assert client.post("/api/model-settings", json=settings).status_code == 200
+    assert app.state.model_router.china_runtime.session_api_key == "test-only-key"
+
+
 def test_glm_domestic_preset_uses_exact_endpoint_and_high(tmp_path, monkeypatch):
     from app.litellm_runtime import LiteLLMRuntime
     monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))

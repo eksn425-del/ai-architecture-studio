@@ -536,6 +536,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 elif data.get("mode") == "glm-international":
                     model = "zai/glm-5.3-flash"
                     base = "https://api.z.ai/api/paas/v4"
+                # Users enter the official model ID; LiteLLM also needs its
+                # provider prefix. Infer only from the exact official host.
+                if urlsplit(base).hostname == "api.deepseek.com" and "/" not in model:
+                    model = "deepseek/" + model
                 from .litellm_runtime import requires_responses_tools
                 if requires_responses_tools(model):
                     raise HTTPException(status_code=409, detail="GPT-6.1 Sol 的 API 工具调用需要 Responses，当前尚未开放这条建模路线。请使用已接入的 GLM/DeepSeek；Codex 登录路线仅用于本机研发。")

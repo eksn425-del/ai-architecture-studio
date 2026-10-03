@@ -81,9 +81,9 @@ class LiteLLMRuntime:
             )
         try:
             from litellm import completion
-        except ImportError as error:
+        except Exception as error:
             raise NativeAgentUnavailable(
-                "LiteLLM is not installed. Install the optional provider requirements to enable the Qwen route."
+                f"模型 API 运行依赖加载失败（{type(error).__name__}）：{str(error).replace(api_key, '[credential hidden]')[:600]}。尚未发送供应商请求。"
             ) from error
         try:
             tool_context = self.tool_surface.prepare(
