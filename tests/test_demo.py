@@ -715,6 +715,82 @@ def test_unsaved_model_identity_reports_connection_separately_from_binding():
     with pytest.raises(MCPCallError, match="未保存的无标题模型"):
         SketchUpAdapter(Client()).get_active_model_identity()
 
+
+def test_auto_connection_prepares_copy_for_untouched_unsaved_model(tmp_path, monkeypatch):
+    from app.sketchup_mcp import UnsavedModelError
+    import app.main as module
+    class Blank(FakeSketchUp):
+        modified = False
+        active_context = False
+        def get_active_model_identity(self):
+            if not self.active_model_path:
+                raise UnsavedModelError({"model_path": "", "model_guid": "blank",
+                                         "modified": self.modified, "main_thread": True, "active_context": self.active_context})
+            return super().get_active_model_identity()
+        def open_copy_from_unsaved_model(self, target, guid):
+            assert guid == "blank"
+            self.active_model_path = str(target)
+    su = Blank()
+    def prepare(project_id, runtime_root, prior, *, prepare_only):
+        assert prepare_only
+        target = runtime_root / "projects" / project_id / "outputs/model/blank-disposable-test.skp"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(b"copy")
+        return target
+    monkeypatch.setattr(module, "_launch_disposable_sketchup", prepare)
+    app = create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=su, native_agent=FakeNativeAgent())
+    client = TestClient(app)
+    pid = client.post("/api/projects", json={"project_name": "Connection"}).json()["project_id"]
+    assert client.get(f"/api/projects/{pid}/connector").json()["reachable"]
+    su.modified = True
+    su.active_context = True
+    rejected = client.post(f"/api/projects/{pid}/agent/session", json={"confirm_disposable_model": True})
+    assert rejected.status_code == 409
+    assert "退出" in rejected.json()["detail"]
+    assert not su.active_model_path
+    su.active_context = False
+    response = client.post(f"/api/projects/{pid}/agent/session", json={"confirm_disposable_model": True})
+    assert response.status_code == 200
+    assert response.json()["session"]["status"] == "ready"
+
+
+def test_mcp_subprocess_does_not_show_console(tmp_path, monkeypatch):
+    import app.sketchup_mcp as module
+    monkeypatch.setattr(module, "_resolve_server", lambda: (["bridge"], {}, str(tmp_path)))
+    monkeypatch.setattr(module.subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
+    def run(command, **kwargs):
+        assert kwargs["creationflags"] == 0x08000000
+        from types import SimpleNamespace
+        return SimpleNamespace(stdout=module._frame({"id": 2, "result": {"tools": []}}), stderr=b"")
+    monkeypatch.setattr(module.subprocess, "run", run)
+    assert module.ConfiguredSketchUpMCP().list_tools() == []
+
+
+def test_unsaved_model_is_saved_to_recovery_before_open_and_async_errors_surface(tmp_path):
+    import json
+    import re
+    import pytest
+    from app.sketchup_mcp import MCPCallError
+    target = tmp_path / "blank-disposable-test.skp"
+    target.write_bytes(b"template")
+    class Client:
+        fail = False
+        def call(self, name, arguments):
+            source = Path(arguments["script_path"]).read_text(encoding="utf-8")
+            assert 'm.guid == "expected"' in source
+            assert "m.path.empty?" in source and "m.active_path.nil?" in source
+            assert "m.save_copy" not in source
+            assert source.index("m.save(") < source.index("Sketchup.open_file(")
+            status = Path(json.loads(re.search(r'File.write\(("[^\n]+?"), JSON', source).group(1)))
+            status.write_text(json.dumps({"ok": not self.fail, "error": "preserve failed"}))
+            return {"open_scheduled": True}
+    client = Client()
+    adapter = SketchUpAdapter(client)
+    adapter.open_copy_from_unsaved_model(target, "expected")
+    client.fail = True
+    with pytest.raises(MCPCallError, match="preserve failed"):
+        adapter.open_copy_from_unsaved_model(target, "expected")
+
 def test_checkpoint_guard_checks_owned_root_before_save(tmp_path):
     class Client:
         def call(self, name, arguments):

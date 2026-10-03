@@ -5,7 +5,8 @@ param(
     [Parameter(Mandatory = $false)]
     [string]$RuntimeRoot = '',
     [Parameter(Mandatory = $false)]
-    [string]$ModelPath = ''
+    [string]$ModelPath = '',
+    [switch]$PrepareOnly
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -64,6 +65,7 @@ $bridgeStartup = Join-Path $PSScriptRoot 'start_existing_sketchup_bridge.rb'
 if (-not (Test-Path $bridgeStartup)) {
     throw 'Bridge startup helper is missing from scripts.'
 }
+if ($PrepareOnly) { Write-Host "Prepared disposable model: $modelPath"; return }
 $arguments = '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
 Start-Process -FilePath $sketchupExe -ArgumentList $arguments | Out-Null
 Write-Host 'Opened a copied SketchUp Simple template in a disposable Demo model.' -ForegroundColor Green

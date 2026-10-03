@@ -580,7 +580,7 @@ async function checkConnector() {
 }
 
 async function startAgentSession() {
-  if (!state.projectId || state.busy) return;
+  if (!state.projectId || state.busy) return false;
   state.busy = true;
   const button = $("start-agent-session");
   setBusy(button, true, "正在启动 SketchUp 空白副本…");
@@ -597,9 +597,11 @@ async function startAgentSession() {
     showResults(false);
     setStatus("项目专属空白副本已校验；现在可以用自然语言要求 Agent 建模。", "ready");
     showToast("已连接到本会话的 SketchUp 独立模型。", false);
+    return true;
   } catch (error) {
     setStatus(friendlyError(error), "error");
     showToast(friendlyError(error), true);
+    throw error;
   } finally {
     endProgress();
     state.busy = false;
@@ -881,24 +883,23 @@ $("prepare-plan").addEventListener("click", event => {
 });
 $("connect-close").addEventListener("click", () => $("connect-dialog").close());
 $("connect-check").addEventListener("click", async () => {
+  if (state.busy || $("connect-check").disabled || $("connect-open").disabled) return;
+  $("connect-check").disabled = true;
   $("connect-status").textContent = "正在检查本机连接…";
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
-    $("connect-status").textContent = result.reachable ? "MCP 已连接。下一步：打开本会话的独立模型。" : "连接未就绪：请在 SketchUp 扩展菜单启动 Kongxing Local Bridge，然后重试。";
+    $("connect-status").textContent = result.reachable ? "MCP 已连接。下一步：点击自动连接，打开本会话的独立模型。" : friendlyError(new Error(result.detail || "请在 SketchUp 扩展菜单启动 Kongxing Local Bridge，然后重试。"));
   } catch (_) { $("connect-status").textContent = "连接未就绪，请检查 SketchUp 与插件是否已启动。"; }
+  finally { $("connect-check").disabled = false; }
 });
 $("connect-open").addEventListener("click", async () => {
-  if (state.busy || $("connect-open").disabled) return;
+  if (state.busy || $("connect-open").disabled || $("connect-check").disabled) return;
   $("connect-open").disabled = true;
   $("connect-status").textContent = "正在自动检查连接；成功后打开本会话独立模型…";
   try {
     const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
-    if (!result.reachable) {
-      $("connect-status").textContent = "插件尚未响应。请按上方步骤安装并启动插件，再点击自动连接；不会修改已有模型。";
-      return;
-    }
-    $("connect-dialog").close();
-    await startAgentSession();
+    $("connect-status").textContent = result.reachable ? "MCP 已连接，正在打开并校验项目副本…" : "正在启动 SketchUp，并尝试连接已安装的插件…";
+    if (await startAgentSession()) $("connect-dialog").close();
   } catch (error) { $("connect-status").textContent = friendlyError(error); }
   finally { $("connect-open").disabled = false; }
 });

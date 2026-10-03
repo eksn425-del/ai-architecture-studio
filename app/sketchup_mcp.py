@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import time
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,12 @@ class ConnectorUnavailable(RuntimeError):
 
 class MCPCallError(RuntimeError):
     pass
+
+
+class UnsavedModelError(MCPCallError):
+    def __init__(self, identity: dict[str, Any]):
+        super().__init__("SketchUp 当前是未保存的无标题模型；需要先打开项目专属副本。")
+        self.identity = identity
 
 
 def _toml_load(path: Path) -> dict[str, Any]:
@@ -123,6 +130,7 @@ class ConfiguredSketchUpMCP:
                 cwd=configured_cwd or str(Path(__file__).resolve().parents[1]),
                 env=environment,
                 check=False,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except subprocess.TimeoutExpired as error:
             raise MCPCallError(f"The existing SketchUp MCP did not respond within {self.timeout_seconds} seconds.") from error
@@ -273,7 +281,7 @@ class SketchUpAdapter:
             "# ARCHFLOW_GENERATED_SCRIPT\n"
             "model = Sketchup.active_model\n"
             "{ model_path: model.path, model_name: model.title, model_guid: model.guid, "
-            "active_context: !model.active_path.nil?, main_thread: Thread.current == Thread.main }\n"
+            "modified: model.modified?, active_context: !model.active_path.nil?, main_thread: Thread.current == Thread.main }\n"
         )
         script_path.write_text(script, encoding="utf-8")
         try:
@@ -295,7 +303,7 @@ class SketchUpAdapter:
         for candidate in candidates:
             if isinstance(candidate, dict):
                 if candidate.get("model_path") == "" and candidate.get("model_guid"):
-                    raise MCPCallError("SketchUp 当前是未保存的无标题模型，插件已连接但尚不能绑定项目。请先保存当前工作并关闭此模型，再由网站打开本会话的独立副本；不会修改原模型。")
+                    raise UnsavedModelError(candidate)
                 path = candidate.get("model_path") or candidate.get("path")
                 guid = candidate.get("model_guid")
                 if isinstance(path, str) and path and isinstance(guid, str) and guid:
@@ -313,6 +321,40 @@ class SketchUpAdapter:
     def get_active_model_path(self) -> str:
         identity = self.get_active_model_identity()
         return str(identity["model_path"])
+
+    def open_copy_from_unsaved_model(self, target_path: Path, expected_guid: str) -> None:
+        """Host lifecycle only: preserve unsaved work, then open a prepared copy."""
+        if not target_path.is_file() or not target_path.name.startswith("blank-disposable-"):
+            raise MCPCallError("Project disposable copy is missing.")
+        scripts = _generated_script_dir()
+        scripts.mkdir(parents=True, exist_ok=True)
+        path = scripts / f"studio-open-{os.urandom(6).hex()}.rb"
+        guard = ("m = Sketchup.active_model\n"
+                 f"raise 'Active model changed' unless m.guid == {json.dumps(expected_guid)}\n"
+                 "raise 'Exit current edit context first' unless m.path.empty? && m.active_path.nil?\n")
+        backup = target_path.parent / f"unsaved-before-connect-{os.urandom(6).hex()}.skp"
+        status_path = backup.with_suffix(".json")
+        status_literal = json.dumps(str(status_path.resolve()), ensure_ascii=False)
+        path.write_text("# ARCHFLOW_GENERATED_SCRIPT\n" + guard +
+                        "UI.start_timer(0.1, false) do\nbegin\n" + guard +
+                        f"raise 'Could not preserve unsaved work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
+                        f"raise 'Could not open project copy' unless Sketchup.open_file({json.dumps(str(target_path.resolve()), ensure_ascii=False)})\n" +
+                        f"File.write({status_literal}, JSON.generate({{ok: true}}))\nrescue StandardError => error\n" +
+                        f"File.write({status_literal}, JSON.generate({{ok: false, error: error.message}}))\nend\nend\n"
+                        "{ open_scheduled: true }\n", encoding="utf-8")
+        try:
+            self.client.call("sketchup_eval_project_file", {"script_path": str(path.resolve()),
+                             "operation_name": "Open project disposable model"})
+            deadline = time.monotonic() + 20
+            while not status_path.is_file():
+                if time.monotonic() >= deadline:
+                    raise MCPCallError("SketchUp 项目副本打开操作尚未响应，请关闭弹窗后重试。")
+                time.sleep(0.1)
+            status = json.loads(status_path.read_text(encoding="utf-8"))
+            if not status.get("ok"):
+                raise MCPCallError("SketchUp 项目副本打开失败：" + str(status.get("error", "unknown")))
+        finally:
+            path.unlink(missing_ok=True)
 
     def restore_disposable_model(self, target_path: Path, expected_path: Path) -> None:
         """Host-owned lifecycle action, never exposed as an agent execution tool."""

@@ -35,7 +35,7 @@ from .models import (
 from .model_router import DeterministicModelRouter, ModelRoute
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .references import ReferenceIngestor
-from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, _resolve_server
+from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
 from .store import ProjectStore, safe_project_id, utc_now
 
 
@@ -221,7 +221,7 @@ def _disposable_model_path(path_value: str, project_dir: Path) -> Path | None:
     return candidate
 
 
-def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None) -> Path:
+def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None, *, prepare_only: bool = False) -> Path:
     script = ROOT / "scripts" / "open_blank_sketchup.ps1"
     executable = shutil.which("pwsh") or shutil.which("powershell") or "powershell.exe"
     command = [
@@ -230,9 +230,12 @@ def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_mo
     ]
     if existing_model_path is not None:
         command.extend(["-ModelPath", str(existing_model_path.resolve())])
+    if prepare_only:
+        command.append("-PrepareOnly")
     model_dir = runtime_root / "projects" / project_id / "outputs" / "model"
     before = {path.resolve() for path in model_dir.glob("blank-disposable-*.skp")}
-    completed = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45, check=False)
+    completed = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45, check=False,
+                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     if completed.returncode != 0:
         detail = (completed.stderr or completed.stdout).strip()[-1600:]
         raise NativeAgentUnavailable(detail or "SketchUp could not open a blank disposable model.")
@@ -938,6 +941,25 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 try:
                     live_identity = adapter.get_active_model_identity()
                     live_path = str(live_identity["model_path"])
+                except UnsavedModelError as error:
+                    identity = error.identity
+                    if identity.get("active_context") or identity.get("main_thread") is not True:
+                        raise HTTPException(status_code=409, detail="MCP 已连接，请先退出 SketchUp 当前群组编辑，再自动连接。") from error
+                    prior = (project_dir / session.model_path).resolve() if session.model_path else None
+                    prepared = _launch_disposable_sketchup(project_id, store.root, prior, prepare_only=True)
+                    adapter.open_copy_from_unsaved_model(prepared, str(identity["model_guid"]))
+                    deadline = time.monotonic() + 20
+                    while True:
+                        try:
+                            live_identity = adapter.get_active_model_identity()
+                            live_path = str(live_identity["model_path"])
+                            break
+                        except UnsavedModelError:
+                            if time.monotonic() >= deadline:
+                                raise HTTPException(status_code=502, detail="MCP 已连接，但项目副本尚未打开。请重试自动连接。")
+                            time.sleep(0.2)
+                    if Path(live_path).resolve() != prepared:
+                        raise HTTPException(status_code=409, detail="SketchUp 活动模型发生变化，已停止绑定。")
                 except (ConnectorUnavailable, MCPCallError) as error:
                     raise HTTPException(status_code=502, detail=f"The existing SketchUp bridge is reachable but its active model could not be verified: {error}") from error
                 if session.model_path:

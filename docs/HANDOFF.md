@@ -1,5 +1,17 @@
 # Handoff — AI Architecture Studio
 
+## Desktop MCP connection repair (2026-10-03)
+
+User requested repair of the two connection buttons. Pulled latest main (already up to date), started with a clean tree, and scoped this turn to connectivity. Modeling remains paused; no model API requests were sent.
+
+- Reproduced both buttons in the installed desktop application. The application process stayed alive. MCP health and model context were reachable, but automatic connection closed its dialog before session binding failed against the active unsaved Untitled model. Transient console subprocess windows were also possible because MCP and launcher subprocesses had no Windows no-console flag.
+- Added Windows CREATE_NO_WINDOW for MCP/PowerShell child processes; serialized the connection buttons; kept the dialog open until session binding succeeds and retained concrete errors on failure. Automatic connection now attempts the existing launcher when the bridge is unreachable instead of stopping after a failed health check.
+- Reused the existing template launcher with a prepare-only option, then a host-owned lifecycle action for an unsaved model: recheck GUID, unsaved path and inactive edit context; save the current work to a unique local recovery SKP; open the prepared project copy; verify path/GUID before enabling modeling tools. Saved foreign documents remain protected by the existing project boundary. No new generic MCP or geometry engine was introduced.
+- Real SketchUp 2024.0.484 revealed that save_copy fails on an unsaved model (`Model must be saved before copying`). Corrected this to save the unsaved document to a new recovery file before opening the blank project copy. Timer errors are captured in local status files and reported rather than silently timing out. The original Untitled content was preserved locally, then the expected disposable model opened successfully. The website button subsequently bound the user's test session and displayed its connection-success toast.
+- Added regression coverage for unsaved session binding, edit-context rejection, hidden subprocess creation and recovery-before-open/error reporting. scripts/check.ps1: 158 passed, two existing dependency warnings. Runtime SKP/recovery/status files remain ignored. This is a connection/lifecycle validation, not an architectural quality benchmark or fresh-computer installation acceptance.
+- Rebuilt and installed a separate updated desktop version, updated the existing desktop shortcut with its original data-directory arguments, and reopened it with the user's existing 16 conversations. Clicked both connection buttons in the installed application: MCP check returned connected; automatic connection verified the same disposable path/GUID and returned a successful connection toast. Installed EXE hash matches the build. Reopening resets memory-only API credentials; no inference was performed. JavaScript syntax and git diff --check passed.
+
+
 ## Reconstruction reliability follow-up / independent implementation (2026-10-02)
 
 User authorized improvements informed by readable competitor implementation after pausing modeling. Up-to-date main was pulled; eight files already contained the prior paused engineering repairs, so a clean starting tree is not claimed. No proprietary Skill/bridge code was imported, no provider substitution, paid inference or SketchUp modification occurred.
