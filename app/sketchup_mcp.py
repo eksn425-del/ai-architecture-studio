@@ -322,22 +322,27 @@ class SketchUpAdapter:
         identity = self.get_active_model_identity()
         return str(identity["model_path"])
 
-    def open_copy_from_unsaved_model(self, target_path: Path, expected_guid: str) -> None:
-        """Host lifecycle only: preserve unsaved work, then open a prepared copy."""
+    def open_copy_from_unsaved_model(self, target_path: Path, expected_guid: str, *, expected_saved_path: str | None = None) -> None:
+        """Host lifecycle only: preserve current work, then open a prepared copy.
+
+        Save to a new recovery path, never overwrite the source. This also clears
+        SketchUp's modified flag so opening the copy cannot hang on a save dialog.
+        """
         if not target_path.is_file() or not target_path.name.startswith("blank-disposable-"):
             raise MCPCallError("Project disposable copy is missing.")
         scripts = _generated_script_dir()
         scripts.mkdir(parents=True, exist_ok=True)
         path = scripts / f"studio-open-{os.urandom(6).hex()}.rb"
+        path_guard = (f"m.path == {json.dumps(expected_saved_path, ensure_ascii=False)}" if expected_saved_path else "m.path.empty?")
         guard = ("m = Sketchup.active_model\n"
                  f"raise 'Active model changed' unless m.guid == {json.dumps(expected_guid)}\n"
-                 "raise 'Exit current edit context first' unless m.path.empty? && m.active_path.nil?\n")
+                 f"raise 'Active path or edit context changed' unless {path_guard} && m.active_path.nil?\n")
         backup = target_path.parent / f"unsaved-before-connect-{os.urandom(6).hex()}.skp"
         status_path = backup.with_suffix(".json")
         status_literal = json.dumps(str(status_path.resolve()), ensure_ascii=False)
         path.write_text("# ARCHFLOW_GENERATED_SCRIPT\n" + guard +
                         "UI.start_timer(0.1, false) do\nbegin\n" + guard +
-                        f"raise 'Could not preserve unsaved work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
+                        f"raise 'Could not preserve current work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
                         f"raise 'Could not open project copy' unless Sketchup.open_file({json.dumps(str(target_path.resolve()), ensure_ascii=False)})\n" +
                         f"File.write({status_literal}, JSON.generate({{ok: true}}))\nrescue StandardError => error\n" +
                         f"File.write({status_literal}, JSON.generate({{ok: false, error: error.message}}))\nend\nend\n"

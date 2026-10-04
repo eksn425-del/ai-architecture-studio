@@ -754,6 +754,30 @@ def test_auto_connection_prepares_copy_for_untouched_unsaved_model(tmp_path, mon
     assert response.json()["session"]["status"] == "ready"
 
 
+def test_new_session_switches_saved_foreign_model_after_preserving_copy(tmp_path, monkeypatch):
+    import app.main as module
+    class Saved(FakeSketchUp):
+        def open_copy_from_unsaved_model(self, target, guid, *, expected_saved_path=None):
+            assert expected_saved_path == self.active_model_path
+            assert target.name.startswith("blank-disposable-")
+            self.active_model_path = str(target)
+    su = Saved()
+    su.active_model_path = str(tmp_path / "original.skp")
+    def prepare(project_id, runtime_root, prior, *, prepare_only):
+        assert prepare_only
+        target = runtime_root / "projects" / project_id / "outputs/model/blank-disposable-test.skp"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(b"copy")
+        return target
+    monkeypatch.setattr(module, "_launch_disposable_sketchup", prepare)
+    client = TestClient(create_app(tmp_path / "runtime", brain=FakeBrain(), sketchup=su, native_agent=FakeNativeAgent()))
+    pid = client.post("/api/projects", json={"project_name": "New session"}).json()["project_id"]
+    response = client.post(f"/api/projects/{pid}/agent/session", json={"confirm_disposable_model": True})
+    assert response.status_code == 200
+    assert response.json()["session"]["status"] == "ready"
+    assert "blank-disposable-test" in su.active_model_path
+
+
 def test_mcp_subprocess_does_not_show_console(tmp_path, monkeypatch):
     import app.sketchup_mcp as module
     monkeypatch.setattr(module, "_resolve_server", lambda: (["bridge"], {}, str(tmp_path)))
@@ -775,18 +799,25 @@ def test_unsaved_model_is_saved_to_recovery_before_open_and_async_errors_surface
     target.write_bytes(b"template")
     class Client:
         fail = False
+        saved_path = None
         def call(self, name, arguments):
             source = Path(arguments["script_path"]).read_text(encoding="utf-8")
             assert 'm.guid == "expected"' in source
-            assert "m.path.empty?" in source and "m.active_path.nil?" in source
+            assert ("m.path.empty?" if self.saved_path is None else f"m.path == {json.dumps(self.saved_path, ensure_ascii=False)}") in source
+            assert "m.active_path.nil?" in source
             assert "m.save_copy" not in source
             assert source.index("m.save(") < source.index("Sketchup.open_file(")
+            if self.saved_path:
+                assert f"m.save({json.dumps(self.saved_path, ensure_ascii=False)})" not in source
             status = Path(json.loads(re.search(r'File.write\(("[^\n]+?"), JSON', source).group(1)))
             status.write_text(json.dumps({"ok": not self.fail, "error": "preserve failed"}))
             return {"open_scheduled": True}
     client = Client()
     adapter = SketchUpAdapter(client)
     adapter.open_copy_from_unsaved_model(target, "expected")
+    client.saved_path = str(tmp_path / "original.skp")
+    adapter.open_copy_from_unsaved_model(target, "expected", expected_saved_path=client.saved_path)
+    client.saved_path = None
     client.fail = True
     with pytest.raises(MCPCallError, match="preserve failed"):
         adapter.open_copy_from_unsaved_model(target, "expected")

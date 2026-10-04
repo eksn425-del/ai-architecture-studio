@@ -63,6 +63,8 @@ Estimated dimensions are a modeling baseline, not a claim of real-world measurem
 
 Before the first substantial build, summarize the parameter/construction plan for approval. The user must be able to see the important assumptions and change them before SketchUp is edited.
 
+Approval covers all passes. After confirm/start, execute all requested details and QA continuously; never ask for another continue between passes.
+
 Planning is not completion. In clarify/plan mode do not edit SketchUp geometry.
 
 ## Evidence across views and unseen geometry

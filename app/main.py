@@ -966,12 +966,17 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                         raise HTTPException(status_code=409, detail="SketchUp 活动模型发生变化，已停止绑定。")
                 except (ConnectorUnavailable, MCPCallError) as error:
                     raise HTTPException(status_code=502, detail=f"The existing SketchUp bridge is reachable but its active model could not be verified: {error}") from error
-                if session.model_path:
-                    expected = (project_dir / session.model_path).resolve()
-                    if Path(live_path).resolve() != expected:
-                        raise HTTPException(status_code=409, detail="Another SketchUp model is connected. Reopen this project's disposable copy before continuing.")
-                elif _disposable_model_path(live_path, project_dir) is None:
-                    raise HTTPException(status_code=409, detail="The connected SketchUp model is not this project's disposable copy. Close it or create a new project before starting.")
+                expected = (project_dir / session.model_path).resolve() if session.model_path else None
+                needs_switch = (Path(live_path).resolve() != expected) if expected else _disposable_model_path(live_path, project_dir) is None
+                if needs_switch:
+                    if live_identity.get("active_context") or live_identity.get("main_thread") is not True:
+                        raise HTTPException(status_code=409, detail="请先退出 SketchUp 当前群组编辑，再自动连接。")
+                    prepared = _launch_disposable_sketchup(project_id, store.root, expected, prepare_only=True)
+                    adapter.open_copy_from_unsaved_model(prepared, str(live_identity["model_guid"]), expected_saved_path=live_path)
+                    live_identity = adapter.get_active_model_identity()
+                    live_path = str(live_identity["model_path"])
+                    if Path(live_path).resolve() != prepared:
+                        raise HTTPException(status_code=409, detail="SketchUp 活动模型发生变化，已停止绑定。")
 
             if not live_path:
                 previous_copy = (project_dir / session.model_path).resolve() if session.model_path else None

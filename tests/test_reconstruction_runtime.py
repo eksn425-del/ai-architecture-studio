@@ -90,7 +90,7 @@ def test_reconstruction_context_excludes_brief_and_site() -> None:
     assert payload["clarification_rounds"] == 1
 
 
-@pytest.mark.parametrize("message", ["已确认，开始建模吧", "批准执行", "开始建模", "已批准计划，请继续建模，不要一次写完全部细节", "确认开始建模，不要反复确认"])
+@pytest.mark.parametrize("message", ["确认", "开始", "继续", "同意", "已确认", "确认吧！", "已确认，开始建模吧", "批准执行", "开始建模", "已批准计划，请继续建模，不要一次写完全部细节", "确认开始建模，不要反复确认"])
 def test_natural_approval_opens_execution_after_plan(message):
     session = AgentSession(project_id="demo", reconstruction_state="planned")
     request = ConversationRequest(message=message, workflow_mode="image_reconstruction")

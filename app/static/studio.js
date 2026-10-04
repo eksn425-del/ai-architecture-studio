@@ -665,11 +665,15 @@ async function applyEdit(instruction) {
 
 async function sendConversation(event, agentAction = "auto") {
   event?.preventDefault();
+  if (state.busy) return;
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
   const typed = $("conversation-input").value.trim();
-  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && !/不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(typed) && /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(typed)) agentAction = "execute";
-  if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") { pendingExecutionProject = state.projectId; $("connect-dialog").showModal(); return; }
-  const message = agentAction === "execute" ? ($("conversation-input").value.trim() || "批准执行当前建模计划；完成后按原图视角检查并修正明显差异。") : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
+  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && !/不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(typed) && (/^(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*$/.test(typed) || /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(typed))) agentAction = "execute";
+  if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") {
+    try { if (!await startAgentSession()) return; }
+    catch (error) { pendingExecutionProject = state.projectId; $("connect-status").textContent = friendlyError(error); $("connect-dialog").showModal(); return; }
+  }
+  const message = agentAction === "execute" ? `已批准当前计划和估算，请现在执行完整建模：按参考图尽量还原主体、屋顶、门窗、材质、可见细节和已要求的室内与场地。内部步骤连续自动完成，逐视角检查并修正后保存模型；不要再问确认，不要只写脚本就停止。${typed ? `\n我的补充：${typed}` : ""}` : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
   pendingMessage = message;
   state.busy = true;
