@@ -1,3 +1,20 @@
+# CURRENT TASK — Windows 本机实际测试与 GitHub 交接（2026-10-05）
+
+用户已开始本机 Codex 测试。本阶段从最新 main 接手，检查 Windows 启动器、DeepSeek、SketchUp/Kongxing/MCP，并在专用空白测试模型中完整验证上传→澄清→计划→确认→建模→截图检查→同模型修改→SKP 保存及重新打开。发现问题直接修复、测试并 push main；不要覆盖本机已有工作或修改用户原始模型。
+
+测试输入已随仓库提交：
+- `docs/test-assets/cloud-villa/villa-single-view.png`
+- `docs/test-assets/cloud-villa/villa-six-view-sheet.png`
+- 素材说明及 SHA-256：`docs/test-assets/cloud-villa/README.md`
+
+保留六视图整图，不使用旧 ZIP 中另一栋别墅的独立图片替代。两个独立会话/模型尽量使用相同需求、尺度和配置；记录图片生成不一致、识图错误和人工纠正，不宣称严格控制变量比较。API Key 由用户本机填写，不提交密钥。缺少许可或不可自动完成的登录明确报告，继续独立可做的工作。
+
+交付：更新 HANDOFF 和 CURRENT_TASK，公开可分享的测试报告/截图放入 `docs/test-results/windows/`，区分真实执行、模拟测试、人工干预及 pending_external。私人素材、密钥、账号、私人 SKP 和个人路径不提交。commit/push 后确认 origin/main，云端直接读取 GitHub 验收，无需用户转发报告。
+
+---
+
+## 云端阶段历史（以下不覆盖当前实机任务）
+
 # CURRENT TASK — 建模前用户体验迭代（2026-10-05）
 
 最新用户指令优先于下方历史方案：暂不要求云端实际 SketchUp/MCP 建模；把上传、自然对话、澄清、参数计划、计划修订、连接引导、状态恢复做到可用，真实测试并提交推送 main，等待用户 Windows 实验。

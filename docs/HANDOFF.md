@@ -1,3 +1,7 @@
+## Windows test asset handoff (2026-10-05)
+
+Local Codex reported the cloud-generated single-view and whole six-view input files were missing from GitHub. Added the exact two existing generated PNGs under docs/test-assets/cloud-villa with checksums and provenance/consistency limitations; no regeneration, splitting, re-encoding or private-user images. Updated CURRENT_TASK with the user's Windows execution authorization and GitHub-only result handoff. Local Codex should pull main and use these inputs directly, not the old ZIP's other-villa six separate views. Prior 189-test result remains unchanged; this asset/docs-only delivery does not claim SketchUp quality or new inference.
+
 ## Logged-in competitor review and upload fixes (2026-10-05)
 
 Started from clean main `3ec9020`; user authorized competitor account login, continued pre-modeling iteration and main delivery. SUAPP WeChat scan initially returned an unbound identity; with explicit registration authorization, the site's registration action created and linked a new account. Logged-in AIM creation page and modeling-assistant input are accessible. Uploaded the existing whole six-view sheet (not split). A request to analyze/clarify without generating returned “当前会员或计划无法使用本功能，请升级！”; account shows zero credits. No purchase, generated competitor model, quality comparison or SketchUp execution occurred. Do not describe marketing/changelog claims as tested capabilities.
