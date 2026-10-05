@@ -234,6 +234,7 @@ def test_novice_frontend_uses_licensed_safe_markdown_and_real_progress():
     assert "clipboardData" in js and "dataTransfer" in js
     assert "committed_revisions" in js and "尚无新的模型提交" in js
     assert "item.type !== \"skp\" || hasGeometry" in js
+    assert 'if (executesModel) $("parameter-plan").open = false;' in js
     assert (root / "app/static/vendor/markdown-it/LICENSE").is_file()
 
 

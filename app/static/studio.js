@@ -529,6 +529,7 @@ async function boot() {
     const [runtime, projects] = await Promise.all([api("/api/status"), refreshProjects()]);
     state.nativeAgentAvailable = !!runtime.native_agent_available;
     state.modelRouter = runtime.model_router || null;
+    if (runtime.credential_restore_error) showToast("本机加密连接无法恢复，请重新填写 API Key；旧文件没有被发送或显示。", true);
     refreshTierLabels();
     const economyRoute = routeInfo("economy");
     const premiumRoute = routeInfo("premium");
@@ -727,6 +728,8 @@ async function sendConversation(event, agentAction = "auto") {
   const executesModel = agentAction === "execute" || (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "building");
   showResults(false);
   beginProgress(executesModel ? "正在建模与检查截图" : "正在分析图片与建模计划");
+  // Keep the conversation visible while the approved plan is executing.
+  if (executesModel) $("parameter-plan").open = false;
   $("workflow-progress").open = false;
   $("approve-reconstruction").disabled = true;
   setStatus(reconstruction && !executesModel ? "正在分析图片与建模参数，SketchUp 不会被修改。" : "Agent 正在建模/修改并检查截图。");
@@ -1053,6 +1056,13 @@ function openModelSettings() {
   $("model-settings-dialog").showModal();
 }
 $("model-settings-toggle").addEventListener("click", openModelSettings);
+$("forget-api-key").addEventListener("click", async () => {
+  try {
+    state.modelRouter = await api("/api/model-settings/credential", {method:"DELETE"});
+    $("api-key").value = ""; refreshTierLabels(); updateHeader();
+    $("model-settings-status").textContent = "已移除本机保存的 Key；再次使用需重新填写。";
+  } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
+});
 $("model-settings-close").addEventListener("click", () => { $("api-key").value = ""; $("model-settings-dialog").close(); });
 $("provider-mode").addEventListener("change", () => {
   const mode = $("provider-mode").value;
@@ -1071,7 +1081,7 @@ $("model-settings-form").addEventListener("submit", async event => {
   try {
     state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value})});
     refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeAvailable("economy") ? "已就绪" : "未配置"}`; $("model-settings-dialog").close();
-    showToast("模型连接已设置；尚未发送测试请求。下次交流将使用此模型。");
+    showToast(state.modelRouter.credential_storage === "windows-dpapi" ? "模型连接已加密保存在本机；重启自动恢复。尚未发送测试请求。" : "模型连接已设置；本机仅支持内存保存，重启需重新填写。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
   finally { $("api-key").value = ""; button.disabled = false; }
 });

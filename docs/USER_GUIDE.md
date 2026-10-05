@@ -2,7 +2,7 @@
 
 ## 从 GitHub 启动最新版本
 
-Windows 安装 Python 3.11+（勾选 Add Python to PATH），下载并完整解压 GitHub main 的 ZIP，双击根目录 **Start K Studio.cmd**。首次会安装依赖并打开浏览器；启动窗口需保持打开。每次重启都需要重新填入 API Key。也可在 Linux/macOS 执行 `python3 scripts/start.py`，完成聊天与计划；自动启动 SketchUp 的现有路径需要 Windows。
+Windows 安装 Python 3.11+（勾选 Add Python to PATH），下载并完整解压 GitHub main 的 ZIP，双击根目录 **Start K Studio.cmd**。首次会安装依赖并打开浏览器；启动窗口需保持打开。Windows 首次填写 API Key 后使用当前用户的 DPAPI 加密保存，重启自动恢复。其他系统暂仅支持内存保存。也可在 Linux/macOS 执行 `python3 scripts/start.py`，完成聊天与计划；自动启动 SketchUp 的现有路径需要 Windows。
 
 页面顶部会显示上传/描述、补充需求、检查计划、连接并建模四个阶段。API 未配置时点击「连接 AI 模型」，分析与整理计划不用连接 SketchUp。
 
@@ -44,7 +44,7 @@ Windows 安装 Python 3.11+（勾选 Add Python to PATH），下载并完整解�
 
 ## 选择模型或自带 API
 
-点击 **模型 / 自带 API**。预设 **GPT-6.1 Sol Low** 依赖本机 Codex 登录；自带 API 不需要这个登录。智谱国内平台请选 **智谱 GLM-5.3-Flash**，地址自动填为 `https://open.bigmodel.cn/api/paas/v4`，默认推理为 High；GLM 当前提供 Low / High / Max，没有 Medium，因此中间档使用 High；国际 Z.ai 是另一个选项，两者 Key 不通用。DeepSeek 也有独立选项。其他供应商可选 **使用自己的 API（LiteLLM）**，填写供应商模型标识、可选 HTTPS API Base 和 API Key。同一个提供方、模型和地址只修改推理档位时，可留空 Key 复用当前连接。Key 只保存在本机服务内存，关闭/重启后需要重填；不会写入项目、浏览器本地存储或 Git。
+点击 **模型 / 自带 API**。预设 **GPT-6.1 Sol Low** 依赖本机 Codex 登录；自带 API 不需要这个登录。智谱国内平台请选 **智谱 GLM-5.3-Flash**，地址自动填为 `https://open.bigmodel.cn/api/paas/v4`，默认推理为 High；GLM 当前提供 Low / High / Max，没有 Medium，因此中间档使用 High；国际 Z.ai 是另一个选项，两者 Key 不通用。DeepSeek 也有独立选项。其他供应商可选 **使用自己的 API（LiteLLM）**，填写供应商模型标识、可选 HTTPS API Base 和 API Key。同一个提供方、模型和地址只修改推理档位时，可留空 Key 复用当前连接。Windows 的 Key 和模型连接配置使用当前登录用户的系统 DPAPI 加密，保存在忽略的本机 runtime/local-settings/provider.dpapi；重启自动恢复，不回显 Key，不写入项目、浏览器本地存储或 Git。换 Windows 用户/电脑不能解密，需要重新填写。配置框的「移除已保存的 Key」可清除连接。加密文件损坏会提示重新配置，不会退回明文保存。其他系统暂只支持内存保存。
 
 使用 API 会把本项目的图片/文字发送给该供应商。模型需要支持视觉和工具调用。2026-10-02 国内 GLM 已真实返回图片分析，并通过工具写入、修订参数卡；这还不代表建模质量合格。请检查计划里的层数和尺寸，AI 可能误读图片。不同供应商的最终建筑质量还没有逐一验证。切换提供方会重建 Agent 线程，但保留同一项目的参数卡、Ruby 和模型。
 

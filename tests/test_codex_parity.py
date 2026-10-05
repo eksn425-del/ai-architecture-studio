@@ -102,6 +102,12 @@ def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
     edit = executor._build_transport_script(*paths, update_mode="edit")
     assert "root.entities.to_a.each { |entity| entity.erase! }" in replace
     assert "root.entities.to_a.each { |entity| entity.erase! }" not in edit
+    assert "remove_owned_group = lambda do |name|" in edit
+    assert "matches.length == 1" in edit
+    assert "child.locked?" in edit
+    assert "root.entities.to_a.select" in edit
+    from app.project_ruby import validate_project_ruby_source
+    assert validate_project_ruby_source("main", "remove_owned_group.call('Balcony')")
     helper = Path("app/vendor/sketchup_architect/scripts/model_session.rb").read_text(encoding="utf-8")
     assert "if root.entities.length.zero?" in helper
     assert "unless has_geometry?(root.entities)" in helper

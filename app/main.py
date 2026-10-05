@@ -33,6 +33,7 @@ from .models import (
     PrepareRequest, ProjectContext, Reference,
 )
 from .model_router import DeterministicModelRouter, ModelRoute
+from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
@@ -498,6 +499,21 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.native_agent = native_agent or CodexAppServerRuntime(store.root)
     app.state.model_router = DeterministicModelRouter(app.state.native_agent, runtime_root=store.root)
     app.state.preset_route = app.state.model_router.economy_route
+    app.state.credentials = LocalCredentialStore(store.root)
+    app.state.credential_restore_error = False
+    try:
+        saved_provider = app.state.credentials.load()
+        if saved_provider:
+            provider = app.state.model_router.china_runtime
+            provider.model = saved_provider["model"]
+            provider.custom_api_base = saved_provider["api_base"]
+            provider.session_api_key = saved_provider["api_key"]
+            provider.region = "user-configured (not verified)"
+            app.state.model_router.economy_route = ModelRoute(
+                "economy", "litellm", provider.model, saved_provider["reasoning_effort"], provider.region)
+    except (OSError, ValueError, KeyError):
+        # No credential or decrypted payload is logged or returned.
+        app.state.credential_restore_error = True
     app.state.sketchup = sketchup or SketchUpAdapter()
     app.state.reference_ingestor = reference_ingestor or ReferenceIngestor()
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
@@ -549,7 +565,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 if requires_responses_tools(model):
                     raise HTTPException(status_code=409, detail="GPT-6.1 Sol 的 API 工具调用需要 Responses，当前尚未开放这条建模路线。请使用已接入的 GLM/DeepSeek；Codex 登录路线仅用于本机研发。")
                 # Changing effort for the same connection never requires reading
-                # or returning the existing memory-only credential.
+                # or returning the existing credential.
                 if not key and model == provider.model and base == provider.api_base:
                     key = provider.session_api_key
                 default_effort = "high" if data.get("mode") in {"glm", "glm-international"} else "low" if data.get("mode") == "deepseek" else "provider-default"
@@ -563,14 +579,34 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     raise HTTPException(status_code=400, detail="API Base 请使用不含凭据、查询参数的 HTTPS 地址。")
                 if not provider.dependency_installed:
                     raise HTTPException(status_code=409, detail="本机尚未安装 LiteLLM，暂不能启用自带 API。")
+                try:
+                    app.state.credentials.save({"model": model, "api_base": base,
+                                                "api_key": key, "reasoning_effort": effort})
+                except OSError:
+                    raise HTTPException(status_code=500, detail="Windows 加密保存失败，模型设置未更新。请检查本机存储权限后重试。") from None
                 provider.model = model
                 provider.custom_api_base = base
                 provider.session_api_key = key
+                app.state.credential_restore_error = False
                 provider.region = "user-configured (not verified)"
                 router.economy_route = ModelRoute("economy", "litellm", model, effort, provider.region)
-            return router.status()
+            result = router.status()
+            result["credential_storage"] = "windows-dpapi" if app.state.credentials.supported else "memory-only"
+            return result
         except (ValueError, AttributeError):
             raise HTTPException(status_code=400, detail="模型设置格式不正确。") from None
+        finally:
+            app.state.agent_lock.release()
+
+    @app.delete("/api/model-settings/credential")
+    def forget_model_credential() -> dict[str, Any]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等当前回合结束后再移除连接。")
+        try:
+            app.state.credentials.clear()
+            app.state.model_router.china_runtime.session_api_key = ""
+            app.state.credential_restore_error = False
+            return app.state.model_router.status()
         finally:
             app.state.agent_lock.release()
 
@@ -591,6 +627,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "native_agent_model": app.state.model_router.economy_route.model,
             "native_agent_reasoning_effort": app.state.model_router.economy_route.reasoning_effort,
             "model_router": app.state.model_router.status(),
+            "credential_storage": "windows-dpapi" if app.state.credentials.supported else "memory-only",
+            "credential_restore_error": app.state.credential_restore_error,
             "sketchup_configured": connector_configured,
             "sketchup_detail": connector_detail,
             "runtime": "local",

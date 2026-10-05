@@ -145,6 +145,19 @@ class ProjectRubyExecutor:
             f"source = File.read(source_path, encoding: 'UTF-8')",
             f"CodexSketchupArchitect.run(project_id: {self._ruby_string(self.project_id)}, expected_guid: {self._ruby_string(self.expected_model_guid)}, expected_revision: {expected_revision}, report_path: {self._ruby_string(str(report_path))}, root_pid: {root_pid!r}) do |model, root|",
             *(["  root.entities.to_a.each { |entity| entity.erase! }"] if update_mode == "replace" else []),
+            # Scoped lifecycle glue: source still cannot call erase!/clear! or
+            # traverse outside its root. Remove one unambiguous direct child
+            # instance so small patches can retain all unrelated object IDs.
+            "  remove_owned_group = lambda do |name|",
+            "    raise 'Expected a nonempty direct-child group name' unless name.is_a?(String) && !name.empty? && name.length <= 200",
+            "    matches = root.entities.to_a.select { |e| (e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance)) && e.name == name }",
+            "    raise 'Owned child name must match exactly one group or component' unless matches.length == 1",
+            "    child = matches.first",
+            "    raise 'Owned child is locked' if child.locked?",
+            "    removed_pid = child.persistent_id",
+            "    child.erase!",
+            "    removed_pid",
+            "  end",
             "  eval(source, binding, File.basename(source_path), 1)",
             f"  root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', {self._ruby_string(self.project_id)})",
             "  root.set_attribute(CodexSketchupArchitect::DICT, 'role', 'project_root')",
