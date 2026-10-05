@@ -25,7 +25,7 @@ from pydantic import BaseModel, ValidationError
 
 from .brain import BrainUnavailable, CodexBrainAdapter
 from .workflow_context import load_workflow_skill_context, workflow_developer_instructions, workflow_prompt_note, workflow_tool_profile
-from .reconstruction_runtime import build_reconstruction_turn_policy, reconstruction_context_payload
+from .reconstruction_runtime import build_reconstruction_turn_policy, next_reconstruction_state, reconstruction_context_payload
 from .generators import generate_drawing, generate_presentation
 from .models import (
     AgentSession, Artifact, BuildPlan, ConversationMessage, ConversationRequest, CreateProjectRequest,
@@ -152,7 +152,7 @@ def _bounded_dimension(value: Any, label: str, minimum: float = 0.5, maximum: fl
 def _append_conversation(context: ProjectContext, role: str, phase: str, content: str,
                          metadata: dict[str, Any] | None = None) -> None:
     context.conversation.append(ConversationMessage(
-        role=role, phase=phase, content=content[:2000], created_at=utc_now(),
+        role=role, phase=phase, content=content[:12000], created_at=utc_now(),
         metadata=metadata or {},
     ))
     context.conversation = context.conversation[-40:]
@@ -364,7 +364,7 @@ def _context_with_brief_files(store: ProjectStore, project_id: str, context: Pro
     project_dir = store.project_dir(project_id)
     relatives = [*context.brief.source_files, *context.site.source_files,
                  *(ref.source for ref in context.references if ref.type == "note" and ref.source.startswith("inputs/"))]
-    for relative in relatives:
+    for relative in dict.fromkeys(relatives):
         file_path = (project_dir / Path(relative)).resolve()
         if file_path.is_relative_to(project_dir.resolve()) and file_path.is_file():
             text = _extract_brief_text(file_path).strip()
@@ -594,6 +594,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "sketchup_configured": connector_configured,
             "sketchup_detail": connector_detail,
             "runtime": "local",
+            "platform": "windows" if os.name == "nt" else "other",
+            "active_project_id": next(iter(app.state.active_turns), None),
         }
 
     @app.get("/api/projects")
@@ -643,7 +645,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session = store.load_state(project_id, "agent_session.json", AgentSession)
         session.thread_id = ""
         session.reconstruction_state = "clarifying"
-        session.last_reply = "参考图片已变化，请重新整理并批准建模计划。已有模型保持不变。"
+        session.plan_started_ns = 0
+        session.plan_request_message = ""
+        session.last_reply = "项目资料已变化，请重新整理并批准建模计划。已有模型保持不变。"
+        session.error = ""
         store.save_state(project_id, session, "agent_session.json")
 
     @app.get("/api/trash")
@@ -746,6 +751,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     @app.post("/api/projects/{project_id}/inputs/{category}")
     async def upload_input(project_id: str, category: str, request: Request, filename: str = "upload") -> dict[str, Any]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="AI 正在处理本轮资料，请等回合结束后再上传。")
+        try:
+            return await upload_input_unlocked(project_id, category, request, filename)
+        finally:
+            app.state.agent_lock.release()
+
+    async def upload_input_unlocked(project_id: str, category: str, request: Request, filename: str) -> dict[str, Any]:
         if category not in {"brief", "site", "reference"}:
             raise HTTPException(status_code=400, detail="category must be brief, site, or reference")
         try:
@@ -795,12 +808,17 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         else:
             if relative not in source_list:
                 source_list.append(relative)
+            if destination.suffix.lower() not in IMAGE_SUFFIXES:
+                context.references.append(Reference(type="note", source=relative))
             if category == "site":
                 boundary = _read_site_boundary(destination)
                 if boundary:
                     context.site.boundary, units_note = boundary
                     context.site.summary = (context.site.summary + " " + units_note).strip()
         store.save(context, project_dir / "state" / "project_context.json")
+        session = store.load_state(project_id, "agent_session.json", AgentSession)
+        if session.reconstruction_state in {"planned", "building"} or session.plan_started_ns:
+            invalidate_reference_plan(project_id)
         readable = _extract_brief_text(destination) if category != "reference" or destination.suffix.lower() not in IMAGE_SUFFIXES else ""
         note = "图片已接入视觉分析" if destination.suffix.lower() in IMAGE_SUFFIXES else f"已读取 {len(readable)} 字" if readable else "已保存；DWG/扫描件需补带尺寸的 PDF、图片或 DXF" if suffix in {".dwg", ".pdf"} else "已保存，分析时会报告可读取的信息"
         return {"path": relative, "filename": safe_name, "category": category, "bytes": len(content), "read_status": note}
@@ -1498,6 +1516,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             except ValueError as error:
                 raise HTTPException(status_code=409, detail=str(error)) from error
         action = policy.action if policy else request.agent_action
+        if policy and action == "plan":
+            # A failed update must never leave the old plan available for approval.
+            # An identical retry can finish a card written before a provider disconnect.
+            if session.plan_request_message != request.message.strip() or not session.plan_started_ns or session.reconstruction_state in {"planned", "building"}:
+                session.plan_started_ns = time.time_ns()
+                session.plan_request_message = request.message.strip()
+            session.reconstruction_state = "clarifying"
+            store.save_state(project_id, session, "agent_session.json")
         if project_id in app.state.active_turns:
             app.state.active_turns[project_id]["action"] = action
         phase = "agent"
@@ -1691,16 +1717,22 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session.routing_tier = effective_tier
         session.status = "ready" if session_ready else "conversation"
         session.workflow_mode = request.workflow_mode
+        session.input_tokens = result.input_tokens
+        session.output_tokens = result.output_tokens
+        session.latency_ms = result.latency_ms
+        session.tool_call_count = result.tool_call_count or len(result.tool_calls)
+        session.failed_tool_calls = result.failed_tool_calls
+        session.last_tool_calls = result.tool_calls[-40:]
         if policy:
             card = project_dir / "runtime" / "agent_workspace" / "notes" / "reconstruction_card.md"
             if action == "clarify":
-                session.reconstruction_state = "clarifying"
+                session.reconstruction_state = next_reconstruction_state(session, action)
                 session.clarification_rounds = min(8, session.clarification_rounds + 1)
             elif action == "plan":
                 # Do not claim a saved plan if the coding harness only returned text.
                 text = card.read_text(encoding="utf-8") if card.is_file() else ""
-                if not text.strip() or "- Overall width / height / depth: pending" in text:
-                    session.error = "建模计划未完成：Agent 尚未填写 reconstruction_card。"
+                if not text.strip() or "- Overall width / height / depth: pending" in text or card.stat().st_mtime_ns < session.plan_started_ns:
+                    session.error = "建模计划未完成：AI 尚未保存本次更新的参数。请重试整理计划，旧计划不会被执行。"
                     session.updated_at = utc_now()
                     store.save_state(project_id, session, "agent_session.json")
                     raise HTTPException(status_code=422, detail=session.error)
@@ -1728,14 +1760,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session.updated_at = utc_now()
         session.last_tool_calls = result.tool_calls[-40:]
         session.error = ""
-        reply = _sanitize_agent_reply(result.reply.strip()[:2000]) or "已完成这轮设计推演。"
+        reply = _sanitize_agent_reply(result.reply.strip()[:12000]) or "已完成这轮设计推演。"
         if mcp_enabled:
             try:
                 checkpoint_agent_model()
             except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                 session.error = f"Model action completed, but readback/capture/checkpoint failed: {error}"[:1200]
                 reply += "\n\nSketchUp 的模型回读、截图或检查点保存未完成；请检查本机桥接后重试。"
-        session.last_reply = reply[:2000]
+        session.last_reply = reply
         turn_metadata = {
             "workflow_mode": request.workflow_mode,
             "agent_action": action,

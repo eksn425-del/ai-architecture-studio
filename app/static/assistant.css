@@ -53,3 +53,16 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 @media(max-width:650px){.composer-area{padding:28px 12px 10px}.turn-state{left:15px}.skill-tag{display:none}.parameter-plan[open] #parameter-plan-content{width:88vw}.model-select{max-width:135px}}
 
 .composer-area{padding-top:6px}.composer-controls{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:6px}.composer-controls .turn-state{position:static;flex:1;max-width:none}.composer-controls .parameter-plan{margin:0}.composer-controls .approval-actions{margin:0;min-height:0}.composer-controls #prepare-plan{margin:0}
+
+/* Visible preparation flow, independent of the optional SketchUp connection. */
+.journey-guide{width:min(840px,100%);margin:0 auto;padding:12px 28px 0;flex-shrink:0}
+.journey-guide ol{display:flex;gap:10px;list-style:none;padding:0;margin:0}
+.journey-guide li{display:flex;align-items:center;gap:6px;flex:1;font-size:11px;color:var(--muted)}
+.journey-guide li>span{display:grid;place-items:center;width:22px;height:22px;flex-shrink:0;border:1px solid var(--line);border-radius:50%}
+.journey-guide li.current{color:var(--ink);font-weight:600}.journey-guide li.current>span{background:#e4eddf;border-color:#829a78}.journey-guide li.complete>span{color:#486740}
+.journey-next{display:flex;align-items:center;gap:12px;margin-top:8px}.journey-next p{font-size:11px;color:var(--muted);line-height:1.6;flex:1}.journey-next button{flex-shrink:0}
+.clarification-shortcuts{display:flex;align-items:center;gap:10px;margin:0 0 7px}.clarification-shortcuts[hidden]{display:none}.clarification-shortcuts span{font-size:10px;color:var(--muted)}
+.plan-download{display:inline-block;margin:8px 0;font-size:11px;color:#486740;text-decoration:underline}
+.parameter-plan[open]{position:relative}.parameter-plan[open] #parameter-plan-content{max-height:45vh;overflow:auto}
+@media(max-width:650px){.journey-guide{padding:10px 12px 0}.journey-guide ol{gap:5px}.journey-guide li{font-size:10px;gap:4px}.journey-guide li>span{width:18px;height:18px}.journey-next{gap:6px}.clarification-shortcuts{flex-wrap:wrap;gap:4px}}
+.plan-review-note{padding:10px 12px;border-left:3px solid #b48b46;background:#f8f3e8;font-size:12px;line-height:1.7}.parameter-plan-content h1,#parameter-plan-content h1{font-size:20px}#parameter-plan-content h2{font-size:16px}

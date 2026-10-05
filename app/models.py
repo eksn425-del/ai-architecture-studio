@@ -48,7 +48,7 @@ class Decision(Model):
 class ConversationMessage(Model):
     role: Literal["user", "assistant"]
     phase: Literal["pre_build", "after_build", "agent"]
-    content: str = Field(min_length=1, max_length=2000)
+    content: str = Field(min_length=1, max_length=12000)
     created_at: str = ""
     metadata: dict[str, Any] = Field(default_factory=dict)
 
@@ -188,6 +188,8 @@ class AgentSession(Model):
     workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"
     reconstruction_state: Literal["idle", "clarifying", "planned", "building"] = "idle"
     clarification_rounds: int = Field(default=0, ge=0, le=8)
+    plan_started_ns: int = 0
+    plan_request_message: str = ""
     input_tokens: int | None = None
     output_tokens: int | None = None
     latency_ms: int = 0

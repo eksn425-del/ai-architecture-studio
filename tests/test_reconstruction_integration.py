@@ -79,7 +79,7 @@ def test_first_api_plan_interruption_resumes_written_card_and_tool_history(tmp_p
     session = client.get("/api/projects/demo-cultural-center").json()["agent_session"]
     assert session["provider"] == "litellm"
     assert session["model"] == "openai/test-model"
-    assert session["reconstruction_state"] == "idle"
+    assert session["reconstruction_state"] == "clarifying"
     thread = session["thread_id"]
     retry = send(client, "plan")
     assert retry.status_code == 200
@@ -118,8 +118,65 @@ def test_missing_reference_and_missing_card_are_rejected(tmp_path):
     assert not su.calls
     (project / "inputs/reference/house.png").unlink()
     count = len(agent.calls)
-    assert send(client).status_code == 200
+    assert send(client, "clarify").status_code == 200
     assert len(agent.calls) == count + 1
+
+
+def test_new_input_invalidates_plan_and_blocks_execution(tmp_path):
+    client, agent, su, project = setup_project(tmp_path)
+    assert send(client, "plan").status_code == 200
+    before = len(agent.calls)
+    response = client.post("/api/projects/demo-cultural-center/inputs/brief?filename=dimensions.txt", content="宽度改为12米".encode())
+    assert response.status_code == 200
+    session = client.get("/api/projects/demo-cultural-center").json()["agent_session"]
+    assert session["reconstruction_state"] == "clarifying"
+    assert session["thread_id"] == ""
+    assert send(client, "execute").status_code == 409
+    assert len(agent.calls) == before and not su.calls
+
+
+def test_failed_plan_update_cannot_reuse_old_saved_card(tmp_path):
+    client, agent, su, project = setup_project(tmp_path)
+    assert send(client, "plan").status_code == 200
+    agent.respond = FakeNativeAgent().respond  # Replies without updating the card.
+    update = client.post("/api/projects/demo-cultural-center/conversation", json={
+        "message": "宽度改为12米，请更新计划", "workflow_mode": "image_reconstruction", "agent_action": "plan"})
+    assert update.status_code == 422
+    assert "本次更新" in update.json()["detail"]
+    assert client.get("/api/projects/demo-cultural-center").json()["agent_session"]["reconstruction_state"] == "clarifying"
+    assert send(client, "execute").status_code == 409
+    assert not su.calls
+
+
+@pytest.mark.parametrize("state", ["planned", "building"])
+@pytest.mark.parametrize("message", ["为什么要估算背面？", "修改窗子会影响阳台吗？", "能不能只聊一下尺寸"])
+def test_plan_questions_preserve_stage_and_do_not_edit_model(tmp_path, state, message):
+    client, agent, su, project = setup_project(tmp_path)
+    assert send(client, "plan").status_code == 200
+    store = ProjectStore(project.parents[1])
+    session = store.load_state("demo-cultural-center", "agent_session.json", AgentSession)
+    session.reconstruction_state = state
+    store.save_state("demo-cultural-center", session, "agent_session.json")
+    before = (project / "runtime/agent_workspace/notes/reconstruction_card.md").read_bytes()
+    response = client.post("/api/projects/demo-cultural-center/conversation", json={
+        "message": message, "workflow_mode": "image_reconstruction"})
+    assert response.status_code == 200
+    assert response.json()["agent"]["agent_action"] == "clarify"
+    assert response.json()["agent"]["reconstruction_state"] == state
+    assert not agent.calls[-1]["mcp_enabled"] and not su.calls
+    assert (project / "runtime/agent_workspace/notes/reconstruction_card.md").read_bytes() == before
+
+
+def test_upload_cannot_race_running_turn(tmp_path):
+    client, agent, su, project = setup_project(tmp_path)
+    app = client.app
+    app.state.agent_lock.acquire()
+    try:
+        response = client.post("/api/projects/demo-cultural-center/inputs/brief?filename=note.txt", content=b"new requirements")
+        assert response.status_code == 409
+        assert not list((project / "inputs/brief").glob("*note.txt"))
+    finally:
+        app.state.agent_lock.release()
 
 
 def test_file_writes_alone_cannot_be_reported_as_building(tmp_path):

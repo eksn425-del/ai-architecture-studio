@@ -13,6 +13,11 @@ ResolvedAction = Literal["clarify", "plan", "execute"]
 ReconstructionState = Literal["idle", "clarifying", "planned", "building"]
 
 
+def discussion_only(message: str) -> bool:
+    """Questions/explanations must not implicitly authorize model changes."""
+    return bool(re.search(r"先聊|先讨论|只聊|只分析|只解释|为什么|怎么|如何|能否|是否|能不能|[?？]|吗[。！!\s]*$", message))
+
+
 def explicit_build_approval(message: str) -> bool:
     """Recognize affirmative execution, never questions/negation or parameter edits."""
     if re.search(r"不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
@@ -48,6 +53,8 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
         return request.agent_action
     if session.reconstruction_state == "idle":
         return "clarify"
+    if discussion_only(request.message):
+        return "clarify"
     if session.reconstruction_state == "clarifying":
         return "clarify" if re.search(r"先聊|先讨论|只聊|只分析|[?？]", request.message) else "plan"
     if session.reconstruction_state == "planned" and explicit_build_approval(request.message):
@@ -63,6 +70,8 @@ def validate_reconstruction_action(session: AgentSession, action: ResolvedAction
 
 def next_reconstruction_state(session: AgentSession, action: ResolvedAction) -> ReconstructionState:
     if action == "clarify":
+        if session.reconstruction_state in {"planned", "building"}:
+            return session.reconstruction_state
         return "clarifying"
     if action == "plan":
         return "planned"

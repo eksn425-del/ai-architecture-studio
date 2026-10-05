@@ -42,6 +42,7 @@ def test_deepseek_preset_is_api_only_and_credential_not_returned(tmp_path, monke
     assert result.json()["economy"]["provider"] == "litellm"
     assert result.json()["economy"]["model"] == "deepseek/deepseek-flash"
     assert result.json()["economy"]["reasoning_effort"] == "low"
+    assert result.json()["providers"]["litellm"]["api_base"] == "https://api.deepseek.com"
     assert "test-secret-not-real" not in result.text
     assert app.state.model_router.china_runtime.api_base == "https://api.deepseek.com"
 
@@ -300,3 +301,30 @@ def test_legacy_attachment_migration_is_idempotent_and_busy_safe(tmp_path):
     again = client.get(f'/api/projects/{project}').json()['context']
     assert again['conversation'][0]['metadata']['legacy_attachments'] == [path]
     assert (root / path).is_file()
+
+
+def test_documents_attach_once_and_are_not_duplicated_in_agent_context(tmp_path):
+    app, client, project, agent, su = workspace(tmp_path)
+    uploaded = client.post(f"/api/projects/{project}/inputs/brief?filename=dimensions.txt", content="已知建筑宽12米".encode()).json()["path"]
+    first = client.post(f"/api/projects/{project}/conversation", json={"message":"先聊一下资料", "workflow_mode":"image_reconstruction"})
+    assert first.status_code == 200
+    data = first.json()["project"]
+    assert data["context"]["conversation"][0]["metadata"]["attachments"] == [uploaded]
+    assert data["context"]["references"][0]["submitted_at"]
+    assert agent.calls[-1]["prompt"].count("Uploaded brief extracts:") == 1
+    second = client.post(f"/api/projects/{project}/conversation", json={"message":"只聊需求", "workflow_mode":"image_reconstruction"})
+    assert second.status_code == 200
+    assert second.json()["project"]["context"]["conversation"][-2]["metadata"]["attachments"] == []
+    assert not su.calls
+
+
+def test_long_agent_answer_is_not_cut_off_in_saved_conversation(tmp_path):
+    app, client, project, agent, su = workspace(tmp_path)
+    from app.native_agent import AgentTurnResult
+    answer = "这是需要完整保留的参数解释。" * 200
+    agent.respond = lambda **kwargs: AgentTurnResult(thread_id="long-reply", reply=answer, status="completed")
+    response = client.post(f"/api/projects/{project}/conversation", json={"message":"先解释参数", "workflow_mode":"image_reconstruction"})
+    assert response.status_code == 200
+    assert response.json()["reply"] == answer
+    assert response.json()["project"]["context"]["conversation"][-1]["content"] == answer
+    assert client.get(f"/api/projects/{project}").json()["context"]["conversation"][-1]["content"] == answer

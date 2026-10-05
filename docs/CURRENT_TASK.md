@@ -1,3 +1,18 @@
+# CURRENT TASK — 建模前用户体验迭代（2026-10-05）
+
+最新用户指令优先于下方历史方案：暂不要求云端实际 SketchUp/MCP 建模；把上传、自然对话、澄清、参数计划、计划修订、连接引导、状态恢复做到可用，真实测试并提交推送 main，等待用户 Windows 实验。
+
+- 主要使用用户已授权的 DeepSeek API；Key 仅保存在服务内存，不写入仓库。
+- 保留完整六视图整图；图片文件数量不等于视角数量。
+- 研究建筑学长与 SUAPP 的公开交互，区分页面观察、产品宣称与真实执行；不复制专有实现。
+- 新资料、失败的参数更新都不能沿用旧计划授权建模；提问不应修改模型。
+- 本轮不声称真实几何、SKP 输出、Windows 干净安装或视觉还原质量通过。
+- Windows 用户从 GitHub 下载后可使用根目录 `Start K Studio.cmd`（需 Python 3.11+）；启动器安装依赖并打开本地网页。
+
+---
+
+## 历史任务背景（以下不覆盖最新用户指令）
+
 # CURRENT TASK — Image → SketchUp Direct-Codex Parity v2
 
 ## Status: Ready for Codex local integration after ChatGPT remote refactor

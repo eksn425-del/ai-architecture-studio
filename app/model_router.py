@@ -4,6 +4,7 @@ import os
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Literal
+from urllib.parse import urlsplit, urlunsplit
 
 from .litellm_runtime import LiteLLMRuntime
 from .native_agent import NativeAgentUnavailable
@@ -105,6 +106,8 @@ class DeterministicModelRouter:
         )
 
     def status(self) -> dict[str, Any]:
+        base = urlsplit(self.china_runtime.api_base)
+        safe_base = urlunsplit((base.scheme, base.netloc, base.path, "", "")) if not base.username and not base.password else ""
         return {
             "default_tier": "economy",
             "economy": self.economy_route.as_dict(),
@@ -117,6 +120,7 @@ class DeterministicModelRouter:
                     "dependency_installed": self.china_runtime.dependency_installed,
                     "region": self.china_runtime.region,
                     "model": self.china_runtime.model,
+                    "api_base": safe_base,
                 },
             },
             "premium_rescue_policy": "after repeated Economy failures, suggest Premium; only an explicit Premium request uses Astra",

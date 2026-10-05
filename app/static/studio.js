@@ -7,6 +7,42 @@ let liveProgressTimer = null;
 let progressGeneration = 0;
 let planRequestId = 0;
 let pendingExecutionProject = null;
+let observingTurn = false;
+
+function saveDraft() {
+  if (!state.projectId) return;
+  try {
+    localStorage.setItem(`kstudio-draft:${state.projectId}`, JSON.stringify({text: $("conversation-input").value, editing: state.planEditing}));
+  } catch (_) { /* Browser storage may be disabled; the server still owns sent messages. */ }
+}
+
+function restoreDraft() {
+  try {
+    const draft = JSON.parse(localStorage.getItem(`kstudio-draft:${state.projectId}`) || "null");
+    $("conversation-input").value = typeof draft?.text === "string" ? draft.text : "";
+    state.planEditing = !!draft?.editing;
+  } catch (_) { $("conversation-input").value = ""; }
+}
+
+function isBuildApproval(message) {
+  if (/不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(message)) return false;
+  return /^(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*$/.test(message) || /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(message);
+}
+
+function renderJourney() {
+  const stage = state.project?.agent_session?.reconstruction_state || "idle";
+  const current = {idle: 0, clarifying: 1, planned: 2, building: 3}[stage];
+  $("journey-steps").innerHTML = ["上传 / 描述", "补充需求", "检查计划", "连接并建模"].map((label, i) => `<li class="${i < current ? "complete" : i === current ? "current" : ""}" ${i === current ? 'aria-current="step"' : ""}><span>${i < current ? "✓" : i+1}</span>${label}</li>`).join("");
+  const available = routeAvailable("economy");
+  $("setup-model").hidden = available;
+  $("setup-model").disabled = state.busy;
+  $("journey-hint").textContent = !available
+    ? "先连接 AI 模型：选择 DeepSeek / GLM 并填入 API Key。图片和草稿会保留，分析阶段无需 SketchUp。"
+    : state.busy ? "本轮正在处理，资料与对话会保存在当前会话。"
+    : {idle: "上传同一建筑的图片（整张多视图也可以），或直接描述目标。先分析，不会修改 SketchUp。", clarifying: "回答 AI 的关键问题；没有实测尺寸也可以采用估算，再检查计划。", planned: "先核对范围、尺寸与推断。可以提问、修改或下载计划，准备好后再连接建模。", building: "继续修改同一模型；只想了解模型时，可以直接提问。"}[stage];
+  $("clarification-shortcuts").hidden = stage !== "clarifying";
+  $("use-estimates").disabled = state.busy;
+}
 
 function sourceImages() {
   return (state.project?.context?.references || []).filter((ref) => ref.type === "image" && ref.source.startsWith("inputs/reference/"));
@@ -86,13 +122,14 @@ function endProgress() {
 async function loadParameterPlan() {
   const requestId = ++planRequestId;
   const projectId = state.projectId;
+  $("download-plan").href = projectFileUrl("runtime/agent_workspace/notes/reconstruction_card.md");
   const visible = ["planned", "building"].includes(state.project?.agent_session?.reconstruction_state);
   $("parameter-plan").hidden = !visible;
   $("parameter-plan-content").textContent = "正在读取计划…";
   if (!visible) return;
   try {
     const card = await api(projectFileUrl("runtime/agent_workspace/notes/reconstruction_card.md"));
-    if (requestId === planRequestId && projectId === state.projectId) $("parameter-plan-content").innerHTML = chatText(card);
+    if (requestId === planRequestId && projectId === state.projectId) $("parameter-plan-content").innerHTML = '<p class="plan-review-note">请重点核对层数、各立面的门窗数量、尺寸与推断。AI 可能误读图片；有差异时点击「修改参数」纠正后再批准。</p>' + chatText(card);
   } catch (_) {
     if (requestId === planRequestId) $("parameter-plan-content").textContent = "参数文件暂时无法读取，请查看下方 AI 的计划回复后再决定是否批准。";
   }
@@ -144,7 +181,10 @@ async function api(path, options = {}) {
   const response = await fetch(path, options);
   const contentType = response.headers.get("content-type") || "";
   const body = contentType.includes("application/json") ? await response.json() : await response.text();
-  if (!response.ok) throw new Error(body?.detail || body?.error || `请求失败（${response.status}）`);
+  if (!response.ok) {
+    const detail = body?.detail || body?.error;
+    throw new Error(Array.isArray(detail) ? "输入内容不符合要求，请检查文件或消息长度后重试。" : detail || `请求失败（${response.status}）`);
+  }
   return body;
 }
 
@@ -159,6 +199,10 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后会同步本轮结果，请不要重复发送。";
+  if (/AuthenticationError|invalid.*api.?key|Incorrect API key|401|Unauthorized/i.test(message)) return "API Key 无效或已失效，请打开「模型 / 自带 API」检查供应商和 Key。图片、计划和草稿都已保留。";
+  if (/Insufficient Balance|insufficient_quota|402|余额不足/i.test(message)) return "模型账户余额或额度不足，请检查供应商账户；项目资料与计划已保留。";
+  if (/RateLimitError|429|rate.limit/i.test(message)) return "模型供应商暂时限流，请稍后重试；无需重新上传资料。";
   if (/WinError 10061|Server disconnected without sending a response|ConnectError|ProxyError/i.test(message)) return "模型 API 连接中断；已保留图片、计划和脚本。请重试执行，当前无需恢复或重新创建模型。";
   if (/APITimeoutError|LiteLLM request failed.*Timeout|Request timed out/i.test(message)) {
     return "模型 API 请求超时，本轮未完成；这不代表 MCP 断开。项目记录已保留，请分阶段重试，先建主体并截图，再补细节。";
@@ -316,6 +360,7 @@ function updateHeader() {
   renderArtifacts();
   renderConversation();
   renderWorkflowChecks();
+  renderJourney();
   renderPreview();
 }
 
@@ -464,12 +509,13 @@ function renderPreview() {
 }
 
 async function loadProject(projectId) {
+  if (projectId !== state.projectId) saveDraft();
   state.planEditing = false;
   state.projectId = projectId;
   state.project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
   localStorage.setItem("architecture-studio-project", projectId);
   $("project-select").value = projectId;
-  $("conversation-input").value = "";
+  restoreDraft();
   $("parameter-plan").open = false;
   await loadParameterPlan();
   state.tab = artifactByType("viewport") ? "model" : "design";
@@ -492,7 +538,9 @@ async function boot() {
     $("brain-status").textContent = `建筑 Agent · ${routeStatus}`;
     document.querySelector(".signal-dot").classList.toggle("ready", state.nativeAgentAvailable);
     const savedId = localStorage.getItem("architecture-studio-project");
-    if (projects.length) await loadProject(projects.some((p) => p.project_id === savedId) ? savedId : projects[0].project_id);
+    if (projects.length) await loadProject(runtime.active_project_id || (projects.some((p) => p.project_id === savedId) ? savedId : projects[0].project_id));
+    if (state.projectId) await observeRunningTurn();
+    if (!state.projectId) { $("project-title").textContent = "点击「新建建模会话」开始"; $("conversation-send").disabled = true; }
   } catch (error) {
     showToast(friendlyError(error), true);
   }
@@ -668,13 +716,20 @@ async function sendConversation(event, agentAction = "auto") {
   if (state.busy) return;
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
   const typed = $("conversation-input").value.trim();
-  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && !/不要|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(typed) && (/^(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*$/.test(typed) || /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(typed))) agentAction = "execute";
+  if (agentAction === "execute" && typed && !isBuildApproval(typed)) {
+    agentAction = "plan";
+    showToast("输入框还有补充要求，先更新计划供你检查，再批准建模。");
+  }
+  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && isBuildApproval(typed)) agentAction = "execute";
   if (agentAction === "execute" && state.project?.agent_session?.status !== "ready") {
-    try { if (!await startAgentSession()) return; }
-    catch (error) { pendingExecutionProject = state.projectId; $("connect-status").textContent = friendlyError(error); $("connect-dialog").showModal(); return; }
+    pendingExecutionProject = state.projectId;
+    $("connect-status").textContent = "计划和资料已保留。连接本会话的独立模型后才会开始建模；也可以稍后再连接。";
+    $("connect-dialog").showModal();
+    return;
   }
   const message = agentAction === "execute" ? `已批准当前计划和估算，请现在执行完整建模：按参考图尽量还原主体、屋顶、门窗、材质、可见细节和已要求的室内与场地。内部步骤连续自动完成，逐视角检查并修正后保存模型；不要再问确认，不要只写脚本就停止。${typed ? `\n我的补充：${typed}` : ""}` : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
+  saveDraft();
   pendingMessage = message;
   state.busy = true;
   const button = $("conversation-send");
@@ -705,7 +760,9 @@ async function sendConversation(event, agentAction = "auto") {
     pendingMessage = null;
     state.planEditing = false;
     await loadParameterPlan();
+    if (result.agent?.agent_action === "plan") $("parameter-plan").open = true;
     $("conversation-input").value = "";
+    saveDraft();
     $("conversation-tier").value = "economy";
     updateHeader();
     setStatus(result.reply);
@@ -717,6 +774,7 @@ async function sendConversation(event, agentAction = "auto") {
   } catch (error) {
     await loadProject(state.projectId).catch(() => {});
     $("conversation-input").value = message;
+    saveDraft();
     setStatus(friendlyError(error), "error");
     showToast(friendlyError(error), true);
   } finally {
@@ -725,6 +783,7 @@ async function sendConversation(event, agentAction = "auto") {
     state.busy = false;
     setBusy(button, false);
     updateHeader();
+    await observeRunningTurn();
   }
 }
 
@@ -736,12 +795,14 @@ $("conversation-input").addEventListener("focus", () => {
 $("approve-reconstruction").addEventListener("click", (event) => sendConversation(event, "execute"));
 $("revise-reconstruction-plan").addEventListener("click", () => {
   state.planEditing = true;
+  saveDraft();
   updateHeader();
   $("conversation-input").placeholder = "例如：宽度改为 12 米；背面补窗；先只建主体。提交后重新确认计划。";
   $("conversation-input").focus();
   showToast("在对话框填写要修改的参数，然后点击「更新参数计划」。本轮不修改 SketchUp。");
 });
 $("conversation-input").addEventListener("input", () => {
+  saveDraft();
   updateHeader();
 });
 $("conversation-tier").addEventListener("change", updateHeader);
@@ -795,6 +856,7 @@ $("conversation-history").addEventListener("click", (event) => {
   const suggestion = event.target.closest("[data-prompt]");
   if (!suggestion || state.busy) return;
   $("conversation-input").value = suggestion.dataset.prompt;
+  saveDraft();
   $("conversation-input").focus();
   updateHeader();
 });
@@ -834,6 +896,7 @@ $("create-project-form").addEventListener("submit", async (event) => {
     await refreshProjects();
     await loadProject(result.project_id);
     $("conversation-input").value = initialGoal;
+    saveDraft();
     showToast("会话已创建。上传或粘贴资料，直接告诉 AI 你想做什么。");
   } catch (error) { showToast(friendlyError(error), true); }
   finally {
@@ -860,8 +923,9 @@ $("recover-agent-checkpoint").addEventListener("click", async () => {
 
 function renderAttachments() {
   const context = state.project?.context || {};
-  const files = [...(context.brief?.source_files || []), ...(context.site?.source_files || []),
-    ...(context.references || []).filter(r => r.type === "note").map(r => r.source)];
+  const files = [...new Set([...(context.brief?.source_files || []), ...(context.site?.source_files || []),
+    ...(context.references || []).filter(r => r.type === "note").map(r => r.source)])]
+    .filter(path => !(context.references || []).find(r => r.source === path)?.submitted_at);
   $("attachment-list").innerHTML = files.map(path => `<a class="file-chip" href="${projectFileUrl(path)}" target="_blank" rel="noopener">${escapeHtml(path.split("/").pop())}</a>`).join("");
 }
 async function uploadAttachments(files) {
@@ -887,6 +951,15 @@ $("prepare-plan").addEventListener("click", event => {
   if (!$("conversation-input").value.trim()) $("conversation-input").value = "信息已确认，请整理建模计划，标明估算与需要我确认的内容。";
   sendConversation(event, "plan");
 });
+$("setup-model").addEventListener("click", openModelSettings);
+$("use-estimates").addEventListener("click", () => {
+  $("conversation-input").value = ($("conversation-input").value.trim() ? $("conversation-input").value.trim() + "\n" : "") + "没有实测尺寸，请保留我已说明的要求，对未知尺寸提出合理估算并标明；未说明的范围先以外部建筑为主，背面可合理推断并标明，支持多角度查看。先整理计划供我检查，不要开始建模。";
+  saveDraft(); updateHeader(); $("conversation-input").focus();
+});
+$("conversation-input").addEventListener("keydown", event => {
+  if ((event.ctrlKey || event.metaKey) && event.key === "Enter" && !event.isComposing && !$("conversation-send").disabled) sendConversation(event);
+});
+window.addEventListener("beforeunload", saveDraft);
 $("connect-close").addEventListener("click", () => { pendingExecutionProject = null; $("connect-dialog").close(); });
 $("connect-check").addEventListener("click", async () => {
   if (state.busy || $("connect-check").disabled || $("connect-open").disabled) return;
@@ -915,13 +988,37 @@ $("connect-open").addEventListener("click", async () => {
   } catch (error) { $("connect-status").textContent = friendlyError(error); }
   finally { $("connect-open").disabled = false; }
 });
+async function observeRunningTurn() {
+  if (!state.projectId || state.busy) return;
+  try {
+    const progress = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
+    if (!progress.running) return;
+    observingTurn = true; state.busy = true;
+    beginProgress("已恢复正在处理的回合");
+    startLiveProgress();
+  } catch (_) { /* A status outage must not submit the draft again. */ }
+}
+
 function startLiveProgress() {
   const generation = ++progressGeneration;
   clearInterval(progressTimer);
   const refresh = async () => {
     try {
       const p = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
-      if (generation !== progressGeneration || !state.busy || !p.running) return;
+      if (generation !== progressGeneration || !state.busy) return;
+      if (!p.running) {
+        if (observingTurn) {
+          observingTurn = false; endProgress(); state.busy = false;
+          await loadProject(state.projectId);
+          const lastUser = [...(state.project.context.conversation || [])].reverse().find(m => m.role === "user");
+          if (!state.project.agent_session?.error && lastUser?.content === $("conversation-input").value.trim()) {
+            $("conversation-input").value = ""; saveDraft();
+          }
+          if (state.project.agent_session?.reconstruction_state === "planned") $("parameter-plan").open = true;
+          updateHeader(); showToast(state.project.agent_session?.error ? "本轮未完成，请查看原因；资料与草稿已保留。" : "本轮结果已同步，可以继续交流。", !!state.project.agent_session?.error);
+        }
+        return;
+      }
       renderWorkflowChecks(p);
       $("operation-progress").textContent = `${p.stage} · ${p.elapsed_seconds} 秒 · 已调用 ${p.tool_calls} 次工具${p.failed_tool_calls ? `（${p.failed_tool_calls} 次失败）` : ""}${p.action !== "execute" ? " · 不改动 SketchUp" : p.committed_revisions.length ? " · SU 已提交实际模型修改" : " · 尚无新的模型提交"}`;
       if (p.preview_url) {
@@ -933,7 +1030,19 @@ function startLiveProgress() {
   refresh(); liveProgressTimer = setInterval(refresh, 3000);
 }
 
-$("model-settings-toggle").addEventListener("click", () => $("model-settings-dialog").showModal());
+function openModelSettings() {
+  const model = routeInfo("economy").model || "";
+  const base = state.modelRouter?.providers?.litellm?.api_base || "";
+  const apiProvider = routeInfo("economy").provider === "litellm";
+  const mode = !apiProvider ? routeAvailable("economy") ? "preset" : "deepseek" : model === "deepseek/deepseek-flash" && (!base || base.replace(/\/$/, "") === "https://api.deepseek.com") ? "deepseek" : model === "zai/glm-5.3-flash" && base.startsWith("https://open.bigmodel.cn/") ? "glm" : model === "zai/glm-5.3-flash" && base.startsWith("https://api.z.ai/") ? "glm-international" : "byok";
+  $("provider-mode").value = mode;
+  $("provider-mode").dispatchEvent(new Event("change"));
+  if (mode === "byok") { $("api-model").value = model; $("api-base").value = base; }
+  if (apiProvider && ["low", "high", "max", "provider-default"].includes(routeInfo("economy").reasoning_effort)) $("api-effort").value = routeInfo("economy").reasoning_effort;
+  $("model-settings-status").textContent = "";
+  $("model-settings-dialog").showModal();
+}
+$("model-settings-toggle").addEventListener("click", openModelSettings);
 $("model-settings-close").addEventListener("click", () => { $("api-key").value = ""; $("model-settings-dialog").close(); });
 $("provider-mode").addEventListener("change", () => {
   const mode = $("provider-mode").value;
@@ -941,16 +1050,20 @@ $("provider-mode").addEventListener("change", () => {
   $("byok-fields").hidden = mode === "preset";
   $("api-model").readOnly = !!presets[mode]; $("api-base").readOnly = !!presets[mode];
   if (presets[mode]) { [$("api-model").value,$("api-base").value] = presets[mode]; }
+  $("api-effort").value = mode === "deepseek" ? "low" : mode.startsWith("glm") ? "high" : "provider-default";
 });
 $("model-settings-form").addEventListener("submit", async event => {
   event.preventDefault();
+  const button = $("model-settings-form").querySelector('button[type="submit"]');
+  if (button.disabled) return;
+  button.disabled = true;
   $("model-settings-status").textContent = "正在设置连接…";
   try {
     state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value})});
     refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeAvailable("economy") ? "已就绪" : "未配置"}`; $("model-settings-dialog").close();
     showToast("模型连接已设置；尚未发送测试请求。下次交流将使用此模型。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
-  finally { $("api-key").value = ""; }
+  finally { $("api-key").value = ""; button.disabled = false; }
 });
 
 async function deleteProject(id) {

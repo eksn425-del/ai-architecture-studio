@@ -1,5 +1,16 @@
 # AI Architecture Studio
 
+## Windows 用户开始使用
+
+1. 安装 [Python 3.11 或更新版本](https://www.python.org/downloads/windows/)，安装时勾选 **Add Python to PATH**。
+2. 从 GitHub 的 **Code → Download ZIP** 下载最新 main，完整解压后双击根目录 **Start K Studio.cmd**。首次启动会安装项目和 DeepSeek / GLM 依赖，然后打开本地网页；请保持启动窗口打开。再次使用仍双击此文件。
+3. 在页面点击 **连接 AI 模型**，选择 DeepSeek 或 GLM，填入自己的 API Key。Key 仅保存在服务内存，重启后需要重填。
+4. 新建会话 → 上传同一建筑的图片或六视图整图 → 描述目标 → 补充需求 → 检查并修改计划。没有实测尺寸可以采用估算；建模前不需要连接 SketchUp。计划可下载保存。
+5. 在 Windows 上准备好 SketchUp 2024 与已有 Kongxing 插件后，再按 **连接 SketchUp** 教学打开独立模型并批准建模。插件未随仓库分发；下载本仓库不等于已安装插件。
+
+本轮已真实测试 DeepSeek 的图片/文字对话与计划流程。实际 SketchUp 建模与干净 Windows 安装仍待用户验证；图片里的门窗等细节可能误读，请先核对计划。完整使用说明见 [USER_GUIDE](docs/USER_GUIDE.md)。
+
+
 AI Architecture Studio is a lightweight architecture workspace that packages strong existing AI + professional-software automation around real design tools instead of rebuilding CAD or 3D engines from scratch.
 
 ## Product direction

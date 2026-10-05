@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=20261003-compact"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=prebuild-20261005"></head>
 <body>
 <div class="assistant-shell">
   <aside class="sidebar" aria-label="建模会话">
@@ -14,12 +14,14 @@
     <header class="workspace-heading"><button id="mobile-menu" class="icon-button" aria-label="打开建模会话" aria-expanded="false">☰</button><div><div class="eyebrow">SKETCHUP ASSISTANT</div><h1>AI 建模</h1><p id="project-title">正在加载会话…</p></div><div class="heading-actions"><span id="project-status" class="status-pill"><i></i> 待分析</span><button id="start-agent-session" class="button-quiet"><span>连接 SketchUp</span><span>↗</span></button><button id="result-toggle" class="button-quiet" aria-expanded="false" aria-controls="result-panel">模型与文件 <span>◫</span></button></div></header>
     <div class="workbench">
       <section class="chat-column" aria-label="AI 建模对话">
+        <section class="journey-guide" aria-label="建模前准备"><ol id="journey-steps"></ol><div class="journey-next"><p id="journey-hint"></p><button id="setup-model" class="button-quiet" type="button" hidden>连接 AI 模型</button></div></section>
         <div id="conversation-history" class="conversation-history" aria-live="polite"></div>
         <details id="workflow-progress" class="workflow-progress"><summary>连接与任务进度 <span>点击查看步骤</span></summary><ol id="workflow-checklist"></ol></details><div class="composer-area">
           <div class="composer-controls"><div id="reconstruction-state" class="turn-state" role="status">待分析</div>
-          <details id="parameter-plan" class="parameter-plan" hidden><summary>建模计划与参数 <span>展开查看</span></summary><div id="parameter-plan-content" class="markdown-content"></div></details>
+          <details id="parameter-plan" class="parameter-plan" hidden><summary>建模计划与参数 <span>展开查看</span></summary><a id="download-plan" class="plan-download" download="建模计划.md">下载当前计划 ↓</a><div id="parameter-plan-content" class="markdown-content"></div></details>
           <div class="approval-actions"><button id="revise-reconstruction-plan" class="button-quiet" type="button" hidden>修改参数</button><button id="approve-reconstruction" class="button-primary" type="button" hidden><span>批准计划并开始建模</span><span>↗</span></button></div>
           <button id="prepare-plan" class="button-quiet" type="button" hidden>信息已确认，整理建模计划</button></div>
+          <div id="clarification-shortcuts" class="clarification-shortcuts" hidden><button id="use-estimates" class="button-quiet" type="button">没有尺寸，采用推荐估算</button><span>会先生成计划供你检查，不会开始建模。</span></div>
           <form id="conversation-form" class="conversation-form">
             <div id="reference-gallery" class="reference-gallery" aria-label="已上传的参考图片"></div>
             <label class="sr-only" for="conversation-input">输入建模要求或修改指令</label><textarea id="conversation-input" rows="2" maxlength="1200" placeholder="上传建筑图片，描述你想建的模型…"></textarea>
@@ -50,5 +52,5 @@
 <!-- Compatibility elements for existing backend paths, outside the modeling UI. -->
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
-<script src="/static/studio.js?v=deletion-20261003-compact" defer></script>
+<script src="/static/studio.js?v=prebuild-20261005" defer></script>
 </body></html>

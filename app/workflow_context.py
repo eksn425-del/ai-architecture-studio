@@ -67,6 +67,10 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "questions whose answers materially change reconstruction: intended use/viewing, scope, any known dimension, "
                 "permission to infer unseen geometry, and desired detail level. Ask at most four concise questions. "
                 "If the user already supplied an answer, do not ask it again. Continue natural discussion without forcing a plan after one reply. "
+                "Start with a short account of visible building features, then ask at most four numbered plain-language questions with recommended defaults. "
+                "If dimensions are unknown, offer estimates rather than requiring measurements. If the user asks for advice, answer that question first. "
+                "Four is a maximum, not a quota. When use/scope/dimensions/inference/detail are already supplied, summarize them and recommend defaults for minor details instead of inventing another questionnaire. "
+                "For questions about an existing plan/model, read its card when needed, explain it without changing the card or geometry, and preserve confirmed requirements. "
                 "Use explicitly provided document/site evidence and explain unsupported inputs. Reply in concise Chinese for a novice. Do not edit SketchUp geometry. "
                 "Do not write building scripts or promise execution during clarification. Withheld tools are the intentional approval gate, not broken tools waiting to recover."
             )
@@ -76,6 +80,11 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "practical parameter card: scope, assumptions, coherent estimated dimensions, levels/bays, major solids/voids, "
                 "repeated components, roof/canopy, materials and persistent-script plan. Clearly label inferred values as estimates. "
                 "Update notes/reconstruction_card.md and return the compact plan for approval. Do not edit SketchUp geometry."
+                " Read the existing card before updating it; preserve prior confirmed requirements unless the user changes them. "
+                "Write the updated card in THIS turn, even if most values are unchanged. Use Chinese headings 已知、估算、推断、建模范围、建模步骤、待确认; include filename/panel evidence for views. "
+                "Reply with a short scope/dimension/uncertainty summary and tell the user they can adjust it, download the plan, or connect SketchUp when ready. "
+                "Do not demand software connection or promise zero-error matching during planning."
+                " Keep image observations separate from user-confirmed dimensions. Never label a guessed window count as confirmed; mark low-confidence counts for user review."
             )
         else:
             task = (
