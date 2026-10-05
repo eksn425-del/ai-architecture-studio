@@ -6,7 +6,7 @@ MAX_TEXT_BYTES = 120000
 
 
 def workspace_file_tools() -> list[dict]:
-    schema = {"type": "string", "description": "Project workspace path: notes/*.md, qa/*.md or scripts/*.rb"}
+    schema = {"type": "string", "description": "Project workspace path: notes/*.md, qa/*.md or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/."}
     return [
         {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/Ruby file.",
          "inputSchema": {"type": "object", "properties": {"relative_path": schema}, "additionalProperties": False}},
@@ -23,16 +23,20 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
     if workspace.is_symlink():
         raise ValueError("Workspace may not be a link.")
     path = arguments.get("relative_path", "")
-    if name == "workspace_read" and not path:
+    if not isinstance(path, str):
+        raise ValueError("relative_path must be a string.")
+    if name == "workspace_read" and path in {"", ".", "notes", "notes/", "qa", "qa/", "scripts", "scripts/"}:
         files = []
         for directory, suffix in (("notes", ".md"), ("qa", ".md"), ("scripts", ".rb")):
+            if path not in {"", "."} and path.rstrip("/") != directory:
+                continue
             parent = root / directory
             if parent.is_symlink() or not parent.resolve().is_relative_to(root):
                 continue
             files.extend(p.relative_to(root).as_posix() for p in parent.glob("*" + suffix)
                          if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root))
         return {"success": True, "files": sorted(files)}
-    if not isinstance(path, str) or not re.fullmatch(r"(?:notes|qa)/[A-Za-z0-9_.-]+\.md|scripts/[A-Za-z0-9_.-]+\.rb", path):
+    if not re.fullmatch(r"(?:notes|qa)/[A-Za-z0-9_.-]+\.md|scripts/[A-Za-z0-9_.-]+\.rb", path):
         raise ValueError("Only workspace notes/qa Markdown and scripts Ruby are allowed.")
     target = root.joinpath(*PurePosixPath(path).parts)
     if workspace.is_symlink() or any(p.is_symlink() for p in (target, target.parent)) or not target.resolve().is_relative_to(root):

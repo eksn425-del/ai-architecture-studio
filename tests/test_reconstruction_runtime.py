@@ -90,6 +90,14 @@ def test_reconstruction_context_excludes_brief_and_site() -> None:
     assert payload["clarification_rounds"] == 1
 
 
+def test_one_uploaded_sheet_does_not_assert_one_camera_view() -> None:
+    context = ProjectContext(project_id="demo", project_name="Six-panel sheet",
+                             references=[{"type": "image", "source": "inputs/reference/sheet.png"}])
+    payload = reconstruction_context_payload(context)
+    assert payload["uploaded_image_count"] == 1
+    assert payload["view_count"] is None
+
+
 @pytest.mark.parametrize("message", ["确认", "开始", "继续", "同意", "已确认", "确认吧！", "已确认，开始建模吧", "批准执行", "开始建模", "已批准计划，请继续建模，不要一次写完全部细节", "确认开始建模，不要反复确认"])
 def test_natural_approval_opens_execution_after_plan(message):
     session = AgentSession(project_id="demo", reconstruction_state="planned")

@@ -1674,7 +1674,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     session.error += f"; checkpoint failed: {checkpoint_error}"
                 _append_conversation(context, "assistant", phase, session.last_reply, {"status": "interrupted"})
                 store.save(context, project_dir / "state" / "project_context.json")
-            if effective_tier == "economy" and _is_agent_loop_stall(str(error)):
+            if effective_tier == "economy" and (not policy or mcp_enabled) and _is_agent_loop_stall(str(error)):
                 session.economy_tool_failure_streak += 1
                 session.premium_rescue_pending = session.economy_tool_failure_streak >= 2
             session.updated_at = utc_now()
@@ -1718,7 +1718,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session.latency_ms = result.latency_ms
         session.tool_call_count = result.tool_call_count or len(result.tool_calls)
         session.failed_tool_calls = result.failed_tool_calls
-        if effective_tier == "economy":
+        if effective_tier == "economy" and (not policy or mcp_enabled):
             if result.failed_tool_calls:
                 session.economy_tool_failure_streak += result.failed_tool_calls
                 if session.economy_tool_failure_streak >= 2:

@@ -143,6 +143,30 @@ def test_workspace_tools_allow_notes_ruby_and_reject_escape(tmp_path):
             workspace_file_call(root, "workspace_write", {"relative_path": path, "content": "x"})
 
 
+def test_workspace_read_lists_normal_directory_requests_without_path_escape(tmp_path):
+    root = prepare_codex_parity_workspace(tmp_path / "workspace")
+    workspace_file_call(root, "workspace_write", {"relative_path": "scripts/house.rb", "content": "revision=1"})
+    workspace_file_call(root, "workspace_write", {"relative_path": "notes/test.md", "content": "note"})
+    all_files = workspace_file_call(root, "workspace_read", {"relative_path": "."})["files"]
+    assert "scripts/house.rb" in all_files and "notes/test.md" in all_files
+    notes = workspace_file_call(root, "workspace_read", {"relative_path": "notes/"})["files"]
+    assert "notes/test.md" in notes and "scripts/house.rb" not in notes
+    for invalid in ("../", [], None):
+        with pytest.raises(ValueError):
+            workspace_file_call(root, "workspace_read", {"relative_path": invalid})
+
+
+def test_reconstruction_planning_file_failures_do_not_suggest_stronger_model(tmp_path):
+    class FileFailureAgent(PlanningAgent):
+        failed_tool_calls = 2
+    client, _, su, _ = setup_project(tmp_path, FileFailureAgent())
+    result = send(client, "clarify")
+    assert result.status_code == 200
+    assert result.json()["agent"]["failed_tool_calls"] == 2
+    assert result.json()["agent"]["premium_rescue_pending"] is False
+    assert not su.calls
+
+
 def test_litellm_reconstruction_retains_history_and_uploaded_evidence(tmp_path, monkeypatch):
     import sys
     from types import ModuleType, SimpleNamespace
