@@ -11,6 +11,12 @@
 
 交付：更新 HANDOFF 和 CURRENT_TASK，公开可分享的测试报告/截图放入 `docs/test-results/windows/`，区分真实执行、模拟测试、人工干预及 pending_external。私人素材、密钥、账号、私人 SKP 和个人路径不提交。commit/push 后确认 origin/main，云端直接读取 GitHub 验收，无需用户转发报告。
 
+## 最新追加：开源代码复用（2026-10-05）
+
+用户要求匹配、筛选并直接复用开源代码，不重复造轮子。已搜索/检查 8 个仓库并实际接入 SAIE 墙体几何子集和 Stultus 毫米边界回读子集：[匹配与接入说明](OSS_MATCH_AND_ADOPTION_2026-10-05.md)。保持 Kongxing/现有 Agent，不新增几何引擎或多 Agent 重写。系统 Ruby 替身验证和 204 自动测试通过，2 Windows skips；尚无真实模型质量通过。
+
+本机先在专用空白模型验证注入的 saie_wall.call(params)（所有参数毫米、字符串键）及事务 owned_before/owned_after 中的 XYZ 毫米边界与 child persistent IDs，再用于别墅修复。墙体子集只创建实体段，不自动开洞；不可用封闭实墙假装玻璃开口。按下方原任务继续完成真实几何、全视角对比、同模型局部改动和 SKP 重开编辑；记录是否截断，不把新工具成功当成视觉通过。
+
 ## 云端验收后修复与本机复测（2026-10-05）
 
 已基于 ac8f597 的失败截图完成云端迭代，说明：[云端回归与下一步](test-results/cloud/2026-10-05/README.md)。新增已知米/英寸原点错误的执行前检查、已有模型整栋 replace 显式保护、旧长工具输出缩减、质量未验收提示。202 tests passed，2 Windows skips；这不代表真实模型质量已修复。

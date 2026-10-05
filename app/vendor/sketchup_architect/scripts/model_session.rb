@@ -2,6 +2,7 @@
 # Load defines helpers only. Invoke run explicitly in SketchUp's main thread.
 require 'json'
 require 'time'
+require_relative '../../../adopted_sketchup_helpers'
 
 module CodexSketchupArchitect
   DICT = 'sketchup_architect' unless const_defined?(:DICT)
@@ -109,7 +110,9 @@ module CodexSketchupArchitect
         root.set_attribute(DICT, 'project_id', project_id)
         root.set_attribute(DICT, 'role', 'project_root')
       end
+      record[:owned_before] = KStudioProfessionalHelpers.owned_snapshot(root)
       yield(model, root)
+      record[:owned_after] = KStudioProfessionalHelpers.owned_snapshot(root)
       raise 'Active model switched during operation' unless Sketchup.active_model == model
       raise 'Build removed its owned root' unless root.valid?
       raise 'Build left an empty owned root; use readback tools for inspection' if root.entities.length.zero?

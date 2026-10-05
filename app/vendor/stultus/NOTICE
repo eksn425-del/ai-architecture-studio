@@ -1,0 +1,9 @@
+Adapted portions of Stultus, Copyright 2026 B&A community.
+Authors: see AUTHORS. Licensed under Apache License 2.0; see LICENSE.
+Source: https://github.com/B-A-community/stultus
+Commit: bfb0c012c6a5c669dadb2725aa76980e8481e859
+Original: src/stultus/scene.rb
+Modifications: namespace changed to KStudioStultusBounds; retained only
+bounds_mm, pt_mm and mm. No active-model access, selection, gateway or UI.
+K Studio adds its own owned-root snapshot wrapper; no architecture quality
+acceptance is inferred from these numerical readbacks.

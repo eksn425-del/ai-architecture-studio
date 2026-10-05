@@ -25,7 +25,7 @@ _FORBIDDEN_SOURCE = re.compile(
     # the source tries to reference them indirectly (for example Object::File,
     # :system, or receiver.public_send(...)). This is a guardrail, not a Ruby VM
     # sandbox; the only trusted execution boundary remains the disposable model.
-    r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
+    r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|KStudioProfessionalHelpers|KStudioSAIE|KStudioStultusBounds|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
@@ -173,6 +173,7 @@ class ProjectRubyExecutor:
             "    child.erase!",
             "    removed_pid",
             "  end",
+            "  saie_wall = lambda { |params| KStudioProfessionalHelpers.wall(root, params) }",
             "  eval(source, binding, File.basename(source_path), 1)",
             f"  root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', {self._ruby_string(self.project_id)})",
             "  root.set_attribute(CodexSketchupArchitect::DICT, 'role', 'project_root')",
