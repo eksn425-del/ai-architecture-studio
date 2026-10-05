@@ -212,7 +212,7 @@ def test_same_project_script_revisions_reuse_model_root_and_return_screenshots(t
     state = {}
     executor, adapter, mcp, model_path = _executor(tmp_path, state=state)
     first = executor.run({"script_id": "main", "ruby_source": "root.name = 'Cultural center'"})
-    second = executor.run({"script_id": "main", "ruby_source": "root.name = 'Cultural center revised'"})
+    second = executor.run({"script_id": "main", "ruby_source": "root.name = 'Cultural center revised'", "allow_full_rebuild": True})
 
     assert state["main"]["revision"] == 2
     assert state["main"]["root_pid"] == 701

@@ -54,6 +54,21 @@ def validate_project_ruby_source(script_id: str, ruby_source: str) -> str:
             "Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly "
             "or be lambdas capturing them, because Ruby def does not capture local variables."
         )
+    # Catch the exact meter/inch origin defect observed in the Windows run.
+    # This intentionally checks only literal Point3d calls, not inferred units
+    # of variables or arbitrary Ruby expressions. Explicit .inch remains valid.
+    code = "\n".join(line.split("#", 1)[0] for line in ruby_source.splitlines())
+    number = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)"
+    if re.search(r"\.\s*(?:m|mm|cm)\b", code):
+        for point in re.finditer(
+            rf"Geom::Point3d\s*\.\s*new\s*\(\s*({number})\s*,\s*({number})\s*,\s*({number})\s*\)", code
+        ):
+            if any(float(value) != 0 for value in point.groups()):
+                raise ValueError(
+                    "Mixed-unit Point3d origin: raw numeric coordinates are inches while this script uses metric lengths. "
+                    f"Check {point.group(0)}. Convert each metric coordinate with .m/.mm/.cm, or mark intentional inch "
+                    "coordinates with .inch. The script was not executed; no geometry was changed."
+                )
     return ruby_source
 
 
@@ -172,6 +187,13 @@ class ProjectRubyExecutor:
         update_mode = str(arguments.get("update_mode") or "replace")
         if update_mode not in {"replace", "edit"}:
             raise ValueError("update_mode must be replace or edit.")
+        if (update_mode == "replace" and self.ruby_state.get(script_id, {}).get("root_pid") is not None
+                and arguments.get("allow_full_rebuild") is not True):
+            raise ValueError(
+                "replace would delete all existing owned geometry and change unrelated object IDs. "
+                "For a local correction use update_mode=edit and remove_owned_group on the affected child. "
+                "Only an intentional complete rebuild may set allow_full_rebuild=true. No model operation was attempted."
+            )
         identity_before = self._assert_active_model()
         scripts_dir = self._project_runtime_path()
         script_path = scripts_dir / f"{script_id}.rb"

@@ -1,3 +1,7 @@
+## Cloud review of Windows failure and targeted safeguards (2026-10-05)
+
+Baseline ac8f597; user authorized cloud-testable fixes before local handoff. Reviewed actual published images; product-quality acceptance remains FAIL. Added mixed metric/raw Point3d literal preflight, explicit whole-root rebuild opt-in, reduced historical large tool-result text with audit preserved, and independent pending-quality UI. See docs/test-results/cloud/2026-10-05/README.md for limitations and exact Windows next steps. 202 passed, 2 Windows skips, 3 dependency warnings; compile/JS/whitespace checks and browser DOM fixture pass. No live provider inference, SketchUp geometry or SKP output tested in cloud. Local Codex must pull latest main and demonstrate actual six-view repair, all-view comparison, unchanged-ID local edit and download/reopen/edit; marketing/release quality still not accepted.
+
 ## Windows actual execution / failed visual acceptance / fixes (2026-10-05)
 
 Started from clean main and pulled exact public test assets at `665d465`; no original user model was edited. Used root Windows launcher, existing SU 2024/Kongxing loopback bridge and user-entered DeepSeek `deepseek-flash` at provider-default effort. Separate blank single/six-sheet projects were actually modeled. Whole six-view PNG was retained, never split. [Public report, steps and viewport evidence](test-results/windows/2026-10-05/README.md).

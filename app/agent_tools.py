@@ -173,7 +173,8 @@ class AgentToolSurface:
                     "components, facade systems, canopies, louvers and other source-specific work. Revise and rerun the "
                     "same file so the project keeps an inspectable coding history. The guarded transaction returns "
                     "model readback plus a screenshot. update_mode=replace (default) CLEARS the owned root before running "
-                    "the complete reconstruction script. update_mode=edit retains that existing script_id root for "
+                    "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
+                    "complete rebuild; local corrections must use edit. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
                     "group/component instance, never the root or unrelated objects; recreate only that affected child. "
                     "Never use replace with inspection-only or partial patch code; use readback "
@@ -193,6 +194,7 @@ class AgentToolSurface:
                         "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
                         "relative_path": {"type": "string", "pattern": "^scripts/[A-Za-z0-9_.-]+\\.rb$", "maxLength": 160},
                         "update_mode": {"type": "string", "enum": ["replace", "edit"], "default": "replace"},
+                        "allow_full_rebuild": {"type": "boolean", "description": "Explicit intentional whole-root rebuild only; do not set for local modifications."},
                     },
                     "additionalProperties": False,
                 },

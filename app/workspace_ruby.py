@@ -45,5 +45,8 @@ def run_workspace_ruby(
     if path.stat().st_size > MAX_WORKSPACE_RUBY_BYTES:
         raise ValueError("Workspace Ruby file exceeds the 120 KB project-script limit.")
     source = path.read_text(encoding="utf-8")
-    return executor.run({"script_id": script_id, "ruby_source": source,
-                         "update_mode": arguments.get("update_mode", "replace")})
+    payload = {"script_id": script_id, "ruby_source": source,
+               "update_mode": arguments.get("update_mode", "replace")}
+    if "allow_full_rebuild" in arguments:
+        payload["allow_full_rebuild"] = arguments["allow_full_rebuild"]
+    return executor.run(payload)

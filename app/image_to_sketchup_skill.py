@@ -113,7 +113,7 @@ Read screenshots as evidence, not as confirmation of your code's intention. A so
 ## Replacement versus incremental edits
 
 The workspace Ruby tool defaults to update_mode=replace: it clears the owned root and executes the COMPLETE reconstruction source. Keep that full source as a persistent baseline, never overwrite it with inspection-only code or a partial patch. For a small correction, write a separate patch file and call the same existing script_id with update_mode=edit; this retains its owned root. Use model readback/camera tools to inspect. Do not create a new script_id for edits to an existing building.
-For an affected direct-child group/component, call injected `remove_owned_group.call(exact_name)` then rebuild that child only. It rejects absent, duplicate or locked targets. Keep unrelated object IDs unchanged and verify them by readback. Do not label a full-root replacement a local edit. General erase/clear and outside-root access remain blocked.
+Existing-root replace requires allow_full_rebuild=true; local fixes use edit. For an affected direct-child group/component, call injected `remove_owned_group.call(exact_name)` then rebuild that child only. It rejects absent, duplicate or locked targets. Keep unrelated object IDs unchanged and verify them by readback. Do not label a full-root replacement a local edit. General erase/clear and outside-root access remain blocked.
 
 ## Finite modeling turns
 
@@ -121,7 +121,7 @@ Keep each execution turn bounded and checkpointable. After one substantive geome
 
 ## Cheap-model discipline
 
-Clarify once, keep a compact card and shared parameters, batch repeated work, inspect each major pass, revise persistent files; never switch models to hide a harness problem.
+Keep compact shared parameters; inspect each pass and revise persistent files. Never switch models to hide harness failures.
 
 ## Scope
 

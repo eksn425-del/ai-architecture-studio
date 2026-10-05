@@ -351,14 +351,25 @@ def _image_count(messages: list[dict[str, Any]]) -> int:
 def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: int = 6) -> list[dict[str, Any]]:
     """Drop only obsolete generated screenshots on the wire, keep source/history intact.
 
-    Never slice tool exchanges, reasoning fields, user inputs or source images.
+    Keep tool exchanges/IDs, reasoning fields, user inputs and source images. Shorten only old oversized tool-result text; keep the six latest tool results intact.
     The full local history remains available for audit/recovery. This is a small
     product-specific filter, not a replacement for provider compaction.
     """
     remaining = readback_images
+    recent_tools = 6
     result = []
     for message in reversed(messages):
         content = message.get("content")
+        if message.get("role") == "tool":
+            recent_tools -= 1
+            if recent_tools < 0 and isinstance(content, str) and len(content) > 8000:
+                # Keep exchange IDs and complete on-disk audit history. Old
+                # source/readback dumps can be reread through workspace tools;
+                # they must not grow every subsequent request without bound.
+                result.append({**message, "content": content[:2000] +
+                    "\n[Historical tool output shortened for active context. Full result remains in provider session history; "
+                    "reread the current workspace file/model before relying on omitted details.]\n" + content[-2000:]})
+                continue
         is_readback = (message.get("role") == "user" and isinstance(content, list)
                        and bool(content) and content[0].get("type") == "text"
                        and content[0].get("text", "").startswith("Visual readback from SketchUp tool "))

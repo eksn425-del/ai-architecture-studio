@@ -11,6 +11,12 @@
 
 交付：更新 HANDOFF 和 CURRENT_TASK，公开可分享的测试报告/截图放入 `docs/test-results/windows/`，区分真实执行、模拟测试、人工干预及 pending_external。私人素材、密钥、账号、私人 SKP 和个人路径不提交。commit/push 后确认 origin/main，云端直接读取 GitHub 验收，无需用户转发报告。
 
+## 云端验收后修复与本机复测（2026-10-05）
+
+已基于 ac8f597 的失败截图完成云端迭代，说明：[云端回归与下一步](test-results/cloud/2026-10-05/README.md)。新增已知米/英寸原点错误的执行前检查、已有模型整栋 replace 显式保护、旧长工具输出缩减、质量未验收提示。202 tests passed，2 Windows skips；这不代表真实模型质量已修复。
+
+本机 Codex 拉取最新 main 后，优先修复现有六视图模型：读当前参数卡/源码/模型→统一墙体原点单位→回读四角与各轴尺寸→核对各立面窗数→修复屋顶女儿墙→截图对照。局部修改使用 edit，读回未修改构件 persistent IDs；整栋重建必须显式 allow_full_rebuild=true 并如实记录 ID 变化。完成六视图下载重开和一次真实局部编辑，发布可公开报告/截图、更新 HANDOFF 并 push。不得只依据 Agent 自评通过，不再把有 SKP 等同于还原质量合格。
+
 ## 本机实测更新（2026-10-05）
 
 报告与公开截图：[Windows 实测](test-results/windows/2026-10-05/README.md)。实际 DeepSeek、SketchUp/Kongxing 连接、独立空白模型建模已执行。单图部分成功但屋顶/墙体细节未通过；完整六视图发生严重单位/墙体错位，Agent 误报验收成功。因此当前 **不具备发布质量通过结论**。

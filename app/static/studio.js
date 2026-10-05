@@ -39,7 +39,7 @@ function renderJourney() {
   $("journey-hint").textContent = !available
     ? "先连接 AI 模型：选择 DeepSeek / GLM 并填入 API Key。图片和草稿会保留，分析阶段无需 SketchUp。"
     : state.busy ? "本轮正在处理，资料与对话会保存在当前会话。"
-    : {idle: "上传同一建筑的图片（整张多视图也可以），或直接描述目标。先分析，不会修改 SketchUp。", clarifying: "回答 AI 的关键问题；没有实测尺寸也可以采用估算，再检查计划。", planned: "先核对范围、尺寸与推断。可以提问、修改或下载计划，准备好后再连接建模。", building: "继续修改同一模型；只想了解模型时，可以直接提问。"}[stage];
+    : {idle: "上传同一建筑的图片（整张多视图也可以），或直接描述目标。先分析，不会修改 SketchUp。", clarifying: "回答 AI 的关键问题；没有实测尺寸也可以采用估算，再检查计划。", planned: "先核对范围、尺寸与推断。可以提问、修改或下载计划，准备好后再连接建模。", building: "已有执行结果，质量尚未验收。先对照参考图检查立面、屋顶，再继续修改同一模型。"}[stage];
   $("clarification-shortcuts").hidden = stage !== "clarifying";
   $("use-estimates").disabled = state.busy;
 }
@@ -65,6 +65,7 @@ function renderWorkflowChecks(progress = null) {
     {label:"SketchUp 连接", status:agent.status === "ready" ? "done" : "pending", detail:agent.status === "ready" ? "已绑定独立模型；执行前再核验" : "建模前连接独立模型"},
     {label:"实际模型修改", status:geometry ? "done" : "pending", detail:geometry ? "已有已提交几何" : "尚未提交几何；写脚本不等于已建模"},
     {label:"截图与导出", status:artifactByType("skp") && geometry ? "done" : "pending", detail:artifactByType("skp") && geometry ? "已有模型文件；还需检查还原质量" : "等待模型检查与保存"},
+    {label:"还原质量验收", status:"pending", detail:geometry ? "模型已执行，质量尚未验收。请对照参考图检查所有立面、屋顶和修改结果；AI 自评不代表通过。" : "实际模型生成后，对照参考图检查"},
   ];
   $("workflow-checklist").innerHTML = items.map(item => `<li class="check-${escapeHtml(item.status)}"><span>${item.status === "done" ? "✓" : item.status === "blocked" ? "!" : item.status === "running" ? "◷" : "○"}</span><div><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.detail || "")}</small></div></li>`).join("");
 }
