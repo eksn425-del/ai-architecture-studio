@@ -244,6 +244,24 @@ Do not bypass licensing/DRM or copy proprietary Skill/source into this public re
 
 Open `http://127.0.0.1:8787`.
 
+Linux / Cloud development (web and Agent testing; automatic SketchUp launch requires Windows):
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt -r requirements-model-providers.txt
+.venv/bin/python scripts/dev.py
+.venv/bin/python -m pytest -q tests
+```
+
+Use the UI's model settings to supply DeepSeek credentials in memory. For a managed
+secret, set `ARCH_STUDIO_API_KEY_ENV=DEEPSEEK_API_KEY` along with
+`ARCH_STUDIO_ECONOMY_PROVIDER=litellm`, `ARCH_STUDIO_API_MODEL=deepseek/deepseek-flash`,
+`ARCH_STUDIO_API_BASE=https://api.deepseek.com`, and
+`ARCH_STUDIO_ECONOMY_REASONING_EFFORT=low`. Do not put the key in a launch command.
+Official DeepSeek requests inherit environment proxy/CA settings on Linux and
+ignore them on Windows by default; `ARCH_STUDIO_API_TRUST_ENV=1` or `0` explicitly
+overrides that choice. Cloud tests do not establish SketchUp model quality.
+
 When locally validated SAIE is enabled:
 
 ```powershell

@@ -1,10 +1,32 @@
 """Real installed LiteLLM serialization, intercepted locally; no live provider claim."""
 import json
+from types import SimpleNamespace
 
 import pytest
 
 from app.litellm_runtime import LiteLLMRuntime
 from tests.test_model_router import ToolClient
+
+
+@pytest.mark.parametrize("setting,expected", [("1", True), ("true", True), ("0", False), ("false", False), (None, True)])
+def test_deepseek_transport_respects_cloud_proxy_setting(tmp_path, monkeypatch, setting, expected):
+    litellm = pytest.importorskip("litellm")
+    import os
+    if setting is None:
+        monkeypatch.delenv("ARCH_STUDIO_API_TRUST_ENV", raising=False)
+        expected = os.name != "nt"
+    else:
+        monkeypatch.setenv("ARCH_STUDIO_API_TRUST_ENV", setting)
+    def completion(**kwargs):
+        assert kwargs["client"].client._trust_env is expected
+        return SimpleNamespace(choices=[SimpleNamespace(message={"content": "checked"})], usage={})
+    monkeypatch.setattr(litellm, "completion", completion)
+    runtime = LiteLLMRuntime(tmp_path, model="deepseek/deepseek-flash")
+    runtime.session_api_key = "test-only-placeholder"
+    runtime.custom_api_base = "https://api.deepseek.com"
+    result = runtime.respond(project_dir=tmp_path, thread_id=None, prompt="test", mcp_enabled=False,
+                             developer_instructions="test", ruby_enabled=False)
+    assert result.reply == "checked"
 
 
 @pytest.mark.parametrize("model,base,host,effort", [

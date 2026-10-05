@@ -32,7 +32,7 @@ Priority questions:
 3. **Known scale** — is any reliable dimension known (overall width/depth, floor height, opening width, chimney height, etc.)? One anchor is enough.
 4. **Inference / detail** — may unseen backsides/depths be reasonably inferred, and what visible detail level matters?
 
-Do not ask questions already answered by the user. Do not ask about low-impact micro-details. If there is no known size, propose a coherent visual estimate later instead of blocking.
+Do not repeat answered questions or ask micro-details. Without a known size, propose coherent estimates.
 
 ## Method card B — parameter card, not vague prose
 
@@ -57,7 +57,7 @@ Record:
 - repeated elements that should be components/instances;
 - persistent script/component plan.
 
-Estimated dimensions are a modeling baseline, not a claim of real-world measurement. Preserve source proportions first and make shared dimensions easy to revise later.
+User 'about/estimate' values stay ESTIMATED after approval; exact anchors are KNOWN. Distinguish floor-to-floor/clear height. Bridge landing and served floor must agree before approval. Preserve proportions/shared parameters.
 
 ## Method card C — explicit approval gate
 

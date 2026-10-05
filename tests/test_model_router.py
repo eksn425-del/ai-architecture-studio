@@ -147,6 +147,7 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
 
 
 def test_deepseek_preserves_thinking_through_tools_and_next_turn(tmp_path, monkeypatch):
+    monkeypatch.setenv("ARCH_STUDIO_API_TRUST_ENV", "0")
     runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient(), model="deepseek/deepseek-flash")
     runtime.session_api_key = "test-only-key"
     runtime.custom_api_base = "https://api.deepseek.com"

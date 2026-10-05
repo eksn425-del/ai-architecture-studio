@@ -21,6 +21,18 @@ def workspace(tmp_path):
     return app, client, project, agent, su
 
 
+def test_cloud_launcher_reports_platform_limit_without_starting_process(tmp_path, monkeypatch):
+    import os
+    import pytest
+    from app.main import _launch_disposable_sketchup
+    from app.native_agent import NativeAgentUnavailable
+    if os.name == "nt":
+        pytest.skip("Linux-only platform boundary")
+    monkeypatch.setattr("app.main.subprocess.run", lambda *a, **kw: pytest.fail("must not launch PowerShell"))
+    with pytest.raises(NativeAgentUnavailable, match="Windows 桌面"):
+        _launch_disposable_sketchup("test", tmp_path)
+
+
 def test_deepseek_preset_is_api_only_and_credential_not_returned(tmp_path, monkeypatch):
     from app.litellm_runtime import LiteLLMRuntime
     monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))

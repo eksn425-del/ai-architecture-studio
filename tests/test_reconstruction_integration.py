@@ -48,6 +48,47 @@ def send(client, action="auto"):
         "agent_action": action})
 
 
+def test_first_api_plan_interruption_resumes_written_card_and_tool_history(tmp_path, monkeypatch):
+    import json
+    import sys
+    from types import ModuleType, SimpleNamespace
+    from app.litellm_runtime import LiteLLMRuntime
+    client, _, su, project = setup_project(tmp_path)
+    monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda _: True))
+    module = ModuleType("litellm")
+    calls = []
+    def completion(**kwargs):
+        calls.append(kwargs["messages"])
+        if len(calls) == 1:
+            message = {"content": None, "tool_calls": [{"id": "write-card", "function": {
+                "name": "workspace_write", "arguments": json.dumps({
+                    "relative_path": "notes/reconstruction_card.md",
+                    "content": "KNOWN: three floors. ESTIMATED: width 12m. ASSUMED: rear windows."
+                })}}]}
+        elif len(calls) == 2:
+            raise ConnectionError("local simulated provider disconnect")
+        else:
+            assert any(m["role"] == "tool" and m["tool_call_id"] == "write-card" for m in kwargs["messages"])
+            message = {"content": "已保留参数卡，请批准后建模。"}
+        return SimpleNamespace(choices=[SimpleNamespace(message=message)], usage={})
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, "litellm", module)
+    assert client.post("/api/model-settings", json={"mode": "byok", "model": "openai/test-model",
+                       "api_base": "https://example.invalid/v1", "api_key": "test-only-placeholder"}).status_code == 200
+    assert send(client, "plan").status_code == 503
+    session = client.get("/api/projects/demo-cultural-center").json()["agent_session"]
+    assert session["provider"] == "litellm"
+    assert session["model"] == "openai/test-model"
+    assert session["reconstruction_state"] == "idle"
+    thread = session["thread_id"]
+    retry = send(client, "plan")
+    assert retry.status_code == 200
+    assert retry.json()["agent"]["reconstruction_state"] == "planned"
+    assert retry.json()["project"]["agent_session"]["thread_id"] == thread
+    assert len(list((project / "runtime/provider_sessions").glob("*.json"))) == 1
+    assert not su.calls
+
+
 def test_lifecycle_requires_explicit_approval_and_preserves_thread(tmp_path):
     client, agent, su, project = setup_project(tmp_path)
     assert send(client, "execute").status_code == 409

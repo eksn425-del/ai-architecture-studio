@@ -222,6 +222,11 @@ def _disposable_model_path(path_value: str, project_dir: Path) -> Path | None:
 
 
 def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None, *, prepare_only: bool = False) -> Path:
+    if os.name != "nt":
+        raise NativeAgentUnavailable(
+            "当前环境不能自动启动 SketchUp：此启动器需要 Windows 桌面和已安装的 SketchUp。"
+            "图片上传、需求交流和建模计划仍可使用；实际建模需在 SketchUp 桌面连接环境中继续。"
+        )
     script = ROOT / "scripts" / "open_blank_sketchup.ps1"
     executable = shutil.which("pwsh") or shutil.which("powershell") or "powershell.exe"
     command = [
@@ -1644,6 +1649,12 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             partial = getattr(error, "partial_result", None)
             if partial and partial.thread_id:
                 session.thread_id = partial.thread_id
+                session.provider = partial.provider_name or route.provider
+                session.model = partial.model_name or route.model
+                session.reasoning_effort = partial.reasoning_effort or route.reasoning_effort
+                session.region = partial.region or route.region
+                session.routing_tier = effective_tier
+                session.workflow_mode = request.workflow_mode
                 session.latency_ms = partial.latency_ms
                 session.tool_call_count = partial.tool_call_count
                 session.failed_tool_calls = partial.failed_tool_calls
@@ -1671,6 +1682,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             raise HTTPException(status_code=503, detail=str(error)) from error
 
         session.thread_id = result.thread_id
+        # Persist runtime identity even if the host rejects an incomplete plan or
+        # uncommitted execution below. Retry must resume its actual tool history.
+        session.provider = result.provider_name or route.provider
+        session.model = result.model_name or route.model
+        session.reasoning_effort = result.reasoning_effort or route.reasoning_effort
+        session.region = result.region or route.region
+        session.routing_tier = effective_tier
         session.status = "ready" if session_ready else "conversation"
         session.workflow_mode = request.workflow_mode
         if policy:
@@ -1695,11 +1713,6 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     store.save_state(project_id, session, "agent_session.json")
                     raise HTTPException(status_code=422, detail=session.error)
                 session.reconstruction_state = "building"
-        session.model = result.model_name or route.model
-        session.reasoning_effort = result.reasoning_effort or route.reasoning_effort
-        session.routing_tier = effective_tier
-        session.provider = result.provider_name or route.provider
-        session.region = result.region or route.region
         session.input_tokens = result.input_tokens
         session.output_tokens = result.output_tokens
         session.latency_ms = result.latency_ms

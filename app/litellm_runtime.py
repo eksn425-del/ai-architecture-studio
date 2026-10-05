@@ -241,12 +241,16 @@ class LiteLLMRuntime:
                 request_started = time.monotonic()
                 record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
                         "context_messages": len(request_messages), "obsolete_readbacks_removed": _image_count(messages) - _image_count(request_messages)})
-                # Domestic official endpoint is reachable directly; stale local
-                # proxy settings must not break a configured API connection.
+                # Desktop can avoid stale proxies; managed cloud hosts need their
+                # injected proxy and CA settings. Never retry by bypassing policy.
                 if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
                     import httpx
                     from litellm.llms.custom_httpx.http_handler import HTTPHandler
-                    with httpx.Client(trust_env=False, timeout=240) as direct_client:
+                    proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
+                    if proxy_setting not in {"", "0", "1", "false", "true"}:
+                        raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
+                    trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
+                    with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
                         response = completion(**kwargs, client=HTTPHandler(client=direct_client))
                 else:
                     response = completion(**kwargs)
