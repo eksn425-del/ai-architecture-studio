@@ -778,14 +778,19 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             raise HTTPException(status_code=415, detail="支持图片、PDF、DOCX、TXT、MD、CSV、DXF、DWG；旧版 DOC 请转换为 DOCX/PDF。")
         if suffix in IMAGE_SUFFIXES | {".gif"}:
             try:
-                from PIL import Image
+                from PIL import Image, ImageOps
                 original = Image.open(io.BytesIO(content))
                 if original.width * original.height > 40_000_000:
                     raise ValueError("image dimensions too large")
                 original.seek(0)
+                original = ImageOps.exif_transpose(original)
                 original.thumbnail((2400, 2400))
                 normalized = io.BytesIO()
-                original.convert("RGB").save(normalized, format="PNG")
+                # Phone orientation and transparent drawing backgrounds are visual
+                # evidence too: preserve the displayed orientation on a white sheet.
+                rgba = original.convert("RGBA")
+                background = Image.new("RGBA", rgba.size, "white")
+                Image.alpha_composite(background, rgba).convert("RGB").save(normalized, format="PNG")
                 content = normalized.getvalue()
                 safe_name = Path(safe_name).stem + ".png"
                 if len(content) > 8 * 1024 * 1024:

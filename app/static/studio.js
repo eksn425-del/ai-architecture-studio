@@ -564,21 +564,6 @@ async function uploadFile(category, file, targetId, manageBusy = true) {
   finally { if (manageBusy) { state.busy = false; updateHeader(); } }
 }
 
-async function uploadReferences(files) {
-  if (!state.projectId || state.busy || !files.length) return;
-  if (files.length + sourceImages().length > 8) { showToast("每个会话最多使用 8 张参考图，避免超出模型的输入范围。请减少本次选择的图片数量。", true); $("reference-file").value = ""; return; }
-  state.busy = true;
-  let completed = 0;
-  beginProgress(`正在上传 ${files.length} 张参考图片`);
-  try {
-    for (const file of files) {
-      const ok = await uploadFile("reference", file, "reference-files", false);
-      if (ok) completed++;
-      updateHeader();
-    }
-    showToast(`已上传 ${completed} / ${files.length} 张参考图片${completed < files.length ? "，失败的图片请重新上传" : "。请描述建模要求后发送"}。`, completed < files.length);
-  } finally { endProgress(); state.busy = false; $("reference-file").value = ""; updateHeader(); }
-}
 
 async function prepareDesign() {
   if (state.busy) return;
@@ -929,24 +914,49 @@ function renderAttachments() {
   $("attachment-list").innerHTML = files.map(path => `<a class="file-chip" href="${projectFileUrl(path)}" target="_blank" rel="noopener">${escapeHtml(path.split("/").pop())}</a>`).join("");
 }
 async function uploadAttachments(files) {
-  if (state.busy || !state.projectId || !files.length) return;
+  if (!files.length) return;
+  if (!state.projectId) { showToast("请先新建或选择建模会话，再上传资料。", true); return; }
+  if (state.busy) { showToast("本轮正在处理，请结束后再上传资料。", true); return; }
   const images = files.filter(f => f.type.startsWith("image/") || /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i.test(f.name));
-  if (images.length) await uploadReferences(images);
-  const documents = files.filter(f => !images.includes(f));
-  state.busy = true; updateHeader();
+  if (images.length + sourceImages().length > 8) {
+    showToast("每个会话最多使用 8 张参考图。请减少选择的图片数量；完整多视图整图可直接上传。", true);
+    $("reference-file").value = "";
+    return;
+  }
+  // Hold one busy state across a mixed batch; sending/switching cannot race
+  // the transition from images to documents.
+  state.busy = true;
+  let completed = 0;
+  beginProgress(`正在上传 ${files.length} 个资料文件`);
   try {
-    for (const file of documents) {
-      const category = /\.(dxf|dwg)$/i.test(file.name) ? "site" : "brief";
-      await uploadFile(category, file, `${category}-files`, false);
+    for (const file of files) {
+      const category = images.includes(file) ? "reference" : /\.(dxf|dwg)$/i.test(file.name) ? "site" : "brief";
+      if (await uploadFile(category, file, `${category}-files`, false)) completed++;
+      updateHeader();
     }
-  } finally { state.busy = false; $("reference-file").value = ""; updateHeader(); }
+    showToast(`已上传 ${completed} / ${files.length} 个文件${completed < files.length ? "，失败的文件请重新上传" : "。请描述建模要求后发送"}。`, completed < files.length);
+  } finally { endProgress(); state.busy = false; $("reference-file").value = ""; updateHeader(); }
 }
 $("conversation-input").addEventListener("paste", event => {
   const files = Array.from(event.clipboardData?.files || []);
+  if (files.length) {
+    event.preventDefault();
+    const text = event.clipboardData.getData("text/plain");
+    if (text) {
+      event.target.setRangeText(text, event.target.selectionStart, event.target.selectionEnd, "end");
+      saveDraft();
+      updateHeader();
+    }
+    uploadAttachments(files);
+  }
+});
+$("conversation-form").addEventListener("dragover", event => {
+  if (Array.from(event.dataTransfer?.types || []).includes("Files")) event.preventDefault();
+});
+$("conversation-form").addEventListener("drop", event => {
+  const files = Array.from(event.dataTransfer?.files || []);
   if (files.length) { event.preventDefault(); uploadAttachments(files); }
 });
-$("conversation-form").addEventListener("dragover", event => { event.preventDefault(); });
-$("conversation-form").addEventListener("drop", event => { event.preventDefault(); uploadAttachments(Array.from(event.dataTransfer?.files || [])); });
 $("prepare-plan").addEventListener("click", event => {
   if (!$("conversation-input").value.trim()) $("conversation-input").value = "信息已确认，请整理建模计划，标明估算与需要我确认的内容。";
   sendConversation(event, "plan");

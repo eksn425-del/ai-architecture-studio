@@ -149,6 +149,31 @@ def test_image_normalization_and_unsupported_upload(tmp_path):
     assert client.post(f"/api/projects/{project}/inputs/reference?filename=bad.png", content=b"invalid image").status_code == 415
 
 
+def test_phone_orientation_and_transparent_drawing_survive_upload(tmp_path):
+    app, client, project, _, _ = workspace(tmp_path)
+    photo = Image.new("RGB", (30, 12), "red")
+    exif = Image.Exif()
+    exif[274] = 6  # Phone displays this landscape storage as portrait.
+    content = io.BytesIO()
+    photo.save(content, "JPEG", exif=exif)
+    result = client.post(f"/api/projects/{project}/inputs/reference?filename=phone.jpg", content=content.getvalue())
+    assert result.status_code == 200
+    root = app.state.store.project_dir(project)
+    normalized = Image.open(root / result.json()["path"])
+    assert normalized.size == (12, 30)
+    assert not normalized.getexif().get(274)
+
+    drawing = Image.new("RGBA", (20, 10), (0, 0, 0, 0))
+    drawing.putpixel((4, 4), (0, 0, 0, 255))
+    content = io.BytesIO()
+    drawing.save(content, "PNG")
+    result = client.post(f"/api/projects/{project}/inputs/reference?filename=drawing.png", content=content.getvalue())
+    assert result.status_code == 200
+    normalized = Image.open(root / result.json()["path"])
+    assert normalized.getpixel((0, 0)) == (255, 255, 255)
+    assert normalized.getpixel((4, 4)) == (0, 0, 0)
+
+
 def test_progress_reports_current_evidence_without_transcripts(tmp_path):
     app, client, project, _, _ = workspace(tmp_path)
     root = app.state.store.project_dir(project)
