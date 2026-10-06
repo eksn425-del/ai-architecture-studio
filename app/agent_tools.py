@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Literal
 
+from PIL import Image
+
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
@@ -262,11 +264,29 @@ class AgentToolSurface:
             finally:
                 if project_ruby is not None:
                     project_ruby.refresh_active_model_snapshot()
-            if output_path.is_file() and output_path.stat().st_size <= 8 * 1024 * 1024:
-                result.setdefault("contentItems", []).append({
-                    "type": "inputImage",
-                    "imageUrl": "data:image/png;base64," + base64.b64encode(output_path.read_bytes()).decode("ascii"),
-                })
+            if result.get("success") is False or result.get("isError") is True:
+                return result
+            if output_path.is_symlink() or not output_path.is_file():
+                raise MCPCallError("SketchUp did not write a review screenshot; visual QA remains pending.")
+            if not 0 < output_path.stat().st_size <= 8 * 1024 * 1024:
+                raise MCPCallError("SketchUp screenshot is empty or exceeds the 8 MB payload limit.")
+            try:
+                with Image.open(output_path) as captured:
+                    if captured.format != "PNG":
+                        raise ValueError("Expected PNG")
+                    width, height = captured.size
+                    captured.verify()
+            except (OSError, ValueError) as error:
+                raise MCPCallError("SketchUp screenshot is not a readable PNG; visual QA remains pending.") from error
+            result["visual_evidence"] = {
+                "path": output_path.relative_to(project_dir).as_posix(),
+                "width": width, "height": height,
+                "quality_status": "not_accepted",
+            }
+            result.setdefault("contentItems", []).append({
+                "type": "inputImage",
+                "imageUrl": "data:image/png;base64," + base64.b64encode(output_path.read_bytes()).decode("ascii"),
+            })
             return result
         try:
             result = self.sketchup_mcp.call_for_agent(name, arguments)

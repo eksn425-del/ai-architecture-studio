@@ -355,10 +355,27 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
     The full local history remains available for audit/recovery. This is a small
     product-specific filter, not a replacement for provider compaction.
     """
+    # Pictures from before the most recent successful geometry execution show
+    # an older model. Keep their audit text, but never present them as current QA.
+    geometry_calls: set[str] = set()
+    geometry_boundary = -1
+    for index, message in enumerate(messages):
+        if message.get("role") == "assistant":
+            for call in message.get("tool_calls") or []:
+                if call.get("function", {}).get("name") in {"sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}:
+                    geometry_calls.add(call.get("id", ""))
+        elif message.get("role") == "tool" and message.get("tool_call_id") in geometry_calls:
+            try:
+                outcome = json.loads(message.get("content") or "{}")
+            except (ValueError, TypeError):
+                continue
+            if isinstance(outcome, dict) and outcome.get("success") is True:
+                geometry_boundary = index
     remaining = readback_images
     recent_tools = 6
     result = []
-    for message in reversed(messages):
+    for index in range(len(messages) - 1, -1, -1):
+        message = messages[index]
         content = message.get("content")
         if message.get("role") == "tool":
             recent_tools -= 1
@@ -380,7 +397,7 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
         omitted = 0
         for block in reversed(content):
             if block.get("type") == "image_url":
-                if remaining <= 0:
+                if remaining <= 0 or index < geometry_boundary:
                     omitted += 1
                     continue
                 remaining -= 1

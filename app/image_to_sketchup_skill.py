@@ -25,12 +25,7 @@ Clarify scope/scale/inference before geometry.
 
 Inspect first; ask at most four high-impact questions.
 
-Priority questions:
-
-1. **Use / viewing requirement** — only match the source view, or must the model support multi-angle viewing and later editing?
-2. **Scope** — which visible parts must be modeled: main building, bridge, chimney, landscape/hardscape, simple vegetation, interior glimpses?
-3. **Known scale** — is any reliable dimension known (overall width/depth, floor height, opening width, chimney height, etc.)? One anchor is enough.
-4. **Inference / detail** — may unseen backsides/depths be reasonably inferred, and what visible detail level matters?
+Cover use/views, scope (building/site/interior), one known scale anchor and unseen-geometry/detail permission. Without a known size, propose coherent estimates.
 
 Do not repeat answered questions or ask micro-details. Without a known size, propose coherent estimates.
 Once the user accepts estimates, do not ask about color values, member counts or minor dimensions again. Put defaults in the card. Planning revisions are not a new clarification gate.
@@ -45,7 +40,7 @@ User 'about/estimate' values stay ESTIMATED after approval; exact anchors are KN
 
 ## Method card C — explicit approval gate
 
-Before the first substantial build, summarize the parameter/construction plan for approval. The user must be able to see the important assumptions and change them before SketchUp is edited.
+Before substantial geometry, summarize parameters/assumptions for user approval and revision.
 
 Approval covers all passes. After confirm/start, execute all requested details and QA continuously; never ask for another continue between passes.
 
@@ -61,11 +56,15 @@ For every supplied image, record its exact filename, visible landmarks (street/g
 
 With approved inference, complete rear/sides/roof as ASSUMED. Continue levels, wall thickness, roof/drainage and facade vocabulary; infer rear openings, circulation and service spaces. Avoid blank backs or blindly mirrored fronts. Stairs must reach requested floors; doors need usable landings and balcony access. Interiors without evidence are schematic assumptions.
 
-## Materials and full-building QA
+## Facade schedule and numerical checks
 
-Check glass, frames, slab/soffit depth, stone joints, timber and metal profiles. Match color/scale; use local licensed textures or simplified materials plus relief geometry. Flat color is not photographic texture. Inspect face orientation.
+In the parameter card, use ONE coordinate convention for the entire building: origin, +X/+Y directions, floor elevations and front/rear mapping. For a whole six-view sheet, identify panels by row/column and visible landmarks; keep the original image intact. Do not treat six panels as six unrelated designs.
 
-Inspect front/rear/both sides/roof/oblique for multi-angle delivery. Match each supplied view; compare silhouette, floors, openings, projections and materials. Check inferred sides for alignment, access and roof continuity. Record defects/corrections/uncertainty in notes/visual_qa.md. Correct largest mismatches first; batch repeated detail, avoid per-member calls/full rebuilds. Unchecked required views mean partial delivery, not completion or construction verification.
+Create a compact facade schedule: side/panel, level, opening count, opening x/z intervals, glazing/door type, recess depth and confidence. Unknowns remain ASSUMED; conflicting panels need explicit resolution before approval. Use this same schedule to generate and check geometry; do not re-infer the facade independently in each script. Small details stay estimates, not more user questions.
+
+Before repeating, calculate expected mm bounds for one wall, opening and roof section. Use injected saie_wall.call with string-key mm params for solid wall segments when suitable. This adopted SAIE subset does NOT cut openings: build sill/jamb/head segments around each void or use a verified opening method. A glass face covering a continuous solid wall is not an opening. Roof slab and parapet are separate named children; no full-height cap over a intended recessed roof.
+
+Read actual transaction owned_after XYZ mm bounds and child persistent IDs. Compare measured position/size to expected intervals, especially opposite walls. Inspect each required view's opening count and roof junction; write actual vs expected and the defect in notes/visual_qa.md. A passing size check cannot prove topology or image fidelity. Check glass, frames, soffits, relief, material scale and face orientation. Inspect front/rear/both sides/roof/oblique for multi-angle delivery. Unchecked views mean partial delivery.
 
 ## Method card D — Pass 1: recognizable primary form
 
@@ -93,31 +92,22 @@ Capture at least:
 - a source-matched view;
 - one oblique/isometric view.
 
-Inspect the actual screenshots and compare:
+Inspect the actual screenshots and compare silhouette/proportions, floor lines, bay count/spacing, solids/voids, facade depth, projections, repeated modules, materials and defining details.
 
-1. silhouette / overall proportions;
-2. floor-line positions;
-3. bay count and spacing;
-4. solid/void pattern;
-5. facade depth order;
-6. balcony/canopy/roof projection;
-7. repeated module consistency;
-8. material/color zoning;
-9. missing defining details.
-
-State concrete mismatches, revise the same persistent script(s)/model, execute again, and capture corrected views. Do not report completion merely because tools succeeded.
+State mismatches, revise persistent scripts/model and recapture; tool success is not completion.
 
 Frame the building at a comparable size and angle to the source. If large site extents make it tiny, target the building rather than zooming to the entire site. Inspect roof/wall junctions and openings in a close oblique view; a distant silhouette cannot verify detail. Persist the correction in the source so rerunning does not restore the defect.
-Read screenshots as evidence, not as confirmation of your code's intention. A solid roof cap spanning the interior still hides the parapet even if a lower roof slab was added. Remaining coplanar seams are defects even if edges were intended to be hidden. Report them honestly. Use only actual tool-returned screenshot paths and host-verified saved SKP artifacts; never invent QA filenames or claim that the active blank model path was saved when the host saved a separate downloadable checkpoint.
+Read screenshots as evidence, not as confirmation of your code's intention. A solid roof cap spanning the interior still hides the parapet even if a lower roof slab was added. Remaining coplanar seams are defects even if edges were intended to be hidden. Report them honestly. After any geometry edit, capture new screenshots; earlier revisions are historical evidence. Use only actual tool-returned screenshot paths and host-verified saved SKP artifacts; never invent QA filenames or claim that the active blank model path was saved when the host saved a separate downloadable checkpoint.
 
 ## Replacement versus incremental edits
 
-The workspace Ruby tool defaults to update_mode=replace: it clears the owned root and executes the COMPLETE reconstruction source. Keep that full source as a persistent baseline, never overwrite it with inspection-only code or a partial patch. For a small correction, write a separate patch file and call the same existing script_id with update_mode=edit; this retains its owned root. Use model readback/camera tools to inspect. Do not create a new script_id for edits to an existing building.
-Existing-root replace requires allow_full_rebuild=true; local fixes use edit. For an affected direct-child group/component, call injected `remove_owned_group.call(exact_name)` then rebuild that child only. It rejects absent, duplicate or locked targets. Keep unrelated object IDs unchanged and verify them by readback. Do not label a full-root replacement a local edit. General erase/clear and outside-root access remain blocked.
+Default update_mode=replace executes the COMPLETE persistent reconstruction source after clearing the owned root. Never overwrite that baseline with a partial patch or inspection code. Existing-root replace requires allow_full_rebuild=true; disclose that IDs change.
+
+For local fixes, write a separate patch file, reuse the same script_id and update_mode=edit. Injected remove_owned_group.call(exact_name) removes only one unlocked direct child, rejecting absent/duplicate/locked targets. Rebuild that child only. Keep unrelated IDs and verify by readback; truncated snapshots cannot prove all IDs survived. Make a repeated component instance unique before changing only its definition. General erase/clear and outside-root access remain blocked.
 
 ## Finite modeling turns
 
-Keep each execution turn bounded and checkpointable. After one substantive geometry pass and at most two targeted correction passes, return a concise progress report with actual screenshots and remaining work. For large multi-view/interior requests, continue the same script/root in subsequent turns rather than running an unbounded QA loop until the host timeout. A checkpoint is partial progress, never proof that all requested detail is complete. Honor a user request for readback/checkpoint only without rebuilding geometry.
+After one geometry pass and at most two targeted corrections, report actual screenshots and remaining work. Continue large requests on the same scripts/model in later turns. Checkpoints are partial progress, not quality acceptance. Honor readback-only requests without rebuilding.
 
 ## Cheap-model discipline
 
