@@ -166,6 +166,14 @@ class AgentToolSurface:
                 ))
 
         if ruby_enabled:
+            tools.append(self._dynamic_tool(
+                "sketchup_inspect_owned", "Read-only nested owned-group inspection with actual persistent IDs and XYZ millimeter bounds; no geometry/diagnostic objects, source writes or revision change. Use exact path name segments; [] lists the owned root. Page until next_offset is null when proving full object preservation. Bounds are explicitly relative to each parent, not global.",
+                {"type": "object", "required": ["script_id"], "properties": {
+                    "script_id": {"type": "string"},
+                    "path": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 200}, "maxItems": 8},
+                    "offset": {"type": "integer", "minimum": 0}, "limit": {"type": "integer", "minimum": 1, "maximum": 100},
+                }, "additionalProperties": False},
+            ))
             tools.append({
                 "type": "function",
                 "name": "sketchup_run_workspace_ruby",
@@ -178,7 +186,7 @@ class AgentToolSurface:
                     "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
                     "complete rebuild; local corrections must use edit. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
-                    "group/component instance, never the root or unrelated objects; recreate only that affected child. "
+                    "group/component instance, never the root or unrelated objects. For nested corrections pass an ARRAY of exact name segments, e.g. ['SHELL','LEFT_WALL']; locked/shared ancestors are rejected. Recreate only that affected child. "
                     "Never use replace with inspection-only or partial patch code; use readback "
                       "tools for inspection. edit requires the same existing script_id. "
                       "Ruby runs inside a host-owned transaction with injected model and root (Sketchup::Group). "
@@ -229,6 +237,10 @@ class AgentToolSurface:
 
     def dispatch(self, name: str, arguments: dict[str, Any], *, project_dir: Path,
                  project_ruby: ProjectRubyExecutor | None) -> dict[str, Any]:
+        if name == "sketchup_inspect_owned":
+            if project_ruby is None:
+                raise MCPCallError("Owned inspection requires a verified disposable model and existing owned root.")
+            return project_ruby.inspect_owned(arguments)
         if name == "sketchup_run_workspace_ruby":
             if project_ruby is None:
                 raise MCPCallError("The workspace Ruby tool is not enabled for this session.")

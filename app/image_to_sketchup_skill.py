@@ -27,7 +27,7 @@ Inspect first; ask at most four high-impact questions.
 
 Cover use/views, scope (building/site/interior), one known scale anchor and unseen-geometry/detail permission. Without a known size, propose coherent estimates.
 
-Do not repeat answered questions or ask micro-details. Without a known size, propose coherent estimates.
+Do not repeat answered questions or ask micro-details.
 Once the user accepts estimates, do not ask about color values, member counts or minor dimensions again. Put defaults in the card. Planning revisions are not a new clarification gate.
 
 ## Method card B — parameter card, not vague prose
@@ -52,7 +52,9 @@ First classify the supplied evidence: one image, multiple views of ONE building,
 
 Record views, floors, openings, materials and landmarks in the card. Reconcile dimensions; flag contradictions for approval. Views constrain ONE building; never promise zero errors.
 
-For every supplied image, record its exact filename, visible landmarks (street/gate/pool/stair), viewing side, floor lines and major openings before deciding front/rear. Filename labels are hints, not proof. Do not silently swap the street entrance and pool facade. Match each QA screenshot to a named source image using the same landmarks. If a view interpretation changes, correct the card and affected geometry before calling the result acceptable.
+Count openings by facade/floor/panel. OBSERVED source counts differ from approved defaults: obeying a default does not prove fidelity. Check narrow windows, entries, wall returns and roof inner edges. Persist corrected observations in the parameter card and QA notes; old prose must not override pixels.
+
+Record each image's exact filename, landmarks, side, floor lines and openings. Labels are hints. Do not swap the street entrance and pool facade. Pair QA views by landmarks; correct changed interpretations in card and geometry before acceptance.
 
 With approved inference, complete rear/sides/roof as ASSUMED. Continue levels, wall thickness, roof/drainage and facade vocabulary; infer rear openings, circulation and service spaces. Avoid blank backs or blindly mirrored fronts. Stairs must reach requested floors; doors need usable landings and balcony access. Interiors without evidence are schematic assumptions.
 
@@ -96,14 +98,15 @@ Inspect the actual screenshots and compare silhouette/proportions, floor lines, 
 
 State mismatches, revise persistent scripts/model and recapture; tool success is not completion.
 
-Frame the building at a comparable size and angle to the source. If large site extents make it tiny, target the building rather than zooming to the entire site. Inspect roof/wall junctions and openings in a close oblique view; a distant silhouette cannot verify detail. Persist the correction in the source so rerunning does not restore the defect.
-Read screenshots as evidence, not as confirmation of your code's intention. A solid roof cap spanning the interior still hides the parapet even if a lower roof slab was added. Remaining coplanar seams are defects even if edges were intended to be hidden. Report them honestly. After any geometry edit, capture new screenshots; earlier revisions are historical evidence. Use only actual tool-returned screenshot paths and host-verified saved SKP artifacts; never invent QA filenames or claim that the active blank model path was saved when the host saved a separate downloadable checkpoint.
+Report panel → observed feature/count → actual model → mismatch/action. Unreviewed details stay pending; code intentions are not visual checks. Integrate successful fixes into the persistent baseline/replay entrypoint so rerunning cannot resurrect defects. Incremental moves are not idempotent builders.
+
+Match source framing; target the building rather than zooming to the entire site. Inspect close oblique roof/wall junctions and openings. A roof cap hiding the parapet and remaining coplanar seams are defects regardless of code intentions. After geometry edits capture new views; older views are historical. Use actual tool-returned image paths and saved SKP artifacts, never invented QA names or an unsaved active blank-model path.
 
 ## Replacement versus incremental edits
 
 Default update_mode=replace executes the COMPLETE persistent reconstruction source after clearing the owned root. Never overwrite that baseline with a partial patch or inspection code. Existing-root replace requires allow_full_rebuild=true; disclose that IDs change.
 
-For local fixes, write a separate patch file, reuse the same script_id and update_mode=edit. Injected remove_owned_group.call(exact_name) removes only one unlocked direct child, rejecting absent/duplicate/locked targets. Rebuild that child only. Keep unrelated IDs and verify by readback; truncated snapshots cannot prove all IDs survived. Make a repeated component instance unique before changing only its definition. General erase/clear and outside-root access remain blocked.
+For local fixes, write a separate patch file, reuse the same script_id and update_mode=edit. Use sketchup_inspect_owned for named nested IDs/XYZ mm; it is read-only and paginated, so never create diagnostic geometry to get coordinates. remove_owned_group.call(exact_name) removes one direct child; an array of exact names scopes a nested child, rejecting absent/duplicate/locked/shared ancestors. Rebuild only affected children. Read all pages when proving ID preservation; truncated snapshots cannot prove it. Make repeated instances unique before one-instance edits. General erase/clear and outside-root access remain blocked.
 
 ## Finite modeling turns
 

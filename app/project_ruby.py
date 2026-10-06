@@ -143,7 +143,7 @@ class ProjectRubyExecutor:
 
     @staticmethod
     def _ruby_string(value: str) -> str:
-        return json.dumps(value, ensure_ascii=False)
+        return json.dumps(value, ensure_ascii=False).replace("#", "\\#")
 
     def _build_transport_script(self, script_path: Path, report_path: Path,
                                 expected_revision: int, root_pid: int | None, update_mode: str = "replace") -> str:
@@ -153,6 +153,7 @@ class ProjectRubyExecutor:
             # A read-only audit may already have defined the same module without
             # loading the transaction methods; always load the small helper file.
             f"load {self._ruby_string(str(helper_path.resolve()))}",
+            f"load {self._ruby_string(str((Path(__file__).parent / 'adopted_sketchup_helpers.rb').resolve()))}",
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
@@ -164,14 +165,7 @@ class ProjectRubyExecutor:
             # traverse outside its root. Remove one unambiguous direct child
             # instance so small patches can retain all unrelated object IDs.
             "  remove_owned_group = lambda do |name|",
-            "    raise 'Expected a nonempty direct-child group name' unless name.is_a?(String) && !name.empty? && name.length <= 200",
-            "    matches = root.entities.to_a.select { |e| (e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance)) && e.name == name }",
-            "    raise 'Owned child name must match exactly one group or component' unless matches.length == 1",
-            "    child = matches.first",
-            "    raise 'Owned child is locked' if child.locked?",
-            "    removed_pid = child.persistent_id",
-            "    child.erase!",
-            "    removed_pid",
+            "    KStudioProfessionalHelpers.remove_named_owned_group(root, name)",
             "  end",
             "  saie_wall = lambda { |params| KStudioProfessionalHelpers.wall(root, params) }",
             "  eval(source, binding, File.basename(source_path), 1)",
@@ -181,6 +175,49 @@ class ProjectRubyExecutor:
         ]
         # Ruby uses nil rather than Python's None spelling.
         return "\n".join(ruby_lines).replace("root_pid: None)", "root_pid: nil)") + "\n"
+
+    def inspect_owned(self, arguments: dict[str, Any]) -> dict[str, Any]:
+        """Read named nested groups using the adopted Stultus bounds helper."""
+        script_id = str(arguments.get("script_id") or "")
+        path = arguments.get("path", [])
+        offset, limit = arguments.get("offset", 0), arguments.get("limit", 50)
+        if not isinstance(path, list) or len(path) > 8 or any(not isinstance(n, str) or not n or len(n) > 200 for n in path):
+            raise ValueError("path must contain at most eight exact owned child names.")
+        if type(offset) is not int or offset < 0 or type(limit) is not int or not 1 <= limit <= 100:
+            raise ValueError("offset must be nonnegative; limit must be 1..100.")
+        state = self.ruby_state.get(script_id, {})
+        root_pid = state.get("root_pid")
+        if type(root_pid) is not int or root_pid <= 0:
+            raise MCPCallError("No existing owned root for this script_id; build/inspect project state first.")
+        self._assert_active_model()
+        helper = (Path(__file__).parent / "adopted_sketchup_helpers.rb").resolve()
+        lifecycle = (Path(__file__).parent / "vendor/sketchup_architect/scripts/model_session.rb").resolve()
+        transport = _generated_script_dir().expanduser().resolve()
+        transport.mkdir(parents=True, exist_ok=True)
+        script = transport / f"studio-owned-inspection-{uuid.uuid4().hex}.rb"
+        source = "\n".join([
+            "# ARCHFLOW_GENERATED_SCRIPT",
+            f"load {self._ruby_string(str(lifecycle))}",
+            f"load {self._ruby_string(str(helper))}",
+            "model = CodexSketchupArchitect.runtime_model",
+            f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
+            f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
+            f"root = model.find_entity_by_persistent_id({root_pid})",
+            "raise 'Owned root missing' unless root.is_a?(Sketchup::Group)",
+            f"raise 'Project identity mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'project_id') == {self._ruby_string(self.project_id)}",
+            f"raise 'Revision mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'revision') == {int(state.get('revision', 0))}",
+            f"KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})",
+        ]) + "\n"
+        script.write_text(source, encoding="utf-8")
+        try:
+            result = self.mcp.call("sketchup_eval_project_file", {"script_path": str(script), "operation_name": "Read owned groups; no geometry edit"})
+        finally:
+            script.unlink(missing_ok=True)
+        self._assert_active_model()
+        payload = result.get("result") if isinstance(result, dict) else None
+        if not isinstance(payload, dict) or "objects" not in payload:
+            raise MCPCallError("SketchUp did not return a usable owned-group inspection.")
+        return {"success": True, "contentItems": [{"type": "inputText", "text": json.dumps({"script_id": script_id, "revision": state.get("revision"), "read_only": True, **payload}, ensure_ascii=False)}]}
 
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
         script_id = str(arguments.get("script_id") or "")

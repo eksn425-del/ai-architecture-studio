@@ -240,7 +240,7 @@ class LiteLLMRuntime:
             try:
                 request_started = time.monotonic()
                 record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
-                        "context_messages": len(request_messages), "obsolete_readbacks_removed": _image_count(messages) - _image_count(request_messages)})
+                    "context_messages": len(request_messages), "redundant_images_removed": _image_count(messages) - _image_count(request_messages)})
                 # Desktop can avoid stale proxies; managed cloud hosts need their
                 # injected proxy and CA settings. Never retry by bypassing policy.
                 if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
@@ -349,7 +349,7 @@ def _image_count(messages: list[dict[str, Any]]) -> int:
 
 
 def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: int = 6) -> list[dict[str, Any]]:
-    """Drop only obsolete generated screenshots on the wire, keep source/history intact.
+    """Deduplicate source images and drop obsolete readbacks on the wire.
 
     Keep tool exchanges/IDs, reasoning fields, user inputs and source images. Shorten only old oversized tool-result text; keep the six latest tool results intact.
     The full local history remains available for audit/recovery. This is a small
@@ -373,6 +373,7 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
                 geometry_boundary = index
     remaining = readback_images
     recent_tools = 6
+    source_urls: set[str] = set()
     result = []
     for index in range(len(messages) - 1, -1, -1):
         message = messages[index]
@@ -391,6 +392,23 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
                        and bool(content) and content[0].get("type") == "text"
                        and content[0].get("text", "").startswith("Visual readback from SketchUp tool "))
         if not is_readback:
+            if message.get("role") == "user" and isinstance(content, list):
+                kept_source = []
+                duplicates = 0
+                message_urls: set[str] = set()
+                for block in content:
+                    url = block.get("image_url", {}).get("url") if block.get("type") == "image_url" else None
+                    if isinstance(url, str):
+                        if url in source_urls:
+                            duplicates += 1
+                            continue
+                        message_urls.add(url)
+                    kept_source.append(block)
+                source_urls.update(message_urls)
+                if duplicates:
+                    kept_source.append({"type": "text", "text": "Repeated source image omitted from active context; identical pixels are included in a newer reference message. Original message and full source remain in project history."})
+                    result.append({**message, "content": kept_source})
+                    continue
             result.append(message)
             continue
         kept = []

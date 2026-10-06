@@ -13,7 +13,7 @@ try {
     & $pythonPath -m PyInstaller --noconfirm --windowed --name KStudio `
         --distpath runtime/desktop-dist --workpath runtime/desktop-build --specpath runtime/desktop-build `
         --add-data "$repoPath/app/static;app/static" --add-data "$repoPath/app/vendor;app/vendor" --add-data "$repoPath/scripts;scripts" `
-        --add-data "$repoPath/THIRD_PARTY_NOTICES.md;." --collect-all webview --collect-all litellm `
+        --add-data "$repoPath/THIRD_PARTY_NOTICES.md;." --add-data "$repoPath/app/adopted_sketchup_helpers.rb;app" --collect-all webview --collect-all litellm `
         --add-data "$env:TIKTOKEN_CACHE_DIR;tokenizer-cache" --hidden-import tiktoken_ext.openai_public `
         --collect-submodules uvicorn --hidden-import tomli --exclude-module pytest scripts/desktop.py
     if ($LASTEXITCODE -ne 0) { throw 'Desktop packaging failed.' }

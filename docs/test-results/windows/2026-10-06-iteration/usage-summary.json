@@ -1,0 +1,88 @@
+{
+  "billing_verified": false,
+  "turns": [
+    {
+      "provider": "deepseek/deepseek-flash",
+      "calls": 2,
+      "provider_latency_ms_sum": 52078,
+      "reported_input_tokens_sum": 723010,
+      "reported_output_tokens_sum": 10293,
+      "tool_calls": 1,
+      "tool_failures": 0,
+      "tools": [
+        "workspace_write"
+      ],
+      "wire_images_removed_min": 34,
+      "wire_images_removed_max": 34
+    },
+    {
+      "provider": "deepseek/deepseek-flash",
+      "calls": 4,
+      "provider_latency_ms_sum": 79469,
+      "reported_input_tokens_sum": 1542128,
+      "reported_output_tokens_sum": 21631,
+      "tool_calls": 3,
+      "tool_failures": 0,
+      "tools": [
+        "workspace_write"
+      ],
+      "wire_images_removed_min": 34,
+      "wire_images_removed_max": 34
+    },
+    {
+      "provider": "deepseek/deepseek-flash",
+      "calls": 27,
+      "provider_latency_ms_sum": 153734,
+      "reported_input_tokens_sum": 11347917,
+      "reported_output_tokens_sum": 17121,
+      "tool_calls": 28,
+      "tool_failures": 0,
+      "tools": [
+        "sketchup_export_view_image",
+        "sketchup_get_model_context",
+        "sketchup_health",
+        "sketchup_inspect_owned",
+        "sketchup_run_workspace_ruby",
+        "sketchup_set_camera",
+        "workspace_write"
+      ],
+      "wire_images_removed_min": 34,
+      "wire_images_removed_max": 42
+    },
+    {
+      "provider": "deepseek/deepseek-flash",
+      "calls": 33,
+      "provider_latency_ms_sum": 217050,
+      "reported_input_tokens_sum": 15174355,
+      "reported_output_tokens_sum": 34376,
+      "tool_calls": 32,
+      "tool_failures": 0,
+      "tools": [
+        "sketchup_export_view_image",
+        "sketchup_inspect_owned",
+        "sketchup_run_workspace_ruby",
+        "sketchup_set_camera",
+        "workspace_write"
+      ],
+      "wire_images_removed_min": 41,
+      "wire_images_removed_max": 61
+    },
+    {
+      "provider": "deepseek/deepseek-flash",
+      "calls": 17,
+      "provider_latency_ms_sum": 80379,
+      "reported_input_tokens_sum": 8396116,
+      "reported_output_tokens_sum": 8135,
+      "tool_calls": 16,
+      "tool_failures": 0,
+      "tools": [
+        "sketchup_export_view_image",
+        "sketchup_inspect_owned",
+        "sketchup_set_camera",
+        "workspace_write"
+      ],
+      "wire_images_removed_min": 60,
+      "wire_images_removed_max": 62
+    }
+  ]
+}

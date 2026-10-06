@@ -24,6 +24,9 @@ assert "app.local_credentials" in package.toc, "Desktop package lacks credential
 '@ | Set-Content -LiteralPath $verificationScript -Encoding UTF8
 & (Join-Path $repoRoot '.venv\Scripts\python.exe') $verificationScript (Join-Path $source 'KStudio.exe')
 if ($LASTEXITCODE -ne 0) { throw 'Desktop package verification failed.' }
+if (-not (Test-Path -LiteralPath (Join-Path $source '_internal\app\adopted_sketchup_helpers.rb'))) {
+    throw 'Desktop package lacks the owned-model Ruby helper. Rebuild the current package.'
+}
 $install = [System.IO.Path]::GetFullPath($InstallRoot)
 $versionName = Get-Date -Format 'yyyyMMdd-HHmmss'
 $version = Join-Path $install "versions\$versionName"

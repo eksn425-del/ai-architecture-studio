@@ -27,6 +27,23 @@ def test_visual_context_preserves_sources_and_complete_tool_exchanges():
     assert "capture-19" in str(wire) and "capture-0'" not in str(wire)
 
 
+def test_repeated_sources_deduplicated_without_losing_distinct_images_or_history():
+    def picture(url):
+        return {"type": "image_url", "image_url": {"url": url}}
+    messages = [
+        {"role": "user", "content": [{"type": "text", "text": "first requirement"}, picture("sheet"), picture("single")]},
+        {"role": "user", "content": [{"type": "text", "text": "approved correction"}, picture("sheet")]},
+        {"role": "user", "content": [{"type": "text", "text": "Visual readback from SketchUp tool capture."}, picture("current-view")]},
+    ]
+    original = deepcopy(messages)
+    wire = _current_visual_context(messages)
+    assert messages == original
+    assert _image_count(wire) == 3
+    assert "first requirement" in str(wire) and "approved correction" in str(wire)
+    assert wire[-1] == original[-1]
+    assert wire[1] == original[1]
+
+
 @pytest.mark.parametrize("views", [0, 1, 6])
 def test_three_input_modes_reach_approval_without_geometry(tmp_path, views):
     import io
