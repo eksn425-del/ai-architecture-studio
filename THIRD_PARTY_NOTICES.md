@@ -2,6 +2,12 @@
 
 AI Architecture Studio intentionally composes existing open-source building blocks rather than reimplementing every subsystem. This file records the current reuse boundaries. Upstream licenses remain authoritative.
 
+## Adopted SketchUp runtime Skill excerpts
+
+- `euphraetes/sketchup-ai-skill`, MIT, revision `10e1e0fb47abcc30c033e6f2046f3252ca4386d3`: selected geometry-validation prose and `safe_normal` example from `sketchup_api_skill.md`.
+- `marlinBian/sketchup-agent-harness`, MIT, revision `e431eef6c9a9ee73a611fd68952a6aaa78566b12`: selected project-memory guardrails from `skills/project-runtime-memory/SKILL.md`.
+- Excerpts and both upstream licenses are bundled under `app/vendor/sketchup_runtime_skills/`, loaded by the image reconstruction Skill. Local compatibility text clarifies that the host owns Undo and our persistent card/Ruby remain the project representation. Upstream plugin setup, strict method-length requirements and mandatory `design_model.json` are not adopted. The upstream `safe_offset` example is excluded: `Edge#line` is a point/vector pair, while `Array#offset` offsets a point by a vector, not a line by a scalar. These excerpts are guidance, not evidence that image reconstruction quality passed.
+
 ## Local desktop shell
 
 - pywebview 6.2.1 (`r0x0r/pywebview`): BSD license; adopted as a thin native WebView shell around the existing FastAPI/frontend, without copying competitor UI source.

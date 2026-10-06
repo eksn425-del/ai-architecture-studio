@@ -20,6 +20,12 @@ def discussion_only(message: str) -> bool:
 
 def explicit_build_approval(message: str) -> bool:
     """Recognize affirmative execution, never questions/negation or parameter edits."""
+    # Execution constraints are not a new plan: distinguish "don't execute the
+    # old baseline" from "don't execute", and inspection from a user question.
+    if re.match(r"\s*(?:已)?(?:批准|确认|同意).*(?:执行|开始|建模)", message):
+        message = re.sub(r"不要执行旧(?:整栋)?(?:基线|脚本|计划)", "", message)
+        message = re.sub(r"不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*", "", message)
+        message = re.sub(r"(?:检查|核对|验证)是否", "检查", message)
     if re.search(r"不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
         return False
     if re.fullmatch(r"(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*", message.strip()):
@@ -52,7 +58,11 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     if request.agent_action in {"clarify", "plan", "execute"}:
         return request.agent_action
     if session.reconstruction_state == "idle":
+        if re.search(r"(?:先)?(?:给我|生成|整理)(?:一份|最终|建模)?(?:建模)?计划", request.message):
+            return "plan"
         return "clarify"
+    if session.reconstruction_state == "planned" and explicit_build_approval(request.message):
+        return "execute"
     # In an already approved model, an explicit imperative can include an
     # inspection subclause ("检查是否错位。请直接执行修复"). Do not strip
     # execution tools merely because that subclause contains 是否/能否.

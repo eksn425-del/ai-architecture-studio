@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 
 MAX_CONTEXT_CHARS = 10_000
 
@@ -11,21 +13,15 @@ Reconstruct reference architecture as editable SketchUp geometry. Images are the
 
 ## Success condition
 
-Deliver recognizable source-matched geometry in editable groups/components. A few white boxes are an automatic failure when the reference has roofs, balconies, openings, frames, louvers, rails, facade depth or materials.
+Deliver developed source-matched editable geometry; a few white boxes are an automatic failure.
 
 ## Core workflow
 
-Use a professional reconstruction loop:
-
 **inspect source → clarify high-impact unknowns → parameterize assumptions → user approval → author/revise persistent Ruby → execute → inspect screenshots/model → revise the same scripts/model**.
-
-Clarify scope/scale/inference before geometry.
 
 ## Method card A — clarify only what changes the model
 
-Inspect first; ask at most four high-impact questions.
-
-Cover use/views, scope (building/site/interior), one known scale anchor and unseen-geometry/detail permission. Without a known size, propose coherent estimates.
+Inspect first; ask only unanswered questions about use/views, scope, scale or inference/detail permission. Propose estimates if no known size. If these are already supplied, give the plan without another questionnaire.
 
 Do not repeat answered questions or ask micro-details.
 Once the user accepts estimates, do not ask about color values, member counts or minor dimensions again. Put defaults in the card. Planning revisions are not a new clarification gate.
@@ -34,15 +30,15 @@ Once the user accepts estimates, do not ask about color values, member counts or
 
 After the user's clarification response, update `notes/reconstruction_card.md` with a compact parameter card. Clearly label values as KNOWN / ESTIMATED / ASSUMED.
 
-Record scope/views, scale anchors, inference/detail policy, overall dimensions/levels, axes/bays, solids/voids, facade depth, opening rhythm, balconies/rails/louvers, roof profile, materials, repeated components and persistent script plan.
+Record scope, dimensions, axes/levels, voids/depth, facade/roof/material systems, instances and scripts.
 
-User 'about/estimate' values stay ESTIMATED after approval; exact anchors are KNOWN. Distinguish floor-to-floor/clear height. Bridge landing and served floor must agree before approval. Preserve proportions/shared parameters.
+Approved estimates remain ESTIMATED; exact anchors KNOWN. Distinguish floor/clear height; preserve shared proportions.
 
 ## Method card C — explicit approval gate
 
 Before substantial geometry, summarize parameters/assumptions for user approval and revision.
 
-Approval covers all passes. After confirm/start, execute all requested details and QA continuously; never ask for another continue between passes.
+Approval covers all passes/details/QA continuously; never ask for another continue.
 
 No geometry in clarify/plan mode.
 
@@ -50,13 +46,13 @@ No geometry in clarify/plan mode.
 
 First classify the supplied evidence: one image, multiple views of ONE building, or text only. For text only, plan a proposed design from the user's description; do not claim to have inspected a photo or recovered an existing building. Do not demand an image if the user wants a text-described building. Use the same approval, persistent coding, editable model and QA loop.
 
-Record views, floors, openings, materials and landmarks in the card. Reconcile dimensions; flag contradictions for approval. Views constrain ONE building; never promise zero errors.
+Record views, floors, openings/materials/landmarks; reconcile ONE building's dimensions and contradictions. Never promise zero errors.
 
 Count openings by facade/floor/panel. OBSERVED source counts differ from approved defaults: obeying a default does not prove fidelity. Check narrow windows, entries, wall returns and roof inner edges. Persist corrected observations in the parameter card and QA notes; old prose must not override pixels.
 
-Record each image's exact filename, landmarks, side, floor lines and openings. Labels are hints. Do not swap the street entrance and pool facade. Pair QA views by landmarks; correct changed interpretations in card and geometry before acceptance.
+Record exact filename, landmarks, floor lines/openings. Labels are hints; distinguish street entrance and pool facade. Pair QA by landmarks; correct card/model before acceptance.
 
-With approved inference, complete rear/sides/roof as ASSUMED. Continue levels, wall thickness, roof/drainage and facade vocabulary; infer rear openings, circulation and service spaces. Avoid blank backs or blindly mirrored fronts. Stairs must reach requested floors; doors need usable landings and balcony access. Interiors without evidence are schematic assumptions.
+With approved inference, rear/sides/roof/interiors stay ASSUMED. Continue levels, thickness, drainage and facade vocabulary; avoid blank/mirrored backs. Stairs, landings and balcony access must connect.
 
 ## Facade schedule and numerical checks
 
@@ -89,12 +85,7 @@ Build one representative repeated module correctly, inspect it, then instance/ar
 
 ## Method card F — Pass 3: visual QA and correction
 
-Capture at least:
-
-- a source-matched view;
-- one oblique/isometric view.
-
-Inspect the actual screenshots and compare silhouette/proportions, floor lines, bay count/spacing, solids/voids, facade depth, projections, repeated modules, materials and defining details.
+Capture source-matched and oblique views. Compare silhouette, floors, bays, voids/depth, modules/materials/details.
 
 State mismatches, revise persistent scripts/model and recapture; tool success is not completion.
 
@@ -120,6 +111,9 @@ Keep compact shared parameters; inspect each pass and revise persistent files. N
 
 Combine taskbook/site/program only when asked. Never modify original SKP/DWG. Work only in the verified disposable/generated model and agent workspace.
 """.strip()
+
+
+_IMAGE_TO_SKETCHUP_CONTEXT += "\n\n" + (Path(__file__).parent / "vendor/sketchup_runtime_skills/reconstruction-excerpts.md").read_text(encoding="utf-8").strip()
 
 
 def load_image_to_sketchup_skill_context(*, max_chars: int = MAX_CONTEXT_CHARS) -> str:

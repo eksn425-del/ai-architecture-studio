@@ -25,6 +25,11 @@ function restoreDraft() {
 }
 
 function isBuildApproval(message) {
+  if (/^\s*(?:已)?(?:批准|确认|同意).*(?:执行|开始|建模)/.test(message)) {
+    message = message.replace(/不要执行旧(?:整栋)?(?:基线|脚本|计划)/g, "")
+      .replace(/不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*/g, "")
+      .replace(/(?:检查|核对|验证)是否/g, "检查");
+  }
   if (/不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(message)) return false;
   return /^(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*$/.test(message) || /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(message);
 }
@@ -348,7 +353,9 @@ function updateHeader() {
   if (!state.busy) $("conversation-send").querySelector("span:first-child").textContent = state.planEditing ? "更新参数计划" : !reconstruction ? "发送消息" : {idle: "发送", clarifying: "继续交流", planned: "继续交流 / 更新计划", building: "发送修改要求"}[reconstructionState];
   $("conversation-send").setAttribute("aria-label", $("conversation-send").querySelector("span:first-child").textContent);
   $("conversation-send").title = $("conversation-send").getAttribute("aria-label");
-  if (reconstruction) $("conversation-hint").textContent = reconstructionState === "planned"
+  if (reconstruction) $("conversation-hint").textContent = state.busy
+    ? "本轮正在处理；请查看实时进度，无需重复点击批准或发送。"
+    : reconstructionState === "planned"
     ? agentReady ? "计划已生成。点击批准执行后，Agent 将开始建模。" : "计划已生成。点击批准后按引导连接 SketchUp，再开始建模。"
     : reconstructionState === "building" ? "继续修改同一份模型；Agent 将查看截图并修正。" : "先聊天、补充资料；信息确认后点击「整理建模计划」。批准之前不会改动 SU。";
   for (const id of ["brief", "site-note", "intent"]) $(id).closest(".input-block").hidden = reconstruction;
@@ -703,7 +710,7 @@ async function sendConversation(event, agentAction = "auto") {
   if (state.busy) return;
   if (agentAction === "auto" && state.planEditing) agentAction = "plan";
   const typed = $("conversation-input").value.trim();
-  if (agentAction === "execute" && typed && !isBuildApproval(typed)) {
+  if (agentAction === "execute" && (state.planEditing || (typed && !isBuildApproval(typed)))) {
     agentAction = "plan";
     showToast("输入框还有补充要求，先更新计划供你检查，再批准建模。");
   }

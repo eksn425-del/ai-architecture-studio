@@ -1180,6 +1180,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             session.last_reply = "已恢复上轮开始前的项目检查点；请继续修改这份独立副本。"
             session.updated_at = utc_now()
             store.save_state(project_id, session, "agent_session.json")
+            context = store.load_context(project_id)
+            revisions = {key: value.get("revision") for key, value in session.ruby_state.items()}
+            _append_conversation(context, "assistant", "agent", session.last_reply +
+                                 " 当前修订：" + json.dumps(revisions, ensure_ascii=False) +
+                                 "。恢复只还原几何/执行状态，失败轮的笔记和脚本仍保留；继续前核对当前回读，勿把失败轮记录当作已执行状态。",
+                                 {"agent_action": "recovery", "workflow_mode": session.workflow_mode})
+            store.save_state(project_id, context, "project_context.json")
             return {"project": store.load_project(project_id), "reply": session.last_reply}
         except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
             session.error = "Checkpoint recovery failed: " + str(error)[:1000]

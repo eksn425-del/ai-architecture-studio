@@ -361,6 +361,10 @@ def test_checkpoint_recovery_is_confined_to_generated_project_copy(tmp_path):
     assert result.status_code == 200
     assert result.json()["project"]["agent_session"]["ruby_state"]["house"]["revision"] == 1
     assert result.json()["project"]["agent_session"]["model_path"].startswith("outputs/model/blank-disposable-recovery-")
+    note = result.json()["project"]["context"]["conversation"][-1]
+    assert note["metadata"]["agent_action"] == "recovery"
+    assert '"house": 1' in note["content"]
+    assert "失败轮的笔记和脚本仍保留" in note["content"]
 
 
 def test_agent_turn_and_recovery_cannot_overlap(tmp_path):

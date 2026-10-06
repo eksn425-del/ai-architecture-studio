@@ -1,3 +1,17 @@
+## Windows single-image / licensed runtime Skills / recovery — 2026-10-06
+
+Started from clean main `0dd0943`. Adopted selected MIT SketchUp API Skill and Agent Harness excerpts, pinned with licenses and source references; appended them directly to the existing runtime Skill. Kept the existing DeepSeek / persistent Ruby / Kongxing / SAIE / Stultus stack. [Implementation-level adoption and rejected patterns](OSS_RUNTIME_SKILLS_2026-10-06.md).
+
+Fixed scoped affirmative approval in both browser and server, explicit first-message plan dispatch, redundant clarification instructions, busy-state repeat-approval wording, and persisted recovery revision/workspace caveats. 239 tests passed, 2 skipped, 2 dependency warnings; Python compilation, Node syntax/classification and diff checks passed. Desktop rebuilt/installed preserving data and saved Key. Paid modeling used the source localhost service; clean-PC/frozen-EXE complete paid validation remains pending_external.
+
+New public single-image webpage test: ordinary user input, clarification, plan, one constrained approval, automatic connection/new dedicated blank, real 44-tool execution through rev6. Ordinary same-model revision reached rev7–10; a generated wall patch covered windows, subsequent patch restored openings. Last provider request failed with Insufficient Balance before full final QA. Key restoration and MCP worked; no stronger-model substitution. Quality remains partial (wall seams/materials/furniture/inferred geometry), and no new six-view/replay quality PASS is claimed.
+
+Free recovery returned all179 IDs/names/mm bounds to rev6. Native save prompts required manual intervention; after restart the newly persisted recovery conversation correctly reports current rev6 and retained failed-turn scripts/notes. Web download/native open/manual guarded coffee-table54509 X+100mm/native save/reopen matched all179 saved objects, other178 unchanged. This is an editability probe, separate from Agent quality. Active project is restored rev6, not the manually edited downloaded copy. User originals untouched.
+
+[Public report, viewport screenshots, complete IDs, generated baseline/failed patches, usage limitations and native reopen evidence](test-results/windows/2026-10-06-reuse/README.md). No private SKP, account, credentials, request IDs or personal paths published. Further paid quality iteration/replay is blocked by actual provider balance; latest CURRENT_TASK top section defines the next actions and incomplete gates.
+
+---
+
 ## Windows continued quality iteration / OSS coding-loop methods (2026-10-06)
 
 Pulled clean `7aa4221`; user authorized continued improvement from actual defects and comparable OSS code/Skills. Inspected pinned Stultus Apache-2.0, Agent Harness MIT, Auto SketchUp Builder MIT, and existing SAIE implementation. [Adoption decisions](OSS_QUALITY_LOOP_2026-10-06.md): reuse genuine scene readback/scoped editing and project memory; reject blanket clear-model/default dimensions/narrow block vocabulary. No new donor source copied; existing licensed modules retained.
