@@ -22,6 +22,13 @@ def test_windows_encrypted_provider_survives_app_restart(tmp_path, monkeypatch):
     status = other_client.get("/api/status")
     assert secret not in status.text
     assert status.json()["model_router"]["economy"]["reasoning_effort"] == "provider-default"
+    # Opening settings after restart leaves the password empty. Saving the same
+    # default must preserve the encrypted credential without revealing it.
+    kept = other_client.post("/api/model-settings", json={"mode":"deepseek", "api_key":"",
+                                                        "reasoning_effort":"provider-default"})
+    assert kept.status_code == 200
+    assert secret not in kept.text
+    assert other.state.model_router.china_runtime.session_api_key == secret
     assert other_client.delete("/api/model-settings/credential").status_code == 200
     assert not store.path.exists()
     fresh, *_ = workspace(tmp_path)

@@ -22,7 +22,7 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path, help="Use a separate local application profile")
     parser.add_argument("--standalone", action="store_true", help="Use an API and an explicit bridge.json; no Codex config fallback")
     parser.add_argument("--diagnose-provider", type=Path, help="Write a credential-free packaged provider import check and exit")
-    parser.add_argument("--api-provider", choices=("glm", "glm-international", "deepseek"), default="glm")
+    parser.add_argument("--api-provider", choices=("glm", "glm-international", "deepseek"), default="deepseek")
     args = parser.parse_args()
     if args.diagnose_provider:
         import json

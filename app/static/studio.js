@@ -37,7 +37,7 @@ function renderJourney() {
   $("setup-model").hidden = available;
   $("setup-model").disabled = state.busy;
   $("journey-hint").textContent = !available
-    ? "先连接 AI 模型：选择 DeepSeek / GLM 并填入 API Key。图片和草稿会保留，分析阶段无需 SketchUp。"
+    ? "先填写 DeepSeek API Key 并保存为默认，下次打开自动恢复。图片和草稿会保留，分析阶段无需 SketchUp。"
     : state.busy ? "本轮正在处理，资料与对话会保存在当前会话。"
     : {idle: "上传同一建筑的图片（整张多视图也可以），或直接描述目标。先分析，不会修改 SketchUp。", clarifying: "回答 AI 的关键问题；没有实测尺寸也可以采用估算，再检查计划。", planned: "先核对范围、尺寸与推断。可以提问、修改或下载计划，准备好后再连接建模。", building: "已有执行结果，质量尚未验收。先对照参考图检查立面、屋顶，再继续修改同一模型。"}[stage];
   $("clarification-shortcuts").hidden = stage !== "clarifying";
@@ -156,7 +156,7 @@ function refreshTierLabels() {
   const premium = select.querySelector('option[value="premium"]');
   const economyRoute = routeInfo("economy");
   const premiumRoute = routeInfo("premium");
-  economy.textContent = `${economyRoute.model} · ${(economyRoute.reasoning_effort || "low").toUpperCase()}${routeAvailable("economy") ? "" : " · 未配置"}`;
+  economy.textContent = `DeepSeek V4.1 Flash${routeAvailable("economy") ? " · 已配置" : " · 未配置"}`;
   premium.textContent = `精修 · ${premiumRoute.model}（仅本轮${routeAvailable("premium") ? "" : " · 未配置"}）`;
 }
 
@@ -536,7 +536,7 @@ async function boot() {
     const premiumRoute = routeInfo("premium");
     const routeStatus = routeAvailable("economy")
       ? `Economy · ${economyRoute.model} · ${(economyRoute.reasoning_effort || "low").toUpperCase()} 已就绪`
-      : routeAvailable("premium") ? `Economy 未配置 · 精修 ${premiumRoute.model} 可用` : "本地模型提供方尚未配置";
+      : "DeepSeek V4.1 Flash 尚未配置";
     $("brain-status").textContent = `建筑 Agent · ${routeStatus}`;
     document.querySelector(".signal-dot").classList.toggle("ready", state.nativeAgentAvailable);
     const savedId = localStorage.getItem("architecture-studio-project");
@@ -1045,14 +1045,12 @@ function startLiveProgress() {
 }
 
 function openModelSettings() {
-  const model = routeInfo("economy").model || "";
-  const base = state.modelRouter?.providers?.litellm?.api_base || "";
-  const apiProvider = routeInfo("economy").provider === "litellm";
-  const mode = !apiProvider ? routeAvailable("economy") ? "preset" : "deepseek" : model === "deepseek/deepseek-flash" && (!base || base.replace(/\/$/, "") === "https://api.deepseek.com") ? "deepseek" : model === "zai/glm-5.3-flash" && base.startsWith("https://open.bigmodel.cn/") ? "glm" : model === "zai/glm-5.3-flash" && base.startsWith("https://api.z.ai/") ? "glm-international" : "byok";
-  $("provider-mode").value = mode;
-  $("provider-mode").dispatchEvent(new Event("change"));
-  if (mode === "byok") { $("api-model").value = model; $("api-base").value = base; }
-  if (apiProvider && ["low", "high", "max", "provider-default"].includes(routeInfo("economy").reasoning_effort)) $("api-effort").value = routeInfo("economy").reasoning_effort;
+  const saved = state.modelRouter?.providers?.litellm?.credential_configured && routeInfo("economy").model === "deepseek/deepseek-flash";
+  $("api-key").value = "";
+  $("api-key").placeholder = saved ? "已保存；更换 Key 时填写，保持原配置可留空" : "粘贴 DeepSeek API Key";
+  $("saved-key-status").textContent = saved ? "已配置 DeepSeek；Key 已隐藏，无需重复填写。" : "尚未配置 DeepSeek。请填写后保存。";
+  $("forget-api-key").disabled = !state.modelRouter?.providers?.litellm?.credential_configured;
+  $("api-effort").value = saved ? routeInfo("economy").reasoning_effort : "provider-default";
   $("model-settings-status").textContent = "";
   $("model-settings-dialog").showModal();
 }
@@ -1061,22 +1059,22 @@ $("forget-api-key").addEventListener("click", async () => {
   try {
     state.modelRouter = await api("/api/model-settings/credential", {method:"DELETE"});
     $("api-key").value = ""; refreshTierLabels(); updateHeader();
+    $("saved-key-status").textContent = "尚未配置 DeepSeek。请填写后保存。";
+    $("api-key").placeholder = "粘贴 DeepSeek API Key";
+    $("forget-api-key").disabled = true;
     $("model-settings-status").textContent = "已移除本机保存的 Key；再次使用需重新填写。";
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
 });
 $("model-settings-close").addEventListener("click", () => { $("api-key").value = ""; $("model-settings-dialog").close(); });
-$("provider-mode").addEventListener("change", () => {
-  const mode = $("provider-mode").value;
-  const presets = {deepseek:["deepseek/deepseek-flash","https://api.deepseek.com"], glm:["zai/glm-5.3-flash","https://open.bigmodel.cn/api/paas/v4"], "glm-international":["zai/glm-5.3-flash","https://api.z.ai/api/paas/v4"]};
-  $("byok-fields").hidden = mode === "preset";
-  $("api-model").readOnly = !!presets[mode]; $("api-base").readOnly = !!presets[mode];
-  if (presets[mode]) { [$("api-model").value,$("api-base").value] = presets[mode]; }
-  $("api-effort").value = mode === "deepseek" ? "low" : mode.startsWith("glm") ? "high" : "provider-default";
-});
 $("model-settings-form").addEventListener("submit", async event => {
   event.preventDefault();
   const button = $("model-settings-form").querySelector('button[type="submit"]');
   if (button.disabled) return;
+  if (!$("api-key").value.trim() && !(state.modelRouter?.providers?.litellm?.credential_configured && routeInfo("economy").model === "deepseek/deepseek-flash")) {
+    $("model-settings-status").textContent = "请先填写 DeepSeek API Key，再保存为默认。";
+    $("api-key").focus();
+    return;
+  }
   button.disabled = true;
   $("model-settings-status").textContent = "正在设置连接…";
   try {
