@@ -53,6 +53,17 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
         return request.agent_action
     if session.reconstruction_state == "idle":
         return "clarify"
+    # In an already approved model, an explicit imperative can include an
+    # inspection subclause ("检查是否错位。请直接执行修复"). Do not strip
+    # execution tools merely because that subclause contains 是否/能否.
+    direct_revision = re.search(r"(?:^|[，。；！!\n])\s*请?(?:现在|立即)?直接(?:执行|修复|修改|建模)", request.message)
+    stopped_or_question = re.search(
+        r"[?？]|吗[。！!\s]*$|暂停|取消|暂不|先不|先别|先聊|先讨论|只聊|只分析|只解释|"
+        r"不执行|不建模|不同意|不批准|未确认|未批准|如果|假如|示例|教程|不要(?:执行|修改|建模|动)",
+        request.message,
+    )
+    if session.reconstruction_state == "building" and direct_revision and not stopped_or_question:
+        return "execute"
     if discussion_only(request.message):
         return "clarify"
     if session.reconstruction_state == "clarifying":

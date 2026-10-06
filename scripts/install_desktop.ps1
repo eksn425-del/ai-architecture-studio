@@ -12,7 +12,17 @@ if (-not (Test-Path -LiteralPath (Join-Path $source 'KStudio.exe'))) {
 }
 # Inspect the frozen package, not just repository source: an old executable may
 # otherwise silently omit credential persistence even after git pull.
-& (Join-Path $repoRoot '.venv\Scripts\python.exe') -c 'import sys; from PyInstaller.archive.readers import CArchiveReader; p=CArchiveReader(sys.argv[1]).open_embedded_archive("PYZ.pyz"); assert "app.local_credentials" in p.toc, "Desktop package lacks credential persistence"' (Join-Path $source 'KStudio.exe')
+# Windows PowerShell 5.1 can strip quotes inside a native `python -c` argument.
+# Use an ignored script file so package paths and Python string literals stay intact.
+$verificationScript = Join-Path $repoRoot 'runtime\desktop-build\verify_desktop_package.py'
+New-Item -ItemType Directory -Path (Split-Path -Parent $verificationScript) -Force | Out-Null
+@'
+import sys
+from PyInstaller.archive.readers import CArchiveReader
+package = CArchiveReader(sys.argv[1]).open_embedded_archive("PYZ.pyz")
+assert "app.local_credentials" in package.toc, "Desktop package lacks credential persistence"
+'@ | Set-Content -LiteralPath $verificationScript -Encoding UTF8
+& (Join-Path $repoRoot '.venv\Scripts\python.exe') $verificationScript (Join-Path $source 'KStudio.exe')
 if ($LASTEXITCODE -ne 0) { throw 'Desktop package verification failed.' }
 $install = [System.IO.Path]::GetFullPath($InstallRoot)
 $versionName = Get-Date -Format 'yyyyMMdd-HHmmss'

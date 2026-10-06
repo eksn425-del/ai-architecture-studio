@@ -1,0 +1,7060 @@
+{
+  "route": "webpage DeepSeek after saved-key backend restart",
+  "root_id": 40386,
+  "unchanged_child_ids": 249,
+  "only_changed_child_id": 52717,
+  "translation_mm": [
+    50,
+    0,
+    0
+  ],
+  "before": [
+    {
+      "name": "SITE_场地",
+      "persistent_id": 47073,
+      "children": [
+        {
+          "name": "LAWN",
+          "persistent_id": 56087,
+          "min_mm": [
+            -8000,
+            -6000,
+            -340
+          ],
+          "max_mm": [
+            18000,
+            14000,
+            -300
+          ]
+        },
+        {
+          "name": "PAVING_ENTRY",
+          "persistent_id": 56119,
+          "min_mm": [
+            8000,
+            -2400,
+            -300
+          ],
+          "max_mm": [
+            12600,
+            3200,
+            -280
+          ]
+        },
+        {
+          "name": "STEP_LOWER",
+          "persistent_id": 56151,
+          "min_mm": [
+            10000,
+            850,
+            -300
+          ],
+          "max_mm": [
+            10700,
+            2150,
+            -150
+          ]
+        },
+        {
+          "name": "STEP_UPPER",
+          "persistent_id": 56183,
+          "min_mm": [
+            10000,
+            850,
+            -300
+          ],
+          "max_mm": [
+            10350,
+            2150,
+            0
+          ]
+        },
+        {
+          "name": "ENTRY_PLANT_POT",
+          "persistent_id": 56215,
+          "min_mm": [
+            10560,
+            2360,
+            -300
+          ],
+          "max_mm": [
+            10940,
+            2740,
+            60
+          ]
+        },
+        {
+          "name": "ENTRY_PLANT_LEAF1",
+          "persistent_id": 56333,
+          "min_mm": [
+            10450,
+            2250,
+            0
+          ],
+          "max_mm": [
+            11050,
+            2850,
+            550
+          ]
+        },
+        {
+          "name": "ENTRY_PLANT_LEAF2",
+          "persistent_id": 56451,
+          "min_mm": [
+            10530,
+            2330,
+            420
+          ],
+          "max_mm": [
+            10970,
+            2770,
+            820
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BALCONY_阳台",
+      "persistent_id": 47079,
+      "children": [
+        {
+          "name": "BALCONY_SLAB",
+          "persistent_id": 52013,
+          "min_mm": [
+            1200,
+            -1800,
+            3000
+          ],
+          "max_mm": [
+            8800,
+            0,
+            3200
+          ]
+        },
+        {
+          "name": "RAIL_POST_1",
+          "persistent_id": 52045,
+          "min_mm": [
+            1200,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            1240,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_2",
+          "persistent_id": 52077,
+          "min_mm": [
+            2280,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            2320,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_3",
+          "persistent_id": 52109,
+          "min_mm": [
+            3360,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            3400,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_4",
+          "persistent_id": 52141,
+          "min_mm": [
+            4440,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            4480,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_5",
+          "persistent_id": 52173,
+          "min_mm": [
+            5520,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            5560,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_6",
+          "persistent_id": 52205,
+          "min_mm": [
+            6600,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            6640,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_7",
+          "persistent_id": 52237,
+          "min_mm": [
+            7680,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            7720,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_8",
+          "persistent_id": 52269,
+          "min_mm": [
+            8760,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            8800,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_1",
+          "persistent_id": 52301,
+          "min_mm": [
+            1240,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            2280,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_2",
+          "persistent_id": 52333,
+          "min_mm": [
+            2320,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            3360,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_3",
+          "persistent_id": 52365,
+          "min_mm": [
+            3400,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            4440,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_4",
+          "persistent_id": 52397,
+          "min_mm": [
+            4480,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            5520,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_5",
+          "persistent_id": 52429,
+          "min_mm": [
+            5560,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            6600,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_6",
+          "persistent_id": 52461,
+          "min_mm": [
+            6640,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            7680,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_7",
+          "persistent_id": 52493,
+          "min_mm": [
+            7720,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            8760,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_TOP",
+          "persistent_id": 52525,
+          "min_mm": [
+            1200,
+            -1830,
+            4300
+          ],
+          "max_mm": [
+            8800,
+            -1770,
+            4350
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_L_GLASS",
+          "persistent_id": 52557,
+          "min_mm": [
+            1200,
+            -1780,
+            3240
+          ],
+          "max_mm": [
+            1212,
+            -20,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_L_TOP",
+          "persistent_id": 52589,
+          "min_mm": [
+            1200,
+            -1830,
+            4300
+          ],
+          "max_mm": [
+            1260,
+            30,
+            4350
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_R_GLASS",
+          "persistent_id": 52621,
+          "min_mm": [
+            8788,
+            -1780,
+            3240
+          ],
+          "max_mm": [
+            8800,
+            -20,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_R_TOP",
+          "persistent_id": 52653,
+          "min_mm": [
+            8740,
+            -1830,
+            4300
+          ],
+          "max_mm": [
+            8800,
+            30,
+            4350
+          ]
+        },
+        {
+          "name": "BAL_CONSOLE",
+          "persistent_id": 52685,
+          "min_mm": [
+            4300,
+            -1550,
+            3200
+          ],
+          "max_mm": [
+            5900,
+            -950,
+            3660
+          ]
+        },
+        {
+          "name": "BAL_TABLE",
+          "persistent_id": 52717,
+          "min_mm": [
+            6300,
+            -1450,
+            3200
+          ],
+          "max_mm": [
+            6900,
+            -950,
+            3620
+          ]
+        },
+        {
+          "name": "BAL_PLANT_A_POT",
+          "persistent_id": 52749,
+          "min_mm": [
+            1660,
+            -1540,
+            3200
+          ],
+          "max_mm": [
+            2040,
+            -1160,
+            3560
+          ]
+        },
+        {
+          "name": "BAL_PLANT_A_LEAF1",
+          "persistent_id": 52867,
+          "min_mm": [
+            1550,
+            -1650,
+            3500
+          ],
+          "max_mm": [
+            2150,
+            -1050,
+            4050
+          ]
+        },
+        {
+          "name": "BAL_PLANT_A_LEAF2",
+          "persistent_id": 52985,
+          "min_mm": [
+            1630,
+            -1570,
+            3920
+          ],
+          "max_mm": [
+            2070,
+            -1130,
+            4320
+          ]
+        },
+        {
+          "name": "BAL_PLANT_B_POT",
+          "persistent_id": 53103,
+          "min_mm": [
+            7960,
+            -1540,
+            3200
+          ],
+          "max_mm": [
+            8340,
+            -1160,
+            3560
+          ]
+        },
+        {
+          "name": "BAL_PLANT_B_LEAF1",
+          "persistent_id": 53221,
+          "min_mm": [
+            7850,
+            -1650,
+            3500
+          ],
+          "max_mm": [
+            8450,
+            -1050,
+            4050
+          ]
+        },
+        {
+          "name": "BAL_PLANT_B_LEAF2",
+          "persistent_id": 53339,
+          "min_mm": [
+            7930,
+            -1570,
+            3920
+          ],
+          "max_mm": [
+            8370,
+            -1130,
+            4320
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INTERIOR_室内示意",
+      "persistent_id": 47083,
+      "children": [
+        {
+          "name": "GF_RUG",
+          "persistent_id": 54385,
+          "min_mm": [
+            3000,
+            3000,
+            -12
+          ],
+          "max_mm": [
+            5600,
+            5000,
+            0
+          ]
+        },
+        {
+          "name": "GF_SOFA_SEAT",
+          "persistent_id": 54417,
+          "min_mm": [
+            3300,
+            4100,
+            50
+          ],
+          "max_mm": [
+            5300,
+            4950,
+            420
+          ]
+        },
+        {
+          "name": "GF_SOFA_BACK",
+          "persistent_id": 54449,
+          "min_mm": [
+            3300,
+            4750,
+            420
+          ],
+          "max_mm": [
+            5300,
+            4950,
+            820
+          ]
+        },
+        {
+          "name": "GF_SOFA_ARM_L",
+          "persistent_id": 54481,
+          "min_mm": [
+            3300,
+            4100,
+            420
+          ],
+          "max_mm": [
+            3450,
+            4950,
+            600
+          ]
+        },
+        {
+          "name": "GF_SOFA_ARM_R",
+          "persistent_id": 54513,
+          "min_mm": [
+            5150,
+            4100,
+            420
+          ],
+          "max_mm": [
+            5300,
+            4950,
+            600
+          ]
+        },
+        {
+          "name": "GF_TABLE",
+          "persistent_id": 54545,
+          "min_mm": [
+            3900,
+            3300,
+            0
+          ],
+          "max_mm": [
+            4900,
+            3800,
+            380
+          ]
+        },
+        {
+          "name": "GF_DINING_TOP",
+          "persistent_id": 54577,
+          "min_mm": [
+            6400,
+            3400,
+            700
+          ],
+          "max_mm": [
+            7800,
+            4300,
+            760
+          ]
+        },
+        {
+          "name": "GF_DINING_BASE",
+          "persistent_id": 54609,
+          "min_mm": [
+            6550,
+            3600,
+            0
+          ],
+          "max_mm": [
+            7650,
+            4100,
+            700
+          ]
+        },
+        {
+          "name": "GF_CHAIR1_SEAT",
+          "persistent_id": 54641,
+          "min_mm": [
+            6550,
+            2810,
+            0
+          ],
+          "max_mm": [
+            6970,
+            3230,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR1_BACK",
+          "persistent_id": 54673,
+          "min_mm": [
+            6550,
+            2750,
+            450
+          ],
+          "max_mm": [
+            6970,
+            2810,
+            850
+          ]
+        },
+        {
+          "name": "GF_CHAIR2_SEAT",
+          "persistent_id": 54705,
+          "min_mm": [
+            7250,
+            2810,
+            0
+          ],
+          "max_mm": [
+            7670,
+            3230,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR2_BACK",
+          "persistent_id": 54737,
+          "min_mm": [
+            7250,
+            2750,
+            450
+          ],
+          "max_mm": [
+            7670,
+            2810,
+            850
+          ]
+        },
+        {
+          "name": "GF_CHAIR3_SEAT",
+          "persistent_id": 54769,
+          "min_mm": [
+            6550,
+            4130,
+            0
+          ],
+          "max_mm": [
+            6970,
+            4550,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR3_BACK",
+          "persistent_id": 54801,
+          "min_mm": [
+            6550,
+            4550,
+            450
+          ],
+          "max_mm": [
+            6970,
+            4610,
+            850
+          ]
+        },
+        {
+          "name": "GF_CHAIR4_SEAT",
+          "persistent_id": 54833,
+          "min_mm": [
+            7250,
+            4130,
+            0
+          ],
+          "max_mm": [
+            7670,
+            4550,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR4_BACK",
+          "persistent_id": 54865,
+          "min_mm": [
+            7250,
+            4550,
+            450
+          ],
+          "max_mm": [
+            7670,
+            4610,
+            850
+          ]
+        },
+        {
+          "name": "GF_ART_FRAME",
+          "persistent_id": 54897,
+          "min_mm": [
+            4020,
+            7740,
+            1250
+          ],
+          "max_mm": [
+            4980,
+            7800,
+            2450
+          ]
+        },
+        {
+          "name": "GF_ART_PANEL",
+          "persistent_id": 54929,
+          "min_mm": [
+            4060,
+            7700,
+            1290
+          ],
+          "max_mm": [
+            4940,
+            7740,
+            2410
+          ]
+        },
+        {
+          "name": "GF_PLANT_A_POT",
+          "persistent_id": 54961,
+          "min_mm": [
+            2360,
+            860,
+            0
+          ],
+          "max_mm": [
+            2740,
+            1240,
+            360
+          ]
+        },
+        {
+          "name": "GF_PLANT_A_LEAF1",
+          "persistent_id": 55079,
+          "min_mm": [
+            2250,
+            750,
+            300
+          ],
+          "max_mm": [
+            2850,
+            1350,
+            850
+          ]
+        },
+        {
+          "name": "GF_PLANT_A_LEAF2",
+          "persistent_id": 55197,
+          "min_mm": [
+            2330,
+            830,
+            720
+          ],
+          "max_mm": [
+            2770,
+            1270,
+            1120
+          ]
+        },
+        {
+          "name": "GF_PLANT_B_POT",
+          "persistent_id": 55315,
+          "min_mm": [
+            7060,
+            860,
+            0
+          ],
+          "max_mm": [
+            7440,
+            1240,
+            360
+          ]
+        },
+        {
+          "name": "GF_PLANT_B_LEAF1",
+          "persistent_id": 55433,
+          "min_mm": [
+            6950,
+            750,
+            300
+          ],
+          "max_mm": [
+            7550,
+            1350,
+            850
+          ]
+        },
+        {
+          "name": "GF_PLANT_B_LEAF2",
+          "persistent_id": 55551,
+          "min_mm": [
+            7030,
+            830,
+            720
+          ],
+          "max_mm": [
+            7470,
+            1270,
+            1120
+          ]
+        },
+        {
+          "name": "2F_RUG",
+          "persistent_id": 55669,
+          "min_mm": [
+            3000,
+            1200,
+            3200
+          ],
+          "max_mm": [
+            5600,
+            3000,
+            3212
+          ]
+        },
+        {
+          "name": "2F_CABINET",
+          "persistent_id": 55701,
+          "min_mm": [
+            5600,
+            2600,
+            3200
+          ],
+          "max_mm": [
+            6600,
+            3050,
+            3650
+          ]
+        },
+        {
+          "name": "2F_PLANT_POT",
+          "persistent_id": 55733,
+          "min_mm": [
+            3029,
+            829,
+            3200
+          ],
+          "max_mm": [
+            3371,
+            1171,
+            3524
+          ]
+        },
+        {
+          "name": "2F_PLANT_LEAF1",
+          "persistent_id": 55851,
+          "min_mm": [
+            2930,
+            730,
+            3470
+          ],
+          "max_mm": [
+            3470,
+            1270,
+            3965
+          ]
+        },
+        {
+          "name": "2F_PLANT_LEAF2",
+          "persistent_id": 55969,
+          "min_mm": [
+            3002,
+            802,
+            3848
+          ],
+          "max_mm": [
+            3398,
+            1198,
+            4208
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOUVER_木格栅",
+      "persistent_id": 56613,
+      "children": [
+        {
+          "name": "LOUVER_FRONT_01",
+          "persistent_id": 61575,
+          "min_mm": [
+            9025,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9065,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_02",
+          "persistent_id": 61607,
+          "min_mm": [
+            9090,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9130,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_03",
+          "persistent_id": 61639,
+          "min_mm": [
+            9155,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9195,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_04",
+          "persistent_id": 61671,
+          "min_mm": [
+            9220,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9260,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_05",
+          "persistent_id": 61703,
+          "min_mm": [
+            9285,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9325,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_06",
+          "persistent_id": 61735,
+          "min_mm": [
+            9350,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9390,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_07",
+          "persistent_id": 61767,
+          "min_mm": [
+            9415,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9455,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_08",
+          "persistent_id": 61799,
+          "min_mm": [
+            9480,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9520,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_09",
+          "persistent_id": 61831,
+          "min_mm": [
+            9545,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9585,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_10",
+          "persistent_id": 61863,
+          "min_mm": [
+            9610,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9650,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_11",
+          "persistent_id": 61895,
+          "min_mm": [
+            9675,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9715,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_12",
+          "persistent_id": 61927,
+          "min_mm": [
+            9740,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9780,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_13",
+          "persistent_id": 61959,
+          "min_mm": [
+            9805,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9845,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_14",
+          "persistent_id": 61991,
+          "min_mm": [
+            9870,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9910,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_15",
+          "persistent_id": 62023,
+          "min_mm": [
+            9935,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9975,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_01",
+          "persistent_id": 62055,
+          "min_mm": [
+            10000,
+            0,
+            50
+          ],
+          "max_mm": [
+            10030,
+            40,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_02",
+          "persistent_id": 62087,
+          "min_mm": [
+            10000,
+            65,
+            50
+          ],
+          "max_mm": [
+            10030,
+            105,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_03",
+          "persistent_id": 62119,
+          "min_mm": [
+            10000,
+            130,
+            50
+          ],
+          "max_mm": [
+            10030,
+            170,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_04",
+          "persistent_id": 62151,
+          "min_mm": [
+            10000,
+            195,
+            50
+          ],
+          "max_mm": [
+            10030,
+            235,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_05",
+          "persistent_id": 62183,
+          "min_mm": [
+            10000,
+            260,
+            50
+          ],
+          "max_mm": [
+            10030,
+            300,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_06",
+          "persistent_id": 62215,
+          "min_mm": [
+            10000,
+            325,
+            50
+          ],
+          "max_mm": [
+            10030,
+            365,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_07",
+          "persistent_id": 62247,
+          "min_mm": [
+            10000,
+            390,
+            50
+          ],
+          "max_mm": [
+            10030,
+            430,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_08",
+          "persistent_id": 62279,
+          "min_mm": [
+            10000,
+            455,
+            50
+          ],
+          "max_mm": [
+            10030,
+            495,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_09",
+          "persistent_id": 62311,
+          "min_mm": [
+            10000,
+            520,
+            50
+          ],
+          "max_mm": [
+            10030,
+            560,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_10",
+          "persistent_id": 62343,
+          "min_mm": [
+            10000,
+            585,
+            50
+          ],
+          "max_mm": [
+            10030,
+            625,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_11",
+          "persistent_id": 62375,
+          "min_mm": [
+            10000,
+            650,
+            50
+          ],
+          "max_mm": [
+            10030,
+            690,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_12",
+          "persistent_id": 62407,
+          "min_mm": [
+            10000,
+            715,
+            50
+          ],
+          "max_mm": [
+            10030,
+            755,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_13",
+          "persistent_id": 62439,
+          "min_mm": [
+            10000,
+            780,
+            50
+          ],
+          "max_mm": [
+            10030,
+            820,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_14",
+          "persistent_id": 62471,
+          "min_mm": [
+            10000,
+            845,
+            50
+          ],
+          "max_mm": [
+            10030,
+            885,
+            6750
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SHELL_主体",
+      "persistent_id": 62503,
+      "children": [
+        {
+          "name": "PLINTH_FRONT",
+          "persistent_id": 62507,
+          "min_mm": [
+            -30,
+            -30,
+            -300
+          ],
+          "max_mm": [
+            10030,
+            0,
+            50
+          ]
+        },
+        {
+          "name": "PLINTH_REAR",
+          "persistent_id": 62539,
+          "min_mm": [
+            -30,
+            8000,
+            -300
+          ],
+          "max_mm": [
+            10030,
+            8030,
+            50
+          ]
+        },
+        {
+          "name": "PLINTH_RIGHT",
+          "persistent_id": 62571,
+          "min_mm": [
+            10000,
+            -30,
+            -300
+          ],
+          "max_mm": [
+            10030,
+            8030,
+            50
+          ]
+        },
+        {
+          "name": "PLINTH_LEFT",
+          "persistent_id": 62603,
+          "min_mm": [
+            -30,
+            -30,
+            -300
+          ],
+          "max_mm": [
+            0,
+            8030,
+            50
+          ]
+        },
+        {
+          "name": "FLOOR_GF",
+          "persistent_id": 62635,
+          "min_mm": [
+            10,
+            8,
+            -150
+          ],
+          "max_mm": [
+            9990,
+            7992,
+            0
+          ]
+        },
+        {
+          "name": "FLOOR_2F",
+          "persistent_id": 62667,
+          "min_mm": [
+            10,
+            8,
+            3000
+          ],
+          "max_mm": [
+            9990,
+            7992,
+            3200
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG1",
+          "persistent_id": 62699,
+          "min_mm": [
+            0,
+            0,
+            -300
+          ],
+          "max_mm": [
+            10000,
+            200,
+            0
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG2",
+          "persistent_id": 62731,
+          "min_mm": [
+            0,
+            0,
+            0
+          ],
+          "max_mm": [
+            2000,
+            200,
+            2700
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG3",
+          "persistent_id": 62763,
+          "min_mm": [
+            7800,
+            0,
+            0
+          ],
+          "max_mm": [
+            10000,
+            200,
+            2700
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG4",
+          "persistent_id": 62795,
+          "min_mm": [
+            0,
+            0,
+            2700
+          ],
+          "max_mm": [
+            10000,
+            200,
+            3200
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG1",
+          "persistent_id": 62827,
+          "min_mm": [
+            0,
+            0,
+            3200
+          ],
+          "max_mm": [
+            2300,
+            200,
+            5800
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG2",
+          "persistent_id": 62859,
+          "min_mm": [
+            4200,
+            0,
+            3200
+          ],
+          "max_mm": [
+            5800,
+            200,
+            5800
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG3",
+          "persistent_id": 62891,
+          "min_mm": [
+            7700,
+            0,
+            3200
+          ],
+          "max_mm": [
+            10000,
+            200,
+            5800
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG4",
+          "persistent_id": 62923,
+          "min_mm": [
+            0,
+            0,
+            5800
+          ],
+          "max_mm": [
+            10000,
+            200,
+            6400
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG1",
+          "persistent_id": 62955,
+          "min_mm": [
+            0,
+            7800,
+            -300
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            900
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG2",
+          "persistent_id": 62987,
+          "min_mm": [
+            8050,
+            7800,
+            900
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG3",
+          "persistent_id": 63019,
+          "min_mm": [
+            5550,
+            7800,
+            900
+          ],
+          "max_mm": [
+            6950,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG4",
+          "persistent_id": 63051,
+          "min_mm": [
+            3050,
+            7800,
+            900
+          ],
+          "max_mm": [
+            4450,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG5",
+          "persistent_id": 63083,
+          "min_mm": [
+            0,
+            7800,
+            900
+          ],
+          "max_mm": [
+            1950,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG6",
+          "persistent_id": 63115,
+          "min_mm": [
+            0,
+            7800,
+            2200
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            3200
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG1",
+          "persistent_id": 63147,
+          "min_mm": [
+            0,
+            7800,
+            3200
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            4100
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG2",
+          "persistent_id": 63179,
+          "min_mm": [
+            8050,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG3",
+          "persistent_id": 63211,
+          "min_mm": [
+            5550,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            6950,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG4",
+          "persistent_id": 63243,
+          "min_mm": [
+            3050,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            4450,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG5",
+          "persistent_id": 63275,
+          "min_mm": [
+            0,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            1950,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG6",
+          "persistent_id": 63307,
+          "min_mm": [
+            0,
+            7800,
+            5400
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            6400
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG1",
+          "persistent_id": 63339,
+          "min_mm": [
+            9800,
+            200,
+            -300
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            0
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG2",
+          "persistent_id": 63371,
+          "min_mm": [
+            9800,
+            200,
+            0
+          ],
+          "max_mm": [
+            10000,
+            1000,
+            900
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG3",
+          "persistent_id": 63403,
+          "min_mm": [
+            9800,
+            2000,
+            0
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            900
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG4",
+          "persistent_id": 63435,
+          "min_mm": [
+            9800,
+            200,
+            900
+          ],
+          "max_mm": [
+            10000,
+            1000,
+            2200
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG5",
+          "persistent_id": 63467,
+          "min_mm": [
+            9800,
+            2000,
+            900
+          ],
+          "max_mm": [
+            10000,
+            3950,
+            2200
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG6",
+          "persistent_id": 63499,
+          "min_mm": [
+            9800,
+            5050,
+            900
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            2200
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG7",
+          "persistent_id": 63531,
+          "min_mm": [
+            9800,
+            200,
+            2200
+          ],
+          "max_mm": [
+            10000,
+            1000,
+            2300
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG8",
+          "persistent_id": 63563,
+          "min_mm": [
+            9800,
+            2000,
+            2200
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            2300
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG9",
+          "persistent_id": 63595,
+          "min_mm": [
+            9800,
+            200,
+            2300
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            3200
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG1",
+          "persistent_id": 63627,
+          "min_mm": [
+            9800,
+            200,
+            3200
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            4100
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG2",
+          "persistent_id": 63659,
+          "min_mm": [
+            9800,
+            200,
+            4100
+          ],
+          "max_mm": [
+            10000,
+            3950,
+            5400
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG3",
+          "persistent_id": 63691,
+          "min_mm": [
+            9800,
+            5050,
+            4100
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            5400
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG4",
+          "persistent_id": 63723,
+          "min_mm": [
+            9800,
+            200,
+            5400
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            6400
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG1",
+          "persistent_id": 63755,
+          "min_mm": [
+            0,
+            200,
+            -300
+          ],
+          "max_mm": [
+            200,
+            7800,
+            900
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG2",
+          "persistent_id": 63787,
+          "min_mm": [
+            0,
+            5950,
+            900
+          ],
+          "max_mm": [
+            200,
+            7800,
+            2200
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG3",
+          "persistent_id": 63819,
+          "min_mm": [
+            0,
+            3150,
+            900
+          ],
+          "max_mm": [
+            200,
+            4850,
+            2200
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG4",
+          "persistent_id": 63851,
+          "min_mm": [
+            0,
+            200,
+            900
+          ],
+          "max_mm": [
+            200,
+            2050,
+            2200
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG5",
+          "persistent_id": 63883,
+          "min_mm": [
+            0,
+            200,
+            2200
+          ],
+          "max_mm": [
+            200,
+            7800,
+            3200
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG1",
+          "persistent_id": 63915,
+          "min_mm": [
+            0,
+            200,
+            3200
+          ],
+          "max_mm": [
+            200,
+            7800,
+            4100
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG2",
+          "persistent_id": 63947,
+          "min_mm": [
+            0,
+            5950,
+            4100
+          ],
+          "max_mm": [
+            200,
+            7800,
+            5400
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG3",
+          "persistent_id": 63979,
+          "min_mm": [
+            0,
+            3150,
+            4100
+          ],
+          "max_mm": [
+            200,
+            4850,
+            5400
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG4",
+          "persistent_id": 64011,
+          "min_mm": [
+            0,
+            200,
+            4100
+          ],
+          "max_mm": [
+            200,
+            2050,
+            5400
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG5",
+          "persistent_id": 64043,
+          "min_mm": [
+            0,
+            200,
+            5400
+          ],
+          "max_mm": [
+            200,
+            7800,
+            6400
+          ]
+        },
+        {
+          "name": "ROOF_SLAB",
+          "persistent_id": 64075,
+          "min_mm": [
+            10,
+            8,
+            6200
+          ],
+          "max_mm": [
+            9990,
+            7992,
+            6380
+          ]
+        },
+        {
+          "name": "ROOF_DECK",
+          "persistent_id": 64107,
+          "min_mm": [
+            200,
+            200,
+            6380
+          ],
+          "max_mm": [
+            9800,
+            7800,
+            6400
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_FRONT",
+          "persistent_id": 64139,
+          "min_mm": [
+            200,
+            200,
+            6400
+          ],
+          "max_mm": [
+            9800,
+            250,
+            6500
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_REAR",
+          "persistent_id": 64171,
+          "min_mm": [
+            200,
+            7750,
+            6400
+          ],
+          "max_mm": [
+            9800,
+            7800,
+            6500
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_RIGHT",
+          "persistent_id": 64203,
+          "min_mm": [
+            9750,
+            250,
+            6400
+          ],
+          "max_mm": [
+            9800,
+            7750,
+            6500
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_LEFT",
+          "persistent_id": 64235,
+          "min_mm": [
+            200,
+            250,
+            6400
+          ],
+          "max_mm": [
+            250,
+            7750,
+            6500
+          ]
+        },
+        {
+          "name": "PARAPET_FRONT",
+          "persistent_id": 64267,
+          "min_mm": [
+            0,
+            0,
+            6400
+          ],
+          "max_mm": [
+            10000,
+            200,
+            6750
+          ]
+        },
+        {
+          "name": "PARAPET_REAR",
+          "persistent_id": 64299,
+          "min_mm": [
+            0,
+            7800,
+            6400
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            6750
+          ]
+        },
+        {
+          "name": "PARAPET_RIGHT",
+          "persistent_id": 64331,
+          "min_mm": [
+            9800,
+            200,
+            6400
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            6750
+          ]
+        },
+        {
+          "name": "PARAPET_LEFT",
+          "persistent_id": 64363,
+          "min_mm": [
+            0,
+            200,
+            6400
+          ],
+          "max_mm": [
+            200,
+            7800,
+            6750
+          ]
+        },
+        {
+          "name": "COPING_FRONT",
+          "persistent_id": 64395,
+          "min_mm": [
+            -20,
+            -20,
+            6750
+          ],
+          "max_mm": [
+            10020,
+            200,
+            6790
+          ]
+        },
+        {
+          "name": "COPING_REAR",
+          "persistent_id": 64427,
+          "min_mm": [
+            -20,
+            7800,
+            6750
+          ],
+          "max_mm": [
+            10020,
+            8020,
+            6790
+          ]
+        },
+        {
+          "name": "COPING_RIGHT",
+          "persistent_id": 64459,
+          "min_mm": [
+            9800,
+            -20,
+            6750
+          ],
+          "max_mm": [
+            10020,
+            8020,
+            6790
+          ]
+        },
+        {
+          "name": "COPING_LEFT",
+          "persistent_id": 64491,
+          "min_mm": [
+            -20,
+            -20,
+            6750
+          ],
+          "max_mm": [
+            200,
+            8020,
+            6790
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OPENINGS_门窗",
+      "persistent_id": 62505,
+      "children": [
+        {
+          "name": "WINDOW_REAR_L1_1_SILL",
+          "persistent_id": 64523,
+          "min_mm": [
+            6950,
+            7900,
+            900
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_HEAD",
+          "persistent_id": 64555,
+          "min_mm": [
+            6950,
+            7900,
+            2140
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_JAMB_L",
+          "persistent_id": 64587,
+          "min_mm": [
+            7990,
+            7900,
+            960
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_JAMB_R",
+          "persistent_id": 64619,
+          "min_mm": [
+            6950,
+            7900,
+            960
+          ],
+          "max_mm": [
+            7010,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_GLASS",
+          "persistent_id": 64651,
+          "min_mm": [
+            7010,
+            7930,
+            960
+          ],
+          "max_mm": [
+            7990,
+            7950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_SILL",
+          "persistent_id": 64683,
+          "min_mm": [
+            4450,
+            7900,
+            900
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_HEAD",
+          "persistent_id": 64715,
+          "min_mm": [
+            4450,
+            7900,
+            2140
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_JAMB_L",
+          "persistent_id": 64747,
+          "min_mm": [
+            5490,
+            7900,
+            960
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_JAMB_R",
+          "persistent_id": 64779,
+          "min_mm": [
+            4450,
+            7900,
+            960
+          ],
+          "max_mm": [
+            4510,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_GLASS",
+          "persistent_id": 64811,
+          "min_mm": [
+            4510,
+            7930,
+            960
+          ],
+          "max_mm": [
+            5490,
+            7950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_SILL",
+          "persistent_id": 64843,
+          "min_mm": [
+            1950,
+            7900,
+            900
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_HEAD",
+          "persistent_id": 64875,
+          "min_mm": [
+            1950,
+            7900,
+            2140
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_JAMB_L",
+          "persistent_id": 64907,
+          "min_mm": [
+            2990,
+            7900,
+            960
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_JAMB_R",
+          "persistent_id": 64939,
+          "min_mm": [
+            1950,
+            7900,
+            960
+          ],
+          "max_mm": [
+            2010,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_GLASS",
+          "persistent_id": 64971,
+          "min_mm": [
+            2010,
+            7930,
+            960
+          ],
+          "max_mm": [
+            2990,
+            7950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_SILL",
+          "persistent_id": 65003,
+          "min_mm": [
+            9900,
+            3950,
+            900
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_HEAD",
+          "persistent_id": 65035,
+          "min_mm": [
+            9900,
+            3950,
+            2140
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_JAMB_L",
+          "persistent_id": 65067,
+          "min_mm": [
+            9900,
+            3950,
+            960
+          ],
+          "max_mm": [
+            9980,
+            4010,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_JAMB_R",
+          "persistent_id": 65099,
+          "min_mm": [
+            9900,
+            4990,
+            960
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_GLASS",
+          "persistent_id": 65131,
+          "min_mm": [
+            9930,
+            4010,
+            960
+          ],
+          "max_mm": [
+            9950,
+            4990,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_SILL",
+          "persistent_id": 65163,
+          "min_mm": [
+            20,
+            4850,
+            900
+          ],
+          "max_mm": [
+            100,
+            5950,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_HEAD",
+          "persistent_id": 65195,
+          "min_mm": [
+            20,
+            4850,
+            2140
+          ],
+          "max_mm": [
+            100,
+            5950,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_JAMB_L",
+          "persistent_id": 65227,
+          "min_mm": [
+            20,
+            5890,
+            960
+          ],
+          "max_mm": [
+            100,
+            5950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_JAMB_R",
+          "persistent_id": 65259,
+          "min_mm": [
+            20,
+            4850,
+            960
+          ],
+          "max_mm": [
+            100,
+            4910,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_GLASS",
+          "persistent_id": 65291,
+          "min_mm": [
+            50,
+            4910,
+            960
+          ],
+          "max_mm": [
+            70,
+            5890,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_SILL",
+          "persistent_id": 65323,
+          "min_mm": [
+            20,
+            2050,
+            900
+          ],
+          "max_mm": [
+            100,
+            3150,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_HEAD",
+          "persistent_id": 65355,
+          "min_mm": [
+            20,
+            2050,
+            2140
+          ],
+          "max_mm": [
+            100,
+            3150,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_JAMB_L",
+          "persistent_id": 65387,
+          "min_mm": [
+            20,
+            3090,
+            960
+          ],
+          "max_mm": [
+            100,
+            3150,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_JAMB_R",
+          "persistent_id": 65419,
+          "min_mm": [
+            20,
+            2050,
+            960
+          ],
+          "max_mm": [
+            100,
+            2110,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_GLASS",
+          "persistent_id": 65451,
+          "min_mm": [
+            50,
+            2110,
+            960
+          ],
+          "max_mm": [
+            70,
+            3090,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_SILL",
+          "persistent_id": 65483,
+          "min_mm": [
+            6950,
+            7900,
+            4100
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_HEAD",
+          "persistent_id": 65515,
+          "min_mm": [
+            6950,
+            7900,
+            5340
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_JAMB_L",
+          "persistent_id": 65547,
+          "min_mm": [
+            7990,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_JAMB_R",
+          "persistent_id": 65579,
+          "min_mm": [
+            6950,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            7010,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_GLASS",
+          "persistent_id": 65611,
+          "min_mm": [
+            7010,
+            7930,
+            4160
+          ],
+          "max_mm": [
+            7990,
+            7950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_SILL",
+          "persistent_id": 65643,
+          "min_mm": [
+            4450,
+            7900,
+            4100
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_HEAD",
+          "persistent_id": 65675,
+          "min_mm": [
+            4450,
+            7900,
+            5340
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_JAMB_L",
+          "persistent_id": 65707,
+          "min_mm": [
+            5490,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_JAMB_R",
+          "persistent_id": 65739,
+          "min_mm": [
+            4450,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            4510,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_GLASS",
+          "persistent_id": 65771,
+          "min_mm": [
+            4510,
+            7930,
+            4160
+          ],
+          "max_mm": [
+            5490,
+            7950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_SILL",
+          "persistent_id": 65803,
+          "min_mm": [
+            1950,
+            7900,
+            4100
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_HEAD",
+          "persistent_id": 65835,
+          "min_mm": [
+            1950,
+            7900,
+            5340
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_JAMB_L",
+          "persistent_id": 65867,
+          "min_mm": [
+            2990,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_JAMB_R",
+          "persistent_id": 65899,
+          "min_mm": [
+            1950,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            2010,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_GLASS",
+          "persistent_id": 65931,
+          "min_mm": [
+            2010,
+            7930,
+            4160
+          ],
+          "max_mm": [
+            2990,
+            7950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_SILL",
+          "persistent_id": 65963,
+          "min_mm": [
+            9900,
+            3950,
+            4100
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_HEAD",
+          "persistent_id": 65995,
+          "min_mm": [
+            9900,
+            3950,
+            5340
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_JAMB_L",
+          "persistent_id": 66027,
+          "min_mm": [
+            9900,
+            3950,
+            4160
+          ],
+          "max_mm": [
+            9980,
+            4010,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_JAMB_R",
+          "persistent_id": 66059,
+          "min_mm": [
+            9900,
+            4990,
+            4160
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_GLASS",
+          "persistent_id": 66091,
+          "min_mm": [
+            9930,
+            4010,
+            4160
+          ],
+          "max_mm": [
+            9950,
+            4990,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_SILL",
+          "persistent_id": 66123,
+          "min_mm": [
+            20,
+            4850,
+            4100
+          ],
+          "max_mm": [
+            100,
+            5950,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_HEAD",
+          "persistent_id": 66155,
+          "min_mm": [
+            20,
+            4850,
+            5340
+          ],
+          "max_mm": [
+            100,
+            5950,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_JAMB_L",
+          "persistent_id": 66187,
+          "min_mm": [
+            20,
+            5890,
+            4160
+          ],
+          "max_mm": [
+            100,
+            5950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_JAMB_R",
+          "persistent_id": 66219,
+          "min_mm": [
+            20,
+            4850,
+            4160
+          ],
+          "max_mm": [
+            100,
+            4910,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_GLASS",
+          "persistent_id": 66251,
+          "min_mm": [
+            50,
+            4910,
+            4160
+          ],
+          "max_mm": [
+            70,
+            5890,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_SILL",
+          "persistent_id": 66283,
+          "min_mm": [
+            20,
+            2050,
+            4100
+          ],
+          "max_mm": [
+            100,
+            3150,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_HEAD",
+          "persistent_id": 66315,
+          "min_mm": [
+            20,
+            2050,
+            5340
+          ],
+          "max_mm": [
+            100,
+            3150,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_JAMB_L",
+          "persistent_id": 66347,
+          "min_mm": [
+            20,
+            3090,
+            4160
+          ],
+          "max_mm": [
+            100,
+            3150,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_JAMB_R",
+          "persistent_id": 66379,
+          "min_mm": [
+            20,
+            2050,
+            4160
+          ],
+          "max_mm": [
+            100,
+            2110,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_GLASS",
+          "persistent_id": 66411,
+          "min_mm": [
+            50,
+            2110,
+            4160
+          ],
+          "max_mm": [
+            70,
+            3090,
+            5340
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_SILL",
+          "persistent_id": 66443,
+          "min_mm": [
+            2000,
+            30,
+            0
+          ],
+          "max_mm": [
+            7800,
+            110,
+            70
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_HEAD",
+          "persistent_id": 66475,
+          "min_mm": [
+            2000,
+            30,
+            2630
+          ],
+          "max_mm": [
+            7800,
+            110,
+            2700
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_JAMB_L",
+          "persistent_id": 66507,
+          "min_mm": [
+            2000,
+            30,
+            70
+          ],
+          "max_mm": [
+            2070,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_JAMB_R",
+          "persistent_id": 66539,
+          "min_mm": [
+            7730,
+            30,
+            70
+          ],
+          "max_mm": [
+            7800,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_MULL1",
+          "persistent_id": 66571,
+          "min_mm": [
+            3425,
+            30,
+            70
+          ],
+          "max_mm": [
+            3475,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_MULL2",
+          "persistent_id": 66603,
+          "min_mm": [
+            4875,
+            30,
+            70
+          ],
+          "max_mm": [
+            4925,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_MULL3",
+          "persistent_id": 66635,
+          "min_mm": [
+            6325,
+            30,
+            70
+          ],
+          "max_mm": [
+            6375,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS1",
+          "persistent_id": 66667,
+          "min_mm": [
+            2090,
+            50,
+            70
+          ],
+          "max_mm": [
+            3430,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS2",
+          "persistent_id": 66699,
+          "min_mm": [
+            3470,
+            50,
+            70
+          ],
+          "max_mm": [
+            4880,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS3",
+          "persistent_id": 66731,
+          "min_mm": [
+            4920,
+            50,
+            70
+          ],
+          "max_mm": [
+            6330,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS4",
+          "persistent_id": 66763,
+          "min_mm": [
+            6370,
+            50,
+            70
+          ],
+          "max_mm": [
+            7710,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_SILL",
+          "persistent_id": 66795,
+          "min_mm": [
+            2300,
+            30,
+            3200
+          ],
+          "max_mm": [
+            4200,
+            110,
+            3270
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_HEAD",
+          "persistent_id": 66827,
+          "min_mm": [
+            2300,
+            30,
+            5730
+          ],
+          "max_mm": [
+            4200,
+            110,
+            5800
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_JAMB_L",
+          "persistent_id": 66859,
+          "min_mm": [
+            2300,
+            30,
+            3270
+          ],
+          "max_mm": [
+            2370,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_JAMB_R",
+          "persistent_id": 66891,
+          "min_mm": [
+            4130,
+            30,
+            3270
+          ],
+          "max_mm": [
+            4200,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_MULL1",
+          "persistent_id": 66923,
+          "min_mm": [
+            3225,
+            30,
+            3270
+          ],
+          "max_mm": [
+            3275,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_GLASS1",
+          "persistent_id": 66955,
+          "min_mm": [
+            2390,
+            50,
+            3270
+          ],
+          "max_mm": [
+            3230,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_GLASS2",
+          "persistent_id": 66987,
+          "min_mm": [
+            3270,
+            50,
+            3270
+          ],
+          "max_mm": [
+            4110,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_SILL",
+          "persistent_id": 67019,
+          "min_mm": [
+            5800,
+            30,
+            3200
+          ],
+          "max_mm": [
+            7700,
+            110,
+            3270
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_HEAD",
+          "persistent_id": 67051,
+          "min_mm": [
+            5800,
+            30,
+            5730
+          ],
+          "max_mm": [
+            7700,
+            110,
+            5800
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_JAMB_L",
+          "persistent_id": 67083,
+          "min_mm": [
+            5800,
+            30,
+            3270
+          ],
+          "max_mm": [
+            5870,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_JAMB_R",
+          "persistent_id": 67115,
+          "min_mm": [
+            7630,
+            30,
+            3270
+          ],
+          "max_mm": [
+            7700,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_MULL1",
+          "persistent_id": 67147,
+          "min_mm": [
+            6725,
+            30,
+            3270
+          ],
+          "max_mm": [
+            6775,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_GLASS1",
+          "persistent_id": 67179,
+          "min_mm": [
+            5890,
+            50,
+            3270
+          ],
+          "max_mm": [
+            6730,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_GLASS2",
+          "persistent_id": 67211,
+          "min_mm": [
+            6770,
+            50,
+            3270
+          ],
+          "max_mm": [
+            7610,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_SILL",
+          "persistent_id": 67243,
+          "min_mm": [
+            9880,
+            1000,
+            0
+          ],
+          "max_mm": [
+            9980,
+            2000,
+            60
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_HEAD",
+          "persistent_id": 67275,
+          "min_mm": [
+            9880,
+            1000,
+            2240
+          ],
+          "max_mm": [
+            9980,
+            2000,
+            2300
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_JAMB_L",
+          "persistent_id": 67307,
+          "min_mm": [
+            9880,
+            1000,
+            60
+          ],
+          "max_mm": [
+            9980,
+            1060,
+            2240
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_JAMB_R",
+          "persistent_id": 67339,
+          "min_mm": [
+            9880,
+            1940,
+            60
+          ],
+          "max_mm": [
+            9980,
+            2000,
+            2240
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_LEAF",
+          "persistent_id": 67371,
+          "min_mm": [
+            9910,
+            1060,
+            0
+          ],
+          "max_mm": [
+            9950,
+            1940,
+            2240
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_HANDLE",
+          "persistent_id": 67403,
+          "min_mm": [
+            9950,
+            1720,
+            950
+          ],
+          "max_mm": [
+            9990,
+            1780,
+            1100
+          ]
+        },
+        {
+          "name": "ENTRY_CANOPY",
+          "persistent_id": 67435,
+          "min_mm": [
+            10000,
+            650,
+            2550
+          ],
+          "max_mm": [
+            10900,
+            2350,
+            2700
+          ]
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "name": "SITE_场地",
+      "persistent_id": 47073,
+      "children": [
+        {
+          "name": "LAWN",
+          "persistent_id": 56087,
+          "min_mm": [
+            -8000,
+            -6000,
+            -340
+          ],
+          "max_mm": [
+            18000,
+            14000,
+            -300
+          ]
+        },
+        {
+          "name": "PAVING_ENTRY",
+          "persistent_id": 56119,
+          "min_mm": [
+            8000,
+            -2400,
+            -300
+          ],
+          "max_mm": [
+            12600,
+            3200,
+            -280
+          ]
+        },
+        {
+          "name": "STEP_LOWER",
+          "persistent_id": 56151,
+          "min_mm": [
+            10000,
+            850,
+            -300
+          ],
+          "max_mm": [
+            10700,
+            2150,
+            -150
+          ]
+        },
+        {
+          "name": "STEP_UPPER",
+          "persistent_id": 56183,
+          "min_mm": [
+            10000,
+            850,
+            -300
+          ],
+          "max_mm": [
+            10350,
+            2150,
+            0
+          ]
+        },
+        {
+          "name": "ENTRY_PLANT_POT",
+          "persistent_id": 56215,
+          "min_mm": [
+            10560,
+            2360,
+            -300
+          ],
+          "max_mm": [
+            10940,
+            2740,
+            60
+          ]
+        },
+        {
+          "name": "ENTRY_PLANT_LEAF1",
+          "persistent_id": 56333,
+          "min_mm": [
+            10450,
+            2250,
+            0
+          ],
+          "max_mm": [
+            11050,
+            2850,
+            550
+          ]
+        },
+        {
+          "name": "ENTRY_PLANT_LEAF2",
+          "persistent_id": 56451,
+          "min_mm": [
+            10530,
+            2330,
+            420
+          ],
+          "max_mm": [
+            10970,
+            2770,
+            820
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BALCONY_阳台",
+      "persistent_id": 47079,
+      "children": [
+        {
+          "name": "BALCONY_SLAB",
+          "persistent_id": 52013,
+          "min_mm": [
+            1200,
+            -1800,
+            3000
+          ],
+          "max_mm": [
+            8800,
+            0,
+            3200
+          ]
+        },
+        {
+          "name": "RAIL_POST_1",
+          "persistent_id": 52045,
+          "min_mm": [
+            1200,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            1240,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_2",
+          "persistent_id": 52077,
+          "min_mm": [
+            2280,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            2320,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_3",
+          "persistent_id": 52109,
+          "min_mm": [
+            3360,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            3400,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_4",
+          "persistent_id": 52141,
+          "min_mm": [
+            4440,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            4480,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_5",
+          "persistent_id": 52173,
+          "min_mm": [
+            5520,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            5560,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_6",
+          "persistent_id": 52205,
+          "min_mm": [
+            6600,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            6640,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_7",
+          "persistent_id": 52237,
+          "min_mm": [
+            7680,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            7720,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_POST_8",
+          "persistent_id": 52269,
+          "min_mm": [
+            8760,
+            -1820,
+            3200
+          ],
+          "max_mm": [
+            8800,
+            -1780,
+            4300
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_1",
+          "persistent_id": 52301,
+          "min_mm": [
+            1240,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            2280,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_2",
+          "persistent_id": 52333,
+          "min_mm": [
+            2320,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            3360,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_3",
+          "persistent_id": 52365,
+          "min_mm": [
+            3400,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            4440,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_4",
+          "persistent_id": 52397,
+          "min_mm": [
+            4480,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            5520,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_5",
+          "persistent_id": 52429,
+          "min_mm": [
+            5560,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            6600,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_6",
+          "persistent_id": 52461,
+          "min_mm": [
+            6640,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            7680,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_GLASS_7",
+          "persistent_id": 52493,
+          "min_mm": [
+            7720,
+            -1806,
+            3240
+          ],
+          "max_mm": [
+            8760,
+            -1794,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_TOP",
+          "persistent_id": 52525,
+          "min_mm": [
+            1200,
+            -1830,
+            4300
+          ],
+          "max_mm": [
+            8800,
+            -1770,
+            4350
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_L_GLASS",
+          "persistent_id": 52557,
+          "min_mm": [
+            1200,
+            -1780,
+            3240
+          ],
+          "max_mm": [
+            1212,
+            -20,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_L_TOP",
+          "persistent_id": 52589,
+          "min_mm": [
+            1200,
+            -1830,
+            4300
+          ],
+          "max_mm": [
+            1260,
+            30,
+            4350
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_R_GLASS",
+          "persistent_id": 52621,
+          "min_mm": [
+            8788,
+            -1780,
+            3240
+          ],
+          "max_mm": [
+            8800,
+            -20,
+            4280
+          ]
+        },
+        {
+          "name": "RAIL_RETURN_R_TOP",
+          "persistent_id": 52653,
+          "min_mm": [
+            8740,
+            -1830,
+            4300
+          ],
+          "max_mm": [
+            8800,
+            30,
+            4350
+          ]
+        },
+        {
+          "name": "BAL_CONSOLE",
+          "persistent_id": 52685,
+          "min_mm": [
+            4300,
+            -1550,
+            3200
+          ],
+          "max_mm": [
+            5900,
+            -950,
+            3660
+          ]
+        },
+        {
+          "name": "BAL_TABLE",
+          "persistent_id": 52717,
+          "min_mm": [
+            6350,
+            -1450,
+            3200
+          ],
+          "max_mm": [
+            6950,
+            -950,
+            3620
+          ]
+        },
+        {
+          "name": "BAL_PLANT_A_POT",
+          "persistent_id": 52749,
+          "min_mm": [
+            1660,
+            -1540,
+            3200
+          ],
+          "max_mm": [
+            2040,
+            -1160,
+            3560
+          ]
+        },
+        {
+          "name": "BAL_PLANT_A_LEAF1",
+          "persistent_id": 52867,
+          "min_mm": [
+            1550,
+            -1650,
+            3500
+          ],
+          "max_mm": [
+            2150,
+            -1050,
+            4050
+          ]
+        },
+        {
+          "name": "BAL_PLANT_A_LEAF2",
+          "persistent_id": 52985,
+          "min_mm": [
+            1630,
+            -1570,
+            3920
+          ],
+          "max_mm": [
+            2070,
+            -1130,
+            4320
+          ]
+        },
+        {
+          "name": "BAL_PLANT_B_POT",
+          "persistent_id": 53103,
+          "min_mm": [
+            7960,
+            -1540,
+            3200
+          ],
+          "max_mm": [
+            8340,
+            -1160,
+            3560
+          ]
+        },
+        {
+          "name": "BAL_PLANT_B_LEAF1",
+          "persistent_id": 53221,
+          "min_mm": [
+            7850,
+            -1650,
+            3500
+          ],
+          "max_mm": [
+            8450,
+            -1050,
+            4050
+          ]
+        },
+        {
+          "name": "BAL_PLANT_B_LEAF2",
+          "persistent_id": 53339,
+          "min_mm": [
+            7930,
+            -1570,
+            3920
+          ],
+          "max_mm": [
+            8370,
+            -1130,
+            4320
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INTERIOR_室内示意",
+      "persistent_id": 47083,
+      "children": [
+        {
+          "name": "GF_RUG",
+          "persistent_id": 54385,
+          "min_mm": [
+            3000,
+            3000,
+            -12
+          ],
+          "max_mm": [
+            5600,
+            5000,
+            0
+          ]
+        },
+        {
+          "name": "GF_SOFA_SEAT",
+          "persistent_id": 54417,
+          "min_mm": [
+            3300,
+            4100,
+            50
+          ],
+          "max_mm": [
+            5300,
+            4950,
+            420
+          ]
+        },
+        {
+          "name": "GF_SOFA_BACK",
+          "persistent_id": 54449,
+          "min_mm": [
+            3300,
+            4750,
+            420
+          ],
+          "max_mm": [
+            5300,
+            4950,
+            820
+          ]
+        },
+        {
+          "name": "GF_SOFA_ARM_L",
+          "persistent_id": 54481,
+          "min_mm": [
+            3300,
+            4100,
+            420
+          ],
+          "max_mm": [
+            3450,
+            4950,
+            600
+          ]
+        },
+        {
+          "name": "GF_SOFA_ARM_R",
+          "persistent_id": 54513,
+          "min_mm": [
+            5150,
+            4100,
+            420
+          ],
+          "max_mm": [
+            5300,
+            4950,
+            600
+          ]
+        },
+        {
+          "name": "GF_TABLE",
+          "persistent_id": 54545,
+          "min_mm": [
+            3900,
+            3300,
+            0
+          ],
+          "max_mm": [
+            4900,
+            3800,
+            380
+          ]
+        },
+        {
+          "name": "GF_DINING_TOP",
+          "persistent_id": 54577,
+          "min_mm": [
+            6400,
+            3400,
+            700
+          ],
+          "max_mm": [
+            7800,
+            4300,
+            760
+          ]
+        },
+        {
+          "name": "GF_DINING_BASE",
+          "persistent_id": 54609,
+          "min_mm": [
+            6550,
+            3600,
+            0
+          ],
+          "max_mm": [
+            7650,
+            4100,
+            700
+          ]
+        },
+        {
+          "name": "GF_CHAIR1_SEAT",
+          "persistent_id": 54641,
+          "min_mm": [
+            6550,
+            2810,
+            0
+          ],
+          "max_mm": [
+            6970,
+            3230,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR1_BACK",
+          "persistent_id": 54673,
+          "min_mm": [
+            6550,
+            2750,
+            450
+          ],
+          "max_mm": [
+            6970,
+            2810,
+            850
+          ]
+        },
+        {
+          "name": "GF_CHAIR2_SEAT",
+          "persistent_id": 54705,
+          "min_mm": [
+            7250,
+            2810,
+            0
+          ],
+          "max_mm": [
+            7670,
+            3230,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR2_BACK",
+          "persistent_id": 54737,
+          "min_mm": [
+            7250,
+            2750,
+            450
+          ],
+          "max_mm": [
+            7670,
+            2810,
+            850
+          ]
+        },
+        {
+          "name": "GF_CHAIR3_SEAT",
+          "persistent_id": 54769,
+          "min_mm": [
+            6550,
+            4130,
+            0
+          ],
+          "max_mm": [
+            6970,
+            4550,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR3_BACK",
+          "persistent_id": 54801,
+          "min_mm": [
+            6550,
+            4550,
+            450
+          ],
+          "max_mm": [
+            6970,
+            4610,
+            850
+          ]
+        },
+        {
+          "name": "GF_CHAIR4_SEAT",
+          "persistent_id": 54833,
+          "min_mm": [
+            7250,
+            4130,
+            0
+          ],
+          "max_mm": [
+            7670,
+            4550,
+            450
+          ]
+        },
+        {
+          "name": "GF_CHAIR4_BACK",
+          "persistent_id": 54865,
+          "min_mm": [
+            7250,
+            4550,
+            450
+          ],
+          "max_mm": [
+            7670,
+            4610,
+            850
+          ]
+        },
+        {
+          "name": "GF_ART_FRAME",
+          "persistent_id": 54897,
+          "min_mm": [
+            4020,
+            7740,
+            1250
+          ],
+          "max_mm": [
+            4980,
+            7800,
+            2450
+          ]
+        },
+        {
+          "name": "GF_ART_PANEL",
+          "persistent_id": 54929,
+          "min_mm": [
+            4060,
+            7700,
+            1290
+          ],
+          "max_mm": [
+            4940,
+            7740,
+            2410
+          ]
+        },
+        {
+          "name": "GF_PLANT_A_POT",
+          "persistent_id": 54961,
+          "min_mm": [
+            2360,
+            860,
+            0
+          ],
+          "max_mm": [
+            2740,
+            1240,
+            360
+          ]
+        },
+        {
+          "name": "GF_PLANT_A_LEAF1",
+          "persistent_id": 55079,
+          "min_mm": [
+            2250,
+            750,
+            300
+          ],
+          "max_mm": [
+            2850,
+            1350,
+            850
+          ]
+        },
+        {
+          "name": "GF_PLANT_A_LEAF2",
+          "persistent_id": 55197,
+          "min_mm": [
+            2330,
+            830,
+            720
+          ],
+          "max_mm": [
+            2770,
+            1270,
+            1120
+          ]
+        },
+        {
+          "name": "GF_PLANT_B_POT",
+          "persistent_id": 55315,
+          "min_mm": [
+            7060,
+            860,
+            0
+          ],
+          "max_mm": [
+            7440,
+            1240,
+            360
+          ]
+        },
+        {
+          "name": "GF_PLANT_B_LEAF1",
+          "persistent_id": 55433,
+          "min_mm": [
+            6950,
+            750,
+            300
+          ],
+          "max_mm": [
+            7550,
+            1350,
+            850
+          ]
+        },
+        {
+          "name": "GF_PLANT_B_LEAF2",
+          "persistent_id": 55551,
+          "min_mm": [
+            7030,
+            830,
+            720
+          ],
+          "max_mm": [
+            7470,
+            1270,
+            1120
+          ]
+        },
+        {
+          "name": "2F_RUG",
+          "persistent_id": 55669,
+          "min_mm": [
+            3000,
+            1200,
+            3200
+          ],
+          "max_mm": [
+            5600,
+            3000,
+            3212
+          ]
+        },
+        {
+          "name": "2F_CABINET",
+          "persistent_id": 55701,
+          "min_mm": [
+            5600,
+            2600,
+            3200
+          ],
+          "max_mm": [
+            6600,
+            3050,
+            3650
+          ]
+        },
+        {
+          "name": "2F_PLANT_POT",
+          "persistent_id": 55733,
+          "min_mm": [
+            3029,
+            829,
+            3200
+          ],
+          "max_mm": [
+            3371,
+            1171,
+            3524
+          ]
+        },
+        {
+          "name": "2F_PLANT_LEAF1",
+          "persistent_id": 55851,
+          "min_mm": [
+            2930,
+            730,
+            3470
+          ],
+          "max_mm": [
+            3470,
+            1270,
+            3965
+          ]
+        },
+        {
+          "name": "2F_PLANT_LEAF2",
+          "persistent_id": 55969,
+          "min_mm": [
+            3002,
+            802,
+            3848
+          ],
+          "max_mm": [
+            3398,
+            1198,
+            4208
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOUVER_木格栅",
+      "persistent_id": 56613,
+      "children": [
+        {
+          "name": "LOUVER_FRONT_01",
+          "persistent_id": 61575,
+          "min_mm": [
+            9025,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9065,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_02",
+          "persistent_id": 61607,
+          "min_mm": [
+            9090,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9130,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_03",
+          "persistent_id": 61639,
+          "min_mm": [
+            9155,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9195,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_04",
+          "persistent_id": 61671,
+          "min_mm": [
+            9220,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9260,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_05",
+          "persistent_id": 61703,
+          "min_mm": [
+            9285,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9325,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_06",
+          "persistent_id": 61735,
+          "min_mm": [
+            9350,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9390,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_07",
+          "persistent_id": 61767,
+          "min_mm": [
+            9415,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9455,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_08",
+          "persistent_id": 61799,
+          "min_mm": [
+            9480,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9520,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_09",
+          "persistent_id": 61831,
+          "min_mm": [
+            9545,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9585,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_10",
+          "persistent_id": 61863,
+          "min_mm": [
+            9610,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9650,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_11",
+          "persistent_id": 61895,
+          "min_mm": [
+            9675,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9715,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_12",
+          "persistent_id": 61927,
+          "min_mm": [
+            9740,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9780,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_13",
+          "persistent_id": 61959,
+          "min_mm": [
+            9805,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9845,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_14",
+          "persistent_id": 61991,
+          "min_mm": [
+            9870,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9910,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_FRONT_15",
+          "persistent_id": 62023,
+          "min_mm": [
+            9935,
+            -30,
+            50
+          ],
+          "max_mm": [
+            9975,
+            0,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_01",
+          "persistent_id": 62055,
+          "min_mm": [
+            10000,
+            0,
+            50
+          ],
+          "max_mm": [
+            10030,
+            40,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_02",
+          "persistent_id": 62087,
+          "min_mm": [
+            10000,
+            65,
+            50
+          ],
+          "max_mm": [
+            10030,
+            105,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_03",
+          "persistent_id": 62119,
+          "min_mm": [
+            10000,
+            130,
+            50
+          ],
+          "max_mm": [
+            10030,
+            170,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_04",
+          "persistent_id": 62151,
+          "min_mm": [
+            10000,
+            195,
+            50
+          ],
+          "max_mm": [
+            10030,
+            235,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_05",
+          "persistent_id": 62183,
+          "min_mm": [
+            10000,
+            260,
+            50
+          ],
+          "max_mm": [
+            10030,
+            300,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_06",
+          "persistent_id": 62215,
+          "min_mm": [
+            10000,
+            325,
+            50
+          ],
+          "max_mm": [
+            10030,
+            365,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_07",
+          "persistent_id": 62247,
+          "min_mm": [
+            10000,
+            390,
+            50
+          ],
+          "max_mm": [
+            10030,
+            430,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_08",
+          "persistent_id": 62279,
+          "min_mm": [
+            10000,
+            455,
+            50
+          ],
+          "max_mm": [
+            10030,
+            495,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_09",
+          "persistent_id": 62311,
+          "min_mm": [
+            10000,
+            520,
+            50
+          ],
+          "max_mm": [
+            10030,
+            560,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_10",
+          "persistent_id": 62343,
+          "min_mm": [
+            10000,
+            585,
+            50
+          ],
+          "max_mm": [
+            10030,
+            625,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_11",
+          "persistent_id": 62375,
+          "min_mm": [
+            10000,
+            650,
+            50
+          ],
+          "max_mm": [
+            10030,
+            690,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_12",
+          "persistent_id": 62407,
+          "min_mm": [
+            10000,
+            715,
+            50
+          ],
+          "max_mm": [
+            10030,
+            755,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_13",
+          "persistent_id": 62439,
+          "min_mm": [
+            10000,
+            780,
+            50
+          ],
+          "max_mm": [
+            10030,
+            820,
+            6750
+          ]
+        },
+        {
+          "name": "LOUVER_RIGHT_14",
+          "persistent_id": 62471,
+          "min_mm": [
+            10000,
+            845,
+            50
+          ],
+          "max_mm": [
+            10030,
+            885,
+            6750
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SHELL_主体",
+      "persistent_id": 62503,
+      "children": [
+        {
+          "name": "PLINTH_FRONT",
+          "persistent_id": 62507,
+          "min_mm": [
+            -30,
+            -30,
+            -300
+          ],
+          "max_mm": [
+            10030,
+            0,
+            50
+          ]
+        },
+        {
+          "name": "PLINTH_REAR",
+          "persistent_id": 62539,
+          "min_mm": [
+            -30,
+            8000,
+            -300
+          ],
+          "max_mm": [
+            10030,
+            8030,
+            50
+          ]
+        },
+        {
+          "name": "PLINTH_RIGHT",
+          "persistent_id": 62571,
+          "min_mm": [
+            10000,
+            -30,
+            -300
+          ],
+          "max_mm": [
+            10030,
+            8030,
+            50
+          ]
+        },
+        {
+          "name": "PLINTH_LEFT",
+          "persistent_id": 62603,
+          "min_mm": [
+            -30,
+            -30,
+            -300
+          ],
+          "max_mm": [
+            0,
+            8030,
+            50
+          ]
+        },
+        {
+          "name": "FLOOR_GF",
+          "persistent_id": 62635,
+          "min_mm": [
+            10,
+            8,
+            -150
+          ],
+          "max_mm": [
+            9990,
+            7992,
+            0
+          ]
+        },
+        {
+          "name": "FLOOR_2F",
+          "persistent_id": 62667,
+          "min_mm": [
+            10,
+            8,
+            3000
+          ],
+          "max_mm": [
+            9990,
+            7992,
+            3200
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG1",
+          "persistent_id": 62699,
+          "min_mm": [
+            0,
+            0,
+            -300
+          ],
+          "max_mm": [
+            10000,
+            200,
+            0
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG2",
+          "persistent_id": 62731,
+          "min_mm": [
+            0,
+            0,
+            0
+          ],
+          "max_mm": [
+            2000,
+            200,
+            2700
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG3",
+          "persistent_id": 62763,
+          "min_mm": [
+            7800,
+            0,
+            0
+          ],
+          "max_mm": [
+            10000,
+            200,
+            2700
+          ]
+        },
+        {
+          "name": "FRONT_L1_SEG4",
+          "persistent_id": 62795,
+          "min_mm": [
+            0,
+            0,
+            2700
+          ],
+          "max_mm": [
+            10000,
+            200,
+            3200
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG1",
+          "persistent_id": 62827,
+          "min_mm": [
+            0,
+            0,
+            3200
+          ],
+          "max_mm": [
+            2300,
+            200,
+            5800
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG2",
+          "persistent_id": 62859,
+          "min_mm": [
+            4200,
+            0,
+            3200
+          ],
+          "max_mm": [
+            5800,
+            200,
+            5800
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG3",
+          "persistent_id": 62891,
+          "min_mm": [
+            7700,
+            0,
+            3200
+          ],
+          "max_mm": [
+            10000,
+            200,
+            5800
+          ]
+        },
+        {
+          "name": "FRONT_L2_SEG4",
+          "persistent_id": 62923,
+          "min_mm": [
+            0,
+            0,
+            5800
+          ],
+          "max_mm": [
+            10000,
+            200,
+            6400
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG1",
+          "persistent_id": 62955,
+          "min_mm": [
+            0,
+            7800,
+            -300
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            900
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG2",
+          "persistent_id": 62987,
+          "min_mm": [
+            8050,
+            7800,
+            900
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG3",
+          "persistent_id": 63019,
+          "min_mm": [
+            5550,
+            7800,
+            900
+          ],
+          "max_mm": [
+            6950,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG4",
+          "persistent_id": 63051,
+          "min_mm": [
+            3050,
+            7800,
+            900
+          ],
+          "max_mm": [
+            4450,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG5",
+          "persistent_id": 63083,
+          "min_mm": [
+            0,
+            7800,
+            900
+          ],
+          "max_mm": [
+            1950,
+            8000,
+            2200
+          ]
+        },
+        {
+          "name": "REAR_L1_SEG6",
+          "persistent_id": 63115,
+          "min_mm": [
+            0,
+            7800,
+            2200
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            3200
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG1",
+          "persistent_id": 63147,
+          "min_mm": [
+            0,
+            7800,
+            3200
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            4100
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG2",
+          "persistent_id": 63179,
+          "min_mm": [
+            8050,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG3",
+          "persistent_id": 63211,
+          "min_mm": [
+            5550,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            6950,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG4",
+          "persistent_id": 63243,
+          "min_mm": [
+            3050,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            4450,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG5",
+          "persistent_id": 63275,
+          "min_mm": [
+            0,
+            7800,
+            4100
+          ],
+          "max_mm": [
+            1950,
+            8000,
+            5400
+          ]
+        },
+        {
+          "name": "REAR_L2_SEG6",
+          "persistent_id": 63307,
+          "min_mm": [
+            0,
+            7800,
+            5400
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            6400
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG1",
+          "persistent_id": 63339,
+          "min_mm": [
+            9800,
+            200,
+            -300
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            0
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG2",
+          "persistent_id": 63371,
+          "min_mm": [
+            9800,
+            200,
+            0
+          ],
+          "max_mm": [
+            10000,
+            1000,
+            900
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG3",
+          "persistent_id": 63403,
+          "min_mm": [
+            9800,
+            2000,
+            0
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            900
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG4",
+          "persistent_id": 63435,
+          "min_mm": [
+            9800,
+            200,
+            900
+          ],
+          "max_mm": [
+            10000,
+            1000,
+            2200
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG5",
+          "persistent_id": 63467,
+          "min_mm": [
+            9800,
+            2000,
+            900
+          ],
+          "max_mm": [
+            10000,
+            3950,
+            2200
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG6",
+          "persistent_id": 63499,
+          "min_mm": [
+            9800,
+            5050,
+            900
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            2200
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG7",
+          "persistent_id": 63531,
+          "min_mm": [
+            9800,
+            200,
+            2200
+          ],
+          "max_mm": [
+            10000,
+            1000,
+            2300
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG8",
+          "persistent_id": 63563,
+          "min_mm": [
+            9800,
+            2000,
+            2200
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            2300
+          ]
+        },
+        {
+          "name": "RIGHT_L1_SEG9",
+          "persistent_id": 63595,
+          "min_mm": [
+            9800,
+            200,
+            2300
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            3200
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG1",
+          "persistent_id": 63627,
+          "min_mm": [
+            9800,
+            200,
+            3200
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            4100
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG2",
+          "persistent_id": 63659,
+          "min_mm": [
+            9800,
+            200,
+            4100
+          ],
+          "max_mm": [
+            10000,
+            3950,
+            5400
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG3",
+          "persistent_id": 63691,
+          "min_mm": [
+            9800,
+            5050,
+            4100
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            5400
+          ]
+        },
+        {
+          "name": "RIGHT_L2_SEG4",
+          "persistent_id": 63723,
+          "min_mm": [
+            9800,
+            200,
+            5400
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            6400
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG1",
+          "persistent_id": 63755,
+          "min_mm": [
+            0,
+            200,
+            -300
+          ],
+          "max_mm": [
+            200,
+            7800,
+            900
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG2",
+          "persistent_id": 63787,
+          "min_mm": [
+            0,
+            5950,
+            900
+          ],
+          "max_mm": [
+            200,
+            7800,
+            2200
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG3",
+          "persistent_id": 63819,
+          "min_mm": [
+            0,
+            3150,
+            900
+          ],
+          "max_mm": [
+            200,
+            4850,
+            2200
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG4",
+          "persistent_id": 63851,
+          "min_mm": [
+            0,
+            200,
+            900
+          ],
+          "max_mm": [
+            200,
+            2050,
+            2200
+          ]
+        },
+        {
+          "name": "LEFT_L1_SEG5",
+          "persistent_id": 63883,
+          "min_mm": [
+            0,
+            200,
+            2200
+          ],
+          "max_mm": [
+            200,
+            7800,
+            3200
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG1",
+          "persistent_id": 63915,
+          "min_mm": [
+            0,
+            200,
+            3200
+          ],
+          "max_mm": [
+            200,
+            7800,
+            4100
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG2",
+          "persistent_id": 63947,
+          "min_mm": [
+            0,
+            5950,
+            4100
+          ],
+          "max_mm": [
+            200,
+            7800,
+            5400
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG3",
+          "persistent_id": 63979,
+          "min_mm": [
+            0,
+            3150,
+            4100
+          ],
+          "max_mm": [
+            200,
+            4850,
+            5400
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG4",
+          "persistent_id": 64011,
+          "min_mm": [
+            0,
+            200,
+            4100
+          ],
+          "max_mm": [
+            200,
+            2050,
+            5400
+          ]
+        },
+        {
+          "name": "LEFT_L2_SEG5",
+          "persistent_id": 64043,
+          "min_mm": [
+            0,
+            200,
+            5400
+          ],
+          "max_mm": [
+            200,
+            7800,
+            6400
+          ]
+        },
+        {
+          "name": "ROOF_SLAB",
+          "persistent_id": 64075,
+          "min_mm": [
+            10,
+            8,
+            6200
+          ],
+          "max_mm": [
+            9990,
+            7992,
+            6380
+          ]
+        },
+        {
+          "name": "ROOF_DECK",
+          "persistent_id": 64107,
+          "min_mm": [
+            200,
+            200,
+            6380
+          ],
+          "max_mm": [
+            9800,
+            7800,
+            6400
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_FRONT",
+          "persistent_id": 64139,
+          "min_mm": [
+            200,
+            200,
+            6400
+          ],
+          "max_mm": [
+            9800,
+            250,
+            6500
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_REAR",
+          "persistent_id": 64171,
+          "min_mm": [
+            200,
+            7750,
+            6400
+          ],
+          "max_mm": [
+            9800,
+            7800,
+            6500
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_RIGHT",
+          "persistent_id": 64203,
+          "min_mm": [
+            9750,
+            250,
+            6400
+          ],
+          "max_mm": [
+            9800,
+            7750,
+            6500
+          ]
+        },
+        {
+          "name": "ROOF_UPTURN_LEFT",
+          "persistent_id": 64235,
+          "min_mm": [
+            200,
+            250,
+            6400
+          ],
+          "max_mm": [
+            250,
+            7750,
+            6500
+          ]
+        },
+        {
+          "name": "PARAPET_FRONT",
+          "persistent_id": 64267,
+          "min_mm": [
+            0,
+            0,
+            6400
+          ],
+          "max_mm": [
+            10000,
+            200,
+            6750
+          ]
+        },
+        {
+          "name": "PARAPET_REAR",
+          "persistent_id": 64299,
+          "min_mm": [
+            0,
+            7800,
+            6400
+          ],
+          "max_mm": [
+            10000,
+            8000,
+            6750
+          ]
+        },
+        {
+          "name": "PARAPET_RIGHT",
+          "persistent_id": 64331,
+          "min_mm": [
+            9800,
+            200,
+            6400
+          ],
+          "max_mm": [
+            10000,
+            7800,
+            6750
+          ]
+        },
+        {
+          "name": "PARAPET_LEFT",
+          "persistent_id": 64363,
+          "min_mm": [
+            0,
+            200,
+            6400
+          ],
+          "max_mm": [
+            200,
+            7800,
+            6750
+          ]
+        },
+        {
+          "name": "COPING_FRONT",
+          "persistent_id": 64395,
+          "min_mm": [
+            -20,
+            -20,
+            6750
+          ],
+          "max_mm": [
+            10020,
+            200,
+            6790
+          ]
+        },
+        {
+          "name": "COPING_REAR",
+          "persistent_id": 64427,
+          "min_mm": [
+            -20,
+            7800,
+            6750
+          ],
+          "max_mm": [
+            10020,
+            8020,
+            6790
+          ]
+        },
+        {
+          "name": "COPING_RIGHT",
+          "persistent_id": 64459,
+          "min_mm": [
+            9800,
+            -20,
+            6750
+          ],
+          "max_mm": [
+            10020,
+            8020,
+            6790
+          ]
+        },
+        {
+          "name": "COPING_LEFT",
+          "persistent_id": 64491,
+          "min_mm": [
+            -20,
+            -20,
+            6750
+          ],
+          "max_mm": [
+            200,
+            8020,
+            6790
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OPENINGS_门窗",
+      "persistent_id": 62505,
+      "children": [
+        {
+          "name": "WINDOW_REAR_L1_1_SILL",
+          "persistent_id": 64523,
+          "min_mm": [
+            6950,
+            7900,
+            900
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_HEAD",
+          "persistent_id": 64555,
+          "min_mm": [
+            6950,
+            7900,
+            2140
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_JAMB_L",
+          "persistent_id": 64587,
+          "min_mm": [
+            7990,
+            7900,
+            960
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_JAMB_R",
+          "persistent_id": 64619,
+          "min_mm": [
+            6950,
+            7900,
+            960
+          ],
+          "max_mm": [
+            7010,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_1_GLASS",
+          "persistent_id": 64651,
+          "min_mm": [
+            7010,
+            7930,
+            960
+          ],
+          "max_mm": [
+            7990,
+            7950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_SILL",
+          "persistent_id": 64683,
+          "min_mm": [
+            4450,
+            7900,
+            900
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_HEAD",
+          "persistent_id": 64715,
+          "min_mm": [
+            4450,
+            7900,
+            2140
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_JAMB_L",
+          "persistent_id": 64747,
+          "min_mm": [
+            5490,
+            7900,
+            960
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_JAMB_R",
+          "persistent_id": 64779,
+          "min_mm": [
+            4450,
+            7900,
+            960
+          ],
+          "max_mm": [
+            4510,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_2_GLASS",
+          "persistent_id": 64811,
+          "min_mm": [
+            4510,
+            7930,
+            960
+          ],
+          "max_mm": [
+            5490,
+            7950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_SILL",
+          "persistent_id": 64843,
+          "min_mm": [
+            1950,
+            7900,
+            900
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_HEAD",
+          "persistent_id": 64875,
+          "min_mm": [
+            1950,
+            7900,
+            2140
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_JAMB_L",
+          "persistent_id": 64907,
+          "min_mm": [
+            2990,
+            7900,
+            960
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_JAMB_R",
+          "persistent_id": 64939,
+          "min_mm": [
+            1950,
+            7900,
+            960
+          ],
+          "max_mm": [
+            2010,
+            7980,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L1_3_GLASS",
+          "persistent_id": 64971,
+          "min_mm": [
+            2010,
+            7930,
+            960
+          ],
+          "max_mm": [
+            2990,
+            7950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_SILL",
+          "persistent_id": 65003,
+          "min_mm": [
+            9900,
+            3950,
+            900
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_HEAD",
+          "persistent_id": 65035,
+          "min_mm": [
+            9900,
+            3950,
+            2140
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_JAMB_L",
+          "persistent_id": 65067,
+          "min_mm": [
+            9900,
+            3950,
+            960
+          ],
+          "max_mm": [
+            9980,
+            4010,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_JAMB_R",
+          "persistent_id": 65099,
+          "min_mm": [
+            9900,
+            4990,
+            960
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L1_4_GLASS",
+          "persistent_id": 65131,
+          "min_mm": [
+            9930,
+            4010,
+            960
+          ],
+          "max_mm": [
+            9950,
+            4990,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_SILL",
+          "persistent_id": 65163,
+          "min_mm": [
+            20,
+            4850,
+            900
+          ],
+          "max_mm": [
+            100,
+            5950,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_HEAD",
+          "persistent_id": 65195,
+          "min_mm": [
+            20,
+            4850,
+            2140
+          ],
+          "max_mm": [
+            100,
+            5950,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_JAMB_L",
+          "persistent_id": 65227,
+          "min_mm": [
+            20,
+            5890,
+            960
+          ],
+          "max_mm": [
+            100,
+            5950,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_JAMB_R",
+          "persistent_id": 65259,
+          "min_mm": [
+            20,
+            4850,
+            960
+          ],
+          "max_mm": [
+            100,
+            4910,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_5_GLASS",
+          "persistent_id": 65291,
+          "min_mm": [
+            50,
+            4910,
+            960
+          ],
+          "max_mm": [
+            70,
+            5890,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_SILL",
+          "persistent_id": 65323,
+          "min_mm": [
+            20,
+            2050,
+            900
+          ],
+          "max_mm": [
+            100,
+            3150,
+            960
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_HEAD",
+          "persistent_id": 65355,
+          "min_mm": [
+            20,
+            2050,
+            2140
+          ],
+          "max_mm": [
+            100,
+            3150,
+            2200
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_JAMB_L",
+          "persistent_id": 65387,
+          "min_mm": [
+            20,
+            3090,
+            960
+          ],
+          "max_mm": [
+            100,
+            3150,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_JAMB_R",
+          "persistent_id": 65419,
+          "min_mm": [
+            20,
+            2050,
+            960
+          ],
+          "max_mm": [
+            100,
+            2110,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L1_6_GLASS",
+          "persistent_id": 65451,
+          "min_mm": [
+            50,
+            2110,
+            960
+          ],
+          "max_mm": [
+            70,
+            3090,
+            2140
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_SILL",
+          "persistent_id": 65483,
+          "min_mm": [
+            6950,
+            7900,
+            4100
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_HEAD",
+          "persistent_id": 65515,
+          "min_mm": [
+            6950,
+            7900,
+            5340
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_JAMB_L",
+          "persistent_id": 65547,
+          "min_mm": [
+            7990,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            8050,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_JAMB_R",
+          "persistent_id": 65579,
+          "min_mm": [
+            6950,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            7010,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_1_GLASS",
+          "persistent_id": 65611,
+          "min_mm": [
+            7010,
+            7930,
+            4160
+          ],
+          "max_mm": [
+            7990,
+            7950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_SILL",
+          "persistent_id": 65643,
+          "min_mm": [
+            4450,
+            7900,
+            4100
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_HEAD",
+          "persistent_id": 65675,
+          "min_mm": [
+            4450,
+            7900,
+            5340
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_JAMB_L",
+          "persistent_id": 65707,
+          "min_mm": [
+            5490,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            5550,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_JAMB_R",
+          "persistent_id": 65739,
+          "min_mm": [
+            4450,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            4510,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_2_GLASS",
+          "persistent_id": 65771,
+          "min_mm": [
+            4510,
+            7930,
+            4160
+          ],
+          "max_mm": [
+            5490,
+            7950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_SILL",
+          "persistent_id": 65803,
+          "min_mm": [
+            1950,
+            7900,
+            4100
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_HEAD",
+          "persistent_id": 65835,
+          "min_mm": [
+            1950,
+            7900,
+            5340
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_JAMB_L",
+          "persistent_id": 65867,
+          "min_mm": [
+            2990,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            3050,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_JAMB_R",
+          "persistent_id": 65899,
+          "min_mm": [
+            1950,
+            7900,
+            4160
+          ],
+          "max_mm": [
+            2010,
+            7980,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_REAR_L2_3_GLASS",
+          "persistent_id": 65931,
+          "min_mm": [
+            2010,
+            7930,
+            4160
+          ],
+          "max_mm": [
+            2990,
+            7950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_SILL",
+          "persistent_id": 65963,
+          "min_mm": [
+            9900,
+            3950,
+            4100
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_HEAD",
+          "persistent_id": 65995,
+          "min_mm": [
+            9900,
+            3950,
+            5340
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_JAMB_L",
+          "persistent_id": 66027,
+          "min_mm": [
+            9900,
+            3950,
+            4160
+          ],
+          "max_mm": [
+            9980,
+            4010,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_JAMB_R",
+          "persistent_id": 66059,
+          "min_mm": [
+            9900,
+            4990,
+            4160
+          ],
+          "max_mm": [
+            9980,
+            5050,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_RIGHT_L2_4_GLASS",
+          "persistent_id": 66091,
+          "min_mm": [
+            9930,
+            4010,
+            4160
+          ],
+          "max_mm": [
+            9950,
+            4990,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_SILL",
+          "persistent_id": 66123,
+          "min_mm": [
+            20,
+            4850,
+            4100
+          ],
+          "max_mm": [
+            100,
+            5950,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_HEAD",
+          "persistent_id": 66155,
+          "min_mm": [
+            20,
+            4850,
+            5340
+          ],
+          "max_mm": [
+            100,
+            5950,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_JAMB_L",
+          "persistent_id": 66187,
+          "min_mm": [
+            20,
+            5890,
+            4160
+          ],
+          "max_mm": [
+            100,
+            5950,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_JAMB_R",
+          "persistent_id": 66219,
+          "min_mm": [
+            20,
+            4850,
+            4160
+          ],
+          "max_mm": [
+            100,
+            4910,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_5_GLASS",
+          "persistent_id": 66251,
+          "min_mm": [
+            50,
+            4910,
+            4160
+          ],
+          "max_mm": [
+            70,
+            5890,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_SILL",
+          "persistent_id": 66283,
+          "min_mm": [
+            20,
+            2050,
+            4100
+          ],
+          "max_mm": [
+            100,
+            3150,
+            4160
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_HEAD",
+          "persistent_id": 66315,
+          "min_mm": [
+            20,
+            2050,
+            5340
+          ],
+          "max_mm": [
+            100,
+            3150,
+            5400
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_JAMB_L",
+          "persistent_id": 66347,
+          "min_mm": [
+            20,
+            3090,
+            4160
+          ],
+          "max_mm": [
+            100,
+            3150,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_JAMB_R",
+          "persistent_id": 66379,
+          "min_mm": [
+            20,
+            2050,
+            4160
+          ],
+          "max_mm": [
+            100,
+            2110,
+            5340
+          ]
+        },
+        {
+          "name": "WINDOW_LEFT_L2_6_GLASS",
+          "persistent_id": 66411,
+          "min_mm": [
+            50,
+            2110,
+            4160
+          ],
+          "max_mm": [
+            70,
+            3090,
+            5340
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_SILL",
+          "persistent_id": 66443,
+          "min_mm": [
+            2000,
+            30,
+            0
+          ],
+          "max_mm": [
+            7800,
+            110,
+            70
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_HEAD",
+          "persistent_id": 66475,
+          "min_mm": [
+            2000,
+            30,
+            2630
+          ],
+          "max_mm": [
+            7800,
+            110,
+            2700
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_JAMB_L",
+          "persistent_id": 66507,
+          "min_mm": [
+            2000,
+            30,
+            70
+          ],
+          "max_mm": [
+            2070,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_JAMB_R",
+          "persistent_id": 66539,
+          "min_mm": [
+            7730,
+            30,
+            70
+          ],
+          "max_mm": [
+            7800,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_MULL1",
+          "persistent_id": 66571,
+          "min_mm": [
+            3425,
+            30,
+            70
+          ],
+          "max_mm": [
+            3475,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_MULL2",
+          "persistent_id": 66603,
+          "min_mm": [
+            4875,
+            30,
+            70
+          ],
+          "max_mm": [
+            4925,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_MULL3",
+          "persistent_id": 66635,
+          "min_mm": [
+            6325,
+            30,
+            70
+          ],
+          "max_mm": [
+            6375,
+            110,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS1",
+          "persistent_id": 66667,
+          "min_mm": [
+            2090,
+            50,
+            70
+          ],
+          "max_mm": [
+            3430,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS2",
+          "persistent_id": 66699,
+          "min_mm": [
+            3470,
+            50,
+            70
+          ],
+          "max_mm": [
+            4880,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS3",
+          "persistent_id": 66731,
+          "min_mm": [
+            4920,
+            50,
+            70
+          ],
+          "max_mm": [
+            6330,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "GLAZING_FRONT_L1_GLASS4",
+          "persistent_id": 66763,
+          "min_mm": [
+            6370,
+            50,
+            70
+          ],
+          "max_mm": [
+            7710,
+            70,
+            2630
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_SILL",
+          "persistent_id": 66795,
+          "min_mm": [
+            2300,
+            30,
+            3200
+          ],
+          "max_mm": [
+            4200,
+            110,
+            3270
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_HEAD",
+          "persistent_id": 66827,
+          "min_mm": [
+            2300,
+            30,
+            5730
+          ],
+          "max_mm": [
+            4200,
+            110,
+            5800
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_JAMB_L",
+          "persistent_id": 66859,
+          "min_mm": [
+            2300,
+            30,
+            3270
+          ],
+          "max_mm": [
+            2370,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_JAMB_R",
+          "persistent_id": 66891,
+          "min_mm": [
+            4130,
+            30,
+            3270
+          ],
+          "max_mm": [
+            4200,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_MULL1",
+          "persistent_id": 66923,
+          "min_mm": [
+            3225,
+            30,
+            3270
+          ],
+          "max_mm": [
+            3275,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_GLASS1",
+          "persistent_id": 66955,
+          "min_mm": [
+            2390,
+            50,
+            3270
+          ],
+          "max_mm": [
+            3230,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_A_GLASS2",
+          "persistent_id": 66987,
+          "min_mm": [
+            3270,
+            50,
+            3270
+          ],
+          "max_mm": [
+            4110,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_SILL",
+          "persistent_id": 67019,
+          "min_mm": [
+            5800,
+            30,
+            3200
+          ],
+          "max_mm": [
+            7700,
+            110,
+            3270
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_HEAD",
+          "persistent_id": 67051,
+          "min_mm": [
+            5800,
+            30,
+            5730
+          ],
+          "max_mm": [
+            7700,
+            110,
+            5800
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_JAMB_L",
+          "persistent_id": 67083,
+          "min_mm": [
+            5800,
+            30,
+            3270
+          ],
+          "max_mm": [
+            5870,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_JAMB_R",
+          "persistent_id": 67115,
+          "min_mm": [
+            7630,
+            30,
+            3270
+          ],
+          "max_mm": [
+            7700,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_MULL1",
+          "persistent_id": 67147,
+          "min_mm": [
+            6725,
+            30,
+            3270
+          ],
+          "max_mm": [
+            6775,
+            110,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_GLASS1",
+          "persistent_id": 67179,
+          "min_mm": [
+            5890,
+            50,
+            3270
+          ],
+          "max_mm": [
+            6730,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "DOOR_FRONT_L2_B_GLASS2",
+          "persistent_id": 67211,
+          "min_mm": [
+            6770,
+            50,
+            3270
+          ],
+          "max_mm": [
+            7610,
+            70,
+            5730
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_SILL",
+          "persistent_id": 67243,
+          "min_mm": [
+            9880,
+            1000,
+            0
+          ],
+          "max_mm": [
+            9980,
+            2000,
+            60
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_HEAD",
+          "persistent_id": 67275,
+          "min_mm": [
+            9880,
+            1000,
+            2240
+          ],
+          "max_mm": [
+            9980,
+            2000,
+            2300
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_JAMB_L",
+          "persistent_id": 67307,
+          "min_mm": [
+            9880,
+            1000,
+            60
+          ],
+          "max_mm": [
+            9980,
+            1060,
+            2240
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_JAMB_R",
+          "persistent_id": 67339,
+          "min_mm": [
+            9880,
+            1940,
+            60
+          ],
+          "max_mm": [
+            9980,
+            2000,
+            2240
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_LEAF",
+          "persistent_id": 67371,
+          "min_mm": [
+            9910,
+            1060,
+            0
+          ],
+          "max_mm": [
+            9950,
+            1940,
+            2240
+          ]
+        },
+        {
+          "name": "ENTRY_DOOR_HANDLE",
+          "persistent_id": 67403,
+          "min_mm": [
+            9950,
+            1720,
+            950
+          ],
+          "max_mm": [
+            9990,
+            1780,
+            1100
+          ]
+        },
+        {
+          "name": "ENTRY_CANOPY",
+          "persistent_id": 67435,
+          "min_mm": [
+            10000,
+            650,
+            2550
+          ],
+          "max_mm": [
+            10900,
+            2350,
+            2700
+          ]
+        }
+      ]
+    }
+  ],
+  "truncated": false
+}

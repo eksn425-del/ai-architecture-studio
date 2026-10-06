@@ -24,6 +24,19 @@ def test_auto_reconstruction_clarifies_before_planning() -> None:
     assert next_reconstruction_state(session, policy.action) == "clarifying"
 
 
+@pytest.mark.parametrize("message,expected", [
+    ("检查后墙是否把米当英寸。请直接执行修复，不要只写脚本。", "execute"),
+    ("能否修复后墙？请直接执行", "clarify"),
+    ("检查是否错位。先别建模，请直接执行检查", "clarify"),
+    ("请直接执行检查，但这轮只分析，不执行修复", "clarify"),
+    ("请直接执行修复。这只是示例，先讨论如何操作", "clarify"),
+])
+def test_approved_revision_inspection_is_not_automatically_discussion(message, expected):
+    session = AgentSession(project_id="demo", reconstruction_state="building")
+    request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
+    assert resolve_reconstruction_action(session, request) == expected
+
+
 def test_auto_reconstruction_plans_after_clarification_answers() -> None:
     session = AgentSession(project_id="demo", reconstruction_state="clarifying", clarification_rounds=1)
     request = ConversationRequest(message="1多角度；2含外部；3无尺寸；4允许推测", workflow_mode="image_reconstruction")
