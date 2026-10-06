@@ -1,6 +1,16 @@
 # Windows continuation — 2026-10-06
 
-## Status: blocked on provider configuration and GitHub transport
+## Latest update: GitHub transport and installed credential persistence repaired
+
+Git used direct HTTPS while Windows had a working local Mihomo HTTP proxy. A command-scoped proxy restored pull; then a repository-local GitHub-only proxy setting restored normal pull/push/remote SHA verification. This machine setting is not committed, does not change Windows networking or the model API route, and depends on that local proxy remaining available. Previous continuation commit `7aaa92d` was pushed and confirmed on origin/main.
+
+The desktop shortcut still targeted an October 4 frozen package. Archive inspection proved `app.local_credentials` was absent there, despite updated repository source. This establishes a concrete cause of repeated credential loss in the installed app. Rebuilt the current PyInstaller desktop package; added `scripts/install_desktop.ps1`, which checks the frozen credential module, installs a versioned folder, preserves previous builds/data, and updates the desktop shortcut with a shared data directory and standalone DeepSeek default. Installed locally; original projects and runtime junction preserved. Old packages/root EXE remain available for rollback but are not the desktop shortcut target.
+
+Actual frozen EXE validation used a separate disposable profile and a fake Key, never a real credential or provider call: start EXE → POST local model settings → assert encrypted file exists and contains no plaintext fake Key → terminate only test EXE → launch same EXE/profile → confirm configured model/effort restored without exposing Key → remove saved credential → assert file removed. All assertions passed. The updated installed app started and reports ready, `deepseek/deepseek-flash`, `windows-dpapi`, no restore error. Its real credential remains unconfigured: an old memory-only Key cannot be recovered. User must enter it once in the updated app before paid reconstruction resumes; real-Key restart/inference remains pending.
+
+Latest validation: PowerShell installer syntax parse passed; actual install/shortcut preservation passed; full repository suite **204 passed, 2 skipped, 2 dependency warnings**. No new villa inference/quality pass claimed.
+
+## Earlier blocked continuation (historical)
 
 Local baseline: `5a76e73`. Two `git pull --ff-only` attempts failed connecting to github.com:443; latest remote state could not be confirmed. No modeling implementation was changed during this continuation.
 
