@@ -11,6 +11,10 @@
 
 交付：更新 HANDOFF 和 CURRENT_TASK，公开可分享的测试报告/截图放入 `docs/test-results/windows/`，区分真实执行、模拟测试、人工干预及 pending_external。私人素材、密钥、账号、私人 SKP 和个人路径不提交。commit/push 后确认 origin/main，云端直接读取 GitHub 验收，无需用户转发报告。
 
+## 本机续测（2026-10-06）
+
+[助手实机回读与阻塞报告](test-results/windows/2026-10-06/README.md)：SAIE 墙体在专用空白模型实测尺寸/方向与事务 IDs 通过；不能算别墅质量通过。当前本机 DeepSeek 未配置，真实 Key 重启恢复尚待验证。GitHub 拉取两次连接超时，远端最新状态未确认；下一执行者先恢复连接并拉取。原六视图修复、局部 ID 保持、下载重开实际编辑、剪贴板/旧计划/失败恢复任务继续有效，不扩展里程碑。
+
 ## 最新追加：开源代码复用（2026-10-05）
 
 用户要求匹配、筛选并直接复用开源代码，不重复造轮子。已搜索/检查 8 个仓库并实际接入 SAIE 墙体几何子集和 Stultus 毫米边界回读子集：[匹配与接入说明](OSS_MATCH_AND_ADOPTION_2026-10-05.md)。保持 Kongxing/现有 Agent，不新增几何引擎或多 Agent 重写。系统 Ruby 替身验证和 204 自动测试通过，2 Windows skips；尚无真实模型质量通过。
