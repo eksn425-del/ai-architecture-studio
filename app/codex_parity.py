@@ -3,8 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .reconstruction_evidence import default_reconstruction_evidence
 
-WORKSPACE_VERSION = 7
+
+WORKSPACE_VERSION = 8
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -26,7 +28,7 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 
 1. Inspect the actual source image(s).
 2. Clarify only high-impact unknowns that materially change the model.
-3. Update `notes/reconstruction_card.md` with confirmed scope plus KNOWN / ESTIMATED / ASSUMED parameters, and keep `notes/facade_schedule.json` as the compact machine-readable source schedule.
+3. Update `notes/reconstruction_card.md`, classify source coverage in `notes/reconstruction_evidence.json`, and keep `notes/facade_schedule.json` as the compact machine-readable facade/roof schedule.
 4. Show the compact parameter/construction plan and wait for approval.
 5. After approval, author or revise durable `.rb` files under `scripts/`.
 6. Execute the same files with `sketchup_run_workspace_ruby`.
@@ -96,10 +98,14 @@ Use this for image-to-SketchUp work. Replace placeholders with observations and 
 - Visual scale anchor(s): pending
 - Dimension confidence: pending
 
-## 4. Unseen geometry policy
+## 4. Evidence fidelity / unseen geometry policy
 
-- May infer unseen depth/backside: pending
-- Inference rule: simplest coherent continuation unless user says otherwise
+- Fidelity mode: pending (single_view_inference / multi_view_reconstruction / full_evidence_reconstruction)
+- Primary visible source: pending
+- May infer genuinely unseen depth/backside: yes unless user forbids
+- May infer unseen interior: yes unless user forbids
+- Inference rule: coherent with observed structure, circulation and facade vocabulary; never overwrite evidenced regions
+- Full-evidence mode: CAD/floorplan dimensions are geometry constraints; exterior/interior images are visible-appearance constraints
 
 ## 5. Detail target
 
@@ -274,6 +280,14 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
             newline="\n",
         )
 
+    reconstruction_evidence = root / "notes" / "reconstruction_evidence.json"
+    if not reconstruction_evidence.exists():
+        reconstruction_evidence.write_text(
+            json.dumps(default_reconstruction_evidence(), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+
     visual_qa = root / "qa" / "visual_qa.md"
     if not visual_qa.exists():
         visual_qa.write_text(_VISUAL_QA, encoding="utf-8", newline="\n")
@@ -287,6 +301,7 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "qa_dir": "qa",
         "reconstruction_card": "notes/reconstruction_card.md",
         "facade_schedule": "notes/facade_schedule.json",
+        "reconstruction_evidence": "notes/reconstruction_evidence.json",
         "visual_qa": "qa/visual_qa.md",
         "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "verify", "inspect", "critic", "revise"],
     }
@@ -319,8 +334,8 @@ def codex_parity_instructions() -> str:
         "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
         "For image reconstruction, inspect the source, clarify only high-impact unknowns, then update "
         "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters, and update "
-        "notes/facade_schedule.json with compact per-view opening/roof facts and observed/user_confirmed/inferred provenance. "
-        "Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
+        "notes/reconstruction_evidence.json with the fidelity mode/source coverage/inference boundary, and notes/facade_schedule.json with compact per-view opening/roof facts and observed/user_confirmed/inferred provenance. "
+        "In single-view mode, the visible source view is a hard appearance target while hidden regions may be inferred coherently. In full-evidence mode, supplied exterior views, CAD/floor plans and interior images are hard constraints and only genuinely unseen gaps may be inferred. Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
         "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use only the injected SAIE "
         "geometry helpers inside guarded ProjectRuby when they fit, while reconstruction backend tools stay read-only. After every mutation, require the "
         "post-write verification receipt before trusting success. Maintain qa/visual_qa.md from fresh front/rear/left/right/roof/oblique "
