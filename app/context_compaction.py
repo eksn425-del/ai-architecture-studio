@@ -16,6 +16,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .modeling_quality import validate_facade_schedule_payload
+
 
 MAX_CARD_CHARS = 12000
 MAX_SCHEDULE_CHARS = 12000
@@ -89,6 +91,10 @@ def build_reconstruction_checkpoint(
     workspace = project_dir / "runtime" / "agent_workspace"
     schedule_path = workspace / "notes" / "facade_schedule.json"
     schedule = _load_json(schedule_path)
+    try:
+        schedule = validate_facade_schedule_payload(schedule)
+    except ValueError:
+        return ""
     if not _schedule_has_signal(schedule):
         return ""
 
