@@ -1,3 +1,13 @@
+# 当前任务 — 2026-10-08 Quality Loop v2.3 / 主动上下文压缩 + 结构化约束校验
+
+GitHub 已在 v2.2 的独立 Critic + facade schedule 基础上继续补齐一个直接来自真实 Windows 数据的问题：Builder 历史上下文过大。现在旧的已完成 chat/tool 历史不会无限回灌给 DeepSeek；当 planner 已把关键事实写入 reconstruction card + facade schedule 后，host 会用 durable project checkpoint 取代旧完成历史，只保留当前用户回合和当前 tool loop。完整历史仍留在本地审计文件。
+
+同时 facade_schedule 不再只是“合法 JSON”，host 会校验 schema_version、provenance、opening/door count、dimension 和列表类型。当前源图优先保留，避免因历史去重 + 压缩导致本轮没有 source pixels。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_3.md`，与 v2.2 一起做真实 SU2024 验收：测试 schema、上下文压缩事件、source image 保留、SAIE 连续墙洞口、dedicated Critic、最多两轮定向修正、新空白 replay、SKP 原生重开编辑，并记录 Builder 与 Critic token。完成后 push main，再由 ChatGPT 复审。
+
+---
+
 # 当前任务 — 2026-10-08 Quality Loop v2.2 / 结构化立面约束 + 独立 Critic
 
 在 main 已有 v2.1 独立只读 Critic 基础上，GitHub 继续补齐 ArchFlow / SketchUp Agent Harness 暴露出的下一处差距：高价值源图事实不能一直只埋在长对话和 Markdown 里。现在每个重建项目会维护 `notes/facade_schedule.json`，规划阶段把 front/rear/left/right 开口与特征、roof/parapet/division 以及 observed / user_confirmed / inferred 来源写入结构化状态；v2.1 的 dedicated Critic 在干净 source + current six views 审查时同时读取这份清单。
