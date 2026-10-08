@@ -41,7 +41,7 @@ For later design workflows, record durable design decisions in `notes/design_not
 ## Tool split
 
 - **Primary for reconstruction:** persistent workspace Ruby for project-specific and repeated geometry.
-- **Helper library:** SAIE semantic tools for ordinary walls/openings/slabs/roofs/query/edit when simpler than custom code.
+- **Geometry helpers inside the single writer:** use injected SAIE wall/opening helpers from persistent ProjectRuby when suitable; reconstruction-profile SAIE/Kongxing backend tools remain read-only evidence helpers.
 - **Bridge/lifecycle:** Kongxing for verified model identity, viewport/camera/readback and transport.
 - **Later engineering outputs:** ArchFlow for validation/DXF/Ruby/review where relevant.
 
@@ -321,8 +321,8 @@ def codex_parity_instructions() -> str:
         "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters, and update "
         "notes/facade_schedule.json with compact per-view opening/roof facts and observed/user_confirmed/inferred provenance. "
         "Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
-        "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use SAIE as a helper "
-        "library for ordinary semantic elements, not as the primary orchestration strategy. After every mutation, require the "
+        "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use only the injected SAIE "
+        "geometry helpers inside guarded ProjectRuby when they fit, while reconstruction backend tools stay read-only. After every mutation, require the "
         "post-write verification receipt before trusting success. Maintain qa/visual_qa.md from fresh front/rear/left/right/roof/oblique "
         "evidence: record at most three highest-impact mismatches plus a KEEP list, then make at most two targeted correction rounds. "
         "Inspect actual screenshots/model state after substantial edits and revise the same files/model until the source-defining "
