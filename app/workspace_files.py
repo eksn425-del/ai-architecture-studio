@@ -1,12 +1,13 @@
 """Minimal file glue for providers without Codex's built-in coding tools."""
 from pathlib import Path, PurePosixPath
+import json
 import re
 
 MAX_TEXT_BYTES = 120000
 
 
 def workspace_file_tools() -> list[dict]:
-    schema = {"type": "string", "description": "Project workspace path: notes/*.md, qa/*.md or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/."}
+    schema = {"type": "string", "description": "Project workspace path: notes/*.md, notes/*.json, qa/*.md or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/."}
     return [
         {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/Ruby file.",
          "inputSchema": {"type": "object", "properties": {"relative_path": schema}, "additionalProperties": False}},
@@ -27,17 +28,18 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
         raise ValueError("relative_path must be a string.")
     if name == "workspace_read" and path in {"", ".", "notes", "notes/", "qa", "qa/", "scripts", "scripts/"}:
         files = []
-        for directory, suffix in (("notes", ".md"), ("qa", ".md"), ("scripts", ".rb")):
+        for directory, suffixes in (("notes", (".md", ".json")), ("qa", (".md",)), ("scripts", (".rb",))):
             if path not in {"", "."} and path.rstrip("/") != directory:
                 continue
             parent = root / directory
             if parent.is_symlink() or not parent.resolve().is_relative_to(root):
                 continue
-            files.extend(p.relative_to(root).as_posix() for p in parent.glob("*" + suffix)
-                         if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root))
+            for suffix in suffixes:
+                files.extend(p.relative_to(root).as_posix() for p in parent.glob("*" + suffix)
+                             if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root))
         return {"success": True, "files": sorted(files)}
-    if not re.fullmatch(r"(?:notes|qa)/[A-Za-z0-9_.-]+\.md|scripts/[A-Za-z0-9_.-]+\.rb", path):
-        raise ValueError("Only workspace notes/qa Markdown and scripts Ruby are allowed.")
+    if not re.fullmatch(r"notes/[A-Za-z0-9_.-]+\.(?:md|json)|qa/[A-Za-z0-9_.-]+\.md|scripts/[A-Za-z0-9_.-]+\.rb", path):
+        raise ValueError("Only workspace notes Markdown/JSON, qa Markdown and scripts Ruby are allowed.")
     target = root.joinpath(*PurePosixPath(path).parts)
     if workspace.is_symlink() or any(p.is_symlink() for p in (target, target.parent)) or not target.resolve().is_relative_to(root):
         raise ValueError("Workspace files may not escape through links.")
@@ -49,6 +51,14 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
             content = target.read_text(encoding="utf-8") + content
         if len(content.encode("utf-8")) > MAX_TEXT_BYTES:
             raise ValueError("Workspace text exceeds the size limit.")
+        if target.suffix.lower() == ".json":
+            try:
+                parsed = json.loads(content)
+            except json.JSONDecodeError as error:
+                raise ValueError("Workspace JSON must be valid JSON.") from error
+            if not isinstance(parsed, dict):
+                raise ValueError("Workspace JSON root must be an object.")
+            content = json.dumps(parsed, ensure_ascii=False, indent=2) + "\n"
         target.write_text(content, encoding="utf-8")
         return {"success": True, "relative_path": path, "bytes": target.stat().st_size}
     if target.stat().st_size > MAX_TEXT_BYTES:
