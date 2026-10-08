@@ -193,6 +193,18 @@ def require_post_write_verification(
 
 
 
+def load_facade_schedule(project_dir: Path) -> dict[str, Any] | None:
+    """Load the compact project-local facade/roof schedule for visual review."""
+    path = project_dir.resolve() / "runtime" / "agent_workspace" / "notes" / "facade_schedule.json"
+    if not path.is_file() or path.is_symlink() or path.stat().st_size > 64 * 1024:
+        return None
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def submit_visual_review(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]],
@@ -207,6 +219,17 @@ def submit_visual_review(
     """
     views = arguments.get("views")
     critique_text = arguments.get("critique")
+    reviewer = arguments.get("reviewer")
+    if reviewer is None:
+        reviewer = {"kind": "builder_self_review", "status": "provisional"}
+    if not isinstance(reviewer, dict):
+        raise ValueError("reviewer metadata must be an object when provided.")
+    reviewer = {
+        "kind": str(reviewer.get("kind") or "builder_self_review")[:80],
+        "status": str(reviewer.get("status") or "provisional")[:40],
+        "provider": str(reviewer.get("provider") or "")[:80],
+        "model": str(reviewer.get("model") or "")[:120],
+    }
     if not isinstance(views, dict) or set(views) != set(CANONICAL_REVIEW_VIEWS):
         raise ValueError(
             "views must contain exactly front, rear, left, right, roof and oblique."
@@ -285,6 +308,7 @@ def submit_visual_review(
         "schema_version": 1,
         "advisory": True,
         "quality_status": "needs_fix" if critique.needs_fix else "accepted",
+        "reviewer": reviewer,
         "needs_fix": bool(critique.needs_fix),
         "assessment": critique.assessment,
         "issues": [
@@ -352,6 +376,7 @@ def submit_visual_review(
         "## Writer verification",
         "",
         f"- model_revisions: {json.dumps(current_revisions, ensure_ascii=False)}",
+        f"- reviewer: {reviewer['kind']} / {reviewer['status']} / {reviewer['model'] or 'unspecified'}",
         "- all current writer receipts verified: true",
         "",
     ])
