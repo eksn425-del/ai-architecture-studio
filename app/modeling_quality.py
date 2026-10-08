@@ -193,6 +193,18 @@ def require_post_write_verification(
 
 
 
+def load_facade_schedule(project_dir: Path) -> dict[str, Any] | None:
+    """Load the compact project-local facade/roof schedule for visual review."""
+    path = project_dir.resolve() / "runtime" / "agent_workspace" / "notes" / "facade_schedule.json"
+    if not path.is_file() or path.is_symlink() or path.stat().st_size > 64 * 1024:
+        return None
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def validate_visual_review_views(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]],
