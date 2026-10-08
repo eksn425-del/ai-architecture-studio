@@ -20,6 +20,58 @@ from .workspace_files import workspace_file_tools, workspace_file_call
 
 ToolProfile = Literal["full", "reconstruction_coding"]
 
+_CANONICAL_REVIEW_VIEWS = ("front", "rear", "left", "right", "roof", "oblique")
+
+
+def canonical_camera_from_bounds_mm(bounds_mm: dict[str, Any], view_name: str) -> dict[str, list[float]]:
+    """Return a deterministic camera around one owned reconstruction root.
+
+    The reconstruction coordinate convention is X=east, Y=north, Z=up, so
+    front looks from -Y, rear from +Y, left from -X and right from +X.
+    """
+    if view_name not in _CANONICAL_REVIEW_VIEWS:
+        raise ValueError("view_name must be front, rear, left, right, roof or oblique.")
+    low = bounds_mm.get("min") if isinstance(bounds_mm, dict) else None
+    high = bounds_mm.get("max") if isinstance(bounds_mm, dict) else None
+    if (
+        not isinstance(low, list) or not isinstance(high, list)
+        or len(low) != 3 or len(high) != 3
+    ):
+        raise ValueError("Canonical review capture requires owned-root min/max bounds in millimeters.")
+    try:
+        lo = [float(value) / 1000.0 for value in low]
+        hi = [float(value) / 1000.0 for value in high]
+    except (TypeError, ValueError) as error:
+        raise ValueError("Canonical review bounds must contain numeric millimeter coordinates.") from error
+    if any(not (-1_000_000.0 < value < 1_000_000.0) for value in (*lo, *hi)):
+        raise ValueError("Canonical review bounds are outside the supported coordinate range.")
+    if any(hi[index] < lo[index] for index in range(3)):
+        raise ValueError("Canonical review bounds min/max are inverted.")
+
+    center = [(lo[index] + hi[index]) / 2.0 for index in range(3)]
+    spans = [max(hi[index] - lo[index], 0.001) for index in range(3)]
+    distance = max(max(spans) * 2.4, 6.0)
+    target = [center[0], center[1], lo[2] + spans[2] * 0.52]
+
+    if view_name == "front":
+        eye, up = [center[0], lo[1] - distance, target[2]], [0.0, 0.0, 1.0]
+    elif view_name == "rear":
+        eye, up = [center[0], hi[1] + distance, target[2]], [0.0, 0.0, 1.0]
+    elif view_name == "left":
+        eye, up = [lo[0] - distance, center[1], target[2]], [0.0, 0.0, 1.0]
+    elif view_name == "right":
+        eye, up = [hi[0] + distance, center[1], target[2]], [0.0, 0.0, 1.0]
+    elif view_name == "roof":
+        eye, target, up = [center[0], center[1], hi[2] + distance], center, [0.0, 1.0, 0.0]
+    else:
+        eye, up = [
+            hi[0] + distance * 0.78,
+            lo[1] - distance * 0.78,
+            hi[2] + distance * 0.48,
+        ], [0.0, 0.0, 1.0]
+    return {"eye_m": eye, "target_m": target, "up_m": up}
+
+
 _RECONSTRUCTION_KONGXING_KEYWORDS = (
     "health", "context", "inspect", "select", "view", "camera",
 )
@@ -218,9 +270,26 @@ class AgentToolSurface:
             ))
             if tool_profile == "reconstruction_coding":
                 tools.append(self._dynamic_tool(
+                    "sketchup_capture_canonical_view",
+                    "READ-ONLY deterministic review capture. Use this, not a hand-labeled arbitrary camera, for the six canonical "
+                    "front/rear/left/right/roof/oblique quality-gate images. The host reads the selected persistent ProjectRuby root "
+                    "bounds, sets a deterministic X/Y/Z camera, captures a fresh PNG, and records camera + current-revision provenance. "
+                    "This does not edit geometry. For source-perspective/interior detail pairs, the normal camera/export tools may still "
+                    "be used and submitted separately as evidence_pairs.",
+                    {
+                        "type": "object",
+                        "required": ["script_id", "view_name"],
+                        "properties": {
+                            "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
+                            "view_name": {"type": "string", "enum": list(_CANONICAL_REVIEW_VIEWS)},
+                        },
+                        "additionalProperties": False,
+                    },
+                ))
+                tools.append(self._dynamic_tool(
                     "sketchup_submit_visual_review",
-                    "READ-ONLY quality gate. After every committed reconstruction pass, capture six DISTINCT CURRENT "
-                    "agent-view PNGs for front, rear, left, right, roof and oblique, then submit the exact actual paths plus the "
+                    "READ-ONLY quality gate. After every committed reconstruction pass, use sketchup_capture_canonical_view to create "
+                    "six DISTINCT CURRENT front/rear/left/right/roof/oblique agent-view PNGs, then submit the exact actual paths plus the "
                     "bounded fallback critique. When the source camera is not represented by a canonical view, or when interior/detail references exist, add evidence_pairs mapping real source images to current agent-view captures. On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
                     "the six validated current views and any validated source-matched/interior pairs, then replaces any model-authored verdict before persisting the review. "
                     "Other runtimes may supply the same bounded NEEDS_FIX envelope as critique. The host rejects stale revision "
@@ -330,6 +399,74 @@ class AgentToolSurface:
             if project_ruby is None:
                 raise MCPCallError("Owned inspection requires a verified disposable model and existing owned root.")
             return project_ruby.inspect_owned(arguments)
+        if name == "sketchup_capture_canonical_view":
+            if project_ruby is None:
+                raise MCPCallError("Canonical review capture requires a verified disposable model and existing owned root.")
+            script_id = str(arguments.get("script_id") or "")
+            view_name = str(arguments.get("view_name") or "")
+            snapshot_result = project_ruby.inspect_owned({
+                "script_id": script_id,
+                "path": [],
+                "offset": 0,
+                "limit": 1,
+            })
+            try:
+                snapshot = json.loads(snapshot_result["contentItems"][0]["text"])
+                bounds_mm = snapshot["bounds_mm"]
+            except (KeyError, IndexError, TypeError, json.JSONDecodeError) as error:
+                raise MCPCallError("Canonical review capture could not read owned-root bounds.") from error
+            camera = canonical_camera_from_bounds_mm(bounds_mm, view_name)
+            project_ruby.adapter.set_camera(camera["eye_m"], camera["target_m"], camera["up_m"])
+            output_path = project_dir / "outputs" / "renders" / f"agent-view-{view_name}-{uuid.uuid4().hex[:10]}.png"
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            project_ruby.adapter.capture_view(output_path, width=1500, height=950, zoom_extents=True)
+            project_ruby.refresh_active_model_snapshot()
+            if output_path.is_symlink() or not output_path.is_file():
+                raise MCPCallError("SketchUp did not write the canonical review screenshot.")
+            if not 0 < output_path.stat().st_size <= 8 * 1024 * 1024:
+                raise MCPCallError("Canonical review screenshot is empty or exceeds the 8 MB payload limit.")
+            try:
+                with Image.open(output_path) as captured:
+                    if captured.format != "PNG":
+                        raise ValueError("Expected PNG")
+                    width, height = captured.size
+                    captured.verify()
+            except (OSError, ValueError) as error:
+                raise MCPCallError("Canonical review screenshot is not a readable PNG.") from error
+            revisions = {
+                sid: int(state.get("revision", 0))
+                for sid, state in project_ruby.ruby_state.items()
+                if int(state.get("revision", 0)) > 0
+            }
+            evidence = {
+                "path": output_path.relative_to(project_dir).as_posix(),
+                "width": width,
+                "height": height,
+                "quality_status": "not_accepted",
+                "model_revisions": revisions,
+                "camera_contract_version": 1,
+                "canonical_view": view_name,
+                "canonical_script_id": script_id,
+                "camera": camera,
+                "focus_bounds_mm": bounds_mm,
+            }
+            output_path.with_suffix(".evidence.json").write_text(
+                json.dumps(evidence, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            return {
+                "success": True,
+                "visual_evidence": evidence,
+                "contentItems": [
+                    {
+                        "type": "inputText",
+                        "text": "Deterministic canonical capture receipt: " + json.dumps(evidence, ensure_ascii=False),
+                    },
+                    {
+                        "type": "inputImage",
+                        "imageUrl": "data:image/png;base64," + base64.b64encode(output_path.read_bytes()).decode("ascii"),
+                    },
+                ],
+            }
         if name == "sketchup_run_workspace_ruby":
             if project_ruby is None:
                 raise MCPCallError("The workspace Ruby tool is not enabled for this session.")
