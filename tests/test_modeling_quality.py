@@ -3,6 +3,7 @@ from app.modeling_quality import (
     build_visual_critic_prompt,
     parse_visual_critique_response,
     require_post_write_verification,
+    submit_visual_review,
 )
 
 
@@ -125,3 +126,95 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
             context.dispatch("sketchup_run_workspace_ruby", {"script_id": "bypass"})
         assert context.dispatch("sketchup_inspect_owned", {})["success"]
         assert "bypass" not in state
+
+
+
+def _current_review_fixture(tmp_path):
+    project = tmp_path / "project"
+    render_dir = project / "outputs" / "renders"
+    render_dir.mkdir(parents=True)
+    revisions = {"villa": 3}
+    views = {}
+    for index, view in enumerate(CANONICAL_REVIEW_VIEWS):
+        image = render_dir / f"agent-view-{index:010d}.png"
+        image.write_bytes(b"current-png-evidence")
+        image.with_suffix(".evidence.json").write_text(
+            __import__("json").dumps({
+                "path": image.relative_to(project).as_posix(),
+                "width": 1200,
+                "height": 800,
+                "quality_status": "not_accepted",
+                "model_revisions": revisions,
+            }),
+            encoding="utf-8",
+        )
+        views[view] = image.relative_to(project).as_posix()
+    state = {
+        "villa": {
+            "revision": 3,
+            "last_verification": {
+                "verified": True,
+                "checks": [{"check": "revision", "expected": 3, "actual": 3}],
+            },
+        }
+    }
+    return project, state, views
+
+
+def test_visual_review_receipt_requires_all_current_six_views(tmp_path):
+    project, state, views = _current_review_fixture(tmp_path)
+    receipt = submit_visual_review(project, state, {
+        "views": views,
+        "critique": (
+            "NEEDS_FIX: YES\n"
+            "<assessment>Roof remains too heavy.</assessment>\n"
+            "<issue priority=\"1\" view=\"roof\">problem: parapet too bulky\n"
+            "action: patch roof/parapet only</issue>\n"
+            "<keep>front balcony\ncorner louvers</keep>"
+        ),
+    })
+    assert receipt["needs_fix"] is True
+    assert receipt["quality_status"] == "needs_fix"
+    assert set(receipt["views"]) == set(CANONICAL_REVIEW_VIEWS)
+    assert receipt["model_revisions"] == {"villa": 3}
+    assert (project / "runtime/agent_workspace/qa/visual_review.json").is_file()
+    assert "NEEDS_FIX: YES" in (project / "runtime/agent_workspace/qa/visual_qa.md").read_text(encoding="utf-8")
+
+
+def test_visual_review_rejects_stale_revision_and_missing_writer_receipt(tmp_path):
+    import json
+    import pytest
+
+    project, state, views = _current_review_fixture(tmp_path)
+    stale = project / views["rear"]
+    sidecar = stale.with_suffix(".evidence.json")
+    evidence = json.loads(sidecar.read_text(encoding="utf-8"))
+    evidence["model_revisions"] = {"villa": 2}
+    sidecar.write_text(json.dumps(evidence), encoding="utf-8")
+    with pytest.raises(ValueError, match="stale"):
+        submit_visual_review(project, state, {
+            "views": views,
+            "critique": "NEEDS_FIX: NO\n<assessment>Current views match.</assessment>",
+        })
+
+    evidence["model_revisions"] = {"villa": 3}
+    sidecar.write_text(json.dumps(evidence), encoding="utf-8")
+    state["villa"].pop("last_verification")
+    with pytest.raises(ValueError, match="no verified"):
+        submit_visual_review(project, state, {
+            "views": views,
+            "critique": "NEEDS_FIX: NO\n<assessment>Current views match.</assessment>",
+        })
+
+
+def test_visual_review_rejects_duplicate_or_non_agent_view_paths(tmp_path):
+    import pytest
+
+    project, state, views = _current_review_fixture(tmp_path)
+    duplicate = dict(views)
+    duplicate["rear"] = duplicate["front"]
+    with pytest.raises(ValueError, match="distinct"):
+        submit_visual_review(project, state, {
+            "views": duplicate,
+            "critique": "NEEDS_FIX: NO\n<assessment>Current views match.</assessment>",
+        })
