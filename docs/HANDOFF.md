@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.3 handoff — 2026-10-08
+
+After reviewing the real v1 Windows evidence and the v2.1/v2.2 architecture, ChatGPT implemented the next cloud-safe gap: Builder active-context compaction. The existing audit history is not deleted. Once the project has a meaningful structured facade schedule, large provider requests can replace completed older chat/tool history with a deterministic checkpoint built from the reconstruction card, validated facade schedule, current ProjectRuby revisions/root/verification state and latest visual review. The current real user turn and all tool exchanges produced in that turn remain intact.
+
+Current source images are now kept in the current user message while duplicate historical image blocks are removed, so compaction cannot remove the only source pixels. Provider events record compaction/dropped-message/before-after character evidence. The facade schedule itself now has a host schema/type/provenance validator at the workspace boundary and in the critic loader.
+
+No real Windows SketchUp or paid DeepSeek inference was performed in this remote turn. The exact local test is `docs/QUALITY_LOOP_V2_3.md`. It must be validated together with v2.2 geometry/critic acceptance. If a confirmed requirement disappears after compaction, treat it as a bug and repair/disable compaction; do not compensate with a larger prompt.
+
+---
+
 ## Remote Quality Loop v2.2 — structured facade schedule — 2026-10-08
 
 Reviewed the v1 Windows evidence, v2 single-writer/current-view gate, and v2.1 dedicated read-only Critic against 3DCodeBench, ArchFlow and SketchUp Agent Harness. The remaining remote-safe gap was source-fact stability: opening/roof constraints were still mostly reconstructed from prose/history.
