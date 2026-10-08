@@ -221,8 +221,8 @@ class AgentToolSurface:
                     "sketchup_submit_visual_review",
                     "READ-ONLY quality gate. After every committed reconstruction pass, capture six DISTINCT CURRENT "
                     "agent-view PNGs for front, rear, left, right, roof and oblique, then submit the exact actual paths plus the "
-                    "bounded fallback critique. On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
-                    "those six validated current views and replaces any model-authored verdict before persisting the review. "
+                    "bounded fallback critique. When the source camera is not represented by a canonical view, or when interior/detail references exist, add evidence_pairs mapping real source images to current agent-view captures. On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
+                    "the six validated current views and any validated source-matched/interior pairs, then replaces any model-authored verdict before persisting the review. "
                     "Other runtimes may supply the same bounded NEEDS_FIX envelope as critique. The host rejects stale revision "
                     "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
                     "NEEDS_FIX:NO ends geometry writes for this turn.",
@@ -240,6 +240,21 @@ class AgentToolSurface:
                                 "additionalProperties": False,
                             },
                             "critique": {"type": "string", "minLength": 20, "maxLength": 12000, "description": "Optional fallback verdict for runtimes without a host-side dedicated critic; ignored/replaced by LiteLLM host critic."},
+                            "evidence_pairs": {
+                                "type": "array",
+                                "maxItems": 12,
+                                "description": "Optional source-matched exterior/interior/detail comparisons using current-revision agent-view PNGs.",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["source_ref", "current_view"],
+                                    "properties": {
+                                        "source_ref": {"type": "string", "pattern": "^inputs/(?:reference|site|brief)/.+\\.(?:png|jpg|jpeg|webp|gif)$"},
+                                        "current_view": {"type": "string", "pattern": "^outputs/renders/agent-view-[A-Za-z0-9_.-]+\\.png$"},
+                                        "label": {"type": "string", "maxLength": 200},
+                                    },
+                                    "additionalProperties": False,
+                                },
+                            },
                         },
                         "additionalProperties": False,
                     },
