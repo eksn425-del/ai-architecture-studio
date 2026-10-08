@@ -12,7 +12,8 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 - gaoypeng/3dcodebench, Apache-2.0, inspected revision 42c7780ed3fcbd466f17f058f62e7996233777f7: K Studio adapts the bounded visual-critique response/parse pattern from core/visual_critique.py, but changes the critic into a read-only architectural reviewer that returns at most three targeted mismatches and a KEEP list. The upstream benchmark/provider stack is not vendored.
 - dcc-mcp/dcc-mcp-sketchup, MIT, inspected revision b7981838eca24996e7e9c2959af1463162022f66: K Studio adapts the post-write expected/actual read-back contract from src/dcc_mcp_sketchup/write_contract.py. K Studio keeps its existing Kongxing transport and performs a post-commit owned-root readback because the current bridge does not yet expose the upstream adapter's pre-commit verification hook.
-- The corresponding upstream license texts and provenance note are bundled under app/vendor/modeling_quality_sources/. These adaptations do not imply that K Studio has passed real SketchUp visual acceptance; Windows host validation remains required.
+- The corresponding upstream license texts and provenance note are bundled under app/vendor/modeling_quality_sources/. The current host-side review receipt also follows the MIT SketchUp Agent Harness visual-loop idea that screenshots are advisory artifacts with provenance and must be converted into explicit proposed actions before geometry mutation. No Harness geometry engine is copied.
+- These adaptations do not imply that K Studio has passed real SketchUp visual acceptance; Windows host validation remains required.
 
 ## Local desktop shell
 
@@ -30,9 +31,11 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 - Upstream: `iamahsanmehmood/saie`
 - License: MIT
-- Use in this repository: optional external package / MCP backend. SAIE source is not vendored here. `app/oss_backends.py` provides a thin standards-based adapter to an installed upstream MCP server.
-- Current upstream compatibility note: SketchUp 2025 is the tested target. Upstream `docs/INSTALL.md` explicitly says SketchUp 2024 may work but is untested, and the upstream Windows installer accepts `-Version 2024`. Local 2024 compatibility must therefore be tested rather than treated as a proven incompatibility.
-- Local SketchUp 2024 compatibility uses pinned upstream revision `eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f` plus the small MIT-covered source patch in `patches/saie/saie-2024-compat.patch`. The patch repairs the opening cutter orientation and SketchUp attribute serialization; `scripts/apply_saie_2024_patch.ps1` checks the upstream SHA before applying it. The upstream license remains in the installed SAIE source checkout.
+- Pinned revision used for local compatibility/adaptation: `eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f`.
+- Use in this repository: the optional external MCP backend remains available through `app/oss_backends.py`. In addition, two small MIT-covered geometry subsets are vendored under `app/vendor/saie/`: wall centerline/extrusion math and the batch-opening geometry pattern. The latter is adapted from upstream `ruby_plugin/su_mcp_bridge/ops/opening.rb`: one wall-local frame + one combined cutter + one subtract for all rectangular openings. Global model lookup, AI_ID registry, lifecycle/transaction/save and bridge code are not copied; K Studio's owned-root ProjectRuby host owns those boundaries.
+- In the `image_reconstruction` tool profile, direct mutating SAIE MCP tools are intentionally hidden. Reconstruction geometry has one verified writer (ProjectRuby), so wall/opening helpers cannot bypass the same write budget, root identity and post-write receipt. Read-only SAIE inspection/view helpers remain available.
+- Current upstream compatibility note: SketchUp 2025 is the tested target. Upstream `docs/INSTALL.md` explicitly says SketchUp 2024 may work but is untested, and the upstream Windows installer accepts `-Version 2024`. The new root-scoped batch-opening subset therefore requires an actual SketchUp 2024 smoke before it is treated as a passed production path.
+- Local external-backend SketchUp 2024 compatibility uses the same pinned revision plus the small MIT-covered source patch in `patches/saie/saie-2024-compat.patch`. The patch repairs the external opening cutter orientation and SketchUp attribute serialization; `scripts/apply_saie_2024_patch.ps1` checks the upstream SHA before applying it.
 
 ## Supex
 
