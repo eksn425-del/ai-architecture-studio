@@ -17,6 +17,9 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     assert "outer integration agent" in (workspace / "AGENTS.md").read_text(encoding="utf-8")
     assert (workspace / "scripts").is_dir()
     assert (workspace / "notes" / "design_notes.md").is_file()
+    schedule = workspace / "notes" / "facade_schedule.json"
+    assert schedule.is_file()
+    assert __import__("json").loads(schedule.read_text(encoding="utf-8"))["schema_version"] == 1
     assert (workspace / "qa").is_dir()
     assert (workspace / "qa" / "visual_qa.md").is_file()
     assert "NEEDS_FIX" in (workspace / "qa" / "visual_qa.md").read_text(encoding="utf-8")
@@ -28,10 +31,12 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     instructions.write_text("PROJECT MODELING RULES\n", encoding="utf-8")
     visual_qa = workspace / "qa" / "visual_qa.md"
     visual_qa.write_text("CURRENT REVIEW SURVIVES\n", encoding="utf-8")
+    schedule.write_text('{"schema_version":1,"user_confirmed":["rear has three windows"]}\n', encoding="utf-8")
     prepare_codex_parity_workspace(workspace)
     assert notes.read_text(encoding="utf-8") == "USER CONFIRMED DECISION\n"
     assert instructions.read_text(encoding="utf-8") == "PROJECT MODELING RULES\n"
     assert visual_qa.read_text(encoding="utf-8") == "CURRENT REVIEW SURVIVES\n"
+    assert "rear has three windows" in schedule.read_text(encoding="utf-8")
 
 
 def test_workspace_ruby_path_is_confined_to_scripts(tmp_path):
@@ -122,3 +127,31 @@ def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
     assert "unless has_geometry?(root.entities)" in helper
     assert "seen[definition.object_id]" in helper
     assert helper.index("committed_root_pid = root.persistent_id") < helper.index("unless model.commit_operation")
+
+
+def test_workspace_json_schedule_is_validated_and_listed(tmp_path):
+    import json
+    from app.workspace_files import workspace_file_call
+
+    workspace = prepare_codex_parity_workspace(tmp_path / "workspace-json")
+    result = workspace_file_call(workspace, "workspace_write", {
+        "relative_path": "notes/facade_schedule.json",
+        "content": json.dumps({"schema_version": 1, "views": {"front": {"opening_count": 4}}}),
+    })
+    assert result["success"] is True
+    listing = workspace_file_call(workspace, "workspace_read", {"relative_path": "notes/"})
+    assert "notes/facade_schedule.json" in listing["files"]
+    loaded = json.loads(workspace_file_call(
+        workspace, "workspace_read", {"relative_path": "notes/facade_schedule.json"}
+    )["content"])
+    assert loaded["views"]["front"]["opening_count"] == 4
+    with pytest.raises(ValueError, match="valid JSON"):
+        workspace_file_call(workspace, "workspace_write", {
+            "relative_path": "notes/facade_schedule.json",
+            "content": "{broken",
+        })
+    with pytest.raises(ValueError, match="root must be an object"):
+        workspace_file_call(workspace, "workspace_write", {
+            "relative_path": "notes/facade_schedule.json",
+            "content": "[]",
+        })
