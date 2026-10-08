@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-WORKSPACE_VERSION = 5
+WORKSPACE_VERSION = 6
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -32,7 +32,7 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 6. Execute the same files with `sketchup_run_workspace_ruby`.
 7. Inspect returned screenshots/model state.
 8. Correct the same scripts/model rather than restarting.
-9. Save concise visual QA notes under `qa/` when useful.
+9. Maintain `qa/visual_qa.md`: compare source first, then current front/rear/left/right/roof/oblique evidence; keep at most three highest-impact mismatches plus a KEEP list.
 
 ## Architecture-design loop
 
@@ -163,6 +163,47 @@ These values are a modeling baseline, not a claim of real-world measurement.
 """
 
 
+
+_VISUAL_QA = """# Visual QA
+
+This is the durable read-only review record for the current reconstruction.
+
+## Review contract
+
+- Reference evidence reviewed first: pending
+- Current model revision: pending
+- Required current views: front / rear / left / right / roof / oblique
+- Do not reuse an old screenshot after a geometry revision.
+- Tool success, file save and nonempty geometry are not visual acceptance.
+
+## Critic result
+
+NEEDS_FIX: pending
+
+### Highest-impact mismatches
+
+1. pending
+2. pending
+3. pending
+
+### KEEP — already correct, do not disturb
+
+- pending
+
+## Deterministic readback
+
+- post-write verification receipt: pending
+- expected vs actual bounds / counts: pending
+
+## Correction rounds
+
+- Round 1: pending
+- Round 2: pending
+
+Stop after at most two targeted correction rounds in one turn. If blocking mismatches remain, report them instead of claiming completion.
+"""
+
+
 def prepare_codex_parity_workspace(workspace: Path) -> Path:
     """Seed a persistent project-coding workspace without overwriting agent work."""
     requested_root = workspace.expanduser()
@@ -193,6 +234,10 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
     if not reconstruction.exists():
         reconstruction.write_text(_RECONSTRUCTION_CARD, encoding="utf-8", newline="\n")
 
+    visual_qa = root / "qa" / "visual_qa.md"
+    if not visual_qa.exists():
+        visual_qa.write_text(_VISUAL_QA, encoding="utf-8", newline="\n")
+
     manifest = root / ".architecture-studio.json"
     manifest_data = {
         "workspace_version": WORKSPACE_VERSION,
@@ -201,7 +246,8 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "notes_dir": "notes",
         "qa_dir": "qa",
         "reconstruction_card": "notes/reconstruction_card.md",
-        "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "inspect", "revise"],
+        "visual_qa": "qa/visual_qa.md",
+        "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "verify", "inspect", "critic", "revise"],
     }
     if not manifest.exists():
         manifest.write_text(
@@ -234,7 +280,9 @@ def codex_parity_instructions() -> str:
         "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters. "
         "Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
         "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use SAIE as a helper "
-        "library for ordinary semantic elements, not as the primary orchestration strategy. Inspect actual screenshots/model state "
-        "after substantial edits and revise the same files/model until the source-defining silhouette, floors/bays, voids, facade "
-        "depth, repeated systems and roof/canopy are recognizably aligned."
+        "library for ordinary semantic elements, not as the primary orchestration strategy. After every mutation, require the "
+        "post-write verification receipt before trusting success. Maintain qa/visual_qa.md from fresh front/rear/left/right/roof/oblique "
+        "evidence: record at most three highest-impact mismatches plus a KEEP list, then make at most two targeted correction rounds. "
+        "Inspect actual screenshots/model state after substantial edits and revise the same files/model until the source-defining "
+        "silhouette, floors/bays, voids, facade depth, repeated systems and roof/canopy are recognizably aligned."
     )
