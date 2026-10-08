@@ -9,9 +9,9 @@ MAX_TEXT_BYTES = 120000
 def workspace_file_tools() -> list[dict]:
     schema = {"type": "string", "description": "Project workspace path: notes/*.md, notes/*.json, qa/*.md or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/."}
     return [
-        {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/Ruby file.",
+        {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/JSON/Ruby file.",
          "inputSchema": {"type": "object", "properties": {"relative_path": schema}, "additionalProperties": False}},
-        {"type": "function", "name": "workspace_write", "description": "Write or append persistent reconstruction notes/Ruby inside the generated workspace only.",
+        {"type": "function", "name": "workspace_write", "description": "Write or append persistent reconstruction notes/validated JSON/Ruby inside the generated workspace only.",
          "inputSchema": {"type": "object", "required": ["relative_path", "content"], "properties": {
              "relative_path": schema, "content": {"type": "string", "maxLength": MAX_TEXT_BYTES}, "append": {"type": "boolean"}}, "additionalProperties": False}},
     ]
