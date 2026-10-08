@@ -1,4 +1,4 @@
-from app.agent_tools import canonical_camera_from_bounds_mm
+from app.agent_tools import AgentToolSurface, canonical_camera_from_bounds_mm
 from app.modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
     build_visual_critic_prompt,
@@ -589,3 +589,68 @@ def test_visual_review_rejects_mislabeled_canonical_camera(tmp_path):
             "views": views,
             "critique": "NEEDS_FIX: NO\n<assessment>Looks aligned.</assessment>",
         })
+
+
+def test_canonical_capture_dispatch_persists_camera_and_revision_provenance(tmp_path):
+    import json
+    from PIL import Image
+
+    class Adapter:
+        def __init__(self):
+            self.camera = None
+
+        def set_camera(self, eye_m, target_m, up_m=None):
+            self.camera = {"eye_m": eye_m, "target_m": target_m, "up_m": up_m}
+
+        def capture_view(self, output_path, width=1500, height=950, zoom_extents=True):
+            assert zoom_extents is False
+            Image.new("RGB", (width, height), "white").save(output_path)
+            return {"success": True}
+
+    class ProjectRuby:
+        def __init__(self):
+            self.ruby_state = {
+                "villa": {
+                    "revision": 4,
+                    "last_verification": {"verified": True},
+                }
+            }
+            self.adapter = Adapter()
+
+        def inspect_owned(self, arguments):
+            assert arguments["script_id"] == "villa"
+            payload = {
+                "script_id": "villa",
+                "revision": 4,
+                "bounds_mm": {
+                    "min": [0.0, 0.0, 0.0],
+                    "max": [10000.0, 8000.0, 6400.0],
+                },
+                "objects": [],
+            }
+            return {
+                "success": True,
+                "contentItems": [{"type": "inputText", "text": json.dumps(payload)}],
+            }
+
+        def refresh_active_model_snapshot(self):
+            return {}
+
+    surface = AgentToolSurface(tmp_path / "runtime", object(), oss_backends={})
+    project = tmp_path / "project"
+    result = surface.dispatch(
+        "sketchup_capture_canonical_view",
+        {"script_id": "villa", "view_name": "front"},
+        project_dir=project,
+        project_ruby=ProjectRuby(),
+    )
+    evidence = result["visual_evidence"]
+    assert evidence["canonical_view"] == "front"
+    assert evidence["canonical_script_id"] == "villa"
+    assert evidence["model_revisions"] == {"villa": 4}
+    assert evidence["camera_contract_version"] == 1
+    assert evidence["camera"]["eye_m"][1] < 0
+    path = project / evidence["path"]
+    assert path.is_file()
+    stored = json.loads(path.with_suffix(".evidence.json").read_text(encoding="utf-8"))
+    assert stored["camera"] == evidence["camera"]
