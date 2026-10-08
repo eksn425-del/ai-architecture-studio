@@ -1,3 +1,4 @@
+from app.agent_tools import canonical_camera_from_bounds_mm
 from app.modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
     build_visual_critic_prompt,
@@ -151,6 +152,14 @@ def _current_review_fixture(tmp_path):
                 "height": 800,
                 "quality_status": "not_accepted",
                 "model_revisions": revisions,
+                "camera_contract_version": 1,
+                "canonical_view": view,
+                "canonical_script_id": "villa",
+                "camera": {
+                    "eye_m": [0.0, -20.0, 3.0],
+                    "target_m": [0.0, 0.0, 3.0],
+                    "up_m": [0.0, 0.0, 1.0],
+                },
             }),
             encoding="utf-8",
         )
@@ -535,3 +544,40 @@ def test_visual_review_accepts_current_source_matched_pair(tmp_path):
     })
     assert receipt["evidence_pairs"][0]["label"] == "living room"
     assert receipt["evidence_pairs"][0]["model_revisions"] == {"villa": 3}
+
+
+def test_canonical_camera_contract_is_deterministic_and_axis_aligned():
+    bounds = {"min": [0.0, 0.0, 0.0], "max": [10000.0, 8000.0, 6400.0]}
+    front = canonical_camera_from_bounds_mm(bounds, "front")
+    rear = canonical_camera_from_bounds_mm(bounds, "rear")
+    left = canonical_camera_from_bounds_mm(bounds, "left")
+    right = canonical_camera_from_bounds_mm(bounds, "right")
+    roof = canonical_camera_from_bounds_mm(bounds, "roof")
+    oblique = canonical_camera_from_bounds_mm(bounds, "oblique")
+
+    assert front["eye_m"][1] < 0
+    assert rear["eye_m"][1] > 8
+    assert left["eye_m"][0] < 0
+    assert right["eye_m"][0] > 10
+    assert roof["eye_m"][2] > 6.4
+    assert roof["up_m"] == [0.0, 1.0, 0.0]
+    assert oblique["eye_m"][0] > 10 and oblique["eye_m"][1] < 0
+    assert front == canonical_camera_from_bounds_mm(bounds, "front")
+
+
+def test_visual_review_rejects_mislabeled_canonical_camera(tmp_path):
+    import json
+    import pytest
+
+    project, state, views = _current_review_fixture(tmp_path)
+    front = project / views["front"]
+    sidecar = front.with_suffix(".evidence.json")
+    evidence = json.loads(sidecar.read_text(encoding="utf-8"))
+    evidence["canonical_view"] = "rear"
+    sidecar.write_text(json.dumps(evidence), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="host-certified canonical front"):
+        submit_visual_review(project, state, {
+            "views": views,
+            "critique": "NEEDS_FIX: NO\n<assessment>Looks aligned.</assessment>",
+        })
