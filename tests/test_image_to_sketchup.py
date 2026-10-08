@@ -80,7 +80,9 @@ def test_reconstruction_execution_is_coding_first() -> None:
 
     assert "reconstruction coding agent" in developer
     assert "persistent workspace Ruby" in developer
-    assert "SAIE only as a helper" in developer
+    assert "single writer" in developer
+    assert "sketchup_submit_visual_review" in developer
+    assert "saie_wall_with_openings" in developer
     assert "Do not ask for approval again" in developer
     assert "Execute the persistent Ruby now" in developer
     assert "never separate user approval gates" in developer
