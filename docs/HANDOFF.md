@@ -1,3 +1,22 @@
+## Remote Quality Loop v2 / OSS gap review — 2026-10-08
+
+Reviewed Codex's real Windows delivery at `13c9544`. Accepted the engineering conclusions: 249 passed/2 skipped, real DeepSeek→SketchUp chain, replay, bound-file save, web download, native reopen/edit/readback all materially improved; both reconstruction outputs remain visually PARTIAL and the independent review overrides Agent optimism. v1 also proved that deterministic receipts are execution-consistency evidence, not topology/source-fidelity evidence.
+
+Compared current code again against pinned 3DCodeBench `42c7780`, dcc-mcp-sketchup `b798183`, SAIE `eff6f41`, SketchUp Agent Harness `e431eef`, Stultus `bfb0c01` and ArchFlow Studio `6438b9a`. The main gaps were implementation-level: K Studio had the critic parser without upstream's actually-wired critique loop; mutating routes outside ProjectRuby could bypass the DCC-style contract; facade openings still used segmented wall construction despite SAIE's mature combined-cutter pattern; visual QA prose lacked a machine-validated current-revision manifest.
+
+Quality Loop v2 implements the cloud-safe corrections:
+- reconstruction profile is now single-writer: ProjectRuby only; direct SAIE mutators and Kongxing transform/undo are hidden while read-only helpers remain;
+- `sketchup_submit_visual_review` validates exactly six distinct current-revision captures and persists structured review provenance/issues/KEEP;
+- LiteLLM/DeepSeek host now nudges and gates build→review→targeted correction→review instead of accepting a final answer immediately; second write requires a validated review and total writer budget remains bounded;
+- vendored MIT SAIE `opening.rb#batch_cut` geometry pattern as root-scoped `saie_wall_with_openings` (one combined cutter + one subtract), without upstream global model/transaction/registry code;
+- added regressions for stale visual evidence, writer receipts, single-writer surface, review-between-writes and host quality-gate behavior; updated provenance and Skill guidance.
+
+This remote environment cannot run GitHub checkout/tests or SketchUp: container network cannot resolve GitHub and no Windows/SU host exists. Therefore no PASS is claimed for the new code or batch-opening geometry. `docs/CURRENT_TASK.md` now defines the exact local Codex validation. First local goal is a real SU2024 wall-with-3-openings smoke, then a fresh whole-six-view DeepSeek run with the host-enforced current-view loop and ≤3 writer commits. If the same-model critic remains over-optimistic after this enforcement, next architecture step is a dedicated read-only critic call using only source + current six views + compact structured facade schedule; do not add more writer agents.
+
+See `docs/OSS_GAP_REVIEW_2026-10-08.md` for upstream-by-upstream gap/effect analysis.
+
+---
+
 ## Windows Modeling Quality Loop v1 actual handoff — 2026-10-08
 
 Pulled clean `2a80973`, read current task/guardrails/quality-loop instructions, started the current Windows product and reused SketchUp 2024.0.484/Kongxing/DeepSeek. Saved DPAPI Key restored across controlled restarts and real paid calls, no re-entry/readback of the secret. Python3.12.2, Windows11 build22000, Node24.19.0, PyInstaller6.22.3. Latest desktop package rebuilt/installed with data and shortcut preserved; source web service performed paid tests, not a clean-PC/frozen-EXE paid certification.
