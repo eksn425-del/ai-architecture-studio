@@ -10,6 +10,13 @@ from typing import Any
 
 from .agent_tools import AgentToolSurface
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
+from .modeling_quality import (
+    CANONICAL_REVIEW_VIEWS,
+    build_visual_critic_prompt,
+    load_facade_schedule,
+    parse_visual_critique_response,
+    submit_visual_review,
+)
 from .reference_assets import discover_project_reference_images, image_data_url, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
@@ -18,6 +25,22 @@ from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_cate
 def requires_responses_tools(model: str) -> bool:
     # Official GPT-6 docs: Chat Completions supports conversation, not tools.
     return model.removeprefix("openai/") in {"gpt-6.1-sol", "gpt-6-astra"}
+
+
+def _completion_with_transport(completion: Any, kwargs: dict[str, Any], selected_model: str) -> Any:
+    """Use the same explicit DeepSeek proxy policy for builder and independent critic calls."""
+    api_base = str(kwargs.get("api_base") or "")
+    if selected_model.startswith("deepseek/") and api_base.rstrip("/") == "https://api.deepseek.com":
+        import httpx
+        from litellm.llms.custom_httpx.http_handler import HTTPHandler
+
+        proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
+        if proxy_setting not in {"", "0", "1", "false", "true"}:
+            raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
+        trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
+        with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
+            return completion(**kwargs, client=HTTPHandler(client=direct_client))
+    return completion(**kwargs)
 
 
 class LiteLLMRuntime:
@@ -191,6 +214,130 @@ class LiteLLMRuntime:
         quality_gate_nudges = 0
         max_quality_gate_nudges = 6
 
+
+        def run_independent_visual_critic(builder_receipt: dict[str, Any]) -> dict[str, Any]:
+            """Fresh no-tools visual judge modeled on 3DCodeBench's separated critic pass."""
+            nonlocal input_tokens, output_tokens
+            source_labels = [path.relative_to(project_dir).as_posix() for path in reference_images]
+            schedule = load_facade_schedule(project_dir)
+            system = build_visual_critic_prompt(source_labels, CANONICAL_REVIEW_VIEWS)
+            system += (
+                "\nYou are an INDEPENDENT host critic, not the Builder. Do not trust the Builder's self-review, "
+                "tool success, filenames, or prose. Use only the attached source evidence, the CURRENT six SketchUp captures, "
+                "and the compact facade schedule when supplied. Do not call tools and do not emit code. "
+                "If evidence is insufficient or contradictory, use NEEDS_FIX: YES rather than guessing a PASS."
+            )
+            content: list[dict[str, Any]] = [{
+                "type": "text",
+                "text": (
+                    "Independent visual acceptance pass. The facade schedule is advisory structured evidence; "
+                    "user_confirmed entries outrank inferred entries.\n"
+                    + ("Facade schedule:\n" + json.dumps(schedule, ensure_ascii=False)[:12000] if schedule else "Facade schedule: unavailable.")
+                ),
+            }]
+            for index, image_path in enumerate(reference_images, 1):
+                content.append({"type": "text", "text": f"SOURCE {index}: {image_path.name}"})
+                content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
+            for view_name in CANONICAL_REVIEW_VIEWS:
+                view_info = builder_receipt.get("views", {}).get(view_name, {})
+                relative = view_info.get("path") if isinstance(view_info, dict) else None
+                if not isinstance(relative, str):
+                    raise ValueError(f"Independent critic is missing current {view_name} evidence.")
+                image_path = (project_dir / relative).resolve()
+                if not image_path.is_file() or not image_path.is_relative_to(project_dir.resolve()):
+                    raise ValueError(f"Independent critic cannot read current {view_name} evidence.")
+                content.append({"type": "text", "text": f"CURRENT SKETCHUP {view_name.upper()}: {relative}"})
+                content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
+
+            critic_kwargs: dict[str, Any] = {
+                "model": selected_model,
+                "messages": [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": content},
+                ],
+                "api_key": api_key,
+                "timeout": 240,
+                "max_retries": 0,
+                "num_retries": 0,
+            }
+            if self.api_base:
+                critic_kwargs["api_base"] = self.api_base
+            if selected_model.startswith("zai/"):
+                critic_kwargs["allowed_openai_params"] = ["max_retries"]
+            if reasoning_effort in {"low", "high", "max"}:
+                if selected_model.startswith("zai/"):
+                    critic_kwargs["extra_body"] = {"thinking": {"type": "enabled"}, "reasoning_effort": reasoning_effort}
+                else:
+                    critic_kwargs["reasoning_effort"] = reasoning_effort
+                if selected_model.startswith("deepseek/"):
+                    critic_kwargs["extra_body"] = {"reasoning_effort": reasoning_effort}
+
+            critic_started = time.monotonic()
+            record({
+                "event": "independent_visual_critic_started",
+                "model": selected_model,
+                "source_images": len(reference_images),
+                "review_views": len(CANONICAL_REVIEW_VIEWS),
+                "schedule_present": bool(schedule),
+            })
+            reviewer_status = "ok"
+            try:
+                critic_response = _completion_with_transport(completion, critic_kwargs, selected_model)
+                critic_usage = _usage_from_response(critic_response)
+                input_tokens = (input_tokens or 0) + critic_usage[0] if critic_usage[0] is not None else input_tokens
+                output_tokens = (output_tokens or 0) + critic_usage[1] if critic_usage[1] is not None else output_tokens
+                critic_text = _message_content(_response_message(critic_response))
+                parsed = parse_visual_critique_response(critic_text)
+                if parsed.malformed or parsed.needs_fix is None:
+                    raise ValueError("Independent critic returned an unparseable quality envelope.")
+                record({
+                    "event": "independent_visual_critic_response",
+                    "model": selected_model,
+                    "latency_ms": round((time.monotonic() - critic_started) * 1000),
+                    "input_tokens": critic_usage[0],
+                    "output_tokens": critic_usage[1],
+                    "needs_fix": parsed.needs_fix,
+                    "issue_count": len(parsed.issues),
+                })
+            except Exception as error:
+                reviewer_status = "failed"
+                safe_error = str(error).replace(api_key, "[credential hidden]")[:1000]
+                record({
+                    "event": "independent_visual_critic_failed",
+                    "model": selected_model,
+                    "latency_ms": round((time.monotonic() - critic_started) * 1000),
+                    "detail": safe_error,
+                })
+                critic_text = (
+                    "NEEDS_FIX: YES\n"
+                    "<assessment>Independent host critic could not produce a valid review; visual acceptance remains pending.</assessment>\n"
+                    "<issue priority=\"1\" view=\"unspecified\">problem: independent visual review unavailable\n"
+                    "action: stop geometry writes and report PARTIAL until the critic can review current evidence</issue>\n"
+                    "<keep>current verified geometry</keep>"
+                )
+
+            review_args = {
+                "views": {
+                    name: builder_receipt["views"][name]["path"]
+                    for name in CANONICAL_REVIEW_VIEWS
+                },
+                "critique": critic_text,
+                "reviewer": {
+                    "kind": "independent_host_critic",
+                    "status": reviewer_status,
+                    "provider": self.provider_name,
+                    "model": selected_model,
+                },
+            }
+            independent = submit_visual_review(project_dir, ruby_state or {}, review_args)
+            independent["builder_self_review"] = {
+                "needs_fix": builder_receipt.get("needs_fix"),
+                "assessment": builder_receipt.get("assessment"),
+            }
+            quality_file = project_dir / "runtime" / "agent_workspace" / "qa" / "visual_review.json"
+            quality_file.write_text(json.dumps(independent, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            return independent
+
         def interrupted(detail: str) -> NativeAgentUnavailable:
             # Preserve real usage/checkpoint state even when a bounded turn stops.
             save_history()
@@ -243,19 +390,7 @@ class LiteLLMRuntime:
                 request_started = time.monotonic()
                 record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
                     "context_messages": len(request_messages), "redundant_images_removed": _image_count(messages) - _image_count(request_messages)})
-                # Desktop can avoid stale proxies; managed cloud hosts need their
-                # injected proxy and CA settings. Never retry by bypassing policy.
-                if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
-                    import httpx
-                    from litellm.llms.custom_httpx.http_handler import HTTPHandler
-                    proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
-                    if proxy_setting not in {"", "0", "1", "false", "true"}:
-                        raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
-                    trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
-                    with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
-                        response = completion(**kwargs, client=HTTPHandler(client=direct_client))
-                else:
-                    response = completion(**kwargs)
+                response = _completion_with_transport(completion, kwargs, selected_model)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
                 record({"event": "provider_failed", "model": selected_model, "detail": safe_error[:1000]})
@@ -348,6 +483,18 @@ class LiteLLMRuntime:
                     if name not in allowed:
                         raise MCPCallError("The agent requested a tool outside this turn's Kongxing MCP allowlist.")
                     output = tool_context.dispatch(name, arguments)
+                    if (
+                        name == "sketchup_submit_visual_review"
+                        and output.get("success") is not False
+                        and isinstance(output.get("visual_review"), dict)
+                    ):
+                        independent_review = run_independent_visual_critic(output["visual_review"])
+                        tool_context.quality_state["review"] = independent_review
+                        output["visual_review"] = independent_review
+                        output["contentItems"] = [{
+                            "type": "inputText",
+                            "text": json.dumps({"visual_review": independent_review}, ensure_ascii=False),
+                        }]
                     if output.get("success") is False or output.get("isError") is True:
                         failed_tool_calls += 1
                 except (ConnectorUnavailable, MCPCallError, OSError, ValueError, RuntimeError) as error:
