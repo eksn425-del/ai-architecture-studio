@@ -20,6 +20,7 @@ from .modeling_quality import (
     load_facade_schedule,
     parse_visual_critique_response,
     validate_visual_review_views,
+    validate_source_matched_pairs,
 )
 from .reference_assets import discover_project_reference_images, image_data_url, reference_image_label
 from .reconstruction_evidence import fidelity_contract_summary, load_reconstruction_evidence
@@ -179,11 +180,15 @@ class LiteLLMRuntime:
                     return completion(**request_kwargs, client=HTTPHandler(client=direct_client))
             return completion(**request_kwargs)
 
-        def run_dedicated_visual_critic(views: Any) -> tuple[str, tuple[int | None, int | None]]:
+        def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None]]:
             """Critique trusted current views in a clean context, separate from the Builder."""
             if not isinstance(ruby_state, dict):
                 raise ValueError("Dedicated visual critic requires current writer state.")
-            _, _, review_paths = validate_visual_review_views(project_dir, ruby_state, views)
+            views = review_arguments.get("views")
+            current_revisions, _, review_paths = validate_visual_review_views(project_dir, ruby_state, views)
+            matched_pairs = validate_source_matched_pairs(
+                project_dir, current_revisions, review_arguments.get("evidence_pairs")
+            )
             if not reference_images:
                 raise ValueError("Dedicated visual critic requires at least one source reference image.")
 
@@ -220,6 +225,15 @@ class LiteLLMRuntime:
                 image_path = review_paths[view_name]
                 content.append({"type": "text", "text": f"CURRENT {view_name}: {image_path.name}"})
                 content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
+            for index, pair in enumerate(matched_pairs, 1):
+                source_path = project_dir / pair["source_ref"]
+                current_path = project_dir / pair["current_view"]
+                content.append({
+                    "type": "text",
+                    "text": f"SOURCE-MATCH PAIR {index} ({pair.get('label') or 'detail'}): compare this SOURCE directly to the following CURRENT camera/detail.",
+                })
+                content.append({"type": "image_url", "image_url": {"url": image_data_url(source_path)}})
+                content.append({"type": "image_url", "image_url": {"url": image_data_url(current_path)}})
 
             critic_kwargs: dict[str, Any] = {
                 "model": selected_model,
@@ -251,6 +265,7 @@ class LiteLLMRuntime:
                 "review_views": list(CANONICAL_REVIEW_VIEWS),
                 "facade_schedule": bool(schedule),
                 "fidelity_mode": (reconstruction_evidence or {}).get("fidelity_mode", "pending"),
+                "source_matched_pairs": len(matched_pairs),
             })
             try:
                 response = invoke_completion(critic_kwargs)
@@ -457,7 +472,7 @@ class LiteLLMRuntime:
                         and workflow_mode == "image_reconstruction"
                         and tool_profile == "reconstruction_coding"
                     ):
-                        critic_text, critic_usage = run_dedicated_visual_critic(arguments.get("views"))
+                        critic_text, critic_usage = run_dedicated_visual_critic(arguments)
                         input_tokens = (input_tokens or 0) + critic_usage[0] if critic_usage[0] is not None else input_tokens
                         output_tokens = (output_tokens or 0) + critic_usage[1] if critic_usage[1] is not None else output_tokens
                         arguments = dict(arguments)
