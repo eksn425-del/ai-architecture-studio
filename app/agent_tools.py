@@ -419,7 +419,9 @@ class AgentToolSurface:
             project_ruby.adapter.set_camera(camera["eye_m"], camera["target_m"], camera["up_m"])
             output_path = project_dir / "outputs" / "renders" / f"agent-view-{view_name}-{uuid.uuid4().hex[:10]}.png"
             output_path.parent.mkdir(parents=True, exist_ok=True)
-            project_ruby.adapter.capture_view(output_path, width=1500, height=950, zoom_extents=True)
+            # Keep the host-set direction/target stable; a connector-side zoom_extents
+            # may rewrite the camera after we have certified its role.
+            project_ruby.adapter.capture_view(output_path, width=1500, height=950, zoom_extents=False)
             project_ruby.refresh_active_model_snapshot()
             if output_path.is_symlink() or not output_path.is_file():
                 raise MCPCallError("SketchUp did not write the canonical review screenshot.")
