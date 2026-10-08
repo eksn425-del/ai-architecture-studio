@@ -83,13 +83,17 @@ Add glazing/doors/mullions, balcony slabs/rails, louvers, soffits/piers/parapets
 
 Build one representative repeated module correctly, inspect it, then instance/array it from shared parameters. Prefer components/instances and clear semantic names over loose faces. Real visible openings/depth should be geometric, not faked only with color.
 
-## Method card F — Pass 3: visual QA and correction
+## Method card F — Pass 3: bounded visual critic and correction
 
-Capture source-matched and oblique views. Compare silhouette, floors, bays, voids/depth, modules/materials/details.
+Treat visual QA as a separate read-only job after the writer finishes a pass. Compare the SOURCE evidence first, then only CURRENT screenshots from the latest revision. Tool success, a nonempty root, a successful save, or a clean Ruby return is not visual success.
 
-State mismatches, revise persistent scripts/model and recapture; tool success is not completion.
+For multi-angle delivery, inspect front / rear / left / right / roof / oblique. Use source-matched framing where available. Write the current result to qa/visual_qa.md using the same compact envelope as the quality helper: NEEDS_FIX: YES|NO, a brief assessment, at most THREE highest-impact mismatches, and a KEEP list of already-correct geometry that the next patch must preserve.
 
-Report panel → observed feature/count → actual model → mismatch/action. Unreviewed details stay pending; code intentions are not visual checks. Integrate successful fixes into the persistent baseline/replay entrypoint so rerunning cannot resurrect defects. Incremental moves are not idempotent builders.
+Prioritize silhouette, storeys/bays, opening count/position, void/recess/projection depth, roof/parapet, major material zones and obvious intersections. Do not spend the correction budget on micro-detail while a high-impact mismatch remains. The critic does not write Ruby. The Builder owns all geometry changes.
+
+When NEEDS_FIX is YES, make a targeted edit against the named affected groups, recapture fresh views and re-critic. Do at most two targeted correction rounds in one turn. If blocking mismatches remain, report them as pending instead of claiming completion. When NEEDS_FIX is NO, still require the deterministic post-write verification receipt and current screenshot evidence.
+
+Report panel/view → observed source fact → actual model → mismatch/action. Integrate successful fixes into the persistent baseline/replay entrypoint so rerunning cannot resurrect defects. Incremental moves are not idempotent builders.
 
 Match source framing; target the building rather than zooming to the entire site. Inspect close oblique roof/wall junctions and openings. A roof cap hiding the parapet and remaining coplanar seams are defects regardless of code intentions. After geometry edits capture new views; older views are historical. Use actual tool-returned image paths and saved SKP artifacts, never invented QA names or an unsaved active blank-model path.
 
