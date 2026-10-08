@@ -267,3 +267,85 @@ def test_runtime_requires_visual_review_between_committed_writes(tmp_path, monke
     context.dispatch("sketchup_run_workspace_ruby", {})
     assert context.quality_state["writes"] == 2
     assert context.quality_state["review"] is None
+
+
+
+def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkeypatch):
+    import json
+    import sys
+    from types import ModuleType, SimpleNamespace
+
+    from app.agent_tools import AgentToolContext
+    from app.litellm_runtime import LiteLLMRuntime
+
+    quality = {"writes": 1, "write_limit": 1, "review": None}
+    tool = {
+        "type": "function",
+        "name": "sketchup_submit_visual_review",
+        "description": "read only review",
+        "inputSchema": {"type": "object", "properties": {}},
+    }
+
+    def dispatch(name, arguments):
+        assert name == "sketchup_submit_visual_review"
+        quality["review"] = {"needs_fix": True, "quality_status": "needs_fix"}
+        return {"success": True, "contentItems": [{"type": "inputText", "text": "review stored"}]}
+
+    runtime = LiteLLMRuntime(tmp_path, model="openai/test-model")
+    runtime.session_api_key = "test-only"
+    monkeypatch.setattr(
+        runtime.tool_surface,
+        "prepare",
+        lambda **kwargs: AgentToolContext([tool], dispatch, quality),
+    )
+
+    calls = []
+    module = ModuleType("litellm")
+
+    def completion(**kwargs):
+        calls.append(kwargs["messages"])
+        if len(calls) == 1:
+            return SimpleNamespace(
+                choices=[SimpleNamespace(message={"content": "我完成了。", "tool_calls": None})],
+                usage={},
+            )
+        if len(calls) == 2:
+            assert any(
+                m.get("role") == "user" and "HOST QUALITY GATE" in str(m.get("content"))
+                for m in kwargs["messages"]
+            )
+            return SimpleNamespace(
+                choices=[SimpleNamespace(message={
+                    "content": None,
+                    "tool_calls": [{
+                        "id": "review-1",
+                        "function": {
+                            "name": "sketchup_submit_visual_review",
+                            "arguments": json.dumps({}),
+                        },
+                    }],
+                })],
+                usage={},
+            )
+        return SimpleNamespace(
+            choices=[SimpleNamespace(message={"content": "仍有问题。", "tool_calls": None})],
+            usage={},
+        )
+
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, "litellm", module)
+    result = runtime.respond(
+        project_dir=tmp_path,
+        thread_id=None,
+        prompt="execute",
+        mcp_enabled=True,
+        developer_instructions="builder",
+        model_path=tmp_path / "blank.skp",
+        model_guid="fixture",
+        ruby_state={"villa": {"revision": 1}},
+        workflow_mode="image_reconstruction",
+        tool_profile="reconstruction_coding",
+    )
+    assert len(calls) == 3
+    assert "PARTIAL" in result.reply
+    assert quality["review"]["needs_fix"] is True
