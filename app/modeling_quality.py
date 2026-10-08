@@ -339,11 +339,25 @@ def validate_visual_review_views(
                 f"{view_name} screenshot is stale: expected revisions "
                 f"{current_revisions}, captured {evidence_revisions}."
             )
+        if evidence.get("camera_contract_version") != 1 or evidence.get("canonical_view") != view_name:
+            raise ValueError(
+                f"{view_name} screenshot is not a host-certified canonical {view_name} capture. "
+                "Use sketchup_capture_canonical_view for quality-gate front/rear/left/right/roof/oblique evidence."
+            )
+        camera = evidence.get("camera")
+        if not isinstance(camera, dict) or not all(
+            isinstance(camera.get(key), list) and len(camera[key]) == 3
+            for key in ("eye_m", "target_m", "up_m")
+        ):
+            raise ValueError(f"{view_name} canonical screenshot is missing camera provenance.")
         resolved_views[view_name] = {
             "path": image_path.relative_to(project_dir).as_posix(),
             "width": evidence.get("width"),
             "height": evidence.get("height"),
             "model_revisions": evidence_revisions,
+            "canonical_view": evidence.get("canonical_view"),
+            "canonical_script_id": evidence.get("canonical_script_id"),
+            "camera": camera,
         }
         image_paths[view_name] = image_path
     return current_revisions, resolved_views, image_paths
