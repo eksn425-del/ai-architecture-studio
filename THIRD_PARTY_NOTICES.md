@@ -8,6 +8,12 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - `marlinBian/sketchup-agent-harness`, MIT, revision `e431eef6c9a9ee73a611fd68952a6aaa78566b12`: selected project-memory guardrails from `skills/project-runtime-memory/SKILL.md`.
 - Excerpts and both upstream licenses are bundled under `app/vendor/sketchup_runtime_skills/`, loaded by the image reconstruction Skill. Local compatibility text clarifies that the host owns Undo and our persistent card/Ruby remain the project representation. Upstream plugin setup, strict method-length requirements and mandatory `design_model.json` are not adopted. The upstream `safe_offset` example is excluded: `Edge#line` is a point/vector pair, while `Array#offset` offsets a point by a vector, not a line by a scalar. These excerpts are guidance, not evidence that image reconstruction quality passed.
 
+## Modeling quality loop sources
+
+- gaoypeng/3dcodebench, Apache-2.0, inspected revision 42c7780ed3fcbd466f17f058f62e7996233777f7: K Studio adapts the bounded visual-critique response/parse pattern from core/visual_critique.py, but changes the critic into a read-only architectural reviewer that returns at most three targeted mismatches and a KEEP list. The upstream benchmark/provider stack is not vendored.
+- dcc-mcp/dcc-mcp-sketchup, MIT, inspected revision b7981838eca24996e7e9c2959af1463162022f66: K Studio adapts the post-write expected/actual read-back contract from src/dcc_mcp_sketchup/write_contract.py. K Studio keeps its existing Kongxing transport and performs a post-commit owned-root readback because the current bridge does not yet expose the upstream adapter's pre-commit verification hook.
+- The corresponding upstream license texts and provenance note are bundled under app/vendor/modeling_quality_sources/. These adaptations do not imply that K Studio has passed real SketchUp visual acceptance; Windows host validation remains required.
+
 ## Local desktop shell
 
 - pywebview 6.2.1 (`r0x0r/pywebview`): BSD license; adopted as a thin native WebView shell around the existing FastAPI/frontend, without copying competitor UI source.
