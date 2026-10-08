@@ -101,4 +101,9 @@ def test_reconstruction_tool_profile_is_small_and_coding_first(tmp_path: Path) -
     assert not any(name.startswith("archflow__") for name in names)
     assert "sketchup_run_workspace_ruby" in names
     assert "sketchup_submit_visual_review" in names
+    review_tool = next(item for item in surface.dynamic_tools(
+        ruby_enabled=True, tool_profile="reconstruction_coding"
+    ) if item["name"] == "sketchup_submit_visual_review")
+    assert review_tool["inputSchema"]["required"] == ["views"]
+    assert "critique" in review_tool["inputSchema"]["properties"]
     assert "sketchup_run_project_ruby" not in names
