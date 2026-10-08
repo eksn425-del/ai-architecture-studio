@@ -1,3 +1,15 @@
+# Quality Loop v2.3 addendum — compact active state, full audit retained
+
+The Windows v1 evidence also exposed a cost/latency gap that the earlier visual-loop changes did not solve: later Builder calls still replayed huge amounts of completed tool/chat history. Upstream 3DCodeBench keeps the last good artifact and supplies only the evidence required for the next attempt; SketchUp Agent Harness similarly separates durable project memory from transient execution logs.
+
+v2.3 therefore keeps full provider-session history on disk but compacts large active reconstruction requests after the planner has externalized real facts into project state. The active checkpoint contains the reconstruction card, validated facade schedule, current ProjectRuby identities/revisions/verification state and latest visual review. The current real user message and the entire current-turn tool protocol remain intact.
+
+This change is intentionally conservative: compaction is disabled before the facade schedule has meaningful signal, current source images are retained preferentially over historical duplicates, and event logs expose before/after context size. It must prove on a real DeepSeek/SU run that token use drops without losing user-confirmed source facts.
+
+The structured schedule is also now schema/type/provenance validated. This follows the Agent Harness lesson that project-local memory can guide later turns, but machine-checkable facts should not be stored as unchecked prose.
+
+---
+
 # Quality Loop v2.1 addendum — dedicated read-only critic
 
 After the v2 wiring review, one material 3DCodeBench gap remained: the Builder still authored its own `NEEDS_FIX` verdict inside the same long tool context. Upstream 3DCodeBench runs critique as a separate provider call over the source/render evidence, then feeds only the resulting FIX/DONE guidance back into the writer loop.
