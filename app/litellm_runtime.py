@@ -13,6 +13,7 @@ from .native_agent import AgentTurnResult, NativeAgentUnavailable
 from .modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
     build_visual_critic_prompt,
+    load_facade_schedule,
     parse_visual_critique_response,
     validate_visual_review_views,
 )
@@ -211,11 +212,15 @@ class LiteLLMRuntime:
                 [p.name for p in critic_sources],
                 CANONICAL_REVIEW_VIEWS,
             )
+            schedule = load_facade_schedule(project_dir)
             content: list[dict[str, Any]] = [{
                 "type": "text",
                 "text": (
                     "SOURCE images come first. CURRENT SketchUp review images follow in canonical order. "
-                    "Judge only visible source fidelity. Do not infer success from tool logs, code, receipts or prior prose."
+                    "Judge visible source fidelity independently from the Builder. Do not infer success from tool logs, code, receipts or prior prose. "
+                    "The compact facade schedule below is source-facing project evidence: user_confirmed facts outrank observed estimates; inferred facts are advisory and may be wrong.\n"
+                    + ("FACADE_SCHEDULE:\n" + json.dumps(schedule, ensure_ascii=False)[:12000]
+                       if schedule else "FACADE_SCHEDULE: unavailable")
                 ),
             }]
             for index, image_path in enumerate(critic_sources, 1):
@@ -254,6 +259,7 @@ class LiteLLMRuntime:
                 "model": selected_model,
                 "source_images": len(critic_sources),
                 "review_views": list(CANONICAL_REVIEW_VIEWS),
+                "facade_schedule": bool(schedule),
             })
             try:
                 response = invoke_completion(critic_kwargs)
