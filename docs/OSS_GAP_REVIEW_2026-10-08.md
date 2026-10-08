@@ -1,3 +1,22 @@
+# Quality Loop v2.1 addendum — dedicated read-only critic
+
+After the v2 wiring review, one material 3DCodeBench gap remained: the Builder still authored its own `NEEDS_FIX` verdict inside the same long tool context. Upstream 3DCodeBench runs critique as a separate provider call over the source/render evidence, then feeds only the resulting FIX/DONE guidance back into the writer loop.
+
+v2.1 now mirrors that separation on the LiteLLM/DeepSeek route:
+
+- the Builder only supplies the six actual current-revision `agent-view` paths;
+- before any critic image is read, the host reuses the same trusted path/revision/writer-receipt validator used by `submit_visual_review`;
+- the host opens a **separate compact provider call** with source image(s) first and exactly the six current views after them, no geometry tools and no Builder/tool-history context;
+- the dedicated response must parse as the bounded `NEEDS_FIX` envelope; the host replaces any Builder-authored verdict and records reviewer provenance in the persisted receipt;
+- critic token usage is accumulated in the turn metrics and explicit `visual_critic_started` / `visual_critic_response` events are logged;
+- the existing single-writer / review-between-writes / max-three-writes gate remains unchanged.
+
+This is closer to 3DCodeBench's actual execution architecture and also isolates visual judgment from the multi-million-token Builder history. It does **not** yet solve Builder-context growth; semantic compaction remains the next cost/latency task after the real Windows quality loop passes.
+
+The real SU2024 validation is still mandatory: SAIE batch openings must prove they remove wall seams, and the dedicated critic must be checked against human inspection to ensure it does not simply produce a cleaner but still over-optimistic verdict.
+
+---
+
 # OSS Gap Review & Quality Loop v2 — 2026-10-08
 
 ## Current product verdict
