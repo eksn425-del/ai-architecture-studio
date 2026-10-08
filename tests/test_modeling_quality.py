@@ -170,6 +170,7 @@ def test_visual_review_receipt_requires_all_current_six_views(tmp_path):
     project, state, views = _current_review_fixture(tmp_path)
     receipt = submit_visual_review(project, state, {
         "views": views,
+        "reviewer": {"kind": "independent_host_critic", "status": "ok", "provider": "fixture", "model": "fixture-vl"},
         "critique": (
             "NEEDS_FIX: YES\n"
             "<assessment>Roof remains too heavy.</assessment>\n"
@@ -182,6 +183,8 @@ def test_visual_review_receipt_requires_all_current_six_views(tmp_path):
     assert receipt["quality_status"] == "needs_fix"
     assert set(receipt["views"]) == set(CANONICAL_REVIEW_VIEWS)
     assert receipt["model_revisions"] == {"villa": 3}
+    assert receipt["reviewer"]["kind"] == "independent_host_critic"
+    assert receipt["reviewer"]["status"] == "ok"
     assert (project / "runtime/agent_workspace/qa/visual_review.json").is_file()
     assert "NEEDS_FIX: YES" in (project / "runtime/agent_workspace/qa/visual_qa.md").read_text(encoding="utf-8")
 
@@ -349,3 +352,140 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
     assert len(calls) == 3
     assert "PARTIAL" in result.reply
     assert quality["review"]["needs_fix"] is True
+
+
+def test_litellm_independent_critic_overrides_builder_self_review(tmp_path, monkeypatch):
+    import json
+    import sys
+    from types import ModuleType, SimpleNamespace
+
+    from PIL import Image
+
+    from app.agent_tools import AgentToolContext
+    from app.litellm_runtime import LiteLLMRuntime
+
+    project = tmp_path / "project"
+    source = project / "inputs" / "reference" / "source.png"
+    source.parent.mkdir(parents=True, exist_ok=True)
+    Image.new("RGB", (20, 20), (200, 200, 200)).save(source)
+
+    render_dir = project / "outputs" / "renders"
+    render_dir.mkdir(parents=True, exist_ok=True)
+    state = {
+        "villa": {
+            "revision": 1,
+            "last_verification": {
+                "verified": True,
+                "checks": [{"check": "revision", "expected": 1, "actual": 1}],
+            },
+        }
+    }
+    views = {}
+    for index, view in enumerate(CANONICAL_REVIEW_VIEWS):
+        image = render_dir / f"agent-view-{index:010d}.png"
+        Image.new("RGB", (20, 20), (10 + index, 20, 30)).save(image)
+        image.with_suffix(".evidence.json").write_text(json.dumps({
+            "path": image.relative_to(project).as_posix(),
+            "width": 20,
+            "height": 20,
+            "quality_status": "not_accepted",
+            "model_revisions": {"villa": 1},
+        }), encoding="utf-8")
+        views[view] = image.relative_to(project).as_posix()
+
+    quality = {"writes": 1, "write_limit": 3, "review": None}
+    review_tool = {
+        "type": "function",
+        "name": "sketchup_submit_visual_review",
+        "description": "submit current views",
+        "inputSchema": {"type": "object", "properties": {}},
+    }
+
+    def dispatch(name, arguments):
+        assert name == "sketchup_submit_visual_review"
+        builder = submit_visual_review(project, state, arguments)
+        quality["review"] = builder
+        return {
+            "success": True,
+            "visual_review": builder,
+            "contentItems": [{"type": "inputText", "text": json.dumps({"visual_review": builder})}],
+        }
+
+    runtime = LiteLLMRuntime(tmp_path, model="openai/test-model")
+    runtime.session_api_key = "test-only"
+    monkeypatch.setattr(
+        runtime.tool_surface,
+        "prepare",
+        lambda **kwargs: AgentToolContext([review_tool], dispatch, quality),
+    )
+
+    calls = []
+    module = ModuleType("litellm")
+
+    def completion(**kwargs):
+        calls.append(kwargs)
+        system = str(kwargs["messages"][0].get("content", ""))
+        if "INDEPENDENT host critic" in system:
+            assert "tools" not in kwargs
+            return SimpleNamespace(
+                choices=[SimpleNamespace(message={
+                    "content": (
+                        "NEEDS_FIX: NO\n"
+                        "<assessment>Independent source-to-current review finds no blocking mismatch.</assessment>\n"
+                        "<keep>overall massing\nopenings</keep>"
+                    )
+                })],
+                usage={"prompt_tokens": 11, "completion_tokens": 7},
+            )
+        if len([call for call in calls if "INDEPENDENT host critic" not in str(call["messages"][0].get("content", ""))]) == 1:
+            return SimpleNamespace(
+                choices=[SimpleNamespace(message={
+                    "content": None,
+                    "tool_calls": [{
+                        "id": "review-builder",
+                        "function": {
+                            "name": "sketchup_submit_visual_review",
+                            "arguments": json.dumps({
+                                "views": views,
+                                "critique": (
+                                    "NEEDS_FIX: YES\n"
+                                    "<assessment>Builder thinks roof is wrong.</assessment>\n"
+                                    "<issue priority=\"1\" view=\"roof\">problem: roof wrong\n"
+                                    "action: change roof</issue>\n"
+                                    "<keep>massing</keep>"
+                                ),
+                            }),
+                        },
+                    }],
+                })],
+                usage={"prompt_tokens": 5, "completion_tokens": 3},
+            )
+        return SimpleNamespace(
+            choices=[SimpleNamespace(message={"content": "完成独立审查。", "tool_calls": None})],
+            usage={"prompt_tokens": 4, "completion_tokens": 2},
+        )
+
+    module.completion = completion
+    monkeypatch.setitem(sys.modules, "litellm", module)
+
+    result = runtime.respond(
+        project_dir=project,
+        thread_id=None,
+        prompt="execute",
+        mcp_enabled=True,
+        developer_instructions="builder",
+        model_path=project / "outputs/model/blank-disposable-fixture.skp",
+        model_guid="fixture",
+        ruby_state=state,
+        workflow_mode="image_reconstruction",
+        tool_profile="reconstruction_coding",
+    )
+    review = json.loads((project / "runtime/agent_workspace/qa/visual_review.json").read_text(encoding="utf-8"))
+    assert result.reply == "完成独立审查。"
+    assert review["needs_fix"] is False
+    assert review["reviewer"]["kind"] == "independent_host_critic"
+    assert review["reviewer"]["status"] == "ok"
+    assert review["builder_self_review"]["needs_fix"] is True
+    assert quality["review"]["needs_fix"] is False
+    assert result.input_tokens == 20
+    assert result.output_tokens == 12
