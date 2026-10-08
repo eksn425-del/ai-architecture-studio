@@ -220,15 +220,15 @@ class AgentToolSurface:
                 tools.append(self._dynamic_tool(
                     "sketchup_submit_visual_review",
                     "READ-ONLY quality gate. After every committed reconstruction pass, capture six DISTINCT CURRENT "
-                    "agent-view PNGs for front, rear, left, right, roof and oblique, then submit the exact actual paths. "
-                    "On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
+                    "agent-view PNGs for front, rear, left, right, roof and oblique, then submit the exact actual paths plus the "
+                    "bounded fallback critique. On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
                     "those six validated current views and replaces any model-authored verdict before persisting the review. "
                     "Other runtimes may supply the same bounded NEEDS_FIX envelope as critique. The host rejects stale revision "
                     "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
                     "NEEDS_FIX:NO ends geometry writes for this turn.",
                     {
                         "type": "object",
-                        "required": ["views"],
+                        "required": ["views", "critique"],
                         "properties": {
                             "views": {
                                 "type": "object",
