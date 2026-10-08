@@ -34,9 +34,9 @@ def workflow_prompt_note(mode: WorkflowMode, action: AgentAction = "auto") -> st
         stage = (
             "This is a CLARIFICATION turn: inspect the reference image, identify only the high-impact unknowns that materially change the model, ask at most four concise questions, and do not edit SketchUp geometry."
             if action == "clarify" else
-            "This is a PARAMETER/PLAN turn: use the user's answers plus the image to update notes/reconstruction_card.md with explicit assumptions and estimated dimensions, propose a compact geometry plan, and do not edit SketchUp geometry."
+            "This is a PARAMETER/PLAN turn: use the user's answers plus the image to update notes/reconstruction_card.md and notes/facade_schedule.json with explicit assumptions, source-facing facade/roof facts and estimated dimensions, propose a compact geometry plan, and do not edit SketchUp geometry."
             if action == "plan" else
-            "This is an EXECUTION turn: use the approved reconstruction card/plan, author or revise persistent Ruby, build in the same disposable SketchUp model, inspect screenshots/readback, and correct visible mismatches before replying."
+            "This is an EXECUTION turn: use the approved reconstruction card/plan plus notes/facade_schedule.json, author or revise persistent Ruby, build in the same disposable SketchUp model, inspect screenshots/readback, and correct visible mismatches before replying."
             if action == "execute" else
             "Follow the reconstruction lifecycle: clarify important unknowns first, then parameterize/plan, then execute only after approval, and continue revisions on the same model/scripts."
         )
