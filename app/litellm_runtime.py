@@ -140,33 +140,10 @@ class LiteLLMRuntime:
             saved = json.loads(history_path.read_text(encoding="utf-8"))
             if saved.get("model") != selected_model or saved.get("region") != self.region:
                 raise NativeAgentUnavailable("Provider/model changed; start a new provider session explicitly.")
-            # Keep the CURRENT turn's source pixels authoritative. Historical
-            # copies of identical source images are removed instead of stripping
-            # the current images, so active-context compaction can safely discard
-            # old turns without losing the source evidence.
-            current_image_urls: set[str] = set()
-            if isinstance(user_content, list):
-                current_image_urls = {
-                    block.get("image_url", {}).get("url")
-                    for block in user_content
-                    if isinstance(block, dict) and block.get("type") == "image_url"
-                    and isinstance(block.get("image_url", {}).get("url"), str)
-                }
-            seen_images: set[str] = set()
-            for old_message in saved["messages"]:
-                content = old_message.get("content")
-                if isinstance(content, list):
-                    kept = []
-                    for block in content:
-                        url = block.get("image_url", {}).get("url") if block.get("type") == "image_url" else None
-                        if url and (url in current_image_urls or url in seen_images):
-                            if kept and kept[-1].get("type") == "text" and kept[-1].get("text", "").startswith("Source image "):
-                                kept.pop()
-                            continue
-                        if url:
-                            seen_images.add(url)
-                        kept.append(block)
-                    old_message["content"] = kept
+            # Keep saved provider history intact. Active-request filtering below
+            # walks messages newest-to-oldest, so the CURRENT turn's source
+            # pixels win and duplicate historical image blocks are omitted only
+            # on the wire, never deleted from the audit history.
             if skill:
                 # Migrate exact duplicated Skill text from pre-existing sessions.
                 for old_message in saved["messages"]:
