@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.1 — dedicated read-only critic — 2026-10-08
+
+Continued the OSS comparison after v2. The remaining architectural mismatch to 3DCodeBench was concrete: K Studio's Builder still supplied its own NEEDS_FIX verdict in the same long context, whereas 3DCodeBench separates visual critique from the writer run.
+
+Implemented a cloud-safe v2.1 refinement on the LiteLLM/DeepSeek route. The review tool now only needs the six current paths. The host validates those paths/revisions/writer receipts before reading pixels, invokes a separate compact provider call with source images + the six current views and no tools/history, parses the bounded critic response, replaces any Builder-authored verdict, and persists reviewer provenance. Critic usage is included in turn token totals and logged as separate critic events. Existing writer budget and review-between-writes gates remain intact.
+
+No SketchUp or paid provider run is claimed from this remote change. Local Codex must run the new tests, smoke the SAIE batch-opening helper on SU2024, then perform a fresh whole-six-view DeepSeek reconstruction and verify that the persisted review says `reviewer.mode=host_dedicated_read_only` and matches human inspection. If this succeeds, the next major engineering gap is Builder active-context compaction; if it fails visually, keep PARTIAL and add structured facade/roof constraints before adding more features.
+
+---
+
 ## Remote Quality Loop v2 / OSS gap review — 2026-10-08
 
 Reviewed Codex's real Windows delivery at `13c9544`. Accepted the engineering conclusions: 249 passed/2 skipped, real DeepSeek→SketchUp chain, replay, bound-file save, web download, native reopen/edit/readback all materially improved; both reconstruction outputs remain visually PARTIAL and the independent review overrides Agent optimism. v1 also proved that deterministic receipts are execution-consistency evidence, not topology/source-fidelity evidence.
