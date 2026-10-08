@@ -68,6 +68,15 @@ rejected { KStudioProfessionalHelpers.wall(root,params) }
 rejected { KStudioProfessionalHelpers.wall(root,params.merge('name'=>'bad','height_mm'=>-1)) }
 rejected { KStudioProfessionalHelpers.wall(root,params.merge('name'=>'bad','centerline'=>[[0,0],[0,0]])) }
 rejected { KStudioProfessionalHelpers.wall(root,params.merge('name'=>'bad','centerline'=>[[Float::INFINITY,0],[0,0]])) }
+wall_spec=KStudioSAIE._read_centerline(params)
+valid_openings=[{'offset_mm'=>1000,'width_mm'=>1200,'height_mm'=>1200,'sill_mm'=>900}]
+check(KStudioSAIEOpening.validate_openings!(wall_spec,valid_openings), 'Valid SAIE batch opening spec should pass')
+rejected { KStudioSAIEOpening.validate_openings!(wall_spec,[{'offset_mm'=>9500,'width_mm'=>1200,'height_mm'=>1200,'sill_mm'=>900}]) }
+rejected { KStudioSAIEOpening.validate_openings!(wall_spec,[{'offset_mm'=>1000,'width_mm'=>1200,'height_mm'=>4000,'sill_mm'=>0}]) }
+rejected { KStudioSAIEOpening.validate_openings!(wall_spec,[
+  {'offset_mm'=>1000,'width_mm'=>1200,'height_mm'=>1200,'sill_mm'=>900},
+  {'offset_mm'=>1500,'width_mm'=>1200,'height_mm'=>1200,'sill_mm'=>900}
+]) }
 wall.bounds=Bounds.new(Geom::Point3d.new(0,10,20),Geom::Point3d.new(40,60,80))
 snap=KStudioProfessionalHelpers.owned_snapshot(root)
 check(snap[:objects][0][:bounds_mm][:size]==[1016.0,1270.0,1524.0], 'Stultus XYZ must not swap SketchUp Y/Z bounding-box dimensions')
