@@ -1,3 +1,38 @@
+# 当前任务 — 2026-10-08 Quality Loop v2 / 单写者 + 真六视图审查
+
+ChatGPT 已审查 Windows Quality Loop v1 的真实证据：技术链、保存/重开/编辑/重放已明显成熟，但单图与六视图源图还原仍为 PARTIAL。v1 最大差距不是“再写更强 prompt”，而是 3DCodeBench 那种真正由 host 控制的 critique→fix→rerender 闭环没有接上；同时 reconstruction 仍暴露其它可写工具，会绕过 DCC 风格的统一 verification/write budget；墙体开洞仍以分段为主，造成明显接缝。
+
+本轮 GitHub 已实现 Quality Loop v2，详细对照见 `docs/OSS_GAP_REVIEW_2026-10-08.md`：
+
+1. reconstruction 只保留 ProjectRuby 作为几何 writer；直接 SAIE/Kongxing mutator 在该 profile 隐藏。
+2. 新增 `sketchup_submit_visual_review`：六张 DISTINCT 当前 revision 的 front/rear/left/right/roof/oblique `agent-view` 截图必须和当前 Ruby revisions 一致；写入 `qa/visual_review.json` / history / `visual_qa.md`。
+3. DeepSeek LiteLLM host 已接入真实质量门：writer 后不能直接结束；必须六视图 review。NEEDS_FIX 才允许下一次定向修正；每次写入后 review 失效并重做；仍保持首建+最多两次修正。
+4. 采用 SAIE pinned `eff6f41...` 的 batch-opening 源码思路，新增 root-scoped `saie_wall_with_openings`：一个 combined cutter + 一次 subtract，目标是消除当前别墅“窗洞由很多墙段拼出来”的可见接缝。尚未在真 SU2024 验收，不能宣称已修好。
+
+## Codex 下一步（必须本机执行）
+
+先 `git pull --ff-only` 并确认 main 为最新，再阅读：
+- `AGENTS.md`
+- `docs/OSS_GAP_REVIEW_2026-10-08.md`
+- `docs/test-results/windows/2026-10-08-quality-loop-v1/README.md`
+- `docs/EXECUTION_GUARDRAILS.md`
+
+然后：
+
+1. 跑新增定向测试和完整 `scripts/check.ps1`。若失败直接修，不要弱化断言。
+2. 在专用空白 SketchUp 2024 模型先做 `saie_wall_with_openings` 真机 smoke：直墙至少3个不同高程窗洞；确认一个连续 wall group、洞真实贯穿、无异常墙段接缝、bounds/receipt 正常。再补一个反向中心线或侧墙 smoke。若 SolidTools/subtract 在当前环境不可靠，保留旧 verified 模型并改成同一组内的连续面/洞 fallback，不要回到多组墙段拼接。
+3. 做一次新的 whole-six-view DeepSeek 正常用户重建。不要人工改几何；计划阶段只允许用户核对已知输入，不要人工给 Agent 精确修墙指令。
+4. 验证真实执行顺序是：primary writer → 六个 current captures → `sketchup_submit_visual_review` → NEEDS_FIX 时 targeted edit → 新六视图 review；第二个 writer 在没有 review 时必须被 host 拒绝。总 writer commits 不得超过3。
+5. 每一轮 review 检查 `qa/visual_review.json` 的路径、revision、writer receipt、≤3 issues、KEEP；禁止旧图、虚构文件名或“工具成功=质量通过”。
+6. 重点看 v1 的三类真实缺陷：立面墙缝/窗洞拓扑、屋顶分格和 parapet/capping、门窗比例/位置。修正必须尽量只动 affected named groups，记录 KEEP IDs 是否保持。
+7. 最终做新空白 baseline replay + web download/native reopen + 单对象编辑/save/reopen；记录 token/tool/latency，与 v1 六视图 4.92M input tokens / 40 tools 做对比。
+8. 若 host review 仍明显乐观，记录为证据，不要手工替它改成 PASS。下一步将拆出独立 read-only critic model call。
+9. 更新 `docs/HANDOFF.md`、`docs/CURRENT_TASK.md` 和新的 sanitized test-results；commit + push `origin/main`，确认远端 SHA。
+
+本轮验收核心：**不再只证明“能建模”，而是证明“每次写完都必须看当前真图、根据真图定向修、最多修两次，并且不能绕开 writer/verification”。**
+
+---
+
 # 当前任务 — 2026-10-08 Modeling Quality Loop v1 本机验收后继续
 
 最新本机执行从干净 `2a80973` 开始。**单图和完整六视图均真实生成了可编辑别墅，但视觉验收仍 PARTIAL，不可发布为质量通过。** 云端下一位先审查 [本轮公开报告/当前截图/对象ID/回执/重放/原生编辑/费用统计](test-results/windows/2026-10-08-quality-loop-v1/README.md)，然后按下列同一里程碑任务继续。下方旧结果仅历史，不能替代本轮证据。
