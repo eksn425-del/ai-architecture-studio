@@ -303,6 +303,19 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         )
         view_paths[view] = image.relative_to(tmp_path).as_posix()
 
+    schedule_dir = tmp_path / "runtime" / "agent_workspace" / "notes"
+    schedule_dir.mkdir(parents=True, exist_ok=True)
+    (schedule_dir / "facade_schedule.json").write_text(json.dumps({
+        "schema_version": 1,
+        "views": {
+            "front": {"opening_count": 4, "provenance": "observed"},
+            "rear": {"opening_count": 3, "provenance": "user_confirmed"},
+        },
+        "roof": {"parapet": "thin", "provenance": "observed"},
+        "user_confirmed": ["rear opening_count=3"],
+        "inferred": [],
+    }), encoding="utf-8")
+
     quality = {"writes": 1, "write_limit": 1, "review": None}
     tool = {
         "type": "function",
@@ -365,6 +378,10 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         if call_index == 3:
             assert "read-only visual critic" in kwargs["messages"][0]["content"]
             assert "tools" not in kwargs
+            critic_payload = str(kwargs["messages"][1]["content"])
+            assert "FACADE_SCHEDULE" in critic_payload
+            assert "rear opening_count=3" in critic_payload
+            assert '"opening_count": 4' in critic_payload
             return SimpleNamespace(
                 choices=[SimpleNamespace(message={
                     "content": (
