@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-WORKSPACE_VERSION = 6
+WORKSPACE_VERSION = 7
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -26,7 +26,7 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 
 1. Inspect the actual source image(s).
 2. Clarify only high-impact unknowns that materially change the model.
-3. Update `notes/reconstruction_card.md` with confirmed scope plus KNOWN / ESTIMATED / ASSUMED parameters.
+3. Update `notes/reconstruction_card.md` with confirmed scope plus KNOWN / ESTIMATED / ASSUMED parameters, and keep `notes/facade_schedule.json` as the compact machine-readable source schedule.
 4. Show the compact parameter/construction plan and wait for approval.
 5. After approval, author or revise durable `.rb` files under `scripts/`.
 6. Execute the same files with `sketchup_run_workspace_ruby`.
@@ -164,6 +164,38 @@ These values are a modeling baseline, not a claim of real-world measurement.
 
 
 
+_FACADE_SCHEDULE = {
+    "schema_version": 1,
+    "source_mode": "pending",
+    "dimensions_mm": {
+        "overall_width": None,
+        "overall_depth": None,
+        "level_height": None,
+        "floor_count": None,
+    },
+    "views": {
+        name: {
+            "provenance": "pending",
+            "opening_count": None,
+            "door_count": None,
+            "features": [],
+            "notes": [],
+        }
+        for name in ("front", "rear", "left", "right")
+    },
+    "roof": {
+        "provenance": "pending",
+        "type": "pending",
+        "parapet": "pending",
+        "divisions": [],
+        "notes": [],
+    },
+    "global_features": [],
+    "user_confirmed": [],
+    "inferred": [],
+}
+
+
 _VISUAL_QA = """# Visual QA
 
 This is the durable read-only review record for the current reconstruction.
@@ -234,6 +266,14 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
     if not reconstruction.exists():
         reconstruction.write_text(_RECONSTRUCTION_CARD, encoding="utf-8", newline="\n")
 
+    facade_schedule = root / "notes" / "facade_schedule.json"
+    if not facade_schedule.exists():
+        facade_schedule.write_text(
+            json.dumps(_FACADE_SCHEDULE, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+
     visual_qa = root / "qa" / "visual_qa.md"
     if not visual_qa.exists():
         visual_qa.write_text(_VISUAL_QA, encoding="utf-8", newline="\n")
@@ -246,6 +286,7 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "notes_dir": "notes",
         "qa_dir": "qa",
         "reconstruction_card": "notes/reconstruction_card.md",
+        "facade_schedule": "notes/facade_schedule.json",
         "visual_qa": "qa/visual_qa.md",
         "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "verify", "inspect", "critic", "revise"],
     }
@@ -277,7 +318,8 @@ def codex_parity_instructions() -> str:
         "Do not run git pull, repository tests, commit or push during modeling. "
         "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
         "For image reconstruction, inspect the source, clarify only high-impact unknowns, then update "
-        "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters. "
+        "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters, and update "
+        "notes/facade_schedule.json with compact per-view opening/roof facts and observed/user_confirmed/inferred provenance. "
         "Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
         "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use SAIE as a helper "
         "library for ordinary semantic elements, not as the primary orchestration strategy. After every mutation, require the "
