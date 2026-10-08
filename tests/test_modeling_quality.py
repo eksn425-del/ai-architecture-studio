@@ -489,3 +489,42 @@ def test_litellm_independent_critic_overrides_builder_self_review(tmp_path, monk
     assert quality["review"]["needs_fix"] is False
     assert result.input_tokens == 20
     assert result.output_tokens == 12
+
+
+def test_failed_independent_review_cannot_unlock_writer(tmp_path, monkeypatch):
+    import pytest
+    from app.agent_tools import AgentToolSurface
+    from app.sketchup_mcp import MCPCallError
+
+    class Executor:
+        def __init__(self, *args, **kwargs):
+            self.ruby_state = kwargs["ruby_state"]
+
+    monkeypatch.setattr("app.agent_tools.ProjectRubyExecutor", Executor)
+    surface = AgentToolSurface(tmp_path, object(), oss_backends={})
+    monkeypatch.setattr(surface, "dynamic_tools", lambda **kwargs: [])
+
+    def run(name, args, **kwargs):
+        if name == "sketchup_inspect_owned":
+            return {"success": True}
+        state = kwargs["project_ruby"].ruby_state
+        state["villa"] = {"revision": state.get("villa", {}).get("revision", 0) + 1}
+        return {"success": True}
+
+    monkeypatch.setattr(surface, "dispatch", run)
+    context = surface.prepare(
+        project_dir=tmp_path / "projects" / "critic-fail",
+        mcp_enabled=True,
+        model_path=tmp_path / "blank.skp",
+        model_guid="fixture",
+        ruby_enabled=True,
+        ruby_state={},
+        tool_profile="reconstruction_coding",
+    )
+    context.dispatch("sketchup_run_workspace_ruby", {})
+    context.quality_state["review"] = {
+        "needs_fix": True,
+        "reviewer": {"kind": "independent_host_critic", "status": "failed"},
+    }
+    with pytest.raises(MCPCallError, match="独立只读视觉审查"):
+        context.dispatch("sketchup_run_workspace_ruby", {})
