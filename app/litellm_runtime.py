@@ -9,6 +9,10 @@ from pathlib import Path
 from typing import Any
 
 from .agent_tools import AgentToolSurface
+from .context_compaction import (
+    build_reconstruction_checkpoint,
+    compact_active_reconstruction_context,
+)
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
 from .modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
@@ -136,8 +140,18 @@ class LiteLLMRuntime:
             saved = json.loads(history_path.read_text(encoding="utf-8"))
             if saved.get("model") != selected_model or saved.get("region") != self.region:
                 raise NativeAgentUnavailable("Provider/model changed; start a new provider session explicitly.")
-            # Images already in real history remain visible to the model. Do not
-            # append the identical six-image package again on every user reply.
+            # Keep the CURRENT turn's source pixels authoritative. Historical
+            # copies of identical source images are removed instead of stripping
+            # the current images, so active-context compaction can safely discard
+            # old turns without losing the source evidence.
+            current_image_urls: set[str] = set()
+            if isinstance(user_content, list):
+                current_image_urls = {
+                    block.get("image_url", {}).get("url")
+                    for block in user_content
+                    if isinstance(block, dict) and block.get("type") == "image_url"
+                    and isinstance(block.get("image_url", {}).get("url"), str)
+                }
             seen_images: set[str] = set()
             for old_message in saved["messages"]:
                 content = old_message.get("content")
@@ -145,7 +159,7 @@ class LiteLLMRuntime:
                     kept = []
                     for block in content:
                         url = block.get("image_url", {}).get("url") if block.get("type") == "image_url" else None
-                        if url and url in seen_images:
+                        if url and (url in current_image_urls or url in seen_images):
                             if kept and kept[-1].get("type") == "text" and kept[-1].get("text", "").startswith("Source image "):
                                 kept.pop()
                             continue
@@ -153,15 +167,6 @@ class LiteLLMRuntime:
                             seen_images.add(url)
                         kept.append(block)
                     old_message["content"] = kept
-            if isinstance(user_content, list):
-                kept = []
-                for block in user_content:
-                    if block.get("type") == "image_url" and block["image_url"]["url"] in seen_images:
-                        if kept and kept[-1].get("type") == "text" and kept[-1].get("text", "").startswith("Source image "):
-                            kept.pop()
-                        continue
-                    kept.append(block)
-                messages[1]["content"] = kept
             if skill:
                 # Migrate exact duplicated Skill text from pre-existing sessions.
                 for old_message in saved["messages"]:
@@ -318,6 +323,18 @@ class LiteLLMRuntime:
 
         while True:
             request_messages = _current_visual_context(messages)
+            compaction = {
+                "compacted": False,
+                "dropped_messages": 0,
+                "before_chars": 0,
+                "after_chars": 0,
+            }
+            if workflow_mode == "image_reconstruction":
+                checkpoint = build_reconstruction_checkpoint(project_dir, ruby_state)
+                request_messages, compaction = compact_active_reconstruction_context(
+                    request_messages,
+                    checkpoint,
+                )
             kwargs: dict[str, Any] = {
                 "model": selected_model,
                 "messages": request_messages,
@@ -352,7 +369,11 @@ class LiteLLMRuntime:
             try:
                 request_started = time.monotonic()
                 record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
-                    "context_messages": len(request_messages), "redundant_images_removed": _image_count(messages) - _image_count(request_messages)})
+                    "context_messages": len(request_messages), "redundant_images_removed": _image_count(messages) - _image_count(request_messages),
+                    "context_compacted": bool(compaction.get("compacted")),
+                    "context_messages_dropped": int(compaction.get("dropped_messages", 0) or 0),
+                    "context_chars_before": int(compaction.get("before_chars", 0) or 0),
+                    "context_chars_after": int(compaction.get("after_chars", 0) or 0)})
                 response = invoke_completion(kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
