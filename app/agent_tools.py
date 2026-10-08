@@ -123,6 +123,12 @@ class AgentToolSurface:
                         "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique "
                         "六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。"
                     )
+                reviewer = review.get("reviewer") if isinstance(review, dict) else None
+                if isinstance(reviewer, dict) and reviewer.get("status") == "failed":
+                    raise MCPCallError(
+                        "独立只读视觉审查未成功完成，本轮禁止继续盲目写几何。"
+                        "保留当前已验证模型并报告 PARTIAL，待视觉审查可用后再修正。"
+                    )
                 if review.get("needs_fix") is False:
                     raise MCPCallError(
                         "当前六视图审查为 NEEDS_FIX: NO，本轮不再接受额外几何写入。"
@@ -221,9 +227,10 @@ class AgentToolSurface:
                     "sketchup_submit_visual_review",
                     "READ-ONLY quality gate. After every committed reconstruction pass, capture six DISTINCT CURRENT "
                     "agent-view PNGs for front, rear, left, right, roof and oblique, compare them to the source image(s), "
-                    "then submit the exact actual paths plus a bounded NEEDS_FIX review. The host rejects stale revision "
-                    "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
-                    "NEEDS_FIX:NO ends geometry writes for this turn.",
+                    "then submit the exact actual paths plus a bounded NEEDS_FIX self-review. The host rejects stale revision "
+                    "captures and, on LiteLLM/DeepSeek, immediately runs a fresh no-tools independent critic over the source + "
+                    "six current views before the review can unlock another write. This tool never edits SketchUp. "
+                    "Independent NEEDS_FIX:YES permits the next targeted writer pass; NEEDS_FIX:NO ends geometry writes for this turn.",
                     {
                         "type": "object",
                         "required": ["views", "critique"],
