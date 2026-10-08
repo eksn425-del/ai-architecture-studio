@@ -50,6 +50,8 @@ class _FakeKongxing:
             {"name": "sketchup_get_model_context", "description": "context", "inputSchema": {"type": "object"}},
             {"name": "sketchup_export_view_image", "description": "view", "inputSchema": {"type": "object"}},
             {"name": "sketchup_set_camera", "description": "camera", "inputSchema": {"type": "object"}},
+            {"name": "sketchup_transform_group", "description": "transform", "inputSchema": {"type": "object"}},
+            {"name": "sketchup_undo", "description": "undo", "inputSchema": {"type": "object"}},
             {"name": "sketchup_create_mass", "description": "legacy mass", "inputSchema": {"type": "object"}},
             {"name": "sketchup_create_road", "description": "legacy road", "inputSchema": {"type": "object"}},
             {"name": "sketchup_eval_project_file", "description": "raw eval", "inputSchema": {"type": "object"}},
@@ -72,7 +74,7 @@ def test_reconstruction_tool_profile_is_small_and_coding_first(tmp_path: Path) -
         tmp_path / "runtime",
         _FakeKongxing(),  # type: ignore[arg-type]
         oss_backends={
-            "saie": _FakeBackend(["scene_summary", "create_wall", "create_furniture", "view_snapshot"]),
+            "saie": _FakeBackend(["scene_summary", "create_wall", "cut_opening", "create_roof", "create_furniture", "view_snapshot"]),
             "archflow": _FakeBackend(["run", "check_project"]),
         },
     )
@@ -89,9 +91,14 @@ def test_reconstruction_tool_profile_is_small_and_coding_first(tmp_path: Path) -
     assert "sketchup_create_road" not in names
     assert "sketchup_eval_project_file" not in names
     assert "saie__scene_summary" in names
-    assert "saie__create_wall" in names
     assert "saie__view_snapshot" in names
+    assert "saie__create_wall" not in names
+    assert "saie__cut_opening" not in names
+    assert "saie__create_roof" not in names
     assert "saie__create_furniture" not in names
+    assert "sketchup_transform_group" not in names
+    assert "sketchup_undo" not in names
     assert not any(name.startswith("archflow__") for name in names)
     assert "sketchup_run_workspace_ruby" in names
+    assert "sketchup_submit_visual_review" in names
     assert "sketchup_run_project_ruby" not in names
