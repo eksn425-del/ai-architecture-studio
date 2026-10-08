@@ -349,6 +349,81 @@ def validate_visual_review_views(
     return current_revisions, resolved_views, image_paths
 
 
+
+def validate_source_matched_pairs(
+    project_dir: Path,
+    current_revisions: dict[str, int],
+    pairs: Any,
+) -> list[dict[str, Any]]:
+    """Validate optional source-to-current camera/detail pairs.
+
+    Canonical six views prove broad model coverage. These pairs let the critic
+    compare an arbitrary source perspective or an interior/detail reference
+    against a current SketchUp camera from the same model revision.
+    """
+    if pairs in (None, []):
+        return []
+    if not isinstance(pairs, list) or len(pairs) > 12:
+        raise ValueError("evidence_pairs must be a list of at most 12 source/current pairs.")
+
+    project_root = project_dir.resolve()
+    inputs_root = (project_root / "inputs").resolve()
+    render_root = (project_root / "outputs" / "renders").resolve()
+    resolved: list[dict[str, Any]] = []
+    for index, item in enumerate(pairs):
+        if not isinstance(item, dict):
+            raise ValueError(f"evidence_pairs[{index}] must be an object.")
+        source_ref = item.get("source_ref")
+        current_ref = item.get("current_view")
+        label = item.get("label", "")
+        if not isinstance(source_ref, str) or not source_ref:
+            raise ValueError(f"evidence_pairs[{index}].source_ref is required.")
+        if not isinstance(current_ref, str) or not current_ref:
+            raise ValueError(f"evidence_pairs[{index}].current_view is required.")
+        if not isinstance(label, str):
+            raise ValueError(f"evidence_pairs[{index}].label must be a string.")
+
+        source_pure = PurePosixPath(source_ref)
+        current_pure = PurePosixPath(current_ref)
+        if source_pure.is_absolute() or ".." in source_pure.parts:
+            raise ValueError(f"evidence_pairs[{index}] source path escaped the project.")
+        if current_pure.is_absolute() or ".." in current_pure.parts:
+            raise ValueError(f"evidence_pairs[{index}] current path escaped the project.")
+        source_path = project_root.joinpath(*source_pure.parts).resolve()
+        current_path = project_root.joinpath(*current_pure.parts).resolve()
+        if not source_path.is_relative_to(inputs_root) or not source_path.is_file() or source_path.is_symlink():
+            raise ValueError(f"evidence_pairs[{index}] source is not a real project input.")
+        if source_path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp", ".gif"}:
+            raise ValueError(f"evidence_pairs[{index}] source must be a visual image.")
+        if not current_path.is_relative_to(render_root) or not current_path.is_file() or current_path.is_symlink():
+            raise ValueError(f"evidence_pairs[{index}] current view is not a real project render.")
+        if not current_path.name.startswith("agent-view-") or current_path.suffix.lower() != ".png":
+            raise ValueError(f"evidence_pairs[{index}] current view must be an actual agent-view PNG.")
+
+        sidecar = current_path.with_suffix(".evidence.json")
+        if not sidecar.is_file():
+            raise ValueError(f"evidence_pairs[{index}] current view is missing its evidence sidecar.")
+        try:
+            evidence = json.loads(sidecar.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            raise ValueError(f"evidence_pairs[{index}] current evidence is unreadable.") from error
+        revisions = {
+            str(key): int(value)
+            for key, value in (evidence.get("model_revisions") or {}).items()
+        }
+        if revisions != current_revisions:
+            raise ValueError(
+                f"evidence_pairs[{index}] current view is stale: expected {current_revisions}, captured {revisions}."
+            )
+        resolved.append({
+            "source_ref": source_path.relative_to(project_root).as_posix(),
+            "current_view": current_path.relative_to(project_root).as_posix(),
+            "label": label[:200],
+            "model_revisions": revisions,
+        })
+    return resolved
+
+
 def submit_visual_review(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]],
@@ -368,6 +443,9 @@ def submit_visual_review(
 
     current_revisions, resolved_views, _ = validate_visual_review_views(
         project_dir, ruby_state, views
+    )
+    evidence_pairs = validate_source_matched_pairs(
+        project_dir, current_revisions, arguments.get("evidence_pairs")
     )
 
     critique = parse_visual_critique_response(critique_text)
@@ -398,6 +476,7 @@ def submit_visual_review(
         "keep": list(critique.keep),
         "model_revisions": current_revisions,
         "views": resolved_views,
+        "evidence_pairs": evidence_pairs,
         "writer_verifications": {
             script_id: state.get("last_verification")
             for script_id, state in ruby_state.items()
@@ -427,6 +506,10 @@ def submit_visual_review(
     ] or ["1. 无阻断级差异。"]
     keep_lines = [f"- {item}" for item in receipt["keep"]] or ["- 未提供 KEEP 项。"]
     view_lines = [f"- {name}: {item['path']}" for name, item in receipt["views"].items()]
+    pair_lines = [
+        f"- {item['label'] or 'source match'}: {item['source_ref']} -> {item['current_view']}"
+        for item in receipt["evidence_pairs"]
+    ] or ["- 未提供额外 source-matched / interior detail pair。"]
     markdown = "\n".join([
         "# Visual QA",
         "",
@@ -447,6 +530,10 @@ def submit_visual_review(
         "## Current-revision evidence",
         "",
         *view_lines,
+        "",
+        "## Source-matched / interior evidence pairs",
+        "",
+        *pair_lines,
         "",
         "## Writer verification",
         "",
