@@ -94,3 +94,46 @@ def test_compaction_does_not_run_without_large_completed_history():
     )
     assert compacted == messages
     assert meta["compacted"] is False
+
+
+
+def test_active_visual_filter_keeps_newest_source_copy_for_compaction():
+    from app.litellm_runtime import _current_visual_context
+
+    source_url = "data:image/png;base64,same-source"
+    messages = [
+        {"role": "system", "content": "rules"},
+        {"role": "user", "content": [
+            {"type": "text", "text": "old request"},
+            {"type": "text", "text": "Source image 1: inputs/reference/source.png. Verify this view using visible landmarks."},
+            {"type": "image_url", "image_url": {"url": source_url}},
+        ]},
+        {"role": "assistant", "content": "old reply"},
+        {"role": "user", "content": [
+            {"type": "text", "text": "current request"},
+            {"type": "text", "text": "Source image 1: inputs/reference/source.png. Verify this view using visible landmarks."},
+            {"type": "image_url", "image_url": {"url": source_url}},
+        ]},
+    ]
+    filtered = _current_visual_context(messages)
+    old_images = [
+        block for block in filtered[1]["content"]
+        if isinstance(block, dict) and block.get("type") == "image_url"
+    ]
+    current_images = [
+        block for block in filtered[-1]["content"]
+        if isinstance(block, dict) and block.get("type") == "image_url"
+    ]
+    assert old_images == []
+    assert len(current_images) == 1
+
+    compacted, meta = compact_active_reconstruction_context(
+        filtered,
+        "ACTIVE RECONSTRUCTION CHECKPOINT\n" + "z" * 100000,
+        threshold_chars=1000,
+    )
+    assert meta["compacted"] is True
+    assert any(
+        isinstance(block, dict) and block.get("type") == "image_url"
+        for block in compacted[-1]["content"]
+    )
