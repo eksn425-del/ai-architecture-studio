@@ -14,6 +14,21 @@ from app.project_ruby import ProjectRubyExecutor, validate_project_ruby_source
 from app.sketchup_mcp import SketchUpAdapter
 from app.store import ProjectStore
 
+def test_bound_document_save_uses_native_save_and_other_artifact_uses_copy(tmp_path, monkeypatch):
+    from app.sketchup_mcp import SketchUpAdapter
+    import app.sketchup_mcp as module
+    captured = []
+    class Client:
+        def call(self, name, arguments):
+            captured.append(Path(arguments["script_path"]).read_text(encoding="utf-8"))
+            return {"result": {"saved": True}}
+    monkeypatch.setattr(module, "_generated_script_dir", lambda: tmp_path / "transport")
+    adapter = SketchUpAdapter(Client())
+    adapter.save_model(tmp_path / "blank-disposable-test.skp", expected_root_ids=[123])
+    source = captured[0]
+    assert "File.expand_path(model.path) == File.expand_path(target)" in source
+    assert "  model.save\nelse\n  model.save_copy(target)" in source
+    assert "Owned model root is missing or empty" in source
 
 def test_native_agent_defaults_to_sol_low_and_allows_experiment_override(tmp_path, monkeypatch):
     monkeypatch.delenv("ARCH_STUDIO_CODEX_REASONING_EFFORT", raising=False)
@@ -174,6 +189,9 @@ def test_committed_revision_survives_interrupted_capture(tmp_path):
     )
     assert restored.ruby_state["main"]["revision"] == 1
     assert restored.ruby_state["main"]["root_pid"] == 701
+    assert restored.ruby_state["main"]["last_verification"]["verified"] is True
+    receipt_path = restored.project_dir / restored.ruby_state["main"]["last_verification_report"]
+    assert json.loads(receipt_path.read_text())["verified"] is True
 
 
 def test_project_ruby_path_and_source_restrictions(tmp_path):

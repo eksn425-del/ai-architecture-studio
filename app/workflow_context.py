@@ -82,6 +82,7 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "Update notes/reconstruction_card.md and return the compact plan for approval. Do not edit SketchUp geometry."
                 " Read the existing card before updating it; preserve prior confirmed requirements unless the user changes them. "
                 "Write the updated card in THIS turn, even if most values are unchanged. Use Chinese headings 已知、估算、推断、建模范围、建模步骤、待确认; include filename/panel evidence for views. "
+                "待确认 is only for unanswered high-impact choices; write 无 when the user accepted estimates/scope. Do not turn approved defaults, material colors, hidden equipment or minor placement into another questionnaire. End with one approval action, not separate approvals for each pass. "
                 "Reply with a short scope/dimension/uncertainty summary and tell the user they can adjust it, download the plan, or connect SketchUp when ready. "
                 "Do not demand software connection or promise zero-error matching during planning."
                 " Keep image observations separate from user-confirmed dimensions. Never label a guessed window count as confirmed; mark low-confidence counts for user review."

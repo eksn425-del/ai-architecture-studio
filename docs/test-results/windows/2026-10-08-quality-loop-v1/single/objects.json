@@ -1,0 +1,3746 @@
+{
+  "complete_pages": true,
+  "depth": 1,
+  "pages": [
+    {
+      "owned_path": [],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [],
+      "persistent_id": 37843,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -7000,
+          -8000,
+          -220
+        ],
+        "max": [
+          17000,
+          16000,
+          6720
+        ],
+        "size": [
+          24000,
+          24000,
+          6940
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 7,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "SITE",
+          "persistent_id": 66384,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000,
+              -8000,
+              -220
+            ],
+            "max": [
+              17000,
+              16000,
+              150
+            ],
+            "size": [
+              24000,
+              24000,
+              370
+            ]
+          }
+        },
+        {
+          "name": "SHELL",
+          "persistent_id": 66674,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50,
+              -50,
+              -150
+            ],
+            "max": [
+              10050,
+              8050,
+              6720
+            ],
+            "size": [
+              10100,
+              8100,
+              6870
+            ]
+          }
+        },
+        {
+          "name": "GLAZING",
+          "persistent_id": 68020,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60,
+              45,
+              0
+            ],
+            "max": [
+              9940,
+              7950,
+              5600
+            ],
+            "size": [
+              9880,
+              7905,
+              5600
+            ]
+          }
+        },
+        {
+          "name": "CLADDING",
+          "persistent_id": 70410,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500,
+              -90,
+              150
+            ],
+            "max": [
+              10090,
+              3000,
+              6600
+            ],
+            "size": [
+              1590,
+              3090,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BALCONY",
+          "persistent_id": 70536,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175,
+              -1420,
+              2930
+            ],
+            "max": [
+              8425,
+              200,
+              4250
+            ],
+            "size": [
+              8250,
+              1620,
+              1320
+            ]
+          }
+        },
+        {
+          "name": "INTERIOR_1F",
+          "persistent_id": 71576,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320,
+              320,
+              -150
+            ],
+            "max": [
+              9680,
+              7680,
+              2550
+            ],
+            "size": [
+              9360,
+              7360,
+              2700
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_FURN",
+          "persistent_id": 72577,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750,
+              -1290,
+              3200
+            ],
+            "max": [
+              8340,
+              1050,
+              4820
+            ],
+            "size": [
+              7590,
+              2340,
+              1620
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "SITE"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "SITE"
+      ],
+      "persistent_id": 66384,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -7000,
+          -8000,
+          -220
+        ],
+        "max": [
+          17000,
+          16000,
+          150
+        ],
+        "size": [
+          24000,
+          24000,
+          370
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 9,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "LAWN",
+          "persistent_id": 66386,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000,
+              -8000,
+              -220
+            ],
+            "max": [
+              17000,
+              16000,
+              -120
+            ],
+            "size": [
+              24000,
+              24000,
+              100
+            ]
+          }
+        },
+        {
+          "name": "PAVING_FRONT",
+          "persistent_id": 66418,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -2200,
+              -2200,
+              -200
+            ],
+            "max": [
+              12200,
+              0,
+              -50
+            ],
+            "size": [
+              14400,
+              2200,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PAVING_REAR",
+          "persistent_id": 66450,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -2200,
+              8000,
+              -200
+            ],
+            "max": [
+              12200,
+              10200,
+              -50
+            ],
+            "size": [
+              14400,
+              2200,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PAVING_LEFT",
+          "persistent_id": 66482,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -2200,
+              0,
+              -200
+            ],
+            "max": [
+              0,
+              8000,
+              -50
+            ],
+            "size": [
+              2200,
+              8000,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PAVING_RIGHT",
+          "persistent_id": 66514,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              0,
+              -200
+            ],
+            "max": [
+              12200,
+              8000,
+              -50
+            ],
+            "size": [
+              2200,
+              8000,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_F",
+          "persistent_id": 66546,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              -30,
+              0
+            ],
+            "max": [
+              10000,
+              290,
+              150
+            ],
+            "size": [
+              10000,
+              320,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_B",
+          "persistent_id": 66578,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              7710,
+              0
+            ],
+            "max": [
+              10000,
+              8030,
+              150
+            ],
+            "size": [
+              10000,
+              320,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_L",
+          "persistent_id": 66610,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30,
+              0,
+              0
+            ],
+            "max": [
+              290,
+              8000,
+              150
+            ],
+            "size": [
+              320,
+              8000,
+              150
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_R",
+          "persistent_id": 66642,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9710,
+              0,
+              0
+            ],
+            "max": [
+              10030,
+              8000,
+              150
+            ],
+            "size": [
+              320,
+              8000,
+              150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "SHELL"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "SHELL"
+      ],
+      "persistent_id": 66674,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -50,
+          -50,
+          -150
+        ],
+        "max": [
+          10050,
+          8050,
+          6720
+        ],
+        "size": [
+          10100,
+          8100,
+          6870
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 42,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "WALL_F_01",
+          "persistent_id": 66676,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              -1,
+              0
+            ],
+            "max": [
+              1900,
+              299,
+              6400
+            ],
+            "size": [
+              1900,
+              300,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_02",
+          "persistent_id": 66708,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1900,
+              -1,
+              2600
+            ],
+            "max": [
+              2300,
+              299,
+              6400
+            ],
+            "size": [
+              400,
+              300,
+              3800
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_03",
+          "persistent_id": 66740,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2300,
+              -1,
+              2600
+            ],
+            "max": [
+              4700,
+              299,
+              4100
+            ],
+            "size": [
+              2400,
+              300,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_04",
+          "persistent_id": 66772,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2300,
+              -1,
+              5600
+            ],
+            "max": [
+              4700,
+              299,
+              6400
+            ],
+            "size": [
+              2400,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_05",
+          "persistent_id": 66804,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4700,
+              -1,
+              2600
+            ],
+            "max": [
+              6300,
+              299,
+              6400
+            ],
+            "size": [
+              1600,
+              300,
+              3800
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_06",
+          "persistent_id": 66836,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              -1,
+              2600
+            ],
+            "max": [
+              6500,
+              299,
+              4100
+            ],
+            "size": [
+              200,
+              300,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_07",
+          "persistent_id": 66868,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              -1,
+              5600
+            ],
+            "max": [
+              8100,
+              299,
+              6400
+            ],
+            "size": [
+              1800,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_08",
+          "persistent_id": 66900,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6500,
+              -1,
+              0
+            ],
+            "max": [
+              8100,
+              299,
+              4100
+            ],
+            "size": [
+              1600,
+              300,
+              4100
+            ]
+          }
+        },
+        {
+          "name": "WALL_F_09",
+          "persistent_id": 66932,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8100,
+              -1,
+              0
+            ],
+            "max": [
+              10000,
+              299,
+              6400
+            ],
+            "size": [
+              1900,
+              300,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_L_10",
+          "persistent_id": 66964,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1,
+              0,
+              0
+            ],
+            "max": [
+              299,
+              3150,
+              6400
+            ],
+            "size": [
+              300,
+              3150,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_L_11",
+          "persistent_id": 66996,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1,
+              3150,
+              0
+            ],
+            "max": [
+              299,
+              4050,
+              900
+            ],
+            "size": [
+              300,
+              900,
+              900
+            ]
+          }
+        },
+        {
+          "name": "WALL_L_12",
+          "persistent_id": 67028,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1,
+              3150,
+              2400
+            ],
+            "max": [
+              299,
+              4050,
+              4100
+            ],
+            "size": [
+              300,
+              900,
+              1700
+            ]
+          }
+        },
+        {
+          "name": "WALL_L_13",
+          "persistent_id": 67060,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1,
+              3150,
+              5600
+            ],
+            "max": [
+              299,
+              4050,
+              6400
+            ],
+            "size": [
+              300,
+              900,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_L_14",
+          "persistent_id": 67092,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1,
+              4050,
+              0
+            ],
+            "max": [
+              299,
+              8000,
+              6400
+            ],
+            "size": [
+              300,
+              3950,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_R_15",
+          "persistent_id": 67124,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9701,
+              0,
+              0
+            ],
+            "max": [
+              10001,
+              3000,
+              6400
+            ],
+            "size": [
+              300,
+              3000,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_R_16",
+          "persistent_id": 67156,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9701,
+              3000,
+              0
+            ],
+            "max": [
+              10001,
+              4200,
+              900
+            ],
+            "size": [
+              300,
+              1200,
+              900
+            ]
+          }
+        },
+        {
+          "name": "WALL_R_17",
+          "persistent_id": 67188,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9701,
+              3000,
+              2400
+            ],
+            "max": [
+              10001,
+              4200,
+              4100
+            ],
+            "size": [
+              300,
+              1200,
+              1700
+            ]
+          }
+        },
+        {
+          "name": "WALL_R_18",
+          "persistent_id": 67220,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9701,
+              3000,
+              5600
+            ],
+            "max": [
+              10001,
+              4200,
+              6400
+            ],
+            "size": [
+              300,
+              1200,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_R_19",
+          "persistent_id": 67252,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9701,
+              4200,
+              0
+            ],
+            "max": [
+              10001,
+              8000,
+              6400
+            ],
+            "size": [
+              300,
+              3800,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_20",
+          "persistent_id": 67284,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              7701,
+              0
+            ],
+            "max": [
+              2300,
+              8001,
+              6400
+            ],
+            "size": [
+              2300,
+              300,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_21",
+          "persistent_id": 67316,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2300,
+              7701,
+              0
+            ],
+            "max": [
+              2500,
+              8001,
+              4100
+            ],
+            "size": [
+              200,
+              300,
+              4100
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_22",
+          "persistent_id": 67348,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2300,
+              7701,
+              5600
+            ],
+            "max": [
+              2500,
+              8001,
+              6400
+            ],
+            "size": [
+              200,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_23",
+          "persistent_id": 67380,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500,
+              7701,
+              2100
+            ],
+            "max": [
+              3400,
+              8001,
+              4100
+            ],
+            "size": [
+              900,
+              300,
+              2000
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_24",
+          "persistent_id": 67412,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500,
+              7701,
+              5600
+            ],
+            "max": [
+              3400,
+              8001,
+              6400
+            ],
+            "size": [
+              900,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_25",
+          "persistent_id": 67444,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3400,
+              7701,
+              0
+            ],
+            "max": [
+              3800,
+              8001,
+              4100
+            ],
+            "size": [
+              400,
+              300,
+              4100
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_26",
+          "persistent_id": 67476,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3400,
+              7701,
+              5600
+            ],
+            "max": [
+              3800,
+              8001,
+              6400
+            ],
+            "size": [
+              400,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_27",
+          "persistent_id": 67508,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3800,
+              7701,
+              0
+            ],
+            "max": [
+              6000,
+              8001,
+              6400
+            ],
+            "size": [
+              2200,
+              300,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_28",
+          "persistent_id": 67540,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6000,
+              7701,
+              0
+            ],
+            "max": [
+              6300,
+              8001,
+              900
+            ],
+            "size": [
+              300,
+              300,
+              900
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_29",
+          "persistent_id": 67572,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6000,
+              7701,
+              2400
+            ],
+            "max": [
+              6300,
+              8001,
+              6400
+            ],
+            "size": [
+              300,
+              300,
+              4000
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_30",
+          "persistent_id": 67604,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              7701,
+              0
+            ],
+            "max": [
+              7500,
+              8001,
+              900
+            ],
+            "size": [
+              1200,
+              300,
+              900
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_31",
+          "persistent_id": 67636,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              7701,
+              2400
+            ],
+            "max": [
+              7500,
+              8001,
+              4100
+            ],
+            "size": [
+              1200,
+              300,
+              1700
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_32",
+          "persistent_id": 67668,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              7701,
+              5600
+            ],
+            "max": [
+              7500,
+              8001,
+              6400
+            ],
+            "size": [
+              1200,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_33",
+          "persistent_id": 67700,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7500,
+              7701,
+              0
+            ],
+            "max": [
+              7800,
+              8001,
+              4100
+            ],
+            "size": [
+              300,
+              300,
+              4100
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_34",
+          "persistent_id": 67732,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7500,
+              7701,
+              5600
+            ],
+            "max": [
+              7800,
+              8001,
+              6400
+            ],
+            "size": [
+              300,
+              300,
+              800
+            ]
+          }
+        },
+        {
+          "name": "WALL_B_35",
+          "persistent_id": 67764,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7800,
+              7701,
+              0
+            ],
+            "max": [
+              10000,
+              8001,
+              6400
+            ],
+            "size": [
+              2200,
+              300,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "SLAB_GF",
+          "persistent_id": 67796,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320,
+              320,
+              -150
+            ],
+            "max": [
+              9680,
+              7680,
+              0
+            ],
+            "size": [
+              9360,
+              7360,
+              150
+            ]
+          }
+        },
+        {
+          "name": "SLAB_2F",
+          "persistent_id": 67828,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320,
+              320,
+              2950
+            ],
+            "max": [
+              9680,
+              7680,
+              3200
+            ],
+            "size": [
+              9360,
+              7360,
+              250
+            ]
+          }
+        },
+        {
+          "name": "ROOF_SLAB",
+          "persistent_id": 67860,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50,
+              -50,
+              6400
+            ],
+            "max": [
+              10050,
+              8050,
+              6600
+            ],
+            "size": [
+              10100,
+              8100,
+              200
+            ]
+          }
+        },
+        {
+          "name": "COPING_F",
+          "persistent_id": 67892,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50,
+              -50,
+              6600
+            ],
+            "max": [
+              10050,
+              130,
+              6720
+            ],
+            "size": [
+              10100,
+              180,
+              120
+            ]
+          }
+        },
+        {
+          "name": "COPING_B",
+          "persistent_id": 67924,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50,
+              7870,
+              6600
+            ],
+            "max": [
+              10050,
+              8050,
+              6720
+            ],
+            "size": [
+              10100,
+              180,
+              120
+            ]
+          }
+        },
+        {
+          "name": "COPING_L",
+          "persistent_id": 67956,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50,
+              130,
+              6600
+            ],
+            "max": [
+              130,
+              7870,
+              6720
+            ],
+            "size": [
+              180,
+              7740,
+              120
+            ]
+          }
+        },
+        {
+          "name": "COPING_R",
+          "persistent_id": 67988,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9870,
+              130,
+              6600
+            ],
+            "max": [
+              10050,
+              7870,
+              6720
+            ],
+            "size": [
+              180,
+              7740,
+              120
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "GLAZING"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "GLAZING"
+      ],
+      "persistent_id": 68020,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          60,
+          45,
+          0
+        ],
+        "max": [
+          9940,
+          7950,
+          5600
+        ],
+        "size": [
+          9880,
+          7905,
+          5600
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 14,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "DOOR_F_1F",
+          "persistent_id": 68022,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1900,
+              45,
+              0
+            ],
+            "max": [
+              6500,
+              165,
+              2600
+            ],
+            "size": [
+              4600,
+              120,
+              2600
+            ]
+          }
+        },
+        {
+          "name": "WIN_F_2F_A",
+          "persistent_id": 68376,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2300,
+              60,
+              4100
+            ],
+            "max": [
+              4700,
+              180,
+              5600
+            ],
+            "size": [
+              2400,
+              120,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_F_2F_B",
+          "persistent_id": 68602,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              60,
+              4100
+            ],
+            "max": [
+              8100,
+              180,
+              5600
+            ],
+            "size": [
+              1800,
+              120,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_L_1F",
+          "persistent_id": 68828,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60,
+              3150,
+              900
+            ],
+            "max": [
+              180,
+              4050,
+              2400
+            ],
+            "size": [
+              120,
+              900,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_L_2F",
+          "persistent_id": 68990,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60,
+              3150,
+              4100
+            ],
+            "max": [
+              180,
+              4050,
+              5600
+            ],
+            "size": [
+              120,
+              900,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_R_1F",
+          "persistent_id": 69152,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9820,
+              3000,
+              900
+            ],
+            "max": [
+              9940,
+              4200,
+              2400
+            ],
+            "size": [
+              120,
+              1200,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_R_2F",
+          "persistent_id": 69378,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9820,
+              3000,
+              4100
+            ],
+            "max": [
+              9940,
+              4200,
+              5600
+            ],
+            "size": [
+              120,
+              1200,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "DOOR_B_1F_LEAF",
+          "persistent_id": 69604,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2530,
+              7860,
+              20
+            ],
+            "max": [
+              3370,
+              7940,
+              2080
+            ],
+            "size": [
+              840,
+              80,
+              2060
+            ]
+          }
+        },
+        {
+          "name": "DOOR_B_1F_FRAME_L",
+          "persistent_id": 69636,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500,
+              7840,
+              0
+            ],
+            "max": [
+              2560,
+              7950,
+              2100
+            ],
+            "size": [
+              60,
+              110,
+              2100
+            ]
+          }
+        },
+        {
+          "name": "DOOR_B_1F_FRAME_R",
+          "persistent_id": 69668,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3340,
+              7840,
+              0
+            ],
+            "max": [
+              3400,
+              7950,
+              2100
+            ],
+            "size": [
+              60,
+              110,
+              2100
+            ]
+          }
+        },
+        {
+          "name": "DOOR_B_1F_FRAME_H",
+          "persistent_id": 69700,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500,
+              7840,
+              2040
+            ],
+            "max": [
+              3400,
+              7950,
+              2100
+            ],
+            "size": [
+              900,
+              110,
+              60
+            ]
+          }
+        },
+        {
+          "name": "WIN_B_1F",
+          "persistent_id": 69732,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6000,
+              7820,
+              900
+            ],
+            "max": [
+              7500,
+              7940,
+              2400
+            ],
+            "size": [
+              1500,
+              120,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_B_2F_A",
+          "persistent_id": 69958,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2300,
+              7820,
+              4100
+            ],
+            "max": [
+              3800,
+              7940,
+              5600
+            ],
+            "size": [
+              1500,
+              120,
+              1500
+            ]
+          }
+        },
+        {
+          "name": "WIN_B_2F_B",
+          "persistent_id": 70184,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              7820,
+              4100
+            ],
+            "max": [
+              7800,
+              7940,
+              5600
+            ],
+            "size": [
+              1500,
+              120,
+              1500
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "CLADDING"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "CLADDING"
+      ],
+      "persistent_id": 70410,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          8500,
+          -90,
+          150
+        ],
+        "max": [
+          10090,
+          3000,
+          6600
+        ],
+        "size": [
+          1590,
+          3090,
+          6450
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 62,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "BACK_F",
+          "persistent_id": 70412,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500,
+              -15,
+              150
+            ],
+            "max": [
+              10000,
+              0,
+              6600
+            ],
+            "size": [
+              1500,
+              15,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BACK_R",
+          "persistent_id": 70444,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              0,
+              150
+            ],
+            "max": [
+              10015,
+              3000,
+              6600
+            ],
+            "size": [
+              15,
+              3000,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_00",
+          "persistent_id": 70475,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500,
+              -90,
+              150
+            ],
+            "max": [
+              8545,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_01",
+          "persistent_id": 70476,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8576.6,
+              -90,
+              150
+            ],
+            "max": [
+              8621.6,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_02",
+          "persistent_id": 70477,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8653.2,
+              -90,
+              150
+            ],
+            "max": [
+              8698.2,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_03",
+          "persistent_id": 70478,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8729.7,
+              -90,
+              150
+            ],
+            "max": [
+              8774.7,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_04",
+          "persistent_id": 70479,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8806.3,
+              -90,
+              150
+            ],
+            "max": [
+              8851.3,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_05",
+          "persistent_id": 70480,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8882.9,
+              -90,
+              150
+            ],
+            "max": [
+              8927.9,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_06",
+          "persistent_id": 70481,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8959.5,
+              -90,
+              150
+            ],
+            "max": [
+              9004.5,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_07",
+          "persistent_id": 70482,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9036.1,
+              -90,
+              150
+            ],
+            "max": [
+              9081.1,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_08",
+          "persistent_id": 70483,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9112.6,
+              -90,
+              150
+            ],
+            "max": [
+              9157.6,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_09",
+          "persistent_id": 70484,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9189.2,
+              -90,
+              150
+            ],
+            "max": [
+              9234.2,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_10",
+          "persistent_id": 70485,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9265.8,
+              -90,
+              150
+            ],
+            "max": [
+              9310.8,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_11",
+          "persistent_id": 70486,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9342.4,
+              -90,
+              150
+            ],
+            "max": [
+              9387.4,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_12",
+          "persistent_id": 70487,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9418.9,
+              -90,
+              150
+            ],
+            "max": [
+              9463.9,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_13",
+          "persistent_id": 70488,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9495.5,
+              -90,
+              150
+            ],
+            "max": [
+              9540.5,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_14",
+          "persistent_id": 70489,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9572.1,
+              -90,
+              150
+            ],
+            "max": [
+              9617.1,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_15",
+          "persistent_id": 70490,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9648.7,
+              -90,
+              150
+            ],
+            "max": [
+              9693.7,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_16",
+          "persistent_id": 70491,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9725.3,
+              -90,
+              150
+            ],
+            "max": [
+              9770.3,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_17",
+          "persistent_id": 70492,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9801.8,
+              -90,
+              150
+            ],
+            "max": [
+              9846.8,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_18",
+          "persistent_id": 70493,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9878.4,
+              -90,
+              150
+            ],
+            "max": [
+              9923.4,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_F_19",
+          "persistent_id": 70494,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9955,
+              -90,
+              150
+            ],
+            "max": [
+              10000,
+              -15,
+              6600
+            ],
+            "size": [
+              45,
+              75,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_00",
+          "persistent_id": 70495,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              0,
+              150
+            ],
+            "max": [
+              10090,
+              45,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_01",
+          "persistent_id": 70496,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              75.8,
+              150
+            ],
+            "max": [
+              10090,
+              120.8,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_02",
+          "persistent_id": 70497,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              151.5,
+              150
+            ],
+            "max": [
+              10090,
+              196.5,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_03",
+          "persistent_id": 70498,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              227.3,
+              150
+            ],
+            "max": [
+              10090,
+              272.3,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_04",
+          "persistent_id": 70499,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              303.1,
+              150
+            ],
+            "max": [
+              10090,
+              348.1,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_05",
+          "persistent_id": 70500,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              378.8,
+              150
+            ],
+            "max": [
+              10090,
+              423.8,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_06",
+          "persistent_id": 70501,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              454.6,
+              150
+            ],
+            "max": [
+              10090,
+              499.6,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_07",
+          "persistent_id": 70502,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              530.4,
+              150
+            ],
+            "max": [
+              10090,
+              575.4,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_08",
+          "persistent_id": 70503,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              606.2,
+              150
+            ],
+            "max": [
+              10090,
+              651.2,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_09",
+          "persistent_id": 70504,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              681.9,
+              150
+            ],
+            "max": [
+              10090,
+              726.9,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_10",
+          "persistent_id": 70505,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              757.7,
+              150
+            ],
+            "max": [
+              10090,
+              802.7,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_11",
+          "persistent_id": 70506,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              833.5,
+              150
+            ],
+            "max": [
+              10090,
+              878.5,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_12",
+          "persistent_id": 70507,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              909.2,
+              150
+            ],
+            "max": [
+              10090,
+              954.2,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_13",
+          "persistent_id": 70508,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              985,
+              150
+            ],
+            "max": [
+              10090,
+              1030,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_14",
+          "persistent_id": 70509,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1060.8,
+              150
+            ],
+            "max": [
+              10090,
+              1105.8,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_15",
+          "persistent_id": 70510,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1136.5,
+              150
+            ],
+            "max": [
+              10090,
+              1181.5,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_16",
+          "persistent_id": 70511,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1212.3,
+              150
+            ],
+            "max": [
+              10090,
+              1257.3,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_17",
+          "persistent_id": 70512,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1288.1,
+              150
+            ],
+            "max": [
+              10090,
+              1333.1,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_18",
+          "persistent_id": 70513,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1363.8,
+              150
+            ],
+            "max": [
+              10090,
+              1408.8,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_19",
+          "persistent_id": 70514,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1439.6,
+              150
+            ],
+            "max": [
+              10090,
+              1484.6,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_20",
+          "persistent_id": 70515,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1515.4,
+              150
+            ],
+            "max": [
+              10090,
+              1560.4,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_21",
+          "persistent_id": 70516,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1591.2,
+              150
+            ],
+            "max": [
+              10090,
+              1636.2,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_22",
+          "persistent_id": 70517,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1666.9,
+              150
+            ],
+            "max": [
+              10090,
+              1711.9,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_23",
+          "persistent_id": 70518,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1742.7,
+              150
+            ],
+            "max": [
+              10090,
+              1787.7,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_24",
+          "persistent_id": 70519,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1818.5,
+              150
+            ],
+            "max": [
+              10090,
+              1863.5,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_25",
+          "persistent_id": 70520,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1894.2,
+              150
+            ],
+            "max": [
+              10090,
+              1939.2,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_26",
+          "persistent_id": 70521,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              1970,
+              150
+            ],
+            "max": [
+              10090,
+              2015,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_27",
+          "persistent_id": 70522,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2045.8,
+              150
+            ],
+            "max": [
+              10090,
+              2090.8,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_28",
+          "persistent_id": 70523,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2121.5,
+              150
+            ],
+            "max": [
+              10090,
+              2166.5,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_29",
+          "persistent_id": 70524,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2197.3,
+              150
+            ],
+            "max": [
+              10090,
+              2242.3,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_30",
+          "persistent_id": 70525,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2273.1,
+              150
+            ],
+            "max": [
+              10090,
+              2318.1,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_31",
+          "persistent_id": 70526,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2348.8,
+              150
+            ],
+            "max": [
+              10090,
+              2393.8,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_32",
+          "persistent_id": 70527,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2424.6,
+              150
+            ],
+            "max": [
+              10090,
+              2469.6,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_33",
+          "persistent_id": 70528,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2500.4,
+              150
+            ],
+            "max": [
+              10090,
+              2545.4,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_34",
+          "persistent_id": 70529,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2576.2,
+              150
+            ],
+            "max": [
+              10090,
+              2621.2,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_35",
+          "persistent_id": 70530,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2651.9,
+              150
+            ],
+            "max": [
+              10090,
+              2696.9,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_36",
+          "persistent_id": 70531,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2727.7,
+              150
+            ],
+            "max": [
+              10090,
+              2772.7,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_37",
+          "persistent_id": 70532,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2803.5,
+              150
+            ],
+            "max": [
+              10090,
+              2848.5,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_38",
+          "persistent_id": 70533,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2879.2,
+              150
+            ],
+            "max": [
+              10090,
+              2924.2,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        },
+        {
+          "name": "BATTEN_R_39",
+          "persistent_id": 70534,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10015,
+              2955,
+              150
+            ],
+            "max": [
+              10090,
+              3000,
+              6600
+            ],
+            "size": [
+              75,
+              45,
+              6450
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "BALCONY"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "BALCONY"
+      ],
+      "persistent_id": 70536,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          175,
+          -1420,
+          2930
+        ],
+        "max": [
+          8425,
+          200,
+          4250
+        ],
+        "size": [
+          8250,
+          1620,
+          1320
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 5,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "BALCONY_SLAB",
+          "persistent_id": 70538,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              200,
+              -1400,
+              2950
+            ],
+            "max": [
+              8400,
+              200,
+              3200
+            ],
+            "size": [
+              8200,
+              1600,
+              250
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_FASCIA",
+          "persistent_id": 70570,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              200,
+              -1420,
+              2950
+            ],
+            "max": [
+              8400,
+              -1360,
+              3160
+            ],
+            "size": [
+              8200,
+              60,
+              210
+            ]
+          }
+        },
+        {
+          "name": "DOWNLIGHT_1",
+          "persistent_id": 70602,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3855,
+              -793.9,
+              2930
+            ],
+            "max": [
+              3945,
+              -706.1,
+              2950
+            ],
+            "size": [
+              90,
+              87.7,
+              20
+            ]
+          }
+        },
+        {
+          "name": "DOWNLIGHT_2",
+          "persistent_id": 70704,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5855,
+              -793.9,
+              2930
+            ],
+            "max": [
+              5945,
+              -706.1,
+              2950
+            ],
+            "size": [
+              90,
+              87.7,
+              20
+            ]
+          }
+        },
+        {
+          "name": "GLASS_RAIL",
+          "persistent_id": 70806,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175,
+              -1380,
+              3200
+            ],
+            "max": [
+              8425,
+              -20,
+              4250
+            ],
+            "size": [
+              8250,
+              1360,
+              1050
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "INTERIOR_1F"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "INTERIOR_1F"
+      ],
+      "persistent_id": 71576,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          320,
+          320,
+          -150
+        ],
+        "max": [
+          9680,
+          7680,
+          2550
+        ],
+        "size": [
+          9360,
+          7360,
+          2700
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 11,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "FLOOR_1F",
+          "persistent_id": 71578,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320,
+              320,
+              -150
+            ],
+            "max": [
+              9680,
+              7680,
+              0
+            ],
+            "size": [
+              9360,
+              7360,
+              150
+            ]
+          }
+        },
+        {
+          "name": "SOFA_1F",
+          "persistent_id": 71610,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3200,
+              1950,
+              0
+            ],
+            "max": [
+              5400,
+              2900,
+              840
+            ],
+            "size": [
+              2200,
+              950,
+              840
+            ]
+          }
+        },
+        {
+          "name": "OTTOMAN_1F",
+          "persistent_id": 71772,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4000,
+              1200,
+              0
+            ],
+            "max": [
+              4800,
+              1900,
+              460
+            ],
+            "size": [
+              800,
+              700,
+              460
+            ]
+          }
+        },
+        {
+          "name": "ARMCHAIR_1F",
+          "persistent_id": 71838,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5900,
+              1700,
+              0
+            ],
+            "max": [
+              6700,
+              2500,
+              820
+            ],
+            "size": [
+              800,
+              800,
+              820
+            ]
+          }
+        },
+        {
+          "name": "TABLE_1F",
+          "persistent_id": 71936,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3850,
+              950,
+              0
+            ],
+            "max": [
+              5150,
+              1550,
+              380
+            ],
+            "size": [
+              1300,
+              600,
+              380
+            ]
+          }
+        },
+        {
+          "name": "CURTAIN_1F",
+          "persistent_id": 72098,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5720,
+              440,
+              50
+            ],
+            "max": [
+              6420,
+              480,
+              2550
+            ],
+            "size": [
+              700,
+              40,
+              2500
+            ]
+          }
+        },
+        {
+          "name": "ART_1F_1",
+          "persistent_id": 72130,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320,
+              1600,
+              1350
+            ],
+            "max": [
+              352,
+              2200,
+              2150
+            ],
+            "size": [
+              32,
+              600,
+              800
+            ]
+          }
+        },
+        {
+          "name": "ART_1F_2",
+          "persistent_id": 72196,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320,
+              2500,
+              1350
+            ],
+            "max": [
+              352,
+              3100,
+              2150
+            ],
+            "size": [
+              32,
+              600,
+              800
+            ]
+          }
+        },
+        {
+          "name": "PLANT_1F_A",
+          "persistent_id": 72262,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2090,
+              490,
+              0
+            ],
+            "max": [
+              2610,
+              1010,
+              1250
+            ],
+            "size": [
+              520,
+              520,
+              1250
+            ]
+          }
+        },
+        {
+          "name": "PLANT_1F_B",
+          "persistent_id": 72367,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5970,
+              420,
+              0
+            ],
+            "max": [
+              6530,
+              980,
+              1343
+            ],
+            "size": [
+              560,
+              560,
+              1343
+            ]
+          }
+        },
+        {
+          "name": "PLANT_1F_C",
+          "persistent_id": 72472,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5710,
+              2660,
+              0
+            ],
+            "max": [
+              6190,
+              3140,
+              1152.5
+            ],
+            "size": [
+              480,
+              480,
+              1152.5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "owned_path": [
+        "BALCONY_FURN"
+      ],
+      "script_id": "villa1008",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "BALCONY_FURN"
+      ],
+      "persistent_id": 72577,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          750,
+          -1290,
+          3200
+        ],
+        "max": [
+          8340,
+          1050,
+          4820
+        ],
+        "size": [
+          7590,
+          2340,
+          1620
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 6,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "SOFA_BAL",
+          "persistent_id": 72579,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5000,
+              100,
+              3200
+            ],
+            "max": [
+              7000,
+              1050,
+              4040
+            ],
+            "size": [
+              2000,
+              950,
+              840
+            ]
+          }
+        },
+        {
+          "name": "TABLE_BAL",
+          "persistent_id": 72741,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3950,
+              -500,
+              3200
+            ],
+            "max": [
+              4550,
+              100,
+              3470
+            ],
+            "size": [
+              600,
+              600,
+              270
+            ]
+          }
+        },
+        {
+          "name": "PLANT_BAL_A",
+          "persistent_id": 72903,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750,
+              -850,
+              3200
+            ],
+            "max": [
+              1350,
+              -250,
+              4820
+            ],
+            "size": [
+              600,
+              600,
+              1620
+            ]
+          }
+        },
+        {
+          "name": "PLANT_BAL_B",
+          "persistent_id": 73008,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7270,
+              -730,
+              3200
+            ],
+            "max": [
+              7830,
+              -170,
+              4656
+            ],
+            "size": [
+              560,
+              560,
+              1456
+            ]
+          }
+        },
+        {
+          "name": "PLANT_BAL_C",
+          "persistent_id": 73113,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7860,
+              -1290,
+              3200
+            ],
+            "max": [
+              8340,
+              -810,
+              4399
+            ],
+            "size": [
+              480,
+              480,
+              1199
+            ]
+          }
+        },
+        {
+          "name": "PLANT_BAL_D",
+          "persistent_id": 73218,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4030,
+              -1270,
+              3200
+            ],
+            "max": [
+              4470,
+              -830,
+              4306
+            ],
+            "size": [
+              440,
+              440,
+              1106
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

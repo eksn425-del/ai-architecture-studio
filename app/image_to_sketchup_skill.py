@@ -21,14 +21,13 @@ Deliver developed source-matched editable geometry; a few white boxes are an aut
 
 ## Method card A — clarify only what changes the model
 
-Inspect first; ask only unanswered questions about use/views, scope, scale or inference/detail permission. Propose estimates if no known size. If these are already supplied, give the plan without another questionnaire.
+Ask only unanswered use/views, scope, scale or inference/detail questions. Propose missing scale; otherwise plan directly.
 
-Do not repeat answered questions or ask micro-details.
-Once the user accepts estimates, do not ask about color values, member counts or minor dimensions again. Put defaults in the card. Planning revisions are not a new clarification gate.
+Never repeat questions or ask micro-details. Accepted estimates/defaults belong in the card; planning revisions do not restart clarification.
 
 ## Method card B — parameter card, not vague prose
 
-After the user's clarification response, update `notes/reconstruction_card.md` with a compact parameter card. Clearly label values as KNOWN / ESTIMATED / ASSUMED.
+Update `notes/reconstruction_card.md` before geometry; label KNOWN / ESTIMATED / ASSUMED.
 
 Record scope, dimensions, axes/levels, voids/depth, facade/roof/material systems, instances and scripts.
 
@@ -44,7 +43,7 @@ No geometry in clarify/plan mode.
 
 ## Evidence across views and unseen geometry
 
-First classify the supplied evidence: one image, multiple views of ONE building, or text only. For text only, plan a proposed design from the user's description; do not claim to have inspected a photo or recovered an existing building. Do not demand an image if the user wants a text-described building. Use the same approval, persistent coding, editable model and QA loop.
+Classify evidence: one image, multiple views of ONE building, or text only. Text-only work proposes a design, not an observed reconstruction; do not demand images. Keep the same approval/coding/QA loop.
 
 Record views, floors, openings/materials/landmarks; reconcile ONE building's dimensions and contradictions. Never promise zero errors.
 
@@ -58,11 +57,11 @@ With approved inference, rear/sides/roof/interiors stay ASSUMED. Continue levels
 
 In the parameter card, use ONE coordinate convention for the entire building: origin, +X/+Y directions, floor elevations and front/rear mapping. For a whole six-view sheet, identify panels by row/column and visible landmarks; keep the original image intact. Do not treat six panels as six unrelated designs.
 
-Create a compact facade schedule: side/panel, level, opening count, opening x/z intervals, glazing/door type, recess depth and confidence. Unknowns remain ASSUMED; conflicting panels need explicit resolution before approval. Use this same schedule to generate and check geometry; do not re-infer the facade independently in each script. Small details stay estimates, not more user questions.
+Card facade schedule: side/panel, level, opening count/x/z intervals/type, recess depth/confidence. Resolve conflicting panels before approval; unknowns stay ASSUMED. Generate/check from ONE schedule, not independent guesses. Estimate small details.
 
 Before repeating, calculate expected mm bounds for one wall, opening and roof section. Use injected saie_wall.call with string-key mm params for solid wall segments when suitable. This adopted SAIE subset does NOT cut openings: build sill/jamb/head segments around each void or use a verified opening method. A glass face covering a continuous solid wall is not an opening. Roof slab and parapet are separate named children; no full-height cap over a intended recessed roof.
 
-Read actual transaction owned_after XYZ mm bounds and child persistent IDs. Compare measured position/size to expected intervals, especially opposite walls. Inspect each required view's opening count and roof junction; write actual vs expected and the defect in notes/visual_qa.md. A passing size check cannot prove topology or image fidelity. Check glass, frames, soffits, relief, material scale and face orientation. Inspect front/rear/both sides/roof/oblique for multi-angle delivery. Unchecked views mean partial delivery.
+Check transaction owned_after XYZ mm bounds/child IDs against expected positions/sizes, especially opposite walls. Verify each view's openings/roof/glass/frames/soffits/relief/material scale/normals; record defects in qa/visual_qa.md. Size checks cannot prove topology/fidelity. Unchecked views mean partial.
 
 ## Method card D — Pass 1: recognizable primary form
 
@@ -85,13 +84,13 @@ Build one representative repeated module correctly, inspect it, then instance/ar
 
 ## Method card F — Pass 3: bounded visual critic and correction
 
-Treat visual QA as a separate read-only job after the writer finishes a pass. Compare the SOURCE evidence first, then only CURRENT screenshots from the latest revision. Tool success, a nonempty root, a successful save, or a clean Ruby return is not visual success.
+After a geometry pass, run read-only visual QA: compare SOURCE first against CURRENT latest-revision screenshots. Tool/save success is not visual success.
 
-For multi-angle delivery, inspect front / rear / left / right / roof / oblique. Use source-matched framing where available. Write the current result to qa/visual_qa.md using the same compact envelope as the quality helper: NEEDS_FIX: YES|NO, a brief assessment, at most THREE highest-impact mismatches, and a KEEP list of already-correct geometry that the next patch must preserve.
+Review front/rear/left/right/roof/oblique with source-matched framing. Write qa/visual_qa.md: current revision, write_verification status, NEEDS_FIX: YES|NO, assessment, at most THREE high-impact mismatches, KEEP list. Prioritize silhouette, storeys/bays, openings, depth, roof/parapet, material zones and intersections.
 
-Prioritize silhouette, storeys/bays, opening count/position, void/recess/projection depth, roof/parapet, major material zones and obvious intersections. Do not spend the correction budget on micro-detail while a high-impact mismatch remains. The critic does not write Ruby. The Builder owns all geometry changes.
+Only the Builder writes Ruby. For YES, edit named affected groups while preserving KEEP, recapture and review. At most two targeted corrections per turn; remaining blockers mean partial. NO still requires current views and deterministic verification.
 
-When NEEDS_FIX is YES, make a targeted edit against the named affected groups, recapture fresh views and re-critic. Do at most two targeted correction rounds in one turn. If blocking mismatches remain, report them as pending instead of claiming completion. When NEEDS_FIX is NO, still require the deterministic post-write verification receipt and current screenshot evidence.
+Record each QA capture's revision. After any correction, recapture ALL required views; missing/stale rows mean incomplete QA. Correct via edit, integrate baseline separately; replaying replace destroys KEEP IDs.
 
 Report panel/view → observed source fact → actual model → mismatch/action. Integrate successful fixes into the persistent baseline/replay entrypoint so rerunning cannot resurrect defects. Incremental moves are not idempotent builders.
 

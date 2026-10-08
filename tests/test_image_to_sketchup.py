@@ -67,6 +67,8 @@ def test_reconstruction_plan_parameterizes_before_execution() -> None:
     assert "KNOWN" not in prompt_note or "plan" in prompt_note.lower()
     assert "parameter card" in developer
     assert "estimates" in developer.lower()
+    assert "write 无" in developer
+    assert "not separate approvals" in developer
     assert "Do not edit SketchUp geometry" in developer
     assert workflow_tool_profile("image_reconstruction") == "reconstruction_coding"
     assert workflow_reference_categories("image_reconstruction") == ("reference", "site", "brief")

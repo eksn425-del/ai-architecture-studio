@@ -206,9 +206,11 @@ function showToast(message, isError = false) {
 function friendlyError(error) {
   const message = String(error?.message || "");
   if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后会同步本轮结果，请不要重复发送。";
-  if (/AuthenticationError|invalid.*api.?key|Incorrect API key|401|Unauthorized/i.test(message)) return "API Key 无效或已失效，请打开「模型 / 自带 API」检查供应商和 Key。图片、计划和草稿都已保留。";
-  if (/Insufficient Balance|insufficient_quota|402|余额不足/i.test(message)) return "模型账户余额或额度不足，请检查供应商账户；项目资料与计划已保留。";
-  if (/RateLimitError|429|rate.limit/i.test(message)) return "模型供应商暂时限流，请稍后重试；无需重新上传资料。";
+  // Ruby backtrace line numbers (e.g. geometry_tools.rb:401) are not HTTP codes.
+  const httpStatus = code => new RegExp(`请求失败\\s*[（(]${code}[）)]|\\bHTTP(?:\\s+(?:error|status))?\\s*[:=]?\\s*${code}\\b|\\bstatus(?:_code)?["']?\\s*[:=]\\s*${code}\\b`, "i").test(message);
+  if (/AuthenticationError|invalid.*api.?key|Incorrect API key|Unauthorized/i.test(message) || httpStatus(401)) return "API Key 无效或已失效，请打开「模型 / 自带 API」检查供应商和 Key。图片、计划和草稿都已保留。";
+  if (/Insufficient Balance|insufficient_quota|余额不足/i.test(message) || httpStatus(402)) return "模型账户余额或额度不足，请检查供应商账户；项目资料与计划已保留。";
+  if (/RateLimitError|rate.limit/i.test(message) || httpStatus(429)) return "模型供应商暂时限流，请稍后重试；无需重新上传资料。";
   if (/WinError 10061|Server disconnected without sending a response|ConnectError|ProxyError/i.test(message)) return "模型 API 连接中断；已保留图片、计划和脚本。请重试执行，当前无需恢复或重新创建模型。";
   if (/APITimeoutError|LiteLLM request failed.*Timeout|Request timed out/i.test(message)) {
     return "模型 API 请求超时，本轮未完成；这不代表 MCP 断开。项目记录已保留，请分阶段重试，先建主体并截图，再补细节。";

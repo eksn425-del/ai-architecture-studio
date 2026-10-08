@@ -80,3 +80,48 @@ def test_post_write_verification_rejects_silent_mismatch():
         assert "objects_total" in str(error)
     else:
         raise AssertionError("A mismatched post-write readback must fail.")
+
+
+def test_verification_rejects_missing_expected_readback_fields():
+    import pytest
+    for field, expected in (("objects_total", 4), ("bounds_mm", {"min": [0, 0, 0], "max": [1, 1, 1]})):
+        with pytest.raises(ValueError, match=field):
+            require_post_write_verification(
+                {"status": "committed", "owned_after": {field: expected}},
+                {"persistent_id": 701, "revision": 3},
+                expected_root_pid=701, expected_revision=3,
+            )
+
+
+def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path, monkeypatch):
+    import pytest
+    from app.agent_tools import AgentToolSurface
+    from app.sketchup_mcp import MCPCallError
+    class Executor:
+        def __init__(self, *args, **kwargs):
+            self.ruby_state = kwargs["ruby_state"]
+    monkeypatch.setattr("app.agent_tools.ProjectRubyExecutor", Executor)
+    surface = AgentToolSurface(tmp_path, object(), oss_backends={})
+    monkeypatch.setattr(surface, "dynamic_tools", lambda **kwargs: [])
+    def run(name, args, **kwargs):
+        if name != "sketchup_run_workspace_ruby":
+            return {"success": True}
+        state = kwargs["project_ruby"].ruby_state
+        key = args.get("script_id", "villa")
+        state[key] = {"revision": state.get(key, {}).get("revision", 0) + 1}
+        if args.get("capture_failure"):
+            raise OSError("capture failed after commit")
+        return {"success": True}
+    monkeypatch.setattr(surface, "dispatch", run)
+    for state, limit in (({}, 3), ({"villa": {"revision": 5}}, 2)):
+        context = surface.prepare(project_dir=tmp_path / "projects" / "budget",
+            mcp_enabled=True, model_path=tmp_path / "blank.skp", model_guid="fixture",
+            ruby_enabled=True, ruby_state=state, tool_profile="reconstruction_coding")
+        with pytest.raises(OSError):
+            context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
+        for _ in range(limit - 1):
+            context.dispatch("sketchup_run_workspace_ruby", {})
+        with pytest.raises(MCPCallError, match="预算"):
+            context.dispatch("sketchup_run_workspace_ruby", {"script_id": "bypass"})
+        assert context.dispatch("sketchup_inspect_owned", {})["success"]
+        assert "bypass" not in state

@@ -189,7 +189,10 @@ class ProjectRubyExecutor:
         state = self.ruby_state.get(script_id, {})
         root_pid = state.get("root_pid")
         if type(root_pid) is not int or root_pid <= 0:
-            raise MCPCallError("No existing owned root for this script_id; build/inspect project state first.")
+            available = ", ".join(f"{key} (revision {value.get('revision', 0)})"
+                                  for key, value in self.ruby_state.items() if value.get("root_pid"))
+            raise MCPCallError("No existing owned root for this script_id; use the persisted identity, not a guessed ID. "
+                               + f"Available script_ids: {available or 'none; build first'}.")
         self._assert_active_model()
         helper = (Path(__file__).parent / "adopted_sketchup_helpers.rb").resolve()
         lifecycle = (Path(__file__).parent / "vendor/sketchup_architect/scripts/model_session.rb").resolve()
@@ -324,6 +327,16 @@ class ProjectRubyExecutor:
         except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
             raise MCPCallError(f"Post-write read-back verification failed: {error}") from error
 
+        # Keep the deterministic receipt even if later viewport capture fails.
+        # The report/receipt pair is immutable evidence for this revision.
+        receipt_path = report_path.with_suffix(".verification.json")
+        receipt_path.write_text(json.dumps(write_verification, ensure_ascii=False, indent=2), encoding="utf-8")
+        self.ruby_state[script_id]["last_verification"] = write_verification
+        self.ruby_state[script_id]["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
+        verified_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
+        verified_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
+        verified_state.replace(self.state_path)
+
         model_info = self.adapter.get_model_info()
         image_path = self.project_dir / "outputs" / "renders" / f"ruby-{script_id}-r{new_revision}.png"
         if image_path.is_symlink():
@@ -343,6 +356,7 @@ class ProjectRubyExecutor:
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
             "last_screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "last_verification": write_verification,
+            "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")

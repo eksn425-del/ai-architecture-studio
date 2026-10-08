@@ -403,7 +403,15 @@ class SketchUpAdapter:
             "# ARCHFLOW_GENERATED_SCRIPT\n"
             "model = Sketchup.active_model\n"
             + root_guard +
-            f"raise 'SketchUp checkpoint save failed' unless model.save_copy({ruby_target})\n"
+            # SketchUp 2024 rejects save_copy to its own active filename.
+            # The guarded host owns saving that bound disposable document.
+            f"target = {ruby_target}\n"
+            "saved = if File.expand_path(model.path) == File.expand_path(target)\n"
+            "  model.save\n"
+            "else\n"
+            "  model.save_copy(target)\n"
+            "end\n"
+            "raise 'SketchUp checkpoint save failed' unless saved\n"
             f"{{ saved: true, path: model.path, operation: {json.dumps(operation_name)} }}\n"
         )
         script_path.write_text(script, encoding="utf-8")

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
@@ -86,14 +87,25 @@ class AgentToolSurface:
         ) if mcp_enabled else []
         if workspace_tools_enabled:
             dynamic_tools.extend(workspace_file_tools())
-        return AgentToolContext(
-            dynamic_tools=dynamic_tools,
-            dispatch=lambda name, arguments: workspace_file_call(
-                resolved_project_dir / "runtime" / "agent_workspace", name, arguments,
-            ) if workspace_tools_enabled and name in {"workspace_read", "workspace_write"} else self.dispatch(
-                name, arguments, project_dir=resolved_project_dir, project_ruby=executor,
-            ),
-        )
+        writes = 0
+        # One primary build plus two corrections; an existing model gets two
+        # corrections. A committed write consumes budget even if capture fails.
+        write_limit = 2 if executor and executor.ruby_state else 3
+        def dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
+            nonlocal writes
+            if workspace_tools_enabled and name in {"workspace_read", "workspace_write"}:
+                return workspace_file_call(resolved_project_dir / "runtime" / "agent_workspace", name, arguments)
+            bounded = executor is not None and tool_profile == "reconstruction_coding" and name in {
+                "sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}
+            before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
+            if bounded and writes >= write_limit:
+                raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
+            try:
+                return self.dispatch(name, arguments, project_dir=resolved_project_dir, project_ruby=executor)
+            finally:
+                if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
+                    writes += 1
+        return AgentToolContext(dynamic_tools=dynamic_tools, dispatch=dispatch)
 
     @staticmethod
     def _dynamic_tool(name: str, description: str, schema: dict[str, Any]) -> dict[str, Any]:
@@ -294,7 +306,18 @@ class AgentToolSurface:
                 "path": output_path.relative_to(project_dir).as_posix(),
                 "width": width, "height": height,
                 "quality_status": "not_accepted",
+                "model_revisions": {
+                    script_id: state.get("revision")
+                    for script_id, state in (project_ruby.ruby_state.items() if project_ruby else [])
+                },
             }
+            output_path.with_suffix(".evidence.json").write_text(
+                json.dumps(result["visual_evidence"], ensure_ascii=False, indent=2), encoding="utf-8")
+            result.setdefault("contentItems", []).append({
+                "type": "inputText",
+                "text": "Actual current capture receipt (use this path, not a requested/invented filename): "
+                        + json.dumps(result["visual_evidence"], ensure_ascii=False),
+            })
             result.setdefault("contentItems", []).append({
                 "type": "inputImage",
                 "imageUrl": "data:image/png;base64," + base64.b64encode(output_path.read_bytes()).decode("ascii"),

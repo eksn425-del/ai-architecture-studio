@@ -340,6 +340,8 @@ def test_interrupted_committed_build_checkpoints_and_retains_execution_thread(tm
     state = json.loads((project / "state/model_state.json").read_text(encoding="utf-8"))
     assert state["last_operation"]["status"] == "interrupted"
     assert state["model_path"].endswith("fast-assembly-agent.skp")
+    assert any(name == "save_model" and args["operation_name"] == "Persist bound agent document"
+               for name, args in su.calls)
     assert send(client).status_code == 503
 
 

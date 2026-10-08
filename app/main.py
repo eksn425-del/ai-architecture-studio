@@ -1655,8 +1655,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             model_output = project_dir / "outputs" / "model" / "fast-assembly-agent.skp"
             roots = [int(item["root_pid"]) for item in session.ruby_state.values() if item.get("root_pid")]
             if isinstance(adapter, SketchUpAdapter):
+                # Reconnection opens session.model_path, not the download artifact.
+                # Keep that disposable document on disk current as well; otherwise
+                # closing SketchUp can reload the original empty template.
+                adapter.save_model(active_model, "Persist bound agent document", expected_root_ids=roots)
                 adapter.save_model(model_output, "Fast Assembly v1 agent checkpoint", expected_root_ids=roots)
             else:
+                adapter.save_model(active_model, "Persist bound agent document")
                 adapter.save_model(model_output, "Fast Assembly v1 agent checkpoint")
             post_identity = adapter.get_active_model_identity()
             if Path(str(post_identity.get("model_path") or "")).resolve() != active_model:

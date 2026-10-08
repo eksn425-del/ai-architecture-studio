@@ -178,10 +178,9 @@ def require_post_write_verification(
 
     owned_after = transaction.get("owned_after")
     if isinstance(owned_after, dict):
-        if "objects_total" in owned_after and "objects_total" in readback:
-            check("objects_total", owned_after["objects_total"], readback["objects_total"])
-        if "bounds_mm" in owned_after and "bounds_mm" in readback:
-            check("bounds_mm", owned_after["bounds_mm"], readback["bounds_mm"])
+        for field in ("objects_total", "bounds_mm"):
+            if field in owned_after:
+                check(field, owned_after[field], readback.get(field))
 
     return {
         "schema_version": 1,

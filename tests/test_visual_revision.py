@@ -64,4 +64,22 @@ def test_export_supplies_actual_pixels_and_relative_receipt(tmp_path):
     assert result['visual_evidence']['width'] == 40
     assert result['visual_evidence']['height'] == 24
     assert result['visual_evidence']['path'].startswith('outputs/renders/')
+    assert result['visual_evidence']['path'] in text
+    assert 'model_revisions' in text
     assert str(tmp_path) not in text
+
+
+def test_export_persists_capture_revision_even_after_later_model_edit(tmp_path):
+    import json
+    class Project:
+        ruby_state = {"villa": {"revision": 5}}
+        def refresh_active_model_snapshot(self):
+            pass
+    project = Project()
+    surface = AgentToolSurface(tmp_path, ExportBridge('png'), oss_backends={})
+    result = surface.dispatch('sketchup_export_view_image', {}, project_dir=tmp_path, project_ruby=project)
+    metadata = result['visual_evidence']
+    project.ruby_state['villa']['revision'] = 6
+    assert metadata['model_revisions'] == {'villa': 5}
+    saved = (tmp_path / metadata['path']).with_suffix('.evidence.json')
+    assert json.loads(saved.read_text())['model_revisions'] == {'villa': 5}

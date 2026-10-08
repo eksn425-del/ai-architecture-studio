@@ -1,0 +1,3835 @@
+{
+  "all_pages": true,
+  "pages": [
+    {
+      "script_id": "villa_replay",
+      "revision": 3,
+      "read_only": true,
+      "path": [],
+      "persistent_id": 37843,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -14000,
+          -14000,
+          -100
+        ],
+        "max": [
+          24000,
+          24000,
+          7260
+        ],
+        "size": [
+          38000,
+          38000,
+          7360
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 171,
+      "offset": 0,
+      "next_offset": 100,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "SITE_LAWN",
+          "persistent_id": 37863,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -14000,
+              -14000,
+              -100
+            ],
+            "max": [
+              24000,
+              24000,
+              0
+            ],
+            "size": [
+              38000,
+              38000,
+              100
+            ]
+          }
+        },
+        {
+          "name": "SITE_PAVING_FRONT",
+          "persistent_id": 37895,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3000,
+              -3000,
+              0
+            ],
+            "max": [
+              13000,
+              0,
+              30
+            ],
+            "size": [
+              16000,
+              3000,
+              30
+            ]
+          }
+        },
+        {
+          "name": "SITE_PAVING_EAST",
+          "persistent_id": 37927,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              0,
+              0
+            ],
+            "max": [
+              13000,
+              8600,
+              30
+            ],
+            "size": [
+              3000,
+              8600,
+              30
+            ]
+          }
+        },
+        {
+          "name": "SITE_PAVING_REAR",
+          "persistent_id": 37959,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1200,
+              8000,
+              0
+            ],
+            "max": [
+              11200,
+              9200,
+              30
+            ],
+            "size": [
+              12400,
+              1200,
+              30
+            ]
+          }
+        },
+        {
+          "name": "SITE_PAVING_WEST",
+          "persistent_id": 37991,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1200,
+              0,
+              0
+            ],
+            "max": [
+              0,
+              8000,
+              30
+            ],
+            "size": [
+              1200,
+              8000,
+              30
+            ]
+          }
+        },
+        {
+          "name": "SITE_PAVING_PATH",
+          "persistent_id": 38023,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              13000,
+              1200,
+              0
+            ],
+            "max": [
+              20000,
+              2800,
+              30
+            ],
+            "size": [
+              7000,
+              1600,
+              30
+            ]
+          }
+        },
+        {
+          "name": "SLAB_L1_FLOOR",
+          "persistent_id": 38055,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              150,
+              150,
+              0
+            ],
+            "max": [
+              9850,
+              7850,
+              300
+            ],
+            "size": [
+              9700,
+              7700,
+              300
+            ]
+          }
+        },
+        {
+          "name": "SLAB_L2_FLOOR",
+          "persistent_id": 38087,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              350,
+              350,
+              3200
+            ],
+            "max": [
+              9650,
+              7650,
+              3500
+            ],
+            "size": [
+              9300,
+              7300,
+              300
+            ]
+          }
+        },
+        {
+          "name": "ROOF_SLAB",
+          "persistent_id": 38119,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50,
+              50,
+              6400
+            ],
+            "max": [
+              9950,
+              7950,
+              6700
+            ],
+            "size": [
+              9900,
+              7900,
+              300
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_FRONT",
+          "persistent_id": 38151,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -20,
+              -50,
+              0
+            ],
+            "max": [
+              10020,
+              0,
+              300
+            ],
+            "size": [
+              10040,
+              50,
+              300
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_EAST",
+          "persistent_id": 38183,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              -20,
+              0
+            ],
+            "max": [
+              10050,
+              8020,
+              300
+            ],
+            "size": [
+              50,
+              8040,
+              300
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_REAR",
+          "persistent_id": 38215,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -20,
+              8000,
+              0
+            ],
+            "max": [
+              10020,
+              8050,
+              300
+            ],
+            "size": [
+              10040,
+              50,
+              300
+            ]
+          }
+        },
+        {
+          "name": "PLINTH_WEST",
+          "persistent_id": 38247,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50,
+              -20,
+              0
+            ],
+            "max": [
+              0,
+              8020,
+              300
+            ],
+            "size": [
+              50,
+              8040,
+              300
+            ]
+          }
+        },
+        {
+          "name": "WALL_FRONT",
+          "persistent_id": 38279,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              10000,
+              300,
+              6700
+            ],
+            "size": [
+              10000,
+              300,
+              6700
+            ]
+          }
+        },
+        {
+          "name": "WALL_REAR",
+          "persistent_id": 38729,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              7700,
+              0
+            ],
+            "max": [
+              10000,
+              8000,
+              6700
+            ],
+            "size": [
+              10000,
+              300,
+              6700
+            ]
+          }
+        },
+        {
+          "name": "WALL_WEST",
+          "persistent_id": 39147,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              300,
+              8000,
+              6700
+            ],
+            "size": [
+              300,
+              8000,
+              6700
+            ]
+          }
+        },
+        {
+          "name": "WALL_EAST",
+          "persistent_id": 39309,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9700,
+              0,
+              0
+            ],
+            "max": [
+              10000,
+              8000,
+              6700
+            ],
+            "size": [
+              300,
+              8000,
+              6700
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_FRONT",
+          "persistent_id": 39599,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              6700
+            ],
+            "max": [
+              10000,
+              300,
+              7200
+            ],
+            "size": [
+              10000,
+              300,
+              500
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_REAR",
+          "persistent_id": 39631,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              7700,
+              6700
+            ],
+            "max": [
+              10000,
+              8000,
+              7200
+            ],
+            "size": [
+              10000,
+              300,
+              500
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_WEST",
+          "persistent_id": 39663,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              6700
+            ],
+            "max": [
+              300,
+              8000,
+              7200
+            ],
+            "size": [
+              300,
+              8000,
+              500
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_EAST",
+          "persistent_id": 39695,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9700,
+              0,
+              6700
+            ],
+            "max": [
+              10000,
+              8000,
+              7200
+            ],
+            "size": [
+              300,
+              8000,
+              500
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_CAP_FRONT",
+          "persistent_id": 39727,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -20,
+              -30,
+              7200
+            ],
+            "max": [
+              10020,
+              330,
+              7260
+            ],
+            "size": [
+              10040,
+              360,
+              60
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_CAP_REAR",
+          "persistent_id": 39759,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -20,
+              7670,
+              7200
+            ],
+            "max": [
+              10020,
+              8030,
+              7260
+            ],
+            "size": [
+              10040,
+              360,
+              60
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_CAP_WEST",
+          "persistent_id": 39791,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30,
+              -20,
+              7200
+            ],
+            "max": [
+              330,
+              8020,
+              7260
+            ],
+            "size": [
+              360,
+              8040,
+              60
+            ]
+          }
+        },
+        {
+          "name": "PARAPET_CAP_EAST",
+          "persistent_id": 39823,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9670,
+              -20,
+              7200
+            ],
+            "max": [
+              10030,
+              8020,
+              7260
+            ],
+            "size": [
+              360,
+              8040,
+              60
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_THRESHOLD",
+          "persistent_id": 39855,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1000,
+              100,
+              300
+            ],
+            "max": [
+              6400,
+              200,
+              360
+            ],
+            "size": [
+              5400,
+              100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_HEAD",
+          "persistent_id": 39887,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1000,
+              100,
+              2840
+            ],
+            "max": [
+              6400,
+              200,
+              2900
+            ],
+            "size": [
+              5400,
+              100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_JAMB_W",
+          "persistent_id": 39919,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1000,
+              100,
+              300
+            ],
+            "max": [
+              1060,
+              200,
+              2900
+            ],
+            "size": [
+              60,
+              100,
+              2600
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_JAMB_E",
+          "persistent_id": 39951,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6340,
+              100,
+              300
+            ],
+            "max": [
+              6400,
+              200,
+              2900
+            ],
+            "size": [
+              60,
+              100,
+              2600
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_MULLION_1",
+          "persistent_id": 39983,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2800,
+              100,
+              300
+            ],
+            "max": [
+              2860,
+              200,
+              2900
+            ],
+            "size": [
+              60,
+              100,
+              2600
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_MULLION_2",
+          "persistent_id": 40015,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4600,
+              100,
+              300
+            ],
+            "max": [
+              4660,
+              200,
+              2900
+            ],
+            "size": [
+              60,
+              100,
+              2600
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_PANE_1",
+          "persistent_id": 40047,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1060,
+              144,
+              360
+            ],
+            "max": [
+              2800,
+              156,
+              2840
+            ],
+            "size": [
+              1740,
+              12,
+              2480
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_PANE_2",
+          "persistent_id": 40079,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2860,
+              144,
+              360
+            ],
+            "max": [
+              4600,
+              156,
+              2840
+            ],
+            "size": [
+              1740,
+              12,
+              2480
+            ]
+          }
+        },
+        {
+          "name": "OPEN_FRONT_L1_GLAZING_PANE_3",
+          "persistent_id": 40111,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4660,
+              144,
+              360
+            ],
+            "max": [
+              6340,
+              156,
+              2840
+            ],
+            "size": [
+              1680,
+              12,
+              2480
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_SLAB",
+          "persistent_id": 40143,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1300,
+              -1200,
+              3250
+            ],
+            "max": [
+              8500,
+              300,
+              3500
+            ],
+            "size": [
+              7200,
+              1500,
+              250
+            ]
+          }
+        },
+        {
+          "name": "RAILING_SHOE_FRONT",
+          "persistent_id": 40175,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1300,
+              -1170,
+              3500
+            ],
+            "max": [
+              8500,
+              -1110,
+              3580
+            ],
+            "size": [
+              7200,
+              60,
+              80
+            ]
+          }
+        },
+        {
+          "name": "RAILING_TOP_FRONT",
+          "persistent_id": 40207,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1300,
+              -1165,
+              4440
+            ],
+            "max": [
+              8500,
+              -1115,
+              4500
+            ],
+            "size": [
+              7200,
+              50,
+              60
+            ]
+          }
+        },
+        {
+          "name": "RAILING_GLASS_FRONT_1",
+          "persistent_id": 40239,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1340,
+              -1146,
+              3580
+            ],
+            "max": [
+              3050,
+              -1134,
+              4440
+            ],
+            "size": [
+              1710,
+              12,
+              860
+            ]
+          }
+        },
+        {
+          "name": "RAILING_GLASS_FRONT_2",
+          "persistent_id": 40271,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3130,
+              -1146,
+              3580
+            ],
+            "max": [
+              4840,
+              -1134,
+              4440
+            ],
+            "size": [
+              1710,
+              12,
+              860
+            ]
+          }
+        },
+        {
+          "name": "RAILING_GLASS_FRONT_3",
+          "persistent_id": 40303,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4920,
+              -1146,
+              3580
+            ],
+            "max": [
+              6630,
+              -1134,
+              4440
+            ],
+            "size": [
+              1710,
+              12,
+              860
+            ]
+          }
+        },
+        {
+          "name": "RAILING_GLASS_FRONT_4",
+          "persistent_id": 40335,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6710,
+              -1146,
+              3580
+            ],
+            "max": [
+              8420,
+              -1134,
+              4440
+            ],
+            "size": [
+              1710,
+              12,
+              860
+            ]
+          }
+        },
+        {
+          "name": "RAILING_POST_FRONT_1",
+          "persistent_id": 40367,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1320,
+              -1165,
+              3500
+            ],
+            "max": [
+              1360,
+              -1115,
+              4440
+            ],
+            "size": [
+              40,
+              50,
+              940
+            ]
+          }
+        },
+        {
+          "name": "RAILING_POST_FRONT_2",
+          "persistent_id": 40399,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3110,
+              -1165,
+              3500
+            ],
+            "max": [
+              3150,
+              -1115,
+              4440
+            ],
+            "size": [
+              40,
+              50,
+              940
+            ]
+          }
+        },
+        {
+          "name": "RAILING_POST_FRONT_3",
+          "persistent_id": 40431,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4900,
+              -1165,
+              3500
+            ],
+            "max": [
+              4940,
+              -1115,
+              4440
+            ],
+            "size": [
+              40,
+              50,
+              940
+            ]
+          }
+        },
+        {
+          "name": "RAILING_POST_FRONT_4",
+          "persistent_id": 40463,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6690,
+              -1165,
+              3500
+            ],
+            "max": [
+              6730,
+              -1115,
+              4440
+            ],
+            "size": [
+              40,
+              50,
+              940
+            ]
+          }
+        },
+        {
+          "name": "RAILING_POST_FRONT_5",
+          "persistent_id": 40495,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8460,
+              -1165,
+              3500
+            ],
+            "max": [
+              8500,
+              -1115,
+              4440
+            ],
+            "size": [
+              40,
+              50,
+              940
+            ]
+          }
+        },
+        {
+          "name": "RAILING_SHOE_RETURN_E",
+          "persistent_id": 40527,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8440,
+              -1200,
+              3500
+            ],
+            "max": [
+              8500,
+              0,
+              3580
+            ],
+            "size": [
+              60,
+              1200,
+              80
+            ]
+          }
+        },
+        {
+          "name": "RAILING_TOP_RETURN_E",
+          "persistent_id": 40559,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8445,
+              -1200,
+              4440
+            ],
+            "max": [
+              8495,
+              0,
+              4500
+            ],
+            "size": [
+              50,
+              1200,
+              60
+            ]
+          }
+        },
+        {
+          "name": "RAILING_GLASS_RETURN_E",
+          "persistent_id": 40591,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8464,
+              -1140,
+              3580
+            ],
+            "max": [
+              8476,
+              -60,
+              4440
+            ],
+            "size": [
+              12,
+              1080,
+              860
+            ]
+          }
+        },
+        {
+          "name": "RAILING_SHOE_RETURN_W",
+          "persistent_id": 40623,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1300,
+              -1200,
+              3500
+            ],
+            "max": [
+              1360,
+              0,
+              3580
+            ],
+            "size": [
+              60,
+              1200,
+              80
+            ]
+          }
+        },
+        {
+          "name": "RAILING_TOP_RETURN_W",
+          "persistent_id": 40655,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1305,
+              -1200,
+              4440
+            ],
+            "max": [
+              1355,
+              0,
+              4500
+            ],
+            "size": [
+              50,
+              1200,
+              60
+            ]
+          }
+        },
+        {
+          "name": "RAILING_GLASS_RETURN_W",
+          "persistent_id": 40687,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1324,
+              -1140,
+              3580
+            ],
+            "max": [
+              1336,
+              -60,
+              4440
+            ],
+            "size": [
+              12,
+              1080,
+              860
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_PLANTER_1",
+          "persistent_id": 40719,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1500,
+              -1050,
+              3500
+            ],
+            "max": [
+              2000,
+              -350,
+              3900
+            ],
+            "size": [
+              500,
+              700,
+              400
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_PLANT_1_A",
+          "persistent_id": 40751,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1530,
+              -1064.5,
+              3850
+            ],
+            "max": [
+              1970,
+              -635.5,
+              4450
+            ],
+            "size": [
+              440,
+              429,
+              600
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_PLANT_1_B",
+          "persistent_id": 40855,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1490,
+              -760,
+              3850
+            ],
+            "max": [
+              1810,
+              -440,
+              4280
+            ],
+            "size": [
+              320,
+              320,
+              430
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_PLANTER_2",
+          "persistent_id": 40945,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7800,
+              -1050,
+              3500
+            ],
+            "max": [
+              8300,
+              -350,
+              3900
+            ],
+            "size": [
+              500,
+              700,
+              400
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_PLANT_2_A",
+          "persistent_id": 40977,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7830,
+              -1064.5,
+              3850
+            ],
+            "max": [
+              8270,
+              -635.5,
+              4450
+            ],
+            "size": [
+              440,
+              429,
+              600
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_PLANT_2_B",
+          "persistent_id": 41081,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7790,
+              -760,
+              3850
+            ],
+            "max": [
+              8110,
+              -440,
+              4280
+            ],
+            "size": [
+              320,
+              320,
+              430
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_SEAT_BASE",
+          "persistent_id": 41171,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4600,
+              -1000,
+              3500
+            ],
+            "max": [
+              5700,
+              -420,
+              3900
+            ],
+            "size": [
+              1100,
+              580,
+              400
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_SEAT_BACK",
+          "persistent_id": 41203,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4600,
+              -480,
+              3900
+            ],
+            "max": [
+              5700,
+              -420,
+              4280
+            ],
+            "size": [
+              1100,
+              60,
+              380
+            ]
+          }
+        },
+        {
+          "name": "BALCONY_SEAT_CUSHION",
+          "persistent_id": 41235,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4660,
+              -990,
+              3900
+            ],
+            "max": [
+              5640,
+              -500,
+              4020
+            ],
+            "size": [
+              980,
+              490,
+              120
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_THRESHOLD",
+          "persistent_id": 41267,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2000,
+              100,
+              3500
+            ],
+            "max": [
+              4100,
+              200,
+              3560
+            ],
+            "size": [
+              2100,
+              100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_HEAD",
+          "persistent_id": 41299,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2000,
+              100,
+              5640
+            ],
+            "max": [
+              4100,
+              200,
+              5700
+            ],
+            "size": [
+              2100,
+              100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_JAMB_W",
+          "persistent_id": 41331,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2000,
+              100,
+              3500
+            ],
+            "max": [
+              2060,
+              200,
+              5700
+            ],
+            "size": [
+              60,
+              100,
+              2200
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_JAMB_E",
+          "persistent_id": 41363,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4040,
+              100,
+              3500
+            ],
+            "max": [
+              4100,
+              200,
+              5700
+            ],
+            "size": [
+              60,
+              100,
+              2200
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_MULLION",
+          "persistent_id": 41395,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3025,
+              100,
+              3500
+            ],
+            "max": [
+              3075,
+              200,
+              5700
+            ],
+            "size": [
+              50,
+              100,
+              2200
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_PANE_W",
+          "persistent_id": 41427,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2060,
+              144,
+              3560
+            ],
+            "max": [
+              3025,
+              156,
+              5640
+            ],
+            "size": [
+              965,
+              12,
+              2080
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_A_PANE_E",
+          "persistent_id": 41459,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3075,
+              144,
+              3560
+            ],
+            "max": [
+              4040,
+              156,
+              5640
+            ],
+            "size": [
+              965,
+              12,
+              2080
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_THRESHOLD",
+          "persistent_id": 41491,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5100,
+              100,
+              3500
+            ],
+            "max": [
+              7200,
+              200,
+              3560
+            ],
+            "size": [
+              2100,
+              100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_HEAD",
+          "persistent_id": 41523,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5100,
+              100,
+              5640
+            ],
+            "max": [
+              7200,
+              200,
+              5700
+            ],
+            "size": [
+              2100,
+              100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_JAMB_W",
+          "persistent_id": 41555,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5100,
+              100,
+              3500
+            ],
+            "max": [
+              5160,
+              200,
+              5700
+            ],
+            "size": [
+              60,
+              100,
+              2200
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_JAMB_E",
+          "persistent_id": 41587,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7140,
+              100,
+              3500
+            ],
+            "max": [
+              7200,
+              200,
+              5700
+            ],
+            "size": [
+              60,
+              100,
+              2200
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_MULLION",
+          "persistent_id": 41619,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6125,
+              100,
+              3500
+            ],
+            "max": [
+              6175,
+              200,
+              5700
+            ],
+            "size": [
+              50,
+              100,
+              2200
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_PANE_W",
+          "persistent_id": 41651,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5160,
+              144,
+              3560
+            ],
+            "max": [
+              6125,
+              156,
+              5640
+            ],
+            "size": [
+              965,
+              12,
+              2080
+            ]
+          }
+        },
+        {
+          "name": "DOOR_SLIDER_L2_B_PANE_E",
+          "persistent_id": 41683,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6175,
+              144,
+              3560
+            ],
+            "max": [
+              7140,
+              156,
+              5640
+            ],
+            "size": [
+              965,
+              12,
+              2080
+            ]
+          }
+        },
+        {
+          "name": "WIN_REAR_01",
+          "persistent_id": 41875,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1500,
+              7790,
+              1200
+            ],
+            "max": [
+              2500,
+              7910,
+              2400
+            ],
+            "size": [
+              1000,
+              120,
+              1200
+            ]
+          }
+        },
+        {
+          "name": "WIN_REAR_02",
+          "persistent_id": 41876,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4500,
+              7790,
+              1200
+            ],
+            "max": [
+              5500,
+              7910,
+              2400
+            ],
+            "size": [
+              1000,
+              120,
+              1200
+            ]
+          }
+        },
+        {
+          "name": "WIN_REAR_03",
+          "persistent_id": 41877,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7500,
+              7790,
+              1200
+            ],
+            "max": [
+              8500,
+              7910,
+              2400
+            ],
+            "size": [
+              1000,
+              120,
+              1200
+            ]
+          }
+        },
+        {
+          "name": "WIN_REAR_04",
+          "persistent_id": 41878,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1500,
+              7790,
+              4400
+            ],
+            "max": [
+              2500,
+              7910,
+              5600
+            ],
+            "size": [
+              1000,
+              120,
+              1200
+            ]
+          }
+        },
+        {
+          "name": "WIN_REAR_05",
+          "persistent_id": 41879,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4500,
+              7790,
+              4400
+            ],
+            "max": [
+              5500,
+              7910,
+              5600
+            ],
+            "size": [
+              1000,
+              120,
+              1200
+            ]
+          }
+        },
+        {
+          "name": "WIN_REAR_06",
+          "persistent_id": 41880,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7500,
+              7790,
+              4400
+            ],
+            "max": [
+              8500,
+              7910,
+              5600
+            ],
+            "size": [
+              1000,
+              120,
+              1200
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L1_SILL",
+          "persistent_id": 41882,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3300,
+              1300
+            ],
+            "max": [
+              200,
+              3900,
+              1350
+            ],
+            "size": [
+              100,
+              600,
+              50
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L1_HEAD",
+          "persistent_id": 41914,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3300,
+              2350
+            ],
+            "max": [
+              200,
+              3900,
+              2400
+            ],
+            "size": [
+              100,
+              600,
+              50
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L1_JAMB_N",
+          "persistent_id": 41946,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3300,
+              1300
+            ],
+            "max": [
+              200,
+              3360,
+              2400
+            ],
+            "size": [
+              100,
+              60,
+              1100
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L1_JAMB_S",
+          "persistent_id": 41978,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3840,
+              1300
+            ],
+            "max": [
+              200,
+              3900,
+              2400
+            ],
+            "size": [
+              100,
+              60,
+              1100
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L1_GLASS",
+          "persistent_id": 42010,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              144,
+              3360,
+              1350
+            ],
+            "max": [
+              156,
+              3840,
+              2350
+            ],
+            "size": [
+              12,
+              480,
+              1000
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L2_SILL",
+          "persistent_id": 42042,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3300,
+              4400
+            ],
+            "max": [
+              200,
+              3900,
+              4450
+            ],
+            "size": [
+              100,
+              600,
+              50
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L2_HEAD",
+          "persistent_id": 42074,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3300,
+              5450
+            ],
+            "max": [
+              200,
+              3900,
+              5500
+            ],
+            "size": [
+              100,
+              600,
+              50
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L2_JAMB_N",
+          "persistent_id": 42106,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3300,
+              4400
+            ],
+            "max": [
+              200,
+              3360,
+              5500
+            ],
+            "size": [
+              100,
+              60,
+              1100
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L2_JAMB_S",
+          "persistent_id": 42138,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              100,
+              3840,
+              4400
+            ],
+            "max": [
+              200,
+              3900,
+              5500
+            ],
+            "size": [
+              100,
+              60,
+              1100
+            ]
+          }
+        },
+        {
+          "name": "WIN_WEST_L2_GLASS",
+          "persistent_id": 42170,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              144,
+              3360,
+              4450
+            ],
+            "max": [
+              156,
+              3840,
+              5450
+            ],
+            "size": [
+              12,
+              480,
+              1000
+            ]
+          }
+        },
+        {
+          "name": "DOOR_ENTRY_JAMB_N",
+          "persistent_id": 42202,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9750,
+              1200,
+              300
+            ],
+            "max": [
+              9850,
+              1260,
+              2600
+            ],
+            "size": [
+              100,
+              60,
+              2300
+            ]
+          }
+        },
+        {
+          "name": "DOOR_ENTRY_JAMB_S",
+          "persistent_id": 42234,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9750,
+              2240,
+              300
+            ],
+            "max": [
+              9850,
+              2300,
+              2600
+            ],
+            "size": [
+              100,
+              60,
+              2300
+            ]
+          }
+        },
+        {
+          "name": "DOOR_ENTRY_HEAD",
+          "persistent_id": 42266,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9750,
+              1200,
+              2540
+            ],
+            "max": [
+              9850,
+              2300,
+              2600
+            ],
+            "size": [
+              100,
+              1100,
+              60
+            ]
+          }
+        },
+        {
+          "name": "DOOR_ENTRY_PANEL",
+          "persistent_id": 42298,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9770,
+              1260,
+              300
+            ],
+            "max": [
+              9820,
+              2240,
+              2540
+            ],
+            "size": [
+              50,
+              980,
+              2240
+            ]
+          }
+        },
+        {
+          "name": "DOOR_ENTRY_HANDLE",
+          "persistent_id": 42330,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9700,
+              1320,
+              1050
+            ],
+            "max": [
+              9760,
+              1360,
+              1350
+            ],
+            "size": [
+              60,
+              40,
+              300
+            ]
+          }
+        },
+        {
+          "name": "CANOPY_ENTRY",
+          "persistent_id": 42362,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9900,
+              950,
+              2600
+            ],
+            "max": [
+              10950,
+              2850,
+              2750
+            ],
+            "size": [
+              1050,
+              1900,
+              150
+            ]
+          }
+        },
+        {
+          "name": "STEP_ENTRY_1",
+          "persistent_id": 42394,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              1050,
+              30
+            ],
+            "max": [
+              10450,
+              2750,
+              300
+            ],
+            "size": [
+              450,
+              1700,
+              270
+            ]
+          }
+        },
+        {
+          "name": "STEP_ENTRY_2",
+          "persistent_id": 42426,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10450,
+              1050,
+              30
+            ],
+            "max": [
+              10900,
+              2750,
+              160
+            ],
+            "size": [
+              450,
+              1700,
+              130
+            ]
+          }
+        },
+        {
+          "name": "WIN_EAST_L2_SILL",
+          "persistent_id": 42458,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9790,
+              2000,
+              4300
+            ],
+            "max": [
+              9910,
+              4400,
+              4360
+            ],
+            "size": [
+              120,
+              2400,
+              60
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "script_id": "villa_replay",
+      "revision": 3,
+      "read_only": true,
+      "path": [],
+      "persistent_id": 37843,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -14000,
+          -14000,
+          -100
+        ],
+        "max": [
+          24000,
+          24000,
+          7260
+        ],
+        "size": [
+          38000,
+          38000,
+          7360
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 171,
+      "offset": 100,
+      "next_offset": null,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "WIN_EAST_L2_HEAD",
+          "persistent_id": 42490,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9790,
+              2000,
+              5640
+            ],
+            "max": [
+              9910,
+              4400,
+              5700
+            ],
+            "size": [
+              120,
+              2400,
+              60
+            ]
+          }
+        },
+        {
+          "name": "WIN_EAST_L2_JAMB_N",
+          "persistent_id": 42522,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9790,
+              2000,
+              4300
+            ],
+            "max": [
+              9910,
+              2060,
+              5700
+            ],
+            "size": [
+              120,
+              60,
+              1400
+            ]
+          }
+        },
+        {
+          "name": "WIN_EAST_L2_JAMB_S",
+          "persistent_id": 42554,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9790,
+              4340,
+              4300
+            ],
+            "max": [
+              9910,
+              4400,
+              5700
+            ],
+            "size": [
+              120,
+              60,
+              1400
+            ]
+          }
+        },
+        {
+          "name": "WIN_EAST_L2_MULLION",
+          "persistent_id": 42586,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9790,
+              3180,
+              4300
+            ],
+            "max": [
+              9910,
+              3220,
+              5700
+            ],
+            "size": [
+              120,
+              40,
+              1400
+            ]
+          }
+        },
+        {
+          "name": "WIN_EAST_L2_GLASS_W",
+          "persistent_id": 42618,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9844,
+              2060,
+              4360
+            ],
+            "max": [
+              9856,
+              3180,
+              5640
+            ],
+            "size": [
+              12,
+              1120,
+              1280
+            ]
+          }
+        },
+        {
+          "name": "WIN_EAST_L2_GLASS_E",
+          "persistent_id": 42650,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9844,
+              3220,
+              4360
+            ],
+            "max": [
+              9856,
+              4340,
+              5640
+            ],
+            "size": [
+              12,
+              1120,
+              1280
+            ]
+          }
+        },
+        {
+          "name": "ENTRY_POT",
+          "persistent_id": 42682,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              11120,
+              2520,
+              30
+            ],
+            "max": [
+              11480,
+              2880,
+              420
+            ],
+            "size": [
+              360,
+              360,
+              390
+            ]
+          }
+        },
+        {
+          "name": "ENTRY_PLANT",
+          "persistent_id": 42800,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              11100,
+              2505,
+              380
+            ],
+            "max": [
+              11500,
+              2895,
+              950
+            ],
+            "size": [
+              400,
+              390,
+              570
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_SUBSTRATE_FRONT",
+          "persistent_id": 42904,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8800,
+              -10,
+              300
+            ],
+            "max": [
+              10000,
+              0,
+              6700
+            ],
+            "size": [
+              1200,
+              10,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_SUBSTRATE_EAST",
+          "persistent_id": 42936,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              0,
+              300
+            ],
+            "max": [
+              10010,
+              1200,
+              6700
+            ],
+            "size": [
+              10,
+              1200,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_01",
+          "persistent_id": 43000,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8810,
+              -60,
+              300
+            ],
+            "max": [
+              8860,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_02",
+          "persistent_id": 43001,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8872,
+              -60,
+              300
+            ],
+            "max": [
+              8922,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_03",
+          "persistent_id": 43002,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8934,
+              -60,
+              300
+            ],
+            "max": [
+              8984,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_04",
+          "persistent_id": 43003,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8996,
+              -60,
+              300
+            ],
+            "max": [
+              9046,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_05",
+          "persistent_id": 43004,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9058,
+              -60,
+              300
+            ],
+            "max": [
+              9108,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_06",
+          "persistent_id": 43005,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9120,
+              -60,
+              300
+            ],
+            "max": [
+              9170,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_07",
+          "persistent_id": 43006,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9182,
+              -60,
+              300
+            ],
+            "max": [
+              9232,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_08",
+          "persistent_id": 43007,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9244,
+              -60,
+              300
+            ],
+            "max": [
+              9294,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_09",
+          "persistent_id": 43008,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9306,
+              -60,
+              300
+            ],
+            "max": [
+              9356,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_10",
+          "persistent_id": 43009,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9368,
+              -60,
+              300
+            ],
+            "max": [
+              9418,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_11",
+          "persistent_id": 43010,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9430,
+              -60,
+              300
+            ],
+            "max": [
+              9480,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_12",
+          "persistent_id": 43011,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9492,
+              -60,
+              300
+            ],
+            "max": [
+              9542,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_13",
+          "persistent_id": 43012,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9554,
+              -60,
+              300
+            ],
+            "max": [
+              9604,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_14",
+          "persistent_id": 43013,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9616,
+              -60,
+              300
+            ],
+            "max": [
+              9666,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_15",
+          "persistent_id": 43014,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9678,
+              -60,
+              300
+            ],
+            "max": [
+              9728,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_16",
+          "persistent_id": 43015,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9740,
+              -60,
+              300
+            ],
+            "max": [
+              9790,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_17",
+          "persistent_id": 43016,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9802,
+              -60,
+              300
+            ],
+            "max": [
+              9852,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_18",
+          "persistent_id": 43017,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9864,
+              -60,
+              300
+            ],
+            "max": [
+              9914,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_FRONT_19",
+          "persistent_id": 43018,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9926,
+              -60,
+              300
+            ],
+            "max": [
+              9976,
+              -20,
+              6700
+            ],
+            "size": [
+              50,
+              40,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_01",
+          "persistent_id": 43019,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              10,
+              300
+            ],
+            "max": [
+              10060,
+              60,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_02",
+          "persistent_id": 43020,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              72,
+              300
+            ],
+            "max": [
+              10060,
+              122,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_03",
+          "persistent_id": 43021,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              134,
+              300
+            ],
+            "max": [
+              10060,
+              184,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_04",
+          "persistent_id": 43022,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              196,
+              300
+            ],
+            "max": [
+              10060,
+              246,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_05",
+          "persistent_id": 43023,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              258,
+              300
+            ],
+            "max": [
+              10060,
+              308,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_06",
+          "persistent_id": 43024,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              320,
+              300
+            ],
+            "max": [
+              10060,
+              370,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_07",
+          "persistent_id": 43025,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              382,
+              300
+            ],
+            "max": [
+              10060,
+              432,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_08",
+          "persistent_id": 43026,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              444,
+              300
+            ],
+            "max": [
+              10060,
+              494,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_09",
+          "persistent_id": 43027,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              506,
+              300
+            ],
+            "max": [
+              10060,
+              556,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_10",
+          "persistent_id": 43028,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              568,
+              300
+            ],
+            "max": [
+              10060,
+              618,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_11",
+          "persistent_id": 43029,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              630,
+              300
+            ],
+            "max": [
+              10060,
+              680,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_12",
+          "persistent_id": 43030,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              692,
+              300
+            ],
+            "max": [
+              10060,
+              742,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_13",
+          "persistent_id": 43031,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              754,
+              300
+            ],
+            "max": [
+              10060,
+              804,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_14",
+          "persistent_id": 43032,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              816,
+              300
+            ],
+            "max": [
+              10060,
+              866,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_15",
+          "persistent_id": 43033,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              878,
+              300
+            ],
+            "max": [
+              10060,
+              928,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_16",
+          "persistent_id": 43034,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              940,
+              300
+            ],
+            "max": [
+              10060,
+              990,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_17",
+          "persistent_id": 43035,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              1002,
+              300
+            ],
+            "max": [
+              10060,
+              1052,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_18",
+          "persistent_id": 43036,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              1064,
+              300
+            ],
+            "max": [
+              10060,
+              1114,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "LOUVER_BATTEN_EAST_19",
+          "persistent_id": 43037,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10020,
+              1126,
+              300
+            ],
+            "max": [
+              10060,
+              1176,
+              6700
+            ],
+            "size": [
+              40,
+              50,
+              6400
+            ]
+          }
+        },
+        {
+          "name": "FURN_RUG",
+          "persistent_id": 43039,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1100,
+              1200,
+              300
+            ],
+            "max": [
+              4900,
+              3600,
+              320
+            ],
+            "size": [
+              3800,
+              2400,
+              20
+            ]
+          }
+        },
+        {
+          "name": "FURN_SOFA_SEAT",
+          "persistent_id": 43071,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1250,
+              1350,
+              300
+            ],
+            "max": [
+              2350,
+              3450,
+              720
+            ],
+            "size": [
+              1100,
+              2100,
+              420
+            ]
+          }
+        },
+        {
+          "name": "FURN_SOFA_BACK",
+          "persistent_id": 43103,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1250,
+              1350,
+              720
+            ],
+            "max": [
+              1450,
+              3450,
+              1100
+            ],
+            "size": [
+              200,
+              2100,
+              380
+            ]
+          }
+        },
+        {
+          "name": "FURN_SOFA_CHAISE",
+          "persistent_id": 43135,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2350,
+              2550,
+              300
+            ],
+            "max": [
+              3300,
+              3450,
+              720
+            ],
+            "size": [
+              950,
+              900,
+              420
+            ]
+          }
+        },
+        {
+          "name": "FURN_COFFEE_TABLE",
+          "persistent_id": 43167,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3500,
+              1850,
+              580
+            ],
+            "max": [
+              4400,
+              2700,
+              660
+            ],
+            "size": [
+              900,
+              850,
+              80
+            ]
+          }
+        },
+        {
+          "name": "FURN_COFFEE_TABLE_LEG",
+          "persistent_id": 43199,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              3850,
+              2150,
+              300
+            ],
+            "max": [
+              4050,
+              2400,
+              580
+            ],
+            "size": [
+              200,
+              250,
+              280
+            ]
+          }
+        },
+        {
+          "name": "FURN_DINING_TOP",
+          "persistent_id": 43231,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5600,
+              5600,
+              990
+            ],
+            "max": [
+              7400,
+              6600,
+              1040
+            ],
+            "size": [
+              1800,
+              1000,
+              50
+            ]
+          }
+        },
+        {
+          "name": "FURN_DINING_PEDESTAL",
+          "persistent_id": 43263,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6300,
+              5900,
+              300
+            ],
+            "max": [
+              6700,
+              6300,
+              990
+            ],
+            "size": [
+              400,
+              400,
+              690
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_1_SEAT",
+          "persistent_id": 43295,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5720,
+              5050,
+              580
+            ],
+            "max": [
+              6170,
+              5500,
+              750
+            ],
+            "size": [
+              450,
+              450,
+              170
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_1_BACK",
+          "persistent_id": 43327,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5720,
+              5050,
+              750
+            ],
+            "max": [
+              6170,
+              5110,
+              1220
+            ],
+            "size": [
+              450,
+              60,
+              470
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_2_SEAT",
+          "persistent_id": 43359,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6620,
+              5050,
+              580
+            ],
+            "max": [
+              7070,
+              5500,
+              750
+            ],
+            "size": [
+              450,
+              450,
+              170
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_2_BACK",
+          "persistent_id": 43391,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6620,
+              5050,
+              750
+            ],
+            "max": [
+              7070,
+              5110,
+              1220
+            ],
+            "size": [
+              450,
+              60,
+              470
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_3_SEAT",
+          "persistent_id": 43423,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5720,
+              6700,
+              580
+            ],
+            "max": [
+              6170,
+              7150,
+              750
+            ],
+            "size": [
+              450,
+              450,
+              170
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_3_BACK",
+          "persistent_id": 43455,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5720,
+              7090,
+              750
+            ],
+            "max": [
+              6170,
+              7150,
+              1220
+            ],
+            "size": [
+              450,
+              60,
+              470
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_4_SEAT",
+          "persistent_id": 43487,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6620,
+              6700,
+              580
+            ],
+            "max": [
+              7070,
+              7150,
+              750
+            ],
+            "size": [
+              450,
+              450,
+              170
+            ]
+          }
+        },
+        {
+          "name": "FURN_CHAIR_4_BACK",
+          "persistent_id": 43519,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              6620,
+              7090,
+              750
+            ],
+            "max": [
+              7070,
+              7150,
+              1220
+            ],
+            "size": [
+              450,
+              60,
+              470
+            ]
+          }
+        },
+        {
+          "name": "FURN_POT_A",
+          "persistent_id": 43551,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5870,
+              774.5,
+              300
+            ],
+            "max": [
+              6230,
+              1125.5,
+              750
+            ],
+            "size": [
+              360,
+              351,
+              450
+            ]
+          }
+        },
+        {
+          "name": "FURN_PLANT_A",
+          "persistent_id": 43655,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5810,
+              710,
+              700
+            ],
+            "max": [
+              6290,
+              1190,
+              1550
+            ],
+            "size": [
+              480,
+              480,
+              850
+            ]
+          }
+        },
+        {
+          "name": "FURN_POT_B",
+          "persistent_id": 43745,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              770,
+              6724.5,
+              300
+            ],
+            "max": [
+              1130,
+              7075.5,
+              750
+            ],
+            "size": [
+              360,
+              351,
+              450
+            ]
+          }
+        },
+        {
+          "name": "FURN_PLANT_B",
+          "persistent_id": 43849,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              710,
+              6660,
+              700
+            ],
+            "max": [
+              1190,
+              7140,
+              1550
+            ],
+            "size": [
+              480,
+              480,
+              850
+            ]
+          }
+        },
+        {
+          "name": "ART_FRAME",
+          "persistent_id": 43939,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5600,
+              7640,
+              1550
+            ],
+            "max": [
+              6700,
+              7680,
+              2450
+            ],
+            "size": [
+              1100,
+              40,
+              900
+            ]
+          }
+        },
+        {
+          "name": "ART_CANVAS",
+          "persistent_id": 43971,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5660,
+              7630,
+              1610
+            ],
+            "max": [
+              6640,
+              7660,
+              2390
+            ],
+            "size": [
+              980,
+              30,
+              780
+            ]
+          }
+        },
+        {
+          "name": "CURTAIN_PANEL",
+          "persistent_id": 44003,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5850,
+              340,
+              350
+            ],
+            "max": [
+              6100,
+              420,
+              2800
+            ],
+            "size": [
+              250,
+              80,
+              2450
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

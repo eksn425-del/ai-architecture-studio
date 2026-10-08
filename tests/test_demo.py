@@ -555,6 +555,11 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
     assert project["agent_session"]["status"] == "ready"
     assert project["agent_session"]["thread_id"] == "thr-fast-assembly"
     assert project["model_state"]["model_path"].endswith("fast-assembly-agent.skp")
+    bound_saves = [call for call in sketchup.calls if call[0] == "save_model"
+                   and call[1]["operation_name"] == "Persist bound agent document"]
+    assert len(bound_saves) == 1
+    assert Path(bound_saves[0][1]["path"]) == blank_path
+    assert blank_path.read_bytes() == (blank_path.parent / "fast-assembly-agent.skp").read_bytes()
     assert any(item["type"] == "viewport" for item in project["output_manifest"]["render"])
     assert [item["phase"] for item in project["context"]["conversation"]] == ["agent", "agent", "agent", "agent"]
     premium = client.post(

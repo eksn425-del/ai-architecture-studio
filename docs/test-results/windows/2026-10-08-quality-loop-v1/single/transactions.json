@@ -1,0 +1,1732 @@
+[
+  {
+    "status": "committed",
+    "expected_revision": 0,
+    "root_pid": 37843,
+    "owned_before": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "objects_total": 0,
+      "truncated": false,
+      "objects": []
+    },
+    "owned_after": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -6300.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          13020.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 37845,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 38138,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 39615,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 42007,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              -6300.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              12900.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 42151,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 43193,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 44318,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "status": "committed",
+    "expected_revision": 1,
+    "root_pid": 37843,
+    "owned_before": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -6300.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          13020.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 37845,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 38138,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 39615,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 42007,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              -6300.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              12900.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 42151,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 43193,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 44318,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_after": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -6300.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          13020.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 45064,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 45354,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 46828,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 49218,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              -6300.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              12900.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 49329,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 50369,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 51370,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "status": "committed",
+    "expected_revision": 2,
+    "root_pid": 37843,
+    "owned_before": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -6300.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          13020.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 45064,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 45354,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 46828,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 49218,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              -6300.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              12900.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 49329,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 50369,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 51370,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_after": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -220.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          6940.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 52116,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 52406,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 53880,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 56270,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              150.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              6450.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 56412,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 57452,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 58568,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "status": "committed",
+    "expected_revision": 3,
+    "root_pid": 37843,
+    "owned_before": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -220.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          6940.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 52116,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 52406,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 53880,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 56270,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              150.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              6450.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 56412,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 57452,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 58568,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_after": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -220.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          6940.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 59314,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 59604,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 60950,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 63340,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              150.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              6450.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 63482,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 64522,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 65638,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "status": "committed",
+    "expected_revision": 4,
+    "root_pid": 37843,
+    "owned_before": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -220.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          6940.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 59314,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 59604,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 60950,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 63340,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              150.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              6450.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 63482,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 64522,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 65638,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_after": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -7000.0,
+          -8000.0,
+          -220.0
+        ],
+        "max": [
+          17000.0,
+          16000.0,
+          6720.0
+        ],
+        "size": [
+          24000.0,
+          24000.0,
+          6940.0
+        ]
+      },
+      "objects_total": 7,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 66384,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -7000.0,
+              -8000.0,
+              -220.0
+            ],
+            "max": [
+              17000.0,
+              16000.0,
+              150.0
+            ],
+            "size": [
+              24000.0,
+              24000.0,
+              370.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 66674,
+          "name": "SHELL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -50.0,
+              -50.0,
+              -150.0
+            ],
+            "max": [
+              10050.0,
+              8050.0,
+              6720.0
+            ],
+            "size": [
+              10100.0,
+              8100.0,
+              6870.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 68020,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              60.0,
+              45.0,
+              0.0
+            ],
+            "max": [
+              9940.0,
+              7950.0,
+              5600.0
+            ],
+            "size": [
+              9880.0,
+              7905.0,
+              5600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 70410,
+          "name": "CLADDING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              8500.0,
+              -90.0,
+              150.0
+            ],
+            "max": [
+              10090.0,
+              3000.0,
+              6600.0
+            ],
+            "size": [
+              1590.0,
+              3090.0,
+              6450.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 70536,
+          "name": "BALCONY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              175.0,
+              -1420.0,
+              2930.0
+            ],
+            "max": [
+              8425.0,
+              200.0,
+              4250.0
+            ],
+            "size": [
+              8250.0,
+              1620.0,
+              1320.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 71576,
+          "name": "INTERIOR_1F",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              320.0,
+              320.0,
+              -150.0
+            ],
+            "max": [
+              9680.0,
+              7680.0,
+              2550.0
+            ],
+            "size": [
+              9360.0,
+              7360.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 72577,
+          "name": "BALCONY_FURN",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              750.0,
+              -1290.0,
+              3200.0
+            ],
+            "max": [
+              8340.0,
+              1050.0,
+              4820.0
+            ],
+            "size": [
+              7590.0,
+              2340.0,
+              1620.0
+            ]
+          }
+        }
+      ]
+    }
+  }
+]
