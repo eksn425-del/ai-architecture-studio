@@ -100,10 +100,17 @@ def test_reconstruction_tool_profile_is_small_and_coding_first(tmp_path: Path) -
     assert "sketchup_undo" not in names
     assert not any(name.startswith("archflow__") for name in names)
     assert "sketchup_run_workspace_ruby" in names
+    assert "sketchup_capture_canonical_view" in names
     assert "sketchup_submit_visual_review" in names
-    review_tool = next(item for item in surface.dynamic_tools(
+    all_tools = surface.dynamic_tools(
         ruby_enabled=True, tool_profile="reconstruction_coding"
-    ) if item["name"] == "sketchup_submit_visual_review")
+    )
+    capture_tool = next(item for item in all_tools if item["name"] == "sketchup_capture_canonical_view")
+    assert capture_tool["inputSchema"]["required"] == ["script_id", "view_name"]
+    assert capture_tool["inputSchema"]["properties"]["view_name"]["enum"] == [
+        "front", "rear", "left", "right", "roof", "oblique"
+    ]
+    review_tool = next(item for item in all_tools if item["name"] == "sketchup_submit_visual_review")
     assert review_tool["inputSchema"]["required"] == ["views", "critique"]
     assert "critique" in review_tool["inputSchema"]["properties"]
     assert "sketchup_run_project_ruby" not in names
