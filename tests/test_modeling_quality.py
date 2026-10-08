@@ -308,6 +308,14 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                 "height": 24,
                 "quality_status": "not_accepted",
                 "model_revisions": revisions,
+                "camera_contract_version": 1,
+                "canonical_view": view,
+                "canonical_script_id": "villa",
+                "camera": {
+                    "eye_m": [0.0, -20.0, 3.0],
+                    "target_m": [0.0, 0.0, 3.0],
+                    "up_m": [0.0, 0.0, 1.0],
+                },
             }),
             encoding="utf-8",
         )
