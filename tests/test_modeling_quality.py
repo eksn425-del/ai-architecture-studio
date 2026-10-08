@@ -114,6 +114,10 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
             raise OSError("capture failed after commit")
         return {"success": True}
     monkeypatch.setattr(surface, "dispatch", run)
+    monkeypatch.setattr(
+        "app.agent_tools.submit_visual_review",
+        lambda project_dir, ruby_state, arguments: {"needs_fix": True, "quality_status": "needs_fix"},
+    )
     for state, limit in (({}, 3), ({"villa": {"revision": 5}}, 2)):
         context = surface.prepare(project_dir=tmp_path / "projects" / "budget",
             mcp_enabled=True, model_path=tmp_path / "blank.skp", model_guid="fixture",
@@ -121,6 +125,7 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
         with pytest.raises(OSError):
             context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
         for _ in range(limit - 1):
+            context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
             context.dispatch("sketchup_run_workspace_ruby", {})
         with pytest.raises(MCPCallError, match="预算"):
             context.dispatch("sketchup_run_workspace_ruby", {"script_id": "bypass"})
@@ -218,3 +223,47 @@ def test_visual_review_rejects_duplicate_or_non_agent_view_paths(tmp_path):
             "views": duplicate,
             "critique": "NEEDS_FIX: NO\n<assessment>Current views match.</assessment>",
         })
+
+
+
+def test_runtime_requires_visual_review_between_committed_writes(tmp_path, monkeypatch):
+    import pytest
+    from app.agent_tools import AgentToolSurface
+    from app.sketchup_mcp import MCPCallError
+
+    class Executor:
+        def __init__(self, *args, **kwargs):
+            self.ruby_state = kwargs["ruby_state"]
+
+    monkeypatch.setattr("app.agent_tools.ProjectRubyExecutor", Executor)
+    monkeypatch.setattr(
+        "app.agent_tools.submit_visual_review",
+        lambda project_dir, ruby_state, arguments: {"needs_fix": True, "quality_status": "needs_fix"},
+    )
+    surface = AgentToolSurface(tmp_path, object(), oss_backends={})
+    monkeypatch.setattr(surface, "dynamic_tools", lambda **kwargs: [])
+
+    def run(name, args, **kwargs):
+        if name == "sketchup_inspect_owned":
+            return {"success": True}
+        state = kwargs["project_ruby"].ruby_state
+        state["villa"] = {"revision": state.get("villa", {}).get("revision", 0) + 1}
+        return {"success": True}
+
+    monkeypatch.setattr(surface, "dispatch", run)
+    context = surface.prepare(
+        project_dir=tmp_path / "projects" / "review-gate",
+        mcp_enabled=True,
+        model_path=tmp_path / "blank.skp",
+        model_guid="fixture",
+        ruby_enabled=True,
+        ruby_state={},
+        tool_profile="reconstruction_coding",
+    )
+    context.dispatch("sketchup_run_workspace_ruby", {})
+    with pytest.raises(MCPCallError, match="六视图视觉审查"):
+        context.dispatch("sketchup_run_workspace_ruby", {})
+    context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
+    context.dispatch("sketchup_run_workspace_ruby", {})
+    assert context.quality_state["writes"] == 2
+    assert context.quality_state["review"] is None
