@@ -1,3 +1,19 @@
+# 当前任务 — 2026-10-08 Evidence Fidelity v2.4 / 单图可推断、全证据强约束
+
+用户明确了图片还原产品标准：
+
+- **单张建筑图片**：不是只做白模。必须尽量还原该图片可见视角的体量、比例、层数/开间、门窗、颜色/材质分区、玻璃、栏杆、立面构件以及看得到的室内/家具细节；看不到的背面、屋顶和室内允许 AI 按建筑逻辑合理脑补，但必须标为推断、保持结构/交通/风格一致。
+- **多视图**：所有看得到的立面都属于同一栋建筑的硬约束，不能为了修一个面把另一个已观察面改错。
+- **完整证据包（全外立面/屋顶 + 平面图/CAD + 室内效果图）**：目标升级为“1:1 对齐已提供证据”。CAD/平面控制尺寸与拓扑，外观/室内图片控制可见外形、材质和细节；有证据的区域禁止自由设计，只允许对真正未提供的信息做推断。冲突证据必须显式报告，不能平均后假装 PASS。
+
+GitHub 已实现 `notes/reconstruction_evidence.json`：机器校验 fidelity_mode / source inventory / exterior coverage / CAD / floorplan / interior / scale anchors / hard constraints / inference policy。Planner 必须与 reconstruction_card/facade_schedule 同轮更新。Dedicated Critic 和 context compaction 也会读取这份 evidence ledger，避免长历史压缩后丢失“哪些能脑补、哪些不能改”的边界。
+
+本机 Codex 下一步只执行 `docs/EVIDENCE_FIDELITY_V2_4.md`，同时保留 v2.3 的 dedicated Critic、single-writer、write receipt、六视图 review、最多两轮定向修正、blank replay 和 native SKP edit/reopen 门禁。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。没有完整非私密 CAD+室内测试包时，不得伪造 full-evidence 真机 PASS；可以把该门禁保留为 pending_external。
+
+---
+
 # 当前任务 — 2026-10-08 Quality Loop v2.3 / 主动上下文压缩 + 结构化约束校验
 
 GitHub 已在 v2.2 的独立 Critic + facade schedule 基础上继续补齐一个直接来自真实 Windows 数据的问题：Builder 历史上下文过大。现在旧的已完成 chat/tool 历史不会无限回灌给 DeepSeek；当 planner 已把关键事实写入 reconstruction card + facade schedule 后，host 会用 durable project checkpoint 取代旧完成历史，只保留当前用户回合和当前 tool loop。完整历史仍留在本地审计文件。
