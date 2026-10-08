@@ -102,12 +102,26 @@ class FakeRubyMCP:
     def __init__(self):
         self.calls = []
         self.transport_sources: list[str] = []
+        self.inspection_sources: list[str] = []
 
     def call(self, name, arguments):
         self.calls.append((name, arguments))
         assert name == "sketchup_eval_project_file"
         transport_path = Path(arguments["script_path"])
         transport = transport_path.read_text(encoding="utf-8")
+        if "inspect_named_owned_group" in transport:
+            self.inspection_sources.append(transport)
+            root_pid = int(re.search(r"find_entity_by_persistent_id\((\d+)\)", transport).group(1))
+            revision = int(re.search(r"Revision mismatch' unless .* == (\d+)", transport).group(1))
+            return {"result": {
+                "persistent_id": root_pid,
+                "revision": revision,
+                "objects_total": 1,
+                "bounds_mm": {"min": [0.0, 0.0, 0.0], "max": [1000.0, 1000.0, 3000.0]},
+                "objects": [],
+                "next_offset": None,
+            }}
+
         self.transport_sources.append(transport)
         expected_revision = int(re.search(r"expected_revision: (\d+)", transport).group(1))
         report_literal = re.search(r"report_path: (\"(?:\\.|[^\"])*\")", transport).group(1)
@@ -119,6 +133,10 @@ class FakeRubyMCP:
             "revision": expected_revision + 1,
             "root_pid": root_pid,
             "expected_revision": expected_revision,
+            "owned_after": {
+                "objects_total": 1,
+                "bounds_mm": {"min": [0.0, 0.0, 0.0], "max": [1000.0, 1000.0, 3000.0]},
+            },
         }), encoding="utf-8")
         return {"success": True, "text": "committed"}
 
@@ -218,7 +236,8 @@ def test_same_project_script_revisions_reuse_model_root_and_return_screenshots(t
     assert state["main"]["root_pid"] == 701
     assert state["main"]["model_guid"] == "guid-live"
     assert Path(mcp.calls[0][1]["script_path"]).parent == transport_dir.resolve()
-    assert len(mcp.calls) == 2
+    assert len(mcp.calls) == 4
+    assert len(mcp.inspection_sources) == 2
     assert "expected_revision: 0" in mcp.transport_sources[0]
     assert "expected_revision: 1" in mcp.transport_sources[1]
     assert "root_pid: 701" in mcp.transport_sources[1]
@@ -227,6 +246,11 @@ def test_same_project_script_revisions_reuse_model_root_and_return_screenshots(t
     assert "root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', \"quality-test\")" in mcp.transport_sources[1]
     assert len(adapter.captures) == 2
     assert first["success"] and second["success"]
+    summary = json.loads(second["contentItems"][0]["text"])
+    assert summary["write_verification"]["verified"] is True
+    assert {item["check"] for item in summary["write_verification"]["checks"]} >= {
+        "transaction_status", "root_persistent_id", "revision", "objects_total", "bounds_mm"
+    }
     assert second["contentItems"][1]["type"] == "inputImage"
     assert (model_path.parents[2] / "outputs" / "renders" / "ruby-main-r2.png").is_file()
     assert list(transport_dir.iterdir()) == []
