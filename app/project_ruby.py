@@ -169,6 +169,7 @@ class ProjectRubyExecutor:
             "    KStudioProfessionalHelpers.remove_named_owned_group(root, name)",
             "  end",
             "  saie_wall = lambda { |params| KStudioProfessionalHelpers.wall(root, params) }",
+            "  saie_wall_with_openings = lambda { |params| KStudioProfessionalHelpers.wall_with_openings(root, params) }",
             "  eval(source, binding, File.basename(source_path), 1)",
             f"  root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', {self._ruby_string(self.project_id)})",
             "  root.set_attribute(CodexSketchupArchitect::DICT, 'role', 'project_root')",
