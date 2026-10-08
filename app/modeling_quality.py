@@ -193,26 +193,21 @@ def require_post_write_verification(
 
 
 
-def submit_visual_review(
+def validate_visual_review_views(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]],
-    arguments: dict[str, Any],
-) -> dict[str, Any]:
-    """Validate and persist one current-revision six-view visual review.
+    views: Any,
+) -> tuple[dict[str, int], dict[str, dict[str, Any]], dict[str, Path]]:
+    """Resolve only trusted current-revision screenshots for a visual critic.
 
-    The review is advisory visual evidence, not geometry truth. Every referenced
-    screenshot must be a real K Studio capture whose evidence sidecar names the
-    exact current Ruby revisions. This follows the provenance/action boundary
-    used by SketchUp Agent Harness while keeping the writer in ProjectRuby.
+    This helper performs the provenance checks before any provider is allowed to
+    read the images, so a model-supplied path cannot make the host read arbitrary
+    project files. The same validation is reused when persisting the review.
     """
-    views = arguments.get("views")
-    critique_text = arguments.get("critique")
     if not isinstance(views, dict) or set(views) != set(CANONICAL_REVIEW_VIEWS):
         raise ValueError(
             "views must contain exactly front, rear, left, right, roof and oblique."
         )
-    if not isinstance(critique_text, str) or not critique_text.strip():
-        raise ValueError("critique must contain the bounded visual review.")
 
     current_revisions = {
         script_id: int(state.get("revision", 0))
@@ -233,6 +228,7 @@ def submit_visual_review(
     project_dir = project_dir.resolve()
     render_root = (project_dir / "outputs" / "renders").resolve()
     resolved_views: dict[str, dict[str, Any]] = {}
+    image_paths: dict[str, Path] = {}
     seen_paths: set[Path] = set()
     for view_name in CANONICAL_REVIEW_VIEWS:
         relative = views.get(view_name)
@@ -274,6 +270,30 @@ def submit_visual_review(
             "height": evidence.get("height"),
             "model_revisions": evidence_revisions,
         }
+        image_paths[view_name] = image_path
+    return current_revisions, resolved_views, image_paths
+
+
+def submit_visual_review(
+    project_dir: Path,
+    ruby_state: dict[str, dict[str, Any]],
+    arguments: dict[str, Any],
+) -> dict[str, Any]:
+    """Validate and persist one current-revision six-view visual review.
+
+    The review is advisory visual evidence, not geometry truth. Every referenced
+    screenshot must be a real K Studio capture whose evidence sidecar names the
+    exact current Ruby revisions. This follows the provenance/action boundary
+    used by SketchUp Agent Harness while keeping the writer in ProjectRuby.
+    """
+    views = arguments.get("views")
+    critique_text = arguments.get("critique")
+    if not isinstance(critique_text, str) or not critique_text.strip():
+        raise ValueError("critique must contain the bounded visual review.")
+
+    current_revisions, resolved_views, _ = validate_visual_review_views(
+        project_dir, ruby_state, views
+    )
 
     critique = parse_visual_critique_response(critique_text)
     if critique.malformed or critique.needs_fix is None:
@@ -282,8 +302,9 @@ def submit_visual_review(
         )
 
     receipt = {
-        "schema_version": 1,
+        "schema_version": 2,
         "advisory": True,
+        "reviewer": arguments.get("_reviewer") or {"mode": "agent_supplied"},
         "quality_status": "needs_fix" if critique.needs_fix else "accepted",
         "needs_fix": bool(critique.needs_fix),
         "assessment": critique.assessment,
