@@ -18,15 +18,20 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     assert (workspace / "scripts").is_dir()
     assert (workspace / "notes" / "design_notes.md").is_file()
     assert (workspace / "qa").is_dir()
+    assert (workspace / "qa" / "visual_qa.md").is_file()
+    assert "NEEDS_FIX" in (workspace / "qa" / "visual_qa.md").read_text(encoding="utf-8")
     assert (workspace / ".architecture-studio.json").is_file()
 
     notes = workspace / "notes" / "design_notes.md"
     notes.write_text("USER CONFIRMED DECISION\n", encoding="utf-8")
     instructions = workspace / "AGENTS.md"
     instructions.write_text("PROJECT MODELING RULES\n", encoding="utf-8")
+    visual_qa = workspace / "qa" / "visual_qa.md"
+    visual_qa.write_text("CURRENT REVIEW SURVIVES\n", encoding="utf-8")
     prepare_codex_parity_workspace(workspace)
     assert notes.read_text(encoding="utf-8") == "USER CONFIRMED DECISION\n"
     assert instructions.read_text(encoding="utf-8") == "PROJECT MODELING RULES\n"
+    assert visual_qa.read_text(encoding="utf-8") == "CURRENT REVIEW SURVIVES\n"
 
 
 def test_workspace_ruby_path_is_confined_to_scripts(tmp_path):
