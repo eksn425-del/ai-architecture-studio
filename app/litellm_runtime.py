@@ -203,8 +203,12 @@ class LiteLLMRuntime:
             if not reference_images:
                 raise ValueError("Dedicated visual critic requires at least one source reference image.")
 
+            critic_sources = [
+                path for path in reference_images
+                if path.parent.name == "reference"
+            ] or list(reference_images)
             system_prompt = build_visual_critic_prompt(
-                [p.name for p in reference_images],
+                [p.name for p in critic_sources],
                 CANONICAL_REVIEW_VIEWS,
             )
             content: list[dict[str, Any]] = [{
@@ -214,7 +218,7 @@ class LiteLLMRuntime:
                     "Judge only visible source fidelity. Do not infer success from tool logs, code, receipts or prior prose."
                 ),
             }]
-            for index, image_path in enumerate(reference_images, 1):
+            for index, image_path in enumerate(critic_sources, 1):
                 content.append({"type": "text", "text": f"SOURCE {index}: {image_path.name}"})
                 content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
             for view_name in CANONICAL_REVIEW_VIEWS:
@@ -248,7 +252,7 @@ class LiteLLMRuntime:
             record({
                 "event": "visual_critic_started",
                 "model": selected_model,
-                "source_images": len(reference_images),
+                "source_images": len(critic_sources),
                 "review_views": list(CANONICAL_REVIEW_VIEWS),
             })
             response = invoke_completion(critic_kwargs)
