@@ -10,6 +10,12 @@ from typing import Any
 
 from .agent_tools import AgentToolSurface
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
+from .modeling_quality import (
+    CANONICAL_REVIEW_VIEWS,
+    build_visual_critic_prompt,
+    parse_visual_critique_response,
+    validate_visual_review_views,
+)
 from .reference_assets import discover_project_reference_images, image_data_url, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
@@ -175,6 +181,91 @@ class LiteLLMRuntime:
         def record(event: dict[str, Any]) -> None:
             with evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+        def invoke_completion(request_kwargs: dict[str, Any]):
+            """Use the same configured transport for Builder and read-only Critic."""
+            if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
+                import httpx
+                from litellm.llms.custom_httpx.http_handler import HTTPHandler
+                proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
+                if proxy_setting not in {"", "0", "1", "false", "true"}:
+                    raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
+                trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
+                with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
+                    return completion(**request_kwargs, client=HTTPHandler(client=direct_client))
+            return completion(**request_kwargs)
+
+        def run_dedicated_visual_critic(views: Any) -> tuple[str, tuple[int | None, int | None]]:
+            """Critique trusted current views in a clean context, separate from the Builder."""
+            if not isinstance(ruby_state, dict):
+                raise ValueError("Dedicated visual critic requires current writer state.")
+            _, _, review_paths = validate_visual_review_views(project_dir, ruby_state, views)
+            if not reference_images:
+                raise ValueError("Dedicated visual critic requires at least one source reference image.")
+
+            system_prompt = build_visual_critic_prompt(
+                [p.name for p in reference_images],
+                CANONICAL_REVIEW_VIEWS,
+            )
+            content: list[dict[str, Any]] = [{
+                "type": "text",
+                "text": (
+                    "SOURCE images come first. CURRENT SketchUp review images follow in canonical order. "
+                    "Judge only visible source fidelity. Do not infer success from tool logs, code, receipts or prior prose."
+                ),
+            }]
+            for index, image_path in enumerate(reference_images, 1):
+                content.append({"type": "text", "text": f"SOURCE {index}: {image_path.name}"})
+                content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
+            for view_name in CANONICAL_REVIEW_VIEWS:
+                image_path = review_paths[view_name]
+                content.append({"type": "text", "text": f"CURRENT {view_name}: {image_path.name}"})
+                content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
+
+            critic_kwargs: dict[str, Any] = {
+                "model": selected_model,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": content},
+                ],
+                "api_key": api_key,
+                "timeout": 240,
+                "max_retries": 0,
+                "num_retries": 0,
+            }
+            if self.api_base:
+                critic_kwargs["api_base"] = self.api_base
+            if selected_model.startswith("zai/"):
+                critic_kwargs["allowed_openai_params"] = ["max_retries"]
+            if reasoning_effort in {"low", "high", "max"}:
+                if selected_model.startswith("zai/"):
+                    critic_kwargs["extra_body"] = {"thinking": {"type": "enabled"}, "reasoning_effort": reasoning_effort}
+                else:
+                    critic_kwargs["reasoning_effort"] = reasoning_effort
+                if selected_model.startswith("deepseek/"):
+                    critic_kwargs["extra_body"] = {"reasoning_effort": reasoning_effort}
+
+            record({
+                "event": "visual_critic_started",
+                "model": selected_model,
+                "source_images": len(reference_images),
+                "review_views": list(CANONICAL_REVIEW_VIEWS),
+            })
+            response = invoke_completion(critic_kwargs)
+            usage = _usage_from_response(response)
+            text = _message_content(_response_message(response))
+            critique = parse_visual_critique_response(text)
+            record({
+                "event": "visual_critic_response",
+                "model": selected_model,
+                "input_tokens": usage[0],
+                "output_tokens": usage[1],
+                "needs_fix": critique.needs_fix,
+                "malformed": critique.malformed,
+            })
+            if critique.malformed or critique.needs_fix is None:
+                raise ValueError("Dedicated visual critic returned an invalid NEEDS_FIX envelope.")
+            return text, usage
         record({"event": "turn_input", "model": selected_model, "tool_profile": tool_profile,
                 "workflow_mode": workflow_mode, "reference_categories": list(workflow_reference_categories(workflow_mode)),
                 "reference_files": [p.relative_to(project_dir).as_posix() for p in reference_images],
@@ -243,19 +334,7 @@ class LiteLLMRuntime:
                 request_started = time.monotonic()
                 record({"event": "provider_started", "requested_model": selected_model, "reasoning_effort": reasoning_effort or "provider-default",
                     "context_messages": len(request_messages), "redundant_images_removed": _image_count(messages) - _image_count(request_messages)})
-                # Desktop can avoid stale proxies; managed cloud hosts need their
-                # injected proxy and CA settings. Never retry by bypassing policy.
-                if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
-                    import httpx
-                    from litellm.llms.custom_httpx.http_handler import HTTPHandler
-                    proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
-                    if proxy_setting not in {"", "0", "1", "false", "true"}:
-                        raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
-                    trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
-                    with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
-                        response = completion(**kwargs, client=HTTPHandler(client=direct_client))
-                else:
-                    response = completion(**kwargs)
+                response = invoke_completion(kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
                 record({"event": "provider_failed", "model": selected_model, "detail": safe_error[:1000]})
@@ -347,6 +426,21 @@ class LiteLLMRuntime:
                 try:
                     if name not in allowed:
                         raise MCPCallError("The agent requested a tool outside this turn's Kongxing MCP allowlist.")
+                    if (
+                        name == "sketchup_submit_visual_review"
+                        and workflow_mode == "image_reconstruction"
+                        and tool_profile == "reconstruction_coding"
+                    ):
+                        critic_text, critic_usage = run_dedicated_visual_critic(arguments.get("views"))
+                        input_tokens = (input_tokens or 0) + critic_usage[0] if critic_usage[0] is not None else input_tokens
+                        output_tokens = (output_tokens or 0) + critic_usage[1] if critic_usage[1] is not None else output_tokens
+                        arguments = dict(arguments)
+                        arguments["critique"] = critic_text
+                        arguments["_reviewer"] = {
+                            "mode": "host_dedicated_read_only",
+                            "provider": self.provider_name,
+                            "model": selected_model,
+                        }
                     output = tool_context.dispatch(name, arguments)
                     if output.get("success") is False or output.get("isError") is True:
                         failed_tool_calls += 1
