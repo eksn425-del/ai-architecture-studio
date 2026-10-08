@@ -43,6 +43,7 @@ When the user supplies front/rear/left/right/roof views, floor plans, CAD/dimens
    - planner selects single_view_inference;
    - Builder matches the source-facing silhouette/openings/colors/glass/railings/visible details;
    - unseen sides/interior are plausible inferred geometry rather than blank/mirrored shells;
+   - capture a source-matched current camera when canonical oblique does not match the source perspective; submit it as an evidence_pair;
    - independent critic prioritizes the source-visible view and must not PASS obvious source-facing mismatches.
 7. Whole-six-view test:
    - planner selects multi_view_reconstruction unless CAD+floorplan+interior evidence also exists;
@@ -52,6 +53,7 @@ When the user supplies front/rear/left/right/roof views, floor plans, CAD/dimens
    - exterior views + CAD/DXF + floorplan + interior images;
    - planner must select full_evidence_reconstruction only when the machine-validated ledger has all required coverage;
    - compare footprint/levels/openings against CAD/floorplan and visible materials/details against images;
+   - for interior/detail reference images capture corresponding current SketchUp cameras and submit evidence_pairs; exterior-only six-view QA cannot certify full-evidence interior fidelity;
    - no evidenced region may be replaced by free invention;
    - record unresolved contradictions as PARTIAL rather than claiming 1:1 PASS.
    If no non-private complete package is available, run schema/unit tests and leave the real full-evidence visual gate pending_external; do not fabricate a PASS.
