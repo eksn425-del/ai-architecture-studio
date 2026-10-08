@@ -166,3 +166,20 @@ def test_workspace_facade_schedule_json_is_validated_and_listed(tmp_path):
             "relative_path": "notes/facade_schedule.json",
             "content": "[]",
         })
+
+    with pytest.raises(ValueError, match="provenance"):
+        workspace_file_call(workspace, "workspace_write", {
+            "relative_path": "notes/facade_schedule.json",
+            "content": json.dumps({
+                "schema_version": 1,
+                "views": {
+                    "front": {
+                        "provenance": "made_up",
+                        "opening_count": 4,
+                        "door_count": 1,
+                        "features": [],
+                        "notes": [],
+                    }
+                },
+            }),
+        })
