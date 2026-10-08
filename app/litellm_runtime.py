@@ -218,7 +218,8 @@ class LiteLLMRuntime:
         def run_independent_visual_critic(builder_receipt: dict[str, Any]) -> dict[str, Any]:
             """Fresh no-tools visual judge modeled on 3DCodeBench's separated critic pass."""
             nonlocal input_tokens, output_tokens
-            source_labels = [path.relative_to(project_dir).as_posix() for path in reference_images]
+            critic_reference_images = discover_project_reference_images(project_dir, categories=("reference",))
+            source_labels = [path.relative_to(project_dir).as_posix() for path in critic_reference_images]
             schedule = load_facade_schedule(project_dir)
             system = build_visual_critic_prompt(source_labels, CANONICAL_REVIEW_VIEWS)
             system += (
@@ -235,7 +236,7 @@ class LiteLLMRuntime:
                     + ("Facade schedule:\n" + json.dumps(schedule, ensure_ascii=False)[:12000] if schedule else "Facade schedule: unavailable.")
                 ),
             }]
-            for index, image_path in enumerate(reference_images, 1):
+            for index, image_path in enumerate(critic_reference_images, 1):
                 content.append({"type": "text", "text": f"SOURCE {index}: {image_path.name}"})
                 content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
             for view_name in CANONICAL_REVIEW_VIEWS:
@@ -276,7 +277,7 @@ class LiteLLMRuntime:
             record({
                 "event": "independent_visual_critic_started",
                 "model": selected_model,
-                "source_images": len(reference_images),
+                "source_images": len(critic_reference_images),
                 "review_views": len(CANONICAL_REVIEW_VIEWS),
                 "schedule_present": bool(schedule),
             })
@@ -426,9 +427,15 @@ class LiteLLMRuntime:
                             "then call sketchup_submit_visual_review with the actual returned output paths. "
                             "Use NEEDS_FIX plus at most three high-impact issues and a KEEP list."
                         )
-                    elif isinstance(review, dict) and review.get("needs_fix") is True and writes < write_limit and quality_gate_nudges < max_quality_gate_nudges:
+                    elif (
+                        isinstance(review, dict)
+                        and review.get("needs_fix") is True
+                        and review.get("reviewer", {}).get("status") != "failed"
+                        and writes < write_limit
+                        and quality_gate_nudges < max_quality_gate_nudges
+                    ):
                         gate_prompt = (
-                            "HOST QUALITY GATE: The current validated review says NEEDS_FIX: YES and writer budget remains. "
+                            "HOST QUALITY GATE: The current independent visual review says NEEDS_FIX: YES and writer budget remains. "
                             "Apply ONE targeted correction pass to the named affected groups only, preserve the KEEP geometry, "
                             "then recapture all six current views and submit a new visual review. Do not use a full-root replace "
                             "unless the review explicitly shows the whole baseline is invalid."
@@ -456,9 +463,14 @@ class LiteLLMRuntime:
                             (last_reply + "\n\n") if last_reply else ""
                         ) + "当前模型已提交，但本轮没有完成可验证的当前六视图质量审查，因此还不能判定还原质量通过。"
                     elif review.get("needs_fix") is True:
+                        reviewer_failed = review.get("reviewer", {}).get("status") == "failed"
                         last_reply = (
                             (last_reply + "\n\n") if last_reply else ""
-                        ) + "当前六视图审查仍为 NEEDS_FIX；本轮修正预算已用完或质量门已停止继续写入，剩余问题按 PARTIAL 保留。"
+                        ) + (
+                            "独立视觉审查本轮未成功完成；已保留当前验证模型并停止盲目写入，质量按 PARTIAL 保留。"
+                            if reviewer_failed else
+                            "当前独立六视图审查仍为 NEEDS_FIX；本轮修正预算已用完或质量门已停止继续写入，剩余问题按 PARTIAL 保留。"
+                        )
                 break
             if tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
                 raise interrupted(
