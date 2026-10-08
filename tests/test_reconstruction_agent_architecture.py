@@ -107,3 +107,18 @@ def test_reconstruction_tool_profile_is_small_and_coding_first(tmp_path: Path) -
     assert review_tool["inputSchema"]["required"] == ["views", "critique"]
     assert "critique" in review_tool["inputSchema"]["properties"]
     assert "sketchup_run_project_ruby" not in names
+
+
+def test_reconstruction_plan_and_execute_require_structured_facade_schedule():
+    from app.workflow_context import workflow_developer_instructions
+
+    plan = workflow_developer_instructions(
+        "image_reconstruction", mcp_enabled=False, action="plan"
+    )
+    execute = workflow_developer_instructions(
+        "image_reconstruction", mcp_enabled=True, action="execute"
+    )
+    assert "notes/facade_schedule.json" in plan
+    assert "observed" in plan and "user_confirmed" in plan and "inferred" in plan
+    assert "notes/facade_schedule.json" in execute
+    assert "hard constraints" in execute
