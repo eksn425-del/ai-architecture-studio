@@ -409,6 +409,7 @@ class LiteLLMRuntime:
                             "Do not finish yet and do not write geometry again. Capture six distinct current-revision views "
                             "(front, rear, left, right, roof, oblique), compare them against the attached source evidence, "
                             "then call sketchup_submit_visual_review with the actual returned output paths. "
+                            "If a source perspective/interior/detail image needs a direct camera match, include validated evidence_pairs too. "
                             "Use NEEDS_FIX plus at most three high-impact issues and a KEEP list."
                         )
                     elif isinstance(review, dict) and review.get("needs_fix") is True and writes < write_limit and quality_gate_nudges < max_quality_gate_nudges:
