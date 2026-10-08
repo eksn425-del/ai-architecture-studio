@@ -220,13 +220,15 @@ class AgentToolSurface:
                 tools.append(self._dynamic_tool(
                     "sketchup_submit_visual_review",
                     "READ-ONLY quality gate. After every committed reconstruction pass, capture six DISTINCT CURRENT "
-                    "agent-view PNGs for front, rear, left, right, roof and oblique, compare them to the source image(s), "
-                    "then submit the exact actual paths plus a bounded NEEDS_FIX review. The host rejects stale revision "
+                    "agent-view PNGs for front, rear, left, right, roof and oblique, then submit the exact actual paths. "
+                    "On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
+                    "those six validated current views and replaces any model-authored verdict before persisting the review. "
+                    "Other runtimes may supply the same bounded NEEDS_FIX envelope as critique. The host rejects stale revision "
                     "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
                     "NEEDS_FIX:NO ends geometry writes for this turn.",
                     {
                         "type": "object",
-                        "required": ["views", "critique"],
+                        "required": ["views"],
                         "properties": {
                             "views": {
                                 "type": "object",
@@ -237,7 +239,7 @@ class AgentToolSurface:
                                 },
                                 "additionalProperties": False,
                             },
-                            "critique": {"type": "string", "minLength": 20, "maxLength": 12000},
+                            "critique": {"type": "string", "minLength": 20, "maxLength": 12000, "description": "Optional fallback verdict for runtimes without a host-side dedicated critic; ignored/replaced by LiteLLM host critic."},
                         },
                         "additionalProperties": False,
                     },
