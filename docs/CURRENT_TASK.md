@@ -1,3 +1,13 @@
+# 当前任务 — 2026-10-08 Modeling Quality Loop v1
+
+ChatGPT 已完成一轮可在 GitHub 直接实施的质量闭环改造：引入 3DCodeBench 的 bounded visual critique 思路、dcc-mcp-sketchup 的 expected/actual post-write verification 契约，并接入现有 K Studio persistent Ruby 工作流；没有替换 DeepSeek、Kongxing、SAIE，也没有增加多写者 Agent。
+
+下一执行者先阅读 docs/MODELING_QUALITY_LOOP_V1.md。必须在 Windows + 真 SketchUp 上完成新的单图与六视图本机验收；自动测试不能替代视觉验收。每次写模型后检查 write_verification；最终用当前 front/rear/left/right/roof/oblique 真图形成 NEEDS_FIX + 最多3个问题 + KEEP 清单，最多两轮定向修正。随后做新空白基线重放、下载/原生重开/单对象编辑/再读回。
+
+Codex 完成后更新 HANDOFF/CURRENT_TASK、commit 并 push origin/main；然后由 ChatGPT 复审代码、证据和真实建模结果。当前旧的 2026-10-06 结果继续作为历史基线，不自动升级为 PASS。
+
+---
+
 # 最新本机执行结果 — 2026-10-06 单图 / OSS Skill 实测（余额阻断）
 
 从干净 main `0dd0943` 开始。新增两个 MIT 上游 Skill 节选直接接入产品建模上下文，保留持久 Ruby / Kongxing / 已采用 SAIE 和 Stultus：[采用与排除依据](OSS_RUNTIME_SKILLS_2026-10-06.md)。本轮没有换更强模型，没有修改原始模型，也没有重跑或替换六视图素材。
