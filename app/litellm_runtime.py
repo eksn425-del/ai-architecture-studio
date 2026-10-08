@@ -255,7 +255,16 @@ class LiteLLMRuntime:
                 "source_images": len(critic_sources),
                 "review_views": list(CANONICAL_REVIEW_VIEWS),
             })
-            response = invoke_completion(critic_kwargs)
+            try:
+                response = invoke_completion(critic_kwargs)
+            except Exception as error:
+                safe_error = str(error).replace(api_key, "[credential hidden]")
+                record({
+                    "event": "visual_critic_failed",
+                    "model": selected_model,
+                    "detail": safe_error[:1000],
+                })
+                raise RuntimeError(f"Dedicated visual critic request failed: {safe_error}") from None
             usage = _usage_from_response(response)
             text = _message_content(_response_message(response))
             critique = parse_visual_critique_response(text)
