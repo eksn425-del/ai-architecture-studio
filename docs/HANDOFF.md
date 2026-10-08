@@ -1,3 +1,10 @@
+## Remote Quality Loop v3 handoff — 2026-10-08
+
+After reviewing the v1 Windows evidence and v2 source against 3DCodeBench, ArchFlow and SketchUp Agent Harness patterns, ChatGPT implemented the next cloud-safe quality separation. Reconstruction planning now has a validated project-local `notes/facade_schedule.json` for compact source facts/provenance. In LiteLLM/DeepSeek execution, Builder-submitted six-view review is provisional: the host immediately performs a fresh no-tools independent visual critic call over source images + the six validated current-revision SketchUp captures + the schedule. That independent receipt, with reviewer provenance, replaces Builder self-review in the write gate. A malformed/unavailable critic fails closed and cannot unlock another geometry write.
+
+The existing single ProjectRuby writer, post-write receipt, current-revision screenshot sidecars, bounded writer budget and SAIE batch-opening helper remain unchanged. No claim of improved real reconstruction quality is made until Windows/SU2024 validation. Exact commands and acceptance steps are in `docs/QUALITY_LOOP_V3.md`.
+
+---
 ## Remote Quality Loop v2 / OSS gap review — 2026-10-08
 
 Reviewed Codex's real Windows delivery at `13c9544`. Accepted the engineering conclusions: 249 passed/2 skipped, real DeepSeek→SketchUp chain, replay, bound-file save, web download, native reopen/edit/readback all materially improved; both reconstruction outputs remain visually PARTIAL and the independent review overrides Agent optimism. v1 also proved that deterministic receipts are execution-consistency evidence, not topology/source-fidelity evidence.
