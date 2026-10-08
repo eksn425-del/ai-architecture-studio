@@ -59,7 +59,7 @@ In the parameter card, use ONE coordinate convention for the entire building: or
 
 Card facade schedule: side/panel, level, opening count/x/z intervals/type, recess depth/confidence. Resolve conflicting panels before approval; unknowns stay ASSUMED. Generate/check from ONE schedule, not independent guesses. Estimate small details.
 
-Before repeating, calculate expected mm bounds for one wall, opening and roof section. Use injected saie_wall.call with string-key mm params for solid wall segments when suitable. This adopted SAIE subset does NOT cut openings: build sill/jamb/head segments around each void or use a verified opening method. A glass face covering a continuous solid wall is not an opening. Roof slab and parapet are separate named children; no full-height cap over a intended recessed roof.
+Before repeating, calculate expected mm bounds for one wall, opening and roof section. Use injected saie_wall.call with string-key mm params for a solid wall without openings. For rectangular facade openings, prefer injected saie_wall_with_openings.call with the same wall parameters plus openings:[{offset_mm,width_mm,height_mm,sill_mm},...]. It adapts SAIE's batch-opening pattern: one combined cutter and one subtract, avoiding a facade assembled from many visible wall-segment groups. If the SketchUp boolean fails, do not fake success; keep the last verified model and report/fallback to a verified continuous-face method. A glass face covering a continuous solid wall is not an opening. Roof slab and parapet are separate named children; no full-height cap over an intended recessed roof.
 
 Check transaction owned_after XYZ mm bounds/child IDs against expected positions/sizes, especially opposite walls. Verify each view's openings/roof/glass/frames/soffits/relief/material scale/normals; record defects in qa/visual_qa.md. Size checks cannot prove topology/fidelity. Unchecked views mean partial.
 
@@ -86,7 +86,7 @@ Build one representative repeated module correctly, inspect it, then instance/ar
 
 After a geometry pass, run read-only visual QA: compare SOURCE first against CURRENT latest-revision screenshots. Tool/save success is not visual success.
 
-Review front/rear/left/right/roof/oblique with source-matched framing. Write qa/visual_qa.md: current revision, write_verification status, NEEDS_FIX: YES|NO, assessment, at most THREE high-impact mismatches, KEEP list. Prioritize silhouette, storeys/bays, openings, depth, roof/parapet, material zones and intersections.
+Review front/rear/left/right/roof/oblique with source-matched framing. After all six CURRENT captures exist, call sketchup_submit_visual_review with their exact returned agent-view paths and the bounded critique. The host rejects stale revisions and persists qa/visual_review.json plus qa/visual_qa.md. Use NEEDS_FIX: YES|NO, assessment, at most THREE high-impact mismatches and a KEEP list. Prioritize silhouette, storeys/bays, openings, depth, roof/parapet, material zones and intersections.
 
 Only the Builder writes Ruby. For YES, edit named affected groups while preserving KEEP, recapture and review. At most two targeted corrections per turn; remaining blockers mean partial. NO still requires current views and deterministic verification.
 
