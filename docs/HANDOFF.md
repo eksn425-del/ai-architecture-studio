@@ -1,3 +1,17 @@
+## Remote Evidence Fidelity v2.4 handoff — 2026-10-08
+
+User clarified the reconstruction product contract: a single source image must be treated as a high-fidelity target for everything visibly evidenced, while unseen exterior/interior may be coherently inferred; multiple views progressively remove inference freedom; a complete exterior + CAD/floorplan + interior evidence package must reconstruct evidenced regions rather than redesign them.
+
+Implemented this as durable project state instead of prompt-only prose. New `app/reconstruction_evidence.py` defines and validates three modes: `single_view_inference`, `multi_view_reconstruction`, and `full_evidence_reconstruction`. The validated ledger records source inventory, exterior-view coverage, CAD/floorplan/interior coverage, scale anchors, hard constraints, assumptions and hidden-geometry inference policy. Full-evidence mode cannot be selected unless front/rear/left/right/roof plus CAD, floorplan and interior coverage are actually represented by validated source references.
+
+Generated workspaces now seed/preserve `notes/reconstruction_evidence.json`; workspace JSON writes validate it. Planning and execution instructions now explicitly obey the evidence hierarchy: user corrections/dimensions > CAD/floorplan geometry > observed multi-view geometry > perspective appearance/detail > inference. Single-view execution targets visible colors/materials/glazing/railings/visible interior detail rather than generic massing. Full-evidence execution forbids redesign of evidenced regions.
+
+The dedicated read-only Critic now receives the validated evidence ledger plus a mode-specific fidelity contract together with the facade schedule and current six views. Active-context compaction also preserves the ledger so hidden-inference boundaries survive history reduction. Visual review receipts now record the fidelity mode/evidence snapshot.
+
+This remote turn did not run Windows SketchUp or paid DeepSeek. Local Codex must follow `docs/EVIDENCE_FIDELITY_V2_4.md`: run tests, perform a new single-image real reconstruction without hand-supplying hidden geometry, then multi-view; full-evidence real acceptance is required only when a suitable local package exists. Do not claim mathematically exact ground truth from missing/contradictory sources; the product target is 1:1 to supplied evidence, with only genuinely unobserved gaps inferred.
+
+---
+
 ## Remote Quality Loop v2.3 handoff — 2026-10-08
 
 After reviewing the real v1 Windows evidence and the v2.1/v2.2 architecture, ChatGPT implemented the next cloud-safe gap: Builder active-context compaction. The existing audit history is not deleted. Once the project has a meaningful structured facade schedule, large provider requests can replace completed older chat/tool history with a deterministic checkpoint built from the reconstruction card, validated facade schedule, current ProjectRuby revisions/root/verification state and latest visual review. The current real user turn and all tool exchanges produced in that turn remain intact.
