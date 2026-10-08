@@ -4,7 +4,7 @@ After the v2 wiring review, one material 3DCodeBench gap remained: the Builder s
 
 v2.1 now mirrors that separation on the LiteLLM/DeepSeek route:
 
-- the Builder only supplies the six actual current-revision `agent-view` paths;
+- the Builder supplies the six actual current-revision `agent-view` paths plus a fallback bounded critique for cross-runtime compatibility; on LiteLLM that verdict is not trusted;
 - before any critic image is read, the host reuses the same trusted path/revision/writer-receipt validator used by `submit_visual_review`;
 - the host opens a **separate compact provider call** with source image(s) first and exactly the six current views after them, no geometry tools and no Builder/tool-history context;
 - the dedicated response must parse as the bounded `NEEDS_FIX` envelope; the host replaces any Builder-authored verdict and records reviewer provenance in the persisted receipt;
