@@ -230,6 +230,36 @@ def validate_reconstruction_evidence_payload(value: Any) -> dict[str, Any]:
     return value
 
 
+
+def validate_reconstruction_evidence_sources(
+    project_dir: Path,
+    value: dict[str, Any],
+) -> dict[str, Any]:
+    """Require every claimed evidence reference to resolve to a real project input file."""
+    value = validate_reconstruction_evidence_payload(value)
+    project_root = project_dir.resolve()
+    inputs_root = (project_root / "inputs").resolve()
+    refs: set[str] = set()
+
+    if value.get("primary_source"):
+        refs.add(str(value["primary_source"]))
+    for item in value.get("sources", []):
+        refs.add(str(item["path"]))
+    for item in value.get("exterior_views", {}).values():
+        refs.update(str(ref) for ref in item.get("source_refs", []))
+    for field in ("floorplan", "cad", "interior"):
+        refs.update(str(ref) for ref in value.get(field, {}).get("source_refs", []))
+    for anchor in value.get("scale_anchors", []):
+        if anchor.get("source_ref"):
+            refs.add(str(anchor["source_ref"]))
+
+    for ref in refs:
+        pure = ref.replace("\\", "/")
+        candidate = (project_root / pure).resolve()
+        if not candidate.is_relative_to(inputs_root) or not candidate.is_file() or candidate.is_symlink():
+            raise ValueError(f"reconstruction evidence source does not exist in project inputs: {ref}")
+    return value
+
 def load_reconstruction_evidence(project_dir: Path) -> dict[str, Any] | None:
     path = (
         project_dir.resolve()
@@ -242,7 +272,7 @@ def load_reconstruction_evidence(project_dir: Path) -> dict[str, Any] | None:
         return None
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
-        return validate_reconstruction_evidence_payload(value)
+        return validate_reconstruction_evidence_sources(project_dir, value)
     except (OSError, json.JSONDecodeError, ValueError):
         return None
 
