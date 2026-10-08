@@ -316,6 +316,24 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         "user_confirmed": ["rear opening_count=3"],
         "inferred": [],
     }), encoding="utf-8")
+    from app.reconstruction_evidence import default_reconstruction_evidence
+    evidence = default_reconstruction_evidence()
+    evidence["fidelity_mode"] = "single_view_inference"
+    evidence["primary_source"] = "inputs/reference/source.png"
+    evidence["sources"] = [{
+        "path": "inputs/reference/source.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "primary",
+    }]
+    evidence["exterior_views"]["front"] = {
+        "provenance": "observed",
+        "source_refs": ["inputs/reference/source.png"],
+        "notes": [],
+    }
+    (schedule_dir / "reconstruction_evidence.json").write_text(
+        json.dumps(evidence), encoding="utf-8"
+    )
 
     quality = {"writes": 1, "write_limit": 1, "review": None}
     tool = {
@@ -381,6 +399,9 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
             assert "tools" not in kwargs
             critic_payload = str(kwargs["messages"][1]["content"])
             assert "FACADE_SCHEDULE" in critic_payload
+            assert "RECONSTRUCTION_EVIDENCE" in critic_payload
+            assert "single_view_inference" in critic_payload
+            assert "hard visual target" in critic_payload
             assert "rear opening_count=3" in critic_payload
             assert '"opening_count": 4' in critic_payload
             return SimpleNamespace(
