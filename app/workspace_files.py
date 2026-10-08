@@ -4,6 +4,7 @@ import json
 import re
 
 from .modeling_quality import validate_facade_schedule_payload
+from .reconstruction_evidence import validate_reconstruction_evidence_payload
 
 MAX_TEXT_BYTES = 120000
 
@@ -62,6 +63,8 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
                 raise ValueError("Workspace JSON root must be an object.")
             if path == "notes/facade_schedule.json":
                 validate_facade_schedule_payload(parsed)
+            elif path == "notes/reconstruction_evidence.json":
+                validate_reconstruction_evidence_payload(parsed)
             content = json.dumps(parsed, ensure_ascii=False, indent=2) + "\n"
         target.write_text(content, encoding="utf-8")
         return {"success": True, "relative_path": path, "bytes": target.stat().st_size}
