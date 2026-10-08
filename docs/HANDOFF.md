@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.2 — structured facade schedule — 2026-10-08
+
+Reviewed the v1 Windows evidence, v2 single-writer/current-view gate, and v2.1 dedicated read-only Critic against 3DCodeBench, ArchFlow and SketchUp Agent Harness. The remaining remote-safe gap was source-fact stability: opening/roof constraints were still mostly reconstructed from prose/history.
+
+Added project-local `notes/facade_schedule.json`, seeded and preserved by the workspace, writable only through validated confined JSON workspace I/O. Reconstruction planning now must maintain compact front/rear/left/right and roof facts with observed/user_confirmed/inferred provenance; execution treats confirmed facts as constraints while inferred facts remain revisable. The existing v2.1 dedicated Critic receives the schedule in its clean source + six-current-view request, without adding writer tools or Builder history.
+
+No Windows/SU2024 or paid-provider PASS is claimed from this remote change. `docs/QUALITY_LOOP_V2_2.md` contains the exact local commands and evidence requirements. If this passes, active-context compaction becomes the next likely engineering priority; if Critic still false-passes obvious schedule contradictions, add deterministic schedule checks before a visual NO can be accepted.
+
+---
+
 ## Remote Quality Loop v2.1 — dedicated read-only critic — 2026-10-08
 
 Continued the OSS comparison after v2. The remaining architectural mismatch to 3DCodeBench was concrete: K Studio's Builder still supplied its own NEEDS_FIX verdict in the same long context, whereas 3DCodeBench separates visual critique from the writer run.
