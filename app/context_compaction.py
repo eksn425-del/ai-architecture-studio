@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from .modeling_quality import validate_facade_schedule_payload
-from .reconstruction_evidence import validate_reconstruction_evidence_payload
+from .reconstruction_evidence import default_reconstruction_evidence, validate_reconstruction_evidence_payload
 
 
 MAX_CARD_CHARS = 12000
@@ -108,6 +108,8 @@ def build_reconstruction_checkpoint(
     schedule = _load_json(schedule_path)
     evidence_path = workspace / "notes" / "reconstruction_evidence.json"
     evidence = _load_json(evidence_path)
+    if evidence is None:
+        evidence = default_reconstruction_evidence()
     try:
         schedule = validate_facade_schedule_payload(schedule)
         evidence = validate_reconstruction_evidence_payload(evidence)
