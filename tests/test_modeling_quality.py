@@ -4,6 +4,7 @@ from app.modeling_quality import (
     parse_visual_critique_response,
     require_post_write_verification,
     submit_visual_review,
+    validate_facade_schedule_payload,
 )
 
 
@@ -425,3 +426,58 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
     assert quality["review"]["reviewer"]["mode"] == "host_dedicated_read_only"
     assert result.input_tokens == 100
     assert result.output_tokens == 20
+
+
+
+def test_facade_schedule_validator_accepts_structured_source_facts():
+    schedule = validate_facade_schedule_payload({
+        "schema_version": 1,
+        "dimensions_mm": {
+            "overall_width": 10000,
+            "overall_depth": 8000,
+            "level_height": 3200,
+            "floor_count": 2,
+        },
+        "views": {
+            "front": {
+                "provenance": "observed",
+                "opening_count": 4,
+                "door_count": 1,
+                "features": ["balcony"],
+                "notes": [],
+            },
+            "rear": {
+                "provenance": "user_confirmed",
+                "opening_count": 3,
+                "door_count": 0,
+                "features": [],
+                "notes": ["three windows per floor"],
+            },
+        },
+        "roof": {
+            "provenance": "observed",
+            "type": "flat",
+            "parapet": "thin",
+            "divisions": ["3x2"],
+            "notes": [],
+        },
+        "global_features": ["corner louvers"],
+        "user_confirmed": ["rear opening_count=3"],
+        "inferred": [],
+    })
+    assert schedule["views"]["rear"]["provenance"] == "user_confirmed"
+
+
+def test_facade_schedule_validator_rejects_unstable_types():
+    import pytest
+
+    with pytest.raises(ValueError, match="opening_count"):
+        validate_facade_schedule_payload({
+            "schema_version": 1,
+            "views": {"front": {"provenance": "observed", "opening_count": 3.5}},
+        })
+    with pytest.raises(ValueError, match="provenance"):
+        validate_facade_schedule_payload({
+            "schema_version": 1,
+            "views": {"front": {"provenance": "hallucinated", "opening_count": 3}},
+        })
