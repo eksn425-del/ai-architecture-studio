@@ -156,3 +156,36 @@ def test_checkpoint_rejects_invalid_facade_schedule_contract(tmp_path):
         },
     }), encoding="utf-8")
     assert build_reconstruction_checkpoint(root, {}) == ""
+
+
+def test_checkpoint_preserves_reconstruction_evidence_mode(tmp_path):
+    from app.reconstruction_evidence import default_reconstruction_evidence
+
+    root, notes, _ = _workspace(tmp_path)
+    (notes / "reconstruction_card.md").write_text("single-view approved", encoding="utf-8")
+    (notes / "facade_schedule.json").write_text(json.dumps({
+        "schema_version": 1,
+        "views": {"front": {"provenance": "observed", "opening_count": 4}},
+        "user_confirmed": [],
+        "inferred": ["rear inferred"],
+    }), encoding="utf-8")
+    evidence = default_reconstruction_evidence()
+    evidence["fidelity_mode"] = "single_view_inference"
+    evidence["primary_source"] = "inputs/reference/front.png"
+    evidence["sources"] = [{
+        "path": "inputs/reference/front.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "primary",
+    }]
+    evidence["exterior_views"]["front"] = {
+        "provenance": "observed",
+        "source_refs": ["inputs/reference/front.png"],
+        "notes": [],
+    }
+    (notes / "reconstruction_evidence.json").write_text(json.dumps(evidence), encoding="utf-8")
+
+    checkpoint = build_reconstruction_checkpoint(root, {})
+    assert "RECONSTRUCTION_EVIDENCE:" in checkpoint
+    assert "single_view_inference" in checkpoint
+    assert "inputs/reference/front.png" in checkpoint
