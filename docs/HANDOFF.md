@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.5 / canonical camera provenance — 2026-10-08
+
+After reviewing the latest v1 Windows evidence and the v2.1-v2.4 remote implementation against Scenario-style review sheets, one remaining trust gap was found: current-revision screenshot paths did not prove that a file labelled "front" actually used a front camera. This could still let a Builder submit six distinct but semantically wrong camera frames to the dedicated Critic.
+
+Implemented a host-owned `sketchup_capture_canonical_view` tool for image reconstruction. It reads the selected persistent ProjectRuby root bounds, generates deterministic X/Y/Z cameras for front/rear/left/right/roof/oblique, captures without connector zoom rewriting the camera, and stores `camera_contract_version`, `canonical_view`, persistent script ID, camera vectors and current writer revisions in the evidence sidecar. The six-view validator now rejects missing/mislabeled canonical camera provenance. Free camera/export remains available for source-matched/interior/detail `evidence_pairs`.
+
+Added pure camera-contract, dispatch-sidecar and tool-surface tests, and updated the reconstruction developer instructions/Skill. This remote change has not been run against real SU2024; local Codex must execute `docs/QUALITY_LOOP_V2_5.md` and then the v2.4 real reconstruction gates before any PASS claim.
+
+---
+
 ## Remote Evidence Fidelity v2.4 handoff — 2026-10-08
 
 User clarified the reconstruction product contract: a single source image must be treated as a high-fidelity target for everything visibly evidenced, while unseen exterior/interior may be coherently inferred; multiple views progressively remove inference freedom; a complete exterior + CAD/floorplan + interior evidence package must reconstruct evidenced regions rather than redesign them.
