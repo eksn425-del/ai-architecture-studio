@@ -17,10 +17,12 @@ from pathlib import Path
 from typing import Any
 
 from .modeling_quality import validate_facade_schedule_payload
+from .reconstruction_evidence import validate_reconstruction_evidence_payload
 
 
 MAX_CARD_CHARS = 12000
 MAX_SCHEDULE_CHARS = 12000
+MAX_EVIDENCE_CHARS = 12000
 MAX_REVIEW_CHARS = 8000
 DEFAULT_COMPACTION_THRESHOLD_CHARS = 100_000
 
@@ -77,6 +79,19 @@ def _schedule_has_signal(schedule: dict[str, Any] | None) -> bool:
     return False
 
 
+
+def _evidence_has_signal(evidence: dict[str, Any] | None) -> bool:
+    if not evidence:
+        return False
+    if evidence.get("fidelity_mode") not in {None, "", "pending"}:
+        return True
+    if evidence.get("primary_source"):
+        return True
+    if evidence.get("sources"):
+        return True
+    return False
+
+
 def build_reconstruction_checkpoint(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]] | None,
@@ -91,11 +106,14 @@ def build_reconstruction_checkpoint(
     workspace = project_dir / "runtime" / "agent_workspace"
     schedule_path = workspace / "notes" / "facade_schedule.json"
     schedule = _load_json(schedule_path)
+    evidence_path = workspace / "notes" / "reconstruction_evidence.json"
+    evidence = _load_json(evidence_path)
     try:
         schedule = validate_facade_schedule_payload(schedule)
+        evidence = validate_reconstruction_evidence_payload(evidence)
     except ValueError:
         return ""
-    if not _schedule_has_signal(schedule):
+    if not _schedule_has_signal(schedule) and not _evidence_has_signal(evidence):
         return ""
 
     card = _bounded_text(workspace / "notes" / "reconstruction_card.md", MAX_CARD_CHARS)
@@ -124,6 +142,9 @@ def build_reconstruction_checkpoint(
         "",
         "FACADE_SCHEDULE:",
         json.dumps(schedule, ensure_ascii=False, separators=(",", ":"))[:MAX_SCHEDULE_CHARS],
+        "",
+        "RECONSTRUCTION_EVIDENCE:",
+        json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))[:MAX_EVIDENCE_CHARS],
         "",
         "CURRENT_WRITER_STATE:",
         json.dumps(writer_state, ensure_ascii=False, separators=(",", ":")),
