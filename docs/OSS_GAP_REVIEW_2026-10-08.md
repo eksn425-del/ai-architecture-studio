@@ -1,0 +1,99 @@
+# OSS Gap Review & Quality Loop v2 — 2026-10-08
+
+## Current product verdict
+
+Reviewed main `13c954433d8a9dfd8bb1782cd0634d6335f49963` and the full Windows evidence under `docs/test-results/windows/2026-10-08-quality-loop-v1/`.
+
+K Studio is now a real editable-SketchUp Beta prototype, not a concept demo:
+
+- ordinary web flow reaches real SketchUp geometry;
+- persistent Ruby, guarded owned roots, checkpoints, downloads and native reopen/edit work;
+- DeepSeek credentials survive restart;
+- a fresh blank-model replay reproduced the 171-object six-view baseline;
+- deterministic post-write receipts now survive later screenshot failure;
+- current screenshot evidence carries actual file path and model revision.
+
+The remaining blocker is **source fidelity and autonomous quality control**, not basic connectivity. Both the single-image and whole-six-view villa remain PARTIAL. Current failures are visible wall seams, roof/parapet mismatch, opening proportions/placement, schematic furniture/material details, and still-required human image-interpretation corrections. Context/token cost is also excessive.
+
+## Upstream comparison
+
+| Upstream | Revision reviewed | What it does better / useful pattern | K Studio before v2 | v2 action |
+| --- | --- | --- | --- | --- |
+| `gaoypeng/3dcodebench` | `42c7780ed3fcbd466f17f058f62e7996233777f7` | `process_one_visual_feedback` actually wires critique into execution: review current renders, FIX/DONE decision, rerender, keep known-good state, bounded iterations | We had copied the NEEDS_FIX parser/prompt idea, but it was not a real host-enforced phase; Agent could finish with stale/incomplete QA | Wire DeepSeek execution to a host quality gate. A committed writer pass must be followed by six current views + `sketchup_submit_visual_review`; NEEDS_FIX may unlock one targeted correction, bounded by the writer budget |
+| `dcc-mcp/dcc-mcp-sketchup` | `b7981838eca24996e7e9c2959af1463162022f66` | Every bridge method is classified read-only vs mutating; mutators owe post-write expected/actual evidence | ProjectRuby had a receipt, but reconstruction still exposed other mutating SAIE/Kongxing routes that could bypass the same budget/receipt | Make reconstruction a **single verified writer**: ProjectRuby writes; SAIE/Kongxing helpers exposed to reconstruction are read-only |
+| `iamahsanmehmood/saie` | `eff6f41ff866bef6b4f2b90be2faa6fe2cc4347f` | `opening.rb#batch_cut` builds one combined cutter and performs one subtract, specifically avoiding progressive corruption from sequential cuts; wall-local frame is explicit | We reused wall math but still often built facades as many wall segments; visible seams remained. Earlier ad-hoc boolean attempts were unstable | Vendor a small root-scoped MIT subset: `saie_wall_with_openings` uses one combined cutter + one subtract inside K Studio's owned root/host transaction. Must be validated on SU2024 before claiming the seam problem fixed |
+| `marlinBian/sketchup-agent-harness` | `e431eef6c9a9ee73a611fd68952a6aaa78566b12` | Visual snapshots carry provenance; visual feedback is structured advisory action before mutation; project-local memory is separate from canonical structured constraints | We had `visual_qa.md` prose, but stale/nonexistent filenames could appear and review did not have a machine-checked current-revision manifest | Persist `qa/visual_review.json` + history with six evidence paths/revisions, writer verification, issues and KEEP. Reject stale screenshot revisions |
+| `B-A-community/stultus` | `bfb0c012c6a5c669dadb2725aa76980e8481e859` | Strong scene/readback/screenshot discipline: verify the result rather than the fact a call returned | Bounds/readback patterns already adopted and proved useful in ID/mm audits | Keep current reuse; no connector replacement |
+| `bingxijun/archflow-studio` | `6438b9a4117b614cb6b22332dfb97a259d6824a3` | Hosted-opening semantic model, one mm coordinate system, structured project state | Our facade schedule is still largely prose in `reconstruction_card.md` | **Next after v2 host loop passes:** add a compact machine-checkable facade/roof schedule JSON. Do not make ArchFlow/DesignIR the geometry source of truth for arbitrary forms |
+
+## What the v1 adoption actually proved
+
+### Post-write receipt: useful, but not a visual validator
+
+The DCC-inspired receipt was valuable engineering work. It caught missing expected readback fields and gives durable proof that the committed SketchUp root/revision/object count/bounds were actually read back.
+
+However the Windows test also demonstrated its limit: zero-thickness/incorrect walls and wrong roof/opening details could still return `verified=true` when the generated transaction and readback agreed. Therefore:
+
+`write_verification == execution truth`, **not** source-fidelity truth.
+
+### Bounded critic parser: concept was right, integration was incomplete
+
+The 3DCodeBench-derived parser/prompt existed, but paid runs still produced incomplete/stale Agent QA. The code was not controlling the runtime loop. The main difference from upstream was not prompt wording; it was that upstream's runner owns the critique → fix → rerender state machine.
+
+Quality Loop v2 moves this responsibility into the host instead of hoping the Builder remembers the prompt.
+
+### SAIE wall reuse: units/solid walls improved, facade topology did not
+
+The adopted SAIE wall math helped establish predictable mm wall geometry, but a plain wall helper cannot solve openings. The model kept composing many solid wall segments around openings, producing visible facade seams. The relevant upstream code is therefore the batch-opening implementation, not another wall primitive.
+
+### Project memory / persistent scripts: continuity works
+
+Persistent scripts/cards, IDs, checkpoints and replay are now genuinely useful. They enabled the 171-object clean replay and targeted table edit. The next step is to move high-value visual facts (facade opening schedule, roof divisions, KEEP targets) from prose into compact machine-checkable state, not to add more free-form memory.
+
+## Quality Loop v2 implemented in GitHub
+
+1. **Single verified reconstruction writer**
+   - image-reconstruction profile no longer exposes mutating SAIE helpers or Kongxing transform/undo;
+   - geometry writes go through guarded ProjectRuby;
+   - all writes therefore share owned-root identity, write budget and deterministic receipt.
+
+2. **Real current-revision visual review receipt**
+   - new `sketchup_submit_visual_review` is read-only;
+   - requires exactly six distinct front/rear/left/right/roof/oblique `agent-view` captures;
+   - every capture must have a sidecar whose `model_revisions` exactly matches current writer state;
+   - all active writer states must have `last_verification.verified=true`;
+   - persists structured `qa/visual_review.json`, `visual_review_history.jsonl` and human-readable `visual_qa.md`.
+
+3. **Host-enforced DeepSeek quality loop**
+   - after a committed build, the runtime will not quietly accept a final answer without a current six-view review;
+   - a second writer pass is blocked until that review exists;
+   - NEEDS_FIX unlocks one targeted correction, then review is invalidated and must be recaptured;
+   - max writer budget remains one primary build + at most two corrections;
+   - NEEDS_FIX:NO blocks extra same-turn geometry writes;
+   - if quality still fails when budget ends, final status stays PARTIAL rather than forcing success.
+
+4. **SAIE batch-opening facade helper**
+   - new root-scoped `saie_wall_with_openings` adapts upstream's one-combined-cutter/one-subtract pattern;
+   - no upstream global model registry/lifecycle code is reused;
+   - intended first use is the wall-seam defect in the current villa;
+   - it is **not yet a PASS** until real SU2024 smoke and reconstruction prove it.
+
+## Remaining gaps after this remote iteration
+
+1. Visual critic is still the same provider/model acting in a read-only phase. If the new host gate remains over-optimistic on real evidence, the next step is a dedicated read-only critic call with only source images + six current views + compact facade schedule, not another writer Agent.
+2. Source understanding is still partly human-assisted. A six-view facade/roof schedule should become structured JSON with observed/assumed provenance and normalized opening intervals.
+3. Context is far too large. The latest single/six runs consumed roughly 4.1M/4.9M reported input tokens. After quality-loop correctness is proven, compact active context to current requirements/card/script IDs/revisions/latest review/current source/current six views while keeping full audit locally.
+4. Source-visible furniture/material detail remains schematic.
+5. Clean-PC/frozen-EXE paid end-to-end, clipboard/stale-plan/recovery UX gates remain pending.
+
+## Project maturity
+
+- Product/workbench UX: **Beta foundation established**
+- DeepSeek → tools → SketchUp technical chain: **PASS**
+- Persistent/replay/edit/save/reopen engineering chain: **PASS with documented manual/native probes**
+- Deterministic write verification: **PASS for execution consistency**
+- Autonomous visual QA: **v2 implementation ready for real Windows validation**
+- Source-matched architecture reconstruction quality: **PARTIAL**
+- New-user commercial/release readiness: **NOT YET**
+
+The next milestone is still the same milestone: make one representative villa run pass the current-revision review loop without human geometry repair, while keeping the writer bounded and IDs stable for KEEP objects. Do not add rendering/payment/multi-software scope yet.
