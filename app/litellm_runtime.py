@@ -188,6 +188,8 @@ class LiteLLMRuntime:
         failed_tool_calls = 0
         modeling_failure_streak = 0
         last_reply = ""
+        quality_gate_nudges = 0
+        max_quality_gate_nudges = 6
 
         def interrupted(detail: str) -> NativeAgentUnavailable:
             # Preserve real usage/checkpoint state even when a bounded turn stops.
@@ -269,6 +271,59 @@ class LiteLLMRuntime:
             raw_tool_calls = message.get("tool_calls") or []
             last_reply = _message_content(message)
             if not raw_tool_calls:
+                quality = tool_context.quality_state
+                gated_reconstruction = (
+                    workflow_mode == "image_reconstruction"
+                    and mcp_enabled
+                    and tool_profile == "reconstruction_coding"
+                    and int(quality.get("writes", 0) or 0) > 0
+                )
+                if gated_reconstruction:
+                    review = quality.get("review")
+                    writes = int(quality.get("writes", 0) or 0)
+                    write_limit = int(quality.get("write_limit", 0) or 0)
+                    gate_prompt = ""
+                    if not isinstance(review, dict) and quality_gate_nudges < max_quality_gate_nudges:
+                        gate_prompt = (
+                            "HOST QUALITY GATE: You have committed geometry but have not submitted a CURRENT six-view review. "
+                            "Do not finish yet and do not write geometry again. Capture six distinct current-revision views "
+                            "(front, rear, left, right, roof, oblique), compare them against the attached source evidence, "
+                            "then call sketchup_submit_visual_review with the actual returned output paths. "
+                            "Use NEEDS_FIX plus at most three high-impact issues and a KEEP list."
+                        )
+                    elif isinstance(review, dict) and review.get("needs_fix") is True and writes < write_limit and quality_gate_nudges < max_quality_gate_nudges:
+                        gate_prompt = (
+                            "HOST QUALITY GATE: The current validated review says NEEDS_FIX: YES and writer budget remains. "
+                            "Apply ONE targeted correction pass to the named affected groups only, preserve the KEEP geometry, "
+                            "then recapture all six current views and submit a new visual review. Do not use a full-root replace "
+                            "unless the review explicitly shows the whole baseline is invalid."
+                        )
+                    if gate_prompt:
+                        messages.append({
+                            "role": "assistant",
+                            "content": last_reply or "已完成当前步骤，准备质量检查。",
+                        })
+                        messages.append({"role": "user", "content": gate_prompt})
+                        quality_gate_nudges += 1
+                        record({
+                            "event": "quality_gate_nudge",
+                            "nudge": quality_gate_nudges,
+                            "writes": writes,
+                            "write_limit": write_limit,
+                            "has_review": isinstance(review, dict),
+                            "needs_fix": review.get("needs_fix") if isinstance(review, dict) else None,
+                        })
+                        save_history()
+                        continue
+
+                    if not isinstance(review, dict):
+                        last_reply = (
+                            (last_reply + "\n\n") if last_reply else ""
+                        ) + "当前模型已提交，但本轮没有完成可验证的当前六视图质量审查，因此还不能判定还原质量通过。"
+                    elif review.get("needs_fix") is True:
+                        last_reply = (
+                            (last_reply + "\n\n") if last_reply else ""
+                        ) + "当前六视图审查仍为 NEEDS_FIX；本轮修正预算已用完或质量门已停止继续写入，剩余问题按 PARTIAL 保留。"
                 break
             if tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
                 raise interrupted(
