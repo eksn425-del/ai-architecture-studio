@@ -137,3 +137,22 @@ def test_active_visual_filter_keeps_newest_source_copy_for_compaction():
         isinstance(block, dict) and block.get("type") == "image_url"
         for block in compacted[-1]["content"]
     )
+
+
+
+def test_checkpoint_rejects_invalid_facade_schedule_contract(tmp_path):
+    root, notes, _ = _workspace(tmp_path)
+    (notes / "reconstruction_card.md").write_text("approved card", encoding="utf-8")
+    (notes / "facade_schedule.json").write_text(json.dumps({
+        "schema_version": 1,
+        "views": {
+            "front": {
+                "provenance": "made_up",
+                "opening_count": 4,
+                "door_count": 1,
+                "features": [],
+                "notes": [],
+            }
+        },
+    }), encoding="utf-8")
+    assert build_reconstruction_checkpoint(root, {}) == ""
