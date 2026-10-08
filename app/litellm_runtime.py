@@ -22,6 +22,7 @@ from .modeling_quality import (
     validate_visual_review_views,
 )
 from .reference_assets import discover_project_reference_images, image_data_url, reference_image_label
+from .reconstruction_evidence import fidelity_contract_summary, load_reconstruction_evidence
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 
@@ -195,12 +196,19 @@ class LiteLLMRuntime:
                 CANONICAL_REVIEW_VIEWS,
             )
             schedule = load_facade_schedule(project_dir)
+            reconstruction_evidence = load_reconstruction_evidence(project_dir)
+            fidelity_rule = fidelity_contract_summary(reconstruction_evidence)
             content: list[dict[str, Any]] = [{
                 "type": "text",
                 "text": (
                     "SOURCE images come first. CURRENT SketchUp review images follow in canonical order. "
                     "Judge visible source fidelity independently from the Builder. Do not infer success from tool logs, code, receipts or prior prose. "
                     "The compact facade schedule below is source-facing project evidence: user_confirmed facts outrank observed estimates; inferred facts are advisory and may be wrong.\n"
+                    "Apply the reconstruction fidelity contract strictly. For a single image, judge the source-visible view hardest and do not penalize plausible hidden inference unless it contradicts visible evidence. "
+                    "For full evidence, any supplied CAD/floorplan/exterior/interior fact is a hard constraint; do not return NEEDS_FIX:NO while an evidenced region visibly contradicts it.\n"
+                    "FIDELITY_CONTRACT: " + fidelity_rule + "\n"
+                    + ("RECONSTRUCTION_EVIDENCE:\n" + json.dumps(reconstruction_evidence, ensure_ascii=False)[:12000] + "\n"
+                       if reconstruction_evidence else "RECONSTRUCTION_EVIDENCE: unavailable\n")
                     + ("FACADE_SCHEDULE:\n" + json.dumps(schedule, ensure_ascii=False)[:12000]
                        if schedule else "FACADE_SCHEDULE: unavailable")
                 ),
@@ -242,6 +250,7 @@ class LiteLLMRuntime:
                 "source_images": len(critic_sources),
                 "review_views": list(CANONICAL_REVIEW_VIEWS),
                 "facade_schedule": bool(schedule),
+                "fidelity_mode": (reconstruction_evidence or {}).get("fidelity_mode", "pending"),
             })
             try:
                 response = invoke_completion(critic_kwargs)
