@@ -1,3 +1,15 @@
+## Remote Modeling Quality Loop v1 handoff — 2026-10-08
+
+ChatGPT inspected the latest main and additional open-source 3D Agent implementations, then implemented the cloud-safe portion of the next quality loop directly in GitHub. The existing single-writer DeepSeek/persistent-Ruby/Kongxing stack remains intact.
+
+Added an adapted bounded visual-critic contract from 3DCodeBench (Apache-2.0): current source evidence must be compared against current SketchUp views, with NEEDS_FIX, at most three high-impact mismatches and a KEEP list. Added an adapted dcc-mcp-sketchup (MIT) expected/actual boundary contract: after each committed project-Ruby mutation, K Studio re-reads the exact owned root and returns a structured write_verification receipt for transaction status, root ID, revision and available object-count/mm-bounds evidence. The recoverable committed checkpoint is persisted before the readback, so a verification/capture failure does not erase the recoverable revision.
+
+Generated project workspaces now seed and preserve qa/visual_qa.md. The reconstruction Skill requires fresh front/rear/left/right/roof/oblique review, no more than two targeted correction rounds in one turn, and no completion claim from tool success alone. Provenance and upstream license texts are recorded under app/vendor/modeling_quality_sources and THIRD_PARTY_NOTICES.md.
+
+This remote turn cannot certify the modified path against real Windows SketchUp. The exact local task and commands are in docs/MODELING_QUALITY_LOOP_V1.md. Codex must pull latest main, run the full tests, fix any integration regression, perform fresh single-image + six-view DeepSeek reconstruction, verify write receipts, perform bounded visual correction, replay on a new blank model, reopen/edit/read back SKP, then update HANDOFF/CURRENT_TASK and push main. ChatGPT reviews after that handoff.
+
+---
+
 ## Windows single-image / licensed runtime Skills / recovery — 2026-10-06
 
 Started from clean main `0dd0943`. Adopted selected MIT SketchUp API Skill and Agent Harness excerpts, pinned with licenses and source references; appended them directly to the existing runtime Skill. Kept the existing DeepSeek / persistent Ruby / Kongxing / SAIE / Stultus stack. [Implementation-level adoption and rejected patterns](OSS_RUNTIME_SKILLS_2026-10-06.md).
