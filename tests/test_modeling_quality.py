@@ -502,3 +502,36 @@ def test_facade_schedule_validator_rejects_unstable_types():
             "schema_version": 1,
             "views": {"front": {"provenance": "hallucinated", "opening_count": 3}},
         })
+
+
+def test_visual_review_accepts_current_source_matched_pair(tmp_path):
+    import json
+    from PIL import Image
+    from app.modeling_quality import submit_visual_review
+
+    project, state, views = _current_review_fixture(tmp_path)
+    source = project / "inputs" / "reference" / "living-room.png"
+    source.parent.mkdir(parents=True, exist_ok=True)
+    Image.new("RGB", (16, 12), "white").save(source)
+
+    current = project / "outputs" / "renders" / "agent-view-interior.png"
+    Image.new("RGB", (16, 12), "white").save(current)
+    current.with_suffix(".evidence.json").write_text(json.dumps({
+        "path": current.relative_to(project).as_posix(),
+        "width": 16,
+        "height": 12,
+        "quality_status": "not_accepted",
+        "model_revisions": {"villa": 3},
+    }), encoding="utf-8")
+
+    receipt = submit_visual_review(project, state, {
+        "views": views,
+        "critique": "NEEDS_FIX: NO\n<assessment>Visible evidence is aligned.</assessment>",
+        "evidence_pairs": [{
+            "source_ref": "inputs/reference/living-room.png",
+            "current_view": "outputs/renders/agent-view-interior.png",
+            "label": "living room",
+        }],
+    })
+    assert receipt["evidence_pairs"][0]["label"] == "living room"
+    assert receipt["evidence_pairs"][0]["model_revisions"] == {"villa": 3}
