@@ -29,6 +29,9 @@ def test_image_to_sketchup_skill_is_bounded_and_quality_focused() -> None:
     assert "Pass 1" in context
     assert "Pass 2" in context
     assert "Pass 3" in context
+    assert "NEEDS_FIX" in context
+    assert "at most THREE" in context
+    assert "KEEP list" in context
     assert "persistent workspace Ruby" in context
     assert "approval" in context.lower()
 
