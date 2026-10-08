@@ -1,3 +1,13 @@
+# 当前任务 — 2026-10-08 Quality Loop v2.5 / 主机认证六视图相机
+
+ChatGPT 复审 v1 真机结果与 v2.1-v2.4 代码后发现新的证据边界：此前六张截图虽然能校验“文件真实、修订最新、路径不同”，但仍然信任 Agent 自己把任意相机命名为 front/rear/left/right/roof/oblique。现在 main 候选改为由 host 的 `sketchup_capture_canonical_view` 根据当前持久 ProjectRuby 根组 bounds 生成固定六视图，并把 view 名、script ID、camera vectors、current revisions 写入 sidecar；六视图质量门只接受这种 host-certified canonical evidence。
+
+本机 Codex 下一步先执行 `docs/QUALITY_LOOP_V2_5.md`，再继续 v2.4 单图/多视图真实 DeepSeek + SU2024 验收。重点不是增加功能，而是验证六个方向确实正确、构图不裁切，并继续使用 source-matched `evidence_pairs` 检查源图视角/室内细节。若 root 内超大场地导致 canonical framing 过远，记录并修 building-focus bounds，不要退回自由命名截图。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。
+
+---
+
 # 当前任务 — 2026-10-08 Evidence Fidelity v2.4 / 单图可推断、全证据强约束
 
 用户明确了图片还原产品标准：
