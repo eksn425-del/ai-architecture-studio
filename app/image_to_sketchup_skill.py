@@ -41,17 +41,21 @@ Approval covers all passes/details/QA continuously; never ask for another contin
 
 No geometry in clarify/plan mode.
 
-## Evidence across views and unseen geometry
+## Evidence fidelity modes
 
-Classify evidence: one image, multiple views of ONE building, or text only. Text-only work proposes a design, not an observed reconstruction; do not demand images. Keep the same approval/coding/QA loop.
+Maintain `notes/reconstruction_evidence.json` beside the parameter card and facade schedule. Evidence completeness controls how much freedom the Builder has.
 
-Record views, floors, openings/materials/landmarks; reconcile ONE building's dimensions and contradictions. Never promise zero errors.
+**single_view_inference** — one exterior image is enough to reconstruct. The visible source view is a HARD visual target: match silhouette, storey/bay proportions, opening count/position, facade depth, colors/material zones, glass, railings, visible furniture/interior and source-defining detail. Do not stop at generic massing. Hidden rear/sides/roof/interior may be plausibly inferred without another questionnaire unless the user forbids inference. Inferred regions must continue the visible structure, circulation and facade vocabulary; never leave them blank or mirror the front blindly.
 
-Count openings by facade/floor/panel. OBSERVED source counts differ from approved defaults: obeying a default does not prove fidelity. Check narrow windows, entries, wall returns and roof inner edges. Persist corrected observations in the parameter card and QA notes; old prose must not override pixels.
+**multi_view_reconstruction** — two or more observed exterior views constrain ONE coherent building. Every observed facade is a hard target. Reconcile dimensions and landmarks across views; do not improve one observed facade by contradicting another. Infer only regions absent from all sources.
 
-Record exact filename, landmarks, floor lines/openings. Labels are hints; distinguish street entrance and pool facade. Pair QA by landmarks; correct card/model before acceptance.
+**full_evidence_reconstruction** — use only when the validated evidence ledger actually contains front/rear/left/right/roof views plus floorplan, CAD and interior evidence. Treat supplied CAD/floorplan dimensions and topology as geometry constraints, and supplied exterior/interior images as appearance/detail constraints. Do not redesign any evidenced region. Railings, glazing, mullions, facade layers, stairs, built-ins, visible furniture/materials and interior elements shown by sources belong to the reconstruction target. Only genuinely unobserved gaps may be inferred. If sources conflict, record the contradiction and keep quality PARTIAL until resolved; never average conflicting evidence silently.
 
-With approved inference, rear/sides/roof/interiors stay ASSUMED. Continue levels, thickness, drainage and facade vocabulary; avoid blank/mirrored backs. Stairs, landings and balcony access must connect.
+Evidence authority when sources disagree: explicit user correction/dimension > CAD/floorplan dimension/topology > orthographic/multi-view observed geometry > perspective image appearance/detail > inference. This hierarchy does not allow CAD to erase visible material/detail evidence.
+
+Record exact source path/kind, exterior-view coverage, floorplan/CAD/interior coverage, scale anchors, hard constraints and assumptions in the evidence ledger. Keep source-backed facts separate from inference. A user correction is not proof that automatic recognition originally succeeded.
+
+Count openings by facade/floor/panel. OBSERVED source counts differ from approved defaults: obeying a default does not prove fidelity. Check narrow windows, entries, wall returns and roof inner edges. Persist corrected observations in the parameter card/schedule/QA; old prose must not override pixels.
 
 ## Facade schedule and numerical checks
 
