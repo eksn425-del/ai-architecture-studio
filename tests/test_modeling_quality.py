@@ -353,7 +353,10 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                         "id": "review-1",
                         "function": {
                             "name": "sketchup_submit_visual_review",
-                            "arguments": json.dumps({"views": view_paths}),
+                            "arguments": json.dumps({
+                                "views": view_paths,
+                                "critique": "NEEDS_FIX: NO\n<assessment>Builder fallback only.</assessment>",
+                            }),
                         },
                     }],
                 })],
