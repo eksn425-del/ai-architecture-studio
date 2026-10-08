@@ -275,8 +275,33 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
     import sys
     from types import ModuleType, SimpleNamespace
 
+    from PIL import Image
+
     from app.agent_tools import AgentToolContext
     from app.litellm_runtime import LiteLLMRuntime
+
+    reference = tmp_path / "inputs" / "reference" / "source.png"
+    reference.parent.mkdir(parents=True)
+    Image.new("RGB", (32, 24), "white").save(reference)
+
+    revisions = {"villa": 1}
+    view_paths = {}
+    render_dir = tmp_path / "outputs" / "renders"
+    render_dir.mkdir(parents=True)
+    for index, view in enumerate(CANONICAL_REVIEW_VIEWS):
+        image = render_dir / f"agent-view-{index:010d}.png"
+        Image.new("RGB", (32, 24), "white").save(image)
+        image.with_suffix(".evidence.json").write_text(
+            json.dumps({
+                "path": image.relative_to(tmp_path).as_posix(),
+                "width": 32,
+                "height": 24,
+                "quality_status": "not_accepted",
+                "model_revisions": revisions,
+            }),
+            encoding="utf-8",
+        )
+        view_paths[view] = image.relative_to(tmp_path).as_posix()
 
     quality = {"writes": 1, "write_limit": 1, "review": None}
     tool = {
@@ -288,7 +313,13 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
 
     def dispatch(name, arguments):
         assert name == "sketchup_submit_visual_review"
-        quality["review"] = {"needs_fix": True, "quality_status": "needs_fix"}
+        assert arguments["_reviewer"]["mode"] == "host_dedicated_read_only"
+        assert arguments["critique"].startswith("NEEDS_FIX: YES")
+        quality["review"] = {
+            "needs_fix": True,
+            "quality_status": "needs_fix",
+            "reviewer": arguments["_reviewer"],
+        }
         return {"success": True, "contentItems": [{"type": "inputText", "text": "review stored"}]}
 
     runtime = LiteLLMRuntime(tmp_path, model="openai/test-model")
@@ -303,13 +334,14 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
     module = ModuleType("litellm")
 
     def completion(**kwargs):
-        calls.append(kwargs["messages"])
-        if len(calls) == 1:
+        calls.append(kwargs)
+        call_index = len(calls)
+        if call_index == 1:
             return SimpleNamespace(
                 choices=[SimpleNamespace(message={"content": "我完成了。", "tool_calls": None})],
                 usage={},
             )
-        if len(calls) == 2:
+        if call_index == 2:
             assert any(
                 m.get("role") == "user" and "HOST QUALITY GATE" in str(m.get("content"))
                 for m in kwargs["messages"]
@@ -321,11 +353,27 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                         "id": "review-1",
                         "function": {
                             "name": "sketchup_submit_visual_review",
-                            "arguments": json.dumps({}),
+                            "arguments": json.dumps({"views": view_paths}),
                         },
                     }],
                 })],
                 usage={},
+            )
+        if call_index == 3:
+            assert "read-only visual critic" in kwargs["messages"][0]["content"]
+            assert "tools" not in kwargs
+            return SimpleNamespace(
+                choices=[SimpleNamespace(message={
+                    "content": (
+                        "NEEDS_FIX: YES\n"
+                        "<assessment>Wall seams remain visible.</assessment>\n"
+                        "<issue priority=\"1\" view=\"front\">problem: visible wall seam\n"
+                        "action: patch shell only</issue>\n"
+                        "<keep>balcony</keep>"
+                    ),
+                    "tool_calls": None,
+                })],
+                usage={"prompt_tokens": 100, "completion_tokens": 20},
             )
         return SimpleNamespace(
             choices=[SimpleNamespace(message={"content": "仍有问题。", "tool_calls": None})],
@@ -342,10 +390,18 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         developer_instructions="builder",
         model_path=tmp_path / "blank.skp",
         model_guid="fixture",
-        ruby_state={"villa": {"revision": 1}},
+        ruby_state={
+            "villa": {
+                "revision": 1,
+                "last_verification": {"verified": True},
+            }
+        },
         workflow_mode="image_reconstruction",
         tool_profile="reconstruction_coding",
     )
-    assert len(calls) == 3
+    assert len(calls) == 4
     assert "PARTIAL" in result.reply
     assert quality["review"]["needs_fix"] is True
+    assert quality["review"]["reviewer"]["mode"] == "host_dedicated_read_only"
+    assert result.input_tokens == 100
+    assert result.output_tokens == 20
