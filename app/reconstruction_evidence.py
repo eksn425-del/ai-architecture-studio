@@ -85,9 +85,6 @@ def _string_list(value: Any, field: str) -> list[str]:
         return []
     if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
         raise ValueError(f"{field} must be a string list.")
-    for item in value:
-        if ".." in item.replace("\\", "/").split("/"):
-            raise ValueError(f"{field} may not contain traversal paths.")
     return value
 
 
@@ -98,6 +95,13 @@ def _validate_source_ref(value: Any, field: str) -> str:
     if normalized.startswith("/") or ".." in normalized.split("/"):
         raise ValueError(f"{field} must stay inside the project.")
     return normalized
+
+
+def _source_ref_list(value: Any, field: str) -> list[str]:
+    refs = _string_list(value, field)
+    for index, ref in enumerate(refs):
+        _validate_source_ref(ref, f"{field}[{index}]")
+    return refs
 
 
 def _validate_provenance(value: Any, field: str) -> str:
@@ -145,7 +149,7 @@ def validate_reconstruction_evidence_payload(value: Any) -> dict[str, Any]:
         provenance = _validate_provenance(
             item.get("provenance", "pending"), f"exterior_views.{view_name}"
         )
-        refs = _string_list(item.get("source_refs", []), f"exterior_views.{view_name}.source_refs")
+        refs = _source_ref_list(item.get("source_refs", []), f"exterior_views.{view_name}.source_refs")
         _string_list(item.get("notes", []), f"exterior_views.{view_name}.notes")
         if provenance in {"observed", "user_confirmed"}:
             observed_count += 1
@@ -162,7 +166,7 @@ def validate_reconstruction_evidence_payload(value: Any) -> dict[str, Any]:
         if not isinstance(provided, bool):
             raise ValueError(f"reconstruction evidence {field}.provided must be boolean.")
         provenance = _validate_provenance(item.get("provenance", "pending"), field)
-        refs = _string_list(item.get("source_refs", []), f"{field}.source_refs")
+        refs = _source_ref_list(item.get("source_refs", []), f"{field}.source_refs")
         _string_list(item.get("notes", []), f"{field}.notes")
         if provided and provenance not in {"observed", "user_confirmed"}:
             raise ValueError(f"{field}.provided requires observed or user_confirmed provenance.")
