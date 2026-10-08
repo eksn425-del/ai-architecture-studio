@@ -22,6 +22,11 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     schedule = __import__("json").loads(facade_schedule.read_text(encoding="utf-8"))
     assert schedule["schema_version"] == 1
     assert set(schedule["views"]) == {"front", "rear", "left", "right"}
+    evidence_file = workspace / "notes" / "reconstruction_evidence.json"
+    assert evidence_file.is_file()
+    evidence = __import__("json").loads(evidence_file.read_text(encoding="utf-8"))
+    assert evidence["schema_version"] == 1
+    assert evidence["fidelity_mode"] == "pending"
     assert (workspace / "qa").is_dir()
     assert (workspace / "qa" / "visual_qa.md").is_file()
     assert "NEEDS_FIX" in (workspace / "qa" / "visual_qa.md").read_text(encoding="utf-8")
@@ -37,11 +42,16 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
         '{"schema_version":1,"user_confirmed":["rear has three windows"]}\n',
         encoding="utf-8",
     )
+    evidence_file.write_text(
+        '{"schema_version":1,"fidelity_mode":"single_view_inference","primary_source":"inputs/reference/front.png","sources":[{"path":"inputs/reference/front.png","kind":"exterior_image","provenance":"observed"}],"exterior_views":{"oblique":{"provenance":"observed","source_refs":["inputs/reference/front.png"],"notes":[]}},"floorplan":{"provided":false,"provenance":"pending","source_refs":[],"levels":[],"notes":[]},"cad":{"provided":false,"provenance":"pending","source_refs":[],"notes":[]},"interior":{"provided":false,"provenance":"pending","source_refs":[],"spaces":[],"notes":[]},"scale_anchors":[],"hard_constraints":[],"assumptions":[],"inference_policy":{"unseen_exterior":"infer_coherent","unseen_interior":"infer_plausible","preserve_circulation":true}}\n',
+        encoding="utf-8",
+    )
     prepare_codex_parity_workspace(workspace)
     assert notes.read_text(encoding="utf-8") == "USER CONFIRMED DECISION\n"
     assert instructions.read_text(encoding="utf-8") == "PROJECT MODELING RULES\n"
     assert visual_qa.read_text(encoding="utf-8") == "CURRENT REVIEW SURVIVES\n"
     assert "rear has three windows" in facade_schedule.read_text(encoding="utf-8")
+    assert "single_view_inference" in evidence_file.read_text(encoding="utf-8")
 
 
 def test_workspace_ruby_path_is_confined_to_scripts(tmp_path):
@@ -182,4 +192,43 @@ def test_workspace_facade_schedule_json_is_validated_and_listed(tmp_path):
                     }
                 },
             }),
+        })
+
+
+def test_workspace_reconstruction_evidence_json_is_validated(tmp_path):
+    import json
+    from app.reconstruction_evidence import default_reconstruction_evidence
+    from app.workspace_files import workspace_file_call
+
+    workspace = prepare_codex_parity_workspace(tmp_path / "workspace-evidence")
+    value = default_reconstruction_evidence()
+    value["fidelity_mode"] = "single_view_inference"
+    value["primary_source"] = "inputs/reference/source.png"
+    value["sources"] = [{
+        "path": "inputs/reference/source.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "primary",
+    }]
+    value["exterior_views"]["oblique"] = {
+        "provenance": "observed",
+        "source_refs": ["inputs/reference/source.png"],
+        "notes": [],
+    }
+    result = workspace_file_call(workspace, "workspace_write", {
+        "relative_path": "notes/reconstruction_evidence.json",
+        "content": json.dumps(value),
+    })
+    assert result["success"] is True
+    loaded = json.loads(workspace_file_call(
+        workspace, "workspace_read", {"relative_path": "notes/reconstruction_evidence.json"}
+    )["content"])
+    assert loaded["fidelity_mode"] == "single_view_inference"
+
+    broken = default_reconstruction_evidence()
+    broken["fidelity_mode"] = "full_evidence_reconstruction"
+    with pytest.raises(ValueError, match="requires observed/confirmed"):
+        workspace_file_call(workspace, "workspace_write", {
+            "relative_path": "notes/reconstruction_evidence.json",
+            "content": json.dumps(broken),
         })
