@@ -1,3 +1,24 @@
+# 当前任务 — 2026-10-08 Quality Loop v2.1 / 独立只读 Critic 真机验收
+
+在 v2 单写者 + 六视图门禁基础上，GitHub 又补了一个关键差距：DeepSeek Builder 不再自己决定自己的视觉 PASS。LiteLLM host 现在会对 Builder 提交的六个 CURRENT view 路径先做路径/revision/receipt 校验，再发起一个**独立、无写工具、无长历史**的视觉 Critic 调用；Critic 只看源图 + 当前 front/rear/left/right/roof/oblique，并用自己的 NEEDS_FIX 结果覆盖 Builder 提交的 verdict。review receipt 会记录 `reviewer.mode=host_dedicated_read_only`。
+
+Codex 本机接手时继续同一里程碑，不加新功能：
+
+1. `git pull --ff-only`，确认 main 为最新；读本节、`docs/OSS_GAP_REVIEW_2026-10-08.md`、Quality Loop v1 真机报告和执行护栏。
+2. 跑 `tests/test_modeling_quality.py`、相关 reconstruction/quality suites、完整 `scripts/check.ps1`。若 dedicated critic 改动有集成问题直接修，不弱化断言。
+3. 真 SketchUp 2024 先 smoke `saie_wall_with_openings`：一个连续 wall、至少3个不同高程真洞口、无异常分段缝；再测反向中心线/侧墙。失败则实现同组连续面/洞 fallback，不能退回多组墙段拼接。
+4. 新 whole-six-view DeepSeek 正常用户重建。验证真实链路：
+   primary writer → 六个 current captures → Builder 调 `sketchup_submit_visual_review`（只需要真实路径） → **host dedicated visual critic provider call** → persisted review → NEEDS_FIX 时 targeted edit → 全新六视图 → dedicated critic。
+5. 检查 runtime event 中存在 `visual_critic_started` / `visual_critic_response`；`qa/visual_review.json` 的 reviewer 必须是 `host_dedicated_read_only`，且 verdict 与独立人工看图对照。若 Builder 自己写 NO 而 critic 判 YES，应以 critic 为准。
+6. 总 writer commits ≤3；每次 correction 保留 KEEP 的 unrelated IDs。重点仍是墙缝/开洞拓扑、屋顶分格与 parapet/capping、门窗比例位置。
+7. 做 baseline replay、web download/native reopen、单对象 edit/save/reopen；记录真实 token/tool/latency，并单独列 dedicated critic token。对比 v1 六视图约4.92M input tokens，但不要把 runtime token 当账单金额。
+8. 如果 dedicated critic 仍明显误判，保留 PARTIAL 和证据；下一步才考虑更严格的 machine-checkable facade/roof schedule。若 critic可靠但 Builder 成本仍过高，下一 GitHub 任务优先做 active-context compaction。
+9. 更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main。
+
+本轮目标仍是同一个：**让一个代表性六视图别墅从“能生成”升级为“写完必须独立看真图、只改最重要问题、最多两轮、最后的质量结论不是 Builder 自评”。**
+
+---
+
 # 当前任务 — 2026-10-08 Quality Loop v2 / 单写者 + 真六视图审查
 
 ChatGPT 已审查 Windows Quality Loop v1 的真实证据：技术链、保存/重开/编辑/重放已明显成熟，但单图与六视图源图还原仍为 PARTIAL。v1 最大差距不是“再写更强 prompt”，而是 3DCodeBench 那种真正由 host 控制的 critique→fix→rerender 闭环没有接上；同时 reconstruction 仍暴露其它可写工具，会绕过 DCC 风格的统一 verification/write budget；墙体开洞仍以分段为主，造成明显接缝。
