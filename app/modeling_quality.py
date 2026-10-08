@@ -193,6 +193,67 @@ def require_post_write_verification(
 
 
 
+_FACADE_PROVENANCE = {"pending", "observed", "user_confirmed", "inferred", "mixed"}
+
+
+def validate_facade_schedule_payload(value: Any) -> dict[str, Any]:
+    """Validate the stable source-facing schedule without making it geometry truth.
+
+    Extra fields are allowed for forward compatibility, but the fields used by
+    the Builder/Critic contract must keep predictable types and provenance.
+    """
+    if not isinstance(value, dict):
+        raise ValueError("facade schedule root must be an object.")
+    if value.get("schema_version") != 1:
+        raise ValueError("facade schedule schema_version must be 1.")
+
+    dimensions = value.get("dimensions_mm", {})
+    if not isinstance(dimensions, dict):
+        raise ValueError("facade schedule dimensions_mm must be an object.")
+    for key, number in dimensions.items():
+        if number is None:
+            continue
+        if isinstance(number, bool) or not isinstance(number, (int, float)) or not math.isfinite(float(number)) or number < 0:
+            raise ValueError(f"facade schedule dimension {key!r} must be null or a nonnegative finite number.")
+
+    views = value.get("views", {})
+    if not isinstance(views, dict):
+        raise ValueError("facade schedule views must be an object.")
+    for view_name in ("front", "rear", "left", "right"):
+        item = views.get(view_name)
+        if item is None:
+            continue
+        if not isinstance(item, dict):
+            raise ValueError(f"facade schedule view {view_name!r} must be an object.")
+        provenance = item.get("provenance", "pending")
+        if provenance not in _FACADE_PROVENANCE:
+            raise ValueError(f"facade schedule view {view_name!r} has invalid provenance.")
+        for count_key in ("opening_count", "door_count"):
+            count = item.get(count_key)
+            if count is not None and (type(count) is not int or count < 0):
+                raise ValueError(f"facade schedule {view_name}.{count_key} must be null or a nonnegative integer.")
+        for list_key in ("features", "notes"):
+            items = item.get(list_key, [])
+            if not isinstance(items, list) or any(not isinstance(entry, str) for entry in items):
+                raise ValueError(f"facade schedule {view_name}.{list_key} must be a string list.")
+
+    roof = value.get("roof", {})
+    if not isinstance(roof, dict):
+        raise ValueError("facade schedule roof must be an object.")
+    if roof.get("provenance", "pending") not in _FACADE_PROVENANCE:
+        raise ValueError("facade schedule roof provenance is invalid.")
+    for list_key in ("divisions", "notes"):
+        items = roof.get(list_key, [])
+        if not isinstance(items, list) or any(not isinstance(entry, str) for entry in items):
+            raise ValueError(f"facade schedule roof.{list_key} must be a string list.")
+
+    for list_key in ("global_features", "user_confirmed", "inferred"):
+        items = value.get(list_key, [])
+        if not isinstance(items, list) or any(not isinstance(entry, str) for entry in items):
+            raise ValueError(f"facade schedule {list_key} must be a string list.")
+    return value
+
+
 def load_facade_schedule(project_dir: Path) -> dict[str, Any] | None:
     """Load the compact project-local facade/roof schedule for visual review."""
     path = project_dir.resolve() / "runtime" / "agent_workspace" / "notes" / "facade_schedule.json"
@@ -200,9 +261,9 @@ def load_facade_schedule(project_dir: Path) -> dict[str, Any] | None:
         return None
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        return validate_facade_schedule_payload(value)
+    except (OSError, json.JSONDecodeError, ValueError):
         return None
-    return value if isinstance(value, dict) else None
 
 
 def validate_visual_review_views(
