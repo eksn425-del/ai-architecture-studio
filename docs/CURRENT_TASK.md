@@ -1,3 +1,17 @@
+# 当前任务 — 2026-10-08 Quality Loop v3 / 独立 Critic + 结构化立面清单
+
+GitHub 端已在 v2 之上继续实现：DeepSeek/LiteLLM Builder 提交六视图后，host 会用**全新、无工具、无 Builder 历史**的独立视觉 Critic 再看源图 + 当前六视图 + `notes/facade_schedule.json`，独立结果才控制后续 writer gate。Planner 同时维护结构化立面/屋顶清单，区分 observed / user_confirmed / inferred。Critic 失败时 fail-closed，不允许盲目继续写模型。
+
+下一执行者直接按 `docs/QUALITY_LOOP_V3.md` 在 Windows + 真 SketchUp 2024 + Kongxing + DeepSeek 验证。重点不是再加功能，而是证明：
+1. facade schedule 真由规划阶段自动生成；
+2. Builder self-review 与 independent critic 已真正分离；
+3. independent critic 的结果控制最多两轮定向修正；
+4. SAIE continuous wall-with-openings 在 SU2024 真机有效；
+5. 最终仍完成空白 replay + SKP 原生重开/编辑/保存/再读回。
+
+完成后更新 HANDOFF/CURRENT_TASK、sanitized evidence，commit + push main，再交给 ChatGPT 复审。
+
+---
 # 当前任务 — 2026-10-08 Quality Loop v2 / 单写者 + 真六视图审查
 
 ChatGPT 已审查 Windows Quality Loop v1 的真实证据：技术链、保存/重开/编辑/重放已明显成熟，但单图与六视图源图还原仍为 PARTIAL。v1 最大差距不是“再写更强 prompt”，而是 3DCodeBench 那种真正由 host 控制的 critique→fix→rerender 闭环没有接上；同时 reconstruction 仍暴露其它可写工具，会绕过 DCC 风格的统一 verification/write budget；墙体开洞仍以分段为主，造成明显接缝。
