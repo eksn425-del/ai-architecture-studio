@@ -18,6 +18,8 @@ from pathlib import Path, PurePosixPath
 import re
 from typing import Any, Iterable
 
+from .reconstruction_evidence import load_reconstruction_evidence
+
 
 CANONICAL_REVIEW_VIEWS = ("front", "rear", "left", "right", "roof", "oblique")
 MAX_CRITIC_ISSUES = 3
@@ -374,9 +376,12 @@ def submit_visual_review(
             "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
         )
 
+    reconstruction_evidence = load_reconstruction_evidence(project_dir)
     receipt = {
-        "schema_version": 2,
+        "schema_version": 3,
         "advisory": True,
+        "fidelity_mode": (reconstruction_evidence or {}).get("fidelity_mode", "pending"),
+        "reconstruction_evidence": reconstruction_evidence,
         "reviewer": arguments.get("_reviewer") or {"mode": "agent_supplied"},
         "quality_status": "needs_fix" if critique.needs_fix else "accepted",
         "needs_fix": bool(critique.needs_fix),
