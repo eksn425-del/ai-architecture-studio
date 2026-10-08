@@ -3,7 +3,7 @@ from __future__ import annotations
 import base64
 import json
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Literal
 
@@ -12,6 +12,7 @@ from PIL import Image
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
+from .modeling_quality import submit_visual_review
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workspace_ruby import run_workspace_ruby
 from .workspace_files import workspace_file_tools, workspace_file_call
@@ -20,8 +21,11 @@ from .workspace_files import workspace_file_tools, workspace_file_call
 ToolProfile = Literal["full", "reconstruction_coding"]
 
 _RECONSTRUCTION_KONGXING_KEYWORDS = (
-    "health", "context", "inspect", "select", "view", "camera", "undo", "transform",
+    "health", "context", "inspect", "select", "view", "camera",
 )
+# Reconstruction uses a single verified writer: persistent ProjectRuby.
+# Optional backends remain read-only evidence helpers in this profile so they
+# cannot bypass the same write budget, owned-root identity or verification.
 _RECONSTRUCTION_SAIE_TOOLS = {
     "scene_summary",
     "inspect_entity",
@@ -30,15 +34,6 @@ _RECONSTRUCTION_SAIE_TOOLS = {
     "capture_canonical",
     "deep_scan",
     "export_model_json",
-    "create_wall",
-    "modify_wall",
-    "delete_wall",
-    "cut_opening",
-    "modify_opening",
-    "delete_opening",
-    "create_slab",
-    "create_roof",
-    "batch_operations",
 }
 
 
@@ -48,6 +43,7 @@ class AgentToolContext:
 
     dynamic_tools: list[dict[str, Any]]
     dispatch: Callable[[str, dict[str, Any]], dict[str, Any]]
+    quality_state: dict[str, Any] = field(default_factory=dict)
 
 
 class AgentToolSurface:
@@ -91,21 +87,55 @@ class AgentToolSurface:
         # One primary build plus two corrections; an existing model gets two
         # corrections. A committed write consumes budget even if capture fails.
         write_limit = 2 if executor and executor.ruby_state else 3
+        quality_state: dict[str, Any] = {
+            "writes": 0,
+            "write_limit": write_limit,
+            "review": None,
+        }
+
         def dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
             nonlocal writes
             if workspace_tools_enabled and name in {"workspace_read", "workspace_write"}:
                 return workspace_file_call(resolved_project_dir / "runtime" / "agent_workspace", name, arguments)
+            if name == "sketchup_submit_visual_review":
+                if executor is None:
+                    raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
+                receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
+                quality_state["review"] = receipt
+                return {
+                    "success": True,
+                    "visual_review": receipt,
+                    "contentItems": [{
+                        "type": "inputText",
+                        "text": json.dumps({"visual_review": receipt}, ensure_ascii=False),
+                    }],
+                }
+
             bounded = executor is not None and tool_profile == "reconstruction_coding" and name in {
                 "sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
             if bounded and writes >= write_limit:
                 raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
+            if bounded and writes > 0:
+                review = quality_state.get("review")
+                if not isinstance(review, dict):
+                    raise MCPCallError(
+                        "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique "
+                        "六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。"
+                    )
+                if review.get("needs_fix") is False:
+                    raise MCPCallError(
+                        "当前六视图审查为 NEEDS_FIX: NO，本轮不再接受额外几何写入。"
+                        "如用户提出新修改，请在下一回合按新要求执行。"
+                    )
             try:
                 return self.dispatch(name, arguments, project_dir=resolved_project_dir, project_ruby=executor)
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
                     writes += 1
-        return AgentToolContext(dynamic_tools=dynamic_tools, dispatch=dispatch)
+                    quality_state["writes"] = writes
+                    quality_state["review"] = None
+        return AgentToolContext(dynamic_tools=dynamic_tools, dispatch=dispatch, quality_state=quality_state)
 
     @staticmethod
     def _dynamic_tool(name: str, description: str, schema: dict[str, Any]) -> dict[str, Any]:
@@ -186,6 +216,32 @@ class AgentToolSurface:
                     "offset": {"type": "integer", "minimum": 0}, "limit": {"type": "integer", "minimum": 1, "maximum": 100},
                 }, "additionalProperties": False},
             ))
+            if tool_profile == "reconstruction_coding":
+                tools.append(self._dynamic_tool(
+                    "sketchup_submit_visual_review",
+                    "READ-ONLY quality gate. After every committed reconstruction pass, capture six DISTINCT CURRENT "
+                    "agent-view PNGs for front, rear, left, right, roof and oblique, compare them to the source image(s), "
+                    "then submit the exact actual paths plus a bounded NEEDS_FIX review. The host rejects stale revision "
+                    "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
+                    "NEEDS_FIX:NO ends geometry writes for this turn.",
+                    {
+                        "type": "object",
+                        "required": ["views", "critique"],
+                        "properties": {
+                            "views": {
+                                "type": "object",
+                                "required": ["front", "rear", "left", "right", "roof", "oblique"],
+                                "properties": {
+                                    name: {"type": "string", "pattern": "^outputs/renders/agent-view-[A-Za-z0-9_.-]+\\.png$"}
+                                    for name in ("front", "rear", "left", "right", "roof", "oblique")
+                                },
+                                "additionalProperties": False,
+                            },
+                            "critique": {"type": "string", "minLength": 20, "maxLength": 12000},
+                        },
+                        "additionalProperties": False,
+                    },
+                ))
             tools.append({
                 "type": "function",
                 "name": "sketchup_run_workspace_ruby",
@@ -204,7 +260,11 @@ class AgentToolSurface:
                       "Ruby runs inside a host-owned transaction with injected model and root (Sketchup::Group). "
                       "Injected saie_wall.call(params), with keys name, centerline:[[x1,y1],[x2,y2]], thickness_mm, height_mm, elevation_mm, "
                     "uses STRING keys and all coordinates/dimensions in mm to create one SAIE solid wall inside the owned root. "
-                    "It creates no openings; construct real openings separately. Transaction returns owned_before/owned_after child IDs and XYZ bounds in mm. "
+                    "For a facade wall with rectangular openings, prefer injected saie_wall_with_openings.call(params): the same wall keys plus "
+                    "openings:[{offset_mm,width_mm,height_mm,sill_mm},...]. It adapts SAIE's one-combined-cutter/one-subtract batch-opening pattern "
+                    "inside the owned root so a facade need not be assembled from many visible wall-segment groups. "
+                    "Local SketchUp validation remains required if a boolean subtract fails. "
+                    "Transaction returns owned_before/owned_after child IDs and XYZ bounds in mm. "
                     "Create geometry only under root.entities, e.g. g=root.entities.add_group; "
                       "g.entities.add_face(...). Do not redefine root, use Sketchup.active_model/active_entities, "
                       "or call start_operation/commit_operation/abort_operation/save/export: the host owns these. "
