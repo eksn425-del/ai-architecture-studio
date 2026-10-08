@@ -1,3 +1,11 @@
+# 当前任务 — 2026-10-08 Quality Loop v2.2 / 结构化立面约束 + 独立 Critic
+
+在 main 已有 v2.1 独立只读 Critic 基础上，GitHub 继续补齐 ArchFlow / SketchUp Agent Harness 暴露出的下一处差距：高价值源图事实不能一直只埋在长对话和 Markdown 里。现在每个重建项目会维护 `notes/facade_schedule.json`，规划阶段把 front/rear/left/right 开口与特征、roof/parapet/division 以及 observed / user_confirmed / inferred 来源写入结构化状态；v2.1 的 dedicated Critic 在干净 source + current six views 审查时同时读取这份清单。
+
+本轮不改变 single-writer / ProjectRuby / Kongxing / SAIE / writer receipt 架构，也不宣称视觉质量已经提升。Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_2.md`：跑测试，验证 planner 真正自动写 schedule，真 SU2024 smoke `saie_wall_with_openings`，然后做新的 whole-six-view DeepSeek 重建、独立 Critic、最多两轮定向修正、空白 replay 和 SKP 原生重开编辑。完成后 push main，再交给 ChatGPT 复审。
+
+---
+
 # 当前任务 — 2026-10-08 Quality Loop v2.1 / 独立只读 Critic 真机验收
 
 在 v2 单写者 + 六视图门禁基础上，GitHub 又补了一个关键差距：DeepSeek Builder 不再自己决定自己的视觉 PASS。LiteLLM host 现在会对 Builder 提交的六个 CURRENT view 路径先做路径/revision/receipt 校验，再发起一个**独立、无写工具、无长历史**的视觉 Critic 调用；Critic 只看源图 + 当前 front/rear/left/right/roof/oblique，并用自己的 NEEDS_FIX 结果覆盖 Builder 提交的 verdict。review receipt 会记录 `reviewer.mode=host_dedicated_read_only`。
