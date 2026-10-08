@@ -116,3 +116,12 @@ Persistent scripts/cards, IDs, checkpoints and replay are now genuinely useful. 
 - New-user commercial/release readiness: **NOT YET**
 
 The next milestone is still the same milestone: make one representative villa run pass the current-revision review loop without human geometry repair, while keeping the writer bounded and IDs stable for KEEP objects. Do not add rendering/payment/multi-software scope yet.
+
+
+## Quality Loop v2.2 addendum — structured source schedule
+
+v2.1 separates the visual Critic from the Builder, but both still depended mainly on pixels plus prose/history for facade/roof facts. The next reusable pattern from ArchFlow and SketchUp Agent Harness is to persist source-facing constraints separately from free-form memory.
+
+v2.2 therefore adds a deliberately small `notes/facade_schedule.json` rather than promoting legacy DesignIR into geometry truth. It keeps per-view opening/features and roof/parapet/division facts with observed / user_confirmed / inferred provenance. The planner maintains it, the Builder consumes it, and the existing dedicated Critic receives it in the clean source + six-current-view request.
+
+This is intended to reduce two failure modes seen in the v1 Windows run: user-corrected opening counts being lost/reinterpreted later, and the Critic having to reconstruct roof/opening facts from a multi-million-token history. It does not itself prove geometry or visual fidelity. If the dedicated Critic still accepts a model that contradicts user-confirmed schedule facts, the next step is a deterministic schedule-vs-model validator before accepting NEEDS_FIX:NO.
