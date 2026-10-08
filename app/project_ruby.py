@@ -16,6 +16,7 @@ from .sketchup_mcp import (
     _generated_script_dir,
 )
 from .store import safe_project_id
+from .modeling_quality import require_post_write_verification
 
 
 SCRIPT_ID_RE = re.compile(r"^[a-z][a-z0-9_-]{0,47}$")
@@ -206,7 +207,9 @@ class ProjectRubyExecutor:
             "raise 'Owned root missing' unless root.is_a?(Sketchup::Group)",
             f"raise 'Project identity mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'project_id') == {self._ruby_string(self.project_id)}",
             f"raise 'Revision mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'revision') == {int(state.get('revision', 0))}",
-            f"KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})",
+            f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})",
+            "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
+            "snapshot",
         ]) + "\n"
         script.write_text(source, encoding="utf-8")
         try:
@@ -303,6 +306,24 @@ class ProjectRubyExecutor:
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         temporary_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
         temporary_state.replace(self.state_path)
+
+        verification_result = self.inspect_owned({
+            "script_id": script_id,
+            "path": [],
+            "offset": 0,
+            "limit": 1,
+        })
+        try:
+            owned_readback = json.loads(verification_result["contentItems"][0]["text"])
+            write_verification = require_post_write_verification(
+                report,
+                owned_readback,
+                expected_root_pid=root_pid,
+                expected_revision=new_revision,
+            )
+        except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
+            raise MCPCallError(f"Post-write read-back verification failed: {error}") from error
+
         model_info = self.adapter.get_model_info()
         image_path = self.project_dir / "outputs" / "renders" / f"ruby-{script_id}-r{new_revision}.png"
         if image_path.is_symlink():
@@ -321,7 +342,11 @@ class ProjectRubyExecutor:
             "source_sha256": source_hash,
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
             "last_screenshot": image_path.relative_to(self.project_dir).as_posix(),
+            "last_verification": write_verification,
         }
+        final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
+        final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
+        final_state.replace(self.state_path)
         summary = {
             "script_id": script_id,
             "script_revision": new_revision,
@@ -332,6 +357,7 @@ class ProjectRubyExecutor:
                 "model_name": Path(str(identity_before.get("model_path") or "")).name,
             },
             "model_readback": _safe_model_readback(model_info),
+            "write_verification": write_verification,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
         }
