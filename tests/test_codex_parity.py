@@ -109,6 +109,8 @@ def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
     assert "root.entities.to_a.each { |entity| entity.erase! }" not in edit
     assert "remove_owned_group = lambda do |name|" in edit
     assert "KStudioProfessionalHelpers.remove_named_owned_group(root, name)" in edit
+    assert "saie_wall_with_openings = lambda" in edit
+    assert "KStudioProfessionalHelpers.wall_with_openings(root, params)" in edit
     helper = (Path(__file__).parents[1] / "app/adopted_sketchup_helpers.rb").read_text(encoding="utf-8")
     assert "matches.length == 1" in helper
     assert "current.locked?" in helper
