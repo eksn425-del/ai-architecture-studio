@@ -12,6 +12,7 @@ from PIL import Image
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
+from .repair_memory import finalize_latest_repair_attempt, record_repair_attempt
 from .modeling_quality import (
     owned_inspection_fingerprint,
     submit_visual_review,
@@ -148,6 +149,7 @@ class AgentToolSurface:
             "write_limit": write_limit,
             "review": None,
             "preservation": None,
+            "repair_memory": None,
         }
 
         def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
@@ -188,13 +190,19 @@ class AgentToolSurface:
                 if executor is None:
                     raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
                 receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
+                finalized_repair = finalize_latest_repair_attempt(resolved_project_dir, receipt)
                 quality_state["review"] = receipt
+                quality_state["repair_memory"] = finalized_repair
+                payload = {"visual_review": receipt}
+                if finalized_repair is not None:
+                    payload["repair_memory"] = finalized_repair
                 return {
                     "success": True,
                     "visual_review": receipt,
+                    "repair_memory": finalized_repair,
                     "contentItems": [{
                         "type": "inputText",
-                        "text": json.dumps({"visual_review": receipt}, ensure_ascii=False),
+                        "text": json.dumps(payload, ensure_ascii=False),
                     }],
                 }
 
@@ -205,6 +213,7 @@ class AgentToolSurface:
                 raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
             preservation_before: dict[str, dict[str, Any]] = {}
             preservation_script_id = ""
+            review_before_write: dict[str, Any] | None = None
             if bounded and writes > 0:
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
@@ -212,6 +221,7 @@ class AgentToolSurface:
                         "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique "
                         "六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。"
                     )
+                review_before_write = review
                 if review.get("needs_fix") is False:
                     raise MCPCallError(
                         "当前六视图审查为 NEEDS_FIX: NO，本轮不再接受额外几何写入。"
@@ -243,6 +253,7 @@ class AgentToolSurface:
                         for path in arguments.get("preserve_paths", [])
                     ]
                 output = self.dispatch(name, dispatch_arguments, project_dir=resolved_project_dir, project_ruby=executor)
+                preservation: dict[str, Any] | None = None
                 if bounded and preservation_before:
                     preservation_after = preserve_snapshot(
                         preservation_script_id, arguments.get("preserve_paths")
@@ -277,6 +288,39 @@ class AgentToolSurface:
                             "text": "KEEP preservation receipt: "
                                     + json.dumps(preservation, ensure_ascii=False),
                         })
+                if bounded and review_before_write is not None:
+                    script_id = str(arguments.get("script_id") or "")
+                    state = executor.ruby_state.get(script_id, {})
+                    writer_memory = {
+                        "script_id": script_id,
+                        "revision": int(state.get("revision", 0) or 0),
+                        "relative_path": str(arguments.get("relative_path") or ""),
+                        "update_mode": str(arguments.get("update_mode") or "replace"),
+                        "source_sha256": str(state.get("source_sha256") or ""),
+                        "precommit_keep_guard": state.get("last_precommit_keep_guard"),
+                        "preservation_verification": preservation,
+                    }
+                    try:
+                        repair_entry = record_repair_attempt(
+                            resolved_project_dir,
+                            review_before_write,
+                            writer_memory,
+                        )
+                        quality_state["repair_memory"] = repair_entry
+                        if isinstance(output, dict):
+                            output["repair_memory"] = repair_entry
+                            output.setdefault("contentItems", []).append({
+                                "type": "inputText",
+                                "text": "Host repair-memory attempt: "
+                                        + json.dumps(repair_entry, ensure_ascii=False),
+                            })
+                    except (OSError, ValueError) as error:
+                        # Repair memory is advisory. Do not invalidate geometry
+                        # that already passed transaction/write verification.
+                        quality_state["repair_memory"] = {
+                            "status": "memory_write_failed",
+                            "error": str(error),
+                        }
                 return output
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
