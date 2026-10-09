@@ -1,5 +1,9 @@
 # AI Architecture Studio
 
+## ADAI 0.5.39 optional reuse (experimental)
+
+K Studio supports **opt-in**, integrity-checked downloads of the upstream ADAI Skill and its Managed MCP, with the official CPAL-1.0 license and attribution retained. Only the installed Skill's construction geometry can be enabled inside our existing guarded ProjectRuby bridge; the separate Managed MCP is **not** activated automatically. SketchUp **2018–2026 is a validation target, not a certified compatibility claim**; original verified K Studio baseline remains SketchUp 2024. See [ADAI component adoption and version matrix](docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md).
+
 ## Windows 用户开始使用
 
 1. 安装 [Python 3.11 或更新版本](https://www.python.org/downloads/windows/)，安装时勾选 **Add Python to PATH**。
