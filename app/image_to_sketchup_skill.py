@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-MAX_CONTEXT_CHARS = 10_000
+MAX_CONTEXT_CHARS = 10_500
 
 
 _IMAGE_TO_SKETCHUP_CONTEXT = r"""
