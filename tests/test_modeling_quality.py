@@ -2,8 +2,10 @@ from app.agent_tools import AgentToolSurface, canonical_camera_from_bounds_mm
 from app.modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
     build_visual_critic_prompt,
+    owned_inspection_fingerprint,
     parse_visual_critique_response,
     require_post_write_verification,
+    verify_preserved_owned_paths,
     submit_visual_review,
     validate_facade_schedule_payload,
 )
@@ -96,6 +98,55 @@ def test_verification_rejects_missing_expected_readback_fields():
             )
 
 
+def test_keep_fingerprint_and_preservation_receipt():
+    before = {
+        "SHELL/LEFT_WALL": {
+            "persistent_id": 101,
+            "objects_total": 7,
+            "bounds_mm": {"min": [0, 0, 0], "max": [200, 8000, 6400]},
+        },
+        "BALCONY": {
+            "persistent_id": 202,
+            "objects_total": 4,
+            "bounds_mm": {"min": [2500, -1200, 3000], "max": [7000, 0, 3600]},
+        },
+    }
+    after = {
+        key: {
+            **value,
+            "bounds_mm": {
+                "min": [float(number) for number in value["bounds_mm"]["min"]],
+                "max": [float(number) for number in value["bounds_mm"]["max"]],
+            },
+        }
+        for key, value in before.items()
+    }
+    receipt = verify_preserved_owned_paths(before, after)
+    assert receipt["verified"] is True
+    assert receipt["paths"] == ["BALCONY", "SHELL/LEFT_WALL"]
+    assert owned_inspection_fingerprint(before["BALCONY"])["persistent_id"] == 202
+
+
+def test_keep_preservation_rejects_id_count_or_bounds_regression():
+    import pytest
+    before = {
+        "FACADE/LOUVERS": {
+            "persistent_id": 301,
+            "objects_total": 12,
+            "bounds_mm": {"min": [0, 0, 0], "max": [1200, 250, 3200]},
+        },
+    }
+    for field, replacement in (
+        ("persistent_id", 999),
+        ("objects_total", 11),
+        ("bounds_mm", {"min": [0, 0, 0], "max": [1300, 250, 3200]}),
+    ):
+        changed = {"FACADE/LOUVERS": dict(before["FACADE/LOUVERS"])}
+        changed["FACADE/LOUVERS"][field] = replacement
+        with pytest.raises(ValueError, match="Protected KEEP path"):
+            verify_preserved_owned_paths(before, changed)
+
+
 def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path, monkeypatch):
     import pytest
     from app.agent_tools import AgentToolSurface
@@ -128,7 +179,7 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
             context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
         for _ in range(limit - 1):
             context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
-            context.dispatch("sketchup_run_workspace_ruby", {})
+            context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit"})
         with pytest.raises(MCPCallError, match="预算"):
             context.dispatch("sketchup_run_workspace_ruby", {"script_id": "bypass"})
         assert context.dispatch("sketchup_inspect_owned", {})["success"]
