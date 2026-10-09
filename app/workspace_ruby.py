@@ -49,4 +49,9 @@ def run_workspace_ruby(
                "update_mode": arguments.get("update_mode", "replace")}
     if "allow_full_rebuild" in arguments:
         payload["allow_full_rebuild"] = arguments["allow_full_rebuild"]
+    # Host-only field: AgentToolSurface fingerprints reviewer KEEP paths before
+    # the write and injects them here. It is intentionally absent from the
+    # model-visible JSON schema, so the model cannot forge the expected state.
+    if "_keep_expectations" in arguments:
+        payload["_keep_expectations"] = arguments["_keep_expectations"]
     return executor.run(payload)
