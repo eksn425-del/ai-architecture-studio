@@ -8,6 +8,7 @@ on:
       - "app/agent_tools.py"
       - "scripts/install_adai_components.py"
       - "tests/test_adai_components.py"
+      - "scripts/open_blank_sketchup.ps1"
       - ".github/workflows/adai-components.yml"
   workflow_dispatch:
 
@@ -62,3 +63,23 @@ jobs:
           print(geometry_helper(Path.cwd()))
           PY
           ruby -c "$(cat /tmp/kstudio_adai_geometry_path.txt)"
+
+  windows-script-syntax:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse multi-version SketchUp PowerShell launcher
+        shell: pwsh
+        run: |
+          $script = (Resolve-Path "./scripts/open_blank_sketchup.ps1").Path
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile(
+              $script, [ref]$tokens, [ref]$errors
+          ) | Out-Null
+          if ($errors.Count -gt 0) {
+              $errors | ForEach-Object { Write-Error $_.ToString() }
+              exit 1
+          }
+          Write-Host "SketchUp 2018-2026 launcher parsed successfully."
