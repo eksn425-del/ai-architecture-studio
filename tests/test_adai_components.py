@@ -142,7 +142,7 @@ def test_guarded_project_ruby_injects_verified_helper_only_when_enabled(tmp_path
 
     monkeypatch.setattr(project_ruby, "geometry_helper", lambda *_: None)
     default_code = script()
-    assert "adai_geometry = ADAIConstructionGeometry" not in default_code
+    assert "adai_geometry = KStudioOSSMethodRuntime::ADAIProxy.new" not in default_code
     assert "verify_owned_fingerprints!" in default_code
     assert "KStudioProfessionalHelpers.wall_with_openings" in default_code
 
@@ -150,10 +150,13 @@ def test_guarded_project_ruby_injects_verified_helper_only_when_enabled(tmp_path
     helper.write_text("module ADAIConstructionGeometry; end", encoding="utf-8")
     monkeypatch.setattr(project_ruby, "geometry_helper", lambda *_: helper)
     enabled_code = script()
-    assert "adai_geometry = ADAIConstructionGeometry" in enabled_code
+    assert "adai_geometry = KStudioOSSMethodRuntime::ADAIProxy.new" in enabled_code
     assert f"load {executor._ruby_string(str(helper))}" in enabled_code
     assert "CodexSketchupArchitect.run" in enabled_code
     assert "verify_owned_fingerprints!" in enabled_code
+    assert "oss_method_ledger" in enabled_code
+    assert "KStudioOSSMethodRuntime.record" in enabled_code
+    assert "oss_method_runtime.rb" in enabled_code
     assert "SKETCHUP" not in enabled_code or "18..26" in enabled_code
 
 
