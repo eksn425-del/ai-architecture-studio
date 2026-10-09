@@ -20,6 +20,7 @@ From the K Studio repository root on this branch:
 python scripts/install_adai_components.py --list
 python scripts/install_adai_components.py --install skill mcp
 python scripts/install_adai_components.py --detect-sketchup
+python scripts/install_adai_components.py --show-standalone-mcp
 python -m pytest -q tests/test_adai_components.py
 ```
 
@@ -47,7 +48,7 @@ The following methods are available from ADAI's actual helper, not merely planni
 
 ### Separate ADAI MCP testing — do not use on the live document
 
-The installed `mcp` package contains `launch.cjs` and a `su_mcp.rbz` bridge. ADAI's own guide uses Node.js 18+, Python 3.10+, standalone MCP configuration and a SketchUp plugin installed manually. To compare:
+The installed `mcp` package contains `launch.cjs` and a `su_mcp.rbz` bridge. `--show-standalone-mcp` prints a verified, non-activated server command/args plus the plugin location. ADAI's own guide uses Node.js 18+, Python 3.10+, standalone MCP configuration and a SketchUp plugin installed manually. To compare:
 1. Use **a separate SU profile/machine or test environment** and a disposable model — never the user's original and never simultaneously alongside the live Kongxing bridge.
 2. Locate `launch.cjs`, the bundled Skill/NOTICE and `su_mcp.rbz` under the downloaded `.local/adai/0.5.39/mcp` tree.
 3. Use upstream `INSTALL.md` from the installed ZIP to set up that separate connector.
