@@ -1,5 +1,11 @@
 # AGENTS.md
 
+## Single-product owner decision (2026-10-09)
+
+**K AI Studio / K Studio / AI Architecture Studio is the one continuing product.** This `eksn425-del/ai-architecture-studio` repository and its default `main` branch are the canonical product source. When the user shares any new open-source project, inspect it as a potential **component to integrate into this same website**; do not spin up a competing first-party website/project by default. Choose Adopt → Wrap/Fork → Compose → Minimal Custom Build, with license compliance, model quality, rollback, Windows/SketchUp compatibility and evidence-first validation. Short-lived branches/PRs are fine, but accepted work returns to `main`. See [one-product open-source policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md).
+
+**ADAI 0.5.39** is already available as optional pinned CPAL-1.0 download and verified geometry hook. It is part of K Studio's integrated engineering direction; its optional geometry runtime remains **off by default** until real SU evidence supports enabling it. The separate ADAI MCP is not connected to the live model by installation alone. Do not demand a legacy K Studio versus ADAI A/B benchmark before continuing product development, but require minimal safety smokes for changed geometry paths. SketchUp 2018–2026 remains an incremental target, not a certified claim.
+
 This repository uses GitHub as the single source of truth between ChatGPT planning/review and Codex local implementation.
 
 ## Required workflow
@@ -116,7 +122,7 @@ Prefer according to actual capability fit rather than historical order:
 9. other clearly licensed MIT/Apache/BSD code.
 10. minimal custom implementation only for missing glue.
 
-**ADAI SketchUp Skill + Managed MCP is CPAL-1.0.** Its public source-first reconstruction, task/method-card, guided/autonomous, visual-evidence and experience-pack concepts may be studied, but do not copy its covered source into this repository without an explicit license/compliance decision.
+**ADAI SketchUp Skill + Managed MCP is CPAL-1.0.** The owner approved optional reuse of the pinned official distributions (see `app/adai_components.py` and `docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md`). Retain upstream LICENSE/NOTICE and fulfill all applicable source/attribution requirements when distributing or deploying covered material; do not indiscriminately vendor ADAI code or silently replace the existing Kongxing writer. The geometry helper is enabled only by explicit flag; ADAI's separate MCP is staged for isolated testing.
 
 The observed Pylon `pylon-sketchup2model` demonstration is a product-quality reference from user-provided screenshots only; no public source has been established.
 
