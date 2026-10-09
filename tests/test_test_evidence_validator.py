@@ -108,3 +108,14 @@ def test_new_run_requires_real_oss_adoption_evidence(tmp_path: Path) -> None:
     changed["any_oss_product_use"] = False
     _dump(adoption_path, changed)
     assert any("contradicts" in e for e in validate(new_folder, write_manifest=True))
+
+
+def test_legacy_windows_eol_reencoding_is_not_data_tampering(tmp_path: Path) -> None:
+    folder = _fixture(tmp_path, geometry=False)
+    file = folder / "review/review.md"
+    file.write_bytes(b"First\\r\\nSecond\\r\\n")
+    assert not validate(folder, write_manifest=True)
+    file.write_bytes(b"First\\nSecond\\n")
+    assert not validate(folder)
+    file.write_bytes(b"First\\nAltered\\n")
+    assert any("Manifest mismatch" in error for error in validate(folder))
