@@ -28,7 +28,7 @@ COMPONENTS = {
     "mcp": {
         "file": "sketchup-managed-mcp-0.5.39-construction-inspection-20261003-r1.zip",
         "sha256": "f76de1ab85a3edf2705eb8ebc67112c42367b0c57ccd9f7956a9d9ed0a1fc0d5",
-        "required": ("launch.cjs",),
+        "required": ("launch.cjs", "plugin/su_mcp.rbz"),
     },
 }
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
@@ -168,6 +168,45 @@ def geometry_helper(repo_root: Path) -> Path | None:
             or path.is_symlink() or _sha256(path) != digest):
         raise RuntimeError("ADAI geometry helper changed since verified installation.")
     return path
+
+
+
+def standalone_mcp_connection(repo_root: Path) -> dict:
+    """Expose a verified *separate* MCP configuration; never activate it.
+
+    Caller must use an isolated SU plugin/profile and manually approve a Codex
+    configuration change. Do not use in parallel with the production bridge.
+    """
+    base = install_root(repo_root) / "mcp"
+    manifest = base / "kstudio-install-manifest.json"
+    if not manifest.is_file() or manifest.is_symlink():
+        raise RuntimeError("ADAI MCP is not installed. Install it explicitly first.")
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    if (data.get("component") != "mcp"
+            or data.get("revision") != UPSTREAM_REVISION
+            or data.get("archive_sha256") != COMPONENTS["mcp"]["sha256"]):
+        raise RuntimeError("ADAI MCP installation manifest does not match pin.")
+    located = {}
+    for label, suffix in (("launch", "launch.cjs"), ("rbz", "plugin/su_mcp.rbz")):
+        candidates = [(name, digest) for name, digest in data.get("files", {}).items()
+                      if name == suffix or name.endswith("/" + suffix)]
+        if len(candidates) != 1:
+            raise RuntimeError(f"ADAI MCP missing verified {label}.")
+        relative, digest = candidates[0]
+        path = (base / relative).resolve()
+        if (not path.is_relative_to(base.resolve()) or not path.is_file()
+                or path.is_symlink() or _sha256(path) != digest):
+            raise RuntimeError(f"ADAI MCP {label} changed after install.")
+        located[label] = str(path)
+    return {
+        "mcp_server_name": "adai_sketchup_isolated",
+        "command": "node",
+        "args": [located["launch"]],
+        "plugin_rbz": located["rbz"],
+        "connected": False,
+        "requires_separate_sketchup_plugin_profile": True,
+        "version_certification": "none",
+    }
 
 
 def detect_sketchup_installations() -> list[dict]:
