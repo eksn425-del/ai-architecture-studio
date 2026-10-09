@@ -30,6 +30,7 @@ _FORBIDDEN_SOURCE = re.compile(
     r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|KStudioProfessionalHelpers|KStudioSAIE|KStudioStultusBounds|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|\bKStudioOSSMethodRuntime\b"
+    r"|\b(?:ADAIConstructionGeometry|oss_method_events|oss_method_ledger)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
     # geometry in the injected owned root. Block root-to-model traversal and
