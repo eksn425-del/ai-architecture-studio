@@ -274,6 +274,41 @@ def test_same_project_script_revisions_reuse_model_root_and_return_screenshots(t
     assert list(transport_dir.iterdir()) == []
 
 
+def test_workspace_ruby_forwards_host_only_keep_expectations(tmp_path):
+    from app.workspace_ruby import run_workspace_ruby
+
+    workspace = tmp_path / "agent_workspace"
+    (workspace / "scripts").mkdir(parents=True)
+    (workspace / "scripts" / "villa.rb").write_text("root.name = 'villa'\n", encoding="utf-8")
+
+    captured = {}
+
+    class Executor:
+        def run(self, payload):
+            captured.update(payload)
+            return {"success": True}
+
+    expectation = [{
+        "path": ["BALCONY"],
+        "persistent_id": 501,
+        "objects_total": 4,
+        "bounds_mm": {"min": [0.0, 0.0, 0.0], "max": [4000.0, 1200.0, 3400.0]},
+    }]
+    run_workspace_ruby(
+        Executor(),
+        agent_workspace=workspace,
+        arguments={
+            "script_id": "villa",
+            "relative_path": "scripts/villa.rb",
+            "update_mode": "edit",
+            "_keep_expectations": expectation,
+        },
+    )
+    assert captured["_keep_expectations"] == expectation
+    assert captured["update_mode"] == "edit"
+    assert captured["ruby_source"] == "root.name = 'villa'\n"
+
+
 def test_precommit_keep_guard_is_in_transport_and_restores_last_good_script_on_abort(tmp_path, monkeypatch):
     transport_dir = tmp_path / "kongxing-generated"
     monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(transport_dir))
