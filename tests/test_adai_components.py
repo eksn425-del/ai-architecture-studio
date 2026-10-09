@@ -99,3 +99,24 @@ def test_detect_versions_never_claims_support(tmp_path: Path, monkeypatch) -> No
     assert [v["year"] for v in values] == list(range(2018, 2027))
     assert next(v for v in values if v["year"] == 2026)["installed"] is True
     assert all(v["adai_geometry_in_kstudio"] == "not_run" for v in values)
+
+
+def test_separate_mcp_is_verified_but_never_auto_connected(tmp_path: Path, monkeypatch) -> None:
+    data = _zip_bytes({
+        "sketchup-managed-mcp/launch.cjs": b"process.exit(0);",
+        "sketchup-managed-mcp/plugin/su_mcp.rbz": b"plugin bytes",
+        "sketchup-managed-mcp/LICENSE": b"CPAL-1.0",
+        "sketchup-managed-mcp/NOTICE": b"ADAI attribution",
+    })
+    monkeypatch.setitem(subject.COMPONENTS["mcp"], "sha256", hashlib.sha256(data).hexdigest())
+    monkeypatch.setattr(subject.urllib.request, "urlopen",
+                        lambda *args, **kwargs: io.BytesIO(data))
+    subject.install_component(tmp_path, "mcp")
+    info = subject.standalone_mcp_connection(tmp_path)
+    assert info["mcp_server_name"] == "adai_sketchup_isolated"
+    assert info["connected"] is False
+    assert info["args"][0].endswith("launch.cjs")
+    assert info["plugin_rbz"].endswith(".rbz")
+    Path(info["plugin_rbz"]).write_bytes(b"tampered")
+    with pytest.raises(RuntimeError, match="changed"):
+        subject.standalone_mcp_connection(tmp_path)
