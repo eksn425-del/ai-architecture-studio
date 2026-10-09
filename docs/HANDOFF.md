@@ -1,3 +1,15 @@
+## Branch handoff — ADAI official components verified; real SU tests pending — 2026-10-09
+
+Draft PR: https://github.com/eksn425-del/ai-architecture-studio/pull/1, branch `feat/adai-components-su2018-2026` (no change to main).
+
+New in this iteration: downloaded and SHA-verified both real ADAI 0.5.39 release ZIPs on GitHub Actions; checked isolated Skill geometry module, Managed MCP launch/RBZ, license/NOTICE and Ruby syntax. Made the explicit SU2018–2026 launcher inspect installed per-version Kongxing plugins and fail before launching if missing; pre-existing disposable `-ModelPath` no longer requires a localized Simple template. Added 8 component/wiring/safe-archive unit checks and Windows PowerShell parser CI.
+
+Evidence: https://github.com/eksn425-del/ai-architecture-studio/actions/runs/37887718529 — CI **PASS** with **8/8 ADAI tests**, official ZIPs verified, Ruby syntax and Windows parser passed. Full pytest showed **290 pass, 7 fail, 2 skip** on branch vs. **282 pass, same 7 fail, 2 skip** on untouched main; CI asserts zero **new failing test IDs**. Seven pre-existing main failures are not fixed by this feature PR; do not call full pytest green.
+
+**Unfinished:** No Windows SketchUp real ADAI geometry fidelity test, no multi-version interoperability certificate, no CPAL distribution legal approval. The native K Studio/Kongxing SU2024 baseline is separate from ADAI-enhanced testing. NEXT: Windows Codex should follow branch-only task at the TOP of `docs/CURRENT_TASK.md`, update real evidence, push branch, then hand back for review. Do not replace live Kongxing bridge with ADAI MCP by default; do not merge this draft before real quality verification.
+
+---
+
 ## Work in PR branch — ADAI opt-in geometry and SU2018–2026 target — 2026-10-09
 
 Branch: `feat/adai-components-su2018-2026`; based on main `f7e05df376129b563bbad9d0dd037a43006efe14`. This work is isolated from the main v2.9 task; **do not merge before full Windows/SketchUp validation**.
