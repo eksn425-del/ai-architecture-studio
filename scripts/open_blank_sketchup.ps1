@@ -93,23 +93,18 @@ if (-not (Test-Path $bridgeStartup)) {
 }
 if ($PrepareOnly) { Write-Host "Prepared disposable model: $modelPath"; return }
 # This launcher uses the EXISTING Kongxing bridge, not the separate ADAI MCP.
-# Opening SketchUp without the per-version extension would look like a
-# successful launch although no K Studio modeling tools can connect.
-if ($installation.DisplayName -notmatch '(20[12][0-9]) '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
-Start-Process -FilePath $sketchupExe -ArgumentList $arguments | Out-Null
-Write-Host 'Opened a copied SketchUp Simple template in a disposable Demo model.' -ForegroundColor Green
-Write-Host 'Started the already-installed Kongxing AI local Bridge through SketchUp RubyStartup.'
-Write-Host "Disposable model: $modelPath"
-) {
+# Don't open a version with no corresponding Kongxing plugin, which would
+# otherwise look like a launch success without any working K Studio tools.
+if ($installation.DisplayName -notmatch '(20[12][0-9])$') {
     throw 'Could not resolve the selected SketchUp installation year.'
 }
 $selectedYear = [int]$Matches[1]
 if (-not $env:APPDATA) {
     throw 'APPDATA unavailable; cannot check the SketchUp per-version plugin.'
 }
-$pluginMain = Join-Path $env:APPDATA "SketchUp\\SketchUp $selectedYear\\SketchUp\\Plugins\\kongxing_ai_sketchup\\main.rb"
+$pluginMain = Join-Path $env:APPDATA "SketchUp\SketchUp $selectedYear\SketchUp\Plugins\kongxing_ai_sketchup\main.rb"
 if (-not (Test-Path -LiteralPath $pluginMain -PathType Leaf)) {
-    throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install/validate the compatible plugin for that version or test ADAI in a separate profile. Version discovery is not functional compatibility."
+    throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install the compatible plugin for that version, or test ADAI in a separate profile. Executable discovery is not functional compatibility."
 }
 $arguments = '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
 Start-Process -FilePath $sketchupExe -ArgumentList $arguments | Out-Null
