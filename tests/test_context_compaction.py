@@ -44,6 +44,26 @@ def test_checkpoint_contains_durable_card_schedule_review_and_writer_state(tmp_p
         "needs_fix": True,
         "issues": [{"view": "roof", "problem": "parapet too heavy"}],
     }), encoding="utf-8")
+    (notes / "construction_strategy.json").write_text(json.dumps({
+        "schema_version": 1,
+        "current_stage": "representative_module",
+        "stage_order": ["primary_form", "representative_module", "replication", "variants", "finish"],
+        "shared_parameters": {
+            "floor_height": {"value": 3200, "units": "mm", "provenance": "user_confirmed", "source": "user"}
+        },
+        "systems": [{
+            "id": "front-openings",
+            "stage": "primary_form",
+            "role": "opening_system",
+            "method": "continuous_wall_with_openings",
+            "status": "built",
+            "depends_on": ["floor_height"],
+            "target_paths": [["SHELL", "FRONT_WALL"]],
+            "verification_views": ["front", "oblique"],
+            "notes": [],
+        }],
+        "notes": [],
+    }), encoding="utf-8")
     checkpoint = build_reconstruction_checkpoint(root, {
         "villa": {
             "revision": 4,
@@ -57,6 +77,8 @@ def test_checkpoint_contains_durable_card_schedule_review_and_writer_state(tmp_p
     assert "rear opening_count=3" in checkpoint
     assert '"revision":4' in checkpoint
     assert "parapet too heavy" in checkpoint
+    assert "CONSTRUCTION_STRATEGY:" in checkpoint
+    assert "continuous_wall_with_openings" in checkpoint
 
 
 def test_compaction_drops_only_completed_history_and_preserves_current_turn():

@@ -113,6 +113,10 @@ def test_reconstruction_tool_profile_is_small_and_coding_first(tmp_path: Path) -
     review_tool = next(item for item in all_tools if item["name"] == "sketchup_submit_visual_review")
     assert review_tool["inputSchema"]["required"] == ["views", "critique"]
     assert "critique" in review_tool["inputSchema"]["properties"]
+    writer_tool = next(item for item in all_tools if item["name"] == "sketchup_run_workspace_ruby")
+    preserve = writer_tool["inputSchema"]["properties"]["preserve_paths"]
+    assert preserve["maxItems"] == 24
+    assert preserve["items"]["minItems"] == 1
     assert "sketchup_run_project_ruby" not in names
 
 

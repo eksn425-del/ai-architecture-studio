@@ -70,6 +70,13 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - No compatible redistribution license for the competitor's own SketchUp Skill/bridge/application was established. No proprietary source, prompts, generated project scripts or private assets were copied into this repository.
 - License files in bundled third-party runtimes apply to those individual packages only. Later reuse must obtain and attribute the corresponding upstream package; it does not authorize copying the enclosing application.
 
+## ADAI SketchUp Skill + Managed MCP — architecture study only
+
+- Upstream: `laowang-wy/adai-sketchup-skill-mcp`, inspected main revision `cd1e02e9f6906945376f73032e9598643fe8eb64` (0.5.39).
+- License: CPAL-1.0. No ADAI CPAL source file is vendored or copied into K Studio in this milestone.
+- K Studio studied the public staged-construction architecture: complete primary form, representative module before replication, explicit construction-method routing, shared parameter ownership, scoped local correction and change-focused visual review. `app/construction_strategy.py` is an independent K Studio implementation using our own schema and existing ProjectRuby/quality-gate runtime.
+- Future verbatim reuse of ADAI Covered Code must be isolated and must satisfy the upstream CPAL attribution/source/distribution obligations rather than being treated like the MIT/Apache components already vendored here.
+
 ## Other surveyed projects
 
 VBO SkAgent and SketchUp Agent Control are retained as fallback/reference candidates under the license status recorded in `docs/OPEN_SOURCE_COMPONENT_MAP.md`. If source is later vendored or copied, add the exact upstream revision, license text, and reuse boundary here in the same commit.

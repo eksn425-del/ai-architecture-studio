@@ -3,10 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .construction_strategy import default_construction_strategy
 from .reconstruction_evidence import default_reconstruction_evidence
 
 
-WORKSPACE_VERSION = 8
+WORKSPACE_VERSION = 9
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -28,13 +29,12 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 
 1. Inspect the actual source image(s).
 2. Clarify only high-impact unknowns that materially change the model.
-3. Update `notes/reconstruction_card.md`, classify source coverage in `notes/reconstruction_evidence.json`, and keep `notes/facade_schedule.json` as the compact machine-readable facade/roof schedule.
+3. Update `notes/reconstruction_card.md`, classify source coverage in `notes/reconstruction_evidence.json`, keep `notes/facade_schedule.json` as the compact machine-readable facade/roof schedule, and write `notes/construction_strategy.json` with shared parameters, method ownership and verification views.
 4. Show the compact parameter/construction plan and wait for approval.
-5. After approval, author or revise durable `.rb` files under `scripts/`.
-6. Execute the same files with `sketchup_run_workspace_ruby`.
-7. Inspect returned screenshots/model state.
-8. Correct the same scripts/model rather than restarting.
-9. Maintain `qa/visual_qa.md`: compare source first, then current front/rear/left/right/roof/oblique evidence; keep at most three highest-impact mismatches plus a KEEP list.
+5. After approval, follow the internal construction stages in order: primary form → representative module → replication → variants → finish. These are not extra user approval gates.
+6. Author or revise durable `.rb` files under `scripts/`; verify one representative repeated module before copying it.
+7. Execute the same files with `sketchup_run_workspace_ruby`, inspect returned screenshots/model state, and correct the same scripts/model rather than restarting.
+8. Maintain `qa/visual_qa.md`: compare source first, then current front/rear/left/right/roof/oblique evidence; keep at most three highest-impact mismatches plus a KEEP list.
 
 ## Architecture-design loop
 
@@ -288,6 +288,14 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
             newline="\n",
         )
 
+    construction_strategy = root / "notes" / "construction_strategy.json"
+    if not construction_strategy.exists():
+        construction_strategy.write_text(
+            json.dumps(default_construction_strategy(), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+
     visual_qa = root / "qa" / "visual_qa.md"
     if not visual_qa.exists():
         visual_qa.write_text(_VISUAL_QA, encoding="utf-8", newline="\n")
@@ -302,6 +310,7 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "reconstruction_card": "notes/reconstruction_card.md",
         "facade_schedule": "notes/facade_schedule.json",
         "reconstruction_evidence": "notes/reconstruction_evidence.json",
+        "construction_strategy": "notes/construction_strategy.json",
         "visual_qa": "qa/visual_qa.md",
         "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "verify", "inspect", "critic", "revise"],
     }
@@ -334,9 +343,9 @@ def codex_parity_instructions() -> str:
         "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
         "For image reconstruction, inspect the source, clarify only high-impact unknowns, then update "
         "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters, and update "
-        "notes/reconstruction_evidence.json with the fidelity mode/source coverage/inference boundary, and notes/facade_schedule.json with compact per-view opening/roof facts and observed/user_confirmed/inferred provenance. "
+        "notes/reconstruction_evidence.json with the fidelity mode/source coverage/inference boundary, notes/facade_schedule.json with compact per-view opening/roof facts and observed/user_confirmed/inferred provenance, and notes/construction_strategy.json with shared parameters, construction methods, stage ownership and verification views. "
         "In single-view mode, the visible source view is a hard appearance target while hidden regions may be inferred coherently. In full-evidence mode, supplied exterior views, CAD/floor plans and interior images are hard constraints and only genuinely unseen gaps may be inferred. Do not edit SketchUp before the parameter/construction plan is approved. After approval, author/revise durable Ruby "
-        "under scripts/. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use only the injected SAIE "
+        "under scripts/. Follow primary form → representative module → replication → variants → finish internally, without new user approvals. Prefer sketchup_run_workspace_ruby for project-specific or repeated geometry; use only the injected SAIE "
         "geometry helpers inside guarded ProjectRuby when they fit, while reconstruction backend tools stay read-only. After every mutation, require the "
         "post-write verification receipt before trusting success. Maintain qa/visual_qa.md from fresh front/rear/left/right/roof/oblique "
         "evidence: record at most three highest-impact mismatches plus a KEEP list, then make at most two targeted correction rounds. "

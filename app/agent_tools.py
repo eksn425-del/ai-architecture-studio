@@ -12,7 +12,11 @@ from PIL import Image
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
-from .modeling_quality import submit_visual_review
+from .modeling_quality import (
+    owned_inspection_fingerprint,
+    submit_visual_review,
+    verify_preserved_owned_paths,
+)
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workspace_ruby import run_workspace_ruby
 from .workspace_files import workspace_file_tools, workspace_file_call
@@ -143,7 +147,38 @@ class AgentToolSurface:
             "writes": 0,
             "write_limit": write_limit,
             "review": None,
+            "preservation": None,
         }
+
+        def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
+            if executor is None:
+                raise MCPCallError("KEEP preservation requires a verified project writer.")
+            if not isinstance(paths, list) or not paths or len(paths) > 24:
+                raise MCPCallError("preserve_paths must contain 1..24 exact owned-group paths.")
+            snapshots: dict[str, dict[str, Any]] = {}
+            for index, path in enumerate(paths):
+                if (
+                    not isinstance(path, list) or not 1 <= len(path) <= 8
+                    or any(not isinstance(segment, str) or not segment or len(segment) > 200 for segment in path)
+                ):
+                    raise MCPCallError(
+                        f"preserve_paths[{index}] must contain 1..8 exact nonempty owned-group name segments."
+                    )
+                key = "/".join(path)
+                if key in snapshots:
+                    raise MCPCallError(f"Duplicate preserve path: {key}")
+                result = executor.inspect_owned({
+                    "script_id": script_id,
+                    "path": path,
+                    "offset": 0,
+                    "limit": 1,
+                })
+                try:
+                    payload = json.loads(result["contentItems"][0]["text"])
+                    snapshots[key] = owned_inspection_fingerprint(payload)
+                except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
+                    raise MCPCallError(f"Could not fingerprint protected KEEP path {key!r}: {error}") from error
+            return snapshots
 
         def dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
             nonlocal writes
@@ -168,6 +203,8 @@ class AgentToolSurface:
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
             if bounded and writes >= write_limit:
                 raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
+            preservation_before: dict[str, dict[str, Any]] = {}
+            preservation_script_id = ""
             if bounded and writes > 0:
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
@@ -180,8 +217,56 @@ class AgentToolSurface:
                         "当前六视图审查为 NEEDS_FIX: NO，本轮不再接受额外几何写入。"
                         "如用户提出新修改，请在下一回合按新要求执行。"
                     )
+                if str(arguments.get("update_mode") or "replace") != "edit" or arguments.get("allow_full_rebuild") is True:
+                    raise MCPCallError(
+                        "视觉审查后的修正必须使用 update_mode=edit；本轮禁止整根 replace/full rebuild。"
+                        "请只修改 critic 指出的命名对象，保留 KEEP 几何。"
+                    )
+                preservation_script_id = str(arguments.get("script_id") or "")
+                preserve_paths = arguments.get("preserve_paths")
+                if review.get("keep") and not preserve_paths:
+                    raise MCPCallError(
+                        "当前视觉审查包含 KEEP 项。执行修正前请先用 sketchup_inspect_owned 将 KEEP 映射为 exact named paths，"
+                        "并在本次 writer 调用中传 preserve_paths；host 会在写入后核对 persistent ID / 对象数 / mm bounds。"
+                    )
+                if preserve_paths:
+                    preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
             try:
-                return self.dispatch(name, arguments, project_dir=resolved_project_dir, project_ruby=executor)
+                output = self.dispatch(name, arguments, project_dir=resolved_project_dir, project_ruby=executor)
+                if bounded and preservation_before:
+                    preservation_after = preserve_snapshot(
+                        preservation_script_id, arguments.get("preserve_paths")
+                    )
+                    try:
+                        preservation = verify_preserved_owned_paths(
+                            preservation_before, preservation_after
+                        )
+                    except ValueError as error:
+                        quality_state["preservation"] = {
+                            "verified": False,
+                            "error": str(error),
+                            "paths": sorted(preservation_before),
+                        }
+                        raise MCPCallError(
+                            "定向修正破坏了 reviewer KEEP 几何；该 revision 已提交但不能视为无损修正。"
+                            f" {error} 请先重新读取当前模型并修复，不要宣称质量通过。"
+                        ) from error
+                    quality_state["preservation"] = preservation
+                    qa_dir = resolved_project_dir / "runtime" / "agent_workspace" / "qa"
+                    qa_dir.mkdir(parents=True, exist_ok=True)
+                    receipt_path = qa_dir / f"keep-preservation-write-{writes + 1}.json"
+                    receipt_path.write_text(
+                        json.dumps(preservation, ensure_ascii=False, indent=2) + "\n",
+                        encoding="utf-8",
+                    )
+                    if isinstance(output, dict):
+                        output["preservation_verification"] = preservation
+                        output.setdefault("contentItems", []).append({
+                            "type": "inputText",
+                            "text": "KEEP preservation receipt: "
+                                    + json.dumps(preservation, ensure_ascii=False),
+                        })
+                return output
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
                     writes += 1
@@ -338,7 +423,9 @@ class AgentToolSurface:
                     "same file so the project keeps an inspectable coding history. The guarded transaction returns "
                     "model readback plus a screenshot. update_mode=replace (default) CLEARS the owned root before running "
                     "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
-                    "complete rebuild; local corrections must use edit. update_mode=edit retains that existing script_id root for "
+                    "complete rebuild; local corrections must use edit. After a visual review, correction writes are host-forced to edit mode; "
+                    "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs, "
+                    "object counts and mm bounds did not change. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
                     "group/component instance, never the root or unrelated objects. For nested corrections pass an ARRAY of exact name segments, e.g. ['SHELL','LEFT_WALL']; locked/shared ancestors are rejected. Recreate only that affected child. "
                     "Never use replace with inspection-only or partial patch code; use readback "
@@ -366,6 +453,17 @@ class AgentToolSurface:
                         "relative_path": {"type": "string", "pattern": "^scripts/[A-Za-z0-9_.-]+\\.rb$", "maxLength": 160},
                         "update_mode": {"type": "string", "enum": ["replace", "edit"], "default": "replace"},
                         "allow_full_rebuild": {"type": "boolean", "description": "Explicit intentional whole-root rebuild only; do not set for local modifications."},
+                        "preserve_paths": {
+                            "type": "array",
+                            "maxItems": 24,
+                            "description": "For a post-review targeted correction, exact named owned-group paths that must remain unchanged. Map reviewer KEEP items to these paths with sketchup_inspect_owned first. The host rechecks persistent ID, object count and mm bounds after the write.",
+                            "items": {
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 8,
+                                "items": {"type": "string", "minLength": 1, "maxLength": 200}
+                            }
+                        },
                     },
                     "additionalProperties": False,
                 },

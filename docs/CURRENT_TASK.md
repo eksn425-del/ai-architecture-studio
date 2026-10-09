@@ -1,3 +1,27 @@
+# 当前任务 — 2026-10-09 Quality Loop v2.7 / 构造方法路由与分阶段建模
+
+ChatGPT 已审查 ADAI SketchUp Skill + Managed MCP 0.5.39（`laowang-wy/adai-sketchup-skill-mcp@cd1e02e9`）。上游为 CPAL-1.0，本轮**没有复制/内嵌其 CPAL 源码**，而是把对当前 K Studio 最有价值的建模架构独立实现到现有单写者体系：先完整主形，再真实代表模块，再复制、变体、收尾；同时把“该系统应该用什么构造方法、依赖哪些共享参数、用哪些视图验证”外部化为项目内 `notes/construction_strategy.json`。
+
+main 候选新增：结构化 construction strategy、工作区 JSON 校验、规划/执行阶段方法路由、active-context compaction 保留 strategy，以及对应测试。现有 v2.6 KEEP 无损修正、v2.5 主机认证相机、dedicated Critic、writer receipt、evidence ledger、facade schedule 都继续作为更高优先级质量门，不被新策略替代。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_7.md`。重点不是证明“多了一张 JSON”，而是用同一六视图别墅验证：主形是否更完整、墙洞是否少拼缝、屋面是否选择更合适的 profile/mesh/custom Ruby 方法、是否先验证一个重复模块再复制、full-root rebuild/tool/token 是否下降、KEEP 是否保持。若 strategy 只是文书且 Agent 忽略，按真实证据继续改 host/Skill 或删减，不得因为测试通过就宣称建模质量提升。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。远端改动本身不等于 SU2024 真机 PASS。
+
+---
+
+# 当前任务 — 2026-10-09 Quality Loop v2.6 / KEEP 无损修正门禁
+
+ChatGPT 基于 3DCodeBench 的 last-known-good / do-no-harm 思路和 SketchUp Agent Harness 的“视觉反馈先结构化再修改”边界，继续优化当前建模质量闭环。
+
+main 候选新增 post-review KEEP 保护：视觉审查后再写模型时，host 强制 update_mode=edit，禁止整根 replace/full rebuild；如果 Critic 给出了 KEEP，Builder 必须先把 KEEP 映射到当前 script_id 下的 exact named owned paths，并通过 preserve_paths 交给 writer。host 会在修正前后重新读取这些路径的 persistent ID、对象数和 mm bounds，任何变化都标记为回归，不能把这次修正当作无损成功。
+
+下一位 Windows Codex 直接执行 docs/QUALITY_LOOP_V2_6.md，并同时完成 v2.5 主机认证六视图的真 SU2024 验收。重点验证：实际修一个 roof/wall 高影响问题时，阳台/格栅/已正确门窗等 KEEP 路径保持 ID/数量/bounds 不变；再做一个 throwaway negative smoke，故意动 protected path，确认 host 真会报 regression。完成后继续 fresh six-view critic、blank replay、SKP 原生重开编辑。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。当前实现只做确定性回归检测，不自动 undo 已提交 revision；若本机证明该门禁有效，下一步才考虑受控 last-good 自动恢复。
+
+---
+
 # 当前任务 — 2026-10-08 Quality Loop v2.5 / 主机认证六视图相机
 
 ChatGPT 复审 v1 真机结果与 v2.1-v2.4 代码后发现新的证据边界：此前六张截图虽然能校验“文件真实、修订最新、路径不同”，但仍然信任 Agent 自己把任意相机命名为 front/rear/left/right/roof/oblique。现在 main 候选改为由 host 的 `sketchup_capture_canonical_view` 根据当前持久 ProjectRuby 根组 bounds 生成固定六视图，并把 view 名、script ID、camera vectors、current revisions 写入 sidecar；六视图质量门只接受这种 host-certified canonical evidence。

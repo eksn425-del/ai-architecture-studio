@@ -43,6 +43,12 @@ Approval covers all passes/details/QA continuously; never ask for another contin
 
 No geometry in clarify/plan mode.
 
+## Construction strategy — choose how to build before writing geometry
+
+Maintain `notes/construction_strategy.json` as compact method memory. After approval: **primary form → representative module → replication → variants → finish**, with no extra user gates. Primary form includes defining roof/voids/openings; verify one real repeated module before copying.
+
+Route systems deliberately: `continuous_wall_with_openings` for straight opening hosts; `profile_extrusion` for constant sections; `loft_or_mesh`/`custom_owned_ruby` for changing forms; `prototype_instance` only after its prototype is correct. Store shared dimensions/levels once with provenance and use named owned paths so corrections touch the smallest dependent system and preserve KEEP geometry.
+
 ## Evidence fidelity modes
 
 Maintain `notes/reconstruction_evidence.json` beside the parameter card and facade schedule. Evidence completeness controls how much freedom the Builder has.
@@ -94,7 +100,7 @@ After a geometry pass, run read-only visual QA: compare SOURCE first against CUR
 
 Generate the six canonical front/rear/left/right/roof/oblique quality-gate views with `sketchup_capture_canonical_view`; do not hand-label arbitrary camera screenshots as canonical evidence. Keep source-matched framing as separate `evidence_pairs` when the source perspective differs. If the primary source perspective is not represented by those canonical views, capture a current camera that matches it and include it as an evidence_pair. When interior/detail reference images are supplied, capture corresponding current interior/detail cameras and pair each important source with the current model view; full-evidence acceptance requires these source-matched checks rather than exterior-only QA. After all six CURRENT captures exist, call sketchup_submit_visual_review with their exact returned agent-view paths, evidence_pairs when applicable, and the bounded critique. The host rejects stale revisions and persists qa/visual_review.json plus qa/visual_qa.md. Use NEEDS_FIX: YES|NO, assessment, at most THREE high-impact mismatches and a KEEP list. Prioritize silhouette, storeys/bays, openings, depth, roof/parapet, material zones and intersections.
 
-Only the Builder writes Ruby. For YES, edit named affected groups while preserving KEEP, recapture and review. At most two targeted corrections per turn; remaining blockers mean partial. NO still requires current views and deterministic verification.
+Only the Builder writes Ruby. For YES, first map reviewer KEEP items to exact named owned-group paths with sketchup_inspect_owned. Then use update_mode=edit and pass those exact paths as preserve_paths on the correction writer call; the host must prove their persistent IDs, object counts and mm bounds stayed unchanged. A correction that changes protected KEEP geometry is a regression, not progress. Recapture and review after every correction. At most two targeted corrections per turn; remaining blockers mean partial. NO still requires current views and deterministic verification.
 
 Record each QA capture's revision. After any correction, recapture ALL required views; missing/stale rows mean incomplete QA. Correct via edit, integrate baseline separately; replaying replace destroys KEEP IDs.
 

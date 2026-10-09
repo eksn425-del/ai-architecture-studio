@@ -1,3 +1,25 @@
+## Remote Quality Loop v2.7 / ADAI construction-method study — 2026-10-09
+
+Reviewed public ADAI SketchUp Skill + Managed MCP 0.5.39 at `cd1e02e9f6906945376f73032e9598643fe8eb64`. Its most useful gap relative to K Studio is not another bridge: it makes construction method, primary-form completeness, representative-module validation, replication order and shared parameter ownership explicit. Because upstream is CPAL-1.0, this milestone does not copy/vendor ADAI Covered Code; it independently implements the architecture in K Studio terminology.
+
+Added `app/construction_strategy.py` and project-local `notes/construction_strategy.json`. Planning now records shared parameters plus each major system's stage/method/dependencies/owned target paths/verification views. Execution guidance follows primary form → representative module → replication → variants → finish internally without new user approvals, and routes straight opening hosts, constant sections, changing forms and repeated modules to different construction approaches instead of treating everything as generic boxes/free-form patches. Workspace seeding/validation and active-context compaction carry this strategy forward.
+
+The existing single ProjectRuby writer, dedicated read-only critic, host-certified canonical cameras, evidence ledger, facade schedule, post-write receipts and v2.6 KEEP regression guard remain authoritative. This remote turn cannot claim real SketchUp quality improvement. Local Windows Codex must execute `docs/QUALITY_LOOP_V2_7.md`, compare a fresh six-view run against the 2026-10-08 baseline, and push the evidence/result back to main for ChatGPT review.
+
+---
+
+## Remote Quality Loop v2.6 handoff — 2026-10-09
+
+Continued the OSS-driven modeling-quality iteration on top of v2.5. The remaining gap from 3DCodeBench and SketchUp Agent Harness was that reviewer KEEP items were still advisory prose: a targeted correction could accidentally rebuild/move already-correct geometry and only be noticed later.
+
+Implemented a host-enforced do-no-harm boundary for reconstruction corrections. After a current visual review, further writer calls in that turn are forced to update_mode=edit and cannot request a full-root rebuild. When the review contains KEEP items, the Builder must inspect and map them to exact named owned paths and pass preserve_paths. The host fingerprints each protected path before and after the committed writer pass using persistent ID, object count and XYZ mm bounds. Successful expected/actual receipts are persisted in qa; any mismatch is surfaced as a KEEP regression and cannot be reported as a clean targeted correction.
+
+The visual Skill and LiteLLM quality-gate nudge now explicitly require this mapping. Added unit/integration regressions for fingerprint comparison, correction mode and preserve_paths schema. This remote turn does not claim real SketchUp PASS. Windows Codex must execute docs/QUALITY_LOOP_V2_6.md, including a real positive correction and a deliberate throwaway negative mutation, while retaining v2.5 canonical-camera/source-matched review gates.
+
+Automatic rollback is intentionally not implemented yet. The current revision is real even when preservation verification fails; checkpoint/recovery remains the safe recovery mechanism until the state-machine implications of automatic undo are proven on SU2024.
+
+---
+
 ## Remote Quality Loop v2.5 / canonical camera provenance — 2026-10-08
 
 After reviewing the latest v1 Windows evidence and the v2.1-v2.4 remote implementation against Scenario-style review sheets, one remaining trust gap was found: current-revision screenshot paths did not prove that a file labelled "front" actually used a front camera. This could still let a Builder submit six distinct but semantically wrong camera frames to the dedicated Critic.

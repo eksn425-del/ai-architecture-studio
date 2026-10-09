@@ -27,6 +27,12 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     evidence = __import__("json").loads(evidence_file.read_text(encoding="utf-8"))
     assert evidence["schema_version"] == 1
     assert evidence["fidelity_mode"] == "pending"
+    strategy_file = workspace / "notes" / "construction_strategy.json"
+    assert strategy_file.is_file()
+    strategy = __import__("json").loads(strategy_file.read_text(encoding="utf-8"))
+    assert strategy["schema_version"] == 1
+    assert strategy["stage_order"] == ["primary_form", "representative_module", "replication", "variants", "finish"]
+    assert strategy["systems"] == []
     assert (workspace / "qa").is_dir()
     assert (workspace / "qa" / "visual_qa.md").is_file()
     assert "NEEDS_FIX" in (workspace / "qa" / "visual_qa.md").read_text(encoding="utf-8")
@@ -46,12 +52,17 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
         '{"schema_version":1,"fidelity_mode":"single_view_inference","primary_source":"inputs/reference/front.png","sources":[{"path":"inputs/reference/front.png","kind":"exterior_image","provenance":"observed"}],"exterior_views":{"oblique":{"provenance":"observed","source_refs":["inputs/reference/front.png"],"notes":[]}},"floorplan":{"provided":false,"provenance":"pending","source_refs":[],"levels":[],"notes":[]},"cad":{"provided":false,"provenance":"pending","source_refs":[],"notes":[]},"interior":{"provided":false,"provenance":"pending","source_refs":[],"spaces":[],"notes":[]},"scale_anchors":[],"hard_constraints":[],"assumptions":[],"inference_policy":{"unseen_exterior":"infer_coherent","unseen_interior":"infer_plausible","preserve_circulation":true}}\n',
         encoding="utf-8",
     )
+    strategy_file.write_text(
+        '{"schema_version":1,"current_stage":"representative_module","stage_order":["primary_form","representative_module","replication","variants","finish"],"shared_parameters":{"floor_height":{"value":3200,"units":"mm","provenance":"user_confirmed","source":"user"}},"systems":[{"id":"front-wall","stage":"primary_form","role":"opening_system","method":"continuous_wall_with_openings","status":"built","depends_on":["floor_height"],"target_paths":[["SHELL","FRONT_WALL"]],"verification_views":["front","oblique"],"notes":[]}],"notes":[]}\n',
+        encoding="utf-8",
+    )
     prepare_codex_parity_workspace(workspace)
     assert notes.read_text(encoding="utf-8") == "USER CONFIRMED DECISION\n"
     assert instructions.read_text(encoding="utf-8") == "PROJECT MODELING RULES\n"
     assert visual_qa.read_text(encoding="utf-8") == "CURRENT REVIEW SURVIVES\n"
     assert "rear has three windows" in facade_schedule.read_text(encoding="utf-8")
     assert "single_view_inference" in evidence_file.read_text(encoding="utf-8")
+    assert "continuous_wall_with_openings" in strategy_file.read_text(encoding="utf-8")
 
 
 def test_workspace_ruby_path_is_confined_to_scripts(tmp_path):
@@ -231,4 +242,53 @@ def test_workspace_reconstruction_evidence_json_is_validated(tmp_path):
         workspace_file_call(workspace, "workspace_write", {
             "relative_path": "notes/reconstruction_evidence.json",
             "content": json.dumps(broken),
+        })
+
+
+def test_workspace_construction_strategy_json_is_validated(tmp_path):
+    import json
+    from app.workspace_files import workspace_file_call
+
+    workspace = prepare_codex_parity_workspace(tmp_path / "workspace-strategy")
+    good = {
+        "schema_version": 1,
+        "current_stage": "representative_module",
+        "stage_order": ["primary_form", "representative_module", "replication", "variants", "finish"],
+        "shared_parameters": {
+            "floor_height": {
+                "value": 3200,
+                "units": "mm",
+                "provenance": "user_confirmed",
+                "source": "user",
+            }
+        },
+        "systems": [{
+            "id": "front-openings",
+            "stage": "primary_form",
+            "role": "opening_system",
+            "method": "continuous_wall_with_openings",
+            "status": "built",
+            "depends_on": ["floor_height"],
+            "target_paths": [["SHELL", "FRONT_WALL"]],
+            "verification_views": ["front", "oblique"],
+            "notes": [],
+        }],
+        "notes": [],
+    }
+    result = workspace_file_call(workspace, "workspace_write", {
+        "relative_path": "notes/construction_strategy.json",
+        "content": json.dumps(good),
+    })
+    assert result["success"] is True
+    loaded = json.loads(workspace_file_call(
+        workspace, "workspace_read", {"relative_path": "notes/construction_strategy.json"}
+    )["content"])
+    assert loaded["systems"][0]["method"] == "continuous_wall_with_openings"
+
+    bad = dict(good)
+    bad["systems"] = [dict(good["systems"][0], depends_on=["unknown_parameter"])]
+    with pytest.raises(ValueError, match="unknown parameters"):
+        workspace_file_call(workspace, "workspace_write", {
+            "relative_path": "notes/construction_strategy.json",
+            "content": json.dumps(bad),
         })

@@ -2,8 +2,10 @@ from app.agent_tools import AgentToolSurface, canonical_camera_from_bounds_mm
 from app.modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
     build_visual_critic_prompt,
+    owned_inspection_fingerprint,
     parse_visual_critique_response,
     require_post_write_verification,
+    verify_preserved_owned_paths,
     submit_visual_review,
     validate_facade_schedule_payload,
 )
@@ -96,6 +98,134 @@ def test_verification_rejects_missing_expected_readback_fields():
             )
 
 
+def test_keep_fingerprint_and_preservation_receipt():
+    before = {
+        "SHELL/LEFT_WALL": {
+            "persistent_id": 101,
+            "objects_total": 7,
+            "bounds_mm": {"min": [0, 0, 0], "max": [200, 8000, 6400]},
+        },
+        "BALCONY": {
+            "persistent_id": 202,
+            "objects_total": 4,
+            "bounds_mm": {"min": [2500, -1200, 3000], "max": [7000, 0, 3600]},
+        },
+    }
+    after = {
+        key: {
+            **value,
+            "bounds_mm": {
+                "min": [float(number) for number in value["bounds_mm"]["min"]],
+                "max": [float(number) for number in value["bounds_mm"]["max"]],
+            },
+        }
+        for key, value in before.items()
+    }
+    receipt = verify_preserved_owned_paths(before, after)
+    assert receipt["verified"] is True
+    assert receipt["paths"] == ["BALCONY", "SHELL/LEFT_WALL"]
+    assert owned_inspection_fingerprint(before["BALCONY"])["persistent_id"] == 202
+
+
+def test_keep_preservation_rejects_id_count_or_bounds_regression():
+    import pytest
+    before = {
+        "FACADE/LOUVERS": {
+            "persistent_id": 301,
+            "objects_total": 12,
+            "bounds_mm": {"min": [0, 0, 0], "max": [1200, 250, 3200]},
+        },
+    }
+    for field, replacement in (
+        ("persistent_id", 999),
+        ("objects_total", 11),
+        ("bounds_mm", {"min": [0, 0, 0], "max": [1300, 250, 3200]}),
+    ):
+        changed = {"FACADE/LOUVERS": dict(before["FACADE/LOUVERS"])}
+        changed["FACADE/LOUVERS"][field] = replacement
+        with pytest.raises(ValueError, match="Protected KEEP path"):
+            verify_preserved_owned_paths(before, changed)
+
+
+def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, monkeypatch):
+    import json
+    import pytest
+    from app.agent_tools import AgentToolSurface
+    from app.sketchup_mcp import MCPCallError
+
+    class Executor:
+        def __init__(self, *args, **kwargs):
+            self.ruby_state = kwargs["ruby_state"]
+
+        def inspect_owned(self, arguments):
+            path = "/".join(arguments.get("path") or [])
+            payload = {
+                "persistent_id": 501 if path == "BALCONY" else 500,
+                "revision": self.ruby_state.get(arguments["script_id"], {}).get("revision", 0),
+                "objects_total": 4,
+                "bounds_mm": {"min": [0, 0, 0], "max": [4000, 1200, 3400]},
+                "objects": [],
+                "next_offset": None,
+            }
+            return {
+                "success": True,
+                "contentItems": [{"type": "inputText", "text": json.dumps(payload)}],
+            }
+
+    monkeypatch.setattr("app.agent_tools.ProjectRubyExecutor", Executor)
+    surface = AgentToolSurface(tmp_path, object(), oss_backends={})
+    monkeypatch.setattr(surface, "dynamic_tools", lambda **kwargs: [])
+    monkeypatch.setattr(
+        "app.agent_tools.submit_visual_review",
+        lambda project_dir, ruby_state, arguments: {
+            "needs_fix": True,
+            "quality_status": "needs_fix",
+            "keep": ["balcony"],
+        },
+    )
+
+    def run(name, args, **kwargs):
+        if name == "sketchup_inspect_owned":
+            return kwargs["project_ruby"].inspect_owned(args)
+        if name == "sketchup_run_workspace_ruby":
+            state = kwargs["project_ruby"].ruby_state
+            key = args.get("script_id", "villa")
+            state[key] = {"revision": state.get(key, {}).get("revision", 0) + 1}
+            return {"success": True, "contentItems": []}
+        return {"success": True}
+
+    monkeypatch.setattr(surface, "dispatch", run)
+    context = surface.prepare(
+        project_dir=tmp_path / "projects" / "preserve",
+        mcp_enabled=True,
+        model_path=tmp_path / "blank.skp",
+        model_guid="fixture",
+        ruby_enabled=True,
+        ruby_state={},
+        tool_profile="reconstruction_coding",
+    )
+    context.dispatch("sketchup_run_workspace_ruby", {"script_id": "villa"})
+    context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
+
+    with pytest.raises(MCPCallError, match="preserve_paths"):
+        context.dispatch(
+            "sketchup_run_workspace_ruby",
+            {"script_id": "villa", "update_mode": "edit"},
+        )
+    with pytest.raises(MCPCallError, match="update_mode=edit"):
+        context.dispatch(
+            "sketchup_run_workspace_ruby",
+            {"script_id": "villa", "update_mode": "replace", "preserve_paths": [["BALCONY"]]},
+        )
+
+    result = context.dispatch(
+        "sketchup_run_workspace_ruby",
+        {"script_id": "villa", "update_mode": "edit", "preserve_paths": [["BALCONY"]]},
+    )
+    assert result["preservation_verification"]["verified"] is True
+    assert context.quality_state["preservation"]["paths"] == ["BALCONY"]
+
+
 def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path, monkeypatch):
     import pytest
     from app.agent_tools import AgentToolSurface
@@ -128,7 +258,7 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
             context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
         for _ in range(limit - 1):
             context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
-            context.dispatch("sketchup_run_workspace_ruby", {})
+            context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit"})
         with pytest.raises(MCPCallError, match="预算"):
             context.dispatch("sketchup_run_workspace_ruby", {"script_id": "bypass"})
         assert context.dispatch("sketchup_inspect_owned", {})["success"]
