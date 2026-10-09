@@ -18,6 +18,8 @@ from .sketchup_mcp import (
 from .store import safe_project_id
 from .modeling_quality import require_post_write_verification
 from .adai_components import geometry_helper
+from .construction_strategy import load_construction_strategy
+from .oss_method_catalog import assess_method_adoption
 
 
 SCRIPT_ID_RE = re.compile(r"^[a-z][a-z0-9_-]{0,47}$")
@@ -455,6 +457,9 @@ class ProjectRubyExecutor:
         method_ledger["script_id"] = script_id
         method_ledger["revision"] = new_revision
         method_ledger["root_pid"] = root_pid
+        method_adoption = assess_method_adoption(
+            load_construction_strategy(self.project_dir), method_ledger,
+        )
 
         # Keep the deterministic receipt even if later viewport capture fails.
         # The report/receipt pair is immutable evidence for this revision.
@@ -462,6 +467,7 @@ class ProjectRubyExecutor:
         receipt_path.write_text(json.dumps(write_verification, ensure_ascii=False, indent=2), encoding="utf-8")
         self.ruby_state[script_id]["last_verification"] = write_verification
         self.ruby_state[script_id]["last_oss_method_ledger"] = method_ledger
+        self.ruby_state[script_id]["last_oss_method_adoption"] = method_adoption
         self.ruby_state[script_id]["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
         verified_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         verified_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -492,6 +498,7 @@ class ProjectRubyExecutor:
             "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
             "last_oss_method_ledger": method_ledger,
+            "last_oss_method_adoption": method_adoption,
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -509,6 +516,7 @@ class ProjectRubyExecutor:
             "write_verification": write_verification,
             "precommit_keep_guard": precommit_keep_guard,
             "oss_method_ledger": method_ledger,
+            "oss_method_adoption": method_adoption,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
         }
