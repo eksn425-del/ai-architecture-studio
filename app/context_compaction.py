@@ -16,6 +16,10 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .construction_strategy import (
+    strategy_has_signal,
+    validate_construction_strategy_payload,
+)
 from .modeling_quality import validate_facade_schedule_payload
 from .reconstruction_evidence import default_reconstruction_evidence, validate_reconstruction_evidence_payload
 
@@ -23,6 +27,7 @@ from .reconstruction_evidence import default_reconstruction_evidence, validate_r
 MAX_CARD_CHARS = 12000
 MAX_SCHEDULE_CHARS = 12000
 MAX_EVIDENCE_CHARS = 12000
+MAX_STRATEGY_CHARS = 12000
 MAX_REVIEW_CHARS = 8000
 DEFAULT_COMPACTION_THRESHOLD_CHARS = 100_000
 
@@ -108,14 +113,26 @@ def build_reconstruction_checkpoint(
     schedule = _load_json(schedule_path)
     evidence_path = workspace / "notes" / "reconstruction_evidence.json"
     evidence = _load_json(evidence_path)
+    strategy_path = workspace / "notes" / "construction_strategy.json"
+    strategy = _load_json(strategy_path)
     if evidence is None:
         evidence = default_reconstruction_evidence()
     try:
         schedule = validate_facade_schedule_payload(schedule)
         evidence = validate_reconstruction_evidence_payload(evidence)
+        strategy = validate_construction_strategy_payload(
+            strategy if strategy is not None else {
+                "schema_version": 1,
+                "current_stage": "pending",
+                "stage_order": ["primary_form", "representative_module", "replication", "variants", "finish"],
+                "shared_parameters": {},
+                "systems": [],
+                "notes": [],
+            }
+        )
     except ValueError:
         return ""
-    if not _schedule_has_signal(schedule) and not _evidence_has_signal(evidence):
+    if not _schedule_has_signal(schedule) and not _evidence_has_signal(evidence) and not strategy_has_signal(strategy):
         return ""
 
     card = _bounded_text(workspace / "notes" / "reconstruction_card.md", MAX_CARD_CHARS)
@@ -147,6 +164,9 @@ def build_reconstruction_checkpoint(
         "",
         "RECONSTRUCTION_EVIDENCE:",
         json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))[:MAX_EVIDENCE_CHARS],
+        "",
+        "CONSTRUCTION_STRATEGY:",
+        json.dumps(strategy, ensure_ascii=False, separators=(",", ":"))[:MAX_STRATEGY_CHARS],
         "",
         "CURRENT_WRITER_STATE:",
         json.dumps(writer_state, ensure_ascii=False, separators=(",", ":")),
