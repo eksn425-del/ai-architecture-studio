@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "REVERSED_SIDE"
+  ],
+  "checks": [
+    {
+      "path": "REVERSED_SIDE",
+      "check": "persistent_id",
+      "expected": 38656,
+      "actual": 38656
+    },
+    {
+      "path": "REVERSED_SIDE",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "REVERSED_SIDE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          6350.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          6650.0,
+          6000.0,
+          3200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          6350.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          6650.0,
+          6000.0,
+          3200.0
+        ]
+      }
+    }
+  ]
+}

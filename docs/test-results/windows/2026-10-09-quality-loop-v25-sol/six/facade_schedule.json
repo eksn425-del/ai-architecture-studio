@@ -1,0 +1,648 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "units": "mm",
+  "coordinate_convention": "origin front-left ground floor; X right; Y rear; Z up",
+  "dimensions_mm": {
+    "overall_width": 8000,
+    "overall_depth": 8500,
+    "level_height": 3100,
+    "floor_count": 2,
+    "parapet_top": 6500
+  },
+  "dimension_status": "ESTIMATED",
+  "views": {
+    "front": {
+      "opening_count_by_level": [
+        1,
+        2
+      ],
+      "intervals": [
+        [
+          1600,
+          5900
+        ],
+        [
+          1000,
+          2850
+        ],
+        [
+          4400,
+          6250
+        ]
+      ],
+      "z_by_level": [
+        [
+          0,
+          2450
+        ],
+        [
+          3100,
+          5550
+        ]
+      ]
+    },
+    "rear": {
+      "opening_count_by_level": [
+        3,
+        3
+      ],
+      "intervals": [
+        [
+          1200,
+          1850
+        ],
+        [
+          3650,
+          4300
+        ],
+        [
+          6100,
+          6750
+        ]
+      ],
+      "z_by_level": [
+        [
+          850,
+          2300
+        ],
+        [
+          3950,
+          5400
+        ]
+      ]
+    },
+    "left": {
+      "opening_count_by_level": [
+        1,
+        1
+      ],
+      "intervals": [
+        [
+          3750,
+          4400
+        ]
+      ],
+      "z_by_level": [
+        [
+          850,
+          2300
+        ],
+        [
+          3950,
+          5400
+        ]
+      ]
+    },
+    "right": {
+      "opening_count_by_level": [
+        1,
+        1
+      ],
+      "intervals_by_level": [
+        [
+          [
+            1700,
+            2650
+          ]
+        ],
+        [
+          [
+            1700,
+            3450
+          ]
+        ]
+      ],
+      "z_by_level": [
+        [
+          0,
+          2100
+        ],
+        [
+          3950,
+          5400
+        ]
+      ]
+    }
+  },
+  "counts_status": "OBSERVED opening groups, not glass panes",
+  "positions_status": "ESTIMATED",
+  "openings": [
+    {
+      "id": "front_L1_1",
+      "side": "front",
+      "level": 1,
+      "type": "wide_glazed_door",
+      "horizontal_interval_mm": [
+        1600,
+        5900
+      ],
+      "z_interval_mm": [
+        0,
+        2450
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c1",
+        "r1c2",
+        "r2c2",
+        "r2c3"
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "front_ground_bay_start_mm",
+        "front_ground_bay_end_mm"
+      ]
+    },
+    {
+      "id": "front_L2_1",
+      "side": "front",
+      "level": 2,
+      "type": "double_glazed_balcony_door",
+      "horizontal_interval_mm": [
+        1000,
+        2850
+      ],
+      "z_interval_mm": [
+        3100,
+        5550
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c1",
+        "r1c2",
+        "r2c2",
+        "r2c3"
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "front_upper_bay_1_start_mm",
+        "front_upper_bay_1_end_mm",
+        "front_upper_bay_2_start_mm",
+        "front_upper_bay_2_end_mm"
+      ]
+    },
+    {
+      "id": "front_L2_2",
+      "side": "front",
+      "level": 2,
+      "type": "double_glazed_balcony_door",
+      "horizontal_interval_mm": [
+        4400,
+        6250
+      ],
+      "z_interval_mm": [
+        3100,
+        5550
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c1",
+        "r1c2",
+        "r2c2",
+        "r2c3"
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "front_upper_bay_1_start_mm",
+        "front_upper_bay_1_end_mm",
+        "front_upper_bay_2_start_mm",
+        "front_upper_bay_2_end_mm"
+      ]
+    },
+    {
+      "id": "rear_L1_1",
+      "side": "rear",
+      "level": 1,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        1200,
+        1850
+      ],
+      "z_interval_mm": [
+        850,
+        2300
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c3",
+        "r2c1"
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm"
+      ]
+    },
+    {
+      "id": "rear_L1_2",
+      "side": "rear",
+      "level": 1,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        3650,
+        4300
+      ],
+      "z_interval_mm": [
+        850,
+        2300
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c3",
+        "r2c1"
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm"
+      ]
+    },
+    {
+      "id": "rear_L1_3",
+      "side": "rear",
+      "level": 1,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        6100,
+        6750
+      ],
+      "z_interval_mm": [
+        850,
+        2300
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c3",
+        "r2c1"
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm"
+      ]
+    },
+    {
+      "id": "rear_L2_1",
+      "side": "rear",
+      "level": 2,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        1200,
+        1850
+      ],
+      "z_interval_mm": [
+        3950,
+        5400
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c3",
+        "r2c1"
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm"
+      ]
+    },
+    {
+      "id": "rear_L2_2",
+      "side": "rear",
+      "level": 2,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        3650,
+        4300
+      ],
+      "z_interval_mm": [
+        3950,
+        5400
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c3",
+        "r2c1"
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm"
+      ]
+    },
+    {
+      "id": "rear_L2_3",
+      "side": "rear",
+      "level": 2,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        6100,
+        6750
+      ],
+      "z_interval_mm": [
+        3950,
+        5400
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c3",
+        "r2c1"
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm"
+      ]
+    },
+    {
+      "id": "left_L1_1",
+      "side": "left",
+      "level": 1,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        3750,
+        4400
+      ],
+      "z_interval_mm": [
+        850,
+        2300
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c1",
+        "r1c3"
+      ],
+      "verification_views": [
+        "left",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "left_bay_start_mm",
+        "left_bay_end_mm"
+      ]
+    },
+    {
+      "id": "left_L2_1",
+      "side": "left",
+      "level": 2,
+      "type": "narrow_window",
+      "horizontal_interval_mm": [
+        3750,
+        4400
+      ],
+      "z_interval_mm": [
+        3950,
+        5400
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c1",
+        "r1c3"
+      ],
+      "verification_views": [
+        "left",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "left_bay_start_mm",
+        "left_bay_end_mm"
+      ]
+    },
+    {
+      "id": "right_L1_1",
+      "side": "right",
+      "level": 1,
+      "type": "entry_door",
+      "horizontal_interval_mm": [
+        1700,
+        2650
+      ],
+      "z_interval_mm": [
+        0,
+        2100
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c2",
+        "r2c1",
+        "r2c3"
+      ],
+      "verification_views": [
+        "right",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "right_door_bay_start_mm",
+        "right_door_bay_end_mm"
+      ]
+    },
+    {
+      "id": "right_L2_1",
+      "side": "right",
+      "level": 2,
+      "type": "double_window",
+      "horizontal_interval_mm": [
+        1700,
+        3450
+      ],
+      "z_interval_mm": [
+        3950,
+        5400
+      ],
+      "host_system": "walls",
+      "construction_method": "continuous_wall_with_openings",
+      "recess_ref": "construction_strategy.json#/shared_parameters/recess_mm",
+      "count_provenance": "OBSERVED",
+      "dimensions_provenance": "ESTIMATED",
+      "confidence": {
+        "count": "high",
+        "placement": "medium"
+      },
+      "source_panels": [
+        "r1c2",
+        "r2c1",
+        "r2c3"
+      ],
+      "verification_views": [
+        "right",
+        "oblique"
+      ],
+      "shared_bay_refs": [
+        "right_window_bay_start_mm",
+        "right_window_bay_end_mm"
+      ]
+    }
+  ],
+  "shared_parameters_ref": "notes/construction_strategy.json#/shared_parameters",
+  "dimensions_policy": "旧dimensions_mm及洞口区间为同一共享基线的快照；建模从共享参数引用，禁止各系统另设层高开间",
+  "approval": "pending_geometry_plan",
+  "stage": "plan_only",
+  "roof": {
+    "type": "recessed flat roof",
+    "separate_parapet": true,
+    "slab_method": "profile_extrusion",
+    "parapet_method": "custom_owned_ruby",
+    "shared_parameter_refs": [
+      "width_mm",
+      "depth_mm",
+      "ground_level_mm",
+      "upper_level_mm",
+      "roof_level_mm",
+      "roof_thickness_mm",
+      "wall_thickness_mm",
+      "parapet_top_mm"
+    ],
+    "verification_views": [
+      "roof",
+      "oblique"
+    ],
+    "inner_edge_provenance": "ESTIMATED"
+  }
+}

@@ -4,10 +4,21 @@ import pytest
 
 from app.construction_strategy import (
     CONSTRUCTION_STAGE_ORDER,
+    construction_strategy_schema_note,
     default_construction_strategy,
     strategy_has_signal,
     validate_construction_strategy_payload,
 )
+
+
+def test_agent_schema_note_example_is_valid_and_seeded(tmp_path):
+    from app.codex_parity import prepare_codex_parity_workspace
+    note = construction_strategy_schema_note()
+    example = json.loads(note.split("```json\n", 1)[1].split("```", 1)[0])
+    assert strategy_has_signal(validate_construction_strategy_payload(example))
+    workspace = prepare_codex_parity_workspace(tmp_path / "workspace")
+    assert (workspace / "notes/construction_strategy_schema.md").read_text(encoding="utf-8") == note
+    assert "plan_only is invalid" in note
 
 
 def test_default_construction_strategy_is_empty_and_valid():

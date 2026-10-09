@@ -194,6 +194,33 @@ def test_committed_revision_survives_interrupted_capture(tmp_path):
     assert json.loads(receipt_path.read_text())["verified"] is True
 
 
+def test_capture_guid_refresh_keeps_next_owned_inspection_working(tmp_path):
+    executor, adapter, _mcp, _model_path = _executor(tmp_path)
+    capture = adapter.capture_view
+    def refreshing_capture(path):
+        capture(path)
+        adapter.guid = "guid-after-capture"
+    adapter.capture_view = refreshing_capture
+    result = executor.run({"script_id": "main", "ruby_source": "root.name = 'Captured'"})
+    assert result["success"] is True
+    assert executor.expected_model_guid == "guid-after-capture"
+    assert executor.ruby_state["main"]["model_guid"] == "guid-after-capture"
+    assert executor.inspect_owned({"script_id": "main", "path": []})["success"] is True
+
+
+def test_capture_refresh_still_rejects_a_different_document(tmp_path):
+    from app.sketchup_mcp import MCPCallError
+    executor, adapter, _mcp, _model_path = _executor(tmp_path)
+    capture = adapter.capture_view
+    def switching_capture(path):
+        capture(path)
+        adapter.model_path = tmp_path / "another.skp"
+    adapter.capture_view = switching_capture
+    with pytest.raises(MCPCallError, match="changed the active document"):
+        executor.run({"script_id": "main", "ruby_source": "root.name = 'Captured'"})
+    assert executor.ruby_state["main"]["last_verification"]["verified"] is True
+
+
 def test_project_ruby_path_and_source_restrictions(tmp_path):
     executor, _adapter, _mcp, model_path = _executor(tmp_path)
     with pytest.raises(ValueError, match="script_id"):

@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "project_id": "quality-v2-5-1008",
+  "source_mode": "single_image_single_view_inference",
+  "primary_source": "reference/53d456154c-codex-clipboard-74d7f0b8-55e8-4edb-a7a4-2112f44b4842.png",
+  "coordinate_convention": {
+    "origin": "场地南西角铺装完成面 (0,0,0)",
+    "plus_x": "向东（沿街向右）",
+    "plus_y": "向北（离街，向建筑纵深）",
+    "plus_z": "向上",
+    "front": "南立面 y=0 侧",
+    "rear": "北立面",
+    "left": "西立面",
+    "right": "东立面"
+  },
+  "dimensions_mm": {
+    "overall_width": 10600,
+    "overall_depth": 7200,
+    "floor_count": 3,
+    "level_height": 3200
+  },
+  "dimension_notes": {
+    "provenance": "inferred",
+    "confidence": "medium_low",
+    "review_required": true,
+    "level_height_note": "层高估算 3450 / 3350 / 3050；所有数值为建模基线估算，非实测",
+    "level_elevations": {
+      "site_paving": 0,
+      "L1_floor": 150,
+      "L2_soffit": 3300,
+      "L2_floor": 3450,
+      "L2_ceiling": 6600,
+      "L2_roof_terrace": 6800,
+      "L3_soffit": 9850,
+      "L3_roof_top": 10000,
+      "L3_canopy_top": 10200
+    },
+    "clear_heights": {
+      "L1": 3150,
+      "L2": 3150,
+      "L3": 3050
+    }
+  },
+  "views": {
+    "front": {
+      "provenance": "observed",
+      "source_ref": "reference/53d456154c-codex-clipboard-74d7f0b8-55e8-4edb-a7a4-2112f44b4842.png#panel 1/1",
+      "opening_count": 13,
+      "opening_count_breakdown": "L1 玻璃片 5 + L2 玻璃片 4 + L3 玻璃片 4（未含门）",
+      "door_count": 1,
+      "confidence": "medium_low",
+      "review_required": true,
+      "features": [
+        "L1 | 玻璃店面退后 750，位于 L2 挑檐之下；檐底木饰面配约 4 个圆形筒灯 | observed | high",
+        "L1 | 双扇玻璃门（约 1900×2600），门右侧玻璃贴菜单海报 | observed | medium",
+        "L1 | 店面玻璃分格约 5 片（含右端窄片）——低置信计数，待复核 | observed | low | review",
+        "L2 | 通高玻璃 4 片（左端部分被标牌墙遮挡），深色窄框 60 ——中低置信，待复核 | observed | medium_low | review",
+        "L2 | 露台前缘种植槽（深 450×高 400）与垂挂绿植 | observed | medium",
+        "L3 | 玻璃亭正面 4 片玻璃 + 东端转角细柱 ——中置信，待复核 | observed | medium | review",
+        "L3 | 顶部深色密排格栅挑檐，向外出挑 | observed | medium",
+        "L1-L3 | 标牌墙翼：白抹灰实墙，X 2800–4900，前挑 550，顶 +8350，正面三行衬线字 Forest Cafe Cafè | observed | medium",
+        "site | 平台木条铺装 + A 字黑板菜单 | observed | high"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_ref": null,
+      "opening_count": 6,
+      "door_count": 1,
+      "confidence": "low",
+      "review_required": true,
+      "features": [
+        "L1 | 后门 1000×2200 + 2 樘 1200×1500 小窗（台高 1000） | inferred | low | review",
+        "L2 | 3 樘 1350×1850 窗（台高 950） | inferred | low | review",
+        "L3 | 玻璃亭背面 1 片 2600×2600 玻璃 | inferred | low | review",
+        "all | 立面延续白抹灰，不做正面玻璃带的机械镜像 | inferred | medium"
+      ]
+    },
+    "left": {
+      "provenance": "observed",
+      "source_ref": "reference/53d456154c-codex-clipboard-74d7f0b8-55e8-4edb-a7a4-2112f44b4842.png#panel 1/1",
+      "opening_count": 3,
+      "door_count": 0,
+      "confidence": "low",
+      "review_required": true,
+      "features": [
+        "L1 | 西侧附属体（单层，X 0–2800 / Y 0–5000 / 顶 +3600）深框通高玻璃店面约 2 片，暖色室内 | observed | medium",
+        "L1 | 附属体低处另见一樘白框格窗（约 850×1050，台高 900）——位置低置信，待复核 | observed | low | review",
+        "L2 | 主体西立面 1 樘 1200×1600 窗 + 雨水管 | inferred | low | review",
+        "all | 墙面藤蔓与檐口绿植 | observed | medium"
+      ]
+    },
+    "right": {
+      "provenance": "observed",
+      "source_ref": "reference/53d456154c-codex-clipboard-74d7f0b8-55e8-4edb-a7a4-2112f44b4842.png#panel 1/1",
+      "opening_count": 3,
+      "door_count": 1,
+      "confidence": "medium_low",
+      "review_required": true,
+      "features": [
+        "L1-L2 | 外挂混凝土外楼梯：梯宽 1150，直跑，24 级 × 169 高，踏面 280，自 +0.15 升至 +4200；外侧白色实体斜墙带 900×120（推断）；源图未见扶手 | observed | medium",
+        "L2 | 楼梯终点标高存在单图歧义：+4200（东翼屋面）或 +6800（L2 露台），本表取 +4200 | inferred | low | review",
+        "L1 | 东翼单层体量（X 8200–10600 / Y 600–4600 / 顶 +3750）+ 450 矮女儿墙 | observed | medium",
+        "L1 | 东翼正面偏右一樘白色格栅小窗（约 950×1250，台高 1350，2×2 分格） | observed | medium",
+        "L2 | 主体东立面 1 樘 1200×1600 窗 + 通露台玻璃门 900×2200 | inferred | low | review",
+        "L3 | 玻璃亭东侧通高玻璃（含转角柱） | observed | medium",
+        "site | 墙脚盆栽与藤蔓 | observed | medium"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "observed",
+    "confidence": "medium",
+    "type": "L2 平屋面露台 + L3 退台玻璃亭 + L3 顶部深色格栅挑檐",
+    "parapet": "L2 露台前缘为种植槽 450 深 × 400 高（非全高女儿墙）；L3 屋面板 150 女儿墙；东翼 450 女儿墙；西附属体 400 女儿墙",
+    "divisions": [
+      "L2 露台：前缘种植槽带（深 450）+ 露台面层 + 东侧楼梯到达区 | observed | medium",
+      "L3 玻璃亭占露台范围 X 3100–7400 / Y 2100–6600，自前沿退台 2100 | observed | medium",
+      "L3 屋面板 +10000，其上格栅挑檐 +10000…+10200，前挑约 1200、东挑约 900，由 4 根细柱支撑 | inferred | low | review",
+      "露台内区铺装与排水坡向：源图不可见，按推断 | inferred | low"
+    ],
+    "notes": [
+      "L2 屋面不做整幅封顶；L3 玻璃亭与露台必须保持可辨识的退台关系",
+      "屋面为板厚壳体，不得做成实心楔"
+    ]
+  },
+  "global_features": [
+    "场地 | 浅色木条铺装平台 + 沥青路面与白色车道线 + 路缘（示意性） | observed | medium",
+    "绿化 | 主体两侧乔木 2–4 株、露台种植槽灌木、墙脚盆栽、墙面藤蔓 | observed | medium",
+    "家具 | L1 吧台/操作台、L2 桌椅 2 组 + 墙面置物架 + 黑板、L3 餐桌椅 | observed | medium",
+    "灯具 | L1/L2 吊灯、挑檐底筒灯 4 个、檐边射灯、L3 吊灯 | observed | medium",
+    "标牌 | 标牌墙翼三行文字 + 玻璃菜单海报 + A 字黑板菜单 | observed | medium"
+  ],
+  "user_confirmed": [
+    "以该参考图为准还原为可编辑 SketchUp 模型，不做风格重设计",
+    "必含：三层体量、门窗、露台、外楼梯、屋顶、图中可见家具与绿化",
+    "尺寸无实测：允许估算并合理推断看不见的背面，用于多角度展示",
+    "细节按最高能力做；一次批准后完整建模并自动对照源图检查修正，不逐步确认"
+  ],
+  "inferred": [
+    "北立面全部开口与构造",
+    "主体西立面 L2 窗、主体东立面 L2 窗与通露台玻璃门",
+    "外楼梯终点标高（本表取 +4200）与外侧实体斜墙带",
+    "L3 格栅挑檐支撑方式与出挑尺寸、屋面排水坡向、露台内区铺装",
+    "室内不可见后场的最小体量",
+    "场地外围乔木灌木的具体位置与数量"
+  ],
+  "low_confidence_review_flags": [
+    "南立面 L1 玻璃片数 5（低置信）",
+    "南立面 L2 正面玻璃片数 4（中低置信）",
+    "南立面 L3 正面玻璃片数 4 + 东端转角柱（中置信）",
+    "西立面附属体低处白框格窗位置（低置信）",
+    "外楼梯终点标高解读（中低置信，+4200 或 +6800）",
+    "绝对尺度按 1:1 估算（需一次确认或沿用）"
+  ],
+  "executed_revision4": {
+    "west_inferred_openings": [
+      {
+        "y_mm": [
+          5600,
+          6700
+        ],
+        "z_mm": [
+          1030,
+          2630
+        ]
+      },
+      {
+        "y_mm": [
+          5500,
+          6700
+        ],
+        "z_mm": [
+          4330,
+          5930
+        ]
+      }
+    ],
+    "shelf_y_mm": [
+      5850,
+      6250
+    ],
+    "rear_wall_inner_y_mm": 6500,
+    "clearance_mm": 250,
+    "provenance": "inferred"
+  }
+}

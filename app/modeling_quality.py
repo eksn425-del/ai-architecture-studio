@@ -544,7 +544,7 @@ def submit_visual_review(
             "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
         )
 
-    reconstruction_evidence = load_reconstruction_evidence(project_dir)
+    reconstruction_evidence = load_reconstruction_evidence(project_dir, strict=True)
     receipt = {
         "schema_version": 3,
         "advisory": True,

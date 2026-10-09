@@ -326,6 +326,19 @@ def test_visual_review_receipt_requires_all_current_six_views(tmp_path):
     assert "NEEDS_FIX: YES" in (project / "runtime/agent_workspace/qa/visual_qa.md").read_text(encoding="utf-8")
 
 
+def test_visual_review_rejects_invalid_evidence_instead_of_silently_dropping_it(tmp_path):
+    import json, pytest
+    project, state, views = _current_review_fixture(tmp_path)
+    path = project / "runtime/agent_workspace/notes/reconstruction_evidence.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"schema_version": 1, "primary_source": "../../inputs/reference/sheet.png"}))
+    with pytest.raises(ValueError, match="Invalid notes/reconstruction_evidence.json"):
+        submit_visual_review(project, state, {
+            "views": views, "critique": "NEEDS_FIX: NO\n<assessment>Looks correct</assessment>\n<keep>walls</keep>"
+        })
+    assert not (project / "runtime/agent_workspace/qa/visual_review.json").exists()
+
+
 def test_visual_review_rejects_stale_revision_and_missing_writer_receipt(tmp_path):
     import json
     import pytest
@@ -404,7 +417,9 @@ def test_runtime_requires_visual_review_between_committed_writes(tmp_path, monke
     with pytest.raises(MCPCallError, match="六视图视觉审查"):
         context.dispatch("sketchup_run_workspace_ruby", {})
     context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
-    context.dispatch("sketchup_run_workspace_ruby", {})
+    with pytest.raises(MCPCallError, match="update_mode=edit"):
+        context.dispatch("sketchup_run_workspace_ruby", {})
+    context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit"})
     assert context.quality_state["writes"] == 2
     assert context.quality_state["review"] is None
 

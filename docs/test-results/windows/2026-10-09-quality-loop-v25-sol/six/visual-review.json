@@ -1,0 +1,286 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "pending",
+  "reconstruction_evidence": null,
+  "reviewer": {
+    "mode": "agent_supplied"
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "PARTIAL: editable villa built and two corrections completed; major openings and dimensions match estimated schedule, furniture/site detail simplified.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "oblique",
+      "problem": "Boxy furniture and plants do not match detailed source forms.",
+      "action": "Future curved furniture and foliage refinement."
+    },
+    {
+      "priority": 2,
+      "view": "front",
+      "problem": "Roof perimeter construction seams remain visible unlike source smooth facade.",
+      "action": "Future localized edge treatment."
+    },
+    {
+      "priority": 3,
+      "view": "oblique",
+      "problem": "Plain site lacks source vegetation and paving material detail.",
+      "action": "Future landscape and texture refinement."
+    }
+  ],
+  "keep": [
+    "villa/walls",
+    "villa/parapet",
+    "villa/balcony",
+    "villa/railing",
+    "villa/wood_slats",
+    "villa/window_door_frames"
+  ],
+  "model_revisions": {
+    "villa_six_view": 3
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-0d579da8ed.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view": 3
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "villa_six_view",
+      "camera": {
+        "eye_m": [
+          4.0,
+          -43.800000000000004,
+          3.14
+        ],
+        "target_m": [
+          4.0,
+          4.050000000000001,
+          3.14
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-fe5e74cc0f.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view": 3
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "villa_six_view",
+      "camera": {
+        "eye_m": [
+          4.0,
+          51.900000000000006,
+          3.14
+        ],
+        "target_m": [
+          4.0,
+          4.050000000000001,
+          3.14
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-96aef33746.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view": 3
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "villa_six_view",
+      "camera": {
+        "eye_m": [
+          -43.1,
+          4.050000000000001,
+          3.14
+        ],
+        "target_m": [
+          4.0,
+          4.050000000000001,
+          3.14
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-d9b53af0b1.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view": 3
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "villa_six_view",
+      "camera": {
+        "eye_m": [
+          51.1,
+          4.050000000000001,
+          3.14
+        ],
+        "target_m": [
+          4.0,
+          4.050000000000001,
+          3.14
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-00fda462ad.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view": 3
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "villa_six_view",
+      "camera": {
+        "eye_m": [
+          4.0,
+          4.050000000000001,
+          46.1
+        ],
+        "target_m": [
+          4.0,
+          4.050000000000001,
+          3.0
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-1daa7a4aca.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view": 3
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "villa_six_view",
+      "camera": {
+        "eye_m": [
+          42.388000000000005,
+          -35.088,
+          25.508
+        ],
+        "target_m": [
+          4.0,
+          4.050000000000001,
+          3.14
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/60d7f3fbc5-villa-six-view-sheet.png",
+      "current_view": "outputs/renders/agent-view-a9370e540e.png",
+      "label": "完整参考与当前前右屋顶透视",
+      "model_revisions": {
+        "villa_six_view": 3
+      }
+    }
+  ],
+  "writer_verifications": {
+    "villa_six_view": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 43871,
+          "actual": 43871
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -3500.0,
+              -4200.0,
+              -500.0
+            ],
+            "max": [
+              11500.0,
+              12300.0,
+              6500.0
+            ],
+            "size": [
+              15000.0,
+              16500.0,
+              7000.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -3500,
+              -4200,
+              -500
+            ],
+            "max": [
+              11500,
+              12300,
+              6500
+            ],
+            "size": [
+              15000,
+              16500,
+              7000
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/60d7f3fbc5-villa-six-view-sheet.png"
+  ]
+}

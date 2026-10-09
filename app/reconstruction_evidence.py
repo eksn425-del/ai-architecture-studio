@@ -264,7 +264,7 @@ def validate_reconstruction_evidence_sources(
             raise ValueError(f"reconstruction evidence source does not exist in project inputs: {ref}")
     return value
 
-def load_reconstruction_evidence(project_dir: Path) -> dict[str, Any] | None:
+def load_reconstruction_evidence(project_dir: Path, *, strict: bool = False) -> dict[str, Any] | None:
     path = (
         project_dir.resolve()
         / "runtime"
@@ -272,12 +272,18 @@ def load_reconstruction_evidence(project_dir: Path) -> dict[str, Any] | None:
         / "notes"
         / "reconstruction_evidence.json"
     )
+    if not path.exists() and not path.is_symlink():
+        return None
     if not path.is_file() or path.is_symlink() or path.stat().st_size > 64 * 1024:
+        if strict:
+            raise ValueError("Reconstruction evidence must be a regular workspace JSON file under 64 KB.")
         return None
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
         return validate_reconstruction_evidence_sources(project_dir, value)
-    except (OSError, json.JSONDecodeError, ValueError):
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        if strict:
+            raise ValueError(f"Invalid notes/reconstruction_evidence.json: {error}. Read notes/reconstruction_contracts.md and repair the evidence contract before visual acceptance.") from error
         return None
 
 

@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "villa/balcony",
+    "villa/entry",
+    "villa/interior_visible",
+    "villa/parapet",
+    "villa/railing",
+    "villa/walls",
+    "villa/window_door_frames"
+  ],
+  "checks": [
+    {
+      "path": "villa/balcony",
+      "check": "persistent_id",
+      "expected": 47399,
+      "actual": 47399
+    },
+    {
+      "path": "villa/balcony",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "villa/balcony",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          250.0,
+          -1400.0,
+          2880.0
+        ],
+        "max": [
+          7150.0,
+          0.0,
+          3100.0
+        ]
+      },
+      "actual": {
+        "min": [
+          250.0,
+          -1400.0,
+          2880.0
+        ],
+        "max": [
+          7150.0,
+          0.0,
+          3100.0
+        ]
+      }
+    },
+    {
+      "path": "villa/entry",
+      "check": "persistent_id",
+      "expected": 47433,
+      "actual": 47433
+    },
+    {
+      "path": "villa/entry",
+      "check": "objects_total",
+      "expected": 4,
+      "actual": 4
+    },
+    {
+      "path": "villa/entry",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          8000.0,
+          1400.0,
+          -450.0
+        ],
+        "max": [
+          9200.0,
+          3100.0,
+          2460.0
+        ]
+      },
+      "actual": {
+        "min": [
+          8000.0,
+          1400.0,
+          -450.0
+        ],
+        "max": [
+          9200.0,
+          3100.0,
+          2460.0
+        ]
+      }
+    },
+    {
+      "path": "villa/interior_visible",
+      "check": "persistent_id",
+      "expected": 51361,
+      "actual": 51361
+    },
+    {
+      "path": "villa/interior_visible",
+      "check": "objects_total",
+      "expected": 59,
+      "actual": 59
+    },
+    {
+      "path": "villa/interior_visible",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          240.0,
+          -1000.0,
+          0.0
+        ],
+        "max": [
+          8830.0,
+          7660.0,
+          4060.0
+        ]
+      },
+      "actual": {
+        "min": [
+          240.0,
+          -1000.0,
+          0.0
+        ],
+        "max": [
+          8830.0,
+          7660.0,
+          4060.0
+        ]
+      }
+    },
+    {
+      "path": "villa/parapet",
+      "check": "persistent_id",
+      "expected": 47336,
+      "actual": 47336
+    },
+    {
+      "path": "villa/parapet",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "villa/parapet",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          6200.0
+        ],
+        "max": [
+          8000.0,
+          8500.0,
+          6500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          6200.0
+        ],
+        "max": [
+          8000.0,
+          8500.0,
+          6500.0
+        ]
+      }
+    },
+    {
+      "path": "villa/railing",
+      "check": "persistent_id",
+      "expected": 49799,
+      "actual": 49799
+    },
+    {
+      "path": "villa/railing",
+      "check": "objects_total",
+      "expected": 11,
+      "actual": 11
+    },
+    {
+      "path": "villa/railing",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          242.0,
+          -1373.0,
+          3100.0
+        ],
+        "max": [
+          7158.0,
+          0.0,
+          4150.0
+        ]
+      },
+      "actual": {
+        "min": [
+          242.0,
+          -1373.0,
+          3100.0
+        ],
+        "max": [
+          7158.0,
+          0.0,
+          4150.0
+        ]
+      }
+    },
+    {
+      "path": "villa/walls",
+      "check": "persistent_id",
+      "expected": 43885,
+      "actual": 43885
+    },
+    {
+      "path": "villa/walls",
+      "check": "objects_total",
+      "expected": 4,
+      "actual": 4
+    },
+    {
+      "path": "villa/walls",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          8000.0,
+          8500.0,
+          6200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          8000.0,
+          8500.0,
+          6200.0
+        ]
+      }
+    },
+    {
+      "path": "villa/window_door_frames",
+      "check": "persistent_id",
+      "expected": 47563,
+      "actual": 47563
+    },
+    {
+      "path": "villa/window_door_frames",
+      "check": "objects_total",
+      "expected": 13,
+      "actual": 13
+    },
+    {
+      "path": "villa/window_door_frames",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          120.0,
+          110.0,
+          0.0
+        ],
+        "max": [
+          7890.0,
+          8380.0,
+          5550.0
+        ]
+      },
+      "actual": {
+        "min": [
+          120.0,
+          110.0,
+          0.0
+        ],
+        "max": [
+          7890.0,
+          8380.0,
+          5550.0
+        ]
+      }
+    }
+  ]
+}

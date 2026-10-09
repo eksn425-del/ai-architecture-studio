@@ -1,0 +1,46 @@
+[
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "Ruby source contains a blocked host, reflection, whole-model, or process operation: 'system'. The host already injects model and root (Sketchup::Group) and owns the transaction/save. Remove all active_model and start/commit/abort_operation calls, including conditional ones. Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly or be lambdas capturing them, because Ruby def does not capture local variables."
+  },
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Railing prototype bounds failed\",\n    \"backtrace\": [\n      \"villa_six_view.rb:43:in `block in <main>'\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"[local path redacted]\",\n      \"[local path redacted]\"\n    ]\n  }\n}"
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "sketchup_submit_visual_review",
+    "error": "evidence_pairs[0] source path escaped the project."
+  },
+  {
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  }
+]

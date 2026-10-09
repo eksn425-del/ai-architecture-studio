@@ -62,6 +62,36 @@ def default_construction_strategy() -> dict[str, Any]:
     }
 
 
+def construction_strategy_schema_note() -> str:
+    """Expose the validator contract to a model that cannot read repository code."""
+    example = default_construction_strategy()
+    example["shared_parameters"] = {
+        "storey_height": {"value": 3100, "units": "mm", "provenance": "estimated", "source": "image proportion"}
+    }
+    example["systems"] = [{
+        "id": "walls", "stage": "primary_form", "role": "shell",
+        "method": "continuous_wall_with_openings", "status": "pending",
+        "depends_on": ["storey_height"], "target_paths": [["WALL_FRONT"]],
+        "verification_views": ["front", "oblique"], "notes": ["Verify actual openings before replication."]
+    }]
+    return (
+        "# Construction strategy JSON contract\n\n"
+        "Read before writing notes/construction_strategy.json. JSON syntax alone is insufficient. "
+        "Use current_stage=pending before execution; plan_only is invalid.\n\n"
+        f"Stages: pending (current_stage only), {', '.join(CONSTRUCTION_STAGE_ORDER)}.\n"
+        f"Methods: {', '.join(sorted(CONSTRUCTION_METHODS))}.\n"
+        f"Roles: {', '.join(sorted(CONSTRUCTION_ROLES))}.\n"
+        f"Status: {', '.join(sorted(CONSTRUCTION_STATUS))}.\n"
+        f"Parameter provenance: {', '.join(sorted(CONSTRUCTION_PROVENANCE))}.\n"
+        f"Parameter units: {', '.join(sorted(PARAMETER_UNITS))}.\n\n"
+        "Numeric units require one numeric value, not an array. Split level/bay arrays into named scalar parameters; "
+        "put explanations in source/notes, not provenance. Text units require a string. "
+        "depends_on must reference shared parameter keys. target_paths is a list of exact owned-name segment lists. "
+        "verification_views only front/rear/left/right/roof/oblique. notes must be concise string lists.\n\n"
+        "```json\n" + json.dumps(example, ensure_ascii=False, indent=2) + "\n```\n"
+    )
+
+
 def _string_list(value: Any, label: str, *, maximum: int = 64) -> list[str]:
     if value is None:
         return []

@@ -1,3 +1,21 @@
+## Windows SU2024 / Sol Low handoff — 2026-10-09
+
+用户本轮明确将真实建模路线改为 GPT-6.1 Sol Low。已在本机完成单图咖啡馆、完整六视图白色别墅、SAIE 连续墙多洞口、canonical 相机/错标拒绝、KEEP 正负 smoke、两项新空白 baseline replay、网页 SKP 下载和原生打开；咖啡馆测试副本还完成鼠标移动对象、保存、再次原生打开。没有人工替 Builder 修几何，没有切换 Astra。未修改用户原始模型。
+
+**技术多项 PASS，整体视觉仍 PARTIAL；不是完成了原要求的 DeepSeek + dedicated Critic 全链路。** Native 的 reviewer 仍为 agent_supplied，token 未按回合捕获，不能声称 v2.3 对 4.92M input baseline 的成本改善。六视图原 evidence JSON 无效、被旧加载器忽略；已严格拒绝该真实失败，不补写一个虚假的 PASS。下一轮应以这些实际失败继续推进，不重写连接器/几何引擎。
+
+完整环境、步骤、人工干预、错误复现、对象 ID、下载 hash、模型截图与验收表在 [公开测试报告](test-results/windows/2026-10-09-quality-loop-v25-sol/README.md)。Windows 11 / SketchUp 24.0.484 / Kongxing AI 0.1.0 / Python 3.12.2；最终 `scripts/check.ps1` 结果在该报告。私人参考原图、SKP 和账号未提交；云端原图像素比对/二进制原生重开不能独立重复的限制已写明，没有只留私人路径。
+
+本轮先拉 b6bfbb9，本机修复提交 315018b，再合并执行期间新增的 origin/main 8c6f315（merge 71090d8）。保留 v2.6/v2.7 的策略/KEEP 约束，没有覆盖远端工作。
+
+修复：多工具回复顺序导致的 DeepSeek 400；隔离 Native 登录缓存刷新；Skill 截断与 JSON 契约说明；compaction 非扩张；SU2024 移动子组后的 bounds 缓存；截图后 GUID 更新；host 保存与 Agent 文案不一致；非法 reconstruction evidence 不再静默绕过视觉审查。正向 KEEP 和故意破坏 protected path 的真机拒绝均已验证。Native 规划自动契约校验、独立 Critic、每轮 token、strategy 执行状态及 building-focus 构图仍需下一轮。
+
+咖啡馆 r4 / root PID 37843 / 711 命名对象；别墅 r3 / root PID 43871 / villa PID 43883 / 11 系统。别墅一次建造＋两次定向修正，45 次动态工具、11 次失败、550.813 秒；两次 KEEP 验证 true。几何可编辑但家具/植物简化、墙顶线和部分源图比例不足。严格保留 PARTIAL。
+
+软件已重新加载本机修复，测试网页选择 Sol Low；已保存的 DPAPI DeepSeek 配置未删除，也未要求重新输入 Key。此次没有重新打包安装目录中的桌面可执行文件，桌面包与源码网页的版本一致性仍待确认。
+
+---
+
 ## Remote Quality Loop v2.7 / ADAI construction-method study — 2026-10-09
 
 Reviewed public ADAI SketchUp Skill + Managed MCP 0.5.39 at `cd1e02e9f6906945376f73032e9598643fe8eb64`. Its most useful gap relative to K Studio is not another bridge: it makes construction method, primary-form completeness, representative-module validation, replication order and shared parameter ownership explicit. Because upstream is CPAL-1.0, this milestone does not copy/vendor ADAI Covered Code; it independently implements the architecture in K Studio terminology.

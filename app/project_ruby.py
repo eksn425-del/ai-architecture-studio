@@ -344,6 +344,9 @@ class ProjectRubyExecutor:
             raise MCPCallError("A screenshot output path cannot be a symbolic link.")
         image_path.parent.mkdir(parents=True, exist_ok=True)
         self.adapter.capture_view(image_path)
+        # View export/zoom can refresh SketchUp's GUID too. Keep the snapshot
+        # current without relaxing the disposable document path/context checks.
+        identity_after = self.refresh_active_model_snapshot()
         if not image_path.is_file() or image_path.stat().st_size <= 0:
             raise MCPCallError("The project Ruby transaction completed, but SketchUp did not write a review screenshot.")
         if image_path.stat().st_size > 8 * 1024 * 1024:

@@ -1,3 +1,23 @@
+# 当前任务 — 2026-10-09 Windows 实测后继续质量迭代
+
+本机 Codex 已执行下列历史任务的主要真机检查，并修复运行故障。用户最新指定 **GPT-6.1 Sol Low**；不要擅自改回 DeepSeek/Astra 来隐藏流程缺口。阅读 [本轮完整证据与验收报告](test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) 和最新 HANDOFF 后继续。
+
+已完成：SAIE 两面连续墙各三个洞口；真实 canonical 六方向与错标拒绝；KEEP 正/负检测；单图咖啡馆、完整六视图别墅真实建模和最多两次定向修正；两项全新空白 baseline replay；网页下载与原生 SKP 打开；咖啡馆测试副本鼠标编辑、保存、再次读回。源码、Skill、transport/receipt 的修复和自动回归已提交。
+
+**未完成整体视觉验收，仍 PARTIAL。** 别墅家具/植物、墙顶拼接线、比例/场地不足；咖啡馆也有家具/植被/材质差异。单图为用户咖啡馆附件，多视图为仓库白色别墅整图；没有咖啡馆完整六视图，未伪造同建筑六面验收。
+
+下一轮只继续当前图像重建质量闭环，优先执行：
+
+1. **Native 规划契约与独立审查**：此次 strategy 修复后 valid，但 evidence JSON 被 Native 直接写坏，旧 loader 静默返回 None。严格 review 拒绝与 schema 文档已修复；验证模型下一次能自动生成合规 evidence/facade/strategy，补齐有界内部修复，不让用户重复确认。实现/验证 Sol Low 独立只读 Critic 后再称完整闭环，不能把 Builder 自审当独立 Critic。
+2. **真实源图缺陷**：针对报告截图的墙顶拼缝、门窗/阳台比例、家具/植被方法继续局部改善，保留当前 root/KEEP，最多两次定向修正；不以移除质量约束或白盒模型获取 PASS。没有私人咖啡馆原图时使用仓库公共整图继续；需咖啡馆像素复验时向用户索取原图，不能要求云端读取私人路径。
+3. **可计量与策略真实性**：捕获 Native 每轮 token（当前 null 表示集成未记录，非零费用），记录工具/延迟；正确维护 strategy current_stage/status。不要把不同 provider/素材的运行直接比较成降本成果。
+4. **构图及恢复**：canonical 当前方向正确但场地放大了 root bounds、建筑偏小；改进 building-focus，同时保留认证。KEEP 负例检测到回归但已提交，不自动 Undo；受控恢复必须另做 throwaway 真机验证。
+5. 完成后重做新空白 replay / SKP 原生打开编辑保存，检查桌面安装包与源码服务一致性，更新公开结果/HANDOFF，commit + push main。
+
+没有非私密完整 CAD＋平面＋室内包，full-evidence 仍 `pending_external`。原 DeepSeek 独立 Critic/受控成本 benchmark 因用户切换模型未完成，不可回填 PASS。下方历史定义保留作技术背景，不覆盖以上本轮实测状态。
+
+---
+
 # 当前任务 — 2026-10-09 Quality Loop v2.7 / 构造方法路由与分阶段建模
 
 ChatGPT 已审查 ADAI SketchUp Skill + Managed MCP 0.5.39（`laowang-wy/adai-sketchup-skill-mcp@cd1e02e9`）。上游为 CPAL-1.0，本轮**没有复制/内嵌其 CPAL 源码**，而是把对当前 K Studio 最有价值的建模架构独立实现到现有单写者体系：先完整主形，再真实代表模块，再复制、变体、收尾；同时把“该系统应该用什么构造方法、依赖哪些共享参数、用哪些视图验证”外部化为项目内 `notes/construction_strategy.json`。

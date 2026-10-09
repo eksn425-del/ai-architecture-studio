@@ -1,0 +1,52 @@
+{
+  "single_turns": [
+    {
+      "model": "deepseek/deepseek-flash",
+      "reasoning_effort": "provider-default",
+      "input_tokens": 1667474,
+      "output_tokens": 106776,
+      "latency_ms": 492531,
+      "tool_call_count": 33,
+      "failed_tool_calls": 23,
+      "agent_action": "plan"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "input_tokens": null,
+      "output_tokens": null,
+      "latency_ms": 606484,
+      "tool_call_count": 29,
+      "failed_tool_calls": 7,
+      "agent_action": "execute"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "input_tokens": null,
+      "output_tokens": null,
+      "latency_ms": 238391,
+      "tool_call_count": 28,
+      "failed_tool_calls": 0,
+      "agent_action": "execute"
+    }
+  ],
+  "historical_six_input_tokens": 4920976,
+  "not_controlled_comparison": true,
+  "native_token_counts": "current integration did not capture per-turn counts; null is unavailable, not zero",
+  "six_builder_turn": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "input_tokens": null,
+    "output_tokens": null,
+    "latency_ms": 550813,
+    "tool_call_count": 45,
+    "failed_tool_calls": 11,
+    "committed_writes": 3,
+    "initial_full_root_builds": 1,
+    "targeted_corrections": 2,
+    "reviewer": "agent_supplied; dedicated native Critic not implemented",
+    "human_geometry_edits": 0
+  },
+  "comparison": "Native Sol and previous DeepSeek differ in provider/runtime/input; native token counts unavailable. No claimed reduction against 4.92M input-token baseline."
+}

@@ -27,6 +27,15 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     evidence = __import__("json").loads(evidence_file.read_text(encoding="utf-8"))
     assert evidence["schema_version"] == 1
     assert evidence["fidelity_mode"] == "pending"
+    from app.modeling_quality import validate_facade_schedule_payload
+    from app.reconstruction_evidence import validate_reconstruction_evidence_payload
+    import json, re
+    contracts = (workspace / "notes" / "reconstruction_contracts.md").read_text(encoding="utf-8")
+    examples = re.findall(r"```json\n(.*?)\n```", contracts, re.S)
+    assert len(examples) == 2
+    validate_reconstruction_evidence_payload(json.loads(examples[0]))
+    validate_facade_schedule_payload(json.loads(examples[1]))
+    assert "never ../../inputs" in contracts
     strategy_file = workspace / "notes" / "construction_strategy.json"
     assert strategy_file.is_file()
     strategy = __import__("json").loads(strategy_file.read_text(encoding="utf-8"))
@@ -153,6 +162,8 @@ def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
     assert "unless has_geometry?(root.entities)" in helper
     assert "seen[definition.object_id]" in helper
     assert helper.index("committed_root_pid = root.persistent_id") < helper.index("unless model.commit_operation")
+    assert helper.index("yield(model, root)") < helper.index("root.definition.invalidate_bounds")
+    assert helper.index("root.definition.invalidate_bounds") < helper.index("record[:owned_after]")
 
 
 def test_workspace_facade_schedule_json_is_validated_and_listed(tmp_path):

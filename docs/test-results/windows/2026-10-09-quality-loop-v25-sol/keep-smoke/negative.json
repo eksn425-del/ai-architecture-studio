@@ -1,0 +1,16 @@
+{
+  "rejected": true,
+  "error": "定向修正破坏了 reviewer KEEP 几何；该 revision 已提交但不能视为无损修正。 Protected KEEP path 'REVERSED_SIDE' changed bounds_mm: expected {'min': [6350.0, 0.0, 0.0], 'max': [6650.0, 6000.0, 3200.0]}, actual {'min': [6450.0, 0.0, 0.0], 'max': [6750.0, 6000.0, 3200.0]}. 请先重新读取当前模型并修复，不要宣称质量通过。",
+  "quality_state": {
+    "writes": 3,
+    "write_limit": 3,
+    "review": null,
+    "preservation": {
+      "verified": false,
+      "error": "Protected KEEP path 'REVERSED_SIDE' changed bounds_mm: expected {'min': [6350.0, 0.0, 0.0], 'max': [6650.0, 6000.0, 3200.0]}, actual {'min': [6450.0, 0.0, 0.0], 'max': [6750.0, 6000.0, 3200.0]}.",
+      "paths": [
+        "REVERSED_SIDE"
+      ]
+    }
+  }
+}

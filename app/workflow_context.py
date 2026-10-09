@@ -104,7 +104,8 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "user_confirmed schedule facts are hard constraints, observed facts are source evidence, inferred facts remain revisable. "
                 "For reconstruction geometry, persistent workspace Ruby is the single writer; optional SAIE/Kongxing tools in this profile are read-only evidence helpers. After EACH committed writer pass, do not write again until you call sketchup_capture_canonical_view for front/rear/left/right/roof/oblique using the current persistent script_id, then call sketchup_submit_visual_review with those six host-certified paths. Do not hand-label arbitrary camera screenshots as canonical views. Add evidence_pairs for the primary source perspective when canonical views do not match it, and for supplied interior/detail reference images; full-evidence quality cannot be judged from exterior six views alone. NEEDS_FIX:YES permits one targeted correction; NEEDS_FIX:NO ends geometry writes for this turn. "
                 "Use saie_wall_with_openings inside persistent Ruby for rectangular facade walls when it is suitable; it is preferable to visible stacks of separate sill/jamb/head wall groups, but any boolean failure must be reported rather than hidden. "
-                "Execute, inspect actual screenshots/model state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing."
+                "Execute, inspect actual screenshots/model state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing. "
+                "Saving the bound document and downloadable SKP is host-owned and runs after your final response. Do not claim saving is unavailable merely because no save tool is exposed; report geometry/QA honestly and let the host confirm persistence."
             )
     else:
         task = (

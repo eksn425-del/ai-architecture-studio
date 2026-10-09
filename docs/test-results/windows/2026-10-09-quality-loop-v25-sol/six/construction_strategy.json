@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "current_stage": "pending",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "width_mm": {
+      "value": 8000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "depth_mm": {
+      "value": 8500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "ground_level_mm": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "upper_level_mm": {
+      "value": 3100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "roof_level_mm": {
+      "value": 6200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "storey_height_mm": {
+      "value": 3100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "clear_height_mm": {
+      "value": 2900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "parapet_top_mm": {
+      "value": 6500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "wall_thickness_mm": {
+      "value": 240,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "slab_thickness_mm": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "roof_thickness_mm": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "recess_mm": {
+      "value": 120,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "frame_depth_mm": {
+      "value": 70,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "front_ground_bay_start_mm": {
+      "value": 1600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "front_ground_bay_end_mm": {
+      "value": 5900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "front_upper_bay_1_start_mm": {
+      "value": 1000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "front_upper_bay_1_end_mm": {
+      "value": 2850,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "front_upper_bay_2_start_mm": {
+      "value": 4400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "front_upper_bay_2_end_mm": {
+      "value": 6250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "rear_bay_1_start_mm": {
+      "value": 1200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "rear_bay_1_end_mm": {
+      "value": 1850,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "rear_bay_2_start_mm": {
+      "value": 3650,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "rear_bay_2_end_mm": {
+      "value": 4300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "rear_bay_3_start_mm": {
+      "value": 6100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "rear_bay_3_end_mm": {
+      "value": 6750,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "left_bay_start_mm": {
+      "value": 3750,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "left_bay_end_mm": {
+      "value": 4400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "right_door_bay_start_mm": {
+      "value": 1700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "right_door_bay_end_mm": {
+      "value": 2650,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "right_window_bay_start_mm": {
+      "value": 1700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "right_window_bay_end_mm": {
+      "value": 3450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "balcony_x_start_mm": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "balcony_x_end_mm": {
+      "value": 7150,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "balcony_projection_mm": {
+      "value": 1400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "balcony_thickness_mm": {
+      "value": 220,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "railing_height_mm": {
+      "value": 1050,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "glass_thickness_mm": {
+      "value": 12,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "wood_front_width_mm": {
+      "value": 1000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "wood_return_mm": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "slat_width_mm": {
+      "value": 45,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "slat_gap_mm": {
+      "value": 25,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "slat_relief_mm": {
+      "value": 40,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "canopy_width_mm": {
+      "value": 1500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "canopy_projection_mm": {
+      "value": 800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "canopy_thickness_mm": {
+      "value": 160,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "plinth_height_mm": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    },
+    "paving_width_mm": {
+      "value": 800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有图像比例估算；用户要求保持原值，非实测"
+    }
+  },
+  "systems": [
+    {
+      "id": "walls",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "depends_on": [
+        "width_mm",
+        "depth_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm",
+        "wall_thickness_mm",
+        "front_ground_bay_start_mm",
+        "front_ground_bay_end_mm",
+        "front_upper_bay_1_start_mm",
+        "front_upper_bay_1_end_mm",
+        "front_upper_bay_2_start_mm",
+        "front_upper_bay_2_end_mm",
+        "rear_bay_1_start_mm",
+        "rear_bay_1_end_mm",
+        "rear_bay_2_start_mm",
+        "rear_bay_2_end_mm",
+        "rear_bay_3_start_mm",
+        "rear_bay_3_end_mm",
+        "left_bay_start_mm",
+        "left_bay_end_mm",
+        "right_door_bay_start_mm",
+        "right_door_bay_end_mm",
+        "right_window_bay_start_mm",
+        "right_window_bay_end_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "walls"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : saie_wall_with_openings.call：连续实墙+组合洞口切割；无洞口段采用saie_wall.call。外立面不拆成可见拼块。",
+        "fallback : 布尔失败保留上次验证结果；使用经过剖段验证的连续面真实开洞 custom_owned_ruby。",
+        "checks : 洞口贯通墙厚，玻璃后无实墙",
+        "checks : 首层/二层各面数量按facade_schedule",
+        "checks : 检查全部墙角XYZ、法线、转角接缝"
+      ]
+    },
+    {
+      "id": "floor_slabs",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "depends_on": [
+        "width_mm",
+        "depth_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm",
+        "slab_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "floor_slabs"
+        ]
+      ],
+      "verification_views": [
+        "oblique",
+        "front",
+        "right"
+      ],
+      "notes": [
+        "implementation : 平面封闭轮廓沿Z挤出，门槛处不得阻挡洞口"
+      ]
+    },
+    {
+      "id": "roof_slab",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "depends_on": [
+        "width_mm",
+        "depth_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm",
+        "roof_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "roof_slab"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 矩形封闭屋面轮廓有限厚度挤出；顶部6200，厚200，独立于女儿墙"
+      ]
+    },
+    {
+      "id": "parapet",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "width_mm",
+        "depth_mm",
+        "wall_thickness_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm",
+        "parapet_top_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "parapet"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique",
+        "front",
+        "rear"
+      ],
+      "notes": [
+        "implementation : 外矩形与内缩240的内矩形形成真实环形轮廓，Z=6200–6500；使用支持的环形面构造，不以嵌套点数组冒充洞。",
+        "method_choice : 当前矩形屋顶选专属环形轮廓构造；恒定直段可用profile_extrusion，转角共用轮廓，禁止整块高盖。",
+        "checks : 预计内缘X=240–7760、Y=240–8260",
+        "checks : 俯视能看到6200屋面，女儿墙厚240高300",
+        "checks : 顶边、内侧面及转角无重叠"
+      ]
+    },
+    {
+      "id": "balcony",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "depends_on": [
+        "balcony_x_start_mm",
+        "balcony_x_end_mm",
+        "balcony_projection_mm",
+        "balcony_thickness_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "balcony"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 挑板顶面与二层地坪3100一致，底面2880；前缘Y=-1400"
+      ]
+    },
+    {
+      "id": "entry",
+      "stage": "primary_form",
+      "role": "opening_system",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "depends_on": [
+        "right_door_bay_start_mm",
+        "right_door_bay_end_mm",
+        "canopy_width_mm",
+        "canopy_projection_mm",
+        "canopy_thickness_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "entry"
+        ]
+      ],
+      "verification_views": [
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 雨棚与台阶各为独立轮廓挤出；三步总高450仍为推断，首层0则室外落地-450，入口踏步校准至0"
+      ]
+    },
+    {
+      "id": "window_door_frames",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "depends_on": [
+        "recess_mm",
+        "frame_depth_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "window_door_frames"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 真实型材截面、框中挺与玻璃分离；窄窗原型验证后prototype_instance，宽门与侧窗为尺寸变体",
+        "checks : 代表窄窗洞宽650高1450，先核对墙厚与内退",
+        "checks : 框不封洞、玻璃透明、中挺符合原图",
+        "schedule_ref : notes/facade_schedule.json#/openings"
+      ]
+    },
+    {
+      "id": "railing",
+      "stage": "representative_module",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "pending",
+      "depends_on": [
+        "balcony_x_start_mm",
+        "balcony_x_end_mm",
+        "balcony_projection_mm",
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm",
+        "railing_height_mm",
+        "glass_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "railing"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique",
+        "roof"
+      ],
+      "notes": [
+        "implementation : 先制作一段玻璃+立柱+扶手，验证真实厚度与1050高度；再复制前沿，端部和两侧回转为变体",
+        "prototype_checks : 玻璃下缘与挑板连接",
+        "prototype_checks : 扶手顶Z=4150",
+        "prototype_checks : 分段约7段仅ESTIMATED，正面图校准",
+        "replication_gate : 原型尺寸、法线与近景验证通过后才复制"
+      ]
+    },
+    {
+      "id": "wood_slats",
+      "stage": "representative_module",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "pending",
+      "depends_on": [
+        "wood_front_width_mm",
+        "wood_return_mm",
+        "slat_width_mm",
+        "slat_gap_mm",
+        "slat_relief_mm",
+        "parapet_top_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "wood_slats"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 先挤出一根真实条板并检查45宽、25净隙、40凸出，70节距复制；转角回包采用旋转实例与端部收口变体",
+        "replication_gate : 原型深度和斜视验证通过；尾段适配1000/450边界，不越过轮廓"
+      ]
+    },
+    {
+      "id": "finishes",
+      "stage": "finish",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "plinth_height_mm",
+        "paving_width_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "finishes"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 为命名构件赋白细纹、深灰框、木色、灰铺装材质；勒脚收边用独立轮廓，透明玻璃不遮挡内部"
+      ]
+    },
+    {
+      "id": "interior_visible",
+      "stage": "finish",
+      "role": "interior_detail",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "ground_level_mm",
+        "upper_level_mm",
+        "roof_level_mm",
+        "clear_height_mm"
+      ],
+      "target_paths": [
+        [
+          "villa",
+          "interior_visible"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "implementation : 可见沙发桌椅窗帘盆栽按图；未见隔墙楼梯为连贯推断，独立子组，不改变外洞口"
+      ]
+    }
+  ],
+  "notes": [
+    "未验证工具可用性，方法选择不声称执行成功",
+    "范围与估算保持，主要开间及层高从共享参数引用",
+    "未写脚本、未操作几何",
+    "坐标保持：正面左下角首层地坪为原点，X向右、Y向后、Z向上；单位mm。",
+    "多视角还原；参数方案待批准，未执行几何。",
+    "stage_ownership / planner: 仅维护四份参数/证据/方法文档，不写几何脚本",
+    "stage_ownership / builder: 获批后在验证的模型指定根内编写持久Ruby、构建与局部修改",
+    "stage_ownership / reviewer: 只读截图与尺寸审查；提出最多三项优先缺陷和保留列表",
+    "numeric_preflight / units: 统一使用mm参数，位置与长度一次转为SketchUp长度",
+    "numeric_preflight / representative_wall: 后墙首层X=0–8000，Y=8260–8500，Z=0–3100；首洞X=1200–1850，Z=850–2300，贯穿墙厚",
+    "numeric_preflight / roof_section: 屋面Z=6000–6200；女儿墙Z=6200–6500，厚240",
+    "numeric_preflight / requires: XYZ readback, face normals, real openings, thickness and roof inner edge",
+    "qa / canonical_views: front, rear, left, right, roof, oblique",
+    "qa / source_matched_panels: r1c1, r1c2, r1c3, r2c1, r2c2, r2c3",
+    "qa / source_sheet_intact: True",
+    "qa / max_targeted_corrections: 2",
+    "qa / recapture_all_after_edit: True",
+    "qa / keep_policy: 先只读映射KEEP为精确路径，edit传preserve_paths；验证持久ID、对象数及mm边界未变",
+    "qa / baseline_policy: 完整基线与局部patch分开，成功修正合入基线",
+    "qa / deliverable: 实际保存的SKP、当前截图、剩余差异"
+  ],
+  "execution_result": {
+    "corrections": 2,
+    "baseline": "scripts/reconstruction.rb",
+    "save_status": "blocked_no_save_tool",
+    "quality": "partial",
+    "revision": 3
+  }
+}

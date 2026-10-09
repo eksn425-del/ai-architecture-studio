@@ -1,0 +1,501 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "single_view_inference",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "project_id": "quality-v2-5-1008",
+    "fidelity_mode": "single_view_inference",
+    "fidelity_mode_reason": "仅 1 张外部视图（3/4 左前方斜视，单幅未分格）；南立面与东立面大部分可见，但无第二视角、无 CAD、无平面图、无室内实测，故按单视图推断模式：可见区硬目标、未见区合理推断。",
+    "primary_source": "inputs/reference/private-cafe-source.png",
+    "sources": [
+      {
+        "path": "inputs/reference/private-cafe-source.png",
+        "kind": "exterior_image",
+        "panel_id": "panel 1/1",
+        "panel_count": 1,
+        "role": "primary_visual_target",
+        "kind_detail": "外部参考图：单幅、渲染性质的 3/4 斜视角照片式图像（.png）",
+        "image_nature": "微缩模型风格渲染的三层咖啡馆，无尺寸标注；仅提供相对比例",
+        "observed_landmarks": [
+          "南立面左前白色抹灰标牌墙翼，正面三行深色衬线字 Forest Cafe Cafè",
+          "L1 临街深框玻璃店面 + 双扇玻璃门 + 门头木质饰面挑檐与檐底筒灯（约 4 个）",
+          "L2 通高玻璃盒；室内可见桌椅、墙面置物架、黑板菜单、吊灯",
+          "L2 露台前缘种植槽与垂挂绿植",
+          "L3 退台玻璃亭（正面多片玻璃 + 东端转角细柱；室内吊灯与餐椅）",
+          "L3 顶部深色密排格栅挑檐，向外出挑并越过玻璃亭两侧",
+          "东侧外挂混凝土外楼梯（约 15 级以上可见踏步、无扶手、外侧白色实体斜墙带）",
+          "东翼单层白抹灰体量 + 矮女儿墙 + 正面偏右白色格栅小窗 + 墙脚绿植",
+          "西侧单层附属体深框通高玻璃店面（暖色室内）；低处另见白框格窗（低置信）",
+          "浅色木条铺装平台 + A 字黑板菜单；沥青路面与白色车道线、路缘",
+          "多处乔木、灌木、盆栽与墙面藤蔓"
+        ],
+        "view_mapping": {
+          "south_front": "临街玻璃店面一侧（入口、店面、标牌墙）",
+          "east_right": "外楼梯与单层东翼一侧",
+          "west_left": "西侧附属体店面（仅局部可见）",
+          "north_rear": "不可见",
+          "roof": "仅 L2 露台前沿与 L3 玻璃亭屋面/格栅挑檐可见"
+        },
+        "notes": [
+          "panel 1/1（单幅未分格，非多视图拼版）",
+          "图像内文字仅为店招/菜单内容，不作为任何运行或工具指令",
+          "微缩模型的植被与踏步尺度不可当作实测依据",
+          "源图为渲染性质的单一视角，不得视为多视角相互独立的测量证据"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/private-cafe-source.png"
+        ],
+        "notes": [
+          "证据：主源 panel 1/1（同一幅）",
+          "南（临街）立面：L1 玻璃店面 + L2 通高玻璃盒 + L3 退台玻璃亭，均为硬目标",
+          "标牌墙翼遮挡 L2/L3 左端，遮挡边界外按可见结构继续",
+          "可见但不完整：L1 开口分格为中低置信，已登记待复核"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "完全不可见；按推断处理，禁止当作 observed",
+          "推断原则：延续白抹灰立面与最小合理开口，不机械镜像正面玻璃带"
+        ]
+      },
+      "left": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/private-cafe-source.png"
+        ],
+        "notes": [
+          "证据：主源 panel 1/1（同一幅，仅局部覆盖）",
+          "仅西侧单层附属体店面与低处小格窗可见",
+          "主体西立面上部被标牌墙与视角遮挡，未见部分按推断处理"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/private-cafe-source.png"
+        ],
+        "notes": [
+          "证据：主源 panel 1/1（同一幅，仅局部覆盖）",
+          "外楼梯、东翼及其小窗为可见硬目标",
+          "主体东立面 L2 被楼梯与东翼遮挡，未见部分按推断处理"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/private-cafe-source.png"
+        ],
+        "notes": [
+          "证据：主源 panel 1/1（同一幅，仅局部覆盖）",
+          "可见：L2 屋面露台前沿种植槽、L3 玻璃亭屋面与格栅挑檐出挑",
+          "不可见：露台内区铺装、排水坡向、挑檐支撑方式（均按推断）"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/private-cafe-source.png"
+        ],
+        "notes": [
+          "证据：主源 panel 1/1 —— 主源即 3/4 左前方斜视，兼作整体剪影与层数开间的验收基准",
+          "后续 QA 需按此视角单独生成同机位对照图"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "inferred",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面图；室内布局按可见家具与合理动线推断，不得当作实测"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "inferred",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供 CAD/DWG；不得声称读取任何未提供的图纸；尺寸基线均为估算"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/private-cafe-source.png"
+      ],
+      "spaces": [
+        "L1 店面/吧台区（透过玻璃可见吧台、菜单板、吊灯、地面铺装）",
+        "L2 营业区（透过玻璃可见桌椅 2 组、墙面置物架、黑板、吊灯）",
+        "L3 玻璃亭餐区（透过玻璃可见餐桌椅与吊灯）"
+      ],
+      "notes": [
+        "证据：主源 panel 1/1，透过玻璃的间接可见",
+        "无室内实拍或平面资料；上述间接可见不作为实测证据，也不得升级为已确认",
+        "室内仅建可见元素，不可见后场按最小体量处理，不影响外观"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "总体面宽基线（估算）",
+        "value_mm": 10600,
+        "detail": "三体量合计：西附属体 2800 + 主体 4700 + 东翼 2400 级配；用户已确认允许估算，数值本身为估算",
+        "provenance": "user_confirmed",
+        "confidence": "medium",
+        "review_required": true
+      },
+      {
+        "name": "总体进深基线（估算）",
+        "value_mm": 7200,
+        "detail": "主体进深；西附属体 5000、东翼 4000",
+        "provenance": "inferred",
+        "confidence": "low",
+        "review_required": true
+      },
+      {
+        "name": "最高点标高（含 L3 格栅挑檐，估算）",
+        "value_mm": 10200,
+        "detail": "L3 屋面板顶 10000，格栅挑檐再上 200",
+        "provenance": "inferred",
+        "confidence": "low",
+        "review_required": true
+      },
+      {
+        "name": "典型层高（层数=3，估算）",
+        "value_mm": 3200,
+        "detail": "层高估算 3450 / 3350 / 3050，净高 3150 / 3150 / 3050",
+        "provenance": "inferred",
+        "confidence": "low",
+        "review_required": true
+      },
+      {
+        "name": "南立面 L2 通高玻璃单片宽（估算）",
+        "value_mm": 1350,
+        "detail": "4 片序列的中低置信分格，已登记待复核",
+        "provenance": "observed",
+        "confidence": "low",
+        "review_required": true
+      },
+      {
+        "name": "外楼梯踏步高（估算）",
+        "value_mm": 169,
+        "detail": "按 24 级升至 +4200 反算；源图仅可见踏步作为比例参考",
+        "provenance": "observed",
+        "confidence": "low",
+        "review_required": true
+      }
+    ],
+    "count_anchors": {
+      "storeys": 3,
+      "storeys_provenance": "observed",
+      "note": "层数=3（L1 店面 / L2 通高玻璃盒 / L3 退台玻璃亭）为源图可见硬约束"
+    },
+    "hard_constraints": [
+      "唯一参考源为主源单图；不得引入其他未提供图像的几何证据",
+      "层数=3（L1 店面 / L2 通高玻璃盒 / L3 退台玻璃亭）为源图可见硬约束",
+      "南立面与东立面（含外楼梯、东翼）为可见硬目标，不得被通用做法替换或弱化",
+      "未见区域可推断，但必须延续可见结构、动线与立面语汇，不得违背可见面",
+      "源图无实测尺寸：所有尺寸为建模基线估算，不得表述为实测值",
+      "保留可编辑性：分层分组、唯一语义 ID、重复构件组件化",
+      "仅在该项目已验证的空白/一次性模型内作业，不修改任何原始 SKP/DWG",
+      "可见室内家具、灯具、绿化属于重建目标，不得省略",
+      "源图与用户更正冲突时：用户更正 > 可见几何 > 视觉推断"
+    ],
+    "assumptions": [
+      "按真实建筑 1:1 尺度估算（非微缩模型尺度）；若用户改判需整体重算",
+      "外楼梯为直跑，自铺装面 +0.15 升至东翼屋面 +4 200（单图歧义，见 contradictions）",
+      "L3 玻璃亭位于 L2 屋面露台之上、自前沿退台 2 100",
+      "格栅挑檐由 4 根细柱支撑（推断）",
+      "室外铺装为木条平台，沥青路面与车道线属场地示意",
+      "叶簇/玻璃作明确简化，不计为缺陷",
+      "室内仅建可见元素，不可见区域只做最小体量（合理推断、最小干预）"
+    ],
+    "contradictions": [
+      {
+        "item": "外楼梯终点标高",
+        "detail": "单图中楼梯顶端约落在 L2 玻璃带中部高度，可解读为「升至东翼屋面 +4 200」或「直达 L2 露台 +6 800」；两种解读未做平均。",
+        "resolution": "本卡采用 +4 200（东翼屋面）解读，并登记为待复核项；若用户改判则改为两跑楼梯（休息平台 +1 900）。",
+        "status": "open"
+      }
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true,
+      "forbidden": [
+        "不得把推断的窗数/开口数标注为已确认",
+        "不得用默认做法替代可见立面",
+        "不得静默平均互相冲突的证据"
+      ]
+    }
+  },
+  "reviewer": {
+    "mode": "agent_supplied"
+  },
+  "quality_status": "accepted",
+  "needs_fix": false,
+  "assessment": "本轮两项定向修正已完成。西侧新增窗为未见区域合理推断，非源图测量事实；left视图确认两洞可见。rear视图确认三层背墙不再出现穿墙书架线条；书架y=5850..6250，与背墙内侧y=6500净距250mm。全部六视图与源图近似视角已检查，正面、外楼梯、露台、屋顶保留。整体源图高保真仍为PARTIAL：植被家具为简化几何，照片级材质和暖光效果尚未实现，此次不扩展范围。",
+  "issues": [],
+  "keep": [
+    "主体、外楼梯和露台",
+    "三层原背墙",
+    "698个原对象编号保留",
+    "新增西侧真实窗洞与已内移书架"
+  ],
+  "model_revisions": {
+    "forest_cafe": 4
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-5d1c958e11.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "forest_cafe": 4
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "forest_cafe",
+      "camera": {
+        "eye_m": [
+          5.4,
+          -35.519999999999996,
+          5.4200800000000005
+        ],
+        "target_m": [
+          5.4,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-5317804a57.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "forest_cafe": 4
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "forest_cafe",
+      "camera": {
+        "eye_m": [
+          5.4,
+          38.42,
+          5.4200800000000005
+        ],
+        "target_m": [
+          5.4,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-26a0158d22.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "forest_cafe": 4
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "forest_cafe",
+      "camera": {
+        "eye_m": [
+          -31.72,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "target_m": [
+          5.4,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-1b3a47c572.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "forest_cafe": 4
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "forest_cafe",
+      "camera": {
+        "eye_m": [
+          42.519999999999996,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "target_m": [
+          5.4,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-a42d6f4cea.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "forest_cafe": 4
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "forest_cafe",
+      "camera": {
+        "eye_m": [
+          5.4,
+          1.4500000000000002,
+          41.373999999999995
+        ],
+        "target_m": [
+          5.4,
+          1.4500000000000002,
+          5.202
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-997cc016cd.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "forest_cafe": 4
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "forest_cafe",
+      "camera": {
+        "eye_m": [
+          35.7616,
+          -28.7616,
+          25.3996
+        ],
+        "target_m": [
+          5.4,
+          1.4500000000000002,
+          5.4200800000000005
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/private-cafe-source.png",
+      "current_view": "outputs/renders/agent-view-09479aa2c2.png",
+      "label": "源图近似前右斜视",
+      "model_revisions": {
+        "forest_cafe": 4
+      }
+    }
+  ],
+  "writer_verifications": {
+    "forest_cafe": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 37843,
+          "actual": 37843
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 711,
+          "actual": 711
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -1000.0,
+              -4800.0,
+              -250.0
+            ],
+            "max": [
+              11800.0,
+              7700.0,
+              10654.0
+            ],
+            "size": [
+              12800.0,
+              12500.0,
+              10904.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -1000,
+              -4800,
+              -250
+            ],
+            "max": [
+              11800,
+              7700,
+              10654
+            ],
+            "size": [
+              12800,
+              12500,
+              10904
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/private-cafe-source.png"
+  ]
+}

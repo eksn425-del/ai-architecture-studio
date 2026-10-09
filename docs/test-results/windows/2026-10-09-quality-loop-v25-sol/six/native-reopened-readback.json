@@ -1,0 +1,3801 @@
+{
+  "root": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [],
+    "persistent_id": 43871,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -3500,
+        -4200,
+        -500
+      ],
+      "max": [
+        11500,
+        12300,
+        6500
+      ],
+      "size": [
+        15000,
+        16500,
+        7000
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 1,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "villa",
+        "persistent_id": 43883,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -3500,
+            -4200,
+            -500
+          ],
+          "max": [
+            11500,
+            12300,
+            6500
+          ],
+          "size": [
+            15000,
+            16500,
+            7000
+          ]
+        }
+      }
+    ]
+  },
+  "villa": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa"
+    ],
+    "persistent_id": 43883,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -3500,
+        -4200,
+        -500
+      ],
+      "max": [
+        11500,
+        12300,
+        6500
+      ],
+      "size": [
+        15000,
+        16500,
+        7000
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 11,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "walls",
+        "persistent_id": 43885,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            8000,
+            8500,
+            6200
+          ],
+          "size": [
+            8000,
+            8500,
+            6200
+          ]
+        }
+      },
+      {
+        "name": "floor_slabs",
+        "persistent_id": 47236,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            -200
+          ],
+          "max": [
+            8000,
+            8500,
+            3100
+          ],
+          "size": [
+            8000,
+            8500,
+            3300
+          ]
+        }
+      },
+      {
+        "name": "roof_slab",
+        "persistent_id": 47302,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            6000
+          ],
+          "max": [
+            8000,
+            8500,
+            6200
+          ],
+          "size": [
+            8000,
+            8500,
+            200
+          ]
+        }
+      },
+      {
+        "name": "parapet",
+        "persistent_id": 47336,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            6200
+          ],
+          "max": [
+            8000,
+            8500,
+            6500
+          ],
+          "size": [
+            8000,
+            8500,
+            300
+          ]
+        }
+      },
+      {
+        "name": "balcony",
+        "persistent_id": 47399,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250,
+            -1400,
+            2880
+          ],
+          "max": [
+            7150,
+            0,
+            3100
+          ],
+          "size": [
+            6900,
+            1400,
+            220
+          ]
+        }
+      },
+      {
+        "name": "entry",
+        "persistent_id": 47433,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000,
+            1400,
+            -450
+          ],
+          "max": [
+            9200,
+            3100,
+            2460
+          ],
+          "size": [
+            1200,
+            1700,
+            2910
+          ]
+        }
+      },
+      {
+        "name": "window_door_frames",
+        "persistent_id": 47563,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            120,
+            110,
+            0
+          ],
+          "max": [
+            7890,
+            8380,
+            5550
+          ],
+          "size": [
+            7770,
+            8270,
+            5550
+          ]
+        }
+      },
+      {
+        "name": "railing",
+        "persistent_id": 49799,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            242,
+            -1373,
+            3100
+          ],
+          "max": [
+            7158,
+            0,
+            4150
+          ],
+          "size": [
+            6916,
+            1373,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "wood_slats",
+        "persistent_id": 50057,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7000,
+            -52,
+            0
+          ],
+          "max": [
+            8052,
+            450,
+            6500
+          ],
+          "size": [
+            1052,
+            502,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "finishes",
+        "persistent_id": 50687,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -3500,
+            -4200,
+            -500
+          ],
+          "max": [
+            11500,
+            12300,
+            6203
+          ],
+          "size": [
+            15000,
+            16500,
+            6703
+          ]
+        }
+      },
+      {
+        "name": "interior_visible",
+        "persistent_id": 51361,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            -1000,
+            0
+          ],
+          "max": [
+            8830,
+            7660,
+            4060
+          ],
+          "size": [
+            8590,
+            8660,
+            4060
+          ]
+        }
+      }
+    ]
+  },
+  "walls": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "walls"
+    ],
+    "persistent_id": 43885,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        0,
+        0,
+        0
+      ],
+      "max": [
+        8000,
+        8500,
+        6200
+      ],
+      "size": [
+        8000,
+        8500,
+        6200
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 4,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "front",
+        "persistent_id": 44565,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            8000,
+            240,
+            6200
+          ],
+          "size": [
+            8000,
+            240,
+            6200
+          ]
+        }
+      },
+      {
+        "name": "rear",
+        "persistent_id": 45961,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            8260,
+            0
+          ],
+          "max": [
+            8000,
+            8500,
+            6200
+          ],
+          "size": [
+            8000,
+            240,
+            6200
+          ]
+        }
+      },
+      {
+        "name": "left",
+        "persistent_id": 46609,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            240,
+            0
+          ],
+          "max": [
+            240,
+            8260,
+            6200
+          ],
+          "size": [
+            240,
+            8020,
+            6200
+          ]
+        }
+      },
+      {
+        "name": "right",
+        "persistent_id": 47159,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7760,
+            240,
+            0
+          ],
+          "max": [
+            8000,
+            8260,
+            6200
+          ],
+          "size": [
+            240,
+            8020,
+            6200
+          ]
+        }
+      }
+    ]
+  },
+  "floor_slabs": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "floor_slabs"
+    ],
+    "persistent_id": 47236,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        0,
+        0,
+        -200
+      ],
+      "max": [
+        8000,
+        8500,
+        3100
+      ],
+      "size": [
+        8000,
+        8500,
+        3300
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 2,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "ground",
+        "persistent_id": 47238,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            -200
+          ],
+          "max": [
+            8000,
+            8500,
+            0
+          ],
+          "size": [
+            8000,
+            8500,
+            200
+          ]
+        }
+      },
+      {
+        "name": "upper",
+        "persistent_id": 47270,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            240,
+            2900
+          ],
+          "max": [
+            7760,
+            8260,
+            3100
+          ],
+          "size": [
+            7520,
+            8020,
+            200
+          ]
+        }
+      }
+    ]
+  },
+  "roof_slab": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "roof_slab"
+    ],
+    "persistent_id": 47302,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        0,
+        0,
+        6000
+      ],
+      "max": [
+        8000,
+        8500,
+        6200
+      ],
+      "size": [
+        8000,
+        8500,
+        200
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 1,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "slab",
+        "persistent_id": 47304,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            6000
+          ],
+          "max": [
+            8000,
+            8500,
+            6200
+          ],
+          "size": [
+            8000,
+            8500,
+            200
+          ]
+        }
+      }
+    ]
+  },
+  "parapet": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "parapet"
+    ],
+    "persistent_id": 47336,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        0,
+        0,
+        6200
+      ],
+      "max": [
+        8000,
+        8500,
+        6500
+      ],
+      "size": [
+        8000,
+        8500,
+        300
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 1,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "continuous_ring",
+        "persistent_id": 47338,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            6200
+          ],
+          "max": [
+            8000,
+            8500,
+            6500
+          ],
+          "size": [
+            8000,
+            8500,
+            300
+          ]
+        }
+      }
+    ]
+  },
+  "balcony": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "balcony"
+    ],
+    "persistent_id": 47399,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        250,
+        -1400,
+        2880
+      ],
+      "max": [
+        7150,
+        0,
+        3100
+      ],
+      "size": [
+        6900,
+        1400,
+        220
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 1,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "slab",
+        "persistent_id": 47401,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250,
+            -1400,
+            2880
+          ],
+          "max": [
+            7150,
+            0,
+            3100
+          ],
+          "size": [
+            6900,
+            1400,
+            220
+          ]
+        }
+      }
+    ]
+  },
+  "entry": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "entry"
+    ],
+    "persistent_id": 47433,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        8000,
+        1400,
+        -450
+      ],
+      "max": [
+        9200,
+        3100,
+        2460
+      ],
+      "size": [
+        1200,
+        1700,
+        2910
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 4,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "canopy",
+        "persistent_id": 47435,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000,
+            1425,
+            2300
+          ],
+          "max": [
+            8800,
+            2925,
+            2460
+          ],
+          "size": [
+            800,
+            1500,
+            160
+          ]
+        }
+      },
+      {
+        "name": "step_0",
+        "persistent_id": 47467,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000,
+            1400,
+            -450
+          ],
+          "max": [
+            9200,
+            3100,
+            -300
+          ],
+          "size": [
+            1200,
+            1700,
+            150
+          ]
+        }
+      },
+      {
+        "name": "step_1",
+        "persistent_id": 47499,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000,
+            1400,
+            -300
+          ],
+          "max": [
+            8900,
+            3100,
+            -150
+          ],
+          "size": [
+            900,
+            1700,
+            150
+          ]
+        }
+      },
+      {
+        "name": "step_2",
+        "persistent_id": 47531,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000,
+            1400,
+            -150
+          ],
+          "max": [
+            8600,
+            3100,
+            0
+          ],
+          "size": [
+            600,
+            1700,
+            150
+          ]
+        }
+      }
+    ]
+  },
+  "window_door_frames": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "window_door_frames"
+    ],
+    "persistent_id": 47563,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        120,
+        110,
+        0
+      ],
+      "max": [
+        7890,
+        8380,
+        5550
+      ],
+      "size": [
+        7770,
+        8270,
+        5550
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 13,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "front_L1_1",
+        "persistent_id": 47565,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1600,
+            110,
+            0
+          ],
+          "max": [
+            5900,
+            190,
+            2450
+          ],
+          "size": [
+            4300,
+            80,
+            2450
+          ]
+        }
+      },
+      {
+        "name": "front_L2_1",
+        "persistent_id": 47759,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1000,
+            110,
+            3100
+          ],
+          "max": [
+            2850,
+            190,
+            5550
+          ],
+          "size": [
+            1850,
+            80,
+            2450
+          ]
+        }
+      },
+      {
+        "name": "front_L2_2",
+        "persistent_id": 47953,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4400,
+            110,
+            3100
+          ],
+          "max": [
+            6250,
+            190,
+            5550
+          ],
+          "size": [
+            1850,
+            80,
+            2450
+          ]
+        }
+      },
+      {
+        "name": "rear_L1_1",
+        "persistent_id": 48147,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1200,
+            8310,
+            850
+          ],
+          "max": [
+            1850,
+            8380,
+            2300
+          ],
+          "size": [
+            650,
+            70,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "rear_L1_2",
+        "persistent_id": 48309,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3650,
+            8310,
+            850
+          ],
+          "max": [
+            4300,
+            8380,
+            2300
+          ],
+          "size": [
+            650,
+            70,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "rear_L1_3",
+        "persistent_id": 48471,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6100,
+            8310,
+            850
+          ],
+          "max": [
+            6750,
+            8380,
+            2300
+          ],
+          "size": [
+            650,
+            70,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "rear_L2_1",
+        "persistent_id": 48633,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1200,
+            8310,
+            3950
+          ],
+          "max": [
+            1850,
+            8380,
+            5400
+          ],
+          "size": [
+            650,
+            70,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "rear_L2_2",
+        "persistent_id": 48795,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3650,
+            8310,
+            3950
+          ],
+          "max": [
+            4300,
+            8380,
+            5400
+          ],
+          "size": [
+            650,
+            70,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "rear_L2_3",
+        "persistent_id": 48957,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6100,
+            8310,
+            3950
+          ],
+          "max": [
+            6750,
+            8380,
+            5400
+          ],
+          "size": [
+            650,
+            70,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "left_L1_1",
+        "persistent_id": 49119,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            120,
+            3750,
+            850
+          ],
+          "max": [
+            190,
+            4400,
+            2300
+          ],
+          "size": [
+            70,
+            650,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "left_L2_1",
+        "persistent_id": 49281,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            120,
+            3750,
+            3950
+          ],
+          "max": [
+            190,
+            4400,
+            5400
+          ],
+          "size": [
+            70,
+            650,
+            1450
+          ]
+        }
+      },
+      {
+        "name": "right_L1_1",
+        "persistent_id": 49443,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7810,
+            1700,
+            0
+          ],
+          "max": [
+            7880,
+            2650,
+            2100
+          ],
+          "size": [
+            70,
+            950,
+            2100
+          ]
+        }
+      },
+      {
+        "name": "right_L2_1",
+        "persistent_id": 49605,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7810,
+            1700,
+            3950
+          ],
+          "max": [
+            7890,
+            3450,
+            5400
+          ],
+          "size": [
+            80,
+            1750,
+            1450
+          ]
+        }
+      }
+    ]
+  },
+  "railing": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "railing"
+    ],
+    "persistent_id": 49799,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        242,
+        -1373,
+        3100
+      ],
+      "max": [
+        7158,
+        0,
+        4150
+      ],
+      "size": [
+        6916,
+        1373,
+        1050
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 11,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "panel_0",
+        "persistent_id": 49801,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250,
+            -1373,
+            3100
+          ],
+          "max": [
+            1235.7,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "panel_1",
+        "persistent_id": 49898,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1235.7,
+            -1373,
+            3100
+          ],
+          "max": [
+            2221.4,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "panel_2",
+        "persistent_id": 49903,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2221.4,
+            -1373,
+            3100
+          ],
+          "max": [
+            3207.1,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "panel_3",
+        "persistent_id": 49908,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3207.1,
+            -1373,
+            3100
+          ],
+          "max": [
+            4192.9,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "panel_4",
+        "persistent_id": 49913,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4192.9,
+            -1373,
+            3100
+          ],
+          "max": [
+            5178.6,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "panel_5",
+        "persistent_id": 49918,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5178.6,
+            -1373,
+            3100
+          ],
+          "max": [
+            6164.3,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "panel_6",
+        "persistent_id": 49923,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6164.3,
+            -1373,
+            3100
+          ],
+          "max": [
+            7150,
+            -1345,
+            4150
+          ],
+          "size": [
+            985.7,
+            28,
+            1050
+          ]
+        }
+      },
+      {
+        "name": "return_glass_0",
+        "persistent_id": 49929,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250,
+            -1365,
+            3100
+          ],
+          "max": [
+            262,
+            0,
+            4110
+          ],
+          "size": [
+            12,
+            1365,
+            1010
+          ]
+        }
+      },
+      {
+        "name": "return_rail_0",
+        "persistent_id": 49961,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            242,
+            -1365,
+            4128
+          ],
+          "max": [
+            270,
+            0,
+            4150
+          ],
+          "size": [
+            28,
+            1365,
+            22
+          ]
+        }
+      },
+      {
+        "name": "return_glass_1",
+        "persistent_id": 49993,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7138,
+            -1365,
+            3100
+          ],
+          "max": [
+            7150,
+            0,
+            4110
+          ],
+          "size": [
+            12,
+            1365,
+            1010
+          ]
+        }
+      },
+      {
+        "name": "return_rail_1",
+        "persistent_id": 50025,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7130,
+            -1365,
+            4128
+          ],
+          "max": [
+            7158,
+            0,
+            4150
+          ],
+          "size": [
+            28,
+            1365,
+            22
+          ]
+        }
+      }
+    ]
+  },
+  "wood_slats": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "wood_slats"
+    ],
+    "persistent_id": 50057,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        7000,
+        -52,
+        0
+      ],
+      "max": [
+        8052,
+        450,
+        6500
+      ],
+      "size": [
+        1052,
+        502,
+        6500
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 22,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "front_backing",
+        "persistent_id": 50059,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7000,
+            -12,
+            0
+          ],
+          "max": [
+            8000,
+            0,
+            6500
+          ],
+          "size": [
+            1000,
+            12,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_backing",
+        "persistent_id": 50091,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000,
+            0,
+            0
+          ],
+          "max": [
+            8012,
+            450,
+            6500
+          ],
+          "size": [
+            12,
+            450,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_0",
+        "persistent_id": 50123,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7000,
+            -52,
+            0
+          ],
+          "max": [
+            7045,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_1",
+        "persistent_id": 50154,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7070,
+            -52,
+            0
+          ],
+          "max": [
+            7115,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_2",
+        "persistent_id": 50182,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7140,
+            -52,
+            0
+          ],
+          "max": [
+            7185,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_3",
+        "persistent_id": 50210,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7210,
+            -52,
+            0
+          ],
+          "max": [
+            7255,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_4",
+        "persistent_id": 50238,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7280,
+            -52,
+            0
+          ],
+          "max": [
+            7325,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_5",
+        "persistent_id": 50266,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7350,
+            -52,
+            0
+          ],
+          "max": [
+            7395,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_6",
+        "persistent_id": 50294,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7420,
+            -52,
+            0
+          ],
+          "max": [
+            7465,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_7",
+        "persistent_id": 50322,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7490,
+            -52,
+            0
+          ],
+          "max": [
+            7535,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_8",
+        "persistent_id": 50350,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7560,
+            -52,
+            0
+          ],
+          "max": [
+            7605,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_9",
+        "persistent_id": 50378,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7630,
+            -52,
+            0
+          ],
+          "max": [
+            7675,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_10",
+        "persistent_id": 50406,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7700,
+            -52,
+            0
+          ],
+          "max": [
+            7745,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_11",
+        "persistent_id": 50434,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7770,
+            -52,
+            0
+          ],
+          "max": [
+            7815,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_12",
+        "persistent_id": 50462,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7840,
+            -52,
+            0
+          ],
+          "max": [
+            7885,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "slat_13",
+        "persistent_id": 50490,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7910,
+            -52,
+            0
+          ],
+          "max": [
+            7955,
+            -12,
+            6500
+          ],
+          "size": [
+            45,
+            40,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_slat_0",
+        "persistent_id": 50518,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8012,
+            0,
+            0
+          ],
+          "max": [
+            8052,
+            45,
+            6500
+          ],
+          "size": [
+            40,
+            45,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_slat_1",
+        "persistent_id": 50546,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8012,
+            70,
+            0
+          ],
+          "max": [
+            8052,
+            115,
+            6500
+          ],
+          "size": [
+            40,
+            45,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_slat_2",
+        "persistent_id": 50574,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8012,
+            140,
+            0
+          ],
+          "max": [
+            8052,
+            185,
+            6500
+          ],
+          "size": [
+            40,
+            45,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_slat_3",
+        "persistent_id": 50602,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8012,
+            210,
+            0
+          ],
+          "max": [
+            8052,
+            255,
+            6500
+          ],
+          "size": [
+            40,
+            45,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_slat_4",
+        "persistent_id": 50630,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8012,
+            280,
+            0
+          ],
+          "max": [
+            8052,
+            325,
+            6500
+          ],
+          "size": [
+            40,
+            45,
+            6500
+          ]
+        }
+      },
+      {
+        "name": "return_slat_5",
+        "persistent_id": 50658,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8012,
+            350,
+            0
+          ],
+          "max": [
+            8052,
+            395,
+            6500
+          ],
+          "size": [
+            40,
+            45,
+            6500
+          ]
+        }
+      }
+    ]
+  },
+  "finishes": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "finishes"
+    ],
+    "persistent_id": 50687,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -3500,
+        -4200,
+        -500
+      ],
+      "max": [
+        11500,
+        12300,
+        6203
+      ],
+      "size": [
+        15000,
+        16500,
+        6703
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 21,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "foundation",
+        "persistent_id": 50689,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            -450
+          ],
+          "max": [
+            8000,
+            8500,
+            -200
+          ],
+          "size": [
+            8000,
+            8500,
+            250
+          ]
+        }
+      },
+      {
+        "name": "paving",
+        "persistent_id": 50721,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -800,
+            -2200,
+            -470
+          ],
+          "max": [
+            9600,
+            9300,
+            -450
+          ],
+          "size": [
+            10400,
+            11500,
+            20
+          ]
+        }
+      },
+      {
+        "name": "lawn",
+        "persistent_id": 50753,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -3500,
+            -4200,
+            -500
+          ],
+          "max": [
+            11500,
+            12300,
+            -475
+          ],
+          "size": [
+            15000,
+            16500,
+            25
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_1",
+        "persistent_id": 50785,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1180,
+            240,
+            6201
+          ],
+          "max": [
+            1185,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_2",
+        "persistent_id": 50817,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2120,
+            240,
+            6201
+          ],
+          "max": [
+            2125,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_3",
+        "persistent_id": 50849,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3060,
+            240,
+            6201
+          ],
+          "max": [
+            3065,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_4",
+        "persistent_id": 50881,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4000,
+            240,
+            6201
+          ],
+          "max": [
+            4005,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_5",
+        "persistent_id": 50913,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4940,
+            240,
+            6201
+          ],
+          "max": [
+            4945,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_6",
+        "persistent_id": 50945,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5880,
+            240,
+            6201
+          ],
+          "max": [
+            5885,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_x_7",
+        "persistent_id": 50977,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6820,
+            240,
+            6201
+          ],
+          "max": [
+            6825,
+            8260,
+            6203
+          ],
+          "size": [
+            5,
+            8020,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_1",
+        "persistent_id": 51009,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            1120,
+            6201
+          ],
+          "max": [
+            7760,
+            1125,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_2",
+        "persistent_id": 51041,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            2000,
+            6201
+          ],
+          "max": [
+            7760,
+            2005,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_3",
+        "persistent_id": 51073,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            2880,
+            6201
+          ],
+          "max": [
+            7760,
+            2885,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_4",
+        "persistent_id": 51105,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            3760,
+            6201
+          ],
+          "max": [
+            7760,
+            3765,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_5",
+        "persistent_id": 51137,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            4640,
+            6201
+          ],
+          "max": [
+            7760,
+            4645,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_6",
+        "persistent_id": 51169,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            5520,
+            6201
+          ],
+          "max": [
+            7760,
+            5525,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_7",
+        "persistent_id": 51201,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            6400,
+            6201
+          ],
+          "max": [
+            7760,
+            6405,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "roof_joint_y_8",
+        "persistent_id": 51233,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            7280,
+            6201
+          ],
+          "max": [
+            7760,
+            7285,
+            6203
+          ],
+          "size": [
+            7520,
+            5,
+            2
+          ]
+        }
+      },
+      {
+        "name": "soffit_light_0",
+        "persistent_id": 51265,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1300,
+            -950,
+            2876
+          ],
+          "max": [
+            1390,
+            -860,
+            2881
+          ],
+          "size": [
+            90,
+            90,
+            5
+          ]
+        }
+      },
+      {
+        "name": "soffit_light_1",
+        "persistent_id": 51297,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3650,
+            -950,
+            2876
+          ],
+          "max": [
+            3740,
+            -860,
+            2881
+          ],
+          "size": [
+            90,
+            90,
+            5
+          ]
+        }
+      },
+      {
+        "name": "soffit_light_2",
+        "persistent_id": 51329,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            -950,
+            2876
+          ],
+          "max": [
+            6290,
+            -860,
+            2881
+          ],
+          "size": [
+            90,
+            90,
+            5
+          ]
+        }
+      }
+    ]
+  },
+  "interior_visible": {
+    "script_id": "villa_six_view",
+    "revision": 3,
+    "read_only": true,
+    "path": [
+      "villa",
+      "interior_visible"
+    ],
+    "persistent_id": 51361,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        240,
+        -1000,
+        0
+      ],
+      "max": [
+        8830,
+        7660,
+        4060
+      ],
+      "size": [
+        8590,
+        8660,
+        4060
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 59,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "sofa_base",
+        "persistent_id": 51363,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2450,
+            1800,
+            100
+          ],
+          "max": [
+            4800,
+            2650,
+            450
+          ],
+          "size": [
+            2350,
+            850,
+            350
+          ]
+        }
+      },
+      {
+        "name": "sofa_back",
+        "persistent_id": 51395,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2450,
+            2400,
+            450
+          ],
+          "max": [
+            4800,
+            2650,
+            900
+          ],
+          "size": [
+            2350,
+            250,
+            450
+          ]
+        }
+      },
+      {
+        "name": "cushion_0",
+        "persistent_id": 51427,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2500,
+            1850,
+            450
+          ],
+          "max": [
+            3180,
+            2380,
+            550
+          ],
+          "size": [
+            680,
+            530,
+            100
+          ]
+        }
+      },
+      {
+        "name": "cushion_1",
+        "persistent_id": 51459,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3250,
+            1850,
+            450
+          ],
+          "max": [
+            3930,
+            2380,
+            550
+          ],
+          "size": [
+            680,
+            530,
+            100
+          ]
+        }
+      },
+      {
+        "name": "cushion_2",
+        "persistent_id": 51491,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4000,
+            1850,
+            450
+          ],
+          "max": [
+            4680,
+            2380,
+            550
+          ],
+          "size": [
+            680,
+            530,
+            100
+          ]
+        }
+      },
+      {
+        "name": "coffee_table",
+        "persistent_id": 51523,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3100,
+            1000,
+            380
+          ],
+          "max": [
+            4350,
+            1550,
+            450
+          ],
+          "size": [
+            1250,
+            550,
+            70
+          ]
+        }
+      },
+      {
+        "name": "table_leg_0",
+        "persistent_id": 51555,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3120,
+            1020,
+            0
+          ],
+          "max": [
+            3160,
+            1060,
+            380
+          ],
+          "size": [
+            40,
+            40,
+            380
+          ]
+        }
+      },
+      {
+        "name": "table_leg_1",
+        "persistent_id": 51587,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4290,
+            1020,
+            0
+          ],
+          "max": [
+            4330,
+            1060,
+            380
+          ],
+          "size": [
+            40,
+            40,
+            380
+          ]
+        }
+      },
+      {
+        "name": "table_leg_2",
+        "persistent_id": 51619,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3120,
+            1490,
+            0
+          ],
+          "max": [
+            3160,
+            1530,
+            380
+          ],
+          "size": [
+            40,
+            40,
+            380
+          ]
+        }
+      },
+      {
+        "name": "table_leg_3",
+        "persistent_id": 51651,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4290,
+            1490,
+            0
+          ],
+          "max": [
+            4330,
+            1530,
+            380
+          ],
+          "size": [
+            40,
+            40,
+            380
+          ]
+        }
+      },
+      {
+        "name": "interior_partition",
+        "persistent_id": 51683,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            240,
+            4200,
+            0
+          ],
+          "max": [
+            4940,
+            4320,
+            2900
+          ],
+          "size": [
+            4700,
+            120,
+            2900
+          ]
+        }
+      },
+      {
+        "name": "art_frame",
+        "persistent_id": 51715,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3200,
+            4170,
+            1400
+          ],
+          "max": [
+            4150,
+            4195,
+            2050
+          ],
+          "size": [
+            950,
+            25,
+            650
+          ]
+        }
+      },
+      {
+        "name": "art_canvas",
+        "persistent_id": 51747,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3250,
+            4160,
+            1450
+          ],
+          "max": [
+            4100,
+            4168,
+            2000
+          ],
+          "size": [
+            850,
+            8,
+            550
+          ]
+        }
+      },
+      {
+        "name": "stair_0",
+        "persistent_id": 51779,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            4300,
+            0
+          ],
+          "max": [
+            7000,
+            4540,
+            221.4
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_1",
+        "persistent_id": 51811,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            4540,
+            221.4
+          ],
+          "max": [
+            7000,
+            4780,
+            442.9
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_2",
+        "persistent_id": 51843,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            4780,
+            442.9
+          ],
+          "max": [
+            7000,
+            5020,
+            664.3
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_3",
+        "persistent_id": 51875,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            5020,
+            664.3
+          ],
+          "max": [
+            7000,
+            5260,
+            885.7
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_4",
+        "persistent_id": 51907,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            5260,
+            885.7
+          ],
+          "max": [
+            7000,
+            5500,
+            1107.1
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_5",
+        "persistent_id": 51939,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            5500,
+            1107.1
+          ],
+          "max": [
+            7000,
+            5740,
+            1328.6
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_6",
+        "persistent_id": 51971,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            5740,
+            1328.6
+          ],
+          "max": [
+            7000,
+            5980,
+            1550
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_7",
+        "persistent_id": 52003,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            5980,
+            1550
+          ],
+          "max": [
+            7000,
+            6220,
+            1771.4
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_8",
+        "persistent_id": 52035,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            6220,
+            1771.4
+          ],
+          "max": [
+            7000,
+            6460,
+            1992.9
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_9",
+        "persistent_id": 52067,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            6460,
+            1992.9
+          ],
+          "max": [
+            7000,
+            6700,
+            2214.3
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_10",
+        "persistent_id": 52099,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            6700,
+            2214.3
+          ],
+          "max": [
+            7000,
+            6940,
+            2435.7
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_11",
+        "persistent_id": 52131,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            6940,
+            2435.7
+          ],
+          "max": [
+            7000,
+            7180,
+            2657.1
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_12",
+        "persistent_id": 52163,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            7180,
+            2657.1
+          ],
+          "max": [
+            7000,
+            7420,
+            2878.6
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "stair_13",
+        "persistent_id": 52195,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6200,
+            7420,
+            2878.6
+          ],
+          "max": [
+            7000,
+            7660,
+            3100
+          ],
+          "size": [
+            800,
+            240,
+            221.4
+          ]
+        }
+      },
+      {
+        "name": "balcony_seat",
+        "persistent_id": 52227,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3250,
+            -1000,
+            3200
+          ],
+          "max": [
+            4200,
+            -350,
+            3570
+          ],
+          "size": [
+            950,
+            650,
+            370
+          ]
+        }
+      },
+      {
+        "name": "balcony_back",
+        "persistent_id": 52259,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3250,
+            -500,
+            3570
+          ],
+          "max": [
+            4200,
+            -350,
+            3970
+          ],
+          "size": [
+            950,
+            150,
+            400
+          ]
+        }
+      },
+      {
+        "name": "pot_0",
+        "persistent_id": 52291,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            550,
+            -800,
+            3100
+          ],
+          "max": [
+            880,
+            -470,
+            3530
+          ],
+          "size": [
+            330,
+            330,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_0_0",
+        "persistent_id": 52323,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            580,
+            -720,
+            3500
+          ],
+          "max": [
+            645,
+            -640,
+            3800
+          ],
+          "size": [
+            65,
+            80,
+            300
+          ]
+        }
+      },
+      {
+        "name": "plant_0_1",
+        "persistent_id": 52355,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            625,
+            -630,
+            3500
+          ],
+          "max": [
+            690,
+            -550,
+            3865
+          ],
+          "size": [
+            65,
+            80,
+            365
+          ]
+        }
+      },
+      {
+        "name": "plant_0_2",
+        "persistent_id": 52387,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            670,
+            -720,
+            3500
+          ],
+          "max": [
+            735,
+            -640,
+            3930
+          ],
+          "size": [
+            65,
+            80,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_0_3",
+        "persistent_id": 52419,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            715,
+            -630,
+            3500
+          ],
+          "max": [
+            780,
+            -550,
+            3995
+          ],
+          "size": [
+            65,
+            80,
+            495
+          ]
+        }
+      },
+      {
+        "name": "plant_0_4",
+        "persistent_id": 52451,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            760,
+            -720,
+            3500
+          ],
+          "max": [
+            825,
+            -640,
+            4060
+          ],
+          "size": [
+            65,
+            80,
+            560
+          ]
+        }
+      },
+      {
+        "name": "pot_1",
+        "persistent_id": 52483,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6700,
+            -800,
+            3100
+          ],
+          "max": [
+            7030,
+            -470,
+            3530
+          ],
+          "size": [
+            330,
+            330,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_1_0",
+        "persistent_id": 52515,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6730,
+            -720,
+            3500
+          ],
+          "max": [
+            6795,
+            -640,
+            3800
+          ],
+          "size": [
+            65,
+            80,
+            300
+          ]
+        }
+      },
+      {
+        "name": "plant_1_1",
+        "persistent_id": 52547,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6775,
+            -630,
+            3500
+          ],
+          "max": [
+            6840,
+            -550,
+            3865
+          ],
+          "size": [
+            65,
+            80,
+            365
+          ]
+        }
+      },
+      {
+        "name": "plant_1_2",
+        "persistent_id": 52579,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6820,
+            -720,
+            3500
+          ],
+          "max": [
+            6885,
+            -640,
+            3930
+          ],
+          "size": [
+            65,
+            80,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_1_3",
+        "persistent_id": 52611,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6865,
+            -630,
+            3500
+          ],
+          "max": [
+            6930,
+            -550,
+            3995
+          ],
+          "size": [
+            65,
+            80,
+            495
+          ]
+        }
+      },
+      {
+        "name": "plant_1_4",
+        "persistent_id": 52643,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6910,
+            -720,
+            3500
+          ],
+          "max": [
+            6975,
+            -640,
+            4060
+          ],
+          "size": [
+            65,
+            80,
+            560
+          ]
+        }
+      },
+      {
+        "name": "pot_2",
+        "persistent_id": 52675,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500,
+            1700,
+            0
+          ],
+          "max": [
+            1830,
+            2030,
+            430
+          ],
+          "size": [
+            330,
+            330,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_2_0",
+        "persistent_id": 52707,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1530,
+            1780,
+            400
+          ],
+          "max": [
+            1595,
+            1860,
+            700
+          ],
+          "size": [
+            65,
+            80,
+            300
+          ]
+        }
+      },
+      {
+        "name": "plant_2_1",
+        "persistent_id": 52739,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1575,
+            1870,
+            400
+          ],
+          "max": [
+            1640,
+            1950,
+            765
+          ],
+          "size": [
+            65,
+            80,
+            365
+          ]
+        }
+      },
+      {
+        "name": "plant_2_2",
+        "persistent_id": 52771,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1620,
+            1780,
+            400
+          ],
+          "max": [
+            1685,
+            1860,
+            830
+          ],
+          "size": [
+            65,
+            80,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_2_3",
+        "persistent_id": 52803,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1665,
+            1870,
+            400
+          ],
+          "max": [
+            1730,
+            1950,
+            895
+          ],
+          "size": [
+            65,
+            80,
+            495
+          ]
+        }
+      },
+      {
+        "name": "plant_2_4",
+        "persistent_id": 52835,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1710,
+            1780,
+            400
+          ],
+          "max": [
+            1775,
+            1860,
+            960
+          ],
+          "size": [
+            65,
+            80,
+            560
+          ]
+        }
+      },
+      {
+        "name": "pot_3",
+        "persistent_id": 52867,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5500,
+            1900,
+            0
+          ],
+          "max": [
+            5830,
+            2230,
+            430
+          ],
+          "size": [
+            330,
+            330,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_3_0",
+        "persistent_id": 52899,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5530,
+            1980,
+            400
+          ],
+          "max": [
+            5595,
+            2060,
+            700
+          ],
+          "size": [
+            65,
+            80,
+            300
+          ]
+        }
+      },
+      {
+        "name": "plant_3_1",
+        "persistent_id": 52931,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5575,
+            2070,
+            400
+          ],
+          "max": [
+            5640,
+            2150,
+            765
+          ],
+          "size": [
+            65,
+            80,
+            365
+          ]
+        }
+      },
+      {
+        "name": "plant_3_2",
+        "persistent_id": 52963,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5620,
+            1980,
+            400
+          ],
+          "max": [
+            5685,
+            2060,
+            830
+          ],
+          "size": [
+            65,
+            80,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_3_3",
+        "persistent_id": 52995,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5665,
+            2070,
+            400
+          ],
+          "max": [
+            5730,
+            2150,
+            895
+          ],
+          "size": [
+            65,
+            80,
+            495
+          ]
+        }
+      },
+      {
+        "name": "plant_3_4",
+        "persistent_id": 53027,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5710,
+            1980,
+            400
+          ],
+          "max": [
+            5775,
+            2060,
+            960
+          ],
+          "size": [
+            65,
+            80,
+            560
+          ]
+        }
+      },
+      {
+        "name": "pot_4",
+        "persistent_id": 53059,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8500,
+            3100,
+            0
+          ],
+          "max": [
+            8830,
+            3430,
+            430
+          ],
+          "size": [
+            330,
+            330,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_4_0",
+        "persistent_id": 53091,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8530,
+            3180,
+            400
+          ],
+          "max": [
+            8595,
+            3260,
+            700
+          ],
+          "size": [
+            65,
+            80,
+            300
+          ]
+        }
+      },
+      {
+        "name": "plant_4_1",
+        "persistent_id": 53123,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8575,
+            3270,
+            400
+          ],
+          "max": [
+            8640,
+            3350,
+            765
+          ],
+          "size": [
+            65,
+            80,
+            365
+          ]
+        }
+      },
+      {
+        "name": "plant_4_2",
+        "persistent_id": 53155,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8620,
+            3180,
+            400
+          ],
+          "max": [
+            8685,
+            3260,
+            830
+          ],
+          "size": [
+            65,
+            80,
+            430
+          ]
+        }
+      },
+      {
+        "name": "plant_4_3",
+        "persistent_id": 53187,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8665,
+            3270,
+            400
+          ],
+          "max": [
+            8730,
+            3350,
+            895
+          ],
+          "size": [
+            65,
+            80,
+            495
+          ]
+        }
+      },
+      {
+        "name": "plant_4_4",
+        "persistent_id": 53219,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8710,
+            3180,
+            400
+          ],
+          "max": [
+            8775,
+            3260,
+            960
+          ],
+          "size": [
+            65,
+            80,
+            560
+          ]
+        }
+      }
+    ]
+  }
+}

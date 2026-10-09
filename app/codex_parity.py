@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .construction_strategy import default_construction_strategy
+from .construction_strategy import default_construction_strategy, construction_strategy_schema_note
 from .reconstruction_evidence import default_reconstruction_evidence
 
 
@@ -281,6 +281,25 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         )
 
     reconstruction_evidence = root / "notes" / "reconstruction_evidence.json"
+    # Native coding models cannot inspect host validators outside their workspace.
+    (root / "notes" / "reconstruction_contracts.md").write_text(
+        "# Reconstruction planning JSON contracts\n\n"
+        "Paths are relative to the PROJECT root: inputs/reference/file.png, never ../../inputs/... . "
+        "Keep whole view sheets intact. Evidence sources.kind is exterior_image/interior_image/floorplan_image/"
+        "cad/document/dimension_note; provenance is pending/observed/user_confirmed/inferred. "
+        "A six-panel sheet is kind=exterior_image; describe its panels in notes/role. "
+        "Observed exterior_views require source_refs pointing to registered sources. "
+        "Estimated scale anchors are objects with name, positive value_mm, provenance=inferred. "
+        "hard_constraints and assumptions are string lists. "
+        "unseen_exterior is infer_coherent/do_not_infer; unseen_interior is infer_plausible/do_not_infer. "
+        "Mark absent CAD/floorplan/interior provided=false and provenance=pending.\n\n"
+        "Facade provenance additionally allows mixed. opening_count and door_count must be nonnegative integers or null; "
+        "dimensions_mm values are nonnegative numbers or null. features/notes/divisions/global_features/"
+        "user_confirmed/inferred are string lists. JSON syntax alone does not prove schema validity.\n\n"
+        "## Evidence template\n```json\n" + json.dumps(default_reconstruction_evidence(), ensure_ascii=False, indent=2) +
+        "\n```\n\n## Facade schedule template\n```json\n" + json.dumps(_FACADE_SCHEDULE, ensure_ascii=False, indent=2) +
+        "\n```\n", encoding="utf-8"
+    )
     if not reconstruction_evidence.exists():
         reconstruction_evidence.write_text(
             json.dumps(default_reconstruction_evidence(), ensure_ascii=False, indent=2) + "\n",
@@ -289,6 +308,9 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         )
 
     construction_strategy = root / "notes" / "construction_strategy.json"
+    (root / "notes" / "construction_strategy_schema.md").write_text(
+        construction_strategy_schema_note(), encoding="utf-8"
+    )
     if not construction_strategy.exists():
         construction_strategy.write_text(
             json.dumps(default_construction_strategy(), ensure_ascii=False, indent=2) + "\n",

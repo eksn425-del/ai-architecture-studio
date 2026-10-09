@@ -45,6 +45,8 @@ No geometry in clarify/plan mode.
 
 ## Construction strategy — choose how to build before writing geometry
 
+Read `notes/construction_strategy_schema.md` before writing strategy JSON, and `notes/reconstruction_contracts.md` before evidence/facade JSON; syntax checks alone do not prove schema validity.
+
 Maintain `notes/construction_strategy.json` as compact method memory. After approval: **primary form → representative module → replication → variants → finish**, with no extra user gates. Primary form includes defining roof/voids/openings; verify one real repeated module before copying.
 
 Route systems deliberately: `continuous_wall_with_openings` for straight opening hosts; `profile_extrusion` for constant sections; `loft_or_mesh`/`custom_owned_ruby` for changing forms; `prototype_instance` only after its prototype is correct. Store shared dimensions/levels once with provenance and use named owned paths so corrections touch the smallest dependent system and preserve KEEP geometry.

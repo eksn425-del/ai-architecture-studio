@@ -112,6 +112,10 @@ module CodexSketchupArchitect
       end
       record[:owned_before] = KStudioProfessionalHelpers.owned_snapshot(root)
       yield(model, root)
+      # SketchUp 2024 may retain the old definition bounds after a child group
+      # is transformed inside an operation. Refresh before recording expected
+      # post-write bounds; otherwise the committed readback falsely disagrees.
+      root.definition.invalidate_bounds
       record[:owned_after] = KStudioProfessionalHelpers.owned_snapshot(root)
       raise 'Active model switched during operation' unless Sketchup.active_model == model
       raise 'Build removed its owned root' unless root.valid?

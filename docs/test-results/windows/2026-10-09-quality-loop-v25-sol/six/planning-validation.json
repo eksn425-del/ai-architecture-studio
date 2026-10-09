@@ -1,0 +1,20 @@
+{
+  "construction_strategy": {
+    "valid": true,
+    "systems": 11,
+    "shared_parameters": 47,
+    "current_stage": "pending"
+  },
+  "native_evidence_gate_at_build": "silently ignored invalid evidence (fidelity_mode=pending); not v2.4 PASS",
+  "fixed_strict_evidence_loader": {
+    "rejected": true,
+    "error": "Invalid notes/reconstruction_evidence.json: primary_source must stay inside the project.. Read notes/reconstruction_contracts.md and repair the evidence contract before visual acceptance."
+  },
+  "facade_schedule": {
+    "valid": true
+  },
+  "fixed_host_review_gate": {
+    "rejected": true,
+    "error": "Invalid notes/reconstruction_evidence.json: primary_source must stay inside the project.. Read notes/reconstruction_contracts.md and repair the evidence contract before visual acceptance."
+  }
+}

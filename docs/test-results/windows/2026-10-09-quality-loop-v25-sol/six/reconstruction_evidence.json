@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "multi_view_reconstruction",
+  "primary_source": "../../inputs/reference/60d7f3fbc5-villa-six-view-sheet.png",
+  "sources": [
+    {
+      "path": "../../inputs/reference/60d7f3fbc5-villa-six-view-sheet.png",
+      "kind": "six_panel_exterior_sheet",
+      "keep_intact": true
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "panels": [
+        "上左",
+        "上中",
+        "下中",
+        "下右"
+      ],
+      "notes": [
+        "首层一组宽玻璃门",
+        "二层两组双扇落地门",
+        "玻璃阳台",
+        "右角通高木条板"
+      ]
+    },
+    "rear": {
+      "panels": [
+        "上右",
+        "下左"
+      ],
+      "notes": [
+        "每层三扇窄竖窗"
+      ]
+    },
+    "left": {
+      "panels": [
+        "上左",
+        "上右"
+      ],
+      "notes": [
+        "每层一扇窄竖窗"
+      ]
+    },
+    "right": {
+      "panels": [
+        "上中",
+        "下左",
+        "下右"
+      ],
+      "notes": [
+        "首层侧门雨棚台阶",
+        "二层双扇窗"
+      ]
+    },
+    "roof": {
+      "panels": [
+        "下右"
+      ],
+      "notes": [
+        "平屋面内凹灰铺装",
+        "周边低女儿墙"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false
+  },
+  "cad": {
+    "provided": false
+  },
+  "interior": {
+    "provided": false,
+    "partial_visible_through_glass": true
+  },
+  "scale_anchors": [
+    {
+      "kind": "ESTIMATED",
+      "element": "侧门高",
+      "mm": 2100
+    },
+    {
+      "kind": "ESTIMATED",
+      "element": "栏杆高",
+      "mm": 1050
+    }
+  ],
+  "hard_constraints": [
+    "所有观察立面共同约束同一建筑",
+    "洞口数量、屋面内缘、阳台和材质分区以原图为准"
+  ],
+  "assumptions": [
+    "无实测尺寸，统一估算",
+    "未见室内连贯推断"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_only_unobserved",
+    "unseen_interior": "infer_plausible"
+  },
+  "user_confirmed": [
+    "六视图整图保留",
+    "全部可见建筑系统为约束",
+    "多角度展示及最大能力细节",
+    "允许一致估算及未见室内推断",
+    "范围与既有估算保持",
+    "共享层高/主要开间；连续墙真实洞口；代表模块先验证后复制"
+  ],
+  "strategy_ref": "notes/construction_strategy.json",
+  "approval": "user_approved_execute",
+  "source_exact_path": "runtime/projects/quality-v2-5-sol-low-1009/inputs/reference/60d7f3fbc5-villa-six-view-sheet.png",
+  "observed_facts": [
+    "正面洞口组数量1/2",
+    "后面窄窗数量3/3",
+    "左面窄窗数量1/1",
+    "右面入口1及上层双扇窗1",
+    "内凹平屋面、低女儿墙",
+    "玻璃阳台及木条板转角回包"
+  ],
+  "inferred_facts": [
+    "精确尺寸、栏板分段、条板节距、台阶级数",
+    "未见楼梯隔墙和室内布局"
+  ],
+  "evidence_conflicts": [],
+  "evidence_limitations": [
+    "无实测、平面、CAD或独立室内图",
+    "全部尺寸继续为ESTIMATED；同意估算不等于实测证据"
+  ],
+  "plan_change_provenance": "用户本轮明确建造方法；不作为图像自动识别证据",
+  "strategy_contract_status": "validated_pending_execution"
+}
