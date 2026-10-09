@@ -1,3 +1,15 @@
+# 当前任务 — 2026-10-09 Quality Loop v2.9 / Host Repair Memory
+
+ChatGPT 继续对照 3DCodeBench 的 critique-history / last-known-good 与 SketchUp Agent Harness 的 project-local runtime memory。当前质量循环已经能独立 Critic、KEEP 保护、提交前回滚和上下文压缩，但旧 correction 历史被压缩后，Builder 仍可能忘记“刚才这个修法其实没有解决问题”，从而浪费第二次 correction 和大量 token。
+
+main 候选新增 host-owned `qa/repair_history.json`：只有真实 committed correction 才记录 awaiting_review；下一次可信 visual review 才把它定为 accepted / still_needs_fix。Agent 只能读不能写。active-context compaction 会把最近几条可信 repair memory 带回当前请求，Skill 明确要求 still_needs_fix 的旧修法不能机械重复。它是 advisory memory，不覆盖 source / evidence ledger / facade schedule / 真 SU / 当前 Critic。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_9.md`，并先完成 v2.8 的真 SU2024 pre-commit KEEP negative smoke，再继续 v2.7 staged six-view benchmark。重点观察 repair memory 是否真的减少重复无效修补、writer/tool/token，而不是因为多了一张 JSON 就宣称提升。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。远端实现本身不等于真机 PASS。
+
+---
+
 # 当前任务 — 2026-10-09 Quality Loop v2.8 / KEEP 提交前回滚门禁
 
 ChatGPT 在 v2.7 构造方法路由之上继续采用 3DCodeBench 的 last-known-good / do-no-harm 思路和 dcc-mcp-sketchup 的 write-contract 思路，把 v2.6 “提交后才发现 KEEP 被破坏”升级为真正的 **SketchUp transaction 内 pre-commit guard**。
