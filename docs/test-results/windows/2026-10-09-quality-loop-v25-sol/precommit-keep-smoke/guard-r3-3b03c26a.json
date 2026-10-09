@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "project_id": "quality-v28-guard-1009",
+  "expected_revision": 2,
+  "status": "aborted",
+  "at": "2026-10-09T05:51:27Z",
+  "scenes_before": {
+    "available": true,
+    "pages": []
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        0.0,
+        -150.0,
+        0.0
+      ],
+      "max": [
+        6650.0,
+        6000.0,
+        3300.0
+      ],
+      "size": [
+        6650.0,
+        6150.0,
+        3300.0
+      ]
+    },
+    "objects_total": 2,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 87,
+        "name": "WALL_A",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -150.0,
+            100.0
+          ],
+          "max": [
+            6500.0,
+            150.0,
+            3300.0
+          ],
+          "size": [
+            6500.0,
+            300.0,
+            3200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 209,
+        "name": "WALL_KEEP",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6350.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            6650.0,
+            6000.0,
+            3200.0
+          ],
+          "size": [
+            300.0,
+            6000.0,
+            3200.0
+          ]
+        }
+      }
+    ]
+  },
+  "error": "RuntimeError: KEEP regression WALL_KEEP: bounds_mm.min[0] changed",
+  "backtrace": [
+    "app/adopted_sketchup_helpers.rb:138:in `block (3 levels) in verify_owned_fingerprints!'",
+    "app/adopted_sketchup_helpers.rb:137:in `each'",
+    "app/adopted_sketchup_helpers.rb:137:in `each_with_index'",
+    "app/adopted_sketchup_helpers.rb:137:in `block (2 levels) in verify_owned_fingerprints!'",
+    "app/adopted_sketchup_helpers.rb:133:in `each'",
+    "app/adopted_sketchup_helpers.rb:133:in `block in verify_owned_fingerprints!'",
+    "app/adopted_sketchup_helpers.rb:117:in `each'",
+    "app/adopted_sketchup_helpers.rb:117:in `each_with_index'",
+    "app/adopted_sketchup_helpers.rb:117:in `verify_owned_fingerprints!'",
+    "[local path redacted]"
+  ],
+  "scenes_after": {
+    "available": true,
+    "pages": []
+  },
+  "scene_state_requires_review": true
+}

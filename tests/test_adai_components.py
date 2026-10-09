@@ -17,7 +17,11 @@ def _zip_bytes(files: dict[str, bytes]) -> bytes:
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for path, value in files.items():
-            archive.writestr(path, value)
+            item = zipfile.ZipInfo(path)
+            # Preserve deliberately malformed ZIP names in negative fixtures;
+            # the constructor otherwise normalizes Windows backslashes.
+            item.filename = path
+            archive.writestr(item, value)
     return buffer.getvalue()
 
 
@@ -147,7 +151,7 @@ def test_guarded_project_ruby_injects_verified_helper_only_when_enabled(tmp_path
     monkeypatch.setattr(project_ruby, "geometry_helper", lambda *_: helper)
     enabled_code = script()
     assert "adai_geometry = ADAIConstructionGeometry" in enabled_code
-    assert str(helper) in enabled_code
+    assert f"load {executor._ruby_string(str(helper))}" in enabled_code
     assert "CodexSketchupArchitect.run" in enabled_code
     assert "verify_owned_fingerprints!" in enabled_code
     assert "SKETCHUP" not in enabled_code or "18..26" in enabled_code

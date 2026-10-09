@@ -63,7 +63,9 @@ def _safe_unpack(archive: Path, destination: Path) -> None:
         if sum(item.file_size for item in entries) > MAX_EXTRACTED_BYTES:
             raise ValueError("ADAI distribution exceeds extracted size limit.")
         for item in entries:
-            name = item.filename
+            # ZipInfo normalizes backslashes on Windows. Inspect the raw member
+            # name as well, so the archive contract is platform independent.
+            name = item.orig_filename
             pure = PurePosixPath(name)
             unix_mode = (item.external_attr >> 16)
             kind = stat.S_IFMT(unix_mode)

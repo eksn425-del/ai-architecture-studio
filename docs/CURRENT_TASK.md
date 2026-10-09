@@ -2,6 +2,8 @@
 
 本机 Codex 已执行下列历史任务的主要真机检查，并修复运行故障。用户最新指定 **GPT-6.1 Sol Low**；不要擅自改回 DeepSeek/Astra 来隐藏流程缺口。阅读 [本轮完整证据与验收报告](test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) 和最新 HANDOFF 后继续。
 
+最新远端 `1389864` 的统一产品/ADAI opt-in、v2.8/v2.9 工作已合并，未替换 Kongxing；最终自动测试 304 passed / 2 skipped。新增真 SU2024 工程 smoke 已证明 v2.8 precommit KEEP 回滚成功（revision/object/script 保留），v2.9 history 能随提交和下一次 review 更新。ADAI helper 原生 smoke、独立 Critic 驱动 repair memory 的建筑质量改善尚未执行，继续按下方 unified product 主线补齐；不要把旧 v2.6 提交后负例与新 v2.8 abort 混淆。
+
 已完成：SAIE 两面连续墙各三个洞口；真实 canonical 六方向与错标拒绝；KEEP 正/负检测；单图咖啡馆、完整六视图别墅真实建模和最多两次定向修正；两项全新空白 baseline replay；网页下载与原生 SKP 打开；咖啡馆测试副本鼠标编辑、保存、再次读回。源码、Skill、transport/receipt 的修复和自动回归已提交。
 
 **未完成整体视觉验收，仍 PARTIAL。** 别墅家具/植物、墙顶拼接线、比例/场地不足；咖啡馆也有家具/植被/材质差异。单图为用户咖啡馆附件，多视图为仓库白色别墅整图；没有咖啡馆完整六视图，未伪造同建筑六面验收。

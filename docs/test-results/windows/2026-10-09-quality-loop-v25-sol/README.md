@@ -8,12 +8,13 @@
 
 | 验收项 | 结果 | 可公开证据 |
 | --- | --- | --- |
-| 全部自动测试 / compileall | PASS：289 passed、2 skipped、2 warnings | 下述命令、代码中的回归测试 |
+| 全部自动测试 / compileall | PASS：最终合并 main 后 304 passed、2 skipped、2 warnings（合并前 289 passed） | 下述命令、代码中的回归测试 |
 | SU2024 + 现有 Kongxing 连接、独立空白模型 | PASS | writer receipts、原生重开 readback |
 | 两面连续 SAIE 墙、各三个真洞口 | PASS 技术 smoke；不代表建筑质量 | [六方向墙洞截图](wall-smoke/oblique.png) |
 | canonical 六方向、实际相机、无模型裁切 | PASS 方向/来源；构图有改进空间 | [相机 sidecars](wall-smoke/roof.evidence.json)、[建筑六视图](six/visual-review.json) |
 | 故意互换 front/rear 标签 | PASS：质量门拒绝 | [mislabel rejection](wall-smoke/mislabel-rejection.json) |
 | KEEP 正向局部修正 / 故意移动保护对象 | PASS 检测；负例已提交，不自动 Undo | [正例](keep-smoke/positive.json)、[负例](keep-smoke/negative.json) |
+| 最新 v2.8 提交前 KEEP 回滚 | PASS 工程 smoke：负例 abort、revision=2、保护对象/last-good 脚本未变 | [新正负例与 repair memory](precommit-keep-smoke/guard-results.json) |
 | 咖啡馆单图还原 | PARTIAL：完整可辨认三层建筑；家具、植被、比例/材质细节仍简化 | [源角度模型图](single/source-perspective.png)、[审查](single/visual-review.json) |
 | 白色别墅完整六视图还原 | PARTIAL：主体、门窗、阳台、木格栅、屋顶；家具、场地、墙顶拼接线仍不足 | [源角度模型图](six/source-perspective.png)、[审查](six/visual_qa.md) |
 | v2.7 方法路由 | PARTIAL：实际采用连续墙洞、轮廓女儿墙、代表模块；strategy 阶段状态没有随执行更新 | [strategy](six/construction_strategy.json)、[验证记录](six/planning-validation.json) |
@@ -30,6 +31,8 @@
 - Kongxing AI 0.1.0，复用已安装的本机桥；未替换连接器。现有第三方扩展启动提示由人工关闭，未改其代码。
 - Python 3.12.2；FastAPI 0.141.1；Pydantic 2.13.5；LiteLLM 1.102.1；pytest 8.4.2。
 - 最初拉取 `b6bfbb9945077345ca10f28db2ba72bc15686d73`；执行中合并远端 `8c6f315`，保留本机修复，没有覆盖远端 v2.6/v2.7。
+- 提交前远端再次更新至 `1389864`，已合并 v2.8/v2.9 与 ADAI opt-in 集成。新增的两项 Windows 失败已修复：raw ZIP member 校验和 Ruby 转义路径测试；全套最终 304 passed。以上建筑与 KEEP 截图来自合并前 v2.5/v2.6/v2.7 实测，不能转称为 ADAI 或 v2.8 提交前回滚质量 PASS。
+- 合并后另外在新空白 SU2024 模型补跑 v2.8 正/负工程 smoke：正常修 WALL_A 成功，WALL_KEEP 保持；故意移动 WALL_KEEP 被 precommit guard 拒绝并 abort，revision 仍为 2，bounds/PID 和 last-good 脚本 SHA 不变。host repair history 从 awaiting_review 转为 still_needs_fix；该 review 为工程自审，并非独立建筑 Critic。ADAI helper 未安装/启用，原生集成 `NOT_RUN`；其他 SketchUp 版本 `NOT_RUN`。
 - 通过现有本机网页完整执行上传、对话、计划修改、批准、自动连接、写入、截图、修正、下载。专用模型均为 ignored runtime 下的空白/测试副本，没有修改用户原始模型。
 
 ```powershell

@@ -1,0 +1,310 @@
+{
+  "positive": {
+    "write_verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 2,
+          "actual": 2
+        },
+        {
+          "check": "objects_total",
+          "expected": 2,
+          "actual": 2
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              0.0,
+              -150.0,
+              0.0
+            ],
+            "max": [
+              6650.0,
+              6000.0,
+              3300.0
+            ],
+            "size": [
+              6650.0,
+              6150.0,
+              3300.0
+            ]
+          },
+          "actual": {
+            "min": [
+              0,
+              -150,
+              0
+            ],
+            "max": [
+              6650,
+              6000,
+              3300
+            ],
+            "size": [
+              6650,
+              6150,
+              3300
+            ]
+          }
+        }
+      ]
+    },
+    "precommit_keep_guard": {
+      "armed": true,
+      "passed": true,
+      "paths": [
+        "WALL_KEEP"
+      ]
+    },
+    "preservation": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "keep_path_expected_actual_readback",
+      "paths": [
+        "WALL_KEEP"
+      ],
+      "checks": [
+        {
+          "path": "WALL_KEEP",
+          "check": "persistent_id",
+          "expected": 209,
+          "actual": 209
+        },
+        {
+          "path": "WALL_KEEP",
+          "check": "objects_total",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "path": "WALL_KEEP",
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              6350.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              6650.0,
+              6000.0,
+              3200.0
+            ]
+          },
+          "actual": {
+            "min": [
+              6350.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              6650.0,
+              6000.0,
+              3200.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "negative": {
+    "rejected": true,
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"KEEP regression WALL_KEEP: bounds_mm.min[0] changed\",\n    \"backtrace\": [\n      \"app/adopted_sketchup_helpers.rb:138:in `block (3 levels) in verify_owned_fingerprints!'\",\n      \"app/adopted_sketchup_helpers.rb:137:in `each'\",\n      \"app/adopted_sketchup_helpers.rb:137:in `each_with_index'\",\n      \"app/adopted_sketchup_helpers.rb:137:in `block (2 levels) in verify_owned_fingerprints!'\",\n      \"app/adopted_sketchup_helpers.rb:133:in `each'\",\n      \"app/adopted_sketchup_helpers.rb:133:in `block in verify_owned_fingerprints!'\",\n      \"app/adopted_sketchup_helpers.rb:117:in `each'\",\n      \"app/adopted_sketchup_helpers.rb:117:in `each_with_index'\",\n      \"app/adopted_sketchup_helpers.rb:117:in `verify_owned_fingerprints!'\",\n      \"[local path redacted]\",\n      \"app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"[local path redacted]\"\n    ]\n  }\n}",
+    "before": {
+      "script_id": "guard",
+      "revision": 2,
+      "read_only": true,
+      "path": [
+        "WALL_KEEP"
+      ],
+      "persistent_id": 209,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          6350,
+          0,
+          0
+        ],
+        "max": [
+          6650,
+          6000,
+          3200
+        ],
+        "size": [
+          300,
+          6000,
+          3200
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": []
+    },
+    "after": {
+      "script_id": "guard",
+      "revision": 2,
+      "read_only": true,
+      "path": [
+        "WALL_KEEP"
+      ],
+      "persistent_id": 209,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          6350,
+          0,
+          0
+        ],
+        "max": [
+          6650,
+          6000,
+          3200
+        ],
+        "size": [
+          300,
+          6000,
+          3200
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": []
+    },
+    "revision": 2,
+    "unchanged": true,
+    "last_good_script_restored": true
+  },
+  "repair_history_before_next_review": {
+    "schema_version": 1,
+    "entries": [
+      {
+        "attempt_id": "repair-001",
+        "status": "awaiting_review",
+        "before_review": {
+          "needs_fix": true,
+          "assessment": "Engineering guard smoke, not architecture or independent Critic acceptance.",
+          "issues": [
+            {
+              "priority": 1,
+              "view": "front",
+              "problem": "exercise wall translation",
+              "action": "move WALL_A only"
+            }
+          ],
+          "keep": [
+            "WALL_KEEP"
+          ],
+          "model_revisions": {
+            "guard": 1
+          },
+          "reviewer_mode": "agent_supplied"
+        },
+        "writer": {
+          "script_id": "guard",
+          "revision": 2,
+          "relative_path": "",
+          "update_mode": "edit",
+          "source_sha256": "c02f321038a644bde428d61455ddcc9666f94ba179ef1594d1e074f320cc1cb1",
+          "precommit_keep_guard": {
+            "armed": true,
+            "passed": true,
+            "paths": [
+              "WALL_KEEP"
+            ]
+          },
+          "postcommit_keep_verified": true
+        },
+        "after_review": null,
+        "outcome": "pending"
+      }
+    ]
+  },
+  "repair_history_after_next_review": {
+    "schema_version": 1,
+    "entries": [
+      {
+        "attempt_id": "repair-001",
+        "status": "reviewed",
+        "before_review": {
+          "needs_fix": true,
+          "assessment": "Engineering guard smoke, not architecture or independent Critic acceptance.",
+          "issues": [
+            {
+              "priority": 1,
+              "view": "front",
+              "problem": "exercise wall translation",
+              "action": "move WALL_A only"
+            }
+          ],
+          "keep": [
+            "WALL_KEEP"
+          ],
+          "model_revisions": {
+            "guard": 1
+          },
+          "reviewer_mode": "agent_supplied"
+        },
+        "writer": {
+          "script_id": "guard",
+          "revision": 2,
+          "relative_path": "",
+          "update_mode": "edit",
+          "source_sha256": "c02f321038a644bde428d61455ddcc9666f94ba179ef1594d1e074f320cc1cb1",
+          "precommit_keep_guard": {
+            "armed": true,
+            "passed": true,
+            "paths": [
+              "WALL_KEEP"
+            ]
+          },
+          "postcommit_keep_verified": true
+        },
+        "after_review": {
+          "needs_fix": true,
+          "assessment": "Engineering guard smoke, not architecture or independent Critic acceptance.",
+          "issues": [
+            {
+              "priority": 1,
+              "view": "front",
+              "problem": "exercise wall translation",
+              "action": "move WALL_A only"
+            }
+          ],
+          "keep": [
+            "WALL_KEEP"
+          ],
+          "model_revisions": {
+            "guard": 2
+          },
+          "reviewer_mode": "agent_supplied"
+        },
+        "outcome": "still_needs_fix"
+      }
+    ]
+  }
+}

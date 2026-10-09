@@ -1,5 +1,7 @@
 ## Windows SU2024 / Sol Low handoff — 2026-10-09
 
+最终补充：又合并远端 `1389864`（v2.8/v2.9/ADAI）；保留全部组件与统一产品决策。修复新增 ADAI Windows ZIP/raw filename 和 Ruby 路径测试问题后，最终 `scripts/check.ps1` **304 passed / 2 skipped / 2 warnings**。额外新空白 SU2024 工程 smoke 验证 v2.8 正向 KEEP 提交、负向 precommit abort（revision 不前进、对象/script 未变），host repair memory 进入 awaiting_review 后由下一次审查更新。详见报告新增 [precommit evidence](test-results/windows/2026-10-09-quality-loop-v25-sol/precommit-keep-smoke/guard-results.json)。这不是独立 Critic 或 ADAI 建筑质量通过；ADAI native integration 与 SU2018–2026 其他版本 `NOT_RUN`。
+
 用户本轮明确将真实建模路线改为 GPT-6.1 Sol Low。已在本机完成单图咖啡馆、完整六视图白色别墅、SAIE 连续墙多洞口、canonical 相机/错标拒绝、KEEP 正负 smoke、两项新空白 baseline replay、网页 SKP 下载和原生打开；咖啡馆测试副本还完成鼠标移动对象、保存、再次原生打开。没有人工替 Builder 修几何，没有切换 Astra。未修改用户原始模型。
 
 **技术多项 PASS，整体视觉仍 PARTIAL；不是完成了原要求的 DeepSeek + dedicated Critic 全链路。** Native 的 reviewer 仍为 agent_supplied，token 未按回合捕获，不能声称 v2.3 对 4.92M input baseline 的成本改善。六视图原 evidence JSON 无效、被旧加载器忽略；已严格拒绝该真实失败，不补写一个虚假的 PASS。下一轮应以这些实际失败继续推进，不重写连接器/几何引擎。
@@ -12,7 +14,7 @@
 
 咖啡馆 r4 / root PID 37843 / 711 命名对象；别墅 r3 / root PID 43871 / villa PID 43883 / 11 系统。别墅一次建造＋两次定向修正，45 次动态工具、11 次失败、550.813 秒；两次 KEEP 验证 true。几何可编辑但家具/植物简化、墙顶线和部分源图比例不足。严格保留 PARTIAL。
 
-软件已重新加载本机修复，测试网页选择 Sol Low；已保存的 DPAPI DeepSeek 配置未删除，也未要求重新输入 Key。此次没有重新打包安装目录中的桌面可执行文件，桌面包与源码网页的版本一致性仍待确认。
+软件已重新加载合并后的本机修复，测试网页选择 Sol Low；已保存的 DPAPI DeepSeek 配置未删除，也未要求重新输入 Key。此次没有重新打包安装目录中的桌面可执行文件，桌面包与源码网页的版本一致性仍待确认。
 
 ---
 

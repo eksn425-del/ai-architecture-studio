@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "project_id": "quality-v28-guard-1009",
+  "expected_revision": 0,
+  "status": "committed",
+  "at": "2026-10-09T05:50:59Z",
+  "scenes_before": {
+    "available": true,
+    "pages": []
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "objects_total": 0,
+    "truncated": false,
+    "objects": []
+  },
+  "owned_after": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        0.0,
+        -150.0,
+        0.0
+      ],
+      "max": [
+        6650.0,
+        6000.0,
+        3200.0
+      ],
+      "size": [
+        6650.0,
+        6150.0,
+        3200.0
+      ]
+    },
+    "objects_total": 2,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 87,
+        "name": "WALL_A",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -150.0,
+            0.0
+          ],
+          "max": [
+            6500.0,
+            150.0,
+            3200.0
+          ],
+          "size": [
+            6500.0,
+            300.0,
+            3200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 209,
+        "name": "WALL_KEEP",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6350.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            6650.0,
+            6000.0,
+            3200.0
+          ],
+          "size": [
+            300.0,
+            6000.0,
+            3200.0
+          ]
+        }
+      }
+    ]
+  },
+  "revision": 1,
+  "root_pid": 19,
+  "scenes_after": {
+    "available": true,
+    "pages": []
+  }
+}
