@@ -1,3 +1,15 @@
+## Product strategy update — Building-Xuezhang demo, P0 remains modeling — 2026-10-09
+
+User has **not yet run** the newly assigned GPT-6 Luna Max/Codex prompt. They supplied the Building-Xuezhang commercial-office flow (existing SU white mass/site/redline, precedent images, model development/variants, screenshot-directed fixes, eventual CAD/renders/walkthrough/web PPT) as **a future product vision reference**, not a request to build the full pipeline now.
+
+**Updated GitHub product source:** [`docs/PRODUCT_DIRECTION_REFERENCE_TO_NATIVE_SKETCHUP_2026-10-09.md`](PRODUCT_DIRECTION_REFERENCE_TO_NATIVE_SKETCHUP_2026-10-09.md). Roadmap P0 = make current Image→SketchUp facade/roof/source-match/screenshot-targeted edits truly strong; P1 = new user-owned seed-mass/model clone + immutable site/redline and dimensional constraints + variant SKP branches ([GitHub issue #2](https://github.com/eksn425-del/ai-architecture-studio/issues/2)); P2/P3 = model-linked conceptual drawings, rendering, animation, analysis and web presentations. Future construction drawing claims need professional code/compliance validation.
+
+**Most important new analysis:** A seed mass model materially reduces geometric ambiguity relative to reconstructing from a photograph, but K AI Studio's current guarded `ProjectRubyExecutor` intentionally accepts only project-owned `blank-disposable-` SKP. Do **not** relax this and mutate an arbitrary user original merely to copy the competitor demo. Existing `app/reference_assets.py` site/brief/reference separation and `architecture_design` modes do not imply precise redline/parking/legal CAD workflows are finished.
+
+**Next Codex task unchanged in scope:** execute [`docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md`](NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md) on the *latest main*, now with an explicit paragraph about staged master-form → facade → actual screenshots → KEEP targeted fixes. Use public villa six-view source, opt-in ADAI actual geometry, real SU2024 K AI Studio website, and mandatory full PNG/metrics/errors evidence handoff. Do **not** build P1 seed-import, P2 CAD, rendering or slide generation on this run. Prior Sol Low's image fidelity remains PARTIAL, ADAI native geometry still needs real tests. Historical records below remain evidence, not higher-priority instructions.
+
+---
+
 ## GitHub handoff — Codex Luna Max integrated test + evidence contract — 2026-10-09
 
 **User direction:** The next Windows Codex turn uses the latest integrated K AI Studio `main` (including ADAI), existing Sol Low/SU2024 evidence and the later `98c9aec11c283879ab0bc2e9afc587f6729cdec6` local Codex fixes. Use the user's preferred **GPT-6 Luna Max via Codex** if available; otherwise choose/record the actual highest-capability Codex model, not an invented model ID or an unannounced DeepSeek/Sol fallback.
