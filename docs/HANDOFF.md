@@ -1,3 +1,16 @@
+## Work in PR branch — ADAI opt-in geometry and SU2018–2026 target — 2026-10-09
+
+Branch: `feat/adai-components-su2018-2026`; based on main `f7e05df376129b563bbad9d0dd037a43006efe14`. This work is isolated from the main v2.9 task; **do not merge before full Windows/SketchUp validation**.
+
+- Opt-in pinned upstream ADAI 0.5.39 official ZIP installer with SHA-256/archive safety, LICENSE/NOTICE, separate Skill/MCP directories and no automatic plugin/MCP activation.
+- With `ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1`, the verified official Skill `construction_geometry.rb` is loaded by existing guarded ProjectRuby. `adai_geometry` exposes actual profile, holes, loft, shell, band methods under the same owned-root/KEEP/reader transaction contract. Disabled by default.
+- Explicit installed SketchUp 2018–2026 detection and PowerShell `-SketchUpYear` choice for future version smokes. Existing default launcher still targets 2024 then 2022. **Installed/discovered does not mean certified**.
+- Added isolated MCP launch inspection (no config or SU plugin modification), no-network Python tests, and a PR CI workflow. Windows real SU2018..2026 results not run; external upstream ZIP download not executed from the ChatGPT GitHub-only environment.
+- Required next: a Windows Codex local pull of the branch, ZIP checksum test, Python tests, v2.8/v2.9 regression, 2024 paired original-vs-ADAI geometry, then per-installed-version SU probe/build/save/reopen/edit. Do not call the new helper a modeling-quality PASS before inspecting six authentic views.
+- Detailed runbook: `docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md`. Existing v2.9 main task must still be completed.
+
+---
+
 ## Remote Quality Loop v2.9 — host repair memory — 2026-10-09
 
 Continued the OSS gap review after v2.8. 3DCodeBench keeps critique/attempt history and last-known-good state; SketchUp Agent Harness keeps project-local runtime memory separate from canonical design truth. K Studio already compacted old provider history, but that meant a later correction could lose the trusted record that a previous repair approach still failed.
