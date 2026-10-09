@@ -33,6 +33,8 @@ def test_image_to_sketchup_skill_is_bounded_and_quality_focused() -> None:
     assert "single_view_inference" in context
     assert "full_evidence_reconstruction" in context
     assert "reconstruction_evidence.json" in context
+    assert "construction_strategy.json" in context
+    assert "representative module" in context
     assert "at most THREE" in context
     assert "KEEP list" in context
     assert "preserve_paths" in context
@@ -74,6 +76,8 @@ def test_reconstruction_plan_parameterizes_before_execution() -> None:
     assert "estimates" in developer.lower()
     assert "write 无" in developer
     assert "not separate approvals" in developer
+    assert "construction_strategy.json" in developer
+    assert "continuous_wall_with_openings" in developer
     assert "Do not edit SketchUp geometry" in developer
     assert workflow_tool_profile("image_reconstruction") == "reconstruction_coding"
     assert workflow_reference_categories("image_reconstruction") == ("reference", "site", "brief")
@@ -88,6 +92,8 @@ def test_reconstruction_execution_is_coding_first() -> None:
     assert "single writer" in developer
     assert "sketchup_submit_visual_review" in developer
     assert "saie_wall_with_openings" in developer
+    assert "construction_strategy.json" in developer
+    assert "prototype_instance" in developer
     assert "Do not ask for approval again" in developer
     assert "Execute the persistent Ruby now" in developer
     assert "never separate user approval gates" in developer
