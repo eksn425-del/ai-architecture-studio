@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from app.oss_method_catalog import BY_ID, STAGES, candidate_methods, capability_selection_note
+from app.oss_method_catalog import BY_ID, STAGES, candidate_methods, capability_selection_note, assess_method_adoption
 from app.construction_strategy import (
     CONSTRUCTION_STAGE_ORDER,
     validate_construction_strategy_payload,
@@ -93,3 +93,43 @@ def test_agent_cannot_spoof_host_recorder_class():
         validate_project_ruby_source(
             "roof", "KStudioOSSMethodRuntime.record([], 'adai.loft_sections') { nil }"
         )
+
+
+def test_adoption_report_cannot_upgrade_install_or_selection_to_actual_usage():
+    plan = validate_construction_strategy_payload(_strategy())
+    absent = assess_method_adoption(plan, None)
+    assert absent["any_oss_product_use"] is False
+    assert absent["plan_choices"][0]["disposition"] == "execution_receipt_missing"
+
+    smoke_only = assess_method_adoption(plan, {"status": "smoke_verified", "events": [
+        {"method_id": "adai.loft_sections", "status": "returned"},
+    ]})
+    assert smoke_only["any_oss_product_use"] is False
+
+    empty = assess_method_adoption(plan, {"status": "committed_readback", "events": []})
+    assert empty["any_oss_product_use"] is False
+    assert empty["plan_choices"][0]["disposition"] == "selected_but_not_invoked"
+
+    verified = assess_method_adoption(plan, {
+        "status": "committed_readback",
+        "events": [{"method_id": "adai.loft_sections", "status": "returned"}],
+    })
+    assert verified["any_oss_product_use"] is True
+    assert verified["actual_wrapped_calls"] == {"adai.loft_sections": 1}
+    assert verified["effect_verified"] is False
+
+    failure = assess_method_adoption(plan, {
+        "status": "committed_readback",
+        "events": [{"method_id": "adai.loft_sections", "status": "raised"}],
+    })
+    assert failure["any_oss_product_use"] is False
+
+
+def test_guard_rejects_raw_adai_module_or_host_ledger_forgery():
+    for source in (
+        "ADAIConstructionGeometry.profile(root.entities, 'test', [], 10)",
+        "oss_method_events << {'method_id'=>'adai.profile'}",
+        "oss_method_ledger = {'events'=>[]}",
+    ):
+        with pytest.raises(ValueError, match="blocked host"):
+            validate_project_ruby_source("roof", source)
