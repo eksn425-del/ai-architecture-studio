@@ -2,7 +2,7 @@
 
 **Owner decision:** All future suitable open-source capabilities should improve the **same K AI Studio website** in `eksn425-del/ai-architecture-studio` rather than creating separate first-party product repositories. ADAI 0.5.39 is the first combined capability. Details: [one-product and open-source policy](ONE_PRODUCT_OPEN_SOURCE_POLICY.md).
 
-**Merge target:** Integrate [ADAI PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1) into `main`. Its download/verified helper is safe to merge as **opt-in and default-disabled**; integration to `main` does **not** mean ADAI-assisted native SU2024 execution passed or SketchUp 2018–2026 compatibility is certified. Keep Kongxing's verified single writer, model identity, approvals and KEEP protections. Do not auto-install/activate the alternative ADAI MCP against a live K Studio document.
+**Merged baseline (2026-10-09):** [ADAI PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1) was merged into `main` as `4a1d027ab4da693388cce0975cd6241181634b9e`. Its official-download/verified geometry helper is present as **opt-in and default-disabled**. This merge does **not** mean ADAI-assisted native SU2024 execution passed or SketchUp 2018–2026 compatibility is certified. Keep Kongxing's verified single writer, model identity, approvals and KEEP protections. Do not auto-install/activate the alternative ADAI MCP against a live K Studio document.
 
 ## Next implementation (K AI Studio, not a separate ADAI project)
 
