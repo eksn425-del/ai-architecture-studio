@@ -6,15 +6,23 @@
 
 K AI Studio supports **opt-in**, integrity-checked downloads of the upstream ADAI Skill and its Managed MCP, with the official CPAL-1.0 license and attribution retained. Only the installed Skill's construction geometry can be enabled inside our existing guarded ProjectRuby bridge; the separate Managed MCP is **not** activated automatically. SketchUp **2018–2026 is a validation target, not a certified compatibility claim**; original verified K Studio baseline remains SketchUp 2024. See [ADAI component adoption and version matrix](docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md).
 
+## 当前产品路线（建模优先）
+
+**P0 已运行 / 当前主线**：参考图（单图或整张六视图）→ 规划与用户确认 → K AI Studio 在项目专属 SketchUp 副本内建模 → 六方向真实截图 → 发现问题后局部修正 → 下载真正可编辑的 SKP。2026-10-09 的 SU2024 真机报告证明工程运行与原生重新打开，建筑视觉质量仍为 **PARTIAL**。ADAI 几何能力已集成但需要在 SU2024 真机确认，不能把源码合并当作建筑还原效果通过。
+
+**P1 规划中**：用户已有 SU 地形/白膜体块 + 红线、层高、参考意向图 → 在安全克隆副本内深化立面，并从同一白膜建立多方案。当前不支持任意已打开 SKP 的直接安全修改，详见 [P1 后续任务](https://github.com/eksn425-del/ai-architecture-studio/issues/2)。
+
+**P2/P3 长期方向**：以同一可编辑模型产出方案级 CAD/分析图、批量渲染、漫游和交互汇报。施工图合规、结构机电、规范与专业签署须单独审查。参阅 [建筑学长工作流启发的长期规划](docs/PRODUCT_DIRECTION_REFERENCE_TO_NATIVE_SKETCHUP_2026-10-09.md)。目前**继续主攻 3D 建模质量**，不展开新输出管线。
+
 ## Windows 用户开始使用
 
 1. 安装 [Python 3.11 或更新版本](https://www.python.org/downloads/windows/)，安装时勾选 **Add Python to PATH**。
 2. 从 GitHub 的 **Code → Download ZIP** 下载最新 main，完整解压后双击根目录 **Start K Studio.cmd**。首次启动会安装项目和 DeepSeek / GLM 依赖，然后打开本地网页；请保持启动窗口打开。再次使用仍双击此文件。
-3. 在页面点击 **连接 AI 模型**，选择 DeepSeek 或 GLM，填入自己的 API Key。Key 仅保存在服务内存，重启后需要重填。
+3. 在页面使用当前支持的模型连接方式（例如 DeepSeek / GLM 或本机已授权的 Codex Native 路线）。已配置的 Windows 凭证可使用本机受保护的保存机制；不要把密钥或会话数据上传公开 GitHub。实际模型可用性以本地运行界面为准。
 4. 新建会话 → 上传同一建筑的图片或六视图整图 → 描述目标 → 补充需求 → 检查并修改计划。没有实测尺寸可以采用估算；建模前不需要连接 SketchUp。计划可下载保存。
 5. 在 Windows 上准备好 SketchUp 2024 与已有 Kongxing 插件后，再按 **连接 SketchUp** 教学打开独立模型并批准建模。插件未随仓库分发；下载本仓库不等于已安装插件。
 
-本轮已真实测试 DeepSeek 的图片/文字对话与计划流程。实际 SketchUp 建模与干净 Windows 安装仍待用户验证；图片里的门窗等细节可能误读，请先核对计划。完整使用说明见 [USER_GUIDE](docs/USER_GUIDE.md)。
+**当前真机事实（2026-10-09）**：已在 Windows / SketchUp 2024 使用 Sol Low 完成建筑建模、局部修正、六方向实际截图、SKP 下载与原生重开编辑；整体建筑视觉仍为 PARTIAL。ADAI 官方 ZIP 完整性自动检查与集成代码已完成，新增 SU2024 真实几何能力待验收。干净新电脑安装、SU2018–2026 全版本支持尚未证实。[Codex 实测报告](docs/test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) · [下一轮 Codex 任务](docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md) · [USER_GUIDE](docs/USER_GUIDE.md)。
 
 
 AI Architecture Studio is a lightweight architecture workspace that packages strong existing AI + professional-software automation around real design tools instead of rebuilding CAD or 3D engines from scratch.
@@ -51,7 +59,7 @@ The practical evidence is already strong: direct Codex with a cost-efficient cod
 Immediate target:
 
 > one architectural reference image  
-> → Sol Low / replaceable cost-efficient model  
+> → Codex 中实际可用的高能力模型（本轮优先请求 GPT-6 Luna Max；记录真实 model ID）  
 > → dedicated Image Reconstruction Skill  
 > → clarify high-impact unknowns  
 > → parameter card with KNOWN / ESTIMATED / ASSUMED values  
@@ -68,6 +76,7 @@ A few white boxes are an automatic failure when the source contains developed ro
 See:
 
 - [Current task](docs/CURRENT_TASK.md)
+- [Product roadmap: source image → native SketchUp → existing mass-based design → downstream outputs](docs/PRODUCT_DIRECTION_REFERENCE_TO_NATIVE_SKETCHUP_2026-10-09.md)
 - [Execution guardrails](docs/EXECUTION_GUARDRAILS.md)
 - [Skill-first Agent refactor](docs/SKILL_FIRST_AGENT_REFACTOR_V1.md)
 - [Image → SketchUp v1](docs/IMAGE_TO_SKETCHUP_V1.md)
