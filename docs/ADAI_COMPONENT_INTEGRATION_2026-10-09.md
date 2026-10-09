@@ -12,6 +12,18 @@
 3. **Version discovery and explicit selection.** `--detect-sketchup` checks 2018–2026 candidate Windows paths, including optional `SKETCHUP_2026_EXE` etc.; `scripts/open_blank_sketchup.ps1 -SketchUpYear 2026` explicitly selects the requested installed version through the Windows uninstall registry. Omission preserves the previously preferred 2024/2022 path; it never switches to a new version automatically.
 4. **ADAI Managed MCP remains separate.** Downloading its ZIP is **not** authorization to install its RBZ into the current SketchUp profile, write Codex config, or run two mutating bridges against one model. It is available for separately approved/isolated SU2018/19 comparison tests.
 
+## Verified CI evidence (2026-10-09)
+
+GitHub Actions [run 37887718529](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/37887718529) on the feature branch completed successfully:
+
+- **Real** upstream ADAI 0.5.39 Skill + MCP ZIP downloads, pinned SHA-256s, safe extraction, original LICENSE/NOTICE, verified `construction_geometry.rb` and MCP `launch.cjs`/RBZ, and Ruby syntax: **PASS**.
+- Offline ADAI integration tests: **8 passed**.
+- Full branch pytest: **290 passed, 7 failed, 2 skipped**. The exact same 7 test IDs fail on untouched `main` (**282 passed, 7 failed, 2 skipped**); automatic JUnit comparison found **zero newly failing test IDs**. This is a **non-regression comparison**, not a green full pytest suite.
+- Windows PowerShell parser smoke for multi-version launcher: **PASS**.
+- Windows SketchUp native operation, visual quality and 2018–2026 functional version matrix: **NOT_RUN**.
+
+The updated `--detect-sketchup` result includes `kongxing_bridge_plugin_present` for each detected year; an installed SketchUp EXE does not imply the required per-year Kongxing plugin is installed. `open_blank_sketchup.ps1 -SketchUpYear YEAR` performs a pre-launch plugin existence check. A pre-existing explicit `-ModelPath` no longer needs a bundled Simple template.
+
 ## Installation (Windows, local machine)
 
 From the K Studio repository root on this branch:
