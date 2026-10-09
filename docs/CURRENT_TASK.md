@@ -1,3 +1,24 @@
+# 当前唯一任务 — K AI Studio / GPT-6 Luna Max × Codex Native × ADAI SU2024 真机建模（2026-10-09）
+
+**本任务覆盖下方所有历史“继续 Sol Low”“旧版 ADAI 尚未合并”等规划段落。** 用户本轮要求以 [Codex 最新提交 `98c9aec`](https://github.com/eksn425-del/ai-architecture-studio/commit/98c9aec11c283879ab0bc2e9afc587f6729cdec6) 和 Sol Low 实测证据为起点，使用 Codex **实际可选的 GPT-6 Luna Max / 最高能力模型**，在**已融合 ADAI 的 K AI Studio 网站**完成新的一次真实建筑建模，并将结果/数据/真实六方向 PNG **全部上传本仓库 GitHub `main`**。此后每一次测试都遵守相同规则。
+
+**执行说明（Codex 首先打开）：** [`docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md`](NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md)
+
+**永久证据契约：** [`docs/TEST_EVIDENCE_PROTOCOL.md`](TEST_EVIDENCE_PROTOCOL.md) 和 `scripts/validate_test_evidence.py`，仓库 `AGENTS.md` 已将每轮上传 PNG/metrics/错误/模型读回设为必需。
+
+### Codex 执行顺序（简单工作清单）
+
+1. 先 `git pull --ff-only`、检查 `AGENTS.md`、上次 [SU2024 Sol 实测报告](test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) 与最新 HANDOFF。上轮 304 passed/2 skipped、precommit KEEP abort 真机通过；**建筑 fidelity PARTIAL**、`reviewer.mode=agent_supplied`、Native Token 缺失、ADAI 原生调用 NOT_RUN。这些是必须对齐的事实。
+2. 模型首选 **Codex 中真实可用的 GPT-6 Luna Max 和高推理档**；如果不支持则选 Codex 最高可用模型并完整记录 actual model ID。不得因旧任务而静默改用 Sol Low/DeepSeek，不需要旧新版 A/B。
+3. 在测试空白 SU2024 实测 ADAI helper（真正建连续墙多洞口和复杂屋面），通过原有 Kongxing 单写者和 KEEP/回滚，别让 ADAI Managed MCP 并发控制同一模型。
+4. 使用仓库公开 `test-assets/cloud-villa/villa-six-view-sheet.png` 在**网站中新开一轮真实完整建模**。规划证据/schema 有界修复、六方向来源一致、最多两次定向修正、单独 Critic（若实际上做不到，必须注明自审并保留 PARTIAL）、重新打开下载版 SKP 并测试可编辑。
+5. 必须上传 `docs/test-results/windows/2026-10-09-kai-integrated-v1/`：README、run.json、metrics.json、errors.json、六张真实当前 revision PNG 与 sidecar、source-perspective PNG、schema/KEEP/writer/原生重开/审查结果。用 `scripts/validate_test_evidence.py` 生成并验证 SHA256 文件清单。任何材料无法获取应真实记录 FAIL/NOT_RUN，绝不伪造截图、价格、Token 或独立 Critic。
+6. 所有关键改动完成后跑 `scripts/check.ps1`，更新 HANDOFF 与本任务的最新状态，commit + push `origin/main` 并确认远端 SHA 和公开结果目录。回报结果/证据链接，让 ChatGPT 下一次直接读真实数据和截图判断下一步迭代。
+
+**本轮不要求 2018–2026 九个版本全部通过，不做 DeepSeek vs ADAI A/B，不扩建独立网站，不改原始私人 SKP。实际视觉匹配优先于 synthetic PASS。**
+
+---
+
 # 当前任务 — 2026-10-09 Windows 实测后继续质量迭代
 
 本机 Codex 已执行下列历史任务的主要真机检查，并修复运行故障。用户最新指定 **GPT-6.1 Sol Low**；不要擅自改回 DeepSeek/Astra 来隐藏流程缺口。阅读 [本轮完整证据与验收报告](test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) 和最新 HANDOFF 后继续。
