@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.8 — pre-commit KEEP rollback — 2026-10-09
+
+Continued the open-source comparison against 3DCodeBench, dcc-mcp-sketchup and SketchUp Agent Harness after the v2.7 staged-construction work. The most actionable remaining reliability gap was concrete: v2.6 could prove a targeted correction damaged reviewer KEEP geometry only **after** the revision had already committed.
+
+Implemented a transaction-local do-no-harm guard without adding another writer. AgentToolSurface fingerprints exact reviewer KEEP paths before a correction and injects those expected IDs/counts/mm bounds as a host-only field. ProjectRuby serializes that state into the guarded SketchUp transaction. After candidate Ruby runs but before commit, `KStudioProfessionalHelpers.verify_owned_fingerprints!` re-reads the protected groups; any mismatch raises while the SketchUp operation is still open, so `model_session.rb` aborts it. Failed guarded candidate source is archived and the previous persistent Ruby baseline is restored. Existing post-commit KEEP verification remains as defense in depth.
+
+Cloud-safe regressions were added for the Ruby fingerprint helper, host-only expectation forwarding, transport injection and last-good script restoration. No claim is made that these tests were executed in this ChatGPT turn, and no SU2024 PASS is claimed. `docs/QUALITY_LOOP_V2_8.md` defines the required Windows negative smoke (intentionally touch a protected group and prove revision/IDs/bounds do not move), positive targeted correction, and continuation of the v2.7 staged six-view benchmark.
+
+---
+
 ## Remote Quality Loop v2.7 / ADAI construction-method study — 2026-10-09
 
 Reviewed public ADAI SketchUp Skill + Managed MCP 0.5.39 at `cd1e02e9f6906945376f73032e9598643fe8eb64`. Its most useful gap relative to K Studio is not another bridge: it makes construction method, primary-form completeness, representative-module validation, replication order and shared parameter ownership explicit. Because upstream is CPAL-1.0, this milestone does not copy/vendor ADAI Covered Code; it independently implements the architecture in K Studio terminology.
