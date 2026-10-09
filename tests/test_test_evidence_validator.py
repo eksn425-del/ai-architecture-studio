@@ -79,3 +79,32 @@ def test_manifest_detects_tampering_and_real_failed_run_can_have_no_screens(tmp_
     assert not validate(folder)
     (folder / "README.md").write_text("Modified after snapshot", encoding="utf-8")
     assert any("Manifest mismatch" in x for x in validate(folder))
+
+
+def test_new_run_requires_real_oss_adoption_evidence(tmp_path: Path) -> None:
+    folder = _fixture(tmp_path, geometry=True)
+    new_folder = folder.with_name("2026-10-10-kai-new-building")
+    folder.rename(new_folder)
+    run = json.loads((new_folder / "run.json").read_text(encoding="utf-8"))
+    run["test_id"] = new_folder.name
+    _dump(new_folder / "run.json", run)
+    errors = validate(new_folder, write_manifest=True)
+    assert any("oss-method-ledger.json" in e for e in errors)
+    assert any("oss-method-adoption.json" in e for e in errors)
+
+    _dump(new_folder / "model/oss-method-ledger.json", {
+        "schema_version": 1, "status": "committed_readback",
+        "events": [{"method_id": "saie.wall_with_openings", "status": "returned"}],
+    })
+    _dump(new_folder / "model/oss-method-adoption.json", {
+        "schema_version": 1, "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {"saie.wall_with_openings": 1},
+        "any_oss_product_use": True, "effect_verified": False,
+    })
+    assert not validate(new_folder, write_manifest=True)
+    assert not validate(new_folder)
+    adoption_path = new_folder / "model/oss-method-adoption.json"
+    changed = json.loads(adoption_path.read_text(encoding="utf-8"))
+    changed["any_oss_product_use"] = False
+    _dump(adoption_path, changed)
+    assert any("contradicts" in e for e in validate(new_folder, write_manifest=True))
