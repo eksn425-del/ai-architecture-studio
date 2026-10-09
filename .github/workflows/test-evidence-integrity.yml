@@ -1,0 +1,51 @@
+name: K AI Studio public test evidence integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/test-results/windows/**"
+      - "scripts/validate_test_evidence.py"
+      - "tests/test_test_evidence_validator.py"
+      - ".github/workflows/test-evidence-integrity.yml"
+  pull_request:
+    paths:
+      - "docs/test-results/windows/**"
+      - "scripts/validate_test_evidence.py"
+      - "tests/test_test_evidence_validator.py"
+      - ".github/workflows/test-evidence-integrity.yml"
+  workflow_dispatch:
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install pytest
+      - name: Evidence validator unit tests
+        run: python -m pytest -q tests/test_test_evidence_validator.py
+      - name: Verify all published structured run packages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.validate_test_evidence import validate
+          base = Path("docs/test-results/windows")
+          reports = sorted(path.parent for path in base.rglob("run.json"))
+          failures = {}
+          for path in reports:
+              errors = validate(path)
+              if errors:
+                  failures[str(path)] = errors
+              else:
+                  print("VERIFIED:", path)
+          if failures:
+              for path, errors in failures.items():
+                  for error in errors:
+                      print("EVIDENCE_ERROR:", path, error)
+              raise SystemExit(1)
+          print(f"Checked {len(reports)} structured evidence packages.")
+          PY
