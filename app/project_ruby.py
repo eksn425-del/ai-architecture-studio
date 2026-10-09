@@ -17,6 +17,7 @@ from .sketchup_mcp import (
 )
 from .store import safe_project_id
 from .modeling_quality import require_post_write_verification
+from .adai_components import geometry_helper
 
 
 SCRIPT_ID_RE = re.compile(r"^[a-z][a-z0-9_-]{0,47}$")
@@ -147,8 +148,13 @@ class ProjectRubyExecutor:
         return json.dumps(value, ensure_ascii=False).replace("#", "\\#")
 
     def _build_transport_script(self, script_path: Path, report_path: Path,
-                                expected_revision: int, root_pid: int | None, update_mode: str = "replace") -> str:
+                                expected_revision: int, root_pid: int | None, update_mode: str = "replace",
+                                keep_expectations: list[dict[str, Any]] | None = None) -> str:
         helper_path = Path(__file__).resolve().parent / "vendor" / "sketchup_architect" / "scripts" / "model_session.rb"
+        # Optional CPAL-1.0 ADAI method library is verified and loaded only in
+        # explicitly opted-in local sessions. The official Managed MCP never
+        # replaces the existing Kongxing connection or ProjectRuby transaction.
+        adai_path = geometry_helper(Path(__file__).resolve().parents[1])
         ruby_lines = [
             "# ARCHFLOW_GENERATED_SCRIPT",
             # A read-only audit may already have defined the same module without
@@ -158,6 +164,15 @@ class ProjectRubyExecutor:
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
+            *(
+                [
+                    # SketchUp 2018..2026 use Ruby API major versions 18..26.
+                    # Passing this guard does NOT certify a version: run a local
+                    # compatibility smoke for each year before claiming support.
+                    "raise 'ADAI geometry SU version outside target range' unless (18..26).cover?(Sketchup.version.to_i)",
+                    f"load {self._ruby_string(str(adai_path))}",
+                ] if adai_path is not None else []
+            ),
             f"source_path = {self._ruby_string(str(script_path))}",
             f"source = File.read(source_path, encoding: 'UTF-8')",
             f"CodexSketchupArchitect.run(project_id: {self._ruby_string(self.project_id)}, expected_guid: {self._ruby_string(self.expected_model_guid)}, expected_revision: {expected_revision}, report_path: {self._ruby_string(str(report_path))}, root_pid: {root_pid!r}) do |model, root|",
@@ -170,7 +185,18 @@ class ProjectRubyExecutor:
             "  end",
             "  saie_wall = lambda { |params| KStudioProfessionalHelpers.wall(root, params) }",
             "  saie_wall_with_openings = lambda { |params| KStudioProfessionalHelpers.wall_with_openings(root, params) }",
+            *(
+                ["  adai_geometry = ADAIConstructionGeometry"]
+                if adai_path is not None else []
+            ),
             "  eval(source, binding, File.basename(source_path), 1)",
+            *(
+                [
+                    f"  keep_expectations = JSON.parse({self._ruby_string(json.dumps(keep_expectations, ensure_ascii=False, separators=(',', ':')))})",
+                    "  KStudioProfessionalHelpers.verify_owned_fingerprints!(root, keep_expectations)",
+                ]
+                if keep_expectations else []
+            ),
             f"  root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', {self._ruby_string(self.project_id)})",
             "  root.set_attribute(CodexSketchupArchitect::DICT, 'role', 'project_root')",
             "end",
@@ -253,8 +279,46 @@ class ProjectRubyExecutor:
             raise ValueError("edit requires an existing script_id and owned root; create it with replace first.")
         if root_pid is not None:
             root_pid = int(root_pid)
+        raw_keep_expectations = arguments.get("_keep_expectations") or []
+        if raw_keep_expectations:
+            if update_mode != "edit":
+                raise ValueError("Pre-commit KEEP expectations are only valid for targeted edit mode.")
+            if not isinstance(raw_keep_expectations, list) or len(raw_keep_expectations) > 24:
+                raise ValueError("Internal KEEP expectations must be a list of at most 24 items.")
+            keep_expectations: list[dict[str, Any]] = []
+            for index, item in enumerate(raw_keep_expectations):
+                if not isinstance(item, dict):
+                    raise ValueError(f"Internal KEEP expectation {index} must be an object.")
+                path = item.get("path")
+                if (
+                    not isinstance(path, list) or not 1 <= len(path) <= 8
+                    or any(not isinstance(part, str) or not part or len(part) > 200 for part in path)
+                ):
+                    raise ValueError(f"Internal KEEP expectation {index} path is invalid.")
+                fingerprint = {
+                    "path": list(path),
+                    "persistent_id": item.get("persistent_id"),
+                    "objects_total": item.get("objects_total"),
+                    "bounds_mm": item.get("bounds_mm"),
+                }
+                if type(fingerprint["persistent_id"]) is not int or fingerprint["persistent_id"] <= 0:
+                    raise ValueError(f"Internal KEEP expectation {index} persistent_id is invalid.")
+                if type(fingerprint["objects_total"]) is not int or fingerprint["objects_total"] < 0:
+                    raise ValueError(f"Internal KEEP expectation {index} objects_total is invalid.")
+                if not isinstance(fingerprint["bounds_mm"], dict):
+                    raise ValueError(f"Internal KEEP expectation {index} bounds_mm is invalid.")
+                keep_expectations.append(fingerprint)
+        else:
+            keep_expectations = []
+
+        precommit_keep_guard = {
+            "armed": bool(keep_expectations),
+            "passed": True if keep_expectations else None,
+            "paths": ["/".join(item["path"]) for item in keep_expectations],
+        }
         source_hash = hashlib.sha256(ruby_source.encode("utf-8")).hexdigest()
         new_revision = revision + 1
+        previous_source = script_path.read_text(encoding="utf-8") if script_path.is_file() else None
         temporary_source = script_path.with_suffix(f".rb.{uuid.uuid4().hex}.tmp")
         temporary_source.write_text(ruby_source, encoding="utf-8", newline="\n")
         temporary_source.replace(script_path)
@@ -266,13 +330,47 @@ class ProjectRubyExecutor:
         transport_path = transport_dir / f"studio-project-ruby-{uuid.uuid4().hex}.rb"
         if transport_path.exists() or transport_path.is_symlink():
             raise MCPCallError("Could not allocate a fresh Kongxing transport shim.")
-        transport_script = self._build_transport_script(script_path, report_path, revision, root_pid, update_mode=update_mode)
+        transport_script = self._build_transport_script(
+            script_path,
+            report_path,
+            revision,
+            root_pid,
+            update_mode=update_mode,
+            keep_expectations=keep_expectations,
+        )
         transport_path.write_text(transport_script, encoding="utf-8", newline="\n")
+
+        def restore_failed_keep_candidate() -> None:
+            if not keep_expectations:
+                return
+            failed_path = reports_dir / f"{script_id}-r{new_revision}-{uuid.uuid4().hex[:8]}.failed.rb"
+            try:
+                if script_path.is_file():
+                    failed_path.write_text(script_path.read_text(encoding="utf-8"), encoding="utf-8")
+                if previous_source is None:
+                    script_path.unlink(missing_ok=True)
+                else:
+                    script_path.write_text(previous_source, encoding="utf-8", newline="\n")
+            except OSError:
+                # Geometry rollback remains authoritative. A source-archive failure
+                # must not mask the original SketchUp transaction failure.
+                pass
+
         try:
             result = self.mcp.call("sketchup_eval_project_file", {
                 "script_path": str(transport_path.resolve()),
                 "operation_name": f"AI Architecture Studio project Ruby {script_id} r{new_revision}",
             })
+        except Exception:
+            committed_during_error = False
+            if report_path.is_file():
+                try:
+                    committed_during_error = json.loads(report_path.read_text(encoding="utf-8")).get("status") == "committed"
+                except (OSError, json.JSONDecodeError):
+                    committed_during_error = False
+            if not committed_during_error:
+                restore_failed_keep_candidate()
+            raise
         finally:
             transport_path.unlink(missing_ok=True)
 
@@ -283,6 +381,7 @@ class ProjectRubyExecutor:
             except (OSError, json.JSONDecodeError):
                 report = {"status": "unreadable", "report_path": str(report_path)}
         if report.get("status") != "committed":
+            restore_failed_keep_candidate()
             detail = report.get("error") or (result.get("text") if isinstance(result, dict) else None) or "The transaction did not report a committed revision."
             raise MCPCallError(str(detail))
 
@@ -305,6 +404,7 @@ class ProjectRubyExecutor:
             "root_pid": root_pid,
             "source_sha256": source_hash,
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
+            "last_precommit_keep_guard": precommit_keep_guard,
         }
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -361,6 +461,7 @@ class ProjectRubyExecutor:
             "last_screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "last_verification": write_verification,
             "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
+            "last_precommit_keep_guard": precommit_keep_guard,
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -376,6 +477,7 @@ class ProjectRubyExecutor:
             },
             "model_readback": _safe_model_readback(model_info),
             "write_verification": write_verification,
+            "precommit_keep_guard": precommit_keep_guard,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
         }

@@ -184,10 +184,14 @@ def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, 
         },
     )
 
+    forwarded_keep = []
+
     def run(name, args, **kwargs):
         if name == "sketchup_inspect_owned":
             return kwargs["project_ruby"].inspect_owned(args)
         if name == "sketchup_run_workspace_ruby":
+            if args.get("_keep_expectations"):
+                forwarded_keep.extend(args["_keep_expectations"])
             state = kwargs["project_ruby"].ruby_state
             key = args.get("script_id", "villa")
             state[key] = {"revision": state.get(key, {}).get("revision", 0) + 1}
@@ -224,6 +228,22 @@ def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, 
     )
     assert result["preservation_verification"]["verified"] is True
     assert context.quality_state["preservation"]["paths"] == ["BALCONY"]
+    assert result["repair_memory"]["status"] == "awaiting_review"
+    assert forwarded_keep == [{
+        "path": ["BALCONY"],
+        "persistent_id": 501,
+        "objects_total": 4,
+        "bounds_mm": {"min": [0.0, 0.0, 0.0], "max": [4000.0, 1200.0, 3400.0]},
+    }]
+
+    next_review = context.dispatch(
+        "sketchup_submit_visual_review",
+        {"views": {}, "critique": "fixture"},
+    )
+    assert next_review["repair_memory"]["outcome"] == "still_needs_fix"
+    repair_history = tmp_path / "projects" / "preserve" / "runtime" / "agent_workspace" / "qa" / "repair_history.json"
+    assert repair_history.is_file()
+    assert "still_needs_fix" in repair_history.read_text(encoding="utf-8")
 
 
 def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path, monkeypatch):

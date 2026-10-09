@@ -10,9 +10,9 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 ## Modeling quality loop sources
 
-- gaoypeng/3dcodebench, Apache-2.0, inspected revision 42c7780ed3fcbd466f17f058f62e7996233777f7: K Studio adapts the bounded visual-critique response/parse pattern from core/visual_critique.py and the runner-level separation of writer vs visual-feedback calls. K Studio's LiteLLM route now runs a separate read-only critic request over trusted source/current images, returns at most three targeted mismatches plus a KEEP list, and feeds only that verdict back to the guarded writer loop. The upstream benchmark/provider stack is not vendored.
-- dcc-mcp/dcc-mcp-sketchup, MIT, inspected revision b7981838eca24996e7e9c2959af1463162022f66: K Studio adapts the post-write expected/actual read-back contract from src/dcc_mcp_sketchup/write_contract.py. K Studio keeps its existing Kongxing transport and performs a post-commit owned-root readback because the current bridge does not yet expose the upstream adapter's pre-commit verification hook.
-- The corresponding upstream license texts and provenance note are bundled under app/vendor/modeling_quality_sources/. The current host-side review receipt also follows the MIT SketchUp Agent Harness visual-loop idea that screenshots are advisory artifacts with provenance and must be converted into explicit proposed actions before geometry mutation. No Harness geometry engine is copied.
+- gaoypeng/3dcodebench, Apache-2.0, inspected revision 42c7780ed3fcbd466f17f058f62e7996233777f7: K Studio adapts the bounded visual-critique response/parse pattern from core/visual_critique.py, the runner-level separation of writer vs visual-feedback calls, and the last-known-good/critique-history idea. K Studio's LiteLLM route runs a separate read-only critic over trusted source/current images, while host-owned qa/repair_history.json keeps a compact correction→next-review record so active-context compaction does not erase which repair approaches still failed. The upstream benchmark/provider stack is not vendored.
+- dcc-mcp/dcc-mcp-sketchup, MIT, inspected revision b7981838eca24996e7e9c2959af1463162022f66: K Studio adapts the expected/actual write-contract idea from src/dcc_mcp_sketchup/write_contract.py. K Studio keeps its existing Kongxing transport. General writer evidence still uses a post-commit owned-root readback, while reviewer KEEP paths now also get a K Studio-specific transaction-local fingerprint check before commit; a mismatch raises inside the open SketchUp operation so model_session aborts rather than accepting the damaging correction.
+- The corresponding upstream license texts and provenance note are bundled under app/vendor/modeling_quality_sources/. The current host-side review receipt and repair-memory boundary also follow the MIT SketchUp Agent Harness ideas that screenshots are advisory artifacts with provenance, visual feedback is converted into explicit scoped actions before geometry mutation, and project-local runtime guidance stays separate from canonical geometry truth. No Harness geometry engine is copied.
 - These adaptations do not imply that K Studio has passed real SketchUp visual acceptance; Windows host validation remains required.
 
 ## Local desktop shell
@@ -70,7 +70,14 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - No compatible redistribution license for the competitor's own SketchUp Skill/bridge/application was established. No proprietary source, prompts, generated project scripts or private assets were copied into this repository.
 - License files in bundled third-party runtimes apply to those individual packages only. Later reuse must obtain and attribute the corresponding upstream package; it does not authorize copying the enclosing application.
 
-## ADAI SketchUp Skill + Managed MCP — architecture study only
+## ADAI downloaded distributions (opt-in, not vendored)
+
+- Official upstream version 0.5.39 at `cd1e02e9f6906945376f73032e9598643fe8eb64` (CPAL-1.0).
+- An opt-in script can download both unmodified official release ZIPs into ignored `.local/adai/0.5.39` after validating pinned SHA-256 values and archive paths. The installed upstream LICENSE/NOTICE remain intact; **nothing from ADAI is committed as a source-code vendoring dependency**.
+- The opt-in geometry adapter may load `ADAIConstructionGeometry` inside K Studio's own guarded ProjectRuby transaction; the ADAI Managed MCP remains separate and inactive by default. Local use does not certify multi-version compatibility or eliminate CPAL attribution/source obligations for public distribution. See `docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md`.
+- ADAI copyright/attribution per upstream NOTICE: Copyright 2026 ADAI contributors; ADAI 老王提供; 建筑建模 Skill 由 ADAI 老王提供; https://gitee.com/laowang2026/adai-sketchup-skill-mcp.
+
+## ADAI SketchUp Skill + Managed MCP — earlier architecture study
 
 - Upstream: `laowang-wy/adai-sketchup-skill-mcp`, inspected main revision `cd1e02e9f6906945376f73032e9598643fe8eb64` (0.5.39).
 - License: CPAL-1.0. No ADAI CPAL source file is vendored or copied into K Studio in this milestone.

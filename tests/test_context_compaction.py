@@ -81,6 +81,54 @@ def test_checkpoint_contains_durable_card_schedule_review_and_writer_state(tmp_p
     assert "continuous_wall_with_openings" in checkpoint
 
 
+def test_checkpoint_carries_host_repair_memory(tmp_path):
+    from app.repair_memory import record_repair_attempt
+
+    root, notes, _ = _workspace(tmp_path)
+    (notes / "reconstruction_card.md").write_text("approved card", encoding="utf-8")
+    (notes / "facade_schedule.json").write_text(json.dumps({
+        "schema_version": 1,
+        "dimensions_mm": {"overall_width": 10000},
+        "views": {"front": {"provenance": "observed", "opening_count": 4}},
+        "roof": {"provenance": "observed", "type": "flat", "parapet": "thin"},
+        "user_confirmed": [],
+        "inferred": [],
+    }), encoding="utf-8")
+    record_repair_attempt(
+        root,
+        {
+            "needs_fix": True,
+            "assessment": "roof too heavy",
+            "issues": [{
+                "priority": 1,
+                "view": "roof",
+                "problem": "roof too heavy",
+                "action": "thin roof",
+            }],
+            "keep": ["balcony"],
+            "model_revisions": {"villa": 2},
+            "reviewer": {"mode": "host_dedicated_read_only"},
+        },
+        {
+            "script_id": "villa",
+            "revision": 3,
+            "relative_path": "scripts/villa.rb",
+            "update_mode": "edit",
+            "source_sha256": "abc",
+        },
+    )
+    checkpoint = build_reconstruction_checkpoint(root, {
+        "villa": {
+            "revision": 3,
+            "root_pid": 701,
+            "last_verification": {"verified": True},
+        }
+    })
+    assert "HOST_REPAIR_MEMORY:" in checkpoint
+    assert "repair-001" in checkpoint
+    assert "roof too heavy" in checkpoint
+
+
 def test_compaction_drops_only_completed_history_and_preserves_current_turn():
     checkpoint = "ACTIVE RECONSTRUCTION CHECKPOINT\ncurrent truth"
     messages = [

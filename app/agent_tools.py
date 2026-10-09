@@ -12,6 +12,8 @@ from PIL import Image
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
+from .adai_components import geometry_helper
+from .repair_memory import finalize_latest_repair_attempt, record_repair_attempt
 from .modeling_quality import (
     owned_inspection_fingerprint,
     submit_visual_review,
@@ -148,6 +150,7 @@ class AgentToolSurface:
             "write_limit": write_limit,
             "review": None,
             "preservation": None,
+            "repair_memory": None,
         }
 
         def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
@@ -188,13 +191,19 @@ class AgentToolSurface:
                 if executor is None:
                     raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
                 receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
+                finalized_repair = finalize_latest_repair_attempt(resolved_project_dir, receipt)
                 quality_state["review"] = receipt
+                quality_state["repair_memory"] = finalized_repair
+                payload = {"visual_review": receipt}
+                if finalized_repair is not None:
+                    payload["repair_memory"] = finalized_repair
                 return {
                     "success": True,
                     "visual_review": receipt,
+                    "repair_memory": finalized_repair,
                     "contentItems": [{
                         "type": "inputText",
-                        "text": json.dumps({"visual_review": receipt}, ensure_ascii=False),
+                        "text": json.dumps(payload, ensure_ascii=False),
                     }],
                 }
 
@@ -205,6 +214,7 @@ class AgentToolSurface:
                 raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
             preservation_before: dict[str, dict[str, Any]] = {}
             preservation_script_id = ""
+            review_before_write: dict[str, Any] | None = None
             if bounded and writes > 0:
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
@@ -212,6 +222,7 @@ class AgentToolSurface:
                         "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique "
                         "六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。"
                     )
+                review_before_write = review
                 if review.get("needs_fix") is False:
                     raise MCPCallError(
                         "当前六视图审查为 NEEDS_FIX: NO，本轮不再接受额外几何写入。"
@@ -232,7 +243,18 @@ class AgentToolSurface:
                 if preserve_paths:
                     preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
             try:
-                output = self.dispatch(name, arguments, project_dir=resolved_project_dir, project_ruby=executor)
+                dispatch_arguments = arguments
+                if bounded and preservation_before:
+                    dispatch_arguments = dict(arguments)
+                    dispatch_arguments["_keep_expectations"] = [
+                        {
+                            "path": list(path),
+                            **preservation_before["/".join(path)],
+                        }
+                        for path in arguments.get("preserve_paths", [])
+                    ]
+                output = self.dispatch(name, dispatch_arguments, project_dir=resolved_project_dir, project_ruby=executor)
+                preservation: dict[str, Any] | None = None
                 if bounded and preservation_before:
                     preservation_after = preserve_snapshot(
                         preservation_script_id, arguments.get("preserve_paths")
@@ -248,8 +270,9 @@ class AgentToolSurface:
                             "paths": sorted(preservation_before),
                         }
                         raise MCPCallError(
-                            "定向修正破坏了 reviewer KEEP 几何；该 revision 已提交但不能视为无损修正。"
-                            f" {error} 请先重新读取当前模型并修复，不要宣称质量通过。"
+                            "定向修正破坏了 reviewer KEEP 几何。正常情况下 pre-commit KEEP guard 会在提交前回滚；"
+                            "这里的 post-commit 检查是第二道防线，说明实际状态仍与保护指纹不一致。"
+                            f" {error} 请停止宣称质量通过并检查当前模型。"
                         ) from error
                     quality_state["preservation"] = preservation
                     qa_dir = resolved_project_dir / "runtime" / "agent_workspace" / "qa"
@@ -266,6 +289,43 @@ class AgentToolSurface:
                             "text": "KEEP preservation receipt: "
                                     + json.dumps(preservation, ensure_ascii=False),
                         })
+                if (
+                    bounded
+                    and review_before_write is not None
+                    and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items())
+                ):
+                    script_id = str(arguments.get("script_id") or "")
+                    state = executor.ruby_state.get(script_id, {})
+                    writer_memory = {
+                        "script_id": script_id,
+                        "revision": int(state.get("revision", 0) or 0),
+                        "relative_path": str(arguments.get("relative_path") or ""),
+                        "update_mode": str(arguments.get("update_mode") or "replace"),
+                        "source_sha256": str(state.get("source_sha256") or ""),
+                        "precommit_keep_guard": state.get("last_precommit_keep_guard"),
+                        "preservation_verification": preservation,
+                    }
+                    try:
+                        repair_entry = record_repair_attempt(
+                            resolved_project_dir,
+                            review_before_write,
+                            writer_memory,
+                        )
+                        quality_state["repair_memory"] = repair_entry
+                        if isinstance(output, dict):
+                            output["repair_memory"] = repair_entry
+                            output.setdefault("contentItems", []).append({
+                                "type": "inputText",
+                                "text": "Host repair-memory attempt: "
+                                        + json.dumps(repair_entry, ensure_ascii=False),
+                            })
+                    except (OSError, ValueError) as error:
+                        # Repair memory is advisory. Do not invalidate geometry
+                        # that already passed transaction/write verification.
+                        quality_state["repair_memory"] = {
+                            "status": "memory_write_failed",
+                            "error": str(error),
+                        }
                 return output
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
@@ -345,6 +405,17 @@ class AgentToolSurface:
                 ))
 
         if ruby_enabled:
+            # Only advertise the third-party construction helper after the pinned
+            # official ZIP has been installed, verified, and explicitly enabled.
+            adai_method_instructions = (
+                " Optional ADAI CPAL-1.0 geometry helper is active in this LOCAL session: "
+                "adai_geometry.profile(root.entities, name, outline_mm, depth_mm, plane, offset_mm, material); "
+                "adai_geometry.profile_with_holes(...), loft_sections(...), shell_grid(...), closed_band(...). "
+                "Always pass root.entities; numeric dimensions are in mm. "
+                "Experimental: per-SketchUp-version real geometry smoke is still required."
+                if geometry_helper(Path(__file__).resolve().parents[1]) is not None
+                else ""
+            )
             tools.append(self._dynamic_tool(
                 "sketchup_inspect_owned", "Read-only nested owned-group inspection with actual persistent IDs and XYZ millimeter bounds; no geometry/diagnostic objects, source writes or revision change. Use exact path name segments; [] lists the owned root. Page until next_offset is null when proving full object preservation. Bounds are explicitly relative to each parent, not global.",
                 {"type": "object", "required": ["script_id"], "properties": {
@@ -444,6 +515,7 @@ class AgentToolSurface:
                       "A Group has .entities; Sketchup::Entities does not. "
                       "Isolate adjacent solids in child groups/components: pushpull can merge/delete coplanar faces. "
                       "Do not reuse a Face after pushpull unless valid?. Pass model explicitly into Ruby def helpers."
+                      + adai_method_instructions
                 ),
                 "inputSchema": {
                     "type": "object",
@@ -456,7 +528,7 @@ class AgentToolSurface:
                         "preserve_paths": {
                             "type": "array",
                             "maxItems": 24,
-                            "description": "For a post-review targeted correction, exact named owned-group paths that must remain unchanged. Map reviewer KEEP items to these paths with sketchup_inspect_owned first. The host rechecks persistent ID, object count and mm bounds after the write.",
+                            "description": "For a post-review targeted correction, exact named owned-group paths that must remain unchanged. Map reviewer KEEP items to these paths with sketchup_inspect_owned first. The host snapshots them, verifies the same fingerprints inside the SketchUp transaction before commit (abort on regression), then rechecks persistent ID, object count and mm bounds after commit as defense in depth.",
                             "items": {
                                 "type": "array",
                                 "minItems": 1,

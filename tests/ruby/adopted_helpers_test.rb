@@ -82,4 +82,17 @@ snap=KStudioProfessionalHelpers.owned_snapshot(root)
 check(snap[:objects][0][:bounds_mm][:size]==[1016.0,1270.0,1524.0], 'Stultus XYZ must not swap SketchUp Y/Z bounding-box dimensions')
 check(snap[:objects][0][:persistent_id]==wall.persistent_id, 'Readback must include actual persistent identity')
 check(snap[:bounds_units]=='mm' && snap[:api_units]=='inch', 'Readback units must be explicit')
-puts 'PASS: SAIE wall math/owned target, validation, Stultus XYZ bounds and identity (test doubles only)'
+
+wall_bounds=KStudioStultusBounds.bounds_mm(wall.bounds)
+keep=[{
+  'path'=>['rear-wall'],
+  'persistent_id'=>wall.persistent_id,
+  'objects_total'=>0,
+  'bounds_mm'=>{'min'=>wall_bounds[:min], 'max'=>wall_bounds[:max]}
+}]
+receipt=KStudioProfessionalHelpers.verify_owned_fingerprints!(root,keep)
+check(receipt[:verified] == true, 'Precommit KEEP guard must accept unchanged owned geometry')
+wall.bounds=Bounds.new(Geom::Point3d.new(0,10,20),Geom::Point3d.new(41,60,80))
+rejected { KStudioProfessionalHelpers.verify_owned_fingerprints!(root,keep) }
+
+puts 'PASS: SAIE wall math/owned target, validation, Stultus XYZ bounds/identity and precommit KEEP guard (test doubles only)'

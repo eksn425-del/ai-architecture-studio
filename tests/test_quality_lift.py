@@ -301,6 +301,89 @@ def test_same_project_script_revisions_reuse_model_root_and_return_screenshots(t
     assert list(transport_dir.iterdir()) == []
 
 
+def test_workspace_ruby_forwards_host_only_keep_expectations(tmp_path):
+    from app.workspace_ruby import run_workspace_ruby
+
+    workspace = tmp_path / "agent_workspace"
+    (workspace / "scripts").mkdir(parents=True)
+    (workspace / "scripts" / "villa.rb").write_text("root.name = 'villa'\n", encoding="utf-8")
+
+    captured = {}
+
+    class Executor:
+        def run(self, payload):
+            captured.update(payload)
+            return {"success": True}
+
+    expectation = [{
+        "path": ["BALCONY"],
+        "persistent_id": 501,
+        "objects_total": 4,
+        "bounds_mm": {"min": [0.0, 0.0, 0.0], "max": [4000.0, 1200.0, 3400.0]},
+    }]
+    run_workspace_ruby(
+        Executor(),
+        agent_workspace=workspace,
+        arguments={
+            "script_id": "villa",
+            "relative_path": "scripts/villa.rb",
+            "update_mode": "edit",
+            "_keep_expectations": expectation,
+        },
+    )
+    assert captured["_keep_expectations"] == expectation
+    assert captured["update_mode"] == "edit"
+    assert captured["ruby_source"] == "root.name = 'villa'\n"
+
+
+def test_precommit_keep_guard_is_in_transport_and_restores_last_good_script_on_abort(tmp_path, monkeypatch):
+    transport_dir = tmp_path / "kongxing-generated"
+    monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(transport_dir))
+    state = {"main": {"revision": 1, "root_pid": 701, "model_guid": "guid-live"}}
+    executor, _adapter, mcp, _model_path = _executor(tmp_path, state=state)
+    scripts_dir = executor._project_runtime_path()
+    script_path = scripts_dir / "main.rb"
+    script_path.write_text("root.name = 'last-good'\n", encoding="utf-8")
+
+    original_call = mcp.call
+    captured_transport = {}
+
+    def guarded_abort(name, arguments):
+        source = Path(arguments["script_path"]).read_text(encoding="utf-8")
+        if "inspect_named_owned_group" in source:
+            return original_call(name, arguments)
+        captured_transport["source"] = source
+        report_literal = re.search(r"report_path: (\"(?:\\\\.|[^\"])*\")", source).group(1)
+        report_path = Path(json.loads(report_literal))
+        report_path.write_text(json.dumps({
+            "status": "aborted",
+            "error": "RuntimeError: KEEP regression BALCONY: bounds_mm.max[0] changed",
+        }), encoding="utf-8")
+        return {"success": False, "text": "KEEP regression"}
+
+    mcp.call = guarded_abort
+    with pytest.raises(Exception, match="KEEP regression"):
+        executor.run({
+            "script_id": "main",
+            "ruby_source": "root.name = 'bad-candidate'",
+            "update_mode": "edit",
+            "_keep_expectations": [{
+                "path": ["BALCONY"],
+                "persistent_id": 501,
+                "objects_total": 4,
+                "bounds_mm": {"min": [0.0, 0.0, 0.0], "max": [4000.0, 1200.0, 3400.0]},
+            }],
+        })
+
+    assert "verify_owned_fingerprints!" in captured_transport["source"]
+    assert "BALCONY" in captured_transport["source"]
+    assert script_path.read_text(encoding="utf-8") == "root.name = 'last-good'\n"
+    failed = list((scripts_dir / "reports").glob("main-r2-*.failed.rb"))
+    assert len(failed) == 1
+    assert "bad-candidate" in failed[0].read_text(encoding="utf-8")
+    assert state["main"]["revision"] == 1
+
+
 def test_ab_benchmark_metadata_persists_same_low_model_and_input(tmp_path):
     store = ProjectStore(tmp_path / "runtime")
     project = store.create_project(ProjectContext(project_name="Quality benchmark fixture"))

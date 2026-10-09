@@ -1,4 +1,10 @@
-# AI Architecture Studio
+# K AI Studio（AI Architecture Studio）
+
+> **唯一主产品 / Single product mainline:** [K AI Studio](https://github.com/eksn425-del/ai-architecture-studio) 将后续适配的开源 Skill、MCP、几何模块和专业软件自动化能力，持续整合进同一个网站与 GitHub 主仓库。新开源项目是 K AI Studio 的候选能力组件，不再另做一套相似的网站。完整原则见 [One Product / Open Source Policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md)。
+
+## ADAI 0.5.39 integrated option (experimental; disabled by default)
+
+K AI Studio supports **opt-in**, integrity-checked downloads of the upstream ADAI Skill and its Managed MCP, with the official CPAL-1.0 license and attribution retained. Only the installed Skill's construction geometry can be enabled inside our existing guarded ProjectRuby bridge; the separate Managed MCP is **not** activated automatically. SketchUp **2018–2026 is a validation target, not a certified compatibility claim**; original verified K Studio baseline remains SketchUp 2024. See [ADAI component adoption and version matrix](docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md).
 
 ## Windows 用户开始使用
 

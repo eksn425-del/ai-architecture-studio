@@ -11,7 +11,7 @@ MAX_TEXT_BYTES = 120000
 
 
 def workspace_file_tools() -> list[dict]:
-    schema = {"type": "string", "description": "Project workspace path: notes/*.md, notes/*.json, qa/*.md or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/."}
+    schema = {"type": "string", "description": "Project workspace path: notes/*.md, notes/*.json, qa/*.md, host-owned qa/*.json or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/. qa/*.json is read-only."}
     return [
         {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/JSON/Ruby file.",
          "inputSchema": {"type": "object", "properties": {"relative_path": schema}, "additionalProperties": False}},
@@ -32,7 +32,7 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
         raise ValueError("relative_path must be a string.")
     if name == "workspace_read" and path in {"", ".", "notes", "notes/", "qa", "qa/", "scripts", "scripts/"}:
         files = []
-        for directory, suffixes in (("notes", (".md", ".json")), ("qa", (".md",)), ("scripts", (".rb",))):
+        for directory, suffixes in (("notes", (".md", ".json")), ("qa", (".md", ".json")), ("scripts", (".rb",))):
             if path not in {"", "."} and path.rstrip("/") != directory:
                 continue
             parent = root / directory
@@ -42,12 +42,14 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
                 files.extend(p.relative_to(root).as_posix() for p in parent.glob("*" + suffix)
                              if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root))
         return {"success": True, "files": sorted(files)}
-    if not re.fullmatch(r"notes/[A-Za-z0-9_.-]+\.(?:md|json)|qa/[A-Za-z0-9_.-]+\.md|scripts/[A-Za-z0-9_.-]+\.rb", path):
-        raise ValueError("Only workspace notes Markdown/JSON, qa Markdown and scripts Ruby are allowed.")
+    if not re.fullmatch(r"notes/[A-Za-z0-9_.-]+\.(?:md|json)|qa/[A-Za-z0-9_.-]+\.(?:md|json)|scripts/[A-Za-z0-9_.-]+\.rb", path):
+        raise ValueError("Only workspace notes Markdown/JSON, qa Markdown/read-only JSON and scripts Ruby are allowed.")
     target = root.joinpath(*PurePosixPath(path).parts)
     if workspace.is_symlink() or any(p.is_symlink() for p in (target, target.parent)) or not target.resolve().is_relative_to(root):
         raise ValueError("Workspace files may not escape through links.")
     if name == "workspace_write":
+        if path.startswith("qa/") and target.suffix.lower() == ".json":
+            raise ValueError("qa JSON is host-owned review/repair evidence and is read-only to the modeling agent.")
         content = arguments.get("content")
         if not isinstance(content, str):
             raise ValueError("content must be UTF-8 text.")

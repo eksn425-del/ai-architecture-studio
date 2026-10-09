@@ -18,6 +18,48 @@
 
 ---
 
+# Current task — K AI Studio unified product mainline (2026-10-09)
+
+**Owner decision:** All future suitable open-source capabilities should improve the **same K AI Studio website** in `eksn425-del/ai-architecture-studio` rather than creating separate first-party product repositories. ADAI 0.5.39 is the first combined capability. Details: [one-product and open-source policy](ONE_PRODUCT_OPEN_SOURCE_POLICY.md).
+
+**Merged baseline (2026-10-09):** [ADAI PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1) was merged into `main` as `4a1d027ab4da693388cce0975cd6241181634b9e`. Its official-download/verified geometry helper is present as **opt-in and default-disabled**. This merge does **not** mean ADAI-assisted native SU2024 execution passed or SketchUp 2018–2026 compatibility is certified. Keep Kongxing's verified single writer, model identity, approvals and KEEP protections. Do not auto-install/activate the alternative ADAI MCP against a live K Studio document.
+
+## Next implementation (K AI Studio, not a separate ADAI project)
+
+1. Pull latest `origin/main`; confirm clean worktree and read `AGENTS.md`, `docs/EXECUTION_GUARDRAILS.md`, `docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md`, and latest `docs/HANDOFF.md`.
+2. Fix user-visible image-to-editable-SketchUp reconstruction weaknesses in the **combined K AI Studio codebase**: roof/parapet outlines, clean wall/window openings, reference-based proportions, repeated modules, facade features, and source-matched six-view QA with targeted corrections. Prefer mature imported helpers and small adapters instead of standalone new websites.
+3. When real Windows + SketchUp 2024 is available, run a **minimal disposable native integration smoke** with the opt-in ADAI geometry helper: build one opening and nontrivial roof; current-camera evidence; guarded edit/KEEP rollback; SKP save/reopen/edit. Mark actual results PASS/PARTIAL/FAIL; this is ordinary product validation, **not** a mandatory old-K-Studio-vs-ADAI A/B benchmark.
+4. Treat SketchUp 2018–2026 as gradual explicit-version compatibility work. Check plugins/available APIs and native reopen on each actually accessible version, otherwise `NOT_RUN`. Never claim nine-version certification based on detection or Python-only tests.
+5. Maintain integrity-verified upstream releases and CPAL-1.0 attribution/source obligations. Feature-gate unverified components until product safety is demonstrated. Integrate future user-found upstream code into this same K AI Studio repo if the license and use case permit.
+6. Do not hide the seven inherited full-suite failures by suppressing tests. Latest feature CI verified both ADAI release ZIPs, Ruby/PowerShell syntax, 8 ADAI tests, 290 passing branch tests and the **same seven pre-existing failures** on untouched main. Improve those tests independently where relevant.
+7. Update the single repository's `docs/HANDOFF.md`, `docs/CURRENT_TASK.md`, actual test evidence, and licenses, then commit/push `main` after normal validation. Do not claim quality without real model evidence.
+
+## Historical quality-loop milestones
+
+# 当前任务 — 2026-10-09 Quality Loop v2.9 / Host Repair Memory
+
+ChatGPT 继续对照 3DCodeBench 的 critique-history / last-known-good 与 SketchUp Agent Harness 的 project-local runtime memory。当前质量循环已经能独立 Critic、KEEP 保护、提交前回滚和上下文压缩，但旧 correction 历史被压缩后，Builder 仍可能忘记“刚才这个修法其实没有解决问题”，从而浪费第二次 correction 和大量 token。
+
+main 候选新增 host-owned `qa/repair_history.json`：只有真实 committed correction 才记录 awaiting_review；下一次可信 visual review 才把它定为 accepted / still_needs_fix。Agent 只能读不能写。active-context compaction 会把最近几条可信 repair memory 带回当前请求，Skill 明确要求 still_needs_fix 的旧修法不能机械重复。它是 advisory memory，不覆盖 source / evidence ledger / facade schedule / 真 SU / 当前 Critic。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_9.md`，并先完成 v2.8 的真 SU2024 pre-commit KEEP negative smoke，再继续 v2.7 staged six-view benchmark。重点观察 repair memory 是否真的减少重复无效修补、writer/tool/token，而不是因为多了一张 JSON 就宣称提升。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。远端实现本身不等于真机 PASS。
+
+---
+
+# 当前任务 — 2026-10-09 Quality Loop v2.8 / KEEP 提交前回滚门禁
+
+ChatGPT 在 v2.7 构造方法路由之上继续采用 3DCodeBench 的 last-known-good / do-no-harm 思路和 dcc-mcp-sketchup 的 write-contract 思路，把 v2.6 “提交后才发现 KEEP 被破坏”升级为真正的 **SketchUp transaction 内 pre-commit guard**。
+
+现在 post-review correction 使用 preserve_paths 时，host 会先读取 protected path 的 persistent ID / direct child count / mm bounds，并作为不可由模型伪造的 host-only expectation 注入 ProjectRuby。同一 SketchUp operation 内，候选 Ruby 执行后、commit 前重新核对这些指纹；不一致直接 raise，model_session abort_operation，坏 revision 不应提交。失败候选 Ruby 会归档，persistent workspace script 恢复 last-good 版本。原有 post-commit KEEP readback 继续保留为第二道防线。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_8.md`，并连同 v2.7 一起真机验收。最关键的新证据不是“测试通过”，而是 **故意修改 protected KEEP group 的负向 smoke 必须在 commit 前失败，revision 不前进，模型和上次成功脚本保持不变**。然后再做一次真实正向 targeted correction，以及新的六视图 staged-construction benchmark。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。远端实现本身不等于 SU2024 真机 PASS。
+
+---
+
 # 当前任务 — 2026-10-09 Quality Loop v2.7 / 构造方法路由与分阶段建模
 
 ChatGPT 已审查 ADAI SketchUp Skill + Managed MCP 0.5.39（`laowang-wy/adai-sketchup-skill-mcp@cd1e02e9`）。上游为 CPAL-1.0，本轮**没有复制/内嵌其 CPAL 源码**，而是把对当前 K Studio 最有价值的建模架构独立实现到现有单写者体系：先完整主形，再真实代表模块，再复制、变体、收尾；同时把“该系统应该用什么构造方法、依赖哪些共享参数、用哪些视图验证”外部化为项目内 `notes/construction_strategy.json`。
@@ -597,3 +639,4 @@ Update `docs/HANDOFF.md` with:
 - parity benchmark result if reached.
 
 Then commit, push `origin/main`, verify remote SHA, and stop. Do not start rendering/PPT/full-design work automatically.
+

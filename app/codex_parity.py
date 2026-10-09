@@ -7,7 +7,7 @@ from .construction_strategy import default_construction_strategy, construction_s
 from .reconstruction_evidence import default_reconstruction_evidence
 
 
-WORKSPACE_VERSION = 9
+WORKSPACE_VERSION = 10
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -35,6 +35,7 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 6. Author or revise durable `.rb` files under `scripts/`; verify one representative repeated module before copying it.
 7. Execute the same files with `sketchup_run_workspace_ruby`, inspect returned screenshots/model state, and correct the same scripts/model rather than restarting.
 8. Maintain `qa/visual_qa.md`: compare source first, then current front/rear/left/right/roof/oblique evidence; keep at most three highest-impact mismatches plus a KEEP list.
+9. `qa/repair_history.json` is host-owned read-only memory of prior correction attempts. Before repeating a fix after context compaction, read it and avoid methods whose next trusted review still said `still_needs_fix`.
 
 ## Architecture-design loop
 
@@ -334,6 +335,8 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "reconstruction_evidence": "notes/reconstruction_evidence.json",
         "construction_strategy": "notes/construction_strategy.json",
         "visual_qa": "qa/visual_qa.md",
+        "repair_history": "qa/repair_history.json",
+        "repair_history_policy": "host-owned-read-only",
         "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "verify", "inspect", "critic", "revise"],
     }
     if not manifest.exists():
