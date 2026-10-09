@@ -1,3 +1,15 @@
+# 当前任务 — 2026-10-09 Quality Loop v2.8 / KEEP 提交前回滚门禁
+
+ChatGPT 在 v2.7 构造方法路由之上继续采用 3DCodeBench 的 last-known-good / do-no-harm 思路和 dcc-mcp-sketchup 的 write-contract 思路，把 v2.6 “提交后才发现 KEEP 被破坏”升级为真正的 **SketchUp transaction 内 pre-commit guard**。
+
+现在 post-review correction 使用 preserve_paths 时，host 会先读取 protected path 的 persistent ID / direct child count / mm bounds，并作为不可由模型伪造的 host-only expectation 注入 ProjectRuby。同一 SketchUp operation 内，候选 Ruby 执行后、commit 前重新核对这些指纹；不一致直接 raise，model_session abort_operation，坏 revision 不应提交。失败候选 Ruby 会归档，persistent workspace script 恢复 last-good 版本。原有 post-commit KEEP readback 继续保留为第二道防线。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_8.md`，并连同 v2.7 一起真机验收。最关键的新证据不是“测试通过”，而是 **故意修改 protected KEEP group 的负向 smoke 必须在 commit 前失败，revision 不前进，模型和上次成功脚本保持不变**。然后再做一次真实正向 targeted correction，以及新的六视图 staged-construction benchmark。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。远端实现本身不等于 SU2024 真机 PASS。
+
+---
+
 # 当前任务 — 2026-10-09 Quality Loop v2.7 / 构造方法路由与分阶段建模
 
 ChatGPT 已审查 ADAI SketchUp Skill + Managed MCP 0.5.39（`laowang-wy/adai-sketchup-skill-mcp@cd1e02e9`）。上游为 CPAL-1.0，本轮**没有复制/内嵌其 CPAL 源码**，而是把对当前 K Studio 最有价值的建模架构独立实现到现有单写者体系：先完整主形，再真实代表模块，再复制、变体、收尾；同时把“该系统应该用什么构造方法、依赖哪些共享参数、用哪些视图验证”外部化为项目内 `notes/construction_strategy.json`。
