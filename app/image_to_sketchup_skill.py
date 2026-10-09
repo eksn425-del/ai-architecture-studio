@@ -41,6 +41,22 @@ Approval covers all passes/details/QA continuously; never ask for another contin
 
 No geometry in clarify/plan mode.
 
+## Construction strategy — choose how to build before writing geometry
+
+Maintain `notes/construction_strategy.json` beside the parameter card, evidence ledger and facade schedule. It is compact method memory, not geometry truth.
+
+Use one internal sequence after approval: **primary form → representative module → replication → variants → finish**. These are not extra user gates. Primary form must already contain the source-defining silhouette, roof/canopy, major negative spaces and largest openings; a vague blockout that hides the defining void is not a valid stage. Before an array/instance pass, build one repeated facade/window/louver/rail/furniture module correctly on its real host and inspect it. Replicate only after that representative module is structurally and visually plausible.
+
+Choose a construction method per visible system instead of improvising independently on every pass:
+- `continuous_wall_with_openings`: straight facade host with real rectangular windows/doors; prefer one continuous wall/opening system over sill/jamb/head stacks.
+- `profile_extrusion`: constant cross-section canopy, trim, parapet, slab edge or other linear profile.
+- `loft_or_mesh`: roof, shell or form whose section/height changes along an axis; use guarded custom Ruby/mesh construction when no typed helper exists.
+- `prototype_instance`: actual repeated modules sharing geometry; confirm one module before copying and keep special end/corner variants separate.
+- `typed_semantic_helper`: only when an injected verified helper directly matches the element.
+- `custom_owned_ruby`: project-specific geometry under the owned root when the previous methods do not fit.
+
+Put shared dimensions/spacing/levels in `shared_parameters` once with provenance. Systems list only the parameters they depend on. If a shared parameter changes, correct the smallest dependent set; do not independently retune unrelated walls, windows and roof pieces. Map stable systems to semantic owned paths when available so later Critic/KEEP correction can target the real upstream object rather than adding overlapping repair geometry.
+
 ## Evidence fidelity modes
 
 Maintain `notes/reconstruction_evidence.json` beside the parameter card and facade schedule. Evidence completeness controls how much freedom the Builder has.
