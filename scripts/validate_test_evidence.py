@@ -61,6 +61,43 @@ def _inventory(directory: Path) -> list[dict]:
     return records
 
 
+def _legacy_windows_newline_equivalent(directory: Path, previous: dict, inventory: list[dict]) -> bool:
+    """Accept only exact CRLF<->LF checkout conversion in pre-2026-10-10 reports.
+
+    Old Codex manifests were hashed on Windows before Git's text conversion.
+    Future packages remain byte-exact. Binary evidence can NEVER differ.
+    """
+    if directory.name[:10] >= "2026-10-10":
+        return False
+    if not isinstance(previous, dict) or previous.get("schema_version") != 1:
+        return False
+    recorded = previous.get("files")
+    if not isinstance(recorded, list) or len(recorded) != len(inventory):
+        return False
+    actual_by_name = {item["path"]: item for item in inventory}
+    if len(actual_by_name) != len(recorded):
+        return False
+    for expected in recorded:
+        if not isinstance(expected, dict) or expected.get("path") not in actual_by_name:
+            return False
+        name = expected["path"]
+        actual = actual_by_name[name]
+        if expected == actual:
+            continue
+        if not name.lower().endswith((".json", ".md", ".txt", ".rb", ".csv")):
+            return False
+        value = (directory / name).read_bytes()
+        alternate = (
+            value.replace(b"\\r\\n", b"\\n")
+            if b"\\r\\n" in value else value.replace(b"\\n", b"\\r\\n")
+        )
+        if alternate == value or len(alternate) != expected.get("bytes"):
+            return False
+        if hashlib.sha256(alternate).hexdigest() != expected.get("sha256"):
+            return False
+    return True
+
+
 def validate(directory: Path, *, write_manifest: bool = False) -> list[str]:
     errors: list[str] = []
     if not directory.is_dir() or directory.is_symlink():
@@ -191,8 +228,15 @@ def validate(directory: Path, *, write_manifest: bool = False) -> list[str]:
         else:
             try:
                 previous = _load(path)
-                _check(previous.get("schema_version") == 1 and previous.get("files") == inventory,
+                strict_match = previous.get("schema_version") == 1 and previous.get("files") == inventory
+                legacy_newlines_only = (
+                    not strict_match
+                    and _legacy_windows_newline_equivalent(directory, previous, inventory)
+                )
+                _check(strict_match or legacy_newlines_only,
                        errors, "Manifest mismatch: report file contents changed or files are missing")
+                if legacy_newlines_only:
+                    print("LEGACY_NOTE: Windows text EOL normalization only:", directory)
             except (ValueError, OSError, AttributeError) as exc:
                 errors.append(f"Invalid SHA256 manifest: {exc}")
     return errors
