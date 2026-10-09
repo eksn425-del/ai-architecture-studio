@@ -1,5 +1,15 @@
 # AGENTS.md
 
+## Owner decision — external-source learning must change real user experience (2026-10-10)
+
+**Do not mistake research / downloaded source / installed Skill / isolated smoke for an improvement to the product.** K AI Studio now follows TWO complementary loops: **continually adopt licensed and useful external methods into stable product capabilities**, then **select a suitable actual method per real task and verify that it ran**. This is not specific to 3D: the same rule applies to future CAD, website, video and workflow products. Read [continuous capability adoption policy](docs/CONTINUOUS_CAPABILITY_ADOPTION_2026-10-10.md).
+
+For modeling, consult `app/oss_method_catalog.py` and the host's actual capabilities. The `construction_strategy` for each new wall/opening/profile/roof should record a concrete `method_id` + meaningful `selection_reason`. The guarded writer wraps SAIE and opt-in ADAI calls and returns `oss_method_ledger`/`oss_method_adoption` read back from the current root. **Zero wrapped calls ≠ product used; execution ≠ visual quality achieved.** Check real geometry, KEEP and source-matched screenshots. If custom Ruby or a fallback is more appropriate, record the specific compatibility, license, topology or previous failure reason instead of adding a token ADAI call.
+
+When the user discovers an external project, identify concrete code/methods worth adopting, license and platform constraints, the production integration point and real acceptance evidence. Finish the same product loop: study → integrate → expose → execute → assess user impact; defer or reject unsuitable upstream material. Do not build another first-party site, collect uncalled helpers or invent upstream usage. Latest actionable issue: [OSS adoption Issue #3](https://github.com/eksn425-del/ai-architecture-studio/issues/3).
+
+For the **NEXT Codex test** use the user's **new architectural reference image(s)**, not the previous café or villa. Follow [new-image test plan](docs/NEXT_ARCHITECTURE_TEST_WITH_OSS_ADOPTION_2026-10-10.md) and upload `model/oss-method-ledger.json` and `model/oss-method-adoption.json` along with all regular per-run GitHub evidence. If images are not present, request the input before executing an arbitrary older test.
+
 ## Single-product owner decision (2026-10-09)
 
 **K AI Studio / K Studio / AI Architecture Studio is the one continuing product.** This `eksn425-del/ai-architecture-studio` repository and its default `main` branch are the canonical product source. When the user shares any new open-source project, inspect it as a potential **component to integrate into this same website**; do not spin up a competing first-party website/project by default. Choose Adopt → Wrap/Fork → Compose → Minimal Custom Build, with license compliance, model quality, rollback, Windows/SketchUp compatibility and evidence-first validation. Short-lived branches/PRs are fine, but accepted work returns to `main`. See [one-product open-source policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md).
