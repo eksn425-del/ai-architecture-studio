@@ -29,6 +29,7 @@ _FORBIDDEN_SOURCE = re.compile(
     # sandbox; the only trusted execution boundary remains the disposable model.
     r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|KStudioProfessionalHelpers|KStudioSAIE|KStudioStultusBounds|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
+    r"|\bKStudioOSSMethodRuntime\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
     # geometry in the injected owned root. Block root-to-model traversal and
@@ -149,7 +150,8 @@ class ProjectRubyExecutor:
 
     def _build_transport_script(self, script_path: Path, report_path: Path,
                                 expected_revision: int, root_pid: int | None, update_mode: str = "replace",
-                                keep_expectations: list[dict[str, Any]] | None = None) -> str:
+                                keep_expectations: list[dict[str, Any]] | None = None,
+                                source_sha256: str = "") -> str:
         helper_path = Path(__file__).resolve().parent / "vendor" / "sketchup_architect" / "scripts" / "model_session.rb"
         # Optional CPAL-1.0 ADAI method library is verified and loaded only in
         # explicitly opted-in local sessions. The official Managed MCP never
@@ -161,6 +163,7 @@ class ProjectRubyExecutor:
             # loading the transaction methods; always load the small helper file.
             f"load {self._ruby_string(str(helper_path.resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'adopted_sketchup_helpers.rb').resolve()))}",
+            f"load {self._ruby_string(str((Path(__file__).parent / 'oss_method_runtime.rb').resolve()))}",
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
@@ -183,10 +186,11 @@ class ProjectRubyExecutor:
             "  remove_owned_group = lambda do |name|",
             "    KStudioProfessionalHelpers.remove_named_owned_group(root, name)",
             "  end",
-            "  saie_wall = lambda { |params| KStudioProfessionalHelpers.wall(root, params) }",
-            "  saie_wall_with_openings = lambda { |params| KStudioProfessionalHelpers.wall_with_openings(root, params) }",
+            "  oss_method_events = []",
+            "  saie_wall = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall') { KStudioProfessionalHelpers.wall(root, params) } }",
+            "  saie_wall_with_openings = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall_with_openings') { KStudioProfessionalHelpers.wall_with_openings(root, params) } }",
             *(
-                ["  adai_geometry = ADAIConstructionGeometry"]
+                ["  adai_geometry = KStudioOSSMethodRuntime::ADAIProxy.new(ADAIConstructionGeometry, oss_method_events)"]
                 if adai_path is not None else []
             ),
             "  eval(source, binding, File.basename(source_path), 1)",
@@ -197,6 +201,11 @@ class ProjectRubyExecutor:
                 ]
                 if keep_expectations else []
             ),
+            # The method-use ledger is bound to this guarded model write.
+            "  oss_method_ledger = {'schema_version' => 1, 'source_sha256' => "
+            + self._ruby_string(source_sha256)
+            + ", 'events' => oss_method_events}",
+            "  root.set_attribute(CodexSketchupArchitect::DICT, 'oss_method_ledger', JSON.generate(oss_method_ledger))",
             f"  root.set_attribute(CodexSketchupArchitect::DICT, 'project_id', {self._ruby_string(self.project_id)})",
             "  root.set_attribute(CodexSketchupArchitect::DICT, 'role', 'project_root')",
             "end",
@@ -239,6 +248,7 @@ class ProjectRubyExecutor:
             f"raise 'Revision mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'revision') == {int(state.get('revision', 0))}",
             f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})",
             "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
+            "snapshot[:oss_method_ledger] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'oss_method_ledger') || 'null')",
             "snapshot",
         ]) + "\n"
         script.write_text(source, encoding="utf-8")
@@ -337,6 +347,7 @@ class ProjectRubyExecutor:
             root_pid,
             update_mode=update_mode,
             keep_expectations=keep_expectations,
+            source_sha256=source_hash,
         )
         transport_path.write_text(transport_script, encoding="utf-8", newline="\n")
 
@@ -428,11 +439,28 @@ class ProjectRubyExecutor:
         except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
             raise MCPCallError(f"Post-write read-back verification failed: {error}") from error
 
+        # Read actual committed SKP root metadata; never infer calls from Ruby text.
+        method_ledger = owned_readback.get("oss_method_ledger")
+        if (not isinstance(method_ledger, dict)
+                or method_ledger.get("schema_version") != 1
+                or method_ledger.get("source_sha256") != source_hash
+                or not isinstance(method_ledger.get("events"), list)):
+            method_ledger = {
+                "schema_version": 1, "status": "missing_or_unverified",
+                "source_sha256": source_hash, "events": [],
+            }
+        else:
+            method_ledger = {**method_ledger, "status": "committed_readback"}
+        method_ledger["script_id"] = script_id
+        method_ledger["revision"] = new_revision
+        method_ledger["root_pid"] = root_pid
+
         # Keep the deterministic receipt even if later viewport capture fails.
         # The report/receipt pair is immutable evidence for this revision.
         receipt_path = report_path.with_suffix(".verification.json")
         receipt_path.write_text(json.dumps(write_verification, ensure_ascii=False, indent=2), encoding="utf-8")
         self.ruby_state[script_id]["last_verification"] = write_verification
+        self.ruby_state[script_id]["last_oss_method_ledger"] = method_ledger
         self.ruby_state[script_id]["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
         verified_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         verified_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -462,6 +490,7 @@ class ProjectRubyExecutor:
             "last_verification": write_verification,
             "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
+            "last_oss_method_ledger": method_ledger,
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -478,6 +507,7 @@ class ProjectRubyExecutor:
             "model_readback": _safe_model_readback(model_info),
             "write_verification": write_verification,
             "precommit_keep_guard": precommit_keep_guard,
+            "oss_method_ledger": method_ledger,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
         }
