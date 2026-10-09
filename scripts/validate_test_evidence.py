@@ -25,7 +25,7 @@ WHEN_COMMITTED = (
 )
 STATES = {"PASS", "PARTIAL", "FAIL", "NOT_RUN", "BLOCKED"}
 MANIFEST_FILE = "artifacts.json"
-PNG_SIGNATURE = b"\\x89PNG\\r\\n\\x1a\\n"
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
 
 def _load(path: Path):
