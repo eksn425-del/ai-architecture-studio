@@ -1,3 +1,11 @@
+# Quality Loop v2.6 addendum — structured KEEP preservation
+
+Further comparison with 3DCodeBench's do-no-harm visual-feedback loop and SketchUp Agent Harness's structured visual-action boundary exposed one remaining correction risk: K Studio persisted a critic KEEP list, but nothing machine-enforced that those already-correct objects stayed unchanged during the next targeted write.
+
+v2.6 therefore maps KEEP into exact owned paths at correction time. The reconstruction writer is forced to edit mode after review; preserve_paths are read before and after the write and checked for persistent ID, object-count and millimeter-bounds equality. This is deliberately narrower than automatic rollback: it turns accidental collateral edits into deterministic regression evidence first. Real SU2024 validation is required before considering automatic last-good restore.
+
+---
+
 # Quality Loop v2.5 addendum — deterministic review cameras
 
 Further comparison with DCC review-sheet workflows exposed a subtle gap that file/revision validation did not solve: the Agent could still choose an arbitrary camera, export a current image, and label that path as a canonical facade view. A current screenshot is not necessarily the claimed viewpoint.
