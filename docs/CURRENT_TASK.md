@@ -1,3 +1,19 @@
+# 当前下一轮唯一执行任务 — 新建筑参考图 × 开源能力实用化（2026-10-10）
+
+**最高优先级（覆盖下方所有旧咖啡店 r5、旧白色别墅、Sol Low 的历史“下一轮”安排）：** 用户下一次将给 Codex **另一栋建筑的参考图片**。Codex 应先同步最新 `main`、检查本轮新增的 capability catalog／guarded SAIE+ADAI method trace／adoption assessment／GitHub 证据校验，然后使用**新图**在同一个 K AI Studio 网站开展真机建模和真实开源方法复用测试。**现在尚未收到新的图片，不得自行选择旧任务素材启动建模。**
+
+**完整下一轮操作书：** [`docs/NEXT_ARCHITECTURE_TEST_WITH_OSS_ADOPTION_2026-10-10.md`](NEXT_ARCHITECTURE_TEST_WITH_OSS_ADOPTION_2026-10-10.md)
+
+**永久双层产品原则：** [`docs/CONTINUOUS_CAPABILITY_ADOPTION_2026-10-10.md`](CONTINUOUS_CAPABILITY_ADOPTION_2026-10-10.md)：主动吸收有价值的稳定实现改进产品底座，同时每次真实任务依据任务条件选择、真实调用并验证效果。这一规则不限于 SketchUp，今后适用于 CAD、Web、视频等产品。
+
+**已在远端 main 实现的第一版代码：** `app/oss_method_catalog.py`（具体 OSS 方法/许可/适用范围），`app/oss_method_runtime.rb`（真实 SAIE／显式启用 ADAI wrapper 调用事件），`app/project_ruby.py`（SKP owned-root 当前 revision 的调用记录和选用/执行评估读回），`app/agent_tools.py`＋`app/image_to_sketchup_skill.py`（真实建模提示），`app/construction_strategy.py`（可记录每个系统具体方法与理由），`scripts/validate_test_evidence.py`（新批次必须有 OSS 实际调用/零调用证据）。现有独立 GitHub Actions 已对 Python/Ruby 方法合约自动回归；**Windows 真实模型新调用链尚未测试，不能算已经验证产品建模效果。**
+
+**这次真机重点**：可用的 GPT-6 Luna Max/Codex 实际型号、全新源图、多种组件按适用性选择或解释未选、真实 SU2024 受守护几何调用记录、单一项目持久 SKP、最多两轮局部修正、KEEP、独立 Critic、六视图+源角度、完整读回/native reopen、每轮 token/错误与新一套 GitHub PNG/JSON 证据。**不得为了让 ADAI 有调用量而强制调用不适用方法；但不得再以单纯安装或 smoke 代替真正产品使用。**
+
+**相关缺陷**：[Issue #3](https://github.com/eksn425-del/ai-architecture-studio/issues/3)。在下一轮 Codex 真机与图像质量证据完整之前 Issue 保持开放。
+
+---
+
 # 新发现的 P0 产品级缺陷 — 开源方法未进入真实 Agent 建模（2026-10-10）
 
 **用户审计结论：**我们过去把外部开源项目“研究、下载、引入、通过烟测”当作集成成果，却没有确保它在**下一次真实 K AI Studio 工作流**中被明确选择和调用。这是 Agent 执行策略/可观测性/验收的缺陷，不是证明 ADAI 无法工作。新的工程问题：[Issue #3 — OSS method selection + runtime invocation receipts](https://github.com/eksn425-del/ai-architecture-studio/issues/3)。
