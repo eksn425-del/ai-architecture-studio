@@ -120,3 +120,47 @@ def test_separate_mcp_is_verified_but_never_auto_connected(tmp_path: Path, monke
     Path(info["plugin_rbz"]).write_bytes(b"tampered")
     with pytest.raises(RuntimeError, match="changed"):
         subject.standalone_mcp_connection(tmp_path)
+
+def test_guarded_project_ruby_injects_verified_helper_only_when_enabled(tmp_path: Path, monkeypatch) -> None:
+    from app import project_ruby
+
+    executor = object.__new__(project_ruby.ProjectRubyExecutor)
+    executor.project_id = "test-project"
+    executor.expected_model_path = tmp_path / "blank-disposable-test.skp"
+    executor.expected_model_guid = "GUID"
+
+    def script() -> str:
+        return executor._build_transport_script(
+            tmp_path / "project.rb", tmp_path / "report.json",
+            expected_revision=0, root_pid=None,
+            keep_expectations=[{"path": ["BALCONY"], "persistent_id": 123}],
+        )
+
+    monkeypatch.setattr(project_ruby, "geometry_helper", lambda *_: None)
+    default_code = script()
+    assert "adai_geometry = ADAIConstructionGeometry" not in default_code
+    assert "verify_owned_fingerprints!" in default_code
+    assert "KStudioProfessionalHelpers.wall_with_openings" in default_code
+
+    helper = tmp_path / "installed-official-helper.rb"
+    helper.write_text("module ADAIConstructionGeometry; end", encoding="utf-8")
+    monkeypatch.setattr(project_ruby, "geometry_helper", lambda *_: helper)
+    enabled_code = script()
+    assert "adai_geometry = ADAIConstructionGeometry" in enabled_code
+    assert str(helper) in enabled_code
+    assert "CodexSketchupArchitect.run" in enabled_code
+    assert "verify_owned_fingerprints!" in enabled_code
+    assert "SKETCHUP" not in enabled_code or "18..26" in enabled_code
+
+
+def test_zip_duplicate_and_size_guard(tmp_path: Path) -> None:
+    archive = tmp_path / "oversize.zip"
+    huge_meta = _zip_bytes({"x.bin": b"x" * 100})
+    archive.write_bytes(huge_meta)
+    old_limit = subject.MAX_EXTRACTED_BYTES
+    try:
+        subject.MAX_EXTRACTED_BYTES = 10
+        with pytest.raises(ValueError, match="size limit"):
+            subject._safe_unpack(archive, tmp_path / "unpack")
+    finally:
+        subject.MAX_EXTRACTED_BYTES = old_limit
