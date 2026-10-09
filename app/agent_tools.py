@@ -288,7 +288,11 @@ class AgentToolSurface:
                             "text": "KEEP preservation receipt: "
                                     + json.dumps(preservation, ensure_ascii=False),
                         })
-                if bounded and review_before_write is not None:
+                if (
+                    bounded
+                    and review_before_write is not None
+                    and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items())
+                ):
                     script_id = str(arguments.get("script_id") or "")
                     state = executor.ruby_state.get(script_id, {})
                     writer_memory = {
