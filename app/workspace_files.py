@@ -3,6 +3,7 @@ from pathlib import Path, PurePosixPath
 import json
 import re
 
+from .construction_strategy import validate_construction_strategy_payload
 from .modeling_quality import validate_facade_schedule_payload
 from .reconstruction_evidence import validate_reconstruction_evidence_payload, validate_reconstruction_evidence_sources
 
@@ -67,6 +68,8 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
                 validate_reconstruction_evidence_payload(parsed)
                 if root.name == "agent_workspace" and root.parent.name == "runtime":
                     validate_reconstruction_evidence_sources(root.parent.parent, parsed)
+            elif path == "notes/construction_strategy.json":
+                parsed = validate_construction_strategy_payload(parsed)
             content = json.dumps(parsed, ensure_ascii=False, indent=2) + "\n"
         target.write_text(content, encoding="utf-8")
         return {"success": True, "relative_path": path, "bytes": target.stat().st_size}
