@@ -1,22 +1,20 @@
-# Current product direction — K Studio integrated development (2026-10-09)
+# Current task — K AI Studio unified product mainline (2026-10-09)
 
-**Latest user decision (supersedes earlier branch-only A/B instructions):** Stop treating “old DeepSeek/K Studio vs ADAI-enhanced K Studio” as a separate evaluation milestone. **Continue building our own K Studio on the combined K Studio + ADAI architecture**. Product quality, editable architecture, and reliable iteration matter more than proving which upstream tool deserves credit.
+**Owner decision:** All future suitable open-source capabilities should improve the **same K AI Studio website** in `eksn425-del/ai-architecture-studio` rather than creating separate first-party product repositories. ADAI 0.5.39 is the first combined capability. Details: [one-product and open-source policy](ONE_PRODUCT_OPEN_SOURCE_POLICY.md).
 
-**Working branch:** `feat/adai-components-su2018-2026`, Draft [PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1). This is the combined **development** baseline, not yet the default `main` release; keep using the branch without implying it is merged or universally compatible. `main` v2.9 continues unchanged until integration is safely accepted.
+**Merge target:** Integrate [ADAI PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1) into `main`. Its download/verified helper is safe to merge as **opt-in and default-disabled**; integration to `main` does **not** mean ADAI-assisted native SU2024 execution passed or SketchUp 2018–2026 compatibility is certified. Keep Kongxing's verified single writer, model identity, approvals and KEEP protections. Do not auto-install/activate the alternative ADAI MCP against a live K Studio document.
 
-## Next Codex implementation focus
+## Next implementation (K AI Studio, not a separate ADAI project)
 
-1. Pull and inspect the integrated branch, `AGENTS.md`, `docs/EXECUTION_GUARDRAILS.md`, and [ADAI component setup](ADAI_COMPONENT_INTEGRATION_2026-10-09.md). Work in this branch, not in parallel on `main`.
-2. Install the two pinned official ADAI ZIPs locally if missing, retain their CPAL-1.0 license and attribution. Activate **ADAI Skill geometry inside our existing single guarded ProjectRuby/Kongxing writer**, via explicit opt-in, before considering further product features. The independent ADAI Managed MCP is an optional **separate** backend experiment, not an automatic second writer in the same SketchUp document.
-3. Do one **minimum real SketchUp 2024 disposable-project smoke** of the combined workflow: connect → create representative wall with opening and nontrivial roof/loft → verify real geometry and current view → native SKP save/reopen/edit → preserve existing KEEP and rollback safeguards. Record PASS/PARTIAL/FAIL with evidence. **Do not require a baseline-vs-ADAI A/B comparison, a competitive benchmark, or complete SU2018–2026 certification before continuing K Studio product development.**
-4. Continue improving K Studio itself in concrete user-visible increments: reference-image interpretation and parameter accuracy, reliable roof and wall openings, editable repeated components, source-matched six-view QA, targeted same-model correction, cost/latency, and project UX. Fix genuine failures found during normal integrated-use testing instead of adding more detached infrastructure.
-5. SketchUp **2018–2026 remains a compatibility target**, not a claim. Add per-year adapter/fallback testing progressively when those versions are available. A missing version is NOT_RUN, and a discovered executable does not equal working bridge.
-6. Keep minimum regression tests and the seven inherited `main` pytest failures visible. Repair them on their merits rather than weakening gates or pretending a fully green suite. Update real test evidence and `docs/HANDOFF.md`, then commit/push **this branch**. Request integration to `main` only after a real connected SU smoke, backward-safety checks, and CPAL distribution obligations have been reviewed.
+1. Pull latest `origin/main`; confirm clean worktree and read `AGENTS.md`, `docs/EXECUTION_GUARDRAILS.md`, `docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md`, and latest `docs/HANDOFF.md`.
+2. Fix user-visible image-to-editable-SketchUp reconstruction weaknesses in the **combined K AI Studio codebase**: roof/parapet outlines, clean wall/window openings, reference-based proportions, repeated modules, facade features, and source-matched six-view QA with targeted corrections. Prefer mature imported helpers and small adapters instead of standalone new websites.
+3. When real Windows + SketchUp 2024 is available, run a **minimal disposable native integration smoke** with the opt-in ADAI geometry helper: build one opening and nontrivial roof; current-camera evidence; guarded edit/KEEP rollback; SKP save/reopen/edit. Mark actual results PASS/PARTIAL/FAIL; this is ordinary product validation, **not** a mandatory old-K-Studio-vs-ADAI A/B benchmark.
+4. Treat SketchUp 2018–2026 as gradual explicit-version compatibility work. Check plugins/available APIs and native reopen on each actually accessible version, otherwise `NOT_RUN`. Never claim nine-version certification based on detection or Python-only tests.
+5. Maintain integrity-verified upstream releases and CPAL-1.0 attribution/source obligations. Feature-gate unverified components until product safety is demonstrated. Integrate future user-found upstream code into this same K AI Studio repo if the license and use case permit.
+6. Do not hide the seven inherited full-suite failures by suppressing tests. Latest feature CI verified both ADAI release ZIPs, Ruby/PowerShell syntax, 8 ADAI tests, 290 passing branch tests and the **same seven pre-existing failures** on untouched main. Improve those tests independently where relevant.
+7. Update the single repository's `docs/HANDOFF.md`, `docs/CURRENT_TASK.md`, actual test evidence, and licenses, then commit/push `main` after normal validation. Do not claim quality without real model evidence.
 
-**Already verified by CI**: both official ADAI ZIP downloads + SHA-256, Ruby syntax, Windows launcher syntax, 8 ADAI unit tests. Full branch tests: 290 pass / 7 inherited fail / 2 skip; untouched main: same 7 failed IDs. [CI evidence](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/37887718529). There is **no ADAI-assisted real SketchUp PASS yet**.
-
----
-
+## Historical quality-loop milestones
 
 # 当前任务 — 2026-10-09 Quality Loop v2.9 / Host Repair Memory
 
