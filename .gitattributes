@@ -1,4 +1,4 @@
 patches/saie/*.patch whitespace=-blank-at-eol
 # Evidence manifests hash exact bytes; preserve Windows receipt line endings.
-docs/test-results/windows/2026-10-09-cafe-two-view-luna-max/** -text
-docs/test-results/windows/2026-10-09-kai-integrated-v1/** -text
+docs/test-results/windows/2026-10-09-cafe-two-view-luna-max/** -text whitespace=cr-at-eol
+docs/test-results/windows/2026-10-09-kai-integrated-v1/** -text whitespace=cr-at-eol
