@@ -12,6 +12,7 @@ from PIL import Image
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
+from .adai_components import geometry_helper
 from .repair_memory import finalize_latest_repair_attempt, record_repair_attempt
 from .modeling_quality import (
     owned_inspection_fingerprint,
@@ -404,6 +405,19 @@ class AgentToolSurface:
                 ))
 
         if ruby_enabled:
+            # Only advertise the third-party construction helper after the pinned
+            # official ZIP has been installed, verified, and explicitly enabled.
+            adai_method_instructions = (
+                " Optional ADAI CPAL-1.0 geometry helper is active in this LOCAL session: "
+                "ada i".replace("ada i", "adai_geometry")
+                + ".profile(root.entities, name, outline_mm, depth_mm, plane, offset_mm, material), "
+                "adai_geometry.profile_with_holes(...), adai_geometry.loft_sections(...), "
+                "adai_geometry.shell_grid(...), adai_geometry.closed_band(...). "
+                "Pass geometry under root.entities only; all numeric dimensions in mm. "
+                "These methods are experimental until a real SketchUp version smoke proves them."
+                if geometry_helper(Path(__file__).resolve().parents[1]) is not None
+                else ""
+            )
             tools.append(self._dynamic_tool(
                 "sketchup_inspect_owned", "Read-only nested owned-group inspection with actual persistent IDs and XYZ millimeter bounds; no geometry/diagnostic objects, source writes or revision change. Use exact path name segments; [] lists the owned root. Page until next_offset is null when proving full object preservation. Bounds are explicitly relative to each parent, not global.",
                 {"type": "object", "required": ["script_id"], "properties": {
@@ -503,6 +517,7 @@ class AgentToolSurface:
                       "A Group has .entities; Sketchup::Entities does not. "
                       "Isolate adjacent solids in child groups/components: pushpull can merge/delete coplanar faces. "
                       "Do not reuse a Face after pushpull unless valid?. Pass model explicitly into Ruby def helpers."
+                      + adai_method_instructions
                 ),
                 "inputSchema": {
                     "type": "object",
