@@ -43,9 +43,9 @@ No geometry in clarify/plan mode.
 
 ## Construction strategy — choose how to build before writing geometry
 
-Maintain `notes/construction_strategy.json` as compact method memory, not geometry truth. After approval use one internal sequence without extra user gates: **primary form → representative module → replication → variants → finish**. Primary form includes source-defining roof/voids/openings; verify one real repeated module on its host before copying it.
+Maintain `notes/construction_strategy.json` as compact method memory. After approval: **primary form → representative module → replication → variants → finish**, with no extra user gates. Primary form includes defining roof/voids/openings; verify one real repeated module before copying.
 
-Route each major system deliberately: `continuous_wall_with_openings` for straight hosts with real openings; `profile_extrusion` for constant sections; `loft_or_mesh` or `custom_owned_ruby` for changing/curved forms; `prototype_instance` only for truly repeated modules; `typed_semantic_helper` only when a verified helper fits. Store shared levels/dimensions/spacing once with provenance and let systems depend on them. Prefer named owned paths so later corrections can change the smallest dependent system and preserve KEEP geometry.
+Route systems deliberately: `continuous_wall_with_openings` for straight opening hosts; `profile_extrusion` for constant sections; `loft_or_mesh`/`custom_owned_ruby` for changing forms; `prototype_instance` only after its prototype is correct. Store shared dimensions/levels once with provenance and use named owned paths so corrections touch the smallest dependent system and preserve KEEP geometry.
 
 ## Evidence fidelity modes
 
