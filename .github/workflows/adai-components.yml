@@ -1,0 +1,123 @@
+name: ADAI opt-in integration checks
+
+on:
+  pull_request:
+    paths:
+      - "app/adai_components.py"
+      - "app/project_ruby.py"
+      - "app/agent_tools.py"
+      - "scripts/install_adai_components.py"
+      - "tests/test_adai_components.py"
+      - "scripts/open_blank_sketchup.ps1"
+      - ".github/workflows/adai-components.yml"
+  workflow_dispatch:
+
+jobs:
+  verified-components:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install isolated test runner
+        run: python -m pip install pytest 'pydantic>=2.7,<3'
+      - name: Validate Python syntax
+        run: python -m compileall -q app/adai_components.py app/project_ruby.py app/agent_tools.py scripts/install_adai_components.py
+      - name: Run no-network component tests
+        run: python -m pytest -q tests/test_adai_components.py
+      - name: Install K Studio runtime test dependencies
+        run: python -m pip install -r requirements.txt -r requirements-model-providers.txt
+      - name: Run K Studio regression suites (PR branch)
+        continue-on-error: true
+        run: python -m pytest -q --junitxml=branch-pytest.xml
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-baseline
+      - name: Run untouched main baseline suite
+        continue-on-error: true
+        working-directory: main-baseline
+        run: python -m pytest -q --junitxml=../baseline-pytest.xml
+      - name: Fail if the ADAI branch introduces additional regressions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+
+          def failures(path):
+              if not Path(path).is_file():
+                  raise RuntimeError(f"Missing pytest JUnit results: {path}")
+              root = ET.parse(path).getroot()
+              return {
+                  (case.get("classname", ""), case.get("name", ""))
+                  for case in root.iter("testcase")
+                  if any(child.tag in ("error", "failure") for child in case)
+              }
+
+          candidate, base = failures("branch-pytest.xml"), failures("baseline-pytest.xml")
+          print(f"Candidate failing cases: {len(candidate)}")
+          print(f"Untouched main failing cases: {len(base)}")
+          for case in sorted(base):
+              print("EXISTING_MAIN_FAILURE:", "::".join(case))
+          for case in sorted(candidate - base):
+              print("NEW_REGRESSION:", "::".join(case))
+          for case in sorted(base - candidate):
+              print("RESOLVED:", "::".join(case))
+          if candidate - base:
+              raise SystemExit("Integration branch has additional test failures.")
+          print("No new failing pytest test IDs compared with untouched main.")
+          PY
+      - name: Download and SHA-256 verify the actual upstream ADAI ZIPs
+        run: python scripts/install_adai_components.py --install skill mcp
+      - name: Inspect verified isolated Managed MCP paths
+        run: python scripts/install_adai_components.py --show-standalone-mcp
+      - name: Verify official Skill geometry and license/attribution presence
+        run: |
+          ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1 python - <<'PY'
+          from pathlib import Path
+          from app.adai_components import geometry_helper, install_root, standalone_mcp_connection
+          root = Path.cwd()
+          helper = geometry_helper(root)
+          assert helper and helper.is_file()
+          assert b'module ADAIConstructionGeometry' in helper.read_bytes()
+          mcp = standalone_mcp_connection(root)
+          assert not mcp["connected"] and Path(mcp["plugin_rbz"]).is_file()
+          for package in ("skill", "mcp"):
+              where = install_root(root) / package
+              assert list(where.rglob("LICENSE"))
+              assert list(where.rglob("NOTICE"))
+          print("Verified official ADAI ZIPs, pinned geometry source, MCP launch and CPAL attribution.")
+          PY
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+      - name: Ruby syntax check of the official construction helper
+        run: |
+          ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1 python - <<'PY' > /tmp/kstudio_adai_geometry_path.txt
+          from pathlib import Path
+          from app.adai_components import geometry_helper
+          print(geometry_helper(Path.cwd()))
+          PY
+          ruby -c "$(cat /tmp/kstudio_adai_geometry_path.txt)"
+
+  windows-script-syntax:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse multi-version SketchUp PowerShell launcher
+        shell: pwsh
+        run: |
+          $script = (Resolve-Path "./scripts/open_blank_sketchup.ps1").Path
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile(
+              $script, [ref]$tokens, [ref]$errors
+          ) | Out-Null
+          if ($errors.Count -gt 0) {
+              $errors | ForEach-Object { Write-Error $_.ToString() }
+              exit 1
+          }
+          Write-Host "SketchUp 2018-2026 launcher parsed successfully."

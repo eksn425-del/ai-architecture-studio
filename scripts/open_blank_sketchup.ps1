@@ -6,6 +6,9 @@ param(
     [string]$RuntimeRoot = '',
     [Parameter(Mandatory = $false)]
     [string]$ModelPath = '',
+    [Parameter(Mandatory = $false)]
+    [ValidateRange(0,2026)]
+    [int]$SketchUpYear = 0,
     [switch]$PrepareOnly
 )
 $ErrorActionPreference = 'Stop'
@@ -23,11 +26,24 @@ $uninstallRoots = @(
 $installations = foreach ($root in $uninstallRoots) {
     Get-ChildItem $root -ErrorAction SilentlyContinue |
         ForEach-Object { Get-ItemProperty $_.PSPath -ErrorAction SilentlyContinue } |
-        Where-Object { $_.DisplayName -match '^SketchUp (2024|Pro 2022)$' -and $_.InstallLocation }
+        Where-Object { $_.DisplayName -match '^SketchUp( Pro)? (2018|2019|2020|2021|2022|2023|2024|2025|2026)$' -and $_.InstallLocation }
 }
-$installation = $installations | Sort-Object @{ Expression = { if ($_.DisplayName -match '2024') { 0 } else { 1 } } } | Select-Object -First 1
+if ($SketchUpYear -ne 0 -and ($SketchUpYear -lt 2018 -or $SketchUpYear -gt 2026)) {
+    throw 'SketchUpYear must be 2018..2026, or 0 for the existing 2024/2022 default.'
+}
+if ($SketchUpYear -ne 0) {
+    # Explicit selection for per-version compatibility probes. Never substitute.
+    $installation = $installations | Where-Object {
+        $_.DisplayName -match (" " + $SketchUpYear + "$")
+    } | Select-Object -First 1
+} else {
+    # Preserve the existing default 2024 then 2022.
+    $installation = $installations | Where-Object {
+        $_.DisplayName -match '2024$|2022$'
+    } | Sort-Object @{ Expression = { if ($_.DisplayName -match '2024$') { 0 } else { 1 } } } | Select-Object -First 1
+}
 if (-not $installation) {
-    throw 'SketchUp 2024 or SketchUp Pro 2022 was not found in the Windows uninstall registry.'
+    throw "Requested SketchUp version not found. Default is 2024 then 2022; explicit -SketchUpYear targets 2018..2026 only when installed."
 }
 
 $installRoot = $installation.InstallLocation.TrimEnd('\')
@@ -35,16 +51,32 @@ $sketchupExe = Join-Path $installRoot 'SketchUp.exe'
 if (-not (Test-Path $sketchupExe)) {
     throw "SketchUp executable not found under the registered install location."
 }
-$templateRoots = @(
-    (Join-Path $installRoot 'Resources\zh-cn\Templates'),
-    (Join-Path $installRoot 'Resources\en-US\Templates')
-)
-$template = foreach ($root in $templateRoots) {
-    $candidate = Join-Path $root 'Temp01a - Simple.skp'
-    if (Test-Path $candidate) { $candidate; break }
-}
-if (-not $template) {
-    throw 'The SketchUp Simple template was not found; create a new blank model from SketchUp instead.'
+# Existing version-specific blank model needs no bundled template. Avoid
+# failing on localized/older template layouts when -ModelPath is supplied.
+$template = $null
+if ([string]::IsNullOrWhiteSpace($ModelPath)) {
+    $templateRoots = @(
+        (Join-Path $installRoot 'Resources\zh-cn\Templates'),
+        (Join-Path $installRoot 'Resources\en-US\Templates')
+    )
+    $template = foreach ($root in $templateRoots) {
+        $candidate = Join-Path $root 'Temp01a - Simple.skp'
+        if (Test-Path $candidate) { $candidate; break }
+    }
+    if (-not $template) {
+        # Some older versions or localizations use different template names.
+        foreach ($root in $templateRoots) {
+            if (-not (Test-Path $root)) { continue }
+            $template = Get-ChildItem -Path $root -Filter '*.skp' -File -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -match 'Simple|简易|简单' } |
+                Select-Object -First 1 -ExpandProperty FullName
+            if ($template) { break }
+        }
+    }
+    if (-not $template) {
+        throw 'No blank Simple template found for this version. Supply a project-owned blank-disposable SKP from the target version.'
+    }
+    
 }
 
 New-Item -ItemType Directory -Force -Path $modelDirectory | Out-Null
@@ -66,6 +98,20 @@ if (-not (Test-Path $bridgeStartup)) {
     throw 'Bridge startup helper is missing from scripts.'
 }
 if ($PrepareOnly) { Write-Host "Prepared disposable model: $modelPath"; return }
+# This launcher uses the EXISTING Kongxing bridge, not the separate ADAI MCP.
+# Don't open a version with no corresponding Kongxing plugin, which would
+# otherwise look like a launch success without any working K Studio tools.
+if ($installation.DisplayName -notmatch '(20[12][0-9])$') {
+    throw 'Could not resolve the selected SketchUp installation year.'
+}
+$selectedYear = [int]$Matches[1]
+if (-not $env:APPDATA) {
+    throw 'APPDATA unavailable; cannot check the SketchUp per-version plugin.'
+}
+$pluginMain = Join-Path $env:APPDATA "SketchUp\SketchUp $selectedYear\SketchUp\Plugins\kongxing_ai_sketchup\main.rb"
+if (-not (Test-Path -LiteralPath $pluginMain -PathType Leaf)) {
+    throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install the compatible plugin for that version, or test ADAI in a separate profile. Executable discovery is not functional compatibility."
+}
 $arguments = '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
 Start-Process -FilePath $sketchupExe -ArgumentList $arguments | Out-Null
 Write-Host 'Opened a copied SketchUp Simple template in a disposable Demo model.' -ForegroundColor Green

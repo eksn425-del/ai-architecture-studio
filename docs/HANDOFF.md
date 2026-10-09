@@ -1,3 +1,36 @@
+## Latest direction — integrated K Studio product development, not A/B testing (2026-10-09)
+
+The user explicitly chose **K Studio + ADAI as our continuing product development foundation** and cancelled the separate old-K-Studio-versus-ADAI DeepSeek A/B milestone. The authoritative next-step instructions are now at the top of `docs/CURRENT_TASK.md` on `feat/adai-components-su2018-2026`. Prior handoff notes below are historical; any statement requiring paired A/B as a prerequisite is superseded.
+
+Keep the real SU2024 minimal end-to-end smoke and existing guarded write/KEEP/reopen safety. Continue user-visible fidelity/product improvements directly on the combined branch; add per-version compatibility progressively. CI's official ADAI ZIP verification and 8 tests passed, but no new real SU quality PASS is claimed. PR #1 remains Draft, `main` is untouched; CPAL distribution obligations still apply before default release.
+
+---
+
+## Branch handoff — ADAI official components verified; real SU tests pending — 2026-10-09
+
+Draft PR: https://github.com/eksn425-del/ai-architecture-studio/pull/1, branch `feat/adai-components-su2018-2026` (no change to main).
+
+New in this iteration: downloaded and SHA-verified both real ADAI 0.5.39 release ZIPs on GitHub Actions; checked isolated Skill geometry module, Managed MCP launch/RBZ, license/NOTICE and Ruby syntax. Made the explicit SU2018–2026 launcher inspect installed per-version Kongxing plugins and fail before launching if missing; pre-existing disposable `-ModelPath` no longer requires a localized Simple template. Added 8 component/wiring/safe-archive unit checks and Windows PowerShell parser CI.
+
+Evidence: https://github.com/eksn425-del/ai-architecture-studio/actions/runs/37887718529 — CI **PASS** with **8/8 ADAI tests**, official ZIPs verified, Ruby syntax and Windows parser passed. Full pytest showed **290 pass, 7 fail, 2 skip** on branch vs. **282 pass, same 7 fail, 2 skip** on untouched main; CI asserts zero **new failing test IDs**. Seven pre-existing main failures are not fixed by this feature PR; do not call full pytest green.
+
+**Unfinished:** No Windows SketchUp real ADAI geometry fidelity test, no multi-version interoperability certificate, no CPAL distribution legal approval. The native K Studio/Kongxing SU2024 baseline is separate from ADAI-enhanced testing. NEXT: Windows Codex should follow branch-only task at the TOP of `docs/CURRENT_TASK.md`, update real evidence, push branch, then hand back for review. Do not replace live Kongxing bridge with ADAI MCP by default; do not merge this draft before real quality verification.
+
+---
+
+## Work in PR branch — ADAI opt-in geometry and SU2018–2026 target — 2026-10-09
+
+Branch: `feat/adai-components-su2018-2026`; based on main `f7e05df376129b563bbad9d0dd037a43006efe14`. This work is isolated from the main v2.9 task; **do not merge before full Windows/SketchUp validation**.
+
+- Opt-in pinned upstream ADAI 0.5.39 official ZIP installer with SHA-256/archive safety, LICENSE/NOTICE, separate Skill/MCP directories and no automatic plugin/MCP activation.
+- With `ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1`, the verified official Skill `construction_geometry.rb` is loaded by existing guarded ProjectRuby. `adai_geometry` exposes actual profile, holes, loft, shell, band methods under the same owned-root/KEEP/reader transaction contract. Disabled by default.
+- Explicit installed SketchUp 2018–2026 detection and PowerShell `-SketchUpYear` choice for future version smokes. Existing default launcher still targets 2024 then 2022. **Installed/discovered does not mean certified**.
+- Added isolated MCP launch inspection (no config or SU plugin modification), no-network Python tests, and a PR CI workflow. Windows real SU2018..2026 results not run; external upstream ZIP download not executed from the ChatGPT GitHub-only environment.
+- Required next: a Windows Codex local pull of the branch, ZIP checksum test, Python tests, v2.8/v2.9 regression, 2024 paired original-vs-ADAI geometry, then per-installed-version SU probe/build/save/reopen/edit. Do not call the new helper a modeling-quality PASS before inspecting six authentic views.
+- Detailed runbook: `docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md`. Existing v2.9 main task must still be completed.
+
+---
+
 ## Remote Quality Loop v2.9 — host repair memory — 2026-10-09
 
 Continued the OSS gap review after v2.8. 3DCodeBench keeps critique/attempt history and last-known-good state; SketchUp Agent Harness keeps project-local runtime memory separate from canonical design truth. K Studio already compacted old provider history, but that meant a later correction could lose the trusted record that a previous repair approach still failed.

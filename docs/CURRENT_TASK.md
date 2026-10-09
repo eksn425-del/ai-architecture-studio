@@ -1,3 +1,21 @@
+# Current task — K AI Studio unified product mainline (2026-10-09)
+
+**Owner decision:** All future suitable open-source capabilities should improve the **same K AI Studio website** in `eksn425-del/ai-architecture-studio` rather than creating separate first-party product repositories. ADAI 0.5.39 is the first combined capability. Details: [one-product and open-source policy](ONE_PRODUCT_OPEN_SOURCE_POLICY.md).
+
+**Merge target:** Integrate [ADAI PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1) into `main`. Its download/verified helper is safe to merge as **opt-in and default-disabled**; integration to `main` does **not** mean ADAI-assisted native SU2024 execution passed or SketchUp 2018–2026 compatibility is certified. Keep Kongxing's verified single writer, model identity, approvals and KEEP protections. Do not auto-install/activate the alternative ADAI MCP against a live K Studio document.
+
+## Next implementation (K AI Studio, not a separate ADAI project)
+
+1. Pull latest `origin/main`; confirm clean worktree and read `AGENTS.md`, `docs/EXECUTION_GUARDRAILS.md`, `docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md`, and latest `docs/HANDOFF.md`.
+2. Fix user-visible image-to-editable-SketchUp reconstruction weaknesses in the **combined K AI Studio codebase**: roof/parapet outlines, clean wall/window openings, reference-based proportions, repeated modules, facade features, and source-matched six-view QA with targeted corrections. Prefer mature imported helpers and small adapters instead of standalone new websites.
+3. When real Windows + SketchUp 2024 is available, run a **minimal disposable native integration smoke** with the opt-in ADAI geometry helper: build one opening and nontrivial roof; current-camera evidence; guarded edit/KEEP rollback; SKP save/reopen/edit. Mark actual results PASS/PARTIAL/FAIL; this is ordinary product validation, **not** a mandatory old-K-Studio-vs-ADAI A/B benchmark.
+4. Treat SketchUp 2018–2026 as gradual explicit-version compatibility work. Check plugins/available APIs and native reopen on each actually accessible version, otherwise `NOT_RUN`. Never claim nine-version certification based on detection or Python-only tests.
+5. Maintain integrity-verified upstream releases and CPAL-1.0 attribution/source obligations. Feature-gate unverified components until product safety is demonstrated. Integrate future user-found upstream code into this same K AI Studio repo if the license and use case permit.
+6. Do not hide the seven inherited full-suite failures by suppressing tests. Latest feature CI verified both ADAI release ZIPs, Ruby/PowerShell syntax, 8 ADAI tests, 290 passing branch tests and the **same seven pre-existing failures** on untouched main. Improve those tests independently where relevant.
+7. Update the single repository's `docs/HANDOFF.md`, `docs/CURRENT_TASK.md`, actual test evidence, and licenses, then commit/push `main` after normal validation. Do not claim quality without real model evidence.
+
+## Historical quality-loop milestones
+
 # 当前任务 — 2026-10-09 Quality Loop v2.9 / Host Repair Memory
 
 ChatGPT 继续对照 3DCodeBench 的 critique-history / last-known-good 与 SketchUp Agent Harness 的 project-local runtime memory。当前质量循环已经能独立 Critic、KEEP 保护、提交前回滚和上下文压缩，但旧 correction 历史被压缩后，Builder 仍可能忘记“刚才这个修法其实没有解决问题”，从而浪费第二次 correction 和大量 token。
