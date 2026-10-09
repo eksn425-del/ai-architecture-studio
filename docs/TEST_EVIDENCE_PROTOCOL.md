@@ -8,6 +8,16 @@
 
 测试完成（包括 PARTIAL 或 FAIL）后，在该目录写清楚以下材料，并随代码**commit + push origin/main**，提供公开 GitHub 目录链接、结果 SHA 和后续未完成事项。不能上传某个材料时记录具体原因和 `NOT_RUN`，不允许凭空补造。
 
+## 2026-10-10 起新增：开源成果真实使用证据
+
+凡本批次已经提交真实 SketchUp 几何（`geometry_committed=true`），还必须提交：
+
+- `model/oss-method-ledger.json`：从当次已提交 `sketchup_run_workspace_ruby` 返回的 `oss_method_ledger` **直接导出**，不能根据源代码文本或 Codex 口述伪造实际调用。必须包含 `status`、`source_sha256`、`revision`、`root_pid`、`events`；零调用时保留 `events: []`。
+- `model/oss-method-adoption.json`：导出同一真实 write summary 的 `oss_method_adoption`，包含选用方法、为什么用或不用、`actual_wrapped_calls`、`any_oss_product_use`。没有执行凭据不得写产品已使用；仅执行成功不等于视觉质量 PASS。
+- 本轮 `README.md` 加入“外部能力吸收结果”表：候选方法/是否适用/选定与回退理由/实际调用/是否解决具体缺陷/下一步。
+
+新批次的证据 validator 已检查上述两个 JSON 的存在和基本一致性。注意：这证明**审计数据可读且自洽**，还要用真实 SketchUp writer/readback 和截图核对，不能仅据 JSON 认证 3D 保真。
+
 ## 统一内容（推荐目录）
 
 ```text
