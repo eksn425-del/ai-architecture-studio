@@ -147,6 +147,85 @@ def test_keep_preservation_rejects_id_count_or_bounds_regression():
             verify_preserved_owned_paths(before, changed)
 
 
+def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, monkeypatch):
+    import json
+    import pytest
+    from app.agent_tools import AgentToolSurface
+    from app.sketchup_mcp import MCPCallError
+
+    class Executor:
+        def __init__(self, *args, **kwargs):
+            self.ruby_state = kwargs["ruby_state"]
+
+        def inspect_owned(self, arguments):
+            path = "/".join(arguments.get("path") or [])
+            payload = {
+                "persistent_id": 501 if path == "BALCONY" else 500,
+                "revision": self.ruby_state.get(arguments["script_id"], {}).get("revision", 0),
+                "objects_total": 4,
+                "bounds_mm": {"min": [0, 0, 0], "max": [4000, 1200, 3400]},
+                "objects": [],
+                "next_offset": None,
+            }
+            return {
+                "success": True,
+                "contentItems": [{"type": "inputText", "text": json.dumps(payload)}],
+            }
+
+    monkeypatch.setattr("app.agent_tools.ProjectRubyExecutor", Executor)
+    surface = AgentToolSurface(tmp_path, object(), oss_backends={})
+    monkeypatch.setattr(surface, "dynamic_tools", lambda **kwargs: [])
+    monkeypatch.setattr(
+        "app.agent_tools.submit_visual_review",
+        lambda project_dir, ruby_state, arguments: {
+            "needs_fix": True,
+            "quality_status": "needs_fix",
+            "keep": ["balcony"],
+        },
+    )
+
+    def run(name, args, **kwargs):
+        if name == "sketchup_inspect_owned":
+            return kwargs["project_ruby"].inspect_owned(args)
+        if name == "sketchup_run_workspace_ruby":
+            state = kwargs["project_ruby"].ruby_state
+            key = args.get("script_id", "villa")
+            state[key] = {"revision": state.get(key, {}).get("revision", 0) + 1}
+            return {"success": True, "contentItems": []}
+        return {"success": True}
+
+    monkeypatch.setattr(surface, "dispatch", run)
+    context = surface.prepare(
+        project_dir=tmp_path / "projects" / "preserve",
+        mcp_enabled=True,
+        model_path=tmp_path / "blank.skp",
+        model_guid="fixture",
+        ruby_enabled=True,
+        ruby_state={},
+        tool_profile="reconstruction_coding",
+    )
+    context.dispatch("sketchup_run_workspace_ruby", {"script_id": "villa"})
+    context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
+
+    with pytest.raises(MCPCallError, match="preserve_paths"):
+        context.dispatch(
+            "sketchup_run_workspace_ruby",
+            {"script_id": "villa", "update_mode": "edit"},
+        )
+    with pytest.raises(MCPCallError, match="update_mode=edit"):
+        context.dispatch(
+            "sketchup_run_workspace_ruby",
+            {"script_id": "villa", "update_mode": "replace", "preserve_paths": [["BALCONY"]]},
+        )
+
+    result = context.dispatch(
+        "sketchup_run_workspace_ruby",
+        {"script_id": "villa", "update_mode": "edit", "preserve_paths": [["BALCONY"]]},
+    )
+    assert result["preservation_verification"]["verified"] is True
+    assert context.quality_state["preservation"]["paths"] == ["BALCONY"]
+
+
 def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path, monkeypatch):
     import pytest
     from app.agent_tools import AgentToolSurface
