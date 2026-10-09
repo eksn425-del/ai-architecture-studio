@@ -21,6 +21,7 @@ from .construction_strategy import (
     validate_construction_strategy_payload,
 )
 from .modeling_quality import validate_facade_schedule_payload
+from .repair_memory import repair_history_checkpoint
 from .reconstruction_evidence import default_reconstruction_evidence, validate_reconstruction_evidence_payload
 
 
@@ -29,6 +30,7 @@ MAX_SCHEDULE_CHARS = 12000
 MAX_EVIDENCE_CHARS = 12000
 MAX_STRATEGY_CHARS = 12000
 MAX_REVIEW_CHARS = 8000
+MAX_REPAIR_MEMORY_CHARS = 12000
 DEFAULT_COMPACTION_THRESHOLD_CHARS = 100_000
 
 
@@ -137,6 +139,7 @@ def build_reconstruction_checkpoint(
 
     card = _bounded_text(workspace / "notes" / "reconstruction_card.md", MAX_CARD_CHARS)
     review = _bounded_text(workspace / "qa" / "visual_review.json", MAX_REVIEW_CHARS)
+    repair_memory = repair_history_checkpoint(project_dir)
     writer_state = {}
     for script_id, state in sorted((ruby_state or {}).items()):
         if not isinstance(state, dict):
@@ -173,6 +176,11 @@ def build_reconstruction_checkpoint(
         "",
         "LATEST_VISUAL_REVIEW:",
         review or "(none yet)",
+        "",
+        "HOST_REPAIR_MEMORY:",
+        (repair_memory[:MAX_REPAIR_MEMORY_CHARS] if repair_memory else "(none yet)"),
+        "Use repair memory as advisory history: avoid blindly repeating a correction method that still_needs_fix; "
+        "accepted means only that the next trusted visual review cleared blocking issues for that attempt.",
     ])
 
 
