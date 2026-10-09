@@ -35,7 +35,7 @@ if ($SketchUpYear -ne 0) {
     # Explicit selection for per-version compatibility probes. Do not silently
     # substitute another version if this one is absent.
     $installation = $installations | Where-Object {
-        $_.DisplayName -match ("\\b" + $SketchUpYear + "$")
+        $_.DisplayName -match (" " + $SketchUpYear + "$")
     } | Select-Object -First 1
 } else {
     # Preserve the existing verified default behavior.
