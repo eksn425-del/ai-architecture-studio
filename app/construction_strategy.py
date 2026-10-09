@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from .oss_method_catalog import BY_ID as OSS_METHODS
 from typing import Any
 
 
@@ -71,6 +72,8 @@ def construction_strategy_schema_note() -> str:
     example["systems"] = [{
         "id": "walls", "stage": "primary_form", "role": "shell",
         "method": "continuous_wall_with_openings", "status": "pending",
+        "method_id": "saie.wall_with_openings",
+        "selection_reason": "Standard rectangular observed openings; installed SAIE helper is more suitable than general profile loft.",
         "depends_on": ["storey_height"], "target_paths": [["WALL_FRONT"]],
         "verification_views": ["front", "oblique"], "notes": ["Verify actual openings before replication."]
     }]
@@ -87,7 +90,11 @@ def construction_strategy_schema_note() -> str:
         "Numeric units require one numeric value, not an array. Split level/bay arrays into named scalar parameters; "
         "put explanations in source/notes, not provenance. Text units require a string. "
         "depends_on must reference shared parameter keys. target_paths is a list of exact owned-name segment lists. "
-        "verification_views only front/rear/left/right/roof/oblique. notes must be concise string lists.\n\n"
+        "verification_views only front/rear/left/right/roof/oblique. notes must be concise string lists.\n"
+        "For every new geometry system, include method_id (a concrete OSS provider+method) and selection_reason. "
+        "For custom Ruby, explain why compatible verified SAIE/ADAI helpers are unsuitable. "
+        "An upstream method that is listed but not actually called is NOT product-used. "
+        "ADAI may be chosen only if its pinned helper is installed and explicitly enabled; runtime validates calls.\n\n"
         "```json\n" + json.dumps(example, ensure_ascii=False, indent=2) + "\n```\n"
     )
 
@@ -193,6 +200,18 @@ def validate_construction_strategy_payload(value: Any) -> dict[str, Any]:
             raise ValueError(f"construction strategy system {system_id!r} has invalid method.")
         if status not in CONSTRUCTION_STATUS:
             raise ValueError(f"construction strategy system {system_id!r} has invalid status.")
+        # Backward compatible with previously persisted plans. New plans should
+        # explicitly choose a concrete implementation, not just a vague type.
+        method_id = item.get("method_id")
+        selection_reason = item.get("selection_reason", "")
+        if method_id is not None:
+            if not isinstance(method_id, str) or method_id not in OSS_METHODS:
+                raise ValueError(f"construction strategy system {system_id!r} has invalid OSS method_id.")
+            if (not isinstance(selection_reason, str) or not selection_reason.strip()
+                    or len(selection_reason) > 500):
+                raise ValueError(f"construction strategy system {system_id!r} requires a concise selection_reason.")
+            selection_reason = selection_reason.strip()
+
         depends_on = _string_list(item.get("depends_on", []), f"systems[{index}].depends_on")
         unknown = [name for name in depends_on if name not in parameters]
         if unknown:
@@ -209,6 +228,10 @@ def validate_construction_strategy_payload(value: Any) -> dict[str, Any]:
             raise ValueError(
                 f"construction strategy system {system_id!r} has invalid verification views: {', '.join(bad_views)}."
             )
+        normalized_method = (
+            {"method_id": method_id, "selection_reason": selection_reason}
+            if method_id is not None else {}
+        )
         systems.append({
             "id": system_id,
             "stage": stage,
@@ -219,6 +242,7 @@ def validate_construction_strategy_payload(value: Any) -> dict[str, Any]:
             "target_paths": _owned_paths(item.get("target_paths", []), f"systems[{index}].target_paths"),
             "verification_views": verification_views,
             "notes": _string_list(item.get("notes", []), f"systems[{index}].notes"),
+            **normalized_method,
         })
 
     notes = _string_list(value.get("notes", []), "construction strategy notes")
