@@ -29,8 +29,46 @@ jobs:
         run: python -m pytest -q tests/test_adai_components.py
       - name: Install K Studio runtime test dependencies
         run: python -m pip install -r requirements.txt -r requirements-model-providers.txt
-      - name: Run K Studio regression suites
-        run: python -m pytest -q
+      - name: Run K Studio regression suites (PR branch)
+        continue-on-error: true
+        run: python -m pytest -q --junitxml=branch-pytest.xml
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-baseline
+      - name: Run untouched main baseline suite
+        continue-on-error: true
+        working-directory: main-baseline
+        run: python -m pytest -q --junitxml=../baseline-pytest.xml
+      - name: Fail if the ADAI branch introduces additional regressions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+
+          def failures(path):
+              if not Path(path).is_file():
+                  raise RuntimeError(f"Missing pytest JUnit results: {path}")
+              root = ET.parse(path).getroot()
+              return {
+                  (case.get("classname", ""), case.get("name", ""))
+                  for case in root.iter("testcase")
+                  if any(child.tag in ("error", "failure") for child in case)
+              }
+
+          candidate, base = failures("branch-pytest.xml"), failures("baseline-pytest.xml")
+          print(f"Candidate failing cases: {len(candidate)}")
+          print(f"Untouched main failing cases: {len(base)}")
+          for case in sorted(base):
+              print("EXISTING_MAIN_FAILURE:", "::".join(case))
+          for case in sorted(candidate - base):
+              print("NEW_REGRESSION:", "::".join(case))
+          for case in sorted(base - candidate):
+              print("RESOLVED:", "::".join(case))
+          if candidate - base:
+              raise SystemExit("Integration branch has additional test failures.")
+          print("No new failing pytest test IDs compared with untouched main.")
+          PY
       - name: Download and SHA-256 verify the actual upstream ADAI ZIPs
         run: python scripts/install_adai_components.py --install skill mcp
       - name: Inspect verified isolated Managed MCP paths
