@@ -51,26 +51,32 @@ $sketchupExe = Join-Path $installRoot 'SketchUp.exe'
 if (-not (Test-Path $sketchupExe)) {
     throw "SketchUp executable not found under the registered install location."
 }
-$templateRoots = @(
-    (Join-Path $installRoot 'Resources\zh-cn\Templates'),
-    (Join-Path $installRoot 'Resources\en-US\Templates')
-)
-$template = foreach ($root in $templateRoots) {
-    $candidate = Join-Path $root 'Temp01a - Simple.skp'
-    if (Test-Path $candidate) { $candidate; break }
-}
-if (-not $template) {
-    # Some older versions or localizations use different template names.
-    foreach ($root in $templateRoots) {
-        if (-not (Test-Path $root)) { continue }
-        $template = Get-ChildItem -Path $root -Filter '*.skp' -File -ErrorAction SilentlyContinue |
-            Where-Object { $_.Name -match 'Simple|简易|简单' } |
-            Select-Object -First 1 -ExpandProperty FullName
-        if ($template) { break }
+# Existing version-specific blank model needs no bundled template. Avoid
+# failing on localized/older template layouts when -ModelPath is supplied.
+$template = $null
+if ([string]::IsNullOrWhiteSpace($ModelPath)) {
+    $templateRoots = @(
+        (Join-Path $installRoot 'Resources\zh-cn\Templates'),
+        (Join-Path $installRoot 'Resources\en-US\Templates')
+    )
+    $template = foreach ($root in $templateRoots) {
+        $candidate = Join-Path $root 'Temp01a - Simple.skp'
+        if (Test-Path $candidate) { $candidate; break }
     }
-}
-if (-not $template) {
-    throw 'No blank Simple template found for this version. Supply a project-owned blank-disposable SKP from the target version.'
+    if (-not $template) {
+        # Some older versions or localizations use different template names.
+        foreach ($root in $templateRoots) {
+            if (-not (Test-Path $root)) { continue }
+            $template = Get-ChildItem -Path $root -Filter '*.skp' -File -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -match 'Simple|简易|简单' } |
+                Select-Object -First 1 -ExpandProperty FullName
+            if ($template) { break }
+        }
+    }
+    if (-not $template) {
+        throw 'No blank Simple template found for this version. Supply a project-owned blank-disposable SKP from the target version.'
+    }
+    
 }
 
 New-Item -ItemType Directory -Force -Path $modelDirectory | Out-Null
