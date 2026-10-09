@@ -70,7 +70,14 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - No compatible redistribution license for the competitor's own SketchUp Skill/bridge/application was established. No proprietary source, prompts, generated project scripts or private assets were copied into this repository.
 - License files in bundled third-party runtimes apply to those individual packages only. Later reuse must obtain and attribute the corresponding upstream package; it does not authorize copying the enclosing application.
 
-## ADAI SketchUp Skill + Managed MCP — architecture study only
+## ADAI downloaded distributions (opt-in, not vendored)
+
+- Official upstream version 0.5.39 at `cd1e02e9f6906945376f73032e9598643fe8eb64` (CPAL-1.0).
+- An opt-in script can download both unmodified official release ZIPs into ignored `.local/adai/0.5.39` after validating pinned SHA-256 values and archive paths. The installed upstream LICENSE/NOTICE remain intact; **nothing from ADAI is committed as a source-code vendoring dependency**.
+- The opt-in geometry adapter may load `ADAIConstructionGeometry` inside K Studio's own guarded ProjectRuby transaction; the ADAI Managed MCP remains separate and inactive by default. Local use does not certify multi-version compatibility or eliminate CPAL attribution/source obligations for public distribution. See `docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md`.
+- ADAI copyright/attribution per upstream NOTICE: Copyright 2026 ADAI contributors; ADAI 老王提供; 建筑建模 Skill 由 ADAI 老王提供; https://gitee.com/laowang2026/adai-sketchup-skill-mcp.
+
+## ADAI SketchUp Skill + Managed MCP — earlier architecture study
 
 - Upstream: `laowang-wy/adai-sketchup-skill-mcp`, inspected main revision `cd1e02e9f6906945376f73032e9598643fe8eb64` (0.5.39).
 - License: CPAL-1.0. No ADAI CPAL source file is vendored or copied into K Studio in this milestone.
