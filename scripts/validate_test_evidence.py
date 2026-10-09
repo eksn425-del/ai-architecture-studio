@@ -108,6 +108,36 @@ def validate(directory: Path, *, write_manifest: bool = False) -> list[str]:
                errors, "metrics.token_source must identify where usage came from or why unavailable")
 
     if run.get("geometry_committed") is True:
+        # Reports from the new 2026-10-10 protocol must include real provider
+        # usage evidence, including an honest zero-call report when no OSS
+        # geometry method participated. Historical reports are grandfathered.
+        is_new_adoption_run = directory.name[:10] >= "2026-10-10"
+        if is_new_adoption_run:
+            for relative in ("model/oss-method-ledger.json", "model/oss-method-adoption.json"):
+                if not _is_file_under(directory / relative, directory):
+                    errors.append(f"New model test missing OSS method evidence: {relative}")
+            if not errors:
+                try:
+                    ledger = _load(directory / "model/oss-method-ledger.json")
+                    adoption = _load(directory / "model/oss-method-adoption.json")
+                    if (not isinstance(ledger, dict)
+                            or ledger.get("status") not in {"committed_readback", "missing_or_unverified"}
+                            or not isinstance(ledger.get("events"), list)):
+                        errors.append("Invalid committed OSS method ledger")
+                    if (not isinstance(adoption, dict) or adoption.get("schema_version") != 1
+                            or type(adoption.get("any_oss_product_use")) is not bool
+                            or not isinstance(adoption.get("actual_wrapped_calls"), dict)):
+                        errors.append("Invalid OSS adoption assessment")
+                    if not errors:
+                        counts = adoption["actual_wrapped_calls"]
+                        calls_present = any(type(n) is int and n > 0 for n in counts.values())
+                        if calls_present != adoption["any_oss_product_use"]:
+                            errors.append("OSS use status contradicts actual wrapped method call counts")
+                        if (adoption["any_oss_product_use"]
+                                and ledger.get("status") != "committed_readback"):
+                            errors.append("OSS product use cannot be claimed without committed SKP readback")
+                except (ValueError, OSError) as exc:
+                    errors.append(f"Cannot read OSS method adoption evidence: {exc}")
         required = WHEN_COMMITTED + tuple(f"views/{v}.png" for v in VIEWS) + tuple(
             f"views/{v}.evidence.json" for v in VIEWS
         )
