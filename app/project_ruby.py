@@ -293,6 +293,11 @@ class ProjectRubyExecutor:
         else:
             keep_expectations = []
 
+        precommit_keep_guard = {
+            "armed": bool(keep_expectations),
+            "passed": True if keep_expectations else None,
+            "paths": ["/".join(item["path"]) for item in keep_expectations],
+        }
         source_hash = hashlib.sha256(ruby_source.encode("utf-8")).hexdigest()
         new_revision = revision + 1
         previous_source = script_path.read_text(encoding="utf-8") if script_path.is_file() else None
@@ -381,6 +386,7 @@ class ProjectRubyExecutor:
             "root_pid": root_pid,
             "source_sha256": source_hash,
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
+            "last_precommit_keep_guard": precommit_keep_guard,
         }
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -434,6 +440,7 @@ class ProjectRubyExecutor:
             "last_screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "last_verification": write_verification,
             "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
+            "last_precommit_keep_guard": precommit_keep_guard,
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -449,11 +456,7 @@ class ProjectRubyExecutor:
             },
             "model_readback": _safe_model_readback(model_info),
             "write_verification": write_verification,
-            "precommit_keep_guard": {
-                "armed": bool(keep_expectations),
-                "passed": bool(keep_expectations),
-                "paths": ["/".join(item["path"]) for item in keep_expectations],
-            },
+            "precommit_keep_guard": precommit_keep_guard,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
         }
