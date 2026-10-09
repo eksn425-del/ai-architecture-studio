@@ -1,3 +1,11 @@
+## Latest direction — integrated K Studio product development, not A/B testing (2026-10-09)
+
+The user explicitly chose **K Studio + ADAI as our continuing product development foundation** and cancelled the separate old-K-Studio-versus-ADAI DeepSeek A/B milestone. The authoritative next-step instructions are now at the top of `docs/CURRENT_TASK.md` on `feat/adai-components-su2018-2026`. Prior handoff notes below are historical; any statement requiring paired A/B as a prerequisite is superseded.
+
+Keep the real SU2024 minimal end-to-end smoke and existing guarded write/KEEP/reopen safety. Continue user-visible fidelity/product improvements directly on the combined branch; add per-version compatibility progressively. CI's official ADAI ZIP verification and 8 tests passed, but no new real SU quality PASS is claimed. PR #1 remains Draft, `main` is untouched; CPAL distribution obligations still apply before default release.
+
+---
+
 ## Branch handoff — ADAI official components verified; real SU tests pending — 2026-10-09
 
 Draft PR: https://github.com/eksn425-del/ai-architecture-studio/pull/1, branch `feat/adai-components-su2018-2026` (no change to main).
