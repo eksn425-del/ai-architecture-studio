@@ -1,0 +1,470 @@
+{
+  "reconstruction_evidence": true,
+  "facade_schedule": {
+    "schema_version": 1,
+    "source_mode": "multi_view_reconstruction",
+    "dimensions_mm": {
+      "overall_width": 10500,
+      "overall_depth": 8500,
+      "level_height": 3250,
+      "floor_count": 2
+    },
+    "views": {
+      "front": {
+        "provenance": "mixed",
+        "opening_count": 3,
+        "door_count": 3,
+        "features": [
+          "一层一处宽幅黑框玻璃门窗洞。",
+          "二层两处宽幅玻璃开口，通向阳台；可开启扇数量不可由图确定。",
+          "外挑阳台配透明玻璃栏杆，端部有短回转。",
+          "正面右端设置跨两层暖木色竖向格栅。"
+        ],
+        "notes": [
+          "按正面可辨的三处主要开口计；door_count暂把三处均视为可达室外的玻璃门洞，具体开启方式为估算。",
+          "前阳台估计宽8300 mm、挑出1450 mm；一层主玻璃洞估计宽4400 mm、高2450 mm。"
+        ]
+      },
+      "rear": {
+        "provenance": "observed",
+        "opening_count": 6,
+        "door_count": 0,
+        "features": [
+          "每层三扇窄竖窗，上下两排对齐。",
+          "深色窗框，窗洞有明显内凹阴影。"
+        ],
+        "notes": [
+          "计数依据R1C3，暂按后立面映射；窗宽、窗台及洞口深度按比例估算。"
+        ]
+      },
+      "left": {
+        "provenance": "mixed",
+        "opening_count": 2,
+        "door_count": 0,
+        "features": [
+          "R1C1可见上下各一扇窄竖窗。",
+          "其余侧墙被视角和植被遮挡，按整体窗系协调推断。"
+        ],
+        "notes": [
+          "方向按面对阳台正立面时的左右确定；可见窗洞为观察计数，未显示区域的补全属于推断。"
+        ]
+      },
+      "right": {
+        "provenance": "user_confirmed",
+        "opening_count": 1,
+        "door_count": 1,
+        "features": [
+          "首层侧门、台阶与小雨棚。",
+          "二层一组宽双扇窗，设置中央竖梃。"
+        ],
+        "notes": [
+          "用户确认右侧立面为首层侧门、二层一组宽双扇窗；原先误分配到此侧的三列窄窗归入相邻立面。",
+          "二层窗约1900×1650 mm为估算尺寸；门窗均以真实墙洞表达。"
+        ]
+      }
+    },
+    "roof": {
+      "provenance": "observed",
+      "type": "女儿墙内凹平屋面，灰色规则铺装",
+      "parapet": "连续围合女儿墙，估计高450–550 mm；屋面铺装低于墙顶",
+      "divisions": [
+        "可见规则方格铺装；分格间距暂估600 mm。"
+      ],
+      "notes": [
+        "依据R2C3屋顶斜俯视；坡度、排水口和女儿墙内部构造不可见，按必要的合理构造推断。",
+        "完成模型采用约30 mm压顶及约3 mm低对比铺装缝；尺寸为建模估算。"
+      ]
+    },
+    "global_features": [
+      "灰白色细纹理外墙，局部有真实洞口和窗框退进。",
+      "深灰近黑色窗门框与透明玻璃。",
+      "暖蜂蜜色竖向木格栅重复系统。",
+      "浅灰阳台板、入口台阶与近建筑铺地。",
+      "阳台和玻璃后可见植物及客餐厅家具。"
+    ],
+    "user_confirmed": [
+      "目标是同一栋白色两层别墅的完整六视图整图；保留整图，不拆分。",
+      "用于可编辑的SketchUp 2024重建，尺寸无实测值，允许自洽估算并推断不可见室内。",
+      "尽量重建全部可见细节，包括真实门窗墙洞、阳台栏杆回转、木格栅、内凹屋顶、女儿墙、材质深度和可见家具。",
+      "右侧立面：首层一个入口侧门、二层一组宽双扇窗，不复制每层三扇窄窗。"
+    ],
+    "inferred": [
+      "整体尺寸、层高、开口尺寸、阳台挑出、栏杆高度及木格栅模数。",
+      "面对正立面时入口位于右侧、木格栅位于正面右端的方向映射。",
+      "被透视遮挡的侧窗数量和后侧室内布局。",
+      "室内楼梯与客餐厅的连贯布置、屋面排水及不可见构造。",
+      "右侧二层窗约1900×1650 mm，女儿墙压顶厚度30 mm，屋面分格缝宽约3 mm。"
+    ]
+  },
+  "construction_strategy": {
+    "schema_version": 1,
+    "current_stage": "finish",
+    "stage_order": [
+      "primary_form",
+      "representative_module",
+      "replication",
+      "variants",
+      "finish"
+    ],
+    "shared_parameters": {
+      "overall_width": {
+        "value": 10500,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "整图比例估算，非实测"
+      },
+      "overall_depth": {
+        "value": 8500,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "屋顶斜俯视比例估算，非实测"
+      },
+      "ground_to_upper_slab": {
+        "value": 3250,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "两层立面比例估算"
+      },
+      "upper_slab_to_roof": {
+        "value": 3100,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "两层立面比例估算"
+      },
+      "parapet_height": {
+        "value": 500,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "屋顶斜俯视比例估算"
+      },
+      "storey_count": {
+        "value": 2,
+        "units": "count",
+        "provenance": "observed",
+        "source": "整图六面板"
+      },
+      "front_balcony_width": {
+        "value": 8300,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "正立面比例估算"
+      },
+      "front_balcony_projection": {
+        "value": 1450,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "正面斜视比例估算"
+      },
+      "front_glazed_opening_width": {
+        "value": 4400,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "正立面比例估算"
+      },
+      "timber_fin_module": {
+        "value": 100,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "木格栅图像间距比例估算"
+      },
+      "right_upper_window_width": {
+        "value": 1900,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "User-confirmed opening type; width estimated from the reference"
+      },
+      "right_upper_window_height": {
+        "value": 1650,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "User-confirmed opening type; height estimated from the reference"
+      },
+      "roof_tile_joint_width": {
+        "value": 3,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "Revision 3 visual correction"
+      },
+      "parapet_coping_thickness": {
+        "value": 30,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "Revision 2 visual correction"
+      },
+      "balustrade_height": {
+        "value": 1050,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "阳台比例估算"
+      }
+    },
+    "systems": [
+      {
+        "id": "primary_shell",
+        "stage": "primary_form",
+        "role": "shell",
+        "method": "continuous_wall_with_openings",
+        "status": "verified",
+        "depends_on": [
+          "overall_width",
+          "overall_depth",
+          "ground_to_upper_slab",
+          "upper_slab_to_roof"
+        ],
+        "target_paths": [
+          [
+            "SHELL_FRONT_GROUND"
+          ],
+          [
+            "SHELL_FRONT_UPPER"
+          ],
+          [
+            "SHELL_REAR_GROUND"
+          ],
+          [
+            "SHELL_REAR_UPPER"
+          ],
+          [
+            "SHELL_LEFT_GROUND"
+          ],
+          [
+            "SHELL_LEFT_UPPER"
+          ],
+          [
+            "SHELL_RIGHT_GROUND"
+          ],
+          [
+            "SHELL_RIGHT_UPPER"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "rear",
+          "left",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "四面墙作为同一连续外壳，按统一洞口表切出真实门窗孔；正立面先对照R2C2核验。"
+        ]
+      },
+      {
+        "id": "roof_and_parapet",
+        "stage": "primary_form",
+        "role": "roof",
+        "method": "profile_extrusion",
+        "status": "verified",
+        "depends_on": [
+          "overall_width",
+          "overall_depth",
+          "upper_slab_to_roof",
+          "parapet_height"
+        ],
+        "target_paths": [
+          [
+            "ROOF_SLAB"
+          ],
+          [
+            "PARAPET_FRONT"
+          ],
+          [
+            "PARAPET_REAR"
+          ],
+          [
+            "PARAPET_LEFT"
+          ],
+          [
+            "PARAPET_RIGHT"
+          ],
+          [
+            "PARAPET_COPING_FRONT"
+          ],
+          [
+            "PARAPET_COPING_REAR"
+          ],
+          [
+            "PARAPET_COPING_LEFT"
+          ],
+          [
+            "PARAPET_COPING_RIGHT"
+          ],
+          [
+            "ROOF_TILE_JOINT_X_1"
+          ]
+        ],
+        "verification_views": [
+          "roof",
+          "oblique",
+          "front",
+          "rear"
+        ],
+        "notes": [
+          "屋面铺装与女儿墙为分开的对象；铺装面低于墙顶，保留可见内凹边界。",
+          "平面轮廓可用已实测通过的 adai_geometry.profile(root.entities,name,outer_mm,depth_mm,plane,offset_mm)；屋面水平轮廓采用xy沿+Z。"
+        ]
+      },
+      {
+        "id": "representative_opening",
+        "stage": "representative_module",
+        "role": "opening_system",
+        "method": "typed_semantic_helper",
+        "status": "verified",
+        "depends_on": [
+          "front_glazed_opening_width",
+          "ground_to_upper_slab"
+        ],
+        "target_paths": [
+          [
+            "SHELL_FRONT_GROUND"
+          ],
+          [
+            "FRONT_SLIDER_GLASS"
+          ],
+          [
+            "SHELL_RIGHT_UPPER"
+          ],
+          [
+            "RIGHT_UPPER_DOUBLE_WIN_MULLION"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "oblique"
+        ],
+        "notes": [
+          "SU2024已实测通过：adai_geometry.profile_with_holes(root.entities,name,outer_mm,holes_mm,depth_mm,plane,offset_mm)。",
+          "outer_mm与holes_mm为二维毫米轮廓，洞必须完全位于外轮廓内；正面墙使用xz沿+Y，侧墙使用yz沿+X。",
+          "代表模块选二层完整窗洞；墙底入口改用分段外轮廓或SAIE，不把贴边门洞传给该helper。",
+          "只在单一Kongxing写入入口内调用；核对一个真实开口及毫米边界后再重复。"
+        ]
+      },
+      {
+        "id": "balcony_and_guardrail",
+        "stage": "representative_module",
+        "role": "balcony",
+        "method": "custom_owned_ruby",
+        "status": "verified",
+        "depends_on": [
+          "front_balcony_width",
+          "front_balcony_projection",
+          "balustrade_height"
+        ],
+        "target_paths": [
+          [
+            "BALCONY_SLAB"
+          ],
+          [
+            "BALCONY_FRONT_TOP_RAIL"
+          ],
+          [
+            "BALCONY_FRONT_GLASS_01"
+          ],
+          [
+            "BALCONY_RETURN_LEFT_GLASS"
+          ],
+          [
+            "BALCONY_RETURN_RIGHT_GLASS"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "left",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "先核实阳台板、玻璃栏板和两端回转的一个模块，再沿边复制。"
+        ]
+      },
+      {
+        "id": "timber_fins",
+        "stage": "replication",
+        "role": "repetition",
+        "method": "custom_owned_ruby",
+        "status": "verified",
+        "depends_on": [
+          "timber_fin_module"
+        ],
+        "target_paths": [
+          [
+            "FRONT_TIMBER_SCREEN"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "oblique",
+          "roof"
+        ],
+        "notes": [
+          "先检查一根竖向格栅的宽度、厚度、投影和材质，再按统一模数生成整带。"
+        ]
+      },
+      {
+        "id": "materials_and_visible_interior",
+        "stage": "finish",
+        "role": "interior_detail",
+        "method": "custom_owned_ruby",
+        "status": "verified",
+        "depends_on": [],
+        "target_paths": [
+          [
+            "LIVING_SOFA_SEAT"
+          ],
+          [
+            "DINING_TABLE_TOP"
+          ],
+          [
+            "BED_FRAME"
+          ],
+          [
+            "LIVING_PLANT_FRONT_LEFT_POT"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "oblique"
+        ],
+        "notes": [
+          "仅补足玻璃后可见的家具轮廓、绿植和必要室内纵深；外墙、玻璃、木格栅及铺地按源图分材质。"
+        ]
+      },
+      {
+        "id": "immediate_site",
+        "stage": "finish",
+        "role": "site",
+        "method": "custom_owned_ruby",
+        "status": "verified",
+        "depends_on": [
+          "overall_width",
+          "overall_depth"
+        ],
+        "target_paths": [
+          [
+            "PAVING_FRONT_APRON"
+          ],
+          [
+            "PAVING_LEFT_APRON"
+          ],
+          [
+            "PAVING_RIGHT_APRON"
+          ],
+          [
+            "PAVING_REAR_APRON"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "oblique"
+        ],
+        "notes": [
+          "Immediate paving apron and entry steps are built; distant lawn and trees stay outside scope."
+        ]
+      }
+    ],
+    "notes": [
+      "Revision 3 is committed to the same owned root and accepted by the final six-view review.",
+      "Review mode is agent_supplied; an independent visual critic was unavailable.",
+      "The corrected right elevation has one upper double-leaf window and one ground entry door; the roof grid and coping are updated."
+    ]
+  }
+}

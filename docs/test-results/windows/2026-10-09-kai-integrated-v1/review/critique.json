@@ -1,0 +1,417 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/ba48d507b3-villa-six-view-sheet.png",
+    "sources": [
+      {
+        "path": "inputs/reference/ba48d507b3-villa-six-view-sheet.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "notes": [
+          "保留为一张完整六面板整图，不拆分。面板位置：R1C1正面左侧斜视，R1C2正面及入口侧斜视，R1C3后侧窗墙，R2C1多窗侧面及入口转角，R2C2正面，R2C3屋顶斜俯视。",
+          "各角度作为同一栋白色两层别墅的互相约束证据；面板为透视渲染而非标注尺寸的正投影。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+        ],
+        "notes": [
+          "R2C2近正立面：一层宽幅黑框玻璃门窗，二层两组宽幅玻璃开口，前方有外挑阳台与透明栏杆。",
+          "正立面右端为贯穿两层的暖木色竖向格栅；阳台端部回转在斜视面板中可见。"
+        ]
+      },
+      "rear": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+        ],
+        "notes": [
+          "R1C3显示无阳台的白色立面，每层三扇竖向窄窗，共六个窗洞；据转角位置暂映射为后立面。",
+          "窗框深色，墙面连续平整；精确窗洞尺寸需按图像比例估算。"
+        ]
+      },
+      "left": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+        ],
+        "notes": [
+          "以正立面朝向为准，R1C1斜视可见左侧墙面上下各一扇窄竖窗；其余边界受透视及植被遮挡。",
+          "左侧其余未清晰显示的窗洞与结构按同一建筑逻辑协调补全。"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+        ],
+        "notes": [
+          "以正立面朝向为准，R1C2与R2C1显示右侧入口面：侧门、台阶及小雨棚可见；相邻侧墙可见成组窄窗。",
+          "R2C1的三列窄窗与R1C3窗墙的立面归属受斜视角影响，暂按相邻的两个不同立面处理并在建模时保持整栋转角一致。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+        ],
+        "notes": [
+          "R2C3显示平屋面由连续女儿墙围合，屋面内有规则灰色铺装分格；屋面相对女儿墙顶内凹。",
+          "铺装分格间距和女儿墙高度没有实测值，均按比例估算。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+        ],
+        "notes": [
+          "R1C1、R1C2、R2C1及R2C3提供转角、阳台外挑、入口侧、格栅厚度和屋顶边界的斜视证据。",
+          "R1C1与R1C2从正面两端展示阳台端部及木格栅的位置关系。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面图；房间与楼梯位置只能作连贯性推断，不作为源图事实。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供CAD或实测尺寸。"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "未提供室内视图；仅从外立面玻璃可见客厅座椅、低桌、绿植及餐桌椅等局部。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "正立面总宽",
+        "value_mm": 10500,
+        "provenance": "inferred"
+      },
+      {
+        "name": "建筑总进深",
+        "value_mm": 8500,
+        "provenance": "inferred"
+      },
+      {
+        "name": "室外地坪至女儿墙顶",
+        "value_mm": 6850,
+        "provenance": "inferred"
+      }
+    ],
+    "hard_constraints": [
+      "保持两层白色矩形体量及平屋顶轮廓。",
+      "正面保留一层宽幅玻璃开口、二层两组玻璃开口、外挑阳台和透明栏杆。",
+      "正面右端保留跨两层的竖向木格栅带。",
+      "后立面保留每层三扇竖向窄窗的可见排列。",
+      "入口位于侧面并保留小雨棚及台阶。",
+      "平屋面在连续女儿墙内侧下沉，保留可见的铺装分格。",
+      "上述外观按整图重建为同一栋建筑，不以通用体块替代。"
+    ],
+    "assumptions": [
+      "整体宽约10500 mm、进深约8500 mm、地坪至女儿墙顶约6850 mm，均为比例估算。",
+      "正面以阳台立面为准；面对正面时木格栅在右端，入口位于右侧面。",
+      "因透视面板对侧面窗洞有遮挡，R1C3与R2C1暂映射为后立面与右侧面，保留交接处的对应关系。",
+      "室内只补足维持合理 circulation 的楼梯、客餐厅等必要关系；仅把图中透过玻璃可见的家具外观视为源证据。",
+      "周边树木、草地和天空不纳入建筑模型；近建筑铺地仅作为底部环境表达。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "agent_supplied"
+  },
+  "quality_status": "accepted",
+  "needs_fix": false,
+  "assessment": "对照整张六视图，正面两组上层玻璃门窗、首层宽幅玻璃开口、阳台与端部回转、右端木格栅、后墙每层三扇窗、左侧上下窄窗均保留。右侧已修为首层入口门与二层一组宽双扇窗，右侧多余窄窗已清除。女儿墙现与墙顶连续相接，原突出的深色缝已压至细接缝；压顶厚度减至30 mm。屋面分格改为低对比细缝，顶视仍可辨认，斜视不再抢眼。未发现需要继续改动的高优先级错位。",
+  "issues": [],
+  "keep": [
+    "正面窗门",
+    "阳台玻璃回转",
+    "木格栅",
+    "后墙",
+    "左墙",
+    "家具",
+    "场地"
+  ],
+  "model_revisions": {
+    "villa_six_view_1009": 3
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-085ede7f76.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "villa_six_view_1009",
+      "camera": {
+        "eye_m": [
+          5.25,
+          -29.81,
+          3.514
+        ],
+        "target_m": [
+          5.25,
+          3.83,
+          3.514
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-16c09e998a.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "villa_six_view_1009",
+      "camera": {
+        "eye_m": [
+          5.25,
+          37.47,
+          3.514
+        ],
+        "target_m": [
+          5.25,
+          3.83,
+          3.514
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-3af8760894.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "villa_six_view_1009",
+      "camera": {
+        "eye_m": [
+          -28.97,
+          3.83,
+          3.514
+        ],
+        "target_m": [
+          5.25,
+          3.83,
+          3.514
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-f120aacf8d.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "villa_six_view_1009",
+      "camera": {
+        "eye_m": [
+          39.47,
+          3.83,
+          3.514
+        ],
+        "target_m": [
+          5.25,
+          3.83,
+          3.514
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-7702da9ecc.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "villa_six_view_1009",
+      "camera": {
+        "eye_m": [
+          5.25,
+          3.83,
+          35.17
+        ],
+        "target_m": [
+          5.25,
+          3.83,
+          3.375
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-fc52a040cd.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "villa_six_view_1009",
+      "camera": {
+        "eye_m": [
+          33.2396,
+          -23.5796,
+          20.4436
+        ],
+        "target_m": [
+          5.25,
+          3.83,
+          3.514
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/ba48d507b3-villa-six-view-sheet.png",
+      "current_view": "outputs/renders/agent-view-front-085ede7f76.png",
+      "label": "R2C2 正立面",
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ba48d507b3-villa-six-view-sheet.png",
+      "current_view": "outputs/renders/agent-view-e7d4e8d880.png",
+      "label": "R1C2 入口侧透视",
+      "model_revisions": {
+        "villa_six_view_1009": 3
+      }
+    }
+  ],
+  "writer_verifications": {
+    "villa_six_view_1009": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 37885,
+          "actual": 37885
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 277,
+          "actual": 277
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -650.0,
+              -1490.0,
+              -100.0
+            ],
+            "max": [
+              11150.0,
+              9150.0,
+              6850.0
+            ],
+            "size": [
+              11800.0,
+              10640.0,
+              6950.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -650,
+              -1490,
+              -100
+            ],
+            "max": [
+              11150,
+              9150,
+              6850
+            ],
+            "size": [
+              11800,
+              10640,
+              6950
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+  ]
+}

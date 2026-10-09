@@ -22,6 +22,16 @@ def test_native_timeout_accommodates_real_reconstruction_turns(tmp_path: Path):
     assert bounded.timeout_seconds == 60
 
 
+def test_native_timeout_can_bound_high_reasoning_benchmarks(tmp_path, monkeypatch):
+    import pytest
+    monkeypatch.setenv("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "1800")
+    assert CodexAppServerRuntime(tmp_path).timeout_seconds == 1800
+    assert CodexAppServerRuntime(tmp_path, timeout_seconds=60).timeout_seconds == 60
+    monkeypatch.setenv("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "0")
+    with pytest.raises(ValueError, match="between 30 and 3600"):
+        CodexAppServerRuntime(tmp_path)
+
+
 def test_codex_app_server_turn_input_uses_local_image_wire_variant(tmp_path: Path):
     first = tmp_path / "reference-01.png"
     second = tmp_path / "reference-02.png"

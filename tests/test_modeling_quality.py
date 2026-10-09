@@ -1,3 +1,4 @@
+import pytest
 from app.agent_tools import AgentToolSurface, canonical_camera_from_bounds_mm
 from app.modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
@@ -147,7 +148,8 @@ def test_keep_preservation_rejects_id_count_or_bounds_regression():
             verify_preserved_owned_paths(before, changed)
 
 
-def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, monkeypatch):
+@pytest.mark.parametrize("resumed", [False, True])
+def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, monkeypatch, resumed):
     import json
     import pytest
     from app.agent_tools import AgentToolSurface
@@ -205,10 +207,11 @@ def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, 
         model_path=tmp_path / "blank.skp",
         model_guid="fixture",
         ruby_enabled=True,
-        ruby_state={},
+        ruby_state={"villa": {"revision": 1}} if resumed else {},
         tool_profile="reconstruction_coding",
     )
-    context.dispatch("sketchup_run_workspace_ruby", {"script_id": "villa"})
+    if not resumed:
+        context.dispatch("sketchup_run_workspace_ruby", {"script_id": "villa"})
     context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
 
     with pytest.raises(MCPCallError, match="preserve_paths"):

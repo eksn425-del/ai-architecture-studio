@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "六向与两源角截图显示同一单层体量、真实前门/大窗/侧窗洞、单坡金属肋屋面、双雨棚、木饰带和露台配景已建立。复核实体坐标后发现：两侧屋檐板误成高竖墙；门框两个立柱和门槛位于地坪以下约 2.1 m；屋顶檐边需要收窄，菜单立牌应从侧窗投影中移开。比例人像来自空白模板原有的根外对象，项目根只允许写入其自身几何，不能直接改它。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "屋面两侧高竖板破坏参考图轻薄单坡轮廓。 action: 移除竖板，沿坡面建立窄侧收边。",
+            "action": "移除竖板，沿坡面建立窄侧收边。"
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "入口门框立柱与门槛实体坐标落在地坪以下；平台下垂部分来自门框，不是已核对正确的场地平台。 action: 重建门框与门槛于 z=0 以上，并修正前后墙根石材带。",
+            "action": "重建门框与门槛于 z=0 以上，并修正前后墙根石材带。"
+          },
+          {
+            "priority": 3,
+            "view": "right",
+            "problem": "菜单立牌在视图中压住侧窗及桌椅。 action: 将立牌移到场地外缘，减少侧窗前的遮挡。",
+            "action": "将立牌移到场地外缘，减少侧窗前的遮挡。"
+          }
+        ],
+        "keep": [
+          "WALL_FRONT_ENTRY",
+          "WALL_RIGHT_AWNING",
+          "FRONT_SHOWCASE_WINDOW_MODULE",
+          "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+          "INTERIOR_VISIBLE_FITOUT",
+          "CANOPY_FRONT_METAL",
+          "CANOPY_RIGHT_METAL",
+          "SITE_PLATFORM"
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 1
+        },
+        "reviewer_mode": "agent_supplied"
+      },
+      "writer": {
+        "script_id": "luna-cafe-1009",
+        "revision": 2,
+        "relative_path": "scripts/luna_cafe_correction_1.rb",
+        "update_mode": "edit",
+        "source_sha256": "8ac1b8c77abca54e0c8bd113cd55ed8aca6fc6334fe48ee8cff24009e77392c3",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT_ENTRY",
+            "WALL_RIGHT_AWNING",
+            "FRONT_SHOWCASE_WINDOW_MODULE",
+            "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+            "INTERIOR_VISIBLE_FITOUT",
+            "CANOPY_FRONT_METAL",
+            "CANOPY_RIGHT_METAL",
+            "SITE_PLATFORM"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "修正后，屋面两侧已恢复为顺坡窄边，门框与门槛在地坪以上，菜单立牌离开侧窗范围；两处源图约束的立面、真实开口、木饰带和双雨棚保留。当前唯一明显画面差异是空白模板原有的根外比例人像，源图没有人物；可在项目根内增设一盆前景绿植遮挡人物，不改根外对象。植物与自行车的当前形体仍较简化，但轮廓和摆位已可辨。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "根外比例人像仍显露在自行车旁，源图没有人物。 action: 在入口自行车侧增加一盆较高的前景观叶植物遮挡人物，同时保留自行车、圆牌和入口。",
+            "action": "在入口自行车侧增加一盆较高的前景观叶植物遮挡人物，同时保留自行车、圆牌和入口。"
+          }
+        ],
+        "keep": [
+          "WALL_FRONT_ENTRY",
+          "WALL_RIGHT_AWNING",
+          "FRONT_SHOWCASE_WINDOW_MODULE",
+          "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+          "INTERIOR_VISIBLE_FITOUT",
+          "CANOPY_FRONT_METAL",
+          "CANOPY_RIGHT_METAL",
+          "SITE_PLATFORM",
+          "ROOF_MAIN_SINGLE_SLOPE",
+          "FRONT_ENTRY_DOOR_MODULE",
+          "SIGNAGE_ROUND_HANGING",
+          "SIGNAGE_MENU_EASEL",
+          "TERRACE_FURNITURE",
+          "TERRACE_PLANTERS_AND_PLANTS",
+          "BICYCLE_FRONT_LEFT"
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 2
+        },
+        "reviewer_mode": "agent_supplied"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

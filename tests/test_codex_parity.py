@@ -14,8 +14,12 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     prepare_codex_parity_workspace(workspace)
 
     assert (workspace / "README.md").is_file()
+    quality_note = (workspace / "README.md").read_text(encoding="utf-8")
+    assert "Missing annexes/lower roofs" in quality_note
+    assert "Do not invent extra plants" in quality_note
     assert "outer integration agent" in (workspace / "AGENTS.md").read_text(encoding="utf-8")
     assert (workspace / "scripts").is_dir()
+    assert "ADAI is disabled" in (workspace / "notes/adai_geometry_contract.md").read_text(encoding="utf-8")
     assert (workspace / "notes" / "design_notes.md").is_file()
     facade_schedule = workspace / "notes" / "facade_schedule.json"
     assert facade_schedule.is_file()
@@ -308,3 +312,13 @@ def test_workspace_construction_strategy_json_is_validated(tmp_path):
             "relative_path": "notes/construction_strategy.json",
             "content": json.dumps(bad),
         })
+def test_optional_adai_contract_tracks_verified_process_state(tmp_path, monkeypatch):
+    monkeypatch.setattr("app.codex_parity.geometry_helper", lambda _: tmp_path / "verified-helper.rb")
+    prepare_codex_parity_workspace(tmp_path / "workspace")
+    note = (tmp_path / "workspace/notes/adai_geometry_contract.md").read_text(encoding="utf-8")
+    assert "profile_with_holes" in note and "boundary-touching hole" in note
+    assert "CPAL-1.0" in note and "single guarded" in note
+    assert str(tmp_path) not in note
+    monkeypatch.setattr("app.codex_parity.geometry_helper", lambda _: None)
+    prepare_codex_parity_workspace(tmp_path / "workspace")
+    assert "ADAI is disabled" in (tmp_path / "workspace/notes/adai_geometry_contract.md").read_text(encoding="utf-8")

@@ -1,0 +1,177 @@
+{
+  "initial": {
+    "success": true,
+    "contentItems": [
+      {
+        "type": "inputText",
+        "text": "{\n  \"script_id\": \"adai_smoke\",\n  \"script_revision\": 1,\n  \"source_sha256\": \"251e0a6159d84721d8130c8b707c48816f3d35f5f50a27fcc80989fe8299b108\",\n  \"transaction\": {\n    \"schema_version\": 1,\n    \"project_id\": \"kai-integrated-smoke-1009\",\n    \"expected_revision\": 0,\n    \"model_path\": \"<local-path-redacted> AI 产品建模网站\\\\runtime\\\\projects\\\\kai-integrated-smoke-1009\\\\outputs\\\\model\\\\blank-disposable-adai-20261009.skp\",\n    \"guid_before\": \"396321ea-139f-49bd-a407-b06949e5b628\",\n    \"status\": \"committed\",\n    \"at\": \"2026-10-09T08:30:46Z\",\n    \"scenes_before\": {\n      \"available\": true,\n      \"pages\": []\n    },\n    \"owned_before\": {\n      \"api_units\": \"inch\",\n      \"bounds_units\": \"mm\",\n      \"axes\": [\n        \"x\",\n        \"y\",\n        \"z\"\n      ],\n      \"root_bounds_frame\": \"model\",\n      \"object_bounds_frame\": \"owned-root-local\",\n      \"bounds_mm\": {\n        \"min\": [\n          0.0,\n          0.0,\n          0.0\n        ],\n        \"max\": [\n          0.0,\n          0.0,\n          0.0\n        ],\n        \"size\": [\n          0.0,\n          0.0,\n          0.0\n        ]\n      },\n      \"objects_total\": 0,\n      \"truncated\": false,\n      \"objects\": []\n    },\n    \"owned_after\": {\n      \"api_units\": \"inch\",\n      \"bounds_units\": \"mm\",\n      \"axes\": [\n        \"x\",\n        \"y\",\n        \"z\"\n      ],\n      \"root_bounds_frame\": \"model\",\n      \"object_bounds_frame\": \"owned-root-local\",\n      \"bounds_mm\": {\n        \"min\": [\n          0.0,\n          0.0,\n          0.0\n        ],\n        \"max\": [\n          6000.0,\n          4000.0,\n          4450.0\n        ],\n        \"size\": [\n          6000.0,\n          4000.0,\n          4450.0\n        ]\n      },\n      \"objects_total\": 2,\n      \"truncated\": false,\n      \"objects\": [\n        {\n          \"persistent_id\": 21,\n          \"name\": \"ADAI_WALL\",\n          \"locked\": false,\n          \"bounds_mm\": {\n            \"min\": [\n              0.0,\n              0.0,\n              0.0\n            ],\n            \"max\": [\n              6000.0,\n              300.0,\n              3200.0\n            ],\n            \"size\": [\n              6000.0,\n              300.0,\n              3200.0\n            ]\n          }\n        },\n        {\n          \"persistent_id\": 111,\n          \"name\": \"ADAI_ROOF\",\n          \"locked\": false,\n          \"bounds_mm\": {\n            \"min\": [\n              0.0,\n              0.0,\n              3250.0\n            ],\n            \"max\": [\n              6000.0,\n              4000.0,\n              4450.0\n            ],\n            \"size\": [\n              6000.0,\n              4000.0,\n              1200.0\n            ]\n          }\n        }\n      ]\n    },\n    \"revision\": 1,\n    \"root_pid\": 19,\n    \"scenes_after\": {\n      \"available\": true,\n      \"pages\": []\n    }\n  },\n  \"model_identity\": {\n    \"guid\": \"396321ea-139f-49bd-a407-b06949e5b628\",\n    \"model_name\": \"blank-disposable-adai-20261009.skp\"\n  },\n  \"model_readback\": {\n    \"model_name\": \"blank-disposable-adai-20261009\",\n    \"units\": \"mm\",\n    \"entity_count\": 1,\n    \"selection_count\": 0\n  },\n  \"write_verification\": {\n    \"schema_version\": 1,\n    \"verified\": true,\n    \"source\": \"post_commit_owned_root_readback\",\n    \"checks\": [\n      {\n        \"check\": \"transaction_status\",\n        \"expected\": \"committed\",\n        \"actual\": \"committed\"\n      },\n      {\n        \"check\": \"root_persistent_id\",\n        \"expected\": 19,\n        \"actual\": 19\n      },\n      {\n        \"check\": \"revision\",\n        \"expected\": 1,\n        \"actual\": 1\n      },\n      {\n        \"check\": \"objects_total\",\n        \"expected\": 2,\n        \"actual\": 2\n      },\n      {\n        \"check\": \"bounds_mm\",\n        \"expected\": {\n          \"min\": [\n            0.0,\n            0.0,\n            0.0\n          ],\n          \"max\": [\n            6000.0,\n            4000.0,\n            4450.0\n          ],\n          \"size\": [\n            6000.0,\n            4000.0,\n            4450.0\n          ]\n        },\n        \"actual\": {\n          \"min\": [\n            0,\n            0,\n            0\n          ],\n          \"max\": [\n            6000,\n            4000,\n            4450\n          ],\n          \"size\": [\n            6000,\n            4000,\n            4450\n          ]\n        }\n      }\n    ]\n  },\n  \"precommit_keep_guard\": {\n    \"armed\": false,\n    \"passed\": null,\n    \"paths\": []\n  },\n  \"screenshot\": \"outputs/renders/ruby-adai_smoke-r1.png\",\n  \"transport\": \"existing Kongxing sketchup_eval_project_file\"\n}"
+      },
+      {
+        "type": "inputImage",
+        "imageUrl": "data:image/png;base64,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AEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAAAqIMAAAAQECUAQAAAAiIMgAAAAABUQYAAAAgIMoAAAAABEQZAAAAgIAoAwAAABAQZQAAAAACogwAAABAQJQBAAAACIgyAAAAAAFRBgAAACAgygAAAAAERBkAAACAgCgDAAAAEBBlAAAAAAKiDAAAAEBAlAEAAAAIiDIAAAAAAVEGAAAAICDKAAAAAAREGQAAAICAKAMAAAAQEGUAAAAA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"
+      }
+    ]
+  },
+  "views": {
+    "front": "outputs/renders/agent-view-front-bb886692dc.png",
+    "rear": "outputs/renders/agent-view-rear-547a994d90.png",
+    "left": "outputs/renders/agent-view-left-7bd71b75ae.png",
+    "right": "outputs/renders/agent-view-right-80c6fcd5ad.png",
+    "roof": "outputs/renders/agent-view-roof-85e6ae3849.png",
+    "oblique": "outputs/renders/agent-view-oblique-94de9996dd.png"
+  },
+  "readback": {
+    "script_id": "adai_smoke",
+    "revision": 1,
+    "read_only": true,
+    "path": [],
+    "persistent_id": 19,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        0,
+        0,
+        0
+      ],
+      "max": [
+        6000,
+        4000,
+        4450
+      ],
+      "size": [
+        6000,
+        4000,
+        4450
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 2,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "ADAI_WALL",
+        "persistent_id": 21,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            6000,
+            300,
+            3200
+          ],
+          "size": [
+            6000,
+            300,
+            3200
+          ]
+        }
+      },
+      {
+        "name": "ADAI_ROOF",
+        "persistent_id": 111,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            3250
+          ],
+          "max": [
+            6000,
+            4000,
+            4450
+          ],
+          "size": [
+            6000,
+            4000,
+            1200
+          ]
+        }
+      }
+    ]
+  },
+  "negative": {
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"KEEP regression ADAI_ROOF: bounds_mm.min[0] changed\",\n    \"backtrace\": [\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:138:in `block (3 levels) in verify_owned_fingerprints!'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each_with_index'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `block (2 levels) in verify_owned_fingerprints!'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `each'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `block in verify_owned_fingerprints!'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each_with_index'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `verify_owned_fingerprints!'\",\n      \"<local-path-redacted> `block in <main>'\",\n      \"<local-path-redacted> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<local-path-redacted> `<main>'\"\n    ]\n  }\n}",
+    "before": {
+      "script_id": "adai_smoke",
+      "revision": 1,
+      "read_only": true,
+      "path": [
+        "ADAI_ROOF"
+      ],
+      "persistent_id": 111,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          3250
+        ],
+        "max": [
+          6000,
+          4000,
+          4450
+        ],
+        "size": [
+          6000,
+          4000,
+          1200
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": []
+    },
+    "after": {
+      "script_id": "adai_smoke",
+      "revision": 1,
+      "read_only": true,
+      "path": [
+        "ADAI_ROOF"
+      ],
+      "persistent_id": 111,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          3250
+        ],
+        "max": [
+          6000,
+          4000,
+          4450
+        ],
+        "size": [
+          6000,
+          4000,
+          1200
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": []
+    },
+    "revision": 1,
+    "unchanged": true
+  },
+  "native_reopen": "pending"
+}

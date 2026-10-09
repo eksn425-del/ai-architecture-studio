@@ -125,7 +125,7 @@ class CodexAppServerRuntime:
     """Runs Codex app-server with project-local tools and an isolated writable workspace."""
 
     def __init__(self, runtime_root: Path, *, codex_executable: str | None = None,
-                 model: str | None = None, timeout_seconds: int = 900,
+                 model: str | None = None, timeout_seconds: int | None = None,
                  sketchup_mcp: ConfiguredSketchUpMCP | None = None,
                  home_root: Path | None = None,
                  reasoning_effort: str | None = None):
@@ -136,7 +136,10 @@ class CodexAppServerRuntime:
         if effort not in {"low", "medium", "high", "xhigh", "max"}:
             raise ValueError("ARCH_STUDIO_CODEX_REASONING_EFFORT must be one of low, medium, high, xhigh, or max.")
         self.reasoning_effort = effort
-        self.timeout_seconds = timeout_seconds
+        self.timeout_seconds = (timeout_seconds if timeout_seconds is not None
+                                else int(os.environ.get("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "900")))
+        if not 30 <= self.timeout_seconds <= 3600:
+            raise ValueError("Codex turn timeout must be between 30 and 3600 seconds.")
         configured_home = home_root
         if configured_home is None and os.environ.get("ARCH_STUDIO_CODEX_HOME"):
             configured_home = Path(os.environ["ARCH_STUDIO_CODEX_HOME"])
@@ -396,6 +399,21 @@ class CodexAppServerRuntime:
                 params = message.get("params") or {}
                 if method in {"item/started", "item/completed", "turn/completed"}:
                     event_item = params.get("item") or {}
+                    if event_item.get("type") in {"commandExecution", "fileChange"}:
+                        # Native planning uses coding tools, not dynamic MCP calls.
+                        # Include them in progress instead of displaying 0 calls
+                        # throughout a long but actively working planning turn.
+                        if method == "item/started":
+                            tool_call_count += 1
+                            tool_calls.append({"server": "codex_native", "tool": event_item["type"]})
+                            record({"event": "tool_started", "tool": "codex_" + event_item["type"]})
+                        elif method == "item/completed":
+                            native_failed = (event_item.get("status") == "failed"
+                                             or event_item.get("exitCode") not in {None, 0})
+                            failed_tool_calls += int(native_failed)
+                            record({"event": "tool_result", "tool": "codex_" + event_item["type"],
+                                    "success": not native_failed,
+                                    "error": "Native coding operation failed" if native_failed else ""})
                     record({"event": method, "item_type": event_item.get("type"),
                             "status": event_item.get("status") or (params.get("turn") or {}).get("status"),
                             "text": _message_text(event_item) if event_item.get("type") in {"agentMessage", "agent_message"} else ""})

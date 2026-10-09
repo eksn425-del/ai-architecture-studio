@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 3527923,
+  "tool_call_count": 127,
+  "failed_tool_calls": 27,
+  "counts_scope": "Builder instrumented turns only; planner counts unavailable",
+  "committed_writes": 3,
+  "full_root_rebuilds": 1,
+  "targeted_corrections": 2,
+  "input_tokens": null,
+  "output_tokens": null,
+  "critic_input_tokens": null,
+  "critic_output_tokens": null,
+  "human_geometry_edits": 0,
+  "human_prompt_interventions": 2,
+  "token_source": "not_available_from_native_runtime_integration",
+  "turns": [
+    {
+      "phase": "clarification",
+      "latency_ms": 478578,
+      "tool_call_count": null,
+      "failed_tool_calls": null,
+      "note": "native coding calls not counted by pre-fix telemetry"
+    },
+    {
+      "phase": "planning repair",
+      "latency_ms": 380297,
+      "tool_call_count": null,
+      "failed_tool_calls": null,
+      "note": "native coding calls not counted by pre-fix telemetry"
+    },
+    {
+      "phase": "initial Builder",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "latency_ms": 904860,
+      "tool_call_count": 41,
+      "failed_tool_calls": 17,
+      "input_tokens": null,
+      "output_tokens": null,
+      "error": "Codex app-server communication failed: Timed out waiting for Codex app-server event."
+    },
+    {
+      "phase": "same-model correction continuation",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "latency_ms": 1764188,
+      "tool_call_count": 86,
+      "failed_tool_calls": 10,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  ]
+}

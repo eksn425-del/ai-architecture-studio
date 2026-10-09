@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-09-kai-integrated-v1",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "bdc90f829b286ae7eb86a157ba3b2307c7c3abc7",
+  "source_case": "docs/test-assets/cloud-villa/villa-six-view-sheet.png",
+  "model": {
+    "requested": "GPT-6 Luna Max",
+    "actual": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "runtime": "codex-native-through-K-AI-Studio",
+    "identity_source": "host model/list catalog and accepted native turn configuration, not Builder self-report",
+    "fallback": false
+  },
+  "environment": {
+    "windows": "Windows 11 Home 10.0.22000",
+    "sketchup": "2024 24.0.484",
+    "bridge": "Kongxing AI 0.1.0 single writer",
+    "python": "3.12.2",
+    "adai": "0.5.39 official pinned helper, explicitly enabled; separate Managed MCP inactive"
+  },
+  "qa": {
+    "reviewer_mode": "agent_supplied",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true
+  },
+  "blockers": [
+    "Independent native Critic NOT_RUN",
+    "Token reporting unavailable",
+    "Native manual edit not run before user changed target to cafe"
+  ],
+  "scope_note": "Prior villa run retained honestly; current owner input now cafe two-view case."
+}

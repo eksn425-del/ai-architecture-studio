@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "右视图已改为首层侧门、二层一组宽双扇窗，错误的每层三扇窄窗已清除。正面、阳台回转、木格栅、后墙三窗、左墙单窗、家具与铺地均保持。屋面网格几何已变细，但黑色轮廓仍使分格偏重；女儿墙下接处仍能看到一道细水平边线。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "roof",
+            "problem": "女儿墙下接处仍残留一道水平边线，屋顶网格轮廓仍偏黑",
+            "action": "女儿墙下缘向墙体内重叠少量并隐藏铺装格条实体边线，保持屋顶内凹轮廓和薄压顶"
+          }
+        ],
+        "keep": [
+          "正面窗门",
+          "阳台玻璃回转",
+          "木格栅",
+          "后墙",
+          "左墙",
+          "家具",
+          "场地"
+        ],
+        "model_revisions": {
+          "villa_six_view_1009": 2
+        },
+        "reviewer_mode": "agent_supplied"
+      },
+      "writer": {
+        "script_id": "villa_six_view_1009",
+        "revision": 3,
+        "relative_path": "scripts/revision3_roof_refinement.rb",
+        "update_mode": "edit",
+        "source_sha256": "242b2b01a99449a2073bffc139c45521d34ece7b0b1f3634aa3a9778e31ad544",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "SHELL_FRONT_GROUND",
+            "SHELL_FRONT_UPPER",
+            "FRONT_SLIDER_GLASS",
+            "FRONT_UPPER_LEFT_GLASS",
+            "FRONT_UPPER_RIGHT_GLASS",
+            "BALCONY_SLAB",
+            "BALCONY_FRONT_TOP_RAIL",
+            "BALCONY_FRONT_GLASS_01",
+            "BALCONY_RETURN_LEFT_GLASS",
+            "BALCONY_RETURN_RIGHT_GLASS",
+            "FRONT_TIMBER_SCREEN",
+            "SHELL_REAR_GROUND",
+            "SHELL_REAR_UPPER",
+            "REAR_GROUND_WIN_2_GLASS",
+            "REAR_UPPER_WIN_2_GLASS",
+            "SHELL_LEFT_GROUND",
+            "SHELL_LEFT_UPPER",
+            "LEFT_GROUND_SLIT_GLASS",
+            "LEFT_UPPER_SLIT_GLASS",
+            "ENTRY_DOOR_LEAF",
+            "LIVING_SOFA_SEAT",
+            "DINING_TABLE_TOP",
+            "PAVING_FRONT_APRON",
+            "PAVING_REAR_APRON"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": false,
+        "assessment": "对照整张六视图，正面两组上层玻璃门窗、首层宽幅玻璃开口、阳台与端部回转、右端木格栅、后墙每层三扇窗、左侧上下窄窗均保留。右侧已修为首层入口门与二层一组宽双扇窗，右侧多余窄窗已清除。女儿墙现与墙顶连续相接，原突出的深色缝已压至细接缝；压顶厚度减至30 mm。屋面分格改为低对比细缝，顶视仍可辨认，斜视不再抢眼。未发现需要继续改动的高优先级错位。",
+        "issues": [],
+        "keep": [
+          "正面窗门",
+          "阳台玻璃回转",
+          "木格栅",
+          "后墙",
+          "左墙",
+          "家具",
+          "场地"
+        ],
+        "model_revisions": {
+          "villa_six_view_1009": 3
+        },
+        "reviewer_mode": "agent_supplied"
+      },
+      "outcome": "accepted"
+    }
+  ]
+}

@@ -168,3 +168,30 @@ def test_zip_duplicate_and_size_guard(tmp_path: Path) -> None:
             subject._safe_unpack(archive, tmp_path / "unpack")
     finally:
         subject.MAX_EXTRACTED_BYTES = old_limit
+def test_blank_launcher_parses_in_windows_powershell():
+    """PowerShell 5.1 reads BOM-less scripts as ANSI; source must still parse."""
+    import os
+    import subprocess
+    from pathlib import Path
+    import pytest
+
+    if os.name != "nt":
+        pytest.skip("Windows PowerShell 5.1 parser regression")
+    launcher = Path(__file__).resolve().parents[1] / "scripts/open_blank_sketchup.ps1"
+    command = (
+        "$errorsFound=$null; $tokensFound=$null; "
+        "[System.Management.Automation.Language.Parser]::ParseFile('"
+        + str(launcher).replace("'", "''")
+        + "',[ref]$tokensFound,[ref]$errorsFound) | Out-Null; "
+        "if($errorsFound.Count){$errorsFound | Out-String | Write-Output; exit 1}"
+    )
+    result = subprocess.run(["powershell", "-NoProfile", "-Command", command],
+                            capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_blank_launcher_prefers_architecture_template_without_scale_figure():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "scripts/open_blank_sketchup.ps1").read_text(encoding="utf-8")
+    assert source.index("'Temp03b - AEC.skp'") < source.index("'Temp01a - Simple.skp'")
+    assert "if ($found) { $found; break }" in source

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-09-cafe-two-view-luna-max",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "bdc90f829b286ae7eb86a157ba3b2307c7c3abc7",
+  "source_case": "User-provided cafe high/low oblique whole PNGs, private originals not published",
+  "sources": [
+    {
+      "name": "8603dc0d8c-cafe-high-oblique.png",
+      "sha256": "65ab9fe6c935f8e74cb2bf62824c9526fc7c0a6f78483024148c155bbbca8a99",
+      "public_source": "NOT_PUBLISHED: user-owned whole image; no permission to post original"
+    },
+    {
+      "name": "f8c63639f7-cafe-low-oblique.png",
+      "sha256": "0772c318e2ae09c4731b1da324aee18853ad5dfb0eaeb907c20baa8f7b3e990d",
+      "public_source": "NOT_PUBLISHED: user-owned whole image; no permission to post original"
+    }
+  ],
+  "model": {
+    "requested": "GPT-6 Luna Max",
+    "actual": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "runtime": "codex-native-through-K-AI-Studio",
+    "identity_source": "actual native turn_input / host model catalog",
+    "fallback": false
+  },
+  "environment": {
+    "windows": "Windows 11 Home 10.0.22000",
+    "sketchup": "2024 24.0.484",
+    "python": "3.12.2",
+    "bridge": "Kongxing AI 0.1.0 single writer",
+    "adai": "0.5.39 verified opt-in available; actual use recorded in scripts, not inferred from installation"
+  },
+  "qa": {
+    "reviewer_mode": "agent_supplied",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true
+  },
+  "blockers": [
+    "Independent Critic not run",
+    "Token measurements unavailable",
+    "Original reference images are not public; exact source pixel comparison unavailable to cloud reader"
+  ]
+}

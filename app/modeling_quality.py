@@ -541,7 +541,13 @@ def submit_visual_review(
     critique = parse_visual_critique_response(critique_text)
     if critique.malformed or critique.needs_fix is None:
         raise ValueError(
-            "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+            "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope. "
+            "Use plain text, not JSON: NEEDS_FIX: YES\n"
+            '<assessment>source comparison</assessment>\n'
+            '<issue priority="1" view="front">problem: actual visible mismatch\n'
+            'action: targeted named-group fix</issue>\n<keep>correct group path</keep>. '
+            "YES requires at least one issue block; NO omits issue blocks. "
+            "Native fallback is agent_supplied, not an independent Critic."
         )
 
     reconstruction_evidence = load_reconstruction_evidence(project_dir, strict=True)

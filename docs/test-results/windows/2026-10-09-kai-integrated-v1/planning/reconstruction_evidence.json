@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "multi_view_reconstruction",
+  "primary_source": "inputs/reference/ba48d507b3-villa-six-view-sheet.png",
+  "sources": [
+    {
+      "path": "inputs/reference/ba48d507b3-villa-six-view-sheet.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "notes": [
+        "保留为一张完整六面板整图，不拆分。面板位置：R1C1正面左侧斜视，R1C2正面及入口侧斜视，R1C3后侧窗墙，R2C1多窗侧面及入口转角，R2C2正面，R2C3屋顶斜俯视。",
+        "各角度作为同一栋白色两层别墅的互相约束证据；面板为透视渲染而非标注尺寸的正投影。"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+      ],
+      "notes": [
+        "R2C2近正立面：一层宽幅黑框玻璃门窗，二层两组宽幅玻璃开口，前方有外挑阳台与透明栏杆。",
+        "正立面右端为贯穿两层的暖木色竖向格栅；阳台端部回转在斜视面板中可见。"
+      ]
+    },
+    "rear": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+      ],
+      "notes": [
+        "R1C3显示无阳台的白色立面，每层三扇竖向窄窗，共六个窗洞；据转角位置暂映射为后立面。",
+        "窗框深色，墙面连续平整；精确窗洞尺寸需按图像比例估算。"
+      ]
+    },
+    "left": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+      ],
+      "notes": [
+        "以正立面朝向为准，R1C1斜视可见左侧墙面上下各一扇窄竖窗；其余边界受透视及植被遮挡。",
+        "左侧其余未清晰显示的窗洞与结构按同一建筑逻辑协调补全。"
+      ]
+    },
+    "right": {
+      "provenance": "user_confirmed",
+      "source_refs": [
+        "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+      ],
+      "notes": [
+        "以正立面朝向为准，R1C2入口侧斜视可见首层侧门、台阶、小雨棚与二层窗。",
+        "用户确认右侧为首层入口门、二层一组宽双扇窗；R2C1三列窄窗不分配到此侧。"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+      ],
+      "notes": [
+        "R2C3显示平屋面由连续女儿墙围合，屋面内有规则灰色铺装分格；屋面相对女儿墙顶内凹。",
+        "铺装分格间距和女儿墙高度没有实测值，均按比例估算。"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ba48d507b3-villa-six-view-sheet.png"
+      ],
+      "notes": [
+        "R1C1、R1C2、R2C1及R2C3提供转角、阳台外挑、入口侧、格栅厚度和屋顶边界的斜视证据。",
+        "R1C1与R1C2从正面两端展示阳台端部及木格栅的位置关系。"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "未提供平面图；房间与楼梯位置只能作连贯性推断，不作为源图事实。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "未提供CAD或实测尺寸。"
+    ]
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "未提供室内视图；仅从外立面玻璃可见客厅座椅、低桌、绿植及餐桌椅等局部。"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "正立面总宽",
+      "value_mm": 10500,
+      "provenance": "inferred"
+    },
+    {
+      "name": "建筑总进深",
+      "value_mm": 8500,
+      "provenance": "inferred"
+    },
+    {
+      "name": "室外地坪至女儿墙顶",
+      "value_mm": 6850,
+      "provenance": "inferred"
+    }
+  ],
+  "hard_constraints": [
+    "保持两层白色矩形体量及平屋顶轮廓。",
+    "正面保留一层宽幅玻璃开口、二层两组玻璃开口、外挑阳台和透明栏杆。",
+    "正面右端保留跨两层的竖向木格栅带。",
+    "后立面保留每层三扇竖向窄窗的可见排列。",
+    "入口位于侧面并保留小雨棚及台阶。",
+    "平屋面在连续女儿墙内侧下沉，保留可见的铺装分格。",
+    "上述外观按整图重建为同一栋建筑，不以通用体块替代。",
+    "用户确认右侧立面应为首层侧门、二层一组宽双扇窗；不得复制为每层三扇窄窗。"
+  ],
+  "assumptions": [
+    "整体宽约10500 mm、进深约8500 mm、地坪至女儿墙顶约6850 mm，均为比例估算。",
+    "正面以阳台立面为准；面对正面时木格栅在右端，入口位于右侧面。",
+    "按用户确认，R2C1三列窄窗属于相邻外墙；右侧入口面为首层侧门和二层一组宽双扇窗。",
+    "室内只补足维持合理 circulation 的楼梯、客餐厅等必要关系；仅把图中透过玻璃可见的家具外观视为源证据。",
+    "周边树木、草地和天空不纳入建筑模型；近建筑铺地仅作为底部环境表达。"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  }
+}

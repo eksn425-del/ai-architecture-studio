@@ -1,0 +1,710 @@
+{
+  "evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+    "sources": [
+      {
+        "id": "cafe_high_oblique",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "path": "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+        "notes": [
+          "高位斜视；识别为入口立面与相邻右侧立面的同一转角。",
+          "主要约束屋面坡面、竖向木饰面、入口窗门、双侧雨棚、平台及户外布置。"
+        ]
+      },
+      {
+        "id": "cafe_low_oblique",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "path": "inputs/reference/f8c63639f7-cafe-low-oblique.png",
+        "notes": [
+          "低位斜视；由入口、圆形吊牌、侧面外开窗和菜单牌与高位图相互定位。",
+          "主要约束门窗分格、外开木框和斜撑、可见室内陈设、桌椅和立面细节。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "入口立面：一个入口门洞和一个大面积多格玻璃窗洞；圆牌/铁艺位于自行车一端。",
+          "两张图共同观察此面；高图补充整体比例，低图补充分格与构造。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "两图均未展示；按单层咖啡店的结构和动线连贯补全，不镜像入口立面。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "按入口立面外侧视向定义；两图未展示该侧，按连续墙体与必要使用开口补全。"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "相邻侧立面：一个宽幅上悬外开窗洞，木框扇和斜撑呈开启状态；旁有墙挂菜单牌。",
+          "该面与入口立面属于同一建筑转角，不得分开重建。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "用户确认单坡；高图清楚显示深色金属板和连续平行凸肋，低图补充厚收边。",
+          "坡向及高差按两视角共同透视估算，不能通过增加楼层来解释上部木饰面。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "分别保留高、低原图的相机匹配检查；两图约束同一个转角模型。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面图；平面宽深为 ESTIMATED。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供 CAD、DWG 或实测尺寸。"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "没有专门室内视图；两张外观图透过门窗可见展示架、柜台/设备和墙面装饰，这些可见内容仍是外观重建目标。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "入口门扇宽度（估算）",
+        "value_mm": 900,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+      },
+      {
+        "name": "入口门扇高度（估算）",
+        "value_mm": 2100,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+      },
+      {
+        "name": "户外方桌边长（估算）",
+        "value_mm": 700,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/8603dc0d8c-cafe-high-oblique.png"
+      },
+      {
+        "name": "户外桌高（估算）",
+        "value_mm": 740,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+      }
+    ],
+    "hard_constraints": [
+      "重建为同一栋单层咖啡店；不得虚构第二层。",
+      "采用单坡屋面。",
+      "两张源图中可见的入口立面和相邻侧立面是同一建筑的硬视觉目标。",
+      "保留真实门窗洞口、可见材质分区、雨棚/支架、平台家具、标牌、植物、自行车及可见室内陈设。",
+      "优先匹配两张原图的轮廓、比例和开口；使用 SketchUp 2024 可编辑几何。"
+    ],
+    "assumptions": [
+      "主体宽约 4800 mm、进深约 4500 mm，均为 ESTIMATED，不是现场尺寸。",
+      "入口门约 900 x 2100 mm、户外方桌约 700 x 700 x 740 mm，作为 ESTIMATED 比例锚点。",
+      "檐口、窗洞、屋面高差、雨棚、平台及家具细节尺寸依据图像比例估算。",
+      "未见后侧和入口另一侧立面按结构/动线连续性补全；不镜像可见立面。",
+      "单坡屋面坡向由两张斜视图协同校正；不得将上部木饰板解释成第二层。",
+      "未见的室内深处只作有限、连贯补全；不声称与真实室内布局一致。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "strategy": {
+    "schema_version": 1,
+    "current_stage": "finish",
+    "stage_order": [
+      "primary_form",
+      "representative_module",
+      "replication",
+      "variants",
+      "finish"
+    ],
+    "shared_parameters": {
+      "floor_count": {
+        "value": 1,
+        "units": "count",
+        "provenance": "user_confirmed",
+        "source": "User confirmed a single story and no second floor."
+      },
+      "ground_level_mm": {
+        "value": 0,
+        "units": "mm",
+        "provenance": "inferred",
+        "source": "Platform finished floor is Z=0."
+      },
+      "body_width_mm": {
+        "value": 4800,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the two perspective views."
+      },
+      "body_depth_mm": {
+        "value": 4500,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the two perspective views."
+      },
+      "low_roof_edge_height_mm": {
+        "value": 3600,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from entry-side proportions."
+      },
+      "high_roof_edge_height_mm": {
+        "value": 5200,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from rear-side roof proportions."
+      },
+      "roof_rise_mm": {
+        "value": 1600,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the roof slope visible across the two views."
+      },
+      "roof_slope_direction": {
+        "value": "Along +Y toward the rear; low at the entry and high at the rear.",
+        "units": "text",
+        "provenance": "inferred",
+        "source": "Both perspective views show a lower entry-side eave and a higher rear roof edge."
+      },
+      "entry_door_width_mm": {
+        "value": 900,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated using the door as a scale anchor."
+      },
+      "entry_door_height_mm": {
+        "value": 2100,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated using the door as a scale anchor."
+      },
+      "front_window_width_mm": {
+        "value": 2000,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the entrance facade."
+      },
+      "front_window_height_mm": {
+        "value": 1800,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the entrance facade."
+      },
+      "front_window_sill_mm": {
+        "value": 600,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the visible window sill."
+      },
+      "side_window_width_mm": {
+        "value": 2300,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the side facade."
+      },
+      "side_window_height_mm": {
+        "value": 1700,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the side facade."
+      },
+      "side_window_sill_mm": {
+        "value": 900,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the visible side window."
+      },
+      "side_sash_projection_mm": {
+        "value": 800,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the outward-opening sash."
+      },
+      "canopy_projection_mm": {
+        "value": 900,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from the entrance and side canopies."
+      },
+      "deck_width_mm": {
+        "value": 6200,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated including the terrace and planters."
+      },
+      "deck_depth_mm": {
+        "value": 5600,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated including the terrace and planters."
+      },
+      "table_top_width_mm": {
+        "value": 700,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from outdoor furniture proportions."
+      },
+      "table_height_mm": {
+        "value": 740,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from outdoor furniture proportions."
+      },
+      "chair_seat_height_mm": {
+        "value": 450,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from outdoor furniture proportions."
+      },
+      "wood_board_width_mm": {
+        "value": 120,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from visible vertical cladding."
+      },
+      "roof_rib_spacing_mm": {
+        "value": 180,
+        "units": "mm",
+        "provenance": "estimated",
+        "source": "Estimated from visible roof rib density."
+      }
+    },
+    "systems": [
+      {
+        "id": "primary_shell_and_openings",
+        "stage": "primary_form",
+        "role": "shell",
+        "method": "continuous_wall_with_openings",
+        "status": "built",
+        "depends_on": [
+          "body_width_mm",
+          "body_depth_mm",
+          "floor_count",
+          "low_roof_edge_height_mm",
+          "high_roof_edge_height_mm",
+          "entry_door_width_mm",
+          "entry_door_height_mm",
+          "front_window_width_mm",
+          "side_window_width_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "BUILDING",
+            "WALL_FRONT_ENTRY"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "BUILDING",
+            "WALL_RIGHT_AWNING"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "BUILDING",
+            "WALL_REAR_INFERRED"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "BUILDING",
+            "WALL_LEFT_INFERRED"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "Walls use real openings; rear and left sides are inferred."
+        ]
+      },
+      {
+        "id": "main_single_slope_roof",
+        "stage": "primary_form",
+        "role": "roof",
+        "method": "loft_or_mesh",
+        "status": "built",
+        "depends_on": [
+          "body_width_mm",
+          "body_depth_mm",
+          "low_roof_edge_height_mm",
+          "high_roof_edge_height_mm",
+          "roof_rise_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "ROOF_MAIN",
+            "ROOF_SHELL"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "ROOF_MAIN",
+            "EDGE_FASCIA"
+          ]
+        ],
+        "verification_views": [
+          "roof",
+          "front",
+          "rear",
+          "oblique"
+        ],
+        "notes": [
+          "Single roof rises from the entry side toward the rear."
+        ]
+      },
+      {
+        "id": "front_and_right_canopies",
+        "stage": "primary_form",
+        "role": "roof",
+        "method": "profile_extrusion",
+        "status": "built",
+        "depends_on": [
+          "canopy_projection_mm",
+          "low_roof_edge_height_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "CANOPY_FRONT"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "CANOPY_RIGHT"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "Both canopies have visible timber supports."
+        ]
+      },
+      {
+        "id": "representative_window_and_bracket_modules",
+        "stage": "representative_module",
+        "role": "repetition",
+        "method": "prototype_instance",
+        "status": "built",
+        "depends_on": [
+          "wood_board_width_mm",
+          "canopy_projection_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "FACADE",
+            "WINDOW_MODULES"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "CANOPY",
+            "BRACKETS"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "Representative framing and brace details were built before repetition."
+        ]
+      },
+      {
+        "id": "repeated_cladding_ribs_and_furniture",
+        "stage": "replication",
+        "role": "repetition",
+        "method": "prototype_instance",
+        "status": "built",
+        "depends_on": [
+          "wood_board_width_mm",
+          "roof_rib_spacing_mm",
+          "table_top_width_mm",
+          "table_height_mm",
+          "chair_seat_height_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "FACADE",
+            "WOOD_CLADDING"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "ROOF_MAIN",
+            "METAL_RIBS"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "TERRACE",
+            "FURNITURE"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "right",
+          "roof",
+          "oblique"
+        ],
+        "notes": [
+          "Repeated cladding, roof ribs, and terrace furniture are included."
+        ]
+      },
+      {
+        "id": "side_awning_window_variant",
+        "stage": "variants",
+        "role": "opening_system",
+        "method": "custom_owned_ruby",
+        "status": "built",
+        "depends_on": [
+          "side_window_width_mm",
+          "side_window_height_mm",
+          "side_window_sill_mm",
+          "side_sash_projection_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "FACADE",
+            "RIGHT_AWNING_WINDOW"
+          ]
+        ],
+        "verification_views": [
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "Side awning sash is modeled open with visible timber support."
+        ]
+      },
+      {
+        "id": "terrace_signage_plants_bicycle",
+        "stage": "finish",
+        "role": "site",
+        "method": "custom_owned_ruby",
+        "status": "needs_fix",
+        "depends_on": [
+          "deck_width_mm",
+          "deck_depth_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "TERRACE",
+            "PLANTERS_AND_PLANTS"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "TERRACE",
+            "BICYCLE"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "SIGNAGE",
+            "ROUND_HANGING_SIGN"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "SIGNAGE",
+            "MENU_EASEL"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "All systems are present; the added front-left plant screen is oversized and obscures part of the bicycle and round sign."
+        ]
+      },
+      {
+        "id": "finish_materials_and_visible_interior",
+        "stage": "finish",
+        "role": "interior_detail",
+        "method": "custom_owned_ruby",
+        "status": "built",
+        "depends_on": [
+          "front_window_width_mm",
+          "side_window_width_mm"
+        ],
+        "target_paths": [
+          [
+            "LUNA_CAFE_ROOT",
+            "FINISH",
+            "MATERIAL_ZONES"
+          ],
+          [
+            "LUNA_CAFE_ROOT",
+            "INTERIOR_VISIBLE",
+            "DISPLAY_AND_COUNTER"
+          ]
+        ],
+        "verification_views": [
+          "front",
+          "right",
+          "oblique"
+        ],
+        "notes": [
+          "White lower walls, aged wood cladding, dark metal roof, and visible cafe fitout are included."
+        ]
+      }
+    ],
+    "notes": [
+      "SketchUp 2024 model revision 3 includes two targeted correction passes; visual status is PARTIAL.",
+      "Primary form, real openings, single-slope roof, canopies, facade, interior details, and terrace systems were written under the owned root.",
+      "A pre-existing template scale figure remains outside the owned root. The plant screen does not fully hide it and is oversized.",
+      "Current six-view screenshots and both source-angle comparison pairs are recorded in qa/visual_qa.md."
+    ]
+  },
+  "facade": {
+    "schema_version": 1,
+    "source_mode": "multi_view_reconstruction",
+    "dimensions_mm": {
+      "overall_width": 4800,
+      "overall_depth": 4500,
+      "level_height": 3600,
+      "floor_count": 1
+    },
+    "views": {
+      "front": {
+        "provenance": "observed",
+        "opening_count": 2,
+        "door_count": 1,
+        "features": [
+          "入口门洞：ESTIMATED 900 x 2100 mm。",
+          "一个大面积多格玻璃窗洞；ESTIMATED 2000 x 1800 mm，窗台约 600 mm。",
+          "门窗周边深色木框；上方有木构横向分格/雨棚构件。",
+          "入口左端附近有圆形木牌、铁艺托架、自行车和花箱。"
+        ],
+        "notes": [
+          "入口立面以两张图共同为硬目标；尺寸按门、桌椅锚点和画面比例估算。",
+          "屋檐/木饰板上部属于同一单层空间，不表示夹层或二层。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "opening_count": null,
+        "door_count": null,
+        "features": [
+          "按单层咖啡店连续墙体和合理通风/服务需求补全，不镜像入口面。"
+        ],
+        "notes": [
+          "源图不可见；本立面为 ASSUMED/推断区。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "opening_count": null,
+        "door_count": null,
+        "features": [
+          "保持白墙、墙脚带及上部木饰板语汇；按结构连续性有限补充开口。"
+        ],
+        "notes": [
+          "按站在入口外侧面向建筑的坐标约定定义；源图不可见。"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "opening_count": 1,
+        "door_count": 0,
+        "features": [
+          "一个宽幅上悬外开窗洞；ESTIMATED 2300 x 1700 mm、窗台约 900 mm。",
+          "外开木框扇呈开启状态，带对角支撑/可见铰接构件；估计外投影约 800 mm。",
+          "窗侧实墙挂两块菜单/宣传牌；侧墙下方连接木平台。",
+          "该立面设金属雨棚与木质三角支撑。"
+        ],
+        "notes": [
+          "高低两图共同展示该面；保持与入口立面同一转角和连续屋面。",
+          "窗口数按墙体洞口计数；打开的窗扇不是额外墙洞。"
+        ]
+      }
+    },
+    "roof": {
+      "provenance": "mixed",
+      "type": "单坡金属屋面；深灰色，连续平行凸肋",
+      "parapet": "未见独立女儿墙；屋面边缘有较厚收边/檐口",
+      "divisions": [
+        "主屋面凸肋按高位图的平行节奏估算并重复。",
+        "入口及相邻侧面另有较低金属雨棚，分段肋条和木三角撑。"
+      ],
+      "notes": [
+        "单坡类型为用户确认；屋面高度约低侧 3600 mm、高侧 5200 mm，均 ESTIMATED。",
+        "坡向和坡度通过两张斜视图联合校正；不以增设楼层解决比例差异。"
+      ]
+    },
+    "global_features": [
+      "木铺平台、台阶、浅灰石材/粗糙底座边缘。",
+      "入口与侧面各有深色金属雨棚、木梁和三角撑。",
+      "平台及入口附近有方桌、椅子、花箱、盆栽和自行车。",
+      "有圆形悬挂招牌、铁艺托架、墙挂菜单板和独立菜单立牌。",
+      "透过前门窗及侧窗可见展示架、柜台/设备和墙面装饰。"
+    ],
+    "user_confirmed": [
+      "建模目标为同一家单层咖啡店，SketchUp 2024 可编辑。",
+      "不得虚构第二层；主屋面为单坡。",
+      "还原范围包括两张图中可见建筑、开口、构造、家具、标识、植物、自行车和室内陈设。",
+      "尺寸没有实测值，允许以门和桌椅作比例锚点并标 ESTIMATED。",
+      "允许合理补全不可见后侧。",
+      "优先轮廓与比例，最高可见细节；高、低两视角需同时核对。"
+    ],
+    "inferred": [
+      "主体宽约 4800 mm、进深约 4500 mm、低侧屋面边约 3600 mm、高侧约 5200 mm。",
+      "大窗、外开窗、雨棚出挑、平台尺寸、木板/金属肋模数按图像比例估算。",
+      "未见立面、室内深处和局部构造按连贯结构与可用动线补全。"
+    ]
+  }
+}

@@ -1,0 +1,439 @@
+{
+  "status": "PASS",
+  "scenario": "fresh resumed context; first writer after existing review; no initial writes in this turn",
+  "attempted_translation_mm": [
+    100,
+    0,
+    0
+  ],
+  "committed_writes": 0,
+  "precommit_abort": true,
+  "revision_unchanged": 1,
+  "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"KEEP regression ROOF_MAIN_SINGLE_SLOPE: bounds_mm.min[0] changed\",\n    \"backtrace\": [\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:138:in `block (3 levels) in verify_owned_fingerprints!'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each_with_index'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `block (2 levels) in verify_owned_fingerprints!'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `each'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `block in verify_owned_fingerprints!'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each_with_index'\",\n      \"<local-path-redacted> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `verify_owned_fingerprints!'\",\n      \"<local-path-redacted> `block in <main>'\",\n      \"<local-path-redacted> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<local-path-redacted> `<main>'\"\n    ]\n  }\n}",
+  "before": {
+    "script_id": "cafe-replay-1009",
+    "revision": 1,
+    "read_only": true,
+    "path": [
+      "ROOF_MAIN_SINGLE_SLOPE"
+    ],
+    "persistent_id": 3193,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -170,
+        -242,
+        3500
+      ],
+      "max": [
+        4970,
+        4704.2,
+        5370
+      ],
+      "size": [
+        5140,
+        4946.2,
+        1870
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 8,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "ROOF_SHELL_CHARCOAL",
+        "persistent_id": 3195,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -120,
+            -180,
+            3515
+          ],
+          "max": [
+            4920,
+            4680,
+            5280
+          ],
+          "size": [
+            5040,
+            4860,
+            1765
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_FRONT",
+        "persistent_id": 3223,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -170,
+            -235,
+            3500
+          ],
+          "max": [
+            4970,
+            -130,
+            3700
+          ],
+          "size": [
+            5140,
+            105,
+            200
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_REAR",
+        "persistent_id": 3255,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -170,
+            4640,
+            5160
+          ],
+          "max": [
+            4970,
+            4680,
+            5370
+          ],
+          "size": [
+            5140,
+            40,
+            210
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_LEFT",
+        "persistent_id": 3287,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -162.5,
+            -204.2,
+            3549
+          ],
+          "max": [
+            -77.5,
+            4704.2,
+            5351
+          ],
+          "size": [
+            85,
+            4908.5,
+            1801.9
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_RIGHT",
+        "persistent_id": 3315,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4877.5,
+            -204.2,
+            3549
+          ],
+          "max": [
+            4962.5,
+            4704.2,
+            5351
+          ],
+          "size": [
+            85,
+            4908.5,
+            1801.9
+          ]
+        }
+      },
+      {
+        "name": "ROOF_RIB_INSTANCES",
+        "persistent_id": 3343,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            26,
+            -154,
+            3612.7
+          ],
+          "max": [
+            4734,
+            4654,
+            5295.3
+          ],
+          "size": [
+            4708,
+            4808,
+            1682.6
+          ]
+        }
+      },
+      {
+        "name": "FASCIA_SLOT_01",
+        "persistent_id": 3400,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            820,
+            -242,
+            3585
+          ],
+          "max": [
+            1080,
+            -234,
+            3608
+          ],
+          "size": [
+            260,
+            8,
+            23
+          ]
+        }
+      },
+      {
+        "name": "FASCIA_SLOT_02",
+        "persistent_id": 3432,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3190,
+            -242,
+            3585
+          ],
+          "max": [
+            3450,
+            -234,
+            3608
+          ],
+          "size": [
+            260,
+            8,
+            23
+          ]
+        }
+      }
+    ]
+  },
+  "after": {
+    "script_id": "cafe-replay-1009",
+    "revision": 1,
+    "read_only": true,
+    "path": [
+      "ROOF_MAIN_SINGLE_SLOPE"
+    ],
+    "persistent_id": 3193,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -170,
+        -242,
+        3500
+      ],
+      "max": [
+        4970,
+        4704.2,
+        5370
+      ],
+      "size": [
+        5140,
+        4946.2,
+        1870
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 8,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "ROOF_SHELL_CHARCOAL",
+        "persistent_id": 3195,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -120,
+            -180,
+            3515
+          ],
+          "max": [
+            4920,
+            4680,
+            5280
+          ],
+          "size": [
+            5040,
+            4860,
+            1765
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_FRONT",
+        "persistent_id": 3223,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -170,
+            -235,
+            3500
+          ],
+          "max": [
+            4970,
+            -130,
+            3700
+          ],
+          "size": [
+            5140,
+            105,
+            200
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_REAR",
+        "persistent_id": 3255,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -170,
+            4640,
+            5160
+          ],
+          "max": [
+            4970,
+            4680,
+            5370
+          ],
+          "size": [
+            5140,
+            40,
+            210
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_LEFT",
+        "persistent_id": 3287,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -162.5,
+            -204.2,
+            3549
+          ],
+          "max": [
+            -77.5,
+            4704.2,
+            5351
+          ],
+          "size": [
+            85,
+            4908.5,
+            1801.9
+          ]
+        }
+      },
+      {
+        "name": "EDGE_FASCIA_RIGHT",
+        "persistent_id": 3315,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4877.5,
+            -204.2,
+            3549
+          ],
+          "max": [
+            4962.5,
+            4704.2,
+            5351
+          ],
+          "size": [
+            85,
+            4908.5,
+            1801.9
+          ]
+        }
+      },
+      {
+        "name": "ROOF_RIB_INSTANCES",
+        "persistent_id": 3343,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            26,
+            -154,
+            3612.7
+          ],
+          "max": [
+            4734,
+            4654,
+            5295.3
+          ],
+          "size": [
+            4708,
+            4808,
+            1682.6
+          ]
+        }
+      },
+      {
+        "name": "FASCIA_SLOT_01",
+        "persistent_id": 3400,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            820,
+            -242,
+            3585
+          ],
+          "max": [
+            1080,
+            -234,
+            3608
+          ],
+          "size": [
+            260,
+            8,
+            23
+          ]
+        }
+      },
+      {
+        "name": "FASCIA_SLOT_02",
+        "persistent_id": 3432,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3190,
+            -242,
+            3585
+          ],
+          "max": [
+            3450,
+            -234,
+            3608
+          ],
+          "size": [
+            260,
+            8,
+            23
+          ]
+        }
+      }
+    ]
+  },
+  "geometry_unchanged": true,
+  "target_model": "disposable engineering replay only"
+}

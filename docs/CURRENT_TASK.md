@@ -1,4 +1,26 @@
-# 当前唯一任务 — K AI Studio / GPT-6 Luna Max × Codex Native × ADAI SU2024 真机建模（2026-10-09）
+# 当前输入更新 — 用户双视角咖啡店 / Luna Max / SU2024（2026-10-09）
+
+## 本轮已完成 / 下一轮入口
+
+当前两图咖啡店已在网站完成真实 `gpt-6-luna` / `max` 建模、两次局部修正和 r3 六方向截图。完整公开证据：[咖啡店报告](test-results/windows/2026-10-09-cafe-two-view-luna-max/README.md)。三笔 write_verification、下载副本 SU2024 原生打开、鼠标移动菜单立牌、保存再次打开、其余30组不变均 PASS。第一次新空白重放因基脚端点差60mm FAIL；同步持久脚本后，另一个新空白重放31组名称/bounds全部一致 PASS。恢复回合第一笔写入故意破坏 KEEP 屋顶被提交前拒绝。最终自动检查 **314 passed / 2 skipped**。
+
+**视觉仍 PARTIAL**：右后低白墙/低屋顶附属体量不足，主屋顶/木饰面比例、桌椅和铁艺/纹理细节不准确；第二次修正添加植物屏遮人物的策略错误，挡住来源特征。独立 Critic NOT_RUN，实际为 Builder 自审且 NEEDS_FIX:YES；Native token null，不能声称降本。已用完本轮两次修正，不以第三次修正或降低标准改成 PASS。
+
+下一轮只继续同产品的图片还原：先落实主/附体量 inventory 与来源角度比对，再改善遗漏附属体量和比例；实现并实测独立只读 Critic 与可靠 Token 计量；验证新 workspace v11 的 QA 指引能阻止遮挡配景式修正。新 AEC 空白模板已实测不带人物。桌面安装包与源码版本一致性仍待确认。不要回到旧别墅代替用户当前咖啡店，也不要扩展 CAD/渲染/PPT。
+
+以下“继续完成”段落记录执行开始状态，已由上述结果更新。
+
+用户本机明确纠正：**当前应该建新发的两张咖啡店图，不继续旧白色别墅。** 这条最新用户输入覆盖下面旧六视图任务的素材选择；保持同一网站、Native 模型、Kongxing 单写者、ADAI opt-in、最多两轮局部修正和 GitHub 证据契约，不扩建 CAD/渲染/PPT。
+
+实际 `gpt-6-luna` / `max` 已由宿主 catalog 和 Native turn 配置确认。新会话“双视角咖啡店 · Luna Max 1009”已在网页上传两张完整原图、明确单层/估算/合理补全/可见全部细节，完成规划三份 JSON 严格校验并代批准，进入 SU2024 独立模型建模。私人两张原图只保留本机 ignored runtime，不提交；公开结果必须记录此限制，提交真实模型 PNG/receipt/readback/QA。
+
+本轮已发生的旧别墅结果不得丢弃：[新证据目录](test-results/windows/2026-10-09-kai-integrated-v1/README.md)。r3，277 对象，六图同 revision，ADAI 两洞墙/非平屋面工程 smoke、KEEP precommit abort、下载 hash 和原生重开通过；视觉 PARTIAL，独立 Critic NOT_RUN，Token null，用户改目标前未进行该别墅鼠标编辑/重放。自动检查 313 passed / 2 skipped。
+
+继续完成当前咖啡店：真实可识别主形与细节 → canonical 六方向及高/低两种来源角度 → 如实 review/最多两次 targeted correction → 下载副本原生打开、鼠标编辑一个命名对象、保存再重开读回 → 新空白 baseline replay → 新证据目录/检查/HANDOFF/commit/push。不要重新改测旧别墅，不用连接成功代替视觉验收。
+
+---
+
+# 历史本轮任务 — K AI Studio / GPT-6 Luna Max × Codex Native × ADAI SU2024 真机建模（2026-10-09）
 
 **本任务覆盖下方所有历史“继续 Sol Low”“旧版 ADAI 尚未合并”等规划段落。** 用户本轮要求以 [Codex 最新提交 `98c9aec`](https://github.com/eksn425-del/ai-architecture-studio/commit/98c9aec11c283879ab0bc2e9afc587f6729cdec6) 和 Sol Low 实测证据为起点，使用 Codex **实际可选的 GPT-6 Luna Max / 最高能力模型**，在**已融合 ADAI 的 K AI Studio 网站**完成新的一次真实建筑建模，并将结果/数据/真实六方向 PNG **全部上传本仓库 GitHub `main`**。此后每一次测试都遵守相同规则。
 

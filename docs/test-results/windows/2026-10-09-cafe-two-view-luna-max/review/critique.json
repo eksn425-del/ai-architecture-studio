@@ -1,0 +1,435 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+    "sources": [
+      {
+        "id": "cafe_high_oblique",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "path": "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+        "notes": [
+          "高位斜视；识别为入口立面与相邻右侧立面的同一转角。",
+          "主要约束屋面坡面、竖向木饰面、入口窗门、双侧雨棚、平台及户外布置。"
+        ]
+      },
+      {
+        "id": "cafe_low_oblique",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "path": "inputs/reference/f8c63639f7-cafe-low-oblique.png",
+        "notes": [
+          "低位斜视；由入口、圆形吊牌、侧面外开窗和菜单牌与高位图相互定位。",
+          "主要约束门窗分格、外开木框和斜撑、可见室内陈设、桌椅和立面细节。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "入口立面：一个入口门洞和一个大面积多格玻璃窗洞；圆牌/铁艺位于自行车一端。",
+          "两张图共同观察此面；高图补充整体比例，低图补充分格与构造。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "两图均未展示；按单层咖啡店的结构和动线连贯补全，不镜像入口立面。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "按入口立面外侧视向定义；两图未展示该侧，按连续墙体与必要使用开口补全。"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "相邻侧立面：一个宽幅上悬外开窗洞，木框扇和斜撑呈开启状态；旁有墙挂菜单牌。",
+          "该面与入口立面属于同一建筑转角，不得分开重建。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "用户确认单坡；高图清楚显示深色金属板和连续平行凸肋，低图补充厚收边。",
+          "坡向及高差按两视角共同透视估算，不能通过增加楼层来解释上部木饰面。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+          "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+        ],
+        "notes": [
+          "分别保留高、低原图的相机匹配检查；两图约束同一个转角模型。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面图；平面宽深为 ESTIMATED。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供 CAD、DWG 或实测尺寸。"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "没有专门室内视图；两张外观图透过门窗可见展示架、柜台/设备和墙面装饰，这些可见内容仍是外观重建目标。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "入口门扇宽度（估算）",
+        "value_mm": 900,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+      },
+      {
+        "name": "入口门扇高度（估算）",
+        "value_mm": 2100,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+      },
+      {
+        "name": "户外方桌边长（估算）",
+        "value_mm": 700,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/8603dc0d8c-cafe-high-oblique.png"
+      },
+      {
+        "name": "户外桌高（估算）",
+        "value_mm": 740,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+      }
+    ],
+    "hard_constraints": [
+      "重建为同一栋单层咖啡店；不得虚构第二层。",
+      "采用单坡屋面。",
+      "两张源图中可见的入口立面和相邻侧立面是同一建筑的硬视觉目标。",
+      "保留真实门窗洞口、可见材质分区、雨棚/支架、平台家具、标牌、植物、自行车及可见室内陈设。",
+      "优先匹配两张原图的轮廓、比例和开口；使用 SketchUp 2024 可编辑几何。"
+    ],
+    "assumptions": [
+      "主体宽约 4800 mm、进深约 4500 mm，均为 ESTIMATED，不是现场尺寸。",
+      "入口门约 900 x 2100 mm、户外方桌约 700 x 700 x 740 mm，作为 ESTIMATED 比例锚点。",
+      "檐口、窗洞、屋面高差、雨棚、平台及家具细节尺寸依据图像比例估算。",
+      "未见后侧和入口另一侧立面按结构/动线连续性补全；不镜像可见立面。",
+      "单坡屋面坡向由两张斜视图协同校正；不得将上部木饰板解释成第二层。",
+      "未见的室内深处只作有限、连贯补全；不声称与真实室内布局一致。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "agent_supplied"
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "两张参考图中的同一单层咖啡店已用连贯模型表达，包含真实门窗洞口、入口侧低后侧高的单坡屋面、双面雨棚、木饰板、可见室内陈设和露台物件。入口门、檐口侧板和菜单立牌经两轮局部修正后位置合理。当前模板中预置的人物在项目自有模型根之外，仍出现在视图里；第三修订增加的左前角植物屏仍偏大，人物仍可见，并遮挡部分自行车和圆形吊牌。建筑主体与开口可保留，露台植物布局仍需修正。本结论是 Builder 自检，不是独立 Critic。",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "oblique",
+      "problem": "左前角模板人物仍可见，额外植物屏体量偏大并遮挡自行车和圆形吊牌。",
+      "action": "后续在允许编辑模板对象的文档副本中删除人物，或缩小/移除植物屏并重新调整自行车、吊牌和植物布局。"
+    }
+  ],
+  "keep": [
+    "WALL_FRONT_ENTRY; WALL_RIGHT_AWNING; FRONT_ENTRY_DOOR_MODULE; FRONT_SHOWCASE_WINDOW_MODULE; RIGHT_AWNING_WINDOW_OPEN_MODULE; INTERIOR_VISIBLE_FITOUT; CANOPY_FRONT_METAL; CANOPY_RIGHT_METAL; SITE_PLATFORM; ROOF_MAIN_SINGLE_SLOPE; TERRACE_FURNITURE; BICYCLE_FRONT_LEFT; SIGNAGE_ROUND_HANGING; SIGNAGE_MENU_EASEL"
+  ],
+  "model_revisions": {
+    "luna-cafe-1009": 3
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-d518335637.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "luna-cafe-1009",
+      "camera": {
+        "eye_m": [
+          2.0845000000000002,
+          -20.4824,
+          2.6916
+        ],
+        "target_m": [
+          2.0845000000000002,
+          2.0274,
+          2.6916
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-158b126bbf.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "luna-cafe-1009",
+      "camera": {
+        "eye_m": [
+          2.0845000000000002,
+          24.5372,
+          2.6916
+        ],
+        "target_m": [
+          2.0845000000000002,
+          2.0274,
+          2.6916
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-028e0e0e61.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "luna-cafe-1009",
+      "camera": {
+        "eye_m": [
+          -20.8284,
+          2.0274,
+          2.6916
+        ],
+        "target_m": [
+          2.0845000000000002,
+          2.0274,
+          2.6916
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-928e793ab4.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "luna-cafe-1009",
+      "camera": {
+        "eye_m": [
+          24.9974,
+          2.0274,
+          2.6916
+        ],
+        "target_m": [
+          2.0845000000000002,
+          2.0274,
+          2.6916
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-babfef7232.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "luna-cafe-1009",
+      "camera": {
+        "eye_m": [
+          2.0845000000000002,
+          2.0274,
+          24.3324
+        ],
+        "target_m": [
+          2.0845000000000002,
+          2.0274,
+          2.58
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-b256985a42.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "luna-cafe-1009",
+      "camera": {
+        "eye_m": [
+          20.825671999999997,
+          -16.310672,
+          14.471951999999998
+        ],
+        "target_m": [
+          2.0845000000000002,
+          2.0274,
+          2.6916
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+      "current_view": "outputs/renders/agent-view-67d663d00b.png",
+      "label": "高视角：屋顶、转角、露台布局",
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      }
+    },
+    {
+      "source_ref": "inputs/reference/f8c63639f7-cafe-low-oblique.png",
+      "current_view": "outputs/renders/agent-view-115be54ce5.png",
+      "label": "低视角：入口、侧窗、室内和露台细节",
+      "model_revisions": {
+        "luna-cafe-1009": 3
+      }
+    }
+  ],
+  "writer_verifications": {
+    "luna-cafe-1009": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 51007,
+          "actual": 51007
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 31,
+          "actual": 31
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -1866.0,
+              -1520.0,
+              -210.0
+            ],
+            "max": [
+              6035.0,
+              5574.8,
+              5370.0
+            ],
+            "size": [
+              7901.0,
+              7094.8,
+              5580.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -1866,
+              -1520,
+              -210
+            ],
+            "max": [
+              6035,
+              5574.8,
+              5370
+            ],
+            "size": [
+              7901,
+              7094.8,
+              5580
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/8603dc0d8c-cafe-high-oblique.png",
+    "inputs/reference/f8c63639f7-cafe-low-oblique.png"
+  ]
+}

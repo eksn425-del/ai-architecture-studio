@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1762890,
+  "tool_call_count": 130,
+  "failed_tool_calls": 7,
+  "committed_writes": 3,
+  "full_root_rebuilds": 1,
+  "targeted_corrections": 2,
+  "input_tokens": null,
+  "output_tokens": null,
+  "critic_input_tokens": null,
+  "critic_output_tokens": null,
+  "token_source": "not_available_from_native_runtime_integration",
+  "human_geometry_edits": 0,
+  "human_prompt_interventions": 0,
+  "clarification_latency_ms": 50968,
+  "planning_latency_ms": 340797,
+  "builder_latency_ms": 1371125,
+  "turns": [
+    {
+      "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "tool_call_count": 112,
+      "failed_tool_calls": 7,
+      "completed": true
+    },
+    {
+      "event_file": "63c5d256ff354510a96cc43bdb2e766b.jsonl",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "completed": true
+    },
+    {
+      "event_file": "df26b2e10a994a1eb99a55a8e9456acc.jsonl",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "tool_call_count": 18,
+      "failed_tool_calls": 0,
+      "completed": true
+    }
+  ],
+  "human_script_maintenance_interventions": 1,
+  "manual_native_edit_on_download_copy": 1,
+  "engineering_replays": 2
+}

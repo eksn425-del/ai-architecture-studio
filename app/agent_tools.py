@@ -215,7 +215,10 @@ class AgentToolSurface:
             preservation_before: dict[str, dict[str, Any]] = {}
             preservation_script_id = ""
             review_before_write: dict[str, Any] | None = None
-            if bounded and writes > 0:
+            # A resumed turn starts with writes=0 even when it has already
+            # reviewed an existing model. Honor that review and its KEEP paths
+            # on the FIRST correction as well, not just later writes.
+            if bounded and (writes > 0 or quality_state.get("review") is not None):
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
                     raise MCPCallError(
@@ -448,7 +451,10 @@ class AgentToolSurface:
                     "six DISTINCT CURRENT front/rear/left/right/roof/oblique agent-view PNGs, then submit the exact actual paths plus the "
                     "bounded fallback critique. When the source camera is not represented by a canonical view, or when interior/detail references exist, add evidence_pairs mapping real source images to current agent-view captures. On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
                     "the six validated current views and any validated source-matched/interior pairs, then replaces any model-authored verdict before persisting the review. "
-                    "Other runtimes may supply the same bounded NEEDS_FIX envelope as critique. The host rejects stale revision "
+                    "Native runtimes MUST supply a plain-text self-review: NEEDS_FIX: YES or NO, "
+                    "<assessment>comparison</assessment>, <issue priority=\"1\" view=\"front\">problem: mismatch\naction: fix</issue> "
+                    "and <keep>correct group paths</keep>. YES needs at least one issue. This fallback is agent_supplied, "
+                    "not an independent Critic. The host rejects stale revision "
                     "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
                     "NEEDS_FIX:NO ends geometry writes for this turn.",
                     {

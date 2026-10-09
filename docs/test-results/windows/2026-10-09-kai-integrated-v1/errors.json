@@ -1,0 +1,153 @@
+[
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "Ruby source contains a blocked host, reflection, whole-model, or process operation: 'system'. The host already injects model and root (Sketchup::Group) and owns the transaction/save. Remove all active_model and start/commit/abort_operation calls, including conditional ones. Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly or be lambdas capturing them, because Ruby def does not capture local variables."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "Ruby source contains a blocked host, reflection, whole-model, or process operation: 'method'. The host already injects model and root (Sketchup::Group) and owns the transaction/save. Remove all active_model and start/commit/abort_operation calls, including conditional ones. Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly or be lambdas capturing them, because Ruby def does not capture local variables."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"NameError\",\n    \"message\": \"undefined local variable or method `adai_geometry' for main:Object\",\n    \"backtrace\": [\n      \"villa_six_view_1009.rb:63:in `villa_profile'\",\n      \"villa_six_view_1009.rb:171:in `block in <main>'\",\n      \"<local-path-redacted> `eval'\",\n      \"<local-path-redacted> `block in <main>'\",\n      \"<local-path-redacted> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<local-path-redacted> `<main>'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `block in handle_payload'\"\n    ]\n  }\n}"
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"ArgumentError\",\n    \"message\": \"profile plane must be xy, xz or yz\",\n    \"backtrace\": [\n      \"<local-path-redacted> AI 产品建模网站/.local/adai/0.5.39/skill/professional-sketchup-modeling/scripts/construction_geometry.rb:174:in `profile_with_holes'\",\n      \"villa_six_view_1009.rb:63:in `villa_profile'\",\n      \"villa_six_view_1009.rb:171:in `block in <main>'\",\n      \"<local-path-redacted> `eval'\",\n      \"<local-path-redacted> `block in <main>'\",\n      \"<local-path-redacted> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<local-path-redacted> `<main>'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\"\n    ]\n  }\n}"
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "11ad68c67bd148a29488710d881b083d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Visual review must use NEEDS_FIX plus a parseable assessment/issues/KEEP envelope."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "No existing owned root for this script_id; use the persisted identity, not a guessed ID. Available script_ids: villa_six_view_1009 (revision 1)."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "offset must be nonnegative; limit must be 1..100."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed"
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "preserve_paths must contain 1..24 exact owned-group paths."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed"
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed"
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "phase_event_log": "24f61489ddfc44b4955eb06f5b96785c.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "tool": "native app-server",
+    "error": "Initial Builder timeout at 900s after r1 commit; checkpoint recovered. Continued same root with explicit 1800s timeout."
+  },
+  {
+    "tool": "evidence contract",
+    "error": "Planner source_refs used source_sheet_01 instead of input file path; corrected by operator format instruction."
+  },
+  {
+    "tool": "PowerShell 5.1 launcher",
+    "error": "BOMless Chinese regex literals were parsed using ANSI; replaced regex literals with Unicode escapes."
+  },
+  {
+    "tool": "ADAI official raw download",
+    "error": "Official raw GitHub download reset/timeout; official GitHub contents API retrieved identical pinned SHA-verified distribution."
+  }
+]

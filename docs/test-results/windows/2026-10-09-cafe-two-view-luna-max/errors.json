@@ -1,0 +1,42 @@
+[
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"ArgumentError\",\n    \"message\": \"Cannot convert argument to Geom::Vector3d\",\n    \"backtrace\": [\n      \"luna-cafe-1009.rb:89:in `*'\",\n      \"luna-cafe-1009.rb:89:in `block (2 levels) in <main>'\",\n      \"luna-cafe-1009.rb:299:in `block in <main>'\",\n      \"<local-path-redacted> `eval'\",\n      \"<local-path-redacted> `block in <main>'\",\n      \"<local-path-redacted> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<local-path-redacted> `<main>'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\"\n    ]\n  }\n}"
+  },
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"ArgumentError\",\n    \"message\": \"Duplicate points in array\",\n    \"backtrace\": [\n      \"luna-cafe-1009.rb:54:in `add_face'\",\n      \"luna-cafe-1009.rb:54:in `block (2 levels) in <main>'\",\n      \"luna-cafe-1009.rb:154:in `block (4 levels) in <main>'\",\n      \"luna-cafe-1009.rb:152:in `times'\",\n      \"luna-cafe-1009.rb:152:in `block (3 levels) in <main>'\",\n      \"luna-cafe-1009.rb:151:in `each'\",\n      \"luna-cafe-1009.rb:151:in `block (2 levels) in <main>'\",\n      \"luna-cafe-1009.rb:523:in `block (2 levels) in <main>'\",\n      \"luna-cafe-1009.rb:519:in `times'\",\n      \"luna-cafe-1009.rb:519:in `block in <main>'\",\n      \"<local-path-redacted> `eval'\",\n      \"<local-path-redacted> `block in <main>'\"\n    ]\n  }\n}"
+  },
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "sketchup_inspect_owned",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"NoMethodError\",\n    \"message\": \"undefined method `to_a' for #<Geom::BoundingBox:0x000001d6d2636d48>\",\n    \"backtrace\": [\n      \"luna-cafe-1009.rb:118:in `block in <main>'\",\n      \"<local-path-redacted> `eval'\",\n      \"<local-path-redacted> `block in <main>'\",\n      \"<local-path-redacted> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<local-path-redacted> `<main>'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `block in handle_payload'\",\n      \"<local-path-redacted> 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:185:in `on_main_thread'\"\n    ]\n  }\n}"
+  },
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling."
+  },
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed"
+  },
+  {
+    "event_file": "283a0051f5dc4da5a6128eb73e651160.jsonl",
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed"
+  },
+  {
+    "tool": "fresh empty baseline replay",
+    "error": "60 mm plinth endpoint mismatch; first replay FAIL",
+    "action": "correct durable script endpoint, second new blank replay PASS"
+  }
+]

@@ -1,3 +1,17 @@
+## Windows Native Luna Max 实测与用户纠正素材 — 2026-10-09
+
+本机从 clean main 拉取 `bdc90f8`，实际使用网站 `gpt-6-luna / max`，没有静默换模型。新白色别墅已初建和两次同 root correction，真实 [完整公开证据](test-results/windows/2026-10-09-kai-integrated-v1/README.md) 包含 r3 六个 PNG/sidecar、来源透视、三笔 write_verification、277 对象完整分页 PID/bounds、KEEP、自审、Token null/耗时/27 失败、下载和原生重开记录、ADAI 工程 smoke及受控 abort。**视觉 PARTIAL；独立 Critic NOT_RUN；该别墅鼠标编辑及新空白 replay 未完成**。不以 Builder NEEDS_FIX:NO冒充独立 PASS。
+
+用户随后明确问“我不是给你发了新的图片吗”，纠正当前测试为两张单层咖啡店。已停止继续修旧别墅，在同一网站新会话上传两张整图，完成澄清/规划/代批准/独立 SU2024 连接，继续真实建模。源图片私人，不能推到公开仓库；后续咖啡店证据另建新目录。CURRENT_TASK 顶部已记录素材变更。
+
+修复：PS5.1 无 BOM 中文正则启动解析；Native 进度计入 commandExecution/fileChange 与失败；可显式提高测试回合 timeout但默认900s保留；evidence source_refs相对路径契约；ADAI正确函数签名/状态工作区说明；Native明文自审fallback契约。特别发现 resumed turn 的第一笔 correction 可绕过旧 review/KEEP，修复已有review也必须guard，fresh/resumed回归覆盖，不回填先前r2为PASS；r3真实24 KEEP正向通过。自动检查 **313 passed / 2 skipped / 2 warnings，33.75s**，workspace/case-study check 全通过。
+
+ADAI0.5.39官方固定包经官方contents API下载并校验官方SHA，通过现有安装器隔离安装；helper显式on、独立MCPoff、LICENSE/NOTICE保留，没有vendorcoveredsource。墙两真洞+非平屋面+protectedroof提交前abort及smoke原生重开实际通过。其他SU版本NOT_RUN。
+
+以下历史规划不覆盖最新用户咖啡店输入。
+
+---
+
 ## Product strategy update — Building-Xuezhang demo, P0 remains modeling — 2026-10-09
 
 User has **not yet run** the newly assigned GPT-6 Luna Max/Codex prompt. They supplied the Building-Xuezhang commercial-office flow (existing SU white mass/site/redline, precedent images, model development/variants, screenshot-directed fixes, eventual CAD/renders/walkthrough/web PPT) as **a future product vision reference**, not a request to build the full pipeline now.
@@ -1205,4 +1219,22 @@ Read-only review of installed SketchUp Skill, quality references, bridge source,
 ## Sellable beta research (2026-10-02)
 
 User requested current competitor search and commercial next-step advice. Added SELLABLE_BETA_NEXT_STEPS_2026-10-02.md as non-binding research, not CURRENT_TASK. Verified MakeIt4Me bridge/Skill/BYOK offer, official Veras 5.2 editable agentic modeling Beta, current Maket pricing (30 free credits, correcting earlier50) and SketchUp distribution channel. No paid competitor trial, revenue estimate, model inference or product implementation. Recommendation: independently reproduce the developed Sol result through a production API boundary, validate clean-machine installation, then five-person/ten-case assisted beta with separately reported developer intervention. Suggested pricing/acceptance targets are hypotheses, not achieved outcomes. Documentation-only whitespace check completed.
+
+## 最终 GitHub 交接 — 用户新双视角咖啡店 / Luna Max / SU2024 — 2026-10-09
+
+已执行用户纠正后的两张新咖啡店整图，不再以旧别墅替代。实际网站模型 `gpt-6-luna` / `max`，无 fallback；Windows 11 Home build22000、Python3.12.2、SketchUp2024 24.0.484、Kongxing AI0.1.0。ADAI0.5.39 helper opt-in可用，但本咖啡店实际采用SAIE墙洞与持久Ruby，不虚报ADAI使用。独立MCP没有并发写模型。
+
+**公开验收：[双视角咖啡店完整证据](test-results/windows/2026-10-09-cafe-two-view-luna-max/README.md)**。r3/root PID51007/31顶层命名组；真实6张同revision canonical PNG、两种source-angle模型PNG、修正前图片、三份合法规划、writer/KEEP/对象读回/错误/脚本/审查/metrics均已整理。三笔write_verification PASS；实际浏览器下载、SU原生打开、鼠标移动菜单立牌549.3mm、保存重开读回PASS，其他30组PID/bounds不变。修改仅在下载副本进行，主建模无人工几何修改。结束时SU已回到网站绑定的主咖啡店r3，读回31组。
+
+全新空白重放首次FAIL（持久脚本基脚端点与最终模型差60mm），真实失败保留；操作者同步一处源码后，用另一个全新无人物AEC空白模型重放PASS，31组名称/边界一致。恢复会话首写KEEP负例真机PASS：故意移动受保护屋顶被提交前abort，revision/PID/bounds保留。不能回填旧别墅r2未武装KEEP为PASS。
+
+**视觉PARTIAL，独立Critic NOT_RUN**。Builder自审NEEDS_FIX:YES。遗漏/错误的右后低体量与屋面、屋顶/木饰面比例和家具/铁艺/材质不足；第二次修正用植物屏遮默认人物反而遮自行车/吊牌，是质量策略失败。本轮两次定向修正已用完。新增workspace v11主/附体量检查及禁止遮挡模板人物的指引是在建模结束后修改，改善效果尚未复测，不称视觉PASS。
+
+Native澄清50.968s、规划340.797s、Builder1371.125s；总1762.890s，130工具调用/7失败。实际contextCompaction出现，但input/output/Critic tokens为null，不比较4.92M基线成本。人工代批准一次、下载副本编辑一次、工程重放源码维护一次，主Builder无额外人为修几何提示。原图未获公开授权、私人SKP/密钥/个人路径不提交，公开PNG均为实际SU视口；云端无法自行重开私人二进制，限制明确列出。
+
+有效产品修复：Native command/file进度及失败计数、显式测试timeout（默认900s保留）、source_refs相对文件契约、ADAI正确函数签名/状态说明、Native明文自审fallback、恢复会话第一写KEEP guard、PS5启动解析、新空白AEC优先；相关自动检查 **314 passed / 2 skipped / 2 warnings，30.93s**，workspace/case-study通过。两新证据目录均生成SHA256清单并通过validator；旧别墅实测PARTIAL证据保留在[同日集成目录](test-results/windows/2026-10-09-kai-integrated-v1/README.md)。
+
+下一轮依据CURRENT_TASK顶部，改善当前图像主/附体量还原、独立Critic、Token计量和QA修正优先级。其他SU版本/桌面包同步未验收；不开展新产品或CAD等范围。
+
+---
 

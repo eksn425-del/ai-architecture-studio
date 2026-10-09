@@ -5,9 +5,10 @@ from pathlib import Path
 
 from .construction_strategy import default_construction_strategy, construction_strategy_schema_note
 from .reconstruction_evidence import default_reconstruction_evidence
+from .adai_components import geometry_helper
 
 
-WORKSPACE_VERSION = 10
+WORKSPACE_VERSION = 11
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -45,6 +46,7 @@ For later design workflows, record durable design decisions in `notes/design_not
 
 - **Primary for reconstruction:** persistent workspace Ruby for project-specific and repeated geometry.
 - **Geometry helpers inside the single writer:** use injected SAIE wall/opening helpers from persistent ProjectRuby when suitable; reconstruction-profile SAIE/Kongxing backend tools remain read-only evidence helpers.
+- **Optional ADAI:** read `notes/adai_geometry_contract.md` for this process's verified enabled/disabled state and exact supported profile signatures before writing geometry.
 - **Bridge/lifecycle:** Kongxing for verified model identity, viewport/camera/readback and transport.
 - **Later engineering outputs:** ArchFlow for validation/DXF/Ruby/review where relevant.
 
@@ -53,6 +55,8 @@ Do not choose a large set of tiny one-off tool calls when a parameterized Ruby/c
 ## Modeling quality rule
 
 For image reconstruction, a few boxes are not completion when the source contains developed facade/roof geometry. Match silhouette, storeys/bays, major voids, facade depth, repeated modules, roof/canopy and material zones, then compare source-matched screenshots and revise.
+
+At each visual review, inventory every visible primary and attached volume in both source and model before judging details. Missing annexes/lower roofs and wrong silhouettes outrank decoration or template clutter. Do not call these matched merely because the main facade is recognizable. Do not invent extra plants or geometry to hide a template figure: record the lifecycle artifact and preserve the source layout. A correction should address the largest remaining source mismatch, not conceal evidence.
 
 Never write private source inputs into this workspace. Never modify the user's original SKP/DWG; work only on the verified disposable project model.
 """
@@ -257,6 +261,26 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         if directory.is_symlink() or not directory.resolve().is_relative_to(root):
             raise ValueError("Codex parity workspace subdirectories must remain inside the agent workspace.")
 
+    # Give the coding agent the verified optional API contract without copying
+    # upstream CPAL source into generated workspaces or the public repository.
+    adai_enabled = geometry_helper(Path(__file__).resolve().parents[1]) is not None
+    (root / "notes" / "adai_geometry_contract.md").write_text(
+        "# Optional ADAI geometry contract\n\n"
+        + ("ADAI 0.5.39 verified helper is enabled for this process. Upstream: "
+           "laowang-wy/adai-sketchup-skill-mcp; CPAL-1.0; original LICENSE/NOTICE retained in the isolated installation.\n"
+           "The host injects `adai_geometry` inside the single guarded ProjectRuby transaction. "
+           "Write only into root.entities; no separate ADAI MCP writer.\n\n"
+           "- profile(entities, name, outline_mm, depth_mm, plane='xz', offset_mm=0, material=nil)\n"
+           "- profile_with_holes(entities, name, outer_mm, holes_mm, depth_mm, plane='xy', offset_mm=0, material=nil)\n"
+           "Coordinates are 2D numeric mm rings; depth must be positive. xy extrudes +Z, xz +Y, yz +X. "
+           "Holes must be fully inside the outer contour without crossing/touching it. "
+           "Wall-bottom doors require a notched/segmented outer profile or the existing SAIE wall/opening helper, "
+           "not a boundary-touching hole. Use returned named groups for later targeted editing. "
+           "Non-rectangular roof sections may use profile; do not invent a complex roof absent from the source.\n"
+           if adai_enabled else "ADAI is disabled. Do not call adai_geometry; use existing verified helpers.\n"),
+        encoding="utf-8", newline="\n",
+    )
+
     instructions = root / "AGENTS.md"
     if not instructions.exists():
         instructions.write_text(_WORKSPACE_AGENTS, encoding="utf-8", newline="\n")
@@ -289,7 +313,8 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "Keep whole view sheets intact. Evidence sources.kind is exterior_image/interior_image/floorplan_image/"
         "cad/document/dimension_note; provenance is pending/observed/user_confirmed/inferred. "
         "A six-panel sheet is kind=exterior_image; describe its panels in notes/role. "
-        "Observed exterior_views require source_refs pointing to registered sources. "
+        "Observed exterior_views.source_refs and scale_anchors.source_ref must be actual PROJECT-relative input FILE PATHS "
+        "(inputs/reference/file.png), never source IDs such as source_sheet_01. "
         "Estimated scale anchors are objects with name, positive value_mm, provenance=inferred. "
         "hard_constraints and assumptions are string lists. "
         "unseen_exterior is infer_coherent/do_not_infer; unseen_interior is infer_plausible/do_not_infer. "

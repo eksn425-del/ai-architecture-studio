@@ -59,16 +59,23 @@ if ([string]::IsNullOrWhiteSpace($ModelPath)) {
         (Join-Path $installRoot 'Resources\zh-cn\Templates'),
         (Join-Path $installRoot 'Resources\en-US\Templates')
     )
-    $template = foreach ($root in $templateRoots) {
-        $candidate = Join-Path $root 'Temp01a - Simple.skp'
-        if (Test-Path $candidate) { $candidate; break }
+    # The architectural template has no default scale figure in SU2024.
+    # Avoid adding an unrelated person outside the agent's owned root.
+    # Keep Simple as a fallback for installations without the AEC template.
+    $template = foreach ($name in @('Temp03b - AEC.skp', 'Temp01a - Simple.skp')) {
+        $found = $null
+        foreach ($root in $templateRoots) {
+            $candidate = Join-Path $root $name
+            if (Test-Path $candidate) { $found = $candidate; break }
+        }
+        if ($found) { $found; break }
     }
     if (-not $template) {
         # Some older versions or localizations use different template names.
         foreach ($root in $templateRoots) {
             if (-not (Test-Path $root)) { continue }
             $template = Get-ChildItem -Path $root -Filter '*.skp' -File -ErrorAction SilentlyContinue |
-                Where-Object { $_.Name -match 'Simple|简易|简单' } |
+                Where-Object { $_.Name -match 'Simple|\u7b80\u6613|\u7b80\u5355' } |
                 Select-Object -First 1 -ExpandProperty FullName
             if ($template) { break }
         }
