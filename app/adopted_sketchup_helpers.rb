@@ -102,4 +102,50 @@ module KStudioProfessionalHelpers
       objects: page.map { |e| {name: e.name, persistent_id: e.persistent_id, locked: e.locked?, bounds_mm: KStudioStultusBounds.bounds_mm(e.bounds)} }
     }
   end
+
+  # Transaction-local KEEP guard. This deliberately runs inside the same
+  # SketchUp operation as the candidate edit, so a regression raises before
+  # commit and model_session.rb aborts the whole operation. The contract mirrors
+  # K Studio's post-write fingerprint: persistent identity, direct child count
+  # and parent-local millimeter bounds.
+  def verify_owned_fingerprints!(root, expectations, tolerance_mm = 0.01)
+    raise 'KEEP expectations must be a nonempty Array' unless expectations.is_a?(Array) && !expectations.empty?
+    raise 'Too many KEEP expectations' if expectations.length > 24
+    raise 'KEEP tolerance must be a positive number' unless tolerance_mm.is_a?(Numeric) && tolerance_mm.finite? && tolerance_mm > 0
+
+    checks = []
+    expectations.each_with_index do |expected, index|
+      raise "KEEP expectation #{index} must be a Hash" unless expected.is_a?(Hash)
+      path = expected['path']
+      raise "KEEP expectation #{index} path is invalid" unless path.is_a?(Array) && !path.empty? && path.length <= 8
+
+      snapshot = inspect_named_owned_group(root, path, 0, 1)
+      label = path.join('/')
+      expected_pid = expected['persistent_id']
+      expected_count = expected['objects_total']
+      expected_bounds = expected['bounds_mm']
+
+      raise "KEEP regression #{label}: persistent_id changed" unless snapshot[:persistent_id] == expected_pid
+      raise "KEEP regression #{label}: objects_total changed" unless snapshot[:objects_total] == expected_count
+      raise "KEEP regression #{label}: bounds_mm missing" unless expected_bounds.is_a?(Hash)
+
+      actual_bounds = snapshot[:bounds_mm]
+      %w[min max].each do |edge|
+        wanted = expected_bounds[edge]
+        actual = actual_bounds[edge.to_sym] || actual_bounds[edge]
+        raise "KEEP regression #{label}: bounds_mm.#{edge} missing" unless wanted.is_a?(Array) && actual.is_a?(Array) && wanted.length == 3 && actual.length == 3
+        wanted.zip(actual).each_with_index do |(a, b), axis|
+          raise "KEEP regression #{label}: bounds_mm.#{edge}[#{axis}] changed" unless a.is_a?(Numeric) && b.is_a?(Numeric) && (a.to_f - b.to_f).abs <= tolerance_mm
+        end
+      end
+
+      checks << {
+        path: path,
+        persistent_id: snapshot[:persistent_id],
+        objects_total: snapshot[:objects_total],
+        bounds_mm: snapshot[:bounds_mm]
+      }
+    end
+    {verified: true, source: 'precommit_owned_keep_guard', checks: checks}
+  end
 end
