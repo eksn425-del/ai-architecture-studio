@@ -12,11 +12,18 @@ module KStudioOSSMethodRuntime
     started = Time.now.to_f
     begin
       result = yield
-      events << {
+      event = {
         'method_id' => method_id, 'status' => 'returned',
         'elapsed_ms' => ((Time.now.to_f - started) * 1000).round,
         'returned_nil' => result.nil?
       }
+      # Some upstream constructors return SketchUp Group/ComponentInstance,
+      # while others return Arrays or nil. Do not invent an entity PID.
+      if result.respond_to?(:persistent_id)
+        event['result_entity_pid'] = result.persistent_id
+        event['result_entity_name'] = result.name if result.respond_to?(:name)
+      end
+      events << event
       result
     rescue StandardError => error
       events << {
