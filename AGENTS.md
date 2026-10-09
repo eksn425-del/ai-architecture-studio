@@ -6,6 +6,16 @@
 
 **ADAI 0.5.39** is already available as optional pinned CPAL-1.0 download and verified geometry hook. It is part of K Studio's integrated engineering direction; its optional geometry runtime remains **off by default** until real SU evidence supports enabling it. The separate ADAI MCP is not connected to the live model by installation alone. Do not demand a legacy K Studio versus ADAI A/B benchmark before continuing product development, but require minimal safety smokes for changed geometry paths. SketchUp 2018–2026 remains an incremental target, not a certified claim.
 
+## Persistent real-test GitHub evidence requirement (owner decision, 2026-10-09)
+
+**Every future nontrivial local Agent/SketchUp modeling or integration test — PASS, PARTIAL, FAIL, or BLOCKED — must end with a NEW evidence folder committed and pushed to the SAME K AI Studio repository under `docs/test-results/windows/YYYY-MM-DD-<run>/`.** Follow [`docs/TEST_EVIDENCE_PROTOCOL.md`](docs/TEST_EVIDENCE_PROTOCOL.md). This is not optional and cannot be satisfied by a short Codex text summary or pointers to ignored local runtime files.
+
+When a model is actually built: commit the **real six current-revision certified screenshot PNGs** (front/rear/left/right/roof/oblique), their camera/revision sidecars, source-angle PNG, actual model/readback/KEEP receipts, browser-download/native-reopen/edit proof, planner constraints, Critic/reviewer truth, sanitized errors, `run.json`, `metrics.json`, and a Chinese README describing visually observed mismatches. Include the source image only if approved for public posting (otherwise point to the existing public test-assets source). If no model commits because of a blocker, upload genuine failure/metrics with `geometry_committed=false` and explicit missing-image reason, NOT fake images.
+
+The uploader must record the **real model ID and reasoning effort** plus tool counts, latency and token measurements (unavailable tokens are `null`, not zero); exact commit/model/SketchUp version, human interventions, and honest QA status. Explicitly distinguish independent read-only Critic vs Builder self-review. Redact all secrets, machine-private paths, user-owned SKP/DWG, private images and personal data. Before pushing, run `python scripts/validate_test_evidence.py <run-folder> --write-manifest` followed by a normal validation call; publish the SHA256 manifest. Push `origin/main` and verify remote commit so ChatGPT can inspect **actual evidence and screenshots** on the next turn.
+
+For this round specifically, the user requests **GPT-6 Luna Max via Codex native modeling where available**; check the actual supported model ID. If not available, use the highest-capability model actually available in Codex and **report the fallback**; do not invent a Luna Max run or silently use historical DeepSeek/Sol Low. See `docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md`.
+
 This repository uses GitHub as the single source of truth between ChatGPT planning/review and Codex local implementation.
 
 ## Required workflow
