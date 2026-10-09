@@ -1,3 +1,15 @@
+## Remote Quality Loop v2.6 handoff — 2026-10-09
+
+Continued the OSS-driven modeling-quality iteration on top of v2.5. The remaining gap from 3DCodeBench and SketchUp Agent Harness was that reviewer KEEP items were still advisory prose: a targeted correction could accidentally rebuild/move already-correct geometry and only be noticed later.
+
+Implemented a host-enforced do-no-harm boundary for reconstruction corrections. After a current visual review, further writer calls in that turn are forced to update_mode=edit and cannot request a full-root rebuild. When the review contains KEEP items, the Builder must inspect and map them to exact named owned paths and pass preserve_paths. The host fingerprints each protected path before and after the committed writer pass using persistent ID, object count and XYZ mm bounds. Successful expected/actual receipts are persisted in qa; any mismatch is surfaced as a KEEP regression and cannot be reported as a clean targeted correction.
+
+The visual Skill and LiteLLM quality-gate nudge now explicitly require this mapping. Added unit/integration regressions for fingerprint comparison, correction mode and preserve_paths schema. This remote turn does not claim real SketchUp PASS. Windows Codex must execute docs/QUALITY_LOOP_V2_6.md, including a real positive correction and a deliberate throwaway negative mutation, while retaining v2.5 canonical-camera/source-matched review gates.
+
+Automatic rollback is intentionally not implemented yet. The current revision is real even when preservation verification fails; checkpoint/recovery remains the safe recovery mechanism until the state-machine implications of automatic undo are proven on SU2024.
+
+---
+
 ## Remote Quality Loop v2.5 / canonical camera provenance — 2026-10-08
 
 After reviewing the latest v1 Windows evidence and the v2.1-v2.4 remote implementation against Scenario-style review sheets, one remaining trust gap was found: current-revision screenshot paths did not prove that a file labelled "front" actually used a front camera. This could still let a Builder submit six distinct but semantically wrong camera frames to the dedicated Critic.
