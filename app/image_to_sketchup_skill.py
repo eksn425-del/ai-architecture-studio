@@ -51,6 +51,10 @@ Maintain `notes/construction_strategy.json` as compact method memory. After appr
 
 Route systems deliberately: `continuous_wall_with_openings` for straight opening hosts; `profile_extrusion` for constant sections; `loft_or_mesh`/`custom_owned_ruby` for changing forms; `prototype_instance` only after its prototype is correct. Store shared dimensions/levels once with provenance and use named owned paths so corrections touch the smallest dependent system and preserve KEEP geometry.
 
+**New mandatory selection habit for planned geometry:** method category is not an implementation. Record `method_id` and `selection_reason` per planned roof/wall/opening/profile system, using the method catalog exposed in the actual tool description: `saie.wall_with_openings`, `adai.profile_with_holes`, `adai.loft_sections` or `kstudio.custom_owned_ruby` as appropriate. Choose a real *compatible and enabled* provider by suitability. If an existing helper can correctly create the observed geometry, use it rather than rebuilding a substitute. If it cannot, document the concrete incompatibility or geometry failure and fall back safely. Never force ADAI on a shape it cannot represent; install/smoke alone is not real product use.
+
+After every committed `sketchup_run_workspace_ruby`, inspect host-returned `oss_method_ledger`: `committed_readback` and `returned` events are evidence of wrapper execution in the current SKP revision; an empty ledger proves no wrapped OSS call was used. Do not invent call counts by searching script text, and do not claim a source-fidelity improvement without actual current source-matched screenshots. Do not call private OSS modules directly to evade the host wrapper or double-wire a second writer.
+
 ## Evidence fidelity modes
 
 Maintain `notes/reconstruction_evidence.json` beside the parameter card and facade schedule. Evidence completeness controls how much freedom the Builder has.
