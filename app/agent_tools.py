@@ -232,7 +232,17 @@ class AgentToolSurface:
                 if preserve_paths:
                     preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
             try:
-                output = self.dispatch(name, arguments, project_dir=resolved_project_dir, project_ruby=executor)
+                dispatch_arguments = arguments
+                if bounded and preservation_before:
+                    dispatch_arguments = dict(arguments)
+                    dispatch_arguments["_keep_expectations"] = [
+                        {
+                            "path": list(path),
+                            **preservation_before["/".join(path)],
+                        }
+                        for path in arguments.get("preserve_paths", [])
+                    ]
+                output = self.dispatch(name, dispatch_arguments, project_dir=resolved_project_dir, project_ruby=executor)
                 if bounded and preservation_before:
                     preservation_after = preserve_snapshot(
                         preservation_script_id, arguments.get("preserve_paths")
@@ -248,8 +258,9 @@ class AgentToolSurface:
                             "paths": sorted(preservation_before),
                         }
                         raise MCPCallError(
-                            "定向修正破坏了 reviewer KEEP 几何；该 revision 已提交但不能视为无损修正。"
-                            f" {error} 请先重新读取当前模型并修复，不要宣称质量通过。"
+                            "定向修正破坏了 reviewer KEEP 几何。正常情况下 pre-commit KEEP guard 会在提交前回滚；"
+                            "这里的 post-commit 检查是第二道防线，说明实际状态仍与保护指纹不一致。"
+                            f" {error} 请停止宣称质量通过并检查当前模型。"
                         ) from error
                     quality_state["preservation"] = preservation
                     qa_dir = resolved_project_dir / "runtime" / "agent_workspace" / "qa"
@@ -456,7 +467,7 @@ class AgentToolSurface:
                         "preserve_paths": {
                             "type": "array",
                             "maxItems": 24,
-                            "description": "For a post-review targeted correction, exact named owned-group paths that must remain unchanged. Map reviewer KEEP items to these paths with sketchup_inspect_owned first. The host rechecks persistent ID, object count and mm bounds after the write.",
+                            "description": "For a post-review targeted correction, exact named owned-group paths that must remain unchanged. Map reviewer KEEP items to these paths with sketchup_inspect_owned first. The host snapshots them, verifies the same fingerprints inside the SketchUp transaction before commit (abort on regression), then rechecks persistent ID, object count and mm bounds after commit as defense in depth.",
                             "items": {
                                 "type": "array",
                                 "minItems": 1,
