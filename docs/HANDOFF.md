@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.7 / ADAI construction-method study — 2026-10-09
+
+Reviewed public ADAI SketchUp Skill + Managed MCP 0.5.39 at `cd1e02e9f6906945376f73032e9598643fe8eb64`. Its most useful gap relative to K Studio is not another bridge: it makes construction method, primary-form completeness, representative-module validation, replication order and shared parameter ownership explicit. Because upstream is CPAL-1.0, this milestone does not copy/vendor ADAI Covered Code; it independently implements the architecture in K Studio terminology.
+
+Added `app/construction_strategy.py` and project-local `notes/construction_strategy.json`. Planning now records shared parameters plus each major system's stage/method/dependencies/owned target paths/verification views. Execution guidance follows primary form → representative module → replication → variants → finish internally without new user approvals, and routes straight opening hosts, constant sections, changing forms and repeated modules to different construction approaches instead of treating everything as generic boxes/free-form patches. Workspace seeding/validation and active-context compaction carry this strategy forward.
+
+The existing single ProjectRuby writer, dedicated read-only critic, host-certified canonical cameras, evidence ledger, facade schedule, post-write receipts and v2.6 KEEP regression guard remain authoritative. This remote turn cannot claim real SketchUp quality improvement. Local Windows Codex must execute `docs/QUALITY_LOOP_V2_7.md`, compare a fresh six-view run against the 2026-10-08 baseline, and push the evidence/result back to main for ChatGPT review.
+
+---
+
 ## Remote Quality Loop v2.6 handoff — 2026-10-09
 
 Continued the OSS-driven modeling-quality iteration on top of v2.5. The remaining gap from 3DCodeBench and SketchUp Agent Harness was that reviewer KEEP items were still advisory prose: a targeted correction could accidentally rebuild/move already-correct geometry and only be noticed later.
