@@ -409,12 +409,10 @@ class AgentToolSurface:
             # official ZIP has been installed, verified, and explicitly enabled.
             adai_method_instructions = (
                 " Optional ADAI CPAL-1.0 geometry helper is active in this LOCAL session: "
-                "ada i".replace("ada i", "adai_geometry")
-                + ".profile(root.entities, name, outline_mm, depth_mm, plane, offset_mm, material), "
-                "adai_geometry.profile_with_holes(...), adai_geometry.loft_sections(...), "
-                "adai_geometry.shell_grid(...), adai_geometry.closed_band(...). "
-                "Pass geometry under root.entities only; all numeric dimensions in mm. "
-                "These methods are experimental until a real SketchUp version smoke proves them."
+                "adai_geometry.profile(root.entities, name, outline_mm, depth_mm, plane, offset_mm, material); "
+                "adai_geometry.profile_with_holes(...), loft_sections(...), shell_grid(...), closed_band(...). "
+                "Always pass root.entities; numeric dimensions are in mm. "
+                "Experimental: per-SketchUp-version real geometry smoke is still required."
                 if geometry_helper(Path(__file__).resolve().parents[1]) is not None
                 else ""
             )
