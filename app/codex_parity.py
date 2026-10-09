@@ -8,7 +8,7 @@ from .reconstruction_evidence import default_reconstruction_evidence
 from .adai_components import geometry_helper
 
 
-WORKSPACE_VERSION = 11
+WORKSPACE_VERSION = 12
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -54,9 +54,15 @@ Do not choose a large set of tiny one-off tool calls when a parameterized Ruby/c
 
 ## Modeling quality rule
 
+Read `notes/volume_inventory.md` before geometry. Fill its source-to-model table for EVERY visible primary/attached volume, roof and canopy across ALL sources. Record attachment/height relationships, silhouette landmarks, estimated ratios and exact target named paths. Do not infer that a material boundary is a separate storey, or collapse a visible lower annex into the taller main box. Estimates need a visible anchor and cross-view check, not merely "estimated from images".
+
+At the primary-form stage, compare both source-angle silhouettes BEFORE spending effort on plants/furniture. This is an internal continuous-agent check, not another user confirmation gate. After each commit update the same inventory with actual built paths and missing/mismatched regions. The Native host runs a fresh independent read-only Critic on trusted source/current images; its verdict replaces Builder self-review. Prioritize its massing/roof issues and preserve only genuinely correct geometry.
+
 For image reconstruction, a few boxes are not completion when the source contains developed facade/roof geometry. Match silhouette, storeys/bays, major voids, facade depth, repeated modules, roof/canopy and material zones, then compare source-matched screenshots and revise.
 
 At each visual review, inventory every visible primary and attached volume in both source and model before judging details. Missing annexes/lower roofs and wrong silhouettes outrank decoration or template clutter. Do not call these matched merely because the main facade is recognizable. Do not invent extra plants or geometry to hide a template figure: record the lifecycle artifact and preserve the source layout. A correction should address the largest remaining source mismatch, not conceal evidence.
+
+KEEP fingerprints protect unchanged geometry, not every object sharing a correct material or style. If a roof needs a slope change, do not freeze that roof's dimensions or add a duplicate roof merely to satisfy KEEP. Map the review to unaffected named subgroups and correct the target in place; record ambiguous KEEP interpretations before a write.
 
 Never write private source inputs into this workspace. Never modify the user's original SKP/DWG; work only on the verified disposable project model.
 """
@@ -246,6 +252,27 @@ NEEDS_FIX: pending
 Stop after at most two targeted correction rounds in one turn. If blocking mismatches remain, report them instead of claiming completion.
 """
 
+_VOLUME_INVENTORY = """# Source-to-model volume inventory
+
+This is a visual reasoning record, not a finite geometry action vocabulary.
+Fill before building; update from actual source-matched views after every commit.
+
+| Stable feature ID | Source files / visible landmarks | Main or attached volume / roof / canopy | Attachment and height relation | Estimated ratio + visible anchor + uncertainty | Exact owned paths | Current source-match / missing / wrong |
+|---|---|---|---|---|---|---|
+| pending | pending | pending | pending | pending | pending | not built |
+
+Compare ALL supplied whole images. Account for lower white annexes and their separate roofs, setbacks and openings, not just the dominant facade. Mark unseen portions as inferred. A legal JSON plan or successful writer is not evidence of silhouette agreement.
+
+## Primary-form silhouette check
+
+- Source-angle high/low landmarks, roof-edge endpoints and step in height: pending
+- Largest unresolved massing mismatch (before details): pending
+- Alternate spatial interpretation / confidence: pending
+- Actual helper choice and reason (SAIE / verified ADAI profile / project Ruby): pending
+
+Do not invent landscaping to cover template people. Fix lifecycle separately. Never claim installed ADAI was used without actual script calls.
+"""
+
 
 def prepare_codex_parity_workspace(workspace: Path) -> Path:
     """Seed a persistent project-coding workspace without overwriting agent work."""
@@ -260,6 +287,10 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         directory.mkdir(parents=True, exist_ok=True)
         if directory.is_symlink() or not directory.resolve().is_relative_to(root):
             raise ValueError("Codex parity workspace subdirectories must remain inside the agent workspace.")
+
+    inventory = root / "notes" / "volume_inventory.md"
+    if not inventory.exists():
+        inventory.write_text(_VOLUME_INVENTORY, encoding="utf-8", newline="\n")
 
     # Give the coding agent the verified optional API contract without copying
     # upstream CPAL source into generated workspaces or the public repository.
@@ -390,6 +421,10 @@ def codex_parity_instructions() -> str:
     return (
         "This is a generated modeling job; the outer integration agent handles repository maintenance. "
         "Do not run git pull, repository tests, commit or push during modeling. "
+        "Before geometry read and fill notes/volume_inventory.md for all visible primary/attached volumes, roofs and canopies across every source. "
+        "Check their attachment, height steps and silhouette in source-matched views before details; give visual anchors for estimated ratios. "
+        "Missing low annexes/roofs and wrong silhouettes outrank plants/furniture. Native visual-review submission invokes a fresh independent read-only Critic; follow its returned issues, not your proposed verdict. "
+        "KEEP applies only to unchanged geometry: preserving roof material/character does not freeze a roof that needs a slope change. Do not add duplicate roof geometry to bypass KEEP. "
         "Direct-Codex parity workflow: use the persistent agent workspace as the source of truth for project code. "
         "For image reconstruction, inspect the source, clarify only high-impact unknowns, then update "
         "notes/reconstruction_card.md with confirmed scope and explicit KNOWN/ESTIMATED/ASSUMED parameters, and update "

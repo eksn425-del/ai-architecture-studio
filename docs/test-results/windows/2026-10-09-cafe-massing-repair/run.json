@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-09-cafe-massing-repair",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "269826b928dfe91055823f29d89649a0876cd63e",
+  "source_case": "Same private whole cafe high/low oblique PNGs as previous run; originals not posted",
+  "model": {
+    "requested": "GPT-6 Luna Max",
+    "actual": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "runtime": "codex-native-through-K-AI-Studio"
+  },
+  "environment": {
+    "windows": "Windows 11 Home 10.0.22000",
+    "sketchup": "2024 24.0.484",
+    "bridge": "Kongxing AI 0.1.0 single writer",
+    "adai": "0.5.39 opt-in available; consult actual script calls, not installation"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "roof_overlap_found_by_human": true
+  },
+  "blockers": [
+    "Private originals cannot be posted",
+    "Native context consumption still high; no cost-reduction PASS",
+    "Builder timed out after committed r5; end-to-end completion FAIL",
+    "Fresh baseline differs from r5 in three groups",
+    "Latest KEEP prompt clarification unit tested but not rerun in this geometry batch"
+  ],
+  "native_completion_status": "FAIL",
+  "baseline_replay_status": "FAIL",
+  "adai_actual_calls": 0,
+  "packaged_date": "2026-10-10",
+  "started_date": "2026-10-09",
+  "planning_after_agent_write_status": "FAIL"
+}

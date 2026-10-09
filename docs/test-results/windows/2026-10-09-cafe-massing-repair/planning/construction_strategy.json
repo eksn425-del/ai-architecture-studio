@@ -1,0 +1,559 @@
+{
+  "schema_version": 1,
+  "current_stage": "finish",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "floor_count": {
+      "value": 1,
+      "units": "count",
+      "provenance": "user_confirmed",
+      "source": "User confirmed a single story and no second floor."
+    },
+    "ground_level_mm": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "Platform finished floor is Z=0."
+    },
+    "body_width_mm": {
+      "value": 4800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the two perspective views."
+    },
+    "body_depth_mm": {
+      "value": 4500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the two perspective views."
+    },
+    "low_roof_edge_height_mm": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from entry-side proportions."
+    },
+    "high_roof_edge_height_mm": {
+      "value": 5620,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Revised after independent two-view Critic; steeper silhouette estimated from both source perspectives."
+    },
+    "roof_rise_mm": {
+      "value": 2000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "5620 mm rear high edge minus the 3620 mm preserved entry low edge."
+    },
+    "roof_slope_direction": {
+      "value": "Along +Y toward the rear; low at the entry and high at the rear.",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "Both perspective views show a lower entry-side eave and a higher rear roof edge."
+    },
+    "entry_door_width_mm": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated using the door as a scale anchor."
+    },
+    "entry_door_height_mm": {
+      "value": 2100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated using the door as a scale anchor."
+    },
+    "front_window_width_mm": {
+      "value": 2000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the entrance facade."
+    },
+    "front_window_height_mm": {
+      "value": 1800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the entrance facade."
+    },
+    "front_window_sill_mm": {
+      "value": 600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the visible window sill."
+    },
+    "side_window_width_mm": {
+      "value": 2300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the side facade."
+    },
+    "side_window_height_mm": {
+      "value": 1700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the side facade."
+    },
+    "side_window_sill_mm": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the visible side window."
+    },
+    "side_sash_projection_mm": {
+      "value": 800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the outward-opening sash."
+    },
+    "canopy_projection_mm": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from the entrance and side canopies."
+    },
+    "deck_width_mm": {
+      "value": 6200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated including the terrace and planters."
+    },
+    "deck_depth_mm": {
+      "value": 5600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated including the terrace and planters."
+    },
+    "table_top_width_mm": {
+      "value": 700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from outdoor furniture proportions."
+    },
+    "table_height_mm": {
+      "value": 740,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from outdoor furniture proportions."
+    },
+    "chair_seat_height_mm": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from outdoor furniture proportions."
+    },
+    "wood_board_width_mm": {
+      "value": 120,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from visible vertical cladding."
+    },
+    "roof_rib_spacing_mm": {
+      "value": 180,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Estimated from visible roof rib density."
+    },
+    "annex_width_mm": {
+      "value": 3190,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Expanded after independent visual review of both source views, using the estimated 900 mm entry door."
+    },
+    "annex_depth_mm": {
+      "value": 4200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Expanded after independent visual review of both source views, using the estimated 900 mm entry door."
+    },
+    "annex_attached_roof_edge_height_mm": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Lower annex roof connection height estimated against the main white-wall transition."
+    },
+    "annex_rear_roof_edge_height_mm": {
+      "value": 3000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Low annex outer eave estimated from the door-height ratio."
+    }
+  },
+  "systems": [
+    {
+      "id": "rear_right_low_white_annex",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "needs_fix",
+      "depends_on": [
+        "annex_width_mm",
+        "annex_depth_mm",
+        "annex_attached_roof_edge_height_mm",
+        "annex_rear_roof_edge_height_mm"
+      ],
+      "target_paths": [
+        [
+          "ANNEX_LOW_WHITE_VOLUME"
+        ],
+        [
+          "ANNEX_LOW_ROOF"
+        ],
+        [
+          "ANNEX_SITE_PAD"
+        ]
+      ],
+      "verification_views": [
+        "rear",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Built as a separate lower white volume and roof; the final independent review still finds its visible rear/right projection too small."
+      ]
+    },
+    {
+      "id": "main_roof_pitch_adjustment",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "low_roof_edge_height_mm",
+        "high_roof_edge_height_mm",
+        "roof_rise_mm",
+        "roof_rib_spacing_mm"
+      ],
+      "target_paths": [
+        [
+          "MAIN_ROOF_PITCH_ADJUSTMENT"
+        ]
+      ],
+      "verification_views": [
+        "left",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Adds the visible steeper roof plane above the preserved original group and keeps the entry eave aligned."
+      ]
+    },
+    {
+      "id": "primary_shell_and_openings",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "built",
+      "depends_on": [
+        "body_width_mm",
+        "body_depth_mm",
+        "floor_count",
+        "low_roof_edge_height_mm",
+        "high_roof_edge_height_mm",
+        "entry_door_width_mm",
+        "entry_door_height_mm",
+        "front_window_width_mm",
+        "side_window_width_mm"
+      ],
+      "target_paths": [
+        [
+          "LUNA_CAFE_ROOT",
+          "BUILDING",
+          "WALL_FRONT_ENTRY"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "BUILDING",
+          "WALL_RIGHT_AWNING"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "BUILDING",
+          "WALL_REAR_INFERRED"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "BUILDING",
+          "WALL_LEFT_INFERRED"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Walls use real openings; rear and left sides are inferred."
+      ]
+    },
+    {
+      "id": "main_single_slope_roof",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "loft_or_mesh",
+      "status": "needs_fix",
+      "depends_on": [
+        "body_width_mm",
+        "body_depth_mm",
+        "low_roof_edge_height_mm",
+        "high_roof_edge_height_mm",
+        "roof_rise_mm"
+      ],
+      "target_paths": [
+        [
+          "ROOF_MAIN_SINGLE_SLOPE"
+        ],
+        [
+          "MAIN_ROOF_PITCH_ADJUSTMENT"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "front",
+        "rear",
+        "oblique"
+      ],
+      "notes": [
+        "Preserve the original owned roof group; a same-material steeper visible shell follows the two-view silhouette."
+      ]
+    },
+    {
+      "id": "front_and_right_canopies",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "canopy_projection_mm",
+        "low_roof_edge_height_mm"
+      ],
+      "target_paths": [
+        [
+          "LUNA_CAFE_ROOT",
+          "CANOPY_FRONT"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "CANOPY_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Both canopies have visible timber supports."
+      ]
+    },
+    {
+      "id": "representative_window_and_bracket_modules",
+      "stage": "representative_module",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "wood_board_width_mm",
+        "canopy_projection_mm"
+      ],
+      "target_paths": [
+        [
+          "LUNA_CAFE_ROOT",
+          "FACADE",
+          "WINDOW_MODULES"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "CANOPY",
+          "BRACKETS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Representative framing and brace details were built before repetition."
+      ]
+    },
+    {
+      "id": "repeated_cladding_ribs_and_furniture",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "wood_board_width_mm",
+        "roof_rib_spacing_mm",
+        "table_top_width_mm",
+        "table_height_mm",
+        "chair_seat_height_mm"
+      ],
+      "target_paths": [
+        [
+          "LUNA_CAFE_ROOT",
+          "FACADE",
+          "WOOD_CLADDING"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "ROOF_MAIN",
+          "METAL_RIBS"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "TERRACE",
+          "FURNITURE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Repeated cladding, roof ribs, and terrace furniture are included."
+      ]
+    },
+    {
+      "id": "side_awning_window_variant",
+      "stage": "variants",
+      "role": "opening_system",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "side_window_width_mm",
+        "side_window_height_mm",
+        "side_window_sill_mm",
+        "side_sash_projection_mm"
+      ],
+      "target_paths": [
+        [
+          "RIGHT_AWNING_WINDOW_OPEN_MODULE"
+        ],
+        [
+          "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+          "AWNING_SASH_FRAME_BOLD"
+        ]
+      ],
+      "verification_views": [
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Retain current outward-tilted glass and supports; strengthen the visible timber sash frame."
+      ]
+    },
+    {
+      "id": "pale_stone_perimeter_apron",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "needs_fix",
+      "depends_on": [
+        "deck_width_mm",
+        "deck_depth_mm"
+      ],
+      "target_paths": [
+        [
+          "SITE_PLATFORM"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Both source views show a broad pale stone apron distinct from the localized timber deck; revision 5 retains too much continuous brown decking."
+      ]
+    },
+    {
+      "id": "terrace_signage_plants_bicycle",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "deck_width_mm",
+        "deck_depth_mm"
+      ],
+      "target_paths": [
+        [
+          "LUNA_CAFE_ROOT",
+          "TERRACE",
+          "PLANTERS_AND_PLANTS"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "TERRACE",
+          "BICYCLE"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "SIGNAGE",
+          "ROUND_HANGING_SIGN"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "SIGNAGE",
+          "MENU_EASEL"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Source-visible planters and bicycle retained; the builder-added oversized screen has been removed. The final review separately flags that the pale stone apron is too narrow relative to the localized wood deck."
+      ]
+    },
+    {
+      "id": "finish_materials_and_visible_interior",
+      "stage": "finish",
+      "role": "interior_detail",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "front_window_width_mm",
+        "side_window_width_mm"
+      ],
+      "target_paths": [
+        [
+          "LUNA_CAFE_ROOT",
+          "FINISH",
+          "MATERIAL_ZONES"
+        ],
+        [
+          "LUNA_CAFE_ROOT",
+          "INTERIOR_VISIBLE",
+          "DISPLAY_AND_COUNTER"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "White lower walls, aged wood cladding, dark metal roof, and visible cafe fitout are included."
+      ]
+    }
+  ],
+  "notes": [
+    "Primary form, real openings, single-slope roof, canopies, facade, interior details, and terrace systems were written under the owned root.",
+    "A pre-existing template scale figure remains outside the owned root. The plant screen does not fully hide it and is oversized.",
+    "Current six-view screenshots and both source-angle comparison pairs are recorded in qa/visual_qa.md.",
+    "Two targeted edit passes completed on the same root. Revision 5 received a dedicated read-only gpt-6-luna/max review: NEEDS_FIX because the annex still appears too short and the broad pale stone apron is missing. The two-pass limit is exhausted."
+  ]
+}

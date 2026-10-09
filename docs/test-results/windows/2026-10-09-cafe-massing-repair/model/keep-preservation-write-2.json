@@ -1,0 +1,870 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "BICYCLE_FRONT_LEFT",
+    "CANOPY_FRONT_METAL",
+    "CANOPY_RIGHT_METAL",
+    "FACADE_FRONT_WOOD_BAND",
+    "FACADE_LEFT_UPPER_INFERRED",
+    "FACADE_REAR_WOOD_BAND_INFERRED",
+    "FACADE_RIGHT_WOOD_BAND",
+    "FRONT_ENTRY_DOOR_MODULE",
+    "FRONT_SHOWCASE_WINDOW_MODULE",
+    "INTERIOR_VISIBLE_FITOUT",
+    "ROOF_MAIN_SINGLE_SLOPE",
+    "SIGNAGE_MENU_EASEL",
+    "SIGNAGE_RIGHT_WALL_MENU",
+    "SIGNAGE_ROUND_HANGING",
+    "SITE_PLATFORM",
+    "TERRACE_FURNITURE",
+    "TERRACE_PLANTERS_AND_PLANTS",
+    "WALL_FRONT_ENTRY",
+    "WALL_LEFT_INFERRED",
+    "WALL_REAR_INFERRED",
+    "WALL_RIGHT_AWNING"
+  ],
+  "checks": [
+    {
+      "path": "BICYCLE_FRONT_LEFT",
+      "check": "persistent_id",
+      "expected": 65121,
+      "actual": 65121
+    },
+    {
+      "path": "BICYCLE_FRONT_LEFT",
+      "check": "objects_total",
+      "expected": 16,
+      "actual": 16
+    },
+    {
+      "path": "BICYCLE_FRONT_LEFT",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1866.0,
+          -850.0,
+          4.0
+        ],
+        "max": [
+          -564.0,
+          -460.0,
+          970.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -1866.0,
+          -850.0,
+          4.0
+        ],
+        "max": [
+          -564.0,
+          -460.0,
+          970.0
+        ]
+      }
+    },
+    {
+      "path": "CANOPY_FRONT_METAL",
+      "check": "persistent_id",
+      "expected": 54460,
+      "actual": 54460
+    },
+    {
+      "path": "CANOPY_FRONT_METAL",
+      "check": "objects_total",
+      "expected": 26,
+      "actual": 26
+    },
+    {
+      "path": "CANOPY_FRONT_METAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          100.0,
+          -1015.0,
+          2050.0
+        ],
+        "max": [
+          4260.0,
+          12.5,
+          2784.0
+        ]
+      },
+      "actual": {
+        "min": [
+          100.0,
+          -1015.0,
+          2050.0
+        ],
+        "max": [
+          4260.0,
+          12.5,
+          2784.0
+        ]
+      }
+    },
+    {
+      "path": "CANOPY_RIGHT_METAL",
+      "check": "persistent_id",
+      "expected": 55448,
+      "actual": 55448
+    },
+    {
+      "path": "CANOPY_RIGHT_METAL",
+      "check": "objects_total",
+      "expected": 20,
+      "actual": 20
+    },
+    {
+      "path": "CANOPY_RIGHT_METAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4825.0,
+          520.0,
+          2200.0
+        ],
+        "max": [
+          5791.7,
+          3650.0,
+          2900.8
+        ]
+      },
+      "actual": {
+        "min": [
+          4825.0,
+          520.0,
+          2200.0
+        ],
+        "max": [
+          5791.7,
+          3650.0,
+          2900.8
+        ]
+      }
+    },
+    {
+      "path": "FACADE_FRONT_WOOD_BAND",
+      "check": "persistent_id",
+      "expected": 51820,
+      "actual": 51820
+    },
+    {
+      "path": "FACADE_FRONT_WOOD_BAND",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "FACADE_FRONT_WOOD_BAND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          -112.0,
+          2700.0
+        ],
+        "max": [
+          4728.0,
+          -90.0,
+          3590.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          -112.0,
+          2700.0
+        ],
+        "max": [
+          4728.0,
+          -90.0,
+          3590.0
+        ]
+      }
+    },
+    {
+      "path": "FACADE_LEFT_UPPER_INFERRED",
+      "check": "persistent_id",
+      "expected": 53965,
+      "actual": 53965
+    },
+    {
+      "path": "FACADE_LEFT_UPPER_INFERRED",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "FACADE_LEFT_UPPER_INFERRED",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -110.0,
+          0.0,
+          3590.0
+        ],
+        "max": [
+          -88.0,
+          4500.0,
+          5190.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -110.0,
+          0.0,
+          3590.0
+        ],
+        "max": [
+          -88.0,
+          4500.0,
+          5190.0
+        ]
+      }
+    },
+    {
+      "path": "FACADE_REAR_WOOD_BAND_INFERRED",
+      "check": "persistent_id",
+      "expected": 52899,
+      "actual": 52899
+    },
+    {
+      "path": "FACADE_REAR_WOOD_BAND_INFERRED",
+      "check": "objects_total",
+      "expected": 38,
+      "actual": 38
+    },
+    {
+      "path": "FACADE_REAR_WOOD_BAND_INFERRED",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          4510.0,
+          3600.0
+        ],
+        "max": [
+          4800.0,
+          4532.0,
+          5190.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          4510.0,
+          3600.0
+        ],
+        "max": [
+          4800.0,
+          4532.0,
+          5190.0
+        ]
+      }
+    },
+    {
+      "path": "FACADE_RIGHT_WOOD_BAND",
+      "check": "persistent_id",
+      "expected": 51889,
+      "actual": 51889
+    },
+    {
+      "path": "FACADE_RIGHT_WOOD_BAND",
+      "check": "objects_total",
+      "expected": 36,
+      "actual": 36
+    },
+    {
+      "path": "FACADE_RIGHT_WOOD_BAND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4890.0,
+          0.0,
+          2700.0
+        ],
+        "max": [
+          4912.0,
+          4500.0,
+          5190.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4890.0,
+          0.0,
+          2700.0
+        ],
+        "max": [
+          4912.0,
+          4500.0,
+          5190.0
+        ]
+      }
+    },
+    {
+      "path": "FRONT_ENTRY_DOOR_MODULE",
+      "check": "persistent_id",
+      "expected": 66895,
+      "actual": 66895
+    },
+    {
+      "path": "FRONT_ENTRY_DOOR_MODULE",
+      "check": "objects_total",
+      "expected": 12,
+      "actual": 12
+    },
+    {
+      "path": "FRONT_ENTRY_DOOR_MODULE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          315.0,
+          -160.0,
+          0.0
+        ],
+        "max": [
+          1335.0,
+          30.0,
+          2120.0
+        ]
+      },
+      "actual": {
+        "min": [
+          315.0,
+          -160.0,
+          0.0
+        ],
+        "max": [
+          1335.0,
+          30.0,
+          2120.0
+        ]
+      }
+    },
+    {
+      "path": "FRONT_SHOWCASE_WINDOW_MODULE",
+      "check": "persistent_id",
+      "expected": 56719,
+      "actual": 56719
+    },
+    {
+      "path": "FRONT_SHOWCASE_WINDOW_MODULE",
+      "check": "objects_total",
+      "expected": 11,
+      "actual": 11
+    },
+    {
+      "path": "FRONT_SHOWCASE_WINDOW_MODULE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          1690.0,
+          -175.0,
+          535.0
+        ],
+        "max": [
+          3860.0,
+          360.0,
+          2440.0
+        ]
+      },
+      "actual": {
+        "min": [
+          1690.0,
+          -175.0,
+          535.0
+        ],
+        "max": [
+          3860.0,
+          360.0,
+          2440.0
+        ]
+      }
+    },
+    {
+      "path": "INTERIOR_VISIBLE_FITOUT",
+      "check": "persistent_id",
+      "expected": 57362,
+      "actual": 57362
+    },
+    {
+      "path": "INTERIOR_VISIBLE_FITOUT",
+      "check": "objects_total",
+      "expected": 23,
+      "actual": 23
+    },
+    {
+      "path": "INTERIOR_VISIBLE_FITOUT",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          1940.0,
+          100.0,
+          180.0
+        ],
+        "max": [
+          4740.0,
+          4205.0,
+          2200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          1940.0,
+          100.0,
+          180.0
+        ],
+        "max": [
+          4740.0,
+          4205.0,
+          2200.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_MAIN_SINGLE_SLOPE",
+      "check": "persistent_id",
+      "expected": 54181,
+      "actual": 54181
+    },
+    {
+      "path": "ROOF_MAIN_SINGLE_SLOPE",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ROOF_MAIN_SINGLE_SLOPE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -170.0,
+          -242.0,
+          3500.0
+        ],
+        "max": [
+          4970.0,
+          4704.2,
+          5370.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -170.0,
+          -242.0,
+          3500.0
+        ],
+        "max": [
+          4970.0,
+          4704.2,
+          5370.0
+        ]
+      }
+    },
+    {
+      "path": "SIGNAGE_MENU_EASEL",
+      "check": "persistent_id",
+      "expected": 59243,
+      "actual": 59243
+    },
+    {
+      "path": "SIGNAGE_MENU_EASEL",
+      "check": "objects_total",
+      "expected": 11,
+      "actual": 11
+    },
+    {
+      "path": "SIGNAGE_MENU_EASEL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5755.0,
+          4652.7,
+          17.2
+        ],
+        "max": [
+          6035.0,
+          5574.8,
+          1830.0
+        ]
+      },
+      "actual": {
+        "min": [
+          5755.0,
+          4652.7,
+          17.2
+        ],
+        "max": [
+          6035.0,
+          5574.8,
+          1830.0
+        ]
+      }
+    },
+    {
+      "path": "SIGNAGE_RIGHT_WALL_MENU",
+      "check": "persistent_id",
+      "expected": 58665,
+      "actual": 58665
+    },
+    {
+      "path": "SIGNAGE_RIGHT_WALL_MENU",
+      "check": "objects_total",
+      "expected": 18,
+      "actual": 18
+    },
+    {
+      "path": "SIGNAGE_RIGHT_WALL_MENU",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          3210.0,
+          1480.0
+        ],
+        "max": [
+          5018.0,
+          4570.0,
+          2200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          3210.0,
+          1480.0
+        ],
+        "max": [
+          5018.0,
+          4570.0,
+          2200.0
+        ]
+      }
+    },
+    {
+      "path": "SIGNAGE_ROUND_HANGING",
+      "check": "persistent_id",
+      "expected": 58058,
+      "actual": 58058
+    },
+    {
+      "path": "SIGNAGE_ROUND_HANGING",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "SIGNAGE_ROUND_HANGING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -265.0,
+          -744.0,
+          1595.0
+        ],
+        "max": [
+          345.0,
+          -90.0,
+          2680.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -265.0,
+          -744.0,
+          1595.0
+        ],
+        "max": [
+          345.0,
+          -90.0,
+          2680.0
+        ]
+      }
+    },
+    {
+      "path": "SITE_PLATFORM",
+      "check": "persistent_id",
+      "expected": 56068,
+      "actual": 56068
+    },
+    {
+      "path": "SITE_PLATFORM",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "SITE_PLATFORM",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -400.0,
+          -900.0,
+          -210.0
+        ],
+        "max": [
+          5810.0,
+          4700.0,
+          210.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -400.0,
+          -900.0,
+          -210.0
+        ],
+        "max": [
+          5810.0,
+          4700.0,
+          210.0
+        ]
+      }
+    },
+    {
+      "path": "TERRACE_FURNITURE",
+      "check": "persistent_id",
+      "expected": 59585,
+      "actual": 59585
+    },
+    {
+      "path": "TERRACE_FURNITURE",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "TERRACE_FURNITURE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4920.0,
+          1650.0,
+          70.0
+        ],
+        "max": [
+          5710.0,
+          3350.0,
+          1007.5
+        ]
+      },
+      "actual": {
+        "min": [
+          4920.0,
+          1650.0,
+          70.0
+        ],
+        "max": [
+          5710.0,
+          3350.0,
+          1007.5
+        ]
+      }
+    },
+    {
+      "path": "TERRACE_PLANTERS_AND_PLANTS",
+      "check": "persistent_id",
+      "expected": 60769,
+      "actual": 60769
+    },
+    {
+      "path": "TERRACE_PLANTERS_AND_PLANTS",
+      "check": "objects_total",
+      "expected": 52,
+      "actual": 52
+    },
+    {
+      "path": "TERRACE_PLANTERS_AND_PLANTS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1139.4,
+          -880.0,
+          70.0
+        ],
+        "max": [
+          4797.5,
+          -49.5,
+          1600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -1139.4,
+          -880.0,
+          70.0
+        ],
+        "max": [
+          4797.5,
+          -49.5,
+          1600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_FRONT_ENTRY",
+      "check": "persistent_id",
+      "expected": 51126,
+      "actual": 51126
+    },
+    {
+      "path": "WALL_FRONT_ENTRY",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_FRONT_ENTRY",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          -90.0,
+          0.0
+        ],
+        "max": [
+          4800.0,
+          90.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          -90.0,
+          0.0
+        ],
+        "max": [
+          4800.0,
+          90.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_LEFT_INFERRED",
+      "check": "persistent_id",
+      "expected": 51722,
+      "actual": 51722
+    },
+    {
+      "path": "WALL_LEFT_INFERRED",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_LEFT_INFERRED",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -90.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          90.0,
+          4500.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -90.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          90.0,
+          4500.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_REAR_INFERRED",
+      "check": "persistent_id",
+      "expected": 51690,
+      "actual": 51690
+    },
+    {
+      "path": "WALL_REAR_INFERRED",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_REAR_INFERRED",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          4410.0,
+          0.0
+        ],
+        "max": [
+          4800.0,
+          4590.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          4410.0,
+          0.0
+        ],
+        "max": [
+          4800.0,
+          4590.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_RIGHT_AWNING",
+      "check": "persistent_id",
+      "expected": 51568,
+      "actual": 51568
+    },
+    {
+      "path": "WALL_RIGHT_AWNING",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_RIGHT_AWNING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4710.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          4890.0,
+          4500.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4710.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          4890.0,
+          4500.0,
+          3600.0
+        ]
+      }
+    }
+  ]
+}

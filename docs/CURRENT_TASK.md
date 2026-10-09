@@ -1,3 +1,15 @@
+# 最新交接：咖啡店体量修复 r5（2026-10-09）
+
+[完整公开证据与错误](test-results/windows/2026-10-09-cafe-massing-repair/README.md)。实际 gpt-6-luna / max、SU2024 24.0.484，网站同模型两笔定向修正，根 PID51007、34组。写入/KEEP、六方向同r5、三次独立只读 Critic、下载副本原生重开鼠标改菜单保存再读回 PASS。自动检查316 passed / 2 skipped。
+
+**仍 PARTIAL/FAIL**：附体比例/石质外缘不准；误用 KEEP 导致新增屋顶叠层，独立 Critic 漏检。Native完整回合30分钟超时FAIL，Builder输入10.53M，不能声称降本；新空白baseline3组bounds不一致FAIL；Agent改后规划JSON出现额外尾部，已保留坏文件。ADAI本轮调用0，修正Ruby，未把安装当使用。
+
+已修代码：体量inventory指导、fresh read-only无writer Critic、token线程本轮增量。补充KEEP材料≠尺寸/禁止叠层指导仅测试覆盖，尚未真机验证。未修改原始模型，鼠标编辑仅专用下载副本。详情与版本、人工介入、所有真实截图见报告。
+
+**下一轮唯一任务**：同两图咖啡店，原位修旧屋顶和附体/石质外缘，合理KEEP；写后校验三份规划；同步持久baseline并新空白重放；约束记录/结束阶段无限工具循环与超时。重新跑真实两轮修正预算，不用第三轮伪装本轮PASS，不扩CAD/PPT或回旧别墅。独立Critic仍须审查叠层并保留诚实结论。
+
+---
+
 # 当前输入更新 — 用户双视角咖啡店 / Luna Max / SU2024（2026-10-09）
 
 ## 本轮已完成 / 下一轮入口

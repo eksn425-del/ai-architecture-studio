@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "六向与两源角截图显示同一单层体量、真实前门/大窗/侧窗洞、单坡金属肋屋面、双雨棚、木饰带和露台配景已建立。复核实体坐标后发现：两侧屋檐板误成高竖墙；门框两个立柱和门槛位于地坪以下约 2.1 m；屋顶檐边需要收窄，菜单立牌应从侧窗投影中移开。比例人像来自空白模板原有的根外对象，项目根只允许写入其自身几何，不能直接改它。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "屋面两侧高竖板破坏参考图轻薄单坡轮廓。 action: 移除竖板，沿坡面建立窄侧收边。",
+            "action": "移除竖板，沿坡面建立窄侧收边。"
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "入口门框立柱与门槛实体坐标落在地坪以下；平台下垂部分来自门框，不是已核对正确的场地平台。 action: 重建门框与门槛于 z=0 以上，并修正前后墙根石材带。",
+            "action": "重建门框与门槛于 z=0 以上，并修正前后墙根石材带。"
+          },
+          {
+            "priority": 3,
+            "view": "right",
+            "problem": "菜单立牌在视图中压住侧窗及桌椅。 action: 将立牌移到场地外缘，减少侧窗前的遮挡。",
+            "action": "将立牌移到场地外缘，减少侧窗前的遮挡。"
+          }
+        ],
+        "keep": [
+          "WALL_FRONT_ENTRY",
+          "WALL_RIGHT_AWNING",
+          "FRONT_SHOWCASE_WINDOW_MODULE",
+          "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+          "INTERIOR_VISIBLE_FITOUT",
+          "CANOPY_FRONT_METAL",
+          "CANOPY_RIGHT_METAL",
+          "SITE_PLATFORM"
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 1
+        },
+        "reviewer_mode": "agent_supplied"
+      },
+      "writer": {
+        "script_id": "luna-cafe-1009",
+        "revision": 2,
+        "relative_path": "scripts/luna_cafe_correction_1.rb",
+        "update_mode": "edit",
+        "source_sha256": "8ac1b8c77abca54e0c8bd113cd55ed8aca6fc6334fe48ee8cff24009e77392c3",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT_ENTRY",
+            "WALL_RIGHT_AWNING",
+            "FRONT_SHOWCASE_WINDOW_MODULE",
+            "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+            "INTERIOR_VISIBLE_FITOUT",
+            "CANOPY_FRONT_METAL",
+            "CANOPY_RIGHT_METAL",
+            "SITE_PLATFORM"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "修正后，屋面两侧已恢复为顺坡窄边，门框与门槛在地坪以上，菜单立牌离开侧窗范围；两处源图约束的立面、真实开口、木饰带和双雨棚保留。当前唯一明显画面差异是空白模板原有的根外比例人像，源图没有人物；可在项目根内增设一盆前景绿植遮挡人物，不改根外对象。植物与自行车的当前形体仍较简化，但轮廓和摆位已可辨。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "根外比例人像仍显露在自行车旁，源图没有人物。 action: 在入口自行车侧增加一盆较高的前景观叶植物遮挡人物，同时保留自行车、圆牌和入口。",
+            "action": "在入口自行车侧增加一盆较高的前景观叶植物遮挡人物，同时保留自行车、圆牌和入口。"
+          }
+        ],
+        "keep": [
+          "WALL_FRONT_ENTRY",
+          "WALL_RIGHT_AWNING",
+          "FRONT_SHOWCASE_WINDOW_MODULE",
+          "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+          "INTERIOR_VISIBLE_FITOUT",
+          "CANOPY_FRONT_METAL",
+          "CANOPY_RIGHT_METAL",
+          "SITE_PLATFORM",
+          "ROOF_MAIN_SINGLE_SLOPE",
+          "FRONT_ENTRY_DOOR_MODULE",
+          "SIGNAGE_ROUND_HANGING",
+          "SIGNAGE_MENU_EASEL",
+          "TERRACE_FURNITURE",
+          "TERRACE_PLANTERS_AND_PLANTS",
+          "BICYCLE_FRONT_LEFT"
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 2
+        },
+        "reviewer_mode": "agent_supplied"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Across both source views, the café has a tall timber-clad primary volume over a white ground floor, a dominant pitched roof, separate low canopies over the entry and corner glazing, and a lower white annex at the rear/right with its own shallow roof. The model captures the main volume, glazing and terrace, but omits that annex, leaving the primary box as the only building mass.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "roof",
+            "problem": "The source’s attached rear/right annex and its distinct lower roof are missing from the model roof and oblique views.",
+            "action": "Add the annex locally behind/right of the existing café mass, with a separate shallow roof at the source’s lower height; preserve the matching primary volume and roof."
+          }
+        ],
+        "keep": [
+          "Primary tall timber-clad volume above the white ground floor."
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "luna-cafe-1009",
+        "revision": 4,
+        "relative_path": "scripts/luna_cafe_correction_3.rb",
+        "update_mode": "edit",
+        "source_sha256": "87626e3234fcef7385c4b63eb66bf5c26139146a6caf8f53dc4820d935c92cae",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT_ENTRY",
+            "WALL_RIGHT_AWNING",
+            "WALL_REAR_INFERRED",
+            "WALL_LEFT_INFERRED",
+            "FACADE_FRONT_WOOD_BAND",
+            "FACADE_RIGHT_WOOD_BAND",
+            "FACADE_REAR_WOOD_BAND_INFERRED",
+            "FACADE_LEFT_UPPER_INFERRED",
+            "ROOF_MAIN_SINGLE_SLOPE",
+            "FRONT_ENTRY_DOOR_MODULE",
+            "FRONT_SHOWCASE_WINDOW_MODULE",
+            "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+            "INTERIOR_VISIBLE_FITOUT",
+            "CANOPY_FRONT_METAL",
+            "CANOPY_RIGHT_METAL",
+            "SITE_PLATFORM",
+            "TERRACE_FURNITURE",
+            "TERRACE_PLANTERS_AND_PLANTS",
+            "BICYCLE_FRONT_LEFT",
+            "SIGNAGE_ROUND_HANGING",
+            "SIGNAGE_MENU_EASEL"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "两张 SOURCE 都显示一个高的木饰面主屋、一个明显外伸的右后侧低层白色附属体及其独立低屋顶，入口与侧窗上方另有雨棚。CURRENT 保留了主屋和雨棚，但附属体显得过窄，主屋坡屋顶轮廓也比 SOURCE 平缓。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "右后白色附属体及独立低屋顶显得狭窄、浅短；SOURCE 中它是清晰可见、外伸更大的单层翼体。",
+            "action": "局部加宽并加深右后附属体及其低屋顶，保持低于主屋并与主屋相接；保留主屋体量。"
+          },
+          {
+            "priority": 2,
+            "view": "left",
+            "problem": "主屋单坡屋顶的高低边落差偏小，侧面木饰面上缘形成的轮廓比 SOURCE 平缓。",
+            "action": "增大主屋屋顶坡度，尽量保留现有低檐位置和木饰面主体。"
+          },
+          {
+            "priority": 3,
+            "view": "oblique",
+            "problem": "侧面服务窗读起来更像雨棚下的固定玻璃；SOURCE 中有明显向外开启、形成斜边轮廓的大窗扇。",
+            "action": "将侧窗局部处理为清晰外开的单扇窗，保留现有雨棚和支撑构架。"
+          }
+        ],
+        "keep": [
+          "主屋木饰面与深色单坡屋顶的组合。"
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "两张 SOURCE 都显示一个高的木饰面主屋、一个明显外伸的右后侧低层白色附属体及其独立低屋顶，入口与侧窗上方另有雨棚。CURRENT 保留了主屋和雨棚，但附属体显得过窄，主屋坡屋顶轮廓也比 SOURCE 平缓。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "右后白色附属体及独立低屋顶显得狭窄、浅短；SOURCE 中它是清晰可见、外伸更大的单层翼体。",
+            "action": "局部加宽并加深右后附属体及其低屋顶，保持低于主屋并与主屋相接；保留主屋体量。"
+          },
+          {
+            "priority": 2,
+            "view": "left",
+            "problem": "主屋单坡屋顶的高低边落差偏小，侧面木饰面上缘形成的轮廓比 SOURCE 平缓。",
+            "action": "增大主屋屋顶坡度，尽量保留现有低檐位置和木饰面主体。"
+          },
+          {
+            "priority": 3,
+            "view": "oblique",
+            "problem": "侧面服务窗读起来更像雨棚下的固定玻璃；SOURCE 中有明显向外开启、形成斜边轮廓的大窗扇。",
+            "action": "将侧窗局部处理为清晰外开的单扇窗，保留现有雨棚和支撑构架。"
+          }
+        ],
+        "keep": [
+          "主屋木饰面与深色单坡屋顶的组合。"
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "luna-cafe-1009",
+        "revision": 5,
+        "relative_path": "scripts/luna_cafe_correction_4.rb",
+        "update_mode": "edit",
+        "source_sha256": "4e1188ccd6512a393d9ac83ef129583f707720d8430aef522a0d7673dba3971d",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT_ENTRY",
+            "WALL_RIGHT_AWNING",
+            "WALL_REAR_INFERRED",
+            "WALL_LEFT_INFERRED",
+            "FACADE_FRONT_WOOD_BAND",
+            "FACADE_RIGHT_WOOD_BAND",
+            "FACADE_REAR_WOOD_BAND_INFERRED",
+            "FACADE_LEFT_UPPER_INFERRED",
+            "ROOF_MAIN_SINGLE_SLOPE",
+            "FRONT_ENTRY_DOOR_MODULE",
+            "FRONT_SHOWCASE_WINDOW_MODULE",
+            "INTERIOR_VISIBLE_FITOUT",
+            "CANOPY_FRONT_METAL",
+            "CANOPY_RIGHT_METAL",
+            "SITE_PLATFORM",
+            "TERRACE_FURNITURE",
+            "TERRACE_PLANTERS_AND_PLANTS",
+            "BICYCLE_FRONT_LEFT",
+            "SIGNAGE_ROUND_HANGING",
+            "SIGNAGE_RIGHT_WALL_MENU",
+            "SIGNAGE_MENU_EASEL"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The main café form and front/side openings are recognizable, but the attached low wing is too small in the current oblique views, and the source’s broad pale stone apron is missing.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "The source shows a substantial lower white annex extending behind and to the right, with a clearly visible low roof. The current annex barely projects beyond the main volume. action: Extend the existing lower wing and its roof to match the source’s visible projection, keeping it below the main volume.",
+            "action": "Extend the existing lower wing and its roof to match the source’s visible projection, keeping it below the main volume."
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "The source has a broad light stone apron around the café, distinct from the localized wood deck. The current base reads mostly as one continuous brown deck with only a thin pale edge. action: Widen the pale stone perimeter apron and limit the brown decking to the entry and seating areas.",
+            "action": "Widen the pale stone perimeter apron and limit the brown decking to the entry and seating areas."
+          }
+        ],
+        "keep": [
+          "Front entrance remains left of the broad display window, as in the source."
+        ],
+        "model_revisions": {
+          "luna-cafe-1009": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

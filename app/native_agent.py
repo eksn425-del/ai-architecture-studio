@@ -17,6 +17,8 @@ from .agent_tools import AgentToolSurface
 from .reference_assets import discover_project_reference_images, reference_image_label
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
+from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
+                              validate_visual_review_views, validate_source_matched_pairs)
 
 
 class NativeAgentUnavailable(RuntimeError):
@@ -43,7 +45,7 @@ def _app_server_turn_input(prompt: str, reference_images: list[Path]) -> list[di
     """Build App Server input items; its JSON enum is camelCase ``localImage``."""
     turn_input = [{"type": "text", "text": prompt}]
     for index, path in enumerate(reference_images, 1):
-        turn_input.append({"type": "text", "text": f"Source image {index}: {path.parent.name}/{path.name}. This label identifies the following image; verify its view from visible landmarks."})
+        turn_input.append({"type": "text", "text": f"Image {index}: {path.parent.name}/{path.name}. The prompt defines whether this is SOURCE or CURRENT model evidence; verify its view from visible landmarks."})
         turn_input.append({"type": "localImage", "path": str(path)})
     return turn_input
 
@@ -191,15 +193,70 @@ class CodexAppServerRuntime:
             effective_developer_instructions = _composed_tool_instructions(
                 developer_instructions, mcp_enabled=mcp_enabled, tool_profile=tool_profile,
             )
+            def reviewed_dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
+                if name == "sketchup_submit_visual_review" and tool_profile == "reconstruction_coding":
+                    # A fresh context gets only trusted images, not the Builder's
+                    # proposed verdict/history. It has no writer tools or writable root.
+                    arguments = self._native_visual_review(
+                        project_dir=project_dir.resolve(), agent_workspace=agent_workspace,
+                        ruby_state=ruby_state,
+                        arguments=arguments, model=selected_model, reasoning_effort=selected_effort,
+                    )
+                return tools.dispatch(name, arguments)
+
             return self._run_turn(
                 project_dir=project_dir.resolve(), agent_workspace=agent_workspace,
                 thread_id=thread_id, prompt=full_prompt, mcp_enabled=mcp_enabled,
                 developer_instructions=effective_developer_instructions,
-                dynamic_tools=tools.dynamic_tools, tool_handler=tools.dispatch,
+                dynamic_tools=tools.dynamic_tools, tool_handler=reviewed_dispatch,
                 model=selected_model, reasoning_effort=selected_effort,
                 reference_images=reference_images,
                 workflow_mode=workflow_mode, tool_profile=tool_profile,
             )
+
+    def _native_visual_review(self, *, project_dir: Path, agent_workspace: Path,
+                             ruby_state: Any, arguments: dict[str, Any],
+                             model: str, reasoning_effort: str) -> dict[str, Any]:
+        # Read the host-persisted state after each successful writer; the turn's
+        # starting state can be stale after the initial build/correction.
+        state_path = project_dir / "runtime" / "project_ruby_state.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else (ruby_state or {})
+        revisions, views, captures = validate_visual_review_views(project_dir, state, arguments.get("views"))
+        pairs = validate_source_matched_pairs(project_dir, revisions, arguments.get("evidence_pairs"))
+        sources = discover_project_reference_images(project_dir, categories=("reference",))
+        labels = ["SOURCE " + path.relative_to(project_dir).as_posix() for path in sources]
+        images = list(sources)
+        for name, path in captures.items():
+            labels.append("CURRENT canonical " + name)
+            images.append(path)
+        for pair in pairs:
+            labels.append("CURRENT source-matched " + pair["label"])
+            images.append(project_dir / pair["current_view"])
+        prompt = build_visual_critic_prompt(labels[:len(sources)], labels[len(sources):])
+        prompt += "\nImages below follow this exact order:\n" + "\n".join(
+            f"{index + 1}. {label}" for index, label in enumerate(labels))
+        prompt += ("\nIndependently inventory ALL visible source primary/attached volumes and roofs before judging "
+                   "details. A missing lower annex/roof or wrong massing is priority 1, even if windows look recognizable. "
+                   "Do not hide template clutter with plants. Do not trust the Builder's claims. "
+                   "KEEP only features whose location/proportions actually match; use named paths only when known. "
+                   "Do not run commands or edit files; answer the review envelope directly from images.")
+        result = self._run_turn(
+            project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
+            prompt=prompt, mcp_enabled=False, developer_instructions="Independent read-only architectural visual review. No geometry writes, commands or file changes.",
+            dynamic_tools=[], tool_handler=lambda *_: {"success": False}, model=model,
+            reasoning_effort=reasoning_effort, reference_images=images,
+            workflow_mode="image_reconstruction", tool_profile="reconstruction_coding", read_only=True,
+        )
+        critique = parse_visual_critique_response(result.reply)
+        if critique.malformed or critique.needs_fix is None:
+            raise ValueError("Independent Native Critic returned an invalid envelope; do not accept Builder fallback as independent review.")
+        return {**arguments, "critique": result.reply, "_reviewer": {
+            "mode": "dedicated_read_only", "runtime": "codex-native", "model": result.model_name,
+            "reasoning_effort": result.reasoning_effort, "latency_ms": result.latency_ms,
+            "input_tokens": result.input_tokens, "output_tokens": result.output_tokens,
+            "tool_call_count": result.tool_call_count, "failed_tool_calls": result.failed_tool_calls,
+            "fresh_context": True, "sandbox": "readOnly", "writer_tools": [],
+        }}
 
     def _dynamic_tools(self, *, ruby_enabled: bool = False) -> list[dict[str, Any]]:
         try:
@@ -268,7 +325,7 @@ class CodexAppServerRuntime:
                   tool_handler: Callable[[str, dict[str, Any]], dict[str, Any]],
                   model: str, reasoning_effort: str,
                   reference_images: list[Path], workflow_mode: WorkflowMode = "architecture_design",
-                  tool_profile: ToolProfile = "full") -> AgentTurnResult:
+                  tool_profile: ToolProfile = "full", read_only: bool = False) -> AgentTurnResult:
         started = time.monotonic()
         environment = _app_server_environment(dict(os.environ))
         environment["CODEX_HOME"] = str(self.home)
@@ -326,7 +383,7 @@ class CodexAppServerRuntime:
                 "model": model,
                 "cwd": str(agent_workspace),
                 "runtimeWorkspaceRoots": [str(agent_workspace)],
-                "sandbox": "workspace-write",
+                "sandbox": "read-only" if read_only else "workspace-write",
                 "approvalPolicy": "never",
                 "serviceName": "ai_architecture_studio_oss_takeover_v1",
                 "developerInstructions": developer_instructions,
@@ -365,7 +422,8 @@ class CodexAppServerRuntime:
                     "reference_categories": list(workflow_reference_categories(workflow_mode)),
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],
-                    "sandbox_policy": {"type": "workspaceWrite", "networkAccess": False},
+                    "sandbox_policy": {"type": "readOnly" if read_only else "workspaceWrite", "networkAccess": False},
+                    "role": "visual_critic" if read_only else "builder_or_planner",
                     "tool_names": [tool["name"] for tool in dynamic_tools]})
             self._send(process, {
                 "id": request_id,
@@ -378,7 +436,7 @@ class CodexAppServerRuntime:
                     "model": model,
                     "effort": reasoning_effort,
                     "approvalPolicy": "never",
-                    "sandboxPolicy": _workspace_write_policy(agent_workspace),
+                    "sandboxPolicy": {"type": "readOnly", "networkAccess": False} if read_only else _workspace_write_policy(agent_workspace),
                 },
             })
             deadline = time.monotonic() + self.timeout_seconds
@@ -387,6 +445,7 @@ class CodexAppServerRuntime:
             failed_tool_calls = 0
             input_tokens: int | None = None
             output_tokens: int | None = None
+            usage_total_before: tuple[int, int] | None = None
             reply = ""
             turn_status = "failed"
             while time.monotonic() < deadline:
@@ -418,8 +477,26 @@ class CodexAppServerRuntime:
                             "status": event_item.get("status") or (params.get("turn") or {}).get("status"),
                             "text": _message_text(event_item) if event_item.get("type") in {"agentMessage", "agent_message"} else ""})
                 usage = _extract_token_usage(params)
-                input_tokens = usage[0] if usage[0] is not None else input_tokens
-                output_tokens = usage[1] if usage[1] is not None else output_tokens
+                nested_usage = params.get("tokenUsage")
+                if isinstance(nested_usage, dict) and isinstance(nested_usage.get("total"), dict):
+                    total = _extract_token_usage(nested_usage["total"])
+                    last = _extract_token_usage(nested_usage.get("last") or {})
+                    if all(isinstance(x, int) for x in (*total, *last)):
+                        if usage_total_before is None:
+                            usage_total_before = (total[0] - last[0], total[1] - last[1])
+                        # Resumed thread totals include old turns. Store the delta,
+                        # never label historical cumulative input as this run's usage.
+                        delta = (total[0] - usage_total_before[0], total[1] - usage_total_before[1])
+                        if min(delta) >= 0:
+                            input_tokens, output_tokens = delta
+                        else:
+                            input_tokens = output_tokens = None
+                        record({"event": "token_usage", "scope": "turn_delta_from_thread_total",
+                                "input_tokens": input_tokens, "output_tokens": output_tokens,
+                                "last_input_tokens": last[0], "last_output_tokens": last[1]})
+                elif usage_total_before is None:
+                    input_tokens = usage[0] if usage[0] is not None else input_tokens
+                    output_tokens = usage[1] if usage[1] is not None else output_tokens
                 if method in {"item/tool/call", "dynamicToolCall"} and message.get("id") is not None:
                     call = _tool_summary(params)
                     tool_calls.append(call)

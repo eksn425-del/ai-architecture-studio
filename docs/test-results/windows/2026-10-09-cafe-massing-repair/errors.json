@@ -1,0 +1,42 @@
+[
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "706569823d90421d946f146c4547be84.jsonl"
+  },
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "706569823d90421d946f146c4547be84.jsonl"
+  },
+  {
+    "tool": "sketchup_capture_canonical_view",
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "event_file": "706569823d90421d946f146c4547be84.jsonl"
+  },
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "706569823d90421d946f146c4547be84.jsonl"
+  },
+  {
+    "stage": "native_completion",
+    "status": "FAIL",
+    "error": "Codex app-server communication failed: Timed out waiting for Codex app-server event.",
+    "latency_ms": 1802640
+  },
+  {
+    "stage": "fresh_baseline_replay",
+    "status": "FAIL",
+    "error": "Three named group bounds differ from current r5; see model/baseline-replay.json"
+  },
+  {
+    "stage": "native_reopen_guards",
+    "error": "First copy filename lacked blank-disposable; corrected filename. First edit readback inside group context rejected; exited group then read back."
+  },
+  {
+    "stage": "planning_after_agent_write",
+    "status": "FAIL",
+    "error": "JSONDecodeError Extra data in planning documents; actual sanitized text retained under planning/*.invalid.txt"
+  }
+]

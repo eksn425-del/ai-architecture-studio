@@ -1,0 +1,1054 @@
+{
+  "script_id": "luna-cafe-1009",
+  "revision": 5,
+  "root_pid": 51007,
+  "bounds_mm": {
+    "min": [
+      -1866,
+      -1015,
+      -280
+    ],
+    "max": [
+      6035,
+      8880,
+      5750
+    ],
+    "size": [
+      7901,
+      9895,
+      6030
+    ]
+  },
+  "objects": [
+    {
+      "name": "WALL_FRONT_ENTRY",
+      "persistent_id": 51126,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          -90,
+          0
+        ],
+        "max": [
+          4800,
+          90,
+          3600
+        ],
+        "size": [
+          4800,
+          180,
+          3600
+        ]
+      }
+    },
+    {
+      "name": "WALL_RIGHT_AWNING",
+      "persistent_id": 51568,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4710,
+          0,
+          0
+        ],
+        "max": [
+          4890,
+          4500,
+          3600
+        ],
+        "size": [
+          180,
+          4500,
+          3600
+        ]
+      }
+    },
+    {
+      "name": "WALL_REAR_INFERRED",
+      "persistent_id": 51690,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          4410,
+          0
+        ],
+        "max": [
+          4800,
+          4590,
+          3600
+        ],
+        "size": [
+          4800,
+          180,
+          3600
+        ]
+      }
+    },
+    {
+      "name": "WALL_LEFT_INFERRED",
+      "persistent_id": 51722,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -90,
+          0,
+          0
+        ],
+        "max": [
+          90,
+          4500,
+          3600
+        ],
+        "size": [
+          180,
+          4500,
+          3600
+        ]
+      }
+    },
+    {
+      "name": "INTERIOR_FLOOR",
+      "persistent_id": 51754,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          90,
+          90,
+          20
+        ],
+        "max": [
+          4710,
+          4410,
+          95
+        ],
+        "size": [
+          4620,
+          4320,
+          75
+        ]
+      }
+    },
+    {
+      "name": "BASE_BUILDING_PLINTH",
+      "persistent_id": 51788,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -120,
+          -120,
+          -160
+        ],
+        "max": [
+          4920,
+          4620,
+          0
+        ],
+        "size": [
+          5040,
+          4740,
+          160
+        ]
+      }
+    },
+    {
+      "name": "FACADE_FRONT_WOOD_BAND",
+      "persistent_id": 51820,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          -112,
+          2700
+        ],
+        "max": [
+          4728,
+          -90,
+          3590
+        ],
+        "size": [
+          4728,
+          22,
+          890
+        ]
+      }
+    },
+    {
+      "name": "FACADE_RIGHT_WOOD_BAND",
+      "persistent_id": 51889,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4890,
+          0,
+          2700
+        ],
+        "max": [
+          4912,
+          4500,
+          5190
+        ],
+        "size": [
+          22,
+          4500,
+          2490
+        ]
+      }
+    },
+    {
+      "name": "FACADE_REAR_WOOD_BAND_INFERRED",
+      "persistent_id": 52899,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          4510,
+          3600
+        ],
+        "max": [
+          4800,
+          4532,
+          5190
+        ],
+        "size": [
+          4800,
+          22,
+          1590
+        ]
+      }
+    },
+    {
+      "name": "FACADE_LEFT_UPPER_INFERRED",
+      "persistent_id": 53965,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -110,
+          0,
+          3590
+        ],
+        "max": [
+          -88,
+          4500,
+          5190
+        ],
+        "size": [
+          22,
+          4500,
+          1600
+        ]
+      }
+    },
+    {
+      "name": "FRONT_WHITE_TRANSITION_TRIM",
+      "persistent_id": 53989,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          -132,
+          2580
+        ],
+        "max": [
+          4800,
+          -92,
+          2680
+        ],
+        "size": [
+          4800,
+          40,
+          100
+        ]
+      }
+    },
+    {
+      "name": "RIGHT_WHITE_TRANSITION_TRIM",
+      "persistent_id": 54021,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4890,
+          0,
+          2580
+        ],
+        "max": [
+          4930,
+          4500,
+          2680
+        ],
+        "size": [
+          40,
+          4500,
+          100
+        ]
+      }
+    },
+    {
+      "name": "ROOF_MAIN_SINGLE_SLOPE",
+      "persistent_id": 54181,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -170,
+          -242,
+          3500
+        ],
+        "max": [
+          4970,
+          4704.2,
+          5370
+        ],
+        "size": [
+          5140,
+          4946.2,
+          1870
+        ]
+      }
+    },
+    {
+      "name": "CANOPY_FRONT_METAL",
+      "persistent_id": 54460,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          100,
+          -1015,
+          2050
+        ],
+        "max": [
+          4260,
+          12.5,
+          2784
+        ],
+        "size": [
+          4160,
+          1027.5,
+          734
+        ]
+      }
+    },
+    {
+      "name": "CANOPY_RIGHT_METAL",
+      "persistent_id": 55448,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4825,
+          520,
+          2200
+        ],
+        "max": [
+          5791.7,
+          3650,
+          2900.8
+        ],
+        "size": [
+          966.7,
+          3130,
+          700.8
+        ]
+      }
+    },
+    {
+      "name": "SITE_PLATFORM",
+      "persistent_id": 56068,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -400,
+          -900,
+          -210
+        ],
+        "max": [
+          5810,
+          4700,
+          210
+        ],
+        "size": [
+          6210,
+          5600,
+          420
+        ]
+      }
+    },
+    {
+      "name": "FRONT_SHOWCASE_WINDOW_MODULE",
+      "persistent_id": 56719,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          1690,
+          -175,
+          535
+        ],
+        "max": [
+          3860,
+          360,
+          2440
+        ],
+        "size": [
+          2170,
+          535,
+          1905
+        ]
+      }
+    },
+    {
+      "name": "RIGHT_AWNING_WINDOW_OPEN_MODULE",
+      "persistent_id": 57010,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4890,
+          600,
+          845
+        ],
+        "max": [
+          5727.5,
+          3030,
+          2690
+        ],
+        "size": [
+          837.5,
+          2430,
+          1845
+        ]
+      }
+    },
+    {
+      "name": "INTERIOR_VISIBLE_FITOUT",
+      "persistent_id": 57362,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          1940,
+          100,
+          180
+        ],
+        "max": [
+          4740,
+          4205,
+          2200
+        ],
+        "size": [
+          2800,
+          4105,
+          2020
+        ]
+      }
+    },
+    {
+      "name": "SIGNAGE_ROUND_HANGING",
+      "persistent_id": 58058,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -265,
+          -744,
+          1595
+        ],
+        "max": [
+          345,
+          -90,
+          2680
+        ],
+        "size": [
+          610,
+          654,
+          1085
+        ]
+      }
+    },
+    {
+      "name": "SIGNAGE_RIGHT_WALL_MENU",
+      "persistent_id": 58665,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4940,
+          3210,
+          1480
+        ],
+        "max": [
+          5018,
+          4570,
+          2200
+        ],
+        "size": [
+          78,
+          1360,
+          720
+        ]
+      }
+    },
+    {
+      "name": "SIGNAGE_MENU_EASEL",
+      "persistent_id": 59243,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5755,
+          4652.7,
+          17.2
+        ],
+        "max": [
+          6035,
+          5574.8,
+          1830
+        ],
+        "size": [
+          280,
+          922.1,
+          1812.8
+        ]
+      }
+    },
+    {
+      "name": "TERRACE_FURNITURE",
+      "persistent_id": 59585,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4920,
+          1650,
+          70
+        ],
+        "max": [
+          5710,
+          3350,
+          1007.5
+        ],
+        "size": [
+          790,
+          1700,
+          937.5
+        ]
+      }
+    },
+    {
+      "name": "TERRACE_PLANTERS_AND_PLANTS",
+      "persistent_id": 60769,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -1139.4,
+          -880,
+          70
+        ],
+        "max": [
+          4797.5,
+          -49.5,
+          1600
+        ],
+        "size": [
+          5936.9,
+          830.5,
+          1530
+        ]
+      }
+    },
+    {
+      "name": "BICYCLE_FRONT_LEFT",
+      "persistent_id": 65121,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -1866,
+          -850,
+          4
+        ],
+        "max": [
+          -564,
+          -460,
+          970
+        ],
+        "size": [
+          1302,
+          390,
+          966
+        ]
+      }
+    },
+    {
+      "name": "FRONT_BASE_STONE_LEFT",
+      "persistent_id": 66767,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          -112,
+          0
+        ],
+        "max": [
+          350,
+          -90,
+          280
+        ],
+        "size": [
+          350,
+          22,
+          280
+        ]
+      }
+    },
+    {
+      "name": "FRONT_BASE_STONE_BETWEEN",
+      "persistent_id": 66799,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          1250,
+          -112,
+          0
+        ],
+        "max": [
+          1690,
+          -90,
+          280
+        ],
+        "size": [
+          440,
+          22,
+          280
+        ]
+      }
+    },
+    {
+      "name": "FRONT_BASE_STONE_RIGHT",
+      "persistent_id": 66831,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3860,
+          -112,
+          0
+        ],
+        "max": [
+          4800,
+          -90,
+          280
+        ],
+        "size": [
+          940,
+          22,
+          280
+        ]
+      }
+    },
+    {
+      "name": "RIGHT_BASE_STONE_COURSE",
+      "persistent_id": 66863,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4890,
+          0,
+          0
+        ],
+        "max": [
+          4912,
+          4500,
+          280
+        ],
+        "size": [
+          22,
+          4500,
+          280
+        ]
+      }
+    },
+    {
+      "name": "FRONT_ENTRY_DOOR_MODULE",
+      "persistent_id": 66895,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          315,
+          -160,
+          0
+        ],
+        "max": [
+          1335,
+          30,
+          2120
+        ],
+        "size": [
+          1020,
+          190,
+          2120
+        ]
+      }
+    },
+    {
+      "name": "ANNEX_LOW_WHITE_VOLUME",
+      "persistent_id": 68794,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          1700,
+          4500,
+          -280
+        ],
+        "max": [
+          4930,
+          8880,
+          3574.7
+        ],
+        "size": [
+          3230,
+          4380,
+          3854.7
+        ]
+      }
+    },
+    {
+      "name": "ANNEX_SITE_PAD",
+      "persistent_id": 68956,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          1500,
+          4650,
+          -210
+        ],
+        "max": [
+          5050,
+          8740,
+          -15
+        ],
+        "size": [
+          3550,
+          4090,
+          195
+        ]
+      }
+    },
+    {
+      "name": "ANNEX_LOW_ROOF",
+      "persistent_id": 68990,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          1607.5,
+          4325,
+          2910.9
+        ],
+        "max": [
+          5052.5,
+          8760,
+          3659
+        ],
+        "size": [
+          3445,
+          4435,
+          748.1
+        ]
+      }
+    },
+    {
+      "name": "MAIN_ROOF_PITCH_ADJUSTMENT",
+      "persistent_id": 69185,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -170,
+          -235,
+          3536.8
+        ],
+        "max": [
+          4970,
+          4730,
+          5750
+        ],
+        "size": [
+          5140,
+          4965,
+          2213.2
+        ]
+      }
+    }
+  ],
+  "count": 34,
+  "pagination_complete": true,
+  "children": {
+    "SIGNAGE_MENU_EASEL": {
+      "script_id": "luna-cafe-1009",
+      "revision": 5,
+      "read_only": true,
+      "path": [
+        "SIGNAGE_MENU_EASEL"
+      ],
+      "persistent_id": 59243,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          5755,
+          4652.7,
+          17.2
+        ],
+        "max": [
+          6035,
+          5574.8,
+          1830
+        ],
+        "size": [
+          280,
+          922.1,
+          1812.8
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 11,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "EASEL_BOARD_FRAME",
+          "persistent_id": 59245,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5860,
+              930,
+              780
+            ],
+            "max": [
+              5930,
+              1640,
+              1830
+            ],
+            "size": [
+              70,
+              710,
+              1050
+            ]
+          }
+        },
+        {
+          "name": "EASEL_CHALKBOARD",
+          "persistent_id": 59277,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5930,
+              980,
+              830
+            ],
+            "max": [
+              5960,
+              1590,
+              1780
+            ],
+            "size": [
+              30,
+              610,
+              950
+            ]
+          }
+        },
+        {
+          "name": "EASEL_LEG_LEFT",
+          "persistent_id": 59309,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5755,
+              752.7,
+              26.5
+            ],
+            "max": [
+              5855,
+              937.3,
+              1043.5
+            ],
+            "size": [
+              100,
+              184.5,
+              1017
+            ]
+          }
+        },
+        {
+          "name": "EASEL_LEG_RIGHT",
+          "persistent_id": 59337,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5935,
+              752.7,
+              26.5
+            ],
+            "max": [
+              6035,
+              937.3,
+              1043.5
+            ],
+            "size": [
+              100,
+              184.5,
+              1017
+            ]
+          }
+        },
+        {
+          "name": "EASEL_REAR_LEG",
+          "persistent_id": 59365,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5877.5,
+              1525.2,
+              17.2
+            ],
+            "max": [
+              5922.5,
+              1674.8,
+              902.8
+            ],
+            "size": [
+              45,
+              149.7,
+              885.6
+            ]
+          }
+        },
+        {
+          "name": "EASEL_HEADER_LABEL",
+          "persistent_id": 59393,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5935,
+              1100,
+              1660
+            ],
+            "max": [
+              5965,
+              1460,
+              1690
+            ],
+            "size": [
+              30,
+              360,
+              30
+            ]
+          }
+        },
+        {
+          "name": "EASEL_CHALK_LINE_01",
+          "persistent_id": 59425,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5965,
+              1070,
+              1010
+            ],
+            "max": [
+              5976,
+              1500,
+              1022
+            ],
+            "size": [
+              11,
+              430,
+              12
+            ]
+          }
+        },
+        {
+          "name": "EASEL_CHALK_LINE_02",
+          "persistent_id": 59457,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5965,
+              1070,
+              1210
+            ],
+            "max": [
+              5976,
+              1500,
+              1222
+            ],
+            "size": [
+              11,
+              430,
+              12
+            ]
+          }
+        },
+        {
+          "name": "EASEL_CHALK_LINE_03",
+          "persistent_id": 59489,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5965,
+              1070,
+              1290
+            ],
+            "max": [
+              5976,
+              1500,
+              1302
+            ],
+            "size": [
+              11,
+              430,
+              12
+            ]
+          }
+        },
+        {
+          "name": "EASEL_CHALK_LINE_04",
+          "persistent_id": 59521,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5965,
+              1070,
+              1380
+            ],
+            "max": [
+              5976,
+              1500,
+              1392
+            ],
+            "size": [
+              11,
+              430,
+              12
+            ]
+          }
+        },
+        {
+          "name": "EASEL_CHALK_LINE_05",
+          "persistent_id": 59553,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5965,
+              1070,
+              1480
+            ],
+            "max": [
+              5976,
+              1500,
+              1492
+            ],
+            "size": [
+              11,
+              430,
+              12
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

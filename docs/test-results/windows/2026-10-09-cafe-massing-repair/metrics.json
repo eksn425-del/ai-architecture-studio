@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1802640,
+  "builder_latency_ms_includes_host_critic": 1802640,
+  "tool_call_count": 116,
+  "failed_tool_calls": 4,
+  "input_tokens": 10528462,
+  "output_tokens": 116074,
+  "critic_input_tokens": 114994,
+  "critic_output_tokens": 18796,
+  "token_source": "App Server thread/tokenUsage/updated; turn delta from observed total and first last",
+  "committed_writes": 2,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 2,
+  "human_prompt_interventions": 1,
+  "human_geometry_edits_on_builder_model": 0,
+  "turns": [
+    {
+      "event_file": "1b91f158cb0448478da5dff78840a569.jsonl",
+      "role": "visual_critic",
+      "actual_model": "gpt-6-luna",
+      "effort": "max",
+      "input_tokens": 38342,
+      "output_tokens": 3318,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "complete": true,
+      "scope": "turn_delta_from_thread_total"
+    },
+    {
+      "event_file": "208058db9b1743ef9cc2deda072ac847.jsonl",
+      "role": "visual_critic",
+      "actual_model": "gpt-6-luna",
+      "effort": "max",
+      "input_tokens": 38324,
+      "output_tokens": 7326,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "complete": true,
+      "scope": "turn_delta_from_thread_total"
+    },
+    {
+      "event_file": "706569823d90421d946f146c4547be84.jsonl",
+      "role": "builder_or_planner",
+      "actual_model": "gpt-6-luna",
+      "effort": "max",
+      "input_tokens": 10528462,
+      "output_tokens": 116074,
+      "tool_call_count": 116,
+      "failed_tool_calls": 4,
+      "complete": false,
+      "scope": "turn_delta_from_thread_total"
+    },
+    {
+      "event_file": "e0b2226635964696866df8e1ef0fb99f.jsonl",
+      "role": "visual_critic",
+      "actual_model": "gpt-6-luna",
+      "effort": "max",
+      "input_tokens": 38328,
+      "output_tokens": 8152,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "complete": true,
+      "scope": "turn_delta_from_thread_total"
+    }
+  ]
+}

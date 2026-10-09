@@ -451,10 +451,9 @@ class AgentToolSurface:
                     "six DISTINCT CURRENT front/rear/left/right/roof/oblique agent-view PNGs, then submit the exact actual paths plus the "
                     "bounded fallback critique. When the source camera is not represented by a canonical view, or when interior/detail references exist, add evidence_pairs mapping real source images to current agent-view captures. On the LiteLLM/DeepSeek route the host runs a separate compact read-only critic over source images plus "
                     "the six validated current views and any validated source-matched/interior pairs, then replaces any model-authored verdict before persisting the review. "
-                    "Native runtimes MUST supply a plain-text self-review: NEEDS_FIX: YES or NO, "
+                    "The Native host also runs a fresh separate read-only Critic with no writer tools; it replaces the proposed verdict and records actual model/usage/sandbox. Supply a plain-text proposed review for compatibility: NEEDS_FIX: YES or NO, "
                     "<assessment>comparison</assessment>, <issue priority=\"1\" view=\"front\">problem: mismatch\naction: fix</issue> "
-                    "and <keep>correct group paths</keep>. YES needs at least one issue. This fallback is agent_supplied, "
-                    "not an independent Critic. The host rejects stale revision "
+                    "and <keep>correct group paths</keep>. YES needs at least one issue. Direct tool-surface fallback remains agent_supplied; only host-run review is independent. The host rejects stale revision "
                     "captures. This tool never edits SketchUp. A NEEDS_FIX review permits the next targeted writer pass; "
                     "NEEDS_FIX:NO ends geometry writes for this turn.",
                     {
