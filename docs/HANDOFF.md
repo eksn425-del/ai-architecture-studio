@@ -1,3 +1,13 @@
+## Remote Quality Loop v2.9 — host repair memory — 2026-10-09
+
+Continued the OSS gap review after v2.8. 3DCodeBench keeps critique/attempt history and last-known-good state; SketchUp Agent Harness keeps project-local runtime memory separate from canonical design truth. K Studio already compacted old provider history, but that meant a later correction could lose the trusted record that a previous repair approach still failed.
+
+Added `app/repair_memory.py` and host-owned `qa/repair_history.json`. A committed post-review correction is recorded as awaiting_review with its motivating issues and compact writer/KEEP evidence. The next trusted visual review finalizes it as accepted or still_needs_fix. The file is readable through workspace tools but model writes to qa JSON are rejected. Active-context compaction now carries recent trusted repair memory, and the reconstruction Skill tells Builder not to blindly repeat a method that remains still_needs_fix. Workspace manifest is version 10 and advertises this host-owned read-only evidence path.
+
+Added targeted tests for repair-memory record/finalize/read-only behavior, context-compaction inclusion, workspace manifest, and AgentToolSurface correction→re-review lifecycle. No tests or SketchUp were executed in this ChatGPT turn; `docs/QUALITY_LOOP_V2_9.md` defines the required Windows validation, including v2.8 transaction rollback and the v2.7 staged six-view benchmark.
+
+---
+
 ## Remote Quality Loop v2.8 — pre-commit KEEP rollback — 2026-10-09
 
 Continued the open-source comparison against 3DCodeBench, dcc-mcp-sketchup and SketchUp Agent Harness after the v2.7 staged-construction work. The most actionable remaining reliability gap was concrete: v2.6 could prove a targeted correction damaged reviewer KEEP geometry only **after** the revision had already committed.
