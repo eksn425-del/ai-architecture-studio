@@ -13,6 +13,7 @@ from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
 from .adai_components import geometry_helper
+from .oss_method_catalog import capability_selection_note
 from .repair_memory import finalize_latest_repair_attempt, record_repair_attempt
 from .modeling_quality import (
     owned_inspection_fingerprint,
@@ -410,14 +411,17 @@ class AgentToolSurface:
         if ruby_enabled:
             # Only advertise the third-party construction helper after the pinned
             # official ZIP has been installed, verified, and explicitly enabled.
+            adai_enabled = geometry_helper(Path(__file__).resolve().parents[1]) is not None
+            # The chosen provider matters more than ZIP installation. This note
+            # is injected into the real Agent tool surface for every modeling turn.
+            method_selection_instructions = capability_selection_note(adai_enabled=adai_enabled)
             adai_method_instructions = (
                 " Optional ADAI CPAL-1.0 geometry helper is active in this LOCAL session: "
                 "adai_geometry.profile(root.entities, name, outline_mm, depth_mm, plane, offset_mm, material); "
                 "adai_geometry.profile_with_holes(...), loft_sections(...), shell_grid(...), closed_band(...). "
                 "Always pass root.entities; numeric dimensions are in mm. "
                 "Experimental: per-SketchUp-version real geometry smoke is still required."
-                if geometry_helper(Path(__file__).resolve().parents[1]) is not None
-                else ""
+                if adai_enabled else ""
             )
             tools.append(self._dynamic_tool(
                 "sketchup_inspect_owned", "Read-only nested owned-group inspection with actual persistent IDs and XYZ millimeter bounds; no geometry/diagnostic objects, source writes or revision change. Use exact path name segments; [] lists the owned root. Page until next_offset is null when proving full object preservation. Bounds are explicitly relative to each parent, not global.",
@@ -521,6 +525,11 @@ class AgentToolSurface:
                       "Isolate adjacent solids in child groups/components: pushpull can merge/delete coplanar faces. "
                       "Do not reuse a Face after pushpull unless valid?. Pass model explicitly into Ruby def helpers."
                       + adai_method_instructions
+                    + "\n" + method_selection_instructions
+                    + "\nAFTER WRITE: inspect the returned oss_method_ledger. Only"
+                      " status=committed_readback with nonempty returned events proves"
+                      " an OSS helper participated. Zero events means zero actual"
+                      " wrapped OSS use; do not report installed/smoke_verified as product_used."
                 ),
                 "inputSchema": {
                     "type": "object",
