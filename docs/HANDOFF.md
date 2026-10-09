@@ -1,3 +1,17 @@
+## GitHub handoff — Codex Luna Max integrated test + evidence contract — 2026-10-09
+
+**User direction:** The next Windows Codex turn uses the latest integrated K AI Studio `main` (including ADAI), existing Sol Low/SU2024 evidence and the later `98c9aec11c283879ab0bc2e9afc587f6729cdec6` local Codex fixes. Use the user's preferred **GPT-6 Luna Max via Codex** if available; otherwise choose/record the actual highest-capability Codex model, not an invented model ID or an unannounced DeepSeek/Sol fallback.
+
+**Codex entrypoint:** `docs/CURRENT_TASK.md` top and `docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md`. Historical "continue Sol Low" directives below are obsolete for this new modeling run.
+
+**New mandatory public evidence contract (per every test):** `docs/TEST_EVIDENCE_PROTOCOL.md`, `scripts/validate_test_evidence.py`, `tests/test_test_evidence_validator.py`, `.github/workflows/test-evidence-integrity.yml`. The `AGENTS.md` handoff rule now requires a fresh `docs/test-results/windows/YYYY-MM-DD-<run>/` containing the **real latest-revision 6 canonical screenshot PNGs + sidecars, source perspective screenshot, run.json/metrics.json/errors.json, planning/schema and write/readback/KEEP/native-SKP-reopen records, honest Critic reviewer mode, README, and SHA256 manifest** if geometry committed. For failed attempts with no geometry, upload genuine blocker evidence instead of fabricated images. All public data must be scrubbed of secrets and private sources.
+
+**Current last Codex run, not the new test:** [v2.5 Sol SU2024 report](test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) shows Sol Low six-view villa 550.813s, 45 tool calls, 11 errors, 1 initial write + 2 correction writes, fidelity PARTIAL; planner evidence malformed, independent native Critic not proven; Native token null. Last `98c9aec` corrected ADAI Windows ZIP validation and demonstrated native precommit KEEP abort; `scripts/check.ps1` 304 passed / 2 skipped. **ADAI native geometry still NOT_RUN.** These are not replaced by remote documentation/validator work.
+
+**Next handoff must include:** link to committed new report folder `docs/test-results/windows/2026-10-09-kai-integrated-v1/`, real model identifier/effort, actual six images, error/usage data, real review status, screenshots and native SKP-editability evidence, plus pushed latest main SHA. No separate old-vs-new A/B. No claim of SU2018–2026 full support.
+
+---
+
 ## Windows SU2024 / Sol Low handoff — 2026-10-09
 
 最终补充：又合并远端 `1389864`（v2.8/v2.9/ADAI）；保留全部组件与统一产品决策。修复新增 ADAI Windows ZIP/raw filename 和 Ruby 路径测试问题后，最终 `scripts/check.ps1` **304 passed / 2 skipped / 2 warnings**。额外新空白 SU2024 工程 smoke 验证 v2.8 正向 KEEP 提交、负向 precommit abort（revision 不前进、对象/script 未变），host repair memory 进入 awaiting_review 后由下一次审查更新。详见报告新增 [precommit evidence](test-results/windows/2026-10-09-quality-loop-v25-sol/precommit-keep-smoke/guard-results.json)。这不是独立 Critic 或 ADAI 建筑质量通过；ADAI native integration 与 SU2018–2026 其他版本 `NOT_RUN`。
