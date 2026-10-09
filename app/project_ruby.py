@@ -17,6 +17,7 @@ from .sketchup_mcp import (
 )
 from .store import safe_project_id
 from .modeling_quality import require_post_write_verification
+from .adai_components import geometry_helper
 
 
 SCRIPT_ID_RE = re.compile(r"^[a-z][a-z0-9_-]{0,47}$")
@@ -150,6 +151,10 @@ class ProjectRubyExecutor:
                                 expected_revision: int, root_pid: int | None, update_mode: str = "replace",
                                 keep_expectations: list[dict[str, Any]] | None = None) -> str:
         helper_path = Path(__file__).resolve().parent / "vendor" / "sketchup_architect" / "scripts" / "model_session.rb"
+        # Optional CPAL-1.0 ADAI method library is verified and loaded only in
+        # explicitly opted-in local sessions. The official Managed MCP never
+        # replaces the existing Kongxing connection or ProjectRuby transaction.
+        adai_path = geometry_helper(Path(__file__).resolve().parents[1])
         ruby_lines = [
             "# ARCHFLOW_GENERATED_SCRIPT",
             # A read-only audit may already have defined the same module without
@@ -159,6 +164,15 @@ class ProjectRubyExecutor:
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
+            *(
+                [
+                    # SketchUp 2018..2026 use Ruby API major versions 18..26.
+                    # Passing this guard does NOT certify a version: run a local
+                    # compatibility smoke for each year before claiming support.
+                    "raise 'ADAI geometry SU version outside target range' unless (18..26).cover?(Sketchup.version.to_i)",
+                    f"load {self._ruby_string(str(adai_path))}",
+                ] if adai_path is not None else []
+            ),
             f"source_path = {self._ruby_string(str(script_path))}",
             f"source = File.read(source_path, encoding: 'UTF-8')",
             f"CodexSketchupArchitect.run(project_id: {self._ruby_string(self.project_id)}, expected_guid: {self._ruby_string(self.expected_model_guid)}, expected_revision: {expected_revision}, report_path: {self._ruby_string(str(report_path))}, root_pid: {root_pid!r}) do |model, root|",
@@ -171,6 +185,10 @@ class ProjectRubyExecutor:
             "  end",
             "  saie_wall = lambda { |params| KStudioProfessionalHelpers.wall(root, params) }",
             "  saie_wall_with_openings = lambda { |params| KStudioProfessionalHelpers.wall_with_openings(root, params) }",
+            *(
+                ["  adai_geometry = ADAIConstructionGeometry"]
+                if adai_path is not None else []
+            ),
             "  eval(source, binding, File.basename(source_path), 1)",
             *(
                 [
