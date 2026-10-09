@@ -7,7 +7,7 @@ from .construction_strategy import default_construction_strategy
 from .reconstruction_evidence import default_reconstruction_evidence
 
 
-WORKSPACE_VERSION = 9
+WORKSPACE_VERSION = 10
 
 _WORKSPACE_AGENTS = """# Modeling runtime scope
 
@@ -313,6 +313,8 @@ def prepare_codex_parity_workspace(workspace: Path) -> Path:
         "reconstruction_evidence": "notes/reconstruction_evidence.json",
         "construction_strategy": "notes/construction_strategy.json",
         "visual_qa": "qa/visual_qa.md",
+        "repair_history": "qa/repair_history.json",
+        "repair_history_policy": "host-owned-read-only",
         "reconstruction_flow": ["clarify", "parameterize", "approve", "execute", "verify", "inspect", "critic", "revise"],
     }
     if not manifest.exists():
