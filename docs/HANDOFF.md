@@ -1,3 +1,15 @@
+## Mainline handoff — K AI Studio is the one ongoing product — 2026-10-09
+
+**Owner decision fulfilled:** [ADAI integration PR #1](https://github.com/eksn425-del/ai-architecture-studio/pull/1) was squash-merged to `main` (merge SHA `4a1d027ab4da693388cce0975cd6241181634b9e`). K AI Studio / AI Architecture Studio in repository `eksn425-del/ai-architecture-studio` is the **single ongoing product-development project**. Future suitable open-source tools, Skills, MCPs and modeling components should be adopted or adapted into this same website/repository, not expanded into a separate first-party parallel website. See `docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md` and latest `docs/CURRENT_TASK.md`.
+
+**Precisely merged:** pinned official ADAI 0.5.39 ZIP installer and integrity verification, geometry helper optionally exposed to guarded K Studio ProjectRuby, isolated (not auto-connected) ADAI Managed MCP package, SU2018–2026 explicit version detection and launch preflight, test/compatibility docs, license attribution. **ADAI geometry remains disabled by default**, and full native compatibility/modeling-quality results are unverified.
+
+**Verification:** preceding PR CI [run 37888953839](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/37888953839) succeeded (official upstream ZIP SHA checks, Ruby syntax, Windows PowerShell parser and focused tests); full-suite regression comparison showed the same seven historical failing tests on branch and prior main. The merge does not prove SU2018–2026 native support or source-image fidelity improvements.
+
+**Next step:** Continue improving K AI Studio directly on `origin/main`. Preserve project approval, single writer, KEEP and native SKP editability. Run minimal real SU2024 integrated smoke when Windows host is available, but no separate legacy-vs-ADAI A/B project. Progressively qualify more SketchUp versions where test installations exist. Record new source licenses and deployment obligations before enabling public redistribution. Historical PR-branch instructions below are superseded.
+
+---
+
 ## Latest direction — integrated K Studio product development, not A/B testing (2026-10-09)
 
 The user explicitly chose **K Studio + ADAI as our continuing product development foundation** and cancelled the separate old-K-Studio-versus-ADAI DeepSeek A/B milestone. The authoritative next-step instructions are now at the top of `docs/CURRENT_TASK.md` on `feat/adai-components-su2018-2026`. Prior handoff notes below are historical; any statement requiring paired A/B as a prerequisite is superseded.
