@@ -194,6 +194,82 @@ def require_post_write_verification(
     }
 
 
+def owned_inspection_fingerprint(payload: Any) -> dict[str, Any]:
+    """Return the small identity/bounds fingerprint used for KEEP guards."""
+    if not isinstance(payload, dict):
+        raise ValueError("Owned inspection fingerprint requires an object payload.")
+    persistent_id = payload.get("persistent_id")
+    objects_total = payload.get("objects_total")
+    bounds_mm = payload.get("bounds_mm")
+    if type(persistent_id) is not int or persistent_id <= 0:
+        raise ValueError("Owned inspection fingerprint requires a positive persistent_id.")
+    if type(objects_total) is not int or objects_total < 0:
+        raise ValueError("Owned inspection fingerprint requires a nonnegative objects_total.")
+    if not isinstance(bounds_mm, dict):
+        raise ValueError("Owned inspection fingerprint requires bounds_mm.")
+    low, high = bounds_mm.get("min"), bounds_mm.get("max")
+    if (
+        not isinstance(low, list) or not isinstance(high, list)
+        or len(low) != 3 or len(high) != 3
+    ):
+        raise ValueError("Owned inspection fingerprint bounds_mm must contain min/max XYZ triples.")
+    for value in [*low, *high]:
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):
+            raise ValueError("Owned inspection fingerprint bounds_mm must be finite numeric XYZ values.")
+    return {
+        "persistent_id": persistent_id,
+        "objects_total": objects_total,
+        "bounds_mm": {
+            "min": [float(value) for value in low],
+            "max": [float(value) for value in high],
+        },
+    }
+
+
+def verify_preserved_owned_paths(
+    before: dict[str, dict[str, Any]],
+    after: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    """Enforce a do-no-harm contract for reviewer KEEP geometry.
+
+    This adapts the last-known-good principle used by 3DCodeBench and the
+    structured visual-action boundary used by SketchUp Agent Harness. It does
+    not decide what should be protected; the Builder maps reviewer KEEP items
+    to exact owned-group paths before a targeted edit. The host then verifies
+    identity, object count and millimeter bounds after the write.
+    """
+    if not before:
+        raise ValueError("At least one preserved owned path is required.")
+    if set(before) != set(after):
+        missing = sorted(set(before) - set(after))
+        extra = sorted(set(after) - set(before))
+        raise ValueError(f"Preserved path set changed (missing={missing}, extra={extra}).")
+    checks: list[dict[str, Any]] = []
+    for path in sorted(before):
+        expected = owned_inspection_fingerprint(before[path])
+        actual = owned_inspection_fingerprint(after[path])
+        for field in ("persistent_id", "objects_total", "bounds_mm"):
+            check = {
+                "path": path,
+                "check": field,
+                "expected": expected[field],
+                "actual": actual[field],
+            }
+            checks.append(check)
+            if not _values_match(expected[field], actual[field]):
+                raise ValueError(
+                    f"Protected KEEP path {path!r} changed {field}: "
+                    f"expected {expected[field]!r}, actual {actual[field]!r}."
+                )
+    return {
+        "schema_version": 1,
+        "verified": True,
+        "source": "keep_path_expected_actual_readback",
+        "paths": sorted(before),
+        "checks": checks,
+    }
+
+
 
 _FACADE_PROVENANCE = {"pending", "observed", "user_confirmed", "inferred", "mixed"}
 
