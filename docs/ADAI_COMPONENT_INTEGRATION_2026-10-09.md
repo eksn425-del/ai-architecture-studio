@@ -83,7 +83,11 @@ The installed `mcp` package contains `launch.cjs` and a `su_mcp.rbz` bridge. `--
 
 ADAI's own `docs/COMPATIBILITY.md` calls SU2024/25 `planned_not_implemented`; it does not certify 2026. Version discovery / launching alone is **not** evidence of functional bridge or quality support.
 
-## Required Windows Codex smoke per version
+## Product-first continuation (latest user decision)
+
+This combined K Studio + ADAI implementation is the **working development baseline** on the feature branch. Do not schedule or block progress on a special legacy-vs-ADAI A/B benchmark; improve the K Studio product directly. A single real SU2024 end-to-end disposable smoke is still needed to avoid breaking existing SKP editing or KEEP safety. New roof/wall/visual-fidelity defects should be corrected during normal integrated use, with before/after evidence on the same model when useful. SketchUp 2018–2026 compatibility is a gradual target, not a blocker on all feature work or a verified claim.
+
+## Progressive SketchUp compatibility smoke (when each version is available)
 
 Use a version actually installed on the test host; never fake a PASS for missing versions:
 
@@ -92,7 +96,7 @@ Use a version actually installed on the test host; never fake a PASS for missing
 3. With `ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1`: test **profile with holes**, **loft sections**, **shell grid**, **closed band**, and repeat instance in separately named owned groups; record geometry counts, mm bounds, visual quality and faults.
 4. Deliberately corrupt a test-installed helper hash and confirm the host refuses to load it; restore the clean official ZIP, don't weaken verification.
 5. Run existing v2.8 protected KEEP negative transaction test (must roll back before commit) and v2.9 repair-memory test before merging into default product.
-6. Run the same source villa through baseline vs added geometry methods; human inspect six host-certified views, roof/facade defects, editability and token/latency cost.
+6. Continue improving K Studio directly with the combined toolchain on reference-villa tasks; inspect authentic host-certified six views, actual roof/facade defects, same-model editability and reasonable token/latency cost. No separate A/B benchmark is required.
 7. Record `PASS`, `PARTIAL`, `FAIL`, `NOT_RUN` **per SU version**. A passed test on 2024 proves nothing about 2018 or 2026.
 
 ## Licensing boundaries
