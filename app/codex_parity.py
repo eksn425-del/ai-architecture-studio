@@ -35,6 +35,7 @@ This directory is the agent's persistent project-coding workspace. Treat it like
 6. Author or revise durable `.rb` files under `scripts/`; verify one representative repeated module before copying it.
 7. Execute the same files with `sketchup_run_workspace_ruby`, inspect returned screenshots/model state, and correct the same scripts/model rather than restarting.
 8. Maintain `qa/visual_qa.md`: compare source first, then current front/rear/left/right/roof/oblique evidence; keep at most three highest-impact mismatches plus a KEEP list.
+9. `qa/repair_history.json` is host-owned read-only memory of prior correction attempts. Before repeating a fix after context compaction, read it and avoid methods whose next trusted review still said `still_needs_fix`.
 
 ## Architecture-design loop
 
