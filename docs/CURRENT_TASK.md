@@ -1,3 +1,15 @@
+# 新发现的 P0 产品级缺陷 — 开源方法未进入真实 Agent 建模（2026-10-10）
+
+**用户审计结论：**我们过去把外部开源项目“研究、下载、引入、通过烟测”当作集成成果，却没有确保它在**下一次真实 K AI Studio 工作流**中被明确选择和调用。这是 Agent 执行策略/可观测性/验收的缺陷，不是证明 ADAI 无法工作。新的工程问题：[Issue #3 — OSS method selection + runtime invocation receipts](https://github.com/eksn425-del/ai-architecture-studio/issues/3)。
+
+**已验证的现状：**本仓库 `app/adopted_sketchup_helpers.rb` 真正使用 MIT SAIE/Stultus 源；ADAI 0.5.39 的 `profile_with_holes`/非平屋面**独立真 SU2024 smoke** 已通过，但正式咖啡店实际 `adai_actual_calls=0`。原因可在代码核对：`app/adai_components.py` 只在 `ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1` 时加载；`app/agent_tools.py` 仅追加可选 ADAI 说明并继续提示优先 SAIE；`app/construction_strategy.py` 只记录抽象方法类别而不记录实际 OSS provider；当前没有 writer-revision 级的真实方法调用归因。最新咖啡店仍存在叠层屋顶、3组 baseline bounds 不符、10.53M input tokens / 1800s timeout；不能把调用次数当作模型质量。
+
+**下次本地 Codex 开始前优先阅读 Issue #3** 并实现最小可验证的 **OSS 方法候选 → 按适用性路由 → 有来源的选择理由 → 原有单 writer 事务内真实调用记录 → 关联 writer receipt/效果/失败原因**。与下方当前两图咖啡店修正任务合并完成，不要额外开一个纯工程 demo 来冒充产品落地。采用合法、兼容且适用的成熟方法；若本次构件并不适用 ADAI，应记录具体原因/失败，保留旧 SAIE/Ruby fallback，而不是强制所有外部工具各调用一次。**严禁本次只再写一份“要重视开源”政策文档而不修改实际路由/遥测与测试**。
+
+**本条为下一轮 P0 任务补充**；下方咖啡店屋顶原位修正、baseline replay、完整真实截图/指标/新 SHA 上传要求继续有效。**目前 Issue #3 只是已经登记，代码层的路由与调用凭据尚未实现，不能说缺陷已修复。**
+
+---
+
 # 最新交接：咖啡店体量修复 r5（2026-10-09）
 
 [完整公开证据与错误](test-results/windows/2026-10-09-cafe-massing-repair/README.md)。实际 gpt-6-luna / max、SU2024 24.0.484，网站同模型两笔定向修正，根 PID51007、34组。写入/KEEP、六方向同r5、三次独立只读 Critic、下载副本原生重开鼠标改菜单保存再读回 PASS。自动检查316 passed / 2 skipped。
