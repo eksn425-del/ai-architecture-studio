@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install isolated test runner
-        run: python -m pip install pytest
+        run: python -m pip install pytest 'pydantic>=2.7,<3'
       - name: Validate Python syntax
         run: python -m compileall -q app/adai_components.py app/project_ruby.py app/agent_tools.py scripts/install_adai_components.py
       - name: Run no-network component tests
