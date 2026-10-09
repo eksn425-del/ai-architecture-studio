@@ -415,9 +415,10 @@ class LiteLLMRuntime:
                     elif isinstance(review, dict) and review.get("needs_fix") is True and writes < write_limit and quality_gate_nudges < max_quality_gate_nudges:
                         gate_prompt = (
                             "HOST QUALITY GATE: The current validated review says NEEDS_FIX: YES and writer budget remains. "
-                            "Apply ONE targeted correction pass to the named affected groups only, preserve the KEEP geometry, "
-                            "then recapture all six current views and submit a new visual review. Do not use a full-root replace "
-                            "unless the review explicitly shows the whole baseline is invalid."
+                            "Apply ONE targeted correction pass to the named affected groups only. First inspect the exact named "
+                            "groups that correspond to the reviewer KEEP list, then call the writer with update_mode=edit and those "
+                            "paths in preserve_paths so the host can prove they did not move/change. Recapture all six current views "
+                            "and submit a new visual review. Do not use a full-root replace during a post-review correction."
                         )
                     if gate_prompt:
                         messages.append({
