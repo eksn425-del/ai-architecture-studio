@@ -1,3 +1,22 @@
+# Branch-specific current task — ADAI 0.5.39 × SketchUp 2018–2026 compatibility
+
+**Applies ONLY on** `feat/adai-components-su2018-2026` (Draft PR #1). The `main` task remains Quality Loop v2.9 and must not be overwritten or merged without actual verification.
+
+The user wants ADAI Skill **and** Managed MCP downloadable components reused to improve K Studio's architectural modeling and ultimately support SketchUp **2018–2026**. The GitHub-only implementation is available; official release downloads, SHA-256 validation, Ruby syntax, 8 optional-component unit tests, and Windows launcher parser have passed CI [run 37887718529](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/37887718529). Full pytest has 7 known failures **identical** to untouched main; no new failing test IDs. **No ADAI-enhanced real SketchUp modeling test has passed yet.**
+
+## Next owner: Windows Codex (execute, do not stop at analysis)
+
+1. Verify a clean worktree; `git fetch origin && git switch feat/adai-components-su2018-2026 && git pull --ff-only`. Do not reset private local changes; resolve any conflicts first. Read `AGENTS.md`, `docs/EXECUTION_GUARDRAILS.md` and `docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md`.
+2. Execute `python scripts/install_adai_components.py --install skill mcp` and `--show-standalone-mcp`. If already installed, verify existing manifests/hashes rather than attempting to overwrite. The official ZIPs are CPAL-1.0; retain LICENSE/NOTICE and do not commit them into K Studio.
+3. Run `python -m pytest -q tests/test_adai_components.py` and the existing v2.8 pre-commit KEEP negative/positive real SU2024 smoke. The exact seven baseline pytest failures are documented in the CI run; do not weaken those assertions to pretend they pass.
+4. In **a new disposable SU2024 project**, explicitly enable ADAI geometry through `ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1`, retaining only K Studio's existing verified Kongxing writer. Build/inspect actual profile-with-holes, loft sections, shell grid, closed band, and an instanced repeated module. Use the same host-owned root/verified IDs, readback, KEEP and native save/reopen/edit controls. Do **not** install ADAI's alternative RBZ in the same production SU profile.
+5. Benchmark the **same public villa reference** using K Studio baseline vs. K Studio with ADAI geometry, same model/provider and task/parameter scope. Compare actual six-view source fidelity (roof/canopy, wall seams and openings, facade proportion, repeated modules), full-root rebuilds, number of wrong fixes, token/tools, native SKP editability, and time. If visual quality is not better, document PARTIAL/FAIL; do not claim success because ADAI functions can be called.
+6. Separately test the ADAI Managed MCP in an isolated SU profile/instance only if that environment is available. Never run two mutating bridges against the same model/document.
+7. Use `python scripts/install_adai_components.py --detect-sketchup` and the explicit `-SketchUpYear` launcher to test every **actually installed** version in 2018–2026. Verify per-year plugin availability, document identity, writes, geometry topology, source-matched image, native save/reopen/edit and safe rollback; otherwise mark NOT_RUN or BLOCKED. Executable discovery is not a compatibility PASS.
+8. Keep tests/screenshots and sanitized evidence in `docs/test-results/windows/`; document the exact versions and commands, failures, remaining constraints and latest public SHA. Update `docs/HANDOFF.md` and this task, then push **the feature branch only**. Keep PR #1 as DRAFT; do not merge main until user-reviewed SU2024 quality improvement, backward-compatibility checks and CPAL distribution review.
+
+---
+
 # 当前任务 — 2026-10-09 Quality Loop v2.9 / Host Repair Memory
 
 ChatGPT 继续对照 3DCodeBench 的 critique-history / last-known-good 与 SketchUp Agent Harness 的 project-local runtime memory。当前质量循环已经能独立 Critic、KEEP 保护、提交前回滚和上下文压缩，但旧 correction 历史被压缩后，Builder 仍可能忘记“刚才这个修法其实没有解决问题”，从而浪费第二次 correction 和大量 token。
