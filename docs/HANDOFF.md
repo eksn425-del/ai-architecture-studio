@@ -1,3 +1,17 @@
+## 2026-10-10 — K AI Studio OSS adoption loop implemented in main (remote CI; native SU pending)
+
+The user resolved "absorb OSS generally OR pick a project-specific OSS implementation" as a **dual-loop mechanism**: continuously improve the product's durable capabilities from legal external sources **AND** route each real task through the most suitable existing method with explicit fallback. Same philosophy applies beyond architecture (CAD, website and video). Read `docs/CONTINUOUS_CAPABILITY_ADOPTION_2026-10-10.md`; do not treat installation as product improvement.
+
+**Actual code changed, not merely instructions:** `app/oss_method_catalog.py` registers concrete licensed SAIE/opt-in ADAI methods and task applicability; `app/oss_method_runtime.rb` wraps calls and records real returned/raised events, elapsed time, and entity PID/name when returned; guarded `app/project_ruby.py` persists `oss_method_ledger` within the project-owned SketchUp root, independently reads it after commit, binds it to SHA/revision/root PID and computes `oss_method_adoption` against `app/construction_strategy.py` method IDs and reasons. `app/agent_tools.py` exposes capability routing to the actual Agent and `app/image_to_sketchup_skill.py` asks it to choose specific licensed methods before generic Ruby. Direct raw ADAI module / host ledger source forgery is disallowed by Ruby source validator.
+
+**CI:** `.github/workflows/oss-method-adoption.yml` runs Python + Ruby test suite (most recently 20 passed/1 Linux skip and Ruby wrapper PASS before latest updates; check newest CI again). `scripts/validate_test_evidence.py` requires both `model/oss-method-ledger.json` and `model/oss-method-adoption.json` for any new ≥2026-10-10 geometry report; permits only precise LF/CRLF Git normalization for the three older published 2026-10-09 reports. Future reports remain strict byte SHA checks. `.github/workflows/test-evidence-integrity.yml` green on latest EOL-compatible validator checks.
+
+**IMPORTANT limitation:** No ChatGPT-side native Windows/SU2024 execution of the changed method-tracing code. Actual future user-image model quality and true ADAI product usage not yet proven. The above is remote-code/CI integration. The next Codex run must be on user's **newly provided building reference images**, not old café or villa, and must report real method invocations and actual visual effect, including zero-use explanations.
+
+**New one-shot Codex runbook:** `docs/NEXT_ARCHITECTURE_TEST_WITH_OSS_ADOPTION_2026-10-10.md`. Current task top overrides previous café-specific historical next steps. User will attach different building pictures; do NOT start an old construction case when images are absent. Integrate mandatory original six view/current view and new OSS ledger evidence in GitHub. [Issue #3](https://github.com/eksn425-del/ai-architecture-studio/issues/3) stays open pending actual native acceptance.
+
+---
+
 # 最新交接：咖啡店体量修复 r5（2026-10-09）
 
 [完整公开证据与错误](test-results/windows/2026-10-09-cafe-massing-repair/README.md)。实际 gpt-6-luna / max、SU2024 24.0.484，网站同模型两笔定向修正，根 PID51007、34组。写入/KEEP、六方向同r5、三次独立只读 Critic、下载副本原生重开鼠标改菜单保存再读回 PASS。自动检查316 passed / 2 skipped。
