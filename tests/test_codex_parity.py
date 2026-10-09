@@ -36,7 +36,12 @@ def test_codex_parity_workspace_is_seeded_without_overwriting_agent_notes(tmp_pa
     assert (workspace / "qa").is_dir()
     assert (workspace / "qa" / "visual_qa.md").is_file()
     assert "NEEDS_FIX" in (workspace / "qa" / "visual_qa.md").read_text(encoding="utf-8")
-    assert (workspace / ".architecture-studio.json").is_file()
+    manifest_path = workspace / ".architecture-studio.json"
+    assert manifest_path.is_file()
+    manifest = __import__("json").loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["workspace_version"] >= 10
+    assert manifest["repair_history"] == "qa/repair_history.json"
+    assert manifest["repair_history_policy"] == "host-owned-read-only"
 
     notes = workspace / "notes" / "design_notes.md"
     notes.write_text("USER CONFIRMED DECISION\n", encoding="utf-8")
