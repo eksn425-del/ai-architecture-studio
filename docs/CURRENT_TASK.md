@@ -1,3 +1,15 @@
+# 当前任务 — 2026-10-09 Quality Loop v2.7 / 构造方法路由与分阶段建模
+
+ChatGPT 已审查 ADAI SketchUp Skill + Managed MCP 0.5.39（`laowang-wy/adai-sketchup-skill-mcp@cd1e02e9`）。上游为 CPAL-1.0，本轮**没有复制/内嵌其 CPAL 源码**，而是把对当前 K Studio 最有价值的建模架构独立实现到现有单写者体系：先完整主形，再真实代表模块，再复制、变体、收尾；同时把“该系统应该用什么构造方法、依赖哪些共享参数、用哪些视图验证”外部化为项目内 `notes/construction_strategy.json`。
+
+main 候选新增：结构化 construction strategy、工作区 JSON 校验、规划/执行阶段方法路由、active-context compaction 保留 strategy，以及对应测试。现有 v2.6 KEEP 无损修正、v2.5 主机认证相机、dedicated Critic、writer receipt、evidence ledger、facade schedule 都继续作为更高优先级质量门，不被新策略替代。
+
+下一位 Windows Codex 直接执行 `docs/QUALITY_LOOP_V2_7.md`。重点不是证明“多了一张 JSON”，而是用同一六视图别墅验证：主形是否更完整、墙洞是否少拼缝、屋面是否选择更合适的 profile/mesh/custom Ruby 方法、是否先验证一个重复模块再复制、full-root rebuild/tool/token 是否下降、KEEP 是否保持。若 strategy 只是文书且 Agent 忽略，按真实证据继续改 host/Skill 或删减，不得因为测试通过就宣称建模质量提升。
+
+完成后更新 HANDOFF/CURRENT_TASK/test-results，commit + push origin/main，再交给 ChatGPT 复审。远端改动本身不等于 SU2024 真机 PASS。
+
+---
+
 # 当前任务 — 2026-10-09 Quality Loop v2.6 / KEEP 无损修正门禁
 
 ChatGPT 基于 3DCodeBench 的 last-known-good / do-no-harm 思路和 SketchUp Agent Harness 的“视觉反馈先结构化再修改”边界，继续优化当前建模质量闭环。
