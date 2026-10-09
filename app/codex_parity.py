@@ -98,7 +98,7 @@ Use this for image-to-SketchUp work. Replace placeholders with observations and 
 - Visual scale anchor(s): pending
 - Dimension confidence: pending
 
-## 4. Evidence fidelity / unseen geometry policy
+## 4. Evidence fidelity / Unseen geometry policy
 
 - Fidelity mode: pending (single_view_inference / multi_view_reconstruction / full_evidence_reconstruction)
 - Primary visible source: pending

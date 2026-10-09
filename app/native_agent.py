@@ -227,6 +227,12 @@ class CodexAppServerRuntime:
                 os.link(source_auth, target_auth)
             except OSError:
                 shutil.copy2(source_auth, target_auth)
+        elif source_auth.is_file() and target_auth.is_file() and not os.path.samefile(source_auth, target_auth):
+            # Desktop/CLI sign-in replaces auth.json atomically. An isolated
+            # home can otherwise keep a revoked refresh token indefinitely.
+            # Preserve a newer runtime token; never expose credential contents.
+            if source_auth.stat().st_mtime_ns > target_auth.stat().st_mtime_ns:
+                shutil.copy2(source_auth, target_auth)
         if not target_auth.is_file():
             raise NativeAgentUnavailable("Codex login cache is unavailable. Sign in to Codex CLI on this computer first.")
 

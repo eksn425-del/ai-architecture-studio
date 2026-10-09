@@ -106,7 +106,7 @@ def _source_ref_list(value: Any, field: str) -> list[str]:
 
 def _validate_provenance(value: Any, field: str) -> str:
     if value not in EVIDENCE_PROVENANCE:
-        raise ValueError(f"{field} provenance is invalid.")
+        raise ValueError(f"{field} provenance is invalid. Expected one of: {', '.join(sorted(EVIDENCE_PROVENANCE))}. Use inferred for estimated geometry and pending for absent evidence.")
     return str(value)
 
 
@@ -133,7 +133,7 @@ def validate_reconstruction_evidence_payload(value: Any) -> dict[str, Any]:
             raise ValueError(f"sources[{index}] must be an object.")
         _validate_source_ref(item.get("path"), f"sources[{index}].path")
         if item.get("kind") not in SOURCE_KINDS:
-            raise ValueError(f"sources[{index}].kind is invalid.")
+            raise ValueError(f"sources[{index}].kind is invalid. Expected one of: {', '.join(sorted(SOURCE_KINDS))}.")
         _validate_provenance(item.get("provenance", "pending"), f"sources[{index}]")
         if "role" in item and not isinstance(item["role"], str):
             raise ValueError(f"sources[{index}].role must be a string.")
@@ -186,7 +186,7 @@ def validate_reconstruction_evidence_payload(value: Any) -> dict[str, Any]:
         if not isinstance(anchor, dict):
             raise ValueError(f"scale_anchors[{index}] must be an object.")
         if not isinstance(anchor.get("name"), str) or not anchor["name"].strip():
-            raise ValueError(f"scale_anchors[{index}].name is required.")
+            raise ValueError(f"scale_anchors[{index}].name is required. Each anchor is an object with name, positive value_mm, and provenance; an estimated anchor uses provenance=inferred.")
         number = anchor.get("value_mm")
         if isinstance(number, bool) or not isinstance(number, (int, float)) or not math.isfinite(float(number)) or number <= 0:
             raise ValueError(f"scale_anchors[{index}].value_mm must be a positive finite number.")

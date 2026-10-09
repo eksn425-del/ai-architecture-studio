@@ -96,6 +96,22 @@ def test_compaction_does_not_run_without_large_completed_history():
     assert meta["compacted"] is False
 
 
+def test_compaction_never_expands_request_with_an_oversized_checkpoint():
+    messages = [
+        {"role": "system", "content": "rules"},
+        {"role": "user", "content": "old " + "x" * 2000},
+        {"role": "assistant", "content": "done"},
+        {"role": "user", "content": "current"},
+    ]
+    result, meta = compact_active_reconstruction_context(
+        messages, "ACTIVE RECONSTRUCTION CHECKPOINT\n" + "z" * 10000,
+        threshold_chars=1000,
+    )
+    assert result == messages
+    assert meta["compacted"] is False
+    assert meta["after_chars"] == meta["before_chars"]
+
+
 
 def test_active_visual_filter_keeps_newest_source_copy_for_compaction():
     from app.litellm_runtime import _current_visual_context
@@ -104,7 +120,7 @@ def test_active_visual_filter_keeps_newest_source_copy_for_compaction():
     messages = [
         {"role": "system", "content": "rules"},
         {"role": "user", "content": [
-            {"type": "text", "text": "old request"},
+            {"type": "text", "text": "old request " + "x" * 100000},
             {"type": "text", "text": "Source image 1: inputs/reference/source.png. Verify this view using visible landmarks."},
             {"type": "image_url", "image_url": {"url": source_url}},
         ]},
@@ -129,7 +145,7 @@ def test_active_visual_filter_keeps_newest_source_copy_for_compaction():
 
     compacted, meta = compact_active_reconstruction_context(
         filtered,
-        "ACTIVE RECONSTRUCTION CHECKPOINT\n" + "z" * 100000,
+        "ACTIVE RECONSTRUCTION CHECKPOINT\ncurrent source facts",
         threshold_chars=1000,
     )
     assert meta["compacted"] is True

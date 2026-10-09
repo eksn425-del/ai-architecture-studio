@@ -233,6 +233,8 @@ def compact_active_reconstruction_context(
     system["content"] = system_content.rstrip() + "\n\n" + checkpoint
     compacted = [system, *messages[current_user:]]
     after = _request_size_chars(compacted)
+    if after >= before:
+        return messages, {"compacted": False, "dropped_messages": 0, "before_chars": before, "after_chars": before}
     return compacted, {
         "compacted": True,
         "dropped_messages": current_user - 1,

@@ -96,7 +96,8 @@ def test_litellm_adapter_does_not_send_without_local_dashscope_credential(tmp_pa
         )
 
 
-def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, monkeypatch):
+@pytest.mark.parametrize("call_count", [1, 2])
+def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, monkeypatch, call_count):
     monkeypatch.setenv("DASHSCOPE_API_KEY", "test-only-key")
     client = ToolClient()
     runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=client, region="beijing")
@@ -110,11 +111,15 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
             message = {
                 "content": None,
                 "tool_calls": [{
-                    "id": "call-health",
+                    "id": f"call-health-{index}",
                     "function": {"name": "sketchup_health", "arguments": "{}"},
-                }],
+                } for index in range(call_count)],
             }
         else:
+            assistant_index = next(i for i, item in enumerate(kwargs["messages"]) if item.get("tool_calls"))
+            tool_batch = kwargs["messages"][assistant_index + 1:assistant_index + 1 + call_count]
+            assert [item.get("tool_call_id") for item in tool_batch] == [f"call-health-{i}" for i in range(call_count)]
+            assert all(item["role"] == "tool" for item in tool_batch)
             assert any(
                 part.get("type") == "image_url"
                 for item in kwargs["messages"] if item.get("role") == "user"
@@ -135,18 +140,23 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
         ruby_enabled=False,
     )
 
-    assert client.calls == [("sketchup_health", {})]
+    assert client.calls == [("sketchup_health", {})] * call_count
     assert seen[0]["tools"][0]["function"]["name"] == "sketchup_health"
     assert seen[0]["api_base"] == "https://dashscope.aliyuncs.com/compatible-mode/v1"
     assert result.reply == "SketchUp 状态正常，视口已检查。"
     assert result.provider_name == "litellm"
     assert result.region == "beijing"
     assert (result.input_tokens, result.output_tokens) == (246, 90)
-    assert result.tool_call_count == 1
+    assert result.tool_call_count == call_count
     assert result.failed_tool_calls == 0
 
 
 def test_deepseek_preserves_thinking_through_tools_and_next_turn(tmp_path, monkeypatch):
+    # Mock the transport module explicitly: this test must also run alone,
+    # without relying on a previous test having imported LiteLLM submodules.
+    handler_module = ModuleType("litellm.llms.custom_httpx.http_handler")
+    handler_module.HTTPHandler = lambda *, client: SimpleNamespace(client=client)
+    monkeypatch.setitem(sys.modules, handler_module.__name__, handler_module)
     monkeypatch.setenv("ARCH_STUDIO_API_TRUST_ENV", "0")
     runtime = LiteLLMRuntime(tmp_path, sketchup_mcp=ToolClient(), model="deepseek/deepseek-flash")
     runtime.session_api_key = "test-only-key"

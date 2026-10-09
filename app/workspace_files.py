@@ -14,7 +14,7 @@ def workspace_file_tools() -> list[dict]:
     return [
         {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/JSON/Ruby file.",
          "inputSchema": {"type": "object", "properties": {"relative_path": schema}, "additionalProperties": False}},
-        {"type": "function", "name": "workspace_write", "description": "Write or append persistent reconstruction notes/validated JSON/Ruby inside the generated workspace only.",
+        {"type": "function", "name": "workspace_write", "description": "Write or append persistent reconstruction notes/validated JSON/Ruby inside the generated workspace only. Read the seeded JSON first and preserve its schema. reconstruction_evidence: source kind=exterior_image/interior_image/floorplan_image/cad/document/dimension_note; provenance=pending/observed/user_confirmed/inferred (not estimated/absent); scale_anchors require name,value_mm,provenance. hard_constraints and assumptions are string lists. Unseen inference_policy values=infer_coherent (exterior), infer_plausible (interior), or do_not_infer. Missing CAD/floorplan/interior: provided=false, provenance=pending, source_refs=[].",
          "inputSchema": {"type": "object", "required": ["relative_path", "content"], "properties": {
              "relative_path": schema, "content": {"type": "string", "maxLength": MAX_TEXT_BYTES}, "append": {"type": "boolean"}}, "additionalProperties": False}},
     ]

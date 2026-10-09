@@ -161,7 +161,10 @@ function refreshTierLabels() {
   const premium = select.querySelector('option[value="premium"]');
   const economyRoute = routeInfo("economy");
   const premiumRoute = routeInfo("premium");
-  economy.textContent = `DeepSeek V4.1 Flash${routeAvailable("economy") ? " · 已配置" : " · 未配置"}`;
+  const economyLabel = economyRoute.model === "deepseek/deepseek-flash"
+    ? "DeepSeek V4.1 Flash"
+    : `${economyRoute.model} · ${(economyRoute.reasoning_effort || "provider-default").toUpperCase()}`;
+  economy.textContent = `${economyLabel}${routeAvailable("economy") ? " · 已配置" : " · 未配置"}`;
   premium.textContent = `精修 · ${premiumRoute.model}（仅本轮${routeAvailable("premium") ? "" : " · 未配置"}）`;
 }
 
@@ -205,6 +208,7 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/workspace routing discovery unauthorized|refresh token was already used/i.test(message)) return "Codex 本机登录缓存已失效，需要刷新 Codex 登录；这不是 DeepSeek API Key 问题。图片、计划和模型已保留。";
   if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后会同步本轮结果，请不要重复发送。";
   // Ruby backtrace line numbers (e.g. geometry_tools.rb:401) are not HTTP codes.
   const httpStatus = code => new RegExp(`请求失败\\s*[（(]${code}[）)]|\\bHTTP(?:\\s+(?:error|status))?\\s*[:=]?\\s*${code}\\b|\\bstatus(?:_code)?["']?\\s*[:=]\\s*${code}\\b`, "i").test(message);

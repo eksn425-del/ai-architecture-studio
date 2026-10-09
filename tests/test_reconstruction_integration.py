@@ -286,6 +286,27 @@ def test_native_home_preserves_supported_windows_sandbox_choice(tmp_path, monkey
     assert config["sandbox_workspace_write"]["writable_roots"] == [str(workspace.resolve())]
 
 
+def test_native_home_refreshes_older_isolated_login_cache(tmp_path, monkeypatch):
+    import os
+    from app.native_agent import CodexAppServerRuntime
+    source = tmp_path / "source"
+    isolated = tmp_path / "isolated"
+    source.mkdir()
+    isolated.mkdir()
+    (source / "config.toml").write_text('', encoding='utf-8')
+    (source / "auth.json").write_text('synthetic-new-login', encoding='utf-8')
+    (isolated / "auth.json").write_text('synthetic-old-login', encoding='utf-8')
+    os.utime(isolated / 'auth.json', (1, 1))
+    monkeypatch.setenv('CODEX_HOME', str(source))
+    runtime = CodexAppServerRuntime(tmp_path, codex_executable='synthetic', home_root=isolated)
+    runtime._prepare_home(mcp_enabled=False, agent_workspace=tmp_path / 'workspace')
+    assert (isolated / 'auth.json').read_text() == 'synthetic-new-login'
+    (isolated / 'auth.json').write_text('synthetic-runtime-refreshed', encoding='utf-8')
+    os.utime(source / 'auth.json', (1, 1))
+    runtime._prepare_home(mcp_enabled=False, agent_workspace=tmp_path / 'workspace')
+    assert (isolated / 'auth.json').read_text() == 'synthetic-runtime-refreshed'
+
+
 def test_native_tools_require_registered_execution_thread():
     from app.native_agent import _can_resume_tools, _thread_tool_fingerprint
     tools = [{"name": "sketchup_run_workspace_ruby", "inputSchema": {"type": "object"}}]

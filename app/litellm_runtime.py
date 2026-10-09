@@ -268,6 +268,7 @@ class LiteLLMRuntime:
                 "source_matched_pairs": len(matched_pairs),
             })
             try:
+                critic_started = time.monotonic()
                 response = invoke_completion(critic_kwargs)
             except Exception as error:
                 safe_error = str(error).replace(api_key, "[credential hidden]")
@@ -283,6 +284,7 @@ class LiteLLMRuntime:
             record({
                 "event": "visual_critic_response",
                 "model": selected_model,
+                "latency_ms": round((time.monotonic() - critic_started) * 1000),
                 "input_tokens": usage[0],
                 "output_tokens": usage[1],
                 "needs_fix": critique.needs_fix,
@@ -459,6 +461,7 @@ class LiteLLMRuntime:
             if message.get("reasoning_content") is not None:
                 assistant_message["reasoning_content"] = message["reasoning_content"]
             messages.append(assistant_message)
+            pending_visual_readbacks = []
             for call in raw_tool_calls:
                 call_id, name, arguments = _tool_call_parts(call)
                 tool_call_count += 1
@@ -501,7 +504,11 @@ class LiteLLMRuntime:
                 if images:
                     content: list[dict[str, Any]] = [{"type": "text", "text": f"Visual readback from SketchUp tool {name}."}]
                     content.extend({"type": "image_url", "image_url": {"url": image}} for image in images)
-                    messages.append({"role": "user", "content": content})
+                    pending_visual_readbacks.append({"role": "user", "content": content})
+            # Every tool_call_id in the assistant batch must be answered before
+            # any user/image message. DeepSeek can batch calls even when the
+            # request sets parallel_tool_calls=false.
+            messages.extend(pending_visual_readbacks)
             # Checkpoint complete function-call exchanges, including failed attempts.
             # Repeated full-script generation must not silently spend the whole call budget.
             save_history()

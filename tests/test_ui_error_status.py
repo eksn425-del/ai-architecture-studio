@@ -16,7 +16,7 @@ def test_ruby_backtrace_line_is_not_provider_http_status():
     inputs = ["Cannot save copy to current model file. geometry_tools.rb:401",
               "geometry_tools.rb:402", "geometry_tools.rb:429",
               "AuthenticationError: invalid API key", "请求失败（401）",
-              "HTTP 402", 'status_code: 429']
+              "HTTP 402", 'status_code: 429', "workspace routing discovery unauthorized (401)"]
     program = source[start:end] + "\nconsole.log(JSON.stringify(" + json.dumps(inputs) + ".map(message => friendlyError({message}))));"
     result = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", check=True)
     outputs = json.loads(result.stdout)
@@ -24,3 +24,4 @@ def test_ruby_backtrace_line_is_not_provider_http_status():
     assert all("API Key 无效" in x for x in outputs[3:5])
     assert "额度不足" in outputs[5]
     assert "限流" in outputs[6]
+    assert "Codex 本机登录缓存" in outputs[7]

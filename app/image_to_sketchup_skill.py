@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-MAX_CONTEXT_CHARS = 10_000
+MAX_CONTEXT_CHARS = 20_000
 
 
 _IMAGE_TO_SKETCHUP_CONTEXT = r"""
@@ -16,6 +16,8 @@ Reconstruct reference architecture as editable SketchUp geometry. Images are the
 Deliver developed source-matched editable geometry; a few white boxes are an automatic failure.
 
 ## Core workflow
+
+For text only input, derive a coherent estimated design and label assumptions. For multiple images, map each exact filename to visible landmarks such as the street entrance before assigning front/rear/left/right; source labels are clues, not proof.
 
 **inspect source → clarify high-impact unknowns → parameterize assumptions → user approval → author/revise persistent Ruby → execute → inspect screenshots/model → revise the same scripts/model**.
 
