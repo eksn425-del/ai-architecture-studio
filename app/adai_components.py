@@ -224,9 +224,16 @@ def detect_sketchup_installations() -> list[dict]:
             root / "SketchUp" / f"SketchUp {year}" / "SketchUp.exe" for root in roots
         ]
         existing = next((p for p in paths if p.is_file()), None)
+        roaming = os.getenv("APPDATA") if os.name == "nt" else None
+        plugin_path = (
+            Path(roaming) / "SketchUp" / f"SketchUp {year}" / "SketchUp"
+            / "Plugins" / "kongxing_ai_sketchup" / "main.rb"
+            if roaming else None
+        )
         found.append({
             "year": year, "installed": existing is not None,
             "executable": str(existing) if existing else None,
+            "kongxing_bridge_plugin_present": bool(plugin_path and plugin_path.is_file()),
             "kstudio_real_su_validation": "2024_legacy_bridge_only" if year == 2024 else "not_run",
             "adai_upstream_validation": "2019_targeted_only" if year == 2019 else "not_run",
             "adai_geometry_in_kstudio": "not_run",
