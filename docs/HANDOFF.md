@@ -1,3 +1,17 @@
+## 2026-10-10 — New mainline code and next Codex handoff
+
+User requested a direct improvement of K AI Studio after new Dream Coffee r3. The next single task is [Dream Coffee protected repair](NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md). This supersedes old new-image/villa/cafe next-step requests.
+
+Last immutable real report: [2026-10-10-dream-coffee-oss](test-results/windows/2026-10-10-dream-coffee-oss/README.md), GPT-6 Luna/max, SU2024, r3 PID35529 with 110 groups, true SAIE opening and 9 ADAI profiles; native SKP edit/reopen PASS; independent Critic NEEDS_FIX:YES, missing upper flat canopy, degraded timber cladding, open porch mismatch, incomplete interior and oversize camera whitespace. 10.504M input/160 tool calls/26 failures, one Native timeout, manual recovery. Overall quality PARTIAL.
+
+Direct code changes in main: (1) Windows/Linux evidence inventory casefold ordering in scripts/validate_test_evidence.py restored [GitHub evidence CI success](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/38033858268), preserving actual SHA256 checks; (2) app/edit_scope_guard.rb + app/project_ruby.py + app/workspace_ruby.py + app/agent_tools.py offer opt-in declared allowed_mutation_paths, checking unlisted top-level root groups before SU commit and returning edit_scope_receipt; (3) app/strategy_progress.py advances only actually read-back owned target paths to BUILT and saves construction_progress.json, no automatic visual VERIFIED or guessed nested names; (4) app/native_agent.py adds defaults of 64 observed calls and 2.5M actual reported input tokens per Builder turn (environment overridable) and preserves interrupted partial status; (5) app/image_to_sketchup_skill.py requires prior-vs-new visual checks. New Python/Ruby contract tests added, plus [Issue #4](https://github.com/eksn425-del/ai-architecture-studio/issues/4).
+
+Only remote offline CI verified at this point: [K AI Studio OSS workflow 38034519817](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/38034519817) had 30 Python tests passed/1 skipped, Ruby OSS and edit-scope PASS. SU2024 new code behavior must be tested locally by Codex, not called native_verified prematurely.
+
+Next Codex: pull latest main and run scripts/check.ps1; verify disposable positive/negative allowed-mutation transactions, no unauthorized changes, KEEP unchanged and stage progress honest; then fix actual Dream Coffee canopy/support, side wood cladding, porch with at most 2 bounded corrections, upload before/after matching views, six current PNGs, independent read-only Critic, new origin-approved source view, source-script replay, native SKP download/reopen/edit, true OSS ledger, token/failure metrics and full GitHub evidence with green CI. Do not modify user's private source file, original SKP, or historical test evidence. Do not start CAD/render/video/PPT.
+
+---
+
 # 最新本机交接 — Dream Coffee 新整图 × OSS 实用化（2026-10-10）
 
 [完整公开证据](test-results/windows/2026-10-10-dream-coffee-oss/README.md)。实际 gpt-6-luna/max、SU2024 24.0.484、Kongxing单writer、ADAI0.5.39 opt-in。用户最新五面板图整幅上传，原图私密未公开，未替换旧案例。网站正式主模型PID35529/r3/110对象，SAIE墙洞与ADAI九条檩条真实调用/提交读回，ledger/adoption公开，效果仍非PASS。
