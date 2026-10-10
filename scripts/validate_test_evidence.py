@@ -98,6 +98,32 @@ def _legacy_windows_newline_equivalent(directory: Path, previous: dict, inventor
     return True
 
 
+def _manifest_mismatches(expected: dict, observed: list[dict], limit: int = 15) -> list[str]:
+    """Report real changed paths, never suppress a failed integrity check."""
+    recorded = expected.get("files", [])
+    if not isinstance(recorded, list):
+        return ["Manifest files is not a list"]
+    old = {r.get("path"): r for r in recorded if isinstance(r, dict)}
+    actual = {r["path"]: r for r in observed}
+    differences = []
+    for name in sorted(set(old) | set(actual)):
+        before, after = old.get(name), actual.get(name)
+        if before == after:
+            continue
+        if before is None:
+            cause = "new file not recorded"
+        elif after is None:
+            cause = "recorded file absent"
+        else:
+            cause = (f"hash/size differs: expected {before.get('bytes')} bytes "
+                     f"{str(before.get('sha256'))[:16]}, found {after['bytes']} bytes "
+                     f"{after['sha256'][:16]}")
+        differences.append(f"{name}: {cause}")
+        if len(differences) >= limit:
+            break
+    return differences
+
+
 def validate(directory: Path, *, write_manifest: bool = False) -> list[str]:
     errors: list[str] = []
     if not directory.is_dir() or directory.is_symlink():
@@ -233,8 +259,10 @@ def validate(directory: Path, *, write_manifest: bool = False) -> list[str]:
                     not strict_match
                     and _legacy_windows_newline_equivalent(directory, previous, inventory)
                 )
-                _check(strict_match or legacy_newlines_only,
-                       errors, "Manifest mismatch: report file contents changed or files are missing")
+                if not (strict_match or legacy_newlines_only):
+                    errors.append("Manifest mismatch: report file contents changed or files are missing")
+                    for item in _manifest_mismatches(previous, inventory):
+                        errors.append("Manifest detail: " + item)
                 if legacy_newlines_only:
                     print("LEGACY_NOTE: Windows text EOL normalization only:", directory)
             except (ValueError, OSError, AttributeError) as exc:
