@@ -51,7 +51,16 @@ def _check(condition: bool, errors: list[str], msg: str) -> None:
 
 def _inventory(directory: Path) -> list[dict]:
     records = []
-    for path in sorted(directory.rglob("*")):
+    # Windows Path ordering is case-insensitive; Linux Path ordering is not.
+    # A GitHub Actions checkout must compare the SAME canonical file order as
+    # Codex generated on Windows, otherwise unchanged manifests falsely fail.
+    for path in sorted(
+        directory.rglob("*"),
+        key=lambda item: (
+            item.relative_to(directory).as_posix().casefold(),
+            item.relative_to(directory).as_posix(),
+        ),
+    ):
         if path.is_symlink():
             raise ValueError(f"Symlink not allowed in public evidence: {path}")
         if not path.is_file() or path.name == MANIFEST_FILE:
