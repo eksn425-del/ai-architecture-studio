@@ -504,6 +504,7 @@ class AgentToolSurface:
                     "model readback plus a screenshot. update_mode=replace (default) CLEARS the owned root before running "
                     "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
                     "complete rebuild; local corrections must use edit. After a visual review, correction writes are host-forced to edit mode; "
+                    "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs. For every targeted edit pass allowed_mutation_paths: any unrelated direct owned group will be verified unchanged precommit, including newly added groups. "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs, "
                     "object counts and mm bounds did not change. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
@@ -539,6 +540,18 @@ class AgentToolSurface:
                         "relative_path": {"type": "string", "pattern": "^scripts/[A-Za-z0-9_.-]+\\.rb$", "maxLength": 160},
                         "update_mode": {"type": "string", "enum": ["replace", "edit"], "default": "replace"},
                         "allow_full_rebuild": {"type": "boolean", "description": "Explicit intentional whole-root rebuild only; do not set for local modifications."},
+                        "allowed_mutation_paths": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 48,
+                            "description": "For targeted edit, declare every direct owned group permitted to change or be added. The host rejects ANY change to other top-level groups before commit, independent of selected KEEP paths. Must include names of new groups, and the top-level ancestor of nested edits. This protects unchanged geometry, not visual detail within an allowed group.",
+                            "items": {
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 8,
+                                "items": {"type": "string", "minLength": 1, "maxLength": 200}
+                            }
+                        },
                         "preserve_paths": {
                             "type": "array",
                             "maxItems": 24,
