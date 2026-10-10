@@ -219,7 +219,8 @@ class ProjectRubyExecutor:
                     + "))",
                     "  root.set_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt', JSON.generate(edit_scope_receipt))",
                 ]
-                if update_mode == "edit" and allowed_mutation_names else []
+                if update_mode == "edit" and allowed_mutation_names
+                else ["  root.set_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt', 'null')"]
             ),
             # The method-use ledger is bound to this guarded model write.
             "  oss_method_ledger = {'schema_version' => 1, 'source_sha256' => "
