@@ -22,11 +22,10 @@ def test_guard_only_armed_for_explicit_targeted_edit(monkeypatch, tmp_path):
     )
     assert "KStudioEditScopeGuard.fingerprints(root)" in target
     assert "KStudioEditScopeGuard.verify!(root, edit_scope_before" in target
-    assert 'JSON.parse("[\\\"FRONT_GLAZING\\\",\\\"FRONT_GLAZING_NEW\\\"]")' not in target or "FRONT_GLAZING_NEW" in target
+    assert "FRONT_GLAZING_NEW" in target
     assert "root.set_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt'" in target
     assert target.index("eval(source, binding") < target.index("KStudioEditScopeGuard.verify!")
     assert target.index("KStudioEditScopeGuard.verify!") < target.index("oss_method_ledger")
-    assert "edit_scope_receipt" in executor.inspect_owned.__code__.co_consts or True
 
     legacy = executor._build_transport_script(
         tmp_path / "edit.rb", tmp_path / "report.json", 3, 123, update_mode="edit",
