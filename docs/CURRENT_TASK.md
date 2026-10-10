@@ -5,7 +5,7 @@
 ### 已合并到同一 K AI Studio main 的实际代码（不是文档计划）
 
 1. **GitHub CI 证据清单修复：**`scripts/validate_test_evidence.py` 统一 Windows/Linux 大小写文件顺序，不再误报 SHA256 manifest 差异；没有放松单文件哈希检查。证据工作流 <https://github.com/eksn425-del/ai-architecture-studio/actions/runs/38033858268> SUCCESS。
-2. **局部编辑边界：**`app/edit_scope_guard.rb`、`app/project_ruby.py`、`app/workspace_ruby.py`、`app/agent_tools.py` 增加 `allowed_mutation_paths` 的可选受控 edit。声明所有允许修改或新增的顶层组，事务**提交前**检查所有其他直接组 PID/子组数/bounds；未声明的变更抛错并回滚，readback `edit_scope_receipt` 必须为 passed。这个 guard 不能自动判断白名单内材质/视觉优劣，仍需源图与前后特写。
+2. **局部编辑边界：**`app/edit_scope_guard.rb`、`app/project_ruby.py`、`app/workspace_ruby.py`、`app/agent_tools.py` 增加 `allowed_mutation_paths` 的受控 edit：在一般旧版调用中兼容可选，但**重建专用流程的审查后修正及恢复会话首次修改已经由宿主强制要求提供**。声明所有允许修改或新增的顶层组，事务**提交前**检查所有其他直接组 PID/子组数/bounds；未声明的变更抛错并回滚，readback `edit_scope_receipt` 必须为 passed。这个 guard 不能自动判断白名单内材质/视觉优劣，仍需源图与前后特写。
 3. **建模状态核实：**`app/strategy_progress.py` 根据完整分页读取的**真实提交模型直属子组**更新已证实的 `pending → built`，并生成 `notes/construction_progress.json`；嵌套路径没有额外真实证据时继续 pending，不可报 verified。同步 `app/project_ruby.py` 的模型写入后流程；真实 SU2024 需 Codex 首先实测。
 4. **Native 预算保护：**`app/native_agent.py` 默认每 Builder turn 最多 64 次可观测工具调用 / 250 万已报告输入 token；通过 APP Server 实际 usage 通知和调用计数进行熔断，保留 partial_result 与已提交模型状态。预算为**每轮**，不是整个任务的成本证明；无法收到 usage 通知时不能推断 token。
 5. **回归测试：**`tests/test_edit_scope_guard.py`、`tests/ruby/edit_scope_guard_test.rb`、`tests/test_strategy_progress.py`、`tests/test_native_turn_budget.py` 和 GitHub CI，Python/Ruby 离线通过是必要但不等于真 SketchUp 自动化已验收。`app/image_to_sketchup_skill.py` 进一步强调本轮修正前后比对、不得丢木饰面细节。
