@@ -47,6 +47,8 @@ def run_workspace_ruby(
     source = path.read_text(encoding="utf-8")
     payload = {"script_id": script_id, "ruby_source": source,
                "update_mode": arguments.get("update_mode", "replace")}
+    if "allowed_mutation_paths" in arguments:
+        payload["allowed_mutation_paths"] = arguments["allowed_mutation_paths"]
     if "allow_full_rebuild" in arguments:
         payload["allow_full_rebuild"] = arguments["allow_full_rebuild"]
     # Host-only field: AgentToolSurface fingerprints reviewer KEEP paths before
