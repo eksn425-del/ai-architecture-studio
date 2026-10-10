@@ -142,6 +142,18 @@ class CodexAppServerRuntime:
                                 else int(os.environ.get("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "900")))
         if not 30 <= self.timeout_seconds <= 3600:
             raise ValueError("Codex turn timeout must be between 30 and 3600 seconds.")
+        # Bounded execution: stop runaway native turns rather than silently
+        # spending millions of input tokens. 0 explicitly disables a cap.
+        self.max_tool_calls_per_turn = int(
+            os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS", "64")
+        )
+        self.max_input_tokens_per_turn = int(
+            os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "2500000")
+        )
+        if not 0 <= self.max_tool_calls_per_turn <= 512:
+            raise ValueError("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS must be 0..512.")
+        if not 0 <= self.max_input_tokens_per_turn <= 50000000:
+            raise ValueError("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS must be 0..50000000.")
         configured_home = home_root
         if configured_home is None and os.environ.get("ARCH_STUDIO_CODEX_HOME"):
             configured_home = Path(os.environ["ARCH_STUDIO_CODEX_HOME"])
@@ -497,7 +509,29 @@ class CodexAppServerRuntime:
                 elif usage_total_before is None:
                     input_tokens = usage[0] if usage[0] is not None else input_tokens
                     output_tokens = usage[1] if usage[1] is not None else output_tokens
+                # Token notifications are sparse in some Codex versions.
+                # Enforce only when REAL turn-delta telemetry is available;
+                # do not infer tokens from context size or tool count.
+                if (not read_only and self.max_input_tokens_per_turn > 0
+                        and isinstance(input_tokens, int)
+                        and input_tokens > self.max_input_tokens_per_turn):
+                    record({"event": "native_budget_exhausted", "kind": "input_tokens",
+                            "observed": input_tokens, "limit": self.max_input_tokens_per_turn})
+                    raise NativeAgentUnavailable(
+                        "Native Builder exceeded the configured input-token budget. "
+                        "Committed SketchUp changes remain recoverable; start a smaller "
+                        "new turn from the project checkpoint instead of repeating the same loop."
+                    )
                 if method in {"item/tool/call", "dynamicToolCall"} and message.get("id") is not None:
+                    if (not read_only and self.max_tool_calls_per_turn > 0
+                            and tool_call_count >= self.max_tool_calls_per_turn):
+                        record({"event": "native_budget_exhausted", "kind": "tool_calls",
+                                "observed": tool_call_count, "limit": self.max_tool_calls_per_turn})
+                        raise NativeAgentUnavailable(
+                            "Native Builder reached the configured tool-call budget. "
+                            "Preserve completed writes and resume from verified project state, "
+                            "not an unbounded retry loop."
+                        )
                     call = _tool_summary(params)
                     tool_calls.append(call)
                     tool_call_count += 1
