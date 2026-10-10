@@ -602,4 +602,3 @@ dc_label(root.entities, 'SIGNAGE_SIDE', 'Dream Coffee', [12160, 2600, 3780], sid
 
 # Source-based fit-out details kept simple so all furniture remains editable and visible.
 # Ground, upper room and terrace are connected by the exterior stair, with the rear service door inferred.
-
