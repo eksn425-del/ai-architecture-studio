@@ -1,5 +1,15 @@
 # AGENTS.md
 
+## Latest Codex handoff — Dream Coffee r3 guarded repair (2026-10-10)
+
+**Single next assignment:** [`docs/NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md`](docs/NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md). This supersedes previous old café/villa/new-image "next tasks". User wants to fix the newly built Dream Coffee r3 sourced from a private five-panel collage. Do not guess sources or create a different building.
+
+Recent `main` code now offers an explicitly declared `allowed_mutation_paths` option on `sketchup_run_workspace_ruby` in edit mode: all unrelated *direct* root child groups are fingerprinted and any undeclared modifications/additions must abort the EXISTING SketchUp transaction. Use both it AND existing `preserve_paths` KEEP for all local corrections; verify `edit_scope_receipt` and genuine before/after source-matched closeups. This is structural protection, **not** a substitute for a visual regression review of changes inside allowed groups.
+
+After successful writes, `construction_progress.json` should be reconciled from **real owned-root readback**; report unresolved nested paths rather than blindly changing planned systems from `pending` to `verified`. Per Native Builder turn budget circuit breakers default to 64 observed tool calls and 2.5M reported input tokens; an interruption is partial progress, not a hidden success. Exact behavior must be verified on real Windows SU2024 before promoting status.
+
+Do not overwrite prior Dream Coffee evidence. Every new run requires all six current PNGs, model/OSS/adoption, native SKP editability and genuine modified/protected-group receipts, full errors/usage, a fresh SHA256 manifest and a GitHub check on the new report. Keep original private sources and SKP files out of public GitHub.
+
 ## Owner decision — external-source learning must change real user experience (2026-10-10)
 
 **Do not mistake research / downloaded source / installed Skill / isolated smoke for an improvement to the product.** K AI Studio now follows TWO complementary loops: **continually adopt licensed and useful external methods into stable product capabilities**, then **select a suitable actual method per real task and verify that it ran**. This is not specific to 3D: the same rule applies to future CAD, website, video and workflow products. Read [continuous capability adoption policy](docs/CONTINUOUS_CAPABILITY_ADOPTION_2026-10-10.md).
