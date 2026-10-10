@@ -1,0 +1,289 @@
+{
+  "initial": {
+    "success": true,
+    "contentItems": [
+      {
+        "type": "inputText",
+        "text": "{\n  \"script_id\": \"adai_smoke\",\n  \"script_revision\": 1,\n  \"source_sha256\": \"a12fc9e2ed27a9b434aedbf4c72e356b3d5f32c9e08f8e7d07f1b977dcff79eb\",\n  \"transaction\": {\n    \"schema_version\": 1,\n    \"project_id\": \"dream-coffee-oss-smoke-1010\",\n    \"expected_revision\": 0,\n    \"model_path\": \"<private-path> AI 产品建模网站\\\\runtime\\\\projects\\\\dream-coffee-oss-smoke-1010\\\\outputs\\\\model\\\\blank-disposable-20261010-104330.skp\",\n    \"guid_before\": \"396321ea-139f-49bd-a407-b06949e5b628\",\n    \"status\": \"committed\",\n    \"at\": \"2026-10-10T02:46:17Z\",\n    \"scenes_before\": {\n      \"available\": true,\n      \"pages\": []\n    },\n    \"owned_before\": {\n      \"api_units\": \"inch\",\n      \"bounds_units\": \"mm\",\n      \"axes\": [\n        \"x\",\n        \"y\",\n        \"z\"\n      ],\n      \"root_bounds_frame\": \"model\",\n      \"object_bounds_frame\": \"owned-root-local\",\n      \"bounds_mm\": {\n        \"min\": [\n          0.0,\n          0.0,\n          0.0\n        ],\n        \"max\": [\n          0.0,\n          0.0,\n          0.0\n        ],\n        \"size\": [\n          0.0,\n          0.0,\n          0.0\n        ]\n      },\n      \"objects_total\": 0,\n      \"truncated\": false,\n      \"objects\": []\n    },\n    \"owned_after\": {\n      \"api_units\": \"inch\",\n      \"bounds_units\": \"mm\",\n      \"axes\": [\n        \"x\",\n        \"y\",\n        \"z\"\n      ],\n      \"root_bounds_frame\": \"model\",\n      \"object_bounds_frame\": \"owned-root-local\",\n      \"bounds_mm\": {\n        \"min\": [\n          0.0,\n          -120.0,\n          0.0\n        ],\n        \"max\": [\n          13000.0,\n          4000.0,\n          4450.0\n        ],\n        \"size\": [\n          13000.0,\n          4120.0,\n          4450.0\n        ]\n      },\n      \"objects_total\": 3,\n      \"truncated\": false,\n      \"objects\": [\n        {\n          \"persistent_id\": 21,\n          \"name\": \"ADAI_WALL\",\n          \"locked\": false,\n          \"bounds_mm\": {\n            \"min\": [\n              0.0,\n              0.0,\n              0.0\n            ],\n            \"max\": [\n              6000.0,\n              300.0,\n              3200.0\n            ],\n            \"size\": [\n              6000.0,\n              300.0,\n              3200.0\n            ]\n          }\n        },\n        {\n          \"persistent_id\": 111,\n          \"name\": \"ADAI_ROOF\",\n          \"locked\": false,\n          \"bounds_mm\": {\n            \"min\": [\n              0.0,\n              0.0,\n              3250.0\n            ],\n            \"max\": [\n              6000.0,\n              4000.0,\n              4450.0\n            ],\n            \"size\": [\n              6000.0,\n              4000.0,\n              1200.0\n            ]\n          }\n        },\n        {\n          \"persistent_id\": 223,\n          \"name\": \"SAIE_SMOKE_WALL\",\n          \"locked\": false,\n          \"bounds_mm\": {\n            \"min\": [\n              7000.0,\n              -120.0,\n              0.0\n            ],\n            \"max\": [\n              13000.0,\n              120.0,\n              3000.0\n            ],\n            \"size\": [\n              6000.0,\n              240.0,\n              3000.0\n            ]\n          }\n        }\n      ]\n    },\n    \"revision\": 1,\n    \"root_pid\": 19,\n    \"scenes_after\": {\n      \"available\": true,\n      \"pages\": []\n    }\n  },\n  \"model_identity\": {\n    \"guid\": \"396321ea-139f-49bd-a407-b06949e5b628\",\n    \"model_name\": \"blank-disposable-20261010-104330.skp\"\n  },\n  \"model_readback\": {\n    \"model_name\": \"blank-disposable-20261010-104330\",\n    \"units\": \"mm\",\n    \"entity_count\": 1,\n    \"selection_count\": 0\n  },\n  \"write_verification\": {\n    \"schema_version\": 1,\n    \"verified\": true,\n    \"source\": \"post_commit_owned_root_readback\",\n    \"checks\": [\n      {\n        \"check\": \"transaction_status\",\n        \"expected\": \"committed\",\n        \"actual\": \"committed\"\n      },\n      {\n        \"check\": \"root_persistent_id\",\n        \"expected\": 19,\n        \"actual\": 19\n      },\n      {\n        \"check\": \"revision\",\n        \"expected\": 1,\n        \"actual\": 1\n      },\n      {\n        \"check\": \"objects_total\",\n        \"expected\": 3,\n        \"actual\": 3\n      },\n      {\n        \"check\": \"bounds_mm\",\n        \"expected\": {\n          \"min\": [\n            0.0,\n            -120.0,\n            0.0\n          ],\n          \"max\": [\n            13000.0,\n            4000.0,\n            4450.0\n          ],\n          \"size\": [\n            13000.0,\n            4120.0,\n            4450.0\n          ]\n        },\n        \"actual\": {\n          \"min\": [\n            0,\n            -120,\n            0\n          ],\n          \"max\": [\n            13000,\n            4000,\n            4450\n          ],\n          \"size\": [\n            13000,\n            4120,\n            4450\n          ]\n        }\n      }\n    ]\n  },\n  \"precommit_keep_guard\": {\n    \"armed\": false,\n    \"passed\": null,\n    \"paths\": []\n  },\n  \"oss_method_ledger\": {\n    \"schema_version\": 1,\n    \"source_sha256\": \"a12fc9e2ed27a9b434aedbf4c72e356b3d5f32c9e08f8e7d07f1b977dcff79eb\",\n    \"events\": [\n      {\n        \"method_id\": \"adai.profile_with_holes\",\n        \"status\": \"returned\",\n        \"elapsed_ms\": 7,\n        \"returned_nil\": false,\n        \"result_entity_pid\": 21,\n        \"result_entity_name\": \"ADAI_WALL\"\n      },\n      {\n        \"method_id\": \"adai.profile\",\n        \"status\": \"returned\",\n        \"elapsed_ms\": 0,\n        \"returned_nil\": false,\n        \"result_entity_pid\": 111,\n        \"result_entity_name\": \"ADAI_ROOF\"\n      },\n      {\n        \"method_id\": \"saie.wall_with_openings\",\n        \"status\": \"returned\",\n        \"elapsed_ms\": 4,\n        \"returned_nil\": false,\n        \"result_entity_pid\": 223,\n        \"result_entity_name\": \"SAIE_SMOKE_WALL\"\n      }\n    ],\n    \"status\": \"committed_readback\",\n    \"script_id\": \"adai_smoke\",\n    \"revision\": 1,\n    \"root_pid\": 19\n  },\n  \"oss_method_adoption\": {\n    \"schema_version\": 1,\n    \"ledger_status\": \"committed_readback\",\n    \"actual_wrapped_calls\": {\n      \"adai.profile_with_holes\": 1,\n      \"adai.profile\": 1,\n      \"saie.wall_with_openings\": 1\n    },\n    \"any_oss_product_use\": true,\n    \"effect_verified\": false,\n    \"effect_verification_required\": \"Named component readback and independent source-matched visual review.\",\n    \"plan_choices\": []\n  },\n  \"screenshot\": \"outputs/renders/ruby-adai_smoke-r1.png\",\n  \"transport\": \"existing Kongxing sketchup_eval_project_file\"\n}"
+      },
+      {
+        "type": "inputImage",
+        "imageUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABdwAAAO2CAIAAAB96MI1AAAADmVYSWZNTSoAAAAACAAAAAAAAJbnt1kAAAAJb0ZGcwAAAAAAAAAAANoqts4AACAASURBVHic7N2/b1X3/cdxU1EjVUa5iEgVLL4sZDGyg6tKZrGzwBLEjZjSBfIXBP6ChL8AMnUMmZjcErlTpaiwtBOREZ1YsFXpWqp8KyJ78V38PfX55urWv+Jzfe2X7/XjMVzdXGPzycWJ733y/nzOmc3NzREAAAAAjtev0gsAAAAAOI1EGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAAJEGQAAAIAAUQYAAAAgQJQBAAAACBBlAAAAAALOphdA75aWlt5vWV5ertVqH3zwQfl4bcvO+wAAAMDJIcqcaGVzWVpaWl5eLu+UyvtVv1q9Xt///l41Z3x8/Be/CAAAAFDJmc3NzfQaTrsysnRnl+LO4uJiWWT2+cR6vV6r1YpfU9wW9zu/uPsTe2g3Pdir5nTf3ysDdQZ8RvbIQwAAADCURJnjsHPgpZNd9o8mZZuobynvFLeTk5Pl/fLXPHr0qLj96quvfnEZ3b9X9/1iVd3r3Hl/r088/uLT84DPXl8EAAAAUmxf6pueB162ZZfu8tLfaZGj23m0V8356aef9i87256cXR8/0sGfXyw7BnwAAAA4IqJMNWVt6R546Zzzsv8n1n/WGXgZHx8vHzmOdR+xI40Re0WZSgM+Bxn86S8DPgAAAOxPlNmufPf++vXr7oGXzp19PrF8/zw1NdU98FK8we7eakQPjjRM7DqbM6wDPiN7nNlswAcAACDilEaZsrB0ykt3djnI2bqd8tIZePG2dkAdXS8b1gGfkb2T0K4XZVckAQAA9jK0UWavgZcDnq1r4IVDMuCz016zOb1dlF0JBQAABt1gRxkDL5xOwQGfkQPUnJMz4FPpzGYDPgAAwDE76VGmfHdXnq27Lbsc/GLSneN1DbzA/o5/wGek14uyG/ABAAAG3YmIMj1fTLr7YkZHejFp4PCOf8Cn0pYuAz4AAMAxO6Yo0z3w0tlqVGaXgw+8dPpLmV28/QBKBnx26u+Az4jiAwAAR6CfUcbACzB8DPhss1fNqTTgM2JLFwAA9BBlytpSdeBlZOv1t4EXgI4BGvDZ5wv210HKzi8O+NjSBQDAoNglymzbZ7TteN19vta2fUbbrmp0ZP8KAGx3PAM+3fd7HvDJbuky4AMAQNDZb775xsWkATigI/2//V5RptKAz8k5s9mADwAA+zv74MGDbQ+Vrws72aVTXmw1AuBIHf+WrkoDPns9bsAHAIDe/DfKGHgBYOgd/5nNgz7gM7Kj5szOzvrrGQCAPjr7+PHj9BoAYICdngGfRqPx9ddfT05OVv7XAABgN/28JDYA0F/BAZ+R/605xf3nz58X6/HXOQAA/SLKAMBpVHXAp4wyR7edCgDgFPpVegEAwMBYXFxMLwEAYHiIMgDAQS0tLXWfVgMAwGGIMgDAQdVqNVEGAKBfRBkA4KDKE3/TqwAAGBKiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAAAAGiDAAAAECAKAMAAAAQIMoAAAAABIgyAAAA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DAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBAygAAAAAEpAwAAABAQMoAAAAABKQMAAAAQEDKAAAAAASkDAAAAEBgAzfNFOLdQw0AAAAOZVhJZk1NKgAAAAAIAAAAAAAAlue3WQAAAABJRU5ErkJggg=="
+      }
+    ]
+  },
+  "views": {
+    "front": "outputs/renders/agent-view-front-966facd07b.png",
+    "rear": "outputs/renders/agent-view-rear-3c8dbd1a50.png",
+    "left": "outputs/renders/agent-view-left-a0d224cebf.png",
+    "right": "outputs/renders/agent-view-right-40646e9e2b.png",
+    "roof": "outputs/renders/agent-view-roof-12a80d2dd5.png",
+    "oblique": "outputs/renders/agent-view-oblique-94b8efb491.png"
+  },
+  "readback": {
+    "script_id": "adai_smoke",
+    "revision": 1,
+    "read_only": true,
+    "path": [],
+    "persistent_id": 19,
+    "locked": false,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        0,
+        -120,
+        0
+      ],
+      "max": [
+        13000,
+        4000,
+        4450
+      ],
+      "size": [
+        13000,
+        4120,
+        4450
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 3,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "ADAI_WALL",
+        "persistent_id": 21,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            6000,
+            300,
+            3200
+          ],
+          "size": [
+            6000,
+            300,
+            3200
+          ]
+        }
+      },
+      {
+        "name": "ADAI_ROOF",
+        "persistent_id": 111,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            3250
+          ],
+          "max": [
+            6000,
+            4000,
+            4450
+          ],
+          "size": [
+            6000,
+            4000,
+            1200
+          ]
+        }
+      },
+      {
+        "name": "SAIE_SMOKE_WALL",
+        "persistent_id": 223,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7000,
+            -120,
+            0
+          ],
+          "max": [
+            13000,
+            120,
+            3000
+          ],
+          "size": [
+            6000,
+            240,
+            3000
+          ]
+        }
+      }
+    ],
+    "oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "a12fc9e2ed27a9b434aedbf4c72e356b3d5f32c9e08f8e7d07f1b977dcff79eb",
+      "events": [
+        {
+          "method_id": "adai.profile_with_holes",
+          "status": "returned",
+          "elapsed_ms": 7,
+          "returned_nil": false,
+          "result_entity_pid": 21,
+          "result_entity_name": "ADAI_WALL"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 111,
+          "result_entity_name": "ADAI_ROOF"
+        },
+        {
+          "method_id": "saie.wall_with_openings",
+          "status": "returned",
+          "elapsed_ms": 4,
+          "returned_nil": false,
+          "result_entity_pid": 223,
+          "result_entity_name": "SAIE_SMOKE_WALL"
+        }
+      ]
+    }
+  },
+  "negative": {
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"KEEP regression ADAI_ROOF: bounds_mm.min[0] changed\",\n    \"backtrace\": [\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:138:in `block (3 levels) in verify_owned_fingerprints!'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each_with_index'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `block (2 levels) in verify_owned_fingerprints!'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `each'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `block in verify_owned_fingerprints!'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each_with_index'\",\n      \"<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `verify_owned_fingerprints!'\",\n      \"<private-path> `block in <main>'\",\n      \"<private-path> AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<private-path> `<main>'\"\n    ]\n  }\n}",
+    "before": {
+      "script_id": "adai_smoke",
+      "revision": 1,
+      "read_only": true,
+      "path": [
+        "ADAI_ROOF"
+      ],
+      "persistent_id": 111,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          3250
+        ],
+        "max": [
+          6000,
+          4000,
+          4450
+        ],
+        "size": [
+          6000,
+          4000,
+          1200
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "a12fc9e2ed27a9b434aedbf4c72e356b3d5f32c9e08f8e7d07f1b977dcff79eb",
+        "events": [
+          {
+            "method_id": "adai.profile_with_holes",
+            "status": "returned",
+            "elapsed_ms": 7,
+            "returned_nil": false,
+            "result_entity_pid": 21,
+            "result_entity_name": "ADAI_WALL"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 111,
+            "result_entity_name": "ADAI_ROOF"
+          },
+          {
+            "method_id": "saie.wall_with_openings",
+            "status": "returned",
+            "elapsed_ms": 4,
+            "returned_nil": false,
+            "result_entity_pid": 223,
+            "result_entity_name": "SAIE_SMOKE_WALL"
+          }
+        ]
+      }
+    },
+    "after": {
+      "script_id": "adai_smoke",
+      "revision": 1,
+      "read_only": true,
+      "path": [
+        "ADAI_ROOF"
+      ],
+      "persistent_id": 111,
+      "locked": false,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          3250
+        ],
+        "max": [
+          6000,
+          4000,
+          4450
+        ],
+        "size": [
+          6000,
+          4000,
+          1200
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "a12fc9e2ed27a9b434aedbf4c72e356b3d5f32c9e08f8e7d07f1b977dcff79eb",
+        "events": [
+          {
+            "method_id": "adai.profile_with_holes",
+            "status": "returned",
+            "elapsed_ms": 7,
+            "returned_nil": false,
+            "result_entity_pid": 21,
+            "result_entity_name": "ADAI_WALL"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 111,
+            "result_entity_name": "ADAI_ROOF"
+          },
+          {
+            "method_id": "saie.wall_with_openings",
+            "status": "returned",
+            "elapsed_ms": 4,
+            "returned_nil": false,
+            "result_entity_pid": 223,
+            "result_entity_name": "SAIE_SMOKE_WALL"
+          }
+        ]
+      }
+    },
+    "revision": 1,
+    "unchanged": true
+  },
+  "native_reopen": "pending"
+}

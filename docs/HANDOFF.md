@@ -1,3 +1,17 @@
+# 最新本机交接 — Dream Coffee 新整图 × OSS 实用化（2026-10-10）
+
+[完整公开证据](test-results/windows/2026-10-10-dream-coffee-oss/README.md)。实际 gpt-6-luna/max、SU2024 24.0.484、Kongxing单writer、ADAI0.5.39 opt-in。用户最新五面板图整幅上传，原图私密未公开，未替换旧案例。网站正式主模型PID35529/r3/110对象，SAIE墙洞与ADAI九条檩条真实调用/提交读回，ledger/adoption公开，效果仍非PASS。
+
+**技术通过**：三份计划schema、三笔写后校验、KEEP、六方向同r3、实际OSS方法调用、网站下载原生重开/鼠标移PLANTERS/保存再开（其余109组不变）、同步baseline后第二个新空白110名称/bounds一致、受控SyntaxError回滚。检查324passed/2skipped。
+
+**PARTIAL/FAIL保留**：漏上层平雨棚、木饰面/柱廊与比例不准、canonical留白多、r3室内匹配未补；独立终审NEEDS_FIX:YES。Builder整回合903172ms超时，最终只读审查由操作者另行恢复；规划/Builder输入10.504M，无降本PASS。首次baseline两玻璃组不一致FAIL已保留。初次MCP无回执留下空根，真实历史原因未证实；操作者仅重开专用空白、修回滚，Native重试建模。原生编辑只下载副本；主模型无人手动改几何。
+
+受控 SyntaxError 事务实际 aborted，revision未变，但MCP仍no tool response，异常传输仍待修。已修 model_session.rb异常回滚+结构测试；持久生成脚本玻璃框尺寸同步，重新空白重放验证。新 evidence含真实PNG/sidecar、前后图、模型/方法账本、KEEP、下载/编辑、源脚本、所有错误、每轮tokens与延时、SHA256清单。私密原图/SKP/个人路径/Key不提交。ADAI separate MCP未调用，不把smoke计成正式产品效果。
+
+**下一轮唯一可执行任务**：继续本次Dream Coffee新图的主附体/雨棚/柱廊/木饰面质量，控制规划和结束阶段工具循环/上下文，改善构图并补当前室内source pair；真实两轮定向修正、KEEP、同步baseline再重放、完整公开证据。不要回旧咖啡店/别墅或新增CAD/PPT。
+
+---
+
 ## 2026-10-10 — K AI Studio OSS adoption loop implemented in main (remote CI; native SU pending)
 
 The user resolved "absorb OSS generally OR pick a project-specific OSS implementation" as a **dual-loop mechanism**: continuously improve the product's durable capabilities from legal external sources **AND** route each real task through the most suitable existing method with explicit fallback. Same philosophy applies beyond architecture (CAD, website and video). Read `docs/CONTINUOUS_CAPABILITY_ADOPTION_2026-10-10.md`; do not treat installation as product improvement.

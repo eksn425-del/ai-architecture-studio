@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "multi_view_reconstruction",
+  "primary_source": "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png",
+  "sources": [
+    {
+      "id": "dream_coffee_reference_sheet",
+      "kind": "exterior_image",
+      "path": "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png",
+      "provenance": "observed",
+      "notes": [
+        "整幅多面板图作为一个完整证据源；左上为高位斜俯外观，右上为远景入口斜视，左下为主入口斜视，右下为木饰面侧墙斜视。",
+        "右中面板是同一玻璃厅的室内视角，记录于 interior 字段；不拆分或重绘原图。"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+      ],
+      "notes": [
+        "主入口方向以左下面板为 FRONT：左侧大幅倾斜玻璃面，中部竖向入口玻璃组，右侧开放柱廊与招牌梁带。",
+        "上层三角玻璃山墙和玻璃双坡屋面在该面板可见；正面不是严格正投影。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "没有完整后立面视图；依据相邻可见侧墙、屋架和入口关系连贯推断，不将遮挡误记为无门窗的证据。"
+      ]
+    },
+    "left": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+      ],
+      "notes": [
+        "左上高位斜俯视显示一侧外楼梯、平台花池及玻璃厅边缘；只有斜视局部，不是完整正交左立面。"
+      ]
+    },
+    "right": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+      ],
+      "notes": [
+        "右下面板显示较长木饰面实墙、入口玻璃转角、露台梁柱和树木；按其与主入口的关系暂定为右侧斜视，后段仍被遮挡。"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+      ],
+      "notes": [
+        "左上斜俯图可见双坡玻璃屋面、重复梁格、露台和外楼梯；右中室内图可见坡面木梁。没有正交屋顶平面，构件间距仍为估算。"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+      ],
+      "notes": [
+        "左上、右上、左下、右下面板均为同一建筑不同外部透视；通过入口、招牌带、玻璃山墙、楼梯及木饰面墙对应，不拆为多个对象。"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "未提供平面图；空间深度、楼梯位置和露台边界按外观透视估算。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "未提供 CAD/DWG 或可读取尺寸资料。"
+    ]
+  },
+  "interior": {
+    "provided": true,
+    "provenance": "observed",
+    "source_refs": [
+      "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+    ],
+    "spaces": [
+      "上层玻璃厅室内视角（右中面板）"
+    ],
+    "notes": [
+      "可见三角玻璃端墙、深色分格、外露木屋架、低墙/木饰面和桌椅；没有完整室内平面或后续空间证据。",
+      "仅重建可见构造和家具关系；未显示设备、卫生间、厨房及其位置不据此虚构为来源事实。"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "入口门净高比例参照（名义估算，非实测）",
+      "value_mm": 2100,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png"
+    }
+  ],
+  "hard_constraints": [
+    "目标是同一 Dream Coffee 建筑的可编辑 SketchUp 2024 重建，不做场地/节目适配或通用化改设计。",
+    "用户确认范围包含两层主体、外楼梯、上层露台玻璃栏杆、倾斜玻璃屋面与三角山墙、结构木梁、门窗、招牌、平台花池及图中可见桌椅伞。",
+    "所有来源可见外部角度和室内面板都约束同一个建筑；可见比例、开口、屋面、材料区、栏杆、家具及构件关系应优先匹配。",
+    "没有实测尺寸；模型尺寸必须保持一套一致比例并标记为估算，不能写作实测。"
+  ],
+  "assumptions": [
+    "入口面依据左下面板中主入口和 Dream Coffee 招牌方向定义为 FRONT；该命名不是实际地理朝向。",
+    "入口门名义净高暂按 2100 mm 作为推算比例锚点；主体宽深、层高、梁截面、玻璃节距、楼梯踏步和标高均为 ESTIMATED。",
+    "右下面板只证明可见木饰面长侧墙和相邻玻璃转角；完整后立面没有直接证据。",
+    "可见图外区域按相同木饰面、暖木色、深色金属、玻璃与连续通行关系推断；不镜像前立面。",
+    "树木及远景植物按来源可见位置做简化表达，不作为建筑体量证据。"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  }
+}

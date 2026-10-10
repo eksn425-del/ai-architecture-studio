@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The source has an open right-front terrace bay carried by square posts; the current front fills most of that span with a full-height wall beneath the fascia.",
+            "action": "Recess or remove only the front-bay infill and expose the supporting posts, keeping the separate solid side annex."
+          },
+          {
+            "priority": 2,
+            "view": "right",
+            "problem": "The lower annex side is a broad, quiet timber-clad plane in the source, but the current wall is covered in dense vertical fins.",
+            "action": "Replace the dense fin pattern with a broad timber surface and sparse joints, preserving the annex footprint."
+          }
+        ],
+        "keep": [
+          "Left exterior stair rising to the terrace."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 1
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "dream_coffee_reconstruction",
+        "revision": 2,
+        "relative_path": "scripts/dream_coffee_repair01_front_and_side.rb",
+        "update_mode": "edit",
+        "source_sha256": "b2c77f3fb610f3c6281d5ccd87d73c77ca2f335c6306cdb80ba35c8e91c27b03",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "EXTERIOR_STAIR"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Source shows a glazed ground-floor café, a broad sloping-glass annex at the left/front, a set-back glazed A-frame above, a flat terrace/canopy projecting front/right on posts, and an exterior stair at the left. The current model has the upper gable, terrace and stair, but the lower front reads as an opaque box with only a narrow glass wedge.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The source’s left/front annex is a broad projecting sloped-glass bay that reaches the ground; the current front reads as a narrow triangular insert against the orange wall.",
+            "action": "Widen and extend the existing sloped-glass bay across the source’s left/front bay, meeting the ground edge while preserving the upper gable."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "Opaque infill dominates the lower front around the entrance, where the source shows a more continuous glazed café frontage beside the open, column-supported terrace.",
+            "action": "Replace the infill in the entrance-facing bay with connected storefront glazing and retain the solid wall on the side/rear face."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The upper roof’s deep brown framing forms a dense, heavy grid that overwhelms the glazing; the source framing reads lighter and slimmer.",
+            "action": "Reduce the visible frame depth and weight while keeping the A-frame outline and glazing layout."
+          }
+        ],
+        "keep": [
+          "Upper glazed triangular gable-end outline."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "awaiting_review",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Source shows a glazed ground-floor café, a broad sloping-glass annex at the left/front, a set-back glazed A-frame above, a flat terrace/canopy projecting front/right on posts, and an exterior stair at the left. The current model has the upper gable, terrace and stair, but the lower front reads as an opaque box with only a narrow glass wedge.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The source’s left/front annex is a broad projecting sloped-glass bay that reaches the ground; the current front reads as a narrow triangular insert against the orange wall.",
+            "action": "Widen and extend the existing sloped-glass bay across the source’s left/front bay, meeting the ground edge while preserving the upper gable."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "Opaque infill dominates the lower front around the entrance, where the source shows a more continuous glazed café frontage beside the open, column-supported terrace.",
+            "action": "Replace the infill in the entrance-facing bay with connected storefront glazing and retain the solid wall on the side/rear face."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The upper roof’s deep brown framing forms a dense, heavy grid that overwhelms the glazing; the source framing reads lighter and slimmer.",
+            "action": "Reduce the visible frame depth and weight while keeping the A-frame outline and glazing layout."
+          }
+        ],
+        "keep": [
+          "Upper glazed triangular gable-end outline."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "dream_coffee_reconstruction",
+        "revision": 3,
+        "relative_path": "scripts/dream_coffee_repair02_glazed_front_and_slender_roof.rb",
+        "update_mode": "edit",
+        "source_sha256": "fc89dfada94875fe629d4c8cc6de806502d9287f5ef86e2fe84e1d4a164a9d04",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "EXTERIOR_STAIR",
+            "UPPER_GLASS_PAVILION/FRONT_GABLE_TRIANGULAR_GLAZING",
+            "UPPER_GLASS_PAVILION/REAR_GABLE_TRIANGULAR_GLAZING"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": null,
+      "outcome": "pending"
+    }
+  ]
+}

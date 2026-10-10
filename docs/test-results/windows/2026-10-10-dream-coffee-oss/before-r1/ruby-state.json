@@ -1,0 +1,277 @@
+{
+  "dream_coffee_reconstruction": {
+    "revision": 1,
+    "root_pid": 35529,
+    "source_sha256": "cfffda3f9516abaa72c2159ca70e593cbab0836544d1a4a1057eecc0e76ac98c",
+    "last_report": "runtime/scripts/reports/dream_coffee_reconstruction-r1-257f7d79.json",
+    "last_screenshot": "outputs/renders/ruby-dream_coffee_reconstruction-r1.png",
+    "last_verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 35529,
+          "actual": 35529
+        },
+        {
+          "check": "revision",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "check": "objects_total",
+          "expected": 131,
+          "actual": 131
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -2600.0,
+              -2500.0,
+              -240.0
+            ],
+            "max": [
+              15088.7,
+              10200.0,
+              7790.0
+            ],
+            "size": [
+              17688.7,
+              12700.0,
+              8030.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -2600,
+              -2500,
+              -240
+            ],
+            "max": [
+              15088.7,
+              10200,
+              7790
+            ],
+            "size": [
+              17688.7,
+              12700,
+              8030
+            ]
+          }
+        }
+      ]
+    },
+    "last_verification_report": "runtime/scripts/reports/dream_coffee_reconstruction-r1-257f7d79.verification.json",
+    "last_precommit_keep_guard": {
+      "armed": false,
+      "passed": null,
+      "paths": []
+    },
+    "last_oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "cfffda3f9516abaa72c2159ca70e593cbab0836544d1a4a1057eecc0e76ac98c",
+      "events": [
+        {
+          "method_id": "saie.wall_with_openings",
+          "status": "returned",
+          "elapsed_ms": 9,
+          "returned_nil": false,
+          "result_entity_pid": 35736,
+          "result_entity_name": "FRONT_ENTRY_OPENING_HOST"
+        },
+        {
+          "method_id": "saie.wall",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 36285,
+          "result_entity_name": "GROUND_RIGHT_TIMBER_WALL"
+        },
+        {
+          "method_id": "saie.wall_with_openings",
+          "status": "returned",
+          "elapsed_ms": 9,
+          "returned_nil": false,
+          "result_entity_pid": 36447,
+          "result_entity_name": "REAR_INFERRED_FACADE"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40468,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_1"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40500,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_2"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40532,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_3"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40564,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_4"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40596,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_5"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40628,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_6"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40660,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_7"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40692,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_8"
+        },
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 0,
+          "returned_nil": false,
+          "result_entity_pid": 40724,
+          "result_entity_name": "ROOF_LONGITUDINAL_PURLIN_9"
+        }
+      ],
+      "status": "committed_readback",
+      "script_id": "dream_coffee_reconstruction",
+      "revision": 1,
+      "root_pid": 35529
+    },
+    "last_oss_method_adoption": {
+      "schema_version": 1,
+      "ledger_status": "committed_readback",
+      "actual_wrapped_calls": {
+        "saie.wall_with_openings": 2,
+        "saie.wall": 1,
+        "adai.profile": 9
+      },
+      "any_oss_product_use": true,
+      "effect_verified": false,
+      "effect_verification_required": "Named component readback and independent source-matched visual review.",
+      "plan_choices": [
+        {
+          "system": "ground_shell",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "下层同时包含倾斜玻璃面、木饰面实墙、入口转角和开放柱廊，无法由单一竖直矩形开洞墙或恒截面轮廓准确表达；需要按命名子组分别建立连续实体和真实通透面。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "front_entry_opening_host",
+          "method_id": "saie.wall_with_openings",
+          "selection_reason": "主入口所在的竖直连续墙面适合用一个矩形店面/门洞形成真实贯通开口，再把门扇、固定玻璃和框架作为独立构件放入；SAIE 批量洞口方法比拼接多段墙更合适。执行前需宿主确认该方法的实际签名/注入；只有回执证明调用后才记录为已使用。",
+          "disposition": "method_seen_in_committed_write"
+        },
+        {
+          "system": "front_sloped_glazing",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "来源中的大玻璃面为倾斜、重复分格的薄面系统，不是竖直矩形洞口墙；ADAI profile 会生成有厚度的实体轮廓，不能替代逐片透明玻璃和框架。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "upper_glass_gable",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "三角端面由透明玻璃格和斜向木框组成；单次 ADAI profile 挤出会形成遮挡玻璃的实心三角体，profile_with_holes 也不能表达贴边玻璃格/逐根斜框的薄面关系，因此按真实三角轮廓生成独立玻璃与框架。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "roof_longitudinal_profiles",
+          "method_id": "adai.profile",
+          "selection_reason": "本地 ADAI 合约确认 profile(entities, name, outline_mm, depth_mm, plane='xz', offset_mm=0, material=nil)，以毫米 XZ 截面沿 +Y 正向挤出，适合屋脊/檐口方向恒截面的纵向木梁。仅用于梁型，不把玻璃坡屋面挤成实心楔体。",
+          "disposition": "method_seen_in_committed_write"
+        },
+        {
+          "system": "roof_sloped_rafters",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "可见主椽沿 XZ 斜向跨越坡面；已核对的 ADAI profile 只沿其 plane 法线 +X/+Y/+Z 挤出，不能直接生成这条斜向轴线，因此用受控自有几何生成斜梁，再复用一个已核实截面模数。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "roof_glass_panels",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "屋面目标是多片独立透明斜玻璃、缝隙和木梁；profile 类方法生成挤出实体而非薄玻璃面，且 loft/曲面方法不适用于图中的平面格片。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "terrace_deck_fascia",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "露台板、突出边梁/招牌带、开放柱廊和前缘转折是不同深度的独立构件；单一 profile extrusion 会把转角和开口做成实心体，故用独立可编辑子组按共享标高建模。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "exterior_stair_mass",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "侧向楼梯须精确接到地面和露台标高，并与花池/平台边界避让；当前可用合约未提供经确认的楼梯语义方法，先建立受控梯段及平台而不伪造工具能力。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "terrace_glass_railing",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "玻璃栏板为等高重复片，先做一片含边框/夹具的独立代表件再实例复用；墙洞工具不适用于护栏，且应保留可编辑玻璃片。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "site_platform_planters",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "来源平台有退台、前入口踏步和沿边花池；它不是恒截面屋面轮廓，也不是单一平板，按分离的地坪、踏步、花池和植物组件建模。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "visible_furniture_modules",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "图中桌椅和遮阳伞重复出现；先建立可编辑桌、椅、伞代表件并按露台/室内位置实例化，避免逐件手画且不引入图外家具。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "signage_and_finish",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Dream Coffee 文字标识须贴合前方与可见侧向招牌带，材料色块也要跟随各自构件；当前没有适用的已验证语义招牌方法。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        }
+      ]
+    }
+  }
+}

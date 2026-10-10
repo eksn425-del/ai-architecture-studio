@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-10-dream-coffee-oss",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "b94ba4b470276e3deb3a2262182732bc5196660a",
+  "source_case": "user private Dream Coffee whole five-panel reference sheet; original not approved for public posting",
+  "source_sha256": "2d74cc95989c4e8c47cce669c923434e94314c3b9776ee03d01d81b3b9b09a15",
+  "source_original_published": false,
+  "model": {
+    "requested": "GPT-6 Luna Max",
+    "actual": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "runtime": "codex-native-through-K-AI-Studio"
+  },
+  "environment": {
+    "windows": "Windows-11-10.0.22000-SP0",
+    "sketchup": "2024 24.0.484",
+    "bridge": "existing Kongxing localhost plugin; version not exposed",
+    "adai": "0.5.39 opt-in enabled; separate MCP not used",
+    "python": "3.12.2"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "final_revision": 3,
+    "root_pid": 35529
+  },
+  "technical": {
+    "write_verification": "PASS",
+    "KEEP": "PASS",
+    "OSS_product_use": "PASS",
+    "download_native_edit_reopen": "PASS",
+    "baseline_first": "FAIL",
+    "baseline_second": "PASS",
+    "native_complete_turn": "FAIL"
+  },
+  "blockers": [
+    "Visual misses persist after max two corrections",
+    "Builder token cost and timeout unacceptable; no cost PASS"
+  ],
+  "interventions": [
+    "Native model configuration preset selected without reading secret",
+    "Closed unrelated extension error popups",
+    "Empty orphan disposable reset after failed first build",
+    "Transaction exception rollback repaired",
+    "Final r3 captures and dedicated read-only review recovered by host after timeout",
+    "Persistent baseline dimensions synchronized; second fresh replay",
+    "Mouse edit only downloaded disposable copy; main Builder geometry unchanged"
+  ]
+}

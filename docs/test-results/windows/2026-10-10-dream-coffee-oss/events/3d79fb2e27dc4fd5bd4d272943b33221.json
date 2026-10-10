@@ -1,0 +1,50 @@
+[
+  {
+    "event": "turn_input",
+    "model": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "workflow_mode": "image_reconstruction",
+    "tool_profile": "reconstruction_coding",
+    "thread_transition": "started_with_registered_tools",
+    "reference_categories": [
+      "reference",
+      "site",
+      "brief"
+    ],
+    "input_types": [
+      "text",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage"
+    ],
+    "reference_files": [
+      "inputs/reference/308e21655f-codex-clipboard-b1a49f05-1c5f-46c0-8d4c-8fa16dcbb8c7.png",
+      "outputs/renders/agent-view-front-28fc0a96b6.png",
+      "outputs/renders/agent-view-rear-275387f6fe.png",
+      "outputs/renders/agent-view-left-c4dcafd323.png",
+      "outputs/renders/agent-view-right-a5acb8e955.png",
+      "outputs/renders/agent-view-roof-1c9bdde5b9.png",
+      "outputs/renders/agent-view-oblique-a01af09c9c.png",
+      "outputs/renders/agent-view-f4745b21e6.png"
+    ],
+    "sandbox_policy": {
+      "type": "readOnly",
+      "networkAccess": false
+    },
+    "role": "visual_critic",
+    "tool_names": []
+  }
+]

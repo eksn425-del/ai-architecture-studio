@@ -132,7 +132,10 @@ module CodexSketchupArchitect
       record[:scenes_after] = scene_inventory(model)
       write_report(path, record)
       record
-    rescue StandardError => error
+    # Generated Ruby can also raise SyntaxError / SystemStackError. They are
+    # outside StandardError; always roll back this owned transaction and retain
+    # a failure receipt, then re-raise rather than leave an unindexed empty root.
+    rescue Exception => error
       state = committed ? 'post_commit_error' : 'not_started'
       if opened
         begin

@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "project_id": "dream-coffee-oss-smoke-1010",
+  "expected_revision": 1,
+  "status": "aborted",
+  "at": "2026-10-10T02:46:31Z",
+  "scenes_before": {
+    "available": true,
+    "pages": []
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        0.0,
+        -120.0,
+        0.0
+      ],
+      "max": [
+        13000.0,
+        4000.0,
+        4450.0
+      ],
+      "size": [
+        13000.0,
+        4120.0,
+        4450.0
+      ]
+    },
+    "objects_total": 3,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 21,
+        "name": "ADAI_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            6000.0,
+            300.0,
+            3200.0
+          ],
+          "size": [
+            6000.0,
+            300.0,
+            3200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 111,
+        "name": "ADAI_ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            3250.0
+          ],
+          "max": [
+            6000.0,
+            4000.0,
+            4450.0
+          ],
+          "size": [
+            6000.0,
+            4000.0,
+            1200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 223,
+        "name": "SAIE_SMOKE_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7000.0,
+            -120.0,
+            0.0
+          ],
+          "max": [
+            13000.0,
+            120.0,
+            3000.0
+          ],
+          "size": [
+            6000.0,
+            240.0,
+            3000.0
+          ]
+        }
+      }
+    ]
+  },
+  "error": "RuntimeError: KEEP regression ADAI_ROOF: bounds_mm.min[0] changed",
+  "backtrace": [
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:138:in `block (3 levels) in verify_owned_fingerprints!'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `each_with_index'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:137:in `block (2 levels) in verify_owned_fingerprints!'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `each'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:133:in `block in verify_owned_fingerprints!'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `each_with_index'",
+    "<private-path> AI 产品建模网站/app/adopted_sketchup_helpers.rb:117:in `verify_owned_fingerprints!'",
+    "<private-path> `block in <main>'"
+  ],
+  "scenes_after": {
+    "available": true,
+    "pages": []
+  },
+  "scene_state_requires_review": true
+}

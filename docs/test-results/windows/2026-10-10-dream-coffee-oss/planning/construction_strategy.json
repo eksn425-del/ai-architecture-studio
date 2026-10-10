@@ -1,0 +1,526 @@
+{
+  "schema_version": 1,
+  "current_stage": "pending",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "floor_count": {
+      "value": 2,
+      "units": "count",
+      "provenance": "user_confirmed",
+      "source": "用户明确确认两层主体；不表示上层覆盖全平面。"
+    },
+    "overall_width_mm": {
+      "value": 12000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "整图入口透视的横向比例，采用名义门高作估算锚点。"
+    },
+    "overall_depth_mm": {
+      "value": 8400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "俯视/侧向透视共同推估；无平面图。"
+    },
+    "clear_height_ground_mm": {
+      "value": 3100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "按门窗与店面比例估算的下层净高。"
+    },
+    "ground_to_terrace_mm": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "由下层净高加梁/板带协调估算；露台面作为 Z=3600 标高。"
+    },
+    "upper_pavilion_width_mm": {
+      "value": 6000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "入口面三角玻璃厅约占主体正面一半。"
+    },
+    "upper_pavilion_depth_mm": {
+      "value": 6600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "按俯视图中玻璃厅与露台关系估算。"
+    },
+    "upper_eaves_z_mm": {
+      "value": 4700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "露台完成面以上约 1100 mm 的玻璃厅边檐。"
+    },
+    "roof_ridge_z_mm": {
+      "value": 7700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "来源图屋脊高度与正面宽度比例估算。"
+    },
+    "roof_pitch_deg": {
+      "value": 45,
+      "units": "degrees",
+      "provenance": "estimated",
+      "source": "三角山墙的透视斜率估算；需由来源角度检查整体轮廓。"
+    },
+    "entry_clear_height_mm": {
+      "value": 2100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "名义入口门高比例锚点，不是实测数据。"
+    },
+    "glass_module_mm": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "玻璃幕墙/屋面分格初始模数；一块代表模块复核后统一复制。"
+    },
+    "railing_height_mm": {
+      "value": 1050,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "上层露台透明栏板比例估算。"
+    },
+    "stair_width_mm": {
+      "value": 1000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "外楼梯图面宽度与平台比例估算。"
+    },
+    "stair_riser_mm": {
+      "value": 180,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "与 3600 mm 层间高度协调，约 20 个踢面。"
+    },
+    "stair_tread_mm": {
+      "value": 280,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "外楼梯图面节奏估算。"
+    },
+    "timber_beam_width_mm": {
+      "value": 150,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "木梁可见比例估算，仅为外观构件尺寸。"
+    },
+    "timber_beam_depth_mm": {
+      "value": 180,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "木梁可见比例估算，仅为外观构件尺寸。"
+    },
+    "rafter_spacing_mm": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "室内和屋面视图中的重复梁格初估。"
+    },
+    "fascia_band_height_mm": {
+      "value": 600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "露台前缘招牌梁带厚度比例估算。"
+    },
+    "planter_height_mm": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "平台花池高度比例估算。"
+    }
+  },
+  "systems": [
+    {
+      "id": "ground_shell",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "下层同时包含倾斜玻璃面、木饰面实墙、入口转角和开放柱廊，无法由单一竖直矩形开洞墙或恒截面轮廓准确表达；需要按命名子组分别建立连续实体和真实通透面。",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "ground_to_terrace_mm"
+      ],
+      "target_paths": [
+        [
+          "GROUND_SHELL"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "+Y 为后方；按统一入口面基准协调所有角度。"
+      ]
+    },
+    {
+      "id": "front_entry_opening_host",
+      "stage": "primary_form",
+      "role": "opening_system",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "主入口所在的竖直连续墙面适合用一个矩形店面/门洞形成真实贯通开口，再把门扇、固定玻璃和框架作为独立构件放入；SAIE 批量洞口方法比拼接多段墙更合适。执行前需宿主确认该方法的实际签名/注入；只有回执证明调用后才记录为已使用。",
+      "depends_on": [
+        "ground_to_terrace_mm",
+        "entry_clear_height_mm",
+        "overall_width_mm"
+      ],
+      "target_paths": [
+        [
+          "FRONT_ENTRY_OPENING_HOST"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "墙参数以字符串键毫米值传入；入口组先作为一个大开口，不把每片玻璃误作墙洞。"
+      ]
+    },
+    {
+      "id": "front_sloped_glazing",
+      "stage": "primary_form",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "来源中的大玻璃面为倾斜、重复分格的薄面系统，不是竖直矩形洞口墙；ADAI profile 会生成有厚度的实体轮廓，不能替代逐片透明玻璃和框架。",
+      "depends_on": [
+        "ground_to_terrace_mm",
+        "glass_module_mm",
+        "overall_width_mm"
+      ],
+      "target_paths": [
+        [
+          "FRONT_SLOPED_GLAZING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "玻璃片、压条和底部花池分开命名。"
+      ]
+    },
+    {
+      "id": "upper_glass_gable",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "三角端面由透明玻璃格和斜向木框组成；单次 ADAI profile 挤出会形成遮挡玻璃的实心三角体，profile_with_holes 也不能表达贴边玻璃格/逐根斜框的薄面关系，因此按真实三角轮廓生成独立玻璃与框架。",
+      "depends_on": [
+        "upper_pavilion_width_mm",
+        "ground_to_terrace_mm",
+        "roof_ridge_z_mm",
+        "glass_module_mm"
+      ],
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "FRONT_GABLE_GLAZING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "保持上层玻璃厅为局部体量；不可用实心箱体遮住三角山墙。"
+      ]
+    },
+    {
+      "id": "roof_longitudinal_profiles",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "method_id": "adai.profile",
+      "selection_reason": "本地 ADAI 合约确认 profile(entities, name, outline_mm, depth_mm, plane='xz', offset_mm=0, material=nil)，以毫米 XZ 截面沿 +Y 正向挤出，适合屋脊/檐口方向恒截面的纵向木梁。仅用于梁型，不把玻璃坡屋面挤成实心楔体。",
+      "depends_on": [
+        "upper_pavilion_depth_mm",
+        "upper_eaves_z_mm",
+        "roof_ridge_z_mm",
+        "timber_beam_width_mm",
+        "timber_beam_depth_mm"
+      ],
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "LONGITUDINAL_TIMBER_PROFILES"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "该本地合约标明 ADAI 0.5.39 已启用；运行时仍须只经宿主守护写入器调用并核对 oss_method_ledger。"
+      ]
+    },
+    {
+      "id": "roof_sloped_rafters",
+      "stage": "representative_module",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "可见主椽沿 XZ 斜向跨越坡面；已核对的 ADAI profile 只沿其 plane 法线 +X/+Y/+Z 挤出，不能直接生成这条斜向轴线，因此用受控自有几何生成斜梁，再复用一个已核实截面模数。",
+      "depends_on": [
+        "roof_pitch_deg",
+        "timber_beam_width_mm",
+        "timber_beam_depth_mm",
+        "rafter_spacing_mm",
+        "upper_pavilion_depth_mm"
+      ],
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "SLOPED_TIMBER_RAFTERS"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "先验证一根斜椽的端点、截面、法线和方向，再沿屋脊复制。"
+      ]
+    },
+    {
+      "id": "roof_glass_panels",
+      "stage": "representative_module",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "屋面目标是多片独立透明斜玻璃、缝隙和木梁；profile 类方法生成挤出实体而非薄玻璃面，且 loft/曲面方法不适用于图中的平面格片。",
+      "depends_on": [
+        "upper_pavilion_width_mm",
+        "upper_pavilion_depth_mm",
+        "roof_pitch_deg",
+        "glass_module_mm",
+        "rafter_spacing_mm"
+      ],
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "ROOF_GLASS_PANELS"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "与梁架分组；检查无反面、重叠和遮挡室内的实心封盖。"
+      ]
+    },
+    {
+      "id": "terrace_deck_fascia",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "露台板、突出边梁/招牌带、开放柱廊和前缘转折是不同深度的独立构件；单一 profile extrusion 会把转角和开口做成实心体，故用独立可编辑子组按共享标高建模。",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "ground_to_terrace_mm",
+        "fascia_band_height_mm"
+      ],
+      "target_paths": [
+        [
+          "TERRACE_DECK"
+        ],
+        [
+          "TERRACE_FASCIA"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "玻璃栏杆另列；板、实心边梁与招牌文字不得合成一个大盒子。"
+      ]
+    },
+    {
+      "id": "exterior_stair_mass",
+      "stage": "primary_form",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "侧向楼梯须精确接到地面和露台标高，并与花池/平台边界避让；当前可用合约未提供经确认的楼梯语义方法，先建立受控梯段及平台而不伪造工具能力。",
+      "depends_on": [
+        "ground_to_terrace_mm",
+        "stair_width_mm",
+        "stair_riser_mm",
+        "stair_tread_mm"
+      ],
+      "target_paths": [
+        [
+          "EXTERIOR_STAIR"
+        ]
+      ],
+      "verification_views": [
+        "left",
+        "oblique",
+        "roof"
+      ],
+      "notes": [
+        "在主形阶段包含完整通行关系；踏步代表件确认后再复制。"
+      ]
+    },
+    {
+      "id": "terrace_glass_railing",
+      "stage": "representative_module",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "玻璃栏板为等高重复片，先做一片含边框/夹具的独立代表件再实例复用；墙洞工具不适用于护栏，且应保留可编辑玻璃片。",
+      "depends_on": [
+        "railing_height_mm",
+        "glass_module_mm",
+        "overall_width_mm",
+        "overall_depth_mm"
+      ],
+      "target_paths": [
+        [
+          "TERRACE_RAILING",
+          "RAILING_PANEL_01"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "重复件使用不同语义 ID；转角收口为单独变体。"
+      ]
+    },
+    {
+      "id": "site_platform_planters",
+      "stage": "variants",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "来源平台有退台、前入口踏步和沿边花池；它不是恒截面屋面轮廓，也不是单一平板，按分离的地坪、踏步、花池和植物组件建模。",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "planter_height_mm"
+      ],
+      "target_paths": [
+        [
+          "ENTRY_PLATFORM"
+        ],
+        [
+          "PLANTERS"
+        ],
+        [
+          "SOURCE_VISIBLE_TREES"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "场地细节限于图中紧邻平台、花池、树木和低矮植物，不扩展为完整景观方案。"
+      ]
+    },
+    {
+      "id": "visible_furniture_modules",
+      "stage": "representative_module",
+      "role": "interior_detail",
+      "method": "prototype_instance",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "图中桌椅和遮阳伞重复出现；先建立可编辑桌、椅、伞代表件并按露台/室内位置实例化，避免逐件手画且不引入图外家具。",
+      "depends_on": [
+        "glass_module_mm"
+      ],
+      "target_paths": [
+        [
+          "FURNITURE",
+          "TABLE_SET_01"
+        ],
+        [
+          "FURNITURE",
+          "UMBRELLA_01"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "按来源可见数量与遮挡关系布置；不把树或家具当作建筑几何的替代。"
+      ]
+    },
+    {
+      "id": "signage_and_finish",
+      "stage": "finish",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Dream Coffee 文字标识须贴合前方与可见侧向招牌带，材料色块也要跟随各自构件；当前没有适用的已验证语义招牌方法。",
+      "depends_on": [
+        "fascia_band_height_mm"
+      ],
+      "target_paths": [
+        [
+          "SIGNAGE_FRONT"
+        ],
+        [
+          "SIGNAGE_SIDE"
+        ],
+        [
+          "MATERIAL_ZONES"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "材料/标识不代替真实开口、深度或梁架。"
+      ]
+    }
+  ],
+  "notes": [
+    "所有尺寸均为毫米估算基线；只有 floor_count 与项目范围为用户确认事实。",
+    "坐标统一：入口面 y=0，+Y 朝后，+X 从入口视角向右，+Z 向上；主体地坪 z=0、露台面约 z=3600。",
+    "当前阶段仅完成计划，current_stage 保持 pending；须用户批准后再进入主形阶段。",
+    "方法清单只记录计划选择。只有宿主返回的真实 oss_method_ledger committed_readback/returned 才计为本次已执行 OSS 方法；空回执不得声称调用成功。"
+  ]
+}

@@ -173,6 +173,11 @@ def test_project_ruby_edit_retains_root_and_empty_root_is_rejected(tmp_path):
     assert helper.index("committed_root_pid = root.persistent_id") < helper.index("unless model.commit_operation")
     assert helper.index("yield(model, root)") < helper.index("root.definition.invalidate_bounds")
     assert helper.index("root.definition.invalidate_bounds") < helper.index("record[:owned_after]")
+    # SyntaxError/SystemStackError do not inherit StandardError. The owned
+    # transaction must retain a receipt and abort before re-raising those too.
+    transaction = helper[helper.index("def self.run("):]
+    assert "rescue Exception => error" in transaction
+    assert transaction.index("model.abort_operation") < transaction.index("record.merge!(status: state")
 
 
 def test_workspace_facade_schedule_json_is_validated_and_listed(tmp_path):

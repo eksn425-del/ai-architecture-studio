@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "EXTERIOR_STAIR"
+  ],
+  "checks": [
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "persistent_id",
+      "expected": 42038,
+      "actual": 42038
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "objects_total",
+      "expected": 35,
+      "actual": 35
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1650.0,
+          1500.0,
+          -75.7
+        ],
+        "max": [
+          1100.0,
+          7528.7,
+          4617.9
+        ]
+      },
+      "actual": {
+        "min": [
+          -1650.0,
+          1500.0,
+          -75.7
+        ],
+        "max": [
+          1100.0,
+          7528.7,
+          4617.9
+        ]
+      }
+    }
+  ]
+}
