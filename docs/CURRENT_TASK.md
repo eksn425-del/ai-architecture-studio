@@ -1,3 +1,21 @@
+# 当前下一轮唯一任务 — Dream Coffee 受保护局部修复与成本控制（2026-10-10）
+
+**执行入口：[NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md](NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md)**。这条 2026-10-10 ChatGPT 代码更新后的任务**覆盖下方全部历史“下一轮新图/咖啡店/别墅”旧指令**；它们仅保留为审计档案。用户没有提供另一张新图，此轮继续修**2026-10-10 Dream Coffee 五面板建筑 r3**（本地用户私密参考图，不得随意公开）。
+
+### 已合并到同一 K AI Studio main 的实际代码（不是文档计划）
+
+1. **GitHub CI 证据清单修复：**`scripts/validate_test_evidence.py` 统一 Windows/Linux 大小写文件顺序，不再误报 SHA256 manifest 差异；没有放松单文件哈希检查。证据工作流 <https://github.com/eksn425-del/ai-architecture-studio/actions/runs/38033858268> SUCCESS。
+2. **局部编辑边界：**`app/edit_scope_guard.rb`、`app/project_ruby.py`、`app/workspace_ruby.py`、`app/agent_tools.py` 增加 `allowed_mutation_paths` 的可选受控 edit。声明所有允许修改或新增的顶层组，事务**提交前**检查所有其他直接组 PID/子组数/bounds；未声明的变更抛错并回滚，readback `edit_scope_receipt` 必须为 passed。这个 guard 不能自动判断白名单内材质/视觉优劣，仍需源图与前后特写。
+3. **建模状态核实：**`app/strategy_progress.py` 根据完整分页读取的**真实提交模型直属子组**更新已证实的 `pending → built`，并生成 `notes/construction_progress.json`；嵌套路径没有额外真实证据时继续 pending，不可报 verified。同步 `app/project_ruby.py` 的模型写入后流程；真实 SU2024 需 Codex 首先实测。
+4. **Native 预算保护：**`app/native_agent.py` 默认每 Builder turn 最多 64 次可观测工具调用 / 250 万已报告输入 token；通过 APP Server 实际 usage 通知和调用计数进行熔断，保留 partial_result 与已提交模型状态。预算为**每轮**，不是整个任务的成本证明；无法收到 usage 通知时不能推断 token。
+5. **回归测试：**`tests/test_edit_scope_guard.py`、`tests/ruby/edit_scope_guard_test.rb`、`tests/test_strategy_progress.py`、`tests/test_native_turn_budget.py` 和 GitHub CI，Python/Ruby 离线通过是必要但不等于真 SketchUp 自动化已验收。`app/image_to_sketchup_skill.py` 进一步强调本轮修正前后比对、不得丢木饰面细节。
+
+**新一轮 Codex 要完成：**先用 disposable model 验证越界编辑确实 abort/KEEP 与旧 revision 保留、正常声明 edit_scope 通过；在实际 Dream Coffee r3 修复上层平雨棚/支架、右侧木饰面与柱廊，一次主修正+最多两轮有界局部补正，不损已正确双坡玻璃屋顶/入口斜玻璃；核对 construction_progress 与真实主根名，不允许盲目设全部built；最后独立只读 Critic、六方向真图、源角度/局部前后比对、浏览器下载 SKP 原生重开编辑、新空白 baseline replay。新建 GitHub 证据目录并逐项上传真实 PNG、模型读回、OSS ledger/adoption、edit_scope、stage progress、全部 Token/错误、SHA256 manifest、最新提交和 CI。修正后若源图仍不符合，必须 PARTIAL。
+
+**预算问题的历史对照：**上次 Dream Coffee 10,504,446 input、160 calls/26 failed、903秒 Native 超时；本轮如果达到 budget 中断要记 PARTIAL/FAIL，绝不重试无限大回合。**不开发 CAD/渲染/漫游/PPT，不另建项目，不强制每次调用 ADAI，无对应用户授权不上传原图。**
+
+---
+
 # 最新本机交接 — Dream Coffee 新整图 × OSS 实用化（2026-10-10）
 
 [完整公开证据](test-results/windows/2026-10-10-dream-coffee-oss/README.md)。实际 gpt-6-luna/max、SU2024 24.0.484、Kongxing单writer、ADAI0.5.39 opt-in。用户最新五面板图整幅上传，原图私密未公开，未替换旧案例。网站正式主模型PID35529/r3/110对象，SAIE墙洞与ADAI九条檩条真实调用/提交读回，ledger/adoption公开，效果仍非PASS。
