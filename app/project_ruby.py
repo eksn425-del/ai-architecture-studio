@@ -32,6 +32,7 @@ _FORBIDDEN_SOURCE = re.compile(
     r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|KStudioProfessionalHelpers|KStudioSAIE|KStudioStultusBounds|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|\bKStudioOSSMethodRuntime\b"
+    r"|\b(?:KStudioEditScopeGuard|edit_scope_before|edit_scope_receipt)\b"
     r"|\b(?:ADAIConstructionGeometry|oss_method_events|oss_method_ledger)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
@@ -154,7 +155,8 @@ class ProjectRubyExecutor:
     def _build_transport_script(self, script_path: Path, report_path: Path,
                                 expected_revision: int, root_pid: int | None, update_mode: str = "replace",
                                 keep_expectations: list[dict[str, Any]] | None = None,
-                                source_sha256: str = "") -> str:
+                                source_sha256: str = "",
+                                allowed_mutation_names: list[str] | None = None) -> str:
         helper_path = Path(__file__).resolve().parent / "vendor" / "sketchup_architect" / "scripts" / "model_session.rb"
         # Optional CPAL-1.0 ADAI method library is verified and loaded only in
         # explicitly opted-in local sessions. The official Managed MCP never
@@ -167,6 +169,7 @@ class ProjectRubyExecutor:
             f"load {self._ruby_string(str(helper_path.resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'adopted_sketchup_helpers.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'oss_method_runtime.rb').resolve()))}",
+            f"load {self._ruby_string(str((Path(__file__).parent / 'edit_scope_guard.rb').resolve()))}",
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
@@ -189,6 +192,10 @@ class ProjectRubyExecutor:
             "  remove_owned_group = lambda do |name|",
             "    KStudioProfessionalHelpers.remove_named_owned_group(root, name)",
             "  end",
+            *(
+                ["  edit_scope_before = KStudioEditScopeGuard.fingerprints(root)"]
+                if update_mode == "edit" and allowed_mutation_names else []
+            ),
             "  oss_method_events = []",
             "  saie_wall = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall') { KStudioProfessionalHelpers.wall(root, params) } }",
             "  saie_wall_with_openings = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall_with_openings') { KStudioProfessionalHelpers.wall_with_openings(root, params) } }",
@@ -203,6 +210,15 @@ class ProjectRubyExecutor:
                     "  KStudioProfessionalHelpers.verify_owned_fingerprints!(root, keep_expectations)",
                 ]
                 if keep_expectations else []
+            ),
+            *(
+                [
+                    "  edit_scope_receipt = KStudioEditScopeGuard.verify!(root, edit_scope_before, JSON.parse("
+                    + self._ruby_string(json.dumps(allowed_mutation_names, ensure_ascii=False))
+                    + "))",
+                    "  root.set_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt', JSON.generate(edit_scope_receipt))",
+                ]
+                if update_mode == "edit" and allowed_mutation_names else []
             ),
             # The method-use ledger is bound to this guarded model write.
             "  oss_method_ledger = {'schema_version' => 1, 'source_sha256' => "
@@ -252,6 +268,7 @@ class ProjectRubyExecutor:
             f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})",
             "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
             "snapshot[:oss_method_ledger] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'oss_method_ledger') || 'null')",
+            "snapshot[:edit_scope_receipt] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt') || 'null')",
             "snapshot",
         ]) + "\n"
         script.write_text(source, encoding="utf-8")
@@ -329,6 +346,17 @@ class ProjectRubyExecutor:
             "passed": True if keep_expectations else None,
             "paths": ["/".join(item["path"]) for item in keep_expectations],
         }
+        mutation_paths = arguments.get("allowed_mutation_paths")
+        allowed_mutation_names: list[str] = []
+        if mutation_paths is not None:
+            if update_mode != "edit" or not isinstance(mutation_paths, list) or not 1 <= len(mutation_paths) <= 48:
+                raise ValueError("allowed_mutation_paths requires targeted edit mode and 1..48 explicit owned group paths.")
+            for index, parts in enumerate(mutation_paths):
+                if (not isinstance(parts, list) or not 1 <= len(parts) <= 8 or
+                        any(not isinstance(part, str) or not part.strip() or len(part) > 200 for part in parts)):
+                    raise ValueError(f"allowed_mutation_paths[{index}] is invalid.")
+                allowed_mutation_names.append(parts[0])
+            allowed_mutation_names = list(dict.fromkeys(allowed_mutation_names))
         source_hash = hashlib.sha256(ruby_source.encode("utf-8")).hexdigest()
         new_revision = revision + 1
         previous_source = script_path.read_text(encoding="utf-8") if script_path.is_file() else None
@@ -351,6 +379,7 @@ class ProjectRubyExecutor:
             update_mode=update_mode,
             keep_expectations=keep_expectations,
             source_sha256=source_hash,
+            allowed_mutation_names=allowed_mutation_names,
         )
         transport_path.write_text(transport_script, encoding="utf-8", newline="\n")
 
@@ -443,6 +472,12 @@ class ProjectRubyExecutor:
             raise MCPCallError(f"Post-write read-back verification failed: {error}") from error
 
         # Read actual committed SKP root metadata; never infer calls from Ruby text.
+        edit_scope_receipt = owned_readback.get("edit_scope_receipt")
+        if allowed_mutation_names:
+            if (not isinstance(edit_scope_receipt, dict) or
+                    edit_scope_receipt.get("status") != "passed" or
+                    edit_scope_receipt.get("allowed_top_level") != allowed_mutation_names):
+                raise MCPCallError("SketchUp edit scope guard did not confirm unchanged unrelated geometry.")
         method_ledger = owned_readback.get("oss_method_ledger")
         if (not isinstance(method_ledger, dict)
                 or method_ledger.get("schema_version") != 1
@@ -467,6 +502,7 @@ class ProjectRubyExecutor:
         receipt_path.write_text(json.dumps(write_verification, ensure_ascii=False, indent=2), encoding="utf-8")
         self.ruby_state[script_id]["last_verification"] = write_verification
         self.ruby_state[script_id]["last_oss_method_ledger"] = method_ledger
+        self.ruby_state[script_id]["last_edit_scope_receipt"] = edit_scope_receipt
         self.ruby_state[script_id]["last_oss_method_adoption"] = method_adoption
         self.ruby_state[script_id]["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
         verified_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -498,6 +534,7 @@ class ProjectRubyExecutor:
             "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
             "last_oss_method_ledger": method_ledger,
+            "last_edit_scope_receipt": edit_scope_receipt,
             "last_oss_method_adoption": method_adoption,
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -516,6 +553,7 @@ class ProjectRubyExecutor:
             "write_verification": write_verification,
             "precommit_keep_guard": precommit_keep_guard,
             "oss_method_ledger": method_ledger,
+            "edit_scope_receipt": edit_scope_receipt,
             "oss_method_adoption": method_adoption,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
