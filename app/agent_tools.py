@@ -219,7 +219,17 @@ class AgentToolSurface:
             # A resumed turn starts with writes=0 even when it has already
             # reviewed an existing model. Honor that review and its KEEP paths
             # on the FIRST correction as well, not just later writes.
-            if bounded and (writes > 0 or quality_state.get("review") is not None):
+            # A fresh Native turn can resume a committed model with writes=0.
+            # Require a CURRENT visual review before its first targeted write,
+            # or that correction would evade source/KEEP/scope guards.
+            existing_committed_root = (
+                bounded and any(
+                    int(state.get("revision", 0)) > 0 and state.get("root_pid")
+                    for state in executor.ruby_state.values()
+                )
+            )
+            if bounded and (writes > 0 or existing_committed_root
+                            or quality_state.get("review") is not None):
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
                     raise MCPCallError(
@@ -236,6 +246,15 @@ class AgentToolSurface:
                     raise MCPCallError(
                         "视觉审查后的修正必须使用 update_mode=edit；本轮禁止整根 replace/full rebuild。"
                         "请只修改 critic 指出的命名对象，保留 KEEP 几何。"
+                    )
+                # The edit-scope fence is mandatory for REVIEW-TRIGGERED
+                # corrections, including the first write of a resumed turn.
+                # Preserve_paths still protects specific semantic KEEP items.
+                declared_mutations = arguments.get("allowed_mutation_paths")
+                if not isinstance(declared_mutations, list) or not declared_mutations:
+                    raise MCPCallError(
+                        "本轮定向修正必须声明 allowed_mutation_paths（所有允许变化或新增的顶层命名组），"
+                        "由 SketchUp 事务内部自动保护其余组；不能省略此边界。"
                     )
                 preservation_script_id = str(arguments.get("script_id") or "")
                 preserve_paths = arguments.get("preserve_paths")
