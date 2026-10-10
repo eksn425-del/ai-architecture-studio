@@ -40,7 +40,7 @@ def _run(runtime, project, workspace, **kw):
 
 
 def test_native_token_budget_aborts_before_unbounded_builder_work(tmp_path, monkeypatch):
-    monkeypatch.setenv("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "100")
+    monkeypatch.setenv("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "250")
     events = [
         {"method": "thread/tokenUsage/updated", "params": {"tokenUsage": {
             "total": {"inputTokens": 200, "outputTokens": 50},
