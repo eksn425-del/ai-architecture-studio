@@ -31,6 +31,7 @@ def test_guard_only_armed_for_explicit_targeted_edit(monkeypatch, tmp_path):
         tmp_path / "edit.rb", tmp_path / "report.json", 3, 123, update_mode="edit",
     )
     assert "KStudioEditScopeGuard.verify!(" not in legacy
+    assert "'edit_scope_receipt', 'null'" in legacy
     assert "KStudioEditScopeGuard.fingerprints(root)" not in legacy
     replacement = executor._build_transport_script(
         tmp_path / "build.rb", tmp_path / "report.json", 0, None,
