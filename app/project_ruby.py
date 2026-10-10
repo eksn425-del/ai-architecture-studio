@@ -19,6 +19,7 @@ from .store import safe_project_id
 from .modeling_quality import require_post_write_verification
 from .adai_components import geometry_helper
 from .construction_strategy import load_construction_strategy
+from .strategy_progress import persist_verified_strategy_progress
 from .oss_method_catalog import assess_method_adoption
 
 
@@ -496,6 +497,52 @@ class ProjectRubyExecutor:
             load_construction_strategy(self.project_dir), method_ledger,
         )
 
+        # Host reconciles only actual root child names; nested planned paths
+        # remain unresolved until a nested host-certified readback is supplied.
+        # This is an additional compact internal inspection, not an Agent loop.
+        strategy_progress = None
+        if load_construction_strategy(self.project_dir) is not None:
+            try:
+                names: list[list[str]] = []
+                seen: set[str] = set()
+                first_count: int | None = None
+                offset = 0
+                full_page = True
+                while full_page and offset < 600:
+                    page_result = self.inspect_owned({
+                        "script_id": script_id, "path": [], "offset": offset, "limit": 100,
+                    })
+                    page = json.loads(page_result["contentItems"][0]["text"])
+                    total = page.get("objects_total")
+                    objects = page.get("objects")
+                    if (type(total) is not int or total < 0 or total > 600
+                            or not isinstance(objects, list)):
+                        raise ValueError("Owned readback pagination is invalid or exceeds cap.")
+                    if first_count is None:
+                        first_count = total
+                    elif total != first_count:
+                        raise ValueError("Owned readback total changed during pagination.")
+                    for item in objects:
+                        name = item.get("name") if isinstance(item, dict) else None
+                        if not isinstance(name, str) or not name or name in seen:
+                            raise ValueError("Unnamed or duplicated owned geometry prevents progress certification.")
+                        names.append([name])
+                        seen.add(name)
+                    offset += len(objects)
+                    if not objects or offset >= total:
+                        full_page = False
+                complete = first_count is not None and offset == first_count
+                strategy_progress = persist_verified_strategy_progress(
+                    self.project_dir, script_id=script_id, revision=new_revision,
+                    root_pid=root_pid, named_paths=names, full_readback=complete,
+                )
+            except (ValueError, MCPCallError, KeyError, IndexError, TypeError,
+                    json.JSONDecodeError, OSError) as error:
+                strategy_progress = {
+                    "status": "NOT_VERIFIED", "reason": str(error)[:240],
+                    "revision": new_revision,
+                }
+
         # Keep the deterministic receipt even if later viewport capture fails.
         # The report/receipt pair is immutable evidence for this revision.
         receipt_path = report_path.with_suffix(".verification.json")
@@ -503,6 +550,7 @@ class ProjectRubyExecutor:
         self.ruby_state[script_id]["last_verification"] = write_verification
         self.ruby_state[script_id]["last_oss_method_ledger"] = method_ledger
         self.ruby_state[script_id]["last_edit_scope_receipt"] = edit_scope_receipt
+        self.ruby_state[script_id]["last_strategy_progress"] = strategy_progress
         self.ruby_state[script_id]["last_oss_method_adoption"] = method_adoption
         self.ruby_state[script_id]["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
         verified_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -535,6 +583,7 @@ class ProjectRubyExecutor:
             "last_precommit_keep_guard": precommit_keep_guard,
             "last_oss_method_ledger": method_ledger,
             "last_edit_scope_receipt": edit_scope_receipt,
+            "last_strategy_progress": strategy_progress,
             "last_oss_method_adoption": method_adoption,
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -554,6 +603,7 @@ class ProjectRubyExecutor:
             "precommit_keep_guard": precommit_keep_guard,
             "oss_method_ledger": method_ledger,
             "edit_scope_receipt": edit_scope_receipt,
+            "strategy_progress": strategy_progress,
             "oss_method_adoption": method_adoption,
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
