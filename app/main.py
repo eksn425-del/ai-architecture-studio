@@ -33,6 +33,7 @@ from .models import (
     PrepareRequest, ProjectContext, Reference,
 )
 from .model_router import DeterministicModelRouter, ModelRoute
+from .provider_readiness import readiness_matrix
 from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .references import ReferenceIngestor
@@ -525,6 +526,20 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     @app.get("/showcase", response_class=HTMLResponse, include_in_schema=False)
     def showcase() -> FileResponse:
         return FileResponse(STATIC / "showcase" / "index.html", media_type="text/html; charset=utf-8")
+
+    @app.get("/api/provider-readiness")
+    def provider_readiness() -> dict[str, Any]:
+        """Public, credential-free capability statements for THIS product.
+
+        Published model availability is not runtime reachability or actual model quality.
+        Never return a stored API key or an account's provider credentials.
+        """
+        return {
+            "schema_version": 1,
+            "independent_sol_astra_responses_modeling": "not_implemented",
+            "standalone_public_beta": "not_certified",
+            "models": readiness_matrix(),
+        }
 
     @app.post("/api/model-settings")
     async def model_settings(request: Request) -> dict[str, Any]:
