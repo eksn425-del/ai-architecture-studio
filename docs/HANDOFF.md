@@ -1,3 +1,13 @@
+## 2026-10-11 — USER'S CURRENT TEST DECISION: new building, REAL K Studio website Sol Low MODEL proxy, no paid API
+
+**This overrides all prior next-work requiring live B.AI now or continued old Dream Coffee engineering work.** Wait for the owner to send Codex a NEW building image; do not invent or reuse old. Read [one next runbook](NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md) and [public OSS reuse note](FRESH_BUILDING_AGENT_OSS_NOTES_2026-10-11.md). KEEP the Codex CONTROLLER model whatever the owner actually selected. K Studio's SITE modeling step separately uses real native Codex App Server GPT-6.1 Sol effort Low, if actually available. This is not mock-response geometry, and not a live B.AI/official Responses request; do not imply parity or use a hidden paid API. Current API provider layer remains offline protocol tested only.
+
+**ChatGPT PREP CODE, not new SU result**: `app/modeling_quality.py` and `app/native_agent.py` independent read-only reviewer now inventories ONLY the new user's source systems (removed hard-coded old-café canopy/wood/annex prompting); `app/image_to_sketchup_skill.py` adds an early source-defining assembly/representative-instance/joint check before decoration; `app/modeling_test_profile.py` + router status and targeted tests distinguish configured vs actual returned Sol Low and explicitly disavow true provider API proof; GitHub regression workflow includes new tests. This is measured setup work; Codex must load new code locally, run full check and test real SU2024 website when new source arrives.
+
+**Success requires user-visible progress**: a fresh real source-matched building, coherent named/editable native SketchUp assemblies and real openings, correct observed roof/window/stair joints where relevant; max 1 main build + 2 supported edits, six new host views + source matching, independent current Critic, KEEP/scope, native SKP save/edit/reopen and baseline. Measure actual website model/effort/usage/failed calls, and document actual ADAI/SAIE usage/effect. No old-café polish, docs-only claiming PASS, vendor repo hoarding, CAD/render/SaaS/API purchases. Full separate dated source-private GitHub evidence & SHA checks.
+
+---
+
 ## 2026-10-11 — Codex 托管 Agent Beta 离线实装 + 严格重放交付（最新）
 
 [全部真实证据及限制](test-results/windows/2026-10-11-managed-agent-beta-offline/README.md)，[服务端运营配置](MANAGED_RESPONSES_LOCAL_PILOT.md)。基础main `0c6f1675505a89670978a0786aa15982165dad8d`。Windows / SU2024 24.0.484 / Kongxing / Python3.10.4现有venv，8787通过scripts/dev.py启动，网站加载无新console error。当前开发对照选择gpt-6-luna/max，不新调用模型、不请求收费API。
