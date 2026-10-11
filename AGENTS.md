@@ -1,5 +1,17 @@
 # AGENTS.md
 
+## Latest owner priority — product-first, standalone official API (2026-10-11)
+
+**Supersedes old Dream Coffee aesthetics-only next instructions.** Read [current task](docs/CURRENT_TASK.md), [Codex runbook](docs/NEXT_CODEX_API_FIRST_2026-10-11.md), [product reset](docs/PRODUCT_API_FIRST_RECOVERY_2026-10-11.md), and P0 [replay #6](https://github.com/eksn425-del/ai-architecture-studio/issues/6) / [independent Responses #5](https://github.com/eksn425-del/ai-architecture-studio/issues/5) before new work.
+
+Owner target is a beginner-friendly **same K Studio project** for students/junior designers who do **not** have Codex: use legitimately available independent model APIs, starting with official GPT-6.1 Sol Responses, to create and safely edit genuinely native SketchUp via existing local paired connector. Astra is an optional premium candidate, not a presumed available fallback. Do not infer ChatGPT or Codex subscription entitlement enables external API; never covertly borrow a signed-in Codex runtime for supposedly standalone API tests.
+
+**First stop the unbounded visual rework**: Dream Coffee r4 replay FAILS strict hashes in FRONT_SLOPED_GLAZING, FRONT_STORE_FRONT_GLAZING and UPPER_GLASS_PAVILION, 116/116 group counts do NOT prove equality. Preserve historic evidence; run bounded exact child-level native diagnostics and two independent fresh blank replays before quality PASS. Fix native open timeout/save-modal queued operations with owned model path/GUID checks; do not edit original user SKP.
+
+The new `app/provider_readiness.py` and `GET /api/provider-readiness` intentionally label independent Sol/Astra product-builder functionality not implemented. Current `app/litellm_runtime.py` Chat Completions rejects their tool protocol: implement real independent Responses image/tool loop through the SAME project/SKILL/`AgentToolSurface`/`ProjectRuby`/Kongxing writer and separate read-only Critic. Mock transport tests before user-approved real spend. Only promote a model/gateway to verified after genuine multi-turn source→model→native edit/reopen→replay evidence; preserve actual provider/model and costs and zero silent substitution.
+
+Future vision is project-first design production (brief, site, precedents, safe white-mass variants; then individually qualified Rhino/Blender/3ds Max bridges, concept CAD, render, boards and walkthrough). Do not construct multiple new websites or release unchecked multi-software promises. **Next cycle is P0 replay + official API modeling, not implementing all future deliverables.** Ask owner explicitly for a local provider key/budget before any paid calls; don't upload raw private sources, SKP, credentials or personal paths.
+
 ## Latest Codex handoff — Dream Coffee r3 guarded repair (2026-10-10)
 
 **Single next assignment:** [`docs/NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md`](docs/NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md). This supersedes previous old café/villa/new-image "next tasks". User wants to fix the newly built Dream Coffee r3 sourced from a private five-panel collage. Do not guess sources or create a different building.
