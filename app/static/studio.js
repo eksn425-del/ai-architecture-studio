@@ -24,6 +24,11 @@ function restoreDraft() {
   } catch (_) { $("conversation-input").value = ""; }
 }
 
+// This is a USER utterance. Internal execution instructions stay in workflow_context.py.
+function executionUserMessage(typed) {
+  return typed || "确认，按当前计划开始建模。";
+}
+
 function isBuildApproval(message) {
   if (/^\s*(?:已)?(?:批准|确认|同意).*(?:执行|开始|建模)/.test(message)) {
     message = message.replace(/不要执行旧(?:整栋)?(?:基线|脚本|计划)/g, "")
@@ -730,7 +735,7 @@ async function sendConversation(event, agentAction = "auto") {
     $("connect-dialog").showModal();
     return;
   }
-  // The chat log must reflect what a real person typed or approved. Execution\n  // policy/Skills/tool choreography belong ONLY in the internal developer layer.\n  // Never forge a verbose engineering prompt and present it as a user message.\n  const message = agentAction === "execute"\n    ? (typed || "确认，按当前计划开始建模。")\n    : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
+  // The chat log must reflect what a real person typed or approved. Execution\n  // policy/Skills/tool choreography belong ONLY in the internal developer layer.\n  // Never forge a verbose engineering prompt and present it as a user message.\n  const message = agentAction === "execute"\n    ? executionUserMessage(typed)\n    : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
   saveDraft();
   pendingMessage = message;
