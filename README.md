@@ -2,6 +2,14 @@
 
 > **唯一主产品 / Single product mainline:** [K AI Studio](https://github.com/eksn425-del/ai-architecture-studio) 将后续适配的开源 Skill、MCP、几何模块和专业软件自动化能力，持续整合进同一个网站与 GitHub 主仓库。新开源项目是 K AI Studio 的候选能力组件，不再另做一套相似的网站。完整原则见 [One Product / Open Source Policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md)。
 
+## OWNER product definition update — managed K Studio Agent (2026-10-11)
+
+**K Studio sells its own architectural/landscape/interior design AGENT service; the operator buys approved LLM API inference. Ordinary users do not need Codex or their own API Key.** User flow: open a K Studio project → submit images/site/brief → approve the plan → K Studio Agent uses a legally approved provider plus its own Skills/guarded local modeling bridge/QA → hand back a genuinely editable native file. User's locally installed SketchUp still requires a separately authorized connector; cloud LLM alone cannot control an unpaired PC. Optional BYOK for advanced users only.
+
+B.AI is the first gateway research/test candidate, not yet approved for this product: a public model catalog is NOT proof of functioning multi-turn tool/image support, model identity, resale rights, costs or privacy for K Studio. Official Sol API can be used as the independently authorized quality control/fallback; no forced end-user official API signup. `app/managed_beta_policy.py` is ONLY offline spend/readiness preflight, **not live paid-user accounts, backend billing or authentication**. Current `app/main.py` is single-user/loopback with a global lock and JSON project store; a public managed SaaS requires server-side operator credentials, auth, per-project tenant isolation, PostgreSQL-backed atomic credits and local bridge pairing before launch. No keys/private SKP files may enter public Git or a distributed app.
+
+**SOLE next Codex task**: [managed Agent + bounded strict native replay acceptance](docs/NEXT_CODEX_MANAGED_AGENT_BETA_2026-10-11.md) · [business / open-source / scale specification](docs/K_STUDIO_MANAGED_AGENT_BUSINESS_AND_OSS_2026-10-11.md). The older below BYOK-first copy is historical superseded context.
+
 ## 当前项目状态 / Product-first recovery (2026-10-11)
 
 **K Studio 的目标用户不应被要求安装 Codex。** 当前产品已具备本地 SketchUp 2024 + Kongxing 受守护建模、项目上传／确认／修正／原生 SKP 下载和独立 API 的 LiteLLM Chat 通路（GLM / DeepSeek）；但 **独立官方 GPT-6.1 Sol／Astra Responses 工具建模尚未实现，不能宣称已经和 Codex 原生效果一致**。模型连接真实支持状态：`GET /api/provider-readiness`。用户已有自己的合法 API Key 时，后续优先走官方独立 API；B.AI/OpenRouter 是待真机验证的可选渠道，不是产品必需品。
