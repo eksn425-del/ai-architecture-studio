@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-11-dream-coffee-protected-repair",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "new_geometry_committed": true,
+  "source_case": "Dream Coffee private whole five-panel collage, same source as previous r3",
+  "source_sha256": "2d74cc95989c4e8c47cce669c923434e94314c3b9776ee03d01d81b3b9b09a15",
+  "private_source_published": false,
+  "base_commit": "0fa1d349fb0a0e86e22728ceb4950e86e95e1f7d",
+  "model": {
+    "actual": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "runtime": "codex-native App Server through K Studio website"
+  },
+  "environment": {
+    "SketchUp": "2024 24.0.484",
+    "writer": "Kongxing guarded ProjectRuby",
+    "adai": "0.5.39 opt-in; separate MCP unused",
+    "execution_dates": [
+      "2026-10-10",
+      "2026-10-11"
+    ]
+  },
+  "qa": {
+    "visual": "PARTIAL",
+    "scope_guard": "PASS",
+    "native_input_budget": "PASS",
+    "automated_checks": "334 passed / 2 skipped",
+    "canopy": "FAIL",
+    "timber": "PARTIAL",
+    "KEEP_original_110": "PASS",
+    "fresh_baseline_replay": "BLOCKED",
+    "native_mouse_editability": "BLOCKED",
+    "budget_default_formal_trigger": "PASS",
+    "native_tool_budget_live": "NOT_RUN"
+  },
+  "root_pid": 35529,
+  "revision": 4,
+  "limitations": [
+    "Original reference remains private; cloud reviewer cannot independently compare source pixels.",
+    "Scope guard protects direct root groups by PID/count/bounds, not detailed geometry/material fingerprints."
+  ],
+  "automated_check_log": "checks.txt",
+  "group_count": 116,
+  "human_geometry_edits_on_builder_model": 0
+}

@@ -1,0 +1,993 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "ENTRY_PLATFORM",
+    "EXTERIOR_STAIR",
+    "FRONT_ENTRY_OPENING_HOST",
+    "FRONT_SLOPED_GLAZING",
+    "FRONT_STORE_FRONT_GLAZING",
+    "GROUND_RIGHT_TIMBER_WALL",
+    "GROUND_SHELL",
+    "MATERIAL_ZONES",
+    "ROOF_GLASS_MULLION_left_1",
+    "ROOF_GLASS_MULLION_right_1",
+    "ROOF_GLASS_left_T1_Y1",
+    "ROOF_GLASS_left_T4_Y7",
+    "ROOF_GLASS_right_T1_Y1",
+    "ROOF_GLASS_right_T4_Y7",
+    "ROOF_LONGITUDINAL_PURLIN_5",
+    "ROOF_RAFTER_left_1",
+    "ROOF_RAFTER_right_1",
+    "SIGNAGE_FRONT",
+    "SIGNAGE_SIDE",
+    "TERRACE_DECK",
+    "TERRACE_FASCIA",
+    "TERRACE_FASCIA_RIGHT_RETURN",
+    "TERRACE_RAILING",
+    "UPPER_GLASS_PAVILION"
+  ],
+  "checks": [
+    {
+      "path": "ENTRY_PLATFORM",
+      "check": "persistent_id",
+      "expected": 43020,
+      "actual": 43020
+    },
+    {
+      "path": "ENTRY_PLATFORM",
+      "check": "objects_total",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "path": "ENTRY_PLATFORM",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -2600.0,
+          -3400.0,
+          -240.0
+        ],
+        "max": [
+          13800.0,
+          10200.0,
+          25.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -2600.0,
+          -3400.0,
+          -240.0
+        ],
+        "max": [
+          13800.0,
+          10200.0,
+          25.0
+        ]
+      }
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "persistent_id",
+      "expected": 42038,
+      "actual": 42038
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "objects_total",
+      "expected": 35,
+      "actual": 35
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1650.0,
+          1500.0,
+          -75.7
+        ],
+        "max": [
+          1100.0,
+          7528.7,
+          4617.9
+        ]
+      },
+      "actual": {
+        "min": [
+          -1650.0,
+          1500.0,
+          -75.7
+        ],
+        "max": [
+          1100.0,
+          7528.7,
+          4617.9
+        ]
+      }
+    },
+    {
+      "path": "FRONT_ENTRY_OPENING_HOST",
+      "check": "persistent_id",
+      "expected": 72180,
+      "actual": 72180
+    },
+    {
+      "path": "FRONT_ENTRY_OPENING_HOST",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "FRONT_ENTRY_OPENING_HOST",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4200.0,
+          -90.0,
+          0.0
+        ],
+        "max": [
+          12000.0,
+          90.0,
+          3100.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4200.0,
+          -90.0,
+          0.0
+        ],
+        "max": [
+          12000.0,
+          90.0,
+          3100.0
+        ]
+      }
+    },
+    {
+      "path": "FRONT_SLOPED_GLAZING",
+      "check": "persistent_id",
+      "expected": 71640,
+      "actual": 71640
+    },
+    {
+      "path": "FRONT_SLOPED_GLAZING",
+      "check": "objects_total",
+      "expected": 23,
+      "actual": 23
+    },
+    {
+      "path": "FRONT_SLOPED_GLAZING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          117.5,
+          -3245.0,
+          -17.5
+        ],
+        "max": [
+          4132.5,
+          47.5,
+          3290.0
+        ]
+      },
+      "actual": {
+        "min": [
+          117.5,
+          -3245.0,
+          -17.5
+        ],
+        "max": [
+          4132.5,
+          47.5,
+          3290.0
+        ]
+      }
+    },
+    {
+      "path": "FRONT_STORE_FRONT_GLAZING",
+      "check": "persistent_id",
+      "expected": 72556,
+      "actual": 72556
+    },
+    {
+      "path": "FRONT_STORE_FRONT_GLAZING",
+      "check": "objects_total",
+      "expected": 22,
+      "actual": 22
+    },
+    {
+      "path": "FRONT_STORE_FRONT_GLAZING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4381.0,
+          -120.0,
+          -19.0
+        ],
+        "max": [
+          9519.0,
+          -72.0,
+          3019.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4381.0,
+          -120.0,
+          -19.0
+        ],
+        "max": [
+          9519.0,
+          -72.0,
+          3019.0
+        ]
+      }
+    },
+    {
+      "path": "GROUND_RIGHT_TIMBER_WALL",
+      "check": "persistent_id",
+      "expected": 36285,
+      "actual": 36285
+    },
+    {
+      "path": "GROUND_RIGHT_TIMBER_WALL",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "GROUND_RIGHT_TIMBER_WALL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          11910.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          12090.0,
+          8400.0,
+          3100.0
+        ]
+      },
+      "actual": {
+        "min": [
+          11910.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          12090.0,
+          8400.0,
+          3100.0
+        ]
+      }
+    },
+    {
+      "path": "GROUND_SHELL",
+      "check": "persistent_id",
+      "expected": 35548,
+      "actual": 35548
+    },
+    {
+      "path": "GROUND_SHELL",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "GROUND_SHELL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -120.0,
+          -120.0,
+          -80.0
+        ],
+        "max": [
+          12120.0,
+          8520.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -120.0,
+          -120.0,
+          -80.0
+        ],
+        "max": [
+          12120.0,
+          8520.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "MATERIAL_ZONES",
+      "check": "persistent_id",
+      "expected": 41283,
+      "actual": 41283
+    },
+    {
+      "path": "MATERIAL_ZONES",
+      "check": "objects_total",
+      "expected": 9,
+      "actual": 9
+    },
+    {
+      "path": "MATERIAL_ZONES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2950.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          12114.0,
+          8400.0,
+          3750.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2950.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          12114.0,
+          8400.0,
+          3750.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_GLASS_MULLION_left_1",
+      "check": "persistent_id",
+      "expected": 39656,
+      "actual": 39656
+    },
+    {
+      "path": "ROOF_GLASS_MULLION_left_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_GLASS_MULLION_left_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2969.0,
+          900.0,
+          4676.0
+        ],
+        "max": [
+          3031.0,
+          7500.0,
+          4724.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2969.0,
+          900.0,
+          4676.0
+        ],
+        "max": [
+          3031.0,
+          7500.0,
+          4724.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_GLASS_MULLION_right_1",
+      "check": "persistent_id",
+      "expected": 40328,
+      "actual": 40328
+    },
+    {
+      "path": "ROOF_GLASS_MULLION_right_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_GLASS_MULLION_right_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          8969.0,
+          900.0,
+          4676.0
+        ],
+        "max": [
+          9031.0,
+          7500.0,
+          4724.0
+        ]
+      },
+      "actual": {
+        "min": [
+          8969.0,
+          900.0,
+          4676.0
+        ],
+        "max": [
+          9031.0,
+          7500.0,
+          4724.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_GLASS_left_T1_Y1",
+      "check": "persistent_id",
+      "expected": 39124,
+      "actual": 39124
+    },
+    {
+      "path": "ROOF_GLASS_left_T1_Y1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_GLASS_left_T1_Y1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          3054.0,
+          928.0,
+          4754.0
+        ],
+        "max": [
+          3696.0,
+          1772.0,
+          5396.0
+        ]
+      },
+      "actual": {
+        "min": [
+          3054.0,
+          928.0,
+          4754.0
+        ],
+        "max": [
+          3696.0,
+          1772.0,
+          5396.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_GLASS_left_T4_Y7",
+      "check": "persistent_id",
+      "expected": 39421,
+      "actual": 39421
+    },
+    {
+      "path": "ROOF_GLASS_left_T4_Y7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_GLASS_left_T4_Y7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5304.0,
+          6328.0,
+          7004.0
+        ],
+        "max": [
+          5946.0,
+          7172.0,
+          7646.0
+        ]
+      },
+      "actual": {
+        "min": [
+          5304.0,
+          6328.0,
+          7004.0
+        ],
+        "max": [
+          5946.0,
+          7172.0,
+          7646.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_GLASS_right_T1_Y1",
+      "check": "persistent_id",
+      "expected": 39796,
+      "actual": 39796
+    },
+    {
+      "path": "ROOF_GLASS_right_T1_Y1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_GLASS_right_T1_Y1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          8304.0,
+          928.0,
+          4754.0
+        ],
+        "max": [
+          8946.0,
+          1772.0,
+          5396.0
+        ]
+      },
+      "actual": {
+        "min": [
+          8304.0,
+          928.0,
+          4754.0
+        ],
+        "max": [
+          8946.0,
+          1772.0,
+          5396.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_GLASS_right_T4_Y7",
+      "check": "persistent_id",
+      "expected": 40093,
+      "actual": 40093
+    },
+    {
+      "path": "ROOF_GLASS_right_T4_Y7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_GLASS_right_T4_Y7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          6054.0,
+          6328.0,
+          7004.0
+        ],
+        "max": [
+          6696.0,
+          7172.0,
+          7646.0
+        ]
+      },
+      "actual": {
+        "min": [
+          6054.0,
+          6328.0,
+          7004.0
+        ],
+        "max": [
+          6696.0,
+          7172.0,
+          7646.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_LONGITUDINAL_PURLIN_5",
+      "check": "persistent_id",
+      "expected": 73546,
+      "actual": 73546
+    },
+    {
+      "path": "ROOF_LONGITUDINAL_PURLIN_5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_LONGITUDINAL_PURLIN_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5950.0,
+          900.0,
+          7640.0
+        ],
+        "max": [
+          6050.0,
+          7500.0,
+          7760.0
+        ]
+      },
+      "actual": {
+        "min": [
+          5950.0,
+          900.0,
+          7640.0
+        ],
+        "max": [
+          6050.0,
+          7500.0,
+          7760.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_RAFTER_left_1",
+      "check": "persistent_id",
+      "expected": 72970,
+      "actual": 72970
+    },
+    {
+      "path": "ROOF_RAFTER_left_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_RAFTER_left_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2966.4,
+          845.0,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          955.0,
+          7733.6
+        ]
+      },
+      "actual": {
+        "min": [
+          2966.4,
+          845.0,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          955.0,
+          7733.6
+        ]
+      }
+    },
+    {
+      "path": "ROOF_RAFTER_right_1",
+      "check": "persistent_id",
+      "expected": 73194,
+      "actual": 73194
+    },
+    {
+      "path": "ROOF_RAFTER_right_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_RAFTER_right_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5966.4,
+          845.0,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          955.0,
+          7733.6
+        ]
+      },
+      "actual": {
+        "min": [
+          5966.4,
+          845.0,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          955.0,
+          7733.6
+        ]
+      }
+    },
+    {
+      "path": "SIGNAGE_FRONT",
+      "check": "persistent_id",
+      "expected": 67359,
+      "actual": 67359
+    },
+    {
+      "path": "SIGNAGE_FRONT",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "SIGNAGE_FRONT",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4026.0,
+          -369.0,
+          3780.0
+        ],
+        "max": [
+          6080.8,
+          -357.0,
+          4029.1
+        ]
+      },
+      "actual": {
+        "min": [
+          4026.0,
+          -369.0,
+          3780.0
+        ],
+        "max": [
+          6080.8,
+          -357.0,
+          4029.1
+        ]
+      }
+    },
+    {
+      "path": "SIGNAGE_SIDE",
+      "check": "persistent_id",
+      "expected": 69104,
+      "actual": 69104
+    },
+    {
+      "path": "SIGNAGE_SIDE",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "SIGNAGE_SIDE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          12172.0,
+          2621.7,
+          3780.0
+        ],
+        "max": [
+          12184.0,
+          4341.1,
+          3988.4
+        ]
+      },
+      "actual": {
+        "min": [
+          12172.0,
+          2621.7,
+          3780.0
+        ],
+        "max": [
+          12184.0,
+          4341.1,
+          3988.4
+        ]
+      }
+    },
+    {
+      "path": "TERRACE_DECK",
+      "check": "persistent_id",
+      "expected": 37220,
+      "actual": 37220
+    },
+    {
+      "path": "TERRACE_DECK",
+      "check": "objects_total",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "path": "TERRACE_DECK",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -100.0,
+          -650.0,
+          280.0
+        ],
+        "max": [
+          12120.0,
+          8520.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -100.0,
+          -650.0,
+          280.0
+        ],
+        "max": [
+          12120.0,
+          8520.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "TERRACE_FASCIA",
+      "check": "persistent_id",
+      "expected": 36996,
+      "actual": 36996
+    },
+    {
+      "path": "TERRACE_FASCIA",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "TERRACE_FASCIA",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -150.0,
+          -330.0,
+          3600.0
+        ],
+        "max": [
+          12150.0,
+          120.0,
+          4200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -150.0,
+          -330.0,
+          3600.0
+        ],
+        "max": [
+          12150.0,
+          120.0,
+          4200.0
+        ]
+      }
+    },
+    {
+      "path": "TERRACE_FASCIA_RIGHT_RETURN",
+      "check": "persistent_id",
+      "expected": 37024,
+      "actual": 37024
+    },
+    {
+      "path": "TERRACE_FASCIA_RIGHT_RETURN",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "TERRACE_FASCIA_RIGHT_RETURN",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          11850.0,
+          -250.0,
+          3600.0
+        ],
+        "max": [
+          12200.0,
+          8520.0,
+          4200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          11850.0,
+          -250.0,
+          3600.0
+        ],
+        "max": [
+          12200.0,
+          8520.0,
+          4200.0
+        ]
+      }
+    },
+    {
+      "path": "TERRACE_RAILING",
+      "check": "persistent_id",
+      "expected": 41901,
+      "actual": 41901
+    },
+    {
+      "path": "TERRACE_RAILING",
+      "check": "objects_total",
+      "expected": 10,
+      "actual": 10
+    },
+    {
+      "path": "TERRACE_RAILING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          8372.0,
+          -28.0,
+          4200.0
+        ],
+        "max": [
+          12042.0,
+          8428.0,
+          5250.0
+        ]
+      },
+      "actual": {
+        "min": [
+          8372.0,
+          -28.0,
+          4200.0
+        ],
+        "max": [
+          12042.0,
+          8428.0,
+          5250.0
+        ]
+      }
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION",
+      "check": "persistent_id",
+      "expected": 37704,
+      "actual": 37704
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION",
+      "check": "objects_total",
+      "expected": 69,
+      "actual": 69
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2945.0,
+          850.0,
+          3595.0
+        ],
+        "max": [
+          9055.0,
+          7550.0,
+          7728.3
+        ]
+      },
+      "actual": {
+        "min": [
+          2945.0,
+          850.0,
+          3595.0
+        ],
+        "max": [
+          9055.0,
+          7550.0,
+          7728.3
+        ]
+      }
+    }
+  ]
+}

@@ -111,6 +111,7 @@ Only the Builder writes Ruby. For YES, first map reviewer KEEP items to exact na
 Record each QA capture's revision. After any correction, recapture ALL required views; missing/stale rows mean incomplete QA. Correct via edit, integrate baseline separately; replaying replace destroys KEEP IDs.
 
 Report panel/view → observed source fact → actual model → mismatch/action. Integrate successful fixes into the persistent baseline/replay entrypoint so rerunning cannot resurrect defects. Incremental moves are not idempotent builders.
+Write a proposed correction to a separate candidate patch first. Update the complete baseline only AFTER a committed writer receipt and successful write_verification for that exact patch; a blocked call, timeout or budget interruption does not authorize promoting an unexecuted candidate. Keep the last committed baseline recoverable, and record any candidate that remains unapplied.
 
 Match source framing; target the building rather than zooming to the entire site. Inspect close oblique roof/wall junctions and openings. A roof cap hiding the parapet and remaining coplanar seams are defects regardless of code intentions. After geometry edits capture new views; older views are historical. Use actual tool-returned image paths and saved SKP artifacts, never invented QA names or an unsaved active blank-model path.
 

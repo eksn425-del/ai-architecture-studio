@@ -375,7 +375,24 @@ class CodexAppServerRuntime:
         tool_call_count = failed_tool_calls = 0
         input_tokens = output_tokens = None
 
+        evidence_dir = project_dir / "runtime" / "agent_events"
+        evidence_dir.mkdir(parents=True, exist_ok=True)
+        evidence_path = evidence_dir / f"{uuid.uuid4().hex}.jsonl"
+
+        def record(event: dict[str, Any]) -> None:
+            with evidence_path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
         def interrupted(error: NativeAgentUnavailable) -> NativeAgentUnavailable:
+            # Persist the terminal state too: sparse usage events alone cannot
+            # distinguish an active turn from a timeout after process shutdown.
+            record({
+                "event": "turn_interrupted", "status": "interrupted",
+                "reason": str(error), "input_tokens": input_tokens,
+                "output_tokens": output_tokens, "tool_call_count": tool_call_count,
+                "failed_tool_calls": failed_tool_calls,
+                "latency_ms": round((time.monotonic() - started) * 1000),
+            })
             error.partial_result = AgentTurnResult(
                 thread_id=resolved_thread_id, reply="", status="interrupted",
                 tool_calls=_dedupe_calls(tool_calls), model_name=model,
@@ -418,14 +435,6 @@ class CodexAppServerRuntime:
             registry_path.write_text(json.dumps(registrations, indent=2), encoding="utf-8")
 
             turn_input = _app_server_turn_input(prompt, reference_images)
-            evidence_dir = project_dir / "runtime" / "agent_events"
-            evidence_dir.mkdir(parents=True, exist_ok=True)
-            evidence_path = evidence_dir / f"{uuid.uuid4().hex}.jsonl"
-
-            def record(event: dict[str, Any]) -> None:
-                with evidence_path.open("a", encoding="utf-8") as handle:
-                    handle.write(json.dumps(event, ensure_ascii=False) + "\n")
-
             record({"event": "turn_input", "thread_id": resolved_thread_id,
                     "model": model, "reasoning_effort": reasoning_effort,
                     "workflow_mode": workflow_mode, "tool_profile": tool_profile,
@@ -484,6 +493,7 @@ class CodexAppServerRuntime:
                             failed_tool_calls += int(native_failed)
                             record({"event": "tool_result", "tool": "codex_" + event_item["type"],
                                     "success": not native_failed,
+                                    "exit_code": event_item.get("exitCode"),
                                     "error": "Native coding operation failed" if native_failed else ""})
                     record({"event": method, "item_type": event_item.get("type"),
                             "status": event_item.get("status") or (params.get("turn") or {}).get("status"),

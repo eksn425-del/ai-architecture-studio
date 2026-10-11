@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The source has an open right-front terrace bay carried by square posts; the current front fills most of that span with a full-height wall beneath the fascia.",
+            "action": "Recess or remove only the front-bay infill and expose the supporting posts, keeping the separate solid side annex."
+          },
+          {
+            "priority": 2,
+            "view": "right",
+            "problem": "The lower annex side is a broad, quiet timber-clad plane in the source, but the current wall is covered in dense vertical fins.",
+            "action": "Replace the dense fin pattern with a broad timber surface and sparse joints, preserving the annex footprint."
+          }
+        ],
+        "keep": [
+          "Left exterior stair rising to the terrace."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 1
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "dream_coffee_reconstruction",
+        "revision": 2,
+        "relative_path": "scripts/dream_coffee_repair01_front_and_side.rb",
+        "update_mode": "edit",
+        "source_sha256": "b2c77f3fb610f3c6281d5ccd87d73c77ca2f335c6306cdb80ba35c8e91c27b03",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "EXTERIOR_STAIR"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Source shows a glazed ground-floor café, a broad sloping-glass annex at the left/front, a set-back glazed A-frame above, a flat terrace/canopy projecting front/right on posts, and an exterior stair at the left. The current model has the upper gable, terrace and stair, but the lower front reads as an opaque box with only a narrow glass wedge.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The source’s left/front annex is a broad projecting sloped-glass bay that reaches the ground; the current front reads as a narrow triangular insert against the orange wall.",
+            "action": "Widen and extend the existing sloped-glass bay across the source’s left/front bay, meeting the ground edge while preserving the upper gable."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "Opaque infill dominates the lower front around the entrance, where the source shows a more continuous glazed café frontage beside the open, column-supported terrace.",
+            "action": "Replace the infill in the entrance-facing bay with connected storefront glazing and retain the solid wall on the side/rear face."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The upper roof’s deep brown framing forms a dense, heavy grid that overwhelms the glazing; the source framing reads lighter and slimmer.",
+            "action": "Reduce the visible frame depth and weight while keeping the A-frame outline and glazing layout."
+          }
+        ],
+        "keep": [
+          "Upper glazed triangular gable-end outline."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Source shows a glazed ground-floor café, a broad sloping-glass annex at the left/front, a set-back glazed A-frame above, a flat terrace/canopy projecting front/right on posts, and an exterior stair at the left. The current model has the upper gable, terrace and stair, but the lower front reads as an opaque box with only a narrow glass wedge.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The source’s left/front annex is a broad projecting sloped-glass bay that reaches the ground; the current front reads as a narrow triangular insert against the orange wall.",
+            "action": "Widen and extend the existing sloped-glass bay across the source’s left/front bay, meeting the ground edge while preserving the upper gable."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "Opaque infill dominates the lower front around the entrance, where the source shows a more continuous glazed café frontage beside the open, column-supported terrace.",
+            "action": "Replace the infill in the entrance-facing bay with connected storefront glazing and retain the solid wall on the side/rear face."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The upper roof’s deep brown framing forms a dense, heavy grid that overwhelms the glazing; the source framing reads lighter and slimmer.",
+            "action": "Reduce the visible frame depth and weight while keeping the A-frame outline and glazing layout."
+          }
+        ],
+        "keep": [
+          "Upper glazed triangular gable-end outline."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "dream_coffee_reconstruction",
+        "revision": 3,
+        "relative_path": "scripts/dream_coffee_repair02_glazed_front_and_slender_roof.rb",
+        "update_mode": "edit",
+        "source_sha256": "fc89dfada94875fe629d4c8cc6de806502d9287f5ef86e2fe84e1d4a164a9d04",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "EXTERIOR_STAIR",
+            "UPPER_GLASS_PAVILION/FRONT_GABLE_TRIANGULAR_GLAZING",
+            "UPPER_GLASS_PAVILION/REAR_GABLE_TRIANGULAR_GLAZING"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": false,
+        "assessment": "",
+        "issues": [],
+        "keep": [
+          "Preserve the front-left sloped glazed annex and its mullion rhythm."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "accepted"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Across the source collage, I see a lower café volume, an attached sloped glazed wing, a tall timber-framed glazed A-frame, a raised terrace with a projecting fascia, an exterior stair, open ground-floor seating bays, and a separately projected canopy over part of the upper terrace. The side view also shows a warm timber-clad wall, and the interior view shows the glazed gable and exposed roof framing. The current model has the lower wing, A-frame, terrace fascia, stair, and front-right open bay with supports. Its upper terrace shows umbrellas but no separate projecting canopy and supports; the fascia below is not a substitute. The current side wall also reads as a mostly smooth peach surface rather than the source’s jointed timber panels.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "roof",
+            "problem": "The source’s high-angle panel shows a separate canopy projecting over part of the upper terrace, supported above the terrace seating. The current roof and upper-level close-ups show umbrellas but no such canopy; the lower terrace fascia is present but serves a different location and role.",
+            "action": "Add the separate upper-terrace canopy and its supports at the source location while retaining the existing terrace slab and fascia."
+          },
+          {
+            "priority": 2,
+            "view": "right",
+            "problem": "The source side view has a warm timber-clad wall with visible vertical panel joints and relief. The current side wall is nearly smooth, with only sparse seams.",
+            "action": "Add readable vertical timber panel joints and shallow board relief to the existing wall, keeping its current volume."
+          }
+        ],
+        "keep": [
+          "Attached sloped glazed wing at the front-left.",
+          "Open front-right ground-floor seating bay and its support columns."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "dream_coffee_reconstruction",
+        "revision": 4,
+        "relative_path": "scripts/dream_coffee_repair03_canopy_and_timber.rb",
+        "update_mode": "edit",
+        "source_sha256": "0a6876125ec29f5ec2658d715dc26440c765bab01a4de82d2c421a442f67e9d7",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "UPPER_GLASS_PAVILION",
+            "FRONT_SLOPED_GLAZING",
+            "FRONT_ENTRY_OPENING_HOST",
+            "FRONT_STORE_FRONT_GLAZING",
+            "EXTERIOR_STAIR",
+            "GROUND_SHELL",
+            "GROUND_RIGHT_TIMBER_WALL",
+            "TERRACE_FASCIA",
+            "TERRACE_FASCIA_RIGHT_RETURN",
+            "TERRACE_DECK",
+            "TERRACE_RAILING",
+            "ENTRY_PLATFORM",
+            "SIGNAGE_FRONT",
+            "SIGNAGE_SIDE",
+            "MATERIAL_ZONES",
+            "ROOF_GLASS_left_T1_Y1",
+            "ROOF_GLASS_left_T4_Y7",
+            "ROOF_GLASS_right_T1_Y1",
+            "ROOF_GLASS_right_T4_Y7",
+            "ROOF_GLASS_MULLION_left_1",
+            "ROOF_GLASS_MULLION_right_1",
+            "ROOF_RAFTER_left_1",
+            "ROOF_RAFTER_right_1",
+            "ROOF_LONGITUDINAL_PURLIN_5"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Across the source collage, the upper-left high-angle view shows the tall glazed A-frame, a projecting lower sloped-glass annex, and an elevated terrace; the upper-right and lower-left views confirm the front hierarchy, exterior stair, and open dining bay beneath the terrace. The lower-right view shows the attached timber-clad wall, while the interior panel confirms the tall glazed gable and exposed roof framing. The current model has these main elements, including a separate upper canopy with supports and a lower terrace fascia, but the front annex is narrower than in the source, the side cladding reads as flat peach panels, and the upper canopy looks broader and heavier. The open column bay is present in the current entry view and remains distinct from the terrace slab.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The lower sloped-glass annex is visibly narrower than the source front panel, reducing the prominent glazed frontage beside the entry.",
+            "action": "Widen and deepen this attached annex to match the source frontage while retaining the entry and open column bay."
+          },
+          {
+            "priority": 2,
+            "view": "right",
+            "problem": "The source side wall reads as warm timber cladding with distinct panel joints and relief; the current wall is a mostly flat peach surface with only thin seam lines.",
+            "action": "Add the source-like timber finish and clearer panel joints or shallow reveals across the existing wall."
+          },
+          {
+            "priority": 3,
+            "view": "oblique",
+            "problem": "The separate upper canopy appears broader and heavier than the modest projecting canopy in the source, competing with the A-frame roof and terrace.",
+            "action": "Reduce the upper canopy footprint and visual thickness, retaining its supports and keeping it distinct from the lower terrace slab/fascia."
+          }
+        ],
+        "keep": [
+          "Glazed A-frame main roof silhouette and exposed framing.",
+          "Exterior stair rising to the upper terrace.",
+          "Lower terrace fascia and the open dining bay beneath it."
+        ],
+        "model_revisions": {
+          "dream_coffee_reconstruction": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

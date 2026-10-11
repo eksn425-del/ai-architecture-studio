@@ -1,0 +1,448 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "private-five-panel-source",
+    "sources": [
+      {
+        "id": "dream_coffee_reference_sheet",
+        "kind": "exterior_image",
+        "path": "private-five-panel-source",
+        "provenance": "observed",
+        "notes": [
+          "整幅多面板图作为一个完整证据源；左上为高位斜俯外观，右上为远景入口斜视，左下为主入口斜视，右下为木饰面侧墙斜视。",
+          "右中面板是同一玻璃厅的室内视角，记录于 interior 字段；不拆分或重绘原图。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "private-five-panel-source"
+        ],
+        "notes": [
+          "主入口方向以左下面板为 FRONT：左侧大幅倾斜玻璃面，中部竖向入口玻璃组，右侧开放柱廊与招牌梁带。",
+          "上层三角玻璃山墙和玻璃双坡屋面在该面板可见；正面不是严格正投影。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "没有完整后立面视图；依据相邻可见侧墙、屋架和入口关系连贯推断，不将遮挡误记为无门窗的证据。"
+        ]
+      },
+      "left": {
+        "provenance": "observed",
+        "source_refs": [
+          "private-five-panel-source"
+        ],
+        "notes": [
+          "左上高位斜俯视显示一侧外楼梯、平台花池及玻璃厅边缘；只有斜视局部，不是完整正交左立面。"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "private-five-panel-source"
+        ],
+        "notes": [
+          "右下面板显示较长木饰面实墙、入口玻璃转角、露台梁柱和树木；按其与主入口的关系暂定为右侧斜视，后段仍被遮挡。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "private-five-panel-source"
+        ],
+        "notes": [
+          "左上斜俯图可见双坡玻璃屋面、重复梁格、露台和外楼梯；右中室内图可见坡面木梁。没有正交屋顶平面，构件间距仍为估算。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "private-five-panel-source"
+        ],
+        "notes": [
+          "左上、右上、左下、右下面板均为同一建筑不同外部透视；通过入口、招牌带、玻璃山墙、楼梯及木饰面墙对应，不拆为多个对象。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面图；空间深度、楼梯位置和露台边界按外观透视估算。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供 CAD/DWG 或可读取尺寸资料。"
+      ]
+    },
+    "interior": {
+      "provided": true,
+      "provenance": "observed",
+      "source_refs": [
+        "private-five-panel-source"
+      ],
+      "spaces": [
+        "上层玻璃厅室内视角（右中面板）"
+      ],
+      "notes": [
+        "可见三角玻璃端墙、深色分格、外露木屋架、低墙/木饰面和桌椅；没有完整室内平面或后续空间证据。",
+        "仅重建可见构造和家具关系；未显示设备、卫生间、厨房及其位置不据此虚构为来源事实。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "入口门净高比例参照（名义估算，非实测）",
+        "value_mm": 2100,
+        "provenance": "inferred",
+        "source_ref": "private-five-panel-source"
+      }
+    ],
+    "hard_constraints": [
+      "目标是同一 Dream Coffee 建筑的可编辑 SketchUp 2024 重建，不做场地/节目适配或通用化改设计。",
+      "用户确认范围包含两层主体、外楼梯、上层露台玻璃栏杆、倾斜玻璃屋面与三角山墙、结构木梁、门窗、招牌、平台花池及图中可见桌椅伞。",
+      "所有来源可见外部角度和室内面板都约束同一个建筑；可见比例、开口、屋面、材料区、栏杆、家具及构件关系应优先匹配。",
+      "没有实测尺寸；模型尺寸必须保持一套一致比例并标记为估算，不能写作实测。"
+    ],
+    "assumptions": [
+      "入口面依据左下面板中主入口和 Dream Coffee 招牌方向定义为 FRONT；该命名不是实际地理朝向。",
+      "入口门名义净高暂按 2100 mm 作为推算比例锚点；主体宽深、层高、梁截面、玻璃节距、楼梯踏步和标高均为 ESTIMATED。",
+      "右下面板只证明可见木饰面长侧墙和相邻玻璃转角；完整后立面没有直接证据。",
+      "可见图外区域按相同木饰面、暖木色、深色金属、玻璃与连续通行关系推断；不镜像前立面。",
+      "树木及远景植物按来源可见位置做简化表达，不作为建筑体量证据。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6-luna",
+    "reasoning_effort": "max",
+    "latency_ms": 98266,
+    "input_tokens": 44651,
+    "output_tokens": 7064,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "The source collage shows a tall glazed A-frame café hall with exposed timber roof framing, a lower rectangular café volume, a sloped glazed front annex, an elevated terrace and access stair. The exterior panels also show a separate upper canopy over terrace seating, while the lower terrace slab/fascia projects over an open bay carried by columns. The interior panel confirms the repeated timber roof structure and tall glazed gable. These main forms and both canopy levels are present in the current views, and the lower bay remains open between its supports. However, the current close canopy view shows the upper canopy obscuring more of the glazed roof than in the source, and the current side wall reads as broad smooth peach panels rather than the source’s timber panel cladding.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "roof",
+      "problem": "The upper terrace canopy projects across and obscures the glazed A-frame roof in the current close view, weakening the source’s separation between the roof hall and terrace seating. action: Reduce its projection or shift it toward the terrace seating edge, keeping it distinct from the lower terrace fascia and supported on its own posts.",
+      "action": "Reduce its projection or shift it toward the terrace seating edge, keeping it distinct from the lower terrace fascia and supported on its own posts."
+    },
+    {
+      "priority": 2,
+      "view": "right",
+      "problem": "The large side wall has widely spaced seams and a smooth peach finish; the source shows a warmer timber-clad surface with a finer, regular vertical panel rhythm. action: Refine the existing wall finish with narrow vertical timber joints and shallow panel relief, preserving the wall’s current footprint and openings.",
+      "action": "Refine the existing wall finish with narrow vertical timber joints and shallow panel relief, preserving the wall’s current footprint and openings."
+    }
+  ],
+  "keep": [
+    "Glazed A-frame hall and its exposed timber roof grid.",
+    "Sloped glazed front annex descending to the ground.",
+    "Lower projecting fascia and its open, column-supported seating bay."
+  ],
+  "model_revisions": {
+    "dream_coffee_reconstruction": 4
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-1e5ef1c63e.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "dream_coffee_reconstruction",
+      "camera": {
+        "eye_m": [
+          6.244350000000001,
+          -45.85288,
+          3.92
+        ],
+        "target_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          3.92
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-1812d9ddcd.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "dream_coffee_reconstruction",
+      "camera": {
+        "eye_m": [
+          6.244350000000001,
+          52.652879999999996,
+          3.92
+        ],
+        "target_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          3.92
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-8b4b24c7af.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "dream_coffee_reconstruction",
+      "camera": {
+        "eye_m": [
+          -45.05288,
+          3.3999999999999995,
+          3.92
+        ],
+        "target_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          3.92
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-e9f115b8ac.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "dream_coffee_reconstruction",
+      "camera": {
+        "eye_m": [
+          57.54158,
+          3.3999999999999995,
+          3.92
+        ],
+        "target_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          3.92
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-0f02a83605.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "dream_coffee_reconstruction",
+      "camera": {
+        "eye_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          50.21288
+        ],
+        "target_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          3.76
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-c9b5478ce5.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "dream_coffee_reconstruction",
+      "camera": {
+        "eye_m": [
+          48.201946400000004,
+          -36.5132464,
+          28.1373824
+        ],
+        "target_m": [
+          6.244350000000001,
+          3.3999999999999995,
+          3.92
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "private-five-panel-source",
+      "current_view": "outputs/renders/agent-view-29328937ea.png",
+      "label": "source same-camera r4 after; before capture outputs/renders/agent-view-8bbaf322cf.png",
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      }
+    },
+    {
+      "source_ref": "private-five-panel-source",
+      "current_view": "outputs/renders/agent-view-5698b860f5.png",
+      "label": "canopy same-camera r4 after; before capture outputs/renders/agent-view-6de6745d32.png",
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      }
+    },
+    {
+      "source_ref": "private-five-panel-source",
+      "current_view": "outputs/renders/agent-view-88a3b00afe.png",
+      "label": "timber same-camera r4 after; before capture outputs/renders/agent-view-0761622299.png",
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      }
+    },
+    {
+      "source_ref": "private-five-panel-source",
+      "current_view": "outputs/renders/agent-view-b0126bb5de.png",
+      "label": "entry same-camera r4 after; before capture outputs/renders/agent-view-3f224daabc.png",
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      }
+    },
+    {
+      "source_ref": "private-five-panel-source",
+      "current_view": "outputs/renders/agent-view-d6a18ebef3.png",
+      "label": "interior same-camera r4 after; before capture outputs/renders/agent-view-e435d22d5f.png",
+      "model_revisions": {
+        "dream_coffee_reconstruction": 4
+      }
+    }
+  ],
+  "writer_verifications": {
+    "dream_coffee_reconstruction": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 35529,
+          "actual": 35529
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 116,
+          "actual": 116
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -2600.0,
+              -3400.0,
+              -240.0
+            ],
+            "max": [
+              15088.7,
+              10200.0,
+              7760.0
+            ],
+            "size": [
+              17688.7,
+              13600.0,
+              8000.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -2600,
+              -3400,
+              -240
+            ],
+            "max": [
+              15088.7,
+              10200,
+              7760
+            ],
+            "size": [
+              17688.7,
+              13600,
+              8000
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "private-five-panel-source"
+  ]
+}

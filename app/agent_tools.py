@@ -439,6 +439,9 @@ class AgentToolSurface:
                 "adai_geometry.profile(root.entities, name, outline_mm, depth_mm, plane, offset_mm, material); "
                 "adai_geometry.profile_with_holes(...), loft_sections(...), shell_grid(...), closed_band(...). "
                 "Always pass root.entities; numeric dimensions are in mm. "
+                "adai_geometry is an injected local variable: Ruby def cannot capture it. "
+                "Use a lambda capturing adai_geometry or explicitly pass the proxy into your helper; "
+                "a NameError inside def is a scoping error, not evidence that ADAI is disabled. "
                 "Experimental: per-SketchUp-version real geometry smoke is still required."
                 if adai_enabled else ""
             )

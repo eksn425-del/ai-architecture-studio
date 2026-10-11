@@ -69,6 +69,9 @@ def build_visual_critic_prompt(
         "or a successful save is not visual success. Preserve geometry that already matches. "
         "First inventory every visible primary and attached volume, lower roof, setback and canopy across ALL sources; "
         "compare silhouette and height hierarchy to the model. Missing volumes outrank details or template clutter. "
+        "For collage sources, inspect every panel, including high-angle roof and interior/detail panels. "
+        "Distinguish a lower terrace slab/fascia from a separate upper projecting canopy and its supports; "
+        "one cannot substitute for the other. Compare timber panel joints/relief and open column bays explicitly. "
         "Do not accept a dominant rectangular box when the source shows a lower annex, and do not propose extra plants to hide errors. "
         "KEEP must name only genuinely unchanged geometry. Do not protect an entire roof or volume that an issue requires correcting; "
         "distinguish preserving its material/character from freezing its dimensions. "
@@ -78,7 +81,7 @@ def build_visual_critic_prompt(
         "major material zones and obvious intersections over micro-detail. Do not write Ruby and do not propose a rebuild "
         "when a local patch is enough. Use exactly this response envelope:\n"
         "NEEDS_FIX: YES|NO\n"
-        "<assessment>brief overall comparison</assessment>\n"
+        "<assessment>required nonempty source-versus-current comparison, including canopy/supports, cladding and open bays when visible</assessment>\n"
         "<issue priority=\"1\" view=\"front\">problem: ...\naction: ...</issue>\n"
         "<issue priority=\"2\" view=\"roof\">problem: ...\naction: ...</issue>\n"
         "<keep>one already-correct feature per line</keep>\n"
@@ -117,18 +120,16 @@ def parse_visual_critique_response(text: str, *, max_issues: int = MAX_CRITIC_IS
         issues.append(VisualIssue(priority=priority, view=view, problem=problem, action=action))
     issues = sorted(issues, key=lambda issue: issue.priority)[:max_issues]
 
-    keep_match = _KEEP_RE.search(raw)
-    keep = ()
-    if keep_match:
-        keep = tuple(
-            line.strip(" -\t")
-            for line in keep_match.group(1).splitlines()
-            if line.strip(" -\t")
-        )
+    keep = tuple(
+        line.strip(" -\t")
+        for keep_match in _KEEP_RE.finditer(raw)
+        for line in keep_match.group(1).splitlines()
+        if line.strip(" -\t")
+    )
 
     if needs_fix is None and issues:
         needs_fix = True
-    malformed = needs_fix is None or (needs_fix is True and not issues)
+    malformed = needs_fix is None or not assessment or (needs_fix is True and not issues)
     return VisualCritique(
         needs_fix=needs_fix,
         assessment=assessment,

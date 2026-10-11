@@ -38,3 +38,4 @@ def test_native_coding_operations_are_counted_and_logged(tmp_path, monkeypatch):
     results = [event for event in recorded if event["event"] == "tool_result"]
     assert [(item["tool"], item["success"]) for item in results] == [
         ("codex_commandExecution", False), ("codex_fileChange", True)]
+    assert results[0]["exit_code"] == 1

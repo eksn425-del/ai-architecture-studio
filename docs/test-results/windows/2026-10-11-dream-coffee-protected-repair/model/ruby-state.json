@@ -1,0 +1,663 @@
+{
+  "dream_coffee_reconstruction": {
+    "revision": 4,
+    "root_pid": 35529,
+    "source_sha256": "0a6876125ec29f5ec2658d715dc26440c765bab01a4de82d2c421a442f67e9d7",
+    "last_report": "runtime/scripts/reports/dream_coffee_reconstruction-r4-14f68c37.json",
+    "last_screenshot": "outputs/renders/ruby-dream_coffee_reconstruction-r4.png",
+    "last_verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 35529,
+          "actual": 35529
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 116,
+          "actual": 116
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -2600.0,
+              -3400.0,
+              -240.0
+            ],
+            "max": [
+              15088.7,
+              10200.0,
+              7760.0
+            ],
+            "size": [
+              17688.7,
+              13600.0,
+              8000.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -2600,
+              -3400,
+              -240
+            ],
+            "max": [
+              15088.7,
+              10200,
+              7760
+            ],
+            "size": [
+              17688.7,
+              13600,
+              8000
+            ]
+          }
+        }
+      ]
+    },
+    "last_verification_report": "runtime/scripts/reports/dream_coffee_reconstruction-r4-14f68c37.verification.json",
+    "last_precommit_keep_guard": {
+      "armed": true,
+      "passed": true,
+      "paths": [
+        "UPPER_GLASS_PAVILION",
+        "FRONT_SLOPED_GLAZING",
+        "FRONT_ENTRY_OPENING_HOST",
+        "FRONT_STORE_FRONT_GLAZING",
+        "EXTERIOR_STAIR",
+        "GROUND_SHELL",
+        "GROUND_RIGHT_TIMBER_WALL",
+        "TERRACE_FASCIA",
+        "TERRACE_FASCIA_RIGHT_RETURN",
+        "TERRACE_DECK",
+        "TERRACE_RAILING",
+        "ENTRY_PLATFORM",
+        "SIGNAGE_FRONT",
+        "SIGNAGE_SIDE",
+        "MATERIAL_ZONES",
+        "ROOF_GLASS_left_T1_Y1",
+        "ROOF_GLASS_left_T4_Y7",
+        "ROOF_GLASS_right_T1_Y1",
+        "ROOF_GLASS_right_T4_Y7",
+        "ROOF_GLASS_MULLION_left_1",
+        "ROOF_GLASS_MULLION_right_1",
+        "ROOF_RAFTER_left_1",
+        "ROOF_RAFTER_right_1",
+        "ROOF_LONGITUDINAL_PURLIN_5"
+      ]
+    },
+    "last_oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "0a6876125ec29f5ec2658d715dc26440c765bab01a4de82d2c421a442f67e9d7",
+      "events": [],
+      "status": "committed_readback",
+      "script_id": "dream_coffee_reconstruction",
+      "revision": 4,
+      "root_pid": 35529
+    },
+    "last_edit_scope_receipt": {
+      "status": "passed",
+      "allowed_top_level": [
+        "UPPER_TERRACE_CANOPY_PANEL",
+        "UPPER_TERRACE_CANOPY_INNER_BEAM",
+        "UPPER_TERRACE_CANOPY_OUTER_BEAM",
+        "UPPER_TERRACE_CANOPY_POST_01",
+        "UPPER_TERRACE_CANOPY_POST_02",
+        "RIGHT_WALL_TIMBER_BOARD_REVEALS"
+      ],
+      "protected_top_level_count": 110,
+      "unchanged_protected_groups": [
+        "GROUND_SHELL",
+        "GROUND_RIGHT_TIMBER_WALL",
+        "REAR_INFERRED_FACADE",
+        "TERRACE_FASCIA",
+        "TERRACE_FASCIA_RIGHT_RETURN",
+        "TERRACE_DECK",
+        "UPPER_GLASS_PAVILION",
+        "ROOF_GLASS_left_T1_Y1",
+        "ROOF_GLASS_left_T1_Y2",
+        "ROOF_GLASS_left_T1_Y3",
+        "ROOF_GLASS_left_T1_Y4",
+        "ROOF_GLASS_left_T1_Y5",
+        "ROOF_GLASS_left_T1_Y6",
+        "ROOF_GLASS_left_T1_Y7",
+        "ROOF_GLASS_left_T2_Y1",
+        "ROOF_GLASS_left_T2_Y2",
+        "ROOF_GLASS_left_T2_Y3",
+        "ROOF_GLASS_left_T2_Y4",
+        "ROOF_GLASS_left_T2_Y5",
+        "ROOF_GLASS_left_T2_Y6",
+        "ROOF_GLASS_left_T2_Y7",
+        "ROOF_GLASS_left_T3_Y1",
+        "ROOF_GLASS_left_T3_Y2",
+        "ROOF_GLASS_left_T3_Y3",
+        "ROOF_GLASS_left_T3_Y4",
+        "ROOF_GLASS_left_T3_Y5",
+        "ROOF_GLASS_left_T3_Y6",
+        "ROOF_GLASS_left_T3_Y7",
+        "ROOF_GLASS_left_T4_Y1",
+        "ROOF_GLASS_left_T4_Y2",
+        "ROOF_GLASS_left_T4_Y3",
+        "ROOF_GLASS_left_T4_Y4",
+        "ROOF_GLASS_left_T4_Y5",
+        "ROOF_GLASS_left_T4_Y6",
+        "ROOF_GLASS_left_T4_Y7",
+        "ROOF_GLASS_MULLION_left_1",
+        "ROOF_GLASS_MULLION_left_2",
+        "ROOF_GLASS_MULLION_left_3",
+        "ROOF_GLASS_MULLION_left_4",
+        "ROOF_GLASS_MULLION_left_5",
+        "ROOF_GLASS_right_T1_Y1",
+        "ROOF_GLASS_right_T1_Y2",
+        "ROOF_GLASS_right_T1_Y3",
+        "ROOF_GLASS_right_T1_Y4",
+        "ROOF_GLASS_right_T1_Y5",
+        "ROOF_GLASS_right_T1_Y6",
+        "ROOF_GLASS_right_T1_Y7",
+        "ROOF_GLASS_right_T2_Y1",
+        "ROOF_GLASS_right_T2_Y2",
+        "ROOF_GLASS_right_T2_Y3",
+        "ROOF_GLASS_right_T2_Y4",
+        "ROOF_GLASS_right_T2_Y5",
+        "ROOF_GLASS_right_T2_Y6",
+        "ROOF_GLASS_right_T2_Y7",
+        "ROOF_GLASS_right_T3_Y1",
+        "ROOF_GLASS_right_T3_Y2",
+        "ROOF_GLASS_right_T3_Y3",
+        "ROOF_GLASS_right_T3_Y4",
+        "ROOF_GLASS_right_T3_Y5",
+        "ROOF_GLASS_right_T3_Y6",
+        "ROOF_GLASS_right_T3_Y7",
+        "ROOF_GLASS_right_T4_Y1",
+        "ROOF_GLASS_right_T4_Y2",
+        "ROOF_GLASS_right_T4_Y3",
+        "ROOF_GLASS_right_T4_Y4",
+        "ROOF_GLASS_right_T4_Y5",
+        "ROOF_GLASS_right_T4_Y6",
+        "ROOF_GLASS_right_T4_Y7",
+        "ROOF_GLASS_MULLION_right_1",
+        "ROOF_GLASS_MULLION_right_2",
+        "ROOF_GLASS_MULLION_right_3",
+        "ROOF_GLASS_MULLION_right_4",
+        "ROOF_GLASS_MULLION_right_5",
+        "MATERIAL_ZONES",
+        "TERRACE_RAILING",
+        "EXTERIOR_STAIR",
+        "ENTRY_PLATFORM",
+        "PLANTERS",
+        "SOURCE_VISIBLE_TREES",
+        "FURNITURE",
+        "SIGNAGE_FRONT",
+        "SIGNAGE_SIDE",
+        "FRONT_SLOPED_GLAZING",
+        "FRONT_ENTRY_OPENING_HOST",
+        "FRONT_STORE_FRONT_GLAZING",
+        "ROOF_RAFTER_left_1",
+        "ROOF_RAFTER_left_2",
+        "ROOF_RAFTER_left_3",
+        "ROOF_RAFTER_left_4",
+        "ROOF_RAFTER_left_5",
+        "ROOF_RAFTER_left_6",
+        "ROOF_RAFTER_left_7",
+        "ROOF_RAFTER_left_8",
+        "ROOF_RAFTER_right_1",
+        "ROOF_RAFTER_right_2",
+        "ROOF_RAFTER_right_3",
+        "ROOF_RAFTER_right_4",
+        "ROOF_RAFTER_right_5",
+        "ROOF_RAFTER_right_6",
+        "ROOF_RAFTER_right_7",
+        "ROOF_RAFTER_right_8",
+        "ROOF_LONGITUDINAL_PURLIN_1",
+        "ROOF_LONGITUDINAL_PURLIN_2",
+        "ROOF_LONGITUDINAL_PURLIN_3",
+        "ROOF_LONGITUDINAL_PURLIN_4",
+        "ROOF_LONGITUDINAL_PURLIN_5",
+        "ROOF_LONGITUDINAL_PURLIN_6",
+        "ROOF_LONGITUDINAL_PURLIN_7",
+        "ROOF_LONGITUDINAL_PURLIN_8",
+        "ROOF_LONGITUDINAL_PURLIN_9"
+      ]
+    },
+    "last_strategy_progress": {
+      "schema_version": 1,
+      "source": "committed_owned_root_named_path_readback",
+      "script_id": "dream_coffee_reconstruction",
+      "revision": 4,
+      "root_pid": 35529,
+      "full_readback": true,
+      "current_stage": "primary_form",
+      "systems": [
+        {
+          "system_id": "ground_shell",
+          "target_paths": [
+            [
+              "GROUND_SHELL"
+            ]
+          ],
+          "present_paths": [
+            [
+              "GROUND_SHELL"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "front_entry_opening_host",
+          "target_paths": [
+            [
+              "FRONT_ENTRY_OPENING_HOST"
+            ]
+          ],
+          "present_paths": [
+            [
+              "FRONT_ENTRY_OPENING_HOST"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "front_sloped_glazing",
+          "target_paths": [
+            [
+              "FRONT_SLOPED_GLAZING"
+            ]
+          ],
+          "present_paths": [
+            [
+              "FRONT_SLOPED_GLAZING"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "upper_glass_gable",
+          "target_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "FRONT_GABLE_GLAZING"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "FRONT_GABLE_GLAZING"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "roof_longitudinal_profiles",
+          "target_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "LONGITUDINAL_TIMBER_PROFILES"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "LONGITUDINAL_TIMBER_PROFILES"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "roof_sloped_rafters",
+          "target_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "SLOPED_TIMBER_RAFTERS"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "SLOPED_TIMBER_RAFTERS"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "roof_glass_panels",
+          "target_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "ROOF_GLASS_PANELS"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "UPPER_GLASS_PAVILION",
+              "ROOF_GLASS_PANELS"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "terrace_deck_fascia",
+          "target_paths": [
+            [
+              "TERRACE_DECK"
+            ],
+            [
+              "TERRACE_FASCIA"
+            ]
+          ],
+          "present_paths": [
+            [
+              "TERRACE_DECK"
+            ],
+            [
+              "TERRACE_FASCIA"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "exterior_stair_mass",
+          "target_paths": [
+            [
+              "EXTERIOR_STAIR"
+            ]
+          ],
+          "present_paths": [
+            [
+              "EXTERIOR_STAIR"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "terrace_glass_railing",
+          "target_paths": [
+            [
+              "TERRACE_RAILING",
+              "RAILING_PANEL_01"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "TERRACE_RAILING",
+              "RAILING_PANEL_01"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "site_platform_planters",
+          "target_paths": [
+            [
+              "ENTRY_PLATFORM"
+            ],
+            [
+              "PLANTERS"
+            ],
+            [
+              "SOURCE_VISIBLE_TREES"
+            ]
+          ],
+          "present_paths": [
+            [
+              "ENTRY_PLATFORM"
+            ],
+            [
+              "PLANTERS"
+            ],
+            [
+              "SOURCE_VISIBLE_TREES"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "visible_furniture_modules",
+          "target_paths": [
+            [
+              "FURNITURE",
+              "TABLE_SET_01"
+            ],
+            [
+              "FURNITURE",
+              "UMBRELLA_01"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "FURNITURE",
+              "TABLE_SET_01"
+            ],
+            [
+              "FURNITURE",
+              "UMBRELLA_01"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "signage_and_finish",
+          "target_paths": [
+            [
+              "SIGNAGE_FRONT"
+            ],
+            [
+              "SIGNAGE_SIDE"
+            ],
+            [
+              "MATERIAL_ZONES"
+            ]
+          ],
+          "present_paths": [
+            [
+              "SIGNAGE_FRONT"
+            ],
+            [
+              "SIGNAGE_SIDE"
+            ],
+            [
+              "MATERIAL_ZONES"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "upper_terrace_canopy_repair03",
+          "target_paths": [
+            [
+              "UPPER_TERRACE_CANOPY_PANEL"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_INNER_BEAM"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_OUTER_BEAM"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_POST_01"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_POST_02"
+            ]
+          ],
+          "present_paths": [
+            [
+              "UPPER_TERRACE_CANOPY_PANEL"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_INNER_BEAM"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_OUTER_BEAM"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_POST_01"
+            ],
+            [
+              "UPPER_TERRACE_CANOPY_POST_02"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "right_wall_board_reveals_repair03",
+          "target_paths": [
+            [
+              "RIGHT_WALL_TIMBER_BOARD_REVEALS"
+            ]
+          ],
+          "present_paths": [
+            [
+              "RIGHT_WALL_TIMBER_BOARD_REVEALS"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        }
+      ],
+      "visual_verification": "NOT_RUN"
+    },
+    "last_oss_method_adoption": {
+      "schema_version": 1,
+      "ledger_status": "committed_readback",
+      "actual_wrapped_calls": {},
+      "any_oss_product_use": false,
+      "effect_verified": false,
+      "effect_verification_required": "Named component readback and independent source-matched visual review.",
+      "plan_choices": [
+        {
+          "system": "ground_shell",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "下层同时包含倾斜玻璃面、木饰面实墙、入口转角和开放柱廊，无法由单一竖直矩形开洞墙或恒截面轮廓准确表达；需要按命名子组分别建立连续实体和真实通透面。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "front_entry_opening_host",
+          "method_id": "saie.wall_with_openings",
+          "selection_reason": "主入口所在的竖直连续墙面适合用一个矩形店面/门洞形成真实贯通开口，再把门扇、固定玻璃和框架作为独立构件放入；SAIE 批量洞口方法比拼接多段墙更合适。执行前需宿主确认该方法的实际签名/注入；只有回执证明调用后才记录为已使用。",
+          "disposition": "selected_but_not_invoked"
+        },
+        {
+          "system": "front_sloped_glazing",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "来源中的大玻璃面为倾斜、重复分格的薄面系统，不是竖直矩形洞口墙；ADAI profile 会生成有厚度的实体轮廓，不能替代逐片透明玻璃和框架。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "upper_glass_gable",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "三角端面由透明玻璃格和斜向木框组成；单次 ADAI profile 挤出会形成遮挡玻璃的实心三角体，profile_with_holes 也不能表达贴边玻璃格/逐根斜框的薄面关系，因此按真实三角轮廓生成独立玻璃与框架。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "roof_longitudinal_profiles",
+          "method_id": "adai.profile",
+          "selection_reason": "本地 ADAI 合约确认 profile(entities, name, outline_mm, depth_mm, plane='xz', offset_mm=0, material=nil)，以毫米 XZ 截面沿 +Y 正向挤出，适合屋脊/檐口方向恒截面的纵向木梁。仅用于梁型，不把玻璃坡屋面挤成实心楔体。",
+          "disposition": "selected_but_not_invoked"
+        },
+        {
+          "system": "roof_sloped_rafters",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "可见主椽沿 XZ 斜向跨越坡面；已核对的 ADAI profile 只沿其 plane 法线 +X/+Y/+Z 挤出，不能直接生成这条斜向轴线，因此用受控自有几何生成斜梁，再复用一个已核实截面模数。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "roof_glass_panels",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "屋面目标是多片独立透明斜玻璃、缝隙和木梁；profile 类方法生成挤出实体而非薄玻璃面，且 loft/曲面方法不适用于图中的平面格片。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "terrace_deck_fascia",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "露台板、突出边梁/招牌带、开放柱廊和前缘转折是不同深度的独立构件；单一 profile extrusion 会把转角和开口做成实心体，故用独立可编辑子组按共享标高建模。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "exterior_stair_mass",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "侧向楼梯须精确接到地面和露台标高，并与花池/平台边界避让；当前可用合约未提供经确认的楼梯语义方法，先建立受控梯段及平台而不伪造工具能力。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "terrace_glass_railing",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "玻璃栏板为等高重复片，先做一片含边框/夹具的独立代表件再实例复用；墙洞工具不适用于护栏，且应保留可编辑玻璃片。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "site_platform_planters",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "来源平台有退台、前入口踏步和沿边花池；它不是恒截面屋面轮廓，也不是单一平板，按分离的地坪、踏步、花池和植物组件建模。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "visible_furniture_modules",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "图中桌椅和遮阳伞重复出现；先建立可编辑桌、椅、伞代表件并按露台/室内位置实例化，避免逐件手画且不引入图外家具。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "signage_and_finish",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Dream Coffee 文字标识须贴合前方与可见侧向招牌带，材料色块也要跟随各自构件；当前没有适用的已验证语义招牌方法。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "upper_terrace_canopy_repair03",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "ADAI profile was geometrically compatible, but the actual guarded SketchUp writer returned NameError: undefined local variable or method `adai_geometry`; the transaction did not commit. The canopy consists only of constant rectangular sections, so use owned Ruby face extrusion with explicit plane normals and millimeter conversion.",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "right_wall_board_reveals_repair03",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "SAIE wall helper不处理面层压缝；ADAI profile单次调用会产生独立根级条带，扩展允许路径。一个局部 Ruby 组可将五道浅缝限制在单一目标路径，不改现有墙或开口。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        }
+      ]
+    }
+  }
+}

@@ -58,6 +58,10 @@ def test_native_token_budget_aborts_before_unbounded_builder_work(tmp_path, monk
     assert exc.value.partial_result.input_tokens == 301
     logfile = next((project / "runtime/agent_events").glob("*.jsonl"))
     assert "native_budget_exhausted" in logfile.read_text(encoding="utf8")
+    terminal = json.loads(logfile.read_text(encoding="utf8").splitlines()[-1])
+    assert terminal["event"] == "turn_interrupted"
+    assert terminal["input_tokens"] == 301
+    assert terminal["status"] == "interrupted"
 
 
 def test_native_tool_budget_stops_before_dispatch(tmp_path, monkeypatch):

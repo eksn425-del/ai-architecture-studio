@@ -1,0 +1,86 @@
+[
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "0a491045bdec4148a219f057beb7d261.jsonl"
+  },
+  {
+    "tool": "sketchup_inspect_owned",
+    "error": "offset must be nonnegative; limit must be 1..100.",
+    "event_file": "3a02d441ba0f47859adfd6a5da49d46d.jsonl"
+  },
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "3a02d441ba0f47859adfd6a5da49d46d.jsonl"
+  },
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "3a02d441ba0f47859adfd6a5da49d46d.jsonl"
+  },
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique 六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。",
+    "event_file": "3a02d441ba0f47859adfd6a5da49d46d.jsonl"
+  },
+  {
+    "tool": "sketchup_inspect_owned",
+    "error": "offset must be nonnegative; limit must be 1..100.",
+    "event_file": "5662b00ec33645d1a292b8db663bd4c3.jsonl"
+  },
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique 六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。",
+    "event_file": "5662b00ec33645d1a292b8db663bd4c3.jsonl"
+  },
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "preserve_paths must contain 1..24 exact owned-group paths.",
+    "event_file": "5662b00ec33645d1a292b8db663bd4c3.jsonl"
+  },
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"NameError\",\n    \"message\": \"undefined local variable or method `adai_geometry' for main:Object\",\n    \"backtrace\": [\n      \"dream_coffee_reconstruction.rb:7:in `dc_repair03_profile'\",\n      \"dream_coffee_reconstruction.rb:16:in `block in <main>'\",\n      \"<private-path>\",\n      \"<private-path><main>'\",\n      \"<workspace>/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"<private-path><main>'\",\n      \"<private-path>\",\n      \"<private-path>\",\n      \"<private-path>\",\n      \"<private-path>\",\n      \"<private-path>\",\n      \"<private-path>\"\n    ]\n  }\n}",
+    "event_file": "5662b00ec33645d1a292b8db663bd4c3.jsonl"
+  },
+  {
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "Ruby source contains a blocked host, reflection, whole-model, or process operation: '`'. The host already injects model and root (Sketchup::Group) and owns the transaction/save. Remove all active_model and start/commit/abort_operation calls, including conditional ones. Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly or be lambdas capturing them, because Ruby def does not capture local variables.",
+    "event_file": "5662b00ec33645d1a292b8db663bd4c3.jsonl"
+  },
+  {
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "event_file": "b0661f70ab414a9f87b65cfa38e9dd20.jsonl"
+  },
+  {
+    "tool": "sketchup_inspect_owned",
+    "error": "offset must be nonnegative; limit must be 1..100.",
+    "event_file": "b0661f70ab414a9f87b65cfa38e9dd20.jsonl"
+  },
+  {
+    "phase": "recovery",
+    "error": "2026-10-11 SketchUp bridge ECONNREFUSED while SU was closed; restarted SU2024 dedicated model; no Native turn began."
+  },
+  {
+    "phase": "critic-first-turn",
+    "error": "Malformed NO response with no assessment accepted by old parser; no repair executed. New parser rejects it and aggregates all KEEP blocks."
+  },
+  {
+    "phase": "operator-recovery",
+    "error": "Briefly selected a SU2022 executable while recovering environment, stopped it before any geometry/save. All accepted geometry and PNG evidence is SU2024."
+  },
+  {
+    "phase": "ADAI",
+    "error": "NameError inside Ruby def: injected adai_geometry local was not captured. Generated comment claiming non-injection is not established; host helper active evidence and Ruby scope explain the failure. Local Ruby fallback committed with zero wrapped OSS calls."
+  },
+  {
+    "phase": "baseline",
+    "error": "Unexecuted final candidate overwrote baseline before its writer succeeded. Retained candidate separately; restored baseline using exactly the committed r4 patch. Fresh replay blocked, not verified."
+  },
+  {
+    "phase": "desktop",
+    "error": "Windows locked. Snapshot observed lock screen; attempted host-owned native open did not switch model; native mouse edit and fresh replay BLOCKED."
+  }
+]

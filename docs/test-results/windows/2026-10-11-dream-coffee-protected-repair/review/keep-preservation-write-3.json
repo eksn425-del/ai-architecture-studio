@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "EXTERIOR_STAIR",
+    "UPPER_GLASS_PAVILION/FRONT_GABLE_TRIANGULAR_GLAZING",
+    "UPPER_GLASS_PAVILION/REAR_GABLE_TRIANGULAR_GLAZING"
+  ],
+  "checks": [
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "persistent_id",
+      "expected": 42038,
+      "actual": 42038
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "objects_total",
+      "expected": 35,
+      "actual": 35
+    },
+    {
+      "path": "EXTERIOR_STAIR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1650.0,
+          1500.0,
+          -75.7
+        ],
+        "max": [
+          1100.0,
+          7528.7,
+          4617.9
+        ]
+      },
+      "actual": {
+        "min": [
+          -1650.0,
+          1500.0,
+          -75.7
+        ],
+        "max": [
+          1100.0,
+          7528.7,
+          4617.9
+        ]
+      }
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION/FRONT_GABLE_TRIANGULAR_GLAZING",
+      "check": "persistent_id",
+      "expected": 37811,
+      "actual": 37811
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION/FRONT_GABLE_TRIANGULAR_GLAZING",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION/FRONT_GABLE_TRIANGULAR_GLAZING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          3000.0,
+          900.0,
+          4700.0
+        ],
+        "max": [
+          9000.0,
+          900.0,
+          7700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          3000.0,
+          900.0,
+          4700.0
+        ],
+        "max": [
+          9000.0,
+          900.0,
+          7700.0
+        ]
+      }
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION/REAR_GABLE_TRIANGULAR_GLAZING",
+      "check": "persistent_id",
+      "expected": 38121,
+      "actual": 38121
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION/REAR_GABLE_TRIANGULAR_GLAZING",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "UPPER_GLASS_PAVILION/REAR_GABLE_TRIANGULAR_GLAZING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          3000.0,
+          7500.0,
+          4700.0
+        ],
+        "max": [
+          9000.0,
+          7500.0,
+          7700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          3000.0,
+          7500.0,
+          4700.0
+        ],
+        "max": [
+          9000.0,
+          7500.0,
+          7700.0
+        ]
+      }
+    }
+  ]
+}

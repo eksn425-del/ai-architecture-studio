@@ -1,0 +1,2446 @@
+{
+  "script_id": "dream_coffee_reconstruction",
+  "revision": 3,
+  "root_pid": 35529,
+  "bounds_mm": {
+    "min": [
+      -2600,
+      -3400,
+      -240
+    ],
+    "max": [
+      15088.7,
+      10200,
+      7760
+    ],
+    "size": [
+      17688.7,
+      13600,
+      8000
+    ]
+  },
+  "objects": [
+    {
+      "name": "GROUND_SHELL",
+      "persistent_id": 35548,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -120,
+          -120,
+          -80
+        ],
+        "max": [
+          12120,
+          8520,
+          3600
+        ],
+        "size": [
+          12240,
+          8640,
+          3680
+        ]
+      }
+    },
+    {
+      "name": "GROUND_RIGHT_TIMBER_WALL",
+      "persistent_id": 36285,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          11910,
+          0,
+          0
+        ],
+        "max": [
+          12090,
+          8400,
+          3100
+        ],
+        "size": [
+          180,
+          8400,
+          3100
+        ]
+      }
+    },
+    {
+      "name": "REAR_INFERRED_FACADE",
+      "persistent_id": 36447,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          8310,
+          0
+        ],
+        "max": [
+          12000,
+          8490,
+          3100
+        ],
+        "size": [
+          12000,
+          180,
+          3100
+        ]
+      }
+    },
+    {
+      "name": "TERRACE_FASCIA",
+      "persistent_id": 36996,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -150,
+          -330,
+          3600
+        ],
+        "max": [
+          12150,
+          120,
+          4200
+        ],
+        "size": [
+          12300,
+          450,
+          600
+        ]
+      }
+    },
+    {
+      "name": "TERRACE_FASCIA_RIGHT_RETURN",
+      "persistent_id": 37024,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          11850,
+          -250,
+          3600
+        ],
+        "max": [
+          12200,
+          8520,
+          4200
+        ],
+        "size": [
+          350,
+          8770,
+          600
+        ]
+      }
+    },
+    {
+      "name": "TERRACE_DECK",
+      "persistent_id": 37220,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -100,
+          -650,
+          280
+        ],
+        "max": [
+          12120,
+          8520,
+          3600
+        ],
+        "size": [
+          12220,
+          9170,
+          3320
+        ]
+      }
+    },
+    {
+      "name": "UPPER_GLASS_PAVILION",
+      "persistent_id": 37704,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2945,
+          850,
+          3595
+        ],
+        "max": [
+          9055,
+          7550,
+          7728.3
+        ],
+        "size": [
+          6110,
+          6700,
+          4133.3
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y1",
+      "persistent_id": 39124,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          928,
+          4754
+        ],
+        "max": [
+          3696,
+          1772,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y2",
+      "persistent_id": 39135,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          1828,
+          4754
+        ],
+        "max": [
+          3696,
+          2672,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y3",
+      "persistent_id": 39146,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          2728,
+          4754
+        ],
+        "max": [
+          3696,
+          3572,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y4",
+      "persistent_id": 39157,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          3628,
+          4754
+        ],
+        "max": [
+          3696,
+          4472,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y5",
+      "persistent_id": 39168,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          4528,
+          4754
+        ],
+        "max": [
+          3696,
+          5372,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y6",
+      "persistent_id": 39179,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          5428,
+          4754
+        ],
+        "max": [
+          3696,
+          6272,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T1_Y7",
+      "persistent_id": 39190,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3054,
+          6328,
+          4754
+        ],
+        "max": [
+          3696,
+          7172,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y1",
+      "persistent_id": 39201,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          928,
+          5504
+        ],
+        "max": [
+          4446,
+          1772,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y2",
+      "persistent_id": 39212,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          1828,
+          5504
+        ],
+        "max": [
+          4446,
+          2672,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y3",
+      "persistent_id": 39223,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          2728,
+          5504
+        ],
+        "max": [
+          4446,
+          3572,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y4",
+      "persistent_id": 39234,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          3628,
+          5504
+        ],
+        "max": [
+          4446,
+          4472,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y5",
+      "persistent_id": 39245,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          4528,
+          5504
+        ],
+        "max": [
+          4446,
+          5372,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y6",
+      "persistent_id": 39256,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          5428,
+          5504
+        ],
+        "max": [
+          4446,
+          6272,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T2_Y7",
+      "persistent_id": 39267,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3804,
+          6328,
+          5504
+        ],
+        "max": [
+          4446,
+          7172,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y1",
+      "persistent_id": 39278,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          928,
+          6254
+        ],
+        "max": [
+          5196,
+          1772,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y2",
+      "persistent_id": 39289,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          1828,
+          6254
+        ],
+        "max": [
+          5196,
+          2672,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y3",
+      "persistent_id": 39300,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          2728,
+          6254
+        ],
+        "max": [
+          5196,
+          3572,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y4",
+      "persistent_id": 39311,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          3628,
+          6254
+        ],
+        "max": [
+          5196,
+          4472,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y5",
+      "persistent_id": 39322,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          4528,
+          6254
+        ],
+        "max": [
+          5196,
+          5372,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y6",
+      "persistent_id": 39333,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          5428,
+          6254
+        ],
+        "max": [
+          5196,
+          6272,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T3_Y7",
+      "persistent_id": 39344,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4554,
+          6328,
+          6254
+        ],
+        "max": [
+          5196,
+          7172,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y1",
+      "persistent_id": 39355,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          928,
+          7004
+        ],
+        "max": [
+          5946,
+          1772,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y2",
+      "persistent_id": 39366,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          1828,
+          7004
+        ],
+        "max": [
+          5946,
+          2672,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y3",
+      "persistent_id": 39377,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          2728,
+          7004
+        ],
+        "max": [
+          5946,
+          3572,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y4",
+      "persistent_id": 39388,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          3628,
+          7004
+        ],
+        "max": [
+          5946,
+          4472,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y5",
+      "persistent_id": 39399,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          4528,
+          7004
+        ],
+        "max": [
+          5946,
+          5372,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y6",
+      "persistent_id": 39410,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          5428,
+          7004
+        ],
+        "max": [
+          5946,
+          6272,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_left_T4_Y7",
+      "persistent_id": 39421,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5304,
+          6328,
+          7004
+        ],
+        "max": [
+          5946,
+          7172,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_left_1",
+      "persistent_id": 39656,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2969,
+          900,
+          4676
+        ],
+        "max": [
+          3031,
+          7500,
+          4724
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_left_2",
+      "persistent_id": 39684,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3719,
+          900,
+          5426
+        ],
+        "max": [
+          3781,
+          7500,
+          5474
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_left_3",
+      "persistent_id": 39712,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4469,
+          900,
+          6176
+        ],
+        "max": [
+          4531,
+          7500,
+          6224
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_left_4",
+      "persistent_id": 39740,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5219,
+          900,
+          6926
+        ],
+        "max": [
+          5281,
+          7500,
+          6974
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_left_5",
+      "persistent_id": 39768,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5969,
+          900,
+          7676
+        ],
+        "max": [
+          6031,
+          7500,
+          7724
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y1",
+      "persistent_id": 39796,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          928,
+          4754
+        ],
+        "max": [
+          8946,
+          1772,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y2",
+      "persistent_id": 39807,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          1828,
+          4754
+        ],
+        "max": [
+          8946,
+          2672,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y3",
+      "persistent_id": 39818,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          2728,
+          4754
+        ],
+        "max": [
+          8946,
+          3572,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y4",
+      "persistent_id": 39829,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          3628,
+          4754
+        ],
+        "max": [
+          8946,
+          4472,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y5",
+      "persistent_id": 39840,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          4528,
+          4754
+        ],
+        "max": [
+          8946,
+          5372,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y6",
+      "persistent_id": 39851,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          5428,
+          4754
+        ],
+        "max": [
+          8946,
+          6272,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T1_Y7",
+      "persistent_id": 39862,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8304,
+          6328,
+          4754
+        ],
+        "max": [
+          8946,
+          7172,
+          5396
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y1",
+      "persistent_id": 39873,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          928,
+          5504
+        ],
+        "max": [
+          8196,
+          1772,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y2",
+      "persistent_id": 39884,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          1828,
+          5504
+        ],
+        "max": [
+          8196,
+          2672,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y3",
+      "persistent_id": 39895,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          2728,
+          5504
+        ],
+        "max": [
+          8196,
+          3572,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y4",
+      "persistent_id": 39906,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          3628,
+          5504
+        ],
+        "max": [
+          8196,
+          4472,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y5",
+      "persistent_id": 39917,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          4528,
+          5504
+        ],
+        "max": [
+          8196,
+          5372,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y6",
+      "persistent_id": 39928,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          5428,
+          5504
+        ],
+        "max": [
+          8196,
+          6272,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T2_Y7",
+      "persistent_id": 39939,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7554,
+          6328,
+          5504
+        ],
+        "max": [
+          8196,
+          7172,
+          6146
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y1",
+      "persistent_id": 39950,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          928,
+          6254
+        ],
+        "max": [
+          7446,
+          1772,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y2",
+      "persistent_id": 39961,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          1828,
+          6254
+        ],
+        "max": [
+          7446,
+          2672,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y3",
+      "persistent_id": 39972,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          2728,
+          6254
+        ],
+        "max": [
+          7446,
+          3572,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y4",
+      "persistent_id": 39983,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          3628,
+          6254
+        ],
+        "max": [
+          7446,
+          4472,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y5",
+      "persistent_id": 39994,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          4528,
+          6254
+        ],
+        "max": [
+          7446,
+          5372,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y6",
+      "persistent_id": 40005,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          5428,
+          6254
+        ],
+        "max": [
+          7446,
+          6272,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T3_Y7",
+      "persistent_id": 40016,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6804,
+          6328,
+          6254
+        ],
+        "max": [
+          7446,
+          7172,
+          6896
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y1",
+      "persistent_id": 40027,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          928,
+          7004
+        ],
+        "max": [
+          6696,
+          1772,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y2",
+      "persistent_id": 40038,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          1828,
+          7004
+        ],
+        "max": [
+          6696,
+          2672,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y3",
+      "persistent_id": 40049,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          2728,
+          7004
+        ],
+        "max": [
+          6696,
+          3572,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y4",
+      "persistent_id": 40060,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          3628,
+          7004
+        ],
+        "max": [
+          6696,
+          4472,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y5",
+      "persistent_id": 40071,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          4528,
+          7004
+        ],
+        "max": [
+          6696,
+          5372,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y6",
+      "persistent_id": 40082,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          5428,
+          7004
+        ],
+        "max": [
+          6696,
+          6272,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_right_T4_Y7",
+      "persistent_id": 40093,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6054,
+          6328,
+          7004
+        ],
+        "max": [
+          6696,
+          7172,
+          7646
+        ],
+        "size": [
+          642,
+          844,
+          642
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_right_1",
+      "persistent_id": 40328,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8969,
+          900,
+          4676
+        ],
+        "max": [
+          9031,
+          7500,
+          4724
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_right_2",
+      "persistent_id": 40356,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8219,
+          900,
+          5426
+        ],
+        "max": [
+          8281,
+          7500,
+          5474
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_right_3",
+      "persistent_id": 40384,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7469,
+          900,
+          6176
+        ],
+        "max": [
+          7531,
+          7500,
+          6224
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_right_4",
+      "persistent_id": 40412,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6719,
+          900,
+          6926
+        ],
+        "max": [
+          6781,
+          7500,
+          6974
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "ROOF_GLASS_MULLION_right_5",
+      "persistent_id": 40440,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5969,
+          900,
+          7676
+        ],
+        "max": [
+          6031,
+          7500,
+          7724
+        ],
+        "size": [
+          62,
+          6600,
+          48
+        ]
+      }
+    },
+    {
+      "name": "MATERIAL_ZONES",
+      "persistent_id": 41283,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2950,
+          -180,
+          0
+        ],
+        "max": [
+          12114,
+          8400,
+          3750
+        ],
+        "size": [
+          9164,
+          8580,
+          3750
+        ]
+      }
+    },
+    {
+      "name": "TERRACE_RAILING",
+      "persistent_id": 41901,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8372,
+          -28,
+          4200
+        ],
+        "max": [
+          12042,
+          8428,
+          5250
+        ],
+        "size": [
+          3670,
+          8456,
+          1050
+        ]
+      }
+    },
+    {
+      "name": "EXTERIOR_STAIR",
+      "persistent_id": 42038,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -1650,
+          1500,
+          -75.7
+        ],
+        "max": [
+          1100,
+          7528.7,
+          4617.9
+        ],
+        "size": [
+          2750,
+          6028.7,
+          4693.6
+        ]
+      }
+    },
+    {
+      "name": "ENTRY_PLATFORM",
+      "persistent_id": 43020,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -2600,
+          -3400,
+          -240
+        ],
+        "max": [
+          13800,
+          10200,
+          25
+        ],
+        "size": [
+          16400,
+          13600,
+          265
+        ]
+      }
+    },
+    {
+      "name": "PLANTERS",
+      "persistent_id": 43190,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -100,
+          -100,
+          -80
+        ],
+        "max": [
+          13100,
+          8850,
+          963
+        ],
+        "size": [
+          13200,
+          8950,
+          1043
+        ]
+      }
+    },
+    {
+      "name": "SOURCE_VISIBLE_TREES",
+      "persistent_id": 54258,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -1920.2,
+          4883.7,
+          0
+        ],
+        "max": [
+          15088.7,
+          10125.3,
+          5260
+        ],
+        "size": [
+          17008.9,
+          5241.7,
+          5260
+        ]
+      }
+    },
+    {
+      "name": "FURNITURE",
+      "persistent_id": 58224,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3734.6,
+          196.3,
+          80
+        ],
+        "max": [
+          11602.9,
+          8153.7,
+          5903.6
+        ],
+        "size": [
+          7868.3,
+          7957.3,
+          5823.6
+        ]
+      }
+    },
+    {
+      "name": "SIGNAGE_FRONT",
+      "persistent_id": 67359,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4026,
+          -369,
+          3780
+        ],
+        "max": [
+          6080.8,
+          -357,
+          4029.1
+        ],
+        "size": [
+          2054.8,
+          12,
+          249.1
+        ]
+      }
+    },
+    {
+      "name": "SIGNAGE_SIDE",
+      "persistent_id": 69104,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          12172,
+          2621.7,
+          3780
+        ],
+        "max": [
+          12184,
+          4341.1,
+          3988.4
+        ],
+        "size": [
+          12,
+          1719.3,
+          208.4
+        ]
+      }
+    },
+    {
+      "name": "FRONT_SLOPED_GLAZING",
+      "persistent_id": 71640,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          117.5,
+          -3245,
+          -17.5
+        ],
+        "max": [
+          4132.5,
+          47.5,
+          3290
+        ],
+        "size": [
+          4015,
+          3292.5,
+          3307.5
+        ]
+      }
+    },
+    {
+      "name": "FRONT_ENTRY_OPENING_HOST",
+      "persistent_id": 72180,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4200,
+          -90,
+          0
+        ],
+        "max": [
+          12000,
+          90,
+          3100
+        ],
+        "size": [
+          7800,
+          180,
+          3100
+        ]
+      }
+    },
+    {
+      "name": "FRONT_STORE_FRONT_GLAZING",
+      "persistent_id": 72556,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4381,
+          -120,
+          -19
+        ],
+        "max": [
+          9519,
+          -72,
+          3019
+        ],
+        "size": [
+          5138,
+          48,
+          3038
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_1",
+      "persistent_id": 72970,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          845,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          955,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_2",
+      "persistent_id": 72998,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          1745,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          1855,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_3",
+      "persistent_id": 73026,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          2645,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          2755,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_4",
+      "persistent_id": 73054,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          3545,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          3655,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_5",
+      "persistent_id": 73082,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          4445,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          4555,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_6",
+      "persistent_id": 73110,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          5345,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          5455,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_7",
+      "persistent_id": 73138,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          6245,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          6355,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_left_8",
+      "persistent_id": 73166,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2966.4,
+          7145,
+          4666.4
+        ],
+        "max": [
+          6033.6,
+          7255,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_1",
+      "persistent_id": 73194,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          845,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          955,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_2",
+      "persistent_id": 73222,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          1745,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          1855,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_3",
+      "persistent_id": 73250,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          2645,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          2755,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_4",
+      "persistent_id": 73278,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          3545,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          3655,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_5",
+      "persistent_id": 73306,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          4445,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          4555,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_6",
+      "persistent_id": 73334,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          5345,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          5455,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_7",
+      "persistent_id": 73362,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          6245,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          6355,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_RAFTER_right_8",
+      "persistent_id": 73390,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5966.4,
+          7145,
+          4666.4
+        ],
+        "max": [
+          9033.6,
+          7255,
+          7733.6
+        ],
+        "size": [
+          3067.2,
+          110,
+          3067.2
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_1",
+      "persistent_id": 73418,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          2950,
+          900,
+          4640
+        ],
+        "max": [
+          3050,
+          7500,
+          4760
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_2",
+      "persistent_id": 73450,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          3700,
+          900,
+          5390
+        ],
+        "max": [
+          3800,
+          7500,
+          5510
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_3",
+      "persistent_id": 73482,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4450,
+          900,
+          6140
+        ],
+        "max": [
+          4550,
+          7500,
+          6260
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_4",
+      "persistent_id": 73514,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5200,
+          900,
+          6890
+        ],
+        "max": [
+          5300,
+          7500,
+          7010
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_5",
+      "persistent_id": 73546,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          5950,
+          900,
+          7640
+        ],
+        "max": [
+          6050,
+          7500,
+          7760
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_6",
+      "persistent_id": 73578,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          6700,
+          900,
+          6890
+        ],
+        "max": [
+          6800,
+          7500,
+          7010
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_7",
+      "persistent_id": 73610,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          7450,
+          900,
+          6140
+        ],
+        "max": [
+          7550,
+          7500,
+          6260
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_8",
+      "persistent_id": 73642,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8200,
+          900,
+          5390
+        ],
+        "max": [
+          8300,
+          7500,
+          5510
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    },
+    {
+      "name": "ROOF_LONGITUDINAL_PURLIN_9",
+      "persistent_id": 73674,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          8950,
+          900,
+          4640
+        ],
+        "max": [
+          9050,
+          7500,
+          4760
+        ],
+        "size": [
+          100,
+          6600,
+          120
+        ]
+      }
+    }
+  ],
+  "count": 110,
+  "pagination_complete": true
+}

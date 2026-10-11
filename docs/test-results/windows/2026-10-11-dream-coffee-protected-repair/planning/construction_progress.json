@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "dream_coffee_reconstruction",
+  "revision": 4,
+  "root_pid": 35529,
+  "full_readback": true,
+  "current_stage": "primary_form",
+  "systems": [
+    {
+      "system_id": "ground_shell",
+      "target_paths": [
+        [
+          "GROUND_SHELL"
+        ]
+      ],
+      "present_paths": [
+        [
+          "GROUND_SHELL"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "front_entry_opening_host",
+      "target_paths": [
+        [
+          "FRONT_ENTRY_OPENING_HOST"
+        ]
+      ],
+      "present_paths": [
+        [
+          "FRONT_ENTRY_OPENING_HOST"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "front_sloped_glazing",
+      "target_paths": [
+        [
+          "FRONT_SLOPED_GLAZING"
+        ]
+      ],
+      "present_paths": [
+        [
+          "FRONT_SLOPED_GLAZING"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "upper_glass_gable",
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "FRONT_GABLE_GLAZING"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "FRONT_GABLE_GLAZING"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "roof_longitudinal_profiles",
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "LONGITUDINAL_TIMBER_PROFILES"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "LONGITUDINAL_TIMBER_PROFILES"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "roof_sloped_rafters",
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "SLOPED_TIMBER_RAFTERS"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "SLOPED_TIMBER_RAFTERS"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "roof_glass_panels",
+      "target_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "ROOF_GLASS_PANELS"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "UPPER_GLASS_PAVILION",
+          "ROOF_GLASS_PANELS"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "terrace_deck_fascia",
+      "target_paths": [
+        [
+          "TERRACE_DECK"
+        ],
+        [
+          "TERRACE_FASCIA"
+        ]
+      ],
+      "present_paths": [
+        [
+          "TERRACE_DECK"
+        ],
+        [
+          "TERRACE_FASCIA"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "exterior_stair_mass",
+      "target_paths": [
+        [
+          "EXTERIOR_STAIR"
+        ]
+      ],
+      "present_paths": [
+        [
+          "EXTERIOR_STAIR"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "terrace_glass_railing",
+      "target_paths": [
+        [
+          "TERRACE_RAILING",
+          "RAILING_PANEL_01"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "TERRACE_RAILING",
+          "RAILING_PANEL_01"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "site_platform_planters",
+      "target_paths": [
+        [
+          "ENTRY_PLATFORM"
+        ],
+        [
+          "PLANTERS"
+        ],
+        [
+          "SOURCE_VISIBLE_TREES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENTRY_PLATFORM"
+        ],
+        [
+          "PLANTERS"
+        ],
+        [
+          "SOURCE_VISIBLE_TREES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "visible_furniture_modules",
+      "target_paths": [
+        [
+          "FURNITURE",
+          "TABLE_SET_01"
+        ],
+        [
+          "FURNITURE",
+          "UMBRELLA_01"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "FURNITURE",
+          "TABLE_SET_01"
+        ],
+        [
+          "FURNITURE",
+          "UMBRELLA_01"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "signage_and_finish",
+      "target_paths": [
+        [
+          "SIGNAGE_FRONT"
+        ],
+        [
+          "SIGNAGE_SIDE"
+        ],
+        [
+          "MATERIAL_ZONES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "SIGNAGE_FRONT"
+        ],
+        [
+          "SIGNAGE_SIDE"
+        ],
+        [
+          "MATERIAL_ZONES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "upper_terrace_canopy_repair03",
+      "target_paths": [
+        [
+          "UPPER_TERRACE_CANOPY_PANEL"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_INNER_BEAM"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_OUTER_BEAM"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_POST_01"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_POST_02"
+        ]
+      ],
+      "present_paths": [
+        [
+          "UPPER_TERRACE_CANOPY_PANEL"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_INNER_BEAM"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_OUTER_BEAM"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_POST_01"
+        ],
+        [
+          "UPPER_TERRACE_CANOPY_POST_02"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "right_wall_board_reveals_repair03",
+      "target_paths": [
+        [
+          "RIGHT_WALL_TIMBER_BOARD_REVEALS"
+        ]
+      ],
+      "present_paths": [
+        [
+          "RIGHT_WALL_TIMBER_BOARD_REVEALS"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}

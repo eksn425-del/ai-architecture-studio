@@ -1,3 +1,15 @@
+# 2026-10-11 最新本机交接 — Dream Coffee 受保护修复 r4：PARTIAL
+
+[真实报告与全部图片](test-results/windows/2026-10-11-dream-coffee-protected-repair/README.md)。实际gpt-6-luna/max、SU2024 24.0.484，经K Studio网站。正式PID35529/r4/116组，一笔局部提交，原110组递归几何与面材质指纹一致。正例edit_scope/KEEP通过，越界删除被事务拒绝；负例完整后指纹未采集。独立源图+前后Critic判雨棚FAIL、木饰面PARTIAL，不宣称质量通过。
+
+334passed/2skipped；修Critic缺assessment的NO误接受及多KEEP遗漏、Native中断/exit_code日志，ADAI Ruby局部代理作用域及未提交candidate不得推广baseline的Skill提示。本次成功修复为Ruby fallback，wrapped OSS=0；ADAI NameError不等于未注入。十正式事件8,032,977 input/152,170 output、110calls/12failed、两次真实2.5M预算中断；64calls真机NOT_RUN，效率FAIL。最后candidate04未提交，baseline恢复为已提交patch03，保留原候选审计。
+
+**尚未完成**：网页下载SHA匹配，但Windows锁屏挡住原生重开/鼠标编辑/保存再开和全新空白重放；用户回复解锁后工具仍显示锁屏，已请求保持实际SU桌面打开。不能把历史r3通过项算本批通过。六张当前r4及真实局部前后图、账本/错误/Token均在新目录，私人原图/SKP不上传。
+
+**下一步唯一任务**：先完成本批原生编辑与空白重放；修正审查门状态同步和candidate提交后再推广baseline，再在同一r4受保护范围内修雨棚尺寸位置与木板密度。不得全局重建、遮错误、降低验收或无限重试，不开展其他产品方向。
+
+---
+
 ## 2026-10-10 — New mainline code and next Codex handoff
 
 User requested a direct improvement of K AI Studio after new Dream Coffee r3. The next single task is [Dream Coffee protected repair](NEXT_DREAM_COFFEE_PROTECTED_REPAIR_2026-10-10.md). This supersedes old new-image/villa/cafe next-step requests.

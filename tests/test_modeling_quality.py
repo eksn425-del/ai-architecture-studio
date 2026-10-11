@@ -54,6 +54,14 @@ def test_visual_critique_done_does_not_require_issues():
     assert not result.issues
 
 
+def test_visual_critique_rejects_missing_assessment_and_retains_all_keep_blocks():
+    result = parse_visual_critique_response(
+        "NEEDS_FIX: NO\nUnstructured comparison.\n<keep>glass</keep>\n<keep>roof</keep>"
+    )
+    assert result.malformed
+    assert result.keep == ("glass", "roof")
+
+
 def test_post_write_verification_returns_expected_actual_receipt():
     transaction = {
         "status": "committed",
@@ -217,17 +225,17 @@ def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, 
     with pytest.raises(MCPCallError, match="preserve_paths"):
         context.dispatch(
             "sketchup_run_workspace_ruby",
-            {"script_id": "villa", "update_mode": "edit"},
+            {"script_id": "villa", "update_mode": "edit", "allowed_mutation_paths": [["FACADE"]]},
         )
     with pytest.raises(MCPCallError, match="update_mode=edit"):
         context.dispatch(
             "sketchup_run_workspace_ruby",
-            {"script_id": "villa", "update_mode": "replace", "preserve_paths": [["BALCONY"]]},
+            {"script_id": "villa", "update_mode": "replace", "preserve_paths": [["BALCONY"]], "allowed_mutation_paths": [["FACADE"]]},
         )
 
     result = context.dispatch(
         "sketchup_run_workspace_ruby",
-        {"script_id": "villa", "update_mode": "edit", "preserve_paths": [["BALCONY"]]},
+        {"script_id": "villa", "update_mode": "edit", "preserve_paths": [["BALCONY"]], "allowed_mutation_paths": [["FACADE"]]},
     )
     assert result["preservation_verification"]["verified"] is True
     assert context.quality_state["preservation"]["paths"] == ["BALCONY"]
@@ -281,7 +289,7 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
             context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
         for _ in range(limit - 1):
             context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
-            context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit"})
+            context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit", "allowed_mutation_paths": [["FACADE"]]})
         with pytest.raises(MCPCallError, match="预算"):
             context.dispatch("sketchup_run_workspace_ruby", {"script_id": "bypass"})
         assert context.dispatch("sketchup_inspect_owned", {})["success"]
@@ -442,7 +450,7 @@ def test_runtime_requires_visual_review_between_committed_writes(tmp_path, monke
     context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
     with pytest.raises(MCPCallError, match="update_mode=edit"):
         context.dispatch("sketchup_run_workspace_ruby", {})
-    context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit"})
+    context.dispatch("sketchup_run_workspace_ruby", {"update_mode": "edit", "allowed_mutation_paths": [["FACADE"]]})
     assert context.quality_state["writes"] == 2
     assert context.quality_state["review"] is None
 

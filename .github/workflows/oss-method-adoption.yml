@@ -14,6 +14,8 @@ on:
       - 'app/agent_tools.py'
       - 'app/construction_strategy.py'
       - 'app/image_to_sketchup_skill.py'
+      - 'app/modeling_quality.py'
+      - 'tests/test_modeling_quality.py'
       - 'tests/test_oss_method_adoption.py'
       - 'tests/test_edit_scope_guard.py'
       - 'tests/test_strategy_progress.py'
@@ -35,6 +37,8 @@ on:
       - 'app/agent_tools.py'
       - 'app/construction_strategy.py'
       - 'app/image_to_sketchup_skill.py'
+      - 'app/modeling_quality.py'
+      - 'tests/test_modeling_quality.py'
       - 'tests/test_oss_method_adoption.py'
       - 'tests/test_edit_scope_guard.py'
       - 'tests/test_strategy_progress.py'
@@ -60,7 +64,7 @@ jobs:
       - name: Python syntax check
         run: python -m py_compile app/oss_method_catalog.py app/project_ruby.py app/strategy_progress.py app/native_agent.py app/agent_tools.py app/construction_strategy.py app/image_to_sketchup_skill.py
       - name: OSS selection and ADAI regression tests
-        run: python -m pytest -q tests/test_oss_method_adoption.py tests/test_edit_scope_guard.py tests/test_strategy_progress.py tests/test_native_turn_budget.py tests/test_native_progress.py tests/test_adai_components.py tests/test_construction_strategy.py
+        run: python -m pytest -q tests/test_oss_method_adoption.py tests/test_edit_scope_guard.py tests/test_strategy_progress.py tests/test_native_turn_budget.py tests/test_native_progress.py tests/test_adai_components.py tests/test_construction_strategy.py tests/test_modeling_quality.py
       - name: Ruby syntax and actual proxy dispatch
         run: |
           ruby -v
