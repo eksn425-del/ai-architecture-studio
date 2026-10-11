@@ -1,3 +1,20 @@
+# CURRENT — Product reset: reproducible native SKP then independent Sol API (2026-10-11)
+
+**The owner has changed the development priority. This is the sole next Codex assignment and supersedes ALL previous "continue Dream Coffee canopy/timber" headings below, which are preserved as historical reports.** Execute [NEXT_CODEX_API_FIRST_2026-10-11.md](NEXT_CODEX_API_FIRST_2026-10-11.md). Overall product rationale: [PRODUCT_API_FIRST_RECOVERY_2026-10-11.md](PRODUCT_API_FIRST_RECOVERY_2026-10-11.md).
+
+**Latest verified actual state:** Codex final `main` before current ChatGPT interventions was `61cca5cc962c`; formal Dream Coffee r4 had 116 root groups and source-matched Critic PARTIAL (canopy FAIL, timber PARTIAL), native downloaded SKP mouse-edit/save/reopen PASS; **fresh blank persisted Ruby baseline replay FAIL** in three glazing systems despite matching 116 counts. Two full 2026-10-11 reports remain immutable. Multiple repair turns consumed >8M input tokens with little visual value. Do not continue aesthetic loops on this case without solving reproducibility.
+
+**ChatGPT additions in main:** `scripts/compare_native_replay.py` and its true regression `tests/test_compare_native_replay.py` lock all THREE unresolved glazing fingerprint mismatches as FAIL; `app/provider_readiness.py` and credential-free `GET /api/provider-readiness` distinguish actual K Studio API readiness from provider marketing. Independent official `gpt-6.1-sol`/`gpt-6-astra` modeling is currently **NOT IMPLEMENTED** in product; existing LiteLLM Chat-Completions route deliberately rejects their Responses-tool protocol. Remote CI validates the catalog/endpoint/replay comparison, **NOT native SketchUp nor actual Sol API modeling**. Do not declare official API parity or mark a relay verified merely because a provider advertises a model ID.
+
+**Execution order:**
+(A) [Issue #6](https://github.com/eksn425-del/ai-architecture-studio/issues/6) diagnose and fix exact 3 glass replay mismatches with read-only child-level geometry/material diffs, TWO fresh blank native SU2024 replays, and correctly cancel/serialize timed-out native open/save-modal requests. Timebox tightly; report unresolved FAIL rather than an 8M-token loop.
+(B) [Issue #5](https://github.com/eksn425-del/ai-architecture-studio/issues/5) implement independent official **OpenAI Responses** model/vision/tool-call adapter using the SAME K Studio `AgentToolSurface`, Skills, guarded Kongxing single SketchUp writer, ProjectRuby + KEEP, saved project and independent Critic; mock contracts FIRST. Test real official GPT-6.1 Sol only with owner's **explicit local official key and approved tiny spend**, and no Codex login in runtime. A Codex native vs API parity test is a measurable goal, not a promise. If key/budget absent: code/tests may proceed, real API = NOT_RUN.
+(C) Optional B.AI or OpenRouter gateway microtest ONLY AFTER official baseline and explicit owner approval. No hidden model/provider fallback, no API credentials or private inputs in GitHub, no unapproved charge.
+
+**Commercial direction:** same product, project-first beginner design workstation with BYOK official API initially, honest model readiness, user-approved local connector. Longer term user brief/site/precedent/variants → editable SketchUp then separately verified Rhino/Blender/3ds Max adapters → concept-grade CAD, rendering, board/web slides/walkthrough. **No multi-software/CAD/render/PPT implementation in this Codex cycle.** Avoid claiming construction-document compliance or web-only control over a user's unpaired local SU. Strict GitHub evidence and full Windows `scripts/check.ps1`, current SHA, CI, failures required.
+
+---
+
 # 2026-10-11 原生补验更新
 
 [新补验证据](test-results/windows/2026-10-11-dream-coffee-native-replay/README.md)：Windows解锁后原生下载副本编辑/保存/再开PASS，只PLANTERS变化、其余115组不变。正式模型仍r4，未人工修改。新空白真实重放116组/PID19/r1，但三组玻璃严格几何/材质指纹不同FAIL（counts一致）；六张本批新PNG已提交。原先BLOCKED为历史状态，本补验覆盖生命周期未完成项，视觉PARTIAL不变。宿主scheduled open超时留下保存提示/排队操作，最后恢复正式主模型与项目状态。下一步先定位三玻璃baseline差异、修复原生切换超时取消，再同r4修雨棚与木板，不降验收标准。
