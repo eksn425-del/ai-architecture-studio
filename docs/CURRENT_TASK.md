@@ -1,3 +1,11 @@
+# CURRENT — Natural-language end-user simulation is mandatory (2026-10-11)
+
+**Owner's added acceptance, applies to ALL next Studio Agent tests:** Codex CONTROLLER stays the user-selected model. Website's modeling model remains the proposed real Sol Low proxy. The Codex tester must act as a NORMAL student and enter short natural Chinese requests in the REAL K Studio browser/chat/approval flow. No technical developer prompts, `method_id`, Ruby, JSON, backend workflow instructions or direct forged `/conversation` POST pretending to be a user. The real UI previously synthesized a long “内部步骤连续自动完成…不要只写脚本…” user message when pressing approve; `app/static/studio.js` now uses actual typed text or plain “确认，按当前计划开始建模。”; technical instructions remain inside `workflow_context.py`. New `tests/test_natural_chat_entry.py` regression and CI.
+
+**Required defect-loop:** natural user utterance → real Agent response/model result → if FAIL save screenshot+state+trace → Codex debugs/repairs underlying code in developer mode → reload original Studio → resume the SAME project through normal chat with a human utterance → show before/after. Manual Codex direct Ruby or fake API payload results do NOT count as website Agent modeling success. The [new-source Sol Low proxy runbook](NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md) has the detailed UX contract. Do not change controller model or start paid API. Keep the first failure, then actual post-fix evidence.
+
+---
+
 # CURRENT — New-source visual capability test using REAL website Sol Low proxy (2026-10-11)
 
 **OWNER decision supersedes all older top-of-file instructions demanding a paid B.AI test now or further Dream Coffee repairs.** We are PREPARING for a completely NEW architectural reference image, to be supplied by the owner to Codex. Do not invent a reference or run geometry without it. Sole executable new task: [NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md](NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md). OSS practical learnings: [FRESH_BUILDING_AGENT_OSS_NOTES_2026-10-11.md](FRESH_BUILDING_AGENT_OSS_NOTES_2026-10-11.md).
