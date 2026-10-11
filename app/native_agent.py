@@ -247,10 +247,12 @@ class CodexAppServerRuntime:
         prompt = build_visual_critic_prompt(labels[:len(sources)], labels[len(sources):])
         prompt += "\nImages below follow this exact order:\n" + "\n".join(
             f"{index + 1}. {label}" for index, label in enumerate(labels))
-        prompt += ("\nIndependently inventory ALL visible source primary/attached volumes and roofs before judging "
-                   "details. A missing lower annex/roof or wrong massing is priority 1, even if windows look recognizable. "
-                   "Do not hide template clutter with plants. Do not trust the Builder's claims. "
-                   "KEEP only features whose location/proportions actually match; use named paths only when known. "
+        prompt += ("\nInventory only elements actually shown by this project's SOURCE before judging CURRENT. "
+                   "If a source contact sheet has multiple views, use their shared landmarks to infer one consistent "
+                   "building; do not borrow a roof, canopy, annex, plants or other element from a previous test case. "
+                   "Prioritize source-backed silhouette, openings, roof/wall/window assembly, clearances and joints; "
+                   "unobserved hidden regions are inferred, not proof of mismatch. Do not trust Builder claims. "
+                   "KEEP only geometry whose source-backed proportions are correct; use named paths only when known. "
                    "Do not run commands or edit files; answer the review envelope directly from images.")
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
