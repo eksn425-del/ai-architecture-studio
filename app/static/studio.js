@@ -730,7 +730,7 @@ async function sendConversation(event, agentAction = "auto") {
     $("connect-dialog").showModal();
     return;
   }
-  const message = agentAction === "execute" ? `已批准当前计划和估算，请现在执行完整建模：按参考图尽量还原主体、屋顶、门窗、材质、可见细节和已要求的室内与场地。内部步骤连续自动完成，逐视角检查并修正后保存模型；不要再问确认，不要只写脚本就停止。${typed ? `\n我的补充：${typed}` : ""}` : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
+  // The chat log must reflect what a real person typed or approved. Execution\n  // policy/Skills/tool choreography belong ONLY in the internal developer layer.\n  // Never forge a verbose engineering prompt and present it as a user message.\n  const message = agentAction === "execute"\n    ? (typed || "确认，按当前计划开始建模。")\n    : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
   saveDraft();
   pendingMessage = message;
