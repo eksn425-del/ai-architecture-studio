@@ -9,6 +9,7 @@ from urllib.parse import urlsplit, urlunsplit
 from .litellm_runtime import LiteLLMRuntime
 from .native_agent import NativeAgentUnavailable
 from .responses_runtime import ResponsesRuntime, ResponsesProfile, PilotBudget
+from .modeling_test_profile import assess_sol_low_surrogate
 from decimal import Decimal
 
 
@@ -133,6 +134,12 @@ class DeterministicModelRouter:
         safe_base = urlunsplit((base.scheme, base.netloc, base.path, "", "")) if not base.username and not base.password else ""
         return {
             "default_tier": "economy",
+            # Metadata only; this never changes the selected Website or Codex model.
+            "sol_low_website_test": assess_sol_low_surrogate(
+                route_provider=self.economy_route.provider,
+                requested_model=self.economy_route.model,
+                requested_effort=self.economy_route.reasoning_effort,
+            ),
             "economy": self.economy_route.as_dict(),
             "premium": self.premium_route.as_dict(),
             "providers": {
