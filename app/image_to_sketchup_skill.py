@@ -23,6 +23,14 @@ For text only input, derive a coherent estimated design and label assumptions. F
 
 **inspect source → clarify high-impact unknowns → parameterize assumptions → user approval → author/revise persistent Ruby → execute → inspect screenshots/model → revise the same scripts/model**.
 
+## New-reference quality-first contract (NOT a reusable old-project template)
+
+Start every FRESH building from its own primary source, not the previous Dream Coffee source, baseline, geometry hierarchy, fix list or camera. Extract up to FIVE source-defining observed features with source panel/region, provisional dimension or proportion, matching semantic assembly path, and suitable front/side/oblique inspection angle. Declare uncertainty rather than fabricating a rear elevation or a visible canopy. Ask the user only about decisions that materially change the building.
+
+For EACH major assembly, record (1) observed or user-confirmed intent, (2) shared level/axis/dimensions and mm conversion, (3) one suitable verified constructor (SAIE/ADAI/native instance/owned Ruby) plus a concrete fallback reason, (4) editable groups or reusable definition/instances and named dependencies, (5) expected host-to-child joint/opening/clearance with mm tolerance or intentional gap, and (6) which current image/host readback proves it. Verify representative roof-wall, frame-glass, wall-opening and stair/landing connections ONLY when those systems exist in source; do not add absent building elements for a checklist. A bounding-box touch alone is not a structural/joint proof.
+
+The first completed geometry write MUST already include the source-defining silhouette/roof/attached volume/primary real openings, not generic boxes. Inspect a SOURCE-MATCHED perspective of that write before spending time on tiny trims, furniture, environment or visual polish. Replicate a repeated facade module only after its real native representative group/definition is measured and source-checked. Prefer official SketchUp ComponentDefinition instances for genuinely repeated elements; make unique for a one-off correction. If the principal source-facing composition is wrong, the next bounded correction targets that system, not decorative concealment. In the final report show source feature → actual named group → joint/geometry readback → current camera → PASS/PARTIAL/FAIL. Mark confidence honestly; a six-view inventory and successful save never independently imply design acceptance.
+
 ## Method card A — clarify only what changes the model
 
 Ask only unanswered use/views, scope, scale or inference/detail questions. Propose missing scale; otherwise plan directly.
