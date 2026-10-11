@@ -21,6 +21,16 @@ def test_visual_critic_prompt_is_bounded_and_read_only():
         assert view in prompt
 
 
+def test_new_building_critic_has_no_old_cafe_project_requirements():
+    prompt = build_visual_critic_prompt(["new-user-building.png"], CANONICAL_REVIEW_VIEWS)
+    assert "ONLY elements genuinely visible" in prompt
+    assert "Do not hallucinate" in prompt
+    assert "source-matched views take priority" in prompt
+    assert "including canopy/supports, cladding and open bays when visible" not in prompt
+    assert "Missing lower annex" not in prompt
+    assert "source-versus-current" in prompt
+
+
 def test_visual_critique_parser_keeps_top_three_and_keep_list():
     result = parse_visual_critique_response(
         """NEEDS_FIX: YES
