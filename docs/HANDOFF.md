@@ -1,3 +1,9 @@
+# 2026-10-11 原生补验更新
+
+[新补验证据](test-results/windows/2026-10-11-dream-coffee-native-replay/README.md)：Windows解锁后原生下载副本编辑/保存/再开PASS，只PLANTERS变化、其余115组不变。正式模型仍r4，未人工修改。新空白真实重放116组/PID19/r1，但三组玻璃严格几何/材质指纹不同FAIL（counts一致）；六张本批新PNG已提交。原先BLOCKED为历史状态，本补验覆盖生命周期未完成项，视觉PARTIAL不变。宿主scheduled open超时留下保存提示/排队操作，最后恢复正式主模型与项目状态。下一步先定位三玻璃baseline差异、修复原生切换超时取消，再同r4修雨棚与木板，不降验收标准。
+
+---
+
 # 2026-10-11 最新本机交接 — Dream Coffee 受保护修复 r4：PARTIAL
 
 [真实报告与全部图片](test-results/windows/2026-10-11-dream-coffee-protected-repair/README.md)。实际gpt-6-luna/max、SU2024 24.0.484，经K Studio网站。正式PID35529/r4/116组，一笔局部提交，原110组递归几何与面材质指纹一致。正例edit_scope/KEEP通过，越界删除被事务拒绝；负例完整后指纹未采集。独立源图+前后Critic判雨棚FAIL、木饰面PARTIAL，不宣称质量通过。
