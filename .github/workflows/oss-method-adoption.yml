@@ -12,6 +12,7 @@ on:
       - 'app/native_agent.py'
       - 'scripts/compare_native_replay.py'
       - 'app/provider_readiness.py'
+      - 'app/managed_beta_policy.py'
       - 'app/litellm_runtime.py'
       - 'app/main.py'
       - 'app/project_ruby.py'
@@ -26,6 +27,7 @@ on:
       - 'tests/test_native_turn_budget.py'
       - 'tests/test_compare_native_replay.py'
       - 'tests/test_provider_readiness.py'
+      - 'tests/test_managed_beta_policy.py'
       - 'tests/test_adai_components.py'
       - 'tests/test_construction_strategy.py'
       - 'tests/ruby/oss_method_runtime_test.rb'
@@ -41,6 +43,7 @@ on:
       - 'app/native_agent.py'
       - 'scripts/compare_native_replay.py'
       - 'app/provider_readiness.py'
+      - 'app/managed_beta_policy.py'
       - 'app/litellm_runtime.py'
       - 'app/main.py'
       - 'app/project_ruby.py'
@@ -55,6 +58,7 @@ on:
       - 'tests/test_native_turn_budget.py'
       - 'tests/test_compare_native_replay.py'
       - 'tests/test_provider_readiness.py'
+      - 'tests/test_managed_beta_policy.py'
       - 'tests/test_adai_components.py'
       - 'tests/test_construction_strategy.py'
       - 'tests/ruby/oss_method_runtime_test.rb'
@@ -74,9 +78,9 @@ jobs:
       - name: Install minimal tests
         run: python -m pip install -r requirements.txt
       - name: Python syntax check
-        run: python -m py_compile app/oss_method_catalog.py app/project_ruby.py app/strategy_progress.py app/native_agent.py app/agent_tools.py app/construction_strategy.py app/image_to_sketchup_skill.py
+        run: python -m py_compile app/oss_method_catalog.py app/project_ruby.py app/managed_beta_policy.py app/strategy_progress.py app/native_agent.py app/agent_tools.py app/construction_strategy.py app/image_to_sketchup_skill.py
       - name: OSS selection and ADAI regression tests
-        run: python -m pytest -q tests/test_oss_method_adoption.py tests/test_edit_scope_guard.py tests/test_strategy_progress.py tests/test_native_turn_budget.py tests/test_native_progress.py tests/test_compare_native_replay.py tests/test_provider_readiness.py tests/test_adai_components.py tests/test_construction_strategy.py tests/test_modeling_quality.py
+        run: python -m pytest -q tests/test_oss_method_adoption.py tests/test_edit_scope_guard.py tests/test_strategy_progress.py tests/test_native_turn_budget.py tests/test_native_progress.py tests/test_compare_native_replay.py tests/test_provider_readiness.py tests/test_managed_beta_policy.py tests/test_adai_components.py tests/test_construction_strategy.py tests/test_modeling_quality.py
       - name: Ruby syntax and actual proxy dispatch
         run: |
           ruby -v
