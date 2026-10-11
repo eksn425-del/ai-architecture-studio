@@ -2,6 +2,14 @@
 
 > **唯一主产品 / Single product mainline:** [K AI Studio](https://github.com/eksn425-del/ai-architecture-studio) 将后续适配的开源 Skill、MCP、几何模块和专业软件自动化能力，持续整合进同一个网站与 GitHub 主仓库。新开源项目是 K AI Studio 的候选能力组件，不再另做一套相似的网站。完整原则见 [One Product / Open Source Policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md)。
 
+## 当前项目状态 / Product-first recovery (2026-10-11)
+
+**K Studio 的目标用户不应被要求安装 Codex。** 当前产品已具备本地 SketchUp 2024 + Kongxing 受守护建模、项目上传／确认／修正／原生 SKP 下载和独立 API 的 LiteLLM Chat 通路（GLM / DeepSeek）；但 **独立官方 GPT-6.1 Sol／Astra Responses 工具建模尚未实现，不能宣称已经和 Codex 原生效果一致**。模型连接真实支持状态：`GET /api/provider-readiness`。用户已有自己的合法 API Key 时，后续优先走官方独立 API；B.AI/OpenRouter 是待真机验证的可选渠道，不是产品必需品。
+
+最新真实质量阻断：[2026-10-11 受保护 Dream Coffee r4](docs/test-results/windows/2026-10-11-dream-coffee-protected-repair/README.md)的雨棚视觉 FAIL、木饰面 PARTIAL；[原生编辑与空白重放补验](docs/test-results/windows/2026-10-11-dream-coffee-native-replay/README.md)证明原生 SKP 下载编辑重开 PASS，但 116 组中新空白重放有三组关键玻璃的严格几何／材质指纹不一致，重放 FAIL。不要把对象数量相等或 CI 绿灯解释为保真建模通过。
+
+**下一轮优先级：**[有界重放根因修复 → 独立官方 Sol Responses API 建模](docs/NEXT_CODEX_API_FIRST_2026-10-11.md)；[统一工作台与后续专业软件/CAD/渲染/展板产品路线](docs/PRODUCT_API_FIRST_RECOVERY_2026-10-11.md)。长期扩展沿同一项目工作流进行，专业概念图件不等于经核准的施工图。
+
 ## ADAI 0.5.39 integrated option (experimental; disabled by default)
 
 K AI Studio supports **opt-in**, integrity-checked downloads of the upstream ADAI Skill and its Managed MCP, with the official CPAL-1.0 license and attribution retained. Only the installed Skill's construction geometry can be enabled inside our existing guarded ProjectRuby bridge; the separate Managed MCP is **not** activated automatically. SketchUp **2018–2026 is a validation target, not a certified compatibility claim**; original verified K Studio baseline remains SketchUp 2024. See [ADAI component adoption and version matrix](docs/ADAI_COMPONENT_INTEGRATION_2026-10-09.md).
@@ -22,7 +30,7 @@ K AI Studio supports **opt-in**, integrity-checked downloads of the upstream ADA
 4. 新建会话 → 上传同一建筑的图片或六视图整图 → 描述目标 → 补充需求 → 检查并修改计划。没有实测尺寸可以采用估算；建模前不需要连接 SketchUp。计划可下载保存。
 5. 在 Windows 上准备好 SketchUp 2024 与已有 Kongxing 插件后，再按 **连接 SketchUp** 教学打开独立模型并批准建模。插件未随仓库分发；下载本仓库不等于已安装插件。
 
-**当前真机事实（2026-10-09）**：已在 Windows / SketchUp 2024 使用 Sol Low 完成建筑建模、局部修正、六方向实际截图、SKP 下载与原生重开编辑；整体建筑视觉仍为 PARTIAL。ADAI 官方 ZIP 完整性自动检查与集成代码已完成，新增 SU2024 真实几何能力待验收。干净新电脑安装、SU2018–2026 全版本支持尚未证实。[Codex 实测报告](docs/test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) · [下一轮 Codex 任务](docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md) · [USER_GUIDE](docs/USER_GUIDE.md)。
+**历史真机事实（2026-10-09；最新状态以页首 2026-10-11 说明为准）**：已在 Windows / SketchUp 2024 使用 Sol Low 完成建筑建模、局部修正、六方向实际截图、SKP 下载与原生重开编辑；整体建筑视觉仍为 PARTIAL。ADAI 官方 ZIP 完整性自动检查与集成代码已完成，新增 SU2024 真实几何能力待验收。干净新电脑安装、SU2018–2026 全版本支持尚未证实。[Codex 实测报告](docs/test-results/windows/2026-10-09-quality-loop-v25-sol/README.md) · [下一轮 Codex 任务](docs/NEXT_NATIVE_TEST_GPT6_LUNA_MAX_2026-10-09.md) · [USER_GUIDE](docs/USER_GUIDE.md)。
 
 
 AI Architecture Studio is a lightweight architecture workspace that packages strong existing AI + professional-software automation around real design tools instead of rebuilding CAD or 3D engines from scratch.
