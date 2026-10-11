@@ -1,0 +1,16 @@
+..........s............................................................. [ 19%]
+........................................................................ [ 38%]
+........................s............................................... [ 58%]
+........................................................................ [ 77%]
+........................................................................ [ 97%]
+..........                                                               [100%]
+============================== warnings summary ===============================
+tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[deepseek/deepseek-flash-https://api.deepseek.com-api.deepseek.com-low]
+    warnings.warn(
+
+tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[zai/glm-5.3-flash-https://open.bigmodel.cn/api/paas/v4-open.bigmodel.cn-low]
+    loop: Final = asyncio.get_event_loop()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+368 passed, 2 skipped, 2 warnings in 31.41s
+All workspace and case-study checks passed.

@@ -160,11 +160,14 @@ function refreshTierLabels() {
   const economy = select.querySelector('option[value="economy"]');
   const premium = select.querySelector('option[value="premium"]');
   const economyRoute = routeInfo("economy");
+  $("model-settings-toggle").textContent = economyRoute.provider === "managed-responses" ? "K Studio 模型服务" : "模型 / 自带 API";
   const premiumRoute = routeInfo("premium");
   const economyLabel = economyRoute.model === "deepseek/deepseek-flash"
     ? "DeepSeek V4.1 Flash"
     : `${economyRoute.model} · ${(economyRoute.reasoning_effort || "provider-default").toUpperCase()}`;
-  economy.textContent = `${economyLabel}${routeAvailable("economy") ? " · 已配置" : " · 未配置"}`;
+  economy.textContent = economyRoute.provider === "managed-responses"
+    ? `K Studio · ${economyRoute.model} · ${routeAvailable("economy") ? "内部测试中" : "未验证 / 暂不可用"}`
+    : `${economyLabel}${routeAvailable("economy") ? " · 已配置" : " · 未配置"}`;
   premium.textContent = `精修 · ${premiumRoute.model}（仅本轮${routeAvailable("premium") ? "" : " · 未配置"}）`;
 }
 
@@ -1058,6 +1061,10 @@ function startLiveProgress() {
 }
 
 function openModelSettings() {
+  if (routeInfo("economy").provider === "managed-responses") {
+    showToast("模型由 K Studio 服务端配置。当前为托管 Agent 内部测试，供应商质量尚未验收；普通用户无需填写 API Key。");
+    return;
+  }
   const saved = state.modelRouter?.providers?.litellm?.credential_configured && routeInfo("economy").model === "deepseek/deepseek-flash";
   $("api-key").value = "";
   $("api-key").placeholder = saved ? "已保存；更换 Key 时填写，保持原配置可留空" : "粘贴 DeepSeek API Key";

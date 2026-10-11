@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "download_sha256": "28020fd36449ae68e3a4f017af03f65a826358f73c9badd3a4af3e5ab4f387ed",
+  "server_sha256": "28020fd36449ae68e3a4f017af03f65a826358f73c9badd3a4af3e5ab4f387ed",
+  "download_matches": true,
+  "interaction": "Native SketchUp Ctrl+O; mouse select PLANTERS and Move tool; Ctrl+S; Ctrl+O same copy; read-only fingerprints",
+  "changed_groups": [
+    "PLANTERS"
+  ],
+  "protected_group_count": 115,
+  "edit_comparison": {
+    "schema_version": 1,
+    "status": "FAIL",
+    "before_group_count": 116,
+    "replay_group_count": 116,
+    "missing_groups": [],
+    "added_groups": [],
+    "changed_groups": [
+      {
+        "name": "PLANTERS",
+        "counts_equal": true,
+        "before_counts": {
+          "faces": 2970,
+          "edges": 5268,
+          "instances": 134
+        },
+        "replay_counts": {
+          "faces": 2970,
+          "edges": 5268,
+          "instances": 134
+        },
+        "before_sha256": "ca0161afc4c1b5292752443a4793b8749185ae39acd6e6f661fb3f62c580b957",
+        "replay_sha256": "7cd8bd03518eaf35323afe018d47ef14b8cc83bc242defe621358352b53a155c",
+        "child_differences": [],
+        "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+      }
+    ],
+    "persistent_ids_ignored": true,
+    "equal_group_counts_do_not_prove_geometry_equality": true
+  },
+  "reopen_comparison": {
+    "schema_version": 1,
+    "status": "PASS",
+    "before_group_count": 116,
+    "replay_group_count": 116,
+    "missing_groups": [],
+    "added_groups": [],
+    "changed_groups": [],
+    "persistent_ids_ignored": true,
+    "equal_group_counts_do_not_prove_geometry_equality": true
+  },
+  "identity": {
+    "model_path": "[repository]\\runtime\\projects\\dream-coffee-oss-1010\\outputs\\model\\blank-disposable-managed-native-edit1011.skp",
+    "model_name": "blank-disposable-managed-native-edit1011",
+    "model_guid": "0372f44c-0057-42d5-8026-615063399fc0",
+    "active_context": false,
+    "main_thread": true
+  },
+  "capture": {
+    "output_path": "[repository]\\runtime\\projects\\dream-coffee-oss-1010\\runtime\\managed-native-reopened.png",
+    "ok": true
+  }
+}

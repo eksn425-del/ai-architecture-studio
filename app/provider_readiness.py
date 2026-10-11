@@ -35,22 +35,22 @@ CAPABILITY_MATRIX = (
     ProviderReadiness(
         "openai-official", "OpenAI direct API", "independent_api",
         "gpt-6.1-sol", "officially_documented_not_product_verified", "Responses",
-        "blocked_pending_adapter",
-        "Current K Studio LiteLLM builder is Chat Completions based and explicitly rejects Sol/Astra tool use.",
-        "P0: real Responses image/tools/turn continuation, current-view Critic and native SU output parity.",
+        "verified_offline_only_live_not_run",
+        "Responses adapter shares project Skills, guarded tools and dedicated Critic; only simulated protocol tested.",
+        "Owner-approved independent API budget/key required for actual native quality validation; no hidden Codex fallback.",
     ),
     ProviderReadiness(
         "openai-official", "OpenAI direct API", "independent_api",
         "gpt-6-astra", "officially_documented_not_product_verified", "Responses",
-        "blocked_pending_adapter",
-        "The OpenAI API documents the model, but K Studio has not completed its independent Responses tool loop.",
+        "adapter_available_live_not_run",
+        "Shared Responses transport exists; Astra capability, budget and native quality have not been tested.",
         "Optional premium route only after independent verification, explicit cost consent.",
     ),
     ProviderReadiness(
         "b-ai", "B.AI gateway", "third_party_gateway",
         "gpt-6.1-sol", "provider_documented_not_product_verified", "Responses-compatible advertised",
         "candidate_not_verified",
-        "Public B.AI docs list Sol, Astra, Opus and compatible APIs; K Studio has not live-tested protocol fidelity or quality.",
+        "Operator Responses adapter is offline-tested; K Studio has not live-tested B.AI protocol fidelity or quality.",
         "Small pre-paid test with real model identity, function/tool/image/thinking/caching/usage checks and no hidden substitution.",
     ),
     ProviderReadiness(

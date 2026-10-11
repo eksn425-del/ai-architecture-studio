@@ -20,6 +20,7 @@ from .modeling_quality import require_post_write_verification
 from .adai_components import geometry_helper
 from .construction_strategy import load_construction_strategy
 from .strategy_progress import persist_verified_strategy_progress
+from .component_assembly import native_component_diagnostics
 from .oss_method_catalog import assess_method_adoption
 
 
@@ -606,6 +607,7 @@ class ProjectRubyExecutor:
             "edit_scope_receipt": edit_scope_receipt,
             "strategy_progress": strategy_progress,
             "oss_method_adoption": method_adoption,
+            "component_assembly_diagnostics": native_component_diagnostics(report.get("owned_after") or {}),
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
             "transport": "existing Kongxing sketchup_eval_project_file",
         }

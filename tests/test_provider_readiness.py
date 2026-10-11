@@ -25,7 +25,7 @@ def test_provider_readiness_api_does_not_expose_or_infer_credentials(tmp_path, m
         response = client.get("/api/provider-readiness")
     assert response.status_code == 200
     body = response.json()
-    assert body["independent_sol_astra_responses_modeling"] == "not_implemented"
+    assert body["independent_sol_astra_responses_modeling"] == "implemented_offline_verified_live_not_run"
     assert body["standalone_public_beta"] == "not_certified"
     assert len(body["models"]) >= 4
     assert "sk-" not in response.text

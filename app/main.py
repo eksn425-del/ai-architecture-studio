@@ -504,7 +504,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.credential_restore_error = False
     try:
         saved_provider = app.state.credentials.load()
-        if saved_provider:
+        if saved_provider and app.state.model_router.economy_provider != "responses":
             provider = app.state.model_router.china_runtime
             provider.model = saved_provider["model"]
             provider.custom_api_base = saved_provider["api_base"]
@@ -536,10 +536,19 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         """
         return {
             "schema_version": 1,
-            "independent_sol_astra_responses_modeling": "not_implemented",
+            "independent_sol_astra_responses_modeling": "implemented_offline_verified_live_not_run",
             "standalone_public_beta": "not_certified",
             "models": readiness_matrix(),
         }
+
+    @app.post("/api/managed-agent/cancel")
+    def cancel_managed_agent(request: Request) -> dict[str, Any]:
+        # App-wide loopback middleware is mandatory; no public auth assumed.
+        origin = request.headers.get("origin")
+        if origin and origin != str(request.base_url).rstrip("/"):
+            raise HTTPException(status_code=403, detail="停止操作必须来自当前工作台。")
+        app.state.model_router.responses_runtime.cancelled.set()
+        return {"cancel_requested": True, "inflight_request_may_still_be_billed": True}
 
     @app.post("/api/model-settings")
     async def model_settings(request: Request) -> dict[str, Any]:
@@ -553,6 +562,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         try:
             data = await request.json()
             router = app.state.model_router
+            if router.economy_provider == "responses":
+                raise HTTPException(status_code=409, detail="托管模型由服务端运营配置，不能通过用户 API Key 更换供应商。")
             provider = router.china_runtime
             if data.get("mode") == "preset":
                 if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":

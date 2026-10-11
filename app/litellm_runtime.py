@@ -37,6 +37,11 @@ class LiteLLMRuntime:
     """Optional LiteLLM chat-completion adapter for multimodal/function-call providers."""
 
     provider_name = "litellm"
+    supports_responses_tools = False
+
+    def completion_callable(self):
+        from litellm import completion
+        return completion
 
     def __init__(self, runtime_root: Path, *, sketchup_mcp: ConfiguredSketchUpMCP | None = None,
                  model: str | None = None, region: str | None = None,
@@ -85,7 +90,7 @@ class LiteLLMRuntime:
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
                 tool_profile: ToolProfile = "full") -> AgentTurnResult:
-        if requires_responses_tools(model or self.model):
+        if requires_responses_tools(model or self.model) and not self.supports_responses_tools:
             raise NativeAgentUnavailable("当前 API 建模适配器使用 Chat Completions；GPT-6.1 Sol / Astra 的工具调用需要 Responses API。尚未开放此 API 建模路线，没有发送请求或自动切换模型。")
         api_key = self.session_api_key or os.environ.get(self.key_env, "").strip()
         if not api_key:
@@ -93,7 +98,7 @@ class LiteLLMRuntime:
                 f"LiteLLM credential {self.key_env} is not set; no provider request was sent."
             )
         try:
-            from litellm import completion
+            completion = self.completion_callable()
         except Exception as error:
             raise NativeAgentUnavailable(
                 f"模型 API 运行依赖加载失败（{type(error).__name__}）：{str(error).replace(api_key, '[credential hidden]')[:600]}。尚未发送供应商请求。"
@@ -458,12 +463,19 @@ class LiteLLMRuntime:
                 "content": message.get("content"),
                 "tool_calls": raw_tool_calls,
             }
+            if message.get("responses_output") is not None:
+                assistant_message["responses_output"] = message["responses_output"]
             # DeepSeek thinking tool turns require this field on subsequent calls.
             if message.get("reasoning_content") is not None:
                 assistant_message["reasoning_content"] = message["reasoning_content"]
             messages.append(assistant_message)
             pending_visual_readbacks = []
             for call in raw_tool_calls:
+                if hasattr(self, "before_tool_execution"):
+                    try:
+                        self.before_tool_execution()
+                    except NativeAgentUnavailable as error:
+                        raise interrupted(str(error)) from None
                 call_id, name, arguments = _tool_call_parts(call)
                 tool_call_count += 1
                 tool_calls.append({"server": "kongxing_sketchup", "tool": name})
@@ -502,6 +514,9 @@ class LiteLLMRuntime:
                 if name == "sketchup_run_workspace_ruby":
                     modeling_failure_streak = 0 if succeeded else modeling_failure_streak + 1
                 messages.append({"role": "tool", "tool_call_id": call_id, "content": text_result})
+                # Durably record each completed call. If a process dies mid-batch,
+                # Responses detects unresolved IDs and refuses unsafe replay.
+                save_history()
                 if images:
                     content: list[dict[str, Any]] = [{"type": "text", "text": f"Visual readback from SketchUp tool {name}."}]
                     content.extend({"type": "image_url", "image_url": {"url": image}} for image in images)
@@ -521,6 +536,8 @@ class LiteLLMRuntime:
                 )
 
         final_message = {"role": "assistant", "content": last_reply}
+        if message.get("responses_output") is not None:
+            final_message["responses_output"] = message["responses_output"]
         if message.get("reasoning_content") is not None:
             final_message["reasoning_content"] = message["reasoning_content"]
         messages.append(final_message)

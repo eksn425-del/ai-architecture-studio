@@ -1,3 +1,23 @@
+## 2026-10-11 — Codex 托管 Agent Beta 离线实装 + 严格重放交付（最新）
+
+[全部真实证据及限制](test-results/windows/2026-10-11-managed-agent-beta-offline/README.md)，[服务端运营配置](MANAGED_RESPONSES_LOCAL_PILOT.md)。基础main `0c6f1675505a89670978a0786aa15982165dad8d`。Windows / SU2024 24.0.484 / Kongxing / Python3.10.4现有venv，8787通过scripts/dev.py启动，网站加载无新console error。当前开发对照选择gpt-6-luna/max，不新调用模型、不请求收费API。
+
+**Phase0 PASS**：只读真实世界顶点/材质/变换识别三玻璃baseline漂移，一次源码同步：入口margin24mm、上层mullion50×65、倾斜ribdepth78、山墙深木材。仅两次新空白重放，全部116组严格SHA一致。正式r4/PID35529/116组没有几何编辑。两次OSS真实墙洞2+墙1/profile9，生产guarded writer与账本实际执行。不可用安装成功代替此证据。
+
+**本批原生交付 PASS**：浏览器下载新replay B的SKP，SHA相同；原生Ctrl+O、鼠标Move PLANTERS、Ctrl+S、重开再只读核实，只有PLANTERS变化，115其他组KEEP，重开与编辑后116组全一致。恢复正式主模型再次116指纹全不变。原生切换保存由桥接eval事务内移至事务结束后的UI timer；path/GUID/context检查保留，未完成timeout被cancel/quarantine，不能再排队open。真实切换无保存modal，timeout负例为模拟回归。
+
+**Phase1/3 离线实装**：ResponsesRuntime直接HTTP Responses，复用LiteLLM共享项目/Skills/tool/专用Critic harness，保留旧Chat路线；没有API路径依赖Codex，没有隐藏回退。真实图像序列化、opaque reasoning、call ID、结果回传、跨轮历史与逐工具保存、只读Critic、cancel、型号/usage/错误门、保守每回合成本预留与Token/request硬上限、脱敏receipt均有免费回归。服务端profile固定allowlist，Key不进网页/安装包，托管UI不要求普通用户填Key。实时执行默认需运营Key、条款确认和明确预算/consent；此次未设置。
+
+**Phase2 PARTIAL**：新写回包含原生命名组/PID/尺寸诊断；本批实际owned_after另导出诊断。分组不是全部连接正确证明，仍PARTIAL，不新增没有实际用途的几何引擎。继续使用既有SAIE/ADAI与受控Ruby，严格重放已验收，专业接合/来源忠实度没有新PASS。
+
+**未解决/未执行**：独立真实B.AI/官方型号、图片、API质量/账单NOT_RUN（用户未充值）。本轮宿主重放之前Luna脚本而非新的网页自动Builder；真实新Token为null，mock身份和usage是fixture，不冒充供应商或新Luna结果。近似来源相机无新独立Critic；旧r4 canopyFAIL/timberPARTIAL保留，停止美化。全流程宿主耗时/工具计数未完整instrument，明确null。普通用户多租户auth/配对/持久原子钱包/跨进程预算与供应商商业许可仍NOT_READY，当前单用户loopback不收费上线。
+
+**免费检查**：最终Windows scripts/check.ps1日志见新目录checks.txt；协议失败/中断场景、严格比较、生命周期与构件诊断覆盖。私人原图/SKP/账号/绝对路径/Key均不提交；两套新六视图和sidecar、actual readback/OSS/KEEP、native-edit receipt、SHA manifest全部独立新目录，旧报告不覆盖。GitHub CI由提交后运行结果验收，不能以本机PASS冒称CI PASS。
+
+**下一步**：网页端先审查新报告和API边界；合法Key+明确小额预算+商业/隐私批准到位后再跑同产品B.AI Sol真实新任务微测及六视图、专业连接、局部修正、下载编辑/严格重放。无预算则免费恢复/隔离回归或显式Luna开发对照，不隐换provider。无需用户转发本机路径，全部公开证据可直接从GitHub读。
+
+---
+
 ## 2026-10-11 — OWNER CORRECTION: K Studio is managed inference AGENT SERVICE (latest handoff)
 
 This handoff SUPERCEDES all historical "every public user must provide BYOK official API" assumptions. The operator plans to legitimately acquire provider LLM API (B.AI first trial CANDIDATE, official OpenAI Sol as independently authorized control/fallback, OpenRouter alternative) and provide the **K Studio Agent service** to design students/junior architects as a managed product. End users should NOT need Codex or API-Key/MCP knowledge; optional BYOK advanced only. Full single-product policy: [K_STUDIO_MANAGED_AGENT_BUSINESS_AND_OSS_2026-10-11.md](K_STUDIO_MANAGED_AGENT_BUSINESS_AND_OSS_2026-10-11.md). **SOLE new Codex prompt:** [NEXT_CODEX_MANAGED_AGENT_BETA_2026-10-11.md](NEXT_CODEX_MANAGED_AGENT_BETA_2026-10-11.md). Latest `docs/CURRENT_TASK.md` top and `AGENTS.md` top explicitly override preceding BYOK-first documents.

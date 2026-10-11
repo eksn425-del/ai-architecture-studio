@@ -43,6 +43,7 @@ def compare(before: dict[str, Any], replay: dict[str, Any]) -> dict[str, Any]:
                 "replay_counts": b["counts"],
                 "before_sha256": a["geometry_material_sha256"],
                 "replay_sha256": b["geometry_material_sha256"],
+                "child_differences": child_differences(a, b),
                 "next_diagnostic": (
                     "Inspect per-child named transforms, normalized world-space face/edge coordinates,"
                     " front/back face material and inherited material in a read-only native traversal."
@@ -59,6 +60,18 @@ def compare(before: dict[str, Any], replay: dict[str, Any]) -> dict[str, Any]:
         "persistent_ids_ignored": True,
         "equal_group_counts_do_not_prove_geometry_equality": True,
     }
+
+
+def child_differences(before: dict[str, Any], replay: dict[str, Any]) -> list[dict[str, Any]] | None:
+    """Optional actual native child transforms/bounds/materials; never substitute
+    this diagnostic for the strict full geometry/material hash comparison.
+    """
+    if not isinstance(before.get("children"), list) or not isinstance(replay.get("children"), list):
+        return None
+    old = {x["name"]: x for x in before["children"]}
+    new = {x["name"]: x for x in replay["children"]}
+    return [{"name": name, "before": old.get(name), "replay": new.get(name)}
+            for name in sorted(old.keys() | new.keys()) if old.get(name) != new.get(name)]
 
 
 def main() -> int:

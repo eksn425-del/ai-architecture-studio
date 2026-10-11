@@ -1,0 +1,140 @@
+{
+  "simulation_only": true,
+  "network_requests": 0,
+  "real_model_invoked": false,
+  "mock_usage_not_real_spend": true,
+  "requests": [
+    {
+      "model": "gpt-6.1-sol",
+      "input": [
+        {
+          "role": "developer",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "Synthetic Skill fixture"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "Synthetic image fixture"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,AA=="
+            }
+          ]
+        }
+      ],
+      "store": false,
+      "max_output_tokens": 1000,
+      "include": [
+        "reasoning.encrypted_content"
+      ],
+      "reasoning": {
+        "effort": "low"
+      },
+      "tools": [
+        {
+          "type": "function",
+          "name": "read_model",
+          "parameters": {
+            "type": "object"
+          },
+          "strict": false
+        }
+      ],
+      "parallel_tool_calls": false
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "input": [
+        {
+          "role": "developer",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "Synthetic Skill fixture"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "Synthetic image fixture"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,AA=="
+            }
+          ]
+        },
+        {
+          "type": "function_call",
+          "id": "fc_fixture",
+          "call_id": "call_fixture",
+          "name": "read_model",
+          "arguments": "{}"
+        },
+        {
+          "type": "function_call_output",
+          "call_id": "call_fixture",
+          "output": "{\"synthetic\":true,\"ok\":true}"
+        }
+      ],
+      "store": false,
+      "max_output_tokens": 1000,
+      "include": [
+        "reasoning.encrypted_content"
+      ],
+      "reasoning": {
+        "effort": "low"
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "requested_model": "gpt-6.1-sol",
+      "provider_label": "bai",
+      "request_sha256": "aa4dcabddf306ed49c7f83000a4800813f44310f7c8af39c3accc6fd69416ed8",
+      "idempotency_key": "aa4dcabddf306ed49c7f83000a4800813f44310f7c8af39c3accc6fd69416ed8",
+      "image_count": 1,
+      "tool_schema_count": 1,
+      "status": "completed",
+      "request_id": "synthetic-not-upstream",
+      "response_id": "resp_fixture_1",
+      "actual_model": "gpt-6.1-sol",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 25
+      },
+      "estimated_usd": "0.00045",
+      "latency_ms": 0
+    },
+    {
+      "requested_model": "gpt-6.1-sol",
+      "provider_label": "bai",
+      "request_sha256": "8082136419c1ee9e8a18d63953ba6a07f4efe1c87c9e615e1cd98f3f05524c8d",
+      "idempotency_key": "8082136419c1ee9e8a18d63953ba6a07f4efe1c87c9e615e1cd98f3f05524c8d",
+      "image_count": 1,
+      "tool_schema_count": 0,
+      "status": "completed",
+      "request_id": "synthetic-not-upstream",
+      "response_id": "resp_fixture_2",
+      "actual_model": "gpt-6.1-sol",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 25
+      },
+      "estimated_usd": "0.00090",
+      "latency_ms": 0
+    }
+  ],
+  "actual_shared_harness_tests": "tests/test_responses_runtime.py; this transcript isolates wire serialization only"
+}

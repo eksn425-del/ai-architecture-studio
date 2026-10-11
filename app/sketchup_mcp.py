@@ -372,18 +372,61 @@ class SketchUpAdapter:
             raise MCPCallError("Recovery must stay in the same disposable project folder.")
         scripts = _generated_script_dir()
         scripts.mkdir(parents=True, exist_ok=True)
+        # A timed-out open may still be inside a native save dialog. Never queue
+        # another open behind it. The timer checks a cancellation marker before
+        # it starts; once opening began, quarantine until its receipt completes.
+        pending = scripts / "studio-lifecycle.pending"
+        if pending.exists():
+            previous = json.loads(pending.read_text(encoding="utf-8"))
+            status_file = Path(previous["status"])
+            if not status_file.exists() or not json.loads(status_file.read_text(encoding="utf-8")).get("finished"):
+                raise MCPCallError("A previous native open is unresolved; close its dialog before retrying. No new open queued.")
+            pending.unlink()
         script_path = scripts / f"studio-recover-{os.urandom(6).hex()}.rb"
+        status_path = script_path.with_suffix(".status.json")
+        cancel_path = script_path.with_suffix(".cancel")
+        with pending.open("x", encoding="utf-8") as handle:
+            json.dump({"status": str(status_path)}, handle)
         target = json.dumps(str(target_path.resolve()), ensure_ascii=False)
         expected = json.dumps(str(expected_path.resolve()), ensure_ascii=False)
+        guid = json.dumps(identity["model_guid"])
+        status_literal = json.dumps(str(status_path.resolve()), ensure_ascii=False)
+        cancel_literal = json.dumps(str(cancel_path.resolve()), ensure_ascii=False)
         script_path.write_text(
             "# ARCHFLOW_GENERATED_SCRIPT\n"
             f"raise 'Active recovery model changed' unless Sketchup.active_model.path == {expected}\n"
-            "raise 'Could not save the disposable recovery source' unless Sketchup.active_model.save\n"
-            f"UI.start_timer(0.1, false) {{ raise 'Active recovery model changed' unless Sketchup.active_model.path == {expected}; Sketchup.open_file({target}) }}\n"
+            "UI.start_timer(0.1, false) do\nbegin\n"
+            f"raise 'Recovery cancelled before open' if File.exist?({cancel_literal})\n"
+            "m = Sketchup.active_model\n"
+            f"raise 'Active recovery model changed' unless m.path == {expected} && m.guid == {guid} && m.active_path.nil?\n"
+            # Save AFTER the bridge's enclosing evaluation transaction commits.
+            # Saving inside that transaction makes the document dirty again.
+            "raise 'Could not save the disposable recovery source' unless m.save\n"
+            f"File.write({status_literal}, JSON.generate({{opening: true}}))\n"
+            f"raise 'Could not open checkpoint' unless Sketchup.open_file({target})\n"
+            f"File.write({status_literal}, JSON.generate({{finished: true, ok: true}}))\n"
+            "rescue StandardError => error\n"
+            f"File.write({status_literal}, JSON.generate({{finished: true, ok: false, error: error.message}}))\n"
+            "end\nend\n"
             "{ recovery_scheduled: true }\n", encoding="utf-8")
         try:
             self.client.call("sketchup_eval_project_file", {"script_path": str(script_path.resolve()),
                              "operation_name": "Restore generated model checkpoint"})
+            deadline = time.monotonic() + 20
+            while True:
+                status = json.loads(status_path.read_text(encoding="utf-8")) if status_path.exists() else {}
+                if status.get("finished"):
+                    pending.unlink(missing_ok=True)
+                    if not status.get("ok"):
+                        raise MCPCallError("Native recovery failed: " + str(status.get("error", "unknown")))
+                    actual = self.get_active_model_identity()
+                    if Path(actual["model_path"]).resolve() != target_path.resolve() or actual.get("active_context"):
+                        raise MCPCallError("Native recovery identity did not match the requested checkpoint.")
+                    return
+                if time.monotonic() >= deadline:
+                    cancel_path.touch()
+                    raise MCPCallError("Native recovery timed out; operation quarantined, no retry open queued.")
+                time.sleep(0.1)
         finally:
             script_path.unlink(missing_ok=True)
 

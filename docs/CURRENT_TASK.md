@@ -1,3 +1,17 @@
+# CURRENT — 2026-10-11 Codex 实装交接：有界重放 PASS / 托管 Agent 离线 PASS / 整体验收 PARTIAL
+
+[本批真实证据](test-results/windows/2026-10-11-managed-agent-beta-offline/README.md)，[运营端入口与发布边界](MANAGED_RESPONSES_LOCAL_PILOT.md)。以下旧任务/结果为历史，不再次启动Dream Coffee美化。
+
+**完成**：读取main `0c6f167`后，真实子构件读回证明持久脚本的三玻璃尺寸/材质漂移。一次参数同步后两次独立空白SU2024重放均116/116严格几何/面材质SHA PASS，未降低比较规则。实际每次SAIE墙洞2+墙1、ADAI profile9，账本已上传。新浏览器下载SHA匹配、SU原生Move PLANTERS/保存再开PASS、115其他组KEEP，正式r4全部116不变。修复桥接事务内save导致的原生切换保存提示与超时排队，新增取消/隔离及回归。
+
+**实装自有API Agent**：新增运营端Responses传输，复用同一项目/Skill/AgentToolSurface/Kongxing/KEEP/六视图与专用只读Critic；协议图片、多工具回传、不透明推理历史恢复、取消、身份/异常/usage拒绝、保守硬预算及脱敏回执通过免费模拟。无需Codex依赖执行该Responses路径，不能自动fallback Codex；普通托管用户不填运营Key。新增原生命名组/PID/尺寸诊断，但接合与来源质量仍PARTIAL。
+
+**真实限制**：B.AI/官方API LIVE_NOT_RUN；用户尚未充值，不询问/读取Key，不收费。Luna Max可继续作为明确标注开发对照。本轮只重放以前实际gpt-6-luna/max生成的脚本，没有新LLM推理，Token为null，mockToken不能混算。原r4独立审查 canopy FAIL / timber PARTIAL保留，没有新视觉通过。当前localhost单用户、每回合预算不是持久租户账务，不可收费上线。
+
+**下一轮唯一可执行任务**：先审查本批Responses免费契约与发布边界，补齐按完整图片/上下文定价的受控预算配置。等运营人员具备合法供应商Key、商业/隐私许可及明确小额费用上限后，才在同一个网站跑B.AI Sol真实微测（模型/Responses图片/工具结果/usage/独立Critic/新SU构件/局部KEEP/原生重开/严格重放）。若仍无B.AI预算，只做免费安全/恢复回归或经用户明确选择的Luna开发对照，不能把它标为B.AI验收。不要继续无界修同一咖啡馆，不开发CAD/渲染/PPT/其他软件。
+
+---
+
 # CURRENT — K Studio managed LLM Agent product (2026-10-11 OWNER CORRECTION)
 
 **The product is NOT a BYOK-first wrapper and public users must NOT need Codex.** K Studio sells its professional Agent SERVICE: the operator buys upstream LLM inference from an approved API provider, **B.AI the first candidate, official OpenAI a measured control/fallback, OpenRouter an optional alternate**. All providers feed our SAME project-aware Agent / discoverable construction Skills / guarded SketchUp writer / readback / source-checked QA / native editable deliverables. For users, API Key/MCP/Codex installation is not the intended UX; a separately approved, licensed local model-software connector is still necessary. BYOK is optional advanced mode, NOT a prerequisite. No globally shared gateway key in website/static/Windows distributed binary. Upstream contract/privacy/commercial permission and operator/test budget approval are mandatory; no real payment or deployment has occurred.

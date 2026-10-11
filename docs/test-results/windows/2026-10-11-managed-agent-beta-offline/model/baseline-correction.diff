@@ -1,0 +1,45 @@
+--- before baseline
++++ accepted-r4 synchronized baseline
+@@ -173,10 +173,10 @@
+   dz = (z1 - z0).to_f / nz
+   nx.times do |ix|
+     nz.times do |iz|
+-      xa = x0 + ix * dx + 22
+-      xb = x0 + (ix + 1) * dx - 22
+-      za = z0 + iz * dz + 22
+-      zb = z0 + (iz + 1) * dz - 22
++      xa = x0 + ix * dx + 24
++      xb = x0 + (ix + 1) * dx - 24
++      za = z0 + iz * dz + 24
++      zb = z0 + (iz + 1) * dz - 24
+       dc_quad(entities, "#{prefix}_GLASS_#{ix + 1}_#{iz + 1}", [[xa, y, za], [xb, y, za], [xb, y, zb], [xa, y, zb]], glass)
+     end
+   end
+@@ -421,7 +421,7 @@
+ end
+ 0.upto(6) do |i|
+   x = wing_x0 + (wing_x1 - wing_x0) * i / 6.0
+-  dc_beam(wing.entities, "LOWER_WING_SLOPE_RIB_#{i + 1}", dc_p(*wing_point.call(0, x)), dc_p(*wing_point.call(1, x)), 65, 85, metal)
++  dc_beam(wing.entities, "LOWER_WING_SLOPE_RIB_#{i + 1}", dc_p(*wing_point.call(0, x)), dc_p(*wing_point.call(1, x)), 65, 78, metal)
+ end
+ [0.33, 0.66].each_with_index do |t, i|
+   dc_beam(wing.entities, "LOWER_WING_LONG_TRANSOM_#{i + 1}", dc_p(*wing_point.call(t, wing_x0)), dc_p(*wing_point.call(t, wing_x1)), 45, 55, metal)
+@@ -432,8 +432,8 @@
+ # Upper A-frame greenhouse, floor-level curtain walls and two triangular glazed ends.
+ upper = dc_group(root.entities, 'UPPER_GLASS_PAVILION')
+ dc_box(upper.entities, 'UPPER_PAVILION_FLOOR', 3000, 900, 3600, 9000, 7500, 3690, wood_light)
+-dc_gable(upper.entities, 'FRONT_GABLE', 900, glass, metal, wood)
+-dc_gable(upper.entities, 'REAR_GABLE', 7500, glass, metal, wood)
++dc_gable(upper.entities, 'FRONT_GABLE', 900, glass, metal, wood_dark)
++dc_gable(upper.entities, 'REAR_GABLE', 7500, glass, metal, wood_dark)
+
+ # Low curtain wall on each long side of the upper room.
+ [3000, 9000].each_with_index do |x, side_i|
+@@ -448,7 +448,7 @@
+   dc_beam(upper.entities, "PAVILION_SIDE_#{side_i + 1}_TRANSOM", dc_p(x, 900, 4150), dc_p(x, 7500, 4150), 45, 55, metal)
+   (0..7).each do |i|
+     yy = 900 + i * 900
+-    dc_beam(upper.entities, "PAVILION_SIDE_#{side_i + 1}_MULLION_#{i + 1}", dc_p(x, yy, 3640), dc_p(x, yy, 4680), 45, 55, metal)
++    dc_beam(upper.entities, "PAVILION_SIDE_#{side_i + 1}_MULLION_#{i + 1}", dc_p(x, yy, 3640), dc_p(x, yy, 4680), 50, 65, metal)
+   end
+ end

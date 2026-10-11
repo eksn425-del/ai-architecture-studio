@@ -15,6 +15,8 @@ Reconstruct reference architecture as editable SketchUp geometry. Images are the
 
 Deliver developed source-matched editable geometry; a few white boxes are an automatic failure.
 
+Use independently editable named architectural assemblies (site, storeys, walls with real openings, doors/windows, roof members/layers, glass and frames, stairs/railings). Keep stable hierarchical paths and reusable component instances; record dimensions/materials and why each SAIE/ADAI/Ruby method fits the actual task. Treat roof-wall, glazing-frame, opening-wall and stair-level connections as measured joints with declared tolerances or intentional gaps. Names/counts/bounds do not prove connectivity or source fidelity; inspect actual geometry and matching source views. Never deliver one anonymous welded mesh as the architectural model. Preserve the accepted model and promote a candidate baseline only after committed write verification and strict blank replay; do not silently substitute provider/model.
+
 ## Core workflow
 
 For text only input, derive a coherent estimated design and label assumptions. For multiple images, map each exact filename to visible landmarks such as the street entrance before assigning front/rear/left/right; source labels are clues, not proof.
