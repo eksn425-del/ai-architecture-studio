@@ -1,5 +1,11 @@
 # AGENTS.md
 
+## Permanent user-facing acceptance: NORMAL NATURAL-LANGUAGE AGENT CHAT (2026-10-11)
+
+Codex is a BACKSTAGE developer/tester, not the user-facing architect. Every product capability test must use the real K Studio website and brief natural Chinese human utterances from a student's point of view; UI approval remains natural. Do NOT inject developer workflow text, technical test checklists, JSON, tool names, Ruby or API payloads into user chat. `app/static/studio.js` must not synthesize verbose technical `message` on approval; the execution rules already live in `app/workflow_context.py` and Agent Skills. UI debug status may be available through EXPANDABLE developer diagnostics, but user chat always displays their actual input and the Agent's understandable response.
+
+On bug: save natural utterance + state + screenshot + internal trace, diagnose/fix underlying product code/test offline, restart/reload if needed, THEN RETURN to the SAME real website chat/project with natural language and confirm the fix end-to-end. Direct API POST/Ruby scripts are acceptable for root-cause diagnostics, NEVER for pretending the user successfully used Studio. A model Codex writes outside the K Studio website does not count. Report both the initial FAIL and post-fix rerun. Latest runbook: [`docs/NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md`](docs/NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md).
+
 ## HIGHEST-PRIORITY owner decision — NEW architecture image, real website Sol Low proxy (2026-10-11)
 
 All prior "next Codex run" instructions beneath are HISTORICAL. Latest only [`docs/NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md`](docs/NEXT_FRESH_BUILDING_SOL_LOW_PROXY_2026-10-11.md) and top [`docs/CURRENT_TASK.md`](docs/CURRENT_TASK.md). The user will separately supply a NEW building source to Codex; wait for it. DO NOT resume Dream Coffee or old villa, and DO NOT make up a picture.
