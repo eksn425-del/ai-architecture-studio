@@ -18,7 +18,9 @@ from .reference_assets import discover_project_reference_images, reference_image
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
-                              validate_visual_review_views, validate_source_matched_pairs)
+                              validate_visual_review_views, validate_source_matched_pairs,
+                              require_observed_source_view_pairs)
+from .reconstruction_evidence import load_reconstruction_evidence
 from .project_turn_budget import read_project_builder_usage
 
 
@@ -243,6 +245,7 @@ class CodexAppServerRuntime:
         state = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else (ruby_state or {})
         revisions, views, captures = validate_visual_review_views(project_dir, state, arguments.get("views"))
         pairs = validate_source_matched_pairs(project_dir, revisions, arguments.get("evidence_pairs"))
+        require_observed_source_view_pairs(project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
         sources = discover_project_reference_images(project_dir, categories=("reference",))
         labels = ["SOURCE " + path.relative_to(project_dir).as_posix() for path in sources]
         images = list(sources)
