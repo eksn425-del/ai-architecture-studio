@@ -1,0 +1,167 @@
+[
+  {
+    "trace_id": "10e8abf381f34bc2b564743f28f2f2b2",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "10e8abf381f34bc2b564743f28f2f2b2",
+    "event": "project_budget_finished",
+    "is_builder": false,
+    "status": "completed",
+    "input_tokens": 36798,
+    "output_tokens": 788
+  },
+  {
+    "trace_id": "22423f6a9bfe4f5280a35a7efa30556e",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "22423f6a9bfe4f5280a35a7efa30556e",
+    "event": "project_budget_finished",
+    "is_builder": false,
+    "status": "completed",
+    "input_tokens": 280820,
+    "output_tokens": 6270
+  },
+  {
+    "trace_id": "32398d9e3afc4db786a816ad63c6ae93",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "32398d9e3afc4db786a816ad63c6ae93",
+    "event": "project_budget_finished",
+    "is_builder": false,
+    "status": "completed",
+    "input_tokens": 29076,
+    "output_tokens": 300
+  },
+  {
+    "trace_id": "3466728ee2804ad184a10040a160cee3",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "3466728ee2804ad184a10040a160cee3",
+    "event": "project_budget_finished",
+    "is_builder": false,
+    "status": "completed",
+    "input_tokens": 36663,
+    "output_tokens": 614
+  },
+  {
+    "trace_id": "537cab6eea984a1bb6a14df13b7460ee",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "537cab6eea984a1bb6a14df13b7460ee",
+    "event": "native_budget_exhausted",
+    "kind": "input_tokens",
+    "observed": 2540572,
+    "limit": 2500000
+  },
+  {
+    "trace_id": "537cab6eea984a1bb6a14df13b7460ee",
+    "event": "project_budget_finished",
+    "is_builder": true,
+    "status": "interrupted",
+    "input_tokens": 2540572,
+    "output_tokens": 4595
+  },
+  {
+    "trace_id": "537cab6eea984a1bb6a14df13b7460ee",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Native Builder exceeded the configured input-token budget. Committed SketchUp changes remain recoverable; start a smaller new turn from the project checkpoint instead of repeating the same loop.",
+    "input_tokens": 2540572,
+    "output_tokens": 4595,
+    "tool_call_count": 46,
+    "failed_tool_calls": 9,
+    "latency_ms": 754375
+  },
+  {
+    "trace_id": "90beb44a9888444eb280c45e2b73440e",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "90beb44a9888444eb280c45e2b73440e",
+    "event": "project_budget_finished",
+    "is_builder": false,
+    "status": "completed",
+    "input_tokens": 36798,
+    "output_tokens": 890
+  },
+  {
+    "trace_id": "cc0d6a71616d465eaec94b3569172355",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "cc0d6a71616d465eaec94b3569172355",
+    "event": "project_budget_finished",
+    "is_builder": true,
+    "status": "interrupted",
+    "input_tokens": 1947496,
+    "output_tokens": 7785
+  },
+  {
+    "trace_id": "cc0d6a71616d465eaec94b3569172355",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex agent turn exceeded 900 seconds.",
+    "input_tokens": 1947496,
+    "output_tokens": 7785,
+    "tool_call_count": 36,
+    "failed_tool_calls": 3,
+    "latency_ms": 953843
+  },
+  {
+    "trace_id": "d76e28a71ac9447bb579999ae316aed4",
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "low",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "low",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "trace_id": "d76e28a71ac9447bb579999ae316aed4",
+    "event": "project_budget_finished",
+    "is_builder": false,
+    "status": "completed",
+    "input_tokens": 36653,
+    "output_tokens": 774
+  }
+]

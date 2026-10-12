@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-12-owner-two-view-diagnosis",
+  "status": "FAIL",
+  "geometry_committed": false,
+  "scope": "Read-only diagnosis of the OWNER real website test; no new inference or geometry this diagnostic session. Existing owner-built revision 3 is present.",
+  "base_commit": "f2293803b338ebc4e9df10df1d7cbf35868855cc",
+  "source_case": "Two private owner exterior reference images; not published",
+  "model": {
+    "requested": "gpt-6.1-sol / low",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "runtime": "Observed owner website Codex App Server traces; no new inference in diagnostic session"
+  },
+  "environment": {
+    "sketchup": "2024; native screenshot and owned-root readback",
+    "bridge": "Kongxing"
+  },
+  "qa": {
+    "reviewer_mode": "existing dedicated_read_only plus Codex source/model diagnostic",
+    "fidelity_status": "FAIL",
+    "needs_fix": true
+  },
+  "blockers": [
+    "Primary massing, enclosure, roof and circulation do not match references",
+    "Owner build timeout and follow-up input-token budget interruption",
+    "No geometry repair, native reopen or fresh replay in this diagnostic session; no new six-view capture"
+  ]
+}
