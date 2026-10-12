@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## Latest owner instruction — real architect/student UX, 2026-10-12
+
+Next: [`docs/NEXT_REAL_USER_UX_TEST_2026-10-12.md`](docs/NEXT_REAL_USER_UX_TEST_2026-10-12.md). One REAL website with short Chinese human dialogue; actual mouse/keyboard flow via Windows Codex, not forged endpoint/JSON or direct Ruby as UX success. Owner provides NEW source image. First-pass source fidelity and correct targeted natural edits with protected other parts outrank tool/test counts. ChatGPT-side code changes are PR/CI only until native test. A project cumulative Builder budget uses actual telemetry, not billing; missing/legacy logs cannot be zeroed to evade limits. Preserve previous PARTIAL and private evidence, same ProjectRuby/Kongxing one writer; outer Codex controller unchanged, site Sol Low proxy not paid API. No unapproved spend, CAD/render/PPT/SaaS or SketchUp version substitution.
+
+
 ## Latest owner handoff — product usefulness before the next test (2026-10-12)
 
 The new three-collage building experiment is finished as PARTIAL and published. Current ownership returns to the web-side reviewer to diagnose and iterate the SAME K Studio Agent before scheduling another native test. Read the top of `docs/CURRENT_TASK.md` and [`docs/PRODUCT_REVIEW_AND_AGENT_ITERATION_2026-10-12.md`](docs/PRODUCT_REVIEW_AND_AGENT_ITERATION_2026-10-12.md). Preserve historical evidence; do not continue polishing this building or Dream Coffee without a new task. The owner prioritizes architect-friendly natural dialogue, approval that actually starts work, source-correct editable geometry, reliable local changes and delivery, and understandable failure recovery. Model APIs are a replaceable capability foundation; K Studio owns the workflow that makes them useful. Judge improvements by visible model quality and user effort/time, not code/test/tool counts. Next changes must address observed failures and be tested through the real website; no paid API or model substitution is newly authorized by this handoff.

@@ -55,3 +55,31 @@ def test_actual_send_handler_builds_natural_message_without_reference_error():
     probe += "(async()=>{const first=await sendConversation(null);typed='可以，按这个方案开始建模。';const approved=await sendConversation(null,'execute');console.log(JSON.stringify([first,approved]));})().catch(e=>{console.error(e);process.exit(1)});"
     result = subprocess.run([node,'-e',probe],capture_output=True,text=True,encoding='utf8',check=True)
     assert json.loads(result.stdout)==['这三张图是同一栋建筑，请先分析不同视角。','可以，按这个方案开始建模。']
+
+@pytest.mark.parametrize("utterance", [
+    "把顶部玻璃房降低一点，其他部分别动。",
+    "我觉得这边幕墙比例不对，帮我调整到和图片一致。",
+    "左侧楼梯太陡了，改缓一点，其余不变。",
+])
+def test_existing_model_natural_feedback_executes_without_new_plan(utterance):
+    session = AgentSession(project_id="existing-architecture", reconstruction_state="building")
+    req = ConversationRequest(message=utterance, workflow_mode="image_reconstruction")
+    policy = build_reconstruction_turn_policy(session, req, sketchup_session_ready=True)
+    assert policy.action == "execute"
+    assert policy.tools_enabled is True
+
+
+def test_existing_model_question_is_discussion_only():
+    session = AgentSession(project_id="existing-architecture", reconstruction_state="building")
+    req = ConversationRequest(message="我觉得屋顶玻璃房有点高，你觉得应该怎么改？", workflow_mode="image_reconstruction")
+    policy = build_reconstruction_turn_policy(session, req, sketchup_session_ready=True)
+    assert policy.action == "clarify"
+    assert policy.tools_enabled is False
+
+
+def test_existing_model_developer_instruction_keeps_edit_local():
+    from app.workflow_context import workflow_developer_instructions
+    prompt = workflow_developer_instructions("image_reconstruction", mcp_enabled=True, action="execute")
+    assert "SAME model" in prompt
+    assert "smallest dependent edit" in prompt
+    assert "A question or discussion-only message does not authorize geometry" in prompt

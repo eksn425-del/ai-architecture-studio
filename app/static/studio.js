@@ -217,7 +217,10 @@ function showToast(message, isError = false) {
 function friendlyError(error) {
   const message = String(error?.message || "");
   if (/workspace routing discovery unauthorized|refresh token was already used/i.test(message)) return "Codex 本机登录缓存已失效，需要刷新 Codex 登录；这不是 DeepSeek API Key 问题。图片、计划和模型已保留。";
-  if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后会同步本轮结果，请不要重复发送。";
+  if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后先同步已有模型，请勿重复发送修改请求。";
+  if (/Project input-token budget|project budget cannot be verified/i.test(message)) return "本项目累计建模预算已达到上限，或历史用量尚未核实。已提交的模型不会因此删除；请先查看现有成果和恢复状态，不要重复建模。";
+  if (/Native Builder exceeded|Native Builder reached|tool-call budget/i.test(message)) return "本轮 Agent 达到执行上限。已提交部分可能仍保留，请先检查当前模型并恢复，勿直接重复整轮修改。";
+  if (/Codex agent turn exceeded|app-server communication failed/i.test(message)) return "建模处理被中断，但 SketchUp 可能已经写入。请先恢复/同步确认当前模型版本，避免重复执行同一修改。";
   // Ruby backtrace line numbers (e.g. geometry_tools.rb:401) are not HTTP codes.
   const httpStatus = code => new RegExp(`请求失败\\s*[（(]${code}[）)]|\\bHTTP(?:\\s+(?:error|status))?\\s*[:=]?\\s*${code}\\b|\\bstatus(?:_code)?["']?\\s*[:=]\\s*${code}\\b`, "i").test(message);
   if (/AuthenticationError|invalid.*api.?key|Incorrect API key|Unauthorized/i.test(message) || httpStatus(401)) return "API Key 无效或已失效，请打开「模型 / 自带 API」检查供应商和 Key。图片、计划和草稿都已保留。";
