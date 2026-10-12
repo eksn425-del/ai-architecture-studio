@@ -152,7 +152,7 @@ class CodexAppServerRuntime:
             os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "2500000")
         )
         self.max_project_input_tokens = int(os.environ.get("ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS", "8000000"))
-        self.project_delivery_reserve = int(os.environ.get("ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE", "200000"))
+        self.project_delivery_reserve = int(os.environ.get("ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE", "200000" if self.max_project_input_tokens else "0"))
         if not 0 <= self.max_tool_calls_per_turn <= 512:
             raise ValueError("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS must be 0..512.")
         if not 0 <= self.max_input_tokens_per_turn <= 50000000:
@@ -351,7 +351,7 @@ class CodexAppServerRuntime:
                   tool_profile: ToolProfile = "full", read_only: bool = False,
                   compact_project_context: bool = False) -> AgentTurnResult:
         started = time.monotonic()
-        is_builder = not read_only and workflow_mode == "image_reconstruction"
+        is_builder = not read_only and mcp_enabled and workflow_mode == "image_reconstruction"
         prior_usage = read_project_builder_usage(project_dir / "runtime" / "agent_events") if is_builder else None
         if is_builder and self.max_project_input_tokens:
             assert prior_usage is not None
