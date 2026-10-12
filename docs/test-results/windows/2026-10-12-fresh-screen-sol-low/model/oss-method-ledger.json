@@ -1,0 +1,32 @@
+{
+  "status": "committed_readback",
+  "events": [
+    {
+      "method_id": "adai.profile",
+      "status": "returned",
+      "elapsed_ms": 1,
+      "returned_nil": false,
+      "result_entity_pid": 131117,
+      "result_entity_name": "STAIR_WHITE_SIDEBOARD"
+    }
+  ],
+  "note": "Actual final r4 root ledger. Initial r1 SAIE and ADAI use was observed live but full original ledger not persisted publicly; do not count unretained historical calls as verified ledger. Retained geometry inspected in final readback.",
+  "current_revision_ledger": {
+    "schema_version": 1,
+    "source_sha256": "e220addb475611e8c1b60651fddf7253c45b8e472c93ea29d7f406a674c20263",
+    "events": [
+      {
+        "method_id": "adai.profile",
+        "status": "returned",
+        "elapsed_ms": 1,
+        "returned_nil": false,
+        "result_entity_pid": 131117,
+        "result_entity_name": "STAIR_WHITE_SIDEBOARD"
+      }
+    ],
+    "status": "committed_readback",
+    "script_id": "white_screen_8d214",
+    "revision": 4,
+    "root_pid": 59444
+  }
+}

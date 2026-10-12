@@ -1,0 +1,90 @@
+..........s............................................................. [ 19%]
+........................................................................ [ 38%]
+...................F.........s.......................................... [ 57%]
+.................F...................................................... [ 76%]
+...................................................................F.... [ 96%]
+...............                                                          [100%]
+================================== FAILURES ===================================
+_________ test_independent_native_critic_has_fresh_read_only_context __________
+
+tmp_path = WindowsPath('[PRIVATE_LOCAL_PATH]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001ED8D2556A0>
+
+    def test_independent_native_critic_has_fresh_read_only_context(tmp_path, monkeypatch):
+        project=tmp_path/'project'; workspace=project/'runtime/agent_workspace'; workspace.mkdir(parents=True)
+        source=project/'inputs/reference/source.png'; source.parent.mkdir(parents=True); source.write_bytes(b'source')
+        image=project/'outputs/renders/agent-view-front.png'; image.parent.mkdir(parents=True); image.write_bytes(b'current')
+        monkeypatch.setattr(subject, 'validate_visual_review_views', lambda *args: ({'cafe':3},{},{'front':image}))
+        monkeypatch.setattr(subject, 'validate_source_matched_pairs', lambda *args: [])
+        runtime=subject.CodexAppServerRuntime(tmp_path, codex_executable='fixture')
+        calls=[]
+        def run(**kw):
+            calls.append(kw)
+            return subject.AgentTurnResult('critic', 'NEEDS_FIX: YES\n<assessment>Missing annex</assessment>\n<issue priority="1" view="right">problem: lower roof missing\naction: add attached roof</issue>\n<keep>entry</keep>',model_name='gpt-6-luna',reasoning_effort='max')
+        monkeypatch.setattr(runtime,'_run_turn',run)
+        result=runtime._native_visual_review(project_dir=project,agent_workspace=workspace,ruby_state={},arguments={'views':{},'critique':'BUILDER_FAKE_PASS'},model='gpt-6-luna',reasoning_effort='max')
+        call=calls[0]
+        assert call['read_only'] is True and call['thread_id'] is None
+        assert not call['mcp_enabled'] and call['dynamic_tools']==[]
+        assert 'BUILDER_FAKE_PASS' not in call['prompt']
+>       assert 'Do not protect an entire roof or volume' in call['prompt']
+E       AssertionError: assert 'Do not protect an entire roof or volume' in 'You are the read-only visual critic for an architectural SketchUp reconstruction. Compare the SOURCE evidence first, ...; use named paths only when known. Do not run commands or edit files; answer the review envelope directly from images.'
+
+tests\test_native_critic.py:21: AssertionError
+____ test_skill_geometry_checks_and_framing_fit_without_truncating_safety _____
+
+    def test_skill_geometry_checks_and_framing_fit_without_truncating_safety():
+        from app.image_to_sketchup_skill import MAX_CONTEXT_CHARS, _IMAGE_TO_SKETCHUP_CONTEXT
+        skill = load_image_to_sketchup_skill_context()
+>       assert skill == _IMAGE_TO_SKETCHUP_CONTEXT
+E       AssertionError: assert '# Image �� Sk... not nest it.' == '# Image �� Sk...g validation.'
+E
+E         Skipping 19917 identical leading characters in diff, use -v to show
+E         - ot nest it.
+E         ?            -
+E         + ot nest it.
+E         -
+E         - SketchUp raises `TypeError: Zero length vector` and similar errors when you pass degenerate geometry. Guard every geometric operation:...
+E
+E         ...Full output truncated (19 lines hidden), use '-vv' to show
+
+tests\test_product_evidence.py:81: AssertionError
+___________ test_licensed_upstream_skill_excerpts_loaded_in_product ___________
+
+    def test_licensed_upstream_skill_excerpts_loaded_in_product():
+        from app.image_to_sketchup_skill import load_image_to_sketchup_skill_context, _IMAGE_TO_SKETCHUP_CONTEXT
+        skill = load_image_to_sketchup_skill_context()
+>       assert skill == _IMAGE_TO_SKETCHUP_CONTEXT
+E       AssertionError: assert '# Image �� Sk... not nest it.' == '# Image �� Sk...g validation.'
+E
+E         Skipping 19917 identical leading characters in diff, use -v to show
+E         - ot nest it.
+E         ?            -
+E         + ot nest it.
+E         -
+E         - SketchUp raises `TypeError: Zero length vector` and similar errors when you pass degenerate geometry. Guard every geometric operation:...
+E
+E         ...Full output truncated (19 lines hidden), use '-vv' to show
+
+tests\test_scoped_approval.py:43: AssertionError
+============================== warnings summary ===============================
+tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[deepseek/deepseek-flash-http[PRIVATE_LOCAL_PATH]
+  [PRIVATE_LOCAL_PATH]
+    warnings.warn(
+
+tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[zai/glm-5.3-flash-http[PRIVATE_LOCAL_PATH]
+  [PRIVATE_LOCAL_PATH]
+    loop: Final = asyncio.get_event_loop()
+
+-- Docs: http[PRIVATE_LOCAL_PATH]
+=========================== short test summary info ===========================
+FAILED tests/test_native_critic.py::test_independent_native_critic_has_fresh_read_only_context
+FAILED tests/test_product_evidence.py::test_skill_geometry_checks_and_framing_fit_without_truncating_safety
+FAILED tests/test_scoped_approval.py::test_licensed_upstream_skill_excerpts_loaded_in_product
+3 failed, 370 passed, 2 skipped, 2 warnings in 32.95s
+Demo checks failed.
+At [PRIVATE_LOCAL_PATH]
++ if ($LASTEXITCODE -ne 0) { throw 'Demo checks failed.' }
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Demo checks failed.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Demo checks failed.

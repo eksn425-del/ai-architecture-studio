@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "current_stage": "primary_form",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "width": {
+      "value": 24000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "depth": {
+      "value": 12000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "storey_height": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "ground_z": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "upper_z": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "roof_z": {
+      "value": 7200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "roof_room_height": {
+      "value": 2600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "slab_thickness": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "wall_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "screen_gap": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "screen_height": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "rail_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "stair_width": {
+      "value": 1500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "stair_rise": {
+      "value": 150,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "stair_tread": {
+      "value": 300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    },
+    "joint_tolerance": {
+      "value": 5,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "用户接受整体尺度；细部按图片比例估算，非实测"
+    }
+  },
+  "systems": [
+    {
+      "id": "walls",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "depends_on": [
+        "width",
+        "depth",
+        "wall_thickness",
+        "upper_z"
+      ],
+      "target_paths": [
+        [
+          "WALLS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "right",
+        "rear"
+      ],
+      "notes": [
+        "洞口穿透墙厚，不以玻璃盖实体墙；方法本轮尚未执行。"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "直墙矩形洞口适合合并切孔；执行阶段先核实注入接口和代表段，失败后才使用连续面替代。"
+    },
+    {
+      "id": "slabs_roofs",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "width",
+        "depth",
+        "upper_z",
+        "roof_z",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "FLOORS"
+        ],
+        [
+          "ROOF"
+        ],
+        [
+          "TERRACES"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "玻璃房顶板独立；楼板与墙连接误差≤5mm；不填死露台。"
+      ],
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "本地说明确认ADAI已启用；水平轮廓及内洞适配板壳，孔必须完全位于外轮廓内。"
+    },
+    {
+      "id": "stair",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "upper_z",
+        "stair_width",
+        "stair_rise",
+        "stair_tread"
+      ],
+      "target_paths": [
+        [
+          "STAIR"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "24级分两跑，平台标高1800mm，最终接二层3600mm；分跑踏步数量为推定；接缝≤5mm。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "带中间平台的阶梯和斜侧板需要逐级语义分组；已提供的ADAI轮廓接口不能直接提供完整楼梯层级。"
+    },
+    {
+      "id": "glazing",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "upper_z",
+        "roof_z",
+        "roof_room_height"
+      ],
+      "target_paths": [
+        [
+          "GLAZING"
+        ],
+        [
+          "ROOF_ROOM"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "一组先验证再重复；框与玻璃嵌接10mm估算，玻璃8mm估算；不同门单独定义。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "幕墙框玻璃独立组件和原生实例适合框格重复；SAIE墙开洞不负责幕墙组件定义。"
+    },
+    {
+      "id": "screens",
+      "stage": "representative_module",
+      "role": "facade_detail",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "screen_gap",
+        "screen_height",
+        "upper_z"
+      ],
+      "target_paths": [
+        [
+          "SCREENS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "边框、网板、连接件独立；屏与玻璃净距450mm有意留空；密孔精细度须先验证，不用百叶替换。"
+      ],
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "启用的穿孔轮廓方法适合单块网板；先验证细孔拓扑与性能再使用原生组件实例重复。"
+    },
+    {
+      "id": "railings",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "rail_height",
+        "upper_z",
+        "roof_z"
+      ],
+      "target_paths": [
+        [
+          "RAILINGS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "先检查一个栏板和楼梯斜栏板，端点与平台对齐≤5mm。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "玻璃栏板和夹件重复需要原生实例；本轮无已验证的完整栏杆助手接口。"
+    },
+    {
+      "id": "finish",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "width",
+        "depth"
+      ],
+      "target_paths": [
+        [
+          "SITE"
+        ],
+        [
+          "PLANTERS"
+        ],
+        [
+          "FURNITURE"
+        ],
+        [
+          "MATERIAL_ZONES"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "材料及花池轮廓按图；家具简化；场地为展示底座，非真实红线。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "花池与简化家具采用项目专属分组；已提供轮廓接口不包含整套家具。"
+    },
+    {
+      "id": "stair_sideboard",
+      "stage": "variants",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "upper_z"
+      ],
+      "target_paths": [
+        [
+          "STAIR_WHITE_SIDEBOARD"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Only two user requested additive details; existing groups KEEP."
+      ],
+      "method_id": "adai.profile",
+      "selection_reason": "Enabled constant XZ profile matches two slopes and landing; straight SAIE wall cannot."
+    },
+    {
+      "id": "roof_clerestory",
+      "stage": "variants",
+      "role": "opening_system",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "upper_z"
+      ],
+      "target_paths": [
+        [
+          "ROOF_ROOM_CLERESTORY"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Only two user requested additive details; existing groups KEEP."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Additive curtain frame bars preserve panes; wall opening helpers require replacing the existing host."
+    }
+  ],
+  "notes": [
+    "规划阶段，未写几何，所有方法执行与视觉验证均pending。",
+    "ADAI启用证据来自notes/adai_geometry_contract.md；SAIE接口仍须执行阶段核实。",
+    "单一受保护写入者；只读检查不修改模型。",
+    "首写同时包含主形、退台、楼梯、玻璃开口和遮阳屏轮廓；主模块检验后才重复细部。"
+  ]
+}

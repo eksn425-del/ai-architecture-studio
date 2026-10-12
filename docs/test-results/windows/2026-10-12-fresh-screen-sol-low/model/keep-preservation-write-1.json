@@ -1,0 +1,542 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "CENTRAL_WOOD_HOST",
+    "FLOORS",
+    "GLAZING",
+    "MATERIAL_ZONES",
+    "RAILINGS",
+    "REAR_SERVICE_WALL",
+    "ROOF",
+    "ROOF_ROOM",
+    "SCREENS",
+    "SCREEN_PROTOTYPE",
+    "SITE",
+    "STAIR",
+    "TERRACES"
+  ],
+  "checks": [
+    {
+      "path": "CENTRAL_WOOD_HOST",
+      "check": "persistent_id",
+      "expected": 59552,
+      "actual": 59552
+    },
+    {
+      "path": "CENTRAL_WOOD_HOST",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CENTRAL_WOOD_HOST",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          7200.0,
+          1450.0,
+          0.0
+        ],
+        "max": [
+          10800.0,
+          1650.0,
+          6950.0
+        ]
+      },
+      "actual": {
+        "min": [
+          7200.0,
+          1450.0,
+          0.0
+        ],
+        "max": [
+          10800.0,
+          1650.0,
+          6950.0
+        ]
+      }
+    },
+    {
+      "path": "FLOORS",
+      "check": "persistent_id",
+      "expected": 59454,
+      "actual": 59454
+    },
+    {
+      "path": "FLOORS",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "FLOORS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2500.0,
+          1700.0,
+          0.0
+        ],
+        "max": [
+          23000.0,
+          11500.0,
+          180.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2500.0,
+          1700.0,
+          0.0
+        ],
+        "max": [
+          23000.0,
+          11500.0,
+          180.0
+        ]
+      }
+    },
+    {
+      "path": "GLAZING",
+      "check": "persistent_id",
+      "expected": 60491,
+      "actual": 60491
+    },
+    {
+      "path": "GLAZING",
+      "check": "objects_total",
+      "expected": 10,
+      "actual": 10
+    },
+    {
+      "path": "GLAZING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2500.0,
+          450.0,
+          180.0
+        ],
+        "max": [
+          24000.0,
+          11515.0,
+          6950.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2500.0,
+          450.0,
+          180.0
+        ],
+        "max": [
+          24000.0,
+          11515.0,
+          6950.0
+        ]
+      }
+    },
+    {
+      "path": "MATERIAL_ZONES",
+      "check": "persistent_id",
+      "expected": 60265,
+      "actual": 60265
+    },
+    {
+      "path": "MATERIAL_ZONES",
+      "check": "objects_total",
+      "expected": 7,
+      "actual": 7
+    },
+    {
+      "path": "MATERIAL_ZONES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          24000.0,
+          12000.0,
+          6950.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          24000.0,
+          12000.0,
+          6950.0
+        ]
+      }
+    },
+    {
+      "path": "RAILINGS",
+      "check": "persistent_id",
+      "expected": 121612,
+      "actual": 121612
+    },
+    {
+      "path": "RAILINGS",
+      "check": "objects_total",
+      "expected": 13,
+      "actual": 13
+    },
+    {
+      "path": "RAILINGS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -30.0,
+          -1480.0,
+          0.0
+        ],
+        "max": [
+          24030.0,
+          12030.0,
+          8315.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -30.0,
+          -1480.0,
+          0.0
+        ],
+        "max": [
+          24030.0,
+          12030.0,
+          8315.0
+        ]
+      }
+    },
+    {
+      "path": "REAR_SERVICE_WALL",
+      "check": "persistent_id",
+      "expected": 59714,
+      "actual": 59714
+    },
+    {
+      "path": "REAR_SERVICE_WALL",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "REAR_SERVICE_WALL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2500.0,
+          11250.0,
+          0.0
+        ],
+        "max": [
+          10800.0,
+          11450.0,
+          6950.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2500.0,
+          11250.0,
+          0.0
+        ],
+        "max": [
+          10800.0,
+          11450.0,
+          6950.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF",
+      "check": "persistent_id",
+      "expected": 59518,
+      "actual": 59518
+    },
+    {
+      "path": "ROOF",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          6950.0
+        ],
+        "max": [
+          24000.0,
+          12000.0,
+          7200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          6950.0
+        ],
+        "max": [
+          24000.0,
+          12000.0,
+          7200.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_ROOM",
+      "check": "persistent_id",
+      "expected": 73311,
+      "actual": 73311
+    },
+    {
+      "path": "ROOF_ROOM",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "ROOF_ROOM",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          12950.0,
+          3450.0,
+          7200.0
+        ],
+        "max": [
+          21600.0,
+          9650.0,
+          9930.0
+        ]
+      },
+      "actual": {
+        "min": [
+          12950.0,
+          3450.0,
+          7200.0
+        ],
+        "max": [
+          21600.0,
+          9650.0,
+          9930.0
+        ]
+      }
+    },
+    {
+      "path": "SCREENS",
+      "check": "persistent_id",
+      "expected": 78107,
+      "actual": 78107
+    },
+    {
+      "path": "SCREENS",
+      "check": "objects_total",
+      "expected": 108,
+      "actual": 108
+    },
+    {
+      "path": "SCREENS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          10800.0,
+          -35.0,
+          3950.0
+        ],
+        "max": [
+          24040.0,
+          9900.0,
+          7550.0
+        ]
+      },
+      "actual": {
+        "min": [
+          10800.0,
+          -35.0,
+          3950.0
+        ],
+        "max": [
+          24040.0,
+          9900.0,
+          7550.0
+        ]
+      }
+    },
+    {
+      "path": "SCREEN_PROTOTYPE",
+      "check": "persistent_id",
+      "expected": 118902,
+      "actual": 118902
+    },
+    {
+      "path": "SCREEN_PROTOTYPE",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "SCREEN_PROTOTYPE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          10800.0,
+          -10.0,
+          3950.0
+        ],
+        "max": [
+          11900.0,
+          0.0,
+          7550.0
+        ]
+      },
+      "actual": {
+        "min": [
+          10800.0,
+          -10.0,
+          3950.0
+        ],
+        "max": [
+          11900.0,
+          0.0,
+          7550.0
+        ]
+      }
+    },
+    {
+      "path": "SITE",
+      "check": "persistent_id",
+      "expected": 118869,
+      "actual": 118869
+    },
+    {
+      "path": "SITE",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "SITE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1800.0,
+          -2800.0,
+          -180.0
+        ],
+        "max": [
+          25800.0,
+          13800.0,
+          -30.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -1800.0,
+          -2800.0,
+          -180.0
+        ],
+        "max": [
+          25800.0,
+          13800.0,
+          -30.0
+        ]
+      }
+    },
+    {
+      "path": "STAIR",
+      "check": "persistent_id",
+      "expected": 77241,
+      "actual": 77241
+    },
+    {
+      "path": "STAIR",
+      "check": "objects_total",
+      "expected": 27,
+      "actual": 27
+    },
+    {
+      "path": "STAIR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2100.0,
+          -1450.0,
+          -450.0
+        ],
+        "max": [
+          10800.0,
+          50.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2100.0,
+          -1450.0,
+          -450.0
+        ],
+        "max": [
+          10800.0,
+          50.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "TERRACES",
+      "check": "persistent_id",
+      "expected": 59486,
+      "actual": 59486
+    },
+    {
+      "path": "TERRACES",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "TERRACES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          3350.0
+        ],
+        "max": [
+          24000.0,
+          12000.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          3350.0
+        ],
+        "max": [
+          24000.0,
+          12000.0,
+          3600.0
+        ]
+      }
+    }
+  ]
+}

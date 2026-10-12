@@ -116,7 +116,7 @@ module CodexSketchupArchitect
       # is transformed inside an operation. Refresh before recording expected
       # post-write bounds; otherwise the committed readback falsely disagrees.
       root.definition.invalidate_bounds
-      record[:owned_after] = KStudioProfessionalHelpers.owned_snapshot(root)
+      record[:owned_precommit] = KStudioProfessionalHelpers.owned_snapshot(root)
       raise 'Active model switched during operation' unless Sketchup.active_model == model
       raise 'Build removed its owned root' unless root.valid?
       raise 'Build left an empty owned root; use readback tools for inspection' if root.entities.length.zero?
@@ -129,6 +129,12 @@ module CodexSketchupArchitect
       opened = false
       committed = true
       record.merge!(status: 'committed', revision: expected_revision + 1, root_pid: committed_root_pid)
+      # SketchUp removes empty groups at commit. Expected readback must describe
+      # the committed document, not the provisional in-operation entity list.
+      committed_root = model.find_entity_by_persistent_id(committed_root_pid)
+      raise 'Committed owned root missing' unless committed_root.is_a?(Sketchup::Group)
+      committed_root.definition.invalidate_bounds
+      record[:owned_after] = KStudioProfessionalHelpers.owned_snapshot(committed_root)
       record[:scenes_after] = scene_inventory(model)
       write_report(path, record)
       record

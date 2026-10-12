@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-MAX_CONTEXT_CHARS = 20_000
+MAX_CONTEXT_CHARS = 24_000
 
 
 _IMAGE_TO_SKETCHUP_CONTEXT = r"""
@@ -159,4 +159,4 @@ def load_image_to_sketchup_skill_context(*, max_chars: int = MAX_CONTEXT_CHARS) 
         raise ValueError("Image-to-SketchUp skill context limit must be at least 512 characters.")
     if len(_IMAGE_TO_SKETCHUP_CONTEXT) <= max_chars:
         return _IMAGE_TO_SKETCHUP_CONTEXT
-    return _IMAGE_TO_SKETCHUP_CONTEXT[:max_chars].rsplit("\n", 1)[0].rstrip()
+    raise ValueError("Image-to-SketchUp skill exceeds context limit; refusing to truncate safety rules.")

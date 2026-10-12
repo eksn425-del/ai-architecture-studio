@@ -52,5 +52,43 @@ def test_native_read_only_policy_and_resumed_usage_delta(tmp_path, monkeypatch):
     assert turn['params']['sandboxPolicy']=={'type':'readOnly','networkAccess':False}
     log=next((project/'runtime/agent_events').glob('*.jsonl'))
     recorded=[json.loads(line) for line in log.read_text().splitlines()]
-    assert recorded[0]['role']=='visual_critic'
+    assert next(e for e in recorded if e['event']=='turn_input')['role']=='visual_critic'
     assert recorded[-2]['input_tokens']==130
+
+
+def test_returned_native_model_mismatch_blocks_inference(tmp_path,monkeypatch):
+    import io
+    class Process:
+        stdout=io.BytesIO(); stdin=io.BytesIO()
+        def poll(self):return 0
+    monkeypatch.setattr(subject.subprocess,'Popen',lambda *_args,**_kw:Process())
+    runtime=subject.CodexAppServerRuntime(tmp_path,codex_executable='fixture')
+    monkeypatch.setattr(runtime,'_request',lambda *args:{'model':'wrong-model','thread':{'id':'fixture'}})
+    sent=[]
+    monkeypatch.setattr(runtime,'_send',lambda p,msg:sent.append(msg))
+    project=tmp_path/'project';workspace=project/'runtime/agent_workspace';workspace.mkdir(parents=True)
+    with pytest.raises(subject.NativeAgentUnavailable,match='different model'):
+        runtime._run_turn(project_dir=project,agent_workspace=workspace,thread_id=None,prompt='fixture',
+            mcp_enabled=False,developer_instructions='fixture',dynamic_tools=[],tool_handler=lambda *_:{},
+            model='gpt-6.1-sol',reasoning_effort='low',reference_images=[])
+    assert not any(m.get('method')=='turn/start' for m in sent)
+
+def test_compact_model_bootstrap_starts_actual_new_thread(tmp_path, monkeypatch):
+    import io,json
+    class Process:
+        stdout=io.BytesIO();stdin=io.BytesIO()
+        def poll(self): return 0
+    monkeypatch.setattr(subject.subprocess,'Popen',lambda *_a,**_k:Process())
+    runtime=subject.CodexAppServerRuntime(tmp_path,codex_executable='fixture')
+    methods=[]
+    def request(*args):
+        methods.append(args[3]);return {'model':'gpt-6.1-sol','thread':{'id':'fresh'}}
+    monkeypatch.setattr(runtime,'_request',request)
+    monkeypatch.setattr(runtime,'_send',lambda *_:None)
+    monkeypatch.setattr(runtime,'_next_event',lambda *_:{'method':'turn/completed','params':{'turn':{'status':'completed'}}})
+    project=tmp_path/'project';workspace=project/'runtime/agent_workspace';workspace.mkdir(parents=True)
+    (project/'runtime/native_thread_tools.json').write_text(json.dumps({'old':subject._thread_tool_fingerprint([])}))
+    runtime._run_turn(project_dir=project,agent_workspace=workspace,thread_id='old',prompt='user',mcp_enabled=True,
+        developer_instructions='policy',dynamic_tools=[],tool_handler=lambda *_:{},model='gpt-6.1-sol',reasoning_effort='low',
+        reference_images=[],tool_profile='reconstruction_coding',compact_project_context=True)
+    assert 'thread/start' in methods and 'thread/resume' not in methods

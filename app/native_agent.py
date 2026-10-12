@@ -224,6 +224,7 @@ class CodexAppServerRuntime:
                 model=selected_model, reasoning_effort=selected_effort,
                 reference_images=reference_images,
                 workflow_mode=workflow_mode, tool_profile=tool_profile,
+                compact_project_context=bool(ruby_state),
             )
 
     def _native_visual_review(self, *, project_dir: Path, agent_workspace: Path,
@@ -253,6 +254,7 @@ class CodexAppServerRuntime:
                    "Prioritize source-backed silhouette, openings, roof/wall/window assembly, clearances and joints; "
                    "unobserved hidden regions are inferred, not proof of mismatch. Do not trust Builder claims. "
                    "KEEP only geometry whose source-backed proportions are correct; use named paths only when known. "
+                   "Do not protect an entire roof or volume unless all its visible source-backed parts are correct. "
                    "Do not run commands or edit files; answer the review envelope directly from images.")
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
@@ -339,7 +341,8 @@ class CodexAppServerRuntime:
                   tool_handler: Callable[[str, dict[str, Any]], dict[str, Any]],
                   model: str, reasoning_effort: str,
                   reference_images: list[Path], workflow_mode: WorkflowMode = "architecture_design",
-                  tool_profile: ToolProfile = "full", read_only: bool = False) -> AgentTurnResult:
+                  tool_profile: ToolProfile = "full", read_only: bool = False,
+                  compact_project_context: bool = False) -> AgentTurnResult:
         started = time.monotonic()
         environment = _app_server_environment(dict(os.environ))
         environment["CODEX_HOME"] = str(self.home)
@@ -424,12 +427,25 @@ class CodexAppServerRuntime:
             registry_path = project_dir / "runtime" / "native_thread_tools.json"
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
             previous_thread_id = thread_id
-            if _can_resume_tools(thread_id, registrations, registered_tools):
+            # The current prompt already contains compact project memory, and
+            # generated files/model receipts persist across turns. Resuming an
+            # old modeling thread additionally replays all historical images
+            # and tool output, defeating that compaction after a partial write.
+            compact_model_turn = tool_profile == "reconstruction_coding" and mcp_enabled and compact_project_context
+            if _can_resume_tools(thread_id, registrations, registered_tools) and not compact_model_turn:
                 thread_params = {"threadId": thread_id, "developerInstructions": developer_instructions}
                 thread = self._request(process, events, request_id, "thread/resume", thread_params, buffered)
             else:
                 thread = self._request(process, events, request_id, "thread/start", thread_params, buffered)
             request_id += 1
+            reported_model = thread.get("model") or (thread.get("thread") or {}).get("model")
+            reported_effort = thread.get("reasoningEffort") or (thread.get("thread") or {}).get("reasoningEffort")
+            record({"event": "thread_model_identity", "requested_model": model,
+                    "requested_effort": reasoning_effort, "reported_model": reported_model,
+                    "reported_default_effort": reported_effort,
+                    "source": "actual app-server thread/start or resume response"})
+            if reported_model and reported_model != model:
+                raise NativeAgentUnavailable("App-server returned a different model; no tools or inference started.")
             resolved_thread_id = str((thread.get("thread") or {}).get("id") or thread_id or "")
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
@@ -442,6 +458,7 @@ class CodexAppServerRuntime:
                     "workflow_mode": workflow_mode, "tool_profile": tool_profile,
                     "previous_thread_id": previous_thread_id,
                     "thread_transition": "resumed" if previous_thread_id == resolved_thread_id else "started_with_registered_tools",
+                    "compact_project_restart": compact_model_turn,
                     "reference_categories": list(workflow_reference_categories(workflow_mode)),
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],

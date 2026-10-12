@@ -16,7 +16,7 @@ from .sketchup_mcp import (
     _generated_script_dir,
 )
 from .store import safe_project_id
-from .modeling_quality import require_post_write_verification
+from .modeling_quality import require_post_write_verification, recover_empty_container_verification
 from .adai_components import geometry_helper
 from .construction_strategy import load_construction_strategy
 from .strategy_progress import persist_verified_strategy_progress
@@ -283,6 +283,24 @@ class ProjectRubyExecutor:
         payload = result.get("result") if isinstance(result, dict) else None
         if not isinstance(payload, dict) or "objects" not in payload:
             raise MCPCallError("SketchUp did not return a usable owned-group inspection.")
+        if (not path and offset == 0 and payload.get("next_offset") is None
+                and not state.get("last_verification") and state.get("last_report")):
+            report_path = (self.project_dir / state["last_report"]).resolve()
+            if report_path.is_relative_to(self.project_dir / "runtime" / "scripts" / "reports") and report_path.is_file():
+                try:
+                    report = json.loads(report_path.read_text(encoding="utf-8"))
+                    receipt = recover_empty_container_verification(report, payload, root_pid=root_pid, revision=int(state["revision"]))
+                except (ValueError, KeyError, TypeError):
+                    pass  # Unverified geometry remains blocked; never invent a pass.
+                else:
+                    receipt_path = report_path.with_suffix(".recovery-verification.json")
+                    receipt_path.write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
+                    state["last_verification"] = receipt
+                    state["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
+                    temporary = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
+                    temporary.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
+                    temporary.replace(self.state_path)
+                    payload["recovered_write_verification"] = receipt
         return {"success": True, "contentItems": [{"type": "inputText", "text": json.dumps({"script_id": script_id, "revision": state.get("revision"), "read_only": True, **payload}, ensure_ascii=False)}]}
 
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:

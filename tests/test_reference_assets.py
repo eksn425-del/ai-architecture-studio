@@ -59,3 +59,18 @@ def test_all_six_reconstruction_views_reach_native_input(tmp_path: Path) -> None
     assert len(images) == 6
     inputs = _app_server_turn_input("Reconstruct all six views.", images)
     assert len([item for item in inputs if item["type"] == "localImage"]) == 6
+
+
+def test_upload_order_matches_human_image_numbers_with_random_prefixes(tmp_path):
+    import json
+    project = tmp_path/'project'
+    first = _write(project/'inputs/reference/z-first.png')
+    second = _write(project/'inputs/reference/a-second.png')
+    third = _write(project/'inputs/reference/m-third.png')
+    outside = _write(tmp_path/'private-outside.png')
+    (project/'state').mkdir()
+    (project/'state/project_context.json').write_text(json.dumps({'references':[
+        {'source':'inputs/reference/z-first.png'},{'source':str(outside)},
+        {'source':'inputs/reference/a-second.png'},{'source':'inputs/reference/m-third.png'}]}))
+    assert discover_project_reference_images(project)==[first.resolve(),second.resolve(),third.resolve()]
+    assert discover_project_reference_images(project,max_images=2)==[first.resolve(),second.resolve()]

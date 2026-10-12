@@ -1,0 +1,395 @@
+{
+  "white_screen_8d214": {
+    "model_guid": "d6b06ba2-86ac-41ec-9c0b-04ce27dff804",
+    "revision": 4,
+    "root_pid": 59444,
+    "source_sha256": "e220addb475611e8c1b60651fddf7253c45b8e472c93ea29d7f406a674c20263",
+    "last_report": "runtime/scripts/reports/white_screen_8d214-r4-df1a712e.json",
+    "last_screenshot": "outputs/renders/ruby-white_screen_8d214-r4.png",
+    "last_verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 59444,
+          "actual": 59444
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 15,
+          "actual": 15
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -1800.0,
+              -2800.0,
+              -450.0
+            ],
+            "max": [
+              25800.0,
+              13800.0,
+              9930.0
+            ],
+            "size": [
+              27600.0,
+              16600.0,
+              10380.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -1800,
+              -2800,
+              -450
+            ],
+            "max": [
+              25800,
+              13800,
+              9930
+            ],
+            "size": [
+              27600,
+              16600,
+              10380
+            ]
+          }
+        }
+      ]
+    },
+    "last_verification_report": "runtime/scripts/reports/white_screen_8d214-r4-df1a712e.verification.json",
+    "last_precommit_keep_guard": {
+      "armed": true,
+      "passed": true,
+      "paths": [
+        "FLOORS",
+        "TERRACES",
+        "ROOF",
+        "CENTRAL_WOOD_HOST",
+        "REAR_SERVICE_WALL",
+        "MATERIAL_ZONES",
+        "GLAZING",
+        "ROOF_ROOM",
+        "STAIR",
+        "SCREENS",
+        "SITE",
+        "SCREEN_PROTOTYPE",
+        "RAILINGS",
+        "ROOF_ROOM_CLERESTORY"
+      ]
+    },
+    "last_oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "e220addb475611e8c1b60651fddf7253c45b8e472c93ea29d7f406a674c20263",
+      "events": [
+        {
+          "method_id": "adai.profile",
+          "status": "returned",
+          "elapsed_ms": 1,
+          "returned_nil": false,
+          "result_entity_pid": 131117,
+          "result_entity_name": "STAIR_WHITE_SIDEBOARD"
+        }
+      ],
+      "status": "committed_readback",
+      "script_id": "white_screen_8d214",
+      "revision": 4,
+      "root_pid": 59444
+    },
+    "last_edit_scope_receipt": {
+      "status": "passed",
+      "allowed_top_level": [
+        "STAIR_WHITE_SIDEBOARD"
+      ],
+      "protected_top_level_count": 14,
+      "unchanged_protected_groups": [
+        "FLOORS",
+        "TERRACES",
+        "ROOF",
+        "CENTRAL_WOOD_HOST",
+        "REAR_SERVICE_WALL",
+        "MATERIAL_ZONES",
+        "GLAZING",
+        "ROOF_ROOM",
+        "STAIR",
+        "SCREENS",
+        "SITE",
+        "SCREEN_PROTOTYPE",
+        "RAILINGS",
+        "ROOF_ROOM_CLERESTORY"
+      ]
+    },
+    "last_strategy_progress": {
+      "schema_version": 1,
+      "source": "committed_owned_root_named_path_readback",
+      "script_id": "white_screen_8d214",
+      "revision": 4,
+      "root_pid": 59444,
+      "full_readback": true,
+      "current_stage": "primary_form",
+      "systems": [
+        {
+          "system_id": "walls",
+          "target_paths": [
+            [
+              "WALLS"
+            ]
+          ],
+          "present_paths": [],
+          "missing_paths": [
+            [
+              "WALLS"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "slabs_roofs",
+          "target_paths": [
+            [
+              "FLOORS"
+            ],
+            [
+              "ROOF"
+            ],
+            [
+              "TERRACES"
+            ]
+          ],
+          "present_paths": [
+            [
+              "FLOORS"
+            ],
+            [
+              "ROOF"
+            ],
+            [
+              "TERRACES"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "stair",
+          "target_paths": [
+            [
+              "STAIR"
+            ]
+          ],
+          "present_paths": [
+            [
+              "STAIR"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "glazing",
+          "target_paths": [
+            [
+              "GLAZING"
+            ],
+            [
+              "ROOF_ROOM"
+            ]
+          ],
+          "present_paths": [
+            [
+              "GLAZING"
+            ],
+            [
+              "ROOF_ROOM"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "screens",
+          "target_paths": [
+            [
+              "SCREENS"
+            ]
+          ],
+          "present_paths": [
+            [
+              "SCREENS"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "railings",
+          "target_paths": [
+            [
+              "RAILINGS"
+            ]
+          ],
+          "present_paths": [
+            [
+              "RAILINGS"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "finish",
+          "target_paths": [
+            [
+              "SITE"
+            ],
+            [
+              "PLANTERS"
+            ],
+            [
+              "FURNITURE"
+            ],
+            [
+              "MATERIAL_ZONES"
+            ]
+          ],
+          "present_paths": [
+            [
+              "SITE"
+            ],
+            [
+              "MATERIAL_ZONES"
+            ]
+          ],
+          "missing_paths": [
+            [
+              "PLANTERS"
+            ],
+            [
+              "FURNITURE"
+            ]
+          ],
+          "result": "unresolved_paths",
+          "new_status": "pending"
+        },
+        {
+          "system_id": "stair_sideboard",
+          "target_paths": [
+            [
+              "STAIR_WHITE_SIDEBOARD"
+            ]
+          ],
+          "present_paths": [
+            [
+              "STAIR_WHITE_SIDEBOARD"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "roof_clerestory",
+          "target_paths": [
+            [
+              "ROOF_ROOM_CLERESTORY"
+            ]
+          ],
+          "present_paths": [
+            [
+              "ROOF_ROOM_CLERESTORY"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        }
+      ],
+      "visual_verification": "NOT_RUN"
+    },
+    "last_oss_method_adoption": {
+      "schema_version": 1,
+      "ledger_status": "committed_readback",
+      "actual_wrapped_calls": {
+        "adai.profile": 1
+      },
+      "any_oss_product_use": true,
+      "effect_verified": false,
+      "effect_verification_required": "Named component readback and independent source-matched visual review.",
+      "plan_choices": [
+        {
+          "system": "walls",
+          "method_id": "saie.wall_with_openings",
+          "selection_reason": "直墙矩形洞口适合合并切孔；执行阶段先核实注入接口和代表段，失败后才使用连续面替代。",
+          "disposition": "selected_but_not_invoked"
+        },
+        {
+          "system": "slabs_roofs",
+          "method_id": "adai.profile_with_holes",
+          "selection_reason": "本地说明确认ADAI已启用；水平轮廓及内洞适配板壳，孔必须完全位于外轮廓内。",
+          "disposition": "selected_but_not_invoked"
+        },
+        {
+          "system": "stair",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "带中间平台的阶梯和斜侧板需要逐级语义分组；已提供的ADAI轮廓接口不能直接提供完整楼梯层级。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "glazing",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "幕墙框玻璃独立组件和原生实例适合框格重复；SAIE墙开洞不负责幕墙组件定义。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "screens",
+          "method_id": "adai.profile_with_holes",
+          "selection_reason": "启用的穿孔轮廓方法适合单块网板；先验证细孔拓扑与性能再使用原生组件实例重复。",
+          "disposition": "selected_but_not_invoked"
+        },
+        {
+          "system": "railings",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "玻璃栏板和夹件重复需要原生实例；本轮无已验证的完整栏杆助手接口。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "finish",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "花池与简化家具采用项目专属分组；已提供轮廓接口不包含整套家具。",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "stair_sideboard",
+          "method_id": "adai.profile",
+          "selection_reason": "Enabled constant XZ profile matches two slopes and landing; straight SAIE wall cannot.",
+          "disposition": "method_seen_in_committed_write"
+        },
+        {
+          "system": "roof_clerestory",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Additive curtain frame bars preserve panes; wall opening helpers require replacing the existing host.",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        }
+      ]
+    }
+  }
+}

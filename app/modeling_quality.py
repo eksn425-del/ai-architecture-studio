@@ -202,6 +202,37 @@ def require_post_write_verification(
     }
 
 
+def recover_empty_container_verification(transaction: dict, readback: dict, *, root_pid: int, revision: int) -> dict:
+    """Recover a legacy precommit receipt ONLY for erased zero-bound containers.
+
+    Never rewrite the original failed transaction. Complete PID/name/bounds
+    correspondence is required; nonempty losses and additions remain failures.
+    This verifies historical structural readback, not visual or recursive KEEP.
+    """
+    expected = transaction.get("owned_after", {})
+    before = expected.get("objects", [])
+    actual = readback.get("objects", [])
+    if expected.get("truncated") or readback.get("next_offset") is not None:
+        raise ValueError("Recovery requires complete root inventories.")
+    if len(before) != expected.get("objects_total") or len(actual) != readback.get("objects_total"):
+        raise ValueError("Recovery inventory count mismatch.")
+    by_pid = {obj["persistent_id"]: obj for obj in before}
+    if len(by_pid) != len(before):
+        raise ValueError("Recovery requires unique persistent IDs.")
+    for obj in actual:
+        old = by_pid.pop(obj.get("persistent_id"), None)
+        if old is None or any(not _values_match(old.get(k), obj.get(k)) for k in ("name", "locked", "bounds_mm")):
+            raise ValueError("Recovery found changed or added nonempty geometry.")
+    removed = list(by_pid.values())
+    if not removed or any(obj.get("bounds_mm", {}).get("size") != [0, 0, 0] for obj in removed):
+        raise ValueError("Recovery cannot accept missing nonempty geometry.")
+    normalized = {**transaction, "owned_after": {**expected, "objects_total": len(actual)}}
+    receipt = require_post_write_verification(normalized, readback, expected_root_pid=root_pid, expected_revision=revision)
+    receipt.update(source="legacy_empty_container_recovery_readback", removed_empty_containers=removed,
+                   original_objects_total=expected["objects_total"], original_failure_preserved=True)
+    return receipt
+
+
 def owned_inspection_fingerprint(payload: Any) -> dict[str, Any]:
     """Return the small identity/bounds fingerprint used for KEEP guards."""
     if not isinstance(payload, dict):

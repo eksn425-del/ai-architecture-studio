@@ -36,3 +36,22 @@ def test_frontend_approval_keeps_human_words_separate_from_developer_policy():
     messages = json.loads(result.stdout)
     assert messages == ["确认，按当前计划开始建模。", "我确认，就照刚才说的建模。"]
     assert all("sketchup_" not in message and "JSON" not in message for message in messages)
+
+
+def test_actual_send_handler_builds_natural_message_without_reference_error():
+    source = (Path(__file__).parents[1] / "app/static/studio.js").read_text(encoding="utf8")
+    start = source.index('async function sendConversation(')
+    end = source.index('  saveDraft();', start)
+    # Execute the real entry path, not just a detached approval helper. The
+    # previous patch commented out const message with literal backslash-n.
+    node = shutil.which('node')
+    if node is None:
+        pytest.skip('Node is needed for actual send entry regression')
+    helper_start = source.index('function executionUserMessage(')
+    helper_end = source.index('\nfunction ', helper_start + 1)
+    probe = "const state={busy:false,project:{agent_session:{status:'ready',reconstruction_state:'idle'}}};\n"
+    probe += "let typed='这三张图是同一栋建筑，请先分析不同视角。'; const $=()=>({value:typed}); const sourceImages=()=>[1,2,3]; const isBuildApproval=()=>true;\n"
+    probe += source[helper_start:helper_end] + '\n' + source[start:end] + 'return message; }\n'
+    probe += "(async()=>{const first=await sendConversation(null);typed='可以，按这个方案开始建模。';const approved=await sendConversation(null,'execute');console.log(JSON.stringify([first,approved]));})().catch(e=>{console.error(e);process.exit(1)});"
+    result = subprocess.run([node,'-e',probe],capture_output=True,text=True,encoding='utf8',check=True)
+    assert json.loads(result.stdout)==['这三张图是同一栋建筑，请先分析不同视角。','可以，按这个方案开始建模。']

@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "源图七个面板通过外楼梯、中央木色墙、右侧白色穿孔屏和屋顶玻璃房对应同一建筑：包含两层主体、左侧二层露台、屋顶露台、右侧转角屏幕立面、黑框落地玻璃及沿墙花池。正面、两侧斜视、俯视和局部近景均有证据，背面未明确展示。当前保留了两层主体和外楼梯的大致位置，但右侧屏幕立面几乎全部缺失，露台退进与栏板缺失，屋顶玻璃房缺少源图明确的上部横窗。没有已确认尺寸；隐藏背面不作为错误依据。截图无法验证实体连接、穿插或实际间隙，需对修补部位另行检查。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "源图右侧二层是覆盖整段正面并转折至侧面的白色穿孔屏，明显位于玻璃外侧；当前只有靠木色墙的一条窄屏，其余为裸露玻璃，主要立面轮廓和材料区均不符。",
+            "action": "扩展现有屏幕模块至源图所示正面和侧面范围，匹配竖向分格、上下边界及转角；保留后方玻璃，并检查屏框与玻璃之间的实际净距及支承连接。"
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "源图左侧二层露台明显伸出后方玻璃墙，楼梯接入其前缘；当前玻璃墙靠近板边，露台空间不足。二层露台、楼梯和屋顶露台均缺少源图连续可见的玻璃栏板，白色板边也过薄。",
+            "action": "局部调整左侧二层玻璃墙退进与露台板边，匹配源图露台深度和白色边梁厚度；补齐露台及楼梯玻璃栏板，确认楼梯上端接入平台、下端落地。"
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "源图屋顶玻璃房有连续上部横窗带，当前仅为通高竖向玻璃，改变了屋顶突出体的立面比例。",
+            "action": "在现有玻璃房框架中补入源图所示横向分隔和上部横窗带，依据正面及俯视源图校准高度；保留平屋顶形式。"
+          }
+        ],
+        "keep": [
+          "外楼梯位于正面左侧、沿中央木色墙下降的布局。",
+          "右侧首层采用连续黑框落地玻璃的立面形式。",
+          "屋顶玻璃房采用矩形平顶的形式。"
+        ],
+        "model_revisions": {
+          "white_screen_8d214": 1
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "white_screen_8d214",
+        "revision": 2,
+        "relative_path": "scripts/screens_railings_candidate.rb",
+        "update_mode": "edit",
+        "source_sha256": "d3b2cfc97f684fac5afce5c4a466516363f37a0b0cdcbd9364c29fd919abf92e",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "FLOORS",
+            "TERRACES",
+            "ROOF",
+            "CENTRAL_WOOD_HOST",
+            "REAR_SERVICE_WALL",
+            "MATERIAL_ZONES",
+            "GLAZING",
+            "ROOF_ROOM",
+            "STAIR",
+            "SITE"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "三张来源拼图分别展示正面、正面与右侧转角、俯视、左端立面及楼梯和屏风近景；外楼梯、中央棕色墙面、转角白色穿孔屏风和屋顶玻璃房共同确认是同一建筑。可见系统包括两层主体、左侧两级露台、外楼梯、首层转角玻璃、二层屏风、屋顶玻璃房、玻璃栏杆、露台桌椅遮阳伞及首层种植槽。当前主要布局已可辨认，但层间比例、楼梯实体侧板及露台和地面附属构件仍有明显差异。来源没有尺寸标注，背面也未直接展示，不能据此判定背面开窗错误；截图只能显示接缝外观，无法证明实体连接或隐藏处没有穿插。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "来源正面的屏风高度明显大于其下首层玻璃高度；当前两者更接近，屏风显得偏矮。同时，当前屋顶玻璃房露出屏风的高度相对过大，改变了整体竖向轮廓。",
+            "action": "对照来源正面校正首层、屏风上下边界和屋顶玻璃房的相对标高；局部调整相关构件高度并同步衔接玻璃和楼板，保留屏风位于右侧并转角包覆的布局。"
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "来源楼梯两段斜跑及中间平台下方具有连续、厚实的白色实体侧板，与左侧平台白色边板衔接。当前主要呈现外露踏步和细薄斜边，缺失这条醒目的实体轮廓。",
+            "action": "在现有梯段及平台上补齐连续白色侧板，按来源调整侧板深度和平台端部接合；核对梯脚落地及上端接平台，避免侧板穿入玻璃栏板。"
+          },
+          {
+            "priority": 3,
+            "view": "oblique",
+            "problem": "来源俯视明确显示屋顶左侧六组桌椅遮阳伞，左侧下层露台也有座椅遮阳伞；正面及转角反复显示首层长条种植槽。当前露台和主体周边均为空，缺少这些可见的使用空间与基座轮廓。",
+            "action": "在现有露台上补入来源所示的重复家具和遮阳伞模块，并沿已观察到的正面、右侧及左侧位置补齐种植槽；保留楼梯落地和入口通道，不向未展示的背面延伸猜测。"
+          }
+        ],
+        "keep": [
+          "外楼梯位于正面左侧，沿中央棕色墙面下降的方向。",
+          "白色屏风从正面右段延续至右侧立面的转角关系。",
+          "左端上下两级露台的上下叠置关系。"
+        ],
+        "model_revisions": {
+          "white_screen_8d214": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Across all seven SOURCE panels, the stair and brown wall identify the terrace end; the perforated screen wraps the opposite front/right corner. Observed systems include two main storeys, projecting terraces with substantial white fascias, ground-floor glazing, a tall screened upper facade, a low rooftop glazed pavilion with transoms, an exterior stair with solid white sides, terrace seating/umbrellas and raised planted beds. CURRENT preserves this arrangement, but compresses the screened storey, exaggerates the exposed pavilion height and omits substantial stair and terrace/site geometry. No dimensions are confirmed here; rear openings and concealed connections remain uncertain. Screenshots alone cannot establish watertight joints or actual clearances.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE shows a substantially taller screened facade relative to ground-floor glazing, with only a low transomed pavilion rising above it. CURRENT makes these two storeys nearly equal in visible height and exposes a disproportionately tall pavilion; its upper transom row is absent.",
+            "action": "Locally adjust the upper-storey/screen vertical proportions and pavilion exposed height against SOURCE image 1’s front panel. Restore the pavilion transoms and coordinate adjoining glazing and slab levels; preserve the screen’s front/right wrap."
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "SOURCE’s stair has a continuous, deep white side fascia/underside through both flights and the intermediate landing. CURRENT reads as exposed treads with thin supporting edges. The terrace fascias likewise appear much thinner than the source’s prominent white bands.",
+            "action": "Add the source-backed solid stair side/underside geometry and deepen the white terrace fascia bands locally. Check stair-to-landing and stair-to-ground connections without closing the open space beneath the flights."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "CURRENT terraces are empty, whereas SOURCE’s overhead panel clearly shows six rooftop seating/umbrella stations; other panels show lower-terrace seating. Raised planted beds along the front glazing, right return and terrace end are also missing.",
+            "action": "Add repeated simplified seating/umbrella assemblies at the observed locations and the visible raised planter runs, preserving entrances, stair clearance and circulation. Avoid inventing hidden landscaping."
+          }
+        ],
+        "keep": [
+          "Exterior stair location beside the central brown wall.",
+          "Perforated screen turning continuously around the front/right corner.",
+          "Dark framing and transparent glazing in the visible ground-floor facade.",
+          "Rooftop pavilion positioned over the screened end, leaving the opposite terrace open."
+        ],
+        "model_revisions": {
+          "white_screen_8d214": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "white_screen_8d214",
+        "revision": 3,
+        "relative_path": "scripts/two_details_candidate.rb",
+        "update_mode": "edit",
+        "source_sha256": "1a684dfa052a9a82628858b0f1ec4c909601718493c8d40205f854f8c6f389f3",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "FLOORS",
+            "TERRACES",
+            "ROOF",
+            "CENTRAL_WOOD_HOST",
+            "REAR_SERVICE_WALL",
+            "MATERIAL_ZONES",
+            "GLAZING",
+            "ROOF_ROOM",
+            "STAIR",
+            "SCREENS",
+            "SITE",
+            "SCREEN_PROTOTYPE",
+            "RAILINGS"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "源图1展示正面和右前斜视；源图2展示屋顶俯视、左侧露台近景和左端立面；源图3展示楼梯与上层玻璃近景、穿孔屏正面。共同地标为左侧两层露台、沿正面下降的两跑楼梯、中央木色墙、右侧转角穿孔屏及屋顶玻璃亭。可见源图还包括厚白色露台边板、玻璃栏杆、沿底层布置的实体花池和露台座椅遮阳伞。当前主要体量关系及穿孔屏转角已形成，但白色构件厚度、上层窗分格和底层花池仍有明显缺失或偏差。源图没有确认尺寸；背面及隐藏内部不能据此判错。截图也不足以验证楼梯与平台、屏框与楼板的实际接合，不能将投影重叠认定为可靠连接。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "源图露台边缘和楼梯外侧均呈连续、厚实的白色板带；当前露台白色边板过薄，楼梯侧板近似窄斜梁，踏步锯齿明显改变了源图的实体侧面轮廓。",
+            "action": "局部加深露台白色边板和两跑楼梯外侧白板，保持现有踏步与中间平台位置；使白板沿坡段、平台连续接合，并核实梯脚落地及梯顶接平台。"
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "源图楼梯后方上层玻璃窗有明确的下部横向分格；当前对应正面玻璃主要只有竖框，缺少这条横框，窗的开口比例与源图不同。",
+            "action": "仅在源图可见的对应窗组补齐下部横框，使横框与竖框真实连接、玻璃分片吻合；不要将室内透出的线条视作已完成窗框。"
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "源图底层长玻璃前及右侧转角有连续凸起花池，左侧露台下也有花池；当前这些位置均为裸露平板，缺少源图明确可见的基座轮廓和玻璃前退让关系。",
+            "action": "沿源图可见范围局部补建花池实体边框，保留入口和楼梯落脚通道；先恢复花池高度、宽度及转角连接，再考虑植物细节。"
+          }
+        ],
+        "keep": [
+          "右侧穿孔屏沿正面转至右侧的布置关系。",
+          "中央木色实墙位于左侧玻璃窗与右侧屏幕之间的关系。",
+          "外楼梯两跑之间设置水平中间平台的组织。",
+          "屋顶玻璃亭顶部窄横窗带的分格形式。"
+        ],
+        "model_revisions": {
+          "white_screen_8d214": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "awaiting_review",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "源图1展示正面和右前斜视；源图2展示屋顶俯视、左侧露台近景和左端立面；源图3展示楼梯与上层玻璃近景、穿孔屏正面。共同地标为左侧两层露台、沿正面下降的两跑楼梯、中央木色墙、右侧转角穿孔屏及屋顶玻璃亭。可见源图还包括厚白色露台边板、玻璃栏杆、沿底层布置的实体花池和露台座椅遮阳伞。当前主要体量关系及穿孔屏转角已形成，但白色构件厚度、上层窗分格和底层花池仍有明显缺失或偏差。源图没有确认尺寸；背面及隐藏内部不能据此判错。截图也不足以验证楼梯与平台、屏框与楼板的实际接合，不能将投影重叠认定为可靠连接。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "源图露台边缘和楼梯外侧均呈连续、厚实的白色板带；当前露台白色边板过薄，楼梯侧板近似窄斜梁，踏步锯齿明显改变了源图的实体侧面轮廓。",
+            "action": "局部加深露台白色边板和两跑楼梯外侧白板，保持现有踏步与中间平台位置；使白板沿坡段、平台连续接合，并核实梯脚落地及梯顶接平台。"
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "源图楼梯后方上层玻璃窗有明确的下部横向分格；当前对应正面玻璃主要只有竖框，缺少这条横框，窗的开口比例与源图不同。",
+            "action": "仅在源图可见的对应窗组补齐下部横框，使横框与竖框真实连接、玻璃分片吻合；不要将室内透出的线条视作已完成窗框。"
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "源图底层长玻璃前及右侧转角有连续凸起花池，左侧露台下也有花池；当前这些位置均为裸露平板，缺少源图明确可见的基座轮廓和玻璃前退让关系。",
+            "action": "沿源图可见范围局部补建花池实体边框，保留入口和楼梯落脚通道；先恢复花池高度、宽度及转角连接，再考虑植物细节。"
+          }
+        ],
+        "keep": [
+          "右侧穿孔屏沿正面转至右侧的布置关系。",
+          "中央木色实墙位于左侧玻璃窗与右侧屏幕之间的关系。",
+          "外楼梯两跑之间设置水平中间平台的组织。",
+          "屋顶玻璃亭顶部窄横窗带的分格形式。"
+        ],
+        "model_revisions": {
+          "white_screen_8d214": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "white_screen_8d214",
+        "revision": 4,
+        "relative_path": "scripts/sideboard_visibility_candidate.rb",
+        "update_mode": "edit",
+        "source_sha256": "e220addb475611e8c1b60651fddf7253c45b8e472c93ea29d7f406a674c20263",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "FLOORS",
+            "TERRACES",
+            "ROOF",
+            "CENTRAL_WOOD_HOST",
+            "REAR_SERVICE_WALL",
+            "MATERIAL_ZONES",
+            "GLAZING",
+            "ROOF_ROOM",
+            "STAIR",
+            "SCREENS",
+            "SITE",
+            "SCREEN_PROTOTYPE",
+            "RAILINGS",
+            "ROOF_ROOM_CLERESTORY"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": null,
+      "outcome": "pending"
+    }
+  ]
+}

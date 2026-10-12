@@ -735,7 +735,10 @@ async function sendConversation(event, agentAction = "auto") {
     $("connect-dialog").showModal();
     return;
   }
-  // The chat log must reflect what a real person typed or approved. Execution\n  // policy/Skills/tool choreography belong ONLY in the internal developer layer.\n  // Never forge a verbose engineering prompt and present it as a user message.\n  const message = agentAction === "execute"\n    ? executionUserMessage(typed)\n    : $("conversation-input").value.trim() || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
+  // Preserve the human's message; execution policy belongs in the backend.
+  const message = agentAction === "execute"
+    ? executionUserMessage(typed)
+    : typed || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
   saveDraft();
   pendingMessage = message;

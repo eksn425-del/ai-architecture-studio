@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "white_screen_8d214",
+  "revision": 4,
+  "root_pid": 59444,
+  "full_readback": true,
+  "current_stage": "primary_form",
+  "systems": [
+    {
+      "system_id": "walls",
+      "target_paths": [
+        [
+          "WALLS"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "WALLS"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "slabs_roofs",
+      "target_paths": [
+        [
+          "FLOORS"
+        ],
+        [
+          "ROOF"
+        ],
+        [
+          "TERRACES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "FLOORS"
+        ],
+        [
+          "ROOF"
+        ],
+        [
+          "TERRACES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "stair",
+      "target_paths": [
+        [
+          "STAIR"
+        ]
+      ],
+      "present_paths": [
+        [
+          "STAIR"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "glazing",
+      "target_paths": [
+        [
+          "GLAZING"
+        ],
+        [
+          "ROOF_ROOM"
+        ]
+      ],
+      "present_paths": [
+        [
+          "GLAZING"
+        ],
+        [
+          "ROOF_ROOM"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "screens",
+      "target_paths": [
+        [
+          "SCREENS"
+        ]
+      ],
+      "present_paths": [
+        [
+          "SCREENS"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "railings",
+      "target_paths": [
+        [
+          "RAILINGS"
+        ]
+      ],
+      "present_paths": [
+        [
+          "RAILINGS"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "finish",
+      "target_paths": [
+        [
+          "SITE"
+        ],
+        [
+          "PLANTERS"
+        ],
+        [
+          "FURNITURE"
+        ],
+        [
+          "MATERIAL_ZONES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "SITE"
+        ],
+        [
+          "MATERIAL_ZONES"
+        ]
+      ],
+      "missing_paths": [
+        [
+          "PLANTERS"
+        ],
+        [
+          "FURNITURE"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "stair_sideboard",
+      "target_paths": [
+        [
+          "STAIR_WHITE_SIDEBOARD"
+        ]
+      ],
+      "present_paths": [
+        [
+          "STAIR_WHITE_SIDEBOARD"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "roof_clerestory",
+      "target_paths": [
+        [
+          "ROOF_ROOM_CLERESTORY"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ROOF_ROOM_CLERESTORY"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}

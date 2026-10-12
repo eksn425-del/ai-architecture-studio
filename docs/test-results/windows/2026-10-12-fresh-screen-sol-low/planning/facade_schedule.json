@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "dimensions_mm": {
+    "overall_width": 24000,
+    "overall_depth": 12000,
+    "level_height": 3600,
+    "floor_count": 2
+  },
+  "views": {
+    "front": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "楼梯在左段，长条遮阳屏在右段。",
+        "遮阳屏完整常规模块暂辨12块，右端窄收口单列；现场截图前复核。",
+        "一层连续落地玻璃，入口与玻璃格区分；二层左段三主框格可见。"
+      ],
+      "notes": [
+        "连续玻璃框格不等同可开启窗或门；遮挡处数量未证实。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "无完整背立面；俯视仅约束屋顶后缘。"
+      ],
+      "notes": [
+        "连续玻璃框格不等同可开启窗或门；遮挡处数量未证实。"
+      ]
+    },
+    "left": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "二层和屋顶露台叠置，主体退后。"
+      ],
+      "notes": [
+        "连续玻璃框格不等同可开启窗或门；遮挡处数量未证实。"
+      ]
+    },
+    "right": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "斜视显示遮阳屏转角及底层玻璃；后段有遮挡。"
+      ],
+      "notes": [
+        "连续玻璃框格不等同可开启窗或门；遮挡处数量未证实。"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "平屋顶露台＋独立玻璃房",
+    "parapet": "玻璃栏杆，非整圈实墙女儿墙",
+    "divisions": [
+      "左侧开放露台",
+      "右侧偏中玻璃房",
+      "玻璃房周边通道"
+    ],
+    "notes": [
+      "玻璃房长面可辨七个主要框格，俯视用于位置约束。"
+    ]
+  },
+  "global_features": [
+    "深色玻璃框",
+    "白色分板穿孔遮阳屏",
+    "木色墙及板底",
+    "左侧双层露台",
+    "外楼梯带中间平台"
+  ],
+  "user_confirmed": [
+    "总长24米、进深12米、层高3.6米按估算采用",
+    "背面合理补全",
+    "先做主体及主要构件"
+  ],
+  "inferred": [
+    "不可见背面开口及室内交通",
+    "玻璃厚度、屏幕净距、楼板结构厚度"
+  ],
+  "schedule": [
+    {
+      "id": "front_ground_glass",
+      "side": "front",
+      "level": "ground",
+      "count": null,
+      "type": "连续玻璃及入口",
+      "axis": "x",
+      "interval_mm": [
+        10800,
+        24000
+      ],
+      "z_interval_mm": [
+        0,
+        3150
+      ],
+      "recess_mm": 250,
+      "provenance": "mixed",
+      "confidence": "中；框格数需复核"
+    },
+    {
+      "id": "front_upper_left_glass",
+      "side": "front",
+      "level": "upper",
+      "count": 3,
+      "type": "可见主框格，非开启扇计数",
+      "axis": "x",
+      "interval_mm": [
+        3300,
+        7200
+      ],
+      "z_interval_mm": [
+        3600,
+        6750
+      ],
+      "recess_mm": 200,
+      "provenance": "mixed",
+      "confidence": "中"
+    },
+    {
+      "id": "front_screen",
+      "side": "front",
+      "level": "upper",
+      "count": 12,
+      "type": "常规遮阳屏模块，另有窄收口",
+      "axis": "x",
+      "interval_mm": [
+        10800,
+        24000
+      ],
+      "z_interval_mm": [
+        3950,
+        7550
+      ],
+      "recess_mm": 450,
+      "provenance": "mixed",
+      "confidence": "中；数量为暂读，尺寸估算"
+    },
+    {
+      "id": "right_screen",
+      "side": "right",
+      "level": "upper",
+      "count": null,
+      "type": "转角遮阳屏",
+      "axis": "y",
+      "interval_mm": [
+        0,
+        10000
+      ],
+      "z_interval_mm": [
+        3950,
+        7550
+      ],
+      "recess_mm": 450,
+      "provenance": "mixed",
+      "confidence": "中；透视遮挡"
+    },
+    {
+      "id": "rear_glass",
+      "side": "rear",
+      "level": "both",
+      "count": null,
+      "type": "连贯补全",
+      "axis": "x",
+      "interval_mm": [
+        0,
+        24000
+      ],
+      "z_interval_mm": [
+        0,
+        6750
+      ],
+      "recess_mm": 200,
+      "provenance": "inferred",
+      "confidence": "低"
+    }
+  ]
+}

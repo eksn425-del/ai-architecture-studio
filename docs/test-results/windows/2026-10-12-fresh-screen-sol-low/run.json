@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-12-fresh-screen-sol-low",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "Three private whole collages / seven views of ONE new flat-roof terrace and perforated-screen building; not Dream Coffee",
+  "base_commit": "c1bcb80ce0373c366280ecf08d7c09870fe8abdb",
+  "model": {
+    "requested": "gpt-6.1-sol",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "runtime": "codex-native-through-K-Studio real website proxy; not paid API"
+  },
+  "environment": {
+    "windows": "Windows 11",
+    "sketchup": "2024 / 24.0.484",
+    "bridge": "existing Kongxing; version not independently recorded",
+    "adai": "0.5.39 enabled"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true
+  },
+  "blockers": [
+    "Visual proportions and architectural joints not accepted",
+    "Builder budget interruption",
+    "Replay transport timeout and interrupted recovery; strict offline fingerprint comparison PASS, native replay save/reopen incomplete"
+  ]
+}

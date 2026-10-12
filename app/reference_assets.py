@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import mimetypes
 from pathlib import Path
 from typing import Iterable
@@ -40,12 +41,25 @@ def discover_project_reference_images(
         raise ValueError(f"Unsupported reference-image categories: {', '.join(invalid)}")
 
     ordered_roots = [inputs_root / category for category in requested]
+    # Random upload prefixes must not renumber the student's image 1/2/3.
+    # Project references preserve the same upload order displayed by Studio.
+    upload_order: dict[Path, int] = {}
+    try:
+        context = json.loads((root / "state/project_context.json").read_text(encoding="utf-8"))
+        references = context.get("references", []) if isinstance(context, dict) else []
+        for ref in references if isinstance(references, list) else []:
+            source = ref.get("source") if isinstance(ref, dict) else None
+            if isinstance(source, str):
+                upload_order.setdefault((root / source).resolve(), len(upload_order))
+    except (OSError, ValueError):
+        pass  # Legacy projects have no ordered manifest; deterministic fallback.
     images: list[Path] = []
     seen: set[Path] = set()
     for category_root in ordered_roots:
         if not category_root.is_dir() or category_root.is_symlink():
             continue
-        for candidate in sorted(category_root.rglob("*"), key=lambda item: item.as_posix().casefold()):
+        for candidate in sorted(category_root.rglob("*"), key=lambda item: (
+                upload_order.get(item.resolve(), len(upload_order)), item.as_posix().casefold())):
             if len(images) >= max_images:
                 return images
             if not candidate.is_file() or candidate.is_symlink():

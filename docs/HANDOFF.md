@@ -1,3 +1,15 @@
+# CURRENT — 2026-10-12 新建筑网站 Sol Low 实测交接：视觉 PARTIAL
+
+[完整报告及真实截图](test-results/windows/2026-10-12-fresh-screen-sol-low/README.md)。三张私有整图、七个视角、同一新建筑；不再修 Dream Coffee。实际网站 gpt-6.1-sol / low，真实 App Server 身份/推理/自然中文对话，外层型号未改；付费 API LIVE_NOT_RUN。
+
+**完成**：真实网站上传→辨认方向→计划→批准→主体及有界局部修正。修复前端 message 未定义、上传顺序错配、提交前后空组清理误判、保存后 GUID、Skill 静默截断、历史上下文重播；新 compaction NameError 失败与修复回归保留。完整检查382 passed / 2 skipped。正式 r4 15个命名构件，实际 ADAI 侧板账本、六视图、独立只读 Critic、下载SHA匹配和原生鼠标编辑/保存/重开/14其他构件KEEP均有证据。
+
+**未通过**：独立 r4 审查 PARTIAL（玻璃房过高、屏及楼层比例、檐带偏薄、细节缺失、接合未验收）。两轮修正对话发生三次局部提交，最终 Builder 2.508M input 硬预算中断；总Builder 6.439M未优于旧4.92M基线。首次空白重放15秒桥接超时但后来提交，真实15/15严格几何/材质指纹 PASS；恢复被中断，重放六图/保存重开缺失，整体重放 PARTIAL，不能冒充产品全闭环PASS。最终独立Critic是测试侧只读调用，不是网站自行完成交付。
+
+**下一轮唯一可执行任务**：先审查本批证据；优先修完整项目级预算/明确中断提示、长几何超时后提交检测及安全恢复、OSS跨版本账本持久化、源图角度/比例约束。保留已验收原生副本，禁止无界重建本建筑或旧咖啡店。新案例需用户图片；没有预算不运行真实付费API，不开发CAD/渲染/PPT或多用户收费。
+
+---
+
 ## 2026-10-11 — New acceptance: K Studio tested as HUMAN conversational product, not an engineering script console
 
 Owner noticed Codex-controlled Studio chat looked like incomprehensible developer prompts, not normal human/Agent dialogue. Root cause confirmed in `app/static/studio.js`: on approve it synthesized a verbose technical USER message (e.g. “内部步骤连续自动完成…不要只写脚本就停止”), conflating user intent with execution policy. **Fix already committed:** `executionUserMessage(typed)` uses original real approval text or short “确认，按当前计划开始建模。”; workflow/developer instructions remain in backend `app/workflow_context.py`, no such code instructions displayed/forged as user dialogue. New `tests/test_natural_chat_entry.py` checks natural approval recognized by the real backend and runs frontend helper in Node (Node absent = explicit skip); workflow CI wired.

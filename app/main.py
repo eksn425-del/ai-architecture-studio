@@ -1728,6 +1728,12 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     adapter.save_model(project_dir / "outputs/model/previous-agent-checkpoint.skp", "Pre-turn recovery checkpoint")
                 (project_dir / "runtime/previous-agent-ruby-state.json").write_text(
                     json.dumps(session.ruby_state), encoding="utf-8")
+                # Saving a checkpoint may refresh SketchUp's GUID. Bootstrap the
+                # turn with the post-save identity, retaining path/root checks.
+                checkpoint_identity = adapter.get_active_model_identity()
+                if Path(str(checkpoint_identity.get("model_path") or "")).resolve() != active_model.resolve():
+                    raise MCPCallError("Checkpoint changed the active disposable document.")
+                session.model_guid = str(checkpoint_identity.get("model_guid") or "")
             except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                 if "Owned model root is missing or empty" not in str(error):
                     raise HTTPException(status_code=502, detail=f"无法保存修改前检查点：{error}") from error

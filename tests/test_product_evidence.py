@@ -86,6 +86,13 @@ def test_skill_geometry_checks_and_framing_fit_without_truncating_safety():
         assert text in skill
 
 
+def test_small_skill_budget_refuses_silent_safety_truncation():
+    import pytest
+    from app.image_to_sketchup_skill import load_image_to_sketchup_skill_context
+    with pytest.raises(ValueError, match='refusing to truncate'):
+        load_image_to_sketchup_skill_context(max_chars=512)
+
+
 def test_responses_only_model_rejected_before_credential_or_tool_request(tmp_path):
     from app.litellm_runtime import LiteLLMRuntime
     from app.native_agent import NativeAgentUnavailable

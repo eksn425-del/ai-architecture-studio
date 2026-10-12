@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "any_oss_product_use": true,
+  "actual_wrapped_calls": {
+    "adai.profile": 1
+  },
+  "effect_verified": false,
+  "effect_status": "Actual geometry and preserved receipts; overall independent visual review PARTIAL",
+  "current_revision_assessment": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {
+      "adai.profile": 1
+    },
+    "any_oss_product_use": true,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": [
+      {
+        "system": "walls",
+        "method_id": "saie.wall_with_openings",
+        "selection_reason": "直墙矩形洞口适合合并切孔；执行阶段先核实注入接口和代表段，失败后才使用连续面替代。",
+        "disposition": "selected_but_not_invoked"
+      },
+      {
+        "system": "slabs_roofs",
+        "method_id": "adai.profile_with_holes",
+        "selection_reason": "本地说明确认ADAI已启用；水平轮廓及内洞适配板壳，孔必须完全位于外轮廓内。",
+        "disposition": "selected_but_not_invoked"
+      },
+      {
+        "system": "stair",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "带中间平台的阶梯和斜侧板需要逐级语义分组；已提供的ADAI轮廓接口不能直接提供完整楼梯层级。",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "glazing",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "幕墙框玻璃独立组件和原生实例适合框格重复；SAIE墙开洞不负责幕墙组件定义。",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "screens",
+        "method_id": "adai.profile_with_holes",
+        "selection_reason": "启用的穿孔轮廓方法适合单块网板；先验证细孔拓扑与性能再使用原生组件实例重复。",
+        "disposition": "selected_but_not_invoked"
+      },
+      {
+        "system": "railings",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "玻璃栏板和夹件重复需要原生实例；本轮无已验证的完整栏杆助手接口。",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "finish",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "花池与简化家具采用项目专属分组；已提供轮廓接口不包含整套家具。",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "stair_sideboard",
+        "method_id": "adai.profile",
+        "selection_reason": "Enabled constant XZ profile matches two slopes and landing; straight SAIE wall cannot.",
+        "disposition": "method_seen_in_committed_write"
+      },
+      {
+        "system": "roof_clerestory",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Additive curtain frame bars preserve panes; wall opening helpers require replacing the existing host.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      }
+    ]
+  }
+}

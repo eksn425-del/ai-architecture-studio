@@ -1,0 +1,834 @@
+{
+  "test_kind": "host validation replay of exact website Agent-generated persistent source; no new model inference or controller-authored geometry",
+  "source": "scripts/reconstruct_white_screen.rb",
+  "manual_geometry_changes": 0,
+  "blank_before": {
+    "model_name": "blank-disposable-20261012-012718",
+    "units": "mm",
+    "entity_count": 0,
+    "active_tag": "Layer0",
+    "selection_count": 0,
+    "model_bounds": {
+      "min": [
+        0,
+        0,
+        0
+      ],
+      "max": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "status": "FAIL",
+  "error": "The existing SketchUp MCP did not respond within 15 seconds.",
+  "late_committed_receipt": {
+    "schema_version": 1,
+    "project_id": "architecture-project-8d214",
+    "expected_revision": 0,
+    "model_path": "[PRIVATE_PROJECT]\\outputs\\model\\blank-disposable-20261012-012718.skp",
+    "guid_before": "396321ea-139f-49bd-a407-b06949e5b628",
+    "status": "committed",
+    "at": "2026-10-11T17:33:32Z",
+    "scenes_before": {
+      "available": true,
+      "pages": []
+    },
+    "owned_before": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "objects_total": 0,
+      "truncated": false,
+      "objects": []
+    },
+    "owned_precommit": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -1800.0,
+          -2800.0,
+          -450.0
+        ],
+        "max": [
+          25800.0,
+          13800.0,
+          9930.0
+        ],
+        "size": [
+          27600.0,
+          16600.0,
+          10380.0
+        ]
+      },
+      "objects_total": 16,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 29,
+          "name": "FLOORS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500.0,
+              1700.0,
+              0.0
+            ],
+            "max": [
+              23000.0,
+              11500.0,
+              180.0
+            ],
+            "size": [
+              20500.0,
+              9800.0,
+              180.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 61,
+          "name": "TERRACES",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              3350.0
+            ],
+            "max": [
+              24000.0,
+              12000.0,
+              3600.0
+            ],
+            "size": [
+              24000.0,
+              12000.0,
+              250.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 93,
+          "name": "ROOF",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              6950.0
+            ],
+            "max": [
+              24000.0,
+              12000.0,
+              7200.0
+            ],
+            "size": [
+              24000.0,
+              12000.0,
+              250.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 125,
+          "name": "WALLS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 127,
+          "name": "CENTRAL_WOOD_HOST",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7200.0,
+              1450.0,
+              0.0
+            ],
+            "max": [
+              10800.0,
+              1650.0,
+              6950.0
+            ],
+            "size": [
+              3600.0,
+              200.0,
+              6950.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 289,
+          "name": "REAR_SERVICE_WALL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500.0,
+              11250.0,
+              0.0
+            ],
+            "max": [
+              10800.0,
+              11450.0,
+              6950.0
+            ],
+            "size": [
+              8300.0,
+              200.0,
+              6950.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 840,
+          "name": "MATERIAL_ZONES",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              24000.0,
+              12000.0,
+              6950.0
+            ],
+            "size": [
+              24000.0,
+              12000.0,
+              6950.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 1066,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500.0,
+              450.0,
+              180.0
+            ],
+            "max": [
+              24000.0,
+              11515.0,
+              6950.0
+            ],
+            "size": [
+              21500.0,
+              11065.0,
+              6770.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 13886,
+          "name": "ROOF_ROOM",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12950.0,
+              3450.0,
+              7200.0
+            ],
+            "max": [
+              21600.0,
+              9650.0,
+              9930.0
+            ],
+            "size": [
+              8650.0,
+              6200.0,
+              2730.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 17816,
+          "name": "STAIR",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2100.0,
+              -1450.0,
+              -450.0
+            ],
+            "max": [
+              10800.0,
+              50.0,
+              3600.0
+            ],
+            "size": [
+              8700.0,
+              1500.0,
+              4050.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 18682,
+          "name": "SCREENS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10800.0,
+              -35.0,
+              3950.0
+            ],
+            "max": [
+              24040.0,
+              9900.0,
+              7550.0
+            ],
+            "size": [
+              13240.0,
+              9935.0,
+              3600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 59444,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1800.0,
+              -2800.0,
+              -180.0
+            ],
+            "max": [
+              25800.0,
+              13800.0,
+              -30.0
+            ],
+            "size": [
+              27600.0,
+              16600.0,
+              150.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 59477,
+          "name": "SCREEN_PROTOTYPE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10800.0,
+              -10.0,
+              3950.0
+            ],
+            "max": [
+              11900.0,
+              0.0,
+              7550.0
+            ],
+            "size": [
+              1100.0,
+              10.0,
+              3600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 62187,
+          "name": "RAILINGS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30.0,
+              -1480.0,
+              0.0
+            ],
+            "max": [
+              24030.0,
+              12030.0,
+              8315.0
+            ],
+            "size": [
+              24060.0,
+              13510.0,
+              8315.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 71495,
+          "name": "STAIR_WHITE_SIDEBOARD",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2100.0,
+              -1630.0,
+              -30.0
+            ],
+            "max": [
+              10800.0,
+              -1450.0,
+              3600.0
+            ],
+            "size": [
+              8700.0,
+              180.0,
+              3630.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 71562,
+          "name": "ROOF_ROOM_CLERESTORY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              13000.0,
+              3500.0,
+              9350.0
+            ],
+            "max": [
+              21565.0,
+              9565.0,
+              9405.0
+            ],
+            "size": [
+              8565.0,
+              6065.0,
+              55.0
+            ]
+          }
+        }
+      ]
+    },
+    "revision": 1,
+    "root_pid": 19,
+    "owned_after": {
+      "api_units": "inch",
+      "bounds_units": "mm",
+      "axes": [
+        "x",
+        "y",
+        "z"
+      ],
+      "root_bounds_frame": "model",
+      "object_bounds_frame": "owned-root-local",
+      "bounds_mm": {
+        "min": [
+          -1800.0,
+          -2800.0,
+          -450.0
+        ],
+        "max": [
+          25800.0,
+          13800.0,
+          9930.0
+        ],
+        "size": [
+          27600.0,
+          16600.0,
+          10380.0
+        ]
+      },
+      "objects_total": 15,
+      "truncated": false,
+      "objects": [
+        {
+          "persistent_id": 29,
+          "name": "FLOORS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500.0,
+              1700.0,
+              0.0
+            ],
+            "max": [
+              23000.0,
+              11500.0,
+              180.0
+            ],
+            "size": [
+              20500.0,
+              9800.0,
+              180.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 61,
+          "name": "TERRACES",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              3350.0
+            ],
+            "max": [
+              24000.0,
+              12000.0,
+              3600.0
+            ],
+            "size": [
+              24000.0,
+              12000.0,
+              250.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 93,
+          "name": "ROOF",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              6950.0
+            ],
+            "max": [
+              24000.0,
+              12000.0,
+              7200.0
+            ],
+            "size": [
+              24000.0,
+              12000.0,
+              250.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 127,
+          "name": "CENTRAL_WOOD_HOST",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7200.0,
+              1450.0,
+              0.0
+            ],
+            "max": [
+              10800.0,
+              1650.0,
+              6950.0
+            ],
+            "size": [
+              3600.0,
+              200.0,
+              6950.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 289,
+          "name": "REAR_SERVICE_WALL",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500.0,
+              11250.0,
+              0.0
+            ],
+            "max": [
+              10800.0,
+              11450.0,
+              6950.0
+            ],
+            "size": [
+              8300.0,
+              200.0,
+              6950.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 840,
+          "name": "MATERIAL_ZONES",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              24000.0,
+              12000.0,
+              6950.0
+            ],
+            "size": [
+              24000.0,
+              12000.0,
+              6950.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 1066,
+          "name": "GLAZING",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500.0,
+              450.0,
+              180.0
+            ],
+            "max": [
+              24000.0,
+              11515.0,
+              6950.0
+            ],
+            "size": [
+              21500.0,
+              11065.0,
+              6770.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 13886,
+          "name": "ROOF_ROOM",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12950.0,
+              3450.0,
+              7200.0
+            ],
+            "max": [
+              21600.0,
+              9650.0,
+              9930.0
+            ],
+            "size": [
+              8650.0,
+              6200.0,
+              2730.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 17816,
+          "name": "STAIR",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2100.0,
+              -1450.0,
+              -450.0
+            ],
+            "max": [
+              10800.0,
+              50.0,
+              3600.0
+            ],
+            "size": [
+              8700.0,
+              1500.0,
+              4050.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 18682,
+          "name": "SCREENS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10800.0,
+              -35.0,
+              3950.0
+            ],
+            "max": [
+              24040.0,
+              9900.0,
+              7550.0
+            ],
+            "size": [
+              13240.0,
+              9935.0,
+              3600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 59444,
+          "name": "SITE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1800.0,
+              -2800.0,
+              -180.0
+            ],
+            "max": [
+              25800.0,
+              13800.0,
+              -30.0
+            ],
+            "size": [
+              27600.0,
+              16600.0,
+              150.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 59477,
+          "name": "SCREEN_PROTOTYPE",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10800.0,
+              -10.0,
+              3950.0
+            ],
+            "max": [
+              11900.0,
+              0.0,
+              7550.0
+            ],
+            "size": [
+              1100.0,
+              10.0,
+              3600.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 62187,
+          "name": "RAILINGS",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30.0,
+              -1480.0,
+              0.0
+            ],
+            "max": [
+              24030.0,
+              12030.0,
+              8315.0
+            ],
+            "size": [
+              24060.0,
+              13510.0,
+              8315.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 71495,
+          "name": "STAIR_WHITE_SIDEBOARD",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2100.0,
+              -1630.0,
+              -30.0
+            ],
+            "max": [
+              10800.0,
+              -1450.0,
+              3600.0
+            ],
+            "size": [
+              8700.0,
+              180.0,
+              3630.0
+            ]
+          }
+        },
+        {
+          "persistent_id": 71562,
+          "name": "ROOF_ROOM_CLERESTORY",
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              13000.0,
+              3500.0,
+              9350.0
+            ],
+            "max": [
+              21565.0,
+              9565.0,
+              9405.0
+            ],
+            "size": [
+              8565.0,
+              6065.0,
+              55.0
+            ]
+          }
+        }
+      ]
+    },
+    "scenes_after": {
+      "available": true,
+      "pages": []
+    }
+  },
+  "strict_fingerprint_comparison": {
+    "schema_version": 1,
+    "status": "PASS",
+    "before_group_count": 15,
+    "replay_group_count": 15,
+    "missing_groups": [],
+    "added_groups": [],
+    "changed_groups": [],
+    "persistent_ids_ignored": true,
+    "equal_group_counts_do_not_prove_geometry_equality": true
+  },
+  "recovery_status": "PARTIAL: interruption left temporary state; desktop later had no SketchUp. Formal project state restored from actual r4 session. No additional geometry replay or inference."
+}
