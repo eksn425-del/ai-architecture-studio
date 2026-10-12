@@ -149,7 +149,7 @@ async function loadParameterPlan() {
 function routeInfo(tier) {
   const fallback = tier === "premium"
     ? { model: "gpt-6-astra", provider: "codex-app-server" }
-    : { model: "gpt-6.1-sol", reasoning_effort: "low", provider: "codex-app-server" };
+    : { model: "gpt-6.1-sol", reasoning_effort: "medium", provider: "codex-app-server" };
   return state.modelRouter?.[tier] || fallback;
 }
 
