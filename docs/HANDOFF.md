@@ -1,3 +1,9 @@
+# HANDOFF — 2026-10-12 owner authorizes SAME existing r3 with SITE Sol Medium
+
+This overrides older Low/fresh-image runbooks below. [Sole next Windows task](NEXT_OWNER_CONTINUATION_SOL_MEDIUM_2026-10-12.md). New web PR makes multi-view independent review fail closed without current camera pair for each actual observed source file, relocates the plan into readable inline chat, offers exact website-only gpt-6.1-sol/medium startup and provenance. Outer Codex controller unchanged. No paid API. Windows tester back up original private two-view project/revision 3, verify source and native root/GUID, project cumulative budget (historic 4.488M input), use natural Chinese/mouse and source-matched before/after. Only bounded local edits; preserve original FAIL/SKP, private files and actual receipts. Web-side CI != new native model success. If Windows/medium/provider/budget unavailable mark BLOCKED and ask owner, no silent fallback.
+
+---
+
 # 2026-10-12 用户自行双视角测试诊断：视觉 FAIL，尚未修复
 
 [真实诊断与截图](test-results/windows/2026-10-12-owner-two-view-diagnosis/README.md)。用户在“我的建筑项目”自行上传新建筑两视角、自然确认、主体和续做；实际网站 Sol6.1 Low。首轮953.843秒超时，续做2540572 input触发2.5M上限；两Builder轮共4.488M input/82工具/12失败。原生SU2024截图和只读MCP r3根26048读回证实主形、屏风围合、中央尖顶墙、折面与楼梯方向失败，独立Critic NEEDS_FIX。参数小窗根因是assistant.css绝对定位浮层；卡末尾字面量`n与历史状态冲突。

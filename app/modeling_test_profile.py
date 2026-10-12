@@ -10,6 +10,7 @@ from typing import Any
 
 TARGET_MODEL = "gpt-6.1-sol"
 TARGET_EFFORT = "low"
+MEDIUM_EFFORT = "medium"
 
 
 def assess_sol_low_surrogate(
@@ -19,17 +20,21 @@ def assess_sol_low_surrogate(
     requested_effort: str,
     actual_model: str | None = None,
     actual_effort: str | None = None,
+    target_effort: str = TARGET_EFFORT,
 ) -> dict[str, Any]:
+    if target_effort not in {TARGET_EFFORT, MEDIUM_EFFORT}:
+        raise ValueError("Website surrogate target effort must be low or medium.")
     configured = (route_provider == "codex-app-server"
                   and requested_model == TARGET_MODEL
-                  and requested_effort == TARGET_EFFORT)
+                  and requested_effort == target_effort)
     identity_known = bool(actual_model) and bool(actual_effort)
     executed_match = (configured and identity_known
                       and actual_model == TARGET_MODEL
-                      and actual_effort == TARGET_EFFORT)
+                      and actual_effort == target_effort)
     return {
         "schema_version": 1,
         "purpose": "K_Studio_website_architectural_modeling_only",
+        "target_effort": target_effort,
         "underlying_transport": route_provider,
         "requested_model": requested_model,
         "requested_effort": requested_effort,

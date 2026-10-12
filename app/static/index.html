@@ -15,10 +15,10 @@
     <div class="workbench">
       <section class="chat-column" aria-label="AI 建模对话">
         <section class="journey-guide" aria-label="建模前准备"><ol id="journey-steps"></ol><div class="journey-next"><p id="journey-hint"></p><button id="setup-model" class="button-quiet" type="button" hidden>连接 AI 模型</button></div></section>
-        <div id="conversation-history" class="conversation-history" aria-live="polite"></div>
+        <div id="conversation-history" class="conversation-history" aria-live="polite"></div><section class="plan-in-chat" aria-label="当前建模计划"><details id="parameter-plan" class="parameter-plan" hidden><summary>建模计划与参数 <span>展开查看</span></summary><a id="download-plan" class="plan-download" download="建模计划.md">下载当前计划 ↓</a><div id="parameter-plan-content" class="markdown-content"></div></details></section>
         <details id="workflow-progress" class="workflow-progress"><summary>连接与任务进度 <span>点击查看步骤</span></summary><ol id="workflow-checklist"></ol></details><div class="composer-area">
           <div class="composer-controls"><div id="reconstruction-state" class="turn-state" role="status">待分析</div>
-          <details id="parameter-plan" class="parameter-plan" hidden><summary>建模计划与参数 <span>展开查看</span></summary><a id="download-plan" class="plan-download" download="建模计划.md">下载当前计划 ↓</a><div id="parameter-plan-content" class="markdown-content"></div></details>
+          
           <div class="approval-actions"><button id="revise-reconstruction-plan" class="button-quiet" type="button" hidden>修改参数</button><button id="approve-reconstruction" class="button-primary" type="button" hidden><span>批准计划并开始建模</span><span>↗</span></button></div>
           <button id="prepare-plan" class="button-quiet" type="button" hidden>信息已确认，整理建模计划</button></div>
           <div id="clarification-shortcuts" class="clarification-shortcuts" hidden><button id="use-estimates" class="button-quiet" type="button">没有尺寸，采用推荐估算</button><span>会先生成计划供你检查，不会开始建模。</span></div>

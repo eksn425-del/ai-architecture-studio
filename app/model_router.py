@@ -140,6 +140,12 @@ class DeterministicModelRouter:
                 requested_model=self.economy_route.model,
                 requested_effort=self.economy_route.reasoning_effort,
             ),
+            "sol_medium_website_test": assess_sol_low_surrogate(
+                route_provider=self.economy_route.provider,
+                requested_model=self.economy_route.model,
+                requested_effort=self.economy_route.reasoning_effort,
+                target_effort="medium",
+            ),
             "economy": self.economy_route.as_dict(),
             "premium": self.premium_route.as_dict(),
             "providers": {

@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## 2026-10-12 owner override: SAME personal two-view r3, site Sol Medium
+
+Codex next entry is [same-project medium continuation](docs/NEXT_OWNER_CONTINUATION_SOL_MEDIUM_2026-10-12.md). This supersedes historical new-source, Sol Low and prior three-collage instructions. The user authorizes the existing private two-image website r3 to continue, with backup/readback and original source order. Outer Codex controller model must NOT change; WEBSITE only requests actual gpt-6.1-sol / medium through scripts/dev-sol-medium.ps1 and verifies real thread/turn identity, no paid API. Keep the original FAIL, do not clear budget receipts (previous recorded Builder input 4,488,068), do not reset original model/full rebuild. Agent prioritizes both observed source angles, body/enclosure/folded roof/stair topology before dense panels, same chat with normal Chinese/mouse and source-scope KEEP. If Windows/private inputs/remaining budget absent, BLOCKED not PASS. Web-side PR regression is NOT native quality acceptance.
+
+
 ## Latest owner instruction — real architect/student UX, 2026-10-12
 
 Next: [`docs/NEXT_REAL_USER_UX_TEST_2026-10-12.md`](docs/NEXT_REAL_USER_UX_TEST_2026-10-12.md). One REAL website with short Chinese human dialogue; actual mouse/keyboard flow via Windows Codex, not forged endpoint/JSON or direct Ruby as UX success. Owner provides NEW source image. First-pass source fidelity and correct targeted natural edits with protected other parts outrank tool/test counts. ChatGPT-side code changes are PR/CI only until native test. A project cumulative Builder budget uses actual telemetry, not billing; missing/legacy logs cannot be zeroed to evade limits. Preserve previous PARTIAL and private evidence, same ProjectRuby/Kongxing one writer; outer Codex controller unchanged, site Sol Low proxy not paid API. No unapproved spend, CAD/render/PPT/SaaS or SketchUp version substitution.
