@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "ledger_status": "committed_readback",
+  "actual_wrapped_calls": {},
+  "any_oss_product_use": false,
+  "effect_verified": false,
+  "effect_verification_required": "Named component readback and independent source-matched visual review.",
+  "plan_choices": [
+    {
+      "system": "levels_terraces",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "walls_openings",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "矩形墙洞适合连续墙与组合扣洞；这是候选而非已验证执行，执行前确认助手可用；布尔失败或不可用才采用项目连续面扣洞",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "glazing_roof_room",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "stair",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "screen_prototype",
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "已启用并验证的带孔截面适用于带边框的平面密孔板；先检查原型尺寸及真实孔洞再实例复制。",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "repetition",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "unseen_back",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "合理补全背面矩形洞口，候选SAIE连续墙；启用及布尔验证失败后才项目连续面扣洞",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "site_furniture",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    }
+  ]
+}

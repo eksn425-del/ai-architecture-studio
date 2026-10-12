@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "source_sha256": "874f9b570ee029c900de650bed9a8f7a8011dac91b819b11dfc5bd601c3fa1bd",
+  "events": [
+    {
+      "method_id": "saie.wall",
+      "status": "returned",
+      "elapsed_ms": 0,
+      "returned_nil": false,
+      "result_entity_pid": 40621,
+      "result_entity_name": "CENTRAL_WOOD_WALL"
+    },
+    {
+      "method_id": "saie.wall_with_openings",
+      "status": "returned",
+      "elapsed_ms": 16,
+      "returned_nil": false,
+      "result_entity_pid": 40847,
+      "result_entity_name": "REAR_WALL"
+    },
+    {
+      "method_id": "adai.profile_with_holes",
+      "status": "returned",
+      "elapsed_ms": 29082,
+      "returned_nil": false,
+      "result_entity_pid": 49219,
+      "result_entity_name": "SCREEN_PROTOTYPE"
+    }
+  ],
+  "status": "committed_readback",
+  "script_id": "white_terrace_155f7",
+  "revision": 1,
+  "root_pid": 40359
+}

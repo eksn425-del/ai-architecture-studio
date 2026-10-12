@@ -1,0 +1,448 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/PRIVATE_COLLAGE_1.png",
+    "sources": [
+      {
+        "path": "inputs/reference/PRIVATE_COLLAGE_1.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "notes": [
+          "上：楼梯长立面；下：前右斜视及屏转角"
+        ]
+      },
+      {
+        "path": "inputs/reference/PRIVATE_COLLAGE_2.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "notes": [
+          "上：屋顶俯视；中：前左露台斜视；下：左侧短立面"
+        ]
+      },
+      {
+        "path": "inputs/reference/PRIVATE_COLLAGE_3.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "notes": [
+          "上：楼梯平台特写；下：正面密孔屏特写"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/PRIVATE_COLLAGE_1.png",
+          "inputs/reference/PRIVATE_COLLAGE_3.png"
+        ],
+        "notes": [
+          "以外楼梯与屏长面定义正面"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "无完整背面证据；用户授权合理补全"
+        ]
+      },
+      "left": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/PRIVATE_COLLAGE_2.png"
+        ],
+        "notes": [
+          "下画面上下露台短边"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/PRIVATE_COLLAGE_1.png"
+        ],
+        "notes": [
+          "下画面侧屏与一层玻璃；背部被遮挡"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/PRIVATE_COLLAGE_2.png"
+        ],
+        "notes": [
+          "上画面玻璃房、开放露台、六组伞座"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/PRIVATE_COLLAGE_1.png",
+          "inputs/reference/PRIVATE_COLLAGE_2.png"
+        ],
+        "notes": [
+          "两侧斜视用于同楼对照"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "无平面尺寸证据"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": []
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "透窗外观不等于完整室内证据"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "overall_width",
+        "value_mm": 24000,
+        "provenance": "inferred"
+      },
+      {
+        "name": "overall_depth",
+        "value_mm": 12000,
+        "provenance": "inferred"
+      },
+      {
+        "name": "storey_height",
+        "value_mm": 3600,
+        "provenance": "inferred"
+      }
+    ],
+    "hard_constraints": [
+      "七画面必须使用同一几何与楼层基准",
+      "已观察面按源图还原，不重新设计",
+      "保留上下露台、两跑外楼梯、密孔屏转角及屋顶玻璃房",
+      "屏为密孔板而非竖向百叶"
+    ],
+    "assumptions": [
+      "用户接受估算尺寸，但它们不是测量值",
+      "完整背面及内部流线为合理推定",
+      "植物与屏遮挡处门窗数量未确定；不能按默认值宣称观察成功",
+      "暂无已确认跨视图矛盾；透视与遮挡不视为矛盾"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "latency_ms": 182625,
+    "input_tokens": 42214,
+    "output_tokens": 780,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "源图三组共七个面板：正面、正面右转角、屋顶俯视、左侧露台近景、左端立面、楼梯近景及密孔板正面。共同地标为左侧两层露台与外楼梯、中央木色墙、右侧转角密孔屏、底层落地玻璃，以及屋顶玻璃房和六组遮阳伞座席，能对应同一建筑。CURRENT 已呈现这些主要系统，无需重建；但楼梯侧面、楼板边带及屋顶玻璃房分格仍明显偏离源图。源图未提供确认尺寸，背立面及隐藏内部不能据此判错。截图能显示接合外观，不能证明屏板支承、玻璃与框、楼梯与平台实际连接，也不能确认孔洞是否为真实几何。",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "源图楼梯为两段梯跑与中间平台，侧面是沿梯跑倾斜的连续白色薄实体带，下方保留通透空间；CURRENT 将梯跑下方填成落地三角形侧面，并出现密集竖向白条，明显改变楼梯轮廓和底层通透性。",
+      "action": "局部修正楼梯侧板及下方填充，恢复倾斜薄侧带和平台水平段；保留现有两段梯跑的位置，检查侧板、踏步与平台端部连接。"
+    },
+    {
+      "priority": 2,
+      "view": "oblique",
+      "problem": "源图左侧露台及右侧屏板下方均有明显的白色楼板边带，下面接木色带；CURRENT 将这些边带压成很薄的线条，尤其左侧二层露台缺少源图醒目的白色厚边，改变了悬挑体量的比例。",
+      "action": "仅调整可见楼板边带的高度、材质分区与端部收口，对齐源图露台及屏板底部轮廓；保留已对应的露台位置和屏板分格。"
+    },
+    {
+      "priority": 3,
+      "view": "roof",
+      "problem": "源图屋顶玻璃房在各可见面顶部都有连续一排矮横窗；CURRENT 主要为通高竖向玻璃分格，缺少这条清晰的顶部横窗带，屋顶轮廓下的立面节奏不符。",
+      "action": "在现有玻璃房可见面局部补正顶部横框和矮横窗分区，保持现有平屋顶及玻璃房位置，不扩大修改到整片屋顶。"
+    }
+  ],
+  "keep": [
+    "屋顶左侧六组座席遮阳伞的两排三列布局。",
+    "正面密孔屏连续转折至右侧立面的关系。",
+    "外楼梯连接左侧二层露台，并朝中央木色墙下方落地的方向。"
+  ],
+  "model_revisions": {
+    "white_terrace_155f7": 2
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-d6c10d7cc1.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "white_terrace_155f7",
+      "camera": {
+        "eye_m": [
+          12.3,
+          -72.6,
+          4.9436
+        ],
+        "target_m": [
+          12.3,
+          5.75,
+          4.9436
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-2d878729e9.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "white_terrace_155f7",
+      "camera": {
+        "eye_m": [
+          12.3,
+          84.1,
+          4.9436
+        ],
+        "target_m": [
+          12.3,
+          5.75,
+          4.9436
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-691c6b9406.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "white_terrace_155f7",
+      "camera": {
+        "eye_m": [
+          -71.8,
+          5.75,
+          4.9436
+        ],
+        "target_m": [
+          12.3,
+          5.75,
+          4.9436
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-b7f43fd055.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "white_terrace_155f7",
+      "camera": {
+        "eye_m": [
+          96.39999999999999,
+          5.75,
+          4.9436
+        ],
+        "target_m": [
+          12.3,
+          5.75,
+          4.9436
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-165c10fd0f.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "white_terrace_155f7",
+      "camera": {
+        "eye_m": [
+          12.3,
+          5.75,
+          79.42999999999999
+        ],
+        "target_m": [
+          12.3,
+          5.75,
+          4.74
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-c13ef34d9a.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "white_terrace_155f7",
+      "camera": {
+        "eye_m": [
+          81.088,
+          -57.288,
+          43.23799999999999
+        ],
+        "target_m": [
+          12.3,
+          5.75,
+          4.9436
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/PRIVATE_COLLAGE_1.png",
+      "current_view": "outputs/renders/agent-view-3cf1a6de98.png",
+      "label": "正面转角白色效果",
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      }
+    },
+    {
+      "source_ref": "inputs/reference/PRIVATE_COLLAGE_3.png",
+      "current_view": "outputs/renders/agent-view-9e25a55fac.png",
+      "label": "密孔板近景",
+      "model_revisions": {
+        "white_terrace_155f7": 2
+      }
+    }
+  ],
+  "writer_verifications": {
+    "white_terrace_155f7": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 40359,
+          "actual": 40359
+        },
+        {
+          "check": "revision",
+          "expected": 2,
+          "actual": 2
+        },
+        {
+          "check": "objects_total",
+          "expected": 14,
+          "actual": 14
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -2200.0,
+              -3000.0,
+              -350.0
+            ],
+            "max": [
+              26800.0,
+              14500.0,
+              9830.0
+            ],
+            "size": [
+              29000.0,
+              17500.0,
+              10180.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -2200,
+              -3000,
+              -350
+            ],
+            "max": [
+              26800,
+              14500,
+              9830
+            ],
+            "size": [
+              29000,
+              17500,
+              10180
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/PRIVATE_COLLAGE_1.png",
+    "inputs/reference/PRIVATE_COLLAGE_2.png",
+    "inputs/reference/PRIVATE_COLLAGE_3.png"
+  ]
+}

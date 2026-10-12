@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "saved_equals_native_reopened": true,
+  "blank_before_entity_count": 0,
+  "comparison": {
+    "schema_version": 1,
+    "status": "PASS",
+    "before_group_count": 14,
+    "replay_group_count": 14,
+    "missing_groups": [],
+    "added_groups": [],
+    "changed_groups": [],
+    "persistent_ids_ignored": true,
+    "equal_group_counts_do_not_prove_geometry_equality": true
+  },
+  "limitation": "One hidden root component has empty native name. Comparison uses a diagnostic alias; actual name retained, no geometry renamed.",
+  "test_kind": "Host validation executes EXACT website Agent-authored reconstruction.rb; no new inference and no controller-authored geometry. One independent blank replay, not two."
+}

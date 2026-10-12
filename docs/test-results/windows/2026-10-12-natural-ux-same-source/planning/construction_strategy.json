@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "current_stage": "pending",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "width": {
+      "value": 24000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受图像比例估算"
+    },
+    "depth": {
+      "value": 12000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受图像比例估算"
+    },
+    "level_1": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "统一地面基准"
+    },
+    "level_2": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受层高估算"
+    },
+    "roof_level": {
+      "value": 7200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "统一两层层高"
+    },
+    "slab_thickness": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "白色板边比例"
+    },
+    "screen_height": {
+      "value": 3800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "图1及图3屏比例"
+    },
+    "screen_gap": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "屏玻璃层次"
+    },
+    "screen_front_count": {
+      "value": 11,
+      "units": "count",
+      "provenance": "observed",
+      "source": "图1上完整板，窄转角边条另计；代表模块前复核"
+    },
+    "rail_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "露台栏杆比例"
+    },
+    "stair_width": {
+      "value": 1500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "图3上"
+    },
+    "riser": {
+      "value": 150,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "24级连接3600标高"
+    },
+    "axis": {
+      "value": "X左到右，Y正面到背面，Z向上；原点前左地面",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "统一视角地标"
+    }
+  },
+  "systems": [
+    {
+      "id": "levels_terraces",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "status": "pending",
+      "depends_on": [
+        "width",
+        "depth",
+        "level_2",
+        "roof_level",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "LEVELS"
+        ],
+        [
+          "TERRACES"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "唯一写入方负责；首轮具备悬挑和空隙；墙板贴合误差2毫米"
+      ]
+    },
+    {
+      "id": "walls_openings",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "矩形墙洞适合连续墙与组合扣洞；这是候选而非已验证执行，执行前确认助手可用；布尔失败或不可用才采用项目连续面扣洞",
+      "status": "pending",
+      "depends_on": [
+        "level_2",
+        "roof_level",
+        "width",
+        "depth"
+      ],
+      "target_paths": [
+        [
+          "WALLS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "right",
+        "rear"
+      ],
+      "notes": [
+        "全玻璃区域无背后实墙；未见洞数保持未知；读回洞与墙厚"
+      ]
+    },
+    {
+      "id": "glazing_roof_room",
+      "stage": "primary_form",
+      "role": "opening_system",
+      "method": "profile_extrusion",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "status": "pending",
+      "depends_on": [
+        "level_2",
+        "roof_level",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "GLAZING"
+        ],
+        [
+          "ROOF_PAVILION"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "玻璃嵌框10毫米、缝2毫米；屋面薄壳不填满玻璃房"
+      ]
+    },
+    {
+      "id": "stair",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "status": "pending",
+      "depends_on": [
+        "level_2",
+        "riser",
+        "stair_width"
+      ],
+      "target_paths": [
+        [
+          "STAIR"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "24级、两跑，平台1200；净投影及最高踏步先校核；到层面误差2毫米"
+      ]
+    },
+    {
+      "id": "screen_prototype",
+      "stage": "representative_module",
+      "role": "facade_detail",
+      "method": "profile_extrusion",
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "已启用并验证的带孔截面适用于带边框的平面密孔板；先检查原型尺寸及真实孔洞再实例复制。",
+      "status": "pending",
+      "depends_on": [
+        "screen_height",
+        "screen_gap",
+        "screen_front_count",
+        "width"
+      ],
+      "target_paths": [
+        [
+          "SCREEN_FRONT"
+        ],
+        [
+          "SCREEN_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "首轮带屏转角与一个孔板原型；孔宽距先近景估算；不得换成百叶或纯白面"
+      ]
+    },
+    {
+      "id": "repetition",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "status": "pending",
+      "depends_on": [
+        "screen_front_count",
+        "screen_height",
+        "rail_height"
+      ],
+      "target_paths": [
+        [
+          "SCREEN_FRONT"
+        ],
+        [
+          "SCREEN_RIGHT"
+        ],
+        [
+          "RAILINGS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "先验证代表模块再复制；每个兄弟实例唯一语义ID；单件改动先独立化"
+      ]
+    },
+    {
+      "id": "unseen_back",
+      "stage": "variants",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "合理补全背面矩形洞口，候选SAIE连续墙；启用及布尔验证失败后才项目连续面扣洞",
+      "status": "pending",
+      "depends_on": [
+        "width",
+        "depth",
+        "level_2",
+        "roof_level"
+      ],
+      "target_paths": [
+        [
+          "REAR"
+        ],
+        [
+          "INTERIOR_BASIC"
+        ]
+      ],
+      "verification_views": [
+        "rear",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "推定不标为观察；保持既定结构及流线"
+      ]
+    },
+    {
+      "id": "site_furniture",
+      "stage": "finish",
+      "role": "site",
+      "method": "prototype_instance",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用项目内组合几何和原生组件；墙体工具不适用玻璃框架、踏步、家具及多子构件组合，密孔板独立采用已启用带孔截面。",
+      "status": "pending",
+      "depends_on": [
+        "width",
+        "depth",
+        "level_2",
+        "roof_level"
+      ],
+      "target_paths": [
+        [
+          "SITE"
+        ],
+        [
+          "PLANTERS"
+        ],
+        [
+          "FURNITURE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "源比例确认后细化；只读审核不得写几何"
+      ]
+    }
+  ],
+  "notes": [
+    "几何工具本轮被保留，所有方法均未运行；执行前验证候选助手及空白模型归属",
+    "只更新计划；脚本尚未编写；待用户确认后执行",
+    "首轮含所有五个定义系统；最多两次局部修正并保护其他组；源角度视觉检查优先于细节",
+    "执行与审核职责分开；成功调用不等于源图保真"
+  ]
+}

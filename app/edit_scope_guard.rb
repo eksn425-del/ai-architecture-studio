@@ -12,18 +12,28 @@ module KStudioEditScopeGuard
       e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance)
     end
     raise 'Edit scope exceeds maximum direct groups' if groups.length > MAX_DIRECT_CHILDREN
-    names = groups.map(&:name)
+    # Group#to_component may clear the instance name. Preserve unrelated hidden
+    # prototypes by stable PID without allowing them to be editable targets.
+    names = groups.map do |group|
+      name = group.name
+      if name == '' && group.is_a?(Sketchup::ComponentInstance) && group.hidden?
+        "__PROTECTED_COMPONENT_PID_#{group.persistent_id}"
+      else
+        name
+      end
+    end
     raise 'Edit scope requires unambiguous named direct groups' if names.any? { |name| !name.is_a?(String) || name.empty? }
     raise 'Edit scope has duplicate direct group names' unless names.uniq.length == names.length
     result = {}
-    groups.each do |group|
+    groups.zip(names).each do |group, identity|
       items = group.is_a?(Sketchup::Group) ? group.entities : group.definition.entities
       count = items.count { |item| item.is_a?(Sketchup::Group) || item.is_a?(Sketchup::ComponentInstance) }
-      result[group.name] = {
+      result[identity] = {
         'pid' => group.persistent_id,
         'locked' => group.locked?,
         'children' => count,
-        'bounds' => KStudioStultusBounds.bounds_mm(group.bounds)
+        'bounds' => KStudioStultusBounds.bounds_mm(group.bounds),
+        'hidden' => group.hidden?
       }
     end
     result
@@ -36,13 +46,14 @@ module KStudioEditScopeGuard
     raise 'Edit scope target names must be unique' unless allowed_names.uniq.length == allowed_names.length
     allowed_names.each do |name|
       raise 'Edit scope target name is invalid' unless name.is_a?(String) && !name.empty?
+      raise 'Anonymous prototype identities are protected, not editable targets' if name.start_with?('__PROTECTED_COMPONENT_PID_')
     end
     protected = before.keys - allowed_names
     protected.each do |name|
       prior = before[name]
       current = after[name]
       raise "Edit scope regression: protected #{name} was removed" if current.nil?
-      %w[pid locked children].each do |field|
+      %w[pid locked children hidden].each do |field|
         raise "Edit scope regression: protected #{name} #{field} changed" unless
           prior[field] == current[field]
       end

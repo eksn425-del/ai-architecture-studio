@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "dimensions_mm": {
+    "overall_width": 24000,
+    "overall_depth": 12000,
+    "level_height": 3600,
+    "floor_count": 2
+  },
+  "views": {
+    "front": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "一层屏下连续玻璃带",
+        "二层左玻璃、中央木墙、右密孔屏",
+        "正面暂观察11完整孔板，另有转角窄条"
+      ],
+      "notes": [
+        "图1上及图3下；玻璃洞数与框格数分开",
+        "估算：左二层玻璃X3500–6500/Z3600–6900；右玻璃X10000–23000/Z0–3300及Z3600–6900",
+        "屏底Z3800、高3800、离玻璃450；玻璃嵌框10；植物及屏后未清晰门数保持未知"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "延续两层与黑框玻璃、木墙材料"
+      ],
+      "notes": [
+        "无完整源视图；不复制前屏及楼梯",
+        "位置Y12000；待按流线协调推定洞位"
+      ]
+    },
+    "left": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "上下悬挑露台、玻璃栏杆、退后玻璃面"
+      ],
+      "notes": [
+        "图2下；栏杆后竖框受家具遮挡",
+        "估算主体退后2500；一层玻璃Z0–3300，二层玻璃Z3600–6900；框分格需对照近景"
+      ]
+    },
+    "right": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "密孔屏沿侧面转角",
+        "一层玻璃在花池后延伸"
+      ],
+      "notes": [
+        "图1下侧面透视；完整侧屏板数待细看",
+        "位置X24000；玻璃Z0–3300，二层屏Z3800–7600；后段未见保持推定"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "开放平屋顶露台及独立玻璃房薄屋面",
+    "parapet": "开放露台玻璃栏杆",
+    "divisions": [
+      "左侧图示六组伞座",
+      "右后玻璃房"
+    ],
+    "notes": [
+      "图2上；屋顶面Z7200，玻璃房顶估算9900；板厚250；栏杆高1100",
+      "玻璃房正面暂观察7框格，不能视为7独立洞或门；其他面数量未知"
+    ]
+  },
+  "global_features": [
+    "白色板边及孔屏、木色墙与板下沿、黑框透明玻璃",
+    "独立可编辑墙、洞、框、玻璃、楼梯、栏杆、屏板、屋面"
+  ],
+  "user_confirmed": [
+    "接受估算尺寸",
+    "背面合理补全",
+    "多视角统一及整体比例优先"
+  ],
+  "inferred": [
+    "所有毫米尺度及净距",
+    "遮挡门窗数量不强行补成观察值",
+    "室内简化"
+  ]
+}

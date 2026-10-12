@@ -1,0 +1,161 @@
+[
+  {
+    "stage": "838993b1314d4ac4bceccb3cda534c3d.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"screen prototype size mismatch\",\n    \"backtrace\": [\n      \"white_terrace_155f7.rb:74:in `block in <main>'\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\"\n    ]\n  }\n}",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "838993b1314d4ac4bceccb3cda534c3d.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "838993b1314d4ac4bceccb3cda534c3d.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Edit scope requires unambiguous named direct groups\",\n    \"backtrace\": [\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\",\n      \"<private-local-path>\"\n    ]\n  }\n}",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "838993b1314d4ac4bceccb3cda534c3d.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex app-server communication failed: Timed out waiting for Codex app-server event.",
+    "input_tokens": 1456787,
+    "output_tokens": 8000,
+    "tool_call_count": 27,
+    "failed_tool_calls": 3,
+    "latency_ms": 900593
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique 六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_capture_canonical_view",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_capture_canonical_view",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_capture_canonical_view",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_capture_canonical_view",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_capture_canonical_view",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "kind": "actual_model_tool_failure",
+    "event": "tool_result",
+    "tool": "sketchup_capture_canonical_view",
+    "success": false,
+    "error": "The active SketchUp model GUID changed; inspect the current document before modeling.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "62263314b14d4ebe835d240c0794cbc6.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex app-server communication failed: Timed out waiting for Codex app-server event.",
+    "input_tokens": 2425299,
+    "output_tokens": 3604,
+    "tool_call_count": 41,
+    "failed_tool_calls": 7,
+    "latency_ms": 900469
+  },
+  {
+    "stage": "47a383e2cc234c0280ad168b99d62dbd.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 2:52 PM.",
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "latency_ms": 173344
+  },
+  {
+    "kind": "developer_diagnostic_error",
+    "reason": "First readonly fingerprint invocation lacked PYTHONPATH; no model call. Corrected environment and reran."
+  },
+  {
+    "kind": "ui_restore_hazard",
+    "reason": "After restart the persisted provider selected DeepSeek; controller explicitly selected authorized Sol Low preset before inference. One premature reload send showed project missing; no inference or paid call."
+  },
+  {
+    "kind": "native_ui_test_retry",
+    "reason": "First attempted Move did not change fingerprints; second actual Move did. Desktop focus and modal timing required fresh observations."
+  },
+  {
+    "kind": "strict_scope_gap",
+    "reason": "Shared hidden screen prototype material fingerprint changed despite metadata-only protected receipt."
+  }
+]

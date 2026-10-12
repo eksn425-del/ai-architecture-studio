@@ -1,0 +1,51 @@
+{
+  "discussion_no_write": true,
+  "actual_full_hash_changed_groups": [
+    "SCREEN_FRONT",
+    "SCREEN_RIGHT",
+    ""
+  ],
+  "non_screen_named_groups_unchanged": 11,
+  "anonymous_prototype_changed": true,
+  "strict_all_non_targets_status": "FAIL",
+  "explanation": "The hidden unnamed prototype shares the SCREEN component definition. Material edits also changed its fingerprint although the metadata-only edit scope receipt passes. Eleven unrelated named groups match exactly; do not claim all 12 protected groups have unchanged full geometry/material hashes. Edge visibility is not included in the full hash traversal.",
+  "precommit": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "LEVELS",
+      "TERRACES",
+      "GLAZING",
+      "ROOF_PAVILION",
+      "STAIR",
+      "RAILINGS",
+      "SITE",
+      "PLANTERS",
+      "FURNITURE",
+      "WALLS_CENTRAL",
+      "REAR_WALL"
+    ]
+  },
+  "scope_receipt": {
+    "status": "passed",
+    "allowed_top_level": [
+      "SCREEN_FRONT",
+      "SCREEN_RIGHT"
+    ],
+    "protected_top_level_count": 12,
+    "unchanged_protected_groups": [
+      "LEVELS",
+      "TERRACES",
+      "GLAZING",
+      "ROOF_PAVILION",
+      "STAIR",
+      "RAILINGS",
+      "SITE",
+      "PLANTERS",
+      "FURNITURE",
+      "WALLS_CENTRAL",
+      "REAR_WALL",
+      "__PROTECTED_COMPONENT_PID_80698"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-12-natural-ux-same-source",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "899581b147187581e152eaaf1deee359383e9276",
+  "source_case": "Owner explicitly authorized reuse of the same three private whole collages / seven views, one flat-roof perforated-screen terrace building; originals withheld, not a fabricated new case.",
+  "model": {
+    "requested": "gpt-6.1-sol",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "runtime": "real K Studio website Codex App Server proxy, no paid API"
+  },
+  "environment": {
+    "windows": "Windows 11",
+    "sketchup": "2024 / 24.0.484",
+    "bridge": "existing Kongxing, version not independently measured",
+    "adai": "0.5.39 enabled for geometry"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true
+  },
+  "blockers": [
+    "Primary and screen correction both interrupted at 900 seconds",
+    "Second correction blocked by real model usage limit",
+    "Stair solid fill, thin slab bands, roof clerestory missing, joints not fully accepted",
+    "Hidden prototype aliases screen definition: metadata-only fence is not full content KEEP",
+    "Construction progress cannot certify unnamed prototype"
+  ],
+  "acceptance": {
+    "natural_website": "PASS for upload/dialogue/approval and screen edit; end-to-end PARTIAL",
+    "first_pass_fidelity": "FAIL",
+    "screen_visual_improvement": "PASS for white appearance, full reconstruction PARTIAL",
+    "discussion_no_write": "PASS",
+    "strict_all_non_target_keep": "FAIL for hidden shared prototype, eleven unrelated named groups PASS",
+    "download_native_edit_save_reopen": "PASS",
+    "one_blank_replay": "PASS measured face/edge/material fingerprints including diagnostic alias; no hierarchy/naming PASS",
+    "efficiency": "FAIL user-visible timeout; total token usage PARTIAL"
+  }
+}
