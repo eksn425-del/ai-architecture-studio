@@ -29,3 +29,13 @@ def test_selection_never_silently_overrides_user_requested_model_or_effort():
           requested_model="gpt-6.1-sol",requested_effort="low",
           actual_model="gpt-6-luna",actual_effort="max")
     assert wrong["status"] == "MODEL_IDENTITY_MISMATCH"
+
+
+def test_explicit_real_website_sol_medium_provenance():
+    args = dict(route_provider="codex-app-server", requested_model="gpt-6.1-sol", requested_effort="medium", target_effort="medium")
+    pending = assess_sol_low_surrogate(**args)
+    assert pending["status"] == "CONFIGURED_NOT_EXECUTED" and pending["target_effort"] == "medium"
+    matched = assess_sol_low_surrogate(**args, actual_model="gpt-6.1-sol", actual_effort="medium")
+    assert matched["status"] == "REAL_SURROGATE_IDENTITY_VERIFIED" and not matched["paid_gateway_requests_proven"]
+    mismatch = assess_sol_low_surrogate(**args, actual_model="gpt-6.1-sol", actual_effort="low")
+    assert mismatch["status"] == "MODEL_IDENTITY_MISMATCH"
