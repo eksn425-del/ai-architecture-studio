@@ -840,3 +840,38 @@ def test_canonical_capture_dispatch_persists_camera_and_revision_provenance(tmp_
     assert path.is_file()
     stored = json.loads(path.with_suffix(".evidence.json").read_text(encoding="utf-8"))
     assert stored["camera"] == evidence["camera"]
+
+
+def test_multi_view_requires_each_observed_source_image_pair(tmp_path):
+    from app.modeling_quality import require_observed_source_view_pairs
+    project = tmp_path / "project"
+    refs = []
+    for name in ("front.png", "right.png"):
+        path = project / "inputs/reference" / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"private source")
+        refs.append("inputs/reference/" + name)
+    evidence = {"fidelity_mode": "multi_view_reconstruction", "exterior_views": {
+        "front": {"provenance": "observed", "source_refs": [refs[0]]},
+        "right": {"provenance": "observed", "source_refs": [refs[1]]},
+    }}
+    with pytest.raises(ValueError, match="missing CURRENT camera pairs"):
+        require_observed_source_view_pairs(project, evidence, [{"source_ref": refs[0]}])
+    result = require_observed_source_view_pairs(project, evidence, [{"source_ref": r} for r in refs])
+    assert result["observed_sources"] == refs
+    assert result["required"]
+
+
+def test_multi_panel_single_source_image_is_not_invented_as_two_files(tmp_path):
+    from app.modeling_quality import require_observed_source_view_pairs
+    project = tmp_path / "project"
+    path = project / "inputs/reference/sheet.png"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b"one collage")
+    ref = "inputs/reference/sheet.png"
+    evidence = {"fidelity_mode": "multi_view_reconstruction", "exterior_views": {
+        "front": {"provenance": "observed", "source_refs": [ref]},
+        "right": {"provenance": "observed", "source_refs": [ref]},
+    }}
+    result = require_observed_source_view_pairs(project, evidence, [{"source_ref": ref}])
+    assert result["observed_sources"] == [ref]
