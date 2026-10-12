@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Owner Medium continuation handoff — bounded test completed, budget exhausted
+
+Issue #12 native website continuation is now PARTIAL with source quality FAIL: [real before/after evidence](docs/test-results/windows/2026-10-12-owner-medium-continuation/README.md). Same two-source project/r3 backed up; real site Sol6.1 Medium committed r4 once, follow-up stopped without geometry by unchanged cumulative budget. Historic Builder input now 7,888,700 against 8M with 200k delivery reserve; no further Builder turn without an explicit owner budget decision. Preserve r3/r4/private sources and all failures. Do not resume decorative retries, reset usage or create another project to evade the cap. Web-side review should address repeated same-revision screenshots/Critic overhead and source spatial edits; native download/reopen/edit/replay remain NOT_RUN for this run. Outer controller unchanged, paid API NOT_RUN.
+
 ## 2026-10-12 owner override: SAME personal two-view r3, site Sol Medium
 
 Codex next entry is [same-project medium continuation](docs/NEXT_OWNER_CONTINUATION_SOL_MEDIUM_2026-10-12.md). This supersedes historical new-source, Sol Low and prior three-collage instructions. The user authorizes the existing private two-image website r3 to continue, with backup/readback and original source order. Outer Codex controller model must NOT change; WEBSITE only requests actual gpt-6.1-sol / medium through scripts/dev-sol-medium.ps1 and verifies real thread/turn identity, no paid API. Keep the original FAIL, do not clear budget receipts (previous recorded Builder input 4,488,068), do not reset original model/full rebuild. Agent prioritizes both observed source angles, body/enclosure/folded roof/stair topology before dense panels, same chat with normal Chinese/mouse and source-scope KEEP. If Windows/private inputs/remaining budget absent, BLOCKED not PASS. Web-side PR regression is NOT native quality acceptance.

@@ -1,3 +1,13 @@
+# 2026-10-12 Issue #12 同项目 Sol Medium 真机续做交接：整体 PARTIAL，视觉 FAIL
+
+[完整报告与两角度前后截图](test-results/windows/2026-10-12-owner-medium-continuation/README.md)。用户现有双图/r3备份后，用真实网站 Sol6.1 Medium 自然中文修正，同根26048到r4一次提交；后续右上凹口自然修改在原项目预算保护下未提交。外层模型不变、无付费API/无整栋重建。
+
+实测身份PASS，两源CURRENT配对/当前六图PASS；完整顶点/边/面材质证明8保护对象r3→r4未变，第二次回合15对象仍同r4。ADAI profile真实1次改善左上外伸折面，主形/中央围合/右上凹口/坡道仍视觉FAIL，独立Medium Critic NEEDS_FIX。首次903秒超时，第二次567秒预算中断；本批Builder3.400632M输入/73工具/2失败，累计7.888700M，8M/200k预留没变。
+
+修deadline误报通信故障与嵌套Critic覆盖进度计数（各2回归）；398passed/2skip。新活动回合的进度UI修后验收NOT_RUN。原生保存r4留私有副本，下载重开编辑/严格重放NOT_RUN，完整baseline未整合r4补丁，不虚报交付。原项目进一步Builder已阻断，恢复必须有明确预算决定；网页端先审查重复六图/重复审查/上下文与一次空间修正衔接，勿继续无界修图或换项目避预算。
+
+---
+
 # HANDOFF — 2026-10-12 owner authorizes SAME existing r3 with SITE Sol Medium
 
 This overrides older Low/fresh-image runbooks below. [Sole next Windows task](NEXT_OWNER_CONTINUATION_SOL_MEDIUM_2026-10-12.md). New web PR makes multi-view independent review fail closed without current camera pair for each actual observed source file, relocates the plan into readable inline chat, offers exact website-only gpt-6.1-sol/medium startup and provenance. Outer Codex controller unchanged. No paid API. Windows tester back up original private two-view project/revision 3, verify source and native root/GUID, project cumulative budget (historic 4.488M input), use natural Chinese/mouse and source-matched before/after. Only bounded local edits; preserve original FAIL/SKP, private files and actual receipts. Web-side CI != new native model success. If Windows/medium/provider/budget unavailable mark BLOCKED and ask owner, no silent fallback.

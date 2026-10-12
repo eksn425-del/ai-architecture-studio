@@ -656,7 +656,17 @@ class CodexAppServerRuntime:
             )
         except NativeAgentUnavailable as error:
             raise interrupted(error)
-        except (BrokenPipeError, OSError, TimeoutError, json.JSONDecodeError) as error:
+        except TimeoutError as error:
+            # The queue waits until the turn deadline. Expiry is the configured
+            # wall-clock stop, not evidence of a broken provider connection.
+            if time.monotonic() >= deadline:
+                raise interrupted(NativeAgentUnavailable(
+                    f"Codex agent turn exceeded {self.timeout_seconds} seconds."
+                )) from error
+            raise interrupted(NativeAgentUnavailable(
+                f"Codex app-server communication failed: {error}"
+            )) from error
+        except (BrokenPipeError, OSError, json.JSONDecodeError) as error:
             raise interrupted(NativeAgentUnavailable(f"Codex app-server communication failed: {error}")) from error
         finally:
             if process.poll() is None:

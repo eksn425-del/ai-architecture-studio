@@ -1,0 +1,40 @@
+[
+  {
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique 六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex app-server communication failed: Timed out waiting for Codex app-server event.",
+    "input_tokens": 1929892,
+    "output_tokens": 11020,
+    "tool_call_count": 47,
+    "failed_tool_calls": 1,
+    "latency_ms": 903078
+  },
+  {
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique 六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Project input-token budget exceeded. Preserve committed model and stop writing; do not retry the same turn.",
+    "input_tokens": 1470740,
+    "output_tokens": 6667,
+    "tool_call_count": 26,
+    "failed_tool_calls": 1,
+    "latency_ms": 567734
+  }
+]

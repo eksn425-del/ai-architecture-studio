@@ -1,0 +1,433 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/f15eca3833-image.png",
+    "sources": [
+      {
+        "path": "inputs/reference/f15eca3833-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "入口广场近正面；红柱、中央玻璃带、左翼开洞及右侧坡道"
+      },
+      {
+        "path": "inputs/reference/2cc8f551ee-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "同一建筑右前斜视；右侧长屏风、悬挑、楼梯和坡道"
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/f15eca3833-image.png",
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      },
+      "rear": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "无完整视图，按已见体系推定"
+        ]
+      },
+      "left": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "无完整视图，按已见体系推定"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/f15eca3833-image.png",
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "仅看见折面和屏风顶缘，非完整屋顶证据"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面，内部拓扑不可当作已知"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": []
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "无独立室内资料；两外景玻璃后局部可见室内"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "主要层高估算基准",
+        "value_mm": 4000,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f15eca3833-image.png"
+      }
+    ],
+    "hard_constraints": [
+      "两图约束同一建筑；不得独立设计两套体量",
+      "保持红色架空柱、错层悬挑、白色穿孔屏风与屋顶红色折面",
+      "保持图示玻璃凹口、外楼梯、露台和右侧坡道；遮挡不代表缺失"
+    ],
+    "assumptions": [
+      "用户已确认上一轮推荐用途、范围和4米主要层高估算",
+      "约32×24米、高约26米为初始低置信估算，不是测量",
+      "未观察到明确跨视图矛盾；遮挡部分仍不确定"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 56188,
+    "input_tokens": 38329,
+    "output_tokens": 682,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE 1 is a near-frontal ground-level view; SOURCE 2 looks along the right flank. Shared landmarks are the stepped white perforated enclosures, narrow central tower with small vertically spaced windows, recessed upper-right glazing, red columns and elevated platforms, red folded roof surfaces, external stairs and pale ramp. CURRENT captures these broad components, but their enclosure depth, roof silhouette and circulation assemblies differ substantially. The supplied “source-matched” views still differ in camera angle, so exact dimensions remain uncertain. Rear geometry and concealed joints cannot be validated from these sources; screenshots alone cannot establish physical connections.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "The upper-right recess is replaced by a broad, nearly continuous glass curtain hanging beneath the overhang, with mullions extending below the glazing. SOURCE shows glazing set back within a substantial white enclosure; SOURCE 2 also shows a white enclosed volume beneath the right flank. The central tower is blank white instead of continuing the perforated enclosure.",
+      "action": "Locally correct the recessed wall and glass boundaries, restore the source-visible right-flank enclosure, and terminate frames at actual slab/window edges. Continue the perforated finish across the tower while retaining its small openings. Verify wall–slab–glass contacts."
+    },
+    {
+      "priority": 2,
+      "view": "roof",
+      "problem": "SOURCE shows prominent upright red folded surfaces between uneven white screened peaks. CURRENT substitutes a low red roof arrangement, an exposed horizontal gray bridge/slab and a blank central gable; the defining skyline and fold relationships are lost.",
+      "action": "Adjust the existing visible folded surfaces and adjoining screen profiles to match both source silhouettes, including the tall red central fin and its descending connection toward the right volume. Correct only source-visible edges; hidden roof geometry remains uncertain."
+    },
+    {
+      "priority": 3,
+      "view": "right",
+      "problem": "CURRENT stairs read as thin individual treads with little supporting body, whereas SOURCE shows substantial red folded stair/platform undersides. The pale ramp becomes a sharp crossing arrangement whose landing connection is unclear, rather than the source’s continuous rising route around the base.",
+      "action": "Patch stair soffits, platform thicknesses and landing connections; reshape the visible ramp run and parapets to follow SOURCE 2. Check that stairs and ramp meet their landings without unintended intersections or floating ends."
+    }
+  ],
+  "keep": [
+    "The red horizontal divider between the two glazed levels of the lower-left bay.",
+    "The small rectangular opening shape and vertical alignment on the central tower."
+  ],
+  "model_revisions": {
+    "reconstruction_357fb": 3
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-c0c3e80761.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.5,
+          -123.0,
+          12.992
+        ],
+        "target_m": [
+          17.5,
+          6.5,
+          12.992
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-6e8ba8198a.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.5,
+          136.0,
+          12.992
+        ],
+        "target_m": [
+          17.5,
+          6.5,
+          12.992
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-ceae0fd3fb.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          -113.0,
+          6.5,
+          12.992
+        ],
+        "target_m": [
+          17.5,
+          6.5,
+          12.992
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-7f9d909caa.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          148.0,
+          6.5,
+          12.992
+        ],
+        "target_m": [
+          17.5,
+          6.5,
+          12.992
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-827d20f581.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.5,
+          6.5,
+          134.0
+        ],
+        "target_m": [
+          17.5,
+          6.5,
+          12.45
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-5d960ea3b8.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          124.24000000000001,
+          -99.24000000000001,
+          77.84
+        ],
+        "target_m": [
+          17.5,
+          6.5,
+          12.992
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/f15eca3833-image.png",
+      "current_view": "outputs/renders/agent-view-db0458be36.png",
+      "label": "",
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      }
+    },
+    {
+      "source_ref": "inputs/reference/2cc8f551ee-image.png",
+      "current_view": "outputs/renders/agent-view-01317e3f42.png",
+      "label": "",
+      "model_revisions": {
+        "reconstruction_357fb": 3
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": true,
+    "mode": "multi_view_reconstruction",
+    "observed_sources": [
+      "inputs/reference/2cc8f551ee-image.png",
+      "inputs/reference/f15eca3833-image.png"
+    ],
+    "paired_sources": [
+      "inputs/reference/2cc8f551ee-image.png",
+      "inputs/reference/f15eca3833-image.png"
+    ]
+  },
+  "writer_verifications": {
+    "reconstruction_357fb": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 26048,
+          "actual": 26048
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 14,
+          "actual": 14
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -5000.0,
+              -15000.0,
+              -1100.0
+            ],
+            "max": [
+              40000.0,
+              28000.0,
+              26000.0
+            ],
+            "size": [
+              45000.0,
+              43000.0,
+              27100.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -5000,
+              -15000,
+              -1100
+            ],
+            "max": [
+              40000,
+              28000,
+              26000
+            ],
+            "size": [
+              45000,
+              43000,
+              27100
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/2cc8f551ee-image.png",
+    "inputs/reference/f15eca3833-image.png"
+  ]
+}

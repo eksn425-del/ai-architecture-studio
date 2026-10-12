@@ -64,6 +64,23 @@ def test_native_token_budget_aborts_before_unbounded_builder_work(tmp_path, monk
     assert terminal["status"] == "interrupted"
 
 
+@pytest.mark.parametrize("deadline_expired", [True, False])
+def test_event_wait_timeout_distinguishes_turn_deadline_from_transport(tmp_path, monkeypatch, deadline_expired):
+    runtime, project, workspace = _fixture(tmp_path, monkeypatch, [])
+    clock = [0.0]
+    monkeypatch.setattr(subject.time, "monotonic", lambda: clock[0])
+    def timeout(*args):
+        if deadline_expired:
+            clock[0] = runtime.timeout_seconds + 1
+        raise TimeoutError("Timed out waiting for Codex app-server event.")
+    monkeypatch.setattr(runtime, "_next_event", timeout)
+    expected = "turn exceeded" if deadline_expired else "communication failed"
+    with pytest.raises(subject.NativeAgentUnavailable, match=expected) as exc:
+        _run(runtime, project, workspace)
+    assert exc.value.partial_result.status == "interrupted"
+    assert exc.value.partial_result.input_tokens is None
+
+
 def test_native_tool_budget_stops_before_dispatch(tmp_path, monkeypatch):
     monkeypatch.setenv("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS", "1")
     calls = [{"method": "item/started", "params": {"item": {"type": "commandExecution"}}},

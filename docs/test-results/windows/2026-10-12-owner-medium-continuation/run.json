@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-12-owner-medium-continuation",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "3dda2a40ab9d228ee3390992070dcf6603f6a75c",
+  "source_case": "Owners same two private images, existing r3; no new building",
+  "model": {
+    "requested": "gpt-6.1-sol / medium",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "Real K Studio website Codex App Server proxy; paid API NOT_RUN"
+  },
+  "environment": {
+    "sketchup": "SketchUp 2024 / 24.0.484",
+    "bridge": "Kongxing",
+    "adai": "0.5.39 enabled"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "FAIL",
+    "needs_fix": true
+  },
+  "blockers": [
+    "First turn 900-second deadline after r4 commit",
+    "Follow-up cumulative input budget interrupted with no new commit",
+    "Right enclosure, roof folds, core screen and ramp still differ",
+    "No this-run native download/reopen/edit/replay acceptance"
+  ]
+}

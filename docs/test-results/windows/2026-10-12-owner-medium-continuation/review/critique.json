@@ -1,0 +1,435 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/f15eca3833-image.png",
+    "sources": [
+      {
+        "path": "inputs/reference/f15eca3833-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "入口广场近正面；红柱、中央玻璃带、左翼开洞及右侧坡道"
+      },
+      {
+        "path": "inputs/reference/2cc8f551ee-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "同一建筑右前斜视；右侧长屏风、悬挑、楼梯和坡道"
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/f15eca3833-image.png",
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      },
+      "rear": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "无完整视图，按已见体系推定"
+        ]
+      },
+      "left": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "无完整视图，按已见体系推定"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/f15eca3833-image.png",
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "仅看见折面和屏风顶缘，非完整屋顶证据"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面，内部拓扑不可当作已知"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": []
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "无独立室内资料；两外景玻璃后局部可见室内"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "主要层高估算基准",
+        "value_mm": 4000,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f15eca3833-image.png"
+      }
+    ],
+    "hard_constraints": [
+      "两图约束同一建筑；不得独立设计两套体量",
+      "保持红色架空柱、错层悬挑、白色穿孔屏风与屋顶红色折面",
+      "保持图示玻璃凹口、外楼梯、露台和右侧坡道；遮挡不代表缺失",
+      "User correction 2026-10-12: upper-right recess white inner enclosure; glazing on recessed right side. Preserve roof, left and stairs."
+    ],
+    "assumptions": [
+      "用户已确认上一轮推荐用途、范围和4米主要层高估算",
+      "约32×24米、高约26米为初始低置信估算，不是测量",
+      "未观察到明确跨视图矛盾；遮挡部分仍不确定"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 158735,
+    "input_tokens": 38071,
+    "output_tokens": 790,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "源图1为近正面、源图2为前右侧；两图以中央窄窗竖向体量、左侧双层开口、右侧高悬挑白色围护和红柱定位同一建筑。可见系统包括白色分格穿孔围护、退入的玻璃空间、红色折面、架空平台、外楼梯及白色坡道。当前保留了这些系统的大致位置，但右侧凹入空间、左上斜向连接和下部交通连接仍有明显差异。背面、完整屋顶平面和绝对尺寸未获源图证实；截图中的接触也不能证明实体接合。",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "源图右侧悬挑下方以深凹白色内壁为主，玻璃集中于右侧转角退入处；当前用跨越大部分正面的高玻璃幕墙填满凹口，改变了主要虚实比例和空间深度。",
+      "action": "局部调整右侧幕墙的范围与退距，补齐源图可见的白色内壁及小窗，按两张源图校正侧面围护下缘与玻璃、楼板的连接。"
+    },
+    {
+      "priority": 2,
+      "view": "front",
+      "problem": "源图左上红色折面下方有带连续白色侧壁的斜向连接，中央高体量也呈白色分格围护；当前斜向连接变成裸露直跑楼梯，中央呈平滑实墙，左上红色折面显得独立悬置。",
+      "action": "保留现有连接位置，局部恢复斜向连接的白色实体侧壁和平台接合；补中央可见围护分格，并校正左上红色折面的高度、尺度及其与周边构件的关系。"
+    },
+    {
+      "priority": 3,
+      "view": "right",
+      "problem": "源图下部白色坡道连续转向并接入平台，红色楼梯通过明确平台组织；当前白色斜段与横向连接呈折断、错位外观，中央红梯连续上穿玻璃带，未再现源图的分段连接。",
+      "action": "局部调整坡道转折、落地端及平台标高，按源图重定位红梯各段与休息平台；核实坡道、楼梯和平台实体相接，避免穿入玻璃或留下非预期空隙。"
+    }
+  ],
+  "keep": [
+    "左侧开口上下两层的数量与叠置关系。",
+    "中央竖向体量正面三处窄窗的排列。",
+    "右侧悬挑前缘两根主要红柱的相对布置。"
+  ],
+  "model_revisions": {
+    "reconstruction_357fb": 4
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-be5e8ef2a3.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.661,
+          -123.7728,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-608f96033b.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.661,
+          136.77280000000002,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-b39a2b8deb.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          -113.7728,
+          6.5,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-8e98cde9c7.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          149.09480000000002,
+          6.5,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-d3e770e023.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.661,
+          6.5,
+          134.7891
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          12.458149999999998
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-347e9d2388.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          125.16478400000001,
+          -99.84278400000001,
+          78.227244
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/f15eca3833-image.png",
+      "current_view": "outputs/renders/agent-view-f016190f25.png",
+      "label": "Source 1 near-front",
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      }
+    },
+    {
+      "source_ref": "inputs/reference/2cc8f551ee-image.png",
+      "current_view": "outputs/renders/agent-view-5a3406797d.png",
+      "label": "Source 2 front-right",
+      "model_revisions": {
+        "reconstruction_357fb": 4
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": true,
+    "mode": "multi_view_reconstruction",
+    "observed_sources": [
+      "inputs/reference/2cc8f551ee-image.png",
+      "inputs/reference/f15eca3833-image.png"
+    ],
+    "paired_sources": [
+      "inputs/reference/2cc8f551ee-image.png",
+      "inputs/reference/f15eca3833-image.png"
+    ]
+  },
+  "writer_verifications": {
+    "reconstruction_357fb": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 26048,
+          "actual": 26048
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 15,
+          "actual": 15
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -5000.0,
+              -15000.0,
+              -1100.0
+            ],
+            "max": [
+              40322.0,
+              28000.0,
+              26016.3
+            ],
+            "size": [
+              45322.0,
+              43000.0,
+              27116.3
+            ]
+          },
+          "actual": {
+            "min": [
+              -5000,
+              -15000,
+              -1100
+            ],
+            "max": [
+              40322,
+              28000,
+              26016.3
+            ],
+            "size": [
+              45322,
+              43000,
+              27116.3
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/2cc8f551ee-image.png",
+    "inputs/reference/f15eca3833-image.png"
+  ]
+}

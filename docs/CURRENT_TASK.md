@@ -1,3 +1,13 @@
+# 2026-10-12 Issue #12 同项目 Sol Medium 真机续做交接：整体 PARTIAL，视觉 FAIL
+
+[完整报告与两角度前后截图](test-results/windows/2026-10-12-owner-medium-continuation/README.md)。用户现有双图/r3备份后，用真实网站 Sol6.1 Medium 自然中文修正，同根26048到r4一次提交；后续右上凹口自然修改在原项目预算保护下未提交。外层模型不变、无付费API/无整栋重建。
+
+实测身份PASS，两源CURRENT配对/当前六图PASS；完整顶点/边/面材质证明8保护对象r3→r4未变，第二次回合15对象仍同r4。ADAI profile真实1次改善左上外伸折面，主形/中央围合/右上凹口/坡道仍视觉FAIL，独立Medium Critic NEEDS_FIX。首次903秒超时，第二次567秒预算中断；本批Builder3.400632M输入/73工具/2失败，累计7.888700M，8M/200k预留没变。
+
+修deadline误报通信故障与嵌套Critic覆盖进度计数（各2回归）；398passed/2skip。新活动回合的进度UI修后验收NOT_RUN。原生保存r4留私有副本，下载重开编辑/严格重放NOT_RUN，完整baseline未整合r4补丁，不虚报交付。原项目进一步Builder已阻断，恢复必须有明确预算决定；网页端先审查重复六图/重复审查/上下文与一次空间修正衔接，勿继续无界修图或换项目避预算。
+
+---
+
 # CURRENT — 2026-10-12 SAME owner r3 source-first Medium continuation
 
 User explicitly approves an Agent code optimization and continued REAL K Studio website test on their existing private TWO-photo r3 building, not a fresh building nor old three-collage. This branch contains source-file-complete multi-view independent review gate (two separate source files => two current source-matched angles, one collage file stays one), a readable inline plan rather than overlapping composer popover, and explicit website-only gpt-6.1-sol / MEDIUM test startup/provenance. Outer Codex controller remains unchanged. These are engineering changes, not native PASS. Once PR reviewed/merged, Windows Codex must follow [sole same-project owner runbook](NEXT_OWNER_CONTINUATION_SOL_MEDIUM_2026-10-12.md), back up exact r3, inspect project budget and root/GUID, keep prior 4,488,068 reported historical input, use normal Chinese and real website mouse, make only source-backed local edits in existing model. Do not reset budget/rewrite historical FAIL or claim paid API test. Previous evidence CI manifest mismatch pending normalized-hash fix; do not hide it.

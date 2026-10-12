@@ -36,6 +36,7 @@ from .model_router import DeterministicModelRouter, ModelRoute
 from .provider_readiness import readiness_matrix
 from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
+from .agent_progress import select_turn_progress_log
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
 from .store import ProjectStore, safe_project_id, utc_now
@@ -1510,12 +1511,12 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if not active:
             return {"running": False}
         started = active["started"]
-        events = sorted((project_dir / "runtime/agent_events").glob("*.jsonl"), key=lambda p: p.stat().st_mtime)
+        event_log = select_turn_progress_log(list((project_dir / "runtime/agent_events").glob("*.jsonl")), started)
         calls = failures = 0
         api_started = api_responded = script_written = False
         stage = "正在读取资料与思考"
-        if events and events[-1].stat().st_mtime >= started:
-            for line in events[-1].read_bytes()[-262144:].decode("utf-8", errors="replace").splitlines():
+        if event_log is not None:
+            for line in event_log.read_bytes()[-262144:].decode("utf-8", errors="replace").splitlines():
                 try:
                     item = json.loads(line)
                 except ValueError:

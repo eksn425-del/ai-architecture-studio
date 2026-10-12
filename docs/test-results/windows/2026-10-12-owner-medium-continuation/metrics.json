@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1470812,
+  "tool_call_count": 73,
+  "failed_tool_calls": 2,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "input_tokens": 3400632,
+  "output_tokens": 17687,
+  "token_source": "Actual native terminal telemetry; excludes Critic usage separately listed",
+  "builder_turns": [
+    {
+      "event": "turn_interrupted",
+      "status": "interrupted",
+      "reason": "Codex app-server communication failed: Timed out waiting for Codex app-server event.",
+      "input_tokens": 1929892,
+      "output_tokens": 11020,
+      "tool_call_count": 47,
+      "failed_tool_calls": 1,
+      "latency_ms": 903078
+    },
+    {
+      "event": "turn_interrupted",
+      "status": "interrupted",
+      "reason": "Project input-token budget exceeded. Preserve committed model and stop writing; do not retry the same turn.",
+      "input_tokens": 1470740,
+      "output_tokens": 6667,
+      "tool_call_count": 26,
+      "failed_tool_calls": 1,
+      "latency_ms": 567734
+    }
+  ],
+  "historical_builder_input": 4488068,
+  "cumulative_builder_input": 7888700,
+  "project_cap": 8000000,
+  "delivery_reserve": 200000,
+  "independent_critics": [
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 56188,
+      "input_tokens": 38329,
+      "output_tokens": 682,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 77187,
+      "input_tokens": 38614,
+      "output_tokens": 556,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 158735,
+      "input_tokens": 38071,
+      "output_tokens": 790,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    }
+  ]
+}
