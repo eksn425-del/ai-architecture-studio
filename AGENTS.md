@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Latest owner handoff — product usefulness before the next test (2026-10-12)
+
+The new three-collage building experiment is finished as PARTIAL and published. Current ownership returns to the web-side reviewer to diagnose and iterate the SAME K Studio Agent before scheduling another native test. Read the top of `docs/CURRENT_TASK.md` and [`docs/PRODUCT_REVIEW_AND_AGENT_ITERATION_2026-10-12.md`](docs/PRODUCT_REVIEW_AND_AGENT_ITERATION_2026-10-12.md). Preserve historical evidence; do not continue polishing this building or Dream Coffee without a new task. The owner prioritizes architect-friendly natural dialogue, approval that actually starts work, source-correct editable geometry, reliable local changes and delivery, and understandable failure recovery. Model APIs are a replaceable capability foundation; K Studio owns the workflow that makes them useful. Judge improvements by visible model quality and user effort/time, not code/test/tool counts. Next changes must address observed failures and be tested through the real website; no paid API or model substitution is newly authorized by this handoff.
+
 ## Permanent user-facing acceptance: NORMAL NATURAL-LANGUAGE AGENT CHAT (2026-10-11)
 
 Codex is a BACKSTAGE developer/tester, not the user-facing architect. Every product capability test must use the real K Studio website and brief natural Chinese human utterances from a student's point of view; UI approval remains natural. Do NOT inject developer workflow text, technical test checklists, JSON, tool names, Ruby or API payloads into user chat. `app/static/studio.js` must not synthesize verbose technical `message` on approval; the execution rules already live in `app/workflow_context.py` and Agent Skills. UI debug status may be available through EXPANDABLE developer diagnostics, but user chat always displays their actual input and the Agent's understandable response.
