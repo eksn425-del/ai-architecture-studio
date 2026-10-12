@@ -1,3 +1,9 @@
+# CURRENT — 2026-10-12 SAME owner r3 source-first Medium continuation
+
+User explicitly approves an Agent code optimization and continued REAL K Studio website test on their existing private TWO-photo r3 building, not a fresh building nor old three-collage. This branch contains source-file-complete multi-view independent review gate (two separate source files => two current source-matched angles, one collage file stays one), a readable inline plan rather than overlapping composer popover, and explicit website-only gpt-6.1-sol / MEDIUM test startup/provenance. Outer Codex controller remains unchanged. These are engineering changes, not native PASS. Once PR reviewed/merged, Windows Codex must follow [sole same-project owner runbook](NEXT_OWNER_CONTINUATION_SOL_MEDIUM_2026-10-12.md), back up exact r3, inspect project budget and root/GUID, keep prior 4,488,068 reported historical input, use normal Chinese and real website mouse, make only source-backed local edits in existing model. Do not reset budget/rewrite historical FAIL or claim paid API test. Previous evidence CI manifest mismatch pending normalized-hash fix; do not hide it.
+
+---
+
 # 2026-10-12 用户自行双视角测试诊断：视觉 FAIL，尚未修复
 
 [真实诊断与截图](test-results/windows/2026-10-12-owner-two-view-diagnosis/README.md)。用户在“我的建筑项目”自行上传新建筑两视角、自然确认、主体和续做；实际网站 Sol6.1 Low。首轮953.843秒超时，续做2540572 input触发2.5M上限；两Builder轮共4.488M input/82工具/12失败。原生SU2024截图和只读MCP r3根26048读回证实主形、屏风围合、中央尖顶墙、折面与楼梯方向失败，独立Critic NEEDS_FIX。参数小窗根因是assistant.css绝对定位浮层；卡末尾字面量`n与历史状态冲突。
