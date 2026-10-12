@@ -66,3 +66,10 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 .parameter-plan[open]{position:relative}.parameter-plan[open] #parameter-plan-content{max-height:45vh;overflow:auto}
 @media(max-width:650px){.journey-guide{padding:10px 12px 0}.journey-guide ol{gap:5px}.journey-guide li{font-size:10px;gap:4px}.journey-guide li>span{width:18px;height:18px}.journey-next{gap:6px}.clarification-shortcuts{flex-wrap:wrap;gap:4px}}
 .plan-review-note{padding:10px 12px;border-left:3px solid #b48b46;background:#f8f3e8;font-size:12px;line-height:1.7}.parameter-plan-content h1,#parameter-plan-content h1{font-size:20px}#parameter-plan-content h2{font-size:16px}
+
+/* Approved plan is readable inline, never a floating sheet over the composer. */
+.plan-in-chat{width:min(840px,100%);margin:0 auto;padding:0 24px;flex-shrink:0}
+.plan-in-chat .parameter-plan{display:block;position:static;width:100%;max-width:100%;margin:0;padding:8px 12px;border:1px solid var(--line);border-radius:10px}
+.plan-in-chat .parameter-plan[hidden]{display:none}
+.plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;bottom:auto;right:auto;width:100%;max-width:100%;max-height:38vh;overflow:auto;padding:12px 2px;box-shadow:none;border:0;border-radius:0;z-index:auto}
+@media(max-width:650px){.plan-in-chat{padding:0 12px}}
