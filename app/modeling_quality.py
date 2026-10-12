@@ -553,6 +553,30 @@ def validate_source_matched_pairs(
     return resolved
 
 
+def require_observed_source_view_pairs(project_dir: Path, evidence: dict[str, Any] | None, pairs: list[dict[str, Any]]) -> dict[str, Any]:
+    """Do not certify multi-view source fidelity against only one uploaded image.
+
+    Two views embedded in one collage require only one file pair; two independent
+    source image files require two distinct corresponding current view pairs.
+    Historical single-view/legacy plans retain their existing validation.
+    """
+    mode = (evidence or {}).get("fidelity_mode", "pending")
+    if mode not in {"multi_view_reconstruction", "full_evidence_reconstruction"}:
+        return {"required": False, "mode": mode, "observed_sources": [], "paired_sources": []}
+    refs: set[str] = set()
+    for view in (evidence or {}).get("exterior_views", {}).values():
+        if view.get("provenance") in {"observed", "user_confirmed"}:
+            refs.update(source for source in view.get("source_refs", []) if source.startswith("inputs/reference/"))
+    required = sorted(ref for ref in refs if (project_dir / ref).is_file())
+    paired = sorted({item["source_ref"] for item in pairs})
+    if not required:
+        raise ValueError("Multi-view review has no verified observed source images.")
+    missing = sorted(set(required) - set(paired))
+    if missing:
+        raise ValueError("Source-matched review is missing CURRENT camera pairs for observed reference images: "
+                         + ", ".join(missing))
+    return {"required": True, "mode": mode, "observed_sources": required, "paired_sources": paired}
+
 def submit_visual_review(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]],
@@ -590,6 +614,7 @@ def submit_visual_review(
         )
 
     reconstruction_evidence = load_reconstruction_evidence(project_dir, strict=True)
+    source_view_coverage = require_observed_source_view_pairs(project_dir, reconstruction_evidence, evidence_pairs)
     receipt = {
         "schema_version": 3,
         "advisory": True,
@@ -612,6 +637,7 @@ def submit_visual_review(
         "model_revisions": current_revisions,
         "views": resolved_views,
         "evidence_pairs": evidence_pairs,
+        "source_view_coverage": source_view_coverage,
         "writer_verifications": {
             script_id: state.get("last_verification")
             for script_id, state in ruby_state.items()
