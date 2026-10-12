@@ -57,6 +57,8 @@ Issue #12，起始 main `3dda2a40ab9d228ee3390992070dcf6603f6a75c`。沿用用�
 
 完整自动检查 **398 passed / 2 skipped / 2 warnings**。工程检查通过不能代替建筑质量。持久化完整 reconstruction.rb 在中断时尚未整合 r4 patch；当前模型成果与可重放完整源仍需核实，**重放 NOT_RUN**。
 
+首次远端证据 CI 失败记录：[38276965519](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/38276965519)。原因是 Windows JSON/审查文本 CRLF 经过 Git 变成 LF，与本地原字节 manifest 不同；也发现前一双图诊断包同类问题。本轮把这两个包的文本统一为 LF，重算 manifest，并添加已有项目惯例的限定目录 `-text` 属性以保留字节。PNG 不变，验收结论不变，未放宽 validator，原失败 CI 保留可追溯。
+
 ## 原生交付与下一步边界
 
 备份 r3 原项目（图、脚本、状态、预算、SKP）仅留私有 runtime。最终同模型原生 Ctrl+S 保存及私有 r4副本已保留，未动用户其他原模型。下载/原生重开/鼠标编辑再重开/严格空白重放本轮 **NOT_RUN**，不继承旧案例 PASS：[记录](model/native-reopen.json)。
