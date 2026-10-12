@@ -53,7 +53,7 @@ def test_native_read_only_policy_and_resumed_usage_delta(tmp_path, monkeypatch):
     log=next((project/'runtime/agent_events').glob('*.jsonl'))
     recorded=[json.loads(line) for line in log.read_text().splitlines()]
     assert next(e for e in recorded if e['event']=='turn_input')['role']=='visual_critic'
-    assert recorded[-2]['input_tokens']==130
+    assert next(e for e in recorded if e['event']=='project_budget_finished')['input_tokens']==130
 
 
 def test_returned_native_model_mismatch_blocks_inference(tmp_path,monkeypatch):

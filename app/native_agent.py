@@ -19,6 +19,7 @@ from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallEr
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
                               validate_visual_review_views, validate_source_matched_pairs)
+from .project_turn_budget import read_project_builder_usage
 
 
 class NativeAgentUnavailable(RuntimeError):
@@ -150,10 +151,16 @@ class CodexAppServerRuntime:
         self.max_input_tokens_per_turn = int(
             os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "2500000")
         )
+        self.max_project_input_tokens = int(os.environ.get("ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS", "8000000"))
+        self.project_delivery_reserve = int(os.environ.get("ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE", "200000" if self.max_project_input_tokens else "0"))
         if not 0 <= self.max_tool_calls_per_turn <= 512:
             raise ValueError("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS must be 0..512.")
         if not 0 <= self.max_input_tokens_per_turn <= 50000000:
             raise ValueError("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS must be 0..50000000.")
+        if not 0 <= self.max_project_input_tokens <= 50000000:
+            raise ValueError("ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS must be 0..50000000.")
+        if not 0 <= self.project_delivery_reserve <= self.max_project_input_tokens:
+            raise ValueError("ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE must be 0..project maximum.")
         configured_home = home_root
         if configured_home is None and os.environ.get("ARCH_STUDIO_CODEX_HOME"):
             configured_home = Path(os.environ["ARCH_STUDIO_CODEX_HOME"])
@@ -344,6 +351,18 @@ class CodexAppServerRuntime:
                   tool_profile: ToolProfile = "full", read_only: bool = False,
                   compact_project_context: bool = False) -> AgentTurnResult:
         started = time.monotonic()
+        is_builder = not read_only and mcp_enabled and workflow_mode == "image_reconstruction"
+        prior_usage = read_project_builder_usage(project_dir / "runtime" / "agent_events") if is_builder else None
+        if is_builder and self.max_project_input_tokens:
+            assert prior_usage is not None
+            if prior_usage.uncertain_files:
+                raise NativeAgentUnavailable(
+                    "Project input-token budget cannot be verified: previous Builder usage is "
+                    "unmetered or unfinished. Preserve the model; reconcile evidence before continuing."
+                )
+            if prior_usage.input_tokens + self.project_delivery_reserve >= self.max_project_input_tokens:
+                raise NativeAgentUnavailable("Project input-token budget is exhausted. Preserve verified work; do not reset the ledger or repeat the build.")
+        prior_input = prior_usage.input_tokens if prior_usage else 0
         environment = _app_server_environment(dict(os.environ))
         environment["CODEX_HOME"] = str(self.home)
         command = [str(self.codex_executable), "app-server"]
@@ -388,7 +407,11 @@ class CodexAppServerRuntime:
             with evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
 
+        record({"event": "project_budget_started", "is_builder": is_builder, "prior_input_tokens": prior_input})
+
         def interrupted(error: NativeAgentUnavailable) -> NativeAgentUnavailable:
+            record({"event": "project_budget_finished", "is_builder": is_builder, "status": "interrupted",
+                    "input_tokens": input_tokens, "output_tokens": output_tokens})
             # Persist the terminal state too: sparse usage events alone cannot
             # distinguish an active turn from a timeout after process shutdown.
             record({
@@ -541,6 +564,13 @@ class CodexAppServerRuntime:
                 # Token notifications are sparse in some Codex versions.
                 # Enforce only when REAL turn-delta telemetry is available;
                 # do not infer tokens from context size or tool count.
+                if (is_builder and self.max_project_input_tokens > 0
+                        and isinstance(input_tokens, int)
+                        and prior_input + input_tokens + self.project_delivery_reserve > self.max_project_input_tokens):
+                    record({"event": "native_budget_exhausted", "kind": "project_input_tokens",
+                            "prior": prior_input, "observed": input_tokens,
+                            "reserve": self.project_delivery_reserve, "limit": self.max_project_input_tokens})
+                    raise NativeAgentUnavailable("Project input-token budget exceeded. Preserve committed model and stop writing; do not retry the same turn.")
                 if (not read_only and self.max_input_tokens_per_turn > 0
                         and isinstance(input_tokens, int)
                         and input_tokens > self.max_input_tokens_per_turn):
@@ -606,6 +636,8 @@ class CodexAppServerRuntime:
                 raise NativeAgentUnavailable(f"Codex agent turn exceeded {self.timeout_seconds} seconds.")
             if turn_status != "completed":
                 raise NativeAgentUnavailable("Codex app-server ended without a completed turn.")
+            record({"event": "project_budget_finished", "is_builder": is_builder, "status": "completed",
+                    "input_tokens": input_tokens, "output_tokens": output_tokens})
             return AgentTurnResult(
                 thread_id=resolved_thread_id,
                 reply=reply or "已完成这轮推演；模型操作记录已保存。",

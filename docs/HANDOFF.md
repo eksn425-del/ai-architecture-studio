@@ -1,3 +1,9 @@
+# CURRENT — 2026-10-12 真实建筑师/学生使用习惯：PR #9 网页端产品迭代（待 CI/真机）
+
+用户要求将 K Studio 收窄到新用户真实自然中文：新来源参考图、一次批准首版源图相似、同一可编辑模型上自然语言局部修正、其它正确构件 KEEP 和可恢复交付。网页端在 [PR #9](https://github.com/eksn425-del/ai-architecture-studio/pull/9) 修改 Native Builder 跨回合真实用量预算（8M 默认 / 200k 交付预留；无数据/旧数据阻断而不归零）、既有模型局部修正指令和人话错误提示及免费回归。唯一新本机脚本 [NEXT_REAL_USER_UX_TEST_2026-10-12.md](NEXT_REAL_USER_UX_TEST_2026-10-12.md)，真实 GUI 鼠标键盘/自然聊天须由 Windows Codex 用用户新图片进行。模拟回归、GitHub CI、实际 SU2024/真实网站和付费API质量是不同验收，不可混称。旧 2026-10-12 建筑实验仍 PARTIAL，禁止借修旧案例宣布本次产品能力升级。不要改动私人源图、SKP/API Key，不启用付费供应商。Codex controller 型号不变，网站 Sol Low 仅开发代理。
+
+---
+
 # CURRENT — 2026-10-12 网页端产品复盘与 Agent 迭代，随后再安排新测试
 
 用户已要求将本次实验、原因分析和产品方向完整交给网页端，先审查并迭代，再开展下一次本机测试。**本轮不继续对同一建筑追加修图。** 唯一审查入口：[产品复盘与下一轮验收要求](PRODUCT_REVIEW_AND_AGENT_ITERATION_2026-10-12.md)。实测代码/证据提交 `654e9421711a744e8cc91c29176a038747741dd1`，原始证据和PARTIAL结论保持不变。
