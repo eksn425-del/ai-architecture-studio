@@ -1,3 +1,9 @@
+# CURRENT — native Codex Harness integration experiment; NEW PHOTO test waiting on owner (2026-10-13)
+
+Latest main at work start 13ffa389 is the actual stopped old private two-image r4→r5→r6 case: real Sol Medium, two local commits, 3,604,539 new Builder input/65 tools/1 failure/835s, cumulative 11,493,239, partial geometry improvements but source fidelity FAIL. Old r6 stays stopped and private; no extra repair. Read [truthful latest report](test-results/windows/2026-10-13-owner-review-reuse/README.md). User now authorizes NEW project/NEW privately provided source photo, website gpt-6.1-sol/medium and closer official open-source Codex Harness parity. [Pilot technical doc](CODEX_NATIVE_HARNESS_PILOT_2026-10-13.md), [sole next Windows GUI task](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). Branch adds opt-in genuine App Server thread/resume rather than automatic fresh compact restart after committed Ruby, bound to exact dynamic tool registration and SHA of source image bytes+upload order. It also offers concise Harness-first Skill/developer prompts instead of repeatedly injecting enormous duplicated procedural text. Legacy compact/full is unchanged unless dedicated script enabled. No assertion 1:1 visual parity or paid GPT service; website-native new-photo result NOT_RUN until owner photo/Windows Codex. Strict host one writer, scope, consent, independent current-review, private sources still enforced. Do not equate prior offline pass with native quality.
+
+---
+
 # 2026-10-13 用户停止同项目迭代：PARTIAL / 视觉 FAIL，保留 r6
 
 [最新报告、两轮真实前后截图及完整记录](test-results/windows/2026-10-13-owner-review-reuse/README.md)。本次真实网站 Sol6.1 Medium 自然中文两回合 r4→r5→r6，右侧内壁/退入玻璃、左上楼梯侧墙及相连红折面有改善，但右侧围合、屏顶轮廓、屋面尺度和下部交通仍独立 Critic NEEDS_FIX。两回合 Builder3,604,539 input/65工具/1失败/835344ms；无全局重建、无付费API。
