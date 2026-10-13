@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "ledger_status": "committed_readback",
+  "actual_wrapped_calls": {
+    "adai.profile": 2
+  },
+  "any_oss_product_use": true,
+  "effect_verified": false,
+  "effect_verification_required": "Named component readback and independent source-matched visual review.",
+  "plan_choices": [
+    {
+      "system": "structure",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "红柱、梁板与错层悬挑需组合定位；普通墙洞助手不能表达整体骨架",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "envelope",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "源图含大凹口、斜玻璃边和不规则屏风边界；常规直墙不足以表达整体",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "core_windows",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "窄矩形窗适合连续墙开洞；实际助手可用性未验证，执行前验证，失败采用连续面真开洞且记录原因",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "roof",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "单块等截面折面可用已启用ADAI profile；整体变截面折面交接仍需项目组合，不能把薄壳做成填满楔体。",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "circulation",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "多段错层外梯与折返坡道需要共享落点和边界，常规墙洞工具不适用",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "screen_prototype",
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "本项目契约明确ADAI 0.5.39已启用；薄板内闭合孔适合profile_with_holes。先验证一块代表板的孔、薄厚及性能，边界孔不使用此法，失败再记录具体原因并回退原生连续面。",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "glazing",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "退入及折线玻璃需独立框玻璃组，直墙助手不能代替玻璃连接",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "screen_instances",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用经检查的原生组件，角部与顶部异形另作唯一件",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "rails",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "共享栏杆组件沿露台与坡道分段，坡段按端点适配",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "site",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部广场与可见室内简化组合；墙洞工具不提供这些构件",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "right_recess_scoped_repair",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "User/source require continuous white inner wall with one rectangular small opening; verified installed batch-opening adapter fits. Native verified screen instances reused; sloped side glazing uses owned Ruby because rectangular wall helper cannot express sloped glass edge.",
+      "disposition": "selected_but_not_invoked"
+    }
+  ]
+}

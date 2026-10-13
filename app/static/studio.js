@@ -106,6 +106,7 @@ function chatText(content) {
   md.renderer.rules.link_open = (tokens, i, options, env, self) => {
     const href = tokens[i].attrGet("href") || "";
     if (/^(notes|scripts)\/[a-zA-Z0-9_./-]+$/.test(href) && !href.includes("..")) tokens[i].attrSet("href", projectFileUrl("runtime/agent_workspace/" + href));
+    else if (/^(?:\.\.\/\.\.\/)?outputs\/[a-zA-Z0-9_./-]+$/.test(href) && !href.replace(/^\.\.\/\.\.\//, "").includes("..")) tokens[i].attrSet("href", projectFileUrl(href.replace(/^\.\.\/\.\.\//, "")));
     else if (!/^https?:\/\//i.test(href)) tokens[i].attrSet("href", "#");
     tokens[i].attrSet("target", "_blank"); tokens[i].attrSet("rel", "noopener noreferrer");
     return linkOpen(tokens, i, options, env, self);

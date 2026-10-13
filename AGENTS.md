@@ -1,5 +1,11 @@
 # AGENTS.md
 
+## 2026-10-13 owner stop and local iteration budget override
+
+Owner explicitly disabled Native local-iteration token/tool cost caps (not paid Responses spend controls); preserve all historical usage. Two real website Medium edits advanced the same owned root to r6; partial improvement, independent visual FAIL. Owner now requests STOP: no further modeling or automatic continuation. Publish latest evidence, code and handoff. [Report](docs/test-results/windows/2026-10-13-owner-review-reuse/README.md). GUID fix passed offline/native read-only proof but website rerun NOT_RUN; frontend preview links remain unverified; native final edit/reopen/replay NOT_RUN. Resume only on owner instruction.
+
+
+
 ## OWNER UPDATE 2026-10-13 — NEW PHOTO, legal open-source Codex Harness comparison
 
 The newest task supersedes prior r3, Sol Low, Dream Coffee runbooks. First study publicly licensed openai/codex Apache-2.0, not private competitor agents. Read [Harness audit](docs/CODEX_HARNESS_PARITY_AUDIT_2026-10-13.md) and [next new-photo site runbook](docs/NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). K Studio already runs real Codex App Server as development proxy, but that is not standalone commercial inference. A new private owner photo is forthcoming; SITE uses actual gpt-6.1-sol/medium with independently verified model identity, outer Codex developer model unchanged. This branch implements host-verifiable source/screenshot/sidecar/ledger SHA checkpoint for independent last-review reuse across new compact Builder turns; invalidate on any changed evidence or new geometry. Web CI does NOT mean real image quality PASS. Old owner r4 visual FAIL and project 7,888,700/8M tokens with reserve are immutable history; do not continue it or reset its budget. No unauthorized competitor reverse engineering or unapproved paid provider.

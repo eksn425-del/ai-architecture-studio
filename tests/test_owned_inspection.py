@@ -63,3 +63,31 @@ def test_desktop_bundles_and_verifies_owned_ruby_helper():
     install = (repo / "scripts/install_desktop.ps1").read_text(encoding="utf-8")
     assert '--add-data "$repoPath/app/adopted_sketchup_helpers.rb;app"' in build
     assert "_internal\\app\\adopted_sketchup_helpers.rb" in install
+
+
+def test_autosave_guid_rebind_requires_owned_native_proof(tmp_path, monkeypatch):
+    from pathlib import Path
+    executor, adapter, mcp, _ = _executor(tmp_path, state={'main': {'root_pid': 701, 'revision': 3}})
+    monkeypatch.setenv('ARCHFLOW_GENERATED_SCRIPT_DIR', str(tmp_path / 'transport'))
+    adapter.guid = 'guid-after-autosave'
+    def proof(name, args):
+        source = Path(args['script_path']).read_text(encoding='utf8')
+        assert "get_attribute('sketchup_architect', 'project_id')" in source
+        assert 'find_entity_by_persistent_id(701)' in source
+        assert 'Revision mismatch' in source and '== 3' in source
+        assert 'start_operation' not in source and 'erase!' not in source
+        return {'result': {'guid_rebind_verified': True}}
+    mcp.call = proof
+    assert executor._assert_active_model()['model_guid'] == adapter.guid
+    assert executor.expected_model_guid == adapter.guid
+    assert executor.ruby_state['main']['revision'] == 3
+
+
+def test_autosave_guid_rebind_failure_keeps_old_token(tmp_path, monkeypatch):
+    executor, adapter, mcp, _ = _executor(tmp_path, state={'main': {'root_pid': 701, 'revision': 3}})
+    monkeypatch.setenv('ARCHFLOW_GENERATED_SCRIPT_DIR', str(tmp_path / 'transport'))
+    adapter.guid = 'another-guid'
+    mcp.call = lambda *args: {'result': {'guid_rebind_verified': False}}
+    with pytest.raises(MCPCallError, match='Could not verify'):
+        executor._assert_active_model()
+    assert executor.expected_model_guid == 'guid-live'

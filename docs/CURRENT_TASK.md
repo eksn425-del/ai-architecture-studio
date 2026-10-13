@@ -1,3 +1,16 @@
+# 2026-10-13 用户停止同项目迭代：PARTIAL / 视觉 FAIL，保留 r6
+
+[最新报告、两轮真实前后截图及完整记录](test-results/windows/2026-10-13-owner-review-reuse/README.md)。本次真实网站 Sol6.1 Medium 自然中文两回合 r4→r5→r6，右侧内壁/退入玻璃、左上楼梯侧墙及相连红折面有改善，但右侧围合、屏顶轮廓、屋面尺度和下部交通仍独立 Critic NEEDS_FIX。两回合 Builder3,604,539 input/65工具/1失败/835344ms；无全局重建、无付费API。
+
+用户明确取消本地迭代 Native Token/工具预算 cap，启动脚本设为0；历史用量保留，新累计11,493,239。跨回合同修订独立审查复用已真实网站验证，两回合先修改再复核新修订。修后全量404passed/2skip。第二回合追加屋面写入遇自动保存GUID误判，已修同路径/根/项目/修订只读验证再绑定；回归和原生只读证明通过，修后网站写入NOT_RUN。效果图链接映射回归通过，但网站仍#，最终浏览器交付待查。
+
+**用户现在主动要求停止测试，不自动继续建模。** 本轮最终SKP下载/原生编辑保存重开/严格replay均NOT_RUN；后续须用户恢复后才继续同项目主体定向修正及上述产品恢复验证。不要把本批两个局部改善或工程PASS当成整栋视觉PASS。
+
+
+**同步说明**：交接时远端新增459b934，保留其Codex harness研究/新图片下一轮任务和更严格的证据SHA审查复用实现；本轮实际网站运行的是同步前本地实现，不能冒充合并后实现已真机验证。当前用户要求停止优先；下一轮等用户恢复及新指令。
+
+---
+
 # CURRENT — 2026-10-13 Codex Harness parity; NEXT is genuinely NEW photo via site Sol Medium
 
 User requested an independent legal study of public Codex Rust core and K Studio code, concrete Agent improvement and a NEW private architecture image for next genuine website test. [Audit](CODEX_HARNESS_PARITY_AUDIT_2026-10-13.md) and [one next Windows task](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). A verified independent same-source/revision six-view Critic receipt now has SHA fingerprints and can be rehydrated into new compact Builder with up to 3 short source-backed discrepancies; invalidate on changed images/camera sidecars/source ledger and after geometry write. This is a code change awaiting CI/native; not a new geometry result. Website model explicitly gpt-6.1-sol/medium actual App Server; outer Codex controller unchanged; commercial API inference not authorized. Previous r4 old project 7,888,700 reported input of 8M/200k reserve exhausted and visual FAIL, preserve. New actual owner-supplied source is a different legitimate project, not a budget bypass. Do not fabricate source or claim 1:1 product parity.

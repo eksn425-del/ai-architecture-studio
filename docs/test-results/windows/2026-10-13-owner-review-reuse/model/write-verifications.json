@@ -1,0 +1,117 @@
+{
+  "final_revision": 6,
+  "last_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 26048,
+        "actual": 26048
+      },
+      {
+        "check": "revision",
+        "expected": 6,
+        "actual": 6
+      },
+      {
+        "check": "objects_total",
+        "expected": 20,
+        "actual": 20
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -5000.0,
+            -15000.0,
+            -1100.0
+          ],
+          "max": [
+            40322.0,
+            28000.0,
+            26016.3
+          ],
+          "size": [
+            45322.0,
+            43000.0,
+            27116.3
+          ]
+        },
+        "actual": {
+          "min": [
+            -5000,
+            -15000,
+            -1100
+          ],
+          "max": [
+            40322,
+            28000,
+            26016.3
+          ],
+          "size": [
+            45322,
+            43000,
+            27116.3
+          ]
+        }
+      }
+    ]
+  },
+  "last_precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE",
+      "ENVELOPE",
+      "CORE_WALLS",
+      "CIRCULATION",
+      "SCREENS",
+      "GLAZING",
+      "RAILINGS",
+      "SITE",
+      "VISIBLE_INTERIOR",
+      "Core_front_openings",
+      "Screen_panel_prototype",
+      "Screen_panel_dense_prototype",
+      "Left_red_fold_volume",
+      "Core_front_screen",
+      "Right_recess_inner_wall",
+      "Right_recess_enclosure"
+    ]
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "allowed_top_level": [
+      "ROOF",
+      "Upper_left_stair_enclosure_west",
+      "Upper_left_stair_enclosure_east",
+      "Upper_left_stair_landing_joint"
+    ],
+    "protected_top_level_count": 16,
+    "unchanged_protected_groups": [
+      "STRUCTURE",
+      "ENVELOPE",
+      "CORE_WALLS",
+      "CIRCULATION",
+      "SCREENS",
+      "GLAZING",
+      "RAILINGS",
+      "SITE",
+      "VISIBLE_INTERIOR",
+      "Core_front_openings",
+      "Screen_panel_prototype",
+      "Screen_panel_dense_prototype",
+      "Left_red_fold_volume",
+      "Core_front_screen",
+      "Right_recess_inner_wall",
+      "Right_recess_enclosure"
+    ]
+  }
+}

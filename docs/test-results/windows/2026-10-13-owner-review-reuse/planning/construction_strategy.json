@@ -1,0 +1,490 @@
+{
+  "schema_version": 1,
+  "current_stage": "primary_form",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "overall_width": {
+      "value": 32000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "overall_depth": {
+      "value": 24000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "overall_height": {
+      "value": 26000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "storey_height": {
+      "value": 4000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户接受上一轮建议，仍为估算"
+    },
+    "level_ground": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "level_platform": {
+      "value": 6500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "level_mid": {
+      "value": 10500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "level_upper": {
+      "value": 14500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "level_top": {
+      "value": 20500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "screen_module_width": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "screen_offset": {
+      "value": 350,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "slab_thickness": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "column_width": {
+      "value": 220,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "rail_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "roof_shell_thickness": {
+      "value": 150,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "joint_tolerance": {
+      "value": 5,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "stair_width": {
+      "value": 1800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    },
+    "ramp_width": {
+      "value": 2200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "两张透视图比例初估；几何前按共享层位校核"
+    }
+  },
+  "systems": [
+    {
+      "id": "structure",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth",
+        "column_width",
+        "level_platform"
+      ],
+      "target_paths": [
+        [
+          "STRUCTURE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "红柱、梁板与错层悬挑需组合定位；普通墙洞助手不能表达整体骨架"
+    },
+    {
+      "id": "envelope",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth",
+        "level_mid",
+        "level_upper"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "源图含大凹口、斜玻璃边和不规则屏风边界；常规直墙不足以表达整体"
+    },
+    {
+      "id": "core_windows",
+      "stage": "primary_form",
+      "role": "opening_system",
+      "method": "continuous_wall_with_openings",
+      "status": "built",
+      "depends_on": [
+        "level_mid",
+        "storey_height"
+      ],
+      "target_paths": [
+        [
+          "CORE_WALLS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "窄矩形窗适合连续墙开洞；实际助手可用性未验证，执行前验证，失败采用连续面真开洞且记录原因"
+    },
+    {
+      "id": "roof",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "loft_or_mesh",
+      "status": "built",
+      "depends_on": [
+        "overall_height",
+        "roof_shell_thickness"
+      ],
+      "target_paths": [
+        [
+          "ROOF"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique",
+        "roof"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "单块等截面折面可用已启用ADAI profile；整体变截面折面交接仍需项目组合，不能把薄壳做成填满楔体。"
+    },
+    {
+      "id": "circulation",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "level_platform",
+        "stair_width",
+        "ramp_width"
+      ],
+      "target_paths": [
+        [
+          "CIRCULATION"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "多段错层外梯与折返坡道需要共享落点和边界，常规墙洞工具不适用"
+    },
+    {
+      "id": "screen_prototype",
+      "stage": "representative_module",
+      "role": "facade_detail",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "screen_module_width",
+        "screen_offset"
+      ],
+      "target_paths": [
+        [
+          "Screen_panel_prototype"
+        ],
+        [
+          "SCREENS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "ADAI已启用但本轮未调用；屏风孔径与孔距为估算，需先做代表板",
+        "板与框独立组；定义及实例分别命名，异形边部唯一化"
+      ],
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "本项目契约明确ADAI 0.5.39已启用；薄板内闭合孔适合profile_with_holes。先验证一块代表板的孔、薄厚及性能，边界孔不使用此法，失败再记录具体原因并回退原生连续面。"
+    },
+    {
+      "id": "glazing",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "screen_offset",
+        "joint_tolerance"
+      ],
+      "target_paths": [
+        [
+          "GLAZING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "退入及折线玻璃需独立框玻璃组，直墙助手不能代替玻璃连接"
+    },
+    {
+      "id": "screen_instances",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "screen_module_width"
+      ],
+      "target_paths": [
+        [
+          "SCREENS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "采用经检查的原生组件，角部与顶部异形另作唯一件"
+    },
+    {
+      "id": "rails",
+      "stage": "variants",
+      "role": "facade_detail",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "rail_height",
+        "level_platform"
+      ],
+      "target_paths": [
+        [
+          "RAILINGS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "共享栏杆组件沿露台与坡道分段，坡段按端点适配"
+    },
+    {
+      "id": "site",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth"
+      ],
+      "target_paths": [
+        [
+          "SITE"
+        ],
+        [
+          "VISIBLE_INTERIOR"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Builder为唯一写入者；方法拟选，未执行或验证",
+        "共同mm坐标与层位；先核源视角，再细化"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部广场与可见室内简化组合；墙洞工具不提供这些构件"
+    },
+    {
+      "id": "right_recess_scoped_repair",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "depends_on": [
+        "joint_tolerance"
+      ],
+      "target_paths": [
+        [
+          "Right_recess_inner_wall"
+        ],
+        [
+          "Right_recess_enclosure"
+        ],
+        [
+          "GLAZING",
+          "Right_recess_Glass"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Only upper-right recess. Roof, left and stairs protected. Estimates in scoped_repair_06.md."
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "User/source require continuous white inner wall with one rectangular small opening; verified installed batch-opening adapter fits. Native verified screen instances reused; sloped side glazing uses owned Ruby because rectangular wall helper cannot express sloped glass edge."
+    },
+    {
+      "id": "upper_left_stair_side_enclosures",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "profile_extrusion",
+      "status": "pending",
+      "depends_on": [
+        "joint_tolerance"
+      ],
+      "target_paths": [
+        [
+          "Upper_left_stair_enclosure_west"
+        ],
+        [
+          "Upper_left_stair_enclosure_east"
+        ],
+        [
+          "Upper_left_stair_landing_joint"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "180mm YZ side profiles, existing flight protected."
+      ],
+      "method_id": "adai.profile",
+      "selection_reason": "Verified enabled constant section helper fits solid continuous stair-side profiles; no wall openings."
+    },
+    {
+      "id": "connected_red_roof_repair",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "loft_or_mesh",
+      "status": "pending",
+      "depends_on": [
+        "roof_shell_thickness"
+      ],
+      "target_paths": [
+        [
+          "ROOF",
+          "Connected_red_folded_roof"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "One closed native shell with shared crease edges; no isolated blade."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Changing direction steep roof crease network does not fit SAIE straight walls or ADAI equal-section profiles; native shared mesh preserves joints."
+    }
+  ],
+  "notes": [
+    "用户确认默认需求；本次具体尺寸方案待批准",
+    "ADAI项目契约确认0.5.39已启用；本轮无调用记录。SAIE助手可用性执行前验证，不将拟选记为调用。",
+    "首次完整写入包括屏风轮廓、屋顶折面、大凹口、红柱、主交通；不得仅白盒",
+    "原生代表模块测量及源图检查通过后复制；评审只读；最多两次针对修正",
+    "屏风代表板采用adai.profile_with_holes；等截面构件优先adai.profile，非等截面折面才由受限项目代码组合。"
+  ]
+}

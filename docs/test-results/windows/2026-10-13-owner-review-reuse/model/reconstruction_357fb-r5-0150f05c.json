@@ -1,0 +1,1193 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-357fb",
+  "expected_revision": 4,
+  "model_path": "[local path redacted]",
+  "guid_before": "d96c58a0-b333-4f3f-9f99-f74e3839c040",
+  "status": "committed",
+  "at": "2026-10-13T03:25:16Z",
+  "scenes_before": {
+    "available": true,
+    "pages": []
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -5000.0,
+        -15000.0,
+        -1100.0
+      ],
+      "max": [
+        40322.0,
+        28000.0,
+        26016.3
+      ],
+      "size": [
+        45322.0,
+        43000.0,
+        27116.3
+      ]
+    },
+    "objects_total": 15,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 26056,
+        "name": "STRUCTURE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1000.0,
+            1200.0,
+            0.0
+          ],
+          "max": [
+            31720.0,
+            21720.0,
+            19000.0
+          ],
+          "size": [
+            30720.0,
+            20520.0,
+            19000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26058,
+        "name": "ENVELOPE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -1200.0,
+            6000.0
+          ],
+          "max": [
+            34500.0,
+            24047.1,
+            24080.0
+          ],
+          "size": [
+            34500.0,
+            25247.1,
+            18080.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26060,
+        "name": "CORE_WALLS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13500.0,
+            2000.0,
+            0.0
+          ],
+          "max": [
+            23200.0,
+            19000.0,
+            24100.0
+          ],
+          "size": [
+            9700.0,
+            17000.0,
+            24100.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26062,
+        "name": "ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18200.0,
+            2198.4,
+            21100.0
+          ],
+          "max": [
+            28200.0,
+            15303.8,
+            25800.2
+          ],
+          "size": [
+            10000.0,
+            13105.5,
+            4700.2
+          ]
+        }
+      },
+      {
+        "persistent_id": 26064,
+        "name": "CIRCULATION",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4700.0,
+            -3541.9,
+            -180.0
+          ],
+          "max": [
+            40300.0,
+            18100.0,
+            20735.0
+          ],
+          "size": [
+            35600.0,
+            21641.9,
+            20915.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26068,
+        "name": "SCREENS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -30.0,
+            -1217.5,
+            6250.0
+          ],
+          "max": [
+            34535.0,
+            24035.0,
+            25717.5
+          ],
+          "size": [
+            34565.0,
+            25252.5,
+            19467.5
+          ]
+        }
+      },
+      {
+        "persistent_id": 26070,
+        "name": "GLAZING",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            370.0,
+            -30.0
+          ],
+          "max": [
+            31060.0,
+            17760.0,
+            18030.0
+          ],
+          "size": [
+            31060.0,
+            17390.0,
+            18060.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26072,
+        "name": "RAILINGS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4678.0,
+            -2322.0,
+            -1100.0
+          ],
+          "max": [
+            40322.0,
+            18115.0,
+            21868.4
+          ],
+          "size": [
+            35644.0,
+            20437.0,
+            22968.4
+          ]
+        }
+      },
+      {
+        "persistent_id": 26074,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5000.0,
+            -15000.0,
+            -200.0
+          ],
+          "max": [
+            40000.0,
+            28000.0,
+            470.0
+          ],
+          "size": [
+            45000.0,
+            43000.0,
+            670.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26076,
+        "name": "VISIBLE_INTERIOR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2200.0,
+            500.0,
+            0.0
+          ],
+          "max": [
+            27500.0,
+            10850.0,
+            9640.0
+          ],
+          "size": [
+            25300.0,
+            10350.0,
+            9640.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26868,
+        "name": "Core_front_openings",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13500.0,
+            1690.0,
+            6500.0
+          ],
+          "max": [
+            18000.0,
+            1910.0,
+            23900.0
+          ],
+          "size": [
+            4500.0,
+            220.0,
+            17400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 50627,
+        "name": "Screen_panel_prototype",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            900.0,
+            22.0,
+            10000.0
+          ],
+          "size": [
+            900.0,
+            22.0,
+            10000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129566,
+        "name": "Screen_panel_dense_prototype",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -22.0,
+            0.0
+          ],
+          "max": [
+            900.0,
+            0.0,
+            10000.0
+          ],
+          "size": [
+            900.0,
+            22.0,
+            10000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129882,
+        "name": "Left_red_fold_volume",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6100.0,
+            3500.0,
+            20900.0
+          ],
+          "max": [
+            10800.0,
+            6900.0,
+            23300.0
+          ],
+          "size": [
+            4700.0,
+            3400.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129928,
+        "name": "Core_front_screen",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13488.4,
+            1418.0,
+            6500.0
+          ],
+          "max": [
+            18030.0,
+            1470.0,
+            26016.3
+          ],
+          "size": [
+            4541.6,
+            52.0,
+            19516.3
+          ]
+        }
+      }
+    ]
+  },
+  "owned_precommit": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -5000.0,
+        -15000.0,
+        -1100.0
+      ],
+      "max": [
+        40322.0,
+        28000.0,
+        26016.3
+      ],
+      "size": [
+        45322.0,
+        43000.0,
+        27116.3
+      ]
+    },
+    "objects_total": 17,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 26056,
+        "name": "STRUCTURE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1000.0,
+            1200.0,
+            0.0
+          ],
+          "max": [
+            31720.0,
+            21720.0,
+            19000.0
+          ],
+          "size": [
+            30720.0,
+            20520.0,
+            19000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26058,
+        "name": "ENVELOPE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -1200.0,
+            6000.0
+          ],
+          "max": [
+            34500.0,
+            24047.1,
+            24080.0
+          ],
+          "size": [
+            34500.0,
+            25247.1,
+            18080.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26060,
+        "name": "CORE_WALLS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13500.0,
+            2000.0,
+            0.0
+          ],
+          "max": [
+            23200.0,
+            19000.0,
+            24100.0
+          ],
+          "size": [
+            9700.0,
+            17000.0,
+            24100.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26062,
+        "name": "ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18200.0,
+            2198.4,
+            21100.0
+          ],
+          "max": [
+            28200.0,
+            15303.8,
+            25800.2
+          ],
+          "size": [
+            10000.0,
+            13105.5,
+            4700.2
+          ]
+        }
+      },
+      {
+        "persistent_id": 26064,
+        "name": "CIRCULATION",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4700.0,
+            -3541.9,
+            -180.0
+          ],
+          "max": [
+            40300.0,
+            18100.0,
+            20735.0
+          ],
+          "size": [
+            35600.0,
+            21641.9,
+            20915.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26068,
+        "name": "SCREENS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -30.0,
+            -1217.5,
+            6250.0
+          ],
+          "max": [
+            34535.0,
+            24035.0,
+            25717.5
+          ],
+          "size": [
+            34565.0,
+            25252.5,
+            19467.5
+          ]
+        }
+      },
+      {
+        "persistent_id": 26070,
+        "name": "GLAZING",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            370.0,
+            -30.0
+          ],
+          "max": [
+            31025.0,
+            15525.0,
+            17730.0
+          ],
+          "size": [
+            31025.0,
+            15155.0,
+            17760.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26072,
+        "name": "RAILINGS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4678.0,
+            -2322.0,
+            -1100.0
+          ],
+          "max": [
+            40322.0,
+            18115.0,
+            21868.4
+          ],
+          "size": [
+            35644.0,
+            20437.0,
+            22968.4
+          ]
+        }
+      },
+      {
+        "persistent_id": 26074,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5000.0,
+            -15000.0,
+            -200.0
+          ],
+          "max": [
+            40000.0,
+            28000.0,
+            470.0
+          ],
+          "size": [
+            45000.0,
+            43000.0,
+            670.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26076,
+        "name": "VISIBLE_INTERIOR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2200.0,
+            500.0,
+            0.0
+          ],
+          "max": [
+            27500.0,
+            10850.0,
+            9640.0
+          ],
+          "size": [
+            25300.0,
+            10350.0,
+            9640.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26868,
+        "name": "Core_front_openings",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13500.0,
+            1690.0,
+            6500.0
+          ],
+          "max": [
+            18000.0,
+            1910.0,
+            23900.0
+          ],
+          "size": [
+            4500.0,
+            220.0,
+            17400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 50627,
+        "name": "Screen_panel_prototype",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            900.0,
+            22.0,
+            10000.0
+          ],
+          "size": [
+            900.0,
+            22.0,
+            10000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129566,
+        "name": "Screen_panel_dense_prototype",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -22.0,
+            0.0
+          ],
+          "max": [
+            900.0,
+            0.0,
+            10000.0
+          ],
+          "size": [
+            900.0,
+            22.0,
+            10000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129882,
+        "name": "Left_red_fold_volume",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6100.0,
+            3500.0,
+            20900.0
+          ],
+          "max": [
+            10800.0,
+            6900.0,
+            23300.0
+          ],
+          "size": [
+            4700.0,
+            3400.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129928,
+        "name": "Core_front_screen",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13488.4,
+            1418.0,
+            6500.0
+          ],
+          "max": [
+            18030.0,
+            1470.0,
+            26016.3
+          ],
+          "size": [
+            4541.6,
+            52.0,
+            19516.3
+          ]
+        }
+      },
+      {
+        "persistent_id": 136496,
+        "name": "Right_recess_inner_wall",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18000.0,
+            7390.0,
+            9650.0
+          ],
+          "max": [
+            26500.0,
+            7610.0,
+            17062.5
+          ],
+          "size": [
+            8500.0,
+            220.0,
+            7412.5
+          ]
+        }
+      },
+      {
+        "persistent_id": 136618,
+        "name": "Right_recess_enclosure",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18000.0,
+            7363.0,
+            9650.0
+          ],
+          "max": [
+            31110.0,
+            15500.0,
+            17062.5
+          ],
+          "size": [
+            13110.0,
+            8137.0,
+            7412.5
+          ]
+        }
+      }
+    ]
+  },
+  "revision": 5,
+  "root_pid": 26048,
+  "owned_after": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -5000.0,
+        -15000.0,
+        -1100.0
+      ],
+      "max": [
+        40322.0,
+        28000.0,
+        26016.3
+      ],
+      "size": [
+        45322.0,
+        43000.0,
+        27116.3
+      ]
+    },
+    "objects_total": 17,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 26056,
+        "name": "STRUCTURE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1000.0,
+            1200.0,
+            0.0
+          ],
+          "max": [
+            31720.0,
+            21720.0,
+            19000.0
+          ],
+          "size": [
+            30720.0,
+            20520.0,
+            19000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26058,
+        "name": "ENVELOPE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -1200.0,
+            6000.0
+          ],
+          "max": [
+            34500.0,
+            24047.1,
+            24080.0
+          ],
+          "size": [
+            34500.0,
+            25247.1,
+            18080.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26060,
+        "name": "CORE_WALLS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13500.0,
+            2000.0,
+            0.0
+          ],
+          "max": [
+            23200.0,
+            19000.0,
+            24100.0
+          ],
+          "size": [
+            9700.0,
+            17000.0,
+            24100.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26062,
+        "name": "ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18200.0,
+            2198.4,
+            21100.0
+          ],
+          "max": [
+            28200.0,
+            15303.8,
+            25800.2
+          ],
+          "size": [
+            10000.0,
+            13105.5,
+            4700.2
+          ]
+        }
+      },
+      {
+        "persistent_id": 26064,
+        "name": "CIRCULATION",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4700.0,
+            -3541.9,
+            -180.0
+          ],
+          "max": [
+            40300.0,
+            18100.0,
+            20735.0
+          ],
+          "size": [
+            35600.0,
+            21641.9,
+            20915.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26068,
+        "name": "SCREENS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -30.0,
+            -1217.5,
+            6250.0
+          ],
+          "max": [
+            34535.0,
+            24035.0,
+            25717.5
+          ],
+          "size": [
+            34565.0,
+            25252.5,
+            19467.5
+          ]
+        }
+      },
+      {
+        "persistent_id": 26070,
+        "name": "GLAZING",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            370.0,
+            -30.0
+          ],
+          "max": [
+            31025.0,
+            15525.0,
+            17730.0
+          ],
+          "size": [
+            31025.0,
+            15155.0,
+            17760.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26072,
+        "name": "RAILINGS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4678.0,
+            -2322.0,
+            -1100.0
+          ],
+          "max": [
+            40322.0,
+            18115.0,
+            21868.4
+          ],
+          "size": [
+            35644.0,
+            20437.0,
+            22968.4
+          ]
+        }
+      },
+      {
+        "persistent_id": 26074,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5000.0,
+            -15000.0,
+            -200.0
+          ],
+          "max": [
+            40000.0,
+            28000.0,
+            470.0
+          ],
+          "size": [
+            45000.0,
+            43000.0,
+            670.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26076,
+        "name": "VISIBLE_INTERIOR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2200.0,
+            500.0,
+            0.0
+          ],
+          "max": [
+            27500.0,
+            10850.0,
+            9640.0
+          ],
+          "size": [
+            25300.0,
+            10350.0,
+            9640.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 26868,
+        "name": "Core_front_openings",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13500.0,
+            1690.0,
+            6500.0
+          ],
+          "max": [
+            18000.0,
+            1910.0,
+            23900.0
+          ],
+          "size": [
+            4500.0,
+            220.0,
+            17400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 50627,
+        "name": "Screen_panel_prototype",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            900.0,
+            22.0,
+            10000.0
+          ],
+          "size": [
+            900.0,
+            22.0,
+            10000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129566,
+        "name": "Screen_panel_dense_prototype",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -22.0,
+            0.0
+          ],
+          "max": [
+            900.0,
+            0.0,
+            10000.0
+          ],
+          "size": [
+            900.0,
+            22.0,
+            10000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129882,
+        "name": "Left_red_fold_volume",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6100.0,
+            3500.0,
+            20900.0
+          ],
+          "max": [
+            10800.0,
+            6900.0,
+            23300.0
+          ],
+          "size": [
+            4700.0,
+            3400.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 129928,
+        "name": "Core_front_screen",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            13488.4,
+            1418.0,
+            6500.0
+          ],
+          "max": [
+            18030.0,
+            1470.0,
+            26016.3
+          ],
+          "size": [
+            4541.6,
+            52.0,
+            19516.3
+          ]
+        }
+      },
+      {
+        "persistent_id": 136496,
+        "name": "Right_recess_inner_wall",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18000.0,
+            7390.0,
+            9650.0
+          ],
+          "max": [
+            26500.0,
+            7610.0,
+            17062.5
+          ],
+          "size": [
+            8500.0,
+            220.0,
+            7412.5
+          ]
+        }
+      },
+      {
+        "persistent_id": 136618,
+        "name": "Right_recess_enclosure",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            18000.0,
+            7363.0,
+            9650.0
+          ],
+          "max": [
+            31110.0,
+            15500.0,
+            17062.5
+          ],
+          "size": [
+            13110.0,
+            8137.0,
+            7412.5
+          ]
+        }
+      }
+    ]
+  },
+  "scenes_after": {
+    "available": true,
+    "pages": []
+  }
+}

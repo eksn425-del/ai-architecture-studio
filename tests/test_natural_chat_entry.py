@@ -83,3 +83,30 @@ def test_existing_model_developer_instruction_keeps_edit_local():
     assert "SAME model" in prompt
     assert "smallest dependent edit" in prompt
     assert "A question or discussion-only message does not authorize geometry" in prompt
+
+
+def test_chat_model_preview_links_resolve_inside_current_project():
+    source = (Path(__file__).parents[1] / 'app/static/studio.js').read_text(encoding='utf8')
+    start = source.index('function chatText(')
+    end = source.index('\nfunction ', start + 1)
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node needed for real frontend link function')
+    stub = """
+const projectFileUrl = p => '/api/projects/current/files/' + p;
+const escapeHtml = s => s;
+const window = {markdownit: () => {
+  const md = {renderer:{rules:{}}};
+  md.render = href => {
+    const token = {attrGet: () => href, attrSet: (k,v) => {if(k==='href') token.href=v;}};
+    md.renderer.rules.link_open([token],0,{}, {}, {renderToken:() => token.href});
+    return token.href;
+  };
+  return md;
+}};
+"""
+    probe = stub + source[start:end] + "\nconsole.log(JSON.stringify(['../../outputs/renders/agent-view-a.png','outputs/model/test.skp','../../outputs/../../secret','javascript:alert(1)'].map(chatText)));"
+    result = subprocess.run([node, '-e', probe], capture_output=True, text=True, encoding='utf8', check=True)
+    assert json.loads(result.stdout) == [
+        '/api/projects/current/files/outputs/renders/agent-view-a.png',
+        '/api/projects/current/files/outputs/model/test.skp', '#', '#']

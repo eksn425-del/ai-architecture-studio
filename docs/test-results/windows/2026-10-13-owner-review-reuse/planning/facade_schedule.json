@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "dimensions_mm": {
+    "overall_width": 32000,
+    "overall_depth": 24000,
+    "level_height": 4000,
+    "floor_count": null
+  },
+  "views": {
+    "front": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "左翼两段大玻璃凹口",
+        "中央窄窗竖列与中下部连续玻璃带",
+        "右翼深凹口内斜向玻璃"
+      ],
+      "notes": [
+        "不把幕墙分格当作独立墙洞；整体数量未能无歧义统计，保持null"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "延续网屏、结构与交通关系"
+      ],
+      "notes": [
+        "不把幕墙分格当作独立墙洞；整体数量未能无歧义统计，保持null"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "延续网屏、结构与交通关系"
+      ],
+      "notes": [
+        "不把幕墙分格当作独立墙洞；整体数量未能无歧义统计，保持null"
+      ]
+    },
+    "right": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "高位长白色屏风",
+        "退入玻璃面及开放平台",
+        "右侧外梯与坡道"
+      ],
+      "notes": [
+        "不把幕墙分格当作独立墙洞；整体数量未能无歧义统计，保持null"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "错落屏风顶缘与红色折面，内侧屋面不可完整判断",
+    "parapet": "白色网屏延伸到屋顶以上；不可视作连续实心墙",
+    "divisions": [
+      "左翼高位屏风",
+      "中央折面与竖向核心",
+      "右翼长屏风及内部红色折面"
+    ],
+    "notes": [
+      "屋面与屏风独立分组；折面角度、壳厚及内侧排水推定"
+    ]
+  },
+  "global_features": [
+    "架空开放首层",
+    "红色细柱与楼板",
+    "白色穿孔板竖向分格",
+    "凹入玻璃与大尺度负空间",
+    "红色外楼梯、露台与浅灰坡道"
+  ],
+  "user_confirmed": [
+    "课程外观汇报、近看分格与栏杆可编辑",
+    "建筑及紧邻平台、外楼梯和坡道；远景简化",
+    "主要层高约4000mm为估算",
+    "2026-10-12: upper-right recess has white enclosure; glazing mainly recessed on right. Only this region may change; roof, left, stairs KEEP.",
+    "Upper-left stair has continuous white sides. Large right red face is connected folded roof. Right recess repair retained."
+  ],
+  "inferred": [
+    "后侧和隐蔽室内延续可见体系",
+    "尺寸及层位均为估算，错层不能套统一矩形楼层"
+  ],
+  "opening_schedule": [
+    {
+      "id": "CORE_FRONT_NARROW",
+      "side": "front",
+      "panel": "图1中央窄面；图2中央核心侧面",
+      "level": "错层核心",
+      "observed_count": 3,
+      "count_confidence": "medium",
+      "provenance": "mixed",
+      "type": "竖列窄矩形开口",
+      "x_intervals_mm": [
+        [
+          15800,
+          16400
+        ]
+      ],
+      "z_intervals_mm": [
+        [
+          9800,
+          10900
+        ],
+        [
+          13100,
+          14200
+        ],
+        [
+          16600,
+          17700
+        ]
+      ],
+      "recess_mm": 150,
+      "notes": [
+        "图1窄面可辨3个；图2透视面需分清同面，不能重复计数；坐标为估算"
+      ]
+    },
+    {
+      "id": "LEFT_INNER_NARROW",
+      "side": "front",
+      "panel": "图1左翼靠核心内侧窄面",
+      "level": "中部",
+      "observed_count": 2,
+      "count_confidence": "medium",
+      "provenance": "mixed",
+      "type": "窄窗",
+      "x_intervals_mm": [
+        [
+          12000,
+          12600
+        ]
+      ],
+      "z_intervals_mm": [
+        [
+          8500,
+          9700
+        ],
+        [
+          11900,
+          13100
+        ]
+      ],
+      "recess_mm": 150,
+      "notes": [
+        "图2可见额外侧面窗，归不同墙面，数量待局部校核"
+      ]
+    },
+    {
+      "id": "FRONT_GLAZED_BAND",
+      "side": "front",
+      "panel": "两图中下部暖色玻璃带",
+      "level": "L1",
+      "observed_count": null,
+      "provenance": "mixed",
+      "type": "连续玻璃空间，非实墙贴玻璃",
+      "x_intervals_mm": [
+        [
+          12000,
+          28000
+        ]
+      ],
+      "z_intervals_mm": [
+        [
+          7200,
+          10000
+        ]
+      ],
+      "recess_mm": 400,
+      "notes": [
+        "玻璃段数和门位置不明确；先保整体连续性"
+      ]
+    },
+    {
+      "id": "LEFT_LARGE_VOIDS",
+      "side": "front",
+      "panel": "图1左端上下两处凹口",
+      "level": "错层",
+      "observed_count": 2,
+      "provenance": "mixed",
+      "type": "大凹口及退入玻璃",
+      "x_intervals_mm": [
+        [
+          0,
+          6000
+        ]
+      ],
+      "z_intervals_mm": [
+        [
+          7000,
+          9500
+        ],
+        [
+          10500,
+          13000
+        ]
+      ],
+      "recess_mm": 2200,
+      "notes": [
+        "洞口范围估算；不是连续实心外墙"
+      ]
+    },
+    {
+      "id": "RIGHT_LARGE_VOID",
+      "side": "right",
+      "panel": "两图右上长屏风下部",
+      "level": "高位",
+      "observed_count": 1,
+      "provenance": "mixed",
+      "type": "深凹口与斜折玻璃",
+      "x_intervals_mm": [
+        [
+          19000,
+          32000
+        ]
+      ],
+      "z_intervals_mm": [
+        [
+          11500,
+          18000
+        ]
+      ],
+      "recess_mm": 3500,
+      "notes": [
+        "折线几何与深度由两图共同校核"
+      ]
+    },
+    {
+      "id": "RIGHT_RECESS_USER_REPAIR",
+      "side": "front",
+      "panel": "Both sources upper-right recess",
+      "level": "upper recess",
+      "observed_count": 1,
+      "provenance": "mixed",
+      "type": "white inner wall small rectangular window; large right-return glazing",
+      "x_intervals_mm": [
+        [
+          19700,
+          20300
+        ],
+        [
+          26500,
+          31000
+        ]
+      ],
+      "z_intervals_mm": [
+        [
+          12700,
+          13800
+        ],
+        [
+          12700,
+          17062.5
+        ]
+      ],
+      "recess_mm": 7500,
+      "notes": [
+        "Position/dimensions estimated; white enclosure and right-return glazing user confirmed."
+      ]
+    }
+  ]
+}

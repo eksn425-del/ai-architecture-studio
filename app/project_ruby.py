@@ -120,7 +120,35 @@ class ProjectRubyExecutor:
         if not isinstance(path, str) or Path(path).resolve() != self.expected_model_path:
             raise MCPCallError("The active SketchUp document no longer matches this project's disposable model copy.")
         if not isinstance(guid, str) or guid != self.expected_model_guid:
-            raise MCPCallError("The active SketchUp model GUID changed; inspect the current document before modeling.")
+            if not isinstance(guid, str) or not guid or identity.get("active_context") or identity.get("main_thread") is False:
+                raise MCPCallError("The active SketchUp model GUID changed; inspect the current document before modeling.")
+            # SketchUp autosave changes GUID without changing the owned document.
+            # Rebind only after a native read-only path/root/project/revision proof.
+            roots = [(state.get("root_pid"), int(state.get("revision", 0)))
+                     for state in self.ruby_state.values() if state.get("root_pid")]
+            if not roots:
+                raise MCPCallError("The active SketchUp model GUID changed; inspect the current document before modeling.")
+            transport = _generated_script_dir().expanduser().resolve()
+            transport.mkdir(parents=True, exist_ok=True)
+            script = transport / f"studio-guid-readback-{uuid.uuid4().hex}.rb"
+            lines = ["# ARCHFLOW_GENERATED_SCRIPT", "model = Sketchup.active_model",
+                     f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
+                     f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(guid)}"]
+            for pid, revision in roots:
+                lines.extend([f"root = model.find_entity_by_persistent_id({int(pid)})",
+                              "raise 'Owned root missing' unless root.is_a?(Sketchup::Group)",
+                              f"raise 'Project identity mismatch' unless root.get_attribute('sketchup_architect', 'project_id') == {self._ruby_string(self.project_id)}",
+                              f"raise 'Revision mismatch' unless root.get_attribute('sketchup_architect', 'revision') == {revision}"])
+            lines.append("{guid_rebind_verified: true}")
+            script.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            try:
+                result = self.mcp.call("sketchup_eval_project_file", {"script_path": str(script), "operation_name": "Verify owned identity after autosave; read only"})
+            finally:
+                script.unlink(missing_ok=True)
+            proof = result.get("result") if isinstance(result, dict) else None
+            if not isinstance(proof, dict) or proof.get("guid_rebind_verified") is not True:
+                raise MCPCallError("Could not verify owned model identity after GUID change.")
+            self.expected_model_guid = guid
         if identity.get("active_context"):
             raise MCPCallError("Exit the active SketchUp group/component edit context before running project Ruby.")
         return identity

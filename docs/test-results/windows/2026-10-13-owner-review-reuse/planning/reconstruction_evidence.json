@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "multi_view_reconstruction",
+  "primary_source": "inputs/reference/f15eca3833-image.png",
+  "sources": [
+    {
+      "path": "inputs/reference/f15eca3833-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "入口广场近正面；红柱、中央玻璃带、左翼开洞及右侧坡道"
+    },
+    {
+      "path": "inputs/reference/2cc8f551ee-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "同一建筑右前斜视；右侧长屏风、悬挑、楼梯和坡道"
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/f15eca3833-image.png",
+        "inputs/reference/2cc8f551ee-image.png"
+      ],
+      "notes": [
+        "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+      ]
+    },
+    "rear": {
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "无完整视图，按已见体系推定"
+      ]
+    },
+    "left": {
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "无完整视图，按已见体系推定"
+      ]
+    },
+    "right": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/2cc8f551ee-image.png"
+      ],
+      "notes": [
+        "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/f15eca3833-image.png",
+        "inputs/reference/2cc8f551ee-image.png"
+      ],
+      "notes": [
+        "仅看见折面和屏风顶缘，非完整屋顶证据"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/2cc8f551ee-image.png"
+      ],
+      "notes": [
+        "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "未提供平面，内部拓扑不可当作已知"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": []
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "无独立室内资料；两外景玻璃后局部可见室内"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "主要层高估算基准",
+      "value_mm": 4000,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/f15eca3833-image.png"
+    }
+  ],
+  "hard_constraints": [
+    "两图约束同一建筑；不得独立设计两套体量",
+    "保持红色架空柱、错层悬挑、白色穿孔屏风与屋顶红色折面",
+    "保持图示玻璃凹口、外楼梯、露台和右侧坡道；遮挡不代表缺失",
+    "User correction 2026-10-12: upper-right recess white inner enclosure; glazing on recessed right side. Preserve roof, left and stairs.",
+    "User 2026-10-13: restore upper-left stair white side enclosures and connected upper-right red folded roof; preserve accepted right recess and other correct assemblies."
+  ],
+  "assumptions": [
+    "用户已确认上一轮推荐用途、范围和4米主要层高估算",
+    "约32×24米、高约26米为初始低置信估算，不是测量",
+    "未观察到明确跨视图矛盾；遮挡部分仍不确定"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  }
+}

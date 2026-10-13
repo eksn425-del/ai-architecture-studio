@@ -1,0 +1,439 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/f15eca3833-image.png",
+    "sources": [
+      {
+        "path": "inputs/reference/f15eca3833-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "入口广场近正面；红柱、中央玻璃带、左翼开洞及右侧坡道"
+      },
+      {
+        "path": "inputs/reference/2cc8f551ee-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "同一建筑右前斜视；右侧长屏风、悬挑、楼梯和坡道"
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/f15eca3833-image.png",
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      },
+      "rear": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "无完整视图，按已见体系推定"
+        ]
+      },
+      "left": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "无完整视图，按已见体系推定"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/f15eca3833-image.png",
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "仅看见折面和屏风顶缘，非完整屋顶证据"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2cc8f551ee-image.png"
+        ],
+        "notes": [
+          "依据红柱、玻璃带、坡道定位；前方定义为图1广场侧"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "未提供平面，内部拓扑不可当作已知"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": []
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "无独立室内资料；两外景玻璃后局部可见室内"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "主要层高估算基准",
+        "value_mm": 4000,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/f15eca3833-image.png"
+      }
+    ],
+    "hard_constraints": [
+      "两图约束同一建筑；不得独立设计两套体量",
+      "保持红色架空柱、错层悬挑、白色穿孔屏风与屋顶红色折面",
+      "保持图示玻璃凹口、外楼梯、露台和右侧坡道；遮挡不代表缺失",
+      "User correction 2026-10-12: upper-right recess white inner enclosure; glazing on recessed right side. Preserve roof, left and stairs."
+    ],
+    "assumptions": [
+      "用户已确认上一轮推荐用途、范围和4米主要层高估算",
+      "约32×24米、高约26米为初始低置信估算，不是测量",
+      "未观察到明确跨视图矛盾；遮挡部分仍不确定"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 65969,
+    "input_tokens": 38210,
+    "output_tokens": 686,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "The sources show the same building from near-front and front-right: stepped white screened volumes, a central peaked vertical spine with small windows, deep recesses, red columns and elevated decks, lower glazed rooms, upper-right corner glazing, red folded roof elements, external stairs and a white ramp. Shared landmarks establish their connections; no dimensions are supplied, and rear geometry remains uncertain. CURRENT retains this general arrangement, but the upper-left recess, roof folds and circulation geometry differ substantially. Screenshots cannot establish watertight joints or concealed connections.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "The upper-left recess has become an almost empty opening with an exposed straight stair. SOURCE 1 shows a substantial white-sided diagonal circulation element beneath the small red fold, bounded above by a deep screened fascia. CURRENT loses that enclosure and changes the opening's silhouette.",
+      "action": "Locally restore the visible white stair-side enclosure and upper screened fascia depth; adjust the flight and landing positions against both source angles while preserving the lower-left glazed bays."
+    },
+    {
+      "priority": 2,
+      "view": "roof",
+      "problem": "The large red roof fold presents a thin diagonal blade in CURRENT's near-front view and a broad projecting triangle in its front-right view. The sources show a broad, near-upright red face beside the central spine, descending toward connected lower folds within the right screened enclosure.",
+      "action": "Adjust the existing fold's orientation, vertices and connections to reproduce its visible face and descending profile in both source angles. Preserve the small left red fold; hidden roof topology is unverified."
+    },
+    {
+      "priority": 3,
+      "view": "right",
+      "problem": "CURRENT's white ramp reads as a narrow straight trough, whereas SOURCE 2 shows a broad rising route with a return near the central support. The lower glazed circulation also lacks the source's clearly connected diagonal red stair and landing arrangement.",
+      "action": "Locally correct the ramp width, return and landing connection, then align the lower stair flights with the glazed deck. Verify actual landing contacts and clearances rather than relying on projected overlaps."
+    }
+  ],
+  "keep": [
+    "The two stacked glazed openings at the far-left edge, separated by a red floor band.",
+    "The small rectangular windows arranged vertically on the central spine.",
+    "The red material assignment of the exposed columns and elevated deck edges."
+  ],
+  "model_revisions": {
+    "reconstruction_357fb": 5
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-e3107e9154.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.661,
+          -123.7728,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-1b63653db0.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.661,
+          136.77280000000002,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-c41b39bd33.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          -113.7728,
+          6.5,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-316752c5e0.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          149.09480000000002,
+          6.5,
+          13.000476
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-bef36c7256.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          17.661,
+          6.5,
+          134.7891
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          12.458149999999998
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-1766d20b40.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "reconstruction_357fb",
+      "camera": {
+        "eye_m": [
+          125.16478400000001,
+          -99.84278400000001,
+          78.227244
+        ],
+        "target_m": [
+          17.661,
+          6.5,
+          13.000476
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/f15eca3833-image.png",
+      "current_view": "outputs/renders/agent-view-718453fc45.png",
+      "label": "Source 1 near-front current recess correction",
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      }
+    },
+    {
+      "source_ref": "inputs/reference/2cc8f551ee-image.png",
+      "current_view": "outputs/renders/agent-view-3e82ea2693.png",
+      "label": "Source 2 front-right current recess correction",
+      "model_revisions": {
+        "reconstruction_357fb": 5
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": true,
+    "mode": "multi_view_reconstruction",
+    "observed_sources": [
+      "inputs/reference/2cc8f551ee-image.png",
+      "inputs/reference/f15eca3833-image.png"
+    ],
+    "paired_sources": [
+      "inputs/reference/2cc8f551ee-image.png",
+      "inputs/reference/f15eca3833-image.png"
+    ]
+  },
+  "writer_verifications": {
+    "reconstruction_357fb": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 26048,
+          "actual": 26048
+        },
+        {
+          "check": "revision",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "objects_total",
+          "expected": 17,
+          "actual": 17
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -5000.0,
+              -15000.0,
+              -1100.0
+            ],
+            "max": [
+              40322.0,
+              28000.0,
+              26016.3
+            ],
+            "size": [
+              45322.0,
+              43000.0,
+              27116.3
+            ]
+          },
+          "actual": {
+            "min": [
+              -5000,
+              -15000,
+              -1100
+            ],
+            "max": [
+              40322,
+              28000,
+              26016.3
+            ],
+            "size": [
+              45322,
+              43000,
+              27116.3
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/2cc8f551ee-image.png",
+    "inputs/reference/f15eca3833-image.png"
+  ],
+  "source_sha256": {
+    "inputs/reference/2cc8f551ee-image.png": "131c3c16f9c683fab5e3d0bcdaae7e30eea74094f8db7e6c2f3b34f29f292936",
+    "inputs/reference/f15eca3833-image.png": "a8bf7ecd7f09539aec9b0dd119b08816310b5ece40e09ac825b82479cfef1c6b"
+  }
+}

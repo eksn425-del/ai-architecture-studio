@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "limit": "Host precommit KEEP/scope receipts; no new full world-vertex fingerprint comparison this run",
+  "guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE",
+      "ENVELOPE",
+      "CORE_WALLS",
+      "CIRCULATION",
+      "SCREENS",
+      "GLAZING",
+      "RAILINGS",
+      "SITE",
+      "VISIBLE_INTERIOR",
+      "Core_front_openings",
+      "Screen_panel_prototype",
+      "Screen_panel_dense_prototype",
+      "Left_red_fold_volume",
+      "Core_front_screen",
+      "Right_recess_inner_wall",
+      "Right_recess_enclosure"
+    ]
+  },
+  "scope": {
+    "status": "passed",
+    "allowed_top_level": [
+      "ROOF",
+      "Upper_left_stair_enclosure_west",
+      "Upper_left_stair_enclosure_east",
+      "Upper_left_stair_landing_joint"
+    ],
+    "protected_top_level_count": 16,
+    "unchanged_protected_groups": [
+      "STRUCTURE",
+      "ENVELOPE",
+      "CORE_WALLS",
+      "CIRCULATION",
+      "SCREENS",
+      "GLAZING",
+      "RAILINGS",
+      "SITE",
+      "VISIBLE_INTERIOR",
+      "Core_front_openings",
+      "Screen_panel_prototype",
+      "Screen_panel_dense_prototype",
+      "Left_red_fold_volume",
+      "Core_front_screen",
+      "Right_recess_inner_wall",
+      "Right_recess_enclosure"
+    ]
+  }
+}

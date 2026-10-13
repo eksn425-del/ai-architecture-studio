@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-13-owner-review-reuse",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "7e58f2dd66a8b705673ef12a1d6ea587399f8dd4",
+  "source_case": "Same two private source photos; source images and private SKP not published",
+  "model": {
+    "requested": "gpt-6.1-sol / medium",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "Real K Studio website Codex App Server proxy; paid API NOT_RUN"
+  },
+  "environment": {
+    "windows": "Windows 11",
+    "sketchup": "2024 / 24.0.484",
+    "bridge": "Kongxing",
+    "adai": "0.5.39 enabled"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "FAIL",
+    "needs_fix": true
+  },
+  "stopped_by_owner": true,
+  "geometry_revision": 6,
+  "blockers": [
+    "Source massing/screen crest/roof widths and circulation still mismatch",
+    "Second turn additional roof refinement blocked by autosave GUID drift",
+    "GUID fix tested offline and read-only native, final website rerun NOT_RUN because owner stopped",
+    "Preview-link fix offline PASS but website still showed #; final frontend delivery NOT_VERIFIED",
+    "Final native export/edit/reopen/replay NOT_RUN"
+  ]
+}

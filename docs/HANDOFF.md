@@ -1,3 +1,16 @@
+# 2026-10-13 用户停止同项目迭代：PARTIAL / 视觉 FAIL，保留 r6
+
+[最新报告、两轮真实前后截图及完整记录](test-results/windows/2026-10-13-owner-review-reuse/README.md)。本次真实网站 Sol6.1 Medium 自然中文两回合 r4→r5→r6，右侧内壁/退入玻璃、左上楼梯侧墙及相连红折面有改善，但右侧围合、屏顶轮廓、屋面尺度和下部交通仍独立 Critic NEEDS_FIX。两回合 Builder3,604,539 input/65工具/1失败/835344ms；无全局重建、无付费API。
+
+用户明确取消本地迭代 Native Token/工具预算 cap，启动脚本设为0；历史用量保留，新累计11,493,239。跨回合同修订独立审查复用已真实网站验证，两回合先修改再复核新修订。修后全量404passed/2skip。第二回合追加屋面写入遇自动保存GUID误判，已修同路径/根/项目/修订只读验证再绑定；回归和原生只读证明通过，修后网站写入NOT_RUN。效果图链接映射回归通过，但网站仍#，最终浏览器交付待查。
+
+**用户现在主动要求停止测试，不自动继续建模。** 本轮最终SKP下载/原生编辑保存重开/严格replay均NOT_RUN；后续须用户恢复后才继续同项目主体定向修正及上述产品恢复验证。不要把本批两个局部改善或工程PASS当成整栋视觉PASS。
+
+
+**同步说明**：交接时远端新增459b934，保留其Codex harness研究/新图片下一轮任务和更严格的证据SHA审查复用实现；本轮实际网站运行的是同步前本地实现，不能冒充合并后实现已真机验证。当前用户要求停止优先；下一轮等用户恢复及新指令。
+
+---
+
 # HANDOFF — 2026-10-13 owner NEW PHOTO Harness-parity experiment
 
 Legal source-grounded comparison: [Codex open-source core audit](CODEX_HARNESS_PARITY_AUDIT_2026-10-13.md); next Windows test: [NEW photo Sol Medium human GUI](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). Host-owned SHA-based last independent Critic review can survive a compact new turn only for same actual source, current six screenshots/sidecars, source-matched pairs, evidence ledger, verified model revision and latest append history. Self-review, legacy receipt, any content or revision change => recapture. Bounded top 3 spatial errors reintroduced to new Builder, not an undocumented Codex copy. Native NOT_RUN pending user's genuinely new private photo, actual site gpt-6.1-sol/medium identity; outer Codex controller unchanged. No paid API, no access to competitors' private code, preserve old r4 7.8887M/8M exhausted and visual FAIL. Commercial K Studio without end-user Codex accounts requires legally funded operator inference, NOT supplied simply by open-source Harness.

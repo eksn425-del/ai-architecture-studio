@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 835344,
+  "tool_call_count": 65,
+  "failed_tool_calls": 1,
+  "input_tokens": 3604539,
+  "output_tokens": 13259,
+  "committed_writes": 2,
+  "full_root_rebuilds": 0,
+  "builder_turns": [
+    {
+      "revision": 5,
+      "latency_ms": 302969,
+      "input_tokens": 1782372,
+      "output_tokens": 3809,
+      "tool_call_count": 25,
+      "failed_tool_calls": 0
+    },
+    {
+      "revision": 6,
+      "latency_ms": 532375,
+      "input_tokens": 1822167,
+      "output_tokens": 9450,
+      "tool_call_count": 40,
+      "failed_tool_calls": 1
+    }
+  ],
+  "critic_usage": [
+    {
+      "trace": "6562d80d6b2c4b8f832ee2d8e5c89f60.jsonl",
+      "event": "project_budget_finished",
+      "is_builder": false,
+      "status": "completed",
+      "input_tokens": 38210,
+      "output_tokens": 686
+    },
+    {
+      "trace": "65b6692258c545c78f190f384f2a25d4.jsonl",
+      "event": "project_budget_finished",
+      "is_builder": false,
+      "status": "completed",
+      "input_tokens": 38232,
+      "output_tokens": 749
+    }
+  ],
+  "prior_project_builder_input_tokens": 7888700,
+  "final_project_builder_input_tokens": 11493239,
+  "native_cost_caps": "disabled with explicit owner authorization; ledger preserved",
+  "paid_api_calls": 0,
+  "targeted_corrections": 2,
+  "token_source": "Actual terminal Native Builder telemetry; Critic separate, no mock usage"
+}
