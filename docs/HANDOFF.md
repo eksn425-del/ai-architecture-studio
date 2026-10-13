@@ -1,3 +1,9 @@
+# HANDOFF 2026-10-13 — native SKP consistency FIRST, original Codex comparison only on measured failure
+
+[Authoritative integrated plan](NEXT_P0_DELIVERY_AND_CONDITIONAL_CODEX_PARITY_2026-10-13.md). Prior actual eight-whole-photo site work PARTIAL / visual and clean native reopen FAIL, only r1 and no user roof edit commit: retain all private original evidence. New branch records saved bound + download candidate file hashes and explicit `UNVERIFIED_NATIVE_REOPEN` receipt/UI; strict read-only three-stage deep geometry auditor identifies first real failure. First isolate/repair true SU native save/download/reopen cause in a safe copy, then same website short Chinese local edit and source-matched independent QA. Only if full delivery PASS but site fidelity/edit/UX still FAIL (not model capacity outage) use original Codex as a conditional same-eight-photo/actual Sol Medium/comparable MCP control. Otherwise SKIP original Codex A/B. Public Building Xuezhang marketing/tutorial research only: no reverse private app, hidden endpoints, prohibited automation or copying competitor assets without authorization. No paid provider inference. CI != native proof.
+
+---
+
 # HANDOFF — 真实新建筑 Harness 实测完成，PARTIAL，交回网页端审查（2026-10-13）
 
 [报告、真实截图、调用与错误记录](test-results/windows/2026-10-13-native-harness-new-building/README.md)。实际起点 `02f63af09961a283de04d7bbc07e893deeeccb2b`，本轮八张新建筑整图／真实网站／SketchUp 2024／Kongxing／ADAI 0.5.39，实际 Sol6.1 Medium，外层模型不变，无付费 API。全新根 20606/r1，旧项目保持停止。
