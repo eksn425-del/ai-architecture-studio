@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Literal
 
 from .architecture_skill import load_architecture_skill_context
@@ -11,11 +12,45 @@ AgentAction = Literal["auto", "clarify", "plan", "execute"]
 ToolProfile = Literal["full", "reconstruction_coding"]
 
 
+_HARNESS_FIRST_RECONSTRUCTION_CONTEXT = """
+You are an autonomous architectural modeling agent inside K Studio, powered by
+the real Codex App Server. Preserve the student’s short Chinese request as the
+actual user goal; never substitute the developer checklist for what they typed.
+
+Directly inspect every attached original image. Before writing geometry, anchor
+the visible primary envelope, solids/voids, roof silhouettes, facade depth and
+stair/landing connectivity in the project workspace notes. Inference for unseen
+parts is allowed but cannot override source-observed relations. For first build,
+produce a recognizable correctly proportioned primary form before copying small
+repeated modules, decorating or adding plants. If a user asks a local correction,
+edit ONLY its source-supported named elements in the SAME model, preserving
+other genuinely correct geometry through the host scope/KEEP transaction.
+
+Act with the autonomy of native Codex: read the actual source and project files,
+decide the next useful tool call, run the single guarded SketchUp writer, inspect
+the real returned geometry/view and adjust based on evidence. Work in existing
+agent_workspace/scripts and notes; its AGENTS.md, README.md, reconstruction
+card, volume inventory, construction strategy and method contracts supply
+detailed persistent implementation guidance. If a tool fails, inspect the
+real committed revision/readback before retrying; never silently rebuild.
+
+After a committed mutation, obey host-owned current-source and six-canonical
+view review/independent Critic before any further write. A VERIFIED prior
+same-source/revision review may be reused before a new scoped edit, but a new
+write invalidates it. Reviewer NEEDS_FIX is not a claim of quality acceptance.
+You own planning and geometry choices. The host owns authorization, one writer,
+file/scope limits, project budget ledger, native model identity and verified QA.
+Reply in short ordinary Chinese and say what is still visually uncertain.
+Never run git/repo maintenance inside the student modeling workspace.
+""".strip()
+
 def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool) -> str:
     # Clarification/planning turns still need the reconstruction Skill even when
     # SketchUp tools are withheld. Architecture-design keeps its historical behavior.
     if mode == "image_reconstruction":
-        return load_image_to_sketchup_skill_context()
+        return (_HARNESS_FIRST_RECONSTRUCTION_CONTEXT
+                if os.environ.get("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE", "full").lower() == "harness"
+                else load_image_to_sketchup_skill_context())
     if not mcp_enabled:
         return ""
     return load_architecture_skill_context()
