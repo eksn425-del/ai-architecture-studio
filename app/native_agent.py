@@ -517,7 +517,9 @@ class CodexAppServerRuntime:
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
             image_registry_path = project_dir / "runtime" / "native_thread_images.json"
             image_registry = json.loads(image_registry_path.read_text(encoding="utf-8")) if image_registry_path.exists() else {}
-            image_fingerprint = _reference_images_fingerprint(project_dir, reference_images)
+            # Dedicated read-only Critic includes trusted OUTPUT screenshots, not just inputs.
+            # Its thread is always fresh; image continuity applies only to Builder/Planner.
+            image_fingerprint = _reference_images_fingerprint(project_dir, reference_images) if not read_only else ""
             previous_thread_id = thread_id
             # Historical default starts a compact new thread after a committed
             # model. Explicit native mode instead delegates continuity and
