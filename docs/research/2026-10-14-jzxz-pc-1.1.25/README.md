@@ -12,7 +12,7 @@
 
 **已证实的目标文件事实：** SHA-256 完全匹配用户给定值，270,234,333 字节；Windows VERSIONINFO 产品版本为 1.1.25、产品名称为“建筑学长电脑版”；Authenticode 返回 `NotSigned`。REA 的资源解析识别为 PE32，machine 332 / `0x014c`（i386），资源表完整检查 44 个条目、19 个资源。
 
-**较强线索仅限安装器外层：** 元数据中有 `DVCLAL`、`PACKAGEINFO` 资源名，提示外层安装引导器可能使用 Delphi/VCL 相关构建工具。没有检查这些资源的内容。该线索不能推导安装后的主程序架构，更不能证明或排除 Electron、.NET、Codex 或 Microsoft Agent Framework。PE32 也不能证明安装负载都是 32 位。
+**较强线索仅限安装器外层：** 元数据中有 `DVCLAL`、`PACKAGEINFO` 资源名，提示外层安装引导器可能使用 Delphi/VCL 相关构建工具。资源名与 [NCC Group 的 Delphi 调查工具说明](https://github.com/nccgroup/pythia)列出的编译器识别线索一致，但本次没有检查这些资源的内容。该线索不能推导安装后的主程序架构，更不能证明或排除 Electron、.NET、Codex 或 Microsoft Agent Framework。PE32 也不能证明安装负载都是 32 位。
 
 文件哈希验证的是本次文件身份；未签名时，不能通过数字签名独立认证官方发布者。安装包的合法取得及官方来源由用户提供，本次未重新下载或对照官方签名发行记录。`NotSigned` 本身也不是恶意软件判断。
 
