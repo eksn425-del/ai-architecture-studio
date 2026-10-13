@@ -1,3 +1,9 @@
+# HANDOFF — 2026-10-13 owner NEW PHOTO Harness-parity experiment
+
+Legal source-grounded comparison: [Codex open-source core audit](CODEX_HARNESS_PARITY_AUDIT_2026-10-13.md); next Windows test: [NEW photo Sol Medium human GUI](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). Host-owned SHA-based last independent Critic review can survive a compact new turn only for same actual source, current six screenshots/sidecars, source-matched pairs, evidence ledger, verified model revision and latest append history. Self-review, legacy receipt, any content or revision change => recapture. Bounded top 3 spatial errors reintroduced to new Builder, not an undocumented Codex copy. Native NOT_RUN pending user's genuinely new private photo, actual site gpt-6.1-sol/medium identity; outer Codex controller unchanged. No paid API, no access to competitors' private code, preserve old r4 7.8887M/8M exhausted and visual FAIL. Commercial K Studio without end-user Codex accounts requires legally funded operator inference, NOT supplied simply by open-source Harness.
+
+---
+
 # 2026-10-12 Issue #12 同项目 Sol Medium 真机续做交接：整体 PARTIAL，视觉 FAIL
 
 [完整报告与两角度前后截图](test-results/windows/2026-10-12-owner-medium-continuation/README.md)。用户现有双图/r3备份后，用真实网站 Sol6.1 Medium 自然中文修正，同根26048到r4一次提交；后续右上凹口自然修改在原项目预算保护下未提交。外层模型不变、无付费API/无整栋重建。

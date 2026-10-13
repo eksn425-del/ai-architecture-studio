@@ -92,3 +92,20 @@ def test_compact_model_bootstrap_starts_actual_new_thread(tmp_path, monkeypatch)
         developer_instructions='policy',dynamic_tools=[],tool_handler=lambda *_:{},model='gpt-6.1-sol',reasoning_effort='low',
         reference_images=[],tool_profile='reconstruction_coding',compact_project_context=True)
     assert 'thread/start' in methods and 'thread/resume' not in methods
+
+def test_harness_parity_fresh_builder_receives_small_verified_spatial_memory():
+    from app.native_agent import _verified_review_checkpoint_prompt
+    review = {"review_reused": True, "review": {
+        "issues": [
+            {"priority": 1, "view": "front", "problem": "wrong screen enclosure", "action": "fix SCREENS"},
+            {"priority": 2, "view": "right", "problem": "missing recessed wall", "action": "fix ENVELOPE"},
+        ],
+        "keep": ["SITE"],
+    }}
+    p = _verified_review_checkpoint_prompt(review)
+    assert "wrong screen enclosure" in p
+    assert "missing recessed wall" in p
+    assert "another six-view capture" in p
+    assert "The latest human request controls intent" in p
+    assert _verified_review_checkpoint_prompt({"review_reused": False, "review": review["review"]}) == ""
+    assert _verified_review_checkpoint_prompt({"review_reused": True, "review": {"issues": []}})

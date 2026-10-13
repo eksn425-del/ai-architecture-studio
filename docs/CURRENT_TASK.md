@@ -1,3 +1,9 @@
+# CURRENT — 2026-10-13 Codex Harness parity; NEXT is genuinely NEW photo via site Sol Medium
+
+User requested an independent legal study of public Codex Rust core and K Studio code, concrete Agent improvement and a NEW private architecture image for next genuine website test. [Audit](CODEX_HARNESS_PARITY_AUDIT_2026-10-13.md) and [one next Windows task](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). A verified independent same-source/revision six-view Critic receipt now has SHA fingerprints and can be rehydrated into new compact Builder with up to 3 short source-backed discrepancies; invalidate on changed images/camera sidecars/source ledger and after geometry write. This is a code change awaiting CI/native; not a new geometry result. Website model explicitly gpt-6.1-sol/medium actual App Server; outer Codex controller unchanged; commercial API inference not authorized. Previous r4 old project 7,888,700 reported input of 8M/200k reserve exhausted and visual FAIL, preserve. New actual owner-supplied source is a different legitimate project, not a budget bypass. Do not fabricate source or claim 1:1 product parity.
+
+---
+
 # 2026-10-12 Issue #12 同项目 Sol Medium 真机续做交接：整体 PARTIAL，视觉 FAIL
 
 [完整报告与两角度前后截图](test-results/windows/2026-10-12-owner-medium-continuation/README.md)。用户现有双图/r3备份后，用真实网站 Sol6.1 Medium 自然中文修正，同根26048到r4一次提交；后续右上凹口自然修改在原项目预算保护下未提交。外层模型不变、无付费API/无整栋重建。

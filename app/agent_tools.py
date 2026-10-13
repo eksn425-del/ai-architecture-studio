@@ -18,6 +18,7 @@ from .repair_memory import finalize_latest_repair_attempt, record_repair_attempt
 from .modeling_quality import (
     owned_inspection_fingerprint,
     submit_visual_review,
+    load_current_independent_visual_review,
     verify_preserved_owned_paths,
 )
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
@@ -146,10 +147,15 @@ class AgentToolSurface:
         # One primary build plus two corrections; an existing model gets two
         # corrections. A committed write consumes budget even if capture fails.
         write_limit = 2 if executor and executor.ruby_state else 3
+        existing_review = (
+            load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
+            if executor and tool_profile == "reconstruction_coding" and executor.ruby_state else None
+        )
         quality_state: dict[str, Any] = {
             "writes": 0,
             "write_limit": write_limit,
-            "review": None,
+            "review": existing_review,
+            "review_reused": existing_review is not None,
             "preservation": None,
             "repair_memory": None,
         }
@@ -194,6 +200,7 @@ class AgentToolSurface:
                 receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
                 finalized_repair = finalize_latest_repair_attempt(resolved_project_dir, receipt)
                 quality_state["review"] = receipt
+                quality_state["review_reused"] = False
                 quality_state["repair_memory"] = finalized_repair
                 payload = {"visual_review": receipt}
                 if finalized_repair is not None:
@@ -210,6 +217,14 @@ class AgentToolSurface:
 
             bounded = executor is not None and tool_profile == "reconstruction_coding" and name in {
                 "sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}
+            # Never let a source/viewport mutation after prepare bypass review. This
+            # is revalidated only for inherited receipts; fresh reviews use the
+            # existing current-revision write fence below.
+            if bounded and quality_state.get("review_reused"):
+                live_review = load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
+                if live_review != quality_state.get("review"):
+                    quality_state["review"] = None
+                    quality_state["review_reused"] = False
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
             if bounded and writes >= write_limit:
                 raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
@@ -233,7 +248,7 @@ class AgentToolSurface:
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
                     raise MCPCallError(
-                        "上一次已提交几何后还没有完成当前六视图视觉审查。先取得 front/rear/left/right/roof/oblique "
+                        "当前六视图视觉审查无可复用的独立收据，或来源、截图、修订已变化。先取得 front/rear/left/right/roof/oblique "
                         "六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。"
                     )
                 review_before_write = review
@@ -355,6 +370,7 @@ class AgentToolSurface:
                     writes += 1
                     quality_state["writes"] = writes
                     quality_state["review"] = None
+                    quality_state["review_reused"] = False
         return AgentToolContext(dynamic_tools=dynamic_tools, dispatch=dispatch, quality_state=quality_state)
 
     @staticmethod

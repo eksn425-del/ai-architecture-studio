@@ -875,3 +875,74 @@ def test_multi_panel_single_source_image_is_not_invented_as_two_files(tmp_path):
     }}
     result = require_observed_source_view_pairs(project, evidence, [{"source_ref": ref}])
     assert result["observed_sources"] == [ref]
+
+def test_harness_parity_restores_only_current_independent_source_review(tmp_path, monkeypatch):
+    import json
+    from app.modeling_quality import load_current_independent_visual_review
+    from app.agent_tools import AgentToolSurface
+    from app.sketchup_mcp import MCPCallError
+    project, state, views = _current_review_fixture(tmp_path)
+    from app.codex_parity import prepare_codex_parity_workspace
+    # The actual product seeds its notes/ledger before the independent review.
+    prepare_codex_parity_workspace(project / "runtime/agent_workspace")
+    source = project / "inputs/reference/source.png"
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_bytes(b"original owner image")
+    critique = ("NEEDS_FIX: YES\n<assessment>Roof needs correction.</assessment>\n"
+                '<issue priority="1" view="front">problem: folded roof wrong\naction: correct ROOF</issue>\n'
+                "<keep>ENTRY</keep>")
+    receipt = submit_visual_review(project, state, {
+        "views": views, "critique": "".join(critique),
+        "_reviewer": {"mode": "dedicated_read_only", "model": "gpt-6.1-sol"},
+    })
+    assert receipt["evidence_sha256"]
+    assert load_current_independent_visual_review(project, state) == receipt
+
+    class Executor:
+        def __init__(self, *args, **kwargs):
+            self.ruby_state = kwargs["ruby_state"]
+    monkeypatch.setattr("app.agent_tools.ProjectRubyExecutor", Executor)
+    surface = AgentToolSurface(tmp_path, object(), oss_backends={})
+    monkeypatch.setattr(surface, "dynamic_tools", lambda **kwargs: [])
+    context = surface.prepare(project_dir=project, mcp_enabled=True,
+        model_path=tmp_path / "blank.skp", model_guid="verified",
+        ruby_enabled=True, ruby_state=state, tool_profile="reconstruction_coding")
+    assert context.quality_state["review_reused"] is True
+    assert context.quality_state["review"]["issues"][0]["problem"] == "folded roof wrong"
+
+    # Source, screenshot and sidecar integrity each invalidate a prior verdict.
+    source.write_bytes(b"new source image")
+    assert load_current_independent_visual_review(project, state) is None
+    source.write_bytes(b"original owner image")
+    screenshot = project / views["front"]
+    screenshot.write_bytes(b"new screenshot")
+    assert load_current_independent_visual_review(project, state) is None
+    screenshot.write_bytes(b"current-png-evidence")
+    sidecar = screenshot.with_suffix(".evidence.json")
+    original_sidecar = sidecar.read_bytes()
+    sidecar.write_bytes(original_sidecar + b" ")
+    assert load_current_independent_visual_review(project, state) is None
+    sidecar.write_bytes(original_sidecar)
+    assert load_current_independent_visual_review(project, state) == receipt
+
+    # No review survives a new committed revision, even if old views still exist.
+    state["villa"]["revision"] = 4
+    assert load_current_independent_visual_review(project, state) is None
+
+
+def test_harness_parity_rejects_self_review_or_old_unhashed_receipt(tmp_path):
+    import json
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, views = _current_review_fixture(tmp_path)
+    arguments = {"views": views, "critique": (
+        "NEEDS_FIX: YES\n<assessment>Primary form not aligned.</assessment>\n"
+        '<issue priority="1" view="front">problem: wrong roof\naction: change roof</issue>') }
+    submit_visual_review(project, state, arguments)
+    assert load_current_independent_visual_review(project, state) is None
+    arguments["_reviewer"] = {"mode": "dedicated_read_only"}
+    receipt = submit_visual_review(project, state, arguments)
+    receipt.pop("evidence_sha256")
+    qa = project / "runtime/agent_workspace/qa"
+    (qa / "visual_review.json").write_text(json.dumps(receipt), encoding="utf8")
+    assert load_current_independent_visual_review(project, state) is None
+
