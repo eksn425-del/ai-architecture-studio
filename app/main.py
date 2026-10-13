@@ -36,6 +36,7 @@ from .model_router import DeterministicModelRouter, ModelRoute
 from .provider_readiness import readiness_matrix
 from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
+from .native_delivery import record_delivery_checkpoint
 from .agent_progress import select_turn_progress_log
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
@@ -1697,6 +1698,17 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if Path(str(post_identity.get("model_path") or "")).resolve() != active_model:
                 raise MCPCallError("The active SketchUp model path changed during the agent checkpoint.")
             session.model_guid = str(post_identity.get("model_guid") or "")
+            if roots:
+                # A successful save_copy does not prove that the downloaded SKP
+                # reopens with identical transforms/geometry. Publish a candidate
+                # receipt, never falsely mark delivery PASS.
+                saved_delivery = record_delivery_checkpoint(
+                    project_dir, active_model, model_output, roots=roots,
+                    revisions={key: int(value["revision"]) for key, value in session.ruby_state.items()
+                               if int(value.get("revision", 0)) > 0},
+                )
+                current_state.last_operation["delivery_status"] = saved_delivery["status"]
+                current_state.last_operation["delivery_receipt"] = "runtime/native_delivery_checkpoint.json"
             capture_path = _capture_agent_view(adapter, store, project_id)
             current_state.model_path = _relative(project_dir, model_output)
             current_state.last_capture = _relative(project_dir, capture_path) if capture_path else current_state.last_capture
