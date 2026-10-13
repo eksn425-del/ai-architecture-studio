@@ -151,3 +151,40 @@ def test_harness_first_skill_keeps_human_goal_and_visual_safety(monkeypatch):
     monkeypatch.delenv("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE")
     legacy = load_workflow_skill_context("image_reconstruction", mcp_enabled=True)
     assert len(legacy) > len(prompt)
+
+
+def test_site_real_app_server_native_thread_resume_and_source_change_fails_closed(tmp_path, monkeypatch):
+    import io, json
+    from app import native_agent as subject
+    class Process:
+        stdout=io.BytesIO(); stdin=io.BytesIO()
+        def poll(self): return 0
+    monkeypatch.setenv("ARCH_STUDIO_CODEX_RECONSTRUCTION_THREAD_MODE", "native")
+    monkeypatch.setattr(subject.subprocess, "Popen", lambda *_args, **_kwargs: Process())
+    runtime = subject.CodexAppServerRuntime(tmp_path, codex_executable="fixture")
+    requested = []
+    def request(*args):
+        requested.append(args[3])
+        return {"model": "gpt-6.1-sol", "reasoningEffort": "medium", "thread": {"id": "source-bound"}}
+    monkeypatch.setattr(runtime, "_request", request)
+    monkeypatch.setattr(runtime, "_send", lambda *_: None)
+    monkeypatch.setattr(runtime, "_next_event", lambda *_: {"method": "turn/completed", "params": {"turn": {"status": "completed"}}})
+    project = tmp_path/"project"
+    workspace = project/"runtime/agent_workspace"
+    workspace.mkdir(parents=True)
+    source = project/"inputs/reference/source.png"
+    source.parent.mkdir(parents=True)
+    source.write_bytes(b"first user source")
+    kwargs = dict(project_dir=project,agent_workspace=workspace,prompt="real Chinese prompt",
+                  mcp_enabled=True,developer_instructions="guarded instruction",
+                  dynamic_tools=[],tool_handler=lambda *_:{},
+                  model="gpt-6.1-sol",reasoning_effort="medium",reference_images=[source],
+                  tool_profile="reconstruction_coding",compact_project_context=True)
+    runtime._run_turn(thread_id=None, **kwargs)
+    assert requested[-1] == "thread/start"
+    assert json.loads((project/"runtime/native_thread_images.json").read_text())["source-bound"]
+    runtime._run_turn(thread_id="source-bound", **kwargs)
+    assert requested[-1] == "thread/resume"
+    source.write_bytes(b"changed uploaded user source")
+    runtime._run_turn(thread_id="source-bound", **kwargs)
+    assert requested[-1] == "thread/start"
