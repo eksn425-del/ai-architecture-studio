@@ -318,6 +318,81 @@ class SketchUpAdapter:
                     }
         raise MCPCallError("The SketchUp MCP did not return the active model path and GUID, so the disposable-model safety check cannot pass.")
 
+    def capture_native_deep_fingerprint(self, *, expected_model_path: Path, expected_guid: str,
+                                        root_pid: int, output_path: Path) -> dict[str, Any]:
+        """Fixed host-only READ-ONLY SketchUp traversal, NEVER an Agent writer tool.
+
+        The live SketchUp identity must already be the caller-selected disposable
+        model or clean downloaded COPY. The Ruby file returns data only; the host
+        writes a private JSON fingerprint after rechecking that identity.
+        """
+        if type(root_pid) is not int or root_pid <= 0 or not expected_guid:
+            raise ValueError("Deep capture needs actual positive owned root PID and GUID.")
+        model_path = expected_model_path.expanduser().resolve()
+        output = output_path.expanduser().resolve()
+        if output.exists() or output.is_symlink() or not output.parent.is_dir():
+            raise ValueError("Deep capture output must be a fresh file inside a prepared private directory.")
+        if output.suffix.lower() != ".json":
+            raise ValueError("Deep capture output must be JSON.")
+        initial = self.get_active_model_identity()
+        if Path(str(initial["model_path"])).resolve() != model_path or initial["model_guid"] != expected_guid:
+            raise MCPCallError("Deep capture refused: wrong native document/path/GUID.")
+        if initial["active_context"]:
+            raise MCPCallError("Deep capture refused: exit nested SketchUp edit context first.")
+        helper = (Path(__file__).parent / "native_deep_fingerprint.rb").resolve()
+        if not helper.is_file():
+            raise MCPCallError("Reviewed fixed native deep fingerprint Ruby helper missing.")
+        generated_dir = _generated_script_dir()
+        generated_dir.mkdir(parents=True, exist_ok=True)
+        script_path = generated_dir / f"studio-native-readonly-{os.urandom(8).hex()}.rb"
+        script = (
+            "# ARCHFLOW_GENERATED_SCRIPT; read-only evidence, no save/edit operations.\\n"
+            "require 'json'\\n"
+            f"load {json.dumps(str(helper), ensure_ascii=False)}\\n"
+            "model = Sketchup.active_model\\n"
+            f"raise 'Wrong SketchUp model path' unless File.expand_path(model.path) == File.expand_path({json.dumps(str(model_path), ensure_ascii=False)})\\n"
+            f"raise 'Wrong SketchUp model GUID' unless model.guid == {json.dumps(expected_guid, ensure_ascii=False)}\\n"
+            "raise 'SketchUp active edit path is not closed' unless model.active_path.nil?\\n"
+            f"JSON.generate(KStudioNativeDeepFingerprint.capture(model, root_pid: {root_pid}))\\n"
+        )
+        # Use newline characters in the reviewed fixed script. No model writes
+        # are delegated to generated user prompts or dynamically composed Ruby.
+        script_path.write_text(script.replace("\\\\n", "\\n"), encoding="utf-8", newline="\\n")
+        try:
+            raw = self.client.call("sketchup_eval_project_file", {
+                "script_path": str(script_path.resolve()),
+                "operation_name": "K Studio READ ONLY native deep geometry evidence",
+            })
+        finally:
+            script_path.unlink(missing_ok=True)
+        candidates = [raw]
+        if isinstance(raw, dict):
+            candidates.extend([raw.get("result"), raw.get("text")])
+        payload = None
+        for candidate in candidates:
+            if isinstance(candidate, dict) and candidate.get("collector") == "KStudioNativeDeepFingerprint/1":
+                payload = candidate
+                break
+            if isinstance(candidate, str):
+                try:
+                    parsed = json.loads(candidate)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(parsed, dict) and parsed.get("collector") == "KStudioNativeDeepFingerprint/1":
+                    payload = parsed
+                    break
+        if not isinstance(payload, dict) or payload.get("root_pid") != root_pid or not isinstance(payload.get("groups"), list):
+            raise MCPCallError("Native deep fingerprint returned no verified complete model evidence.")
+        if payload.get("model_guid") != expected_guid or Path(str(payload.get("model_path") or "")).resolve() != model_path:
+            raise MCPCallError("Native deep evidence identity changed; discarded.")
+        after = self.get_active_model_identity()
+        if (after["model_guid"] != expected_guid or Path(str(after["model_path"])).resolve() != model_path
+                or after["active_context"]):
+            raise MCPCallError("SketchUp document/edit context changed during read-only evidence capture.")
+        # No existing evidence is overwritten. Keep original SKP and source private.
+        output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        return payload
+
     def get_active_model_path(self) -> str:
         identity = self.get_active_model_identity()
         return str(identity["model_path"])
