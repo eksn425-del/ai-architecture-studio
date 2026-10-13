@@ -217,6 +217,14 @@ class AgentToolSurface:
 
             bounded = executor is not None and tool_profile == "reconstruction_coding" and name in {
                 "sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}
+            # Never let a source/viewport mutation after prepare bypass review. This
+            # is revalidated only for inherited receipts; fresh reviews use the
+            # existing current-revision write fence below.
+            if bounded and quality_state.get("review_reused"):
+                live_review = load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
+                if live_review != quality_state.get("review"):
+                    quality_state["review"] = None
+                    quality_state["review_reused"] = False
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
             if bounded and writes >= write_limit:
                 raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
