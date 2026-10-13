@@ -1,0 +1,323 @@
+{
+  "model_path": "[workspace]\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-20261013-144354.skp",
+  "scripts": {
+    "glass_curved_roof": {
+      "model_guid": "396321ea-139f-49bd-a407-b06949e5b628",
+      "revision": 1,
+      "root_pid": 20606,
+      "source_sha256": "8c1aa366379f12d418bec3b9facc74f6774c81fe47425b32608cec2052fce9eb",
+      "last_report": "runtime/scripts/reports/glass_curved_roof-r1-17ed3663.json",
+      "last_precommit_keep_guard": {
+        "armed": false,
+        "passed": null,
+        "paths": []
+      },
+      "last_verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 20606,
+            "actual": 20606
+          },
+          {
+            "check": "revision",
+            "expected": 1,
+            "actual": 1
+          },
+          {
+            "check": "objects_total",
+            "expected": 33,
+            "actual": 33
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -12000.0,
+                -9000.0,
+                -500.0
+              ],
+              "max": [
+                59000.0,
+                33000.0,
+                16503.6
+              ],
+              "size": [
+                71000.0,
+                42000.0,
+                17003.6
+              ]
+            },
+            "actual": {
+              "min": [
+                -12000,
+                -9000,
+                -500
+              ],
+              "max": [
+                59000,
+                33000,
+                16503.6
+              ],
+              "size": [
+                71000,
+                42000,
+                17003.6
+              ]
+            }
+          }
+        ]
+      },
+      "last_oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "8c1aa366379f12d418bec3b9facc74f6774c81fe47425b32608cec2052fce9eb",
+        "events": [
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 22026,
+            "result_entity_name": "L0"
+          },
+          {
+            "method_id": "adai.profile_with_holes",
+            "status": "returned",
+            "elapsed_ms": 5,
+            "returned_nil": false,
+            "result_entity_pid": 22058,
+            "result_entity_name": "L1"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 22427,
+            "result_entity_name": "L2_PARTIAL_SOUTH"
+          },
+          {
+            "method_id": "adai.profile_with_holes",
+            "status": "returned",
+            "elapsed_ms": 6,
+            "returned_nil": false,
+            "result_entity_pid": 22459,
+            "result_entity_name": "L2_PARTIAL_EAST"
+          },
+          {
+            "method_id": "adai.profile_with_holes",
+            "status": "returned",
+            "elapsed_ms": 29,
+            "returned_nil": false,
+            "result_entity_pid": 22828,
+            "result_entity_name": "L3"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 6,
+            "returned_nil": false,
+            "result_entity_pid": 23873,
+            "result_entity_name": "CURVED_SHELL"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 36663,
+            "result_entity_name": "RAMP_1"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 38171,
+            "result_entity_name": "RAMP_2"
+          },
+          {
+            "method_id": "adai.profile",
+            "status": "returned",
+            "elapsed_ms": 0,
+            "returned_nil": false,
+            "result_entity_pid": 39679,
+            "result_entity_name": "RAMP_3"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75036,
+            "result_entity_name": "PARTITION_Z3600_B1"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75068,
+            "result_entity_name": "PARTITION_Z3600_B2"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75100,
+            "result_entity_name": "PARTITION_Z3600_B3"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75132,
+            "result_entity_name": "PARTITION_Z3600_B4"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75164,
+            "result_entity_name": "PARTITION_Z3600_B5"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75196,
+            "result_entity_name": "PARTITION_Z3600_B6"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75228,
+            "result_entity_name": "PARTITION_Z3600_B7"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75260,
+            "result_entity_name": "PARTITION_Z3600_B8"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75292,
+            "result_entity_name": "PARTITION_Z3600_B9"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75324,
+            "result_entity_name": "PARTITION_Z7200_B1"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75356,
+            "result_entity_name": "PARTITION_Z7200_B2"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75388,
+            "result_entity_name": "PARTITION_Z7200_B3"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75420,
+            "result_entity_name": "PARTITION_Z7200_B4"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75452,
+            "result_entity_name": "PARTITION_Z7200_B5"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75484,
+            "result_entity_name": "PARTITION_Z7200_B6"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75516,
+            "result_entity_name": "PARTITION_Z7200_B7"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75548,
+            "result_entity_name": "PARTITION_Z7200_B8"
+          },
+          {
+            "method_id": "saie.wall",
+            "status": "returned",
+            "elapsed_ms": 1,
+            "returned_nil": false,
+            "result_entity_pid": 75580,
+            "result_entity_name": "PARTITION_Z7200_B9"
+          }
+        ],
+        "status": "committed_readback",
+        "script_id": "glass_curved_roof",
+        "revision": 1,
+        "root_pid": 20606
+      },
+      "last_edit_scope_receipt": null,
+      "last_strategy_progress": null,
+      "last_oss_method_adoption": {
+        "schema_version": 1,
+        "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {
+          "adai.profile": 6,
+          "adai.profile_with_holes": 3,
+          "saie.wall": 18
+        },
+        "any_oss_product_use": true,
+        "effect_verified": false,
+        "effect_verification_required": "Named component readback and independent source-matched visual review.",
+        "plan_choices": []
+      },
+      "last_verification_report": "runtime/scripts/reports/glass_curved_roof-r1-17ed3663.verification.json"
+    }
+  }
+}

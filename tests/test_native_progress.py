@@ -3,6 +3,16 @@ import json
 from app import native_agent as subject
 
 
+def test_changed_stage_instructions_force_fresh_native_thread():
+    tools=[]
+    registry={'old':subject._thread_tool_fingerprint(tools)}
+    kwargs=dict(compact_restart=False,native_mode=True)
+    assert subject._native_thread_can_resume('old',registry,{'old':'sources'},tools,'sources',
+        instructions_match=True,**kwargs)
+    assert not subject._native_thread_can_resume('old',registry,{'old':'sources'},tools,'sources',
+        instructions_match=False,**kwargs)
+
+
 def test_native_coding_operations_are_counted_and_logged(tmp_path, monkeypatch):
     class Process:
         stdout = io.BytesIO()

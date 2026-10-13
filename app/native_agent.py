@@ -103,13 +103,14 @@ def _reference_images_fingerprint(project_dir: Path, images: list[Path]) -> str:
 def _native_thread_can_resume(
     thread_id: str | None, tool_registry: dict[str, str], image_registry: dict[str, str],
     tools: list[dict[str, Any]], image_fingerprint: str, *, compact_restart: bool, native_mode: bool,
+    instructions_match: bool = True,
 ) -> bool:
     """Use actual Codex thread/resume only with matching tools and source bytes.
 
     Default behavior remains the historical compact fresh thread. Native mode
     delegates history continuity/compaction to upstream Codex when safe.
     """
-    if not _can_resume_tools(thread_id, tool_registry, tools):
+    if not instructions_match or not _can_resume_tools(thread_id, tool_registry, tools):
         return False
     # In this explicit pilot, even a pre-build discussion/plan cannot silently
     # retain stale photos after uploads are replaced or their order changes.
@@ -519,6 +520,10 @@ class CodexAppServerRuntime:
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
             image_registry_path = project_dir / "runtime" / "native_thread_images.json"
             image_registry = json.loads(image_registry_path.read_text(encoding="utf-8")) if image_registry_path.exists() else {}
+            instruction_registry_path = project_dir / "runtime" / "native_thread_instructions.json"
+            instruction_registry = json.loads(instruction_registry_path.read_text(encoding="utf-8")) if instruction_registry_path.exists() else {}
+            instruction_fingerprint = hashlib.sha256(developer_instructions.encode("utf-8")).hexdigest()
+            instructions_match = instruction_registry.get(str(thread_id)) == instruction_fingerprint
             # Dedicated read-only Critic includes trusted OUTPUT screenshots, not just inputs.
             # Its thread is always fresh; image continuity applies only to Builder/Planner.
             image_fingerprint = _reference_images_fingerprint(project_dir, reference_images) if not read_only else ""
@@ -532,6 +537,7 @@ class CodexAppServerRuntime:
             resumed = _native_thread_can_resume(
                 thread_id, registrations, image_registry, registered_tools, image_fingerprint,
                 compact_restart=compact_model_turn, native_mode=native_mode,
+                instructions_match=instructions_match,
             )
             if resumed:
                 thread_params = {"threadId": thread_id, "developerInstructions": developer_instructions}
@@ -551,6 +557,8 @@ class CodexAppServerRuntime:
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
             registrations[resolved_thread_id] = _thread_tool_fingerprint(registered_tools)
+            instruction_registry[resolved_thread_id] = instruction_fingerprint
+            instruction_registry_path.write_text(json.dumps(instruction_registry, indent=2), encoding="utf-8")
             registry_path.write_text(json.dumps(registrations, indent=2), encoding="utf-8")
             image_registry[resolved_thread_id] = image_fingerprint
             image_registry_path.write_text(json.dumps(image_registry, indent=2), encoding="utf-8")
@@ -564,6 +572,8 @@ class CodexAppServerRuntime:
                     "compact_project_restart": compact_model_turn and not resumed,
                     "harness_thread_mode": self.reconstruction_thread_mode if compact_model_turn else "default",
                     "source_fingerprint_verified": bool(image_fingerprint),
+                    "instructions_match_previous_thread": instructions_match,
+                    "developer_instructions_sha256": instruction_fingerprint,
                     "resumed_native_harness": bool(resumed and compact_model_turn),
                     "reference_categories": list(workflow_reference_categories(workflow_mode)),
                     "input_types": [item["type"] for item in turn_input],

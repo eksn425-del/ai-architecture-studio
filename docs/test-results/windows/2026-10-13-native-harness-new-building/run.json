@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-13-native-harness-new-building",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "02f63af09961a283de04d7bbc07e893deeeccb2b",
+  "source_case": "Eight private owner sheets in sources.json, preserved whole and ordered as uploaded",
+  "model": {
+    "requested": "GPT-6.1 Sol / Medium",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server through real K Studio website, native Harness pilot"
+  },
+  "environment": {
+    "windows": "Windows 11",
+    "sketchup": "SketchUp 2024 (native window and known installed 24.0.484 build)",
+    "bridge": "existing Kongxing localhost connector",
+    "adai": "0.5.39 enabled, real ledger recorded"
+  },
+  "project_id": "architecture-project-4f0e4",
+  "script_id": "glass_curved_roof",
+  "root_pid": 20606,
+  "revision": 1,
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "FAIL",
+    "needs_fix": true,
+    "native_delivery_status": "FAIL"
+  },
+  "paid_api": "NOT_RUN",
+  "outer_controller_model": "UNCHANGED",
+  "blockers": [
+    "Three actual model-at-capacity failures",
+    "Builder and edit timeouts",
+    "No local edit commit: 24-path KEEP rejected before patch; post-fix retry at capacity",
+    "Clean native SKP reopen shows roof position/appearance mismatch; root cause unresolved",
+    "Manual component movement not confirmed; strict blank replay NOT_RUN"
+  ],
+  "code_changes": "See README: launcher route, Windows notes, instruction fingerprint, capacity UX, batched KEEP. Different stages and changed tool registries now start fresh threads; unchanged native stage has real resume receipt."
+}

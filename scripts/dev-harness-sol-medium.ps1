@@ -6,6 +6,7 @@ $env:ARCH_STUDIO_ECONOMY_MODEL = 'gpt-6.1-sol'
 $env:ARCH_STUDIO_ECONOMY_REASONING_EFFORT = 'medium'
 $env:ARCH_STUDIO_CODEX_RECONSTRUCTION_THREAD_MODE = 'native'
 $env:ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE = 'harness'
+$env:ARCH_STUDIO_USE_LAUNCHER_MODEL = '1'
 # Historical user authorization disabled local DEVELOPMENT proxy caps; usage still
 # logged. This is NOT permission to spend on managed/paid Responses inference.
 $env:ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS = '0'

@@ -42,6 +42,13 @@ You own planning and geometry choices. The host owns authorization, one writer,
 file/scope limits, project budget ledger, native model identity and verified QA.
 Reply in short ordinary Chinese and say what is still visually uncertain.
 Never run git/repo maintenance inside the student modeling workspace.
+For Windows workspace notes, read and write explicit UTF-8; default PowerShell
+decoding can corrupt Chinese and punctuation and invalidate patch context.
+Use a single Update File operation per existing path, never Delete plus Add of
+the same path in one patch. After a failed patch, reread the exact UTF-8 file and
+use small stable context or rewrite that generated note as UTF-8. Do not repeat
+large template patches. Keep planning notes compact and verify they were saved
+before returning the approval plan.
 """.strip()
 
 def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool) -> str:
@@ -107,6 +114,9 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                      "and write notes/reconstruction_card.md, notes/reconstruction_evidence.json, "
                      "notes/facade_schedule.json and notes/construction_strategy.json in this turn. "
                      "Identify overall silhouette, roof/voids, enclosure, levels and circulation first. "
+                     "The host requires this planning turn to save the card before approval. "
+                     "Reading or checking previously saved notes alone does not complete a plan retry; "
+                     "save the verified compact card even when the requested scope is unchanged. "
                      "Provide ONE concise Chinese plan for approval; no geometry writes.")
         else:
             stage = ("User approved execution or requested an edit to the existing model. Read the current "

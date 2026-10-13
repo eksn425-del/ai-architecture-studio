@@ -217,6 +217,7 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/Selected model is at capacity|model.*capacity/i.test(message)) return "当前模型服务繁忙，暂时无法继续。图片和已保存的计划仍在；请稍后在本会话重试，无需重新上传，也无需重新填写 Key。";
   if (/workspace routing discovery unauthorized|refresh token was already used/i.test(message)) return "Codex 本机登录缓存已失效，需要刷新 Codex 登录；这不是 DeepSeek API Key 问题。图片、计划和模型已保留。";
   if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后先同步已有模型，请勿重复发送修改请求。";
   if (/Project input-token budget|project budget cannot be verified/i.test(message)) return "本项目累计建模预算已达到上限，或历史用量尚未核实。已提交的模型不会因此删除；请先查看现有成果和恢复状态，不要重复建模。";

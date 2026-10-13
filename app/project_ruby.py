@@ -268,6 +268,15 @@ class ProjectRubyExecutor:
         script_id = str(arguments.get("script_id") or "")
         path = arguments.get("path", [])
         offset, limit = arguments.get("offset", 0), arguments.get("limit", 50)
+        batch_paths = arguments.get("_batch_paths")
+        if batch_paths is not None:
+            if (not isinstance(batch_paths, list) or not 1 <= len(batch_paths) <= 256
+                    or any(not isinstance(p, list) or not 1 <= len(p) <= 8
+                           or any(not isinstance(n, str) or not n or len(n) > 200 for n in p)
+                           for p in batch_paths)):
+                raise ValueError("KEEP batch requires 1..256 exact owned paths.")
+            if len({tuple(p) for p in batch_paths}) != len(batch_paths):
+                raise ValueError("Duplicate KEEP batch path.")
         if not isinstance(path, list) or len(path) > 8 or any(not isinstance(n, str) or not n or len(n) > 200 for n in path):
             raise ValueError("path must contain at most eight exact owned child names.")
         if type(offset) is not int or offset < 0 or type(limit) is not int or not 1 <= limit <= 100:
@@ -296,7 +305,9 @@ class ProjectRubyExecutor:
             "raise 'Owned root missing' unless root.is_a?(Sketchup::Group)",
             f"raise 'Project identity mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'project_id') == {self._ruby_string(self.project_id)}",
             f"raise 'Revision mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'revision') == {int(state.get('revision', 0))}",
-            f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})",
+            (f"snapshot = {{snapshots: JSON.parse({self._ruby_string(json.dumps(batch_paths))}).map {{ |p| KStudioProfessionalHelpers.inspect_named_owned_group(root, p, 0, 1) }} }}"
+             if batch_paths is not None else
+             f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})"),
             "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
             "snapshot[:oss_method_ledger] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'oss_method_ledger') || 'null')",
             "snapshot[:edit_scope_receipt] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt') || 'null')",
@@ -309,9 +320,9 @@ class ProjectRubyExecutor:
             script.unlink(missing_ok=True)
         self._assert_active_model()
         payload = result.get("result") if isinstance(result, dict) else None
-        if not isinstance(payload, dict) or "objects" not in payload:
+        if not isinstance(payload, dict) or ("snapshots" if batch_paths is not None else "objects") not in payload:
             raise MCPCallError("SketchUp did not return a usable owned-group inspection.")
-        if (not path and offset == 0 and payload.get("next_offset") is None
+        if (batch_paths is None and not path and offset == 0 and payload.get("next_offset") is None
                 and not state.get("last_verification") and state.get("last_report")):
             report_path = (self.project_dir / state["last_report"]).resolve()
             if report_path.is_relative_to(self.project_dir / "runtime" / "scripts" / "reports") and report_path.is_file():
@@ -330,6 +341,14 @@ class ProjectRubyExecutor:
                     temporary.replace(self.state_path)
                     payload["recovered_write_verification"] = receipt
         return {"success": True, "contentItems": [{"type": "inputText", "text": json.dumps({"script_id": script_id, "revision": state.get("revision"), "read_only": True, **payload}, ensure_ascii=False)}]}
+
+    def inspect_owned_batch(self, script_id: str, paths: list[list[str]]) -> list[dict[str, Any]]:
+        """Fingerprint all KEEP paths in one guarded read-only bridge query."""
+        result = self.inspect_owned({"script_id": script_id, "_batch_paths": paths})
+        snapshots = json.loads(result["contentItems"][0]["text"]).get("snapshots")
+        if not isinstance(snapshots, list) or len(snapshots) != len(paths):
+            raise MCPCallError("Incomplete KEEP batch inspection.")
+        return snapshots
 
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
         script_id = str(arguments.get("script_id") or "")
@@ -362,8 +381,8 @@ class ProjectRubyExecutor:
         if raw_keep_expectations:
             if update_mode != "edit":
                 raise ValueError("Pre-commit KEEP expectations are only valid for targeted edit mode.")
-            if not isinstance(raw_keep_expectations, list) or len(raw_keep_expectations) > 24:
-                raise ValueError("Internal KEEP expectations must be a list of at most 24 items.")
+            if not isinstance(raw_keep_expectations, list) or len(raw_keep_expectations) > 256:
+                raise ValueError("Internal KEEP expectations must be a list of at most 256 items.")
             keep_expectations: list[dict[str, Any]] = []
             for index, item in enumerate(raw_keep_expectations):
                 if not isinstance(item, dict):

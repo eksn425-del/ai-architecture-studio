@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "multi_view_reconstruction",
+  "primary_source": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+  "sources": [
+    {
+      "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "原始图1；已直接检查全部分面",
+      "notes": [
+        "上：短端外观，玻璃上部外扩、下部退进、斜拉杆与连续坡道。下：同短端模型，曲面屋顶中部低、两侧高且不等高。"
+      ],
+      "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d"
+    },
+    {
+      "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "原始图2；已直接检查全部分面",
+      "notes": [
+        "上：鸟瞰线图，长条平面、短跨下垂的屋顶沿长向延伸。下：短端和长侧模型斜视，坡道平台接侧廊，外皮与内框架之间有深度。"
+      ],
+      "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088"
+    },
+    {
+      "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "原始图3；已直接检查全部分面",
+      "notes": [
+        "上：近地入口，首段坡道接架空平台，底层玻璃内退。下：长侧廊近景，混凝土柱、外挑钢梁、格栅平台与网栏。"
+      ],
+      "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe"
+    },
+    {
+      "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "kind": "interior_image",
+      "provenance": "observed",
+      "role": "原始图4；已直接检查全部分面",
+      "notes": [
+        "上：木色曲面顶棚、圆形楼板洞口及护栏、帘幕。下：双层高工作空间、螺旋梯、局部上层楼板及柱梁。"
+      ],
+      "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080"
+    },
+    {
+      "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "kind": "floorplan_image",
+      "provenance": "observed",
+      "role": "原始图5；已直接检查全部分面",
+      "notes": [
+        "上：透视剖面，地面层、完整下层、局部中间层、木构顶层；外侧缓冲廊。下：地面层平面，长条柱网、圆形梯位、图右端交通服务区。"
+      ],
+      "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095"
+    },
+    {
+      "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "kind": "document",
+      "provenance": "observed",
+      "role": "原始图6；已直接检查全部分面",
+      "notes": [
+        "从上至下四个分解图：玻璃与轻钢拉索外层；木构加层及曲面屋顶；原混凝土框架；旧构件再利用示意。文字属于方案说明，不是尺寸或施工验证。"
+      ],
+      "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331"
+    },
+    {
+      "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "kind": "floorplan_image",
+      "provenance": "observed",
+      "role": "原始图7；已直接检查全部分面",
+      "notes": [
+        "上：开放顶层平面，圆形洞口与环廊。中：左部大挑空、右部局部楼板，圆形梯位与图右端服务区。下：较完整下层、分隔房间、圆形梯位；三图无清晰楼层标注。"
+      ],
+      "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13"
+    },
+    {
+      "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "kind": "document",
+      "provenance": "observed",
+      "role": "原始图8；已直接检查全部分面",
+      "notes": [
+        "上：气候剖面，确认内外双层围护和贯通空间；箭头与设备符号不是实体建模指令。下：结构剖面，四个使用标高、局部中间楼板、下垂屋顶、不等高边缘及原框架。"
+      ],
+      "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096"
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+      ],
+      "notes": [
+        "短端坡道立面"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+      ],
+      "notes": [
+        "仅图纸约束隐藏端；没有正对后端照片"
+      ]
+    },
+    "left": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+        "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png"
+      ],
+      "notes": [
+        "可见长侧；Y侧映射暂定"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "source_refs": [
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+        "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+      ],
+      "notes": [
+        "剖面及平面约束另一侧，无完整正立面"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+        "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+        "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+      ],
+      "notes": [
+        "短跨下垂曲面及不等高边缘"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+      ],
+      "notes": [
+        "长短向比例、外皮厚度与坡道平台"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": true,
+    "provenance": "observed",
+    "source_refs": [
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+    ],
+    "levels": [
+      "L0暂对应图5下",
+      "L1/L2局部/L3暂对应图7下/中/上"
+    ],
+    "notes": [
+      "形状与洞口有图像证据；楼层映射和尺寸为推断，非测量。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "未提供DWG或尺寸CAD。"
+    ]
+  },
+  "interior": {
+    "provided": true,
+    "provenance": "observed",
+    "source_refs": [
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+    ],
+    "spaces": [
+      "顶层开放空间",
+      "双层高工作空间"
+    ],
+    "notes": [
+      "主要柱梁、圆形洞口、螺旋梯、局部楼板可见。"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "人物身高假定；非实测",
+      "value_mm": 1700,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png"
+    }
+  ],
+  "hard_constraints": [
+    "原框架、木构加层与外玻璃缓冲层分开，不合并成单层玻璃盒子",
+    "屋顶沿短跨下垂、两侧不等高，沿长向延伸；不得改成平屋顶或普通拱顶",
+    "中间层保留大挑空，不做四层满铺楼板",
+    "坡道、转折平台与环廊连续连接，首段落地；后端不可直接镜像前端",
+    "圆形洞口与螺旋梯共享定位；玻璃、框、梁、栏杆和楼板分别可编辑"
+  ],
+  "assumptions": [
+    "X为长向、Y为短向、Z向上；图1短端为front/X=0，rear/X=50000；left/Y=0、right/Y=20000，仅为模型坐标，不代表南北",
+    "图5下暂对应L0；图7下/中/上暂对应L1/L2局部/L3，属于推断",
+    "外皮最大范围58×28m、内框架50×20m；约十个长向结构跨，玻璃分格另行核对",
+    "真实尺度、构件截面、屋顶函数、隐藏端细节和坡道精确坡度均未知；没有已确认的跨图几何矛盾"
+  ],
+  "user_confirmed": [
+    "用于课程汇报的可修改SketchUp模型",
+    "室内保留主要结构、挑空、主要隔墙和楼梯，家具简化",
+    "周边只做紧邻建筑的地面",
+    "无准确尺寸可合理估算，优先整体形状、曲面屋顶和坡道"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  },
+  "inspection_note": "八个原始文件包含18个分面；效果图、模型照、图纸是同方案不同表达，均非当前SketchUp模型。没有场地适配任务。"
+}

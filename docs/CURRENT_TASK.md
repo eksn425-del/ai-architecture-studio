@@ -1,4 +1,18 @@
-# CURRENT — native Codex Harness integration experiment; NEW PHOTO test waiting on owner (2026-10-13)
+# CURRENT — 八张新建筑资料的真实 Harness 实测已交接：PARTIAL / 视觉 FAIL / 原生交付 FAIL（2026-10-13）
+
+[完整证据与下一步](test-results/windows/2026-10-13-native-harness-new-building/README.md)。用户八张私人整图已在真实网站上传，网站实际 **gpt-6.1-sol / medium**，外层控制模型未改、付费 API NOT_RUN。新项目 `architecture-project-4f0e4`，根 PID 20606，唯一几何提交 r1；旧 r6 未恢复。首版有长条玻璃、曲面木屋顶、外坡道和独立构件，但独立 Critic NEEDS_FIX：屋顶端部高低、坡道关系、外廊轻质表达与护栏不正确，不能视觉 PASS。
+
+一次自然中文屋顶修改三次恢复尝试均未提交：模型容量错误、900 秒超时、原 24 路径 KEEP 上限。修复显式启动模型被旧 BYOK 覆盖、Windows 规划文件恢复提示、阶段指令变化仍错误 resume、容量错误提示、KEEP 256 路径单次只读批量检查。最终全量 413 passed / 2 skipped；真实 95 路径只读探测 656ms，但修后网站修改仍被模型容量阻断，不能以探测冒充用户修改成功。所有初始失败保留。
+
+网站 SKP 下载与原生打开、组件选中是真实操作；**干净下载副本重开后上部屋顶缺失／木曲面低位，与下载前截图不一致**。原因尚未证明。手动移动未确认，保存测试副本完成，保存版再重开及严格空白重放 NOT_RUN。当前 SU 显示诊断副本，与网站原配对文件不同，任何后续写入必须先重新验证模型身份，不能绕过边界。
+
+本轮总 input 5,213,096 / output 55,858，87 次已计工具；另有两次上游 patch 失败未计入 App 工具数。多次计划恢复、容量重试和审查仍低效，不能宣布 Harness 效率通过。私人原图、SKP、Key 未公开；公开截图为真实模型输出，六视图是下载前 r1，不能认证重开后的模型。
+
+**下一轮先 P0 交付一致性诊断**：在保留的干净下载副本比较屋顶/支承的局部与全局 transform、组件定义、面边材质及深层指纹，区分生成组装与保存/下载链路；修相应代码并通过网站重新验证。其次在相同模型可用时完成已有屋顶局部请求与 KEEP，之后才做原生编辑保存重开及严格重放。减少规划恢复、重复图像与重复审查，补齐成功轮次 latency。不要继续装饰或另建项目隐藏失败。
+
+---
+
+# HISTORICAL — native Codex Harness integration experiment; NEW PHOTO test waiting on owner (2026-10-13)
 
 Latest main at work start 13ffa389 is the actual stopped old private two-image r4→r5→r6 case: real Sol Medium, two local commits, 3,604,539 new Builder input/65 tools/1 failure/835s, cumulative 11,493,239, partial geometry improvements but source fidelity FAIL. Old r6 stays stopped and private; no extra repair. Read [truthful latest report](test-results/windows/2026-10-13-owner-review-reuse/README.md). User now authorizes NEW project/NEW privately provided source photo, website gpt-6.1-sol/medium and closer official open-source Codex Harness parity. [Pilot technical doc](CODEX_NATIVE_HARNESS_PILOT_2026-10-13.md), [sole next Windows GUI task](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). Branch adds opt-in genuine App Server thread/resume rather than automatic fresh compact restart after committed Ruby, bound to exact dynamic tool registration and SHA of source image bytes+upload order. It also offers concise Harness-first Skill/developer prompts instead of repeatedly injecting enormous duplicated procedural text. Legacy compact/full is unchanged unless dedicated script enabled. No assertion 1:1 visual parity or paid GPT service; website-native new-photo result NOT_RUN until owner photo/Windows Codex. Strict host one writer, scope, consent, independent current-review, private sources still enforced. Do not equate prior offline pass with native quality.
 

@@ -6,6 +6,30 @@ from app.sketchup_mcp import MCPCallError
 from tests.test_quality_lift import _executor
 
 
+def test_many_keep_paths_use_one_guarded_read_only_query(tmp_path, monkeypatch):
+    executor, adapter, mcp, _ = _executor(tmp_path, state={"main": {"root_pid": 701, "revision": 3}})
+    monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(tmp_path / "transport"))
+    paths = [["ENVELOPE", f"FRAME_{i}"] for i in range(64)]
+    queries = []
+    def inspect_call(name, args):
+        from pathlib import Path
+        source = Path(args['script_path']).read_text(encoding='utf8')
+        queries.append(source)
+        assert 'Project identity mismatch' in source and 'Revision mismatch' in source
+        assert 'Active model GUID changed' in source and 'Active model path changed' in source
+        assert 'start_operation' not in source and 'erase!' not in source
+        assert 'inspect_named_owned_group(root, p, 0, 1)' in source
+        return {'result': {'snapshots': [{'path': p, 'objects': []} for p in paths]}}
+    mcp.call = inspect_call
+    result = executor.inspect_owned_batch('main', paths)
+    assert len(queries) == 1 and len(result) == 64
+    with pytest.raises(ValueError, match='Duplicate'):
+        executor.inspect_owned_batch('main', [paths[0], paths[0]])
+    with pytest.raises(ValueError, match='256'):
+        executor.inspect_owned_batch('main', [[f'F_{i}'] for i in range(257)])
+    assert len(queries) == 1
+
+
 def test_owned_inspection_is_guarded_readonly_and_does_not_change_state(tmp_path, monkeypatch):
     executor, adapter, mcp, _ = _executor(tmp_path, state={"main": {"root_pid": 701, "revision": 3}})
     monkeypatch.setenv("ARCHFLOW_GENERATED_SCRIPT_DIR", str(tmp_path / "transport"))

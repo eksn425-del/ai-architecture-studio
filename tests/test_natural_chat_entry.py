@@ -85,6 +85,33 @@ def test_existing_model_developer_instruction_keeps_edit_local():
     assert "A question or discussion-only message does not authorize geometry" in prompt
 
 
+def test_harness_notes_recover_from_real_windows_patch_failures(monkeypatch):
+    from app.workflow_context import load_workflow_skill_context
+    monkeypatch.setenv('ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE', 'harness')
+    context = load_workflow_skill_context('image_reconstruction', mcp_enabled=False)
+    assert 'read and write explicit UTF-8' in context
+    assert 'never Delete plus Add' in context
+    assert 'reread the exact UTF-8 file' in context
+    assert 'verify they were saved' in context
+    from app.workflow_context import workflow_developer_instructions
+    plan = workflow_developer_instructions('image_reconstruction', mcp_enabled=False, action='plan')
+    assert 'save the verified compact card' in plan
+
+
+def test_native_capacity_error_explains_retry_without_reconfiguration():
+    source = (Path(__file__).parents[1] / 'app/static/studio.js').read_text(encoding='utf8')
+    start = source.index('function friendlyError(')
+    end = source.index('\nfunction ', start + 1)
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node needed for frontend error function')
+    result = subprocess.run([node, '-e', source[start:end] +
+                            "\nconsole.log(friendlyError({message:'Selected model is at capacity. Please try a different model.'}));"],
+                            capture_output=True, text=True, encoding='utf8', check=True)
+    assert '当前模型服务繁忙' in result.stdout
+    assert '无需重新填写 Key' in result.stdout
+
+
 def test_chat_model_preview_links_resolve_inside_current_project():
     source = (Path(__file__).parents[1] / 'app/static/studio.js').read_text(encoding='utf8')
     start = source.index('function chatText(')

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "dimensions_mm": {
+    "overall_width": 58000,
+    "overall_depth": 28000,
+    "level_height": 3600,
+    "floor_count": 4
+  },
+  "views": {
+    "front": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "折返坡道、逐层平台、白色玻璃框",
+        "底部退进、斜拉杆"
+      ],
+      "notes": [
+        "玻璃分格按原图另核；遮挡区开口数量不伪造。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "依据图右端服务交通区安排端部直梯及开口，细节待核"
+      ],
+      "notes": [
+        "玻璃分格按原图另核；遮挡区开口数量不伪造。"
+      ]
+    },
+    "left": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "深缓冲廊、挑出格栅平台、连续细框玻璃",
+        "局部绿色板"
+      ],
+      "notes": [
+        "玻璃分格按原图另核；遮挡区开口数量不伪造。"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "按剖面保留另一侧缓冲廊与结构，不强制镜像"
+      ],
+      "notes": [
+        "玻璃分格按原图另核；遮挡区开口数量不伪造。"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "短跨下垂、两侧不等高、沿长向延伸的木色曲面屋顶",
+    "parapet": "未证实独立实体女儿墙",
+    "divisions": [
+      "木构曲面壳体",
+      "高边支承框架",
+      "与外层玻璃相邻的低位水平边带"
+    ],
+    "notes": [
+      "低点13.8m、两边15.5/16.5m为估值；曲率和低点偏移可调。"
+    ]
+  },
+  "global_features": [
+    "内混凝土框架/内玻璃—缓冲廊—外轻钢玻璃三层关系",
+    "底层退进、上部玻璃外扩、格栅平台、细网栏与斜拉杆",
+    "浅灰混凝土、白钢、透明玻璃、木色顶棚、局部绿色板"
+  ],
+  "user_confirmed": [
+    "用于课程汇报的可修改SketchUp模型",
+    "室内保留主要结构、挑空、主要隔墙和楼梯，家具简化",
+    "周边只做紧邻建筑的地面",
+    "无准确尺寸可合理估算，优先整体形状、曲面屋顶和坡道"
+  ],
+  "inferred": [
+    "X为长向、Y为短向、Z向上；图1短端为front/X=0，rear/X=50000；left/Y=0、right/Y=20000，仅为模型坐标，不代表南北",
+    "图5下暂对应L0；图7下/中/上暂对应L1/L2局部/L3，属于推断",
+    "外皮最大范围58×28m、内框架50×20m；约十个长向结构跨，玻璃分格另行核对",
+    "真实尺度、构件截面、屋顶函数、隐藏端细节和坡道精确坡度均未知；没有已确认的跨图几何矛盾",
+    "dimensions_mm全部为估算；四个使用标高含局部层，不代表四层满铺。"
+  ]
+}

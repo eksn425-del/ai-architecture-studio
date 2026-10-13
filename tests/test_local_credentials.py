@@ -43,6 +43,19 @@ def test_unsupported_platform_never_writes_plaintext(tmp_path):
     assert not store.path.exists()
 
 
+def test_explicit_launcher_route_does_not_read_saved_credentials(tmp_path, monkeypatch):
+    monkeypatch.setenv('ARCH_STUDIO_USE_LAUNCHER_MODEL', '1')
+    monkeypatch.setenv('ARCH_STUDIO_ECONOMY_PROVIDER', 'codex')
+    monkeypatch.setenv('ARCH_STUDIO_ECONOMY_MODEL', 'gpt-6.1-sol')
+    monkeypatch.setenv('ARCH_STUDIO_ECONOMY_REASONING_EFFORT', 'medium')
+    def must_not_load(self):
+        raise AssertionError('launcher must not decrypt or restore BYOK')
+    monkeypatch.setattr(LocalCredentialStore, 'load', must_not_load)
+    app, *_ = workspace(tmp_path)
+    assert app.state.model_router.economy_route == app.state.preset_route
+    assert not app.state.credential_restore_error
+
+
 def test_failed_save_keeps_previous_route_and_hides_credential(tmp_path, monkeypatch):
     monkeypatch.setattr(LiteLLMRuntime, "dependency_installed", property(lambda self: True))
     app, client, *_ = workspace(tmp_path)

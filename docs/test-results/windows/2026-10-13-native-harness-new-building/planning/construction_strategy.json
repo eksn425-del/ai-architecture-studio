@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "current_stage": "pending",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "body_length": {
+      "value": 50000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "body_depth": {
+      "value": 20000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "envelope_length": {
+      "value": 58000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "envelope_depth": {
+      "value": 28000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "buffer_depth": {
+      "value": 4000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "bay_length": {
+      "value": 5000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "level_0": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "level_1": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "level_2": {
+      "value": 7200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "level_3": {
+      "value": 10800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "roof_low": {
+      "value": 13800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "roof_edge_a": {
+      "value": 15500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "roof_edge_b": {
+      "value": 16500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "ramp_width": {
+      "value": 2200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "rail_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "slab_thickness": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    },
+    "scope": {
+      "value": "用于课程汇报的可修改SketchUp模型；室内保留主要结构、挑空、主要隔墙和楼梯，家具简化；周边只做紧邻建筑的地面；无准确尺寸可合理估算，优先整体形状、曲面屋顶和坡道",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "Approved estimates anchored by plan ratio and section storey relationships."
+    }
+  },
+  "systems": [
+    {
+      "id": "frame",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "Repeated observed concrete columns and beams require component instances rather than solid-wall helpers.",
+      "status": "pending",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "bay_length",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "STRUCTURE_EXISTING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "floors",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "profile_extrusion",
+      "method_id": "adai_geometry.profile_with_holes",
+      "selection_reason": "Enabled verified ADAI profile_with_holes for interior circular openings; split profiles for boundary-connected atrium.",
+      "status": "pending",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "roof",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "profile_extrusion",
+      "method_id": "adai_geometry.profile",
+      "selection_reason": "Enabled verified ADAI yz profile extruded along X expresses observed asymmetric hanging short-span roof.",
+      "status": "pending",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "roof_low",
+        "roof_edge_a",
+        "roof_edge_b"
+      ],
+      "target_paths": [
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "envelope_bounds",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "method_id": "sketchup.entities.add_face",
+      "selection_reason": "Custom owned faces and frame components express transparent skin and separated deep buffer; solid SAIE wall does not fit.",
+      "status": "pending",
+      "depends_on": [
+        "envelope_length",
+        "envelope_depth",
+        "buffer_depth",
+        "level_1",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "ramps",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "method_id": "adai_geometry.profile",
+      "selection_reason": "Enabled verified ADAI yz profiles express individual inclined runs with exact endpoint elevations.",
+      "status": "pending",
+      "depends_on": [
+        "ramp_width",
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "buffer_depth"
+      ],
+      "target_paths": [
+        [
+          "EXTERNAL_ASSEMBLY"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "module",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "One dimension-checked glass/frame component is repeated; glass and mullions remain independent.",
+      "status": "pending",
+      "depends_on": [
+        "bay_length",
+        "buffer_depth",
+        "rail_height"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "MODULE"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "RAIL_MODULE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "repeat",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "Repeat verified dimensions with unique instance names; structural bays differ from glazing divisions.",
+      "status": "pending",
+      "depends_on": [
+        "envelope_length",
+        "envelope_depth",
+        "bay_length"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "FRONT"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "REAR"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LEFT"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "stairs_partitions",
+      "stage": "variants",
+      "role": "interior_detail",
+      "method": "custom_owned_ruby",
+      "method_id": "sketchup.entities.add_face_and_component_instances",
+      "selection_reason": "Custom radial tread assemblies for spiral stairs; actual saie.wall for ordinary straight partitions.",
+      "status": "pending",
+      "depends_on": [
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "scope"
+      ],
+      "target_paths": [
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_STAIRS"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "END_STAIRS"
+        ],
+        [
+          "INTERIOR",
+          "PARTITIONS"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    },
+    {
+      "id": "finish",
+      "stage": "finish",
+      "role": "site",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "Simplified tables and adjacent ground only, as approved.",
+      "status": "pending",
+      "depends_on": [
+        "scope",
+        "envelope_length",
+        "envelope_depth"
+      ],
+      "target_paths": [
+        [
+          "SITE_GROUND"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Execution approved. Each sibling has a unique semantic name. Visual verification remains pending."
+      ]
+    }
+  ],
+  "notes": [
+    "Approved first build; mm coordinates X long / Y short / Z up. Current six views and source-angle evidence required after commit."
+  ]
+}

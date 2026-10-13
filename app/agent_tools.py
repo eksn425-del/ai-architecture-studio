@@ -163,8 +163,8 @@ class AgentToolSurface:
         def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
             if executor is None:
                 raise MCPCallError("KEEP preservation requires a verified project writer.")
-            if not isinstance(paths, list) or not paths or len(paths) > 24:
-                raise MCPCallError("preserve_paths must contain 1..24 exact owned-group paths.")
+            if not isinstance(paths, list) or not paths or len(paths) > 256:
+                raise MCPCallError("preserve_paths must contain 1..256 exact owned-group paths.")
             snapshots: dict[str, dict[str, Any]] = {}
             for index, path in enumerate(paths):
                 if (
@@ -177,14 +177,19 @@ class AgentToolSurface:
                 key = "/".join(path)
                 if key in snapshots:
                     raise MCPCallError(f"Duplicate preserve path: {key}")
-                result = executor.inspect_owned({
+                snapshots[key] = {}
+            batch = getattr(executor, "inspect_owned_batch", None)
+            if callable(batch):
+                payloads = batch(script_id, paths)
+            else:
+                payloads = [json.loads(executor.inspect_owned({
                     "script_id": script_id,
                     "path": path,
                     "offset": 0,
                     "limit": 1,
-                })
+                })["contentItems"][0]["text"]) for path in paths]
+            for key, payload in zip(snapshots, payloads, strict=True):
                 try:
-                    payload = json.loads(result["contentItems"][0]["text"])
                     snapshots[key] = owned_inspection_fingerprint(payload)
                 except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
                     raise MCPCallError(f"Could not fingerprint protected KEEP path {key!r}: {error}") from error
@@ -592,7 +597,7 @@ class AgentToolSurface:
                         },
                         "preserve_paths": {
                             "type": "array",
-                            "maxItems": 24,
+                            "maxItems": 256,
                             "description": "For a post-review targeted correction, exact named owned-group paths that must remain unchanged. Map reviewer KEEP items to these paths with sketchup_inspect_owned first. The host snapshots them, verifies the same fingerprints inside the SketchUp transaction before commit (abort on regression), then rechecks persistent ID, object count and mm bounds after commit as defense in depth.",
                             "items": {
                                 "type": "array",

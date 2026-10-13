@@ -504,7 +504,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.credentials = LocalCredentialStore(store.root)
     app.state.credential_restore_error = False
     try:
-        saved_provider = app.state.credentials.load()
+        # Explicit local experiment launchers must retain their requested model
+        # across restarts without deleting the owner's encrypted BYOK credential.
+        saved_provider = (None if os.environ.get("ARCH_STUDIO_USE_LAUNCHER_MODEL") == "1"
+                          else app.state.credentials.load())
         if saved_provider and app.state.model_router.economy_provider != "responses":
             provider = app.state.model_router.china_runtime
             provider.model = saved_provider["model"]

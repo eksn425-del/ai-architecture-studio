@@ -1,0 +1,194 @@
+[
+  {
+    "trace": "runtime/1238716b95e34db8b7a879cf26e88c4b.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Selected model is at capacity. Please try a different model.",
+    "input_tokens": 288094,
+    "output_tokens": 11563,
+    "tool_call_count": 6,
+    "failed_tool_calls": 0,
+    "latency_ms": 476344
+  },
+  {
+    "trace": "runtime/148d5df8173949beb5c9b1753f773772.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex agent turn exceeded 900 seconds.",
+    "input_tokens": 472697,
+    "output_tokens": 15898,
+    "tool_call_count": 4,
+    "failed_tool_calls": 0,
+    "latency_ms": 902219
+  },
+  {
+    "trace": "runtime/1724eec7ca3a4114bfa85ddb5a2c1f51.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Selected model is at capacity. Please try a different model.",
+    "input_tokens": 138328,
+    "output_tokens": 124,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "latency_ms": 202578
+  },
+  {
+    "trace": "runtime/27aefe36fdb6446a8e6c6ec6c644ea08.jsonl",
+    "event": "tool_result",
+    "tool": "codex_commandExecution",
+    "success": false,
+    "exit_code": 1,
+    "error": "Native coding operation failed"
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "The existing SketchUp MCP returned no tool response.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_inspect_owned",
+    "success": false,
+    "error": "No existing owned root for this script_id; use the persisted identity, not a guessed ID. Available script_ids: none; build first.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "The existing SketchUp MCP returned no tool response.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"ArgumentError\",\n    \"message\": \"All Entities must have a common parent\",\n    \"backtrace\": [\n      \"glass_curved_roof.rb:118:in `add_group'\",\n      \"glass_curved_roof.rb:118:in `block in <main>'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-ce5bb0d1bc8d41f980ba5206f2254711.rb:22:in `eval'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-ce5bb0d1bc8d41f980ba5206f2254711.rb:22:in `block in <main>'\",\n      \"[workspace]/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-ce5bb0d1bc8d41f980ba5206f2254711.rb:13:in `<main>'\",\n      \"[private-user]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"[private-user]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"[private-user]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"[private-user]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"[private-user]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\",\n      \"[private-user]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `block in handle_payload'\"\n    ]\n  }\n}",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_inspect_owned",
+    "success": false,
+    "error": "No existing owned root for this script_id; use the persisted identity, not a guessed ID. Available script_ids: none; build first.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "codex_commandExecution",
+    "success": false,
+    "exit_code": 1,
+    "error": "Native coding operation failed"
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "codex_commandExecution",
+    "success": false,
+    "exit_code": 1,
+    "error": "Native coding operation failed"
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_submit_visual_review",
+    "success": false,
+    "error": "Source-matched review is missing CURRENT camera pairs for observed reference images: inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png, inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png, inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/84552f6bd6d04bd8b299c37cdd04eb68.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex agent turn exceeded 900 seconds.",
+    "input_tokens": 1811155,
+    "output_tokens": 10917,
+    "tool_call_count": 52,
+    "failed_tool_calls": 8,
+    "latency_ms": 948407
+  },
+  {
+    "trace": "runtime/abc6d0bfc98a4127a0817d71fed86fa0.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Selected model is at capacity. Please try a different model.",
+    "input_tokens": 149846,
+    "output_tokens": 334,
+    "tool_call_count": 4,
+    "failed_tool_calls": 0,
+    "latency_ms": 227438
+  },
+  {
+    "trace": "runtime/ca2006ad18d94f74845df59fb878d40c.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_inspect_owned",
+    "success": false,
+    "error": "offset must be nonnegative; limit must be 1..100.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/ca2006ad18d94f74845df59fb878d40c.jsonl",
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "preserve_paths must contain 1..24 exact owned-group paths.",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "trace": "runtime/ca2006ad18d94f74845df59fb878d40c.jsonl",
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Codex agent turn exceeded 900 seconds.",
+    "input_tokens": 1150033,
+    "output_tokens": 2701,
+    "tool_call_count": 14,
+    "failed_tool_calls": 2,
+    "latency_ms": 906438
+  },
+  {
+    "event": "upstream_apply_patch_failure",
+    "error": "invalid patch: multiple operations target same reconstruction_card.md",
+    "source": "actual native rollout, first planning turn; not counted by bridge telemetry"
+  },
+  {
+    "event": "upstream_apply_patch_failure",
+    "error": "Failed to find expected lines: full template decoded with corrupted punctuation",
+    "source": "actual native rollout, first planning turn"
+  },
+  {
+    "event": "native_startup_warning",
+    "error": "Missing TT_Lib2; InstantRoadPro.rb and SketchUcation loading warnings; dismissed, not repaired in this scope"
+  },
+  {
+    "event": "native_gui_type_failure",
+    "error": "Windows Type requires loc or label; intended 100mm input was not submitted; manual movement NOT_VERIFIED"
+  },
+  {
+    "event": "native_delivery_geometry_mismatch",
+    "error": "Clean immutable downloaded SKP opens with missing upper curved roof / low-level curved geometry. See native screenshot and readback; not yet attributed to save_copy, helper topology or plugin behavior."
+  }
+]

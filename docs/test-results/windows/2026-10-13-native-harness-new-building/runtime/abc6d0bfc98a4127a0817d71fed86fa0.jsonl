@@ -1,0 +1,254 @@
+[
+  {
+    "event": "project_budget_started",
+    "is_builder": true,
+    "prior_input_tokens": 3099516
+  },
+  {
+    "event": "thread_model_identity",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "medium",
+    "reported_model": "gpt-6.1-sol",
+    "reported_default_effort": "medium",
+    "source": "actual app-server thread/start or resume response"
+  },
+  {
+    "event": "turn_input",
+    "thread_id": "01a13447-1632-7e83-b8bd-0ba188067b6a",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "workflow_mode": "image_reconstruction",
+    "tool_profile": "reconstruction_coding",
+    "previous_thread_id": "01a13400-e8eb-7410-9ea9-7aea436c44b5",
+    "thread_transition": "started_with_registered_tools",
+    "compact_project_restart": true,
+    "harness_thread_mode": "native",
+    "source_fingerprint_verified": true,
+    "instructions_match_previous_thread": true,
+    "developer_instructions_sha256": "8e08b78c853f36736aa6ff2c1e00d2123f1aef9187677d7e9579f0fd24c775ae",
+    "resumed_native_harness": false,
+    "reference_categories": [
+      "reference",
+      "site",
+      "brief"
+    ],
+    "input_types": [
+      "text",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage",
+      "text",
+      "localImage"
+    ],
+    "reference_files": [
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+    ],
+    "sandbox_policy": {
+      "type": "workspaceWrite",
+      "networkAccess": false
+    },
+    "role": "builder_or_planner",
+    "tool_names": [
+      "sketchup_health",
+      "sketchup_get_model_context",
+      "sketchup_get_selection",
+      "sketchup_export_view_image",
+      "sketchup_set_camera",
+      "sketchup_inspect_owned",
+      "sketchup_capture_canonical_view",
+      "sketchup_submit_visual_review",
+      "sketchup_run_workspace_ruby"
+    ]
+  },
+  {
+    "event": "item/started",
+    "item_type": "userMessage",
+    "status": null,
+    "text": ""
+  },
+  {
+    "event": "item/completed",
+    "item_type": "userMessage",
+    "status": null,
+    "text": ""
+  },
+  {
+    "event": "item/started",
+    "item_type": "agentMessage",
+    "status": null,
+    "text": ""
+  },
+  {
+    "event": "item/completed",
+    "item_type": "agentMessage",
+    "status": null,
+    "text": "我会先核对当前屋顶是否已在前几轮调整，再只修正屋顶左右高低，保留曲面，并检查坡道和其他部分没有变化。"
+  },
+  {
+    "event": "tool_started",
+    "tool": "codex_commandExecution"
+  },
+  {
+    "event": "item/started",
+    "item_type": "commandExecution",
+    "status": "inProgress",
+    "text": ""
+  },
+  {
+    "event": "tool_result",
+    "tool": "codex_commandExecution",
+    "success": true,
+    "exit_code": 0,
+    "error": ""
+  },
+  {
+    "event": "item/completed",
+    "item_type": "commandExecution",
+    "status": "completed",
+    "text": ""
+  },
+  {
+    "event": "item/started",
+    "item_type": "dynamicToolCall",
+    "status": "inProgress",
+    "text": ""
+  },
+  {
+    "event": "tool_started",
+    "tool": "sketchup_get_model_context"
+  },
+  {
+    "event": "tool_result",
+    "tool": "sketchup_get_model_context",
+    "success": true,
+    "error": "",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "event": "item/completed",
+    "item_type": "dynamicToolCall",
+    "status": "completed",
+    "text": ""
+  },
+  {
+    "event": "token_usage",
+    "scope": "turn_delta_from_thread_total",
+    "input_tokens": 43775,
+    "output_tokens": 146,
+    "last_input_tokens": 43775,
+    "last_output_tokens": 146
+  },
+  {
+    "event": "tool_started",
+    "tool": "codex_commandExecution"
+  },
+  {
+    "event": "item/started",
+    "item_type": "commandExecution",
+    "status": "inProgress",
+    "text": ""
+  },
+  {
+    "event": "tool_result",
+    "tool": "codex_commandExecution",
+    "success": true,
+    "exit_code": 0,
+    "error": ""
+  },
+  {
+    "event": "item/completed",
+    "item_type": "commandExecution",
+    "status": "completed",
+    "text": ""
+  },
+  {
+    "event": "token_usage",
+    "scope": "turn_delta_from_thread_total",
+    "input_tokens": 93435,
+    "output_tokens": 227,
+    "last_input_tokens": 49660,
+    "last_output_tokens": 81
+  },
+  {
+    "event": "tool_started",
+    "tool": "codex_commandExecution"
+  },
+  {
+    "event": "item/started",
+    "item_type": "commandExecution",
+    "status": "inProgress",
+    "text": ""
+  },
+  {
+    "event": "tool_result",
+    "tool": "codex_commandExecution",
+    "success": true,
+    "exit_code": 0,
+    "error": ""
+  },
+  {
+    "event": "item/completed",
+    "item_type": "commandExecution",
+    "status": "completed",
+    "text": ""
+  },
+  {
+    "event": "token_usage",
+    "scope": "turn_delta_from_thread_total",
+    "input_tokens": 149846,
+    "output_tokens": 334,
+    "last_input_tokens": 56411,
+    "last_output_tokens": 107
+  },
+  {
+    "event": "token_usage",
+    "scope": "turn_delta_from_thread_total",
+    "input_tokens": 149846,
+    "output_tokens": 334,
+    "last_input_tokens": 56411,
+    "last_output_tokens": 107
+  },
+  {
+    "event": "turn/completed",
+    "item_type": null,
+    "status": "failed",
+    "text": ""
+  },
+  {
+    "event": "project_budget_finished",
+    "is_builder": true,
+    "status": "interrupted",
+    "input_tokens": 149846,
+    "output_tokens": 334
+  },
+  {
+    "event": "turn_interrupted",
+    "status": "interrupted",
+    "reason": "Selected model is at capacity. Please try a different model.",
+    "input_tokens": 149846,
+    "output_tokens": 334,
+    "tool_call_count": 4,
+    "failed_tool_calls": 0,
+    "latency_ms": 227438
+  }
+]

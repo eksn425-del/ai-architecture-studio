@@ -1,4 +1,18 @@
-# HANDOFF — next genuine NEW image, experimental upstream native Codex Harness, Sol Medium (2026-10-13)
+# HANDOFF — 真实新建筑 Harness 实测完成，PARTIAL，交回网页端审查（2026-10-13）
+
+[报告、真实截图、调用与错误记录](test-results/windows/2026-10-13-native-harness-new-building/README.md)。实际起点 `02f63af09961a283de04d7bbc07e893deeeccb2b`，本轮八张新建筑整图／真实网站／SketchUp 2024／Kongxing／ADAI 0.5.39，实际 Sol6.1 Medium，外层模型不变，无付费 API。全新根 20606/r1，旧项目保持停止。
+
+主体已不是简单白盒：玻璃环廊、柱梁、下垂木屋顶、坡道及组件真实生成，ADAI profile 6、profile_with_holes 3、SAIE wall 18 次实际正式调用。不过独立 Critic 判 NEEDS_FIX；源图屋顶端部高低和坡道关系未正确实现。用户一次屋顶请求经三次恢复没有成功修改：容量错误、超时、KEEP 24 上限；修后仍容量阻断。不得称局部修正或保护组验收 PASS。
+
+已修：启动脚本显式模型优先于历史 BYOK；Windows 规划文件恢复；指令 SHA 变化强制新线程、相同阶段真实 resume；容量错误可理解提示；KEEP 256 路径批量只读检查（身份/范围/事务保护保留）。最终 413 passed / 2 skipped，95 路径真实只读探测 PASS，网站修后写入 NOT_RUN/容量阻断。原始工具错误、规划恢复失败和中间测试失败都在报告中。
+
+**交付 P0**：真实下载 SKP、原生重开和组件选中成功，但干净下载副本重开仍见上部屋顶缺失、木曲面低位。不能确定是保存链路、组装/共享定义、插件还是坐标读回，须深层对照后修复。手动移动未证实；测试副本保存成功，保存版再打开与严格重放未做。当前 SU 为诊断副本，网站仍配对原文件，先重新验证身份再写。私人 SKP/原图留本机备份，不上传；公开原图哈希、逐图计划、模型输出和脱敏读回。
+
+总 5.213096M input、55,858 output、87 次计数工具（另有两次上游 patch 失败），首次建模 948407ms 含独立 Critic 295500ms，不重复相加；部分成功规划 latency 未持久记录为 null。效率未通过，旧 4.92M 案例工作量不同，不能声称提升比例。下一轮按 CURRENT_TASK 顶部先修交付一致性、已有屋顶局部修改和恢复体验，不启动其他产品线。
+
+---
+
+# HISTORICAL HANDOFF — next genuine NEW image, experimental upstream native Codex Harness, Sol Medium (2026-10-13)
 
 The latest real user r4→r6 stop report at [this link](test-results/windows/2026-10-13-owner-review-reuse/README.md) remains PARTIAL / visual FAIL; 11,493,239 cumulative Builder input, only local development caps expressly disabled, no paid API. Preserve old r6 and all screenshots. Owner now instructs K Studio code integration/iteration then a separate NEW private reference photo. Actual K Studio already calls real open-source Codex App Server; this pilot adds opt-in safe native thread/resume for same SHA/order original inputs + identical tool registry, and shorter stage-specific Harness-first context. Old default behavior remains compact/full. NEW website startup [scripts/dev-harness-sol-medium.ps1](../scripts/dev-harness-sol-medium.ps1) (outer Codex controller unchanged), [audit](CODEX_NATIVE_HARNESS_PILOT_2026-10-13.md) and [single test](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). One real mouse-led first-build and normal Chinese local edit; first version source fidelity and revision/tool/usage trace. New photo not supplied => native NOT_RUN. Current local account-based Codex proxy is NOT standalone no-Codex-account commercial inference; future operator-managed API requires licensing/auth/spend approval. Never claim complete 1:1 model parity or restart/repair stopped r6 without user instruction.
 
