@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## OWNER UPDATE 2026-10-13 — NEW PHOTO, legal open-source Codex Harness comparison
+
+The newest task supersedes prior r3, Sol Low, Dream Coffee runbooks. First study publicly licensed openai/codex Apache-2.0, not private competitor agents. Read [Harness audit](docs/CODEX_HARNESS_PARITY_AUDIT_2026-10-13.md) and [next new-photo site runbook](docs/NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). K Studio already runs real Codex App Server as development proxy, but that is not standalone commercial inference. A new private owner photo is forthcoming; SITE uses actual gpt-6.1-sol/medium with independently verified model identity, outer Codex developer model unchanged. This branch implements host-verifiable source/screenshot/sidecar/ledger SHA checkpoint for independent last-review reuse across new compact Builder turns; invalidate on any changed evidence or new geometry. Web CI does NOT mean real image quality PASS. Old owner r4 visual FAIL and project 7,888,700/8M tokens with reserve are immutable history; do not continue it or reset its budget. No unauthorized competitor reverse engineering or unapproved paid provider.
+
+
 ## Owner Medium continuation handoff — bounded test completed, budget exhausted
 
 Issue #12 native website continuation is now PARTIAL with source quality FAIL: [real before/after evidence](docs/test-results/windows/2026-10-12-owner-medium-continuation/README.md). Same two-source project/r3 backed up; real site Sol6.1 Medium committed r4 once, follow-up stopped without geometry by unchanged cumulative budget. Historic Builder input now 7,888,700 against 8M with 200k delivery reserve; no further Builder turn without an explicit owner budget decision. Preserve r3/r4/private sources and all failures. Do not resume decorative retries, reset usage or create another project to evade the cap. Web-side review should address repeated same-revision screenshots/Critic overhead and source spatial edits; native download/reopen/edit/replay remain NOT_RUN for this run. Outer controller unchanged, paid API NOT_RUN.
