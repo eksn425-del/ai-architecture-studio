@@ -111,9 +111,11 @@ def _native_thread_can_resume(
     """
     if not _can_resume_tools(thread_id, tool_registry, tools):
         return False
-    if not compact_restart:
-        return True
-    return bool(native_mode and image_registry.get(str(thread_id)) == image_fingerprint)
+    # In this explicit pilot, even a pre-build discussion/plan cannot silently
+    # retain stale photos after uploads are replaced or their order changes.
+    if native_mode:
+        return image_registry.get(str(thread_id)) == image_fingerprint
+    return not compact_restart
 
 def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: bool, tool_profile: str = "full") -> str:
     """Supersede the historical Kongxing-only wording once OSS tools are composed.
