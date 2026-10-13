@@ -1,3 +1,11 @@
+# 2026-10-14 用户独立研究任务：建筑学长 1.1.25 合法静态检查已完成到许可边界
+
+[研究报告](research/2026-10-14-jzxz-pc-1.1.25/README.md)及脱敏元数据已提交。安装包 SHA 匹配；REA 6.4.0 实际资源元数据检查完成。Windows 版适用 EULA 和明确深入分析授权未取得，所以未解包、反编译、登录或读取隐私。Codex Harness、Microsoft Agent Framework 和目标具体 MCP/Skills 组合均尚未验证；不得把这些未知写成否定结论或竞品源码依据。
+
+用户已暂停本机建模测试；本研究没有恢复建模。P0 分组缺陷定位及尚未完成的修复/真机交付闭环仍在原工作区保留，未随本研究提交。继续原生验收需要用户重新启动任务。以下历史任务和失败报告保留。
+
+---
+
 # CURRENT 2026-10-13 — integrated P0 deliverability + site Agent parity + legal public workflow
 
 Authoritative single handoff: [P0 delivery→same website edit→conditional original Codex comparison→legally public Building Xuezhang study](NEXT_P0_DELIVERY_AND_CONDITIONAL_CODEX_PARITY_2026-10-13.md). Latest verified GitHub baseline d4b32aa from actual 8-image owner test: r1 one commit, image fidelity FAIL, three roof modification attempts no commit, downloaded clean SKP roof changed on native reopen. Private source/SKP only on owner computer; archived public report intact. This branch records exact two saved file SHA with `UNVERIFIED_NATIVE_REOPEN` in real host checkpoint + UI, adds read-only strict three-phase geometry auditor and conditional original-Codex decision function. These code changes are not native validation. First diagnose missing/changed roof deep group transforms and component/ADAI/save/reopen chain without assumptions, and re-run through SAME website on controlled safe copy. Only after true delivery PASS test one normal Chinese scoped correction, and only if quality/UX still genuinely fails do original Codex A/B with same private eight photos, actual site Sol 6.1 medium, comparable permitted MCP/SketchUp. Otherwise skip A/B. Independent Critic and private file/root/one-writer/KEEP intact. Building Xuezhang sources public only and license/privacy research before any restricted study. No private images/SKP/Key publicly uploaded, no unapproved paid API.

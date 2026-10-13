@@ -1,3 +1,11 @@
+# 2026-10-14 独立合法架构研究交接
+
+报告：[建筑学长电脑版 1.1.25](research/2026-10-14-jzxz-pc-1.1.25/README.md)，[公开证据摘要](research/2026-10-14-jzxz-pc-1.1.25/evidence-summary.json)。REA 固定源码 688defca / npm6.4.0，实际 PE 资源元数据调用成功；目标 SHA 与用户给定值相符。适用 Windows EULA 正文/明确研究授权未取得，深层研究 NOT_RUN；没有私有负载、源码、Prompt、密钥或个人路径提交。两个实现归属问题及目标特定工具组合尚未验证，报告给出证明标准及限制。
+
+本次从最新 origin/main 6fa015e 的独立工作树提交报告，避免包含原工作区暂停中的六个代码/测试修改。没有执行任何新建模、安装器或竞品账号操作。原 P0 任务仍暂停，不能因为研究提交而宣称模型交付通过。
+
+---
+
 # HANDOFF 2026-10-13 — native SKP consistency FIRST, original Codex comparison only on measured failure
 
 [Authoritative integrated plan](NEXT_P0_DELIVERY_AND_CONDITIONAL_CODEX_PARITY_2026-10-13.md). Prior actual eight-whole-photo site work PARTIAL / visual and clean native reopen FAIL, only r1 and no user roof edit commit: retain all private original evidence. New branch records saved bound + download candidate file hashes and explicit `UNVERIFIED_NATIVE_REOPEN` receipt/UI; strict read-only three-stage deep geometry auditor identifies first real failure. First isolate/repair true SU native save/download/reopen cause in a safe copy, then same website short Chinese local edit and source-matched independent QA. Only if full delivery PASS but site fidelity/edit/UX still FAIL (not model capacity outage) use original Codex as a conditional same-eight-photo/actual Sol Medium/comparable MCP control. Otherwise SKIP original Codex A/B. Public Building Xuezhang marketing/tutorial research only: no reverse private app, hidden endpoints, prohibited automation or copying competitor assets without authorization. No paid provider inference. CI != native proof.
