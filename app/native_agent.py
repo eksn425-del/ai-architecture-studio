@@ -88,6 +88,35 @@ def _can_resume_tools(thread_id: str | None, registrations: dict[str, str], tool
     return bool(thread_id and registrations.get(thread_id) == _thread_tool_fingerprint(tools))
 
 
+def _reference_images_fingerprint(project_dir: Path, images: list[Path]) -> str:
+    """Bind resumed native history to original image bytes AND upload order."""
+    root = project_dir.resolve()
+    inventory: list[tuple[str, str]] = []
+    for path in images:
+        real = path.resolve()
+        if not real.is_file() or path.is_symlink() or not real.is_relative_to(root / "inputs"):
+            raise ValueError("A resumed Codex source must be a real project input image.")
+        inventory.append((real.relative_to(root).as_posix(), hashlib.sha256(real.read_bytes()).hexdigest()))
+    return hashlib.sha256(json.dumps(inventory, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def _native_thread_can_resume(
+    thread_id: str | None, tool_registry: dict[str, str], image_registry: dict[str, str],
+    tools: list[dict[str, Any]], image_fingerprint: str, *, compact_restart: bool, native_mode: bool,
+) -> bool:
+    """Use actual Codex thread/resume only with matching tools and source bytes.
+
+    Default behavior remains the historical compact fresh thread. Native mode
+    delegates history continuity/compaction to upstream Codex when safe.
+    """
+    if not _can_resume_tools(thread_id, tool_registry, tools):
+        return False
+    # In this explicit pilot, even a pre-build discussion/plan cannot silently
+    # retain stale photos after uploads are replaced or their order changes.
+    if native_mode:
+        return image_registry.get(str(thread_id)) == image_fingerprint
+    return not compact_restart
+
 def _composed_tool_instructions(developer_instructions: str, *, mcp_enabled: bool, tool_profile: str = "full") -> str:
     """Supersede the historical Kongxing-only wording once OSS tools are composed.
 
@@ -172,6 +201,9 @@ class CodexAppServerRuntime:
         if effort not in {"low", "medium", "high", "xhigh", "max"}:
             raise ValueError("ARCH_STUDIO_CODEX_REASONING_EFFORT must be one of low, medium, high, xhigh, or max.")
         self.reasoning_effort = effort
+        self.reconstruction_thread_mode = os.environ.get("ARCH_STUDIO_CODEX_RECONSTRUCTION_THREAD_MODE", "compact").lower()
+        if self.reconstruction_thread_mode not in {"compact", "native"}:
+            raise ValueError("ARCH_STUDIO_CODEX_RECONSTRUCTION_THREAD_MODE must be compact or native.")
         self.timeout_seconds = (timeout_seconds if timeout_seconds is not None
                                 else int(os.environ.get("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "900")))
         if not 30 <= self.timeout_seconds <= 3600:
@@ -485,13 +517,23 @@ class CodexAppServerRuntime:
             thread_params["dynamicTools"] = registered_tools
             registry_path = project_dir / "runtime" / "native_thread_tools.json"
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
+            image_registry_path = project_dir / "runtime" / "native_thread_images.json"
+            image_registry = json.loads(image_registry_path.read_text(encoding="utf-8")) if image_registry_path.exists() else {}
+            # Dedicated read-only Critic includes trusted OUTPUT screenshots, not just inputs.
+            # Its thread is always fresh; image continuity applies only to Builder/Planner.
+            image_fingerprint = _reference_images_fingerprint(project_dir, reference_images) if not read_only else ""
             previous_thread_id = thread_id
-            # The current prompt already contains compact project memory, and
-            # generated files/model receipts persist across turns. Resuming an
-            # old modeling thread additionally replays all historical images
-            # and tool output, defeating that compaction after a partial write.
+            # Historical default starts a compact new thread after a committed
+            # model. Explicit native mode instead delegates continuity and
+            # built-in history compaction to the ACTUAL upstream Codex Harness.
+            # Never resume if input bytes/order or registered tools changed.
             compact_model_turn = tool_profile == "reconstruction_coding" and mcp_enabled and compact_project_context
-            if _can_resume_tools(thread_id, registrations, registered_tools) and not compact_model_turn:
+            native_mode = self.reconstruction_thread_mode == "native" and tool_profile == "reconstruction_coding"
+            resumed = _native_thread_can_resume(
+                thread_id, registrations, image_registry, registered_tools, image_fingerprint,
+                compact_restart=compact_model_turn, native_mode=native_mode,
+            )
+            if resumed:
                 thread_params = {"threadId": thread_id, "developerInstructions": developer_instructions}
                 thread = self._request(process, events, request_id, "thread/resume", thread_params, buffered)
             else:
@@ -510,6 +552,8 @@ class CodexAppServerRuntime:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
             registrations[resolved_thread_id] = _thread_tool_fingerprint(registered_tools)
             registry_path.write_text(json.dumps(registrations, indent=2), encoding="utf-8")
+            image_registry[resolved_thread_id] = image_fingerprint
+            image_registry_path.write_text(json.dumps(image_registry, indent=2), encoding="utf-8")
 
             turn_input = _app_server_turn_input(prompt, reference_images)
             record({"event": "turn_input", "thread_id": resolved_thread_id,
@@ -517,7 +561,10 @@ class CodexAppServerRuntime:
                     "workflow_mode": workflow_mode, "tool_profile": tool_profile,
                     "previous_thread_id": previous_thread_id,
                     "thread_transition": "resumed" if previous_thread_id == resolved_thread_id else "started_with_registered_tools",
-                    "compact_project_restart": compact_model_turn,
+                    "compact_project_restart": compact_model_turn and not resumed,
+                    "harness_thread_mode": self.reconstruction_thread_mode if compact_model_turn else "default",
+                    "source_fingerprint_verified": bool(image_fingerprint),
+                    "resumed_native_harness": bool(resumed and compact_model_turn),
                     "reference_categories": list(workflow_reference_categories(workflow_mode)),
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],

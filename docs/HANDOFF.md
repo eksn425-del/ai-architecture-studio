@@ -1,3 +1,9 @@
+# HANDOFF — next genuine NEW image, experimental upstream native Codex Harness, Sol Medium (2026-10-13)
+
+The latest real user r4→r6 stop report at [this link](test-results/windows/2026-10-13-owner-review-reuse/README.md) remains PARTIAL / visual FAIL; 11,493,239 cumulative Builder input, only local development caps expressly disabled, no paid API. Preserve old r6 and all screenshots. Owner now instructs K Studio code integration/iteration then a separate NEW private reference photo. Actual K Studio already calls real open-source Codex App Server; this pilot adds opt-in safe native thread/resume for same SHA/order original inputs + identical tool registry, and shorter stage-specific Harness-first context. Old default behavior remains compact/full. NEW website startup [scripts/dev-harness-sol-medium.ps1](../scripts/dev-harness-sol-medium.ps1) (outer Codex controller unchanged), [audit](CODEX_NATIVE_HARNESS_PILOT_2026-10-13.md) and [single test](NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md). One real mouse-led first-build and normal Chinese local edit; first version source fidelity and revision/tool/usage trace. New photo not supplied => native NOT_RUN. Current local account-based Codex proxy is NOT standalone no-Codex-account commercial inference; future operator-managed API requires licensing/auth/spend approval. Never claim complete 1:1 model parity or restart/repair stopped r6 without user instruction.
+
+---
+
 # 2026-10-13 用户停止同项目迭代：PARTIAL / 视觉 FAIL，保留 r6
 
 [最新报告、两轮真实前后截图及完整记录](test-results/windows/2026-10-13-owner-review-reuse/README.md)。本次真实网站 Sol6.1 Medium 自然中文两回合 r4→r5→r6，右侧内壁/退入玻璃、左上楼梯侧墙及相连红折面有改善，但右侧围合、屏顶轮廓、屋面尺度和下部交通仍独立 Critic NEEDS_FIX。两回合 Builder3,604,539 input/65工具/1失败/835344ms；无全局重建、无付费API。
