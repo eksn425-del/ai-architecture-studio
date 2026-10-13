@@ -882,6 +882,9 @@ def test_harness_parity_restores_only_current_independent_source_review(tmp_path
     from app.agent_tools import AgentToolSurface
     from app.sketchup_mcp import MCPCallError
     project, state, views = _current_review_fixture(tmp_path)
+    from app.codex_parity import prepare_codex_parity_workspace
+    # The actual product seeds its notes/ledger before the independent review.
+    prepare_codex_parity_workspace(project / "runtime/agent_workspace")
     source = project / "inputs/reference/source.png"
     source.parent.mkdir(parents=True, exist_ok=True)
     source.write_bytes(b"original owner image")
