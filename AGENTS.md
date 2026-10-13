@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## NEW OWNER INSTRUCTION 2026-10-13 — native Codex Harness pilot, different new photo
+
+Old two-photo r4→r5→r6 was stopped, visual FAIL / overall PARTIAL and cumulative Builder 11,493,239 input; do not restart it. The user now authorizes GitHub code work and preparation of a DIFFERENT new private architecture photo, website gpt-6.1-sol/MEDIUM. New single task [docs/NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md](docs/NEXT_NEW_PHOTO_HARNESS_SOL_MEDIUM_2026-10-13.md) and [pilot audit](docs/CODEX_NATIVE_HARNESS_PILOT_2026-10-13.md). Real K Studio already integrates open-source upstream Codex App Server. Experimental site-only startup scripts/dev-harness-sol-medium.ps1 enables upstream native thread/resume (only when tool specs and original reference image SHA+order match) and concise Harness-first task context; unchanged old default compact/full mode. Keep official Codex and model provider/account separate, outer Codex controller unchanged, single guarded SketchUp writer/approval/KEEP/current independent Critic untouched. First-pass source fidelity BEFORE a bounded normal-Chinese local edit, real browser/mouse/SketchUp, do not fake old r6 as new site PASS. Owner photo not yet supplied; native NOT_RUN. No paid API/unauthorized competitor reverse engineering. Original r6 GUID website re-verification and actual preview/download/native edit/replay NOT_RUN must not be relabeled PASS.
+
+
 ## 2026-10-13 owner stop and local iteration budget override
 
 Owner explicitly disabled Native local-iteration token/tool cost caps (not paid Responses spend controls); preserve all historical usage. Two real website Medium edits advanced the same owned root to r6; partial improvement, independent visual FAIL. Owner now requests STOP: no further modeling or automatic continuation. Publish latest evidence, code and handoff. [Report](docs/test-results/windows/2026-10-13-owner-review-reuse/README.md). GUID fix passed offline/native read-only proof but website rerun NOT_RUN; frontend preview links remain unverified; native final edit/reopen/replay NOT_RUN. Resume only on owner instruction.
