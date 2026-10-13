@@ -644,6 +644,9 @@ def load_current_independent_visual_review(
             project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
         if receipt.get("source_view_coverage") != coverage:
             return None
+        current_sources = sorted(p.relative_to(project_dir).as_posix() for p in (project_dir / "inputs/reference").glob("*") if p.is_file())
+        if receipt.get("source_images") != current_sources:
+            return None
         stored = receipt.get("evidence_sha256")
         if not isinstance(stored, dict) or not stored or stored != _review_evidence_hashes(project_dir, receipt):
             return None
