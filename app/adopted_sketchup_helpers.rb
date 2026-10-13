@@ -110,7 +110,7 @@ module KStudioProfessionalHelpers
   # and parent-local millimeter bounds.
   def verify_owned_fingerprints!(root, expectations, tolerance_mm = 0.01)
     raise 'KEEP expectations must be a nonempty Array' unless expectations.is_a?(Array) && !expectations.empty?
-    raise 'Too many KEEP expectations' if expectations.length > 24
+    raise 'Too many KEEP expectations' if expectations.length > 256
     raise 'KEEP tolerance must be a positive number' unless tolerance_mm.is_a?(Numeric) && tolerance_mm.finite? && tolerance_mm > 0
 
     checks = []
