@@ -109,3 +109,45 @@ def test_harness_parity_fresh_builder_receives_small_verified_spatial_memory():
     assert "The latest human request controls intent" in p
     assert _verified_review_checkpoint_prompt({"review_reused": False, "review": review["review"]}) == ""
     assert _verified_review_checkpoint_prompt({"review_reused": True, "review": {"issues": []}})
+
+
+def test_actual_codex_native_context_mode_needs_identical_source_bytes_and_tool_specs(tmp_path):
+    from app.native_agent import (_reference_images_fingerprint, _native_thread_can_resume,
+                                  _thread_tool_fingerprint)
+    root = tmp_path / "project"
+    source = root / "inputs/reference/photo.png"
+    source.parent.mkdir(parents=True)
+    source.write_bytes(b"source version A")
+    alternate = root / "inputs/reference/angle.png"
+    alternate.write_bytes(b"second image")
+    tools = [{"type": "function", "name": "sketchup", "description": "verified"}]
+    fp = _reference_images_fingerprint(root, [source, alternate])
+    assert fp != _reference_images_fingerprint(root, [alternate, source])
+    registration = {"codex-thread": _thread_tool_fingerprint(tools)}
+    image_registry = {"codex-thread": fp}
+    kwargs = dict(compact_restart=True, native_mode=True)
+    assert _native_thread_can_resume("codex-thread", registration, image_registry, tools, fp, **kwargs)
+    assert not _native_thread_can_resume("codex-thread", registration, image_registry, tools, fp,
+                                         compact_restart=True, native_mode=False)
+    assert not _native_thread_can_resume("codex-thread", registration, {}, tools, fp, **kwargs)
+    assert not _native_thread_can_resume("codex-thread", registration, image_registry,
+                                         tools + [{"type": "function", "name": "new"}], fp, **kwargs)
+    source.write_bytes(b"source version B")
+    assert not _native_thread_can_resume("codex-thread", registration, image_registry, tools,
+                                         _reference_images_fingerprint(root, [source, alternate]), **kwargs)
+    assert _native_thread_can_resume("codex-thread", registration, {}, tools, fp,
+                                     compact_restart=False, native_mode=False)
+
+
+def test_harness_first_skill_keeps_human_goal_and_visual_safety(monkeypatch):
+    from app.workflow_context import load_workflow_skill_context
+    monkeypatch.setenv("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE", "harness")
+    prompt = load_workflow_skill_context("image_reconstruction", mcp_enabled=True)
+    assert "actual user goal" in prompt
+    assert "primary form" in prompt
+    assert "host-owned" in prompt
+    assert "AGENTS.md" in prompt
+    assert len(prompt) < 3800
+    monkeypatch.delenv("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE")
+    legacy = load_workflow_skill_context("image_reconstruction", mcp_enabled=True)
+    assert len(legacy) > len(prompt)
