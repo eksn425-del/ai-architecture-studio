@@ -1,8 +1,8 @@
 """Strict, READ-ONLY three-stage native SKP delivery investigation.
 
 Usage:
-  python scripts/audit_native_delivery_stages.py before-save.json bound-reopened.json clean-download-reopened.json --json
-  python scripts/audit_native_delivery_stages.py before-save.json bound-reopened.json clean-download-reopened.json --receipt native_delivery_checkpoint.json --downloaded-skp clean.skp --json
+  python -m scripts.audit_native_delivery_stages before-save.json bound-reopened.json clean-download-reopened.json --json
+  python -m scripts.audit_native_delivery_stages before-save.json bound-reopened.json clean-download-reopened.json --receipt native_delivery_checkpoint.json --downloaded-skp clean.skp --json
 
 Capture each fingerprint by the SAME host-side deep native read-only procedure:
 per-name world-space transforms, complete nested face/edge/material topology.
