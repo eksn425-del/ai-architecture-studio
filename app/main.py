@@ -1699,7 +1699,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 raise MCPCallError("The active SketchUp model path changed during the agent checkpoint.")
             session.model_guid = str(post_identity.get("model_guid") or "")
             if roots:
-                # A successful save_copy does not prove that the downloaded SKP\n                # reopens with identical transforms/geometry. Publish a candidate\n                # receipt, never falsely mark delivery PASS.\n                saved_delivery = record_delivery_checkpoint(\n                    project_dir, active_model, model_output, roots=roots,\n                    revisions={key: int(value["revision"]) for key, value in session.ruby_state.items()\n                               if int(value.get("revision", 0)) > 0},\n                )
+                # A successful save_copy does not prove that the downloaded SKP
+                # reopens with identical transforms/geometry. Publish a candidate
+                # receipt, never falsely mark delivery PASS.
+                saved_delivery = record_delivery_checkpoint(
+                    project_dir, active_model, model_output, roots=roots,
+                    revisions={key: int(value["revision"]) for key, value in session.ruby_state.items()
+                               if int(value.get("revision", 0)) > 0},
+                )
                 current_state.last_operation["delivery_status"] = saved_delivery["status"]
                 current_state.last_operation["delivery_receipt"] = "runtime/native_delivery_checkpoint.json"
             capture_path = _capture_agent_view(adapter, store, project_id)
