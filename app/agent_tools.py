@@ -248,7 +248,7 @@ class AgentToolSurface:
                 review = quality_state.get("review")
                 if not isinstance(review, dict):
                     raise MCPCallError(
-                        "当前模型未找到可复用的独立审查收据，或来源、截图、修订已变化。先取得 front/rear/left/right/roof/oblique "
+                        "当前六视图视觉审查无可复用的独立收据，或来源、截图、修订已变化。先取得 front/rear/left/right/roof/oblique "
                         "六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。"
                     )
                 review_before_write = review
