@@ -1,3 +1,9 @@
+# READ FIRST: [docs/CURRENT.md](CURRENT.md) — 2026-10-14 authoritative eight-photo P0 and conditional real site test
+
+Ignore stale historical next-task entries below. Current goal same private existing architecture-project-4f0e4 and original 8 images. GitHub fixed host-only read-only deep evidence collector, 256 Ruby KEEP count, schema for owner-verified signed roof/ramp axes. Windows Codex must verify real native SketchUp on safe copies and report old missing stage NOT_RUN/BLOCKED; only one same-site natural correction after native deliverability PASS, then conditional standalone original Codex A/B if website remains genuinely poor. Never report offline CI as new model fidelity or edit delivery PASS. Do not publish private source SKP/credentials.
+
+---
+
 # 2026-10-14 独立合法架构研究交接
 
 报告：[建筑学长电脑版 1.1.25](research/2026-10-14-jzxz-pc-1.1.25/README.md)，[公开证据摘要](research/2026-10-14-jzxz-pc-1.1.25/evidence-summary.json)。REA 固定源码 688defca / npm6.4.0，实际 PE 资源元数据调用成功；目标 SHA 与用户给定值相符。适用 Windows EULA 正文/明确研究授权未取得，深层研究 NOT_RUN；没有私有负载、源码、Prompt、密钥或个人路径提交。两个实现归属问题及目标特定工具组合尚未验证，报告给出证明标准及限制。
