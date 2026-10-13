@@ -12,6 +12,7 @@ the committed owned SketchUp root instead of trusting a success string.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 import json
 import math
 from pathlib import Path, PurePosixPath
@@ -577,6 +578,79 @@ def require_observed_source_view_pairs(project_dir: Path, evidence: dict[str, An
                          + ", ".join(missing))
     return {"required": True, "mode": mode, "observed_sources": required, "paired_sources": paired}
 
+def _review_evidence_hashes(project_dir: Path, receipt: dict[str, Any]) -> dict[str, str]:
+    """Fingerprint the exact approved source, camera PNGs and provenance sidecars.
+
+    A matching revision alone is insufficient when an uploaded photo, saved view
+    or its sidecar was replaced after the last independent review.
+    """
+    paths: set[str] = set(receipt.get("source_images") or [])
+    for entry in (receipt.get("views") or {}).values():
+        paths.add(str(entry["path"]))
+    for pair in receipt.get("evidence_pairs") or []:
+        paths.add(pair["source_ref"])
+        paths.add(pair["current_view"])
+    evidence_note = project_dir / "runtime/agent_workspace/notes/reconstruction_evidence.json"
+    if evidence_note.is_file():
+        paths.add("runtime/agent_workspace/notes/reconstruction_evidence.json")
+    for path in tuple(paths):
+        if path.startswith("outputs/renders/") and path.endswith(".png"):
+            paths.add(path[:-4] + ".evidence.json")
+    hashes: dict[str, str] = {}
+    root = project_dir.resolve()
+    for item in sorted(paths):
+        relative = PurePosixPath(item)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError("Review evidence path is not project-relative.")
+        path = root.joinpath(*relative.parts)
+        if path.is_symlink() or not path.resolve().is_relative_to(root) or not path.is_file():
+            raise ValueError("Review evidence file is missing or unsafe: " + item)
+        hashes[item] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashes
+
+
+def load_current_independent_visual_review(
+    project_dir: Path, ruby_state: dict[str, dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Resume only a proven same-revision independent NEEDS_FIX checkpoint.
+
+    Fail closed for legacy receipts (without hashes), self-reviews, altered
+    sources/screenshots/sidecars, changed model revisions or missing readback.
+    Never turn a past ACCEPTED review into a veto on a NEW user request.
+    """
+    qa = project_dir.resolve() / "runtime/agent_workspace/qa"
+    path = qa / "visual_review.json"
+    history = qa / "visual_review_history.jsonl"
+    if any(x.is_symlink() for x in (qa, path, history)):
+        return None
+    if not path.is_file() or not history.is_file() or path.stat().st_size > 1024 * 1024:
+        return None
+    try:
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+        with history.open(encoding="utf-8") as stream:
+            last = next((line for line in reversed(stream.readlines()) if line.strip()), "")
+        if receipt != json.loads(last):
+            return None
+        if receipt.get("reviewer", {}).get("mode") not in {"dedicated_read_only", "host_dedicated_read_only"}:
+            return None
+        if receipt.get("needs_fix") is not True or not receipt.get("issues"):
+            return None
+        views = {key: value["path"] for key, value in receipt["views"].items()}
+        revision, _validated, _files = validate_visual_review_views(project_dir, ruby_state, views)
+        if receipt.get("model_revisions") != revision:
+            return None
+        pairs = validate_source_matched_pairs(project_dir, revision, receipt.get("evidence_pairs"))
+        coverage = require_observed_source_view_pairs(
+            project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
+        if receipt.get("source_view_coverage") != coverage:
+            return None
+        stored = receipt.get("evidence_sha256")
+        if not isinstance(stored, dict) or not stored or stored != _review_evidence_hashes(project_dir, receipt):
+            return None
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError, StopIteration):
+        return None
+    return receipt
+
 def submit_visual_review(
     project_dir: Path,
     ruby_state: dict[str, dict[str, Any]],
@@ -650,6 +724,7 @@ def submit_visual_review(
         ),
     }
 
+    receipt["evidence_sha256"] = _review_evidence_hashes(project_dir, receipt)
     qa_dir = project_dir / "runtime" / "agent_workspace" / "qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
     if qa_dir.is_symlink() or not qa_dir.resolve().is_relative_to(project_dir):
