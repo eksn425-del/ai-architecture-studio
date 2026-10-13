@@ -1,3 +1,9 @@
+# CURRENT 2026-10-13 — integrated P0 deliverability + site Agent parity + legal public workflow
+
+Authoritative single handoff: [P0 delivery→same website edit→conditional original Codex comparison→legally public Building Xuezhang study](NEXT_P0_DELIVERY_AND_CONDITIONAL_CODEX_PARITY_2026-10-13.md). Latest verified GitHub baseline d4b32aa from actual 8-image owner test: r1 one commit, image fidelity FAIL, three roof modification attempts no commit, downloaded clean SKP roof changed on native reopen. Private source/SKP only on owner computer; archived public report intact. This branch records exact two saved file SHA with `UNVERIFIED_NATIVE_REOPEN` in real host checkpoint + UI, adds read-only strict three-phase geometry auditor and conditional original-Codex decision function. These code changes are not native validation. First diagnose missing/changed roof deep group transforms and component/ADAI/save/reopen chain without assumptions, and re-run through SAME website on controlled safe copy. Only after true delivery PASS test one normal Chinese scoped correction, and only if quality/UX still genuinely fails do original Codex A/B with same private eight photos, actual site Sol 6.1 medium, comparable permitted MCP/SketchUp. Otherwise skip A/B. Independent Critic and private file/root/one-writer/KEEP intact. Building Xuezhang sources public only and license/privacy research before any restricted study. No private images/SKP/Key publicly uploaded, no unapproved paid API.
+
+---
+
 # CURRENT — 八张新建筑资料的真实 Harness 实测已交接：PARTIAL / 视觉 FAIL / 原生交付 FAIL（2026-10-13）
 
 [完整证据与下一步](test-results/windows/2026-10-13-native-harness-new-building/README.md)。用户八张私人整图已在真实网站上传，网站实际 **gpt-6.1-sol / medium**，外层控制模型未改、付费 API NOT_RUN。新项目 `architecture-project-4f0e4`，根 PID 20606，唯一几何提交 r1；旧 r6 未恢复。首版有长条玻璃、曲面木屋顶、外坡道和独立构件，但独立 Critic NEEDS_FIX：屋顶端部高低、坡道关系、外廊轻质表达与护栏不正确，不能视觉 PASS。
