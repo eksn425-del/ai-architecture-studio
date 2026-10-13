@@ -454,8 +454,9 @@ function renderArtifacts() {
   const dxf = artifactByType("dxf");
   const board = artifactByType("presentation");
   const skp = hasGeometry ? artifactByType("skp") : null;
+  const deliveryUnverified = state.project?.model_state?.last_operation?.delivery_status === "UNVERIFIED_NATIVE_REOPEN";
   $("artifact-links").innerHTML = [
-    skp ? `<a class="artifact-link" href="${skp.url}" download>↓ 下载 SKP</a>` : "",
+    skp ? `<a class="artifact-link" href="${skp.url}" download>↓ 下载 SKP</a>${deliveryUnverified ? '<small class="artifact-delivery-note">候选模型：尚未通过 SketchUp 原生重开及深层几何一致性验收</small>' : ""}` : "",
     dxf ? `<a class="artifact-link" href="${dxf.url}" download>↓ 下载 DXF</a>` : "",
     board ? `<a class="artifact-link" href="${board.url}" target="_blank" rel="noreferrer">↗ 查看 A3 展板</a>` : "",
   ].join("");
