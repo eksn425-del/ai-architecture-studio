@@ -188,3 +188,19 @@ def test_site_real_app_server_native_thread_resume_and_source_change_fails_close
     source.write_bytes(b"changed uploaded user source")
     runtime._run_turn(thread_id="source-bound", **kwargs)
     assert requested[-1] == "thread/start"
+
+
+def test_harness_first_developer_stage_is_bounded_and_does_not_open_write_gate(monkeypatch):
+    from app.workflow_context import workflow_developer_instructions
+    monkeypatch.setenv("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE", "harness")
+    discussion = workflow_developer_instructions("image_reconstruction", mcp_enabled=False, action="clarify")
+    assert "no scripts or geometry writes" in discussion
+    assert "writer tools are withheld" in discussion
+    plan = workflow_developer_instructions("image_reconstruction", mcp_enabled=False, action="plan")
+    assert "notes/reconstruction_card.md" in plan
+    assert "no geometry writes" in plan
+    execute = workflow_developer_instructions("image_reconstruction", mcp_enabled=True, action="execute")
+    assert "same verified model" in execute.lower()
+    assert "independent" in execute and "scope" in execute
+    assert "Never use project Ruby to access files" in execute
+    assert len(execute) < 2900
