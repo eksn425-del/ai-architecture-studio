@@ -49,9 +49,22 @@ def compare(before: dict[str, Any], replay: dict[str, Any]) -> dict[str, Any]:
                     " front/back face material and inherited material in a read-only native traversal."
                 ),
             })
+    # New fixed SU2024 collector includes FULL root and global rendering state.
+    # Old test JSON without these fields remains backward compatible but is NOT
+    # silently upgraded into proof of deep native deliverability.
+    root_before, root_after = before.get("root_geometry_material_sha256"), replay.get("root_geometry_material_sha256")
+    root_changed = root_before != root_after if root_before is not None and root_after is not None else None
+    presentation_before, presentation_after = before.get("presentation_sha256"), replay.get("presentation_sha256")
+    presentation_changed = (
+        presentation_before != presentation_after
+        if presentation_before is not None and presentation_after is not None else None
+    )
     return {
         "schema_version": 1,
-        "status": "PASS" if not (missing or added or changed) else "FAIL",
+        "status": "PASS" if not (missing or added or changed or root_changed or presentation_changed) else "FAIL",
+        "root_geometry_changed": root_changed,
+        "presentation_changed": presentation_changed,
+        "deep_native_collector_both_stages": before.get("collector") == replay.get("collector") == "KStudioNativeDeepFingerprint/1",
         "before_group_count": len(old),
         "replay_group_count": len(new),
         "missing_groups": missing,
