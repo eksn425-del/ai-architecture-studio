@@ -36,7 +36,15 @@ def test_recovery_only_accepts_missing_empty_containers():
         with pytest.raises(ValueError): recover_empty_container_verification(t,r,root_pid=10,revision=1)
 
 def test_verified_model_turn_uses_compact_project_restart():
-    source=Path('app/native_agent.py').read_text(encoding='utf8')
-    assert 'compact_model_turn = tool_profile == "reconstruction_coding" and mcp_enabled and compact_project_context' in source
-    assert 'and not compact_model_turn:' in source
-    assert '"compact_project_restart": compact_model_turn' in source
+    from app.native_agent import _native_thread_can_resume, _thread_tool_fingerprint
+    registered = {'old': _thread_tool_fingerprint([])}
+    fingerprint = 'source-sha-bound'
+    registry = {'old': fingerprint}
+    # Preserve the legacy compact fresh-thread default after a committed root.
+    assert not _native_thread_can_resume('old', registered, registry, [], fingerprint,
+                                         compact_restart=True, native_mode=False)
+    # Native pilot is explicit and only with verified same photos+tool inventory.
+    assert _native_thread_can_resume('old', registered, registry, [], fingerprint,
+                                     compact_restart=True, native_mode=True)
+    assert not _native_thread_can_resume('old', registered, registry, [], 'changed',
+                                         compact_restart=True, native_mode=True)
