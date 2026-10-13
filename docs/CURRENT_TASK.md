@@ -1,3 +1,9 @@
+# READ FIRST: [docs/CURRENT.md](CURRENT.md) — 2026-10-14 single current eight-image recovery task
+
+This short current file supersedes the mutually conflicting older stacked sections below. Same local private project architecture-project-4f0e4, NOT a new building. Fix first native SKP delivery (new fixed read-only deep host capture and bound/download reopen stages; historic pre-save BLOCKED), then validated owner-reviewed signed-axis spatial probe, then one actual same-site Sol Medium targeted correction if P0 PASS; original Codex baseline only if site really fails after delivery. Align Ruby KEEP 256 with Python and mark previous bounds-only PASS honestly. No added CAD/PPT/render scope, paid API, or private source uploads. History below archival.
+
+---
+
 # 2026-10-14 用户独立研究任务：建筑学长 1.1.25 合法静态检查已完成到许可边界
 
 [研究报告](research/2026-10-14-jzxz-pc-1.1.25/README.md)及脱敏元数据已提交。安装包 SHA 匹配；REA 6.4.0 实际资源元数据检查完成。Windows 版适用 EULA 和明确深入分析授权未取得，所以未解包、反编译、登录或读取隐私。Codex Harness、Microsoft Agent Framework 和目标具体 MCP/Skills 组合均尚未验证；不得把这些未知写成否定结论或竞品源码依据。

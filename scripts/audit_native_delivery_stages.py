@@ -23,7 +23,20 @@ from scripts.compare_native_replay import compare
 def audit_stages(before_save: dict[str, Any], bound_reopened: dict[str, Any],
                  clean_download_reopened: dict[str, Any],
                  *, receipt: dict[str, Any] | None = None,
-                 downloaded_bytes: bytes | None = None) -> dict[str, Any]:
+                 downloaded_bytes: bytes | None = None,
+                 require_deep: bool = False) -> dict[str, Any]:
+    if require_deep:
+        snapshots = [before_save, bound_reopened, clean_download_reopened]
+        required = ("collector", "root_geometry_material_sha256", "presentation_sha256")
+        if any(
+            not isinstance(value, dict)
+            or value.get("collector") != "KStudioNativeDeepFingerprint/1"
+            or any(not isinstance(value.get(key), str) or not value[key] for key in required)
+            or not isinstance(value.get("groups"), list)
+            for value in snapshots
+        ):
+            return {"status": "BLOCKED", "reason": "three_verified_native_deep_captures_required",
+                    "native_delivery_proven": False, "transitions": []}
     if receipt is not None:
         if receipt.get("status") != "UNVERIFIED_NATIVE_REOPEN":
             raise ValueError("Expected original unverified native checkpoint, not an asserted PASS.")
@@ -70,7 +83,8 @@ def main() -> int:
     report = audit_stages(load(args.before_save), load(args.bound_reopened),
                           load(args.clean_download_reopened),
                           receipt=load(args.receipt) if args.receipt else None,
-                          downloaded_bytes=args.downloaded_skp.read_bytes() if args.downloaded_skp else None)
+                          downloaded_bytes=args.downloaded_skp.read_bytes() if args.downloaded_skp else None,
+                          require_deep=True)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
     else:
