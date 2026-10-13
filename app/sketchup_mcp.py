@@ -345,19 +345,17 @@ class SketchUpAdapter:
         generated_dir = _generated_script_dir()
         generated_dir.mkdir(parents=True, exist_ok=True)
         script_path = generated_dir / f"studio-native-readonly-{os.urandom(8).hex()}.rb"
-        script = (
-            "# ARCHFLOW_GENERATED_SCRIPT; read-only evidence, no save/edit operations.\\n"
-            "require 'json'\\n"
-            f"load {json.dumps(str(helper), ensure_ascii=False)}\\n"
-            "model = Sketchup.active_model\\n"
-            f"raise 'Wrong SketchUp model path' unless File.expand_path(model.path) == File.expand_path({json.dumps(str(model_path), ensure_ascii=False)})\\n"
-            f"raise 'Wrong SketchUp model GUID' unless model.guid == {json.dumps(expected_guid, ensure_ascii=False)}\\n"
-            "raise 'SketchUp active edit path is not closed' unless model.active_path.nil?\\n"
-            f"JSON.generate(KStudioNativeDeepFingerprint.capture(model, root_pid: {root_pid}))\\n"
-        )
-        # Use newline characters in the reviewed fixed script. No model writes
-        # are delegated to generated user prompts or dynamically composed Ruby.
-        script_path.write_text(script.replace("\\\\n", "\\n"), encoding="utf-8", newline="\\n")
+        script_lines = [
+            "# ARCHFLOW_GENERATED_SCRIPT; read-only evidence, no save/edit operations.",
+            "require 'json'",
+            f"load {json.dumps(str(helper), ensure_ascii=False)}",
+            "model = Sketchup.active_model",
+            f"raise 'Wrong SketchUp model path' unless File.expand_path(model.path) == File.expand_path({json.dumps(str(model_path), ensure_ascii=False)})",
+            f"raise 'Wrong SketchUp model GUID' unless model.guid == {json.dumps(expected_guid, ensure_ascii=False)}",
+            "raise 'SketchUp active edit path is not closed' unless model.active_path.nil?",
+            f"JSON.generate(KStudioNativeDeepFingerprint.capture(model, root_pid: {root_pid}))",
+        ]
+        script_path.write_text(chr(10).join(script_lines) + chr(10), encoding="utf-8", newline=chr(10))
         try:
             raw = self.client.call("sketchup_eval_project_file", {
                 "script_path": str(script_path.resolve()),
