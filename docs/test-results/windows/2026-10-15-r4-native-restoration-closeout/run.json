@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-15-r4-native-restoration-closeout",
+  "status": "PASS",
+  "geometry_committed": false,
+  "base_commit": "ea2809cafb79495c5fc3389e319c98dabf9eff12",
+  "source_case": "Same eight private original references, architecture-project-4f0e4, website r4/root20606; original control r3 retained separately.",
+  "model": {
+    "actual": "NOT_RUN",
+    "requested": "No inference; restoration only",
+    "reasoning_effort": null,
+    "runtime": "Real SU2024 native file dialog + deep read-only MCP + actual K Studio browser reconnect"
+  },
+  "environment": {
+    "windows": "Windows 11",
+    "sketchup": "2024 / 24.0.484",
+    "bridge": "Existing guarded Kongxing/ProjectRuby read-only identity and owned readback"
+  },
+  "qa": {
+    "reviewer_mode": "not_run",
+    "restoration_status": "PASS",
+    "same_r4_geometry": "PASS",
+    "website_binding": "PASS",
+    "overall_source_fidelity": "FAIL unchanged",
+    "fidelity_status": "NOT_RUN",
+    "new_quality_claim": false
+  },
+  "blockers": [],
+  "screenshots": "Real browser screenshot retained privately; original references are private. No model committed, no fabricated six-view set.",
+  "raw_private_assets_uploaded": false
+}

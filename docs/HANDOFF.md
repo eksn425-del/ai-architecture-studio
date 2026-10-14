@@ -1,4 +1,12 @@
-# 2026-10-14 已授权原版 Codex 对照实际完成，整体仍 PARTIAL
+# 2026-10-15 原版对照收尾完成：网站r4已原生恢复并实际重连
+
+[本轮证据](test-results/windows/2026-10-15-r4-native-restoration-closeout/README.md)。遵照用户先完整收尾再提交的要求，实际成功切换SU2024前台，经新鲜原生文件对话框打开网站原绑定r4。深层全量SHA=b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10，与保留r4相同；文件字节未变。路径/root20606/GUID与会话及Ruby状态均匹配，无需人工改GUID。真实网站点击重连→自动检查并连接，看到已连接本会话独立模型；之后原生深层再核验不变。保护恢复API未弱化，未写几何、未调用模型或付费API。
+
+上轮活跃文档恢复PENDING已解决。原版同八图/Sol Medium局部对照及本次恢复收尾完成；原版和网站r3几何相同，整栋源图质量仍FAIL/整体PARTIAL，不因收尾PASS而抬高质量结论。严格空白replay、网站指令边界补丁后建模复测仍NOT_RUN。下一步只在同r4定义有界源图/拉索拓扑诊断；不重启整栋或原版实验。私人照片/SKP/原始JSON/网站截图保留本地；公开脱敏摘要和真实错误记录。
+
+---
+
+# 2026-10-14 已授权原版 Codex 对照实际完成，整体仍 PARTIAL（历史）
 
 [本轮实际证据](test-results/windows/2026-10-14-authorized-original-codex-control/README.md)。明确授权后，仅本次进程许可单个 guarded MCP；同八图/Sol Medium/安全r2，一次屋顶方向局部写入r3。119深层保护路径SHA/PID不变，保存前→绑定重开→干净保存候选重开PASS。整文档SHA与网站r3完全相同，未观察到原版质量优势。独立只读Critic仍FAIL：粗实斜撑楔块不符合原图细拉索，室内挑空未认证。原版浏览器下载/鼠标编辑/严格空白replay均NOT_RUN。网站r4完整保留，不用控制r3覆盖。
 
