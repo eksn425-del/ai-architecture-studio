@@ -1,0 +1,30 @@
+[
+  {
+    "stage": "real website local edit",
+    "status": "PARTIAL",
+    "reason": "900 second runtime deadline interrupted after one committed r4 edit; 45 calls, zero failed tools, source QA unfinished.",
+    "recovery": "Preserve r4; explicit development timeout 3600, all token/tool settings still 0; real website read-only continuation, no additional geometry write."
+  },
+  {
+    "stage": "website source QA",
+    "status": "FAIL",
+    "reason": "Source fidelity not achieved; actual independent final Critic needs_fix YES. Do not infer PASS from estimated 4m clearance, successful save or deep hashes."
+  },
+  {
+    "stage": "browser download event API",
+    "status": "RECOVERED",
+    "reason": "Download-event wait timed out and reset browser REPL; actual click already saved the file in Downloads.",
+    "recovery": "Rebind existing tab, check created download and compare its SHA; authentic fresh native reopen passed."
+  },
+  {
+    "stage": "host QA setup",
+    "status": "RECOVERED",
+    "reason": "Initial helper import lacked project PYTHONPATH; initial Critic adapter supplied metadata rather than path strings; whitelist environment reader lacked psutil in product venv.",
+    "recovery": "Use proper host import root and actual certified paths, existing Windows-MCP Python for process environment; validation retained, no invented QA."
+  },
+  {
+    "stage": "original CLI control",
+    "status": "BLOCKED",
+    "reason": "Previously actual MCP tool call requires approval while policy is never. No new identical failed model call and no transport or approval bypass."
+  }
+]

@@ -13,6 +13,9 @@ $env:ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS = '0'
 $env:ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE = '0'
 $env:ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS = '0'
 $env:ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS = '0'
+# Real eight-image local edits exceeded the old 900s deadline after committing.
+# Leave usage uncapped and allow source review + native delivery to finish.
+$env:ARCH_STUDIO_CODEX_TIMEOUT_SECONDS = '3600'
 Write-Host 'NEW PHOTO only: real SITE gpt-6.1-sol / medium, experimental native Codex thread continuity and concise skill. Verify actual thread/turn identity and real thread/resume receipt; NEVER reuse the old stopped r6 project.'
 python scripts/dev.py
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

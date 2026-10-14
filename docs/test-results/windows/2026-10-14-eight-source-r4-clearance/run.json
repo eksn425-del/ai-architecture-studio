@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-14-eight-source-r4-clearance",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "4d5bfb03635940549a83c896518c0eedc7957501",
+  "source_case": "Same eight private original whole references, architecture-project-4f0e4, same SHA and upload order.",
+  "model": {
+    "requested": "GPT-6.1 Sol / Medium",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "Actual K Studio browser, native Codex App Server, protected ProjectRuby/Kongxing; outer controller unchanged"
+  },
+  "environment": {
+    "windows": "Windows 11 local host",
+    "sketchup": "2024 / 24.0.484",
+    "bridge": "Existing sole protected writer and read-only deep native collector",
+    "adai": "Existing pinned optional backend; this local edit reuses existing mesh, no new wrapped geometry invocation"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "FAIL",
+    "needs_fix": true,
+    "deep_keep": "PASS",
+    "native_delivery": "PASS",
+    "local_roof_direction": "PASS",
+    "roof_clearance_source_fidelity": "PARTIAL; estimated target changed, source-scale acceptance unconfirmed",
+    "original_codex_control": "BLOCKED; approval not weakened",
+    "strict_final_blank_replay": "NOT_RUN"
+  },
+  "blockers": [
+    "Native deliverability passes but overall source fidelity still fails on ramp/landing legibility and lightweight enclosure/structure hierarchy.",
+    "Original CLI MCP approval blocked; no new CLI calls or permission weakening. Scoped approval proposal prepared privately, not applied."
+  ],
+  "revision": 4,
+  "root_pid": 20606,
+  "raw_private_assets_uploaded": false
+}

@@ -1,3 +1,13 @@
+# 2026-10-14 同八图 r4 / 屋顶净空局部测试结束，整体仍PARTIAL
+
+[新证据](test-results/windows/2026-10-14-eight-source-r4-clearance/README.md)。同原项目/root20606，备份r3；真网站Sol6.1 Medium一句屋顶净空请求+关联端部玻璃澄清，r3→r4一次提交。原生最低净空3.9763m、环廊顶差1.2763m为估算模型数值；74条深层保护路径SHA/PID不变。900秒超时在提交后中断，现有开发脚本3600秒、四项Token/工具/预留均0，真实进程配置验证；随后真网站只读恢复无追加几何写。
+
+实际网站点击下载SHA匹配，新文件名原生绑定/下载重开深层三阶段PASS，已恢复网站绑定r4和真实GUID。最终独立只读Critic53,843输入/946输出/88,953ms，仍保真FAIL（坡道落台及围护层次），不把文件一致/4m目标/19代码测试当成建模成功。网站三轮共3,381,775输入/11,802输出/1,420,844ms/61工具；两次Critic另105,257输入/1,663输出，前审查耗时包含在建模轮中。历史记录不清空，付费API未调用。
+
+原版CLI实际工具审批阻塞尚在，没有重跑或绕过。已准备本次对照进程内仅kstudio_guarded_control/sketchup_control的许可方案，需用户明确授权后应用，保留原CLI沙箱、approval_policy=never、现有单写者/安全r2副本/KEEP/身份/一次提交。下一步先取得可执行的可比条件；不得直接扩大全栋/其他案例。r4鼠标探针与strict blank replay NOT_RUN，历史r1前保存BLOCKED。继续以CURRENT为唯一依据。
+
+---
+
 # 2026-10-14 误输入恢复 / Native 本地不限量
 
 [本轮证据](test-results/windows/2026-10-14-input-focus-unlimited-native/README.md)。路径消息来自自动化在应用切换失败后继续旧坐标 Type+Enter，非用户新指令。已备份并修复已安装 Windows-MCP 0.8.7：路径指向 Codex/ChatGPT 主窗口提前拒绝，原生文件对话框允许，输入/Enter 前检查前台身份；MIT 补丁与测试在 patches/windows-mcp。**工具层加载需 MCP 重连，真机负例 NOT_RUN**；本地 Skill 的切换失败停止、fresh dialog、路径不带 Enter、核对后点击 Open 规则立即适用。

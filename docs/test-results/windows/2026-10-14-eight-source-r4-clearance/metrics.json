@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1509797,
+  "elapsed_scope": "Sum of actual three website turn wall times and extra independent final Critic; excludes backup/native diagnostics/browser/human pauses. Pre-write Critic included in writer wall time.",
+  "tool_call_count": 61,
+  "failed_tool_calls": 0,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "input_tokens": 3381775,
+  "output_tokens": 11802,
+  "critic_input_tokens": 105257,
+  "critic_output_tokens": 1663,
+  "token_source": "Actual saved website session receipts and separate dedicated Native Critic receipts; outer-controller tokens unavailable. Historical totals not reset.",
+  "outer_controller_tokens": null,
+  "paid_api_calls": 0,
+  "local_usage_caps": "0 disabled for all four Native token/tool settings",
+  "initial_timeout_seconds": 900,
+  "active_dev_timeout_seconds": 3600
+}

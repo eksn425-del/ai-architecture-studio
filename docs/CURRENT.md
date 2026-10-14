@@ -1,5 +1,22 @@
 # CURRENT — K Studio Eight-Source Quality Recovery (2026-10-14)
 
+## Latest actual r4 result — 2026-10-14 renewed continuation
+
+[New r4 evidence](test-results/windows/2026-10-14-eight-source-r4-clearance/README.md): same original eight references/root20606, r3 fully backed up, one actual site Sol6.1 Medium local roof-clearance write to r4. Curve centre raised about1m and associated end glazing/mullion tops follow, edges retained; 74 enumerated deep protected paths stable. Old900s timeout interrupted after commit; development profile now3600s, actual process token/tool/reserve values all0, historical usage preserved. Real website read-only continuation made no extra geometry write. Actual fresh native bound and clicked-download reopen whole-document SHA equal; native delivery PASS. Independent final read-only Critic still source fidelity FAIL on ramps/landings and heavy enclosure hierarchy. Source-estimated roof clearance is PARTIAL, not entire-building acceptance. r4 strict blank replay NOT_RUN, historicalr1 pre-save BLOCKED. Original CLI remains blocked by tool approval; explicit process-only single-tool approval proposal prepared privately, not applied. No automatic extra geometry turns, no full rebuild, no approval/transport bypass; obtain comparable permitted CLI conditions before A/B claims.
+
+## Owner renewed continuation 2026-10-14 — same r3, one residual roof recovery
+
+The owner explicitly renewed the same full task after the input-focus repair.
+Continue the same eight whole references and original project, preserving all
+previous P0/native and visual verdicts. One remaining localized recovery may
+address source-section roof clearance on the verified r3 working copy through
+the real website, actual Sol6.1 Medium, no other geometry changes. Back up r3 and
+record before/after deep protected paths, actual independent source QA, save,
+download and native reopen. Do not reinterpret unlimited usage as full rebuild
+or unrestricted geometry retries. Original CLI approval blockage must not be
+bypassed or labeled a comparison result. Its unresolved approval remains a
+separate limitation. This recovery is new evidence, not a replacement for r3.
+
 ## Owner correction 2026-10-14 — unintended path submission and unlimited local usage
 
 The isolated path-only chat message was automation input, not a new owner modeling

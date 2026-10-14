@@ -1,0 +1,86 @@
+[
+  {
+    "stage": "scope clarification",
+    "input_tokens": 1012495,
+    "output_tokens": 3070,
+    "latency_ms": 425250,
+    "tool_call_count": 9,
+    "failed_tool_calls": 0,
+    "actual_model_identity": {
+      "event": "thread_model_identity",
+      "requested_model": "gpt-6.1-sol",
+      "requested_effort": "medium",
+      "reported_model": "gpt-6.1-sol",
+      "reported_default_effort": "medium",
+      "source": "actual app-server thread/start or resume response"
+    },
+    "input_source_order": [
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+    ],
+    "final_status": "completed",
+    "private_log_sha256": "7e89be190c9f85bb798963c23b7299d460988abd9e8f34df8cc17524f44d9403"
+  },
+  {
+    "stage": "actual r3 to r4 write interrupted after commit",
+    "input_tokens": 1844399,
+    "output_tokens": 7413,
+    "latency_ms": 904422,
+    "tool_call_count": 45,
+    "failed_tool_calls": 0,
+    "actual_model_identity": {
+      "event": "thread_model_identity",
+      "requested_model": "gpt-6.1-sol",
+      "requested_effort": "medium",
+      "reported_model": "gpt-6.1-sol",
+      "reported_default_effort": "medium",
+      "source": "actual app-server thread/start or resume response"
+    },
+    "input_source_order": [
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+    ],
+    "final_status": "interrupted",
+    "private_log_sha256": "8aa7f96cbb1468c1fd965455cdb5c7eaf95d157975eaaba9429aeac4d1dd8cb3"
+  },
+  {
+    "stage": "real site read-only final recovery",
+    "input_tokens": 524881,
+    "output_tokens": 1319,
+    "latency_ms": 91172,
+    "tool_call_count": 7,
+    "failed_tool_calls": 0,
+    "actual_model_identity": {
+      "event": "thread_model_identity",
+      "requested_model": "gpt-6.1-sol",
+      "requested_effort": "medium",
+      "reported_model": "gpt-6.1-sol",
+      "reported_default_effort": "medium",
+      "source": "actual app-server thread/start or resume response"
+    },
+    "input_source_order": [
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+    ],
+    "final_status": "completed",
+    "private_log_sha256": "cca14763a2b8c0539492804f98b59ee95ba52a85dc45233ab3ac6e5802537add"
+  }
+]
