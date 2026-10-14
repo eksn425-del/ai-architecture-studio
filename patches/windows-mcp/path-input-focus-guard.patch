@@ -1,0 +1,96 @@
+diff --git a/src/windows_mcp/desktop/service.py b/src/windows_mcp/desktop/service.py
+index 29d2045..3618e64 100644
+--- a/src/windows_mcp/desktop/service.py
++++ b/src/windows_mcp/desktop/service.py
+@@ -751,6 +751,26 @@ class Desktop:
+     # so escape sequences ({Enter}, {Tab}, …) still work.
+     _LONG_TEXT_PASTE_THRESHOLD = 20
+ 
++    @staticmethod
++    def _path_input_window(loc, text, allow_codex_path_input=False):
++        candidate = text.strip().strip('\"\'<>')
++        if not re.match(r'^(?:[A-Za-z]:[\\/]|\\\\|file://)', candidate):
++            return None
++        child = win32gui.WindowFromPoint(tuple(loc))
++        root = win32gui.GetAncestor(child, win32con.GA_ROOT)
++        if not root:
++            raise ValueError('File-path input refused: target window could not be verified.')
++        _, pid = win32process.GetWindowThreadProcessId(root)
++        process = Process(pid).name().lower()
++        if process in {'codex.exe', 'chatgpt.exe'} and win32gui.GetClassName(root) != '#32770' and not allow_codex_path_input:
++            raise ValueError('File-path input refused: target is Codex/ChatGPT chat, not a native file dialog. No text or Enter was sent.')
++        return root
++
++    @staticmethod
++    def _assert_path_input_window(root):
++        if root is not None and win32gui.GetForegroundWindow() != root:
++            raise ValueError('File-path input stopped: foreground window changed. Enter was not sent.')
++
+     def type(
+         self,
+         loc: tuple[int, int],
+@@ -758,23 +778,29 @@ class Desktop:
+         caret_position: Literal["start", "idle", "end"] = "idle",
+         clear: bool | str = False,
+         press_enter: bool | str = False,
++        allow_codex_path_input: bool | str = False,
+     ):
+         clear = as_bool(clear, "clear")
+         press_enter = as_bool(press_enter, "press_enter")
++        allow_codex_path_input = as_bool(allow_codex_path_input, "allow_codex_path_input")
+         x, y = loc
+         self._validate_screen_point(x, y)
++        path_window = self._path_input_window(loc, text, allow_codex_path_input)
+         uia.Click(x, y)
++        self._assert_path_input_window(path_window)
+         if caret_position == "start":
+             uia.SendKeys("{Home}", waitTime=0.05)
+         elif caret_position == "end":
+             uia.SendKeys("{End}", waitTime=0.05)
+         if clear:
+             sleep(0.5)
++            self._assert_path_input_window(path_window)
+             uia.SendKeys("{Ctrl}a", waitTime=0.05)
+             uia.SendKeys("{Back}", waitTime=0.05)
+         # Per-key SendKeys for short text (so escape sequences keep working);
+         # clipboard paste for long text (so the scan-code queue can't race).
+         has_control_chars = any(c in text for c in ("\n", "\t", "{", "}"))
++        self._assert_path_input_window(path_window)
+         if len(text) >= self._LONG_TEXT_PASTE_THRESHOLD and not has_control_chars:
+             self._paste_text(text)
+         else:
+@@ -783,6 +809,7 @@ class Desktop:
+             # while reducing key-loss on slower systems.
+             uia.SendKeys(escaped_text, interval=0.04, waitTime=0.05)
+         if press_enter:
++            self._assert_path_input_window(path_window)
+             uia.SendKeys("{Enter}", waitTime=0.05)
+ 
+     def _paste_text(self, text: str):
+diff --git a/src/windows_mcp/tools/input.py b/src/windows_mcp/tools/input.py
+index 61ffb8a..13c16ff 100644
+--- a/src/windows_mcp/tools/input.py
++++ b/src/windows_mcp/tools/input.py
+@@ -274,12 +274,14 @@ def register(
+         clear: bool | str = False,
+         caret_position: Literal["start", "idle", "end"] = "idle",
+         press_enter: bool | str = False,
++        allow_codex_path_input: bool | str = False,
+         ctx: Context = None,
+     ) -> str:
+         desktop = get_desktop()
+         loc = _as_loc(loc)
+         clear = _as_bool(clear, "clear")
+         press_enter = _as_bool(press_enter, "press_enter")
++        allow_codex_path_input = _as_bool(allow_codex_path_input, "allow_codex_path_input")
+         if loc is None and label is None:
+             raise ValueError("Either loc or label must be provided.")
+         if label is not None:
+@@ -293,6 +295,7 @@ def register(
+             caret_position=caret_position,
+             clear=clear,
+             press_enter=press_enter,
++            **({"allow_codex_path_input": True} if allow_codex_path_input else {}),
+         )
+         return f"Typed {text} at ({x},{y})."
+ 

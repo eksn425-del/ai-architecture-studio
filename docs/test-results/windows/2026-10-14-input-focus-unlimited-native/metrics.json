@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": null,
+  "failed_tool_calls": null,
+  "committed_writes": 0,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "critic_input_tokens": null,
+  "critic_output_tokens": null,
+  "human_geometry_edits": 0,
+  "token_source": "No modeling inference invoked; outer-controller usage and complete wall time unavailable. Historical usage preserved.",
+  "modeling_inference_calls": 0,
+  "code_tests": {
+    "passed": 436,
+    "skipped": 2,
+    "warnings": 2,
+    "elapsed_ms": 33650
+  },
+  "windows_mcp_mock_tests": {
+    "passed": 64,
+    "warnings": 3,
+    "elapsed_ms": 4130
+  },
+  "native_limits": {
+    "turn_tool_calls": 0,
+    "turn_input_tokens": 0,
+    "project_input_tokens": 0,
+    "project_delivery_reserve": 0,
+    "zero_means": "disabled; usage still recorded"
+  }
+}

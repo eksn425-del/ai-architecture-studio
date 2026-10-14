@@ -1,3 +1,11 @@
+# 2026-10-14 误输入恢复 / Native 本地不限量
+
+[本轮证据](test-results/windows/2026-10-14-input-focus-unlimited-native/README.md)。路径消息来自自动化在应用切换失败后继续旧坐标 Type+Enter，非用户新指令。已备份并修复已安装 Windows-MCP 0.8.7：路径指向 Codex/ChatGPT 主窗口提前拒绝，原生文件对话框允许，输入/Enter 前检查前台身份；MIT 补丁与测试在 patches/windows-mcp。**工具层加载需 MCP 重连，真机负例 NOT_RUN**；本地 Skill 的切换失败停止、fresh dialog、路径不带 Enter、核对后点击 Open 规则立即适用。
+
+用户明确本地 Token/工具不限：Native 默认 turn tools/input、project input/reserve 均 0，启动脚本本已 0；历史用量、几何保护、审批保持。账户额度不由本地预算控制，无付费 API。436 passed / 2 skipped，Windows-MCP 64 mock passed；无新模型调用/几何写入。本轮 PARTIAL 不改变下方八图 r3 原生 PASS / 保真 FAIL，CLI approval-policy 阻塞未绕过。只继续 CURRENT 同案例，不将误发路径解释成新任务。
+
+---
+
 # READ FIRST: [docs/CURRENT.md](CURRENT.md) — 2026-10-14 authoritative eight-photo P0 and conditional real site test
 
 本轮真实 Windows/SU2024 已完成：[新证据与截图](test-results/windows/2026-10-14-eight-source-quality-recovery/README.md)。同八张整图、同项目 architecture-project-4f0e4、原根 20606/r1 保留。跨父级 regroup 造成顶层逃逸组/局部坐标异常，受控原脚本重放证实 owned-root SHA 相同但整文档在重开时改变。零模型调用在安全副本恢复已有归属及真实反向矩阵到 r2；真网站 Sol6.1 Medium 一句中文、一次屋顶和关联拉索修改到 r3，119 深层路径未变。实际保存前/新文件名绑定重开/按钮下载重开深层一致，额外原生鼠标屋顶移动390mm/Ctrl+S/重开副本也一致，未替换网站 r3。

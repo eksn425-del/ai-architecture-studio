@@ -16,6 +16,17 @@ class _FakeProcess:
         return 0
 
 
+def test_owner_local_native_defaults_have_no_token_or_tool_caps(tmp_path, monkeypatch):
+    for name in ("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS", "ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS",
+                 "ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS", "ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE"):
+        monkeypatch.delenv(name, raising=False)
+    runtime = subject.CodexAppServerRuntime(tmp_path, codex_executable="fixture")
+    assert runtime.max_tool_calls_per_turn == 0
+    assert runtime.max_input_tokens_per_turn == 0
+    assert runtime.max_project_input_tokens == 0
+    assert runtime.project_delivery_reserve == 0
+
+
 def _fixture(tmp_path, monkeypatch, events):
     monkeypatch.setattr(subject.subprocess, "Popen", lambda *a, **k: _FakeProcess())
     runtime = subject.CodexAppServerRuntime(tmp_path, codex_executable="fixture")

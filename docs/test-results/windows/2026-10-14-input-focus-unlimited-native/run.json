@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-14-input-focus-unlimited-native",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "base_commit": "aa198253ae8c07e4cb3383fd3368ab654c462772",
+  "source_case": "same eight private whole images / architecture-project-4f0e4; unchanged r3",
+  "model": {
+    "requested": "no inference for this recovery",
+    "actual": "NOT_RUN",
+    "reasoning_effort": null,
+    "runtime": "offline native-runtime and Windows-MCP regression"
+  },
+  "environment": {
+    "windows": "Windows local host",
+    "sketchup": "2024; no new native modeling run",
+    "bridge": "Windows-MCP 0.8.7 source patch installed; running process reconnect pending",
+    "adai": "NOT_RUN"
+  },
+  "qa": {
+    "reviewer_mode": "not_run",
+    "fidelity_status": "NOT_RUN",
+    "needs_fix": true
+  },
+  "blockers": [
+    "Running Windows-MCP imported the old module; new tool-level guard needs server reconnect. Live negative GUI test NOT_RUN.",
+    "Previous whole-source fidelity remains FAIL. Previous original-CLI approval-policy blocker remains unresolved; no model calls repeated."
+  ],
+  "screenshots": "NOT_RUN: no geometry commit or live GUI test in this recovery"
+}

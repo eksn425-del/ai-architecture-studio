@@ -209,15 +209,15 @@ class CodexAppServerRuntime:
                                 else int(os.environ.get("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "900")))
         if not 30 <= self.timeout_seconds <= 3600:
             raise ValueError("Codex turn timeout must be between 30 and 3600 seconds.")
-        # Bounded execution: stop runaway native turns rather than silently
-        # spending millions of input tokens. 0 explicitly disables a cap.
+        # Owner-authorized local Native development tests have no token/tool
+        # cap by default. Explicit opt-in caps remain available; usage is retained.
         self.max_tool_calls_per_turn = int(
-            os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS", "64")
+            os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS", "0")
         )
         self.max_input_tokens_per_turn = int(
-            os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "2500000")
+            os.environ.get("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "0")
         )
-        self.max_project_input_tokens = int(os.environ.get("ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS", "8000000"))
+        self.max_project_input_tokens = int(os.environ.get("ARCH_STUDIO_CODEX_MAX_PROJECT_INPUT_TOKENS", "0"))
         self.project_delivery_reserve = int(os.environ.get("ARCH_STUDIO_CODEX_PROJECT_DELIVERY_RESERVE", "200000" if self.max_project_input_tokens else "0"))
         if not 0 <= self.max_tool_calls_per_turn <= 512:
             raise ValueError("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS must be 0..512.")

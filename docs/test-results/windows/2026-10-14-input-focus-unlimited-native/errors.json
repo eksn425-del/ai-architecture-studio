@@ -1,0 +1,20 @@
+[
+  {
+    "stage": "historical GUI file-open probe",
+    "status": "FAIL",
+    "reason": "Native app switch failed, but stale coordinate path input with Enter continued into Codex chat. Path-only message was automation, not a human instruction.",
+    "correction": "Stop dependent input after switch failure; fresh app and native-dialog snapshots; path Type without Enter, then verify field before clicking native Open. Install target-process and foreground guards."
+  },
+  {
+    "stage": "Windows-MCP test setup",
+    "status": "RECOVERED",
+    "reason": "Installed virtual environment had neither pytest nor pip.",
+    "correction": "Installed pytest through existing uv; focused 64-test run passed."
+  },
+  {
+    "stage": "tool patch activation",
+    "status": "NOT_RUN",
+    "reason": "Already-running MCP process retains previously imported module.",
+    "correction": "Installed source patch loads on next server reconnect; no live negative test or hot reload claimed."
+  }
+]

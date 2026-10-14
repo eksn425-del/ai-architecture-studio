@@ -1,5 +1,22 @@
 # CURRENT — K Studio Eight-Source Quality Recovery (2026-10-14)
 
+## Owner correction 2026-10-14 — unintended path submission and unlimited local usage
+
+The isolated path-only chat message was automation input, not a new owner modeling
+request. A failed native application switch was followed by stale coordinate file
+typing with Enter; do not turn it into a new modeling case. The installed
+Windows-MCP Type source now rejects absolute paths aimed at Codex/ChatGPT chat and
+checks foreground identity before input/Enter; server reconnect is needed to load
+the installed patch. The local Windows skill's file-dialog verification and
+no-combined-path/Enter rule takes effect in agent workflow immediately.
+
+The owner explicitly reaffirms unlimited local Native token/tool usage. Runtime
+defaults are now 0 for turn tools, turn input and project input, with zero default
+delivery reserve. Preserve all actual usage and historical failures; provider
+account quotas are external and are not project caps. Paid-provider spend remains
+unauthorized. Same eight-source project/r3 continues; original CLI approval
+blockage remains a separate issue, not a token budget verdict.
+
 ## Windows continuation completed 2026-10-14 — actual results, same case
 
 [New native/site evidence](test-results/windows/2026-10-14-eight-source-quality-recovery/README.md): **overall PARTIAL, native delivery PASS, one website roof-direction edit PASS, whole-source fidelity still FAIL.** Original root 20606/r1 and all eight original private whole images preserved; evidence-backed zero-model ownership/transform repair on safe copy r2, then one real website `gpt-6.1-sol / medium` roof+associated bracing edit r3. 119 unaffected paths retain deep geometry/material SHA and PID. Real button download, fresh bound/download native reopen and separate mouse-edit/Ctrl+S/reopen probe all pass deep comparison. Original r1 pre-save evidence remains BLOCKED; final r3 strict blank replay remains NOT_RUN.
