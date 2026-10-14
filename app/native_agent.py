@@ -64,6 +64,11 @@ def _agent_workspace(project_dir: Path) -> Path:
     workspace.mkdir(parents=True, exist_ok=True)
     if runtime_dir.is_symlink() or workspace.is_symlink():
         raise ValueError("Agent workspace directories may not be symbolic links.")
+    marker = workspace / ".kstudio-agent-root"
+    if marker.is_symlink():
+        raise ValueError("Agent workspace root marker may not be a symbolic link.")
+    if not marker.exists():
+        marker.write_text("K Studio modeling workspace instruction boundary.\n", encoding="utf-8")
     return workspace
 
 
@@ -408,6 +413,10 @@ class CodexAppServerRuntime:
             "network_access = false",
             f"writable_roots = [{json.dumps(str(workspace))}]",
         ]
+        if agent_workspace is not None:
+            # Model tasks must not inherit the developer repository's stacked
+            # historical AGENTS.md and start unrelated Git/CURRENT chores.
+            lines.insert(4, 'project_root_markers = [".kstudio-agent-root"]')
         # Preserve the user's supported Windows sandbox implementation selection.
         # The project still uses workspace-write, never full access.
         windows = user_config.get("windows", {})

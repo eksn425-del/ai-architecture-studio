@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 967359,
+  "elapsed_scope": "All three actual CLI attempt wall times; native diagnostics, backups, UI/user pauses and separate Critic excluded.",
+  "tool_call_count": 17,
+  "tool_count_scope": "Successful attempt MCP completions only; standard CLI item counts retained separately, not comparable to website aggregate tool count",
+  "failed_tool_calls": 0,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "input_tokens": 2248400,
+  "output_tokens": 8931,
+  "token_source": "Actual turn.completed usage; reported subtotal excludes initial quota-blocked attempt whose usage is null. Preserve all attempts.",
+  "successful_attempt_usage": {
+    "input_tokens": 1265869,
+    "cached_input_tokens": 1171968,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 7282,
+    "reasoning_output_tokens": 701
+  },
+  "successful_attempt_elapsed_ms": 393951,
+  "critic_input_tokens": 47588,
+  "critic_output_tokens": 874,
+  "critic_elapsed_ms": 91422,
+  "outer_controller_tokens": null,
+  "paid_api_calls": 0,
+  "local_usage_caps": 0
+}

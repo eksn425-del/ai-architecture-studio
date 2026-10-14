@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "UNVERIFIED_NATIVE_REOPEN",
+  "reason": "File bytes and successful save are not an editable native geometry/reopen/replay comparison.",
+  "bound_document": {
+    "path": "outputs/model/blank-disposable-original-codex-r2.skp",
+    "sha256": "57dd32fadf50ee666fecbb7c3a52fbe96003228e04200c9ffcadf797c52c8c9b",
+    "bytes": 841424
+  },
+  "download_candidate": {
+    "path": "outputs/model/original-codex-local-r3.skp",
+    "sha256": "54d57051d7dc464430bbb4b2e6dfc8a17e708ba0a62009d590bbfcf6d8f844c0",
+    "bytes": 841425
+  },
+  "roots": [
+    20606
+  ],
+  "script_revisions": {
+    "glass_curved_roof": 3
+  },
+  "required_next": [
+    "before_save_native_fingerprint",
+    "bound_reopened_native_fingerprint",
+    "clean_download_reopened_native_fingerprint"
+  ]
+}

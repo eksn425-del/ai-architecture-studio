@@ -119,6 +119,7 @@ def test_agent_workspace_is_nested_under_generated_project_runtime(tmp_path: Pat
 
     assert workspace == (project / "runtime" / "agent_workspace").resolve()
     assert workspace.is_dir()
+    assert (workspace / ".kstudio-agent-root").is_file()
     assert not source.is_relative_to(workspace)
 
 

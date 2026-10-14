@@ -1,0 +1,71 @@
+[
+  {
+    "attempt": "original-codex-exec",
+    "timing": {
+      "started_at": "2026-10-14T11:41:42.7162096+00:00",
+      "exit_code": 1,
+      "completed_at": "2026-10-14T11:43:00.8602612+00:00",
+      "elapsed_ms": 78146
+    },
+    "usage": null,
+    "mcp_completed": 0,
+    "mcp_failed": 0,
+    "completed_item_counts": {
+      "agent_message": 1,
+      "command_execution": 2,
+      "error": 2
+    },
+    "geometry_committed": false
+  },
+  {
+    "attempt": "original-codex-boundary-retry",
+    "timing": {
+      "elapsed_ms": 495262,
+      "exit_code": 0,
+      "completed_at": "2026-10-14T13:40:06.0586062+00:00",
+      "started_at": "2026-10-14T13:31:50.7981076+00:00"
+    },
+    "usage": {
+      "input_tokens": 982531,
+      "cached_input_tokens": 948736,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1649,
+      "reasoning_output_tokens": 315
+    },
+    "mcp_completed": 2,
+    "mcp_failed": 2,
+    "completed_item_counts": {
+      "agent_message": 5,
+      "command_execution": 4,
+      "error": 2,
+      "mcp_tool_call": 2
+    },
+    "geometry_committed": false
+  },
+  {
+    "attempt": "original-codex-fixed-transport",
+    "timing": {
+      "elapsed_ms": 393951,
+      "started_at": "2026-10-14T14:10:20.0629176+00:00",
+      "completed_at": "2026-10-14T14:16:54.0123855+00:00",
+      "exit_code": 0
+    },
+    "usage": {
+      "input_tokens": 1265869,
+      "cached_input_tokens": 1171968,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 7282,
+      "reasoning_output_tokens": 701
+    },
+    "mcp_completed": 17,
+    "mcp_failed": 0,
+    "completed_item_counts": {
+      "agent_message": 5,
+      "command_execution": 18,
+      "error": 2,
+      "file_change": 6,
+      "mcp_tool_call": 17
+    },
+    "geometry_committed": true
+  }
+]

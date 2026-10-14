@@ -1,4 +1,14 @@
-# 2026-10-14 同八图 r4 / 屋顶净空局部测试结束，整体仍PARTIAL
+# 2026-10-14 已授权原版 Codex 对照实际完成，整体仍 PARTIAL
+
+[本轮实际证据](test-results/windows/2026-10-14-authorized-original-codex-control/README.md)。明确授权后，仅本次进程许可单个 guarded MCP；同八图/Sol Medium/安全r2，一次屋顶方向局部写入r3。119深层保护路径SHA/PID不变，保存前→绑定重开→干净保存候选重开PASS。整文档SHA与网站r3完全相同，未观察到原版质量优势。独立只读Critic仍FAIL：粗实斜撑楔块不符合原图细拉索，室内挑空未认证。原版浏览器下载/鼠标编辑/严格空白replay均NOT_RUN。网站r4完整保留，不用控制r3覆盖。
+
+成功CLI393951ms、input1265869/output7282、17MCP；独立Critic91422ms、input47588/output874。账户配额及MCP继承stdin超时失败保留；DEVNULL仅修正私有对照工具传输，真实inspect1.33s，未改写权限。产品Agent增加指令根标记隔离历史开发AGENTS，436通过/2跳过；网站补丁实际复测NOT_RUN。无付费API、本地成本上限均0，未知用量null。
+
+交接时活跃SketchUp仍为控制候选r3；网站r4原文件/绑定状态/备份保留。跨文件夹API恢复被既有守卫拒绝，GUI前台持续变化导致安全输入无法完成，恢复PENDING，未在切换失败后输入路径或按Enter。先稳定原生文件对话框打开网站绑定r4，深层SHA验证b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10，然后仅更新实际GUID。不能弱化守卫/冒充恢复PASS。CURRENT为唯一最新依据，后续先只读分析同r4拉索截面及拓扑，不重启整栋或原版对照。
+
+---
+
+# 2026-10-14 同八图 r4 / 屋顶净空局部测试结束，整体仍PARTIAL（历史）
 
 [新证据](test-results/windows/2026-10-14-eight-source-r4-clearance/README.md)。同原项目/root20606，备份r3；真网站Sol6.1 Medium一句屋顶净空请求+关联端部玻璃澄清，r3→r4一次提交。原生最低净空3.9763m、环廊顶差1.2763m为估算模型数值；74条深层保护路径SHA/PID不变。900秒超时在提交后中断，现有开发脚本3600秒、四项Token/工具/预留均0，真实进程配置验证；随后真网站只读恢复无追加几何写。
 

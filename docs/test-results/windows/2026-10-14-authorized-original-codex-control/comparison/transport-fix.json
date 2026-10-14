@@ -1,0 +1,6 @@
+{
+  "observed": "MCP subprocess inherited session stdin; host launch delayed until timeout/session close. stdout file-spool hypothesis tested and failed.",
+  "retained_fix": "subprocess.run(..., stdin=subprocess.DEVNULL, capture_output=True, ...)",
+  "actual_fixed_mcp_inspect_elapsed_seconds": 1.33,
+  "writer_or_approval_guard_changed": false
+}

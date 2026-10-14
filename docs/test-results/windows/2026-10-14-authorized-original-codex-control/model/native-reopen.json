@@ -1,0 +1,168 @@
+{
+  "actual_stages": {
+    "control-after-before-save.json": {
+      "schema_version": 2,
+      "collector": "KStudioNativeDeepFingerprint/1",
+      "model_path": "[PRIVATE_REPO]\\runtime\\native-recovery-20261014\\codex-control\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-original-codex-r2.skp",
+      "model_guid": "0ed8972f-3c4a-483d-97d2-91bd7a5f5620",
+      "root_pid": 20606,
+      "root_name": "Architecture architecture-project-4f0e4",
+      "counts": {
+        "faces": 11960,
+        "edges": 24678,
+        "instances": 2274
+      },
+      "root_geometry_material_sha256": "9c19556d01db1d28acafccb91081e95bdfe535fe7d96087e6e30ddabe3516a37",
+      "presentation": {
+        "active_path": null,
+        "selected_page": null,
+        "tags": [
+          [
+            "Layer0",
+            true
+          ]
+        ],
+        "section_planes": []
+      },
+      "presentation_sha256": "e13f785fa5ad8de3781caad71345c09c0bb98cb54219201a05617856e7ad6b60",
+      "document_geometry_material_sha256": "2f9c218c4a15dc20ad39bac7fe8cdf90234847f880a135db0e7efd5f95ce8719",
+      "visited_entities": 77797,
+      "evidence_status": "NATIVE_READ_ONLY_NOT_A_SAVE_OR_DELIVERY_PASS",
+      "private_full_evidence_sha256": "5aa15d03a869fcc752b0ca31ee1be474c93f973534e2837be24f9a659e02d21e",
+      "raw_private_native_geometry_uploaded": false
+    },
+    "control-bound-reopened.json": {
+      "schema_version": 2,
+      "collector": "KStudioNativeDeepFingerprint/1",
+      "model_path": "[PRIVATE_REPO]\\runtime\\native-recovery-20261014\\codex-control\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-control-bound-FRESH-r3.skp",
+      "model_guid": "87e11831-1ad3-4f53-a1a4-fd211c385bd9",
+      "root_pid": 20606,
+      "root_name": "Architecture architecture-project-4f0e4",
+      "counts": {
+        "faces": 11960,
+        "edges": 24678,
+        "instances": 2274
+      },
+      "root_geometry_material_sha256": "9c19556d01db1d28acafccb91081e95bdfe535fe7d96087e6e30ddabe3516a37",
+      "presentation": {
+        "active_path": null,
+        "selected_page": null,
+        "tags": [
+          [
+            "Layer0",
+            true
+          ]
+        ],
+        "section_planes": []
+      },
+      "presentation_sha256": "e13f785fa5ad8de3781caad71345c09c0bb98cb54219201a05617856e7ad6b60",
+      "document_geometry_material_sha256": "2f9c218c4a15dc20ad39bac7fe8cdf90234847f880a135db0e7efd5f95ce8719",
+      "visited_entities": 77797,
+      "evidence_status": "NATIVE_READ_ONLY_NOT_A_SAVE_OR_DELIVERY_PASS",
+      "private_full_evidence_sha256": "0e42a13daf9a4f39b57c73a7f7f58f0a6d0ba7f64e070c070881b2c4fb26d7dd",
+      "raw_private_native_geometry_uploaded": false
+    },
+    "control-candidate-reopened.json": {
+      "schema_version": 2,
+      "collector": "KStudioNativeDeepFingerprint/1",
+      "model_path": "[PRIVATE_REPO]\\runtime\\native-recovery-20261014\\codex-control\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-control-candidate-FRESH-r3.skp",
+      "model_guid": "7159d861-a140-4497-9c87-5dff6da4e5f3",
+      "root_pid": 20606,
+      "root_name": "Architecture architecture-project-4f0e4",
+      "counts": {
+        "faces": 11960,
+        "edges": 24678,
+        "instances": 2274
+      },
+      "root_geometry_material_sha256": "9c19556d01db1d28acafccb91081e95bdfe535fe7d96087e6e30ddabe3516a37",
+      "presentation": {
+        "active_path": null,
+        "selected_page": null,
+        "tags": [
+          [
+            "Layer0",
+            true
+          ]
+        ],
+        "section_planes": []
+      },
+      "presentation_sha256": "e13f785fa5ad8de3781caad71345c09c0bb98cb54219201a05617856e7ad6b60",
+      "document_geometry_material_sha256": "2f9c218c4a15dc20ad39bac7fe8cdf90234847f880a135db0e7efd5f95ce8719",
+      "visited_entities": 77797,
+      "evidence_status": "NATIVE_READ_ONLY_NOT_A_SAVE_OR_DELIVERY_PASS",
+      "private_full_evidence_sha256": "4db05d48c12a018ace7600be2d78d63bdb27ea7eeb2af9448984c4787bf5a757",
+      "raw_private_native_geometry_uploaded": false
+    }
+  },
+  "audit": {
+    "schema_version": 1,
+    "status": "PASS",
+    "native_delivery_proven": true,
+    "first_failing_transition": null,
+    "failed_transitions": [],
+    "transitions": [
+      {
+        "transition": "before_save_to_bound_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "bound_reopen_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "before_save_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      }
+    ],
+    "limitations": [
+      "PASS applies only to the three actual read-only native fingerprints supplied.",
+      "No claim about new images, user edit/save/reopen, strict blank replay, or visual source fidelity."
+    ]
+  },
+  "candidate_open": "Native SketchUp guarded lifecycle API; generated saved candidate, NOT browser download",
+  "browser_download_control": "NOT_RUN",
+  "strict_blank_replay": "NOT_RUN",
+  "separate_mouse_edit_control": "NOT_RUN"
+}

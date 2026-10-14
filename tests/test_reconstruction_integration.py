@@ -281,6 +281,7 @@ def test_native_home_preserves_supported_windows_sandbox_choice(tmp_path, monkey
     runtime._prepare_home(mcp_enabled=False, agent_workspace=workspace)
     config = tomllib.loads((runtime.home / "config.toml").read_text(encoding="utf-8"))
     assert config["windows"]["sandbox"] == "elevated"
+    assert config["project_root_markers"] == [".kstudio-agent-root"]
     assert config["sandbox_mode"] == "workspace-write"
     assert config["sandbox_workspace_write"]["network_access"] is False
     assert config["sandbox_workspace_write"]["writable_roots"] == [str(workspace.resolve())]
