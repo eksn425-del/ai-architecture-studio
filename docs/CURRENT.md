@@ -1,5 +1,19 @@
 # CURRENT — K Studio Eight-Source Quality Recovery (2026-10-14)
 
+## Windows continuation completed 2026-10-14 — actual results, same case
+
+[New native/site evidence](test-results/windows/2026-10-14-eight-source-quality-recovery/README.md): **overall PARTIAL, native delivery PASS, one website roof-direction edit PASS, whole-source fidelity still FAIL.** Original root 20606/r1 and all eight original private whole images preserved; evidence-backed zero-model ownership/transform repair on safe copy r2, then one real website `gpt-6.1-sol / medium` roof+associated bracing edit r3. 119 unaffected paths retain deep geometry/material SHA and PID. Real button download, fresh bound/download native reopen and separate mouse-edit/Ctrl+S/reopen probe all pass deep comparison. Original r1 pre-save evidence remains BLOCKED; final r3 strict blank replay remains NOT_RUN.
+
+Actual cause: nested `root.entities.add_group(existing_entities)` escaped the owned root, shifted original child coordinates and left cross-context references; native reopen emptied escaped FLOORS/ROOF_TIMBER/RAMPS. A controlled original-script replay reproduces document SHA divergence although owned-root SHA stays equal. Parent-first construction, guarded rejection of escaped entities, and exact observed inverse transforms repair delivery; no guessed whole-building movement.
+
+The site spatial diagram was reviewed under the owner's explicit delegation, status `AGENT_REVIEWED_OWNER_DELEGATED`, **not OWNER_CONFIRMED**. Roof right-high/left-low is corrected, remaining roof clearance, ramp/landing, interior void and gallery construction discrepancies are retained as FAIL. No new building, paid API or CAD/render/PPT work.
+
+Conditional original CLI control attempted only after site r3 native delivery PASS. Same eight SHA/order, safe r2 baseline, actual Sol Medium route and protected ProjectRuby/Kongxing entry; transport sandbox/capacity and then MCP approval policy `never` blocked all control writes. **BLOCKED, no performance ranking and no lowered safeguards.** Full private logs retained locally; public package contains sanitized derived receipts only.
+
+The next work remains this same case and residual source fidelity. This bounded website correction is consumed; do not automatically run more geometry turns, full rebuilds or a new case. Restore comparable permitted original-CLI tool conditions before claiming an A/B result. Critic same-image attachment deduplication is implemented and tested offline, but post-patch native Critic quality/cost acceptance is NOT_RUN. Read the actual report before deciding the next bounded correction.
+
+---
+
 **This short document is the ONE authoritative next-work entry.** Prior AGENTS/CURRENT_TASK/HANDOFF appended plans are HISTORICAL ONLY where inconsistent. The real owner supplied EIGHT private whole source images for ONE model at local project `architecture-project-4f0e4`, script `glass_curved_roof`, root PID recorded at r1 as **20606**. Last actual [eight-source report](test-results/windows/2026-10-13-native-harness-new-building/README.md): real site Sol 6.1 Medium, r1 committed, source fidelity FAIL (roof high/low, ramp hand), THREE edit attempts no committed change (capacity/timeout/KEEP), downloaded clean SKP reopen roof visually inconsistent, first-pass 5.213M input and 87 calls. The source photos and SKP are on the user's Windows system, NOT in this public GitHub. Do not reclassify old failures or pretend to recreate missing historic pre-save evidence.
 
 ## What has actually been implemented in this GitHub iteration

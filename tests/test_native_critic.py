@@ -22,6 +22,14 @@ def test_independent_native_critic_has_fresh_read_only_context(tmp_path, monkeyp
     assert call['reference_images']==[source,image]
     assert result['_reviewer']['mode']=='dedicated_read_only'
     assert 'Missing annex' in result['critique']
+    monkeypatch.setattr(subject, 'validate_source_matched_pairs', lambda *args: [
+        {'current_view':'outputs/renders/agent-view-front.png','label':'ramp end'},
+        {'current_view':'outputs/renders/agent-view-front.png','label':'roof section'},
+    ])
+    runtime._native_visual_review(project_dir=project,agent_workspace=workspace,ruby_state={},arguments={'views':{}},model='gpt-6-luna',reasoning_effort='max')
+    assert calls[-1]['reference_images']==[source,image]
+    assert 'source-matched ramp end' in calls[-1]['prompt']
+    assert 'source-matched roof section' in calls[-1]['prompt']
     monkeypatch.setattr(runtime,'_run_turn',lambda **kw: subject.AgentTurnResult('critic','PASS'))
     with pytest.raises(ValueError,match='invalid envelope'):
         runtime._native_visual_review(project_dir=project,agent_workspace=workspace,ruby_state={},arguments={'views':{},'critique':'BUILDER_FAKE_PASS'},model='gpt-6-luna',reasoning_effort='max')

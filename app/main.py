@@ -191,8 +191,28 @@ def _reference_attachments(context: ProjectContext, project_dir: Path, *, submit
     return pending
 
 
-def _sanitize_agent_reply(value: str) -> str:
+def _sanitize_agent_reply(value: str, project_dir: Path | None = None) -> str:
     """Keep host-local file paths returned by MCP out of the user-facing transcript."""
+    if project_dir is not None:
+        def project_link(match: re.Match) -> str:
+            target = match.group(3).strip().strip("<>")
+            if target.startswith("file://"):
+                target = target[7:]
+            candidate = Path(target)
+            if not candidate.is_absolute() or not candidate.is_file() or candidate.is_symlink():
+                return match.group(0)
+            resolved, root = candidate.resolve(), project_dir.resolve()
+            if not resolved.is_relative_to(root):
+                return match.group(0)
+            relative = resolved.relative_to(root).as_posix()
+            if relative.startswith("runtime/agent_workspace/notes/") or relative.startswith("runtime/agent_workspace/scripts/"):
+                relative = relative.removeprefix("runtime/agent_workspace/")
+            elif not relative.startswith("outputs/"):
+                return match.group(0)
+            if not re.fullmatch(r"[a-zA-Z0-9_./-]+", relative):
+                return match.group(0)
+            return f"{match.group(1)}[{match.group(2)}]({relative})"
+        value = re.sub(r"(!?)\[([^\]]+)\]\(([^)]*)\)", project_link, value)
     sanitized = re.sub(
         r"\[([^\]]+)\]\(<?(?:file://)?(?:[A-Za-z]:[\\/]|\\\\)[^)]*\)",
         r"\1（本机路径已隐藏）",
@@ -1684,6 +1704,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 "readback": session.last_model_info,
             }
             model_output = project_dir / "outputs" / "model" / "fast-assembly-agent.skp"
+            if model_output.exists():
+                # A saved candidate is an immutable delivery record. Keep the
+                # old SKP when continuing an existing project after recovery.
+                model_output = model_output.with_name(f"agent-checkpoint-{uuid.uuid4().hex[:12]}.skp")
             roots = [int(item["root_pid"]) for item in session.ruby_state.values() if item.get("root_pid")]
             if isinstance(adapter, SketchUpAdapter):
                 # Reconnection opens session.model_path, not the download artifact.
@@ -1863,7 +1887,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session.updated_at = utc_now()
         session.last_tool_calls = result.tool_calls[-40:]
         session.error = ""
-        reply = _sanitize_agent_reply(result.reply.strip()[:12000]) or "已完成这轮设计推演。"
+        reply = _sanitize_agent_reply(result.reply.strip()[:12000], project_dir) or "已完成这轮设计推演。"
         if mcp_enabled:
             try:
                 checkpoint_agent_model()

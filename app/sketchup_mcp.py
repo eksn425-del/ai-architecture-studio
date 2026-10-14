@@ -348,12 +348,12 @@ class SketchUpAdapter:
         script_lines = [
             "# ARCHFLOW_GENERATED_SCRIPT; read-only evidence, no save/edit operations.",
             "require 'json'",
-            f"load {json.dumps(str(helper), ensure_ascii=False)}",
+            f"load {json.dumps(helper.as_posix(), ensure_ascii=False)}",
             "model = Sketchup.active_model",
-            f"raise 'Wrong SketchUp model path' unless File.expand_path(model.path) == File.expand_path({json.dumps(str(model_path), ensure_ascii=False)})",
+            f"raise 'Wrong SketchUp model path' unless File.expand_path(model.path) == File.expand_path({json.dumps(model_path.as_posix(), ensure_ascii=False)})",
             f"raise 'Wrong SketchUp model GUID' unless model.guid == {json.dumps(expected_guid, ensure_ascii=False)}",
             "raise 'SketchUp active edit path is not closed' unless model.active_path.nil?",
-            f"JSON.generate(KStudioNativeDeepFingerprint.capture(model, root_pid: {root_pid}))",
+            f"KStudioNativeDeepFingerprint.capture(model, root_pid: {root_pid})",
         ]
         script_path.write_text(chr(10).join(script_lines) + chr(10), encoding="utf-8", newline=chr(10))
         try:

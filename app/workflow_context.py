@@ -42,6 +42,9 @@ You own planning and geometry choices. The host owns authorization, one writer,
 file/scope limits, project budget ledger, native model identity and verified QA.
 Reply in short ordinary Chinese and say what is still visually uncertain.
 Never run git/repo maintenance inside the student modeling workspace.
+For SketchUp nested assemblies, create the empty named parent first and build
+children directly in its entities. add_group(existing_entities) has reproduced
+model-level leakage and coordinate changes on SketchUp 2024; it is rejected.
 For Windows workspace notes, read and write explicit UTF-8; default PowerShell
 decoding can corrupt Chinese and punctuation and invalidate patch context.
 Use a single Update File operation per existing path, never Delete plus Add of

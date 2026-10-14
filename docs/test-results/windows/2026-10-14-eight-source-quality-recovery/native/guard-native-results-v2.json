@@ -1,0 +1,26 @@
+{
+  "operation_id": "a73a8a70-ad5b-4eec-bc0f-5f31121e4d56",
+  "script_path": "<private>/studio-p0-guard-f590ecabdf37438dafa17a38a43a9a50.rb",
+  "result": {
+    "regroup_rejected": true,
+    "regroup_error": "Build created entities outside its owned root; create empty assemblies before their children",
+    "keep_paths_checked": 256,
+    "keep_mutation_rejected": true,
+    "keep_mutation_error": "KEEP regression KEEP_255: bounds_mm.min[2] changed",
+    "keep_rolled_back": true,
+    "keep_error": "ROLLBACK_ONLY_DIAGNOSTIC"
+  },
+  "entity_count": 2,
+  "model_bounds_m": {
+    "min": [
+      -12,
+      -9,
+      -0.5
+    ],
+    "max": [
+      59,
+      33,
+      16.710191
+    ]
+  }
+}

@@ -27,7 +27,8 @@ def audit_stages(before_save: dict[str, Any], bound_reopened: dict[str, Any],
                  require_deep: bool = False) -> dict[str, Any]:
     if require_deep:
         snapshots = [before_save, bound_reopened, clean_download_reopened]
-        required = ("collector", "root_geometry_material_sha256", "presentation_sha256")
+        required = ("collector", "root_geometry_material_sha256", "presentation_sha256",
+                    "document_geometry_material_sha256")
         if any(
             not isinstance(value, dict)
             or value.get("collector") != "KStudioNativeDeepFingerprint/1"

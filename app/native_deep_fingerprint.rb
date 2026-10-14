@@ -108,13 +108,11 @@ module KStudioNativeDeepFingerprint
     {
       name: entity_name(instance), pid: instance.persistent_id,
       definition_name: definition.name.to_s, definition_guid: definition.guid.to_s,
+      definition_instances: definition.instances.length,
       local_transform: payload[:local_transform], world_transform: payload[:world_transform],
       hidden: instance.hidden?, tag: tag(instance), counts: counts,
       geometry_material_sha256: sha(payload),
-      children: children.map { |node|
-        node.slice(:name, :local_transform, :world_transform, :definition_name,
-                   :hidden, :tag, :counts, :geometry_material_sha256)
-      }
+      children: children
     }
   end
 
@@ -154,12 +152,18 @@ module KStudioNativeDeepFingerprint
     names = nodes.map { |e| e[:name] }
     raise 'Ambiguous named direct groups; cannot establish stable comparison' if names.uniq.length != names.length
     visible = presentation(model)
+    # A regrouping bug can escape the owned root; root-only equality misses it.
+    document = scan(model.entities, base, [], 0, {count: 0})
+    document_hash = sha({faces: document[:faces], edges: document[:edges],
+                         nodes: document[:nodes].map { |node| [node[:name], node[:geometry_material_sha256]] }})
     {
       schema_version: 2, collector: 'KStudioNativeDeepFingerprint/1',
       model_path: model.path, model_guid: model.guid, root_pid: root_pid,
       root_name: root.name, counts: groups[:counts],
       root_geometry_material_sha256: groups[:geometry_material_sha256],
       groups: nodes, presentation: visible, presentation_sha256: sha(visible),
+      document_geometry_material_sha256: document_hash,
+      document_groups: document[:nodes],
       visited_entities: counter[:count] + child_counter[:count],
       evidence_status: 'NATIVE_READ_ONLY_NOT_A_SAVE_OR_DELIVERY_PASS'
     }

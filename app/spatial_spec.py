@@ -38,7 +38,7 @@ def validate_spatial_spec(data: Any) -> dict[str, Any]:
     if not isinstance(data, dict) or data.get("schema_version") != 1:
         raise ValueError("Spatial specification requires schema_version 1.")
     status = data.get("status")
-    if status not in {"DRAFT_NEEDS_OWNER_REVIEW", "OWNER_CONFIRMED"}:
+    if status not in {"DRAFT_NEEDS_OWNER_REVIEW", "OWNER_CONFIRMED", "AGENT_REVIEWED_OWNER_DELEGATED"}:
         raise ValueError("Spatial status must be an honest human review state.")
     anchor = data.get("model_axes")
     if not isinstance(anchor, dict):
@@ -86,10 +86,19 @@ def validate_spatial_spec(data: Any) -> dict[str, Any]:
     owner_note = data.get("owner_review_note")
     if status == "OWNER_CONFIRMED" and (not isinstance(owner_note, str) or not owner_note.strip()):
         raise ValueError("Owner confirmation requires actual recorded review note.")
+    delegation_note = data.get("owner_delegation_note")
+    agent_note = data.get("agent_review_note")
+    if status == "AGENT_REVIEWED_OWNER_DELEGATED":
+        if not all(isinstance(note, str) and note.strip() for note in (delegation_note, agent_note)):
+            raise ValueError("Delegated review requires the owner's actual delegation and source-backed agent review.")
+        if any(item["provenance"] in {"estimated", "unresolved"} for item in (high, low, entry, exit)):
+            raise ValueError("Delegated review cannot certify unresolved spatial landmarks.")
     return {"schema_version": 1, "status": status, "model_axes": directions,
             "source_views": normalized, "roof": {"high_end": high, "low_end": low},
             "ramp": {"entry": entry, "exit": exit},
-            "owner_review_note": owner_note.strip() if isinstance(owner_note, str) else ""}
+            "owner_review_note": owner_note.strip() if isinstance(owner_note, str) else "",
+            "owner_delegation_note": delegation_note.strip() if isinstance(delegation_note, str) else "",
+            "agent_review_note": agent_note.strip() if isinstance(agent_note, str) else ""}
 
 
 def load_spatial_spec(path: Path) -> dict[str, Any]:

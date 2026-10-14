@@ -59,9 +59,16 @@ def compare(before: dict[str, Any], replay: dict[str, Any]) -> dict[str, Any]:
         presentation_before != presentation_after
         if presentation_before is not None and presentation_after is not None else None
     )
+    document_before = before.get("document_geometry_material_sha256")
+    document_after = replay.get("document_geometry_material_sha256")
+    document_changed = (
+        document_before != document_after
+        if document_before is not None and document_after is not None else None
+    )
     return {
         "schema_version": 1,
-        "status": "PASS" if not (missing or added or changed or root_changed or presentation_changed) else "FAIL",
+        "status": "PASS" if not (missing or added or changed or root_changed or presentation_changed or document_changed) else "FAIL",
+        "document_geometry_changed": document_changed,
         "root_geometry_changed": root_changed,
         "presentation_changed": presentation_changed,
         "deep_native_collector_both_stages": before.get("collector") == replay.get("collector") == "KStudioNativeDeepFingerprint/1",

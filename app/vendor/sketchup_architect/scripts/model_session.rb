@@ -111,7 +111,10 @@ module CodexSketchupArchitect
         root.set_attribute(DICT, 'role', 'project_root')
       end
       record[:owned_before] = KStudioProfessionalHelpers.owned_snapshot(root)
+      model_entity_ids_before = model.entities.map(&:persistent_id)
       yield(model, root)
+      escaped = model.entities.reject { |entity| model_entity_ids_before.include?(entity.persistent_id) }
+      raise 'Build created entities outside its owned root; create empty assemblies before their children' unless escaped.empty?
       # SketchUp 2024 may retain the old definition bounds after a child group
       # is transformed inside an operation. Refresh before recording expected
       # post-write bounds; otherwise the committed readback falsely disagrees.

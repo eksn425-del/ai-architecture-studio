@@ -67,6 +67,13 @@ def validate_project_ruby_source(script_id: str, ruby_source: str) -> str:
     # This intentionally checks only literal Point3d calls, not inferred units
     # of variables or arbitrary Ruby expressions. Explicit .inch remains valid.
     code = "\n".join(line.split("#", 1)[0] for line in ruby_source.splitlines())
+    if re.search(r"\.\s*add_group\s*\(\s*[^\s)]", code):
+        raise ValueError(
+            "SketchUp nested regrouping with add_group(existing_entities) can create a model-level "
+            "container and change child coordinates on SketchUp 2024. Create an empty named assembly "
+            "first with add_group(), then build its children directly in assembly.entities. "
+            "This script was not executed; no geometry was changed."
+        )
     number = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)"
     if re.search(r"\.\s*(?:m|mm|cm)\b", code):
         for point in re.finditer(

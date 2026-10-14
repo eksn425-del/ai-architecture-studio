@@ -2,6 +2,20 @@ import pytest
 from app.project_ruby import validate_project_ruby_source
 from app.litellm_runtime import _current_visual_context
 
+@pytest.mark.parametrize('source', [
+    "roof = root.entities.add_group([shell, supports])",
+    "floors = root.entities.add_group(floor_parts)",
+    "parts = root.entities.add_group(\n  children\n)",
+])
+def test_nested_regrouping_is_rejected_before_native_execution(source):
+    with pytest.raises(ValueError, match='nested regrouping'):
+        validate_project_ruby_source('building', source)
+
+
+def test_parent_first_assembly_remains_available():
+    source = 'roof = root.entities.add_group()\nshell = roof.entities.add_group'
+    assert validate_project_ruby_source('building', source) == source
+
 @pytest.mark.parametrize('origin',['10,8,0','10,0,0','0,8,0','-10, .5, 0'])
 def test_metric_script_rejects_raw_inch_wall_origin(origin):
     with pytest.raises(ValueError, match='Mixed-unit Point3d'):

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-14-eight-source-quality-recovery",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "74cbafc14cfe2b9135b6a24f2f0a8fdc9ca36e5b",
+  "source_case": "Same private eight whole references, architecture-project-4f0e4; original upload order and SHA retained locally and in parity input hashes.",
+  "model": {
+    "requested": "GPT-6.1 Sol / Medium",
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "K Studio real browser -> Codex App Server -> protected ProjectRuby -> Kongxing -> native SketchUp"
+  },
+  "environment": {
+    "windows": "Windows 11",
+    "sketchup": "2024 / 24.0.484",
+    "bridge": "Existing Kongxing local bridge, same sole protected writer",
+    "adai": "0.5.39 actual deterministic baseline replays; website local edit reuses mesh/definitions, no new ADAI/SAIE calls"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "FAIL",
+    "local_roof_direction": "PASS",
+    "deep_keep": "PASS",
+    "native_delivery": "PASS",
+    "native_mouse_edit_save_reopen": "PASS",
+    "spatial_review": "AGENT_REVIEWED_OWNER_DELEGATED",
+    "needs_fix": true,
+    "strict_final_blank_replay": "NOT_RUN",
+    "original_codex_control": "BLOCKED"
+  },
+  "blockers": [
+    "Full-source roof clearance, ramps, internal void/gallery mismatch remain. Original Codex native comparison blocked by MCP approval policy never; transport/capacity attempts are preserved, not model verdict."
+  ],
+  "original_root_pid": 20606,
+  "versions": {
+    "original_preserved": 1,
+    "zero_model_P0_safe_copy": 2,
+    "actual_website_local_edit": 3
+  },
+  "outer_controller_model_changed": false,
+  "raw_private_assets_uploaded": false
+}

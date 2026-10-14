@@ -111,7 +111,16 @@ function chatText(content) {
     tokens[i].attrSet("target", "_blank"); tokens[i].attrSet("rel", "noopener noreferrer");
     return linkOpen(tokens, i, options, env, self);
   };
-  md.renderer.rules.image = (tokens, i) => escapeHtml(tokens[i].content || "图片请从模型与文件查看");
+  md.renderer.rules.image = (tokens, i) => {
+    const src = tokens[i].attrGet("src") || "";
+    const alt = escapeHtml(tokens[i].content || "项目草图");
+    if (/^(notes|outputs)\/[a-zA-Z0-9_./-]+\.(png|jpe?g|webp)$/i.test(src) && !src.includes("..")) {
+      const path = src.startsWith("notes/") ? "runtime/agent_workspace/" + src : src;
+      const url = escapeHtml(projectFileUrl(path));
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer"><img src="${url}" alt="${alt}" style="max-width:100%;height:auto" loading="lazy"></a>`;
+    }
+    return alt;
+  };
   return md.render(readable);
 }
 

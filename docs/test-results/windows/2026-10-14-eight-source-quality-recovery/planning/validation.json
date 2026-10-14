@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "AGENT_REVIEWED_OWNER_DELEGATED",
+  "model_axes": {
+    "positive_x": "从坡道短端朝建筑长向/远端；原平面左端到右端，非地理东向",
+    "positive_y": "站坡道短端朝+X看时画面左侧；原平面上侧，非地理北向",
+    "positive_z": "从地面朝上"
+  },
+  "source_views": [
+    {
+      "filename": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "kind": "exterior",
+      "looking_towards": "+X"
+    },
+    {
+      "filename": "ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "kind": "physical_model",
+      "looking_towards": "undetermined"
+    },
+    {
+      "filename": "8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "kind": "exterior",
+      "looking_towards": "undetermined"
+    },
+    {
+      "filename": "c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "kind": "interior",
+      "looking_towards": "undetermined"
+    },
+    {
+      "filename": "da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "kind": "section",
+      "looking_towards": "+X"
+    },
+    {
+      "filename": "4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "kind": "detail",
+      "looking_towards": "undetermined"
+    },
+    {
+      "filename": "8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "kind": "floor_plan",
+      "looking_towards": "not_applicable"
+    },
+    {
+      "filename": "92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "kind": "section",
+      "looking_towards": "+X"
+    }
+  ],
+  "roof": {
+    "high_end": {
+      "axis": "-Y",
+      "provenance": "observed",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "feature": "从坡道短端看，右侧边缘较高；短跨中部下垂"
+    },
+    "low_end": {
+      "axis": "+Y",
+      "provenance": "observed",
+      "source": "da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "feature": "从坡道短端看，左侧边缘相对较低，不是曲面最低点"
+    }
+  },
+  "ramp": {
+    "entry": {
+      "axis": "-Y",
+      "provenance": "observed",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "feature": "短端正投影右侧低位起点；三段坡道均向左上升"
+    },
+    "exit": {
+      "axis": "+Y",
+      "provenance": "observed",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "feature": "短端正投影左侧高位平台；各段通过环廊返回下一起点，绕行长边未确认"
+    }
+  },
+  "owner_review_note": "",
+  "owner_delegation_note": "你自己判断，我不想给你做选择",
+  "agent_review_note": "逐张复核原八张整图：原图1/5/8右高左低，原图1/2三段坡道短端投影均向左上升，原图4/5/7/8支持局部中间层与双层高。具体环廊绕行长边仍未知，不纳入本轮屋顶修改。"
+}

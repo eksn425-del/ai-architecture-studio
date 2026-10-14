@@ -1,6 +1,12 @@
 # READ FIRST: [docs/CURRENT.md](CURRENT.md) — 2026-10-14 authoritative eight-photo P0 and conditional real site test
 
-Ignore stale historical next-task entries below. Current goal same private existing architecture-project-4f0e4 and original 8 images. GitHub fixed host-only read-only deep evidence collector, 256 Ruby KEEP count, schema for owner-verified signed roof/ramp axes. Windows Codex must verify real native SketchUp on safe copies and report old missing stage NOT_RUN/BLOCKED; only one same-site natural correction after native deliverability PASS, then conditional standalone original Codex A/B if website remains genuinely poor. Never report offline CI as new model fidelity or edit delivery PASS. Do not publish private source SKP/credentials.
+本轮真实 Windows/SU2024 已完成：[新证据与截图](test-results/windows/2026-10-14-eight-source-quality-recovery/README.md)。同八张整图、同项目 architecture-project-4f0e4、原根 20606/r1 保留。跨父级 regroup 造成顶层逃逸组/局部坐标异常，受控原脚本重放证实 owned-root SHA 相同但整文档在重开时改变。零模型调用在安全副本恢复已有归属及真实反向矩阵到 r2；真网站 Sol6.1 Medium 一句中文、一次屋顶和关联拉索修改到 r3，119 深层路径未变。实际保存前/新文件名绑定重开/按钮下载重开深层一致，额外原生鼠标屋顶移动390mm/Ctrl+S/重开副本也一致，未替换网站 r3。
+
+**PARTIAL：原生交付 PASS、局部屋顶方向 PASS、整栋保真 FAIL。** 真实独立只读 Critic 保留屋顶净空、坡道、挑空、环廊问题；用户委托自行判断空间草图，不是 OWNER_CONFIRMED。原 r1 历史保存前证据 BLOCKED、最终 r3 strict blank replay NOT_RUN。
+
+网站空间分析547,887输入/9,483输出/342,610ms；局部修改3,431,345输入/7,112输出/536,656ms/52工具。两次本轮独立Critic额外131,156输入/1,437输出。条件原版CLI对照同源同r2/Sol Medium，传输沙箱、额度、MCP要求审批而policy never阻塞，零对照几何提交，**不做性能排名，不关闭保护**。额度失败的缺失用量null，其余已报告CLI输入小计1,033,925、输出2,220保留。外层模型不变、无付费API。
+
+435 Python通过、2跳过；Node语法/compileall/原生256 KEEP负例通过。补丁包括整文档原生指纹、Hash返回避免MCP字符串截断、父组优先/逃逸事务防护、安全草图显示、保留旧SKP候选、Critic重复PNG去重。最后一项仅离线验证，后补丁真实Critic NOT_RUN，不宣称保真或成本已提升。原始照片/SKP/完整执行日志/密钥未上传；新报告只公开模型输出图及脱敏派生证据。继续只看 CURRENT.md；本轮有界修改已用完，不自动增加建模回合。
 
 ---
 

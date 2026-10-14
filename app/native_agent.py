@@ -319,8 +319,16 @@ class CodexAppServerRuntime:
             labels.append("CURRENT canonical " + name)
             images.append(path)
         for pair in pairs:
-            labels.append("CURRENT source-matched " + pair["label"])
-            images.append(project_dir / pair["current_view"])
+            path = (project_dir / pair["current_view"]).resolve()
+            label = "CURRENT source-matched " + pair["label"]
+            # Multiple source pairs can reference the same current screenshot.
+            # Keep every association in its caption, attach the actual image once.
+            existing = next((i for i, image in enumerate(images) if image.resolve() == path), None)
+            if existing is None:
+                labels.append(label)
+                images.append(path)
+            elif label not in labels[existing].split("; "):
+                labels[existing] += "; " + label
         prompt = build_visual_critic_prompt(labels[:len(sources)], labels[len(sources):])
         prompt += "\nImages below follow this exact order:\n" + "\n".join(
             f"{index + 1}. {label}" for index, label in enumerate(labels))

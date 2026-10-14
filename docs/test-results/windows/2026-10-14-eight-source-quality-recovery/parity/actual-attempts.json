@@ -1,0 +1,134 @@
+{
+  "status": "BLOCKED",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "medium",
+  "runtime": "original Codex CLI 0.162.0-alpha.17.2 / ChatGPT subscription, no paid API",
+  "same_project_root": 20606,
+  "same_baseline_revision": 2,
+  "input_sha_order": [
+    {
+      "path": "<private>/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d"
+    },
+    {
+      "path": "<private>/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088"
+    },
+    {
+      "path": "<private>/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe"
+    },
+    {
+      "path": "<private>/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080"
+    },
+    {
+      "path": "<private>/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095"
+    },
+    {
+      "path": "<private>/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331"
+    },
+    {
+      "path": "<private>/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13"
+    },
+    {
+      "path": "<private>/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096"
+    }
+  ],
+  "attempts": [
+    {
+      "private_log_sha256": "7a41e0decf2566039efa48580c3a92257dce09b5de492bcbc86e8d6d37f87127",
+      "timing": {
+        "completed_at": "2026-10-14T04:15:41.7470546+00:00",
+        "elapsed_ms": 100284,
+        "started_at": "2026-10-14T04:14:01.4655747+00:00",
+        "exit_code": 0
+      },
+      "usage": {
+        "input_tokens": 487706,
+        "cached_input_tokens": 432256,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1212,
+        "reasoning_output_tokens": 146
+      },
+      "errors": [
+        null,
+        null,
+        null
+      ],
+      "committed_writes": 0
+    },
+    {
+      "private_log_sha256": "170a4102a65d8ef52990b80079c094cba7e1758115a4ab64931ff7c0b90ddb62",
+      "timing": {
+        "elapsed_ms": 41390,
+        "exit_code": 1,
+        "completed_at": "2026-10-14T04:17:56.3679376+00:00",
+        "started_at": "2026-10-14T04:17:14.9797984+00:00"
+      },
+      "usage": null,
+      "errors": [
+        null,
+        "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 3:42 PM.",
+        {
+          "message": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 3:42 PM."
+        }
+      ],
+      "committed_writes": 0
+    },
+    {
+      "private_log_sha256": "ab7495449ff440ac1f8b2a8eda719a92d748b7c1457088ac060b07787685a58c",
+      "timing": {
+        "exit_code": 0,
+        "completed_at": "2026-10-14T08:17:42.4861354+00:00",
+        "elapsed_ms": 43674,
+        "started_at": "2026-10-14T08:16:58.8133118+00:00"
+      },
+      "usage": {
+        "input_tokens": 211245,
+        "cached_input_tokens": 125824,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 409,
+        "reasoning_output_tokens": 47
+      },
+      "errors": [
+        {
+          "message": "MCP tool call requires approval, but approval policy is never"
+        }
+      ],
+      "committed_writes": 0
+    },
+    {
+      "private_log_sha256": "2ed6376bc465f3ec2658a122079b5a7f593b0f972a4c8e498267b61532dbb1fe",
+      "timing": {
+        "started_at": "2026-10-14T08:18:44.8975706+00:00",
+        "elapsed_ms": 37143,
+        "completed_at": "2026-10-14T08:19:22.0392095+00:00",
+        "exit_code": 0
+      },
+      "usage": {
+        "input_tokens": 334974,
+        "cached_input_tokens": 248960,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 599,
+        "reasoning_output_tokens": 47
+      },
+      "errors": [
+        {
+          "message": "MCP tool call requires approval, but approval policy is never"
+        }
+      ],
+      "committed_writes": 0
+    }
+  ],
+  "ranking": "NOT_RUN: transport sandbox, capacity, then MCP approval policy never blocked execution. No direct control geometry committed; no agent performance ranking.",
+  "differences": [
+    "Direct original CLI rather than K Studio app-server UI. Same guarded ProjectRuby/Kongxing via host Python entry point, no raw writer tools.",
+    "Same safe r2 baseline and eight inputs; independent site Critics are preserved but CLI has host/outer read-only review after execution instead of repeating site Critic orchestration.",
+    "Scoped local edit comparison only; no new full-building first pass or new architecture case."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 879266,
+  "elapsed_scope": "Measured website spatial analysis + local edit wall times; excludes human pause and native diagnostics. Critic time is included in edit wall time.",
+  "tool_call_count": 62,
+  "failed_tool_calls": 2,
+  "committed_writes": 2,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "input_tokens": 3979232,
+  "output_tokens": 16595,
+  "critic_input_tokens": 131156,
+  "critic_output_tokens": 1437,
+  "token_source": "Actual native project_budget_finished and agent_session receipts; separate planner, Builder, Critic, original CLI. Not billing or outer controller token totals.",
+  "website_spatial": {
+    "input_tokens": 547887,
+    "output_tokens": 9483,
+    "latency_ms": 342610,
+    "tool_calls": 10,
+    "failed_tools": 1
+  },
+  "website_local_edit": {
+    "input_tokens": 3431345,
+    "output_tokens": 7112,
+    "latency_ms": 536656,
+    "tool_calls": 52,
+    "failed_tools": 1
+  },
+  "native_P0_model_calls": 0,
+  "native_controlled_replays": 2,
+  "original_cli_reported_input_subtotal": 1033925,
+  "original_cli_reported_output_subtotal": 2220,
+  "original_cli_failed_capacity_usage": null,
+  "outer_controller_tokens": null,
+  "paid_api_calls": 0
+}

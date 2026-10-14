@@ -563,6 +563,8 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
     assert blank_path.read_bytes() == (blank_path.parent / "fast-assembly-agent.skp").read_bytes()
     assert any(item["type"] == "viewport" for item in project["output_manifest"]["render"])
     assert [item["phase"] for item in project["context"]["conversation"]] == ["agent", "agent", "agent", "agent"]
+    original_candidate = blank_path.parent / "fast-assembly-agent.skp"
+    original_candidate.write_bytes(b"immutable old native delivery")
     premium = client.post(
         "/api/projects/demo-cultural-center/conversation",
         json={"message": "请精修一次入口和公共空间的模型表现。", "tier": "premium"},
@@ -571,6 +573,9 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
     assert premium.json()["agent"]["model"] == "gpt-6-astra"
     assert premium.json()["agent"]["tier"] == "premium"
     assert premium.json()["agent"]["reasoning_effort"] == "low"
+    new_candidate = runtime / "projects/demo-cultural-center" / premium.json()["project"]["model_state"]["model_path"]
+    assert new_candidate != original_candidate and new_candidate.is_file()
+    assert original_candidate.read_bytes() == b"immutable old native delivery"
     routine = client.post(
         "/api/projects/demo-cultural-center/conversation",
         json={"message": "读取模型状态并简要报告。"},

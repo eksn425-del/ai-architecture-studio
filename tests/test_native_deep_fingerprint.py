@@ -14,6 +14,7 @@ def native(name="ROOF_TIMBER", digest="a" * 64, *, presentation="p" * 64):
     return {
         "collector": "KStudioNativeDeepFingerprint/1",
         "root_geometry_material_sha256": digest,
+        "document_geometry_material_sha256": digest,
         "presentation_sha256": presentation,
         "groups": [{"name": name, "counts": {"faces": 2, "edges": 4, "instances": 1},
                     "geometry_material_sha256": digest, "children": []}],
@@ -49,10 +50,11 @@ def test_host_fixed_collector_verified_identity_before_and_after_and_fresh_file(
             assert name == "sketchup_eval_project_file"
             script = Path(kwargs["script_path"]).read_text(encoding="utf-8")
             assert "KStudioNativeDeepFingerprint.capture" in script
+            assert "JSON.generate(KStudioNativeDeepFingerprint.capture" not in script
             assert "model.save" not in script and "model.start_operation" not in script
             assert "\\n" not in script
             called.append(script)
-            return {"result": json.dumps({
+            return {"result": {
                 "collector": "KStudioNativeDeepFingerprint/1",
                 "root_pid": 20606, "model_path": str(active_path.resolve()),
                 "model_guid": "actual-owner-copy-guid",
@@ -60,7 +62,7 @@ def test_host_fixed_collector_verified_identity_before_and_after_and_fresh_file(
                 "root_geometry_material_sha256": "a" * 64,
                 "presentation_sha256": "p" * 64,
                 "root_name": "glass_curved_roof", "visited_entities": 9,
-            })}
+            }}
     adapter = SketchUpAdapter(Client())
     identity = {"model_path": str(active_path.resolve()), "model_guid": "actual-owner-copy-guid",
                 "active_context": False}
@@ -116,6 +118,34 @@ def test_spatial_probe_rejects_same_direction_and_false_owner_confirmation():
         validate_spatial_spec(draft)
     draft["roof"]["high_end"]["provenance"] = "user_confirmed"
     assert validate_spatial_spec(draft)["status"] == "OWNER_CONFIRMED"
+
+
+def test_native_audit_requires_complete_document_and_catches_escaped_geometry():
+    before = native()
+    after = native()
+    after["document_geometry_material_sha256"] = "b" * 64
+    result = compare(before, after)
+    assert result["root_geometry_changed"] is False
+    assert result["document_geometry_changed"] is True
+    assert result["status"] == "FAIL"
+    incomplete = native()
+    del incomplete["document_geometry_material_sha256"]
+    assert audit_stages(incomplete, before, before, require_deep=True)["status"] == "BLOCKED"
+
+
+def test_delegated_spatial_review_is_distinct_from_owner_confirmation():
+    draft = specimen()
+    draft['status'] = 'AGENT_REVIEWED_OWNER_DELEGATED'
+    with pytest.raises(ValueError, match='delegation'):
+        validate_spatial_spec(draft)
+    draft['owner_delegation_note'] = 'Please judge the source directions yourself.'
+    draft['agent_review_note'] = 'Compared the original section and ramp-end photograph.'
+    result = validate_spatial_spec(draft)
+    assert result['owner_review_note'] == ''
+    assert result['status'] == 'AGENT_REVIEWED_OWNER_DELEGATED'
+    draft['ramp']['entry']['provenance'] = 'unresolved'
+    with pytest.raises(ValueError, match='unresolved'):
+        validate_spatial_spec(draft)
 
 
 def test_ruby_collector_is_fixed_read_only_and_cap_and_safety_are_present():
