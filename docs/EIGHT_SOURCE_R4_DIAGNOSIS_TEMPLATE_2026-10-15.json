@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "baseline_revision": "website-r4",
+  "baseline_document_geometry_sha256": "b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10",
+  "source_order_and_sha_status": "NOT_RUN",
+  "native_identity_and_deep_capture_status": "NOT_RUN",
+  "diagnosis_status": "NOT_RUN",
+  "systems": [
+    {"name": "TENSION_BRACING", "status": "NOT_RUN", "source_image_ids": [], "source_feature": null, "matched_r4_screenshot": null, "native_path_pid_world_and_section": null, "observed_vs_estimated_vs_unknown": null, "verified_cause": null, "repair_scope_candidate": null},
+    {"name": "RAMPS_LANDINGS", "status": "NOT_RUN", "source_image_ids": [], "source_feature": null, "matched_r4_screenshot": null, "native_path_pid_world_and_section": null, "observed_vs_estimated_vs_unknown": null, "verified_cause": null, "repair_scope_candidate": null},
+    {"name": "ENVELOPE_LIGHT_FRAMES", "status": "NOT_RUN", "source_image_ids": [], "source_feature": null, "matched_r4_screenshot": null, "native_path_pid_world_and_section": null, "observed_vs_estimated_vs_unknown": null, "verified_cause": null, "repair_scope_candidate": null},
+    {"name": "FLOORS_INTERIOR_VOIDS", "status": "NOT_RUN", "source_image_ids": [], "source_feature": null, "matched_r4_screenshot": null, "native_path_pid_world_and_section": null, "observed_vs_estimated_vs_unknown": null, "verified_cause": null, "repair_scope_candidate": null}
+  ],
+  "allowed_diagnosis_statuses": ["CONFIRMED_GEOMETRY_MISMATCH", "PRESENTATION_ONLY", "MATCH", "UNRESOLVED", "BLOCKED", "NOT_RUN"],
+  "gate_b_decision": "NOT_RUN",
+  "gate_b_reason": null,
+  "separate_verdicts": {"source_fidelity": "NOT_RUN", "scoped_edit": "NOT_RUN", "protected_geometry": "NOT_RUN", "delivery_three_stage": "NOT_RUN", "strict_blank_replay": "NOT_RUN", "website_post_patch": "NOT_RUN"},
+  "limitations": ["EMPTY TEMPLATE; not real evidence or a PASS", "No geometry write before source/native diagnosis and verified direct-group scope"]
+}
