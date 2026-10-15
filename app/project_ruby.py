@@ -231,6 +231,10 @@ class ProjectRubyExecutor:
             "  remove_owned_group = lambda do |name|",
             "    KStudioProfessionalHelpers.remove_named_owned_group(root, name)",
             "  end",
+            "  clear_owned_contents = lambda do |path|",
+            "    KStudioProfessionalHelpers.clear_named_owned_contents(root, path, JSON.parse(" +
+            self._ruby_string(json.dumps(allowed_mutation_paths or [], ensure_ascii=False)) + "))",
+            "  end",
             *(
                 ["  edit_scope_before = KStudioPathScopeGuard.capture(root, JSON.parse(" +
                  self._ruby_string(json.dumps(allowed_mutation_paths, ensure_ascii=False)) + "))"]
@@ -285,6 +289,12 @@ class ProjectRubyExecutor:
         path = arguments.get("path", [])
         offset, limit = arguments.get("offset", 0), arguments.get("limit", 50)
         batch_paths = arguments.get("_batch_paths")
+        if "paths" in arguments:
+            if batch_paths is not None or "path" in arguments:
+                raise ValueError("Use either path or paths, not both.")
+            batch_paths = arguments["paths"]
+            if not isinstance(batch_paths, list) or not 1 <= len(batch_paths) <= 48:
+                raise ValueError("Read-only paths batch requires 1..48 exact paths.")
         if batch_paths is not None:
             if (not isinstance(batch_paths, list) or not 1 <= len(batch_paths) <= 256
                     or any(not isinstance(p, list) or not 1 <= len(p) <= 8
@@ -565,7 +575,7 @@ class ProjectRubyExecutor:
                     edit_scope_receipt.get("status") != "passed" or
                     edit_scope_receipt.get("allowed_top_level") != allowed_mutation_names or
                     edit_scope_receipt.get("allowed_paths") != mutation_paths or
-                    edit_scope_receipt.get("guard") != "deep_exact_paths_v1"):
+                    edit_scope_receipt.get("guard") != "deep_exact_paths_v2"):
                 raise MCPCallError("SketchUp edit scope guard did not confirm unchanged unrelated geometry.")
         method_ledger = owned_readback.get("oss_method_ledger")
         if (not isinstance(method_ledger, dict)

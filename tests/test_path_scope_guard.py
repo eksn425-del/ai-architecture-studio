@@ -17,6 +17,8 @@ def test_exact_nested_paths_reach_precommit_host_guard(monkeypatch, tmp_path):
     assert text.index("KStudioPathScopeGuard.capture") < text.index("eval(source, binding")
     assert text.index("eval(source, binding") < text.index("KStudioPathScopeGuard.verify!")
     assert text.index("KStudioPathScopeGuard.verify!") < text.index("oss_method_ledger")
+    assert "clear_owned_contents = lambda" in text
+    assert "clear_named_owned_contents(root, path" in text
 
 
 @pytest.mark.parametrize("source", ["KStudioPathScopeGuard.capture(root, [])", "KStudioNativeDeepFingerprint.scan([])"])
@@ -30,3 +32,14 @@ def test_edit_cannot_omit_scope_even_without_critic_context(paths):
     ex = object.__new__(ProjectRubyExecutor)
     with pytest.raises(ValueError, match="explicit allowed_mutation_paths"):
         ex.run({"script_id": "building", "ruby_source": "length = 1", "update_mode": "edit", "allowed_mutation_paths": paths})
+
+
+@pytest.mark.parametrize("arguments", [
+    {"paths": []}, {"paths": [["X"]] * 49},
+    {"path": ["X"], "paths": [["X"]]},
+    {"_batch_paths": [["X"]], "paths": [["X"]]},
+])
+def test_public_batch_rejects_ambiguous_or_unbounded_inspection(arguments):
+    ex = object.__new__(ProjectRubyExecutor)
+    with pytest.raises(ValueError):
+        ex.inspect_owned(arguments)

@@ -1,0 +1,294 @@
+{
+  "script_id": "glass_curved_roof",
+  "revision": 6,
+  "read_only": true,
+  "snapshots": [
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "persistent_id": 77872,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1898”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -55,
+          -90,
+          10800
+        ],
+        "max": [
+          50055,
+          20090,
+          16710.2
+        ],
+        "size": [
+          50110,
+          20180,
+          5910.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 2,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "CURVED_SHELL",
+          "persistent_id": 77873,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              14776.3
+            ],
+            "max": [
+              50000,
+              20000,
+              16710.2
+            ],
+            "size": [
+              50000,
+              20000,
+              1933.9
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_2"
+      ],
+      "persistent_id": 79027,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“527”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -6300,
+          -4000,
+          3440
+        ],
+        "max": [
+          -4100,
+          24000,
+          7200
+        ],
+        "size": [
+          2200,
+          28000,
+          3760
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": []
+    }
+  ],
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "af59bd793b43501959ca559731329243e9c1f3829cd8a40bec81bf2760e5928c",
+    "events": []
+  },
+  "edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v1",
+    "allowed_paths": [
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_RAIL_120"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_RAIL_550"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_RAIL_1100"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_RAIL_120"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_RAIL_550"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_RAIL_1100"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_RAIL_120"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_RAIL_550"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_RAIL_1100"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_RAIL_120"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_RAIL_550"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_RAIL_1100"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_RAIL_120"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_RAIL_550"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_RAIL_1100"
+      ]
+    ],
+    "allowed_top_level": [
+      "CIRCULATION_EXTERNAL"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  }
+}

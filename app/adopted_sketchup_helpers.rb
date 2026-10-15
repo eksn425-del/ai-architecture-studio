@@ -86,6 +86,19 @@ module KStudioProfessionalHelpers
     removed_pid
   end
 
+  # Preserve the declared container and only replace its owned contents.
+  # Reuse the existing exact-path resolver and its locked/shared checks.
+  def clear_named_owned_contents(root, path, approved_paths)
+    raise 'Root contents clearing is forbidden' unless path.is_a?(Array) && !path.empty?
+    raise 'Contents clearing requires declared edit scope' unless approved_paths.is_a?(Array) &&
+      approved_paths.any? { |approved| path.take(approved.length) == approved }
+    child = named_owned_group(root, path, true)
+    entities = child.is_a?(Sketchup::Group) ? child.entities : child.definition.entities
+    count = entities.length
+    entities.erase_entities(entities.to_a) unless count.zero?
+    {persistent_id: child.persistent_id, removed_entities: count}
+  end
+
   def inspect_named_owned_group(root, path, offset, limit)
     group = named_owned_group(root, path)
     entities = group.is_a?(Sketchup::Group) ? group.entities : group.definition.entities
@@ -93,6 +106,7 @@ module KStudioProfessionalHelpers
     page = objects.drop(offset).first(limit)
     {
       path: path, persistent_id: group.persistent_id, locked: group.locked?,
+      definition_instances: group.definition.instances.length, definition_name: group.definition.name.to_s,
       bounds_units: 'mm', bounds_frame: 'parent-local',
       bounds_mm: KStudioStultusBounds.bounds_mm(group.bounds),
       object_bounds_frame: 'selected-group-local',

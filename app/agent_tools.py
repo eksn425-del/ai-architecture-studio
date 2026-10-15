@@ -467,10 +467,11 @@ class AgentToolSurface:
                 if adai_enabled else ""
             )
             tools.append(self._dynamic_tool(
-                "sketchup_inspect_owned", "Read-only nested owned-group inspection with actual persistent IDs and XYZ millimeter bounds; no geometry/diagnostic objects, source writes or revision change. Use exact path name segments; [] lists the owned root. Page until next_offset is null when proving full object preservation. Bounds are explicitly relative to each parent, not global.",
+                "sketchup_inspect_owned", "Read-only nested owned-group inspection with actual persistent IDs, definition instance counts and XYZ millimeter bounds; no geometry edit. Use path for one paginated group, or paths for a single round-trip batch of up to48 exact groups (one child preview each). [] lists the root. Page a single path until next_offset is null when proving all children. Bounds are relative to each parent, not global.",
                 {"type": "object", "required": ["script_id"], "properties": {
                     "script_id": {"type": "string"},
                     "path": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 200}, "maxItems": 8},
+                    "paths": {"type": "array", "minItems": 1, "maxItems": 48, "items": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"type": "string", "minLength": 1, "maxLength": 200}}},
                     "offset": {"type": "integer", "minimum": 0}, "limit": {"type": "integer", "minimum": 1, "maximum": 100},
                 }, "additionalProperties": False},
             ))
@@ -550,7 +551,7 @@ class AgentToolSurface:
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs. For every targeted edit pass exact full allowed_mutation_paths: protected sibling and ancestor geometry plus document loose entities are checked deeply before commit. Keep target container PIDs stable. "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs, "
                     "object counts and mm bounds did not change. update_mode=edit retains that existing script_id root for "
-                    "local patches. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
+                    "local patches. Injected clear_owned_contents.call(full_path_array) replaces only the contents of an approved target or its descendant, preserving its container PID. Shared target and ancestor definitions must first be made unique; other instances remain deeply protected. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
                     "group/component instance, never the root or unrelated objects. For nested corrections pass an ARRAY of exact name segments, e.g. ['SHELL','LEFT_WALL']; edit that existing subtree in place. Do not expand scope to its parent or remove/recreate the declared target container. "
                     "Never use replace with inspection-only or partial patch code; use readback "
                       "tools for inspection. edit requires the same existing script_id. "

@@ -25,16 +25,30 @@ module KStudioPathScopeGuard
      hidden: instance.hidden?, locked: instance.locked?, tag: c.tag(instance), material: c.material(instance.material)}
   end
 
+  # Making one approved shared instance unique changes the remaining
+  # definition's reference count/GUID, without changing its geometry or IDs.
+  # Keep the collector's full geometry/material hash and identity tree.
+  def protected_node(value)
+    case value
+    when Hash
+      value.each_with_object({}) do |(key, item), out|
+        next if [:definition_guid, :definition_instances].include?(key)
+        out[key] = protected_node(item)
+      end
+    when Array then value.map { |item| protected_node(item) }
+    else value
+    end
+  end
+
   def branch(instance, parent_world, path, paths, counter)
     c = KStudioNativeDeepFingerprint
     world = parent_world * instance.transformation
     if paths.include?(path)
       # Replacing a declared existing group still loses its stable identity.
-      raise 'Shared definition cannot be an editable path target' if instance.definition.instances.length != 1
       return {target_path: path, pid: instance.persistent_id, name: c.entity_name(instance), locked: instance.locked?}
     end
     unless paths.any? { |p| p.take(path.length) == path }
-      return c.inspect_instance(instance, parent_world, [], path.length, counter)
+      return protected_node(c.inspect_instance(instance, parent_world, [], path.length, counter))
     end
     items = instance.is_a?(Sketchup::Group) ? instance.entities : instance.definition.entities
     children = items.select { |e| e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance) }
@@ -65,7 +79,7 @@ module KStudioPathScopeGuard
     raise 'Owned root must be at document top level' unless groups.include?(root)
     loose = c.scan(model.entities.reject { |e| groups.include?(e) }, Geom::Transformation.new, [], 0, {count: 0})
     masked = branch(root, Geom::Transformation.new, [], paths, {count: 0})
-    external = groups.reject { |e| e == root }.map { |e| c.inspect_instance(e, Geom::Transformation.new, [], 0, {count: 0}) }.sort_by { |n| n[:pid] }
+    external = groups.reject { |e| e == root }.map { |e| protected_node(c.inspect_instance(e, Geom::Transformation.new, [], 0, {count: 0})) }.sort_by { |n| n[:pid] }
     {paths: paths, masked_root: masked, document_loose_sha: c.sha(loose), external: external,
      presentation_sha: c.sha(c.presentation(model)), model_path: model.path, model_guid: model.guid}
   end
@@ -85,7 +99,7 @@ module KStudioPathScopeGuard
     paths!(paths)
     raise 'Path scope declaration changed' unless before[:paths] == paths && after[:paths] == paths
     raise 'Path scope regression: protected geometry/identity/presentation changed' unless before == after
-    {'status' => 'passed', 'guard' => 'deep_exact_paths_v1', 'allowed_paths' => paths,
+    {'status' => 'passed', 'guard' => 'deep_exact_paths_v2', 'allowed_paths' => paths,
      'allowed_top_level' => paths.map(&:first).uniq,
      'protected_deep_geometry_and_loose_entities' => true}
   end

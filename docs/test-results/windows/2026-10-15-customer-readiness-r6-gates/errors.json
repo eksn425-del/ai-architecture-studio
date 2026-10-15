@@ -1,0 +1,20 @@
+[
+  {
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "当前六视图视觉审查无可复用的独立收据，或来源、截图、修订已变化。先取得 front/rear/left/right/roof/oblique 六张当前修订截图并调用 sketchup_submit_visual_review；不要盲目连续重写模型。",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "event": "tool_result",
+    "tool": "sketchup_submit_visual_review",
+    "success": false,
+    "error": "evidence_pairs must be a list of at most 12 source/current pairs.",
+    "content_types": [
+      "inputText"
+    ]
+  }
+]

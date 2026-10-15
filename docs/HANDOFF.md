@@ -1,3 +1,11 @@
+# Intermediate evidence checkpoint — Codex ownership ACTIVE — actual r6 gate repair and shared-instance rollback proof
+
+[Real r6 website/native evidence](test-results/windows/2026-10-15-customer-readiness-r6-gates/README.md): same original eight-source project/root20606. Five receiving rail openings committed r5→r6 once through real Sol6.1 Medium site; exact30leaf scope/KEEP and independent native protected snapshot PASS. Actual browser download + controlled save/bound/download native deep3stage PASS; originalr4 unchanged. Corrected platform-interior rays improve24/30blocked→18/30blocked, remaining upper glass only. Whole-source Critic still FAIL; interior enclosures and circular guards remain, full circulation FAIL, strict replay NOT_RUN, customer NOT_READY.
+
+Native faults now actually tested on separate disposable r6 copy: allowed ramp mutation followed by same-bounds protected-roof material mutation aborted and rolled back; shared glass prototype misuse aborted/rolled back; unique approved bay contents replacement passed v2 deep protection. Only the fault copy advanced to test revision7, restored real workingr6 unchanged. v2 excludes definition reference-count/GUID bookkeeping while retaining deep geometry/material hashes and persistent tree. Existing exact-path helper safely replaces contents preserving target container, shared/locked ancestors rejected. Existing public inspection now batches1..48 paths and was actually exercised inSU. Test code is not source fidelity acceptance. Phase3 real site narrow glass openings underway under exact two-bay authorization; owner execution goal remains active. No paidAPI/newcase/CLIrerun; local caps0, actual usage history retained.
+
+---
+
 # ACTIVE execution — customer-readiness goal, first real r5 milestone (2026-10-15)
 
 Owner explicitly asks Codex to lead ALL work/tests until deliverable, superseding old bracing-only stop. [Execution plan](NEXT_CUSTOMER_READY_SAME_CASE_2026-10-15.md), [actual firstr5 evidence](test-results/windows/2026-10-15-customer-readiness-r5-circulation/README.md). Goal remains ACTIVE; this pushed intermediate evidence is not completion or a handoff of implementation ownership. Avoid overlapping main edits while native execution continues.

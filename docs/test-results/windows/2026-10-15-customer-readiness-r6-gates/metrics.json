@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 2888765,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "latency_ms": 2888765,
+  "tool_call_count": 82,
+  "failed_tool_calls": 2,
+  "input_tokens": 4534608,
+  "output_tokens": 9358,
+  "committed_website_writes": 1,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 406828,
+    "input_tokens": 67744,
+    "output_tokens": 685,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "paid_api_calls": 0,
+  "token_source": "Actual Builder delta; independent Critic separate; preserves cumulative history"
+}

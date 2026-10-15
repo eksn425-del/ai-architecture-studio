@@ -24,7 +24,7 @@ def audit(before: dict, after: dict, writer: dict) -> dict:
                     raise ValueError(f"Incomplete native path snapshot: {key}")
         old, new = before["snapshot"], after["snapshot"]
         scope = writer["last_edit_scope_receipt"]
-        if scope.get("status") != "passed" or scope.get("guard") != "deep_exact_paths_v1":
+        if scope.get("status") != "passed" or scope.get("guard") not in {"deep_exact_paths_v1", "deep_exact_paths_v2"}:
             raise ValueError("Missing actual exact-path precommit receipt")
         if scope.get("allowed_paths") != old["paths"] or old["paths"] != new["paths"]:
             raise ValueError("Native snapshots and actual writer target declarations differ")

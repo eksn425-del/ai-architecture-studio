@@ -6,7 +6,7 @@ baseline = {paths: paths, masked_root: {metadata: {pid: 20606}, loose_sha: 'root
     {name: 'RAMP_2', geometry_material_sha256: 'deep-material-geometry', counts: {faces: 6}}]},
   document_loose_sha: 'doc-loose', external: [{pid: 900, geometry_material_sha256: 'other'}],
   presentation_sha: 'style', model_path: 'same.skp', model_guid: 'same-guid'}
-raise 'No native scope receipt' unless KStudioPathScopeGuard.compare!(baseline, Marshal.load(Marshal.dump(baseline)), paths)['guard'] == 'deep_exact_paths_v1'
+raise 'No native scope receipt' unless KStudioPathScopeGuard.compare!(baseline, Marshal.load(Marshal.dump(baseline)), paths)['guard'] == 'deep_exact_paths_v2'
 cases = [
   ->(x) { x[:masked_root][:children][2][:geometry_material_sha256] = 'same-bounds-changed-material-or-vertex' },
   ->(x) { x[:masked_root][:metadata][:pid] = 999 },
@@ -55,3 +55,12 @@ KStudioPathScopeGuard.validate_authorization!(policy, [paths[0]], 'same.skp', 20
   raise 'Host authorization boundary escaped'
 end
 puts 'host-approved exact path scope: positive + 5 negatives PASS'
+
+original = {pid: 1, definition_guid: 'old', definition_instances: 2,
+  geometry_material_sha256: 'actual-geometry', children: [{pid: 2, definition_instances: 2}]}
+unique = Marshal.load(Marshal.dump(original)); unique[:definition_guid] = 'new'; unique[:definition_instances] = 1
+unique[:children][0][:definition_instances] = 1
+raise 'Definition bookkeeping blocked safe uniqueness' unless KStudioPathScopeGuard.protected_node(original) == KStudioPathScopeGuard.protected_node(unique)
+unique[:geometry_material_sha256] = 'illegal-shared-geometry-change'
+raise 'Shared geometry escaped normalization' if KStudioPathScopeGuard.protected_node(original) == KStudioPathScopeGuard.protected_node(unique)
+puts 'shared definition normalization: bookkeeping-only PASS; geometry still protected'
