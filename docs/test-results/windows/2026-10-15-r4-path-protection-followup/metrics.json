@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": null,
+  "failed_tool_calls": null,
+  "committed_writes": 0,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "token_source": "Zero website Builder/Critic inference calls in this follow-up; outer Codex controller tokens unavailable and excluded (null), no reset of historical usage",
+  "outer_controller_input_tokens": null,
+  "outer_controller_output_tokens": null,
+  "builder_calls": 0,
+  "critic_calls": 0,
+  "paid_api_calls": 0,
+  "previous_readonly_critic_input_tokens": 89747,
+  "previous_readonly_critic_output_tokens": 1957,
+  "geometry_writes": 0,
+  "native_save_calls": 0,
+  "new_native_camera_exports": 0,
+  "new_browser_screenshots": 1,
+  "python_core_regression": {
+    "passed": 193,
+    "elapsed_s": 7.22
+  },
+  "python_extended_contract_regression": {
+    "passed": 58,
+    "elapsed_s": 1.36,
+    "overlap_with_core": true
+  },
+  "ruby_guard_contract": "1 positive and12 synthetic negatives; actual native read-only equality preflight separate"
+}

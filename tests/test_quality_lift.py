@@ -367,6 +367,7 @@ def test_precommit_keep_guard_is_in_transport_and_restores_last_good_script_on_a
             "script_id": "main",
             "ruby_source": "root.name = 'bad-candidate'",
             "update_mode": "edit",
+            "allowed_mutation_paths": [["FACADE"]],
             "_keep_expectations": [{
                 "path": ["BALCONY"],
                 "persistent_id": 501,

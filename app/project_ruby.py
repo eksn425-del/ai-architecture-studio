@@ -34,7 +34,7 @@ _FORBIDDEN_SOURCE = re.compile(
     r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|KStudioProfessionalHelpers|KStudioSAIE|KStudioStultusBounds|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|\bKStudioOSSMethodRuntime\b"
-    r"|\b(?:KStudioEditScopeGuard|edit_scope_before|edit_scope_receipt)\b"
+    r"|\b(?:KStudioEditScopeGuard|KStudioPathScopeGuard|KStudioNativeDeepFingerprint|edit_scope_before|edit_scope_receipt)\b"
     r"|\b(?:ADAIConstructionGeometry|oss_method_events|oss_method_ledger)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
@@ -193,7 +193,8 @@ class ProjectRubyExecutor:
                                 expected_revision: int, root_pid: int | None, update_mode: str = "replace",
                                 keep_expectations: list[dict[str, Any]] | None = None,
                                 source_sha256: str = "",
-                                allowed_mutation_names: list[str] | None = None) -> str:
+                                allowed_mutation_names: list[str] | None = None,
+                                allowed_mutation_paths: list[list[str]] | None = None) -> str:
         helper_path = Path(__file__).resolve().parent / "vendor" / "sketchup_architect" / "scripts" / "model_session.rb"
         # Optional CPAL-1.0 ADAI method library is verified and loaded only in
         # explicitly opted-in local sessions. The official Managed MCP never
@@ -207,6 +208,7 @@ class ProjectRubyExecutor:
             f"load {self._ruby_string(str((Path(__file__).parent / 'adopted_sketchup_helpers.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'oss_method_runtime.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'edit_scope_guard.rb').resolve()))}",
+            f"load {self._ruby_string(str((Path(__file__).parent / 'path_scope_guard.rb').resolve()))}",
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
@@ -230,6 +232,9 @@ class ProjectRubyExecutor:
             "    KStudioProfessionalHelpers.remove_named_owned_group(root, name)",
             "  end",
             *(
+                ["  edit_scope_before = KStudioPathScopeGuard.capture(root, JSON.parse(" +
+                 self._ruby_string(json.dumps(allowed_mutation_paths, ensure_ascii=False)) + "))"]
+                if update_mode == "edit" and allowed_mutation_paths else
                 ["  edit_scope_before = KStudioEditScopeGuard.fingerprints(root)"]
                 if update_mode == "edit" and allowed_mutation_names else []
             ),
@@ -250,6 +255,10 @@ class ProjectRubyExecutor:
             ),
             *(
                 [
+                    "  edit_scope_receipt = KStudioPathScopeGuard.verify!(root, edit_scope_before, JSON.parse("
+                    + self._ruby_string(json.dumps(allowed_mutation_paths, ensure_ascii=False)) + "))",
+                    "  root.set_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt', JSON.generate(edit_scope_receipt))",
+                ] if update_mode == "edit" and allowed_mutation_paths else [
                     "  edit_scope_receipt = KStudioEditScopeGuard.verify!(root, edit_scope_before, JSON.parse("
                     + self._ruby_string(json.dumps(allowed_mutation_names, ensure_ascii=False))
                     + "))",
@@ -363,6 +372,8 @@ class ProjectRubyExecutor:
         update_mode = str(arguments.get("update_mode") or "replace")
         if update_mode not in {"replace", "edit"}:
             raise ValueError("update_mode must be replace or edit.")
+        if update_mode == "edit" and not arguments.get("allowed_mutation_paths"):
+            raise ValueError("edit requires explicit allowed_mutation_paths; no model operation was attempted.")
         if (update_mode == "replace" and self.ruby_state.get(script_id, {}).get("root_pid") is not None
                 and arguments.get("allow_full_rebuild") is not True):
             raise ValueError(
@@ -455,6 +466,7 @@ class ProjectRubyExecutor:
             keep_expectations=keep_expectations,
             source_sha256=source_hash,
             allowed_mutation_names=allowed_mutation_names,
+            allowed_mutation_paths=mutation_paths,
         )
         transport_path.write_text(transport_script, encoding="utf-8", newline="\n")
 
@@ -551,7 +563,9 @@ class ProjectRubyExecutor:
         if allowed_mutation_names:
             if (not isinstance(edit_scope_receipt, dict) or
                     edit_scope_receipt.get("status") != "passed" or
-                    edit_scope_receipt.get("allowed_top_level") != allowed_mutation_names):
+                    edit_scope_receipt.get("allowed_top_level") != allowed_mutation_names or
+                    edit_scope_receipt.get("allowed_paths") != mutation_paths or
+                    edit_scope_receipt.get("guard") != "deep_exact_paths_v1"):
                 raise MCPCallError("SketchUp edit scope guard did not confirm unchanged unrelated geometry.")
         method_ledger = owned_readback.get("oss_method_ledger")
         if (not isinstance(method_ledger, dict)

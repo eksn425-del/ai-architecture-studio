@@ -273,7 +273,7 @@ class AgentToolSurface:
                 declared_mutations = arguments.get("allowed_mutation_paths")
                 if not isinstance(declared_mutations, list) or not declared_mutations:
                     raise MCPCallError(
-                        "本轮定向修正必须声明 allowed_mutation_paths（所有允许变化或新增的顶层命名组），"
+                        "本轮定向修正必须声明 allowed_mutation_paths（允许变化的精确命名组路径），"
                         "由 SketchUp 事务内部自动保护其余组；不能省略此边界。"
                     )
                 preservation_script_id = str(arguments.get("script_id") or "")
@@ -547,11 +547,11 @@ class AgentToolSurface:
                     "model readback plus a screenshot. update_mode=replace (default) CLEARS the owned root before running "
                     "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
                     "complete rebuild; local corrections must use edit. After a visual review, correction writes are host-forced to edit mode; "
-                    "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs. For every targeted edit pass allowed_mutation_paths: any unrelated direct owned group will be verified unchanged precommit, including newly added groups. "
+                    "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs. For every targeted edit pass exact full allowed_mutation_paths: protected sibling and ancestor geometry plus document loose entities are checked deeply before commit. Keep target container PIDs stable. "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs, "
                     "object counts and mm bounds did not change. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
-                    "group/component instance, never the root or unrelated objects. For nested corrections pass an ARRAY of exact name segments, e.g. ['SHELL','LEFT_WALL']; locked/shared ancestors are rejected. Recreate only that affected child. "
+                    "group/component instance, never the root or unrelated objects. For nested corrections pass an ARRAY of exact name segments, e.g. ['SHELL','LEFT_WALL']; edit that existing subtree in place. Do not expand scope to its parent or remove/recreate the declared target container. "
                     "Never use replace with inspection-only or partial patch code; use readback "
                       "tools for inspection. edit requires the same existing script_id. "
                       "Ruby runs inside a host-owned transaction with injected model and root (Sketchup::Group). "
@@ -587,7 +587,7 @@ class AgentToolSurface:
                             "type": "array",
                             "minItems": 1,
                             "maxItems": 48,
-                            "description": "For targeted edit, declare every direct owned group permitted to change or be added. The host rejects ANY change to other top-level groups before commit, independent of selected KEEP paths. Must include names of new groups, and the top-level ancestor of nested edits. This protects unchanged geometry, not visual detail within an allowed group.",
+                            "description": "Exact existing owned subtree paths permitted to change. For nested edits pass the FULL path, never a broad ancestor. Native precommit deep checks protect siblings, ancestor geometry/transforms, loose entities and external groups. Keep each target container PID stable: edit/transform contents in place; do not remove and recreate the container. Does not certify visual quality.",
                             "items": {
                                 "type": "array",
                                 "minItems": 1,

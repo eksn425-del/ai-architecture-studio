@@ -1,3 +1,13 @@
+# HANDOFF 2026-10-15 — actual protection code repaired; r4 remains immutable
+
+[New follow-up evidence](test-results/windows/2026-10-15-r4-path-protection-followup/README.md) complements [complete original eight-source diagnosis](test-results/windows/2026-10-15-eight-source-r4-quality-diagnosis/README.md). Latest repeated owner runbook retains bracing-only conditional write/no substitute target. Thin-brace geometry is MATCH, so no Builder, geometry commit, r5, model save or new delivery/replay. Actual original r4/root20606/GUID/document b3fb8fbd... and saved bytes c337d2bc... unchanged; original website real reload/reconnect succeeds.
+
+Fixed real protection implementation: nested mutation paths no longer collapse into broad parents; exact-path native deep precommit masking protects siblings/ancestor own geometry+transforms/root and document loose geometry/external groups. Target PID stable; edit must explicitly declare scope even with no Critic context. Tool/Skill instructions and CI updated.193 core +58 extended tests pass with overlap; native same-r4 unchanged path capture PASS plus synthetic Ruby negative contracts. No actual writer mutation/rollback test was performed, no nested post-edit CLI scope PASS claimed. That CLI remains direct-only. Model quality and future real website use remain separate verification work.
+
+Measured current landings connect alternating native ramp endpoints (+Y L0/L2, -Y L1/L3). OriginalSOURCE01 all three runs rise left; RAMP1/3 wrong, RAMP2 matches. Merely flipping two ramps breaks present landing contacts. Exact source return route/indoor registration remain unknown. Future most valuable defect is ramp+precise landing/rail topology, then grating exterior galleries; do not start those writes under the repeated bracing-only gate. Full histories/failed Critic ramp interpretation and source factcheck retained. No new inference/cost limits, no paid provider or CLI comparison. Ownership returns to GitHub review after pushed evidence.
+
+---
+
 # HANDOFF 2026-10-15 — real r4 diagnosis complete; no justified brace edit
 
 [Full public evidence](test-results/windows/2026-10-15-eight-source-r4-quality-diagnosis/README.md), including actual native captures, 22 screenshot exports, same whole eight-source links/SHAs, diagram, four-system matrix, immutable r4 SKP, raw independent review/factcheck and usage. Started from main 4c60bc4ce5b9aa1338eefdef806d00ded071ee69. Read CURRENT top for actual result; all older preparation/result sections remain history.

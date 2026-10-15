@@ -1,0 +1,198 @@
+{
+  "native_baseline": "b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10",
+  "same_model_and_sources": true,
+  "data_provenance": "Derived from prior actual preserved safe-r4 ordered native vertices, loops and endpoint contact test; fresh full document baseline verified unchanged. Not a new source inference.",
+  "ramps": [
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_1"
+      ],
+      "pid": 78999,
+      "top_endpoints_world_mm": [
+        [
+          -7400.0,
+          24000.0,
+          0.0
+        ],
+        [
+          -7400.0,
+          -4000.0,
+          3600.0
+        ]
+      ],
+      "ascending_signed_y": "-Y",
+      "rise_mm": 3600.0,
+      "horizontal_run_mm": 28000.0,
+      "source_ramp_end_observation": "+Y up (screen-left) for all three visible flights, SOURCE01",
+      "direction_matches_source_projection": false,
+      "endpoint_landing_contacts": [
+        [
+          "LANDING_L0"
+        ],
+        [
+          "LANDING_L1"
+        ]
+      ]
+    },
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_2"
+      ],
+      "pid": 79027,
+      "top_endpoints_world_mm": [
+        [
+          -5200.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          -5200.0,
+          24000.0,
+          7200.0
+        ]
+      ],
+      "ascending_signed_y": "+Y",
+      "rise_mm": 3600.0,
+      "horizontal_run_mm": 28000.0,
+      "source_ramp_end_observation": "+Y up (screen-left) for all three visible flights, SOURCE01",
+      "direction_matches_source_projection": true,
+      "endpoint_landing_contacts": [
+        [
+          "LANDING_L1"
+        ],
+        [
+          "LANDING_L2"
+        ]
+      ]
+    },
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_3"
+      ],
+      "pid": 79055,
+      "top_endpoints_world_mm": [
+        [
+          -3000.0,
+          24000.0,
+          7200.0
+        ],
+        [
+          -3000.0,
+          -4000.0,
+          10800.0
+        ]
+      ],
+      "ascending_signed_y": "-Y",
+      "rise_mm": 3600.0,
+      "horizontal_run_mm": 28000.0,
+      "source_ramp_end_observation": "+Y up (screen-left) for all three visible flights, SOURCE01",
+      "direction_matches_source_projection": false,
+      "endpoint_landing_contacts": [
+        [
+          "LANDING_L2"
+        ],
+        [
+          "LANDING_L3"
+        ]
+      ]
+    }
+  ],
+  "landings": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L0"
+      ],
+      "pid": 41191,
+      "bounds_mm": [
+        [
+          -8500,
+          -1900
+        ],
+        [
+          24000,
+          26200
+        ],
+        [
+          -160,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1"
+      ],
+      "pid": 41223,
+      "bounds_mm": [
+        [
+          -8500,
+          0
+        ],
+        [
+          -6200,
+          -4000
+        ],
+        [
+          3440,
+          3600
+        ]
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      "pid": 41255,
+      "bounds_mm": [
+        [
+          -6300,
+          300
+        ],
+        [
+          24000,
+          26200
+        ],
+        [
+          7040,
+          7200
+        ]
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L3"
+      ],
+      "pid": 41287,
+      "bounds_mm": [
+        [
+          -4100,
+          0
+        ],
+        [
+          -6200,
+          -4000
+        ],
+        [
+          10640,
+          10800
+        ]
+      ]
+    }
+  ],
+  "observed_connectivity": "RAMP1 L0 north -> L1 south; RAMP2 L1 south -> L2 north; RAMP3 L2 north -> L3 south. Native local landing contacts verified; direction not source fidelity.",
+  "source_observed": "SOURCE01 roof-high-right: all visible runs rise screen-left. RAMP1/3 contradict, RAMP2 matches.",
+  "counterfactual_warning": "Flipping only RAMP1/3 while preserving present landings disconnects their high/low endpoints. Need precise landing/rail/return-route scope before any authorized circulation repair. No counterfactual geometry executed.",
+  "source_complete_return_route": "UNRESOLVED",
+  "geographic_north": "UNRESOLVED; +Y labelled model-coordinate north only"
+}

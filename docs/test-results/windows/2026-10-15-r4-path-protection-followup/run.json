@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-15-r4-path-protection-followup",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "architecture-project-4f0e4 same original eight whole images / website r4",
+  "base_commit": "a9b9d73662855d78ceb3dd9d6631607bca3c88ba",
+  "model": {
+    "actual": "NOT_RUN this follow-up; previous verified gpt-6.1-sol / medium",
+    "runtime": "codex-app-server configured, no inference this follow-up",
+    "configured": "gpt-6.1-sol",
+    "reasoning_effort": "medium"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "revision": 4,
+    "outer_controller": "unchanged",
+    "local_native_cost_caps": 0
+  },
+  "qa": {
+    "DIAGNOSIS": "PASS",
+    "SOURCE_FIDELITY": "FAIL",
+    "SCOPED_EDIT": "NOT_RUN",
+    "PROTECTED_GEOMETRY": "PASS",
+    "DELIVERY_3_STAGE": "NOT_RUN",
+    "STRICT_BLANK_REPLAY": "NOT_RUN",
+    "WEBSITE_POST_PATCH": "NOT_RUN"
+  },
+  "missing_images_reason": "No new geometry version or camera capture; actual original eight source and22 native r4 exports retained in prior diagnosis folder, linked from README. Fresh browser screenshot included.",
+  "native_preflight": "Exact path guard equal on two actual captures, no geometry mutation; Ruby synthetic negative contracts also ran in same SU Ruby process",
+  "actual_precommit_rollback_after_writer_mutation": "NOT_RUN",
+  "website_reconnect": "PASS; not an Agent modeling test",
+  "geometry_writes": 0,
+  "save_calls": 0
+}
