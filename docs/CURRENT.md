@@ -1,3 +1,11 @@
+# CURRENT — Eight-source r4 evidence-gated quality sprint (2026-10-15)
+
+**AUTHORITATIVE NEW NEXT TASK:** [NEXT_EIGHT_SOURCE_R4_QUALITY_DIAGNOSIS_2026-10-15.md](NEXT_EIGHT_SOURCE_R4_QUALITY_DIAGNOSIS_2026-10-15.md). User explicitly requested GitHub preparation and next CodeF test. No fresh building, unrelated features or repeated original Codex CLI comparison. Preserve historical reports below (including older 'restoration PENDING', which the 2026-10-15 verified native/site recovery RESOLVED). At preparation current main HEAD f7a1ce75cec409dd5450a7d662c69799ebf459a7; CodeF must recheck live HEAD. r4 remains restored website/SU2024 with PID20606 and whole-document deep baseline b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10, native delivery PASS, whole eight-source fidelity FAIL / overall PARTIAL, strict blank replay NOT_RUN.
+
+This GitHub preparation includes a fail-closed **read-only direct-group scope comparator** and eight synthetic tests plus a NOT_RUN diagnosis template. It is NOT actual r4 source diagnosis or a new model PASS. Gate A: exact eight published sources vs actual r4 paired cameras and native deep evidence for TENSION_BRACING, ramps, outer envelope and void/floors, no geometry write; verify actual native identity first. Gate B: ONLY after confirming thickness is a genuine TENSION_BRACING geometry error, and actual native target is one unambiguous DIRECT root group, max one guarded website natural-Chinese correction + independent source QA + protected checks + real save/download/reopen. Nested/unclear target: BLOCKED, extend path-aware guard/test before any write; do NOT allow a broad roof ancestor. If another issue outranks braces, report diagnosis only, no substituted edit. Publication authorization pertains only to same case and excludes credentials. Original r4 immutable; preserve historical failures, external account quotas, no paid API. Update this top section only with actual run results.
+
+---
+
 # CURRENT — K Studio Eight-Source Quality Recovery (2026-10-14)
 
 ## 2026-10-15 owner authorized public source/model/full-record review
