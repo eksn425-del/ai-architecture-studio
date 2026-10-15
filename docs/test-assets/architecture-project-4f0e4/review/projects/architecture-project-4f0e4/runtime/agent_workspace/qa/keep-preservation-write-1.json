@@ -1,0 +1,3043 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "CIRCULATION_EXTERNAL",
+    "CIRCULATION_INTERNAL",
+    "ENVELOPE_OUTER",
+    "FLOORS",
+    "INTERIOR",
+    "PARTITION_Z3600_B1",
+    "PARTITION_Z3600_B2",
+    "PARTITION_Z3600_B3",
+    "PARTITION_Z3600_B4",
+    "PARTITION_Z3600_B5",
+    "PARTITION_Z3600_B6",
+    "PARTITION_Z3600_B7",
+    "PARTITION_Z3600_B8",
+    "PARTITION_Z3600_B9",
+    "PARTITION_Z7200_B1",
+    "PARTITION_Z7200_B2",
+    "PARTITION_Z7200_B3",
+    "PARTITION_Z7200_B4",
+    "PARTITION_Z7200_B5",
+    "PARTITION_Z7200_B6",
+    "PARTITION_Z7200_B7",
+    "PARTITION_Z7200_B8",
+    "PARTITION_Z7200_B9",
+    "RAMPS",
+    "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_10",
+    "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_10",
+    "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_1",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_0",
+    "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_1",
+    "SITE_GROUND",
+    "STRUCTURE_EXISTING"
+  ],
+  "checks": [
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "persistent_id",
+      "expected": 28007,
+      "actual": 28007
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8517.5,
+          -6200.0,
+          -160.0
+        ],
+        "max": [
+          54017.5,
+          26200.0,
+          11915.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8517.5,
+          -6200.0,
+          -160.0
+        ],
+        "max": [
+          54017.5,
+          26200.0,
+          11915.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "persistent_id",
+      "expected": 45400,
+      "actual": 45400
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "objects_total",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34682.5,
+          1000.0,
+          0.0
+        ],
+        "max": [
+          52700.0,
+          8817.5,
+          11916.9
+        ]
+      },
+      "actual": {
+        "min": [
+          34682.5,
+          1000.0,
+          0.0
+        ],
+        "max": [
+          52700.0,
+          8817.5,
+          11916.9
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "persistent_id",
+      "expected": 41319,
+      "actual": 41319
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "objects_total",
+      "expected": 95,
+      "actual": 95
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4030.0,
+          0.0
+        ],
+        "max": [
+          54030.0,
+          24030.0,
+          16503.6
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4030.0,
+          0.0
+        ],
+        "max": [
+          54030.0,
+          24030.0,
+          16503.6
+        ]
+      }
+    },
+    {
+      "path": "FLOORS",
+      "check": "persistent_id",
+      "expected": 76290,
+      "actual": 76290
+    },
+    {
+      "path": "FLOORS",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "FLOORS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "INTERIOR",
+      "check": "persistent_id",
+      "expected": 79083,
+      "actual": 79083
+    },
+    {
+      "path": "INTERIOR",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "INTERIOR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5000.0,
+          4000.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          11585.0
+        ]
+      },
+      "actual": {
+        "min": [
+          5000.0,
+          4000.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          11585.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "persistent_id",
+      "expected": 75036,
+      "actual": 75036
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "persistent_id",
+      "expected": 75068,
+      "actual": 75068
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "persistent_id",
+      "expected": 75100,
+      "actual": 75100
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "persistent_id",
+      "expected": 75132,
+      "actual": 75132
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "persistent_id",
+      "expected": 75164,
+      "actual": 75164
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "persistent_id",
+      "expected": 75196,
+      "actual": 75196
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "persistent_id",
+      "expected": 75228,
+      "actual": 75228
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "persistent_id",
+      "expected": 75260,
+      "actual": 75260
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "persistent_id",
+      "expected": 75292,
+      "actual": 75292
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "persistent_id",
+      "expected": 75324,
+      "actual": 75324
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "persistent_id",
+      "expected": 75356,
+      "actual": 75356
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "persistent_id",
+      "expected": 75388,
+      "actual": 75388
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "persistent_id",
+      "expected": 75420,
+      "actual": 75420
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "persistent_id",
+      "expected": 75452,
+      "actual": 75452
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "persistent_id",
+      "expected": 75484,
+      "actual": 75484
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "persistent_id",
+      "expected": 75516,
+      "actual": 75516
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "persistent_id",
+      "expected": 75548,
+      "actual": 75548
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "persistent_id",
+      "expected": 75580,
+      "actual": 75580
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "RAMPS",
+      "check": "persistent_id",
+      "expected": 78998,
+      "actual": 78998
+    },
+    {
+      "path": "RAMPS",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "RAMPS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -1900.0,
+          24000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -1900.0,
+          24000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_0",
+      "check": "persistent_id",
+      "expected": 78895,
+      "actual": 78895
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -32.5,
+          -32.5,
+          10800.0
+        ],
+        "max": [
+          32.5,
+          32.5,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -32.5,
+          -32.5,
+          10800.0
+        ],
+        "max": [
+          32.5,
+          32.5,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_10",
+      "check": "persistent_id",
+      "expected": 78905,
+      "actual": 78905
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_10",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_0_10",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -32.5,
+          19967.5,
+          10800.0
+        ],
+        "max": [
+          32.5,
+          20032.5,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          -32.5,
+          19967.5,
+          10800.0
+        ],
+        "max": [
+          32.5,
+          20032.5,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_0",
+      "check": "persistent_id",
+      "expected": 78946,
+      "actual": 78946
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          49967.5,
+          -32.5,
+          10800.0
+        ],
+        "max": [
+          50032.5,
+          32.5,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          49967.5,
+          -32.5,
+          10800.0
+        ],
+        "max": [
+          50032.5,
+          32.5,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_10",
+      "check": "persistent_id",
+      "expected": 78956,
+      "actual": 78956
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_10",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_1_10",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          49967.5,
+          19967.5,
+          10800.0
+        ],
+        "max": [
+          50032.5,
+          20032.5,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          49967.5,
+          19967.5,
+          10800.0
+        ],
+        "max": [
+          50032.5,
+          20032.5,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_0",
+      "check": "persistent_id",
+      "expected": 78893,
+      "actual": 78893
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          -90.0,
+          15437.0
+        ],
+        "max": [
+          50000.0,
+          90.0,
+          15617.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          -90.0,
+          15437.0
+        ],
+        "max": [
+          50000.0,
+          90.0,
+          15617.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_1",
+      "check": "persistent_id",
+      "expected": 78894,
+      "actual": 78894
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/HIGH_EDGE_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          19910.0,
+          16440.2
+        ],
+        "max": [
+          50000.0,
+          20090.0,
+          16620.2
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          19910.0,
+          16440.2
+        ],
+        "max": [
+          50000.0,
+          20090.0,
+          16620.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_0",
+      "check": "persistent_id",
+      "expected": 78851,
+      "actual": 78851
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -55.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          55.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -55.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          55.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_1",
+      "check": "persistent_id",
+      "expected": 78852,
+      "actual": 78852
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_0_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -55.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          55.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          -55.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          55.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_0",
+      "check": "persistent_id",
+      "expected": 78871,
+      "actual": 78871
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          25055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          25055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_1",
+      "check": "persistent_id",
+      "expected": 78872,
+      "actual": 78872
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_10_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          25055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          24945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          25055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_0",
+      "check": "persistent_id",
+      "expected": 78873,
+      "actual": 78873
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          27445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          27555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          27445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          27555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_1",
+      "check": "persistent_id",
+      "expected": 78874,
+      "actual": 78874
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_11_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          27445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          27555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          27445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          27555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_0",
+      "check": "persistent_id",
+      "expected": 78875,
+      "actual": 78875
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          30055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          30055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_1",
+      "check": "persistent_id",
+      "expected": 78876,
+      "actual": 78876
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_12_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          30055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          29945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          30055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_0",
+      "check": "persistent_id",
+      "expected": 78877,
+      "actual": 78877
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          32445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          32555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          32445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          32555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_1",
+      "check": "persistent_id",
+      "expected": 78878,
+      "actual": 78878
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_13_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          32445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          32555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          32445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          32555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_0",
+      "check": "persistent_id",
+      "expected": 78879,
+      "actual": 78879
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          35055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          35055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_1",
+      "check": "persistent_id",
+      "expected": 78880,
+      "actual": 78880
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_14_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          35055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          34945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          35055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_0",
+      "check": "persistent_id",
+      "expected": 78881,
+      "actual": 78881
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          37445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          37555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          37445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          37555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_1",
+      "check": "persistent_id",
+      "expected": 78882,
+      "actual": 78882
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_15_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          37445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          37555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          37445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          37555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_0",
+      "check": "persistent_id",
+      "expected": 78883,
+      "actual": 78883
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          40055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          40055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_1",
+      "check": "persistent_id",
+      "expected": 78884,
+      "actual": 78884
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_16_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          40055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          39945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          40055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_0",
+      "check": "persistent_id",
+      "expected": 78885,
+      "actual": 78885
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          42445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          42555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          42445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          42555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_1",
+      "check": "persistent_id",
+      "expected": 78886,
+      "actual": 78886
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_17_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          42445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          42555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          42445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          42555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_0",
+      "check": "persistent_id",
+      "expected": 78887,
+      "actual": 78887
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          45055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          45055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_1",
+      "check": "persistent_id",
+      "expected": 78888,
+      "actual": 78888
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_18_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          45055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          44945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          45055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_0",
+      "check": "persistent_id",
+      "expected": 78889,
+      "actual": 78889
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          47445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          47555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          47445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          47555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_1",
+      "check": "persistent_id",
+      "expected": 78890,
+      "actual": 78890
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_19_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          47445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          47555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          47445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          47555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_0",
+      "check": "persistent_id",
+      "expected": 78853,
+      "actual": 78853
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          2555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          2445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          2555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_1",
+      "check": "persistent_id",
+      "expected": 78854,
+      "actual": 78854
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_1_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          2445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          2555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          2445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          2555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_0",
+      "check": "persistent_id",
+      "expected": 78891,
+      "actual": 78891
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          49945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          49945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_1",
+      "check": "persistent_id",
+      "expected": 78892,
+      "actual": 78892
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_20_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          49945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          49945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_0",
+      "check": "persistent_id",
+      "expected": 78855,
+      "actual": 78855
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          5055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          5055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_1",
+      "check": "persistent_id",
+      "expected": 78856,
+      "actual": 78856
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_2_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          5055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          4945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          5055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_0",
+      "check": "persistent_id",
+      "expected": 78857,
+      "actual": 78857
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          7445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          7555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          7445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          7555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_1",
+      "check": "persistent_id",
+      "expected": 78858,
+      "actual": 78858
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_3_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          7445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          7555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          7445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          7555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_0",
+      "check": "persistent_id",
+      "expected": 78859,
+      "actual": 78859
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          10055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          10055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_1",
+      "check": "persistent_id",
+      "expected": 78860,
+      "actual": 78860
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_4_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          10055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          9945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          10055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_0",
+      "check": "persistent_id",
+      "expected": 78861,
+      "actual": 78861
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          12445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          12555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          12445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          12555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_1",
+      "check": "persistent_id",
+      "expected": 78862,
+      "actual": 78862
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_5_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          12445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          12555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          12445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          12555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_0",
+      "check": "persistent_id",
+      "expected": 78863,
+      "actual": 78863
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          15055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          15055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_1",
+      "check": "persistent_id",
+      "expected": 78864,
+      "actual": 78864
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_6_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          15055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          14945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          15055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_0",
+      "check": "persistent_id",
+      "expected": 78865,
+      "actual": 78865
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          17445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          17555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          17445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          17555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_1",
+      "check": "persistent_id",
+      "expected": 78866,
+      "actual": 78866
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_7_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          17445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          17555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          17445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          17555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_0",
+      "check": "persistent_id",
+      "expected": 78867,
+      "actual": 78867
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          20055.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19945.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          20055.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_1",
+      "check": "persistent_id",
+      "expected": 78868,
+      "actual": 78868
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_8_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          20055.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          19945.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          20055.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_0",
+      "check": "persistent_id",
+      "expected": 78869,
+      "actual": 78869
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          22445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          22555.0,
+          55.0,
+          15527.0
+        ]
+      },
+      "actual": {
+        "min": [
+          22445.0,
+          -55.0,
+          10800.0
+        ],
+        "max": [
+          22555.0,
+          55.0,
+          15527.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_1",
+      "check": "persistent_id",
+      "expected": 78870,
+      "actual": 78870
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF_TIMBER/ROOF_SUPPORTS/TIMBER_POST_9_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          22445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          22555.0,
+          20055.0,
+          16530.2
+        ]
+      },
+      "actual": {
+        "min": [
+          22445.0,
+          19945.0,
+          10800.0
+        ],
+        "max": [
+          22555.0,
+          20055.0,
+          16530.2
+        ]
+      }
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "persistent_id",
+      "expected": 76256,
+      "actual": 76256
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      }
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "persistent_id",
+      "expected": 20615,
+      "actual": 20615
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "objects_total",
+      "expected": 75,
+      "actual": 75
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      }
+    }
+  ]
+}

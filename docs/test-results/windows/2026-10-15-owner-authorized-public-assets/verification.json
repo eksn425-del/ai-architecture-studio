@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "archive_crc": "PASS",
+  "indexed_object_sha256": "PASS",
+  "direct_file_sha256": "PASS",
+  "credential_scan": "PASS; actual credential values from local protected stores/environment plus key/token/header/JWT/account patterns; values never printed or exported",
+  "archive_entries": 603,
+  "indexed_paths": 1069,
+  "unique_objects": 603,
+  "direct_files": 162,
+  "source_images": 8,
+  "direct_skp_versions": 6,
+  "excluded_bytecode_files": 12,
+  "redacted_paths": 0,
+  "elapsed_ms": 50110,
+  "model_calls": 0,
+  "geometry_writes": 0,
+  "restore_roundtrip": "PASS: actual restore_evidence.py invocation into a new local directory; all 1069 restored paths SHA verified",
+  "public_asset_manifest": "PASS"
+}

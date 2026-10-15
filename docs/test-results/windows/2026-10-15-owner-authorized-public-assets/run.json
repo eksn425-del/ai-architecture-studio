@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-15-owner-authorized-public-assets",
+  "status": "PASS",
+  "geometry_committed": false,
+  "base_commit": "f10525f44bd99a2cef38365d83f5b491f68e170f",
+  "source_case": "Owner explicitly authorized publication of same eight original references/native SKP/full records for architecture-project-4f0e4; credentials remain excluded.",
+  "model": {
+    "actual": "NOT_RUN",
+    "reasoning_effort": null,
+    "runtime": "Local file export, credential scan, original/export SHA verification and ZIP integrity validation; no model inference"
+  },
+  "environment": {
+    "windows": "Windows local filesystem",
+    "sketchup": "2024 original files; no new native modeling",
+    "bridge": "NOT_RUN"
+  },
+  "qa": {
+    "reviewer_mode": "not_run",
+    "publication_integrity": "PASS",
+    "fidelity_status": "NOT_RUN",
+    "previous_source_fidelity": "FAIL unchanged"
+  },
+  "blockers": []
+}

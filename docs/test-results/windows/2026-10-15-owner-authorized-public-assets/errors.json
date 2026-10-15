@@ -1,0 +1,17 @@
+[
+  {
+    "stage": "first export",
+    "reason": "Mixed Windows legacy log encoding rejected by strict UTF8 decoder; added BOM/GB18030/Latin1 handling. Bytes retained unless actual auth redaction required.",
+    "resolved": true
+  },
+  {
+    "stage": "publication redactor refinement",
+    "reason": "Initial generic authorization-field redaction also removed benign owner permission receipt; narrowed to authentication headers/tokens and retained owner consent.",
+    "resolved": true
+  },
+  {
+    "stage": "canonical website r3 selection",
+    "reason": "Selected actual r3 download candidate by authentic save receipt SHA, rather than guessing revision from opaque checkpoint filename.",
+    "resolved": true
+  }
+]

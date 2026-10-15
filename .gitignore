@@ -39,3 +39,8 @@ uploads/
 # Runtime outputs unless explicitly curated
 screenshots_runtime/
 exports_runtime/
+
+# Owner explicitly authorized this one case's sources, SKP and scrubbed logs.
+# Keep all other runtime/private credentials and project cases ignored.
+!docs/test-assets/architecture-project-4f0e4/**/
+!docs/test-assets/architecture-project-4f0e4/**

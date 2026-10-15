@@ -1,5 +1,9 @@
 # CURRENT — K Studio Eight-Source Quality Recovery (2026-10-14)
 
+## 2026-10-15 owner authorized public source/model/full-record review
+
+Owner explicitly permits public upload of this same case's original eight reference images, native SKP files and full test records, retaining secrecy only for credentials/account/password/API/login-token material. The former private-asset upload restriction is superseded for this case, not for unrelated projects. [Public review entry, sources, models, plans and complete indexed archives](../test-assets/architecture-project-4f0e4/README.md). Originals remain untouched; public export preserves binary SHAs and records any text redaction. This publishes existing evidence only, with no new model call/write or change to PARTIAL/source-fidelity FAIL. Original CLI comparison and r4 restoration are completed as recorded below. Web reviewer can now directly inspect the actual sources and download SKP; review test-result verdicts alongside assets.
+
 ## 2026-10-15 actual restoration completed — original comparison closed out
 
 [New native/browser closeout evidence](test-results/windows/2026-10-15-r4-native-restoration-closeout/README.md): owner requested retry and complete restoration before commit. Real SU2024 foreground switch and verified native file dialog succeeded. Website original r4 reopened; full document geometry SHA b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10 equals preserved r4; saved SKP bytes unchanged. Actual path/root20606/live GUID match website session and Ruby state; no GUID rewrite needed. Existing ProjectRuby owned readback succeeds. Actual browser reconnect/check/connect succeeds with visible connected-to-this-session notification; post-browser deep capture still matches. No geometry writes, model inference, paid API or new case. The previous active-document restoration PENDING is RESOLVED; preserve historic failed attempts without treating them as active blockers.
