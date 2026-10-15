@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "dimensions_mm": {
+    "overall_width": 58000,
+    "overall_depth": 28000,
+    "level_height": 3600,
+    "floor_count": 4
+  },
+  "views": {
+    "front": {
+      "provenance": "observed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "坡道短端，右高左低；以此定义左右。"
+      ],
+      "notes": [
+        "不凭材料分缝增加楼层；玻璃、框架、栏杆和步行面分别保留。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "远端服务核和端梯见平面，无独立正立面。"
+      ],
+      "notes": [
+        "不凭材料分缝增加楼层；玻璃、框架、栏杆和步行面分别保留。"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "长边外廊可见，但照片所示长边与+Y侧对应仍待原生相机/地标核验。"
+      ],
+      "notes": [
+        "不凭材料分缝增加楼层；玻璃、框架、栏杆和步行面分别保留。"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "另一长边关系由平剖面约束，不能直接镜像所有细节。"
+      ],
+      "notes": [
+        "不凭材料分缝增加楼层；玻璃、框架、栏杆和步行面分别保留。"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "observed",
+    "type": "短跨中垂曲面，坡道端画面右高左低，沿长向延伸",
+    "parapet": "未见连续实心女儿墙的充分证据",
+    "divisions": [
+      "木色曲面顶棚/屋面",
+      "高低边支承与上部玻璃",
+      "外廊低位平檐，独立于主屋顶"
+    ],
+    "notes": [
+      "外廊平檐不可当作主屋顶。",
+      "屋顶边缘绝对高度和曲率待测；不根据旧高边参数名决定左右。"
+    ],
+    "approved_clearance_edit": {
+      "lift_mm_estimated": 1000,
+      "profile": "concave, unchanged unequal side endpoints",
+      "mutable_glass": "Only the roof-adjoining short-end upper edges and end-frame tops",
+      "other_glass": "KEEP"
+    }
+  },
+  "global_features": [
+    "长条柱梁框架",
+    "退进下部与外扩上部",
+    "玻璃缓冲层及格栅外环廊",
+    "四个使用标高，其中中间层局部铺板",
+    "室内圆洞、螺旋梯、端部楼梯"
+  ],
+  "user_confirmed": [
+    "先不修改模型，先用八张原图做平面和剖面方向确认。",
+    "用户指出从坡道端看屋顶右边更高；保留现有曲面，坡道及其他部分先不动。"
+  ],
+  "inferred": [
+    "dimensions_mm均为旧估值；4表示使用标高数，并非四层完整楼板。",
+    "拟定观察者位于坡道短端X<0，朝+X看；+Z向上，画面左为+Y（Y=20000），画面右为-Y（Y=0）。X沿长向；没有真实北向。原平面图左端对应草图下端，原图上边对应草图左边。此为源图与草图约定，当前模型变换未重新原生核验。"
+  ],
+  "approved_ramp_local_edit": {
+    "date": "2026-10-15",
+    "goal": "Correct ramp 1 and 3 ascent and connected platforms/guards only",
+    "source_observed": "All eight originals directly inspected; sheet 1 end and sheet 2 oblique show all three runs rising toward screen left (+Y)",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing sloping deck transforms and slender rail joints do not fit SAIE straight wall/opening; ADAI disabled",
+    "direction": "reflect runs 1/3 about Y=10000; keep run 2",
+    "connection": "existing west end gallery used as same-level return, connect north/south pads and open only corresponding local rail ends",
+    "inferred": "run 3 shifted -2200mm in X to avoid fixed gallery floor; exact return geometry not dimensioned",
+    "protected": "run 2 with rails, all gallery slabs and other rails, roof, glass, floors, frame, internal circulation and other groups"
+  },
+  "ramp_execution_r5": {
+    "revision": 5,
+    "root_pid": 20606,
+    "direction": "Ramps 1/3 corrected to +Y ascent; all three now share source end-view direction",
+    "scope": "Only ten allowed ramp/rail/landing subtrees; all gallery geometry protected",
+    "blocker": "Host refused local gallery gate scope. Platforms join decks, but existing guards obstruct return route",
+    "third_run": "X shifted outward 2200mm to avoid fixed gallery floor; exact source offset inferred",
+    "save_reopen": "NOT_AVAILABLE",
+    "completion": "PARTIAL_PENDING_GALLERY_GATE_SCOPE",
+    "review": "Current six canonical plus eight source camera pairs submitted"
+  }
+}

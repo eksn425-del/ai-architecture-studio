@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "multi_view_reconstruction",
+  "primary_source": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+  "sources": [
+    {
+      "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "原图1，全部面板直接对照",
+      "notes": [
+        "上：坡道短端外观，右屋顶边高于左边，中央下垂；三条坡道投影均向左上升。",
+        "下：实体模型同一短端，确认上述高低及坡道投影；外廊与内框架有深度。"
+      ],
+      "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "原图2，全部面板直接对照",
+      "notes": [
+        "上：场地轴测，长条平面、短跨下垂屋顶沿长向延伸；近短端有坡道。",
+        "下：坡道端与相邻长边模型斜视，验证外廊、平台及多层玻璃；透视不改变端部高低。"
+      ],
+      "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "原图3，全部面板直接对照",
+      "notes": [
+        "上：近地入口侧视，地面坡道接首个架空平台；此角度画面左右不能替代图1短端左右。",
+        "下：长边外廊底部，格栅、横梁、混凝土柱与内玻璃分离。"
+      ],
+      "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "kind": "interior_image",
+      "provenance": "observed",
+      "role": "原图4，全部面板直接对照",
+      "notes": [
+        "上：顶层木色曲面顶棚、圆洞护栏、帘幕；圆洞不等同于中间层大挑空。",
+        "下：双层高工作空间、螺旋梯、局部中间楼板及梁柱；确有跨层空间。"
+      ],
+      "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "kind": "floorplan_image",
+      "provenance": "observed",
+      "role": "原图5，全部面板直接对照",
+      "notes": [
+        "上：透视横剖，地面、完整下层、局部中间层、顶层；剖面左侧挑空、右侧中间楼板。其左右须经端部标志对齐。",
+        "下：底层平面；长条柱网、内部交通、远端楼梯与服务核；无可读尺寸。"
+      ],
+      "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "kind": "document",
+      "provenance": "observed",
+      "role": "原图6，全部面板直接对照",
+      "notes": [
+        "自上至下四幅：外钢架与玻璃缓冲区；木质加层与下垂屋顶；保留旧框架及局部楼板；旧构件再利用示意。文字是设计说明，不是实测或当前模型证明。"
+      ],
+      "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "kind": "floorplan_image",
+      "provenance": "observed",
+      "role": "原图7，全部面板直接对照",
+      "notes": [
+        "上：开放顶层平面，圆洞与外环廊。",
+        "中：近坡道端半部大挑空，另一侧及远端保留局部楼板，远端螺旋梯与服务核。",
+        "下：较完整下层平面、分隔房间与梯核。上/中/下暂对应L3/L2/L1，图中无清晰层名。"
+      ],
+      "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    },
+    {
+      "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "kind": "document",
+      "provenance": "observed",
+      "role": "原图8，全部面板直接对照",
+      "notes": [
+        "上：气候概念剖面，支持屋顶中垂、双层围护及大挑空；箭头非实体构件。",
+        "下：结构横剖，四个使用标高、局部中间楼板；右边屋顶较高。不能单凭此图断定真实方位。"
+      ],
+      "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+      "image_size_px": [
+        1080,
+        1441
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+      ],
+      "notes": [
+        "坡道短端，右高左低；以此定义左右。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+      ],
+      "notes": [
+        "远端服务核和端梯见平面，无独立正立面。"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+        "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+      ],
+      "notes": [
+        "长边外廊可见，但照片所示长边与+Y侧对应仍待原生相机/地标核验。"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "source_refs": [
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+        "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+      ],
+      "notes": [
+        "另一长边关系由平剖面约束，不能直接镜像所有细节。"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+        "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+        "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+      ],
+      "notes": [
+        "横跨下垂，边缘不等高；实际曲率、最低点位置未量测。"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+      ],
+      "notes": [
+        "相邻短长边及外廊深度可见。"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": true,
+    "provenance": "observed",
+    "source_refs": [
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+    ],
+    "levels": [
+      "L0：图5下，暂定",
+      "L1/L2局部/L3：图7下/中/上，暂定"
+    ],
+    "notes": [
+      "几何关系可见；层名、尺寸与精确端点不可读。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "无DWG或尺寸CAD。"
+    ]
+  },
+  "interior": {
+    "provided": true,
+    "provenance": "observed",
+    "source_refs": [
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+    ],
+    "spaces": [
+      "曲面顶层大厅",
+      "下层双层高工作空间",
+      "局部中间层",
+      "圆洞及螺旋梯"
+    ],
+    "notes": [
+      "挑空与圆洞分别表达，不能假定所有洞口都贯穿四层。"
+    ]
+  },
+  "scale_anchors": [],
+  "hard_constraints": [
+    "坡道端观察：屋顶右边高于左边，中央下垂，沿建筑长向延伸。",
+    "旧框架、上加木质空间、内外两层围护及深外廊分别表达。",
+    "L2为局部楼板，L1至L3之间保留大挑空；圆洞另行定位。",
+    "外坡道、转接平台、环廊和内楼梯不能互相替代。",
+    "本轮仅绘制草图与更新计划，不运行或修改SketchUp。"
+  ],
+  "assumptions": [
+    "拟定观察者位于坡道短端X<0，朝+X看；+Z向上，画面左为+Y（Y=20000），画面右为-Y（Y=0）。X沿长向；没有真实北向。原平面图左端对应草图下端，原图上边对应草图左边。此为源图与草图约定，当前模型变换未重新原生核验。",
+    "层号L0/L1/L2/L3是工作命名，暂对应图5下图及图7下/中/上图；没有可读原层名。",
+    "地面起点在坡道端画面右侧，各段向左上升；完整连续通路拟由环廊回到右侧下一段起点，未有连续路径图证实具体绕行边。",
+    "50×20m及0/3.6/7.2/10.8m仅保留旧估值，不是用户提供或图纸测量。",
+    "未重新核验模型根、深层变换、下载及重开几何；历史修正是否提交、保存前屋顶状态均不能据本轮证明。"
+  ],
+  "user_confirmed": [
+    "先不修改模型，先用八张原图做平面和剖面方向确认。",
+    "用户指出从坡道端看屋顶右边更高；保留现有曲面，坡道及其他部分先不动。"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  },
+  "review_status": {
+    "source_review": "eight_original_sheets_all_panels_compared",
+    "geometry_written": false,
+    "native_model_identity": "NOT_VERIFIED_THIS_TURN",
+    "native_save_reopen": "BLOCKED_NO_NATIVE_EVIDENCE",
+    "historic_pre_save_geometry": "BLOCKED_MISSING_EVIDENCE"
+  },
+  "sketch": "notes/direction_sketch.png",
+  "approved_ramp_local_edit": {
+    "date": "2026-10-15",
+    "goal": "Correct ramp 1 and 3 ascent and connected platforms/guards only",
+    "source_observed": "All eight originals directly inspected; sheet 1 end and sheet 2 oblique show all three runs rising toward screen left (+Y)",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing sloping deck transforms and slender rail joints do not fit SAIE straight wall/opening; ADAI disabled",
+    "direction": "reflect runs 1/3 about Y=10000; keep run 2",
+    "connection": "existing west end gallery used as same-level return, connect north/south pads and open only corresponding local rail ends",
+    "inferred": "run 3 shifted -2200mm in X to avoid fixed gallery floor; exact return geometry not dimensioned",
+    "protected": "run 2 with rails, all gallery slabs and other rails, roof, glass, floors, frame, internal circulation and other groups"
+  },
+  "ramp_execution_r5": {
+    "revision": 5,
+    "root_pid": 20606,
+    "direction": "Ramps 1/3 corrected to +Y ascent; all three now share source end-view direction",
+    "scope": "Only ten allowed ramp/rail/landing subtrees; all gallery geometry protected",
+    "blocker": "Host refused local gallery gate scope. Platforms join decks, but existing guards obstruct return route",
+    "third_run": "X shifted outward 2200mm to avoid fixed gallery floor; exact source offset inferred",
+    "save_reopen": "NOT_AVAILABLE",
+    "completion": "PARTIAL_PENDING_GALLERY_GATE_SCOPE",
+    "review": "Current six canonical plus eight source camera pairs submitted"
+  }
+}
