@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "files_scanned": 87,
+  "known_local_auth_and_generic_secret_scan": "PASS; no secret values printed or copied",
+  "auth_containers_excluded": true,
+  "gzip_uncompressed_sha_and_size": "PASS",
+  "three_deep_document_baselines": "PASS",
+  "six_current_revision_camera_sidecars": "PASS",
+  "eight_source_sha_and_order": "PASS",
+  "safe_skp_bytes": "PASS",
+  "technical_scope_regression": {
+    "command": "python -m pytest tests/test_audit_scoped_native_edit.py -q",
+    "result": "8 passed in 0.07s",
+    "native_model_quality_proven_by_unit_tests": false
+  }
+}

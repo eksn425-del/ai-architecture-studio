@@ -1,3 +1,15 @@
+# HANDOFF 2026-10-15 — real r4 diagnosis complete; no justified brace edit
+
+[Full public evidence](test-results/windows/2026-10-15-eight-source-r4-quality-diagnosis/README.md), including actual native captures, 22 screenshot exports, same whole eight-source links/SHAs, diagram, four-system matrix, immutable r4 SKP, raw independent review/factcheck and usage. Started from main 4c60bc4ce5b9aa1338eefdef806d00ded071ee69. Read CURRENT top for actual result; all older preparation/result sections remain history.
+
+Found 22 true 24×24mm rods under nested ENVELOPE_OUTER/TENSION_BRACING, not thick solid triangular braces. Gate B premise false; actual direct-root scope audit also BLOCKED. No geometry call, save, r5, scope widening, or alternate repair. Current root20606/r4 document b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10 and original/safe saved bytes c337d2bcc36922167da85be070463988bd9622b6c43bb402d2ce8d2151ec63db unchanged; all nested PIDs stable, 122 host paths read back, loose root/document faces/edges0. SU24.0.484 original bound model/GUID restored and actual website reconnect successful.
+
+RAMP1/3 rise opposite SOURCE01; RAMP2 direction matches. Existing platform contacts do not prove source circulation fidelity; full source return route unresolved. Solid external gallery plates conflict with source grating. Native large void exists; exact section/void registration unresolved, so no blanket floor flip. Visible interior V-rod/small-hole guard omissions retained with limitations. Independent fresh readOnly Sol6.1 Medium Critic initially gave wrong alternating-ramp description; neutral source-only eight-image factcheck corrected it, both raw records preserved. Combined input89,747/output1,957,239,031ms,tools0; no Builder or paid API; outer model unchanged.
+
+DIAGNOSIS PASS, SOURCE_FIDELITY FAIL/overall PARTIAL; protection PASS is **read-only no-change only**. Scoped edit/new delivery three-stage/strict blank replay/new-boundary website modeling NOT_RUN. Prior r4 native delivery PASS and all historic FAIL/BLOCKED remain. Next review should prioritize exact ramp/landing/return topology before one separately scoped repair, not thick-brace thinning or a whole rebuild. Any nested write first needs reliable path-level protection plus negative tests; current direct-scope comparator cannot authorize it. Ownership returns to web review after pushed evidence.
+
+---
+
 # HANDOFF 2026-10-15 — owner-approved next eight-source r4 quality sprint preparation (NOT a native test result)
 
 New authoritative [CodeF task](NEXT_EIGHT_SOURCE_R4_QUALITY_DIAGNOSIS_2026-10-15.md) + [empty NOT_RUN diagnosis template](EIGHT_SOURCE_R4_DIAGNOSIS_TEMPLATE_2026-10-15.json) + read-only `scripts/audit_scoped_native_edit.py` with eight synthetic positive/negative tests. Goal: fully source-matched read-only diagnosis (bracing, ramps, facade, interior void), and ONLY if bracing is proven a geometry defect and direct named root child, one protected natural-Chinese real-website r4 local edit with independent Critic and new three-stage native delivery. Unclear or nested target blocks write until a narrow path-level guard is separately tested. Previous r4 restoration/native delivery PASS, current whole-source fidelity FAIL/PARTIAL, original CLI A/B completed; strict blank replay NOT_RUN. No current SU2024 testing was run by this GitHub-only preparation; leave result NOT_RUN. Prior sections remain historical. Same eight-source owner publication exception excludes credentials and unrelated cases.
@@ -1552,4 +1564,3 @@ Native澄清50.968s、规划340.797s、Builder1371.125s；总1762.890s，130工�
 下一轮依据CURRENT_TASK顶部，改善当前图像主/附体量还原、独立Critic、Token计量和QA修正优先级。其他SU版本/桌面包同步未验收；不开展新产品或CAD等范围。
 
 ---
-

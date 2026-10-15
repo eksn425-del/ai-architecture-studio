@@ -1,0 +1,2900 @@
+{
+  "brace_path": [
+    "ENVELOPE_OUTER",
+    "TENSION_BRACING"
+  ],
+  "brace_pid": 44694,
+  "brace_geometry_finding": "22 separate 24x24mm rods; no filled triangular web face in this subtree. Source exact diameter unknown; prior thick-solid attribution contradicted by native geometry.",
+  "rods": [
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_0"
+      ],
+      "pid": 44696,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          0.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          0.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_0_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "END_MULLION_0_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_0"
+      ],
+      "pid": 44728,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          0.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          0.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_0_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "END_MULLION_0_10"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_1"
+      ],
+      "pid": 44760,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          5000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          5000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_2_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_1"
+      ],
+      "pid": 44792,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          5000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          5000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_2_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_2"
+      ],
+      "pid": 44824,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          10000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          10000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_4_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_2"
+      ],
+      "pid": 44856,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          10000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          10000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_4_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_3"
+      ],
+      "pid": 44888,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          15000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          15000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_6_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_3"
+      ],
+      "pid": 44920,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          15000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          15000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_6_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_4"
+      ],
+      "pid": 44952,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          20000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          20000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_8_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_4"
+      ],
+      "pid": 44984,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          20000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          20000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_8_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_5"
+      ],
+      "pid": 45016,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          25000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          25000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_10_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_5"
+      ],
+      "pid": 45048,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          25000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          25000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_10_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_6"
+      ],
+      "pid": 45080,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          30000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          30000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_12_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_6"
+      ],
+      "pid": 45112,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          30000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          30000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_12_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_7"
+      ],
+      "pid": 45144,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          35000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          35000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_14_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_7"
+      ],
+      "pid": 45176,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          35000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          35000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_14_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_8"
+      ],
+      "pid": 45208,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          40000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          40000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_16_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_8"
+      ],
+      "pid": 45240,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          40000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          40000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_16_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_9"
+      ],
+      "pid": 45272,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          45000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          45000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_18_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_9"
+      ],
+      "pid": 45304,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          45000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          45000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_18_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "SOUTH_CABLE_10"
+      ],
+      "pid": 45336,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 12554.282,
+      "endpoints_world_mm": [
+        [
+          50000.0,
+          24000.0,
+          3600.0
+        ],
+        [
+          50000.0,
+          20000.0,
+          15500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_20_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_0"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "END_MULLION_1_0"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        301302.771,
+        301302.771,
+        301302.771,
+        301302.771
+      ]
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING",
+        "NORTH_CABLE_10"
+      ],
+      "pid": 45368,
+      "section_mm": [
+        24,
+        24
+      ],
+      "long_edge_mm": 13505.925,
+      "endpoints_world_mm": [
+        [
+          50000.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          50000.0,
+          0.0,
+          16500.0
+        ]
+      ],
+      "roof_endpoint_contacts": [
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "TIMBER_POST_20_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "HIGH_EDGE_1"
+        ],
+        [
+          "ROOF_TIMBER",
+          "ROOF_SUPPORTS",
+          "END_MULLION_1_10"
+        ]
+      ],
+      "lower_endpoint_contacts": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ]
+      ],
+      "face_count": 6,
+      "face_areas_mm2": [
+        576,
+        576,
+        324142.191,
+        324142.191,
+        324142.191,
+        324142.191
+      ]
+    }
+  ],
+  "ramps": [
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_1"
+      ],
+      "pid": 78999,
+      "top_endpoints_world_mm": [
+        [
+          -7400.0,
+          24000.0,
+          0.0
+        ],
+        [
+          -7400.0,
+          -4000.0,
+          3600.0
+        ]
+      ],
+      "ascending_signed_y": "-Y",
+      "rise_mm": 3600.0,
+      "horizontal_run_mm": 28000.0,
+      "source_ramp_end_observation": "+Y up (screen-left) for all three visible flights, SOURCE01",
+      "direction_matches_source_projection": false,
+      "endpoint_landing_contacts": [
+        [
+          "LANDING_L0"
+        ],
+        [
+          "LANDING_L1"
+        ]
+      ]
+    },
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_2"
+      ],
+      "pid": 79027,
+      "top_endpoints_world_mm": [
+        [
+          -5200.0,
+          -4000.0,
+          3600.0
+        ],
+        [
+          -5200.0,
+          24000.0,
+          7200.0
+        ]
+      ],
+      "ascending_signed_y": "+Y",
+      "rise_mm": 3600.0,
+      "horizontal_run_mm": 28000.0,
+      "source_ramp_end_observation": "+Y up (screen-left) for all three visible flights, SOURCE01",
+      "direction_matches_source_projection": true,
+      "endpoint_landing_contacts": [
+        [
+          "LANDING_L1"
+        ],
+        [
+          "LANDING_L2"
+        ]
+      ]
+    },
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_3"
+      ],
+      "pid": 79055,
+      "top_endpoints_world_mm": [
+        [
+          -3000.0,
+          24000.0,
+          7200.0
+        ],
+        [
+          -3000.0,
+          -4000.0,
+          10800.0
+        ]
+      ],
+      "ascending_signed_y": "-Y",
+      "rise_mm": 3600.0,
+      "horizontal_run_mm": 28000.0,
+      "source_ramp_end_observation": "+Y up (screen-left) for all three visible flights, SOURCE01",
+      "direction_matches_source_projection": false,
+      "endpoint_landing_contacts": [
+        [
+          "LANDING_L2"
+        ],
+        [
+          "LANDING_L3"
+        ]
+      ]
+    }
+  ],
+  "floor_topology": [
+    {
+      "path": [
+        "FLOORS",
+        "L0"
+      ],
+      "pid": 76291,
+      "face_pid": 76310,
+      "z_mm": 0,
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              50000,
+              0,
+              0
+            ],
+            [
+              50000,
+              20000,
+              0
+            ],
+            [
+              0,
+              20000,
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L1"
+      ],
+      "pid": 76319,
+      "face_pid": 76530,
+      "z_mm": 3600,
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              0,
+              0,
+              3600
+            ],
+            [
+              50000,
+              0,
+              3600
+            ],
+            [
+              50000,
+              20000,
+              3600
+            ],
+            [
+              0,
+              20000,
+              3600
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              39280.323,
+              6800.21,
+              3600
+            ],
+            [
+              39300,
+              6500,
+              3600
+            ],
+            [
+              39280.323,
+              6199.79,
+              3600
+            ],
+            [
+              39221.629,
+              5904.716,
+              3600
+            ],
+            [
+              39124.923,
+              5619.828,
+              3600
+            ],
+            [
+              38991.858,
+              5350,
+              3600
+            ],
+            [
+              38824.713,
+              5099.849,
+              3600
+            ],
+            [
+              38626.346,
+              4873.654,
+              3600
+            ],
+            [
+              38400.151,
+              4675.287,
+              3600
+            ],
+            [
+              38150,
+              4508.142,
+              3600
+            ],
+            [
+              37880.172,
+              4375.077,
+              3600
+            ],
+            [
+              37595.284,
+              4278.371,
+              3600
+            ],
+            [
+              37300.21,
+              4219.677,
+              3600
+            ],
+            [
+              37000,
+              4200,
+              3600
+            ],
+            [
+              36699.79,
+              4219.677,
+              3600
+            ],
+            [
+              36404.716,
+              4278.371,
+              3600
+            ],
+            [
+              36119.828,
+              4375.077,
+              3600
+            ],
+            [
+              35850,
+              4508.142,
+              3600
+            ],
+            [
+              35599.849,
+              4675.287,
+              3600
+            ],
+            [
+              35373.654,
+              4873.654,
+              3600
+            ],
+            [
+              35175.287,
+              5099.849,
+              3600
+            ],
+            [
+              35008.142,
+              5350,
+              3600
+            ],
+            [
+              34875.077,
+              5619.828,
+              3600
+            ],
+            [
+              34778.371,
+              5904.716,
+              3600
+            ],
+            [
+              34719.677,
+              6199.79,
+              3600
+            ],
+            [
+              34700,
+              6500,
+              3600
+            ],
+            [
+              34719.677,
+              6800.21,
+              3600
+            ],
+            [
+              34778.371,
+              7095.284,
+              3600
+            ],
+            [
+              34875.077,
+              7380.172,
+              3600
+            ],
+            [
+              35008.142,
+              7650,
+              3600
+            ],
+            [
+              35175.287,
+              7900.151,
+              3600
+            ],
+            [
+              35373.654,
+              8126.346,
+              3600
+            ],
+            [
+              35599.849,
+              8324.713,
+              3600
+            ],
+            [
+              35850,
+              8491.858,
+              3600
+            ],
+            [
+              36119.828,
+              8624.923,
+              3600
+            ],
+            [
+              36404.716,
+              8721.629,
+              3600
+            ],
+            [
+              36699.79,
+              8780.323,
+              3600
+            ],
+            [
+              37000,
+              8800,
+              3600
+            ],
+            [
+              37300.21,
+              8780.323,
+              3600
+            ],
+            [
+              37595.284,
+              8721.629,
+              3600
+            ],
+            [
+              37880.172,
+              8624.923,
+              3600
+            ],
+            [
+              38150,
+              8491.858,
+              3600
+            ],
+            [
+              38400.151,
+              8324.713,
+              3600
+            ],
+            [
+              38626.346,
+              8126.346,
+              3600
+            ],
+            [
+              38824.713,
+              7900.151,
+              3600
+            ],
+            [
+              38991.858,
+              7650,
+              3600
+            ],
+            [
+              39124.923,
+              7380.172,
+              3600
+            ],
+            [
+              39221.629,
+              7095.284,
+              3600
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      "pid": 76635,
+      "face_pid": 76654,
+      "z_mm": 7200,
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              0,
+              11000,
+              7200
+            ],
+            [
+              50000,
+              11000,
+              7200
+            ],
+            [
+              50000,
+              20000,
+              7200
+            ],
+            [
+              0,
+              20000,
+              7200
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      "pid": 76663,
+      "face_pid": 76874,
+      "z_mm": 7200,
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              30000,
+              0,
+              7200
+            ],
+            [
+              50000,
+              0,
+              7200
+            ],
+            [
+              50000,
+              11000,
+              7200
+            ],
+            [
+              30000,
+              11000,
+              7200
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              39280.323,
+              6800.21,
+              7200
+            ],
+            [
+              39300,
+              6500,
+              7200
+            ],
+            [
+              39280.323,
+              6199.79,
+              7200
+            ],
+            [
+              39221.629,
+              5904.716,
+              7200
+            ],
+            [
+              39124.923,
+              5619.828,
+              7200
+            ],
+            [
+              38991.858,
+              5350,
+              7200
+            ],
+            [
+              38824.713,
+              5099.849,
+              7200
+            ],
+            [
+              38626.346,
+              4873.654,
+              7200
+            ],
+            [
+              38400.151,
+              4675.287,
+              7200
+            ],
+            [
+              38150,
+              4508.142,
+              7200
+            ],
+            [
+              37880.172,
+              4375.077,
+              7200
+            ],
+            [
+              37595.284,
+              4278.371,
+              7200
+            ],
+            [
+              37300.21,
+              4219.677,
+              7200
+            ],
+            [
+              37000,
+              4200,
+              7200
+            ],
+            [
+              36699.79,
+              4219.677,
+              7200
+            ],
+            [
+              36404.716,
+              4278.371,
+              7200
+            ],
+            [
+              36119.828,
+              4375.077,
+              7200
+            ],
+            [
+              35850,
+              4508.142,
+              7200
+            ],
+            [
+              35599.849,
+              4675.287,
+              7200
+            ],
+            [
+              35373.654,
+              4873.654,
+              7200
+            ],
+            [
+              35175.287,
+              5099.849,
+              7200
+            ],
+            [
+              35008.142,
+              5350,
+              7200
+            ],
+            [
+              34875.077,
+              5619.828,
+              7200
+            ],
+            [
+              34778.371,
+              5904.716,
+              7200
+            ],
+            [
+              34719.677,
+              6199.79,
+              7200
+            ],
+            [
+              34700,
+              6500,
+              7200
+            ],
+            [
+              34719.677,
+              6800.21,
+              7200
+            ],
+            [
+              34778.371,
+              7095.284,
+              7200
+            ],
+            [
+              34875.077,
+              7380.172,
+              7200
+            ],
+            [
+              35008.142,
+              7650,
+              7200
+            ],
+            [
+              35175.287,
+              7900.151,
+              7200
+            ],
+            [
+              35373.654,
+              8126.346,
+              7200
+            ],
+            [
+              35599.849,
+              8324.713,
+              7200
+            ],
+            [
+              35850,
+              8491.858,
+              7200
+            ],
+            [
+              36119.828,
+              8624.923,
+              7200
+            ],
+            [
+              36404.716,
+              8721.629,
+              7200
+            ],
+            [
+              36699.79,
+              8780.323,
+              7200
+            ],
+            [
+              37000,
+              8800,
+              7200
+            ],
+            [
+              37300.21,
+              8780.323,
+              7200
+            ],
+            [
+              37595.284,
+              8721.629,
+              7200
+            ],
+            [
+              37880.172,
+              8624.923,
+              7200
+            ],
+            [
+              38150,
+              8491.858,
+              7200
+            ],
+            [
+              38400.151,
+              8324.713,
+              7200
+            ],
+            [
+              38626.346,
+              8126.346,
+              7200
+            ],
+            [
+              38824.713,
+              7900.151,
+              7200
+            ],
+            [
+              38991.858,
+              7650,
+              7200
+            ],
+            [
+              39124.923,
+              7380.172,
+              7200
+            ],
+            [
+              39221.629,
+              7095.284,
+              7200
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L3"
+      ],
+      "pid": 76979,
+      "face_pid": 77574,
+      "z_mm": 10800,
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              0,
+              0,
+              10800
+            ],
+            [
+              50000,
+              0,
+              10800
+            ],
+            [
+              50000,
+              20000,
+              10800
+            ],
+            [
+              0,
+              20000,
+              10800
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              39280.323,
+              6800.21,
+              10800
+            ],
+            [
+              39300,
+              6500,
+              10800
+            ],
+            [
+              39280.323,
+              6199.79,
+              10800
+            ],
+            [
+              39221.629,
+              5904.716,
+              10800
+            ],
+            [
+              39124.923,
+              5619.828,
+              10800
+            ],
+            [
+              38991.858,
+              5350,
+              10800
+            ],
+            [
+              38824.713,
+              5099.849,
+              10800
+            ],
+            [
+              38626.346,
+              4873.654,
+              10800
+            ],
+            [
+              38400.151,
+              4675.287,
+              10800
+            ],
+            [
+              38150,
+              4508.142,
+              10800
+            ],
+            [
+              37880.172,
+              4375.077,
+              10800
+            ],
+            [
+              37595.284,
+              4278.371,
+              10800
+            ],
+            [
+              37300.21,
+              4219.677,
+              10800
+            ],
+            [
+              37000,
+              4200,
+              10800
+            ],
+            [
+              36699.79,
+              4219.677,
+              10800
+            ],
+            [
+              36404.716,
+              4278.371,
+              10800
+            ],
+            [
+              36119.828,
+              4375.077,
+              10800
+            ],
+            [
+              35850,
+              4508.142,
+              10800
+            ],
+            [
+              35599.849,
+              4675.287,
+              10800
+            ],
+            [
+              35373.654,
+              4873.654,
+              10800
+            ],
+            [
+              35175.287,
+              5099.849,
+              10800
+            ],
+            [
+              35008.142,
+              5350,
+              10800
+            ],
+            [
+              34875.077,
+              5619.828,
+              10800
+            ],
+            [
+              34778.371,
+              5904.716,
+              10800
+            ],
+            [
+              34719.677,
+              6199.79,
+              10800
+            ],
+            [
+              34700,
+              6500,
+              10800
+            ],
+            [
+              34719.677,
+              6800.21,
+              10800
+            ],
+            [
+              34778.371,
+              7095.284,
+              10800
+            ],
+            [
+              34875.077,
+              7380.172,
+              10800
+            ],
+            [
+              35008.142,
+              7650,
+              10800
+            ],
+            [
+              35175.287,
+              7900.151,
+              10800
+            ],
+            [
+              35373.654,
+              8126.346,
+              10800
+            ],
+            [
+              35599.849,
+              8324.713,
+              10800
+            ],
+            [
+              35850,
+              8491.858,
+              10800
+            ],
+            [
+              36119.828,
+              8624.923,
+              10800
+            ],
+            [
+              36404.716,
+              8721.629,
+              10800
+            ],
+            [
+              36699.79,
+              8780.323,
+              10800
+            ],
+            [
+              37000,
+              8800,
+              10800
+            ],
+            [
+              37300.21,
+              8780.323,
+              10800
+            ],
+            [
+              37595.284,
+              8721.629,
+              10800
+            ],
+            [
+              37880.172,
+              8624.923,
+              10800
+            ],
+            [
+              38150,
+              8491.858,
+              10800
+            ],
+            [
+              38400.151,
+              8324.713,
+              10800
+            ],
+            [
+              38626.346,
+              8126.346,
+              10800
+            ],
+            [
+              38824.713,
+              7900.151,
+              10800
+            ],
+            [
+              38991.858,
+              7650,
+              10800
+            ],
+            [
+              39124.923,
+              7380.172,
+              10800
+            ],
+            [
+              39221.629,
+              7095.284,
+              10800
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              13090.589,
+              10643.579,
+              10800
+            ],
+            [
+              13100,
+              10500,
+              10800
+            ],
+            [
+              13090.589,
+              10356.421,
+              10800
+            ],
+            [
+              13062.518,
+              10215.299,
+              10800
+            ],
+            [
+              13016.267,
+              10079.048,
+              10800
+            ],
+            [
+              12952.628,
+              9950,
+              10800
+            ],
+            [
+              12872.689,
+              9830.362,
+              10800
+            ],
+            [
+              12777.817,
+              9722.183,
+              10800
+            ],
+            [
+              12669.638,
+              9627.311,
+              10800
+            ],
+            [
+              12550,
+              9547.372,
+              10800
+            ],
+            [
+              12420.952,
+              9483.733,
+              10800
+            ],
+            [
+              12284.701,
+              9437.482,
+              10800
+            ],
+            [
+              12143.579,
+              9409.411,
+              10800
+            ],
+            [
+              12000,
+              9400,
+              10800
+            ],
+            [
+              11856.421,
+              9409.411,
+              10800
+            ],
+            [
+              11715.299,
+              9437.482,
+              10800
+            ],
+            [
+              11579.048,
+              9483.733,
+              10800
+            ],
+            [
+              11450,
+              9547.372,
+              10800
+            ],
+            [
+              11330.362,
+              9627.311,
+              10800
+            ],
+            [
+              11222.183,
+              9722.183,
+              10800
+            ],
+            [
+              11127.311,
+              9830.362,
+              10800
+            ],
+            [
+              11047.372,
+              9950,
+              10800
+            ],
+            [
+              10983.733,
+              10079.048,
+              10800
+            ],
+            [
+              10937.482,
+              10215.299,
+              10800
+            ],
+            [
+              10909.411,
+              10356.421,
+              10800
+            ],
+            [
+              10900,
+              10500,
+              10800
+            ],
+            [
+              10909.411,
+              10643.579,
+              10800
+            ],
+            [
+              10937.482,
+              10784.701,
+              10800
+            ],
+            [
+              10983.733,
+              10920.952,
+              10800
+            ],
+            [
+              11047.372,
+              11050,
+              10800
+            ],
+            [
+              11127.311,
+              11169.638,
+              10800
+            ],
+            [
+              11222.183,
+              11277.817,
+              10800
+            ],
+            [
+              11330.362,
+              11372.689,
+              10800
+            ],
+            [
+              11450,
+              11452.628,
+              10800
+            ],
+            [
+              11579.048,
+              11516.267,
+              10800
+            ],
+            [
+              11715.299,
+              11562.518,
+              10800
+            ],
+            [
+              11856.421,
+              11590.589,
+              10800
+            ],
+            [
+              12000,
+              11600,
+              10800
+            ],
+            [
+              12143.579,
+              11590.589,
+              10800
+            ],
+            [
+              12284.701,
+              11562.518,
+              10800
+            ],
+            [
+              12420.952,
+              11516.267,
+              10800
+            ],
+            [
+              12550,
+              11452.628,
+              10800
+            ],
+            [
+              12669.638,
+              11372.689,
+              10800
+            ],
+            [
+              12777.817,
+              11277.817,
+              10800
+            ],
+            [
+              12872.689,
+              11169.638,
+              10800
+            ],
+            [
+              12952.628,
+              11050,
+              10800
+            ],
+            [
+              13016.267,
+              10920.952,
+              10800
+            ],
+            [
+              13062.518,
+              10784.701,
+              10800
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              23590.589,
+              10643.579,
+              10800
+            ],
+            [
+              23600,
+              10500,
+              10800
+            ],
+            [
+              23590.589,
+              10356.421,
+              10800
+            ],
+            [
+              23562.518,
+              10215.299,
+              10800
+            ],
+            [
+              23516.267,
+              10079.048,
+              10800
+            ],
+            [
+              23452.628,
+              9950,
+              10800
+            ],
+            [
+              23372.689,
+              9830.362,
+              10800
+            ],
+            [
+              23277.817,
+              9722.183,
+              10800
+            ],
+            [
+              23169.638,
+              9627.311,
+              10800
+            ],
+            [
+              23050,
+              9547.372,
+              10800
+            ],
+            [
+              22920.952,
+              9483.733,
+              10800
+            ],
+            [
+              22784.701,
+              9437.482,
+              10800
+            ],
+            [
+              22643.579,
+              9409.411,
+              10800
+            ],
+            [
+              22500,
+              9400,
+              10800
+            ],
+            [
+              22356.421,
+              9409.411,
+              10800
+            ],
+            [
+              22215.299,
+              9437.482,
+              10800
+            ],
+            [
+              22079.048,
+              9483.733,
+              10800
+            ],
+            [
+              21950,
+              9547.372,
+              10800
+            ],
+            [
+              21830.362,
+              9627.311,
+              10800
+            ],
+            [
+              21722.183,
+              9722.183,
+              10800
+            ],
+            [
+              21627.311,
+              9830.362,
+              10800
+            ],
+            [
+              21547.372,
+              9950,
+              10800
+            ],
+            [
+              21483.733,
+              10079.048,
+              10800
+            ],
+            [
+              21437.482,
+              10215.299,
+              10800
+            ],
+            [
+              21409.411,
+              10356.421,
+              10800
+            ],
+            [
+              21400,
+              10500,
+              10800
+            ],
+            [
+              21409.411,
+              10643.579,
+              10800
+            ],
+            [
+              21437.482,
+              10784.701,
+              10800
+            ],
+            [
+              21483.733,
+              10920.952,
+              10800
+            ],
+            [
+              21547.372,
+              11050,
+              10800
+            ],
+            [
+              21627.311,
+              11169.638,
+              10800
+            ],
+            [
+              21722.183,
+              11277.817,
+              10800
+            ],
+            [
+              21830.362,
+              11372.689,
+              10800
+            ],
+            [
+              21950,
+              11452.628,
+              10800
+            ],
+            [
+              22079.048,
+              11516.267,
+              10800
+            ],
+            [
+              22215.299,
+              11562.518,
+              10800
+            ],
+            [
+              22356.421,
+              11590.589,
+              10800
+            ],
+            [
+              22500,
+              11600,
+              10800
+            ],
+            [
+              22643.579,
+              11590.589,
+              10800
+            ],
+            [
+              22784.701,
+              11562.518,
+              10800
+            ],
+            [
+              22920.952,
+              11516.267,
+              10800
+            ],
+            [
+              23050,
+              11452.628,
+              10800
+            ],
+            [
+              23169.638,
+              11372.689,
+              10800
+            ],
+            [
+              23277.817,
+              11277.817,
+              10800
+            ],
+            [
+              23372.689,
+              11169.638,
+              10800
+            ],
+            [
+              23452.628,
+              11050,
+              10800
+            ],
+            [
+              23516.267,
+              10920.952,
+              10800
+            ],
+            [
+              23562.518,
+              10784.701,
+              10800
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "L2_floor_probes": [
+    {
+      "xy_world_mm": [
+        10000,
+        16000
+      ],
+      "z_mm": 7200,
+      "native_floor_present": true,
+      "covering_paths": [
+        [
+          "FLOORS",
+          "L2_PARTIAL_SOUTH"
+        ]
+      ]
+    },
+    {
+      "xy_world_mm": [
+        10000,
+        5000
+      ],
+      "z_mm": 7200,
+      "native_floor_present": false,
+      "covering_paths": []
+    },
+    {
+      "xy_world_mm": [
+        35000,
+        5000
+      ],
+      "z_mm": 7200,
+      "native_floor_present": true,
+      "covering_paths": [
+        [
+          "FLOORS",
+          "L2_PARTIAL_EAST"
+        ]
+      ]
+    },
+    {
+      "xy_world_mm": [
+        37000,
+        6500
+      ],
+      "z_mm": 7200,
+      "native_floor_present": false,
+      "covering_paths": []
+    }
+  ],
+  "envelope_measurements": [
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0",
+        "MULLION"
+      ],
+      "pid": 41334,
+      "edge_lengths_mm": [
+        60,
+        6300
+      ],
+      "material": {
+        "name": "KS_White_Steel",
+        "rgba": [
+          236,
+          238,
+          234,
+          1
+        ]
+      },
+      "face_materials": [
+        {
+          "name": "KS_White_Steel",
+          "rgba": [
+            236,
+            238,
+            234,
+            1
+          ]
+        },
+        {
+          "name": "KS_White_Steel",
+          "rgba": [
+            236,
+            238,
+            234,
+            1
+          ]
+        },
+        {
+          "name": "KS_White_Steel",
+          "rgba": [
+            236,
+            238,
+            234,
+            1
+          ]
+        },
+        {
+          "name": "KS_White_Steel",
+          "rgba": [
+            236,
+            238,
+            234,
+            1
+          ]
+        },
+        {
+          "name": "KS_White_Steel",
+          "rgba": [
+            236,
+            238,
+            234,
+            1
+          ]
+        },
+        {
+          "name": "KS_White_Steel",
+          "rgba": [
+            236,
+            238,
+            234,
+            1
+          ]
+        }
+      ],
+      "solid_face_count": 6
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0",
+        "GLASS"
+      ],
+      "pid": 41323,
+      "edge_lengths_mm": [
+        2900,
+        6300
+      ],
+      "material": null,
+      "face_materials": [
+        {
+          "name": "KS_Clear_Glass",
+          "rgba": [
+            201,
+            223,
+            224,
+            0.13
+          ]
+        }
+      ],
+      "solid_face_count": 1
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_0"
+      ],
+      "pid": 42974,
+      "edge_lengths_mm": [
+        2500,
+        10800
+      ],
+      "material": null,
+      "face_materials": [
+        {
+          "name": "KS_Clear_Glass",
+          "rgba": [
+            201,
+            223,
+            224,
+            0.13
+          ]
+        }
+      ],
+      "solid_face_count": 1
+    }
+  ],
+  "coordinate_convention": {
+    "view": "Standing -X looking +X",
+    "screen_left": "+Y",
+    "screen_right": "-Y",
+    "up": "+Z"
+  },
+  "root_own_loose_geometry": {
+    "faces": [],
+    "edges": [],
+    "sha256": "a28faf6056254a2dec9bd1aca28a21d99ec6cc28dcf2985d95f6bae89317f51f"
+  },
+  "document_own_loose_geometry": {
+    "faces": [],
+    "edges": [],
+    "sha256": "a28faf6056254a2dec9bd1aca28a21d99ec6cc28dcf2985d95f6bae89317f51f"
+  },
+  "limitations": [
+    "Source dimensions/camera intrinsics unknown; native dimensions are measurements of estimated model, not source survey.",
+    "Native endpoint contact is geometric intersection/touch only, not structural-safety certification.",
+    "Source long-side gallery return route and concealed connections not fully established."
+  ]
+}

@@ -1,0 +1,5702 @@
+{
+  "read_only_model_unchanged": {
+    "schema_version": 1,
+    "status": "PASS",
+    "document_geometry_changed": false,
+    "root_geometry_changed": false,
+    "presentation_changed": false,
+    "deep_native_collector_both_stages": true,
+    "before_group_count": 27,
+    "replay_group_count": 27,
+    "missing_groups": [],
+    "added_groups": [],
+    "changed_groups": [],
+    "persistent_ids_ignored": true,
+    "equal_group_counts_do_not_prove_geometry_equality": true
+  },
+  "all_nested_pids_unchanged": true,
+  "host_owned_path_readback": {
+    "status": "PASS",
+    "paths_checked": 122,
+    "paths": [
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "CIRCULATION_INTERNAL"
+      ],
+      [
+        "ENVELOPE_OUTER"
+      ],
+      [
+        "FLOORS"
+      ],
+      [
+        "INTERIOR"
+      ],
+      [
+        "PARTITION_Z3600_B1"
+      ],
+      [
+        "PARTITION_Z3600_B2"
+      ],
+      [
+        "PARTITION_Z3600_B3"
+      ],
+      [
+        "PARTITION_Z3600_B4"
+      ],
+      [
+        "PARTITION_Z3600_B5"
+      ],
+      [
+        "PARTITION_Z3600_B6"
+      ],
+      [
+        "PARTITION_Z3600_B7"
+      ],
+      [
+        "PARTITION_Z3600_B8"
+      ],
+      [
+        "PARTITION_Z3600_B9"
+      ],
+      [
+        "PARTITION_Z7200_B1"
+      ],
+      [
+        "PARTITION_Z7200_B2"
+      ],
+      [
+        "PARTITION_Z7200_B3"
+      ],
+      [
+        "PARTITION_Z7200_B4"
+      ],
+      [
+        "PARTITION_Z7200_B5"
+      ],
+      [
+        "PARTITION_Z7200_B6"
+      ],
+      [
+        "PARTITION_Z7200_B7"
+      ],
+      [
+        "PARTITION_Z7200_B8"
+      ],
+      [
+        "PARTITION_Z7200_B9"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "ROOF_TIMBER"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_10"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_11"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_12"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_13"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_14"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_15"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_16"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_17"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_18"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_19"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_0_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_GLASS_1_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_0_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_MULLION_1_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_0_10800"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_0_12000"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_0_13500"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_0_7200"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_0_8250"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_0_9300"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_1_10800"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_1_12000"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_1_13500"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_1_7200"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_1_8250"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SHORT_TRANSOM_1_9300"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_10"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_11"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_12"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_13"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_14"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_15"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_16"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_17"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_18"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_19"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING"
+      ]
+    ],
+    "actual_snapshots": [
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL"
+        ],
+        "persistent_id": 28007,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -8517.5,
+            -6200,
+            -160
+          ],
+          "max": [
+            54017.5,
+            26200,
+            11915
+          ],
+          "size": [
+            62535,
+            32400,
+            12075
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GALLERIES",
+            "persistent_id": 28009,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -4017.5,
+                -4017.5,
+                3450
+              ],
+              "max": [
+                54017.5,
+                24017.5,
+                11915
+              ],
+              "size": [
+                58035,
+                28035,
+                8465
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "persistent_id": 45400,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            34682.5,
+            1000,
+            0
+          ],
+          "max": [
+            52700,
+            8817.5,
+            11916.9
+          ],
+          "size": [
+            18017.5,
+            7817.5,
+            11916.9
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 201,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "SPIRAL_L0_L1",
+            "persistent_id": 45402,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34882,
+                4382,
+                70
+              ],
+              "max": [
+                39118,
+                8618,
+                4716.9
+              ],
+              "size": [
+                4235.9,
+                4235.9,
+                4646.9
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER"
+        ],
+        "persistent_id": 41319,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4030,
+            0
+          ],
+          "max": [
+            54030,
+            24030,
+            16503.6
+          ],
+          "size": [
+            58060,
+            28060,
+            16503.6
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 95,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "SOUTH_BAY_00",
+            "persistent_id": 41557,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -4030,
+                -4030,
+                7175
+              ],
+              "max": [
+                -1100,
+                -3970,
+                13525
+              ],
+              "size": [
+                2930,
+                60,
+                6350
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "FLOORS"
+        ],
+        "persistent_id": 76290,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            -250
+          ],
+          "max": [
+            50000,
+            20000,
+            10800
+          ],
+          "size": [
+            50000,
+            20000,
+            11050
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 5,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "L0",
+            "persistent_id": 76291,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                -250
+              ],
+              "max": [
+                50000,
+                20000,
+                0
+              ],
+              "size": [
+                50000,
+                20000,
+                250
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR"
+        ],
+        "persistent_id": 79083,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            5000,
+            4000,
+            0
+          ],
+          "max": [
+            50000,
+            20000,
+            11585
+          ],
+          "size": [
+            45000,
+            16000,
+            11585
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 3,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GREEN_PANEL_SOUTH",
+            "persistent_id": 79085,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                30000,
+                19850,
+                7200
+              ],
+              "max": [
+                34900,
+                20000,
+                10300
+              ],
+              "size": [
+                4900,
+                150,
+                3100
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B1"
+        ],
+        "persistent_id": 75036,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            4940,
+            12000,
+            3600
+          ],
+          "max": [
+            5060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B2"
+        ],
+        "persistent_id": 75068,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            9940,
+            12000,
+            3600
+          ],
+          "max": [
+            10060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B3"
+        ],
+        "persistent_id": 75100,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            14940,
+            12000,
+            3600
+          ],
+          "max": [
+            15060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B4"
+        ],
+        "persistent_id": 75132,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            19940,
+            12000,
+            3600
+          ],
+          "max": [
+            20060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B5"
+        ],
+        "persistent_id": 75164,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            24940,
+            12000,
+            3600
+          ],
+          "max": [
+            25060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B6"
+        ],
+        "persistent_id": 75196,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            29940,
+            12000,
+            3600
+          ],
+          "max": [
+            30060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B7"
+        ],
+        "persistent_id": 75228,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            34940,
+            12000,
+            3600
+          ],
+          "max": [
+            35060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B8"
+        ],
+        "persistent_id": 75260,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            39940,
+            12000,
+            3600
+          ],
+          "max": [
+            40060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z3600_B9"
+        ],
+        "persistent_id": 75292,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            44940,
+            12000,
+            3600
+          ],
+          "max": [
+            45060,
+            20000,
+            6700
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B1"
+        ],
+        "persistent_id": 75324,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            4940,
+            12000,
+            7200
+          ],
+          "max": [
+            5060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B2"
+        ],
+        "persistent_id": 75356,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            9940,
+            12000,
+            7200
+          ],
+          "max": [
+            10060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B3"
+        ],
+        "persistent_id": 75388,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            14940,
+            12000,
+            7200
+          ],
+          "max": [
+            15060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B4"
+        ],
+        "persistent_id": 75420,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            19940,
+            12000,
+            7200
+          ],
+          "max": [
+            20060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B5"
+        ],
+        "persistent_id": 75452,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            24940,
+            12000,
+            7200
+          ],
+          "max": [
+            25060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B6"
+        ],
+        "persistent_id": 75484,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            29940,
+            12000,
+            7200
+          ],
+          "max": [
+            30060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B7"
+        ],
+        "persistent_id": 75516,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            34940,
+            12000,
+            7200
+          ],
+          "max": [
+            35060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B8"
+        ],
+        "persistent_id": 75548,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            39940,
+            12000,
+            7200
+          ],
+          "max": [
+            40060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "PARTITION_Z7200_B9"
+        ],
+        "persistent_id": 75580,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            44940,
+            12000,
+            7200
+          ],
+          "max": [
+            45060,
+            20000,
+            10300
+          ],
+          "size": [
+            120,
+            8000,
+            3100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "RAMPS"
+        ],
+        "persistent_id": 78998,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -8500,
+            -4000,
+            -160
+          ],
+          "max": [
+            -1900,
+            24000,
+            10800
+          ],
+          "size": [
+            6600,
+            28000,
+            10960
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 3,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "RAMP_1",
+            "persistent_id": 78999,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8500,
+                -4000,
+                -160
+              ],
+              "max": [
+                -6300,
+                24000,
+                3600
+              ],
+              "size": [
+                2200,
+                28000,
+                3760
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ROOF_TIMBER"
+        ],
+        "persistent_id": 77872,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -55,
+            -90,
+            10800
+          ],
+          "max": [
+            50055,
+            20090,
+            16710.2
+          ],
+          "size": [
+            50110,
+            20180,
+            5910.2
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 2,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "CURVED_SHELL",
+            "persistent_id": 77873,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                14776.3
+              ],
+              "max": [
+                50000,
+                20000,
+                16710.2
+              ],
+              "size": [
+                50000,
+                20000,
+                1933.9
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "SITE_GROUND"
+        ],
+        "persistent_id": 76256,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            -280
+          ],
+          "size": [
+            71000,
+            42000,
+            220
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 1,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": [
+          {
+            "name": "ADJACENT_GROUND",
+            "persistent_id": 76258,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -12000,
+                -9000,
+                -500
+              ],
+              "max": [
+                59000,
+                33000,
+                -280
+              ],
+              "size": [
+                71000,
+                42000,
+                220
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "STRUCTURE_EXISTING"
+        ],
+        "persistent_id": 20615,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -180,
+            -180,
+            0
+          ],
+          "max": [
+            50180,
+            20180,
+            10800
+          ],
+          "size": [
+            50360,
+            20360,
+            10800
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 75,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "COLUMN_X00_Y00",
+            "persistent_id": 20648,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -180,
+                -180,
+                0
+              ],
+              "max": [
+                180,
+                180,
+                10800
+              ],
+              "size": [
+                360,
+                360,
+                10800
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "BUFFER_CANOPIES"
+        ],
+        "persistent_id": 42842,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            -4000,
+            13400
+          ],
+          "max": [
+            54000,
+            24000,
+            13500
+          ],
+          "size": [
+            58000,
+            28000,
+            100
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 4,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "CANOPY_0",
+            "persistent_id": 42844,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -4000,
+                -4000,
+                13400
+              ],
+              "max": [
+                54000,
+                0,
+                13500
+              ],
+              "size": [
+                58000,
+                4000,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "INNER_GLAZING"
+        ],
+        "persistent_id": 42972,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -30,
+            -30,
+            0
+          ],
+          "max": [
+            50000,
+            20030,
+            10800
+          ],
+          "size": [
+            50030,
+            20060,
+            10800
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 80,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "INNER_GLASS_0_0",
+            "persistent_id": 42974,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                0
+              ],
+              "max": [
+                2500,
+                0,
+                10800
+              ],
+              "size": [
+                2500,
+                0,
+                10800
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_0"
+        ],
+        "persistent_id": 41577,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            23970,
+            7175
+          ],
+          "max": [
+            -1100,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_1"
+        ],
+        "persistent_id": 41578,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -1130,
+            23970,
+            7175
+          ],
+          "max": [
+            1800,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_10"
+        ],
+        "persistent_id": 41587,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            24970,
+            23970,
+            7175
+          ],
+          "max": [
+            27900,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_11"
+        ],
+        "persistent_id": 41588,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            27870,
+            23970,
+            7175
+          ],
+          "max": [
+            30800,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_12"
+        ],
+        "persistent_id": 41589,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            30770,
+            23970,
+            7175
+          ],
+          "max": [
+            33700,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_13"
+        ],
+        "persistent_id": 41590,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            33670,
+            23970,
+            7175
+          ],
+          "max": [
+            36600,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_14"
+        ],
+        "persistent_id": 41591,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            36570,
+            23970,
+            7175
+          ],
+          "max": [
+            39500,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_15"
+        ],
+        "persistent_id": 41592,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            39470,
+            23970,
+            7175
+          ],
+          "max": [
+            42400,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_16"
+        ],
+        "persistent_id": 41593,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            42370,
+            23970,
+            7175
+          ],
+          "max": [
+            45300,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_17"
+        ],
+        "persistent_id": 41594,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            45270,
+            23970,
+            7175
+          ],
+          "max": [
+            48200,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_18"
+        ],
+        "persistent_id": 41595,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            48170,
+            23970,
+            7175
+          ],
+          "max": [
+            51100,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_19"
+        ],
+        "persistent_id": 41596,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            51070,
+            23970,
+            7175
+          ],
+          "max": [
+            54000,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_2"
+        ],
+        "persistent_id": 41579,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            1770,
+            23970,
+            7175
+          ],
+          "max": [
+            4700,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_3"
+        ],
+        "persistent_id": 41580,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            4670,
+            23970,
+            7175
+          ],
+          "max": [
+            7600,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_4"
+        ],
+        "persistent_id": 41581,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            7570,
+            23970,
+            7175
+          ],
+          "max": [
+            10500,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_5"
+        ],
+        "persistent_id": 41582,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            10470,
+            23970,
+            7175
+          ],
+          "max": [
+            13400,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_6"
+        ],
+        "persistent_id": 41583,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            13370,
+            23970,
+            7175
+          ],
+          "max": [
+            16300,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_7"
+        ],
+        "persistent_id": 41584,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            16270,
+            23970,
+            7175
+          ],
+          "max": [
+            19200,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_8"
+        ],
+        "persistent_id": 41585,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            19170,
+            23970,
+            7175
+          ],
+          "max": [
+            22100,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_9"
+        ],
+        "persistent_id": 41586,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            22070,
+            23970,
+            7175
+          ],
+          "max": [
+            25000,
+            24030,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_0"
+        ],
+        "persistent_id": 41598,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            -4000,
+            7200
+          ],
+          "max": [
+            -4000,
+            -1200,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_1"
+        ],
+        "persistent_id": 41641,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            -1200,
+            7200
+          ],
+          "max": [
+            -4000,
+            1600,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_2"
+        ],
+        "persistent_id": 41684,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            1600,
+            7200
+          ],
+          "max": [
+            -4000,
+            4400,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_3"
+        ],
+        "persistent_id": 41727,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            4400,
+            7200
+          ],
+          "max": [
+            -4000,
+            7200,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_4"
+        ],
+        "persistent_id": 41770,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            7200,
+            7200
+          ],
+          "max": [
+            -4000,
+            10000,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_5"
+        ],
+        "persistent_id": 41813,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            10000,
+            7200
+          ],
+          "max": [
+            -4000,
+            12800,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_6"
+        ],
+        "persistent_id": 41856,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            12800,
+            7200
+          ],
+          "max": [
+            -4000,
+            15600,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_7"
+        ],
+        "persistent_id": 41899,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            15600,
+            7200
+          ],
+          "max": [
+            -4000,
+            18400,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_8"
+        ],
+        "persistent_id": 41942,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            18400,
+            7200
+          ],
+          "max": [
+            -4000,
+            21200,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_0_9"
+        ],
+        "persistent_id": 41985,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4000,
+            21200,
+            7200
+          ],
+          "max": [
+            -4000,
+            24000,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_0"
+        ],
+        "persistent_id": 42220,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            -4000,
+            7200
+          ],
+          "max": [
+            54000,
+            -1200,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_1"
+        ],
+        "persistent_id": 42263,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            -1200,
+            7200
+          ],
+          "max": [
+            54000,
+            1600,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_2"
+        ],
+        "persistent_id": 42306,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            1600,
+            7200
+          ],
+          "max": [
+            54000,
+            4400,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_3"
+        ],
+        "persistent_id": 42349,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            4400,
+            7200
+          ],
+          "max": [
+            54000,
+            7200,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_4"
+        ],
+        "persistent_id": 42392,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            7200,
+            7200
+          ],
+          "max": [
+            54000,
+            10000,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_5"
+        ],
+        "persistent_id": 42435,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            10000,
+            7200
+          ],
+          "max": [
+            54000,
+            12800,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_6"
+        ],
+        "persistent_id": 42478,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            12800,
+            7200
+          ],
+          "max": [
+            54000,
+            15600,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_7"
+        ],
+        "persistent_id": 42521,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            15600,
+            7200
+          ],
+          "max": [
+            54000,
+            18400,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_8"
+        ],
+        "persistent_id": 42564,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            18400,
+            7200
+          ],
+          "max": [
+            54000,
+            21200,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_GLASS_1_9"
+        ],
+        "persistent_id": 42607,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            54000,
+            21200,
+            7200
+          ],
+          "max": [
+            54000,
+            24000,
+            13500
+          ],
+          "size": [
+            0,
+            2800,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_0"
+        ],
+        "persistent_id": 41609,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4030,
+            7200
+          ],
+          "max": [
+            -3970,
+            -3970,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_1"
+        ],
+        "persistent_id": 41652,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -1230,
+            7200
+          ],
+          "max": [
+            -3970,
+            -1170,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_2"
+        ],
+        "persistent_id": 41695,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            1570,
+            7200
+          ],
+          "max": [
+            -3970,
+            1630,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_3"
+        ],
+        "persistent_id": 41738,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            4370,
+            7200
+          ],
+          "max": [
+            -3970,
+            4430,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_4"
+        ],
+        "persistent_id": 41781,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            7170,
+            7200
+          ],
+          "max": [
+            -3970,
+            7230,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_5"
+        ],
+        "persistent_id": 41824,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            9970,
+            7200
+          ],
+          "max": [
+            -3970,
+            10030,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_6"
+        ],
+        "persistent_id": 41867,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            12770,
+            7200
+          ],
+          "max": [
+            -3970,
+            12830,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_7"
+        ],
+        "persistent_id": 41910,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            15570,
+            7200
+          ],
+          "max": [
+            -3970,
+            15630,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_8"
+        ],
+        "persistent_id": 41953,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            18370,
+            7200
+          ],
+          "max": [
+            -3970,
+            18430,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_0_9"
+        ],
+        "persistent_id": 41996,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            21170,
+            7200
+          ],
+          "max": [
+            -3970,
+            21230,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_0"
+        ],
+        "persistent_id": 42231,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4030,
+            7200
+          ],
+          "max": [
+            54030,
+            -3970,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_1"
+        ],
+        "persistent_id": 42274,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -1230,
+            7200
+          ],
+          "max": [
+            54030,
+            -1170,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_2"
+        ],
+        "persistent_id": 42317,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            1570,
+            7200
+          ],
+          "max": [
+            54030,
+            1630,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_3"
+        ],
+        "persistent_id": 42360,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            4370,
+            7200
+          ],
+          "max": [
+            54030,
+            4430,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_4"
+        ],
+        "persistent_id": 42403,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            7170,
+            7200
+          ],
+          "max": [
+            54030,
+            7230,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_5"
+        ],
+        "persistent_id": 42446,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            9970,
+            7200
+          ],
+          "max": [
+            54030,
+            10030,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_6"
+        ],
+        "persistent_id": 42489,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            12770,
+            7200
+          ],
+          "max": [
+            54030,
+            12830,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_7"
+        ],
+        "persistent_id": 42532,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            15570,
+            7200
+          ],
+          "max": [
+            54030,
+            15630,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_8"
+        ],
+        "persistent_id": 42575,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            18370,
+            7200
+          ],
+          "max": [
+            54030,
+            18430,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_MULLION_1_9"
+        ],
+        "persistent_id": 42618,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            21170,
+            7200
+          ],
+          "max": [
+            54030,
+            21230,
+            13500
+          ],
+          "size": [
+            60,
+            60,
+            6300
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_0_10800"
+        ],
+        "persistent_id": 42124,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4000,
+            10770
+          ],
+          "max": [
+            -3970,
+            24000,
+            10830
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_0_12000"
+        ],
+        "persistent_id": 42156,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4000,
+            11970
+          ],
+          "max": [
+            -3970,
+            24000,
+            12030
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_0_13500"
+        ],
+        "persistent_id": 42188,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4000,
+            13470
+          ],
+          "max": [
+            -3970,
+            24000,
+            13530
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_0_7200"
+        ],
+        "persistent_id": 42028,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4000,
+            7170
+          ],
+          "max": [
+            -3970,
+            24000,
+            7230
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_0_8250"
+        ],
+        "persistent_id": 42060,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4000,
+            8220
+          ],
+          "max": [
+            -3970,
+            24000,
+            8280
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_0_9300"
+        ],
+        "persistent_id": 42092,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4000,
+            9270
+          ],
+          "max": [
+            -3970,
+            24000,
+            9330
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_1_10800"
+        ],
+        "persistent_id": 42746,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4000,
+            10770
+          ],
+          "max": [
+            54030,
+            24000,
+            10830
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_1_12000"
+        ],
+        "persistent_id": 42778,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4000,
+            11970
+          ],
+          "max": [
+            54030,
+            24000,
+            12030
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_1_13500"
+        ],
+        "persistent_id": 42810,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4000,
+            13470
+          ],
+          "max": [
+            54030,
+            24000,
+            13530
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_1_7200"
+        ],
+        "persistent_id": 42650,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4000,
+            7170
+          ],
+          "max": [
+            54030,
+            24000,
+            7230
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_1_8250"
+        ],
+        "persistent_id": 42682,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4000,
+            8220
+          ],
+          "max": [
+            54030,
+            24000,
+            8280
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SHORT_TRANSOM_1_9300"
+        ],
+        "persistent_id": 42714,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            53970,
+            -4000,
+            9270
+          ],
+          "max": [
+            54030,
+            24000,
+            9330
+          ],
+          "size": [
+            60,
+            28000,
+            60
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 0,
+        "offset": 0,
+        "next_offset": null,
+        "truncated": false,
+        "objects": []
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ],
+        "persistent_id": 41557,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4030,
+            7175
+          ],
+          "max": [
+            -1100,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_1"
+        ],
+        "persistent_id": 41558,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -1130,
+            -4030,
+            7175
+          ],
+          "max": [
+            1800,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_10"
+        ],
+        "persistent_id": 41567,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            24970,
+            -4030,
+            7175
+          ],
+          "max": [
+            27900,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_11"
+        ],
+        "persistent_id": 41568,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            27870,
+            -4030,
+            7175
+          ],
+          "max": [
+            30800,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_12"
+        ],
+        "persistent_id": 41569,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            30770,
+            -4030,
+            7175
+          ],
+          "max": [
+            33700,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_13"
+        ],
+        "persistent_id": 41570,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            33670,
+            -4030,
+            7175
+          ],
+          "max": [
+            36600,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_14"
+        ],
+        "persistent_id": 41571,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            36570,
+            -4030,
+            7175
+          ],
+          "max": [
+            39500,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_15"
+        ],
+        "persistent_id": 41572,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            39470,
+            -4030,
+            7175
+          ],
+          "max": [
+            42400,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_16"
+        ],
+        "persistent_id": 41573,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            42370,
+            -4030,
+            7175
+          ],
+          "max": [
+            45300,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_17"
+        ],
+        "persistent_id": 41574,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            45270,
+            -4030,
+            7175
+          ],
+          "max": [
+            48200,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_18"
+        ],
+        "persistent_id": 41575,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            48170,
+            -4030,
+            7175
+          ],
+          "max": [
+            51100,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_19"
+        ],
+        "persistent_id": 41576,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            51070,
+            -4030,
+            7175
+          ],
+          "max": [
+            54000,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_2"
+        ],
+        "persistent_id": 41559,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            1770,
+            -4030,
+            7175
+          ],
+          "max": [
+            4700,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_3"
+        ],
+        "persistent_id": 41560,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            4670,
+            -4030,
+            7175
+          ],
+          "max": [
+            7600,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_4"
+        ],
+        "persistent_id": 41561,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            7570,
+            -4030,
+            7175
+          ],
+          "max": [
+            10500,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_5"
+        ],
+        "persistent_id": 41562,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            10470,
+            -4030,
+            7175
+          ],
+          "max": [
+            13400,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_6"
+        ],
+        "persistent_id": 41563,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            13370,
+            -4030,
+            7175
+          ],
+          "max": [
+            16300,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_7"
+        ],
+        "persistent_id": 41564,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            16270,
+            -4030,
+            7175
+          ],
+          "max": [
+            19200,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_8"
+        ],
+        "persistent_id": 41565,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            19170,
+            -4030,
+            7175
+          ],
+          "max": [
+            22100,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_9"
+        ],
+        "persistent_id": 41566,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            22070,
+            -4030,
+            7175
+          ],
+          "max": [
+            25000,
+            -3970,
+            13525
+          ],
+          "size": [
+            2930,
+            60,
+            6350
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 8,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "GLASS",
+            "persistent_id": 41323,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                7200
+              ],
+              "max": [
+                2900,
+                0,
+                13500
+              ],
+              "size": [
+                2900,
+                0,
+                6300
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "TENSION_BRACING"
+        ],
+        "persistent_id": 44694,
+        "locked": false,
+        "bounds_units": "mm",
+        "bounds_frame": "parent-local",
+        "bounds_mm": {
+          "min": [
+            -12,
+            -4011.5,
+            3596.2
+          ],
+          "max": [
+            50012,
+            24011.4,
+            16503.6
+          ],
+          "size": [
+            50024,
+            28022.8,
+            12907.4
+          ]
+        },
+        "object_bounds_frame": "selected-group-local",
+        "objects_total": 22,
+        "offset": 0,
+        "next_offset": 1,
+        "truncated": true,
+        "objects": [
+          {
+            "name": "SOUTH_CABLE_0",
+            "persistent_id": 44696,
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -12,
+                -4011.4,
+                3596.2
+              ],
+              "max": [
+                12,
+                11.4,
+                15503.8
+              ],
+              "size": [
+                24,
+                4022.7,
+                11907.6
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "scope": "Existing ProjectRuby batch inspection PID/path/objects/bounds readback, NOT a new precommit KEEP transaction test"
+  },
+  "direct_scope_audit": {
+    "schema_version": 1,
+    "status": "BLOCKED",
+    "direct_scope_proven": false,
+    "visual_source_fidelity": "NOT_ASSESSED",
+    "native_delivery": "NOT_ASSESSED",
+    "strict_blank_replay": "NOT_ASSESSED",
+    "allowed_direct_group": "TENSION_BRACING",
+    "failures": [
+      "Target not unambiguously named DIRECT root child; diagnose hierarchy before writing"
+    ]
+  },
+  "original_r4_file_bytes_unchanged": true,
+  "root_loose_entities_from_actual_geometry_collector": {
+    "faces": 0,
+    "edges": 0,
+    "sha256": "a28faf6056254a2dec9bd1aca28a21d99ec6cc28dcf2985d95f6bae89317f51f"
+  },
+  "geometry_writes": 0
+}

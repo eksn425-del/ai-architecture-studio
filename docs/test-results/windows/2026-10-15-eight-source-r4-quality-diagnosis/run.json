@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-15-eight-source-r4-quality-diagnosis",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "architecture-project-4f0e4 original eight whole images, same website r4",
+  "base_commit": "4c60bc4ce5b9aa1338eefdef806d00ded071ee69",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server",
+    "role": "two independent fresh read-only reviews, no Builder turn",
+    "identity_evidence": [
+      "review/critique.json",
+      "review/source-ramp-factcheck.json"
+    ]
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "guid": "e28c67a2-edd5-4af0-bcbd-b434ffa5a2d5",
+    "controller_model": "unchanged",
+    "website": "http://127.0.0.1:8787",
+    "native_local_token_tool_caps": 0
+  },
+  "qa": {
+    "DIAGNOSIS": "PASS",
+    "SOURCE_FIDELITY": "FAIL",
+    "SCOPED_EDIT": "NOT_RUN",
+    "PROTECTED_GEOMETRY": "PASS",
+    "DELIVERY_3_STAGE": "NOT_RUN",
+    "STRICT_BLANK_REPLAY": "NOT_RUN",
+    "WEBSITE_POST_PATCH": "NOT_RUN"
+  },
+  "missing_images_reason": null,
+  "scope_audit": "BLOCKED nested target",
+  "website_reconnect": "PASS; no modeling message sent",
+  "paid_api_calls": 0,
+  "new_geometry_revision": null
+}

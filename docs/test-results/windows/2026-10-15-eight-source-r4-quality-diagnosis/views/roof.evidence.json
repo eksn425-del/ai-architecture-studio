@@ -1,0 +1,80 @@
+{
+  "path": "outputs/renders/diagnosis-r4-canonical-close-roof-20261015.png",
+  "width": 1500,
+  "height": 950,
+  "quality_status": "not_accepted",
+  "model_revisions": {
+    "glass_curved_roof": 4
+  },
+  "camera_contract_version": 1,
+  "canonical_view": "roof",
+  "canonical_script_id": "glass_curved_roof",
+  "camera": {
+    "eye_m": [
+      23.5,
+      12.0,
+      187.11020000000002
+    ],
+    "target_m": [
+      23.5,
+      12.0,
+      8.1051
+    ],
+    "up_m": [
+      0.0,
+      1.0,
+      0.0
+    ]
+  },
+  "focus_bounds_mm": {
+    "min": [
+      -12000,
+      -9000,
+      -500
+    ],
+    "max": [
+      59000,
+      33000,
+      16710.2
+    ],
+    "size": [
+      71000,
+      42000,
+      17210.2
+    ]
+  },
+  "camera_fov_degrees": 15,
+  "measured_camera": {
+    "operation_id": "40289967-22b7-4276-a430-8f753cc284f3",
+    "script_path": "C:/ProgramData/archflow-mcp/generated_scripts/studio-camera-only-fov-1792035183129884100.rb",
+    "result": {
+      "fov": 15,
+      "eye": [
+        23.5,
+        12,
+        187.11020000000002
+      ],
+      "target": [
+        23.5,
+        12,
+        8.1051
+      ]
+    },
+    "entity_count": 1,
+    "model_bounds_m": {
+      "min": [
+        -12,
+        -9,
+        -0.5
+      ],
+      "max": [
+        59,
+        33,
+        16.710191
+      ]
+    }
+  },
+  "native_model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-r4-quality-diagnosis-20261015.skp",
+  "native_model_guid": "e28c67a2-edd5-4af0-bcbd-b434ffa5a2d5",
+  "note": "Same deterministic eye/target/up, narrower FOV for readable QA. Camera-only; original wide shots retained."
+}

@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "baseline_revision": "website-r4",
+  "baseline_document_geometry_sha256": "b3fb8fbde6ae874a78570201b78dbd635072b9204ca9881c8972d189bfd14e10",
+  "source_order_and_sha_status": "PASS",
+  "native_identity_and_deep_capture_status": "PASS",
+  "diagnosis_status": "PASS",
+  "systems": [
+    {
+      "name": "TENSION_BRACING",
+      "status": "MATCH",
+      "source_image_ids": [
+        1,
+        2,
+        5,
+        6,
+        8
+      ],
+      "source_feature": "细拉杆/拉索；源图未测绘精确索径",
+      "matched_r4_screenshot": [
+        "matched/brace-close.png",
+        "matched/brace-connection.png",
+        "matched/source01-ramp-end.png"
+      ],
+      "native_path_pid_world_and_section": {
+        "path": [
+          "ENVELOPE_OUTER",
+          "TENSION_BRACING"
+        ],
+        "parent_pid": 41319,
+        "pid": 44694,
+        "children": 22,
+        "each_faces": 6,
+        "each_edges": 12,
+        "end_section_mm": [
+          24,
+          24
+        ],
+        "long_edges_mm": [
+          12554.282,
+          13505.925
+        ],
+        "end_contacts": 22
+      },
+      "observed_vs_estimated_vs_unknown": "24mm是模型实测，不是源图尺寸。22根上端与HIGH_EDGE梁、下端与L1外廊几何接触；不是结构安全认可。",
+      "verified_cause": "原先厚三角实体判断不成立；当前为细杆，投影/边线叠合可造成误读(PRESENTATION_ONLY)。精确索径及节点仍UNRESOLVED。",
+      "repair_scope_candidate": null
+    },
+    {
+      "name": "RAMPS_LANDINGS",
+      "status": "CONFIRMED_GEOMETRY_MISMATCH",
+      "source_image_ids": [
+        1,
+        2,
+        3
+      ],
+      "source_feature": "源图01同一端景、屋顶右高时，三段均向画面左上升",
+      "matched_r4_screenshot": [
+        "matched/source01-ramp-end.png",
+        "matched/ramp-junction.png"
+      ],
+      "native_path_pid_world_and_section": {
+        "path": [
+          "RAMPS"
+        ],
+        "pid": 78998,
+        "ramp_pids": [
+          78999,
+          79027,
+          79055
+        ],
+        "ascending_world_y_sign": [
+          -1,
+          1,
+          -1
+        ],
+        "rise_mm": 3600,
+        "run_mm": 28000,
+        "width_mm": 2200,
+        "thickness_mm": 160
+      },
+      "observed_vs_estimated_vs_unknown": "从-X看+X，画面左=+Y。RAMP1/3向右上升，与源图01相反；RAMP2方向吻合。现有平台局部接触成立；源图完整绕行长边返回路线仍未知。",
+      "verified_cause": "实际高低端/坐标方向不符，不是相机内参造成；不能据此翻整栋或盲目反转全部坡道。",
+      "repair_scope_candidate": "下一次独立单缺陷任务：先核清返回廊道，再限定坡道与必要转接平台；本轮不执行"
+    },
+    {
+      "name": "ENVELOPE_LIGHT_FRAMES",
+      "status": "PRESENTATION_ONLY",
+      "source_image_ids": [
+        1,
+        2,
+        3,
+        6
+      ],
+      "source_feature": "双层轻质框架/玻璃；源图03下幅另有透空外廊楼面",
+      "matched_r4_screenshot": [
+        "matched/source02-oblique.png",
+        "matched/source03-gallery.png"
+      ],
+      "native_path_pid_world_and_section": {
+        "path": [
+          "ENVELOPE_OUTER"
+        ],
+        "pid": 41319,
+        "mullion_short_edges_mm": 60,
+        "glass_rgba": [
+          201,
+          223,
+          224,
+          0.13
+        ],
+        "steel_rgba": [
+          236,
+          238,
+          234,
+          1
+        ]
+      },
+      "observed_vs_estimated_vs_unknown": "粗粒度双层关系MATCH；黑线密集不证明框料过厚，源图精确尺寸未知。另一个实际差异：CIRCULATION_EXTERNAL/GALLERIES现为6面实心外廊板，源图03可透光格栅，此项CONFIRMED_GEOMETRY_MISMATCH，不能误归给拉索或室内楼板。",
+      "verified_cause": "显示/投影密度与实际外廊板构造问题分开；未变更原生显示设置。",
+      "repair_scope_candidate": null
+    },
+    {
+      "name": "FLOORS_INTERIOR_VOIDS",
+      "status": "UNRESOLVED",
+      "source_image_ids": [
+        4,
+        5,
+        7,
+        8
+      ],
+      "source_feature": "中间局部板、大挑空、室内V杆/圆洞围栏",
+      "matched_r4_screenshot": [
+        "matched/source04-double-height.png",
+        "matched/source04-upper-interior.png",
+        "matched/floor-plan.png"
+      ],
+      "native_path_pid_world_and_section": {
+        "path": [
+          "FLOORS"
+        ],
+        "pid": 76290,
+        "l2_pids": [
+          76635,
+          76663
+        ],
+        "top_levels_mm": [
+          0,
+          3600,
+          7200,
+          10800
+        ],
+        "l2_south_solid_xy_mm": [
+          0,
+          50000,
+          11000,
+          20000
+        ],
+        "l2_east_xy_mm": [
+          30000,
+          50000,
+          0,
+          11000
+        ],
+        "l2_large_void_xy_mm": [
+          0,
+          30000,
+          0,
+          11000
+        ]
+      },
+      "observed_vs_estimated_vs_unknown": "原生确有挑空，不能说整层被封。源图剖面切位/完整平面注册未定，不能直接把左右差异升级为整板翻转结论。独立Critic发现对应视图缺室内V杆及小圆洞网栏，保留为局部可视缺项；详细全构件注册未完成。",
+      "verified_cause": "已实测板面与洞口；精确源图对应仍UNRESOLVED。",
+      "repair_scope_candidate": null
+    }
+  ],
+  "gate_b_decision": "NOT_RUN",
+  "gate_b_reason": "厚斜撑前提不成立；实际目标还嵌套在ENVELOPE_OUTER下，直系作用域审计真实BLOCKED。未扩大范围/重命名/移出组，也未自动改修坡道。",
+  "separate_verdicts": {
+    "DIAGNOSIS": "PASS",
+    "SOURCE_FIDELITY": "FAIL",
+    "SCOPED_EDIT": "NOT_RUN",
+    "PROTECTED_GEOMETRY": "PASS",
+    "DELIVERY_3_STAGE": "NOT_RUN",
+    "STRICT_BLANK_REPLAY": "NOT_RUN",
+    "WEBSITE_POST_PATCH": "NOT_RUN"
+  },
+  "limitations": [
+    "PROTECTED_GEOMETRY PASS仅指本轮只读前后完全不变，不是新写入KEEP验收",
+    "三阶段交付仅历史r4 PASS，本轮无新写入/新下载三阶段验收",
+    "严格空白重放和新instruction-root下的网站建模未测试",
+    "所谓源图同机位是按地标人工匹配方向，未知内参/镜头，不能宣称像素级相机标定"
+  ]
+}

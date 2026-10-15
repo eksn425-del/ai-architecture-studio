@@ -44,3 +44,6 @@ exports_runtime/
 # Keep all other runtime/private credentials and project cases ignored.
 !docs/test-assets/architecture-project-4f0e4/**/
 !docs/test-assets/architecture-project-4f0e4/**
+
+# Same owner-authorized case: immutable r4 diagnostic safety copy only.
+!docs/test-results/windows/2026-10-15-eight-source-r4-quality-diagnosis/model/r4-safe-copy.skp

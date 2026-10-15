@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,sys
+ROOT=Path.cwd();sys.path.insert(0,str(ROOT))
+from app.native_agent import CodexAppServerRuntime,_agent_workspace
+D=ROOT/'runtime/quality-diagnosis-20261015';P=ROOT/'runtime/projects/architecture-project-4f0e4';rows=json.loads((D/'backup-and-sources.json').read_text(encoding='utf-8'))['source_images'];images=[P/'inputs/reference'/r['filename'] for r in rows]
+prompt='独立只读图像方向事实核对。图片1到8就是原上传顺序的八张完整原图。只回答原图事实，不写代码、不调用工具，不判断当前模型。不要默认三段坡道同向，也不要默认交替。以图片1上半效果图为主，下半实体模型、图片2斜视和图片3入口为交叉证据；屋顶右高作为对应端部的方向地标。逐条按地面起由低到高列出三个可见坡道：画面左端更高/右端更高/无法确定，以及在图片1上半图上大致两个端点的像素(x,y)，原图1080x1441；如果被遮挡或无法区分平台/坡道就明确UNRESOLVED，不能补想象的绕行路线。请说明是否有可见平台或环廊返回，但不要据此猜哪条长边。直接用简明中文答复，保留证据与不确定性，不参考任何之前审查结论。'
+runtime=CodexAppServerRuntime(ROOT/'runtime',model='gpt-6.1-sol',reasoning_effort='medium',timeout_seconds=900,home_root=D/'critic-home');workspace=_agent_workspace(P);runtime._prepare_home(mcp_enabled=False,model='gpt-6.1-sol',reasoning_effort='medium',agent_workspace=workspace)
+r=runtime._run_turn(project_dir=P,agent_workspace=workspace,thread_id=None,prompt=prompt,mcp_enabled=False,developer_instructions='Fresh independent source-image fact check. ReadOnly; no tools, commands, files or geometry writes.',dynamic_tools=[],tool_handler=lambda *_:{'success':False},model='gpt-6.1-sol',reasoning_effort='medium',reference_images=images,workflow_mode='image_reconstruction',tool_profile='reconstruction_coding',read_only=True)
+receipt={'reply':r.reply,'model':r.model_name,'reasoning_effort':r.reasoning_effort,'input_tokens':r.input_tokens,'output_tokens':r.output_tokens,'latency_ms':r.latency_ms,'tool_call_count':r.tool_call_count,'failed_tool_calls':r.failed_tool_calls,'writer_tools':[],'fresh_context':True,'purpose':'Resolve contradictory ramp direction descriptions using original sources only, no proposed model verdict supplied','source_order':rows}
+(D/'source-ramp-factcheck.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps({k:v for k,v in receipt.items() if k not in ['reply','source_order']},ensure_ascii=False))
