@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "failures": [],
+  "visual_quality": "NOT_ASSESSED",
+  "native_delivery": "NOT_ASSESSED",
+  "protected_snapshot_equal": true,
+  "before_protected_sha256": "f884010258a27a2b7e655e0ae10c1a86bec6f56f7480ed677b2161f8c3cb2feb",
+  "after_protected_sha256": "f884010258a27a2b7e655e0ae10c1a86bec6f56f7480ed677b2161f8c3cb2feb",
+  "before_guid": "e28c67a2-edd5-4af0-bcbd-b434ffa5a2d5",
+  "after_guid": "c6bc1e14-55f1-404a-adf3-036354f37320",
+  "guid_transition_verified": true,
+  "revision": 5,
+  "guid_identity_verification": "native_owned_identity_readback_after_autosave_or_save",
+  "allowed_paths": [
+    [
+      "RAMPS",
+      "RAMP_1"
+    ],
+    [
+      "RAMPS",
+      "RAMP_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ]
+  ],
+  "root_pid": 20606
+}

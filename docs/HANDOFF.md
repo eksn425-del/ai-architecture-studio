@@ -1,3 +1,15 @@
+# ACTIVE execution — customer-readiness goal, first real r5 milestone (2026-10-15)
+
+Owner explicitly asks Codex to lead ALL work/tests until deliverable, superseding old bracing-only stop. [Execution plan](NEXT_CUSTOMER_READY_SAME_CASE_2026-10-15.md), [actual firstr5 evidence](test-results/windows/2026-10-15-customer-readiness-r5-circulation/README.md). Goal remains ACTIVE; this pushed intermediate evidence is not completion or a handoff of implementation ownership. Avoid overlapping main edits while native execution continues.
+
+Same eight-source project/root20606; immutable originalr4 and whole project backed up; verified same-project working clone. Real site Sol6.1 Medium ordinary Chinese corrected RAMP1/3 directions and platforms/rails once to r5, RAMP2/other systems protected. Actual source-model result PARTIAL/whole-source FAIL. Original erase_entities and broad-scope attempts rejected; real native authorization rejection aborted before source eval. Exact ten-path precommit/KEEP and independent masked native geometry/PID/material/loose snapshot PASS. Model GUID drift verified against native path/root/project/revision; original BLOCKED comparison preserved, no blind GUID bypass.
+
+Real browser r5 download + controlled native save/bound reopen/download reopen deep consistency PASS; original r4 bytes unchanged. This does not supply evidence before the earlier automatic save, nor prove appearance. Native rays show receiving rails and upper glass still block level access. Phase2 currently opens only five receiving strips with30 exact leaf targets,185 distant posts protected; no whole-gallery allowance. Then address source-supported local glazing openings and remaining defects under separate scope. First Builder1,002,797ms,91tools/5failed,6,664,107input/19,554output; independent Critic separate, paidAPI0. Cost/latency is still unsuitable and must improve; native caps remain0, history retained.
+
+Strict replay, actual partial-mutation rollback probe, independent Sol API/live managed service and clean customer-local setup remain pending. Never mark customer-ready from CI/native consistency. Keep credentials secret; owner publication exception covers this case only.
+
+---
+
 # HANDOFF 2026-10-15 — actual protection code repaired; r4 remains immutable
 
 [New follow-up evidence](test-results/windows/2026-10-15-r4-path-protection-followup/README.md) complements [complete original eight-source diagnosis](test-results/windows/2026-10-15-eight-source-r4-quality-diagnosis/README.md). Latest repeated owner runbook retains bracing-only conditional write/no substitute target. Thin-brace geometry is MATCH, so no Builder, geometry commit, r5, model save or new delivery/replay. Actual original r4/root20606/GUID/document b3fb8fbd... and saved bytes c337d2bc... unchanged; original website real reload/reconnect succeeds.

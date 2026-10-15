@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "revision": 5,
+  "scope": "Native delivery consistency only; whole-source and circulation use still PARTIAL/FAIL",
+  "website_edit_and_automatic_save": "real site request and r5 committed checkpoint",
+  "browser_download": "C:/Users/[REDACTED_USER]\\Downloads\\agent-checkpoint-700e6c420f74.skp",
+  "download_sha256": "ad5927c9f626a0ce6b77e3cf23e7ee93618ac67a00f00cc488f37818b51f7f76",
+  "controlled_followup_save": "Host native diagnostic save after genuine website checkpoint; live snapshot precedes this controlled save, not the earlier automatic save",
+  "audit": {
+    "schema_version": 1,
+    "status": "PASS",
+    "native_delivery_proven": true,
+    "first_failing_transition": null,
+    "failed_transitions": [],
+    "transitions": [
+      {
+        "transition": "before_save_to_bound_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "bound_reopen_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "before_save_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      }
+    ],
+    "limitations": [
+      "PASS applies only to the three actual read-only native fingerprints supplied.",
+      "No claim about new images, user edit/save/reopen, strict blank replay, or visual source fidelity."
+    ]
+  },
+  "original_r4_unchanged": true,
+  "root_pid": 20606,
+  "bound_restored": true,
+  "final_identity": {
+    "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+    "model_name": "blank-disposable-customer-readiness-r4-20261015",
+    "model_guid": "f44ac284-5dc1-4d55-88f8-8c656b68c846",
+    "active_context": false,
+    "main_thread": true
+  }
+}

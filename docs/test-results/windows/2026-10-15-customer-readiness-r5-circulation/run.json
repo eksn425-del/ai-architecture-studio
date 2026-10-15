@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-15-customer-readiness-r5-circulation",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "architecture-project-4f0e4 same original eight whole references, website r4->r5",
+  "base_commit": "4a62f0ea75dad787a5324a60f845c517851fcdf0",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server",
+    "identity": "Actual thread_model_identity reported model/effort; full raw event stored"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 4,
+    "after_revision": 5,
+    "outer_controller": "unchanged",
+    "native_caps": 0
+  },
+  "qa": {
+    "source_fidelity": "FAIL",
+    "local_edit": "PARTIAL; directions corrected, full receiving route obstructed",
+    "protected_geometry": "PASS with exact precommit KEEP plus independent native masked snapshots",
+    "native_delivery": "PASS after genuine browser download and controlled diagnostic native save/reopens",
+    "strict_blank_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY"
+  },
+  "new_case": false,
+  "paid_api_calls": 0
+}

@@ -37,3 +37,21 @@ end
   raise 'Invalid or broad overlapping scope accepted'
 end
 puts 'deep exact-path guard contract: positive + 12 negative cases PASS'
+
+policy = {'status' => 'active', 'model_path' => 'same.skp', 'root_pid' => 20606, 'allowed_paths' => paths}
+KStudioPathScopeGuard.validate_authorization!(policy, [paths[0]], 'same.skp', 20606)
+[
+  [policy, [['RAMPS']], 'same.skp', 20606],
+  [policy, [['RAMPS', 'RAMP_2']], 'same.skp', 20606],
+  [policy.merge('status' => 'closed'), paths, 'same.skp', 20606],
+  [policy, paths, 'other.skp', 20606],
+  [policy, paths, 'same.skp', 999]
+].each do |args|
+  begin
+    KStudioPathScopeGuard.validate_authorization!(*args)
+  rescue RuntimeError
+    next
+  end
+  raise 'Host authorization boundary escaped'
+end
+puts 'host-approved exact path scope: positive + 5 negatives PASS'

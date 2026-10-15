@@ -51,6 +51,14 @@ module KStudioPathScopeGuard
   def capture(root, paths)
     paths!(paths)
     model = root.model
+    # Optional HOST-owned per-project authorization. A Builder declaration must
+    # not enlarge an approved nested scope to its ancestor. Absent policy keeps
+    # existing projects' explicit-path behavior unchanged.
+    policy_file = File.join(File.dirname(File.dirname(File.dirname(model.path))), 'runtime', 'active_edit_scope.json')
+    if File.file?(policy_file)
+      policy = JSON.parse(File.read(policy_file, encoding: 'UTF-8'))
+      validate_authorization!(policy, paths, model.path, root.persistent_id)
+    end
     raise 'Exit edit context before path scope capture' unless model.active_path.nil?
     c = KStudioNativeDeepFingerprint
     groups = model.entities.select { |e| e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance) }
@@ -60,6 +68,17 @@ module KStudioPathScopeGuard
     external = groups.reject { |e| e == root }.map { |e| c.inspect_instance(e, Geom::Transformation.new, [], 0, {count: 0}) }.sort_by { |n| n[:pid] }
     {paths: paths, masked_root: masked, document_loose_sha: c.sha(loose), external: external,
      presentation_sha: c.sha(c.presentation(model)), model_path: model.path, model_guid: model.guid}
+  end
+
+  def validate_authorization!(policy, declared, model_path, root_pid)
+    approved = policy['allowed_paths']
+    paths!(approved)
+    raise 'Host edit authorization is inactive' unless policy['status'] == 'active'
+    raise 'Host edit authorization identity mismatch' unless policy['root_pid'] == root_pid &&
+      File.expand_path(policy['model_path']) == File.expand_path(model_path)
+    raise 'Declared scope exceeds exact HOST-approved paths; do not widen to an ancestor' unless
+      declared.all? { |path| approved.include?(path) }
+    true
   end
 
   def compare!(before, after, paths)

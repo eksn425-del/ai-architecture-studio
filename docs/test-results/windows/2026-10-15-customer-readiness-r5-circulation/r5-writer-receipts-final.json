@@ -1,0 +1,182 @@
+{
+  "model_guid": "e28c67a2-edd5-4af0-bcbd-b434ffa5a2d5",
+  "revision": 5,
+  "root_pid": 20606,
+  "source_sha256": "3f143f6ba3160ba068a6fe124c613975c055ddc9c117c3b4f49204cbf8efa259",
+  "last_report": "runtime/scripts/reports/glass_curved_roof-r5-78043395.json",
+  "last_screenshot": "outputs/renders/ruby-glass_curved_roof-r5.png",
+  "last_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 5,
+        "actual": 5
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000.0,
+            -9000.0,
+            -500.0
+          ],
+          "max": [
+            59000.0,
+            33000.0,
+            16710.2
+          ],
+          "size": [
+            71000.0,
+            42000.0,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "last_verification_report": "runtime/scripts/reports/glass_curved_roof-r5-78043395.verification.json",
+  "last_precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "ENVELOPE_OUTER",
+      "CIRCULATION_INTERNAL",
+      "SITE_GROUND",
+      "FLOORS",
+      "ROOF_TIMBER",
+      "INTERIOR",
+      "PARTITION_Z3600_B1",
+      "PARTITION_Z3600_B2",
+      "PARTITION_Z3600_B3",
+      "PARTITION_Z3600_B4",
+      "PARTITION_Z3600_B5",
+      "PARTITION_Z3600_B6",
+      "PARTITION_Z3600_B7",
+      "PARTITION_Z3600_B8",
+      "PARTITION_Z3600_B9",
+      "PARTITION_Z7200_B1",
+      "PARTITION_Z7200_B2",
+      "PARTITION_Z7200_B3",
+      "PARTITION_Z7200_B4",
+      "PARTITION_Z7200_B5",
+      "PARTITION_Z7200_B6",
+      "PARTITION_Z7200_B7",
+      "PARTITION_Z7200_B8",
+      "PARTITION_Z7200_B9",
+      "RAMPS/RAMP_2",
+      "CIRCULATION_EXTERNAL/RAMP_2_OUTER",
+      "CIRCULATION_EXTERNAL/RAMP_2_INNER",
+      "CIRCULATION_EXTERNAL/GALLERIES"
+    ]
+  },
+  "last_oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "3f143f6ba3160ba068a6fe124c613975c055ddc9c117c3b4f49204cbf8efa259",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 5,
+    "root_pid": 20606
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v1",
+    "allowed_paths": [
+      [
+        "RAMPS",
+        "RAMP_1"
+      ],
+      [
+        "RAMPS",
+        "RAMP_3"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L3"
+      ]
+    ],
+    "allowed_top_level": [
+      "RAMPS",
+      "CIRCULATION_EXTERNAL"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "last_strategy_progress": null,
+  "last_oss_method_adoption": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {},
+    "any_oss_product_use": false,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": []
+  }
+}

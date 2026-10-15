@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1002797,
+  "tool_call_count": 91,
+  "failed_tool_calls": 5,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "input_tokens": 6664107,
+  "output_tokens": 19554,
+  "token_source": "Actual App Server Builder turn delta, not billing amount; excludes independent Critic and outer controller. Project cumulative history preserved; no caps reset.",
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 243531,
+    "input_tokens": 59442,
+    "output_tokens": 811,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "critic_event_files": [
+    "5a4173a0b3734b638b1546efa0400ca3.jsonl",
+    "7b4569de99b14c74886a8b516bfecfe2.jsonl"
+  ],
+  "outer_tokens": null,
+  "paid_api_calls": 0
+}
