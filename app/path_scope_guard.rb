@@ -2,6 +2,7 @@
 # Host-only precommit fence. Reuses the native deep geometry collector, masking
 # ONLY exact declared subtree paths; ancestor geometry and siblings stay fixed.
 require_relative 'native_deep_fingerprint'
+require_relative 'adopted_sketchup_helpers'
 module KStudioPathScopeGuard
   extend self
 
@@ -69,9 +70,15 @@ module KStudioPathScopeGuard
     # not enlarge an approved nested scope to its ancestor. Absent policy keeps
     # existing projects' explicit-path behavior unchanged.
     policy_file = File.join(File.dirname(File.dirname(File.dirname(model.path))), 'runtime', 'active_edit_scope.json')
+    required_keep = []
     if File.file?(policy_file)
       policy = JSON.parse(File.read(policy_file, encoding: 'UTF-8'))
       validate_authorization!(policy, paths, model.path, root.persistent_id)
+      keep_paths = policy.fetch('required_preserve_paths', [])
+      paths!(keep_paths) unless keep_paths.empty?
+      required_keep = keep_paths.map do |path|
+        protected_node(KStudioProfessionalHelpers.inspect_named_owned_group(root, path, 0, 1, true))
+      end
     end
     raise 'Exit edit context before path scope capture' unless model.active_path.nil?
     c = KStudioNativeDeepFingerprint
@@ -80,7 +87,8 @@ module KStudioPathScopeGuard
     loose = c.scan(model.entities.reject { |e| groups.include?(e) }, Geom::Transformation.new, [], 0, {count: 0})
     masked = branch(root, Geom::Transformation.new, [], paths, {count: 0})
     external = groups.reject { |e| e == root }.map { |e| protected_node(c.inspect_instance(e, Geom::Transformation.new, [], 0, {count: 0})) }.sort_by { |n| n[:pid] }
-    {paths: paths, masked_root: masked, document_loose_sha: c.sha(loose), external: external,
+    {paths: paths, masked_root: masked, required_deep_keep: required_keep,
+     document_loose_sha: c.sha(loose), external: external,
      presentation_sha: c.sha(c.presentation(model)), model_path: model.path, model_guid: model.guid}
   end
 
@@ -100,6 +108,7 @@ module KStudioPathScopeGuard
     raise 'Path scope declaration changed' unless before[:paths] == paths && after[:paths] == paths
     raise 'Path scope regression: protected geometry/identity/presentation changed' unless before == after
     {'status' => 'passed', 'guard' => 'deep_exact_paths_v2', 'allowed_paths' => paths,
+     'required_deep_keep_paths' => (before[:required_deep_keep] || []).map { |item| item[:path] },
      'allowed_top_level' => paths.map(&:first).uniq,
      'protected_deep_geometry_and_loose_entities' => true}
   end

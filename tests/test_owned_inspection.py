@@ -18,7 +18,7 @@ def test_many_keep_paths_use_one_guarded_read_only_query(tmp_path, monkeypatch):
         assert 'Project identity mismatch' in source and 'Revision mismatch' in source
         assert 'Active model GUID changed' in source and 'Active model path changed' in source
         assert 'start_operation' not in source and 'erase!' not in source
-        assert 'inspect_named_owned_group(root, p, 0, 1)' in source
+        assert 'inspect_named_owned_group(root, p, 0, 1, true)' in source
         return {'result': {'snapshots': [{'path': p, 'objects': []} for p in paths]}}
     mcp.call = inspect_call
     result = executor.inspect_owned_batch('main', paths)

@@ -43,3 +43,21 @@ def test_public_batch_rejects_ambiguous_or_unbounded_inspection(arguments):
     ex = object.__new__(ProjectRubyExecutor)
     with pytest.raises(ValueError):
         ex.inspect_owned(arguments)
+
+
+def test_deep_keep_detects_same_bounds_geometry_and_material_changes():
+    from copy import deepcopy
+    from app.modeling_quality import owned_inspection_fingerprint, verify_preserved_owned_paths
+    value = {"persistent_id": 12, "objects_total": 0, "bounds_mm": {"min": [0, 0, 0], "max": [1, 2, 3]},
+             "deep_geometry_material_sha256": "a" * 64}
+    before = {"LANDINGS/PROTECTED_NORTH_PAD": value}
+    assert verify_preserved_owned_paths(before, deepcopy(before))["verified"]
+    after = deepcopy(before); after["LANDINGS/PROTECTED_NORTH_PAD"]["deep_geometry_material_sha256"] = "b" * 64
+    with pytest.raises(ValueError, match="deep_geometry_material_sha256"):
+        verify_preserved_owned_paths(before, after)
+    del after["LANDINGS/PROTECTED_NORTH_PAD"]["deep_geometry_material_sha256"]
+    with pytest.raises(ValueError, match="deep_geometry_material_sha256"):
+        verify_preserved_owned_paths(before, after)
+    value["deep_geometry_material_sha256"] = "unverified"
+    with pytest.raises(ValueError, match="SHA is invalid"):
+        owned_inspection_fingerprint(value)

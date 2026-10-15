@@ -25,6 +25,41 @@ from .reconstruction_evidence import load_reconstruction_evidence
 CANONICAL_REVIEW_VIEWS = ("front", "rear", "left", "right", "roof", "oblique")
 MAX_CRITIC_ISSUES = 3
 
+
+def verified_camera_match(left: Any, right: Any) -> bool:
+    """Missing camera data is never proof of a matched view (including None==None)."""
+    def values(camera: Any) -> list[float] | None:
+        if not isinstance(camera, dict) or type(camera.get("perspective")) is not bool:
+            return None
+        numbers = []
+        for key in ("eye_m", "target_m", "up"):
+            vector = camera.get(key)
+            if not isinstance(vector, list) or len(vector) != 3:
+                return None
+            numbers.extend(vector)
+        projection = camera.get("fov_deg" if camera["perspective"] else "height_m")
+        numbers.extend([projection, camera.get("aspect_ratio")])
+        if any(type(n) not in (int, float) or not math.isfinite(n) for n in numbers):
+            return None
+        if projection <= 0 or (camera["perspective"] and projection >= 180) or numbers[-1] < 0:
+            return None
+        return numbers
+    a, b = values(left), values(right)
+    return (a is not None and b is not None and left["perspective"] == right["perspective"]
+            and all(math.isclose(x, y, rel_tol=0, abs_tol=1e-8) for x, y in zip(a, b)))
+
+
+def capture_camera_receipt(before: Any, after: Any) -> dict[str, Any]:
+    verified = (isinstance(before, dict) and isinstance(after, dict)
+                and before.get("collector") == after.get("collector") == "KStudioNativeCamera/1"
+                and bool(before.get("model_path")) and bool(before.get("model_guid"))
+                and before.get("model_path") == after.get("model_path")
+                and before.get("model_guid") == after.get("model_guid")
+                and verified_camera_match(before.get("camera"), after.get("camera")))
+    return {"native_camera_before": before, "native_camera_after": after,
+            "camera_verified_during_capture": bool(verified),
+            "native_camera": after.get("camera") if verified else None}
+
 _NEEDS_FIX_RE = re.compile(r"^\s*NEEDS_FIX\s*:\s*(YES|NO)\b", re.IGNORECASE | re.MULTILINE)
 _ASSESSMENT_RE = re.compile(r"<assessment>(.*?)</assessment>", re.IGNORECASE | re.DOTALL)
 _ISSUE_RE = re.compile(r"<issue(?P<attrs>[^>]*)>(?P<body>.*?)</issue>", re.IGNORECASE | re.DOTALL)
@@ -256,7 +291,7 @@ def owned_inspection_fingerprint(payload: Any) -> dict[str, Any]:
     for value in [*low, *high]:
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):
             raise ValueError("Owned inspection fingerprint bounds_mm must be finite numeric XYZ values.")
-    return {
+    fingerprint = {
         "persistent_id": persistent_id,
         "objects_total": objects_total,
         "bounds_mm": {
@@ -264,6 +299,12 @@ def owned_inspection_fingerprint(payload: Any) -> dict[str, Any]:
             "max": [float(value) for value in high],
         },
     }
+    if "deep_geometry_material_sha256" in payload:
+        deep_sha = payload["deep_geometry_material_sha256"]
+        if not isinstance(deep_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", deep_sha):
+            raise ValueError("Owned inspection deep geometry/material SHA is invalid.")
+        fingerprint["deep_geometry_material_sha256"] = deep_sha
+    return fingerprint
 
 
 def verify_preserved_owned_paths(
@@ -288,18 +329,21 @@ def verify_preserved_owned_paths(
     for path in sorted(before):
         expected = owned_inspection_fingerprint(before[path])
         actual = owned_inspection_fingerprint(after[path])
-        for field in ("persistent_id", "objects_total", "bounds_mm"):
+        fields = ["persistent_id", "objects_total", "bounds_mm"]
+        if "deep_geometry_material_sha256" in expected:
+            fields.append("deep_geometry_material_sha256")
+        for field in fields:
             check = {
                 "path": path,
                 "check": field,
                 "expected": expected[field],
-                "actual": actual[field],
+                "actual": actual.get(field),
             }
             checks.append(check)
-            if not _values_match(expected[field], actual[field]):
+            if not _values_match(expected[field], actual.get(field)):
                 raise ValueError(
                     f"Protected KEEP path {path!r} changed {field}: "
-                    f"expected {expected[field]!r}, actual {actual[field]!r}."
+                    f"expected {expected[field]!r}, actual {actual.get(field)!r}."
                 )
     return {
         "schema_version": 1,

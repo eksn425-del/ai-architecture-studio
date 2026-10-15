@@ -273,15 +273,18 @@ class SketchUpAdapter:
         })
         return result if isinstance(result, dict) else {"result": result}
 
-    def get_active_model_identity(self) -> dict[str, Any]:
+    def get_active_model_identity(self, *, include_camera: bool = False) -> dict[str, Any]:
         generated_dir = _generated_script_dir()
         generated_dir.mkdir(parents=True, exist_ok=True)
         script_path = generated_dir / f"studio-model-path-{os.urandom(6).hex()}.rb"
         script = (
             "# ARCHFLOW_GENERATED_SCRIPT\n"
             "model = Sketchup.active_model\n"
+            + ("c=model.active_view.camera\n" if include_camera else "") +
             "{ model_path: model.path, model_name: model.title, model_guid: model.guid, "
-            "modified: model.modified?, active_context: !model.active_path.nil?, main_thread: Thread.current == Thread.main }\n"
+            "modified: model.modified?, active_context: !model.active_path.nil?, main_thread: Thread.current == Thread.main"
+            + (", camera: {eye_m:c.eye.to_a.map{|v|v.to_m}, target_m:c.target.to_a.map{|v|v.to_m}, up:c.up.to_a, perspective:c.perspective?, fov_deg:(c.perspective? ? c.fov : nil), aspect_ratio:c.aspect_ratio, height_m:(c.perspective? ? nil : c.height.to_m)}" if include_camera else "")
+            + " }\n"
         )
         script_path.write_text(script, encoding="utf-8")
         try:
@@ -315,8 +318,13 @@ class SketchUpAdapter:
                         "model_guid": guid,
                         "active_context": bool(candidate.get("active_context", False)),
                         "main_thread": bool(candidate.get("main_thread", True)),
+                        **({"camera": candidate.get("camera")} if include_camera else {}),
                     }
         raise MCPCallError("The SketchUp MCP did not return the active model path and GUID, so the disposable-model safety check cannot pass.")
+
+    def get_camera_snapshot(self) -> dict[str, Any]:
+        """Actual native camera readback; never infer it from requested settings."""
+        return {"collector": "KStudioNativeCamera/1", **self.get_active_model_identity(include_camera=True)}
 
     def capture_native_deep_fingerprint(self, *, expected_model_path: Path, expected_guid: str,
                                         root_pid: int, output_path: Path) -> dict[str, Any]:

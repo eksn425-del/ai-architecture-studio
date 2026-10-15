@@ -1,0 +1,4888 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "CIRCULATION_EXTERNAL",
+    "CIRCULATION_INTERNAL",
+    "ENVELOPE_OUTER/BUFFER_CANOPIES",
+    "ENVELOPE_OUTER/INNER_GLAZING",
+    "ENVELOPE_OUTER/NORTH_BAY_1",
+    "ENVELOPE_OUTER/NORTH_BAY_10",
+    "ENVELOPE_OUTER/NORTH_BAY_11",
+    "ENVELOPE_OUTER/NORTH_BAY_12",
+    "ENVELOPE_OUTER/NORTH_BAY_13",
+    "ENVELOPE_OUTER/NORTH_BAY_14",
+    "ENVELOPE_OUTER/NORTH_BAY_15",
+    "ENVELOPE_OUTER/NORTH_BAY_16",
+    "ENVELOPE_OUTER/NORTH_BAY_17",
+    "ENVELOPE_OUTER/NORTH_BAY_18",
+    "ENVELOPE_OUTER/NORTH_BAY_19",
+    "ENVELOPE_OUTER/NORTH_BAY_2",
+    "ENVELOPE_OUTER/NORTH_BAY_3",
+    "ENVELOPE_OUTER/NORTH_BAY_4",
+    "ENVELOPE_OUTER/NORTH_BAY_5",
+    "ENVELOPE_OUTER/NORTH_BAY_6",
+    "ENVELOPE_OUTER/NORTH_BAY_7",
+    "ENVELOPE_OUTER/NORTH_BAY_8",
+    "ENVELOPE_OUTER/NORTH_BAY_9",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_0",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_1",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_2",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_3",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_4",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_5",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_6",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_7",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_8",
+    "ENVELOPE_OUTER/SHORT_GLASS_0_9",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_0",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_1",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_2",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_3",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_4",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_5",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_6",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_7",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_8",
+    "ENVELOPE_OUTER/SHORT_GLASS_1_9",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_0",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_1",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_2",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_3",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_4",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_5",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_6",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_7",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_8",
+    "ENVELOPE_OUTER/SHORT_MULLION_0_9",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_0",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_1",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_2",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_3",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_4",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_5",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_6",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_7",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_8",
+    "ENVELOPE_OUTER/SHORT_MULLION_1_9",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_0_10800",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_0_12000",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_0_13500",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_0_7200",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_0_8250",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_0_9300",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_1_10800",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_1_12000",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_1_13500",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_1_7200",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_1_8250",
+    "ENVELOPE_OUTER/SHORT_TRANSOM_1_9300",
+    "ENVELOPE_OUTER/SOUTH_BAY_1",
+    "ENVELOPE_OUTER/SOUTH_BAY_10",
+    "ENVELOPE_OUTER/SOUTH_BAY_11",
+    "ENVELOPE_OUTER/SOUTH_BAY_12",
+    "ENVELOPE_OUTER/SOUTH_BAY_13",
+    "ENVELOPE_OUTER/SOUTH_BAY_14",
+    "ENVELOPE_OUTER/SOUTH_BAY_15",
+    "ENVELOPE_OUTER/SOUTH_BAY_16",
+    "ENVELOPE_OUTER/SOUTH_BAY_17",
+    "ENVELOPE_OUTER/SOUTH_BAY_18",
+    "ENVELOPE_OUTER/SOUTH_BAY_19",
+    "ENVELOPE_OUTER/SOUTH_BAY_2",
+    "ENVELOPE_OUTER/SOUTH_BAY_3",
+    "ENVELOPE_OUTER/SOUTH_BAY_4",
+    "ENVELOPE_OUTER/SOUTH_BAY_5",
+    "ENVELOPE_OUTER/SOUTH_BAY_6",
+    "ENVELOPE_OUTER/SOUTH_BAY_7",
+    "ENVELOPE_OUTER/SOUTH_BAY_8",
+    "ENVELOPE_OUTER/SOUTH_BAY_9",
+    "ENVELOPE_OUTER/TENSION_BRACING",
+    "FLOORS",
+    "INTERIOR",
+    "PARTITION_Z3600_B1",
+    "PARTITION_Z3600_B2",
+    "PARTITION_Z3600_B3",
+    "PARTITION_Z3600_B4",
+    "PARTITION_Z3600_B5",
+    "PARTITION_Z3600_B6",
+    "PARTITION_Z3600_B7",
+    "PARTITION_Z3600_B8",
+    "PARTITION_Z3600_B9",
+    "PARTITION_Z7200_B1",
+    "PARTITION_Z7200_B2",
+    "PARTITION_Z7200_B3",
+    "PARTITION_Z7200_B4",
+    "PARTITION_Z7200_B5",
+    "PARTITION_Z7200_B6",
+    "PARTITION_Z7200_B7",
+    "PARTITION_Z7200_B8",
+    "PARTITION_Z7200_B9",
+    "RAMPS",
+    "ROOF_TIMBER",
+    "SITE_GROUND",
+    "STRUCTURE_EXISTING"
+  ],
+  "checks": [
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "persistent_id",
+      "expected": 28007,
+      "actual": 28007
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8517.5,
+          -6217.5,
+          -160.0
+        ],
+        "max": [
+          54017.5,
+          26217.5,
+          11915.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8517.5,
+          -6217.5,
+          -160.0
+        ],
+        "max": [
+          54017.5,
+          26217.5,
+          11915.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "persistent_id",
+      "expected": 45400,
+      "actual": 45400
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "objects_total",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34682.5,
+          1000.0,
+          0.0
+        ],
+        "max": [
+          52700.0,
+          8817.5,
+          11916.9
+        ]
+      },
+      "actual": {
+        "min": [
+          34682.5,
+          1000.0,
+          0.0
+        ],
+        "max": [
+          52700.0,
+          8817.5,
+          11916.9
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/BUFFER_CANOPIES",
+      "check": "persistent_id",
+      "expected": 42842,
+      "actual": 42842
+    },
+    {
+      "path": "ENVELOPE_OUTER/BUFFER_CANOPIES",
+      "check": "objects_total",
+      "expected": 4,
+      "actual": 4
+    },
+    {
+      "path": "ENVELOPE_OUTER/BUFFER_CANOPIES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          -4000.0,
+          13400.0
+        ],
+        "max": [
+          54000.0,
+          24000.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          -4000.0,
+          13400.0
+        ],
+        "max": [
+          54000.0,
+          24000.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/INNER_GLAZING",
+      "check": "persistent_id",
+      "expected": 42972,
+      "actual": 42972
+    },
+    {
+      "path": "ENVELOPE_OUTER/INNER_GLAZING",
+      "check": "objects_total",
+      "expected": 80,
+      "actual": 80
+    },
+    {
+      "path": "ENVELOPE_OUTER/INNER_GLAZING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -30.0,
+          -30.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20030.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -30.0,
+          -30.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20030.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_1",
+      "check": "persistent_id",
+      "expected": 41578,
+      "actual": 41578
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_1",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1130.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          1800.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -1130.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          1800.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_10",
+      "check": "persistent_id",
+      "expected": 41587,
+      "actual": 41587
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_10",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_10",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24970.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          27900.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24970.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          27900.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_11",
+      "check": "persistent_id",
+      "expected": 41588,
+      "actual": 41588
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_11",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_11",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          27870.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          30800.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          27870.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          30800.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_12",
+      "check": "persistent_id",
+      "expected": 41589,
+      "actual": 41589
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_12",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_12",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          30770.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          33700.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          30770.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          33700.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_13",
+      "check": "persistent_id",
+      "expected": 41590,
+      "actual": 41590
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_13",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_13",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          33670.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          36600.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          33670.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          36600.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_14",
+      "check": "persistent_id",
+      "expected": 41591,
+      "actual": 41591
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_14",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_14",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          36570.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          39500.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          36570.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          39500.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_15",
+      "check": "persistent_id",
+      "expected": 41592,
+      "actual": 41592
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_15",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_15",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39470.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          42400.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39470.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          42400.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_16",
+      "check": "persistent_id",
+      "expected": 41593,
+      "actual": 41593
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_16",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_16",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          42370.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          45300.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          42370.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          45300.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_17",
+      "check": "persistent_id",
+      "expected": 41594,
+      "actual": 41594
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_17",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_17",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          45270.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          48200.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          45270.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          48200.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_18",
+      "check": "persistent_id",
+      "expected": 41595,
+      "actual": 41595
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_18",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_18",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          48170.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          51100.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          48170.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          51100.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_19",
+      "check": "persistent_id",
+      "expected": 41596,
+      "actual": 41596
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_19",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_19",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          51070.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          54000.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          51070.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          54000.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_2",
+      "check": "persistent_id",
+      "expected": 41579,
+      "actual": 41579
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_2",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          1770.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          4700.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          1770.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          4700.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_3",
+      "check": "persistent_id",
+      "expected": 41580,
+      "actual": 41580
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_3",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4670.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          7600.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4670.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          7600.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_4",
+      "check": "persistent_id",
+      "expected": 41581,
+      "actual": 41581
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_4",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          7570.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          10500.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          7570.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          10500.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_5",
+      "check": "persistent_id",
+      "expected": 41582,
+      "actual": 41582
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_5",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          10470.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          13400.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          10470.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          13400.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_6",
+      "check": "persistent_id",
+      "expected": 41583,
+      "actual": 41583
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_6",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          13370.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          16300.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          13370.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          16300.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_7",
+      "check": "persistent_id",
+      "expected": 41584,
+      "actual": 41584
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_7",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          16270.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          19200.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          16270.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          19200.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_8",
+      "check": "persistent_id",
+      "expected": 41585,
+      "actual": 41585
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_8",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19170.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          22100.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19170.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          22100.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_9",
+      "check": "persistent_id",
+      "expected": 41586,
+      "actual": 41586
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_9",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/NORTH_BAY_9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          22070.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          25000.0,
+          24030.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          22070.0,
+          23970.0,
+          7175.0
+        ],
+        "max": [
+          25000.0,
+          24030.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_0",
+      "check": "persistent_id",
+      "expected": 41598,
+      "actual": 41598
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          -4000.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          -1200.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          -4000.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          -1200.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_1",
+      "check": "persistent_id",
+      "expected": 41641,
+      "actual": 41641
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          -1200.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          1600.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          -1200.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          1600.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_2",
+      "check": "persistent_id",
+      "expected": 41684,
+      "actual": 41684
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          1600.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          4400.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          1600.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          4400.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_3",
+      "check": "persistent_id",
+      "expected": 41727,
+      "actual": 41727
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          4400.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          7200.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          4400.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          7200.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_4",
+      "check": "persistent_id",
+      "expected": 41770,
+      "actual": 41770
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          7200.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          10000.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          7200.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          10000.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_5",
+      "check": "persistent_id",
+      "expected": 41813,
+      "actual": 41813
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          10000.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          12800.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          10000.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          12800.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_6",
+      "check": "persistent_id",
+      "expected": 41856,
+      "actual": 41856
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          12800.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          15600.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          12800.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          15600.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_7",
+      "check": "persistent_id",
+      "expected": 41899,
+      "actual": 41899
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          15600.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          18400.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          15600.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          18400.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_8",
+      "check": "persistent_id",
+      "expected": 41942,
+      "actual": 41942
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          18400.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          21200.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          18400.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          21200.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_9",
+      "check": "persistent_id",
+      "expected": 41985,
+      "actual": 41985
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_0_9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          21200.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          24000.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          21200.0,
+          7200.0
+        ],
+        "max": [
+          -4000.0,
+          24000.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_0",
+      "check": "persistent_id",
+      "expected": 42220,
+      "actual": 42220
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          -4000.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          -1200.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          -4000.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          -1200.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_1",
+      "check": "persistent_id",
+      "expected": 42263,
+      "actual": 42263
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          -1200.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          1600.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          -1200.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          1600.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_2",
+      "check": "persistent_id",
+      "expected": 42306,
+      "actual": 42306
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          1600.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          4400.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          1600.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          4400.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_3",
+      "check": "persistent_id",
+      "expected": 42349,
+      "actual": 42349
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          4400.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          7200.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          4400.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          7200.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_4",
+      "check": "persistent_id",
+      "expected": 42392,
+      "actual": 42392
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          7200.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          10000.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          7200.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          10000.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_5",
+      "check": "persistent_id",
+      "expected": 42435,
+      "actual": 42435
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          10000.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          12800.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          10000.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          12800.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_6",
+      "check": "persistent_id",
+      "expected": 42478,
+      "actual": 42478
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          12800.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          15600.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          12800.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          15600.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_7",
+      "check": "persistent_id",
+      "expected": 42521,
+      "actual": 42521
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          15600.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          18400.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          15600.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          18400.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_8",
+      "check": "persistent_id",
+      "expected": 42564,
+      "actual": 42564
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          18400.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          21200.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          18400.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          21200.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_9",
+      "check": "persistent_id",
+      "expected": 42607,
+      "actual": 42607
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_GLASS_1_9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          54000.0,
+          21200.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          24000.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          54000.0,
+          21200.0,
+          7200.0
+        ],
+        "max": [
+          54000.0,
+          24000.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_0",
+      "check": "persistent_id",
+      "expected": 41609,
+      "actual": 41609
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4030.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          -3970.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4030.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          -3970.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_1",
+      "check": "persistent_id",
+      "expected": 41652,
+      "actual": 41652
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -1230.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          -1170.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -1230.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          -1170.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_2",
+      "check": "persistent_id",
+      "expected": 41695,
+      "actual": 41695
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          1570.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          1630.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          1570.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          1630.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_3",
+      "check": "persistent_id",
+      "expected": 41738,
+      "actual": 41738
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          4370.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          4430.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          4370.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          4430.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_4",
+      "check": "persistent_id",
+      "expected": 41781,
+      "actual": 41781
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          7170.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          7230.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          7170.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          7230.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_5",
+      "check": "persistent_id",
+      "expected": 41824,
+      "actual": 41824
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          9970.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          10030.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          9970.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          10030.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_6",
+      "check": "persistent_id",
+      "expected": 41867,
+      "actual": 41867
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          12770.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          12830.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          12770.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          12830.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_7",
+      "check": "persistent_id",
+      "expected": 41910,
+      "actual": 41910
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          15570.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          15630.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          15570.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          15630.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_8",
+      "check": "persistent_id",
+      "expected": 41953,
+      "actual": 41953
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          18370.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          18430.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          18370.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          18430.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_9",
+      "check": "persistent_id",
+      "expected": 41996,
+      "actual": 41996
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_0_9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          21170.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          21230.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          21170.0,
+          7200.0
+        ],
+        "max": [
+          -3970.0,
+          21230.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_0",
+      "check": "persistent_id",
+      "expected": 42231,
+      "actual": 42231
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4030.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          -3970.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4030.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          -3970.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_1",
+      "check": "persistent_id",
+      "expected": 42274,
+      "actual": 42274
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -1230.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          -1170.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -1230.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          -1170.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_2",
+      "check": "persistent_id",
+      "expected": 42317,
+      "actual": 42317
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          1570.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          1630.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          1570.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          1630.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_3",
+      "check": "persistent_id",
+      "expected": 42360,
+      "actual": 42360
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          4370.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          4430.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          4370.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          4430.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_4",
+      "check": "persistent_id",
+      "expected": 42403,
+      "actual": 42403
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          7170.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          7230.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          7170.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          7230.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_5",
+      "check": "persistent_id",
+      "expected": 42446,
+      "actual": 42446
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          9970.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          10030.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          9970.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          10030.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_6",
+      "check": "persistent_id",
+      "expected": 42489,
+      "actual": 42489
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          12770.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          12830.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          12770.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          12830.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_7",
+      "check": "persistent_id",
+      "expected": 42532,
+      "actual": 42532
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          15570.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          15630.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          15570.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          15630.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_8",
+      "check": "persistent_id",
+      "expected": 42575,
+      "actual": 42575
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          18370.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          18430.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          18370.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          18430.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_9",
+      "check": "persistent_id",
+      "expected": 42618,
+      "actual": 42618
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_MULLION_1_9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          21170.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          21230.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          21170.0,
+          7200.0
+        ],
+        "max": [
+          54030.0,
+          21230.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_10800",
+      "check": "persistent_id",
+      "expected": 42124,
+      "actual": 42124
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_10800",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_10800",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          10770.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          10830.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          10770.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          10830.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_12000",
+      "check": "persistent_id",
+      "expected": 42156,
+      "actual": 42156
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_12000",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_12000",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          11970.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          12030.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          11970.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          12030.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_13500",
+      "check": "persistent_id",
+      "expected": 42188,
+      "actual": 42188
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_13500",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_13500",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          13470.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          13530.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          13470.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          13530.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_7200",
+      "check": "persistent_id",
+      "expected": 42028,
+      "actual": 42028
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_7200",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_7200",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          7170.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          7230.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          7170.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          7230.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_8250",
+      "check": "persistent_id",
+      "expected": 42060,
+      "actual": 42060
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_8250",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_8250",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          8220.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          8280.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          8220.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          8280.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_9300",
+      "check": "persistent_id",
+      "expected": 42092,
+      "actual": 42092
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_9300",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_0_9300",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          9270.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          9330.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4000.0,
+          9270.0
+        ],
+        "max": [
+          -3970.0,
+          24000.0,
+          9330.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_10800",
+      "check": "persistent_id",
+      "expected": 42746,
+      "actual": 42746
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_10800",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_10800",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4000.0,
+          10770.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          10830.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4000.0,
+          10770.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          10830.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_12000",
+      "check": "persistent_id",
+      "expected": 42778,
+      "actual": 42778
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_12000",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_12000",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4000.0,
+          11970.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          12030.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4000.0,
+          11970.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          12030.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_13500",
+      "check": "persistent_id",
+      "expected": 42810,
+      "actual": 42810
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_13500",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_13500",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4000.0,
+          13470.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          13530.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4000.0,
+          13470.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          13530.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_7200",
+      "check": "persistent_id",
+      "expected": 42650,
+      "actual": 42650
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_7200",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_7200",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4000.0,
+          7170.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          7230.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4000.0,
+          7170.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          7230.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_8250",
+      "check": "persistent_id",
+      "expected": 42682,
+      "actual": 42682
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_8250",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_8250",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4000.0,
+          8220.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          8280.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4000.0,
+          8220.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          8280.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_9300",
+      "check": "persistent_id",
+      "expected": 42714,
+      "actual": 42714
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_9300",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ENVELOPE_OUTER/SHORT_TRANSOM_1_9300",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          53970.0,
+          -4000.0,
+          9270.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          9330.0
+        ]
+      },
+      "actual": {
+        "min": [
+          53970.0,
+          -4000.0,
+          9270.0
+        ],
+        "max": [
+          54030.0,
+          24000.0,
+          9330.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_1",
+      "check": "persistent_id",
+      "expected": 41558,
+      "actual": 41558
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_1",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -1130.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          1800.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -1130.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          1800.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_10",
+      "check": "persistent_id",
+      "expected": 41567,
+      "actual": 41567
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_10",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_10",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24970.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          27900.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24970.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          27900.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_11",
+      "check": "persistent_id",
+      "expected": 41568,
+      "actual": 41568
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_11",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_11",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          27870.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          30800.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          27870.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          30800.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_12",
+      "check": "persistent_id",
+      "expected": 41569,
+      "actual": 41569
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_12",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_12",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          30770.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          33700.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          30770.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          33700.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_13",
+      "check": "persistent_id",
+      "expected": 41570,
+      "actual": 41570
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_13",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_13",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          33670.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          36600.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          33670.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          36600.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_14",
+      "check": "persistent_id",
+      "expected": 41571,
+      "actual": 41571
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_14",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_14",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          36570.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          39500.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          36570.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          39500.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_15",
+      "check": "persistent_id",
+      "expected": 41572,
+      "actual": 41572
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_15",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_15",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39470.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          42400.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39470.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          42400.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_16",
+      "check": "persistent_id",
+      "expected": 41573,
+      "actual": 41573
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_16",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_16",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          42370.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          45300.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          42370.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          45300.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_17",
+      "check": "persistent_id",
+      "expected": 41574,
+      "actual": 41574
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_17",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_17",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          45270.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          48200.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          45270.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          48200.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_18",
+      "check": "persistent_id",
+      "expected": 41575,
+      "actual": 41575
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_18",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_18",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          48170.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          51100.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          48170.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          51100.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_19",
+      "check": "persistent_id",
+      "expected": 41576,
+      "actual": 41576
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_19",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_19",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          51070.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          54000.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          51070.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          54000.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_2",
+      "check": "persistent_id",
+      "expected": 41559,
+      "actual": 41559
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_2",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          1770.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          4700.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          1770.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          4700.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_3",
+      "check": "persistent_id",
+      "expected": 41560,
+      "actual": 41560
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_3",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4670.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          7600.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4670.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          7600.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_4",
+      "check": "persistent_id",
+      "expected": 41561,
+      "actual": 41561
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_4",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          7570.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          10500.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          7570.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          10500.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_5",
+      "check": "persistent_id",
+      "expected": 41562,
+      "actual": 41562
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_5",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          10470.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          13400.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          10470.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          13400.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_6",
+      "check": "persistent_id",
+      "expected": 41563,
+      "actual": 41563
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_6",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          13370.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          16300.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          13370.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          16300.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_7",
+      "check": "persistent_id",
+      "expected": 41564,
+      "actual": 41564
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_7",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          16270.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          19200.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          16270.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          19200.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_8",
+      "check": "persistent_id",
+      "expected": 41565,
+      "actual": 41565
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_8",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19170.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          22100.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19170.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          22100.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_9",
+      "check": "persistent_id",
+      "expected": 41566,
+      "actual": 41566
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_9",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "ENVELOPE_OUTER/SOUTH_BAY_9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          22070.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          25000.0,
+          -3970.0,
+          13525.0
+        ]
+      },
+      "actual": {
+        "min": [
+          22070.0,
+          -4030.0,
+          7175.0
+        ],
+        "max": [
+          25000.0,
+          -3970.0,
+          13525.0
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER/TENSION_BRACING",
+      "check": "persistent_id",
+      "expected": 44694,
+      "actual": 44694
+    },
+    {
+      "path": "ENVELOPE_OUTER/TENSION_BRACING",
+      "check": "objects_total",
+      "expected": 22,
+      "actual": 22
+    },
+    {
+      "path": "ENVELOPE_OUTER/TENSION_BRACING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -12.0,
+          -4011.5,
+          3596.2
+        ],
+        "max": [
+          50012.0,
+          24011.4,
+          16503.6
+        ]
+      },
+      "actual": {
+        "min": [
+          -12.0,
+          -4011.5,
+          3596.2
+        ],
+        "max": [
+          50012.0,
+          24011.4,
+          16503.6
+        ]
+      }
+    },
+    {
+      "path": "FLOORS",
+      "check": "persistent_id",
+      "expected": 76290,
+      "actual": 76290
+    },
+    {
+      "path": "FLOORS",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "FLOORS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "INTERIOR",
+      "check": "persistent_id",
+      "expected": 79083,
+      "actual": 79083
+    },
+    {
+      "path": "INTERIOR",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "INTERIOR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5000.0,
+          4000.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          11585.0
+        ]
+      },
+      "actual": {
+        "min": [
+          5000.0,
+          4000.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          11585.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "persistent_id",
+      "expected": 75036,
+      "actual": 75036
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "persistent_id",
+      "expected": 75068,
+      "actual": 75068
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "persistent_id",
+      "expected": 75100,
+      "actual": 75100
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "persistent_id",
+      "expected": 75132,
+      "actual": 75132
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "persistent_id",
+      "expected": 75164,
+      "actual": 75164
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "persistent_id",
+      "expected": 75196,
+      "actual": 75196
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "persistent_id",
+      "expected": 75228,
+      "actual": 75228
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "persistent_id",
+      "expected": 75260,
+      "actual": 75260
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "persistent_id",
+      "expected": 75292,
+      "actual": 75292
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "persistent_id",
+      "expected": 75324,
+      "actual": 75324
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "persistent_id",
+      "expected": 75356,
+      "actual": 75356
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "persistent_id",
+      "expected": 75388,
+      "actual": 75388
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "persistent_id",
+      "expected": 75420,
+      "actual": 75420
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "persistent_id",
+      "expected": 75452,
+      "actual": 75452
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "persistent_id",
+      "expected": 75484,
+      "actual": 75484
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "persistent_id",
+      "expected": 75516,
+      "actual": 75516
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "persistent_id",
+      "expected": 75548,
+      "actual": 75548
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "persistent_id",
+      "expected": 75580,
+      "actual": 75580
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "RAMPS",
+      "check": "persistent_id",
+      "expected": 78998,
+      "actual": 78998
+    },
+    {
+      "path": "RAMPS",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "RAMPS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -4100.0,
+          24000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -4100.0,
+          24000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "persistent_id",
+      "expected": 77872,
+      "actual": 77872
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "objects_total",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -55.0,
+          -90.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20090.0,
+          16710.2
+        ]
+      },
+      "actual": {
+        "min": [
+          -55.0,
+          -90.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20090.0,
+          16710.2
+        ]
+      }
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "persistent_id",
+      "expected": 76256,
+      "actual": 76256
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      }
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "persistent_id",
+      "expected": 20615,
+      "actual": 20615
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "objects_total",
+      "expected": 75,
+      "actual": 75
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      }
+    }
+  ]
+}

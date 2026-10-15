@@ -331,7 +331,7 @@ class ProjectRubyExecutor:
             "raise 'Owned root missing' unless root.is_a?(Sketchup::Group)",
             f"raise 'Project identity mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'project_id') == {self._ruby_string(self.project_id)}",
             f"raise 'Revision mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'revision') == {int(state.get('revision', 0))}",
-            (f"snapshot = {{snapshots: JSON.parse({self._ruby_string(json.dumps(batch_paths))}).map {{ |p| KStudioProfessionalHelpers.inspect_named_owned_group(root, p, 0, 1) }} }}"
+            (f"snapshot = {{snapshots: JSON.parse({self._ruby_string(json.dumps(batch_paths))}).map {{ |p| KStudioProfessionalHelpers.inspect_named_owned_group(root, p, 0, 1, true) }} }}"
              if batch_paths is not None else
              f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})"),
             "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
@@ -433,6 +433,11 @@ class ProjectRubyExecutor:
                     raise ValueError(f"Internal KEEP expectation {index} objects_total is invalid.")
                 if not isinstance(fingerprint["bounds_mm"], dict):
                     raise ValueError(f"Internal KEEP expectation {index} bounds_mm is invalid.")
+                if "deep_geometry_material_sha256" in item:
+                    deep_sha = item["deep_geometry_material_sha256"]
+                    if not isinstance(deep_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", deep_sha):
+                        raise ValueError(f"Internal KEEP expectation {index} deep SHA is invalid.")
+                    fingerprint["deep_geometry_material_sha256"] = deep_sha
                 keep_expectations.append(fingerprint)
         else:
             keep_expectations = []
@@ -480,9 +485,7 @@ class ProjectRubyExecutor:
         )
         transport_path.write_text(transport_script, encoding="utf-8", newline="\n")
 
-        def restore_failed_keep_candidate() -> None:
-            if not keep_expectations:
-                return
+        def restore_failed_candidate() -> None:
             failed_path = reports_dir / f"{script_id}-r{new_revision}-{uuid.uuid4().hex[:8]}.failed.rb"
             try:
                 if script_path.is_file():
@@ -509,7 +512,7 @@ class ProjectRubyExecutor:
                 except (OSError, json.JSONDecodeError):
                     committed_during_error = False
             if not committed_during_error:
-                restore_failed_keep_candidate()
+                restore_failed_candidate()
             raise
         finally:
             transport_path.unlink(missing_ok=True)
@@ -521,7 +524,7 @@ class ProjectRubyExecutor:
             except (OSError, json.JSONDecodeError):
                 report = {"status": "unreadable", "report_path": str(report_path)}
         if report.get("status") != "committed":
-            restore_failed_keep_candidate()
+            restore_failed_candidate()
             detail = report.get("error") or (result.get("text") if isinstance(result, dict) else None) or "The transaction did not report a committed revision."
             raise MCPCallError(str(detail))
 

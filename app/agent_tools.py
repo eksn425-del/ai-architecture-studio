@@ -20,6 +20,7 @@ from .modeling_quality import (
     submit_visual_review,
     load_current_independent_visual_review,
     verify_preserved_owned_paths,
+    capture_camera_receipt,
 )
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError
 from .workspace_ruby import run_workspace_ruby
@@ -660,10 +661,13 @@ class AgentToolSurface:
             project_ruby.adapter.set_camera(camera["eye_m"], camera["target_m"], camera["up_m"])
             output_path = project_dir / "outputs" / "renders" / f"agent-view-{view_name}-{uuid.uuid4().hex[:10]}.png"
             output_path.parent.mkdir(parents=True, exist_ok=True)
+            read_camera = getattr(project_ruby.adapter, "get_camera_snapshot", None)
+            camera_before = read_camera() if callable(read_camera) else None
             # Keep the host-set direction/target stable; a connector-side zoom_extents
             # may rewrite the camera after we have certified its role.
             project_ruby.adapter.capture_view(output_path, width=1500, height=950, zoom_extents=False)
             project_ruby.refresh_active_model_snapshot()
+            camera_after = read_camera() if callable(read_camera) else None
             if output_path.is_symlink() or not output_path.is_file():
                 raise MCPCallError("SketchUp did not write the canonical review screenshot.")
             if not 0 < output_path.stat().st_size <= 8 * 1024 * 1024:
@@ -692,6 +696,7 @@ class AgentToolSurface:
                 "canonical_script_id": script_id,
                 "camera": camera,
                 "focus_bounds_mm": bounds_mm,
+                **capture_camera_receipt(camera_before, camera_after),
             }
             output_path.with_suffix(".evidence.json").write_text(
                 json.dumps(evidence, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -740,11 +745,17 @@ class AgentToolSurface:
             output_path.parent.mkdir(parents=True, exist_ok=True)
             safe_arguments = dict(arguments)
             safe_arguments["output_path"] = str(output_path.resolve())
+            # Preserve the camera the Agent just chose for a source match.
+            # The connector's default zoom_extents can silently replace it.
+            safe_arguments.setdefault("zoom_extents", False)
+            read_camera = getattr(project_ruby.adapter, "get_camera_snapshot", None) if project_ruby else None
+            camera_before = read_camera() if callable(read_camera) else None
             try:
                 result = self.sketchup_mcp.call_for_agent(name, safe_arguments)
             finally:
                 if project_ruby is not None:
                     project_ruby.refresh_active_model_snapshot()
+            camera_after = read_camera() if callable(read_camera) else None
             if result.get("success") is False or result.get("isError") is True:
                 return result
             if output_path.is_symlink() or not output_path.is_file():
@@ -763,6 +774,7 @@ class AgentToolSurface:
                 "path": output_path.relative_to(project_dir).as_posix(),
                 "width": width, "height": height,
                 "quality_status": "not_accepted",
+                **capture_camera_receipt(camera_before, camera_after),
                 "model_revisions": {
                     script_id: state.get("revision")
                     for script_id, state in (project_ruby.ruby_state.items() if project_ruby else [])

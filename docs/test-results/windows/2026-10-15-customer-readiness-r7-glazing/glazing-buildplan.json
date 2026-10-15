@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "run_id": "20261015-r6-local-upper-glazing-openings",
+  "design_graph_digest": "sha256:a9bd1040f5850346b51096263c78f8fd93310d9b0dacc8942fdda68c55f86878",
+  "steps": [
+    {
+      "id": "upper_receiving_openings",
+      "object": "upper_receiving_openings",
+      "action": "existing_guarded_workspace_ruby_edit",
+      "parameters": {
+        "allowed_existing_subtree_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "actual_model": "gpt-6.1-sol",
+        "reasoning_effort": "medium"
+      },
+      "depends_on": [],
+      "tag": "existing_envelope",
+      "component_strategy": "Existing two modules only; make_unique then clear contents only when necessary, preserve target PID. No whole-envelope rebuild.",
+      "risk": "Shared definitions and crossing transoms",
+      "evidence_refs": [
+        "ref_01",
+        "ref_03",
+        "ref_07"
+      ],
+      "preconditions": [
+        "same original eight sources/root20606/r6",
+        "native regression rollback and positive shared-instance tests passed",
+        "host exact two-bay authorization active"
+      ],
+      "postconditions": [
+        "three necessary door-width access lanes passable",
+        "all other bays and unrelated systems deep unchanged",
+        "outside-aperture frame/glass retained",
+        "independent eight-source Critic and native delivery assessed separately"
+      ],
+      "rollback_group": "preserved_same_project_r6",
+      "qa_view": [
+        "source01-ramp-end",
+        "source03-entry",
+        "three-door-closeups",
+        "six canonical"
+      ]
+    }
+  ]
+}

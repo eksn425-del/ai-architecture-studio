@@ -10,6 +10,7 @@ on:
       - 'app/path_scope_guard.rb'
       - 'tests/test_path_scope_guard.py'
       - 'tests/test_native_path_scope_audit.py'
+      - 'tests/test_capture_camera.py'
       - 'scripts/audit_native_path_scope.py'
       - 'tests/ruby/path_scope_guard_test.rb'
       - 'app/workspace_ruby.py'
@@ -79,6 +80,7 @@ on:
       - 'app/path_scope_guard.rb'
       - 'tests/test_path_scope_guard.py'
       - 'tests/test_native_path_scope_audit.py'
+      - 'tests/test_capture_camera.py'
       - 'scripts/audit_native_path_scope.py'
       - 'tests/ruby/path_scope_guard_test.rb'
       - 'app/workspace_ruby.py'
@@ -156,7 +158,7 @@ jobs:
       - name: Python syntax check
         run: python -m py_compile app/native_delivery.py app/spatial_spec.py app/harness_parity_policy.py scripts/audit_native_delivery_stages.py scripts/capture_native_deep_fingerprint.py app/main.py app/modeling_test_profile.py app/model_router.py app/modeling_quality.py app/native_agent.py app/workflow_context.py app/project_turn_budget.py app/oss_method_catalog.py app/project_ruby.py app/managed_beta_policy.py app/strategy_progress.py app/native_agent.py app/agent_tools.py app/construction_strategy.py app/image_to_sketchup_skill.py
       - name: OSS selection and ADAI regression tests
-        run: python -m pytest -q tests/test_responses_runtime.py tests/test_native_lifecycle.py tests/test_component_assembly.py tests/test_model_router.py tests/test_natural_chat_entry.py tests/test_committed_snapshot.py tests/test_reference_assets.py tests/test_owned_inspection.py tests/test_native_critic.py tests/test_product_evidence.py tests/test_modeling_test_profile.py tests/test_oss_method_adoption.py tests/test_edit_scope_guard.py tests/test_path_scope_guard.py tests/test_native_path_scope_audit.py tests/test_strategy_progress.py tests/test_native_turn_budget.py tests/test_project_turn_budget.py tests/test_native_progress.py tests/test_compare_native_replay.py tests/test_native_delivery.py tests/test_native_deep_fingerprint.py tests/test_harness_parity_policy.py tests/test_provider_readiness.py tests/test_managed_beta_policy.py tests/test_adai_components.py tests/test_construction_strategy.py tests/test_modeling_quality.py
+        run: python -m pytest -q tests/test_responses_runtime.py tests/test_native_lifecycle.py tests/test_component_assembly.py tests/test_model_router.py tests/test_natural_chat_entry.py tests/test_committed_snapshot.py tests/test_reference_assets.py tests/test_owned_inspection.py tests/test_native_critic.py tests/test_product_evidence.py tests/test_modeling_test_profile.py tests/test_oss_method_adoption.py tests/test_edit_scope_guard.py tests/test_path_scope_guard.py tests/test_native_path_scope_audit.py tests/test_strategy_progress.py tests/test_native_turn_budget.py tests/test_project_turn_budget.py tests/test_native_progress.py tests/test_compare_native_replay.py tests/test_native_delivery.py tests/test_native_deep_fingerprint.py tests/test_harness_parity_policy.py tests/test_provider_readiness.py tests/test_managed_beta_policy.py tests/test_adai_components.py tests/test_construction_strategy.py tests/test_modeling_quality.py tests/test_capture_camera.py
       - name: Ruby syntax and actual proxy dispatch
         run: |
           ruby -v

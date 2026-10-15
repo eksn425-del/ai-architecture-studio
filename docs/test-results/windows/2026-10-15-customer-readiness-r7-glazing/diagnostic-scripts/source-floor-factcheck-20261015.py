@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,sys
+ROOT=Path.cwd();sys.path.insert(0,str(ROOT))
+from app.native_agent import CodexAppServerRuntime,_agent_workspace
+D=ROOT/'runtime/customer-readiness-20261015';P=ROOT/'runtime/projects/architecture-project-4f0e4';rows=json.loads((ROOT/'runtime/quality-diagnosis-20261015/backup-and-sources.json').read_text(encoding='utf-8'))['source_images'];images=[P/'inputs/reference'/r['filename'] for r in rows]
+prompt='独立只读原图事实核对，图片1至8保持原上传顺序。不要判断任何现有模型、不写代码、无工具。重点图片5上半横剖与图片7三张平面：1. 以坡道端正看、屋顶右侧较高作为同一方向地标，剖面中间层楼板主要在画面左还是右，双层高挑空主要在哪一侧？给出图片5的像素范围1080x1441，说明横剖和图片1端景是否可确定朝向一致；如可能是反向剖切必须明确。2. 图片7从上到下三张平面，哪一张为中间局部层、哪一侧及长向哪部分缺板？用画面上下左右描述，区分实墙、帘幕或家具线，不能猜地理南北。3. 图片4上下两个室内视图能支持哪些挑空与圆洞护栏事实？4. 从图像证据能否唯一确定横剖与平面的正反映射？若不能，列出最少两种可能并明确UNRESOLVED。不要默认任何预设左右结论，直接用简明中文答复。'
+runtime=CodexAppServerRuntime(ROOT/'runtime',model='gpt-6.1-sol',reasoning_effort='medium',timeout_seconds=900,home_root=D/'floor-factcheck-critic-home');workspace=_agent_workspace(P);runtime._prepare_home(mcp_enabled=False,model='gpt-6.1-sol',reasoning_effort='medium',agent_workspace=workspace)
+r=runtime._run_turn(project_dir=P,agent_workspace=workspace,thread_id=None,prompt=prompt,mcp_enabled=False,developer_instructions='Fresh independent source-image fact check. ReadOnly; no tools, commands, files or geometry writes.',dynamic_tools=[],tool_handler=lambda *_:{'success':False},model='gpt-6.1-sol',reasoning_effort='medium',reference_images=images,workflow_mode='image_reconstruction',tool_profile='reconstruction_coding',read_only=True)
+receipt={'reply':r.reply,'model':r.model_name,'reasoning_effort':r.reasoning_effort,'input_tokens':r.input_tokens,'output_tokens':r.output_tokens,'latency_ms':r.latency_ms,'tool_call_count':r.tool_call_count,'failed_tool_calls':r.failed_tool_calls,'writer_tools':[],'fresh_context':True,'purpose':'Resolve floor/void source orientation from original images only, no current model verdict supplied','source_order':rows}
+(D/'source-floor-factcheck.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps({k:v for k,v in receipt.items() if k not in ['reply','source_order']},ensure_ascii=False))

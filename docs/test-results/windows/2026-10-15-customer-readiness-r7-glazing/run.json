@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-15-customer-readiness-r7-glazing",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "architecture-project-4f0e4 same eight sources, real website r6->r7",
+  "base_commit": "ba3fcc82fb539ca5b092803e242fa435a35f9684",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 6,
+    "after_revision": 7,
+    "outer_controller": "unchanged",
+    "native_caps": 0
+  },
+  "qa": {
+    "source_fidelity": "FAIL",
+    "local_three_door_apertures": "PASS with75/75native clear rays; controls18/18glass+15/15header blocked",
+    "whole_circulation": "PARTIAL; no full path certificate; upper ramps still outside envelope unlike source",
+    "protected_geometry": "PASS",
+    "native_delivery": "PASS",
+    "strict_blank_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY",
+    "historical_null_camera_claim": "WITHDRAWN;32fresh captures now24verified camera pairs"
+  },
+  "paid_api_calls": 0
+}

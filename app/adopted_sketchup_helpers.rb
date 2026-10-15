@@ -3,6 +3,7 @@
 require_relative 'vendor/saie/wall_geometry'
 require_relative 'vendor/saie/opening_geometry'
 require_relative 'vendor/stultus/bounds'
+require_relative 'native_deep_fingerprint'
 
 module KStudioProfessionalHelpers
   module_function
@@ -99,12 +100,12 @@ module KStudioProfessionalHelpers
     {persistent_id: child.persistent_id, removed_entities: count}
   end
 
-  def inspect_named_owned_group(root, path, offset, limit)
+  def inspect_named_owned_group(root, path, offset, limit, deep = false)
     group = named_owned_group(root, path)
     entities = group.is_a?(Sketchup::Group) ? group.entities : group.definition.entities
     objects = entities.select { |e| e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance) }
     page = objects.drop(offset).first(limit)
-    {
+    snapshot = {
       path: path, persistent_id: group.persistent_id, locked: group.locked?,
       definition_instances: group.definition.instances.length, definition_name: group.definition.name.to_s,
       bounds_units: 'mm', bounds_frame: 'parent-local',
@@ -115,6 +116,15 @@ module KStudioProfessionalHelpers
       truncated: offset > 0 || offset + page.length < objects.length,
       objects: page.map { |e| {name: e.name, persistent_id: e.persistent_id, locked: e.locked?, bounds_mm: KStudioStultusBounds.bounds_mm(e.bounds)} }
     }
+    if deep
+      parent_world = Geom::Transformation.new
+      (0...path.length).each do |depth|
+        parent_world *= named_owned_group(root, path.take(depth)).transformation
+      end
+      node = KStudioNativeDeepFingerprint.inspect_instance(group, parent_world, [], 0, {count: 0})
+      snapshot[:deep_geometry_material_sha256] = node[:geometry_material_sha256]
+    end
+    snapshot
   end
 
   # Transaction-local KEEP guard. This deliberately runs inside the same
@@ -133,7 +143,7 @@ module KStudioProfessionalHelpers
       path = expected['path']
       raise "KEEP expectation #{index} path is invalid" unless path.is_a?(Array) && !path.empty? && path.length <= 8
 
-      snapshot = inspect_named_owned_group(root, path, 0, 1)
+      snapshot = inspect_named_owned_group(root, path, 0, 1, expected.key?('deep_geometry_material_sha256'))
       label = path.join('/')
       expected_pid = expected['persistent_id']
       expected_count = expected['objects_total']
@@ -142,6 +152,10 @@ module KStudioProfessionalHelpers
       raise "KEEP regression #{label}: persistent_id changed" unless snapshot[:persistent_id] == expected_pid
       raise "KEEP regression #{label}: objects_total changed" unless snapshot[:objects_total] == expected_count
       raise "KEEP regression #{label}: bounds_mm missing" unless expected_bounds.is_a?(Hash)
+      if expected.key?('deep_geometry_material_sha256')
+        raise "KEEP regression #{label}: deep geometry/material changed" unless
+          snapshot[:deep_geometry_material_sha256] == expected['deep_geometry_material_sha256']
+      end
 
       actual_bounds = snapshot[:bounds_mm]
       %w[min max].each do |edge|

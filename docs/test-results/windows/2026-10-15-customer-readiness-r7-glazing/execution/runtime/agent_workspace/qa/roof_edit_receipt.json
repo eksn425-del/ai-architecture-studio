@@ -1,0 +1,291 @@
+{
+  "script_id": "glass_curved_roof",
+  "revision": 3,
+  "source_sha256": "53837ec3ed0cc771a08bca928547529b6aa3b8e795331e422e3d816228df55c6",
+  "model_identity": {
+    "guid": "0ed8972f-3c4a-483d-97d2-91bd7a5f5620",
+    "model_name": "blank-disposable-p0-repaired-r2.skp"
+  },
+  "transaction_status": "committed",
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 3,
+        "actual": 3
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "CIRCULATION_EXTERNAL",
+      "CIRCULATION_INTERNAL",
+      "PARTITION_Z3600_B1",
+      "PARTITION_Z3600_B2",
+      "PARTITION_Z3600_B3",
+      "PARTITION_Z3600_B4",
+      "PARTITION_Z3600_B5",
+      "PARTITION_Z3600_B6",
+      "PARTITION_Z3600_B7",
+      "PARTITION_Z3600_B8",
+      "PARTITION_Z3600_B9",
+      "PARTITION_Z7200_B1",
+      "PARTITION_Z7200_B2",
+      "PARTITION_Z7200_B3",
+      "PARTITION_Z7200_B4",
+      "PARTITION_Z7200_B5",
+      "PARTITION_Z7200_B6",
+      "PARTITION_Z7200_B7",
+      "PARTITION_Z7200_B8",
+      "PARTITION_Z7200_B9",
+      "SITE_GROUND",
+      "FLOORS",
+      "RAMPS",
+      "INTERIOR",
+      "ENVELOPE_OUTER/SOUTH_BAY_00",
+      "ENVELOPE_OUTER/SOUTH_BAY_1",
+      "ENVELOPE_OUTER/SOUTH_BAY_2",
+      "ENVELOPE_OUTER/SOUTH_BAY_3",
+      "ENVELOPE_OUTER/SOUTH_BAY_4",
+      "ENVELOPE_OUTER/SOUTH_BAY_5",
+      "ENVELOPE_OUTER/SOUTH_BAY_6",
+      "ENVELOPE_OUTER/SOUTH_BAY_7",
+      "ENVELOPE_OUTER/SOUTH_BAY_8",
+      "ENVELOPE_OUTER/SOUTH_BAY_9",
+      "ENVELOPE_OUTER/SOUTH_BAY_10",
+      "ENVELOPE_OUTER/SOUTH_BAY_11",
+      "ENVELOPE_OUTER/SOUTH_BAY_12",
+      "ENVELOPE_OUTER/SOUTH_BAY_13",
+      "ENVELOPE_OUTER/SOUTH_BAY_14",
+      "ENVELOPE_OUTER/SOUTH_BAY_15",
+      "ENVELOPE_OUTER/SOUTH_BAY_16",
+      "ENVELOPE_OUTER/SOUTH_BAY_17",
+      "ENVELOPE_OUTER/SOUTH_BAY_18",
+      "ENVELOPE_OUTER/SOUTH_BAY_19",
+      "ENVELOPE_OUTER/NORTH_BAY_0",
+      "ENVELOPE_OUTER/NORTH_BAY_1",
+      "ENVELOPE_OUTER/NORTH_BAY_2",
+      "ENVELOPE_OUTER/NORTH_BAY_3",
+      "ENVELOPE_OUTER/NORTH_BAY_4",
+      "ENVELOPE_OUTER/NORTH_BAY_5",
+      "ENVELOPE_OUTER/NORTH_BAY_6",
+      "ENVELOPE_OUTER/NORTH_BAY_7",
+      "ENVELOPE_OUTER/NORTH_BAY_8",
+      "ENVELOPE_OUTER/NORTH_BAY_9",
+      "ENVELOPE_OUTER/NORTH_BAY_10",
+      "ENVELOPE_OUTER/NORTH_BAY_11",
+      "ENVELOPE_OUTER/NORTH_BAY_12",
+      "ENVELOPE_OUTER/NORTH_BAY_13",
+      "ENVELOPE_OUTER/NORTH_BAY_14",
+      "ENVELOPE_OUTER/NORTH_BAY_15",
+      "ENVELOPE_OUTER/NORTH_BAY_16",
+      "ENVELOPE_OUTER/NORTH_BAY_17",
+      "ENVELOPE_OUTER/NORTH_BAY_18",
+      "ENVELOPE_OUTER/NORTH_BAY_19",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_0",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_0",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_1",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_1",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_2",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_2",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_3",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_3",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_4",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_4",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_5",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_5",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_6",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_6",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_7",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_7",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_8",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_8",
+      "ENVELOPE_OUTER/SHORT_GLASS_0_9",
+      "ENVELOPE_OUTER/SHORT_MULLION_0_9",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_0_7200",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_0_8250",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_0_9300",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_0_10800",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_0_12000",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_0_13500",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_0",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_0",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_1",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_1",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_2",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_2",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_3",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_3",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_4",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_4",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_5",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_5",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_6",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_6",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_7",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_7",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_8",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_8",
+      "ENVELOPE_OUTER/SHORT_GLASS_1_9",
+      "ENVELOPE_OUTER/SHORT_MULLION_1_9",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_1_7200",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_1_8250",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_1_9300",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_1_10800",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_1_12000",
+      "ENVELOPE_OUTER/SHORT_TRANSOM_1_13500",
+      "ENVELOPE_OUTER/BUFFER_CANOPIES",
+      "ENVELOPE_OUTER/INNER_GLAZING"
+    ]
+  },
+  "edit_scope_receipt": {
+    "status": "passed",
+    "allowed_top_level": [
+      "ROOF_TIMBER",
+      "ENVELOPE_OUTER"
+    ],
+    "protected_top_level_count": 25,
+    "unchanged_protected_groups": [
+      "STRUCTURE_EXISTING",
+      "CIRCULATION_EXTERNAL",
+      "CIRCULATION_INTERNAL",
+      "PARTITION_Z3600_B1",
+      "PARTITION_Z3600_B2",
+      "PARTITION_Z3600_B3",
+      "PARTITION_Z3600_B4",
+      "PARTITION_Z3600_B5",
+      "PARTITION_Z3600_B6",
+      "PARTITION_Z3600_B7",
+      "PARTITION_Z3600_B8",
+      "PARTITION_Z3600_B9",
+      "PARTITION_Z7200_B1",
+      "PARTITION_Z7200_B2",
+      "PARTITION_Z7200_B3",
+      "PARTITION_Z7200_B4",
+      "PARTITION_Z7200_B5",
+      "PARTITION_Z7200_B6",
+      "PARTITION_Z7200_B7",
+      "PARTITION_Z7200_B8",
+      "PARTITION_Z7200_B9",
+      "SITE_GROUND",
+      "FLOORS",
+      "RAMPS",
+      "INTERIOR"
+    ]
+  },
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "53837ec3ed0cc771a08bca928547529b6aa3b8e795331e422e3d816228df55c6",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 3,
+    "root_pid": 20606
+  },
+  "user_scope": "Roof handedness only; retain existing curvature; preserve ramps and other assemblies.",
+  "save_reopen": "NOT_RUN in this local correction.",
+  "independent_review": {
+    "needs_fix": true,
+    "assessment": "Sources 1–2 establish the same elongated building through its curved roof, projecting glazed upper enclosure and zigzag ramps at the short end. Source 3 shows the recessed entrance and open grated gallery; source 4 shows the timber ceiling, circular floor openings, spiral stair and double-height lower workspace. Sources 5–8 corroborate the concrete frame, timber upper addition, perimeter buffer zone and unequal internal floor extents. CURRENT captures these broad systems, but the ramp direction, internal void configuration and gallery construction differ visibly. Exact dimensions are not supplied. Images 22–25 repeat uncut exterior views and cannot verify the source sections; screenshots also cannot establish concealed joints.",
+    "issues": [
+      {
+        "priority": 1,
+        "view": "end",
+        "problem": "SOURCE 1–2 shows the lowest ramp descending toward the right, with alternating flights above. CURRENT 15–16 descends toward the left and reverses that defining end composition; the upper flight also projects beyond the enclosure without a clearly resolved landing connection.",
+        "action": "Locally correct the ramp flights’ direction and landing positions using the shared end-view landmarks. Connect each flight to its intended floor or gallery with continuous walking surfaces and guards; verify clearances at the glazed enclosure."
+      },
+      {
+        "priority": 2,
+        "view": "lower_interior",
+        "problem": "SOURCE 4–5 shows a substantial double-height workspace beside a partial intermediate floor. CURRENT 21 instead shows closely stacked horizontal beams and floor surfaces across that region, substantially reducing the observed vertical opening. CURRENT 20 also leaves a circular floor opening unguarded, unlike the source’s circular mesh guards.",
+        "action": "Correct only the intermediate floor extent and associated beams around the source-backed double-height void. Align the spiral stair with the actual floor openings and landings, and guard the exposed circular opening."
+      },
+      {
+        "priority": 3,
+        "view": "gallery",
+        "problem": "SOURCE 3 shows a light, open gallery with visible transverse steel beams and translucent/open grating overhead. CURRENT 19 replaces this with a broad opaque grey soffit and deep continuous edge, obscuring the source’s structural rhythm and openness.",
+        "action": "Locally revise the gallery deck, soffit and edge assembly to expose the observed beam-and-grating construction. Check inclined support endpoints against actual structural members rather than accepting apparent screen-space contact."
+      }
+    ],
+    "keep": [
+      "The visible short-end roof edge’s concave profile, including its higher right endpoint in the matched end view.",
+      "The recessed ground-level column line beneath the projecting gallery."
+    ],
+    "reviewer": {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 202406,
+      "input_tokens": 67600,
+      "output_tokens": 686,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    "model_revisions": {
+      "glass_curved_roof": 3
+    }
+  },
+  "scope_result": "Requested roof handedness corrected; overall building still NEEDS_FIX for unrelated ramps/floor void/gallery; no further modeling under this request."
+}
