@@ -1,3 +1,9 @@
+# HANDOFF 2026-10-15 — owner-approved next eight-source r4 quality sprint preparation (NOT a native test result)
+
+New authoritative [CodeF task](NEXT_EIGHT_SOURCE_R4_QUALITY_DIAGNOSIS_2026-10-15.md) + [empty NOT_RUN diagnosis template](EIGHT_SOURCE_R4_DIAGNOSIS_TEMPLATE_2026-10-15.json) + read-only `scripts/audit_scoped_native_edit.py` with eight synthetic positive/negative tests. Goal: fully source-matched read-only diagnosis (bracing, ramps, facade, interior void), and ONLY if bracing is proven a geometry defect and direct named root child, one protected natural-Chinese real-website r4 local edit with independent Critic and new three-stage native delivery. Unclear or nested target blocks write until a narrow path-level guard is separately tested. Previous r4 restoration/native delivery PASS, current whole-source fidelity FAIL/PARTIAL, original CLI A/B completed; strict blank replay NOT_RUN. No current SU2024 testing was run by this GitHub-only preparation; leave result NOT_RUN. Prior sections remain historical. Same eight-source owner publication exception excludes credentials and unrelated cases.
+
+---
+
 # 2026-10-15 所有者授权公开八图、SKP及完整案例记录
 
 最新授权覆盖本案例旧的私有上传限制：[完整公开审查入口](test-assets/architecture-project-4f0e4/README.md)。八张原始整图顺序/SHA核对，原始r1、安全r2、网站r3/r4、下载r4、原版控制r3均提供直接文件；其余历史文件/完整日志/深层JSON按原相对路径索引、去重ZIP归档。API Key、密码、账号、认证令牌和credential容器仍排除/清除，原文件不动。公开材料不是新建模结果，保留整栋保真FAIL/整体PARTIAL和历史失败；原版及网站r4恢复已收尾。网页审查从CURRENT进入，可对照真实原图、模型、计划、执行与native证据。

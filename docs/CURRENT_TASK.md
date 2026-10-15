@@ -1,3 +1,9 @@
+# CURRENT NEXT TASK 2026-10-15 — READ [CURRENT.md](CURRENT.md) and [the single r4 quality test runbook](NEXT_EIGHT_SOURCE_R4_QUALITY_DIAGNOSIS_2026-10-15.md) FIRST
+
+The earlier P0 delivery repair, original CLI one-edit comparison and restored website r4 are finished historical work, not the next task. Eight published sources / SAME project architecture-project-4f0e4/root20606. First read-only source-geometry four-system diagnosis; conditional one TENSION_BRACING website edit only after confirmed native target/evidence and narrow guard, with independent source quality, immutable protected geometry and fresh native delivery audits. Current GitHub script tests are SYNTHETIC, not real SU2024 acceptance. No fresh generation/CAD/render/PPT/paid API, credentials never publish. Older sections below archival where inconsistent.
+
+---
+
 # READ FIRST: [docs/CURRENT.md](CURRENT.md) — 2026-10-14 single current eight-image recovery task
 
 This short current file supersedes the mutually conflicting older stacked sections below. Same local private project architecture-project-4f0e4, NOT a new building. Fix first native SKP delivery (new fixed read-only deep host capture and bound/download reopen stages; historic pre-save BLOCKED), then validated owner-reviewed signed-axis spatial probe, then one actual same-site Sol Medium targeted correction if P0 PASS; original Codex baseline only if site really fails after delivery. Align Ruby KEEP 256 with Python and mark previous bounds-only PASS honestly. No added CAD/PPT/render scope, paid API, or private source uploads. History below archival.
