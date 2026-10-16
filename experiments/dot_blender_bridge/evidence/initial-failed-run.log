@@ -1,0 +1,51 @@
+
+blender_create_box
+Info: Saved "scene.blend"
+Blender 4.3.2
+
+Blender quit
+
+
+blender_create_box
+Info: Saved "scene.blend"
+Blender 4.3.2
+Read blend: "<EVIDENCE_ROOT>/scene/scene.blend"
+
+Blender quit
+
+
+blender_inspect
+Info: Saved "scene.blend"
+Blender 4.3.2
+Read blend: "<EVIDENCE_ROOT>/scene/scene.blend"
+
+Blender quit
+
+
+blender_render
+Blender 4.3.2
+Read blend: "<EVIDENCE_ROOT>/scene/scene.blend"
+Fra:1 Mem:10.07M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FixtureSlab
+Fra:1 Mem:10.07M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FixtureColumn
+Fra:1 Mem:10.07M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:9.91M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:9.91M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:9.91M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:9.91M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:9.99M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:9.99M (Peak 10.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Failed to denoise, build has no OpenImageDenoise support
+Error: Failed to denoise, build has no OpenImageDenoise support
+Error: Failed to denoise, build has no OpenImageDenoise support
+
+Blender quit
+
+Failed to denoise, build has no OpenImageDenoise support
+Traceback (most recent call last):
+  File "<EVIDENCE_ROOT>/experiments/dot_blender_bridge/blender_job.py", line 26, in <module>
+    scene.render.filepath=str(root/'preview.png'); bpy.ops.render.render(write_still=True)
+                                                   ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/usr/share/blender/scripts/modules/bpy/ops.py", line 109, in __call__
+    ret = _op_call(self.idname_py(), kw)
+RuntimeError: Error: Failed to denoise, build has no OpenImageDenoise support
+Error: Failed to denoise, build has no OpenImageDenoise support
+

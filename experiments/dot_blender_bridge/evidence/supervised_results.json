@@ -1,0 +1,134 @@
+{
+  "scope": "SUPERVISED_CHAT_DRIVEN_ADAPTED_K_STUDIO_TOOL_PIPELINE",
+  "live_model_api": "NOT_RUN",
+  "website_ui": "NOT_RUN",
+  "source_reconstruction": "NOT_RUN",
+  "independent_product_critic": "NOT_PORTED",
+  "structural_certification": "NOT_CLAIMED",
+  "before_geometry_sha256": "0472a999d7d82d1022b847b0d6f4590b00e8f0593b1464543cac527f40900ce2",
+  "after_geometry_sha256": "f42a72f019f57db0f3e5989a06b644a16535fbf1efdbbae728b65e5fb7e0cec3",
+  "float_coordinate_tolerance_m": 1e-06,
+  "roof_world_bounds": {
+    "min": [
+      -3.4000000953674316,
+      -2.4000000953674316,
+      3.0
+    ],
+    "max": [
+      3.4000000953674316,
+      2.4000000953674316,
+      3.25
+    ]
+  },
+  "checks": [
+    {
+      "name": "six_meshes_and_same_stable_id_set",
+      "passed": true
+    },
+    {
+      "name": "KEEP_column_ne",
+      "passed": true
+    },
+    {
+      "name": "KEEP_column_nw",
+      "passed": true
+    },
+    {
+      "name": "KEEP_column_se",
+      "passed": true
+    },
+    {
+      "name": "KEEP_column_sw",
+      "passed": true
+    },
+    {
+      "name": "KEEP_pavilion_slab",
+      "passed": true
+    },
+    {
+      "name": "roof_actual_world_bounds",
+      "passed": true
+    },
+    {
+      "name": "roof_geometry_changed",
+      "passed": true
+    },
+    {
+      "name": "native_revision_two",
+      "passed": true
+    },
+    {
+      "name": "render_then_native_reopen_identical",
+      "passed": true
+    },
+    {
+      "name": "front_real_png",
+      "passed": true
+    },
+    {
+      "name": "rear_real_png",
+      "passed": true
+    },
+    {
+      "name": "left_real_png",
+      "passed": true
+    },
+    {
+      "name": "right_real_png",
+      "passed": true
+    },
+    {
+      "name": "roof_real_png",
+      "passed": true
+    },
+    {
+      "name": "oblique_real_png",
+      "passed": true
+    }
+  ],
+  "views": [
+    {
+      "name": "front",
+      "sha256": "3a7121881162ab4a30f4783983d4cd4dcc46834d634be37950c70d374dccb1b7"
+    },
+    {
+      "name": "rear",
+      "sha256": "a8760a2b771dfa8e7f104bfbec6b1c1fc047e523b8f44a17bd114880ee40729c"
+    },
+    {
+      "name": "left",
+      "sha256": "02e0fb92bfed5abebfcfd3f55518bbd29bb2414952809d1b99454a4ce9f929d0"
+    },
+    {
+      "name": "right",
+      "sha256": "572c3f369eedf6e076f381a3f6442d1fd99f5f0f601fda74fce4dc1f032834df"
+    },
+    {
+      "name": "roof",
+      "sha256": "eebcc2379851784545a48ca0e0ca7db05e9e02ab9b8e60a290f36eb9d59646f7"
+    },
+    {
+      "name": "oblique",
+      "sha256": "de45f76c830f3586aedfa490aa65202dfe048477c6f27c11653cf1247c33a7fd"
+    }
+  ],
+  "assistant_decisions": [
+    {
+      "stage": "plan_create",
+      "decision": "6x4 slab, four corner columns, flat roof; parent selected actual tool calls"
+    },
+    {
+      "stage": "review_edit",
+      "decision": "After viewing native oblique render parent requested only roof6.8x4.8, giving0.4m slab-relative overhang per side"
+    }
+  ],
+  "assistant_visual_check": {
+    "before": "Open four-column pavilion visible; low sample rendering noise",
+    "after": "Roof overhang visibly increased, as inspected by parent assistant",
+    "not_claimed": [
+      "independent Critic",
+      "structural adequacy",
+      "reference fidelity"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "reconstruction_advertised_blender_tools": [
+    "blender_health",
+    "blender_inspect"
+  ],
+  "actual_source_files": [
+    "app/agent_tools.py",
+    "app/native_agent.py",
+    "app/litellm_runtime.py",
+    "app/workflow_context.py",
+    "app/project_ruby.py"
+  ],
+  "issue": "Reconstruction profile filters out Blender writer/render; existing ProjectRuby executor requires SketchUp model identity and Ruby. A generic connector swap cannot preserve full guarded pipeline."
+}

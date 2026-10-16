@@ -1,0 +1,67 @@
+{
+  "scope": "K_STUDIO_TOOL_SURFACE_MCP_BLENDER_INTEGRATION_ONLY",
+  "inference": "NOT_RUN",
+  "website_end_to_end": "NOT_RUN",
+  "production_su": "UNTOUCHED",
+  "checks": [
+    {
+      "name": "actual_K_Studio_discovers_Blender_tools",
+      "passed": true
+    },
+    {
+      "name": "real_Blender_version",
+      "passed": true
+    },
+    {
+      "name": "actual_mesh_objects",
+      "passed": true
+    },
+    {
+      "name": "slab_unchanged_after_second_write",
+      "passed": true
+    },
+    {
+      "name": "native_save_reopen_geometry_equal",
+      "passed": true
+    },
+    {
+      "name": "render_does_not_change_mesh_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_render_480x360",
+      "passed": true
+    },
+    {
+      "name": "reject_arbitrary_code",
+      "passed": true
+    },
+    {
+      "name": "reject_negative_size",
+      "passed": true
+    },
+    {
+      "name": "reject_path_argument",
+      "passed": true
+    },
+    {
+      "name": "reject_duplicate_name",
+      "passed": true
+    },
+    {
+      "name": "rejected_calls_preserve_geometry",
+      "passed": true
+    },
+    {
+      "name": "provider_tool_schema_conversion",
+      "passed": true
+    },
+    {
+      "name": "provider_tool_call_parser",
+      "passed": true
+    }
+  ],
+  "base_commit": "59fa229b5ae8873d05d42aafadfbc61c7af7ec41",
+  "output": "<EVIDENCE_ROOT>",
+  "geometry_sha256": "7816e3251f775416bbc2e4d83f410c79b57e80a9ef09c88d115a85f74e40bc60"
+}

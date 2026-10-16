@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "name": "stale_digest",
+      "rejected": true,
+      "detail": "Blender operation failed; see local log"
+    },
+    {
+      "name": "host_scope_denies_column",
+      "rejected": true,
+      "detail": "Target not in host-approved edit scope"
+    },
+    {
+      "name": "partial_failed_batch_not_committed",
+      "rejected": true,
+      "detail": "Blender operation failed; see local log"
+    }
+  ],
+  "all_rejected": true,
+  "saved_file_byte_identical": true,
+  "native_reopen_geometry_identical": true
+}
