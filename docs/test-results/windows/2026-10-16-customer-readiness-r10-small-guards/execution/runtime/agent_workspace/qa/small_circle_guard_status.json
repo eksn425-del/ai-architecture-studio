@@ -1,0 +1,38 @@
+{
+  "status": "COMMITTED_R10_REVIEWED",
+  "requested_change": "Only two top small circular opening white fine mesh guards",
+  "script": "scripts/add_small_circle_guards.rb",
+  "allowed_mutation_paths": [
+    [
+      "CIRCULATION_INTERNAL",
+      "SMALL_CIRCULAR_VOID_GUARDS"
+    ]
+  ],
+  "preserve_paths_count": 227,
+  "also_reproduced_in_read_only_keep_inspection": true,
+  "geometry_changed": true,
+  "current_review": {
+    "needs_fix": true,
+    "model_revisions": {
+      "glass_curved_roof": 10
+    }
+  },
+  "visual_remaining": "Requested two small openings now have continuous white fine mesh guards; overall pre-existing differences remain outside current user scope.",
+  "save_reopen": "Host-owned persistence after final; reopen not run",
+  "previous_failure_resolved": true,
+  "revision": 10,
+  "write_verification": true,
+  "keep_verified": true,
+  "receipt": "qa/small_circle_guard_r10_receipt.json",
+  "previous_writer_error": "Deep native fingerprint exceeded entity cap",
+  "previous_required_host_resolution": "Increase supported native deep protection fingerprint capacity for existing grating assembly, keeping exact scope and all preservation checks. Do not rebuild or omit protections.",
+  "readback_after_previous_failure": {
+    "script_id": "glass_curved_roof",
+    "revision": 9,
+    "root_pid": 20606,
+    "root_children": 27,
+    "new_guard_leaf_exists": false,
+    "model_name": "blank-disposable-customer-readiness-r4-20261015"
+  },
+  "requested_guards": "Built and closeup inspected; overall building retains pre-existing mismatches outside current scope."
+}

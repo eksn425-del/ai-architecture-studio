@@ -1,3 +1,11 @@
+# ACTIVE execution continuation — 2026-10-16 exterior completion
+
+Owner correction: finish visible exterior rather than repeated micro-patches/acceptance verdicts. [Current execution](NEXT_EXTERIOR_COMPLETION_SAME_CASE_2026-10-16.md); CURRENT top authoritative. Actual r10 now completed: [website/independent review/native evidence](test-results/windows/2026-10-16-customer-readiness-r10-small-guards/README.md). Two actual small-hole mesh guards,48/48rays,576/576base contacts, exact scope protected; real save/download/SU2024reopen declared-precision PASS, raw strict FAIL retained. Eight source pairs actual, not12; overall exterior incomplete, no customer-ready claim.
+
+New MCP exterior survey finds missing inner short-end glazing in actual model and original code; coarse rails and upper platform projections persist. Past host scopes froze unfinished exterior and fragmented work. Owner permits reasonable recorded inference; proceed real Studio Sol6.1Medium with coherent exact paths. Eight-source whole-exterior diagnosis running and28-path guard/platform plan prepared; then register/build missing end enclosure and entry connections. Original r4 stays immutable, same project/root20606, no paidAPI/full rebuild/newcase/CLI rerun. Codex still implementing; intermediate push does not transfer active ownership.
+
+---
+
 # ACTIVE same-circle task recovery — 2026-10-16
 
 [Initial real website failure and native KEEP repair](test-results/windows/2026-10-16-small-guards-initial-recovery/README.md): actual Sol6.1Medium attempted the two small source04 guards. No geometry committed; root20606/revision9 and full-document native SHA8cfbd18c4eda021aa59c9184f3e0e3605786e24f96099075da24ffa89452fc32 unchanged.26tools/4fail,1197590input/4686output,175672ms; original failures/ordinary Chinese/script/source identity preserved. Host main graph fence already handled large grating, but tool-surface legacy deep KEEP batch still expanded past250k before dispatch; no writer commit. Fix the entire chain, not increase cap or remove KEEP.

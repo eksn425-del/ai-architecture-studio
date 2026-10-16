@@ -1,0 +1,791 @@
+{
+  "status": "PASS_SAMPLED_GEOMETRY_ONLY",
+  "root_pid": 20606,
+  "revision": 10,
+  "geometry_writes": 0,
+  "ray_checks": [
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 1.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 38009.045123457916,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS",
+        "END_GLASS_1_17"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 2.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000005,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_1"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 1.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 46.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 18688.63995028924,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_9",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 47.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_19"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 46.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378178,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 91.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 13503.213399123206,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_5",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 92.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000005,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_37"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 91.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 136.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": null,
+      "first_hit_names": [],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 137.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_55"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 136.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378178,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 181.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 12002.856354776184,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS",
+        "END_GLASS_0_19"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 182.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000005,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_73"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 181.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 226.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 20072.983650312177,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 227.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_91"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 226.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378178,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 271.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 14503.45142868789,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_5",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 272.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000005,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_109"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 271.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 316.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 20968.512277179427,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_10",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 317.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_127"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 316.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378178,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_01_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 1.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 27506.54581302876,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS",
+        "END_GLASS_1_17"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 2.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000007,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_1"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 1.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 46.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 18688.639950289235,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_13",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 47.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.999999999999,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_19"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 46.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.732518437817,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 91.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 13503.213399123206,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_9",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 92.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000007,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_37"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 91.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 136.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 13767.298096714108,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS",
+        "TIMBER_POST_5_0"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 137.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_55"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 136.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.732518437818,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 181.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 22472.847929244494,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS",
+        "END_MULLION_0_5"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 182.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000007,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_73"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 181.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 226.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 14459.469946724328,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS",
+        "TIMBER_POST_5_1"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 227.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.999999999999,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_91"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 226.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.732518437817,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 271.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 14503.45142868789,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_9",
+        "GLASS"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 272.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124.0000000000007,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_109"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 271.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.7325184378171,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "open_cell",
+      "degrees": 316.25,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": false,
+      "first_hit_distance_mm": 20943.205452016457,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800",
+        "LONG_RAIL_SOUTH_Z10800_POST_28"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "vertical_wire",
+      "degrees": 317.5,
+      "height_above_floor_mm": 525,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1124,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_VERTICAL_127"
+      ],
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "kind": "horizontal_wire",
+      "degrees": 316.25,
+      "height_above_floor_mm": 501.5,
+      "expected_target_hit": true,
+      "first_hit_distance_mm": 1123.732518437818,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS",
+        "SMALL_HOLE_02_FINE_WHITE_MESH",
+        "H01_MESH_HORIZONTAL_10"
+      ],
+      "passed": true
+    }
+  ],
+  "base_floor_contacts": [
+    {
+      "guard": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "actual_bottom_vertices": 288,
+      "vertices_on_existing_floor_face": 288,
+      "passed": true
+    },
+    {
+      "guard": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "actual_bottom_vertices": 288,
+      "vertices_on_existing_floor_face": 288,
+      "passed": true
+    }
+  ],
+  "actual_guard_instances": [
+    {
+      "name": "SMALL_HOLE_01_FINE_WHITE_MESH",
+      "pid": 104202,
+      "center_mm": [
+        12000,
+        10500
+      ],
+      "height_expected_mm": 1100
+    },
+    {
+      "name": "SMALL_HOLE_02_FINE_WHITE_MESH",
+      "pid": 162105,
+      "center_mm": [
+        22500,
+        10500
+      ],
+      "height_expected_mm": 1100
+    }
+  ],
+  "limitation": "Tests actual selected open cells, wire solids and base-to-existing-floor geometry. Source mesh size/height estimated; no load/safety certification or whole-building fidelity verdict."
+}

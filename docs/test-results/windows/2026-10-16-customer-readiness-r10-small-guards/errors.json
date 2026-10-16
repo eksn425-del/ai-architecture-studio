@@ -1,0 +1,18 @@
+[
+  {
+    "stage": "initial_website_attempt",
+    "status": "FAIL_RETAINED",
+    "evidence": "../2026-10-16-small-guards-initial-recovery/README.md",
+    "detail": "Legacy expanded KEEP limit; no initial write. Full graph KEEP chain repaired before this recovery."
+  },
+  {
+    "stage": "host_review_count_assumption",
+    "status": "FIXED_FALSE_EXPECTATION",
+    "detail": "Native verification helper initially asserted12 pairs, actual review8 unique source pairs. Original assertion failure retained; coverage PARTIAL, not invented12 pairs."
+  },
+  {
+    "stage": "raw_full_double_three_stage",
+    "status": "FAIL_RETAINED",
+    "detail": "Separate explicitly declared dimensionless12decimal contract PASS; raw full-double strict SHA FAIL. Not strict blank replay."
+  }
+]

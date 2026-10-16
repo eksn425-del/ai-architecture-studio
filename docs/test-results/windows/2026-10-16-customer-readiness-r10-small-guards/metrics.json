@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 409844,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "tool_call_count": 46,
+  "failed_tool_calls": 0,
+  "input_tokens": 4057525,
+  "output_tokens": 5409,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 201360,
+    "input_tokens": 57132,
+    "output_tokens": 755,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "paid_api_calls": 0,
+  "token_source": "Actual website App Server Builder turn delta; independent Critic separate, outer unavailable. Unlimited local token/tool caps retained, cumulative history not reset."
+}

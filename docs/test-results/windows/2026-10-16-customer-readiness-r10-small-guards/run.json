@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r10-small-guards",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "architecture-project-4f0e4 SAME eight originals r9->r10 root20606",
+  "base_commit": "1951f7f275866c52e6de7019a7c3ea56eda466c1",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 9,
+    "after_revision": 10
+  },
+  "qa": {
+    "target": "two actual editable fine wire guards added",
+    "sampled_geometry": "48/48 ray controls and576/576base contacts",
+    "exact_scope": "PASS exact absent leaf; all existing geometry protected",
+    "source_fidelity": "FAIL independent eight-original Critic; upper projecting platforms and exterior mesh still unresolved",
+    "native_delivery": "PASS_WITH_DECLARED_PRECISION; raw strict SHA FAIL retained",
+    "strict_blank_replay": "NOT_RUN"
+  },
+  "paid_api_calls": 0
+}

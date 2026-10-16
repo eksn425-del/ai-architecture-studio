@@ -1,3 +1,9 @@
+# 2026-10-16 — READ CURRENT.md TOP: continuous same-case exterior completion
+
+Latest owner correction authorizes completing visible exterior and coherent inference of unseen parts. Follow [same-case exterior execution](NEXT_EXTERIOR_COMPLETION_SAME_CASE_2026-10-16.md), continuing customer readiness from actualr10; historical bracing-only gate below is superseded. Exact scope/KEEP/single writer remain. No full rebuild/newcase/paidAPI/CLI rerun. Do not repeat micro-patch-only stopping.
+
+---
+
 # CURRENT NEXT TASK 2026-10-15 — READ [CURRENT.md](CURRENT.md) and [the single r4 quality test runbook](NEXT_EIGHT_SOURCE_R4_QUALITY_DIAGNOSIS_2026-10-15.md) FIRST
 
 The earlier P0 delivery repair, original CLI one-edit comparison and restored website r4 are finished historical work, not the next task. Eight published sources / SAME project architecture-project-4f0e4/root20606. First read-only source-geometry four-system diagnosis; conditional one TENSION_BRACING website edit only after confirmed native target/evidence and narrow guard, with independent source quality, immutable protected geometry and fresh native delivery audits. Current GitHub script tests are SYNTHETIC, not real SU2024 acceptance. No fresh generation/CAD/render/PPT/paid API, credentials never publish. Older sections below archival where inconsistent.
@@ -982,4 +988,3 @@ Update `docs/HANDOFF.md` with:
 - parity benchmark result if reached.
 
 Then commit, push `origin/main`, verify remote SHA, and stop. Do not start rendering/PPT/full-design work automatically.
-

@@ -1,0 +1,3049 @@
+{
+  "revision": 7,
+  "write": {
+    "script_id": "glass_curved_roof",
+    "script_revision": 7,
+    "source_sha256": "d98b964ef5dd0787160356f871067ab6cf7661ee0b2822b5519e136c4398e070",
+    "transaction": {
+      "schema_version": 1,
+      "project_id": "architecture-project-4f0e4",
+      "expected_revision": 6,
+      "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+      "guid_before": "7b51312c-fa69-48e0-b611-8ab2fd012be8",
+      "status": "committed",
+      "at": "2026-10-15T12:06:02Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "objects_total": 27,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 20615,
+            "name": "STRUCTURE_EXISTING",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -180,
+                -180,
+                0
+              ],
+              "max": [
+                50180,
+                20180,
+                10800
+              ],
+              "size": [
+                50360,
+                20360,
+                10800
+              ]
+            }
+          },
+          {
+            "persistent_id": 28007,
+            "name": "CIRCULATION_EXTERNAL",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8517.5,
+                -6217.5,
+                -160
+              ],
+              "max": [
+                54017.5,
+                26217.5,
+                11915
+              ],
+              "size": [
+                62535,
+                32435,
+                12075
+              ]
+            }
+          },
+          {
+            "persistent_id": 41319,
+            "name": "ENVELOPE_OUTER",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -4030,
+                -4030,
+                0
+              ],
+              "max": [
+                54030,
+                24030,
+                16503.6
+              ],
+              "size": [
+                58060,
+                28060,
+                16503.6
+              ]
+            }
+          },
+          {
+            "persistent_id": 45400,
+            "name": "CIRCULATION_INTERNAL",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34682.5,
+                1000,
+                0
+              ],
+              "max": [
+                52700,
+                8817.5,
+                11916.9
+              ],
+              "size": [
+                18017.5,
+                7817.5,
+                11916.9
+              ]
+            }
+          },
+          {
+            "persistent_id": 75036,
+            "name": "PARTITION_Z3600_B1",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                4940,
+                12000,
+                3600
+              ],
+              "max": [
+                5060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75068,
+            "name": "PARTITION_Z3600_B2",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                9940,
+                12000,
+                3600
+              ],
+              "max": [
+                10060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75100,
+            "name": "PARTITION_Z3600_B3",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                14940,
+                12000,
+                3600
+              ],
+              "max": [
+                15060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75132,
+            "name": "PARTITION_Z3600_B4",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                19940,
+                12000,
+                3600
+              ],
+              "max": [
+                20060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75164,
+            "name": "PARTITION_Z3600_B5",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                24940,
+                12000,
+                3600
+              ],
+              "max": [
+                25060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75196,
+            "name": "PARTITION_Z3600_B6",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                29940,
+                12000,
+                3600
+              ],
+              "max": [
+                30060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75228,
+            "name": "PARTITION_Z3600_B7",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34940,
+                12000,
+                3600
+              ],
+              "max": [
+                35060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75260,
+            "name": "PARTITION_Z3600_B8",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                39940,
+                12000,
+                3600
+              ],
+              "max": [
+                40060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75292,
+            "name": "PARTITION_Z3600_B9",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                44940,
+                12000,
+                3600
+              ],
+              "max": [
+                45060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75324,
+            "name": "PARTITION_Z7200_B1",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                4940,
+                12000,
+                7200
+              ],
+              "max": [
+                5060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75356,
+            "name": "PARTITION_Z7200_B2",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                9940,
+                12000,
+                7200
+              ],
+              "max": [
+                10060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75388,
+            "name": "PARTITION_Z7200_B3",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                14940,
+                12000,
+                7200
+              ],
+              "max": [
+                15060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75420,
+            "name": "PARTITION_Z7200_B4",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                19940,
+                12000,
+                7200
+              ],
+              "max": [
+                20060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75452,
+            "name": "PARTITION_Z7200_B5",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                24940,
+                12000,
+                7200
+              ],
+              "max": [
+                25060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75484,
+            "name": "PARTITION_Z7200_B6",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                29940,
+                12000,
+                7200
+              ],
+              "max": [
+                30060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75516,
+            "name": "PARTITION_Z7200_B7",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34940,
+                12000,
+                7200
+              ],
+              "max": [
+                35060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75548,
+            "name": "PARTITION_Z7200_B8",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                39940,
+                12000,
+                7200
+              ],
+              "max": [
+                40060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75580,
+            "name": "PARTITION_Z7200_B9",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                44940,
+                12000,
+                7200
+              ],
+              "max": [
+                45060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 76256,
+            "name": "SITE_GROUND",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -12000,
+                -9000,
+                -500
+              ],
+              "max": [
+                59000,
+                33000,
+                -280
+              ],
+              "size": [
+                71000,
+                42000,
+                220
+              ]
+            }
+          },
+          {
+            "persistent_id": 76290,
+            "name": "FLOORS",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                -250
+              ],
+              "max": [
+                50000,
+                20000,
+                10800
+              ],
+              "size": [
+                50000,
+                20000,
+                11050
+              ]
+            }
+          },
+          {
+            "persistent_id": 77872,
+            "name": "ROOF_TIMBER",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -55,
+                -90,
+                10800
+              ],
+              "max": [
+                50055,
+                20090,
+                16710.2
+              ],
+              "size": [
+                50110,
+                20180,
+                5910.2
+              ]
+            }
+          },
+          {
+            "persistent_id": 78998,
+            "name": "RAMPS",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8500,
+                -4000,
+                -160
+              ],
+              "max": [
+                -4100,
+                24000,
+                10800
+              ],
+              "size": [
+                4400,
+                28000,
+                10960
+              ]
+            }
+          },
+          {
+            "persistent_id": 79083,
+            "name": "INTERIOR",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                5000,
+                4000,
+                0
+              ],
+              "max": [
+                50000,
+                20000,
+                11585
+              ],
+              "size": [
+                45000,
+                16000,
+                11585
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "objects_total": 27,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 20615,
+            "name": "STRUCTURE_EXISTING",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -180,
+                -180,
+                0
+              ],
+              "max": [
+                50180,
+                20180,
+                10800
+              ],
+              "size": [
+                50360,
+                20360,
+                10800
+              ]
+            }
+          },
+          {
+            "persistent_id": 28007,
+            "name": "CIRCULATION_EXTERNAL",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8517.5,
+                -6217.5,
+                -160
+              ],
+              "max": [
+                54017.5,
+                26217.5,
+                11915
+              ],
+              "size": [
+                62535,
+                32435,
+                12075
+              ]
+            }
+          },
+          {
+            "persistent_id": 41319,
+            "name": "ENVELOPE_OUTER",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -4030,
+                -4030,
+                0
+              ],
+              "max": [
+                54030,
+                24030,
+                16503.6
+              ],
+              "size": [
+                58060,
+                28060,
+                16503.6
+              ]
+            }
+          },
+          {
+            "persistent_id": 45400,
+            "name": "CIRCULATION_INTERNAL",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34682.5,
+                1000,
+                0
+              ],
+              "max": [
+                52700,
+                8817.5,
+                11916.9
+              ],
+              "size": [
+                18017.5,
+                7817.5,
+                11916.9
+              ]
+            }
+          },
+          {
+            "persistent_id": 75036,
+            "name": "PARTITION_Z3600_B1",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                4940,
+                12000,
+                3600
+              ],
+              "max": [
+                5060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75068,
+            "name": "PARTITION_Z3600_B2",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                9940,
+                12000,
+                3600
+              ],
+              "max": [
+                10060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75100,
+            "name": "PARTITION_Z3600_B3",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                14940,
+                12000,
+                3600
+              ],
+              "max": [
+                15060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75132,
+            "name": "PARTITION_Z3600_B4",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                19940,
+                12000,
+                3600
+              ],
+              "max": [
+                20060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75164,
+            "name": "PARTITION_Z3600_B5",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                24940,
+                12000,
+                3600
+              ],
+              "max": [
+                25060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75196,
+            "name": "PARTITION_Z3600_B6",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                29940,
+                12000,
+                3600
+              ],
+              "max": [
+                30060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75228,
+            "name": "PARTITION_Z3600_B7",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34940,
+                12000,
+                3600
+              ],
+              "max": [
+                35060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75260,
+            "name": "PARTITION_Z3600_B8",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                39940,
+                12000,
+                3600
+              ],
+              "max": [
+                40060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75292,
+            "name": "PARTITION_Z3600_B9",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                44940,
+                12000,
+                3600
+              ],
+              "max": [
+                45060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75324,
+            "name": "PARTITION_Z7200_B1",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                4940,
+                12000,
+                7200
+              ],
+              "max": [
+                5060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75356,
+            "name": "PARTITION_Z7200_B2",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                9940,
+                12000,
+                7200
+              ],
+              "max": [
+                10060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75388,
+            "name": "PARTITION_Z7200_B3",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                14940,
+                12000,
+                7200
+              ],
+              "max": [
+                15060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75420,
+            "name": "PARTITION_Z7200_B4",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                19940,
+                12000,
+                7200
+              ],
+              "max": [
+                20060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75452,
+            "name": "PARTITION_Z7200_B5",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                24940,
+                12000,
+                7200
+              ],
+              "max": [
+                25060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75484,
+            "name": "PARTITION_Z7200_B6",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                29940,
+                12000,
+                7200
+              ],
+              "max": [
+                30060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75516,
+            "name": "PARTITION_Z7200_B7",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34940,
+                12000,
+                7200
+              ],
+              "max": [
+                35060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75548,
+            "name": "PARTITION_Z7200_B8",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                39940,
+                12000,
+                7200
+              ],
+              "max": [
+                40060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75580,
+            "name": "PARTITION_Z7200_B9",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                44940,
+                12000,
+                7200
+              ],
+              "max": [
+                45060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 76256,
+            "name": "SITE_GROUND",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -12000,
+                -9000,
+                -500
+              ],
+              "max": [
+                59000,
+                33000,
+                -280
+              ],
+              "size": [
+                71000,
+                42000,
+                220
+              ]
+            }
+          },
+          {
+            "persistent_id": 76290,
+            "name": "FLOORS",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                -250
+              ],
+              "max": [
+                50000,
+                20000,
+                10800
+              ],
+              "size": [
+                50000,
+                20000,
+                11050
+              ]
+            }
+          },
+          {
+            "persistent_id": 77872,
+            "name": "ROOF_TIMBER",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -55,
+                -90,
+                10800
+              ],
+              "max": [
+                50055,
+                20090,
+                16710.2
+              ],
+              "size": [
+                50110,
+                20180,
+                5910.2
+              ]
+            }
+          },
+          {
+            "persistent_id": 78998,
+            "name": "RAMPS",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8500,
+                -4000,
+                -160
+              ],
+              "max": [
+                -4100,
+                24000,
+                10800
+              ],
+              "size": [
+                4400,
+                28000,
+                10960
+              ]
+            }
+          },
+          {
+            "persistent_id": 79083,
+            "name": "INTERIOR",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                5000,
+                4000,
+                0
+              ],
+              "max": [
+                50000,
+                20000,
+                11585
+              ],
+              "size": [
+                45000,
+                16000,
+                11585
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 7,
+      "root_pid": 20606,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "objects_total": 27,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 20615,
+            "name": "STRUCTURE_EXISTING",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -180,
+                -180,
+                0
+              ],
+              "max": [
+                50180,
+                20180,
+                10800
+              ],
+              "size": [
+                50360,
+                20360,
+                10800
+              ]
+            }
+          },
+          {
+            "persistent_id": 28007,
+            "name": "CIRCULATION_EXTERNAL",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8517.5,
+                -6217.5,
+                -160
+              ],
+              "max": [
+                54017.5,
+                26217.5,
+                11915
+              ],
+              "size": [
+                62535,
+                32435,
+                12075
+              ]
+            }
+          },
+          {
+            "persistent_id": 41319,
+            "name": "ENVELOPE_OUTER",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -4030,
+                -4030,
+                0
+              ],
+              "max": [
+                54030,
+                24030,
+                16503.6
+              ],
+              "size": [
+                58060,
+                28060,
+                16503.6
+              ]
+            }
+          },
+          {
+            "persistent_id": 45400,
+            "name": "CIRCULATION_INTERNAL",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34682.5,
+                1000,
+                0
+              ],
+              "max": [
+                52700,
+                8817.5,
+                11916.9
+              ],
+              "size": [
+                18017.5,
+                7817.5,
+                11916.9
+              ]
+            }
+          },
+          {
+            "persistent_id": 75036,
+            "name": "PARTITION_Z3600_B1",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                4940,
+                12000,
+                3600
+              ],
+              "max": [
+                5060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75068,
+            "name": "PARTITION_Z3600_B2",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                9940,
+                12000,
+                3600
+              ],
+              "max": [
+                10060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75100,
+            "name": "PARTITION_Z3600_B3",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                14940,
+                12000,
+                3600
+              ],
+              "max": [
+                15060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75132,
+            "name": "PARTITION_Z3600_B4",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                19940,
+                12000,
+                3600
+              ],
+              "max": [
+                20060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75164,
+            "name": "PARTITION_Z3600_B5",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                24940,
+                12000,
+                3600
+              ],
+              "max": [
+                25060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75196,
+            "name": "PARTITION_Z3600_B6",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                29940,
+                12000,
+                3600
+              ],
+              "max": [
+                30060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75228,
+            "name": "PARTITION_Z3600_B7",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34940,
+                12000,
+                3600
+              ],
+              "max": [
+                35060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75260,
+            "name": "PARTITION_Z3600_B8",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                39940,
+                12000,
+                3600
+              ],
+              "max": [
+                40060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75292,
+            "name": "PARTITION_Z3600_B9",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                44940,
+                12000,
+                3600
+              ],
+              "max": [
+                45060,
+                20000,
+                6700
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75324,
+            "name": "PARTITION_Z7200_B1",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                4940,
+                12000,
+                7200
+              ],
+              "max": [
+                5060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75356,
+            "name": "PARTITION_Z7200_B2",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                9940,
+                12000,
+                7200
+              ],
+              "max": [
+                10060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75388,
+            "name": "PARTITION_Z7200_B3",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                14940,
+                12000,
+                7200
+              ],
+              "max": [
+                15060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75420,
+            "name": "PARTITION_Z7200_B4",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                19940,
+                12000,
+                7200
+              ],
+              "max": [
+                20060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75452,
+            "name": "PARTITION_Z7200_B5",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                24940,
+                12000,
+                7200
+              ],
+              "max": [
+                25060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75484,
+            "name": "PARTITION_Z7200_B6",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                29940,
+                12000,
+                7200
+              ],
+              "max": [
+                30060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75516,
+            "name": "PARTITION_Z7200_B7",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                34940,
+                12000,
+                7200
+              ],
+              "max": [
+                35060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75548,
+            "name": "PARTITION_Z7200_B8",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                39940,
+                12000,
+                7200
+              ],
+              "max": [
+                40060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 75580,
+            "name": "PARTITION_Z7200_B9",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                44940,
+                12000,
+                7200
+              ],
+              "max": [
+                45060,
+                20000,
+                10300
+              ],
+              "size": [
+                120,
+                8000,
+                3100
+              ]
+            }
+          },
+          {
+            "persistent_id": 76256,
+            "name": "SITE_GROUND",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -12000,
+                -9000,
+                -500
+              ],
+              "max": [
+                59000,
+                33000,
+                -280
+              ],
+              "size": [
+                71000,
+                42000,
+                220
+              ]
+            }
+          },
+          {
+            "persistent_id": 76290,
+            "name": "FLOORS",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0,
+                0,
+                -250
+              ],
+              "max": [
+                50000,
+                20000,
+                10800
+              ],
+              "size": [
+                50000,
+                20000,
+                11050
+              ]
+            }
+          },
+          {
+            "persistent_id": 77872,
+            "name": "ROOF_TIMBER",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -55,
+                -90,
+                10800
+              ],
+              "max": [
+                50055,
+                20090,
+                16710.2
+              ],
+              "size": [
+                50110,
+                20180,
+                5910.2
+              ]
+            }
+          },
+          {
+            "persistent_id": 78998,
+            "name": "RAMPS",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8500,
+                -4000,
+                -160
+              ],
+              "max": [
+                -4100,
+                24000,
+                10800
+              ],
+              "size": [
+                4400,
+                28000,
+                10960
+              ]
+            }
+          },
+          {
+            "persistent_id": 79083,
+            "name": "INTERIOR",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                5000,
+                4000,
+                0
+              ],
+              "max": [
+                50000,
+                20000,
+                11585
+              ],
+              "size": [
+                45000,
+                16000,
+                11585
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    },
+    "model_identity": {
+      "guid": "7b51312c-fa69-48e0-b611-8ab2fd012be8",
+      "model_name": "blank-disposable-customer-readiness-r4-20261015.skp"
+    },
+    "model_readback": {
+      "model_name": "blank-disposable-customer-readiness-r4-20261015",
+      "units": "mm",
+      "entity_count": 1,
+      "selection_count": 0
+    },
+    "write_verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 20606,
+          "actual": 20606
+        },
+        {
+          "check": "revision",
+          "expected": 7,
+          "actual": 7
+        },
+        {
+          "check": "objects_total",
+          "expected": 27,
+          "actual": 27
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              16710.2
+            ],
+            "size": [
+              71000,
+              42000,
+              17210.2
+            ]
+          },
+          "actual": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              16710.2
+            ],
+            "size": [
+              71000,
+              42000,
+              17210.2
+            ]
+          }
+        }
+      ]
+    },
+    "precommit_keep_guard": {
+      "armed": true,
+      "passed": true,
+      "paths": [
+        "STRUCTURE_EXISTING",
+        "CIRCULATION_EXTERNAL",
+        "CIRCULATION_INTERNAL",
+        "PARTITION_Z3600_B1",
+        "PARTITION_Z3600_B2",
+        "PARTITION_Z3600_B3",
+        "PARTITION_Z3600_B4",
+        "PARTITION_Z3600_B5",
+        "PARTITION_Z3600_B6",
+        "PARTITION_Z3600_B7",
+        "PARTITION_Z3600_B8",
+        "PARTITION_Z3600_B9",
+        "PARTITION_Z7200_B1",
+        "PARTITION_Z7200_B2",
+        "PARTITION_Z7200_B3",
+        "PARTITION_Z7200_B4",
+        "PARTITION_Z7200_B5",
+        "PARTITION_Z7200_B6",
+        "PARTITION_Z7200_B7",
+        "PARTITION_Z7200_B8",
+        "PARTITION_Z7200_B9",
+        "SITE_GROUND",
+        "FLOORS",
+        "ROOF_TIMBER",
+        "RAMPS",
+        "INTERIOR",
+        "ENVELOPE_OUTER/SOUTH_BAY_1",
+        "ENVELOPE_OUTER/SOUTH_BAY_2",
+        "ENVELOPE_OUTER/SOUTH_BAY_3",
+        "ENVELOPE_OUTER/SOUTH_BAY_4",
+        "ENVELOPE_OUTER/SOUTH_BAY_5",
+        "ENVELOPE_OUTER/SOUTH_BAY_6",
+        "ENVELOPE_OUTER/SOUTH_BAY_7",
+        "ENVELOPE_OUTER/SOUTH_BAY_8",
+        "ENVELOPE_OUTER/SOUTH_BAY_9",
+        "ENVELOPE_OUTER/SOUTH_BAY_10",
+        "ENVELOPE_OUTER/SOUTH_BAY_11",
+        "ENVELOPE_OUTER/SOUTH_BAY_12",
+        "ENVELOPE_OUTER/SOUTH_BAY_13",
+        "ENVELOPE_OUTER/SOUTH_BAY_14",
+        "ENVELOPE_OUTER/SOUTH_BAY_15",
+        "ENVELOPE_OUTER/SOUTH_BAY_16",
+        "ENVELOPE_OUTER/SOUTH_BAY_17",
+        "ENVELOPE_OUTER/SOUTH_BAY_18",
+        "ENVELOPE_OUTER/SOUTH_BAY_19",
+        "ENVELOPE_OUTER/NORTH_BAY_1",
+        "ENVELOPE_OUTER/NORTH_BAY_2",
+        "ENVELOPE_OUTER/NORTH_BAY_3",
+        "ENVELOPE_OUTER/NORTH_BAY_4",
+        "ENVELOPE_OUTER/NORTH_BAY_5",
+        "ENVELOPE_OUTER/NORTH_BAY_6",
+        "ENVELOPE_OUTER/NORTH_BAY_7",
+        "ENVELOPE_OUTER/NORTH_BAY_8",
+        "ENVELOPE_OUTER/NORTH_BAY_9",
+        "ENVELOPE_OUTER/NORTH_BAY_10",
+        "ENVELOPE_OUTER/NORTH_BAY_11",
+        "ENVELOPE_OUTER/NORTH_BAY_12",
+        "ENVELOPE_OUTER/NORTH_BAY_13",
+        "ENVELOPE_OUTER/NORTH_BAY_14",
+        "ENVELOPE_OUTER/NORTH_BAY_15",
+        "ENVELOPE_OUTER/NORTH_BAY_16",
+        "ENVELOPE_OUTER/NORTH_BAY_17",
+        "ENVELOPE_OUTER/NORTH_BAY_18",
+        "ENVELOPE_OUTER/NORTH_BAY_19",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_0",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_0",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_1",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_1",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_2",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_2",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_3",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_3",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_4",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_4",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_5",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_5",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_6",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_6",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_7",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_7",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_8",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_8",
+        "ENVELOPE_OUTER/SHORT_GLASS_0_9",
+        "ENVELOPE_OUTER/SHORT_MULLION_0_9",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_0_7200",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_0_8250",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_0_9300",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_0_10800",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_0_12000",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_0_13500",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_0",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_0",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_1",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_1",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_2",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_2",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_3",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_3",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_4",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_4",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_5",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_5",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_6",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_6",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_7",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_7",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_8",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_8",
+        "ENVELOPE_OUTER/SHORT_GLASS_1_9",
+        "ENVELOPE_OUTER/SHORT_MULLION_1_9",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_1_7200",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_1_8250",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_1_9300",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_1_10800",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_1_12000",
+        "ENVELOPE_OUTER/SHORT_TRANSOM_1_13500",
+        "ENVELOPE_OUTER/BUFFER_CANOPIES",
+        "ENVELOPE_OUTER/INNER_GLAZING",
+        "ENVELOPE_OUTER/TENSION_BRACING"
+      ]
+    },
+    "oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "d98b964ef5dd0787160356f871067ab6cf7661ee0b2822b5519e136c4398e070",
+      "events": [],
+      "status": "committed_readback",
+      "script_id": "glass_curved_roof",
+      "revision": 7,
+      "root_pid": 20606
+    },
+    "edit_scope_receipt": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_0"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ]
+      ],
+      "allowed_top_level": [
+        "ENVELOPE_OUTER"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    },
+    "strategy_progress": null,
+    "oss_method_adoption": {
+      "schema_version": 1,
+      "ledger_status": "committed_readback",
+      "actual_wrapped_calls": {},
+      "any_oss_product_use": false,
+      "effect_verified": false,
+      "effect_verification_required": "Named component readback and independent source-matched visual review.",
+      "plan_choices": []
+    },
+    "component_assembly_diagnostics": {
+      "schema_version": 1,
+      "status": "PARTIAL",
+      "named_native_group_checks": "PASS",
+      "group_count": 27,
+      "issues": [],
+      "components": [
+        {
+          "path": [
+            "STRUCTURE_EXISTING"
+          ],
+          "persistent_id": 20615,
+          "bounds_mm": {
+            "min": [
+              -180,
+              -180,
+              0
+            ],
+            "max": [
+              50180,
+              20180,
+              10800
+            ],
+            "size": [
+              50360,
+              20360,
+              10800
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "CIRCULATION_EXTERNAL"
+          ],
+          "persistent_id": 28007,
+          "bounds_mm": {
+            "min": [
+              -8517.5,
+              -6217.5,
+              -160
+            ],
+            "max": [
+              54017.5,
+              26217.5,
+              11915
+            ],
+            "size": [
+              62535,
+              32435,
+              12075
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "ENVELOPE_OUTER"
+          ],
+          "persistent_id": 41319,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4030,
+              0
+            ],
+            "max": [
+              54030,
+              24030,
+              16503.6
+            ],
+            "size": [
+              58060,
+              28060,
+              16503.6
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "CIRCULATION_INTERNAL"
+          ],
+          "persistent_id": 45400,
+          "bounds_mm": {
+            "min": [
+              34682.5,
+              1000,
+              0
+            ],
+            "max": [
+              52700,
+              8817.5,
+              11916.9
+            ],
+            "size": [
+              18017.5,
+              7817.5,
+              11916.9
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B1"
+          ],
+          "persistent_id": 75036,
+          "bounds_mm": {
+            "min": [
+              4940,
+              12000,
+              3600
+            ],
+            "max": [
+              5060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B2"
+          ],
+          "persistent_id": 75068,
+          "bounds_mm": {
+            "min": [
+              9940,
+              12000,
+              3600
+            ],
+            "max": [
+              10060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B3"
+          ],
+          "persistent_id": 75100,
+          "bounds_mm": {
+            "min": [
+              14940,
+              12000,
+              3600
+            ],
+            "max": [
+              15060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B4"
+          ],
+          "persistent_id": 75132,
+          "bounds_mm": {
+            "min": [
+              19940,
+              12000,
+              3600
+            ],
+            "max": [
+              20060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B5"
+          ],
+          "persistent_id": 75164,
+          "bounds_mm": {
+            "min": [
+              24940,
+              12000,
+              3600
+            ],
+            "max": [
+              25060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B6"
+          ],
+          "persistent_id": 75196,
+          "bounds_mm": {
+            "min": [
+              29940,
+              12000,
+              3600
+            ],
+            "max": [
+              30060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B7"
+          ],
+          "persistent_id": 75228,
+          "bounds_mm": {
+            "min": [
+              34940,
+              12000,
+              3600
+            ],
+            "max": [
+              35060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B8"
+          ],
+          "persistent_id": 75260,
+          "bounds_mm": {
+            "min": [
+              39940,
+              12000,
+              3600
+            ],
+            "max": [
+              40060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z3600_B9"
+          ],
+          "persistent_id": 75292,
+          "bounds_mm": {
+            "min": [
+              44940,
+              12000,
+              3600
+            ],
+            "max": [
+              45060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B1"
+          ],
+          "persistent_id": 75324,
+          "bounds_mm": {
+            "min": [
+              4940,
+              12000,
+              7200
+            ],
+            "max": [
+              5060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B2"
+          ],
+          "persistent_id": 75356,
+          "bounds_mm": {
+            "min": [
+              9940,
+              12000,
+              7200
+            ],
+            "max": [
+              10060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B3"
+          ],
+          "persistent_id": 75388,
+          "bounds_mm": {
+            "min": [
+              14940,
+              12000,
+              7200
+            ],
+            "max": [
+              15060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B4"
+          ],
+          "persistent_id": 75420,
+          "bounds_mm": {
+            "min": [
+              19940,
+              12000,
+              7200
+            ],
+            "max": [
+              20060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B5"
+          ],
+          "persistent_id": 75452,
+          "bounds_mm": {
+            "min": [
+              24940,
+              12000,
+              7200
+            ],
+            "max": [
+              25060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B6"
+          ],
+          "persistent_id": 75484,
+          "bounds_mm": {
+            "min": [
+              29940,
+              12000,
+              7200
+            ],
+            "max": [
+              30060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B7"
+          ],
+          "persistent_id": 75516,
+          "bounds_mm": {
+            "min": [
+              34940,
+              12000,
+              7200
+            ],
+            "max": [
+              35060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B8"
+          ],
+          "persistent_id": 75548,
+          "bounds_mm": {
+            "min": [
+              39940,
+              12000,
+              7200
+            ],
+            "max": [
+              40060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "PARTITION_Z7200_B9"
+          ],
+          "persistent_id": 75580,
+          "bounds_mm": {
+            "min": [
+              44940,
+              12000,
+              7200
+            ],
+            "max": [
+              45060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "SITE_GROUND"
+          ],
+          "persistent_id": 76256,
+          "bounds_mm": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              -280
+            ],
+            "size": [
+              71000,
+              42000,
+              220
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "FLOORS"
+          ],
+          "persistent_id": 76290,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              -250
+            ],
+            "max": [
+              50000,
+              20000,
+              10800
+            ],
+            "size": [
+              50000,
+              20000,
+              11050
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "ROOF_TIMBER"
+          ],
+          "persistent_id": 77872,
+          "bounds_mm": {
+            "min": [
+              -55,
+              -90,
+              10800
+            ],
+            "max": [
+              50055,
+              20090,
+              16710.2
+            ],
+            "size": [
+              50110,
+              20180,
+              5910.2
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "RAMPS"
+          ],
+          "persistent_id": 78998,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -4000,
+              -160
+            ],
+            "max": [
+              -4100,
+              24000,
+              10800
+            ],
+            "size": [
+              4400,
+              28000,
+              10960
+            ]
+          },
+          "locked": false
+        },
+        {
+          "path": [
+            "INTERIOR"
+          ],
+          "persistent_id": 79083,
+          "bounds_mm": {
+            "min": [
+              5000,
+              4000,
+              0
+            ],
+            "max": [
+              50000,
+              20000,
+              11585
+            ],
+            "size": [
+              45000,
+              16000,
+              11585
+            ]
+          },
+          "locked": false
+        }
+      ],
+      "actual_geometry_and_material_equality": "Requires independent recursive fingerprint/replay evidence",
+      "roof_wall_window_stair_joint_quality": "NOT_VERIFIED_BY_NAMES_OR_BOUNDS",
+      "source_fidelity": "Requires source-matched visual review",
+      "not_structural_or_regulatory_certification": true
+    },
+    "screenshot": "outputs/renders/ruby-glass_curved_roof-r7.png",
+    "transport": "existing Kongxing sketchup_eval_project_file"
+  },
+  "views": {
+    "front": "outputs/renders/agent-view-front-6e133f8171.png",
+    "rear": "outputs/renders/agent-view-rear-c967163d0b.png",
+    "left": "outputs/renders/agent-view-left-026d09ef17.png",
+    "right": "outputs/renders/agent-view-right-57d5109346.png",
+    "roof": "outputs/renders/agent-view-roof-89aadbd080.png",
+    "oblique": "outputs/renders/agent-view-oblique-a9daef3ade.png"
+  },
+  "cameras": [
+    {
+      "label": "ramp end source1",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "eye": [
+        -58,
+        10,
+        20
+      ],
+      "target": [
+        12,
+        10,
+        7
+      ]
+    },
+    {
+      "label": "end long facade source2",
+      "source": "ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "eye": [
+        -49,
+        -52,
+        30
+      ],
+      "target": [
+        19,
+        9,
+        7
+      ]
+    },
+    {
+      "label": "entry source3 upper",
+      "source": "8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "eye": [
+        -22,
+        -30,
+        5
+      ],
+      "target": [
+        3,
+        2,
+        4
+      ]
+    },
+    {
+      "label": "top interior source4 upper",
+      "source": "c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "eye": [
+        5,
+        5,
+        12.4
+      ],
+      "target": [
+        39,
+        12,
+        12
+      ]
+    },
+    {
+      "label": "section position uncut source5",
+      "source": "da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "eye": [
+        -60,
+        10,
+        10
+      ],
+      "target": [
+        25,
+        10,
+        8
+      ]
+    },
+    {
+      "label": "system un-exploded source6",
+      "source": "4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "eye": [
+        -46,
+        -48,
+        47
+      ],
+      "target": [
+        22,
+        10,
+        7
+      ]
+    },
+    {
+      "label": "plan roof occluded source7",
+      "source": "8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "eye": [
+        25,
+        10,
+        95
+      ],
+      "target": [
+        25,
+        10,
+        0
+      ],
+      "up": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "label": "section position uncut source8",
+      "source": "92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "eye": [
+        -64,
+        10,
+        8
+      ],
+      "target": [
+        25,
+        10,
+        8
+      ]
+    },
+    {
+      "label": "gallery underside source3 lower",
+      "source": "8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "eye": [
+        2,
+        -2,
+        1.65
+      ],
+      "target": [
+        40,
+        -2,
+        2
+      ]
+    },
+    {
+      "label": "lower hall source4 lower",
+      "source": "c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "eye": [
+        5,
+        6,
+        1.7
+      ],
+      "target": [
+        38,
+        9,
+        4
+      ]
+    },
+    {
+      "label": "north receiving Z7200 door",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "eye": [
+        -2.55,
+        30,
+        8.7
+      ],
+      "target": [
+        -2.55,
+        23,
+        8.7
+      ]
+    },
+    {
+      "label": "north receiving Z10800 door",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "eye": [
+        -2.55,
+        30,
+        12.1
+      ],
+      "target": [
+        -2.55,
+        23,
+        12.1
+      ]
+    },
+    {
+      "label": "south receiving Z7200 door",
+      "source": "9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "eye": [
+        -2.55,
+        -10,
+        8.7
+      ],
+      "target": [
+        -2.55,
+        -3,
+        8.7
+      ]
+    }
+  ],
+  "save_status": "No native save/reopen tool supplied; commit is not proof of save.",
+  "independent_review": {
+    "needs_fix": true,
+    "assessment": "SOURCE panels show one elongated building: a retained concrete frame with split-level/double-height spaces, a glazed upper timber hall beneath a concave roof, projecting circulation decks, end ramps, spiral stairs and circular floor openings. Exterior perspectives share the ramp end and adjoining long facade; interior panels show the upper hall and lower double-height workspace; sections, plans and exploded diagrams establish their relationships. CURRENT captures the broad roof profile and circulation concept, but differs in ramp placement, internal floor continuity and opening guards. Absolute dimensions are unconfirmed. Uncut section views and roof-occluded plans cannot establish concealed connections or partition fidelity.",
+    "issues": [
+      {
+        "priority": 1,
+        "view": "source-matched",
+        "problem": "CURRENT places all three diagonal ramp flights prominently outside the end glazing, with large projecting turnaround platforms. SOURCE 1–2 show the upper flights behind the outer glazed screen and a more restrained relationship between ramps, perimeter decks and end landings.",
+        "action": "Locally reposition the upper flights within the screened circulation zone and reduce the excessive landing projections. Align each flight endpoint with its receiving deck and opening; close-ups 24–26 still show railing across the apparent approach, so provide actual clear passages and connected landings."
+      },
+      {
+        "priority": 2,
+        "view": "source-matched",
+        "problem": "SOURCE 4 lower and sections 5/8 show a double-height hall beside an intermediate floor, with an open upper gallery and spiral connection. CURRENT 23 instead shows a continuous low ceiling across the hall, suppressing this major interior volume.",
+        "action": "Remove only the slab and beam portions spanning the source-backed void. Retain the adjacent intermediate floor and concrete columns, and connect the spiral stair to the resulting gallery edge."
+      },
+      {
+        "priority": 3,
+        "view": "source-matched",
+        "problem": "SOURCE 4 upper shows circular floor openings enclosed by substantial cylindrical mesh guards. CURRENT 18 leaves the foreground circular opening unguarded and uses sparse vertical bars around the larger stair opening.",
+        "action": "Add continuous circular mesh guards around the corresponding openings and revise the existing stair guard locally, preserving clear stair access."
+      }
+    ],
+    "keep": [
+      "Concave transverse roof profile with unequal edge heights.",
+      "Raised timber hall set inward from the outer glazed perimeter.",
+      "Recurring rectangular concrete columns visible along the lower facade."
+    ],
+    "model_revisions": {
+      "glass_curved_roof": 7
+    },
+    "reviewer": {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 253203,
+      "input_tokens": 59894,
+      "output_tokens": 802,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    }
+  },
+  "local_result": "Three glass/transom apertures committed. Adjacent glass/frame and all other assemblies protected. Independent critic still questions apparent approach rail obstruction; whole-route walkability is not certified. No further writes because ramps, platforms, rails and floors are protected by latest user request."
+}
