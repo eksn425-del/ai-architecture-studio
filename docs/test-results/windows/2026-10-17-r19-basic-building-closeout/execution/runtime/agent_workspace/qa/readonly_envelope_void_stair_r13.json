@@ -1,0 +1,3763 @@
+{
+  "revision": 13,
+  "read_only": true,
+  "coordinate_system": "Existing model X long0..50000, Y depth0..20000, Z floor0/3600/7200/10800, mm. Source dimensions unmeasured.",
+  "floors": [
+    {
+      "name": "L0",
+      "persistent_id": 76291,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          -250
+        ],
+        "max": [
+          50000,
+          20000,
+          0
+        ],
+        "size": [
+          50000,
+          20000,
+          250
+        ]
+      }
+    },
+    {
+      "name": "L1",
+      "persistent_id": 76319,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          3350
+        ],
+        "max": [
+          50000,
+          20000,
+          3600
+        ],
+        "size": [
+          50000,
+          20000,
+          250
+        ]
+      }
+    },
+    {
+      "name": "L2_PARTIAL_SOUTH",
+      "persistent_id": 76635,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          11000,
+          6950
+        ],
+        "max": [
+          50000,
+          20000,
+          7200
+        ],
+        "size": [
+          50000,
+          9000,
+          250
+        ]
+      }
+    },
+    {
+      "name": "L2_PARTIAL_EAST",
+      "persistent_id": 76663,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          30000,
+          0,
+          6950
+        ],
+        "max": [
+          50000,
+          11000,
+          7200
+        ],
+        "size": [
+          20000,
+          11000,
+          250
+        ]
+      }
+    },
+    {
+      "name": "L3",
+      "persistent_id": 76979,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          10550
+        ],
+        "max": [
+          50000,
+          20000,
+          10800
+        ],
+        "size": [
+          50000,
+          20000,
+          250
+        ]
+      }
+    }
+  ],
+  "beams": [
+    {
+      "name": "LONG_BEAM_Z3600_Y0",
+      "persistent_id": 20682,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          -180,
+          3120
+        ],
+        "max": [
+          50180,
+          180,
+          3600
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z3600_Y1",
+      "persistent_id": 20714,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          9820,
+          3120
+        ],
+        "max": [
+          50180,
+          10180,
+          3600
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z3600_Y2",
+      "persistent_id": 20746,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          19820,
+          3120
+        ],
+        "max": [
+          50180,
+          20180,
+          3600
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X0",
+      "persistent_id": 20778,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -150,
+          0,
+          3180
+        ],
+        "max": [
+          150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X1",
+      "persistent_id": 20810,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4850,
+          0,
+          3180
+        ],
+        "max": [
+          5150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X2",
+      "persistent_id": 20842,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          9850,
+          0,
+          3180
+        ],
+        "max": [
+          10150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X3",
+      "persistent_id": 20874,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          14850,
+          0,
+          3180
+        ],
+        "max": [
+          15150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X4",
+      "persistent_id": 20906,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          19850,
+          0,
+          3180
+        ],
+        "max": [
+          20150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X5",
+      "persistent_id": 20938,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          24850,
+          0,
+          3180
+        ],
+        "max": [
+          25150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X6",
+      "persistent_id": 20970,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          29850,
+          0,
+          3180
+        ],
+        "max": [
+          30150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X7",
+      "persistent_id": 21002,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34850,
+          0,
+          3180
+        ],
+        "max": [
+          35150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X8",
+      "persistent_id": 21034,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39850,
+          0,
+          3180
+        ],
+        "max": [
+          40150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X9",
+      "persistent_id": 21066,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          44850,
+          0,
+          3180
+        ],
+        "max": [
+          45150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z3600_X10",
+      "persistent_id": 21098,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          49850,
+          0,
+          3180
+        ],
+        "max": [
+          50150,
+          20000,
+          3600
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z7200_Y0",
+      "persistent_id": 21130,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          -180,
+          6720
+        ],
+        "max": [
+          50180,
+          180,
+          7200
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z7200_Y1",
+      "persistent_id": 21162,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          9820,
+          6720
+        ],
+        "max": [
+          50180,
+          10180,
+          7200
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z7200_Y2",
+      "persistent_id": 21194,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          19820,
+          6720
+        ],
+        "max": [
+          50180,
+          20180,
+          7200
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X0",
+      "persistent_id": 21226,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -150,
+          0,
+          6780
+        ],
+        "max": [
+          150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X1",
+      "persistent_id": 21258,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4850,
+          0,
+          6780
+        ],
+        "max": [
+          5150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X2",
+      "persistent_id": 21290,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          9850,
+          0,
+          6780
+        ],
+        "max": [
+          10150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X3",
+      "persistent_id": 21322,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          14850,
+          0,
+          6780
+        ],
+        "max": [
+          15150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X4",
+      "persistent_id": 21354,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          19850,
+          0,
+          6780
+        ],
+        "max": [
+          20150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X5",
+      "persistent_id": 21386,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          24850,
+          0,
+          6780
+        ],
+        "max": [
+          25150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X6",
+      "persistent_id": 21418,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          29850,
+          0,
+          6780
+        ],
+        "max": [
+          30150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X7",
+      "persistent_id": 21450,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34850,
+          0,
+          6780
+        ],
+        "max": [
+          35150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X8",
+      "persistent_id": 21482,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39850,
+          0,
+          6780
+        ],
+        "max": [
+          40150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X9",
+      "persistent_id": 21514,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          44850,
+          0,
+          6780
+        ],
+        "max": [
+          45150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z7200_X10",
+      "persistent_id": 21546,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          49850,
+          0,
+          6780
+        ],
+        "max": [
+          50150,
+          20000,
+          7200
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z10800_Y0",
+      "persistent_id": 21578,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          -180,
+          10320
+        ],
+        "max": [
+          50180,
+          180,
+          10800
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z10800_Y1",
+      "persistent_id": 21610,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          9820,
+          10320
+        ],
+        "max": [
+          50180,
+          10180,
+          10800
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "LONG_BEAM_Z10800_Y2",
+      "persistent_id": 21642,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -180,
+          19820,
+          10320
+        ],
+        "max": [
+          50180,
+          20180,
+          10800
+        ],
+        "size": [
+          50360,
+          360,
+          480
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X0",
+      "persistent_id": 21674,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -150,
+          0,
+          10380
+        ],
+        "max": [
+          150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X1",
+      "persistent_id": 21706,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          4850,
+          0,
+          10380
+        ],
+        "max": [
+          5150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X2",
+      "persistent_id": 21738,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          9850,
+          0,
+          10380
+        ],
+        "max": [
+          10150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X3",
+      "persistent_id": 21770,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          14850,
+          0,
+          10380
+        ],
+        "max": [
+          15150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X4",
+      "persistent_id": 21802,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          19850,
+          0,
+          10380
+        ],
+        "max": [
+          20150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X5",
+      "persistent_id": 21834,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          24850,
+          0,
+          10380
+        ],
+        "max": [
+          25150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X6",
+      "persistent_id": 21866,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          29850,
+          0,
+          10380
+        ],
+        "max": [
+          30150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X7",
+      "persistent_id": 21898,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34850,
+          0,
+          10380
+        ],
+        "max": [
+          35150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X8",
+      "persistent_id": 21930,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39850,
+          0,
+          10380
+        ],
+        "max": [
+          40150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X9",
+      "persistent_id": 21962,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          44850,
+          0,
+          10380
+        ],
+        "max": [
+          45150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    },
+    {
+      "name": "CROSS_BEAM_Z10800_X10",
+      "persistent_id": 21994,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          49850,
+          0,
+          10380
+        ],
+        "max": [
+          50150,
+          20000,
+          10800
+        ],
+        "size": [
+          300,
+          20000,
+          420
+        ]
+      }
+    }
+  ],
+  "spiral_middle": [
+    {
+      "name": "TREAD_0",
+      "persistent_id": 47710,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37338.1,
+          6500,
+          3670
+        ],
+        "max": [
+          39100,
+          7043.5,
+          3750
+        ],
+        "size": [
+          1761.9,
+          543.5,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_0",
+      "persistent_id": 47742,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39015.9,
+          7031,
+          3750
+        ],
+        "max": [
+          39040.9,
+          7056,
+          4850
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_0",
+      "persistent_id": 47774,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39010.5,
+          6493.1,
+          4683.1
+        ],
+        "max": [
+          39118,
+          7050.4,
+          4866.9
+        ],
+        "size": [
+          107.5,
+          557.2,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_1",
+      "persistent_id": 47806,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37303.1,
+          6590.6,
+          3820
+        ],
+        "max": [
+          39028.4,
+          7550,
+          3900
+        ],
+        "size": [
+          1725.3,
+          959.4,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_1",
+      "persistent_id": 47838,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38806.2,
+          7537.5,
+          3900
+        ],
+        "max": [
+          38831.2,
+          7562.5,
+          5000
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_1",
+      "persistent_id": 47870,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38800.7,
+          7032.6,
+          4833.1
+        ],
+        "max": [
+          39046.4,
+          7561,
+          5016.9
+        ],
+        "size": [
+          245.7,
+          528.4,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_2",
+      "persistent_id": 47902,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37247.5,
+          6675,
+          3970
+        ],
+        "max": [
+          38818.7,
+          7984.9,
+          4050
+        ],
+        "size": [
+          1571.2,
+          1309.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_2",
+      "persistent_id": 47934,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38472.4,
+          7972.4,
+          4050
+        ],
+        "max": [
+          38497.4,
+          7997.4,
+          5150
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_2",
+      "persistent_id": 47966,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38468.2,
+          7535.7,
+          4983.1
+        ],
+        "max": [
+          38835.3,
+          7999.2,
+          5166.9
+        ],
+        "size": [
+          367.1,
+          463.6,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_3",
+      "persistent_id": 47998,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37175,
+          6747.5,
+          4120
+        ],
+        "max": [
+          38484.9,
+          8318.7,
+          4200
+        ],
+        "size": [
+          1309.9,
+          1571.2,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_3",
+      "persistent_id": 48030,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38037.5,
+          8306.2,
+          4200
+        ],
+        "max": [
+          38062.5,
+          8331.2,
+          5300
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_3",
+      "persistent_id": 48062,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38035.7,
+          7968.2,
+          5133.1
+        ],
+        "max": [
+          38499.2,
+          8335.3,
+          5316.9
+        ],
+        "size": [
+          463.6,
+          367.1,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_4",
+      "persistent_id": 48094,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37090.6,
+          6803.1,
+          4270
+        ],
+        "max": [
+          38050,
+          8528.4,
+          4350
+        ],
+        "size": [
+          959.4,
+          1725.3,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_4",
+      "persistent_id": 48126,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37531,
+          8515.9,
+          4350
+        ],
+        "max": [
+          37556,
+          8540.9,
+          5450
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_4",
+      "persistent_id": 48158,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37532.6,
+          8300.7,
+          5283.1
+        ],
+        "max": [
+          38061,
+          8546.4,
+          5466.9
+        ],
+        "size": [
+          528.4,
+          245.7,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_5",
+      "persistent_id": 48190,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37000,
+          6838.1,
+          4420
+        ],
+        "max": [
+          37543.5,
+          8600,
+          4500
+        ],
+        "size": [
+          543.5,
+          1761.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_5",
+      "persistent_id": 48222,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36987.5,
+          8587.5,
+          4500
+        ],
+        "max": [
+          37012.5,
+          8612.5,
+          5600
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_5",
+      "persistent_id": 48254,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36993.1,
+          8510.5,
+          5433.1
+        ],
+        "max": [
+          37550.4,
+          8618,
+          5616.9
+        ],
+        "size": [
+          557.2,
+          107.5,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_6",
+      "persistent_id": 48286,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36456.5,
+          6838.1,
+          4570
+        ],
+        "max": [
+          37000,
+          8600,
+          4650
+        ],
+        "size": [
+          543.5,
+          1761.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_6",
+      "persistent_id": 48318,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36444,
+          8515.9,
+          4650
+        ],
+        "max": [
+          36469,
+          8540.9,
+          5750
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_6",
+      "persistent_id": 48350,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36449.6,
+          8510.5,
+          5583.1
+        ],
+        "max": [
+          37006.9,
+          8618,
+          5766.9
+        ],
+        "size": [
+          557.2,
+          107.5,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_7",
+      "persistent_id": 48382,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35950,
+          6803.1,
+          4720
+        ],
+        "max": [
+          36909.4,
+          8528.4,
+          4800
+        ],
+        "size": [
+          959.4,
+          1725.3,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_7",
+      "persistent_id": 48414,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35937.5,
+          8306.2,
+          4800
+        ],
+        "max": [
+          35962.5,
+          8331.2,
+          5900
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_7",
+      "persistent_id": 48446,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35939,
+          8300.7,
+          5733.1
+        ],
+        "max": [
+          36467.4,
+          8546.4,
+          5916.9
+        ],
+        "size": [
+          528.4,
+          245.7,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_8",
+      "persistent_id": 48478,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35515.1,
+          6747.5,
+          4870
+        ],
+        "max": [
+          36825,
+          8318.7,
+          4950
+        ],
+        "size": [
+          1309.9,
+          1571.2,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_8",
+      "persistent_id": 48510,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35502.6,
+          7972.4,
+          4950
+        ],
+        "max": [
+          35527.6,
+          7997.4,
+          6050
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_8",
+      "persistent_id": 48542,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35500.8,
+          7968.2,
+          5883.1
+        ],
+        "max": [
+          35964.3,
+          8335.3,
+          6066.9
+        ],
+        "size": [
+          463.6,
+          367.1,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_9",
+      "persistent_id": 48574,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35181.3,
+          6675,
+          5020
+        ],
+        "max": [
+          36752.5,
+          7984.9,
+          5100
+        ],
+        "size": [
+          1571.2,
+          1309.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_9",
+      "persistent_id": 48606,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35168.8,
+          7537.5,
+          5100
+        ],
+        "max": [
+          35193.8,
+          7562.5,
+          6200
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_9",
+      "persistent_id": 48638,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35164.7,
+          7535.7,
+          6033.1
+        ],
+        "max": [
+          35531.8,
+          7999.2,
+          6216.9
+        ],
+        "size": [
+          367.1,
+          463.6,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_10",
+      "persistent_id": 48670,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34971.6,
+          6590.6,
+          5170
+        ],
+        "max": [
+          36696.9,
+          7550,
+          5250
+        ],
+        "size": [
+          1725.3,
+          959.4,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_10",
+      "persistent_id": 48702,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34959.1,
+          7031,
+          5250
+        ],
+        "max": [
+          34984.1,
+          7056,
+          6350
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_10",
+      "persistent_id": 48734,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34953.6,
+          7032.6,
+          6183.1
+        ],
+        "max": [
+          35199.3,
+          7561,
+          6366.9
+        ],
+        "size": [
+          245.7,
+          528.4,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_11",
+      "persistent_id": 48766,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34900,
+          6500,
+          5320
+        ],
+        "max": [
+          36661.9,
+          7043.5,
+          5400
+        ],
+        "size": [
+          1761.9,
+          543.5,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_11",
+      "persistent_id": 48798,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34887.5,
+          6487.5,
+          5400
+        ],
+        "max": [
+          34912.5,
+          6512.5,
+          6500
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_11",
+      "persistent_id": 48830,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34882,
+          6493.1,
+          6333.1
+        ],
+        "max": [
+          34989.5,
+          7050.4,
+          6516.9
+        ],
+        "size": [
+          107.5,
+          557.2,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_12",
+      "persistent_id": 48862,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34900,
+          5956.5,
+          5470
+        ],
+        "max": [
+          36661.9,
+          6500,
+          5550
+        ],
+        "size": [
+          1761.9,
+          543.5,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_12",
+      "persistent_id": 48894,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34959.1,
+          5944,
+          5550
+        ],
+        "max": [
+          34984.1,
+          5969,
+          6650
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_12",
+      "persistent_id": 48926,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34882,
+          5949.6,
+          6483.1
+        ],
+        "max": [
+          34989.5,
+          6506.9,
+          6666.9
+        ],
+        "size": [
+          107.5,
+          557.2,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_13",
+      "persistent_id": 48958,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34971.6,
+          5450,
+          5620
+        ],
+        "max": [
+          36696.9,
+          6409.4,
+          5700
+        ],
+        "size": [
+          1725.3,
+          959.4,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_13",
+      "persistent_id": 48990,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35168.8,
+          5437.5,
+          5700
+        ],
+        "max": [
+          35193.8,
+          5462.5,
+          6800
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_13",
+      "persistent_id": 49022,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          34953.6,
+          5439,
+          6633.1
+        ],
+        "max": [
+          35199.3,
+          5967.4,
+          6816.9
+        ],
+        "size": [
+          245.7,
+          528.4,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_14",
+      "persistent_id": 49054,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35181.3,
+          5015.1,
+          5770
+        ],
+        "max": [
+          36752.5,
+          6325,
+          5850
+        ],
+        "size": [
+          1571.2,
+          1309.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_14",
+      "persistent_id": 49086,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35502.6,
+          5002.6,
+          5850
+        ],
+        "max": [
+          35527.6,
+          5027.6,
+          6950
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_14",
+      "persistent_id": 49118,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35164.7,
+          5000.8,
+          6783.1
+        ],
+        "max": [
+          35531.8,
+          5464.3,
+          6966.9
+        ],
+        "size": [
+          367.1,
+          463.6,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_15",
+      "persistent_id": 49150,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35515.1,
+          4681.3,
+          5920
+        ],
+        "max": [
+          36825,
+          6252.5,
+          6000
+        ],
+        "size": [
+          1309.9,
+          1571.2,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_15",
+      "persistent_id": 49182,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35937.5,
+          4668.8,
+          6000
+        ],
+        "max": [
+          35962.5,
+          4693.8,
+          7100
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_15",
+      "persistent_id": 49214,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35500.8,
+          4664.7,
+          6933.1
+        ],
+        "max": [
+          35964.3,
+          5031.8,
+          7116.9
+        ],
+        "size": [
+          463.6,
+          367.1,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_16",
+      "persistent_id": 49246,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35950,
+          4471.6,
+          6070
+        ],
+        "max": [
+          36909.4,
+          6196.9,
+          6150
+        ],
+        "size": [
+          959.4,
+          1725.3,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_16",
+      "persistent_id": 49278,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36444,
+          4459.1,
+          6150
+        ],
+        "max": [
+          36469,
+          4484.1,
+          7250
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_16",
+      "persistent_id": 49310,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          35939,
+          4453.6,
+          7083.1
+        ],
+        "max": [
+          36467.4,
+          4699.3,
+          7266.9
+        ],
+        "size": [
+          528.4,
+          245.7,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_17",
+      "persistent_id": 49342,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36456.5,
+          4400,
+          6220
+        ],
+        "max": [
+          37000,
+          6161.9,
+          6300
+        ],
+        "size": [
+          543.5,
+          1761.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_17",
+      "persistent_id": 49374,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36987.5,
+          4387.5,
+          6300
+        ],
+        "max": [
+          37012.5,
+          4412.5,
+          7400
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_17",
+      "persistent_id": 49406,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36449.6,
+          4382,
+          7233.1
+        ],
+        "max": [
+          37006.9,
+          4489.5,
+          7416.9
+        ],
+        "size": [
+          557.2,
+          107.5,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_18",
+      "persistent_id": 49438,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37000,
+          4400,
+          6370
+        ],
+        "max": [
+          37543.5,
+          6161.9,
+          6450
+        ],
+        "size": [
+          543.5,
+          1761.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_18",
+      "persistent_id": 49470,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37531,
+          4459.1,
+          6450
+        ],
+        "max": [
+          37556,
+          4484.1,
+          7550
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_18",
+      "persistent_id": 49502,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          36993.1,
+          4382,
+          7383.1
+        ],
+        "max": [
+          37550.4,
+          4489.5,
+          7566.9
+        ],
+        "size": [
+          557.2,
+          107.5,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_19",
+      "persistent_id": 49534,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37090.6,
+          4471.6,
+          6520
+        ],
+        "max": [
+          38050,
+          6196.9,
+          6600
+        ],
+        "size": [
+          959.4,
+          1725.3,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_19",
+      "persistent_id": 49566,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38037.5,
+          4668.8,
+          6600
+        ],
+        "max": [
+          38062.5,
+          4693.8,
+          7700
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_19",
+      "persistent_id": 49598,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37532.6,
+          4453.6,
+          7533.1
+        ],
+        "max": [
+          38061,
+          4699.3,
+          7716.9
+        ],
+        "size": [
+          528.4,
+          245.7,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_20",
+      "persistent_id": 49630,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37175,
+          4681.3,
+          6670
+        ],
+        "max": [
+          38484.9,
+          6252.5,
+          6750
+        ],
+        "size": [
+          1309.9,
+          1571.2,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_20",
+      "persistent_id": 49662,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38472.4,
+          5002.6,
+          6750
+        ],
+        "max": [
+          38497.4,
+          5027.6,
+          7850
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_20",
+      "persistent_id": 49694,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38035.7,
+          4664.7,
+          7683.1
+        ],
+        "max": [
+          38499.2,
+          5031.8,
+          7866.9
+        ],
+        "size": [
+          463.6,
+          367.1,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_21",
+      "persistent_id": 49726,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37247.5,
+          5015.1,
+          6820
+        ],
+        "max": [
+          38818.7,
+          6325,
+          6900
+        ],
+        "size": [
+          1571.2,
+          1309.9,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_21",
+      "persistent_id": 49758,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38806.2,
+          5437.5,
+          6900
+        ],
+        "max": [
+          38831.2,
+          5462.5,
+          8000
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_21",
+      "persistent_id": 49790,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38468.2,
+          5000.8,
+          7833.1
+        ],
+        "max": [
+          38835.3,
+          5464.3,
+          8016.9
+        ],
+        "size": [
+          367.1,
+          463.6,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_22",
+      "persistent_id": 49822,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37303.1,
+          5450,
+          6970
+        ],
+        "max": [
+          39028.4,
+          6409.4,
+          7050
+        ],
+        "size": [
+          1725.3,
+          959.4,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_22",
+      "persistent_id": 49854,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39015.9,
+          5944,
+          7050
+        ],
+        "max": [
+          39040.9,
+          5969,
+          8150
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_22",
+      "persistent_id": 49886,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          38800.7,
+          5439,
+          7983.1
+        ],
+        "max": [
+          39046.4,
+          5967.4,
+          8166.9
+        ],
+        "size": [
+          245.7,
+          528.4,
+          183.8
+        ]
+      }
+    },
+    {
+      "name": "TREAD_23",
+      "persistent_id": 49918,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          37338.1,
+          5956.5,
+          7120
+        ],
+        "max": [
+          39100,
+          6500,
+          7200
+        ],
+        "size": [
+          1761.9,
+          543.5,
+          80
+        ]
+      }
+    },
+    {
+      "name": "BALUSTER_23",
+      "persistent_id": 49950,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39087.5,
+          6487.5,
+          7200
+        ],
+        "max": [
+          39112.5,
+          6512.5,
+          8300
+        ],
+        "size": [
+          25,
+          25,
+          1100
+        ]
+      }
+    },
+    {
+      "name": "HANDRAIL_23",
+      "persistent_id": 49982,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          39010.5,
+          5949.6,
+          8133.1
+        ],
+        "max": [
+          39118,
+          6506.9,
+          8316.9
+        ],
+        "size": [
+          107.5,
+          557.2,
+          183.8
+        ]
+      }
+    }
+  ],
+  "canopies": [
+    {
+      "name": "CANOPY_0",
+      "persistent_id": 42844,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -4000,
+          -4000,
+          13400
+        ],
+        "max": [
+          54000,
+          0,
+          13500
+        ],
+        "size": [
+          58000,
+          4000,
+          100
+        ]
+      }
+    },
+    {
+      "name": "CANOPY_1",
+      "persistent_id": 42876,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -4000,
+          20000,
+          13400
+        ],
+        "max": [
+          54000,
+          24000,
+          13500
+        ],
+        "size": [
+          58000,
+          4000,
+          100
+        ]
+      }
+    },
+    {
+      "name": "CANOPY_2",
+      "persistent_id": 42908,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -4000,
+          0,
+          13400
+        ],
+        "max": [
+          0,
+          20000,
+          13500
+        ],
+        "size": [
+          4000,
+          20000,
+          100
+        ]
+      }
+    },
+    {
+      "name": "CANOPY_3",
+      "persistent_id": 42940,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          50000,
+          0,
+          13400
+        ],
+        "max": [
+          54000,
+          20000,
+          13500
+        ],
+        "size": [
+          4000,
+          20000,
+          100
+        ]
+      }
+    }
+  ],
+  "inner_glazing_count": 80,
+  "hall_side_bay_counts": [
+    20,
+    20
+  ],
+  "circulation_child_inventory": [
+    {
+      "name": "SPIRAL_L0_L1",
+      "pid": 45402
+    },
+    {
+      "name": "SPIRAL_L1_L2",
+      "pid": 47708
+    },
+    {
+      "name": "SPIRAL_L2_L3",
+      "pid": 50014
+    },
+    {
+      "name": "VOID_RAIL_3600_6",
+      "pid": 52320
+    },
+    {
+      "name": "VOID_RAIL_3600_7",
+      "pid": 52482
+    },
+    {
+      "name": "VOID_RAIL_3600_8",
+      "pid": 52644
+    },
+    {
+      "name": "VOID_RAIL_3600_9",
+      "pid": 52806
+    },
+    {
+      "name": "VOID_RAIL_3600_10",
+      "pid": 52968
+    },
+    {
+      "name": "VOID_RAIL_3600_11",
+      "pid": 53130
+    },
+    {
+      "name": "VOID_RAIL_3600_12",
+      "pid": 53292
+    },
+    {
+      "name": "VOID_RAIL_3600_13",
+      "pid": 53454
+    },
+    {
+      "name": "VOID_RAIL_3600_14",
+      "pid": 53616
+    },
+    {
+      "name": "VOID_RAIL_3600_15",
+      "pid": 53778
+    },
+    {
+      "name": "VOID_RAIL_3600_16",
+      "pid": 53940
+    },
+    {
+      "name": "VOID_RAIL_3600_17",
+      "pid": 54102
+    },
+    {
+      "name": "VOID_RAIL_3600_18",
+      "pid": 54264
+    },
+    {
+      "name": "VOID_RAIL_3600_19",
+      "pid": 54426
+    },
+    {
+      "name": "VOID_RAIL_3600_20",
+      "pid": 54588
+    },
+    {
+      "name": "VOID_RAIL_3600_21",
+      "pid": 54750
+    },
+    {
+      "name": "VOID_RAIL_3600_22",
+      "pid": 54912
+    },
+    {
+      "name": "VOID_RAIL_3600_23",
+      "pid": 55074
+    },
+    {
+      "name": "VOID_RAIL_3600_24",
+      "pid": 55236
+    },
+    {
+      "name": "VOID_RAIL_3600_25",
+      "pid": 55398
+    },
+    {
+      "name": "VOID_RAIL_3600_26",
+      "pid": 55560
+    },
+    {
+      "name": "VOID_RAIL_3600_27",
+      "pid": 55722
+    },
+    {
+      "name": "VOID_RAIL_3600_28",
+      "pid": 55884
+    },
+    {
+      "name": "VOID_RAIL_3600_29",
+      "pid": 56046
+    },
+    {
+      "name": "VOID_RAIL_3600_30",
+      "pid": 56208
+    },
+    {
+      "name": "VOID_RAIL_3600_31",
+      "pid": 56370
+    },
+    {
+      "name": "VOID_RAIL_3600_32",
+      "pid": 56532
+    },
+    {
+      "name": "VOID_RAIL_3600_33",
+      "pid": 56694
+    },
+    {
+      "name": "VOID_RAIL_3600_34",
+      "pid": 56856
+    },
+    {
+      "name": "VOID_RAIL_3600_35",
+      "pid": 57018
+    },
+    {
+      "name": "VOID_RAIL_3600_36",
+      "pid": 57180
+    },
+    {
+      "name": "VOID_RAIL_3600_37",
+      "pid": 57342
+    },
+    {
+      "name": "VOID_RAIL_3600_38",
+      "pid": 57504
+    },
+    {
+      "name": "VOID_RAIL_3600_39",
+      "pid": 57666
+    },
+    {
+      "name": "VOID_RAIL_3600_40",
+      "pid": 57828
+    },
+    {
+      "name": "VOID_RAIL_3600_41",
+      "pid": 57990
+    },
+    {
+      "name": "VOID_RAIL_3600_42",
+      "pid": 58152
+    },
+    {
+      "name": "VOID_RAIL_3600_43",
+      "pid": 58314
+    },
+    {
+      "name": "VOID_RAIL_3600_44",
+      "pid": 58476
+    },
+    {
+      "name": "VOID_RAIL_3600_45",
+      "pid": 58638
+    },
+    {
+      "name": "VOID_RAIL_3600_46",
+      "pid": 58800
+    },
+    {
+      "name": "VOID_RAIL_3600_47",
+      "pid": 58962
+    },
+    {
+      "name": "VOID_RAIL_7200_6",
+      "pid": 59124
+    },
+    {
+      "name": "VOID_RAIL_7200_7",
+      "pid": 59286
+    },
+    {
+      "name": "VOID_RAIL_7200_8",
+      "pid": 59448
+    },
+    {
+      "name": "VOID_RAIL_7200_9",
+      "pid": 59610
+    },
+    {
+      "name": "VOID_RAIL_7200_10",
+      "pid": 59772
+    },
+    {
+      "name": "VOID_RAIL_7200_11",
+      "pid": 59934
+    },
+    {
+      "name": "VOID_RAIL_7200_12",
+      "pid": 60096
+    },
+    {
+      "name": "VOID_RAIL_7200_13",
+      "pid": 60258
+    },
+    {
+      "name": "VOID_RAIL_7200_14",
+      "pid": 60420
+    },
+    {
+      "name": "VOID_RAIL_7200_15",
+      "pid": 60582
+    },
+    {
+      "name": "VOID_RAIL_7200_16",
+      "pid": 60744
+    },
+    {
+      "name": "VOID_RAIL_7200_17",
+      "pid": 60906
+    },
+    {
+      "name": "VOID_RAIL_7200_18",
+      "pid": 61068
+    },
+    {
+      "name": "VOID_RAIL_7200_19",
+      "pid": 61230
+    },
+    {
+      "name": "VOID_RAIL_7200_20",
+      "pid": 61392
+    },
+    {
+      "name": "VOID_RAIL_7200_21",
+      "pid": 61554
+    },
+    {
+      "name": "VOID_RAIL_7200_22",
+      "pid": 61716
+    },
+    {
+      "name": "VOID_RAIL_7200_23",
+      "pid": 61878
+    },
+    {
+      "name": "VOID_RAIL_7200_24",
+      "pid": 62040
+    },
+    {
+      "name": "VOID_RAIL_7200_25",
+      "pid": 62202
+    },
+    {
+      "name": "VOID_RAIL_7200_26",
+      "pid": 62364
+    },
+    {
+      "name": "VOID_RAIL_7200_27",
+      "pid": 62526
+    },
+    {
+      "name": "VOID_RAIL_7200_28",
+      "pid": 62688
+    },
+    {
+      "name": "VOID_RAIL_7200_29",
+      "pid": 62850
+    },
+    {
+      "name": "VOID_RAIL_7200_30",
+      "pid": 63012
+    },
+    {
+      "name": "VOID_RAIL_7200_31",
+      "pid": 63174
+    },
+    {
+      "name": "VOID_RAIL_7200_32",
+      "pid": 63336
+    },
+    {
+      "name": "VOID_RAIL_7200_33",
+      "pid": 63498
+    },
+    {
+      "name": "VOID_RAIL_7200_34",
+      "pid": 63660
+    },
+    {
+      "name": "VOID_RAIL_7200_35",
+      "pid": 63822
+    },
+    {
+      "name": "VOID_RAIL_7200_36",
+      "pid": 63984
+    },
+    {
+      "name": "VOID_RAIL_7200_37",
+      "pid": 64146
+    },
+    {
+      "name": "VOID_RAIL_7200_38",
+      "pid": 64308
+    },
+    {
+      "name": "VOID_RAIL_7200_39",
+      "pid": 64470
+    },
+    {
+      "name": "VOID_RAIL_7200_40",
+      "pid": 64632
+    },
+    {
+      "name": "VOID_RAIL_7200_41",
+      "pid": 64794
+    },
+    {
+      "name": "VOID_RAIL_7200_42",
+      "pid": 64956
+    },
+    {
+      "name": "VOID_RAIL_7200_43",
+      "pid": 65118
+    },
+    {
+      "name": "VOID_RAIL_7200_44",
+      "pid": 65280
+    },
+    {
+      "name": "VOID_RAIL_7200_45",
+      "pid": 65442
+    },
+    {
+      "name": "VOID_RAIL_7200_46",
+      "pid": 65604
+    },
+    {
+      "name": "VOID_RAIL_7200_47",
+      "pid": 65766
+    },
+    {
+      "name": "VOID_RAIL_10800_6",
+      "pid": 65928
+    },
+    {
+      "name": "VOID_RAIL_10800_7",
+      "pid": 66090
+    },
+    {
+      "name": "VOID_RAIL_10800_8",
+      "pid": 66252
+    },
+    {
+      "name": "VOID_RAIL_10800_9",
+      "pid": 66414
+    },
+    {
+      "name": "VOID_RAIL_10800_10",
+      "pid": 66576
+    },
+    {
+      "name": "VOID_RAIL_10800_11",
+      "pid": 66738
+    },
+    {
+      "name": "VOID_RAIL_10800_12",
+      "pid": 66900
+    },
+    {
+      "name": "VOID_RAIL_10800_13",
+      "pid": 67062
+    },
+    {
+      "name": "VOID_RAIL_10800_14",
+      "pid": 67224
+    },
+    {
+      "name": "VOID_RAIL_10800_15",
+      "pid": 67386
+    },
+    {
+      "name": "VOID_RAIL_10800_16",
+      "pid": 67548
+    },
+    {
+      "name": "VOID_RAIL_10800_17",
+      "pid": 67710
+    },
+    {
+      "name": "VOID_RAIL_10800_18",
+      "pid": 67872
+    },
+    {
+      "name": "VOID_RAIL_10800_19",
+      "pid": 68034
+    },
+    {
+      "name": "VOID_RAIL_10800_20",
+      "pid": 68196
+    },
+    {
+      "name": "VOID_RAIL_10800_21",
+      "pid": 68358
+    },
+    {
+      "name": "VOID_RAIL_10800_22",
+      "pid": 68520
+    },
+    {
+      "name": "VOID_RAIL_10800_23",
+      "pid": 68682
+    },
+    {
+      "name": "VOID_RAIL_10800_24",
+      "pid": 68844
+    },
+    {
+      "name": "VOID_RAIL_10800_25",
+      "pid": 69006
+    },
+    {
+      "name": "VOID_RAIL_10800_26",
+      "pid": 69168
+    },
+    {
+      "name": "VOID_RAIL_10800_27",
+      "pid": 69330
+    },
+    {
+      "name": "VOID_RAIL_10800_28",
+      "pid": 69492
+    },
+    {
+      "name": "VOID_RAIL_10800_29",
+      "pid": 69654
+    },
+    {
+      "name": "VOID_RAIL_10800_30",
+      "pid": 69816
+    },
+    {
+      "name": "VOID_RAIL_10800_31",
+      "pid": 69978
+    },
+    {
+      "name": "VOID_RAIL_10800_32",
+      "pid": 70140
+    },
+    {
+      "name": "VOID_RAIL_10800_33",
+      "pid": 70302
+    },
+    {
+      "name": "VOID_RAIL_10800_34",
+      "pid": 70464
+    },
+    {
+      "name": "VOID_RAIL_10800_35",
+      "pid": 70626
+    },
+    {
+      "name": "VOID_RAIL_10800_36",
+      "pid": 70788
+    },
+    {
+      "name": "VOID_RAIL_10800_37",
+      "pid": 70950
+    },
+    {
+      "name": "VOID_RAIL_10800_38",
+      "pid": 71112
+    },
+    {
+      "name": "VOID_RAIL_10800_39",
+      "pid": 71274
+    },
+    {
+      "name": "VOID_RAIL_10800_40",
+      "pid": 71436
+    },
+    {
+      "name": "VOID_RAIL_10800_41",
+      "pid": 71598
+    },
+    {
+      "name": "VOID_RAIL_10800_42",
+      "pid": 71760
+    },
+    {
+      "name": "VOID_RAIL_10800_43",
+      "pid": 71922
+    },
+    {
+      "name": "VOID_RAIL_10800_44",
+      "pid": 72084
+    },
+    {
+      "name": "VOID_RAIL_10800_45",
+      "pid": 72246
+    },
+    {
+      "name": "VOID_RAIL_10800_46",
+      "pid": 72408
+    },
+    {
+      "name": "VOID_RAIL_10800_47",
+      "pid": 72570
+    },
+    {
+      "name": "END_TREAD_0_0",
+      "pid": 72732
+    },
+    {
+      "name": "END_TREAD_0_1",
+      "pid": 72764
+    },
+    {
+      "name": "END_TREAD_0_2",
+      "pid": 72796
+    },
+    {
+      "name": "END_TREAD_0_3",
+      "pid": 72828
+    },
+    {
+      "name": "END_TREAD_0_4",
+      "pid": 72860
+    },
+    {
+      "name": "END_TREAD_0_5",
+      "pid": 72892
+    },
+    {
+      "name": "END_TREAD_0_6",
+      "pid": 72924
+    },
+    {
+      "name": "END_TREAD_0_7",
+      "pid": 72956
+    },
+    {
+      "name": "END_TREAD_0_8",
+      "pid": 72988
+    },
+    {
+      "name": "END_TREAD_0_9",
+      "pid": 73020
+    },
+    {
+      "name": "END_TREAD_0_10",
+      "pid": 73052
+    },
+    {
+      "name": "END_TREAD_0_11",
+      "pid": 73084
+    },
+    {
+      "name": "END_TREAD_0_12",
+      "pid": 73116
+    },
+    {
+      "name": "END_TREAD_0_13",
+      "pid": 73148
+    },
+    {
+      "name": "END_TREAD_0_14",
+      "pid": 73180
+    },
+    {
+      "name": "END_TREAD_0_15",
+      "pid": 73212
+    },
+    {
+      "name": "END_TREAD_0_16",
+      "pid": 73244
+    },
+    {
+      "name": "END_TREAD_0_17",
+      "pid": 73276
+    },
+    {
+      "name": "END_TREAD_0_18",
+      "pid": 73308
+    },
+    {
+      "name": "END_TREAD_0_19",
+      "pid": 73340
+    },
+    {
+      "name": "END_TREAD_0_20",
+      "pid": 73372
+    },
+    {
+      "name": "END_TREAD_0_21",
+      "pid": 73404
+    },
+    {
+      "name": "END_TREAD_0_22",
+      "pid": 73436
+    },
+    {
+      "name": "END_TREAD_0_23",
+      "pid": 73468
+    },
+    {
+      "name": "END_TREAD_3600_0",
+      "pid": 73500
+    },
+    {
+      "name": "END_TREAD_3600_1",
+      "pid": 73532
+    },
+    {
+      "name": "END_TREAD_3600_2",
+      "pid": 73564
+    },
+    {
+      "name": "END_TREAD_3600_3",
+      "pid": 73596
+    },
+    {
+      "name": "END_TREAD_3600_4",
+      "pid": 73628
+    },
+    {
+      "name": "END_TREAD_3600_5",
+      "pid": 73660
+    },
+    {
+      "name": "END_TREAD_3600_6",
+      "pid": 73692
+    },
+    {
+      "name": "END_TREAD_3600_7",
+      "pid": 73724
+    },
+    {
+      "name": "END_TREAD_3600_8",
+      "pid": 73756
+    },
+    {
+      "name": "END_TREAD_3600_9",
+      "pid": 73788
+    },
+    {
+      "name": "END_TREAD_3600_10",
+      "pid": 73820
+    },
+    {
+      "name": "END_TREAD_3600_11",
+      "pid": 73852
+    },
+    {
+      "name": "END_TREAD_3600_12",
+      "pid": 73884
+    },
+    {
+      "name": "END_TREAD_3600_13",
+      "pid": 73916
+    },
+    {
+      "name": "END_TREAD_3600_14",
+      "pid": 73948
+    },
+    {
+      "name": "END_TREAD_3600_15",
+      "pid": 73980
+    },
+    {
+      "name": "END_TREAD_3600_16",
+      "pid": 74012
+    },
+    {
+      "name": "END_TREAD_3600_17",
+      "pid": 74044
+    },
+    {
+      "name": "END_TREAD_3600_18",
+      "pid": 74076
+    },
+    {
+      "name": "END_TREAD_3600_19",
+      "pid": 74108
+    },
+    {
+      "name": "END_TREAD_3600_20",
+      "pid": 74140
+    },
+    {
+      "name": "END_TREAD_3600_21",
+      "pid": 74172
+    },
+    {
+      "name": "END_TREAD_3600_22",
+      "pid": 74204
+    },
+    {
+      "name": "END_TREAD_3600_23",
+      "pid": 74236
+    },
+    {
+      "name": "END_TREAD_7200_0",
+      "pid": 74268
+    },
+    {
+      "name": "END_TREAD_7200_1",
+      "pid": 74300
+    },
+    {
+      "name": "END_TREAD_7200_2",
+      "pid": 74332
+    },
+    {
+      "name": "END_TREAD_7200_3",
+      "pid": 74364
+    },
+    {
+      "name": "END_TREAD_7200_4",
+      "pid": 74396
+    },
+    {
+      "name": "END_TREAD_7200_5",
+      "pid": 74428
+    },
+    {
+      "name": "END_TREAD_7200_6",
+      "pid": 74460
+    },
+    {
+      "name": "END_TREAD_7200_7",
+      "pid": 74492
+    },
+    {
+      "name": "END_TREAD_7200_8",
+      "pid": 74524
+    },
+    {
+      "name": "END_TREAD_7200_9",
+      "pid": 74556
+    },
+    {
+      "name": "END_TREAD_7200_10",
+      "pid": 74588
+    },
+    {
+      "name": "END_TREAD_7200_11",
+      "pid": 74620
+    },
+    {
+      "name": "END_TREAD_7200_12",
+      "pid": 74652
+    },
+    {
+      "name": "END_TREAD_7200_13",
+      "pid": 74684
+    },
+    {
+      "name": "END_TREAD_7200_14",
+      "pid": 74716
+    },
+    {
+      "name": "END_TREAD_7200_15",
+      "pid": 74748
+    },
+    {
+      "name": "END_TREAD_7200_16",
+      "pid": 74780
+    },
+    {
+      "name": "END_TREAD_7200_17",
+      "pid": 74812
+    },
+    {
+      "name": "END_TREAD_7200_18",
+      "pid": 74844
+    },
+    {
+      "name": "END_TREAD_7200_19",
+      "pid": 74876
+    },
+    {
+      "name": "END_TREAD_7200_20",
+      "pid": 74908
+    },
+    {
+      "name": "END_TREAD_7200_21",
+      "pid": 74940
+    },
+    {
+      "name": "END_TREAD_7200_22",
+      "pid": 74972
+    },
+    {
+      "name": "END_TREAD_7200_23",
+      "pid": 75004
+    },
+    {
+      "name": "SMALL_CIRCULAR_VOID_GUARDS",
+      "pid": 104200
+    },
+    {
+      "name": "END_STAIR_COMPLETION",
+      "pid": 211835
+    }
+  ],
+  "calculation": {
+    "hits": [
+      {
+        "lev": 0,
+        "i": 13,
+        "kind": "handrail35mm",
+        "beam": "CROSS_BEAM_Z3600_X7",
+        "beam_pid": 21002
+      },
+      {
+        "lev": 1,
+        "i": 13,
+        "kind": "handrail35mm",
+        "beam": "CROSS_BEAM_Z7200_X7",
+        "beam_pid": 21450
+      },
+      {
+        "lev": 2,
+        "i": 13,
+        "kind": "handrail35mm",
+        "beam": "CROSS_BEAM_Z10800_X7",
+        "beam_pid": 21898
+      }
+    ],
+    "low": [
+      {
+        "lev": 0,
+        "tread": 11,
+        "path": "TREAD_10",
+        "beam": "CROSS_BEAM_Z3600_X7",
+        "clear_mm": 1530
+      },
+      {
+        "lev": 0,
+        "tread": 12,
+        "path": "TREAD_11",
+        "beam": "CROSS_BEAM_Z3600_X7",
+        "clear_mm": 1380
+      },
+      {
+        "lev": 0,
+        "tread": 13,
+        "path": "TREAD_12",
+        "beam": "CROSS_BEAM_Z3600_X7",
+        "clear_mm": 1230
+      },
+      {
+        "lev": 0,
+        "tread": 14,
+        "path": "TREAD_13",
+        "beam": "CROSS_BEAM_Z3600_X7",
+        "clear_mm": 1080
+      },
+      {
+        "lev": 1,
+        "tread": 11,
+        "path": "TREAD_10",
+        "beam": "CROSS_BEAM_Z7200_X7",
+        "clear_mm": 1530
+      },
+      {
+        "lev": 1,
+        "tread": 12,
+        "path": "TREAD_11",
+        "beam": "CROSS_BEAM_Z7200_X7",
+        "clear_mm": 1380
+      },
+      {
+        "lev": 1,
+        "tread": 13,
+        "path": "TREAD_12",
+        "beam": "CROSS_BEAM_Z7200_X7",
+        "clear_mm": 1230
+      },
+      {
+        "lev": 1,
+        "tread": 14,
+        "path": "TREAD_13",
+        "beam": "CROSS_BEAM_Z7200_X7",
+        "clear_mm": 1080
+      },
+      {
+        "lev": 2,
+        "tread": 11,
+        "path": "TREAD_10",
+        "beam": "CROSS_BEAM_Z10800_X7",
+        "clear_mm": 1530
+      },
+      {
+        "lev": 2,
+        "tread": 12,
+        "path": "TREAD_11",
+        "beam": "CROSS_BEAM_Z10800_X7",
+        "clear_mm": 1380
+      },
+      {
+        "lev": 2,
+        "tread": 13,
+        "path": "TREAD_12",
+        "beam": "CROSS_BEAM_Z10800_X7",
+        "clear_mm": 1230
+      },
+      {
+        "lev": 2,
+        "tread": 14,
+        "path": "TREAD_13",
+        "beam": "CROSS_BEAM_Z10800_X7",
+        "clear_mm": 1080
+      }
+    ]
+  },
+  "calculation_method": "Offline convex separating-axis checks of persisted tread quadrilateral prisms and actual35mm oriented handrail boxes reconstructed from the original generator. Native current child bounds checked against generated layout; actual native beam solid boxes from all75 frame children. No SketchUp writer used. Does not infer collision from bounding-box overlap alone. Low clearance measured only over tread portions within beam footprint; not entire tread width. Native readback cannot expose arbitrary vertices, so sub-mm intersection shape remains generator-based rather than a fresh boolean volume test.",
+  "captures": [
+    {
+      "label": "south long facade",
+      "eye": [
+        24,
+        -44,
+        15
+      ],
+      "target": [
+        25,
+        1,
+        8
+      ],
+      "path": "outputs/renders/agent-view-a16d0d7814.png"
+    },
+    {
+      "label": "north long facade",
+      "eye": [
+        26,
+        64,
+        15
+      ],
+      "target": [
+        25,
+        19,
+        8
+      ],
+      "path": "outputs/renders/agent-view-c5bbb4f9ae.png"
+    },
+    {
+      "label": "south buffer roof edge",
+      "eye": [
+        15,
+        -7,
+        16
+      ],
+      "target": [
+        22,
+        -1.5,
+        13.45
+      ],
+      "path": "outputs/renders/agent-view-2c4c288e81.png"
+    },
+    {
+      "label": "void view below intermediate",
+      "eye": [
+        9,
+        4,
+        5.2
+      ],
+      "target": [
+        24,
+        7,
+        8
+      ],
+      "path": "outputs/renders/agent-view-5edef0d1f0.png"
+    },
+    {
+      "label": "spiral west beam closeup",
+      "eye": [
+        32,
+        5.8,
+        6.1
+      ],
+      "target": [
+        35.2,
+        6.2,
+        6.6
+      ],
+      "path": "outputs/renders/agent-view-1d241c343b.png"
+    },
+    {
+      "label": "spiral upper arrival",
+      "eye": [
+        40,
+        4.7,
+        8.4
+      ],
+      "target": [
+        37.8,
+        6.4,
+        7.2
+      ],
+      "path": "outputs/renders/agent-view-7a72a64f22.png"
+    },
+    {
+      "label": "Handrail13 meets western transverse beam",
+      "path": "outputs/renders/agent-view-865989fe26.png"
+    }
+  ],
+  "end_fingerprints": [
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "pid": 76290,
+      "hash": "c047a2ceaaae0ab6c6c37586f2216567a01c65346647d7985da355600995b748"
+    },
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "pid": 20615,
+      "hash": "96bec1fd3eb9f065cb493747c85a91cd78aa1f616dc7540b1bef423fd0e12317"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER"
+      ],
+      "pid": 41319,
+      "hash": "d2c380c5a8e2bfba3da63e7ba3eb4390a97816e55c17d3700ff2b1d1be1ebc37"
+    }
+  ]
+}

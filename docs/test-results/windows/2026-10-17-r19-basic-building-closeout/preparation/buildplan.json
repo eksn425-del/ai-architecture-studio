@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "run_id": "20261016-interior-ceiling-and-finish",
+  "design_graph_digest": "sha256:0f59d7415b0feb8c6d1e1ad1bbaa66548858498f1c04013cd3dda07aa3e1aa2a",
+  "steps": [
+    {
+      "id": "complete_interior_ceiling_and_finish",
+      "object": "complete_interior_ceiling_and_finish",
+      "action": "existing_guarded_workspace_ruby_edit",
+      "parameters": {
+        "allowed_mutation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L0_L1",
+            "S0_CONTINUOUS_CORE"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L0_L1",
+            "S0_CORE_BASE_COLLAR"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L1_L2",
+            "S1_CONTINUOUS_CORE"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L1_L2",
+            "S1_CORE_BASE_COLLAR"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L2_L3",
+            "S2_CONTINUOUS_CORE"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L2_L3",
+            "S2_CORE_BASE_COLLAR"
+          ],
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ],
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_0"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_1"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_2"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_4"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_5"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_0"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_1"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_2"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_4"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_5"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_0"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_1"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_2"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_4"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_5"
+          ],
+          [
+            "INTERIOR",
+            "CEILING_TENSION_MEMBERS"
+          ]
+        ],
+        "preserve_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "RAMPS"
+          ],
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "ROOF_TIMBER",
+            "ROOF_SUPPORTS"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "LARGE_CIRCULAR_VOID_MESH"
+          ],
+          [
+            "INTERIOR",
+            "HALL_CURTAINS"
+          ],
+          [
+            "INTERIOR",
+            "ROOM_FRONT_COMPLETION"
+          ],
+          [
+            "INTERIOR",
+            "CORE_EAST"
+          ],
+          [
+            "INTERIOR",
+            "GREEN_PANEL_SOUTH"
+          ]
+        ]
+      },
+      "depends_on": [],
+      "tag": "interior_finish",
+      "component_strategy": "Six precise core/collar replacements,24strict surface-only leaves and one new semantic ceiling leaf; reused rod prototypes",
+      "risk": "Detached thin core/landing supports, V crossing holes, forbidden floor/roof geometry/material changes or overexposed view hiding mesh",
+      "evidence_refs": [
+        "ref_04",
+        "ref_05",
+        "ref_06",
+        "ref_07",
+        "ref_08"
+      ],
+      "preconditions": [
+        "Actual18immutable native/browser proof",
+        "Complete native primitive masks and15hole-safe V footprints captured",
+        "Native constrained-surface positive/negative safety fixturePASS beforelive activation"
+      ],
+      "postconditions": [
+        "Six exact existing core/collar containers keepPIDs. Slender shaft estimated diameter300mm and base450mm; keep original center37000,6500 and level heights. New brackets inside core target connect to actual unchanged24radial supports perflight, preserve all72treads/guards/meshes/landing geometry. Two actual landing support upper gaps17.5mm each flight need core-root connector overlap at original bar and true plate underside, not moving old bars/plates.",
+        "Surface targets constrained by native primitiveID/vertex/loop/normal/transform/material guard: only25listed Face front/back materials and158listed low-angle roof Edge.soft/smooth may change. No floor/roof/table geometry, holes or IDs change; all other face/group/component materials and seam/hidden flags fixed. Keep actual already-pale roof material, fix roof facet joins only. Lower floor tops pale mineral; L2partial/L3undersides light timber ceiling finish; table top faces pale white, supports unchanged.",
+        "New INTERIOR/CEILING_TENSION_MEMBERS holds15source4shallow V members under actual upper existing beam grid, 35mm rods and coherent attachment details inferred. Native-approved layout excludes5Vspans over actual circular openings; do not close holes or cross stairs. Endpoints at10330embed10mm into actual10320beam soffits, midpoint10050 leaves2850clear abovepartial7200floor. Use actual native geometry for contact/headroom checks, no slab/beam cutting.",
+        "Native viewport lighting diagnosis proves defaultDark45/Light80/UseSunfalse makes already-pale material dark. Adopt neutralDark80/Light15/UseSuntrue with DisplayShadowsfalse, preserve all other display state; this is native view setting, not a new renderer or a material/geometry repair. Reject initial85/90overexposure, retain both actual experiments. Record style separately and verify saved/reopened view settings.",
+        "Complete graph protection outside31paths, transactional surface guard beforecommit, originalr4/r18immutable; independent all8source current6+matched interiors, native216headroom/support/landing/ceiling beam contacts/surface material flags. Real website save/download/native3stage including actual presave ordering; strict rawdouble/strictblankreplay kept separate."
+      ],
+      "rollback_group": "preserved_r18",
+      "qa_view": [
+        "six canonical",
+        "all8whole originals",
+        "source4wide lower/upper same cameras",
+        "thin core radial/landing bracket roots",
+        "ceiling V end solid contacts",
+        "native material and curve-seam checks"
+      ]
+    }
+  ]
+}

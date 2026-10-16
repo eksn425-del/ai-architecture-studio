@@ -1,0 +1,12 @@
+{
+  "start_revision":17,
+  "root_pid":20606,
+  "target":["ENVELOPE_OUTER","OUTER_EAVE_VENTS","NORTH_EAST_CORNER_JAMB"],
+  "source_observations":"All eight original sheets inspected directly: sagging asymmetric roof; projecting glazed upper buffer; recessed lower frame; alternating end ramps; partial intermediate floor and circular stair voids. Source05 upper section supports thin continuous outer eave framing; exact concealed jamb joints are inferred.",
+  "native_diagnosis":"Only NORTH bay19 STAY_1 start53985,24000,12800 lacks a frame; end already in sash. Existing corner is absent. Native adjacent mullion is60x60mm atZ7200..13500; six transoms terminate atX54000.",
+  "geometry":"One white60x60mm solid atX54000,Y24000,Z7200..13500; connect existing stay foot and all six rail elevations. No sash, glass, hinge, stay, roof, door or ramp movement.",
+  "method_id":"kstudio.custom_owned_ruby",
+  "method_reason":"SAIE wall/opening helpers build opaque walls rather than slender curtain-wall profiles; ADAI disabled.",
+  "stages":"Single unique leaf: verify native target, build representative solid, no replication or variants, match existing finish, then six canonical and source/detail reviews.",
+  "limits":"Exact internal fasteners/section inferred, no construction certification. Original interior ceiling and finish discrepancies remain outside requested scope."
+}

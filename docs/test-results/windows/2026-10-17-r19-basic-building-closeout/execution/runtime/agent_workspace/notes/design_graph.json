@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "units": "m",
+  "sources": [
+    {
+      "id": "ref_01",
+      "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_02",
+      "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_03",
+      "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_04",
+      "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_05",
+      "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_06",
+      "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_07",
+      "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_08",
+      "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+      "provenance": "observed"
+    }
+  ],
+  "objects": [
+    {
+      "id": "complete_interior_ceiling_and_finish",
+      "provenance": "observed",
+      "source_refs": [
+        "ref_04",
+        "ref_05",
+        "ref_06",
+        "ref_07",
+        "ref_08"
+      ],
+      "allowed_paths": [
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L0_L1",
+          "S0_CONTINUOUS_CORE"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L0_L1",
+          "S0_CORE_BASE_COLLAR"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L1_L2",
+          "S1_CONTINUOUS_CORE"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L1_L2",
+          "S1_CORE_BASE_COLLAR"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L2_L3",
+          "S2_CONTINUOUS_CORE"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L2_L3",
+          "S2_CORE_BASE_COLLAR"
+        ],
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_SOUTH"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_EAST"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ],
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_0"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_1"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_2"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_3"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_4"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_5"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_0"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_1"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_2"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_3"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_4"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_5"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_0"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_1"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_2"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_3"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_4"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_5"
+        ],
+        [
+          "INTERIOR",
+          "CEILING_TENSION_MEMBERS"
+        ]
+      ],
+      "inferred_details": [
+        "Slender shaft300mm/base450mm, bracket details, ceiling V positions35mm/280mm sag and light wood soffit finish inferred consistently from source04 and real beam/slab/opening geometry; no measured source dimensions."
+      ]
+    }
+  ],
+  "constraints": {
+    "allowed_paths": [
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L0_L1",
+        "S0_CONTINUOUS_CORE"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L0_L1",
+        "S0_CORE_BASE_COLLAR"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_CONTINUOUS_CORE"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_CORE_BASE_COLLAR"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_CONTINUOUS_CORE"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_CORE_BASE_COLLAR"
+      ],
+      [
+        "FLOORS",
+        "L0"
+      ],
+      [
+        "FLOORS",
+        "L1"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      [
+        "FLOORS",
+        "L3"
+      ],
+      [
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_5"
+      ],
+      [
+        "INTERIOR",
+        "CEILING_TENSION_MEMBERS"
+      ]
+    ],
+    "required_preserve_paths": [
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "ENVELOPE_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "LARGE_CIRCULAR_VOID_MESH"
+      ],
+      [
+        "INTERIOR",
+        "HALL_CURTAINS"
+      ],
+      [
+        "INTERIOR",
+        "ROOM_FRONT_COMPLETION"
+      ],
+      [
+        "INTERIOR",
+        "CORE_EAST"
+      ],
+      [
+        "INTERIOR",
+        "GREEN_PANEL_SOUTH"
+      ]
+    ],
+    "acceptance": [
+      "Six exact existing core/collar containers keepPIDs. Slender shaft estimated diameter300mm and base450mm; keep original center37000,6500 and level heights. New brackets inside core target connect to actual unchanged24radial supports perflight, preserve all72treads/guards/meshes/landing geometry. Two actual landing support upper gaps17.5mm each flight need core-root connector overlap at original bar and true plate underside, not moving old bars/plates.",
+      "Surface targets constrained by native primitiveID/vertex/loop/normal/transform/material guard: only25listed Face front/back materials and158listed low-angle roof Edge.soft/smooth may change. No floor/roof/table geometry, holes or IDs change; all other face/group/component materials and seam/hidden flags fixed. Keep actual already-pale roof material, fix roof facet joins only. Lower floor tops pale mineral; L2partial/L3undersides light timber ceiling finish; table top faces pale white, supports unchanged.",
+      "New INTERIOR/CEILING_TENSION_MEMBERS holds15source4shallow V members under actual upper existing beam grid, 35mm rods and coherent attachment details inferred. Native-approved layout excludes5Vspans over actual circular openings; do not close holes or cross stairs. Endpoints at10330embed10mm into actual10320beam soffits, midpoint10050 leaves2850clear abovepartial7200floor. Use actual native geometry for contact/headroom checks, no slab/beam cutting.",
+      "Native viewport lighting diagnosis proves defaultDark45/Light80/UseSunfalse makes already-pale material dark. Adopt neutralDark80/Light15/UseSuntrue with DisplayShadowsfalse, preserve all other display state; this is native view setting, not a new renderer or a material/geometry repair. Reject initial85/90overexposure, retain both actual experiments. Record style separately and verify saved/reopened view settings.",
+      "Complete graph protection outside31paths, transactional surface guard beforecommit, originalr4/r18immutable; independent all8source current6+matched interiors, native216headroom/support/landing/ceiling beam contacts/surface material flags. Real website save/download/native3stage including actual presave ordering; strict rawdouble/strictblankreplay kept separate."
+    ]
+  }
+}

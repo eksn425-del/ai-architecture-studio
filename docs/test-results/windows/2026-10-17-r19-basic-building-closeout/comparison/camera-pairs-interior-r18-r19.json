@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "pairs": [
+    {
+      "before": "outputs/renders/host-r18-source4-lower-void-wide.png",
+      "after": "outputs/renders/host-r19-source4-lower-void-wide.png",
+      "before_revision": 18,
+      "after_revision": 19,
+      "same_actual_camera": true
+    },
+    {
+      "before": "outputs/renders/host-r18-source4-lower-long-wide.png",
+      "after": "outputs/renders/host-r19-source4-lower-long-wide.png",
+      "before_revision": 18,
+      "after_revision": 19,
+      "same_actual_camera": true
+    },
+    {
+      "before": "outputs/renders/host-r18-source4-lower-reverse-wide.png",
+      "after": "outputs/renders/host-r19-source4-lower-reverse-wide.png",
+      "before_revision": 18,
+      "after_revision": 19,
+      "same_actual_camera": true
+    },
+    {
+      "before": "outputs/renders/host-r18-source4-upper-hall-wide.png",
+      "after": "outputs/renders/host-r19-source4-upper-hall-wide.png",
+      "before_revision": 18,
+      "after_revision": 19,
+      "same_actual_camera": true
+    }
+  ],
+  "limitation": "Source-facing original photographic intrinsics unknown; paired native camera matches, previous18default shading vs19adopted neutral shading documented separately."
+}

@@ -1,0 +1,626 @@
+{
+  "status": "PASS_WITH_DECLARED_PRECISION",
+  "revision": 19,
+  "root_pid": 20606,
+  "raw_strict_three_stage_status": "FAIL",
+  "raw_strict_audit": {
+    "schema_version": 1,
+    "status": "FAIL",
+    "native_delivery_proven": false,
+    "first_failing_transition": "before_save_to_bound_reopen",
+    "failed_transitions": [
+      "before_save_to_bound_reopen",
+      "before_save_to_clean_download_reopen"
+    ],
+    "transitions": [
+      {
+        "transition": "before_save_to_bound_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "FAIL",
+          "document_geometry_changed": true,
+          "root_geometry_changed": true,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [
+            {
+              "name": "CIRCULATION_INTERNAL",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 217396,
+                "edges": 435882,
+                "instances": 31866
+              },
+              "replay_counts": {
+                "faces": 217396,
+                "edges": 435882,
+                "instances": 31866
+              },
+              "before_sha256": "d469465eedf02970b7887cf18cfc4c79fd31a307522c35b987c0125fa69b804c",
+              "replay_sha256": "2d05b1f138498fa9664a7f3f6b31de74cd78cc4c4c23f2a10e733f7d72a1034c",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "ENVELOPE_OUTER",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 21059,
+                "edges": 43694,
+                "instances": 4742
+              },
+              "replay_counts": {
+                "faces": 21059,
+                "edges": 43694,
+                "instances": 4742
+              },
+              "before_sha256": "c39e4cc5c252cbd087cc95d24a4689e626e4adcd5e984e939d6a5e18bae59104",
+              "replay_sha256": "69428b64d6a5b7f10c442b89fe75a5852b9890b8552f37d65b0acff8e90e5325",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "FLOORS",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 270,
+                "edges": 780,
+                "instances": 5
+              },
+              "replay_counts": {
+                "faces": 270,
+                "edges": 780,
+                "instances": 5
+              },
+              "before_sha256": "030a85f7a0ccb4ac3530a18f26cac88438410e4910176634d1878153a758b53e",
+              "replay_sha256": "b9e40e065325bcb2869dd17507763f632d69008a2c9ac425091f0b5aa848bb43",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "INTERIOR",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 9974,
+                "edges": 20831,
+                "instances": 1671
+              },
+              "replay_counts": {
+                "faces": 9974,
+                "edges": 20831,
+                "instances": 1671
+              },
+              "before_sha256": "4e255884fe93cb3b31e4fa9856e617b8a167bbe25ad35acbb2d13022ba51f73f",
+              "replay_sha256": "c67468d695dc0a0b5eac91e19f237ec9567fba427f8364d9f52ba6ace9a16ecb",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "ROOF_TIMBER",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 640,
+                "edges": 1598,
+                "instances": 148
+              },
+              "replay_counts": {
+                "faces": 640,
+                "edges": 1598,
+                "instances": 148
+              },
+              "before_sha256": "b2897fbdba6ffd0b1f1cb01d07e4a34a766416c418a48b622cabc555fc2315a4",
+              "replay_sha256": "154f7e77c707a7237d524867ca2d6f35fa5df23c0c42d3282132c5158bb8a457",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            }
+          ],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "bound_reopen_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "before_save_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "FAIL",
+          "document_geometry_changed": true,
+          "root_geometry_changed": true,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+          "before_group_count": 27,
+          "replay_group_count": 27,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [
+            {
+              "name": "CIRCULATION_INTERNAL",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 217396,
+                "edges": 435882,
+                "instances": 31866
+              },
+              "replay_counts": {
+                "faces": 217396,
+                "edges": 435882,
+                "instances": 31866
+              },
+              "before_sha256": "d469465eedf02970b7887cf18cfc4c79fd31a307522c35b987c0125fa69b804c",
+              "replay_sha256": "2d05b1f138498fa9664a7f3f6b31de74cd78cc4c4c23f2a10e733f7d72a1034c",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "ENVELOPE_OUTER",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 21059,
+                "edges": 43694,
+                "instances": 4742
+              },
+              "replay_counts": {
+                "faces": 21059,
+                "edges": 43694,
+                "instances": 4742
+              },
+              "before_sha256": "c39e4cc5c252cbd087cc95d24a4689e626e4adcd5e984e939d6a5e18bae59104",
+              "replay_sha256": "69428b64d6a5b7f10c442b89fe75a5852b9890b8552f37d65b0acff8e90e5325",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "FLOORS",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 270,
+                "edges": 780,
+                "instances": 5
+              },
+              "replay_counts": {
+                "faces": 270,
+                "edges": 780,
+                "instances": 5
+              },
+              "before_sha256": "030a85f7a0ccb4ac3530a18f26cac88438410e4910176634d1878153a758b53e",
+              "replay_sha256": "b9e40e065325bcb2869dd17507763f632d69008a2c9ac425091f0b5aa848bb43",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "INTERIOR",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 9974,
+                "edges": 20831,
+                "instances": 1671
+              },
+              "replay_counts": {
+                "faces": 9974,
+                "edges": 20831,
+                "instances": 1671
+              },
+              "before_sha256": "4e255884fe93cb3b31e4fa9856e617b8a167bbe25ad35acbb2d13022ba51f73f",
+              "replay_sha256": "c67468d695dc0a0b5eac91e19f237ec9567fba427f8364d9f52ba6ace9a16ecb",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "ROOF_TIMBER",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 640,
+                "edges": 1598,
+                "instances": 148
+              },
+              "replay_counts": {
+                "faces": 640,
+                "edges": 1598,
+                "instances": 148
+              },
+              "before_sha256": "b2897fbdba6ffd0b1f1cb01d07e4a34a766416c418a48b622cabc555fc2315a4",
+              "replay_sha256": "154f7e77c707a7237d524867ca2d6f35fa5df23c0c42d3282132c5158bb8a457",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            }
+          ],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      }
+    ],
+    "limitations": [
+      "PASS applies only to the three actual read-only native fingerprints supplied.",
+      "No claim about new images, user edit/save/reopen, strict blank replay, or visual source fidelity."
+    ]
+  },
+  "stable_geometry_audit": {
+    "status": "PASS_WITH_DECLARED_PRECISION",
+    "contract": "KStudioNativeStableGeometry/1",
+    "transitions": [
+      {
+        "transition": "before_save_to_bound_reopen",
+        "contract": "KStudioNativeStableGeometry/1",
+        "precision": {
+          "face_normal_decimals": 12,
+          "affine_linear_decimals": 12,
+          "coordinates_mm": "exact native doubles",
+          "translations_mm": "exact native doubles",
+          "all_other_fields": "exact"
+        },
+        "status": "PASS",
+        "before_sha256": "e5475985271fab8bd876fb4abcfa7ab50ec734f19138bb62c8bb2e0a35dbb818",
+        "after_sha256": "e5475985271fab8bd876fb4abcfa7ab50ec734f19138bb62c8bb2e0a35dbb818",
+        "raw_document_sha_equal": false,
+        "raw_strict_verdict_overridden": false,
+        "source_fidelity": "NOT_ASSESSED",
+        "blank_program_replay": "NOT_ASSESSED"
+      },
+      {
+        "transition": "bound_reopen_to_download_reopen",
+        "contract": "KStudioNativeStableGeometry/1",
+        "precision": {
+          "face_normal_decimals": 12,
+          "affine_linear_decimals": 12,
+          "coordinates_mm": "exact native doubles",
+          "translations_mm": "exact native doubles",
+          "all_other_fields": "exact"
+        },
+        "status": "PASS",
+        "before_sha256": "e5475985271fab8bd876fb4abcfa7ab50ec734f19138bb62c8bb2e0a35dbb818",
+        "after_sha256": "e5475985271fab8bd876fb4abcfa7ab50ec734f19138bb62c8bb2e0a35dbb818",
+        "raw_document_sha_equal": true,
+        "raw_strict_verdict_overridden": false,
+        "source_fidelity": "NOT_ASSESSED",
+        "blank_program_replay": "NOT_ASSESSED"
+      },
+      {
+        "transition": "before_save_to_download_reopen",
+        "contract": "KStudioNativeStableGeometry/1",
+        "precision": {
+          "face_normal_decimals": 12,
+          "affine_linear_decimals": 12,
+          "coordinates_mm": "exact native doubles",
+          "translations_mm": "exact native doubles",
+          "all_other_fields": "exact"
+        },
+        "status": "PASS",
+        "before_sha256": "e5475985271fab8bd876fb4abcfa7ab50ec734f19138bb62c8bb2e0a35dbb818",
+        "after_sha256": "e5475985271fab8bd876fb4abcfa7ab50ec734f19138bb62c8bb2e0a35dbb818",
+        "raw_document_sha_equal": false,
+        "raw_strict_verdict_overridden": false,
+        "source_fidelity": "NOT_ASSESSED",
+        "blank_program_replay": "NOT_ASSESSED"
+      }
+    ],
+    "raw_strict_three_stage": {
+      "schema_version": 1,
+      "status": "FAIL",
+      "native_delivery_proven": false,
+      "first_failing_transition": "before_save_to_bound_reopen",
+      "failed_transitions": [
+        "before_save_to_bound_reopen",
+        "before_save_to_clean_download_reopen"
+      ],
+      "transitions": [
+        {
+          "transition": "before_save_to_bound_reopen",
+          "comparison": {
+            "schema_version": 1,
+            "status": "FAIL",
+            "document_geometry_changed": true,
+            "root_geometry_changed": true,
+            "presentation_changed": false,
+            "deep_native_collector_both_stages": true,
+            "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+            "before_group_count": 27,
+            "replay_group_count": 27,
+            "missing_groups": [],
+            "added_groups": [],
+            "changed_groups": [
+              {
+                "name": "CIRCULATION_INTERNAL",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 217396,
+                  "edges": 435882,
+                  "instances": 31866
+                },
+                "replay_counts": {
+                  "faces": 217396,
+                  "edges": 435882,
+                  "instances": 31866
+                },
+                "before_sha256": "d469465eedf02970b7887cf18cfc4c79fd31a307522c35b987c0125fa69b804c",
+                "replay_sha256": "2d05b1f138498fa9664a7f3f6b31de74cd78cc4c4c23f2a10e733f7d72a1034c",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "ENVELOPE_OUTER",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 21059,
+                  "edges": 43694,
+                  "instances": 4742
+                },
+                "replay_counts": {
+                  "faces": 21059,
+                  "edges": 43694,
+                  "instances": 4742
+                },
+                "before_sha256": "c39e4cc5c252cbd087cc95d24a4689e626e4adcd5e984e939d6a5e18bae59104",
+                "replay_sha256": "69428b64d6a5b7f10c442b89fe75a5852b9890b8552f37d65b0acff8e90e5325",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "FLOORS",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 270,
+                  "edges": 780,
+                  "instances": 5
+                },
+                "replay_counts": {
+                  "faces": 270,
+                  "edges": 780,
+                  "instances": 5
+                },
+                "before_sha256": "030a85f7a0ccb4ac3530a18f26cac88438410e4910176634d1878153a758b53e",
+                "replay_sha256": "b9e40e065325bcb2869dd17507763f632d69008a2c9ac425091f0b5aa848bb43",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "INTERIOR",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 9974,
+                  "edges": 20831,
+                  "instances": 1671
+                },
+                "replay_counts": {
+                  "faces": 9974,
+                  "edges": 20831,
+                  "instances": 1671
+                },
+                "before_sha256": "4e255884fe93cb3b31e4fa9856e617b8a167bbe25ad35acbb2d13022ba51f73f",
+                "replay_sha256": "c67468d695dc0a0b5eac91e19f237ec9567fba427f8364d9f52ba6ace9a16ecb",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "ROOF_TIMBER",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 640,
+                  "edges": 1598,
+                  "instances": 148
+                },
+                "replay_counts": {
+                  "faces": 640,
+                  "edges": 1598,
+                  "instances": 148
+                },
+                "before_sha256": "b2897fbdba6ffd0b1f1cb01d07e4a34a766416c418a48b622cabc555fc2315a4",
+                "replay_sha256": "154f7e77c707a7237d524867ca2d6f35fa5df23c0c42d3282132c5158bb8a457",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              }
+            ],
+            "persistent_ids_ignored": true,
+            "equal_group_counts_do_not_prove_geometry_equality": true
+          }
+        },
+        {
+          "transition": "bound_reopen_to_clean_download_reopen",
+          "comparison": {
+            "schema_version": 1,
+            "status": "PASS",
+            "document_geometry_changed": false,
+            "root_geometry_changed": false,
+            "presentation_changed": false,
+            "deep_native_collector_both_stages": true,
+            "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+            "before_group_count": 27,
+            "replay_group_count": 27,
+            "missing_groups": [],
+            "added_groups": [],
+            "changed_groups": [],
+            "persistent_ids_ignored": true,
+            "equal_group_counts_do_not_prove_geometry_equality": true
+          }
+        },
+        {
+          "transition": "before_save_to_clean_download_reopen",
+          "comparison": {
+            "schema_version": 1,
+            "status": "FAIL",
+            "document_geometry_changed": true,
+            "root_geometry_changed": true,
+            "presentation_changed": false,
+            "deep_native_collector_both_stages": true,
+            "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+            "before_group_count": 27,
+            "replay_group_count": 27,
+            "missing_groups": [],
+            "added_groups": [],
+            "changed_groups": [
+              {
+                "name": "CIRCULATION_INTERNAL",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 217396,
+                  "edges": 435882,
+                  "instances": 31866
+                },
+                "replay_counts": {
+                  "faces": 217396,
+                  "edges": 435882,
+                  "instances": 31866
+                },
+                "before_sha256": "d469465eedf02970b7887cf18cfc4c79fd31a307522c35b987c0125fa69b804c",
+                "replay_sha256": "2d05b1f138498fa9664a7f3f6b31de74cd78cc4c4c23f2a10e733f7d72a1034c",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "ENVELOPE_OUTER",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 21059,
+                  "edges": 43694,
+                  "instances": 4742
+                },
+                "replay_counts": {
+                  "faces": 21059,
+                  "edges": 43694,
+                  "instances": 4742
+                },
+                "before_sha256": "c39e4cc5c252cbd087cc95d24a4689e626e4adcd5e984e939d6a5e18bae59104",
+                "replay_sha256": "69428b64d6a5b7f10c442b89fe75a5852b9890b8552f37d65b0acff8e90e5325",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "FLOORS",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 270,
+                  "edges": 780,
+                  "instances": 5
+                },
+                "replay_counts": {
+                  "faces": 270,
+                  "edges": 780,
+                  "instances": 5
+                },
+                "before_sha256": "030a85f7a0ccb4ac3530a18f26cac88438410e4910176634d1878153a758b53e",
+                "replay_sha256": "b9e40e065325bcb2869dd17507763f632d69008a2c9ac425091f0b5aa848bb43",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "INTERIOR",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 9974,
+                  "edges": 20831,
+                  "instances": 1671
+                },
+                "replay_counts": {
+                  "faces": 9974,
+                  "edges": 20831,
+                  "instances": 1671
+                },
+                "before_sha256": "4e255884fe93cb3b31e4fa9856e617b8a167bbe25ad35acbb2d13022ba51f73f",
+                "replay_sha256": "c67468d695dc0a0b5eac91e19f237ec9567fba427f8364d9f52ba6ace9a16ecb",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              },
+              {
+                "name": "ROOF_TIMBER",
+                "counts_equal": true,
+                "before_counts": {
+                  "faces": 640,
+                  "edges": 1598,
+                  "instances": 148
+                },
+                "replay_counts": {
+                  "faces": 640,
+                  "edges": 1598,
+                  "instances": 148
+                },
+                "before_sha256": "b2897fbdba6ffd0b1f1cb01d07e4a34a766416c418a48b622cabc555fc2315a4",
+                "replay_sha256": "154f7e77c707a7237d524867ca2d6f35fa5df23c0c42d3282132c5158bb8a457",
+                "child_differences": null,
+                "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+              }
+            ],
+            "persistent_ids_ignored": true,
+            "equal_group_counts_do_not_prove_geometry_equality": true
+          }
+        }
+      ],
+      "limitations": [
+        "PASS applies only to the three actual read-only native fingerprints supplied.",
+        "No claim about new images, user edit/save/reopen, strict blank replay, or visual source fidelity."
+      ]
+    },
+    "raw_strict_verdict_overridden": false,
+    "source_fidelity": "NOT_ASSESSED",
+    "strict_blank_program_replay": "NOT_RUN",
+    "customer_delivery": "NOT_ASSESSED"
+  },
+  "actual_browser_download": "C:/Users/[REDACTED_USER]\\Downloads\\agent-checkpoint-0aafb3e3a635.skp",
+  "download_sha256": "0c2de2fb2dde70cf4a91517273b2f73481f4dac36403953b60fcb43d6c1d68d6",
+  "elapsed_ms": 238234,
+  "display_stages": [
+    {
+      "stage": "after_site_save_before_native_reopen",
+      "geometry_writes": 0,
+      "model_guid": "b3c9a67c-9470-4398-9edd-234a0258c67b",
+      "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+      "settings": {
+        "Dark": 80,
+        "Light": 15,
+        "UseSunForAllShading": true,
+        "DisplayShadows": false
+      }
+    },
+    {
+      "stage": "bound_native_reopened",
+      "geometry_writes": 0,
+      "model_guid": "b3c9a67c-9470-4398-9edd-234a0258c67b",
+      "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+      "settings": {
+        "Dark": 80,
+        "Light": 15,
+        "UseSunForAllShading": true,
+        "DisplayShadows": false
+      }
+    },
+    {
+      "stage": "browser_download_native_reopened",
+      "geometry_writes": 0,
+      "model_guid": "adaa3ec7-fafc-41c5-85be-48e38cc1e89a",
+      "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-r19-browser-download-verification-20261016.skp",
+      "settings": {
+        "Dark": 80,
+        "Light": 15,
+        "UseSunForAllShading": true,
+        "DisplayShadows": false
+      }
+    }
+  ],
+  "working_restored": true,
+  "original_r4_unchanged": true,
+  "source_fidelity": "needs_fix",
+  "strict_blank_program_replay": "NOT_RUN",
+  "customer_delivery": "NOT_READY"
+}

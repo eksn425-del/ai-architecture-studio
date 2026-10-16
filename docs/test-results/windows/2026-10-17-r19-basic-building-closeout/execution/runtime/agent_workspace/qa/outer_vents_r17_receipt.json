@@ -1,0 +1,3754 @@
+{
+  "revision": 17,
+  "source_sha256": "ca18a8fc26e521d7edb820727535d0f0d67a2a0ebeb8b3d776437937da4f2454",
+  "status": "committed",
+  "model_identity": {
+    "guid": "9480bca6-cf68-41c6-8434-ce981d078be1",
+    "model_name": "blank-disposable-customer-readiness-r4-20261015.skp"
+  },
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 17,
+        "actual": 17
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "ROOF_TIMBER",
+      "STRUCTURE_EXISTING",
+      "FLOORS",
+      "RAMPS",
+      "CIRCULATION_EXTERNAL",
+      "CIRCULATION_INTERNAL",
+      "INTERIOR",
+      "SITE_GROUND",
+      "ENVELOPE_OUTER/INNER_GLAZING",
+      "ENVELOPE_OUTER/BUFFER_CANOPIES",
+      "ENVELOPE_OUTER/SOUTH_BAY_00",
+      "ENVELOPE_OUTER/NORTH_BAY_0"
+    ]
+  },
+  "edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_10",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_11",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_12",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_13",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_14",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_15",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_16",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_17",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_18",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_19",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_2",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_3",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_4",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_5",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_6",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_7",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_8",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_9",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_1",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_10",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_11",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_12",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_13",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_14",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_15",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_16",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_17",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_18",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_19",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_2",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_3",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_4",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_5",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_6",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_7",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_8",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_9",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "OUTER_EAVE_VENTS"
+      ]
+    ],
+    "allowed_creation_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "OUTER_EAVE_VENTS"
+      ]
+    ],
+    "allowed_top_level": [
+      "ENVELOPE_OUTER"
+    ],
+    "required_deep_keep_paths": [
+      [
+        "ROOF_TIMBER"
+      ],
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "FLOORS"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "CIRCULATION_INTERNAL"
+      ],
+      [
+        "INTERIOR"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ]
+    ],
+    "protected_deep_geometry_and_loose_entities": true,
+    "shared_definition_proofs": [
+      {
+        "contract": "all_document_definition_occurrences_v1",
+        "target_definition": "组“633”#1",
+        "occurrences": [
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_1",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_10",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_11",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_12",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_13",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_14",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_15",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_16",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_17",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_18",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_19",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_2",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_3",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_4",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_5",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_6",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_7",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_8",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "NORTH_BAY_9",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_1",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_10",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_11",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_12",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_13",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_14",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_15",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_16",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_17",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_18",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_19",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_2",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_3",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_4",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_5",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_6",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_7",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_8",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          },
+          {
+            "root_pid": 20606,
+            "path": [
+              "ENVELOPE_OUTER",
+              "SOUTH_BAY_9",
+              "GLASS"
+            ],
+            "pid": 41323,
+            "locked": false
+          }
+        ]
+      }
+    ]
+  },
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "ca18a8fc26e521d7edb820727535d0f0d67a2a0ebeb8b3d776437937da4f2454",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 17,
+    "root_pid": 20606
+  },
+  "before_keep": [
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "persistent_id": 77872,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1898”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -55,
+          -90,
+          10800
+        ],
+        "max": [
+          50055,
+          20090,
+          16710.2
+        ],
+        "size": [
+          50110,
+          20180,
+          5910.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 2,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "CURVED_SHELL",
+          "persistent_id": 77873,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              14776.3
+            ],
+            "max": [
+              50000,
+              20000,
+              16710.2
+            ],
+            "size": [
+              50000,
+              20000,
+              1933.9
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "d2d9deb1e7b33190e82f14df57a4e045f09b3ad9e12205c76db112d9ad01ca52"
+    },
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "persistent_id": 20615,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -180,
+          -180,
+          0
+        ],
+        "max": [
+          50180,
+          20180,
+          10800
+        ],
+        "size": [
+          50360,
+          20360,
+          10800
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 75,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "COLUMN_X00_Y00",
+          "persistent_id": 20648,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -180,
+              -180,
+              0
+            ],
+            "max": [
+              180,
+              180,
+              10800
+            ],
+            "size": [
+              360,
+              360,
+              10800
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "96bec1fd3eb9f065cb493747c85a91cd78aa1f616dc7540b1bef423fd0e12317"
+    },
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "persistent_id": 76290,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1892”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          -250
+        ],
+        "max": [
+          50000,
+          20000,
+          10800
+        ],
+        "size": [
+          50000,
+          20000,
+          11050
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 5,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "L0",
+          "persistent_id": 76291,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              -250
+            ],
+            "max": [
+              50000,
+              20000,
+              0
+            ],
+            "size": [
+              50000,
+              20000,
+              250
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "73525a9d67ff985935c78c27587fd0be82667687b63aaefb3e67b5250c6221d0"
+    },
+    {
+      "path": [
+        "RAMPS"
+      ],
+      "persistent_id": 78998,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1901”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8500,
+          -4000,
+          -160
+        ],
+        "max": [
+          -1700,
+          24000,
+          10800
+        ],
+        "size": [
+          6800,
+          28000,
+          10960
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 3,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_1",
+          "persistent_id": 78999,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -4000,
+              -160
+            ],
+            "max": [
+              -6300,
+              24000,
+              3600
+            ],
+            "size": [
+              2200,
+              28000,
+              3760
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "2204c9a10774ddeeaceecc3270cee8e9287e9d104cf5417f23716e537827fb7f"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL"
+      ],
+      "persistent_id": 28007,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“200”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8515,
+          -6215,
+          -160
+        ],
+        "max": [
+          54015,
+          26215,
+          11915
+        ],
+        "size": [
+          62530,
+          32430,
+          12075
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 9,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERIES",
+          "persistent_id": 28009,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4015,
+              -4015,
+              3450
+            ],
+            "max": [
+              54015,
+              24015,
+              11915
+            ],
+            "size": [
+              58030,
+              28030,
+              8465
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "61db16ce55ed667635a2f9a5a7724cbf9c77dc7b001cc0991d1f7249421865c0"
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL"
+      ],
+      "persistent_id": 45400,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“802”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          10863,
+          -2600,
+          -390
+        ],
+        "max": [
+          54000,
+          11637,
+          12063
+        ],
+        "size": [
+          43137,
+          14237,
+          12453
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 204,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "SPIRAL_L0_L1",
+          "persistent_id": 45402,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              35271,
+              4770.9,
+              -100
+            ],
+            "max": [
+              39400,
+              8229.1,
+              4712.5
+            ],
+            "size": [
+              4129,
+              3458.1,
+              4812.5
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "6ac19916fec089c60b74b3b9c62b4344155fd3d2356c6b7a6457260e1d516fa0"
+    },
+    {
+      "path": [
+        "INTERIOR"
+      ],
+      "persistent_id": 79083,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组#5",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          60,
+          1500,
+          0
+        ],
+        "max": [
+          50000,
+          20000,
+          16038.6
+        ],
+        "size": [
+          49940,
+          18500,
+          16038.6
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 5,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GREEN_PANEL_SOUTH",
+          "persistent_id": 79085,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30000,
+              19850,
+              7200
+            ],
+            "max": [
+              34900,
+              20000,
+              10300
+            ],
+            "size": [
+              4900,
+              150,
+              3100
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "67437f83c7491dbc2cd8fcbed31c27af8684ff59d5b67f14bd246952c6993855"
+    },
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "persistent_id": 76256,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1890”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          -280
+        ],
+        "size": [
+          71000,
+          42000,
+          220
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 1,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "ADJACENT_GROUND",
+          "persistent_id": 76258,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              -280
+            ],
+            "size": [
+              71000,
+              42000,
+              220
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "94b1620fcc4ed6e5430dfd1aa4ca7947e49a7517a4a4dffcc34d5ea695572fee"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      "persistent_id": 42972,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“698”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -30,
+          -60,
+          0
+        ],
+        "max": [
+          49820,
+          20060,
+          10800
+        ],
+        "size": [
+          49850,
+          20120,
+          10800
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 81,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "INNER_GLASS_0_0",
+          "persistent_id": 42974,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              180,
+              -60,
+              0
+            ],
+            "max": [
+              2470,
+              60,
+              10280
+            ],
+            "size": [
+              2290,
+              120,
+              10280
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "e70827f1a13c50aabceb9df38444882eaffeea0160695a0b72e8ef6e5653655c"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES"
+      ],
+      "persistent_id": 42842,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“693”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          -4000,
+          13400
+        ],
+        "max": [
+          54000,
+          24000,
+          13500
+        ],
+        "size": [
+          58000,
+          28000,
+          100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 4,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "CANOPY_0",
+          "persistent_id": 42844,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              -4000,
+              13400
+            ],
+            "max": [
+              54000,
+              0,
+              13500
+            ],
+            "size": [
+              58000,
+              4000,
+              100
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "ffcad5fb6f798b93b6ac874d165d6e5a8e0ca36a0e29f6a5dc409845a2e89554"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ],
+      "persistent_id": 41557,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "CURTAIN_2900x6300#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          -4030,
+          7175
+        ],
+        "max": [
+          -1100,
+          -3970,
+          13525
+        ],
+        "size": [
+          2930,
+          60,
+          6350
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 8,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GLASS",
+          "persistent_id": 85716,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              7200
+            ],
+            "max": [
+              2900,
+              0,
+              13500
+            ],
+            "size": [
+              2900,
+              0,
+              6300
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "be9c7fbbb1370657ab5b44f9d922557adbbf4af15d9a9801fce5042fe323ac47"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ],
+      "persistent_id": 41577,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "CURTAIN_2900x6300#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          23970,
+          7175
+        ],
+        "max": [
+          -1100,
+          24030,
+          13525
+        ],
+        "size": [
+          2930,
+          60,
+          6350
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 8,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GLASS",
+          "persistent_id": 84990,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              7200
+            ],
+            "max": [
+              2900,
+              0,
+              13500
+            ],
+            "size": [
+              2900,
+              0,
+              6300
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "cf81b72dbe543352e620a0724c2743a4c996a0b19edb5ca9bfcf12f200f07269"
+    }
+  ],
+  "after_keep": [
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "persistent_id": 77872,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1898”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -55,
+          -90,
+          10800
+        ],
+        "max": [
+          50055,
+          20090,
+          16710.2
+        ],
+        "size": [
+          50110,
+          20180,
+          5910.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 2,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "CURVED_SHELL",
+          "persistent_id": 77873,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              14776.3
+            ],
+            "max": [
+              50000,
+              20000,
+              16710.2
+            ],
+            "size": [
+              50000,
+              20000,
+              1933.9
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "d2d9deb1e7b33190e82f14df57a4e045f09b3ad9e12205c76db112d9ad01ca52"
+    },
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "persistent_id": 20615,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -180,
+          -180,
+          0
+        ],
+        "max": [
+          50180,
+          20180,
+          10800
+        ],
+        "size": [
+          50360,
+          20360,
+          10800
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 75,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "COLUMN_X00_Y00",
+          "persistent_id": 20648,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -180,
+              -180,
+              0
+            ],
+            "max": [
+              180,
+              180,
+              10800
+            ],
+            "size": [
+              360,
+              360,
+              10800
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "96bec1fd3eb9f065cb493747c85a91cd78aa1f616dc7540b1bef423fd0e12317"
+    },
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "persistent_id": 76290,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1892”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          -250
+        ],
+        "max": [
+          50000,
+          20000,
+          10800
+        ],
+        "size": [
+          50000,
+          20000,
+          11050
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 5,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "L0",
+          "persistent_id": 76291,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              -250
+            ],
+            "max": [
+              50000,
+              20000,
+              0
+            ],
+            "size": [
+              50000,
+              20000,
+              250
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "73525a9d67ff985935c78c27587fd0be82667687b63aaefb3e67b5250c6221d0"
+    },
+    {
+      "path": [
+        "RAMPS"
+      ],
+      "persistent_id": 78998,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1901”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8500,
+          -4000,
+          -160
+        ],
+        "max": [
+          -1700,
+          24000,
+          10800
+        ],
+        "size": [
+          6800,
+          28000,
+          10960
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 3,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_1",
+          "persistent_id": 78999,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -4000,
+              -160
+            ],
+            "max": [
+              -6300,
+              24000,
+              3600
+            ],
+            "size": [
+              2200,
+              28000,
+              3760
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "2204c9a10774ddeeaceecc3270cee8e9287e9d104cf5417f23716e537827fb7f"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL"
+      ],
+      "persistent_id": 28007,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“200”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8515,
+          -6215,
+          -160
+        ],
+        "max": [
+          54015,
+          26215,
+          11915
+        ],
+        "size": [
+          62530,
+          32430,
+          12075
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 9,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERIES",
+          "persistent_id": 28009,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4015,
+              -4015,
+              3450
+            ],
+            "max": [
+              54015,
+              24015,
+              11915
+            ],
+            "size": [
+              58030,
+              28030,
+              8465
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "61db16ce55ed667635a2f9a5a7724cbf9c77dc7b001cc0991d1f7249421865c0"
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL"
+      ],
+      "persistent_id": 45400,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“802”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          10863,
+          -2600,
+          -390
+        ],
+        "max": [
+          54000,
+          11637,
+          12063
+        ],
+        "size": [
+          43137,
+          14237,
+          12453
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 204,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "SPIRAL_L0_L1",
+          "persistent_id": 45402,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              35271,
+              4770.9,
+              -100
+            ],
+            "max": [
+              39400,
+              8229.1,
+              4712.5
+            ],
+            "size": [
+              4129,
+              3458.1,
+              4812.5
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "6ac19916fec089c60b74b3b9c62b4344155fd3d2356c6b7a6457260e1d516fa0"
+    },
+    {
+      "path": [
+        "INTERIOR"
+      ],
+      "persistent_id": 79083,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组#5",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          60,
+          1500,
+          0
+        ],
+        "max": [
+          50000,
+          20000,
+          16038.6
+        ],
+        "size": [
+          49940,
+          18500,
+          16038.6
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 5,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GREEN_PANEL_SOUTH",
+          "persistent_id": 79085,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30000,
+              19850,
+              7200
+            ],
+            "max": [
+              34900,
+              20000,
+              10300
+            ],
+            "size": [
+              4900,
+              150,
+              3100
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "67437f83c7491dbc2cd8fcbed31c27af8684ff59d5b67f14bd246952c6993855"
+    },
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "persistent_id": 76256,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1890”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          -280
+        ],
+        "size": [
+          71000,
+          42000,
+          220
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 1,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "ADJACENT_GROUND",
+          "persistent_id": 76258,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              -280
+            ],
+            "size": [
+              71000,
+              42000,
+              220
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "94b1620fcc4ed6e5430dfd1aa4ca7947e49a7517a4a4dffcc34d5ea695572fee"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      "persistent_id": 42972,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“698”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -30,
+          -60,
+          0
+        ],
+        "max": [
+          49820,
+          20060,
+          10800
+        ],
+        "size": [
+          49850,
+          20120,
+          10800
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 81,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "INNER_GLASS_0_0",
+          "persistent_id": 42974,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              180,
+              -60,
+              0
+            ],
+            "max": [
+              2470,
+              60,
+              10280
+            ],
+            "size": [
+              2290,
+              120,
+              10280
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "e70827f1a13c50aabceb9df38444882eaffeea0160695a0b72e8ef6e5653655c"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES"
+      ],
+      "persistent_id": 42842,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“693”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          -4000,
+          13400
+        ],
+        "max": [
+          54000,
+          24000,
+          13500
+        ],
+        "size": [
+          58000,
+          28000,
+          100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 4,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "CANOPY_0",
+          "persistent_id": 42844,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              -4000,
+              13400
+            ],
+            "max": [
+              54000,
+              0,
+              13500
+            ],
+            "size": [
+              58000,
+              4000,
+              100
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "ffcad5fb6f798b93b6ac874d165d6e5a8e0ca36a0e29f6a5dc409845a2e89554"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ],
+      "persistent_id": 41557,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "CURTAIN_2900x6300#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          -4030,
+          7175
+        ],
+        "max": [
+          -1100,
+          -3970,
+          13525
+        ],
+        "size": [
+          2930,
+          60,
+          6350
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 8,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GLASS",
+          "persistent_id": 85716,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              7200
+            ],
+            "max": [
+              2900,
+              0,
+              13500
+            ],
+            "size": [
+              2900,
+              0,
+              6300
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "be9c7fbbb1370657ab5b44f9d922557adbbf4af15d9a9801fce5042fe323ac47"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ],
+      "persistent_id": 41577,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "CURTAIN_2900x6300#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          23970,
+          7175
+        ],
+        "max": [
+          -1100,
+          24030,
+          13525
+        ],
+        "size": [
+          2930,
+          60,
+          6350
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 8,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GLASS",
+          "persistent_id": 84990,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              7200
+            ],
+            "max": [
+              2900,
+              0,
+              13500
+            ],
+            "size": [
+              2900,
+              0,
+              6300
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "cf81b72dbe543352e620a0724c2743a4c996a0b19edb5ca9bfcf12f200f07269"
+    }
+  ],
+  "after_targets": [
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "73a64f1570cfd3d17231066c11921c173c61c9643363455e2bf4334f1680047f"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_10",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "fa863f0e3e1e20317cc9602c3bb9b85bbe5ca9af76c32872f31b038dfd7c4d85"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_11",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "6d3f50518e68e9012e8bfdb0e3d98fd23b8e8aeeaf8372715de8684a68871ef4"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_12",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "d783f12e670966d97dbb570e2a83b20cf641994c1259fc6656574c73647e5721"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_13",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "e4f73042c08b4a26a2cc71fd7768f3f28a696c163ff9bb20b42f24604b263d37"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_14",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "cd4c118d5a4cbf47bfe8d3044f061179cb5c4f90f1fa048b796783a307e6f356"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_15",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "7749dbede0fa6b5f9fcabac090dff0cc432dfceec2105106e149a3771f28c716"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_16",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "1d23f9bb4dd4983420995f5fd6863b6db93308bd38ba21a72ac363bc3d1b48bf"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_17",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "a46e11116dcb5770053fc5f6525f69deb71b8150e1926a0f6577de4e145ae5f2"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_18",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "05d638e769496e35345d679262ad607d8d791e6466bfd97c3c909d1c7c4bb2dd"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_19",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "f10637359d21809f15ebcd092fca6a43c0be452b45b1da05d0dba64643a97371"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_2",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "b5abae628dded4a53ecd05e34e0d9d9c844f22375a3c336fa563ec2876ce0451"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_3",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "b073cf459b291aab87df6c39c48f37d59ed6d2f62fe88522d0e6d36e8d9c752d"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_4",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "c297c7e4be3f7ac75e367b79938ae36073cee020256fef5bbd0a3631b512ff90"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_5",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "2e942bca4dbc37ea84d1c9d2591064fdb81bc6c4f8424a93ec2a1353ea57b28c"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_6",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "363a44efdfef047d798e1ac246af30aef3aa081663f3992fed1ea238421276b2"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_7",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "30b4d0792471943a797b43c9587eb0da8c65dd8ac8778f1284d8e8d62dbd3e86"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_8",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "0acf576f1e0f70de5ad0182d717669bbc0f3d9505c7f17c448722e8f2442a202"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_9",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "00f86bccb7c75366001692cbb2477a1bbdc721022ba04f96fed9323a9d04a6ac"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_1",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "86b507e8d9d773c953eefedbfb0bfcc017b3d0b18c22365ccca9c2765f18ef9a"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_10",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "3fcc2fca215e71d5111c472ad292903ac0cd87d0405468ec8fdb4ab238965e29"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_11",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "c3af73812151d1ec6635dda00d65ff55402cf2155da1d4208c3c254afed603e0"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_12",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "4ff08eac01e250577dfbedc75766387b59f97eb83882d3c2690bcbc07ba9de82"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_13",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "e3e2427d9d03f50e92c133b09927eeaa751cf5716d15c54e50eb0f3ff039bc6b"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_14",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "a464eae340a1f22ff9e104c30f9cdc429a45c0f54ae7034c0ecf98c1e982bd36"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_15",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "12b6c9f3ae223a510996951ff6174df3acd2a004346c6d16db045388ae6dea82"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_16",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "7716e7bb5dd8541ea463a10b761e098aa4713bd9fc4f4eeb0c69eb8ed1516b52"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_17",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "c96dfff1e296e8b9037790010b35820645cbf1dbcf866443fab09d6aa079640d"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_18",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "8e166baa584929153fed521012cca748df20df56f2b5fce035fed084a8a511bf"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_19",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "60b0d5fc5088832c22a57cc56f2e212a28e0efbe132b78c847a21270360c42be"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_2",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "cfda310f653501d3ec5e49f8cac91b497b244becec7a6a572c94368cc957ca1f"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_3",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "258d09398e2d40559912b5a19c12b4d74c7be2d7724a79b91d219d9ad606f70c"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_4",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "48fb272bdd3d7d2b7c4a0660a3271805e96c7b2562acab39a95790ecb9be9e02"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_5",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "e07e4365bf88e2a3fdb97f3d39c74e91acc2381120e627c776a8ab67b2a9f915"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_6",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "09662f6c26c507db059d63e6ff4052200750a7f03d044ce1b96ca0bc1b8137fc"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_7",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "a39d025a89725550cb0058a67de886eaac84479bee54e51b84a7881f64a60c1b"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_8",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "a4adf6354c0cfaa9bc98e9f3b45e96aa3566ffbed1341531d9886fb7a11d3da1"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_9",
+        "GLASS"
+      ],
+      "persistent_id": 41323,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“633”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          7200
+        ],
+        "max": [
+          2900,
+          0,
+          13500
+        ],
+        "size": [
+          2900,
+          0,
+          6300
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "5c3c7b8e2a3da0b74d6a0485c8bf7e68aa9716b1c52dacd9d2c17160d3e4f76e"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "OUTER_EAVE_VENTS"
+      ],
+      "persistent_id": 1371575,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“6865”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1100,
+          -4489,
+          12486
+        ],
+        "max": [
+          54000,
+          24489,
+          13500.8
+        ],
+        "size": [
+          55100,
+          28978,
+          1014.8
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 38,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "NORTH_VENT_BAY_1",
+          "persistent_id": 1371974,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1100,
+              23995,
+              12486
+            ],
+            "max": [
+              1800,
+              24489,
+              13500.8
+            ],
+            "size": [
+              2900,
+              494,
+              1014.8
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "2e6d505f2a05a26cae76b874a8e021782688b2f185b53c887987c30ec29f111c"
+    }
+  ],
+  "views": {
+    "front": "outputs/renders/agent-view-front-61d6f19c84.png",
+    "rear": "outputs/renders/agent-view-rear-362d680c0d.png",
+    "left": "outputs/renders/agent-view-left-b36874f332.png",
+    "right": "outputs/renders/agent-view-right-f76ae9c1a4.png",
+    "roof": "outputs/renders/agent-view-roof-859f2e5281.png",
+    "oblique": "outputs/renders/agent-view-oblique-2fb4ddaa61.png"
+  },
+  "pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-4415be7328.png",
+      "label": "Source1 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-eebffb189d.png",
+      "label": "Source2 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-0723ff977b.png",
+      "label": "Source3 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-687a87257d.png",
+      "label": "Source4 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-e9f5623017.png",
+      "label": "Source5 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-890375ef14.png",
+      "label": "Source6 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-5aa7cde8b2.png",
+      "label": "Source7 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-5dbd131667.png",
+      "label": "Source8 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-63016fc669.png",
+      "label": "Lower interior preserved"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-189ace459d.png",
+      "label": "Long eave general"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-1ddff5c0ca.png",
+      "label": "South hinge sash stay and backing aperture"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-bc88f554be.png",
+      "label": "North hinge sash stay and backing aperture"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-a70b5f1301.png",
+      "label": "South inside aperture outward"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-1a82987680.png",
+      "label": "Preserved west door/ramp bay"
+    }
+  ]
+}

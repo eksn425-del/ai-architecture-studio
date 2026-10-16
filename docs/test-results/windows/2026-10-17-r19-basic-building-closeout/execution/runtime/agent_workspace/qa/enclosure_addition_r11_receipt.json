@@ -1,0 +1,345 @@
+{
+  "revision": 11,
+  "script_id": "glass_curved_roof",
+  "script": "scripts/complete_inner_enclosures.rb",
+  "source_sha256": "b1c402b29c62e3cfb08bd55f69ab0065837f3127609e0052d65ff6614a33d209",
+  "transaction_status": "committed",
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 11,
+        "actual": 11
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_SOUTH_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_NORTH_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "LOWER_END_EAST_ADDITION"
+      ]
+    ],
+    "allowed_creation_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_SOUTH_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_NORTH_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "LOWER_END_EAST_ADDITION"
+      ]
+    ],
+    "allowed_top_level": [
+      "ENVELOPE_OUTER"
+    ],
+    "required_deep_keep_paths": [
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "FLOORS"
+      ],
+      [
+        "ROOF_TIMBER"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "CIRCULATION_INTERNAL"
+      ],
+      [
+        "INTERIOR"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING"
+      ]
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "keep_count": 121,
+  "keep_passed": true,
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "b1c402b29c62e3cfb08bd55f69ab0065837f3127609e0052d65ff6614a33d209",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 11,
+    "root_pid": 20606
+  },
+  "views": {
+    "front": "outputs/renders/agent-view-front-833b252ab1.png",
+    "rear": "outputs/renders/agent-view-rear-8be6d09528.png",
+    "left": "outputs/renders/agent-view-left-f83553a9f1.png",
+    "right": "outputs/renders/agent-view-right-cbccf1af5d.png",
+    "roof": "outputs/renders/agent-view-roof-3cd69458c0.png",
+    "oblique": "outputs/renders/agent-view-oblique-17df6d7c9c.png"
+  },
+  "source_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-eabb37e97a.png",
+      "label": "坡道端原图1"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-2346d5b57c.png",
+      "label": "长边及端部原图2"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-610886d190.png",
+      "label": "入口原图3"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-82fbd50b75.png",
+      "label": "上厅原图4上"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-9704aefea9.png",
+      "label": "原图5剖面位置未剖切"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-5f812a066c.png",
+      "label": "原图6系统未拆解"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-c43621aca5.png",
+      "label": "原图7平面屋顶遮挡"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-67b541d617.png",
+      "label": "原图8剖面位置未剖切"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-2b34163d82.png",
+      "label": "原图4下室内仍有原有梁板差异"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-147369b1fc.png",
+      "label": "顶层侧窗及门口"
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-a8e0812642.png",
+      "label": "西端L2有楼板处门洞"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-4006a02852.png",
+      "label": "远端门洞及原有直梯"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-9a73e21eca.png",
+      "label": "远端另一长侧外部复查"
+    }
+  ],
+  "door_schedule": {
+    "upper_hall": {
+      "sides": 2,
+      "bays_per_side": 20,
+      "portal_bays": [
+        0,
+        10,
+        19
+      ],
+      "clear_width_mm": 2100,
+      "clear_height_mm": 2400,
+      "base_mm": 10800
+    },
+    "west": {
+      "levels_mm": [
+        0,
+        3600,
+        7200
+      ],
+      "south_door_y_mm": [
+        5200,
+        7400
+      ],
+      "south_door_levels_mm": [
+        0,
+        3600
+      ],
+      "north_door_y_mm": [
+        15200,
+        17400
+      ]
+    },
+    "east": {
+      "south_door_y_mm": [
+        7600,
+        9600
+      ],
+      "south_door_levels_mm": [
+        0,
+        3600,
+        7200
+      ],
+      "north_door_y_mm": [
+        15200,
+        17400
+      ],
+      "north_door_levels_mm": [
+        3600,
+        7200
+      ],
+      "ground_opaque_core_retained_y_mm": [
+        13500,
+        20000
+      ]
+    },
+    "count": 16,
+    "source_status": "Positions/counts and open-swing leaf detail inferred from source plans and adjacent construction; not measured source dimensions",
+    "validation": "Writer validates actual occupied floor face at each portal inward probe; no glass/transom/sill across portal; full route not certified"
+  },
+  "baseline_promotion": "Committed scoped patch retained; complete baseline unmodified; strict blank replay not run",
+  "independent_review": {
+    "needs_fix": true,
+    "assessment": "SOURCE 1–2 show the same elongated building from the ramp end and an adjoining long side: a recessed lower body, projecting glazed upper buffer zone, external ramps and a concave timber roof. SOURCE 3 shows the entrance and exposed concrete frame beneath grated circulation decks; both SOURCE 4 interiors show the upper hall and a lower double-height workspace. SOURCE 5 and 8 sections establish partial intermediate floors; SOURCE 7’s three plans show classroom partitions, stepped enclosure lines and floor openings. SOURCE 6 distinguishes the retained frame, timber addition and outer lightweight enclosure. CURRENT captures the principal exterior arrangement, but ramp landing projections, intermediate enclosure geometry and major material zones remain inconsistent. CURRENT 19–22 are uncut or roof-obscured, so they cannot establish whether the source’s internal voids are correct. No confirmed dimensions are supplied; concealed joints cannot be certified from these screenshots.",
+    "issues": [
+      {
+        "priority": 1,
+        "view": "unspecified",
+        "problem": "CURRENT 15 and 19 show upper ramp landings projecting conspicuously beyond both sides of the glazed end elevation. In SOURCE 1’s frontal model photograph, those upper connections sit within the outer façade outline.",
+        "action": "Shorten and reposition the projecting upper landing ends locally, retaining the diagonal ramp runs. Connect each landing to its corresponding circulation deck without overlapping the façade framing."
+      },
+      {
+        "priority": 2,
+        "view": "unspecified",
+        "problem": "CURRENT 25–26 show broadly continuous glazed enclosure lines and an undivided interior where SOURCE 7’s intermediate plans show repeated classroom partitions, stepped room fronts and a distinct open workspace. The source’s room-to-buffer-zone depth is consequently lost.",
+        "action": "Patch the affected intermediate enclosure bays with the source-shown partition returns and recessed entrances. Preserve verified structural columns; use a cutaway to check the partial floors before changing obscured slab geometry."
+      },
+      {
+        "priority": 3,
+        "view": "unspecified",
+        "problem": "CURRENT 17 presents almost uninterrupted full-height glazing around the entrance level. SOURCE 3’s entrance has a substantial textured concrete header, while SOURCE 1–2 also show opaque lower enclosure bands and narrower glazing zones. These major wall-versus-glass distinctions are missing.",
+        "action": "Replace only the affected glazing portions with the observed concrete headers and opaque bands, matching their heights and positions against the entrance and adjoining source views."
+      }
+    ],
+    "keep": [
+      "Concave transverse roof-edge silhouette with unequal raised ends.",
+      "Recessed ground-level enclosure beneath the projecting circulation decks.",
+      "Exposed rectangular concrete columns and beams at the lower levels."
+    ],
+    "model_revisions": {
+      "glass_curved_roof": 11
+    }
+  },
+  "native_complete_readback": "qa/enclosure_addition_r11_native.json; four targets all paginated to next_offset=null",
+  "local_correction": {
+    "status": "BLOCKED_BEFORE_COMMIT",
+    "script": "scripts/clear_west_middle_entry.rb",
+    "failed_tool": "sketchup_run_workspace_ruby",
+    "error": "Declared scope exceeds exact HOST-approved paths; do not widen to an ancestor",
+    "attempts": [
+      "one existing bay",
+      "two exact existing door-leaf containers"
+    ],
+    "model_revision_retained": 11,
+    "candidate_not_promoted": true,
+    "remaining_problem": "West L2 north entry 90-degree open leaves project1100mm into1650mm return, leaving about550mm behind leaves; sliding correction unexecuted, full route not certified."
+  }
+}

@@ -1,0 +1,1012 @@
+{
+  "status": "aborted_host_scope_conflict",
+  "revision": 13,
+  "committed_geometry_writes": 0,
+  "script": "scripts/finish_long_facades.rb",
+  "native_failed_report": "../scripts/reports/glass_curved_roof-r14-33d9ed85.json",
+  "guard_error": "Protected geometry changed outside approved exact paths",
+  "cause": "Host runtime active_edit_scope.json allows47 exact descendant paths and defines15 precise mandatory_preserve_paths, but native graph guard reads the stale required_preserve_paths instead, including whole ENVELOPE_OUTER and INTERIOR. Any requested descendant change violates those parent fingerprints. Agent cannot modify host authorization.",
+  "needed_host_resolution": "Reconcile host required_preserve_paths with the current precise mandatory_preserve_paths; retain current47 exact mutation paths and all existing geometry outside them. This is a host configuration repair, not user reapproval or broader modeling scope.",
+  "independent_prewrite_review": "Current13 six canonical and19source pairs submitted; independent critic identifies missing room fronts and sloped lightweight buffer eave. No committed mutation followed.",
+  "precommit_geometry_assertions": "Generated script reached host precommit scope check, so all preceding floor/header/portal/bounds assertions completed in the aborted transaction. These are not committed geometry evidence.",
+  "keep_checks": [
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "pid": 20615,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "pid": 76290,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "pid": 77872,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "RAMPS"
+      ],
+      "pid": 78998,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL"
+      ],
+      "pid": 28007,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL"
+      ],
+      "pid": 45400,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "pid": 76256,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING"
+      ],
+      "pid": 44694,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_SOUTH_ADDITION"
+      ],
+      "pid": 162283,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_NORTH_ADDITION"
+      ],
+      "pid": 162930,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION"
+      ],
+      "pid": 163577,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "LOWER_END_EAST_ADDITION"
+      ],
+      "pid": 169920,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED"
+      ],
+      "pid": 79087,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "GREEN_PANEL_SOUTH"
+      ],
+      "pid": 79085,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "CORE_EAST"
+      ],
+      "pid": 79086,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_0"
+      ],
+      "pid": 42985,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_1"
+      ],
+      "pid": 43028,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_2"
+      ],
+      "pid": 43071,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_3"
+      ],
+      "pid": 43114,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_4"
+      ],
+      "pid": 43157,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_5"
+      ],
+      "pid": 43200,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_6"
+      ],
+      "pid": 43243,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_7"
+      ],
+      "pid": 43286,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_8"
+      ],
+      "pid": 43329,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_9"
+      ],
+      "pid": 43372,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_10"
+      ],
+      "pid": 43415,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_11"
+      ],
+      "pid": 43458,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_12"
+      ],
+      "pid": 43501,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_13"
+      ],
+      "pid": 43544,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_14"
+      ],
+      "pid": 43587,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_15"
+      ],
+      "pid": 43630,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_16"
+      ],
+      "pid": 43673,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_17"
+      ],
+      "pid": 43716,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_18"
+      ],
+      "pid": 43759,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_0_19"
+      ],
+      "pid": 43802,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_0"
+      ],
+      "pid": 43845,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_1"
+      ],
+      "pid": 43888,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_2"
+      ],
+      "pid": 43931,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_3"
+      ],
+      "pid": 43974,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_4"
+      ],
+      "pid": 44017,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_5"
+      ],
+      "pid": 44060,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_6"
+      ],
+      "pid": 44103,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_7"
+      ],
+      "pid": 44146,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_8"
+      ],
+      "pid": 44189,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_9"
+      ],
+      "pid": 44232,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_10"
+      ],
+      "pid": 44275,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_11"
+      ],
+      "pid": 44318,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_12"
+      ],
+      "pid": 44361,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_13"
+      ],
+      "pid": 44404,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_14"
+      ],
+      "pid": 44447,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_15"
+      ],
+      "pid": 44490,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_16"
+      ],
+      "pid": 44533,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_17"
+      ],
+      "pid": 44576,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_18"
+      ],
+      "pid": 44619,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_POST_1_19"
+      ],
+      "pid": 44662,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B1"
+      ],
+      "pid": 75036,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B2"
+      ],
+      "pid": 75068,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B3"
+      ],
+      "pid": 75100,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B4"
+      ],
+      "pid": 75132,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B5"
+      ],
+      "pid": 75164,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B6"
+      ],
+      "pid": 75196,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B7"
+      ],
+      "pid": 75228,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B8"
+      ],
+      "pid": 75260,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B9"
+      ],
+      "pid": 75292,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B1"
+      ],
+      "pid": 75324,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B2"
+      ],
+      "pid": 75356,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B3"
+      ],
+      "pid": 75388,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B4"
+      ],
+      "pid": 75420,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B5"
+      ],
+      "pid": 75452,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B6"
+      ],
+      "pid": 75484,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B7"
+      ],
+      "pid": 75516,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B8"
+      ],
+      "pid": 75548,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B9"
+      ],
+      "pid": 75580,
+      "unchanged": true
+    }
+  ],
+  "target_checks": [
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_0"
+      ],
+      "pid": 42974,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_1"
+      ],
+      "pid": 43017,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_2"
+      ],
+      "pid": 43060,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_3"
+      ],
+      "pid": 43103,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_4"
+      ],
+      "pid": 43146,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_5"
+      ],
+      "pid": 43189,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_6"
+      ],
+      "pid": 43232,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_7"
+      ],
+      "pid": 43275,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_8"
+      ],
+      "pid": 43318,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_9"
+      ],
+      "pid": 43361,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_10"
+      ],
+      "pid": 43404,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_11"
+      ],
+      "pid": 43447,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_12"
+      ],
+      "pid": 43490,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_13"
+      ],
+      "pid": 43533,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_14"
+      ],
+      "pid": 43576,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_15"
+      ],
+      "pid": 43619,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_16"
+      ],
+      "pid": 43662,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_17"
+      ],
+      "pid": 43705,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_18"
+      ],
+      "pid": 43748,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_19"
+      ],
+      "pid": 43791,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_0"
+      ],
+      "pid": 43834,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_1"
+      ],
+      "pid": 43877,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_2"
+      ],
+      "pid": 43920,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_3"
+      ],
+      "pid": 43963,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_4"
+      ],
+      "pid": 44006,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_5"
+      ],
+      "pid": 44049,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_6"
+      ],
+      "pid": 44092,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_7"
+      ],
+      "pid": 44135,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_8"
+      ],
+      "pid": 44178,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_9"
+      ],
+      "pid": 44221,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_10"
+      ],
+      "pid": 44264,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_11"
+      ],
+      "pid": 44307,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_12"
+      ],
+      "pid": 44350,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_13"
+      ],
+      "pid": 44393,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_14"
+      ],
+      "pid": 44436,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_15"
+      ],
+      "pid": 44479,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_16"
+      ],
+      "pid": 44522,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_17"
+      ],
+      "pid": 44565,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_18"
+      ],
+      "pid": 44608,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_19"
+      ],
+      "pid": 44651,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_0"
+      ],
+      "pid": 42844,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_1"
+      ],
+      "pid": 42876,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_2"
+      ],
+      "pid": 42908,
+      "unchanged": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_3"
+      ],
+      "pid": 42940,
+      "unchanged": true
+    }
+  ],
+  "new_dimensions_status": "inferred; no new geometry delivered"
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-17-r19-basic-building-closeout",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "Same eight originals/project/root20606 actual website18->19",
+  "base_commit": "3a9bf7ef6d7b523f5ef3c13da39983527b1f7cdd",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 18,
+    "after_revision": 19
+  },
+  "qa": {
+    "exact_scope": "PASS31exact targets, complete protectedSHA2650390f61f42c8b711956db72e1759cb2455e934802fed8a4845cb7e666b741equal",
+    "surface_geometry": "PASS nativeconstrainedsurfaceV1 shapeSHAbe2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15unchanged; only25Facefinish/158Edgesoftflags",
+    "native_samples": "6radii/216treadroot/18landing/216headroom/15Vassemblies/158seams/25finishfacesPASS",
+    "source_fidelity": "NEEDS_FIX independent8sources/22pairs: original beam/void reading and curtain appearance remain, no blanket buildingPASS",
+    "native_delivery": "Genuine presave/bound/browserdownload PASS_WITH_DECLARED_PRECISION; rawstrictFAIL retained;4displaysettingspersist",
+    "strict_blank_replay": "NOT_RUN",
+    "normal_turn_closeout": "COMPLETED timeout0",
+    "owner_decision": "17Oct stop finer geometry; basicbuilding/simple surroundings then end case",
+    "commercial_readiness": "NOT_CERTIFIED"
+  },
+  "paid_api_calls": 0
+}

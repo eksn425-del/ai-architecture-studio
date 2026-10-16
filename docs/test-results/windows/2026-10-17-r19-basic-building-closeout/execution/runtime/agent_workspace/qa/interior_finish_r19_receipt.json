@@ -1,0 +1,434 @@
+{
+  "revision": 19,
+  "transaction_status": "committed",
+  "source_sha256": "8b1b97238b781a8a6a7fa307ddb8c91716d51224a159ea8811c402c8db4218f0",
+  "model_identity": {
+    "guid": "d994f5b5-7aa1-43cd-8a0f-f2218fef4347",
+    "model_name": "blank-disposable-customer-readiness-r4-20261015.skp"
+  },
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 19,
+        "actual": 19
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "ENVELOPE_OUTER",
+      "CIRCULATION_EXTERNAL",
+      "RAMPS",
+      "SITE_GROUND",
+      "ROOF_TIMBER/ROOF_SUPPORTS",
+      "CIRCULATION_INTERNAL/SMALL_CIRCULAR_VOID_GUARDS",
+      "CIRCULATION_INTERNAL/LARGE_CIRCULAR_VOID_MESH",
+      "INTERIOR/HALL_CURTAINS",
+      "INTERIOR/ROOM_FRONT_COMPLETION",
+      "INTERIOR/CORE_EAST",
+      "INTERIOR/GREEN_PANEL_SOUTH"
+    ]
+  },
+  "edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L0_L1",
+        "S0_CONTINUOUS_CORE"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L0_L1",
+        "S0_CORE_BASE_COLLAR"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_CONTINUOUS_CORE"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_CORE_BASE_COLLAR"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_CONTINUOUS_CORE"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_CORE_BASE_COLLAR"
+      ],
+      [
+        "FLOORS",
+        "L0"
+      ],
+      [
+        "FLOORS",
+        "L1"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      [
+        "FLOORS",
+        "L3"
+      ],
+      [
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_5"
+      ],
+      [
+        "INTERIOR",
+        "CEILING_TENSION_MEMBERS"
+      ]
+    ],
+    "allowed_creation_paths": [
+      [
+        "INTERIOR",
+        "CEILING_TENSION_MEMBERS"
+      ]
+    ],
+    "allowed_top_level": [
+      "CIRCULATION_INTERNAL",
+      "FLOORS",
+      "ROOF_TIMBER",
+      "INTERIOR"
+    ],
+    "required_deep_keep_paths": [
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "ENVELOPE_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "LARGE_CIRCULAR_VOID_MESH"
+      ],
+      [
+        "INTERIOR",
+        "HALL_CURTAINS"
+      ],
+      [
+        "INTERIOR",
+        "ROOM_FRONT_COMPLETION"
+      ],
+      [
+        "INTERIOR",
+        "CORE_EAST"
+      ],
+      [
+        "INTERIOR",
+        "GREEN_PANEL_SOUTH"
+      ]
+    ],
+    "protected_deep_geometry_and_loose_entities": true,
+    "constrained_surface_edits": {
+      "contract": "native_constrained_surface_edits_v1",
+      "paths": [
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_SOUTH"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_EAST"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ],
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_0"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_1"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_2"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_3"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_4"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_5"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_0"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_1"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_2"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_3"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_4"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_5"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_0"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_1"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_2"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_3"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_4"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_5"
+        ]
+      ],
+      "shape_sha256": "be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15",
+      "face_material_count": 25,
+      "soft_smooth_edge_count": 158
+    }
+  },
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "8b1b97238b781a8a6a7fa307ddb8c91716d51224a159ea8811c402c8db4218f0",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 19,
+    "root_pid": 20606
+  }
+}

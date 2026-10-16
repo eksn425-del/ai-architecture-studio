@@ -1,0 +1,7024 @@
+{
+  "revision": 19,
+  "root_pid": 20606,
+  "geometry_writes": 0,
+  "status": "PASS_SELECTED_NATIVE_FINISH_CONTROLS",
+  "core_collar_radii": [
+    {
+      "path": "S0_CONTINUOUS_CORE",
+      "actual_radius_min_mm": 149.99999999999562,
+      "actual_radius_max_mm": 150.0000000000022,
+      "expected_mm": 150,
+      "passed": true
+    },
+    {
+      "path": "S0_CORE_BASE_COLLAR",
+      "actual_radius_min_mm": 224.9999999999951,
+      "actual_radius_max_mm": 225.0000000000058,
+      "expected_mm": 225,
+      "passed": true
+    },
+    {
+      "path": "S1_CONTINUOUS_CORE",
+      "actual_radius_min_mm": 149.99999999999562,
+      "actual_radius_max_mm": 150.0000000000022,
+      "expected_mm": 150,
+      "passed": true
+    },
+    {
+      "path": "S1_CORE_BASE_COLLAR",
+      "actual_radius_min_mm": 224.9999999999951,
+      "actual_radius_max_mm": 225.0000000000058,
+      "expected_mm": 225,
+      "passed": true
+    },
+    {
+      "path": "S2_CONTINUOUS_CORE",
+      "actual_radius_min_mm": 149.99999999999562,
+      "actual_radius_max_mm": 150.0000000000022,
+      "expected_mm": 150,
+      "passed": true
+    },
+    {
+      "path": "S2_CORE_BASE_COLLAR",
+      "actual_radius_min_mm": 224.9999999999951,
+      "actual_radius_max_mm": 225.0000000000058,
+      "expected_mm": 225,
+      "passed": true
+    }
+  ],
+  "tread_root_contacts": [
+    {
+      "spiral": 0,
+      "tread": 0,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37090.75473969089,
+        6615.639860012187,
+        25
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 0,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37234.60408899687,
+        6798.932971460074,
+        25
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 0,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37234.60408899687,
+        6798.932971460074,
+        50
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 1,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37060.66793338124,
+        6633.8969822634135,
+        175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 1,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37156.82867132567,
+        6846.128253470048,
+        175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 1,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37156.82867132567,
+        6846.128253470048,
+        200
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 2,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37027.10389227277,
+        6644.479683774799,
+        325
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 2,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37070.06448342621,
+        6873.484896832815,
+        325
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 2,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37070.06448342621,
+        6873.484896832815,
+        350
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 3,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36991.98636825921,
+        6646.781407904145,
+        475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 3,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36979.28448937756,
+        6879.43493199711,
+        475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 3,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36979.28448937756,
+        6879.43493199711,
+        500
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 4,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36957.328152443595,
+        6640.670229352634,
+        625
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 4,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36889.691822643304,
+        6863.637327578239,
+        625
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 4,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36889.691822643304,
+        6863.637327578239,
+        650
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 5,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36925.11571028439,
+        6626.496415576844,
+        775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 5,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36806.421564000484,
+        6826.99753686531,
+        775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 5,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36806.421564000484,
+        6826.99753686531,
+        800
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 6,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36897.195325618704,
+        6605.072350908104,
+        925.0000000000001
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 6,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36734.24641996672,
+        6771.615600986937,
+        925.0000000000001
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 6,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36734.24641996672,
+        6771.615600986937,
+        950
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 7,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36875.167279315596,
+        6577.625974045604,
+        1075
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 7,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36677.3031710199,
+        6700.66578324714,
+        1075
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 7,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36677.3031710199,
+        6700.66578324714,
+        1100
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 8,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36860.294127801266,
+        6545.73039769335,
+        1225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 8,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36638.855568465864,
+        6618.214633493014,
+        1225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 8,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36638.855568465864,
+        6618.214633493014,
+        1250
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 9,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36853.428338551246,
+        6511.213744252081,
+        1375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 9,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36621.1072697243,
+        6528.987910311502,
+        1375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 9,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36621.1072697243,
+        6528.987910311502,
+        1400
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 10,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36854.963430183525,
+        6476.054365410995,
+        1525
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 10,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36625.07553380774,
+        6438.099720110056,
+        1525
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 10,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36625.07553380774,
+        6438.099720110056,
+        1550
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 11,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36864.81141760045,
+        6442.267451218568,
+        1674.9999999999998
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 11,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36650.53291624606,
+        6350.759397707861,
+        1674.9999999999998
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 11,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36650.53291624606,
+        6350.759397707861,
+        1700
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 12,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36882.40785493028,
+        6411.789527731102,
+        1825
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 12,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36696.02030526195,
+        6271.972928828698,
+        1825
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 12,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36696.02030526195,
+        6271.972928828698,
+        1850
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 13,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36906.744187227945,
+        6386.3674633556775,
+        1974.9999999999998
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 13,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36758.93055201782,
+        6206.25602772216,
+        1974.9999999999998
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 13,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36758.93055201782,
+        6206.25602772216,
+        2000
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 14,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36936.42555666946,
+        6367.458345584444,
+        2125
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 14,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36835.65790159454,
+        6157.37531511625,
+        2125
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 14,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36835.65790159454,
+        6157.37531511625,
+        2150
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 15,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36969.750750028245,
+        6356.145966771362,
+        2275
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 15,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36921.80465993695,
+        6128.132431109643,
+        2275
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 15,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36921.80465993695,
+        6128.132431109643,
+        2300
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 16,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37004.809705174805,
+        6353.0787056409745,
+        2425
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 16,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37012.43325147228,
+        6120.203456758981,
+        2425
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 16,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37012.43325147228,
+        6120.203456758981,
+        2450
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 17,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37039.59298793112,
+        6358.432364903959,
+        2575
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 17,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37102.34922050222,
+        6134.042848051049,
+        2575
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 17,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37102.34922050222,
+        6134.042848051049,
+        2600
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 18,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37072.10696451942,
+        6371.900094973512,
+        2725
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 18,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37186.398955900535,
+        6168.8573883669005,
+        2725
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 18,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37186.398955900535,
+        6168.8573883669005,
+        2750
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 19,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37100.48806839736,
+        6392.709981313418,
+        2875
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 19,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37259.76507476869,
+        6222.651652374822,
+        2875
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 19,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37259.76507476869,
+        6222.651652374822,
+        2900
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 20,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37123.10961217784,
+        6419.669287383833,
+        3025
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 20,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37318.242534881494,
+        6292.342375550043,
+        3025
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 20,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37318.242534881494,
+        6292.342375550043,
+        3050
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 21,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37138.6750226161,
+        6451.232817362257,
+        3175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 21,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37358.479650300134,
+        6373.935174133727,
+        3175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 21,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37358.479650300134,
+        6373.935174133727,
+        3200
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 22,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37146.29215482081,
+        6485.591480371555,
+        3325.0000000000005
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 22,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37378.170196135434,
+        6462.753486674767,
+        3325.0000000000005
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 22,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37378.170196135434,
+        6462.753486674767,
+        3350
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 23,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37145.524426306074,
+        6520.775980080064,
+        3475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 23,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37376.18559181163,
+        6553.706615172955,
+        3475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 23,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37376.18559181163,
+        6553.706615172955,
+        3500
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 0,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37090.75473969089,
+        6615.639860012187,
+        3625
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 0,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37234.60408899687,
+        6798.932971460074,
+        3625
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 0,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37234.60408899687,
+        6798.932971460074,
+        3650
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 1,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37060.66793338124,
+        6633.8969822634135,
+        3775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 1,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37156.82867132567,
+        6846.128253470048,
+        3775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 1,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37156.82867132567,
+        6846.128253470048,
+        3800
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 2,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37027.10389227277,
+        6644.479683774799,
+        3925.0000000000005
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 2,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37070.06448342621,
+        6873.484896832815,
+        3925.0000000000005
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 2,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37070.06448342621,
+        6873.484896832815,
+        3950
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 3,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36991.98636825921,
+        6646.781407904145,
+        4075
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 3,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36979.28448937756,
+        6879.43493199711,
+        4075
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 3,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36979.28448937756,
+        6879.43493199711,
+        4100
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 4,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36957.328152443595,
+        6640.670229352634,
+        4225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 4,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36889.691822643304,
+        6863.637327578239,
+        4225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 4,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36889.691822643304,
+        6863.637327578239,
+        4250
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 5,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36925.11571028439,
+        6626.496415576844,
+        4375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 5,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36806.421564000484,
+        6826.99753686531,
+        4375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 5,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36806.421564000484,
+        6826.99753686531,
+        4400
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 6,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36897.195325618704,
+        6605.072350908104,
+        4525
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 6,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36734.24641996672,
+        6771.615600986937,
+        4525
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 6,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36734.24641996672,
+        6771.615600986937,
+        4550
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 7,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36875.167279315596,
+        6577.625974045604,
+        4675
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 7,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36677.3031710199,
+        6700.66578324714,
+        4675
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 7,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36677.3031710199,
+        6700.66578324714,
+        4700
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 8,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36860.294127801266,
+        6545.73039769335,
+        4825
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 8,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36638.855568465864,
+        6618.214633493014,
+        4825
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 8,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36638.855568465864,
+        6618.214633493014,
+        4850
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 9,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36853.428338551246,
+        6511.213744252081,
+        4975
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 9,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36621.1072697243,
+        6528.987910311502,
+        4975
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 9,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36621.1072697243,
+        6528.987910311502,
+        5000
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 10,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36854.963430183525,
+        6476.054365410995,
+        5125
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 10,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36625.07553380774,
+        6438.099720110056,
+        5125
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 10,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36625.07553380774,
+        6438.099720110056,
+        5150
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 11,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36864.81141760045,
+        6442.267451218568,
+        5275
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 11,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36650.53291624606,
+        6350.759397707861,
+        5275
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 11,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36650.53291624606,
+        6350.759397707861,
+        5300
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 12,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36882.40785493028,
+        6411.789527731102,
+        5425
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 12,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36696.02030526195,
+        6271.972928828698,
+        5425
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 12,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36696.02030526195,
+        6271.972928828698,
+        5450
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 13,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36906.744187227945,
+        6386.3674633556775,
+        5575
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 13,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36758.93055201782,
+        6206.25602772216,
+        5575
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 13,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36758.93055201782,
+        6206.25602772216,
+        5600
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 14,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36936.42555666946,
+        6367.458345584444,
+        5725
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 14,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36835.65790159454,
+        6157.37531511625,
+        5725
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 14,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36835.65790159454,
+        6157.37531511625,
+        5750
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 15,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36969.750750028245,
+        6356.145966771362,
+        5875
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 15,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36921.80465993695,
+        6128.132431109643,
+        5875
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 15,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36921.80465993695,
+        6128.132431109643,
+        5900
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 16,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37004.809705174805,
+        6353.0787056409745,
+        6025
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 16,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37012.43325147228,
+        6120.203456758981,
+        6025
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 16,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37012.43325147228,
+        6120.203456758981,
+        6050
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 17,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37039.59298793112,
+        6358.432364903959,
+        6175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 17,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37102.34922050222,
+        6134.042848051049,
+        6175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 17,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37102.34922050222,
+        6134.042848051049,
+        6200
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 18,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37072.10696451942,
+        6371.900094973512,
+        6325
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 18,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37186.398955900535,
+        6168.8573883669005,
+        6325
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 18,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37186.398955900535,
+        6168.8573883669005,
+        6350
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 19,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37100.48806839736,
+        6392.709981313418,
+        6475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 19,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37259.76507476869,
+        6222.651652374822,
+        6475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 19,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37259.76507476869,
+        6222.651652374822,
+        6500
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 20,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37123.10961217784,
+        6419.669287383833,
+        6625.000000000001
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 20,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37318.242534881494,
+        6292.342375550043,
+        6625.000000000001
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 20,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37318.242534881494,
+        6292.342375550043,
+        6650
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 21,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37138.6750226161,
+        6451.232817362257,
+        6775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 21,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37358.479650300134,
+        6373.935174133727,
+        6775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 21,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37358.479650300134,
+        6373.935174133727,
+        6800
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 22,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37146.29215482081,
+        6485.591480371555,
+        6925
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 22,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37378.170196135434,
+        6462.753486674767,
+        6925
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 22,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37378.170196135434,
+        6462.753486674767,
+        6950
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 23,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37145.524426306074,
+        6520.775980080064,
+        7074.999999999999
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 23,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37376.18559181163,
+        6553.706615172955,
+        7074.999999999999
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 23,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37376.18559181163,
+        6553.706615172955,
+        7100
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 0,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37090.75473969089,
+        6615.639860012187,
+        7225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 0,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37234.60408899687,
+        6798.932971460074,
+        7225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 0,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37234.60408899687,
+        6798.932971460074,
+        7250
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 1,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37060.66793338124,
+        6633.8969822634135,
+        7375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 1,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37156.82867132567,
+        6846.128253470048,
+        7375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 1,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37156.82867132567,
+        6846.128253470048,
+        7400
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 2,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37027.10389227277,
+        6644.479683774799,
+        7524.999999999999
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 2,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37070.06448342621,
+        6873.484896832815,
+        7524.999999999999
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 2,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37070.06448342621,
+        6873.484896832815,
+        7550
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 3,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36991.98636825921,
+        6646.781407904145,
+        7675
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 3,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36979.28448937756,
+        6879.43493199711,
+        7675
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 3,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36979.28448937756,
+        6879.43493199711,
+        7700
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 4,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36957.328152443595,
+        6640.670229352634,
+        7825.000000000001
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 4,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36889.691822643304,
+        6863.637327578239,
+        7825.000000000001
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 4,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36889.691822643304,
+        6863.637327578239,
+        7850
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 5,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36925.11571028439,
+        6626.496415576844,
+        7975
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 5,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36806.421564000484,
+        6826.99753686531,
+        7975
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 5,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36806.421564000484,
+        6826.99753686531,
+        8000
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 6,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36897.195325618704,
+        6605.072350908104,
+        8125
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 6,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36734.24641996672,
+        6771.615600986937,
+        8125
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 6,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36734.24641996672,
+        6771.615600986937,
+        8150
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 7,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36875.167279315596,
+        6577.625974045604,
+        8275
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 7,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36677.3031710199,
+        6700.66578324714,
+        8275
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 7,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36677.3031710199,
+        6700.66578324714,
+        8300
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 8,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36860.294127801266,
+        6545.73039769335,
+        8425
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 8,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36638.855568465864,
+        6618.214633493014,
+        8425
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 8,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36638.855568465864,
+        6618.214633493014,
+        8450
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 9,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36853.428338551246,
+        6511.213744252081,
+        8575
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 9,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36621.1072697243,
+        6528.987910311502,
+        8575
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 9,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36621.1072697243,
+        6528.987910311502,
+        8600
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 10,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36854.963430183525,
+        6476.054365410995,
+        8725
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 10,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36625.07553380774,
+        6438.099720110056,
+        8725
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 10,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36625.07553380774,
+        6438.099720110056,
+        8750
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 11,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36864.81141760045,
+        6442.267451218568,
+        8875
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 11,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36650.53291624606,
+        6350.759397707861,
+        8875
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 11,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36650.53291624606,
+        6350.759397707861,
+        8900
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 12,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36882.40785493028,
+        6411.789527731102,
+        9025
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 12,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36696.02030526195,
+        6271.972928828698,
+        9025
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 12,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36696.02030526195,
+        6271.972928828698,
+        9050
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 13,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36906.744187227945,
+        6386.3674633556775,
+        9175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 13,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36758.93055201782,
+        6206.25602772216,
+        9175
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 13,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36758.93055201782,
+        6206.25602772216,
+        9200
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 14,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36936.42555666946,
+        6367.458345584444,
+        9325
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 14,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36835.65790159454,
+        6157.37531511625,
+        9325
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 14,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36835.65790159454,
+        6157.37531511625,
+        9350
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 15,
+      "contact": "shaft",
+      "actual_point_mm": [
+        36969.750750028245,
+        6356.145966771362,
+        9475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 15,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        36921.80465993695,
+        6128.132431109643,
+        9475
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 15,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        36921.80465993695,
+        6128.132431109643,
+        9500
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 16,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37004.809705174805,
+        6353.0787056409745,
+        9625
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 16,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37012.43325147228,
+        6120.203456758981,
+        9625
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 16,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37012.43325147228,
+        6120.203456758981,
+        9650
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 17,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37039.59298793112,
+        6358.432364903959,
+        9775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 17,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37102.34922050222,
+        6134.042848051049,
+        9775
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 17,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37102.34922050222,
+        6134.042848051049,
+        9800
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 18,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37072.10696451942,
+        6371.900094973512,
+        9925
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 18,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37186.398955900535,
+        6168.8573883669005,
+        9925
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 18,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37186.398955900535,
+        6168.8573883669005,
+        9950
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 19,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37100.48806839736,
+        6392.709981313418,
+        10075
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 19,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37259.76507476869,
+        6222.651652374822,
+        10075
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 19,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37259.76507476869,
+        6222.651652374822,
+        10100
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 20,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37123.10961217784,
+        6419.669287383833,
+        10225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 20,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37318.242534881494,
+        6292.342375550043,
+        10225
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 20,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37318.242534881494,
+        6292.342375550043,
+        10250
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 21,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37138.6750226161,
+        6451.232817362257,
+        10375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 21,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37358.479650300134,
+        6373.935174133727,
+        10375
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 21,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37358.479650300134,
+        6373.935174133727,
+        10400
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 22,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37146.29215482081,
+        6485.591480371555,
+        10525
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 22,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37378.170196135434,
+        6462.753486674767,
+        10525
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 22,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37378.170196135434,
+        6462.753486674767,
+        10550
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 23,
+      "contact": "shaft",
+      "actual_point_mm": [
+        37145.524426306074,
+        6520.775980080064,
+        10675
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 23,
+      "contact": "retained radial support",
+      "actual_point_mm": [
+        37376.18559181163,
+        6553.706615172955,
+        10675
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 23,
+      "contact": "retained tread underside",
+      "actual_point_mm": [
+        37376.18559181163,
+        6553.706615172955,
+        10700
+      ],
+      "passed": true
+    }
+  ],
+  "landing_root_contacts": [
+    {
+      "spiral": 0,
+      "landing_support": 0,
+      "contact": "shaft",
+      "point_mm": [
+        37138.13481525553,
+        6550.276961068873,
+        3467.5
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "landing_support": 0,
+      "contact": "retained landing support",
+      "point_mm": [
+        37385.27397452222,
+        6640.228258763524,
+        3460
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "landing_support": 0,
+      "contact": "retained plate underside",
+      "point_mm": [
+        37385.27397452222,
+        6640.228258763524,
+        3500
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "landing_support": 1,
+      "contact": "shaft",
+      "point_mm": [
+        37103.94469683442,
+        6603.944696834423,
+        3467.5
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "landing_support": 1,
+      "contact": "retained landing support",
+      "point_mm": [
+        37289.913780286486,
+        6789.913780286485,
+        3460
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "landing_support": 1,
+      "contact": "retained plate underside",
+      "point_mm": [
+        37289.913780286486,
+        6789.913780286485,
+        3500
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "landing_support": 0,
+      "contact": "shaft",
+      "point_mm": [
+        37138.13481525553,
+        6550.276961068873,
+        7067.5
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "landing_support": 0,
+      "contact": "retained landing support",
+      "point_mm": [
+        37385.27397452222,
+        6640.228258763524,
+        7060
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "landing_support": 0,
+      "contact": "retained plate underside",
+      "point_mm": [
+        37385.27397452222,
+        6640.228258763524,
+        7100
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "landing_support": 1,
+      "contact": "shaft",
+      "point_mm": [
+        37103.94469683442,
+        6603.944696834423,
+        7067.5
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "landing_support": 1,
+      "contact": "retained landing support",
+      "point_mm": [
+        37289.913780286486,
+        6789.913780286485,
+        7060
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "landing_support": 1,
+      "contact": "retained plate underside",
+      "point_mm": [
+        37289.913780286486,
+        6789.913780286485,
+        7100
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "landing_support": 0,
+      "contact": "shaft",
+      "point_mm": [
+        37138.13481525553,
+        6550.276961068873,
+        10667.5
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "landing_support": 0,
+      "contact": "retained landing support",
+      "point_mm": [
+        37385.27397452222,
+        6640.228258763524,
+        10660
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "landing_support": 0,
+      "contact": "retained plate underside",
+      "point_mm": [
+        37385.27397452222,
+        6640.228258763524,
+        10700
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "landing_support": 1,
+      "contact": "shaft",
+      "point_mm": [
+        37103.94469683442,
+        6603.944696834423,
+        10667.5
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "landing_support": 1,
+      "contact": "retained landing support",
+      "point_mm": [
+        37289.913780286486,
+        6789.913780286485,
+        10660
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "landing_support": 1,
+      "contact": "retained plate underside",
+      "point_mm": [
+        37289.913780286486,
+        6789.913780286485,
+        10700
+      ],
+      "passed": true
+    }
+  ],
+  "headroom": [
+    {
+      "spiral": 0,
+      "tread": 0,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_0"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 0,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_0"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 0,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_0"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 1,
+      "radius_mm": 650,
+      "headroom_mm": 3449.9999999999995,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_1"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 1,
+      "radius_mm": 1150,
+      "headroom_mm": 3449.9999999999995,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_1"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 1,
+      "radius_mm": 1600,
+      "headroom_mm": 3449.9999999999995,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_1"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 2,
+      "radius_mm": 650,
+      "headroom_mm": 3450.0000000000005,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_2"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 2,
+      "radius_mm": 1150,
+      "headroom_mm": 3450.0000000000005,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_2"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 2,
+      "radius_mm": 1600,
+      "headroom_mm": 3450.0000000000005,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_2"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 3,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_3"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 3,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_3"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 3,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_3"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 4,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_4"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 4,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_4"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 4,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_4"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 5,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_5"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 5,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_5"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 5,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_5"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 6,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_6"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 6,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_6"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 6,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_6"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 7,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_7"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 7,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_7"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 7,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_7"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 8,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_8"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 8,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_8"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 8,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_8"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 9,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_9"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 9,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_9"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 9,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_9"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 10,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_10"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 10,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_10"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 10,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_10"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 11,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_11"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 11,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_11"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 11,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_11"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 12,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_12"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 12,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_12"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 12,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_12"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 13,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_13"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 13,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_13"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 13,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_13"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 14,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_14"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 14,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_14"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 14,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_14"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 15,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_15"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 15,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_15"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 15,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_15"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 16,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_16"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 16,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_16"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 16,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_16"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 17,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_17"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 17,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_17"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 17,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_17"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 18,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_18"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 18,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_18"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 18,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_18"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 19,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_19"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 19,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_19"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 19,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_19"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 20,
+      "radius_mm": 650,
+      "headroom_mm": 3450.000000000001,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_20"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 20,
+      "radius_mm": 1150,
+      "headroom_mm": 3450.000000000001,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_20"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 20,
+      "radius_mm": 1600,
+      "headroom_mm": 3450.000000000001,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_20"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 21,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_21"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 21,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_21"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 21,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_21"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 22,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_22"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 22,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_22"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 22,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_22"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 23,
+      "radius_mm": 650,
+      "headroom_mm": 3449.999999999999,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_23"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 23,
+      "radius_mm": 1150,
+      "headroom_mm": 3449.999999999999,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_23"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 0,
+      "tread": 23,
+      "radius_mm": 1600,
+      "headroom_mm": 3449.999999999999,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2",
+        "S1_RADIAL_SUPPORT_23"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 0,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_0"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 0,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_0"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 0,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_0"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 1,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_1"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 1,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_1"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 1,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_1"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 2,
+      "radius_mm": 650,
+      "headroom_mm": 3449.999999999999,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_2"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 2,
+      "radius_mm": 1150,
+      "headroom_mm": 3449.999999999999,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_2"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 2,
+      "radius_mm": 1600,
+      "headroom_mm": 3449.999999999999,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_2"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 3,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_3"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 3,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_3"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 3,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_3"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 4,
+      "radius_mm": 650,
+      "headroom_mm": 3450.000000000001,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_4"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 4,
+      "radius_mm": 1150,
+      "headroom_mm": 3450.000000000001,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_4"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 4,
+      "radius_mm": 1600,
+      "headroom_mm": 3450.000000000001,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_4"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 5,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_5"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 5,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_5"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 5,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_5"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 6,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_6"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 6,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_6"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 6,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_6"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 7,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_7"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 7,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_7"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 7,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_7"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 8,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_8"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 8,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_8"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 8,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_8"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 9,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_9"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 9,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_9"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 9,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_9"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 10,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_10"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 10,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_10"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 10,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_10"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 11,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_11"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 11,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_11"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 11,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_11"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 12,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_12"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 12,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_12"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 12,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_12"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 13,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_13"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 13,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_13"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 13,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_13"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 14,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_14"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 14,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_14"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 14,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_14"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 15,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_15"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 15,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_15"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 15,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_15"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 16,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_16"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 16,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_16"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 16,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_16"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 17,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_17"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 17,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_17"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 17,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_17"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 18,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_18"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 18,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_18"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 18,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_18"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 19,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_19"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 19,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_19"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 19,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_19"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 20,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_20"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 20,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_20"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 20,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_20"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 21,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_21"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 21,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_21"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 21,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_21"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 22,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_22"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 22,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_22"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 22,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_22"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 23,
+      "radius_mm": 650,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_23"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 23,
+      "radius_mm": 1150,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_23"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 1,
+      "tread": 23,
+      "radius_mm": 1600,
+      "headroom_mm": 3450,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3",
+        "S2_RADIAL_SUPPORT_23"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 0,
+      "radius_mm": 650,
+      "headroom_mm": 7735.720793759292,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 0,
+      "radius_mm": 1150,
+      "headroom_mm": 7689.779243926352,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 0,
+      "radius_mm": 1600,
+      "headroom_mm": 7651.324634135157,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 1,
+      "radius_mm": 650,
+      "headroom_mm": 7576.101153304553,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 1,
+      "radius_mm": 1150,
+      "headroom_mm": 7523.901807399665,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 1,
+      "radius_mm": 1600,
+      "headroom_mm": 7481.22242475356,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 2,
+      "radius_mm": 650,
+      "headroom_mm": 7420.525149475554,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 2,
+      "radius_mm": 1150,
+      "headroom_mm": 7365.03004795712,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 2,
+      "radius_mm": 1600,
+      "headroom_mm": 7320.005630389011,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 3,
+      "radius_mm": 650,
+      "headroom_mm": 7269.312375729198,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 3,
+      "radius_mm": 1150,
+      "headroom_mm": 7213.100451553339,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 3,
+      "radius_mm": 1600,
+      "headroom_mm": 7167.621607878547,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 4,
+      "radius_mm": 650,
+      "headroom_mm": 7122.5323432361965,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 4,
+      "radius_mm": 1150,
+      "headroom_mm": 7068.223614666378,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 4,
+      "radius_mm": 1600,
+      "headroom_mm": 7023.951292242758,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 5,
+      "radius_mm": 650,
+      "headroom_mm": 6980.000496788511,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 5,
+      "radius_mm": 1150,
+      "headroom_mm": 6930.168311940974,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 5,
+      "radius_mm": 1600,
+      "headroom_mm": 6889.370901771394,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 6,
+      "radius_mm": 650,
+      "headroom_mm": 6841.5011589402875,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 6,
+      "radius_mm": 1150,
+      "headroom_mm": 6799.134293108327,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 6,
+      "radius_mm": 1600,
+      "headroom_mm": 6763.598240834695,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 7,
+      "radius_mm": 650,
+      "headroom_mm": 6706.690768078186,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 7,
+      "radius_mm": 1150,
+      "headroom_mm": 6674.2879501539755,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 7,
+      "radius_mm": 1600,
+      "headroom_mm": 6646.541347232645,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 8,
+      "radius_mm": 650,
+      "headroom_mm": 6574.629435884701,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 8,
+      "radius_mm": 1150,
+      "headroom_mm": 6554.874607744254,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 8,
+      "radius_mm": 1600,
+      "headroom_mm": 6537.353332513745,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 9,
+      "radius_mm": 650,
+      "headroom_mm": 6444.647686037641,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 9,
+      "radius_mm": 1150,
+      "headroom_mm": 6439.644982989672,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 9,
+      "radius_mm": 1600,
+      "headroom_mm": 6435.142550246499,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 10,
+      "radius_mm": 650,
+      "headroom_mm": 6315.67398303502,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 10,
+      "radius_mm": 1150,
+      "headroom_mm": 6326.845354600418,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 10,
+      "radius_mm": 1600,
+      "headroom_mm": 6336.963385553867,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 11,
+      "radius_mm": 650,
+      "headroom_mm": 6186.197081593924,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 11,
+      "radius_mm": 1150,
+      "headroom_mm": 6214.309298204638,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 11,
+      "radius_mm": 1600,
+      "headroom_mm": 6240.380582054297,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 12,
+      "radius_mm": 650,
+      "headroom_mm": 6055.49022915993,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 12,
+      "radius_mm": 1150,
+      "headroom_mm": 6099.583820069207,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 12,
+      "radius_mm": 1600,
+      "headroom_mm": 6141.1224857386915,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 13,
+      "radius_mm": 650,
+      "headroom_mm": 5921.597655495332,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 13,
+      "radius_mm": 1150,
+      "headroom_mm": 5980.082547235328,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 13,
+      "radius_mm": 1600,
+      "headroom_mm": 6035.476583462305,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 14,
+      "radius_mm": 650,
+      "headroom_mm": 5784.069183416366,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 14,
+      "radius_mm": 1150,
+      "headroom_mm": 5853.256471969067,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 14,
+      "radius_mm": 1600,
+      "headroom_mm": 5919.801272948074,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 15,
+      "radius_mm": 650,
+      "headroom_mm": 5641.530274405779,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 15,
+      "radius_mm": 1150,
+      "headroom_mm": 5717.518842138752,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 15,
+      "radius_mm": 1600,
+      "headroom_mm": 5790.777887280226,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 16,
+      "radius_mm": 650,
+      "headroom_mm": 5493.553289614183,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 16,
+      "radius_mm": 1150,
+      "headroom_mm": 5571.385969855346,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 16,
+      "radius_mm": 1600,
+      "headroom_mm": 5646.558860747849,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 17,
+      "radius_mm": 650,
+      "headroom_mm": 5340.022278184364,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 17,
+      "radius_mm": 1150,
+      "headroom_mm": 5414.6362073666005,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 17,
+      "radius_mm": 1600,
+      "headroom_mm": 5486.468633395705,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 18,
+      "radius_mm": 650,
+      "headroom_mm": 5181.13962307441,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 18,
+      "radius_mm": 1150,
+      "headroom_mm": 5247.656423116867,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 18,
+      "radius_mm": 1600,
+      "headroom_mm": 5311.719827202478,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 19,
+      "radius_mm": 650,
+      "headroom_mm": 5017.56797142082,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 19,
+      "radius_mm": 1150,
+      "headroom_mm": 5072.383765947765,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 19,
+      "radius_mm": 1600,
+      "headroom_mm": 5124.351030329573,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 20,
+      "radius_mm": 650,
+      "headroom_mm": 4850.502180488329,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 20,
+      "radius_mm": 1150,
+      "headroom_mm": 4890.388944611575,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 20,
+      "radius_mm": 1600,
+      "headroom_mm": 4927.815018988023,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 21,
+      "radius_mm": 650,
+      "headroom_mm": 4680.727998645476,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 21,
+      "radius_mm": 1150,
+      "headroom_mm": 4704.268454057015,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 21,
+      "radius_mm": 1600,
+      "headroom_mm": 4725.825218636688,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 22,
+      "radius_mm": 650,
+      "headroom_mm": 4509.889820128939,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 22,
+      "radius_mm": 1150,
+      "headroom_mm": 4516.611835612741,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 22,
+      "radius_mm": 1600,
+      "headroom_mm": 4522.661649548161,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 23,
+      "radius_mm": 650,
+      "headroom_mm": 4339.101979552752,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 23,
+      "radius_mm": 1150,
+      "headroom_mm": 4329.833348439479,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    },
+    {
+      "spiral": 2,
+      "tread": 23,
+      "radius_mm": 1600,
+      "headroom_mm": 4321.491580437538,
+      "hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "passed": true
+    }
+  ],
+  "ceiling_v_members": [
+    {
+      "name": "IF_V_BAY_1",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        2500,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        2500,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_2",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        2500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        2500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_3",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        7499.999999999999,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        7499.999999999999,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_4",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        7499.999999999999,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        7499.999999999999,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_5",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        17500,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        17500,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_6",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        17500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        17500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_7",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        27500,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        27500,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_8",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        27500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        27500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_9",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        32500,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        32500,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_10",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        32500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        32500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_11",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        37500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        37500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_12",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        42500,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        42500,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_13",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        42500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        42500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_14",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        47500,
+        5000,
+        10555
+      ],
+      "midpoint_mm": [
+        47500,
+        5000,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    },
+    {
+      "name": "IF_V_BAY_15",
+      "beam_end_contacts": [
+        true,
+        true
+      ],
+      "center_join": true,
+      "hanger_inside_existing_slab": true,
+      "slab_intersection_proof": {
+        "actual_face_intersections_mm": [
+          10550,
+          10800
+        ],
+        "passed": true
+      },
+      "hanger_tip_mm": [
+        47500,
+        14999.999999999998,
+        10555
+      ],
+      "midpoint_mm": [
+        47500,
+        14999.999999999998,
+        10050
+      ],
+      "min_clear_above_7200_floor_mm": 2832.5,
+      "passed": true
+    }
+  ],
+  "soft_seams": [
+    {
+      "pid": 78525,
+      "passed": true
+    },
+    {
+      "pid": 78528,
+      "passed": true
+    },
+    {
+      "pid": 78530,
+      "passed": true
+    },
+    {
+      "pid": 78532,
+      "passed": true
+    },
+    {
+      "pid": 78534,
+      "passed": true
+    },
+    {
+      "pid": 78536,
+      "passed": true
+    },
+    {
+      "pid": 78538,
+      "passed": true
+    },
+    {
+      "pid": 78540,
+      "passed": true
+    },
+    {
+      "pid": 78542,
+      "passed": true
+    },
+    {
+      "pid": 78544,
+      "passed": true
+    },
+    {
+      "pid": 78546,
+      "passed": true
+    },
+    {
+      "pid": 78548,
+      "passed": true
+    },
+    {
+      "pid": 78550,
+      "passed": true
+    },
+    {
+      "pid": 78552,
+      "passed": true
+    },
+    {
+      "pid": 78554,
+      "passed": true
+    },
+    {
+      "pid": 78556,
+      "passed": true
+    },
+    {
+      "pid": 78558,
+      "passed": true
+    },
+    {
+      "pid": 78560,
+      "passed": true
+    },
+    {
+      "pid": 78562,
+      "passed": true
+    },
+    {
+      "pid": 78564,
+      "passed": true
+    },
+    {
+      "pid": 78566,
+      "passed": true
+    },
+    {
+      "pid": 78568,
+      "passed": true
+    },
+    {
+      "pid": 78570,
+      "passed": true
+    },
+    {
+      "pid": 78572,
+      "passed": true
+    },
+    {
+      "pid": 78574,
+      "passed": true
+    },
+    {
+      "pid": 78576,
+      "passed": true
+    },
+    {
+      "pid": 78578,
+      "passed": true
+    },
+    {
+      "pid": 78580,
+      "passed": true
+    },
+    {
+      "pid": 78582,
+      "passed": true
+    },
+    {
+      "pid": 78584,
+      "passed": true
+    },
+    {
+      "pid": 78586,
+      "passed": true
+    },
+    {
+      "pid": 78588,
+      "passed": true
+    },
+    {
+      "pid": 78590,
+      "passed": true
+    },
+    {
+      "pid": 78592,
+      "passed": true
+    },
+    {
+      "pid": 78594,
+      "passed": true
+    },
+    {
+      "pid": 78596,
+      "passed": true
+    },
+    {
+      "pid": 78598,
+      "passed": true
+    },
+    {
+      "pid": 78600,
+      "passed": true
+    },
+    {
+      "pid": 78602,
+      "passed": true
+    },
+    {
+      "pid": 78604,
+      "passed": true
+    },
+    {
+      "pid": 78606,
+      "passed": true
+    },
+    {
+      "pid": 78608,
+      "passed": true
+    },
+    {
+      "pid": 78610,
+      "passed": true
+    },
+    {
+      "pid": 78612,
+      "passed": true
+    },
+    {
+      "pid": 78614,
+      "passed": true
+    },
+    {
+      "pid": 78616,
+      "passed": true
+    },
+    {
+      "pid": 78618,
+      "passed": true
+    },
+    {
+      "pid": 78620,
+      "passed": true
+    },
+    {
+      "pid": 78622,
+      "passed": true
+    },
+    {
+      "pid": 78624,
+      "passed": true
+    },
+    {
+      "pid": 78626,
+      "passed": true
+    },
+    {
+      "pid": 78628,
+      "passed": true
+    },
+    {
+      "pid": 78630,
+      "passed": true
+    },
+    {
+      "pid": 78632,
+      "passed": true
+    },
+    {
+      "pid": 78634,
+      "passed": true
+    },
+    {
+      "pid": 78636,
+      "passed": true
+    },
+    {
+      "pid": 78638,
+      "passed": true
+    },
+    {
+      "pid": 78640,
+      "passed": true
+    },
+    {
+      "pid": 78642,
+      "passed": true
+    },
+    {
+      "pid": 78644,
+      "passed": true
+    },
+    {
+      "pid": 78646,
+      "passed": true
+    },
+    {
+      "pid": 78648,
+      "passed": true
+    },
+    {
+      "pid": 78650,
+      "passed": true
+    },
+    {
+      "pid": 78652,
+      "passed": true
+    },
+    {
+      "pid": 78654,
+      "passed": true
+    },
+    {
+      "pid": 78656,
+      "passed": true
+    },
+    {
+      "pid": 78658,
+      "passed": true
+    },
+    {
+      "pid": 78660,
+      "passed": true
+    },
+    {
+      "pid": 78662,
+      "passed": true
+    },
+    {
+      "pid": 78664,
+      "passed": true
+    },
+    {
+      "pid": 78666,
+      "passed": true
+    },
+    {
+      "pid": 78668,
+      "passed": true
+    },
+    {
+      "pid": 78670,
+      "passed": true
+    },
+    {
+      "pid": 78672,
+      "passed": true
+    },
+    {
+      "pid": 78674,
+      "passed": true
+    },
+    {
+      "pid": 78676,
+      "passed": true
+    },
+    {
+      "pid": 78678,
+      "passed": true
+    },
+    {
+      "pid": 78680,
+      "passed": true
+    },
+    {
+      "pid": 78682,
+      "passed": true
+    },
+    {
+      "pid": 78688,
+      "passed": true
+    },
+    {
+      "pid": 78690,
+      "passed": true
+    },
+    {
+      "pid": 78692,
+      "passed": true
+    },
+    {
+      "pid": 78694,
+      "passed": true
+    },
+    {
+      "pid": 78696,
+      "passed": true
+    },
+    {
+      "pid": 78698,
+      "passed": true
+    },
+    {
+      "pid": 78700,
+      "passed": true
+    },
+    {
+      "pid": 78702,
+      "passed": true
+    },
+    {
+      "pid": 78704,
+      "passed": true
+    },
+    {
+      "pid": 78706,
+      "passed": true
+    },
+    {
+      "pid": 78708,
+      "passed": true
+    },
+    {
+      "pid": 78710,
+      "passed": true
+    },
+    {
+      "pid": 78712,
+      "passed": true
+    },
+    {
+      "pid": 78714,
+      "passed": true
+    },
+    {
+      "pid": 78716,
+      "passed": true
+    },
+    {
+      "pid": 78718,
+      "passed": true
+    },
+    {
+      "pid": 78720,
+      "passed": true
+    },
+    {
+      "pid": 78722,
+      "passed": true
+    },
+    {
+      "pid": 78724,
+      "passed": true
+    },
+    {
+      "pid": 78726,
+      "passed": true
+    },
+    {
+      "pid": 78728,
+      "passed": true
+    },
+    {
+      "pid": 78730,
+      "passed": true
+    },
+    {
+      "pid": 78732,
+      "passed": true
+    },
+    {
+      "pid": 78734,
+      "passed": true
+    },
+    {
+      "pid": 78736,
+      "passed": true
+    },
+    {
+      "pid": 78738,
+      "passed": true
+    },
+    {
+      "pid": 78740,
+      "passed": true
+    },
+    {
+      "pid": 78742,
+      "passed": true
+    },
+    {
+      "pid": 78744,
+      "passed": true
+    },
+    {
+      "pid": 78746,
+      "passed": true
+    },
+    {
+      "pid": 78748,
+      "passed": true
+    },
+    {
+      "pid": 78750,
+      "passed": true
+    },
+    {
+      "pid": 78752,
+      "passed": true
+    },
+    {
+      "pid": 78754,
+      "passed": true
+    },
+    {
+      "pid": 78756,
+      "passed": true
+    },
+    {
+      "pid": 78758,
+      "passed": true
+    },
+    {
+      "pid": 78760,
+      "passed": true
+    },
+    {
+      "pid": 78762,
+      "passed": true
+    },
+    {
+      "pid": 78764,
+      "passed": true
+    },
+    {
+      "pid": 78766,
+      "passed": true
+    },
+    {
+      "pid": 78768,
+      "passed": true
+    },
+    {
+      "pid": 78770,
+      "passed": true
+    },
+    {
+      "pid": 78772,
+      "passed": true
+    },
+    {
+      "pid": 78774,
+      "passed": true
+    },
+    {
+      "pid": 78776,
+      "passed": true
+    },
+    {
+      "pid": 78778,
+      "passed": true
+    },
+    {
+      "pid": 78780,
+      "passed": true
+    },
+    {
+      "pid": 78782,
+      "passed": true
+    },
+    {
+      "pid": 78784,
+      "passed": true
+    },
+    {
+      "pid": 78786,
+      "passed": true
+    },
+    {
+      "pid": 78788,
+      "passed": true
+    },
+    {
+      "pid": 78790,
+      "passed": true
+    },
+    {
+      "pid": 78792,
+      "passed": true
+    },
+    {
+      "pid": 78794,
+      "passed": true
+    },
+    {
+      "pid": 78796,
+      "passed": true
+    },
+    {
+      "pid": 78798,
+      "passed": true
+    },
+    {
+      "pid": 78800,
+      "passed": true
+    },
+    {
+      "pid": 78802,
+      "passed": true
+    },
+    {
+      "pid": 78804,
+      "passed": true
+    },
+    {
+      "pid": 78806,
+      "passed": true
+    },
+    {
+      "pid": 78808,
+      "passed": true
+    },
+    {
+      "pid": 78810,
+      "passed": true
+    },
+    {
+      "pid": 78812,
+      "passed": true
+    },
+    {
+      "pid": 78814,
+      "passed": true
+    },
+    {
+      "pid": 78816,
+      "passed": true
+    },
+    {
+      "pid": 78818,
+      "passed": true
+    },
+    {
+      "pid": 78820,
+      "passed": true
+    },
+    {
+      "pid": 78822,
+      "passed": true
+    },
+    {
+      "pid": 78824,
+      "passed": true
+    },
+    {
+      "pid": 78826,
+      "passed": true
+    },
+    {
+      "pid": 78828,
+      "passed": true
+    },
+    {
+      "pid": 78830,
+      "passed": true
+    },
+    {
+      "pid": 78832,
+      "passed": true
+    },
+    {
+      "pid": 78834,
+      "passed": true
+    },
+    {
+      "pid": 78836,
+      "passed": true
+    },
+    {
+      "pid": 78838,
+      "passed": true
+    },
+    {
+      "pid": 78840,
+      "passed": true
+    },
+    {
+      "pid": 78842,
+      "passed": true
+    },
+    {
+      "pid": 78844,
+      "passed": true
+    }
+  ],
+  "finish_faces": [
+    {
+      "path": [
+        "FLOORS",
+        "L0"
+      ],
+      "face_pid": 76310,
+      "front": [
+        234,
+        233,
+        225
+      ],
+      "back": [
+        234,
+        233,
+        225
+      ],
+      "expected": [
+        234,
+        233,
+        225
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L1"
+      ],
+      "face_pid": 76530,
+      "front": [
+        234,
+        233,
+        225
+      ],
+      "back": [
+        234,
+        233,
+        225
+      ],
+      "expected": [
+        234,
+        233,
+        225
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      "face_pid": 76645,
+      "front": [
+        233,
+        216,
+        183
+      ],
+      "back": [
+        233,
+        216,
+        183
+      ],
+      "expected": [
+        233,
+        216,
+        183
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      "face_pid": 76654,
+      "front": [
+        234,
+        233,
+        225
+      ],
+      "back": [
+        234,
+        233,
+        225
+      ],
+      "expected": [
+        234,
+        233,
+        225
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      "face_pid": 76673,
+      "front": [
+        233,
+        216,
+        183
+      ],
+      "back": [
+        233,
+        216,
+        183
+      ],
+      "expected": [
+        233,
+        216,
+        183
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      "face_pid": 76874,
+      "front": [
+        234,
+        233,
+        225
+      ],
+      "back": [
+        234,
+        233,
+        225
+      ],
+      "expected": [
+        234,
+        233,
+        225
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L3"
+      ],
+      "face_pid": 76989,
+      "front": [
+        233,
+        216,
+        183
+      ],
+      "back": [
+        233,
+        216,
+        183
+      ],
+      "expected": [
+        233,
+        216,
+        183
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_0"
+      ],
+      "face_pid": 75702,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_1"
+      ],
+      "face_pid": 75734,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_2"
+      ],
+      "face_pid": 75766,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_3"
+      ],
+      "face_pid": 75798,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_4"
+      ],
+      "face_pid": 75830,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_5"
+      ],
+      "face_pid": 75862,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_0"
+      ],
+      "face_pid": 75894,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_1"
+      ],
+      "face_pid": 75926,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_2"
+      ],
+      "face_pid": 75958,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_3"
+      ],
+      "face_pid": 75990,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_4"
+      ],
+      "face_pid": 76022,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_5"
+      ],
+      "face_pid": 76054,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_0"
+      ],
+      "face_pid": 76086,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_1"
+      ],
+      "face_pid": 76118,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_2"
+      ],
+      "face_pid": 76150,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_3"
+      ],
+      "face_pid": 76182,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_4"
+      ],
+      "face_pid": 76214,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_5"
+      ],
+      "face_pid": 76246,
+      "front": [
+        244,
+        242,
+        233
+      ],
+      "back": [
+        244,
+        242,
+        233
+      ],
+      "expected": [
+        244,
+        242,
+        233
+      ],
+      "passed": true
+    }
+  ],
+  "display_settings": {
+    "Dark": 80,
+    "Light": 15,
+    "UseSunForAllShading": true,
+    "DisplayShadows": false
+  },
+  "limitation": "Actual selected solid contacts/rays/primitive materials and soft flags; not full body-volume route, structure/code or exact photographed dimensions. Full protected graph and Surface proof separate."
+}
