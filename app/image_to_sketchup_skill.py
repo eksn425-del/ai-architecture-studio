@@ -68,6 +68,7 @@ After every committed `sketchup_run_workspace_ruby`, inspect host-returned `oss_
 ## Evidence fidelity modes
 
 Maintain `notes/reconstruction_evidence.json` beside the parameter card and facade schedule. Evidence completeness controls how much freedom the Builder has.
+Keep repair plans/progress in separate notes, not appended execution-history keys in this source-fact ledger. Unchanged source facts must leave it unchanged: editing it invalidates the independent review checkpoint and requires fresh image review.
 
 **single_view_inference** — one exterior image is enough to reconstruct. The visible source view is a HARD visual target: match silhouette, storey/bay proportions, opening count/position, facade depth, colors/material zones, glass, railings, visible furniture/interior and source-defining detail. Do not stop at generic massing. Hidden rear/sides/roof/interior may be plausibly inferred without another questionnaire unless the user forbids inference. Inferred regions must continue the visible structure, circulation and facade vocabulary; never leave them blank or mirror the front blindly.
 

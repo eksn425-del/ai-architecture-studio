@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 3605937,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "tool_call_count": 127,
+  "failed_tool_calls": 3,
+  "input_tokens": 4723630,
+  "output_tokens": 17828,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 627828,
+    "input_tokens": 59936,
+    "output_tokens": 967,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "paid_api_calls": 0,
+  "token_source": "Actual initial Builder delta. Read-only recovery has separate ledger, never zeroed."
+}

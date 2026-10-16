@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r8-ramps",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "architecture-project-4f0e4 same eight sources, real website r7->r8",
+  "base_commit": "d4e3aadc11fa99bbd52a4b3cd91eb04b0b3e35ca",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 7,
+    "after_revision": 8,
+    "outer_controller": "unchanged",
+    "native_caps": 0
+  },
+  "qa": {
+    "source_fidelity": "FAIL",
+    "protected_geometry": "PASS",
+    "native_delivery": "PASS",
+    "flight_support_and_headroom": "180/180 sampled positions PASS; not whole-route certification",
+    "strict_blank_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY",
+    "initial_turn": "TIMEOUT after committed geometry and one real r8 independent NEEDS_FIX review; later review rejected missing three source pairs",
+    "read_only_recovery": "IN_PROGRESS"
+  },
+  "paid_api_calls": 0
+}

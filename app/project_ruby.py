@@ -554,6 +554,25 @@ class ProjectRubyExecutor:
         temporary_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
         temporary_state.replace(self.state_path)
 
+        # Archive the exact committed input before any later capture/readback can
+        # fail. The mutable script file alone cannot replay a chain of patches.
+        committed_source = report_path.with_suffix(".committed.rb")
+        source_record = {
+            "script_id": script_id, "revision": new_revision, "root_pid": root_pid,
+            "update_mode": update_mode, "source_sha256": source_hash,
+            "source_path": committed_source.relative_to(self.project_dir).as_posix(),
+            "native_report": report_path.relative_to(self.project_dir).as_posix(),
+            "allowed_mutation_paths": mutation_paths,
+            "status": "NATIVE_COMMITTED_READBACK_PENDING",
+        }
+        try:
+            with committed_source.open("xb") as stream:
+                stream.write(ruby_source.encode("utf-8"))
+            with (scripts_dir / "source_history.jsonl").open("a", encoding="utf-8", newline="\n") as stream:
+                stream.write(json.dumps(source_record, ensure_ascii=False) + "\n")
+        except OSError as error:
+            raise MCPCallError("Native geometry committed, but source archiving failed; stop further edits and recover the recorded revision.") from error
+
         verification_result = self.inspect_owned({
             "script_id": script_id,
             "path": [],

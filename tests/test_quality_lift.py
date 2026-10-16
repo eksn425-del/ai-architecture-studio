@@ -190,8 +190,33 @@ def test_committed_revision_survives_interrupted_capture(tmp_path):
     assert restored.ruby_state["main"]["revision"] == 1
     assert restored.ruby_state["main"]["root_pid"] == 701
     assert restored.ruby_state["main"]["last_verification"]["verified"] is True
+    history = restored.project_dir / "runtime/scripts/source_history.jsonl"
+    entry = json.loads(history.read_text(encoding="utf-8").splitlines()[0])
+    archived = restored.project_dir / entry["source_path"]
+    assert archived.read_text(encoding="utf-8") == "root.name = 'Restorable'"
+    assert entry["revision"] == 1 and entry["update_mode"] == "replace"
+    assert hashlib.sha256(archived.read_bytes()).hexdigest() == entry["source_sha256"]
     receipt_path = restored.project_dir / restored.ruby_state["main"]["last_verification_report"]
     assert json.loads(receipt_path.read_text())["verified"] is True
+
+
+def test_source_archive_failure_preserves_committed_revision_and_stops_readback(tmp_path, monkeypatch):
+    from app.sketchup_mcp import MCPCallError
+    executor, adapter, mcp, _model_path = _executor(tmp_path)
+    original_open = Path.open
+
+    def fail_archive(path, *args, **kwargs):
+        if path.name.endswith(".committed.rb"):
+            raise OSError("archive volume unavailable")
+        return original_open(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "open", fail_archive)
+    with pytest.raises(MCPCallError, match="Native geometry committed, but source archiving failed"):
+        executor.run({"script_id": "main", "ruby_source": "root.name = 'Committed'"})
+    saved = json.loads(executor.state_path.read_text(encoding="utf-8"))
+    assert saved["scripts"]["main"]["revision"] == 1
+    assert saved["scripts"]["main"]["root_pid"] == 701
+    assert not mcp.inspection_sources and not adapter.captures
 
 
 def test_capture_guid_refresh_keeps_next_owned_inspection_working(tmp_path):

@@ -1,0 +1,2171 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z10800_SIDE3",
+    "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE0",
+    "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE1",
+    "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE2",
+    "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE3",
+    "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z7200_SIDE3",
+    "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z10800",
+    "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z3600",
+    "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z7200",
+    "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z10800",
+    "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z3600",
+    "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z7200",
+    "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+    "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_4",
+    "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_5",
+    "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_6",
+    "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_7",
+    "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0",
+    "CIRCULATION_EXTERNAL/RAMP_1_INNER",
+    "CIRCULATION_EXTERNAL/RAMP_1_OUTER",
+    "CIRCULATION_INTERNAL",
+    "ENVELOPE_OUTER",
+    "FLOORS",
+    "INTERIOR",
+    "PARTITION_Z3600_B1",
+    "PARTITION_Z3600_B2",
+    "PARTITION_Z3600_B3",
+    "PARTITION_Z3600_B4",
+    "PARTITION_Z3600_B5",
+    "PARTITION_Z3600_B6",
+    "PARTITION_Z3600_B7",
+    "PARTITION_Z3600_B8",
+    "PARTITION_Z3600_B9",
+    "PARTITION_Z7200_B1",
+    "PARTITION_Z7200_B2",
+    "PARTITION_Z7200_B3",
+    "PARTITION_Z7200_B4",
+    "PARTITION_Z7200_B5",
+    "PARTITION_Z7200_B6",
+    "PARTITION_Z7200_B7",
+    "PARTITION_Z7200_B8",
+    "PARTITION_Z7200_B9",
+    "RAMPS/RAMP_1",
+    "ROOF_TIMBER",
+    "SITE_GROUND",
+    "STRUCTURE_EXISTING"
+  ],
+  "checks": [
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z10800_SIDE3",
+      "check": "persistent_id",
+      "expected": 33875,
+      "actual": 33875
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z10800_SIDE3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z10800_SIDE3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          50000.0,
+          0.0,
+          10650.0
+        ],
+        "max": [
+          54000.0,
+          20000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          50000.0,
+          0.0,
+          10650.0
+        ],
+        "max": [
+          54000.0,
+          20000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z10800_SIDE3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "1bcb01b99aa723c0b04b62076d643e9930383d917c8146ad2f6f29774d586f00",
+      "actual": "1bcb01b99aa723c0b04b62076d643e9930383d917c8146ad2f6f29774d586f00"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE0",
+      "check": "persistent_id",
+      "expected": 28011,
+      "actual": 28011
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          -4000.0,
+          3450.0
+        ],
+        "max": [
+          54000.0,
+          0.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          -4000.0,
+          3450.0
+        ],
+        "max": [
+          54000.0,
+          0.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "39da1c3942f3ba517f50a1e6a0c891aaaeaf448dbf1d686ed86dfeb26a78883c",
+      "actual": "39da1c3942f3ba517f50a1e6a0c891aaaeaf448dbf1d686ed86dfeb26a78883c"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE1",
+      "check": "persistent_id",
+      "expected": 28043,
+      "actual": 28043
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          20000.0,
+          3450.0
+        ],
+        "max": [
+          54000.0,
+          24000.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          20000.0,
+          3450.0
+        ],
+        "max": [
+          54000.0,
+          24000.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE1",
+      "check": "deep_geometry_material_sha256",
+      "expected": "c52fc2fe51abe0a13ef431772f7772a7f05c172ce33e7f187ace54503d6851d5",
+      "actual": "c52fc2fe51abe0a13ef431772f7772a7f05c172ce33e7f187ace54503d6851d5"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE2",
+      "check": "persistent_id",
+      "expected": 28075,
+      "actual": 28075
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4000.0,
+          0.0,
+          3450.0
+        ],
+        "max": [
+          0.0,
+          20000.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4000.0,
+          0.0,
+          3450.0
+        ],
+        "max": [
+          0.0,
+          20000.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE2",
+      "check": "deep_geometry_material_sha256",
+      "expected": "63a9eea7703d908c365a7308180664f8b663105ae208d116fd8267b1a97d579f",
+      "actual": "63a9eea7703d908c365a7308180664f8b663105ae208d116fd8267b1a97d579f"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE3",
+      "check": "persistent_id",
+      "expected": 28107,
+      "actual": 28107
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          50000.0,
+          0.0,
+          3450.0
+        ],
+        "max": [
+          54000.0,
+          20000.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          50000.0,
+          0.0,
+          3450.0
+        ],
+        "max": [
+          54000.0,
+          20000.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z3600_SIDE3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "1a4f55723ddb015e614aacb1d5ce58e2eb6f51f160cca9f28d6924a5f4ebe2da",
+      "actual": "1a4f55723ddb015e614aacb1d5ce58e2eb6f51f160cca9f28d6924a5f4ebe2da"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z7200_SIDE3",
+      "check": "persistent_id",
+      "expected": 30991,
+      "actual": 30991
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z7200_SIDE3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z7200_SIDE3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          50000.0,
+          0.0,
+          7050.0
+        ],
+        "max": [
+          54000.0,
+          20000.0,
+          7200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          50000.0,
+          0.0,
+          7050.0
+        ],
+        "max": [
+          54000.0,
+          20000.0,
+          7200.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/GALLERY_Z7200_SIDE3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "eab06441db8dbd5703da559a3275f9eaab864e583a4adea8864d5699ffdf9c00",
+      "actual": "eab06441db8dbd5703da559a3275f9eaab864e583a4adea8864d5699ffdf9c00"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z10800",
+      "check": "persistent_id",
+      "expected": 35285,
+      "actual": 35285
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z10800",
+      "check": "objects_total",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z10800",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4052.5,
+          23982.5,
+          10800.0
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          11915.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4052.5,
+          23982.5,
+          10800.0
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          11915.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z10800",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4f38cf62119a059b7e5c55e435665ade371a8a9185b9327547f5eca66f797ba5",
+      "actual": "4f38cf62119a059b7e5c55e435665ade371a8a9185b9327547f5eca66f797ba5"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z3600",
+      "check": "persistent_id",
+      "expected": 29517,
+      "actual": 29517
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z3600",
+      "check": "objects_total",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z3600",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4052.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          4715.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4052.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          4715.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z3600",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9ed161d588ea52b7532c75fe79348d1040a33c086fab5ffa0bec7bfe21a3fc30",
+      "actual": "9ed161d588ea52b7532c75fe79348d1040a33c086fab5ffa0bec7bfe21a3fc30"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z7200",
+      "check": "persistent_id",
+      "expected": 32401,
+      "actual": 32401
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z7200",
+      "check": "objects_total",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z7200",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4052.5,
+          23982.5,
+          7200.0
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          8315.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4052.5,
+          23982.5,
+          7200.0
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          8315.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_NORTH_Z7200",
+      "check": "deep_geometry_material_sha256",
+      "expected": "cdb5216b4786c4a9337361f305cb82bf339fc121604407b2cae65c8de7f37324",
+      "actual": "cdb5216b4786c4a9337361f305cb82bf339fc121604407b2cae65c8de7f37324"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z10800",
+      "check": "persistent_id",
+      "expected": 33907,
+      "actual": 33907
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z10800",
+      "check": "objects_total",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z10800",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4017.5,
+          -4017.5,
+          10800.0
+        ],
+        "max": [
+          54017.5,
+          -3982.5,
+          11915.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4017.5,
+          -4017.5,
+          10800.0
+        ],
+        "max": [
+          54017.5,
+          -3982.5,
+          11915.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z10800",
+      "check": "deep_geometry_material_sha256",
+      "expected": "6dbda5541d353b3454ed45c9378dc393b8688e18e99bbaae0a8ba6e31ef424c4",
+      "actual": "6dbda5541d353b3454ed45c9378dc393b8688e18e99bbaae0a8ba6e31ef424c4"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z3600",
+      "check": "persistent_id",
+      "expected": 28139,
+      "actual": 28139
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z3600",
+      "check": "objects_total",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z3600",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          3600.0
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          4715.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          3600.0
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          4715.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z3600",
+      "check": "deep_geometry_material_sha256",
+      "expected": "3c035b49fd4e35b81aa3e7730b63999c2552b64d31f4a38c74f43d246b1eb8e1",
+      "actual": "3c035b49fd4e35b81aa3e7730b63999c2552b64d31f4a38c74f43d246b1eb8e1"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z7200",
+      "check": "persistent_id",
+      "expected": 31023,
+      "actual": 31023
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z7200",
+      "check": "objects_total",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z7200",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          7200.0
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          8315.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          7200.0
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          8315.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/GALLERIES/LONG_RAIL_SOUTH_Z7200",
+      "check": "deep_geometry_material_sha256",
+      "expected": "85d96405d362ddcacf240b3c43f8173a9562efa600263744f7a8804b24b2629f",
+      "actual": "85d96405d362ddcacf240b3c43f8173a9562efa600263744f7a8804b24b2629f"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+      "check": "persistent_id",
+      "expected": 41191,
+      "actual": 41191
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8500.0,
+          -6200.0,
+          -160.0
+        ],
+        "max": [
+          -6300.0,
+          -4000.0,
+          0.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8500.0,
+          -6200.0,
+          -160.0
+        ],
+        "max": [
+          -6300.0,
+          -4000.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9db36b6d06311d95f09f79e1efe8536429de286bdce1967c17bf22a59783d4d4",
+      "actual": "9db36b6d06311d95f09f79e1efe8536429de286bdce1967c17bf22a59783d4d4"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_4",
+      "check": "persistent_id",
+      "expected": 81727,
+      "actual": 81727
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_4",
+      "check": "objects_total",
+      "expected": 11,
+      "actual": 11
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8517.5,
+          26182.5,
+          3600.0
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          4715.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8517.5,
+          26182.5,
+          3600.0
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          4715.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_4",
+      "check": "deep_geometry_material_sha256",
+      "expected": "a5f277f2ad761f6569d37c6cce0cf1c1b0f7ea39a0befaa37d2da9a94235f9fc",
+      "actual": "a5f277f2ad761f6569d37c6cce0cf1c1b0f7ea39a0befaa37d2da9a94235f9fc"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_5",
+      "check": "persistent_id",
+      "expected": 82081,
+      "actual": 82081
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_5",
+      "check": "objects_total",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8517.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          -8482.5,
+          26217.5,
+          4715.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8517.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          -8482.5,
+          26217.5,
+          4715.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0bdabfe8e230590d6071efc0ec9066fd88046825580d378b71a38078561509e4",
+      "actual": "0bdabfe8e230590d6071efc0ec9066fd88046825580d378b71a38078561509e4"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_6",
+      "check": "persistent_id",
+      "expected": 82275,
+      "actual": 82275
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_6",
+      "check": "objects_total",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -6317.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          -3982.5,
+          24017.5,
+          4715.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -6317.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          -3982.5,
+          24017.5,
+          4715.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_6",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9b4730a97aeb6f26c96de5a4caba066134faacfb3f275433e1de85e500f9487d",
+      "actual": "9b4730a97aeb6f26c96de5a4caba066134faacfb3f275433e1de85e500f9487d"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_7",
+      "check": "persistent_id",
+      "expected": 82469,
+      "actual": 82469
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_7",
+      "check": "objects_total",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -17.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          4715.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -17.5,
+          23982.5,
+          3600.0
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          4715.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_GUARD_7",
+      "check": "deep_geometry_material_sha256",
+      "expected": "51c1d43d166b5338aa7fb5412277e363821f572c3f695458e059aa609a46646c",
+      "actual": "51c1d43d166b5338aa7fb5412277e363821f572c3f695458e059aa609a46646c"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0",
+      "check": "persistent_id",
+      "expected": 80759,
+      "actual": 80759
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8500.0,
+          24000.0,
+          3440.0
+        ],
+        "max": [
+          0.0,
+          26200.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8500.0,
+          24000.0,
+          3440.0
+        ],
+        "max": [
+          0.0,
+          26200.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "df6876525d67f40303596bae66f870c973fb1a3ae543ce9061e50de1dbc0c947",
+      "actual": "df6876525d67f40303596bae66f870c973fb1a3ae543ce9061e50de1dbc0c947"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_INNER",
+      "check": "persistent_id",
+      "expected": 37433,
+      "actual": 37433
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_INNER",
+      "check": "objects_total",
+      "expected": 23,
+      "actual": 23
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_INNER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -6317.5,
+          -4017.5,
+          0.0
+        ],
+        "max": [
+          -6282.5,
+          24017.5,
+          4714.9
+        ]
+      },
+      "actual": {
+        "min": [
+          -6317.5,
+          -4017.5,
+          0.0
+        ],
+        "max": [
+          -6282.5,
+          24017.5,
+          4714.9
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_INNER",
+      "check": "deep_geometry_material_sha256",
+      "expected": "3db96bc0c67bdaab051fc803674a492468f748ccb42b526f395dc8c9f74bcc69",
+      "actual": "3db96bc0c67bdaab051fc803674a492468f748ccb42b526f395dc8c9f74bcc69"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_OUTER",
+      "check": "persistent_id",
+      "expected": 36695,
+      "actual": 36695
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_OUTER",
+      "check": "objects_total",
+      "expected": 23,
+      "actual": 23
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_OUTER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8517.5,
+          -4017.5,
+          0.0
+        ],
+        "max": [
+          -8482.5,
+          24017.5,
+          4714.9
+        ]
+      },
+      "actual": {
+        "min": [
+          -8517.5,
+          -4017.5,
+          0.0
+        ],
+        "max": [
+          -8482.5,
+          24017.5,
+          4714.9
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL/RAMP_1_OUTER",
+      "check": "deep_geometry_material_sha256",
+      "expected": "82dee2ba24066f9a56f2b080ebf1285e1488556588a9ac913e13d83ae1baabae",
+      "actual": "82dee2ba24066f9a56f2b080ebf1285e1488556588a9ac913e13d83ae1baabae"
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "persistent_id",
+      "expected": 45400,
+      "actual": 45400
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "objects_total",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34682.5,
+          1000.0,
+          0.0
+        ],
+        "max": [
+          52700.0,
+          8817.5,
+          11916.9
+        ]
+      },
+      "actual": {
+        "min": [
+          34682.5,
+          1000.0,
+          0.0
+        ],
+        "max": [
+          52700.0,
+          8817.5,
+          11916.9
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "deep_geometry_material_sha256",
+      "expected": "5d56e0c5d53c29f6140ad63a305595bd952378116f4c50e85cafd595c0864b89",
+      "actual": "5d56e0c5d53c29f6140ad63a305595bd952378116f4c50e85cafd595c0864b89"
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "persistent_id",
+      "expected": 41319,
+      "actual": 41319
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "objects_total",
+      "expected": 95,
+      "actual": 95
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4030.0,
+          0.0
+        ],
+        "max": [
+          54030.0,
+          24030.0,
+          16503.6
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4030.0,
+          0.0
+        ],
+        "max": [
+          54030.0,
+          24030.0,
+          16503.6
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4333278e865184ddc5b6357db546dcab39adda72982dcbad926465a85ff0caf2",
+      "actual": "4333278e865184ddc5b6357db546dcab39adda72982dcbad926465a85ff0caf2"
+    },
+    {
+      "path": "FLOORS",
+      "check": "persistent_id",
+      "expected": 76290,
+      "actual": 76290
+    },
+    {
+      "path": "FLOORS",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "FLOORS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "FLOORS",
+      "check": "deep_geometry_material_sha256",
+      "expected": "63d10be192f0311b349057612f3c77c21d0fd7a70e7f86ff0c29873f9685a96e",
+      "actual": "63d10be192f0311b349057612f3c77c21d0fd7a70e7f86ff0c29873f9685a96e"
+    },
+    {
+      "path": "INTERIOR",
+      "check": "persistent_id",
+      "expected": 79083,
+      "actual": 79083
+    },
+    {
+      "path": "INTERIOR",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "INTERIOR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          5000.0,
+          4000.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          11585.0
+        ]
+      },
+      "actual": {
+        "min": [
+          5000.0,
+          4000.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          11585.0
+        ]
+      }
+    },
+    {
+      "path": "INTERIOR",
+      "check": "deep_geometry_material_sha256",
+      "expected": "6b5eb859ffe04d2c2367cec674ea2d794d144e8c10f643279aefdbb20d001690",
+      "actual": "6b5eb859ffe04d2c2367cec674ea2d794d144e8c10f643279aefdbb20d001690"
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "persistent_id",
+      "expected": 75036,
+      "actual": 75036
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "deep_geometry_material_sha256",
+      "expected": "873ab348dce6318279d5edaef50385afbaa407b65fa842f56ec9db76bf50c84a",
+      "actual": "873ab348dce6318279d5edaef50385afbaa407b65fa842f56ec9db76bf50c84a"
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "persistent_id",
+      "expected": 75068,
+      "actual": 75068
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "deep_geometry_material_sha256",
+      "expected": "cfc642e1c379b3197ce64b4a2e3778acfb26b98932594d8abc5262b0c09558ab",
+      "actual": "cfc642e1c379b3197ce64b4a2e3778acfb26b98932594d8abc5262b0c09558ab"
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "persistent_id",
+      "expected": 75100,
+      "actual": 75100
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "38c64a6991718796c1c8c3446c35ed0854178eadcf124505faaa1172956d2bd8",
+      "actual": "38c64a6991718796c1c8c3446c35ed0854178eadcf124505faaa1172956d2bd8"
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "persistent_id",
+      "expected": 75132,
+      "actual": 75132
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "deep_geometry_material_sha256",
+      "expected": "7f7edb90d0e96033e4a81fe4d78908f00fbfdee92010f34cd7a13fd3234cadef",
+      "actual": "7f7edb90d0e96033e4a81fe4d78908f00fbfdee92010f34cd7a13fd3234cadef"
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "persistent_id",
+      "expected": 75164,
+      "actual": 75164
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "62bd58503ff4c2a6d42c456d05a7a09dcc00268df342e5a03a2a5af9985c96ba",
+      "actual": "62bd58503ff4c2a6d42c456d05a7a09dcc00268df342e5a03a2a5af9985c96ba"
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "persistent_id",
+      "expected": 75196,
+      "actual": 75196
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "deep_geometry_material_sha256",
+      "expected": "8ae373fc01c2d495b7d2db24f17f3e2b0492c5279b8c56a276f09d191cb069be",
+      "actual": "8ae373fc01c2d495b7d2db24f17f3e2b0492c5279b8c56a276f09d191cb069be"
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "persistent_id",
+      "expected": 75228,
+      "actual": 75228
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "deep_geometry_material_sha256",
+      "expected": "2c91a4a149434baffc00f90a4c29b2647fad365fb39f6d8d16d18aebd16981bc",
+      "actual": "2c91a4a149434baffc00f90a4c29b2647fad365fb39f6d8d16d18aebd16981bc"
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "persistent_id",
+      "expected": 75260,
+      "actual": 75260
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "deep_geometry_material_sha256",
+      "expected": "25cea411cfca4d52e3e14e4d9824764f9a5679cce56061af000f11e1640abe29",
+      "actual": "25cea411cfca4d52e3e14e4d9824764f9a5679cce56061af000f11e1640abe29"
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "persistent_id",
+      "expected": 75292,
+      "actual": 75292
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4a48f8019694b71744639c8327cd78b8f2ac7b85958dc3e4053c12c708675253",
+      "actual": "4a48f8019694b71744639c8327cd78b8f2ac7b85958dc3e4053c12c708675253"
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "persistent_id",
+      "expected": 75324,
+      "actual": 75324
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "deep_geometry_material_sha256",
+      "expected": "5902be5c365b433064339131152799348cf12561998ad6014ca578c682f16aae",
+      "actual": "5902be5c365b433064339131152799348cf12561998ad6014ca578c682f16aae"
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "persistent_id",
+      "expected": 75356,
+      "actual": 75356
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "deep_geometry_material_sha256",
+      "expected": "ef4f623b4d0512714e2608465e954051f89446232e8b08bc21b30526035179d0",
+      "actual": "ef4f623b4d0512714e2608465e954051f89446232e8b08bc21b30526035179d0"
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "persistent_id",
+      "expected": 75388,
+      "actual": 75388
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "c62cfeaa08fc9117322bb03913ed7695d8d6f0c7e2c025ba33a3bfbe54157e06",
+      "actual": "c62cfeaa08fc9117322bb03913ed7695d8d6f0c7e2c025ba33a3bfbe54157e06"
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "persistent_id",
+      "expected": 75420,
+      "actual": 75420
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "deep_geometry_material_sha256",
+      "expected": "5bfe3b306c6d5f3d72346a17ad6ae52fd91720056b63f4783a041570626e0a81",
+      "actual": "5bfe3b306c6d5f3d72346a17ad6ae52fd91720056b63f4783a041570626e0a81"
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "persistent_id",
+      "expected": 75452,
+      "actual": 75452
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9158e30ebb81bd2e4dd141fb81f60228980517b887466222d6e6ebe90589a17f",
+      "actual": "9158e30ebb81bd2e4dd141fb81f60228980517b887466222d6e6ebe90589a17f"
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "persistent_id",
+      "expected": 75484,
+      "actual": 75484
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "deep_geometry_material_sha256",
+      "expected": "3265bc0d136f64350959ae1556f254f1119141a6031d90168dd4c7faa4afb321",
+      "actual": "3265bc0d136f64350959ae1556f254f1119141a6031d90168dd4c7faa4afb321"
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "persistent_id",
+      "expected": 75516,
+      "actual": 75516
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0b3870b41d98348b376dca1481624646d3cd8e60a5638a8bab33a5e8a4326b19",
+      "actual": "0b3870b41d98348b376dca1481624646d3cd8e60a5638a8bab33a5e8a4326b19"
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "persistent_id",
+      "expected": 75548,
+      "actual": 75548
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0f1f70434495c2b7b3fa46049012d7474fbdc64369bc632b238c81d67b385a08",
+      "actual": "0f1f70434495c2b7b3fa46049012d7474fbdc64369bc632b238c81d67b385a08"
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "persistent_id",
+      "expected": 75580,
+      "actual": 75580
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "deep_geometry_material_sha256",
+      "expected": "19859736c519122e1d4cf8a3e1d4c89b429465ef589fa7df4855f9d1e180605b",
+      "actual": "19859736c519122e1d4cf8a3e1d4c89b429465ef589fa7df4855f9d1e180605b"
+    },
+    {
+      "path": "RAMPS/RAMP_1",
+      "check": "persistent_id",
+      "expected": 78999,
+      "actual": 78999
+    },
+    {
+      "path": "RAMPS/RAMP_1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "RAMPS/RAMP_1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -6300.0,
+          24000.0,
+          3600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -6300.0,
+          24000.0,
+          3600.0
+        ]
+      }
+    },
+    {
+      "path": "RAMPS/RAMP_1",
+      "check": "deep_geometry_material_sha256",
+      "expected": "788e54bee302312d1e5cebcd9ae768ea409082aadddbe03c65d9e5de71ad3e80",
+      "actual": "788e54bee302312d1e5cebcd9ae768ea409082aadddbe03c65d9e5de71ad3e80"
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "persistent_id",
+      "expected": 77872,
+      "actual": 77872
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "objects_total",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -55.0,
+          -90.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20090.0,
+          16710.2
+        ]
+      },
+      "actual": {
+        "min": [
+          -55.0,
+          -90.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20090.0,
+          16710.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "deep_geometry_material_sha256",
+      "expected": "d5d7abf131681913a2cd583800e0ff3e4c4396a5f4e7fdedf5379347e00d4c06",
+      "actual": "d5d7abf131681913a2cd583800e0ff3e4c4396a5f4e7fdedf5379347e00d4c06"
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "persistent_id",
+      "expected": 76256,
+      "actual": 76256
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      }
+    },
+    {
+      "path": "SITE_GROUND",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4729109faa9b2cbb9b6cf77c6bbe60b7a2224b5634f8fdda86b2b1df24c740ba",
+      "actual": "4729109faa9b2cbb9b6cf77c6bbe60b7a2224b5634f8fdda86b2b1df24c740ba"
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "persistent_id",
+      "expected": 20615,
+      "actual": 20615
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "objects_total",
+      "expected": 75,
+      "actual": 75
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "2deeb029925b55bbb55d637c99838a966a07e88569ad08697b7712ca55eba670",
+      "actual": "2deeb029925b55bbb55d637c99838a966a07e88569ad08697b7712ca55eba670"
+    }
+  ]
+}
