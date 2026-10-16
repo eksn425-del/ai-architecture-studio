@@ -4,6 +4,7 @@ require_relative 'vendor/saie/wall_geometry'
 require_relative 'vendor/saie/opening_geometry'
 require_relative 'vendor/stultus/bounds'
 require_relative 'native_deep_fingerprint'
+require_relative 'native_definition_graph'
 
 module KStudioProfessionalHelpers
   module_function
@@ -121,7 +122,20 @@ module KStudioProfessionalHelpers
       (0...path.length).each do |depth|
         parent_world *= named_owned_group(root, path.take(depth)).transformation
       end
-      node = KStudioNativeDeepFingerprint.inspect_instance(group, parent_world, [], 0, {count: 0})
+      policy_file = File.join(File.dirname(File.dirname(File.dirname(root.model.path))), 'runtime', 'active_edit_scope.json')
+      graph_mode = false
+      if File.file?(policy_file)
+        policy = JSON.parse(File.read(policy_file, encoding: 'UTF-8'))
+        graph_mode = policy['scope_contract'] == 'deep_exact_paths_graph_v1' && policy['status'] == 'active' &&
+          policy['root_pid'] == root.persistent_id && File.expand_path(policy['model_path']) == File.expand_path(root.model.path)
+      end
+      if graph_mode
+        node = KStudioNativeDefinitionGraph.node(group, parent_world, KStudioNativeDefinitionGraph.context)
+        snapshot[:deep_fingerprint_collector] = 'KStudioNativeDefinitionGraph/1'
+      else
+        node = KStudioNativeDeepFingerprint.inspect_instance(group, parent_world, [], 0, {count: 0})
+        snapshot[:deep_fingerprint_collector] = 'KStudioNativeDeepFingerprint/1'
+      end
       snapshot[:deep_geometry_material_sha256] = node[:geometry_material_sha256]
     end
     snapshot
@@ -153,6 +167,8 @@ module KStudioProfessionalHelpers
       raise "KEEP regression #{label}: objects_total changed" unless snapshot[:objects_total] == expected_count
       raise "KEEP regression #{label}: bounds_mm missing" unless expected_bounds.is_a?(Hash)
       if expected.key?('deep_geometry_material_sha256')
+        raise "KEEP regression #{label}: deep fingerprint contract changed" unless
+          snapshot[:deep_fingerprint_collector] == expected.fetch('deep_fingerprint_collector', 'KStudioNativeDeepFingerprint/1')
         raise "KEEP regression #{label}: deep geometry/material changed" unless
           snapshot[:deep_geometry_material_sha256] == expected['deep_geometry_material_sha256']
       end

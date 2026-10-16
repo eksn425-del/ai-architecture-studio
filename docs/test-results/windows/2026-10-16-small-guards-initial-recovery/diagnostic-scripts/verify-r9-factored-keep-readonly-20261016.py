@@ -1,0 +1,15 @@
+from pathlib import Path
+import sys,json,copy,time
+R=Path.cwd();sys.path.insert(0,str(R))
+from app.sketchup_mcp import SketchUpAdapter,ConfiguredSketchUpMCP,_generated_script_dir
+from app.project_ruby import ProjectRubyExecutor
+from app.modeling_quality import owned_inspection_fingerprint
+P=R/'runtime/projects/architecture-project-4f0e4';D=R/'runtime/customer-readiness-20261015/r10-keep-cap-recovery';D.mkdir(exist_ok=True)
+mcp=ConfiguredSketchUpMCP(timeout_seconds=180);ad=SketchUpAdapter(mcp);i=ad.get_active_model_identity();states=copy.deepcopy(json.loads((P/'runtime/project_ruby_state.json').read_text(encoding='utf8'))['scripts']);assert states['glass_curved_roof']['revision']==9
+ex=ProjectRubyExecutor(R/'runtime','architecture-project-4f0e4',expected_model_path=Path(i['model_path']),expected_model_guid=i['model_guid'],mcp=mcp,adapter=ad)
+paths=[['RAMPS'],['CIRCULATION_EXTERNAL'],['ROOF_TIMBER'],['ENVELOPE_OUTER'],['FLOORS'],['INTERIOR']];start=time.monotonic();snap=ex.inspect_owned_batch('glass_curved_roof',paths);expected=[{'path':p,**owned_inspection_fingerprint(s)} for p,s in zip(paths,snap)];assert all(v['deep_fingerprint_collector']=='KStudioNativeDefinitionGraph/1' for v in expected)
+(D/'actual-batch.json').write_text(json.dumps({'paths':paths,'snapshots':snap,'expectations':expected},ensure_ascii=False,indent=2),encoding='utf8')
+i=ad.get_active_model_identity();source='\n'.join(['# ARCHFLOW_GENERATED_SCRIPT','load '+json.dumps((R/'app/adopted_sketchup_helpers.rb').as_posix(),ensure_ascii=False),'m=Sketchup.active_model','raise "Wrong GUID" unless m.guid=='+json.dumps(i['model_guid']),'r=m.entities.find{|e|e.respond_to?(:persistent_id)&&e.persistent_id==20606}','raise "Wrong revision" unless r.get_attribute("sketchup_architect","revision")==9','expected=JSON.parse('+json.dumps(json.dumps(expected,ensure_ascii=False),ensure_ascii=False)+')','checks=KStudioProfessionalHelpers.verify_owned_fingerprints!(r,expected)','wrong=Marshal.load(Marshal.dump(expected));wrong[1]["deep_fingerprint_collector"]="KStudioNativeDeepFingerprint/1"','rejected=false;reason=nil','begin;KStudioProfessionalHelpers.verify_owned_fingerprints!(r,wrong);rescue RuntimeError=>e;rejected=true;reason=e.message;end','raise "Mixed KEEP contracts accepted" unless rejected','{status:"PASS",read_only:true,geometry_writes:0,root_pid:20606,revision:9,keep_paths:expected.map{|x|x["path"]},checks:checks,mixed_contract_rejected:rejected,reason:reason}'])
+f=_generated_script_dir()/('studio-factored-keep-control-'+str(time.time_ns())+'.rb');f.write_text(source,encoding='utf8');(D/'native-readonly-source.rb').write_text(source,encoding='utf8');v=mcp.call('sketchup_eval_project_file',{'script_path':str(f),'operation_name':'Read only verify real large graph KEEP batch and mixed-contract rejection'});v=v.get('result',v) if isinstance(v,dict) else v
+if isinstance(v,str):v=json.loads(v)
+v['elapsed_ms']=round((time.monotonic()-start)*1000);(D/'native-result.json').write_text(json.dumps(v,ensure_ascii=False,indent=2),encoding='utf8');print('PASS actual six deep KEEP paths including huge CIRCULATION_EXTERNAL; mixed collector rejected; geometry writes0')

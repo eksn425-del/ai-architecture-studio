@@ -1,0 +1,180 @@
+{
+  "status": "PASS",
+  "read_only": true,
+  "geometry_writes": 0,
+  "root_pid": 20606,
+  "revision": 9,
+  "keep_paths": [
+    [
+      "RAMPS"
+    ],
+    [
+      "CIRCULATION_EXTERNAL"
+    ],
+    [
+      "ROOF_TIMBER"
+    ],
+    [
+      "ENVELOPE_OUTER"
+    ],
+    [
+      "FLOORS"
+    ],
+    [
+      "INTERIOR"
+    ]
+  ],
+  "checks": {
+    "verified": true,
+    "source": "precommit_owned_keep_guard",
+    "checks": [
+      {
+        "path": [
+          "RAMPS"
+        ],
+        "persistent_id": 78998,
+        "objects_total": 3,
+        "bounds_mm": {
+          "min": [
+            -8500,
+            -4000,
+            -160
+          ],
+          "max": [
+            -1700,
+            24000,
+            10800
+          ],
+          "size": [
+            6800,
+            28000,
+            10960
+          ]
+        }
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL"
+        ],
+        "persistent_id": 28007,
+        "objects_total": 8,
+        "bounds_mm": {
+          "min": [
+            -8517.5,
+            -6217.5,
+            -160
+          ],
+          "max": [
+            54017.5,
+            26217.5,
+            11915
+          ],
+          "size": [
+            62535,
+            32435,
+            12075
+          ]
+        }
+      },
+      {
+        "path": [
+          "ROOF_TIMBER"
+        ],
+        "persistent_id": 77872,
+        "objects_total": 2,
+        "bounds_mm": {
+          "min": [
+            -55,
+            -90,
+            10800
+          ],
+          "max": [
+            50055,
+            20090,
+            16710.2
+          ],
+          "size": [
+            50110,
+            20180,
+            5910.2
+          ]
+        }
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER"
+        ],
+        "persistent_id": 41319,
+        "objects_total": 95,
+        "bounds_mm": {
+          "min": [
+            -4030,
+            -4030,
+            0
+          ],
+          "max": [
+            54030,
+            24030,
+            16503.6
+          ],
+          "size": [
+            58060,
+            28060,
+            16503.6
+          ]
+        }
+      },
+      {
+        "path": [
+          "FLOORS"
+        ],
+        "persistent_id": 76290,
+        "objects_total": 5,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            -250
+          ],
+          "max": [
+            50000,
+            20000,
+            10800
+          ],
+          "size": [
+            50000,
+            20000,
+            11050
+          ]
+        }
+      },
+      {
+        "path": [
+          "INTERIOR"
+        ],
+        "persistent_id": 79083,
+        "objects_total": 3,
+        "bounds_mm": {
+          "min": [
+            5000,
+            4000,
+            0
+          ],
+          "max": [
+            50000,
+            20000,
+            11585
+          ],
+          "size": [
+            45000,
+            16000,
+            11585
+          ]
+        }
+      }
+    ]
+  },
+  "mixed_contract_rejected": true,
+  "reason": "KEEP regression CIRCULATION_EXTERNAL: deep fingerprint contract changed",
+  "elapsed_ms": 3109
+}

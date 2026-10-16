@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-small-guards-initial-recovery",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "SAME original eight-source architecture-project-4f0e4 r9/root20606; first real site small-guard attempt blocked",
+  "base_commit": "a5fb16e13f76c302c5550b78862c8083eead1f92",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "revision_before": 9,
+    "revision_after": 9
+  },
+  "qa": {
+    "real_site_write": "BLOCKED by legacy KEEP batch expanded cap; no geometry commit",
+    "whole_native_document_unchanged": "PASS",
+    "factored_deep_KEEP_repair": "actual native six-path readonly positive/mixed-contract rejection PASS",
+    "real_site_postfix": "NOT_RUN at checkpoint; continuing same request",
+    "source_fidelity": "FAIL unchanged",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

@@ -451,6 +451,10 @@ class ProjectRubyExecutor:
                     if not isinstance(deep_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", deep_sha):
                         raise ValueError(f"Internal KEEP expectation {index} deep SHA is invalid.")
                     fingerprint["deep_geometry_material_sha256"] = deep_sha
+                    collector = item.get("deep_fingerprint_collector", "KStudioNativeDeepFingerprint/1")
+                    if collector not in {"KStudioNativeDeepFingerprint/1", "KStudioNativeDefinitionGraph/1"}:
+                        raise ValueError(f"Internal KEEP expectation {index} fingerprint contract is invalid.")
+                    fingerprint["deep_fingerprint_collector"] = collector
                 keep_expectations.append(fingerprint)
         else:
             keep_expectations = []

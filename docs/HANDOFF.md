@@ -1,3 +1,11 @@
+# ACTIVE same-circle task recovery — 2026-10-16
+
+[Initial real website failure and native KEEP repair](test-results/windows/2026-10-16-small-guards-initial-recovery/README.md): actual Sol6.1Medium attempted the two small source04 guards. No geometry committed; root20606/revision9 and full-document native SHA8cfbd18c4eda021aa59c9184f3e0e3605786e24f96099075da24ffa89452fc32 unchanged.26tools/4fail,1197590input/4686output,175672ms; original failures/ordinary Chinese/script/source identity preserved. Host main graph fence already handled large grating, but tool-surface legacy deep KEEP batch still expanded past250k before dispatch; no writer commit. Fix the entire chain, not increase cap or remove KEEP.
+
+Host-approved graph mode now also selects complete definition graph for KEEP batch and transaction verification; default legacy contract retained. Explicit deep collector travels Python/native fingerprints; mixed contracts rejected even identicalSHA. Actual same-r9 six-path deepKEEP including full CIRCULATION_EXTERNAL passed3109ms, deliberate mixed collector rejected; whole doc unchanged.100focused regression checks PASS. Real website postfix edit NOT_RUN at this checkpoint, continuing SAME request after owned server reload. Exact absent leaf approval remains, never broaden parent scope. Small mesh guards still missing until actual commit; source fidelityFAIL/customerNOT_READY. No paidAPI/new case/full rebuild, no usage cap reset.
+
+---
+
 # ACTIVE r9 native safety continuation — 2026-10-16
 
 [Native safety evidence](test-results/windows/2026-10-16-r9-native-safety-continuation/README.md): production r9 unchanged. Actual disposable SU2024 GUID save race now PASS: first queued readonly call genuinely fails old GUID, native same-path/root/project/revision proof then exactly one read retry succeeds; no geometry writer repeated. Initial ns-attribute RangeError retained and fixed to string. Production graph scope dispatcher positive creation/cleanup and7negative rollback cases PASS on separate copy, mandatory graph KEEP includes huge complete gallery/roof/floor, no expanded cap bypass. Host-only explicit deep_exact_paths_graph_v1 permits exact approved absent leaves, defaultv2 unchanged; source cannot invoke guard namespaces. Actual real-site use of new guard pending next circle operation.

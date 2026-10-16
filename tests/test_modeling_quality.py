@@ -166,6 +166,19 @@ def test_keep_preservation_rejects_id_count_or_bounds_regression():
             verify_preserved_owned_paths(before, changed)
 
 
+def test_deep_keep_binds_collector_even_if_digest_is_identical():
+    entry = {'persistent_id': 301, 'objects_total': 12,
+             'bounds_mm': {'min': [0,0,0], 'max': [1200,250,3200]},
+             'deep_geometry_material_sha256': 'a'*64}
+    assert owned_inspection_fingerprint(entry)['deep_fingerprint_collector'] == 'KStudioNativeDeepFingerprint/1'
+    graph = {**entry, 'deep_fingerprint_collector': 'KStudioNativeDefinitionGraph/1'}
+    assert verify_preserved_owned_paths({'GRID': graph}, {'GRID': graph})['verified']
+    with pytest.raises(ValueError, match='deep_fingerprint_collector'):
+        verify_preserved_owned_paths({'GRID': entry}, {'GRID': graph})
+    with pytest.raises(ValueError, match='Unknown'):
+        owned_inspection_fingerprint({**entry, 'deep_fingerprint_collector': 'invented'})
+
+
 @pytest.mark.parametrize("resumed", [False, True])
 def test_post_review_correction_requires_edit_and_verifies_keep_paths(tmp_path, monkeypatch, resumed):
     import json

@@ -304,6 +304,10 @@ def owned_inspection_fingerprint(payload: Any) -> dict[str, Any]:
         if not isinstance(deep_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", deep_sha):
             raise ValueError("Owned inspection deep geometry/material SHA is invalid.")
         fingerprint["deep_geometry_material_sha256"] = deep_sha
+        collector = payload.get("deep_fingerprint_collector", "KStudioNativeDeepFingerprint/1")
+        if collector not in {"KStudioNativeDeepFingerprint/1", "KStudioNativeDefinitionGraph/1"}:
+            raise ValueError("Unknown owned inspection deep fingerprint collector.")
+        fingerprint["deep_fingerprint_collector"] = collector
     return fingerprint
 
 
@@ -332,6 +336,7 @@ def verify_preserved_owned_paths(
         fields = ["persistent_id", "objects_total", "bounds_mm"]
         if "deep_geometry_material_sha256" in expected:
             fields.append("deep_geometry_material_sha256")
+            fields.append("deep_fingerprint_collector")
         for field in fields:
             check = {
                 "path": path,

@@ -1,0 +1,1 @@
+Initial site attempt failed before writing, production remainsr9; prior independent whole-source NEEDS_FIX remains. No new Critic verdict invented. Entire native doc SHA unchanged. New factored six-path native KEEP control and mixed-contract rejection passed, but website rerun is next and NOT_RUN here.
