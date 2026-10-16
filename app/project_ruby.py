@@ -635,11 +635,11 @@ class ProjectRubyExecutor:
             load_construction_strategy(self.project_dir), method_ledger,
         )
 
-        # Host reconciles only actual root child names; nested planned paths
-        # remain unresolved until a nested host-certified readback is supplied.
-        # This is an additional compact internal inspection, not an Agent loop.
+        # Verify planned nested targets as well as root pagination. A root-only
+        # list cannot prove a nested floor/roof disappeared after a safe edit.
         strategy_progress = None
-        if load_construction_strategy(self.project_dir) is not None:
+        strategy = load_construction_strategy(self.project_dir)
+        if strategy is not None:
             try:
                 names: list[list[str]] = []
                 seen: set[str] = set()
@@ -670,6 +670,12 @@ class ProjectRubyExecutor:
                     if not objects or offset >= total:
                         full_page = False
                 complete = first_count is not None and offset == first_count
+                if complete:
+                    from .strategy_progress import collect_verified_strategy_paths
+                    names = collect_verified_strategy_paths(
+                        strategy, names,
+                        lambda paths: self.inspect_owned_batch(script_id, paths),
+                    )
                 strategy_progress = persist_verified_strategy_progress(
                     self.project_dir, script_id=script_id, revision=new_revision,
                     root_pid=root_pid, named_paths=names, full_readback=complete,

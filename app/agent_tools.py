@@ -16,6 +16,7 @@ from .adai_components import geometry_helper
 from .oss_method_catalog import capability_selection_note
 from .repair_memory import finalize_latest_repair_attempt, record_repair_attempt
 from .modeling_quality import (
+    MAX_SOURCE_MATCHED_PAIRS,
     owned_inspection_fingerprint,
     submit_visual_review,
     load_current_independent_visual_review,
@@ -521,7 +522,7 @@ class AgentToolSurface:
                             "critique": {"type": "string", "minLength": 20, "maxLength": 12000, "description": "Optional fallback verdict for runtimes without a host-side dedicated critic; ignored/replaced by LiteLLM host critic."},
                             "evidence_pairs": {
                                 "type": "array",
-                                "maxItems": 12,
+                                "maxItems": MAX_SOURCE_MATCHED_PAIRS,
                                 "description": "Optional source-matched exterior/interior/detail comparisons using current-revision agent-view PNGs.",
                                 "items": {
                                     "type": "object",

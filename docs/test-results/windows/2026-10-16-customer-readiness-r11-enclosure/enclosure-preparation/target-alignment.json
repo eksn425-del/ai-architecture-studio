@@ -1,0 +1,37 @@
+{
+  "status": "HOST_REGISTERED_BEFORE_WRITE",
+  "same_semantic_purpose": true,
+  "parent_expansion": false,
+  "existing_geometry_allowed_to_change": false,
+  "targets": [
+    [
+      "ENVELOPE_OUTER",
+      "HALL_LONG_SOUTH_ADDITION"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "HALL_LONG_NORTH_ADDITION"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "LOWER_END_WEST_ADDITION"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "LOWER_END_EAST_ADDITION"
+    ]
+  ],
+  "native_verification": {
+    "root_pid": 20606,
+    "revision": 10,
+    "geometry_writes": 0,
+    "parent_pid": 41319,
+    "absent_exact_names": [
+      "HALL_LONG_SOUTH_ADDITION",
+      "HALL_LONG_NORTH_ADDITION",
+      "LOWER_END_WEST_ADDITION",
+      "LOWER_END_EAST_ADDITION"
+    ]
+  },
+  "old_before_snapshot": "single-leaf scope before snapshot retained; superseded, must use fresh four-leaf before snapshot for actual audit"
+}

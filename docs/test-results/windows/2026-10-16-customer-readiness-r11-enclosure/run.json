@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r11-enclosure",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "SAME architecture-project-4f0e4 eight whole sources r10->r11 root20606",
+  "base_commit": "42cb0fa9b7edab3d048d03a40d89ad5b65c3edfa",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 10,
+    "after_revision": 11
+  },
+  "qa": {
+    "target": "40 upper hall glazing bays and lower inner ends,16real openings; inferred subdivisions",
+    "native_target_controls": "16/16central door/floor support,86/86frame-beam contacts,80/80glass/opening rays",
+    "scope": "PASS four exact native-verified absent semantic leaves, all existing protected",
+    "whole_route": "FAIL one new westL2outward door narrows side return; scope rejected2recovery attempts, no extra write",
+    "source_fidelity": "FAIL independent eight-source/six-view/12pair Critic: upper pads, intermediate enclosure/opaque bands and entrance header still wrong",
+    "native_delivery": "PASS_WITH_DECLARED_PRECISION; raw full-double strictFAIL retained",
+    "strict_blank_replay": "NOT_RUN"
+  },
+  "paid_api_calls": 0
+}

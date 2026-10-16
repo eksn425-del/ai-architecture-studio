@@ -9,13 +9,50 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from .construction_strategy import (
     CONSTRUCTION_STAGE_ORDER,
     load_construction_strategy,
     validate_construction_strategy_payload,
 )
+
+
+def collect_verified_strategy_paths(
+    strategy: dict[str, Any],
+    root_paths: list[list[str]],
+    inspect_batch: Callable[[list[list[str]]], list[dict[str, Any]]],
+) -> list[list[str]]:
+    """Read planned nested targets rather than treating root-only omission as loss.
+
+    An unread/missing nested target fails progress certification; it never implies
+    that a previously built roof or floor was deleted. Geometry remains committed.
+    """
+    checked = [list(path) for path in root_paths]
+    roots = {tuple(path) for path in root_paths}
+    nested = list(dict.fromkeys(
+        tuple(path)
+        for system in strategy.get("systems", [])
+        for path in system.get("target_paths", [])
+        if len(path) > 1 and tuple(path[:1]) in roots
+    ))
+    if not nested:
+        return checked
+    if len(nested) > 256:
+        raise ValueError("Planned nested path readback exceeds the 256-path native batch contract.")
+    requested = [list(path) for path in nested]
+    snapshots = inspect_batch(requested)
+    if not isinstance(snapshots, list) or len(snapshots) != len(requested):
+        raise ValueError("Incomplete planned nested-path native readback.")
+    for path, snapshot in zip(requested, snapshots, strict=True):
+        if (not isinstance(snapshot, dict) or snapshot.get("path") != path
+                or type(snapshot.get("persistent_id")) is not int
+                or snapshot["persistent_id"] <= 0
+                or type(snapshot.get("objects_total")) is not int
+                or snapshot["objects_total"] < 0):
+            raise ValueError("Planned nested-path native identity does not match the requested target.")
+        checked.append(path)
+    return checked
 
 
 def assess_strategy_progress(

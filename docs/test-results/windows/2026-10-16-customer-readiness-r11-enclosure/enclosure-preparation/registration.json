@@ -1,0 +1,75 @@
+{
+  "revision": 10,
+  "root_pid": 20606,
+  "actual_native_inventory": "native-exterior-inventory.json",
+  "actual_site_audit": "notes/exterior_completion_audit_r10.md",
+  "actual_upper_hall_missing": "See146ROOF_SUPPORTS children and80INNER_GLAZING children in website readback; endglass exists, long-side upper glass absent",
+  "parent": {
+    "path": [
+      "ENVELOPE_OUTER"
+    ],
+    "pid": 41319,
+    "type": "Group",
+    "definition_instances": 1,
+    "material": null,
+    "bounds_parent_mm": [
+      [
+        -4029.9999999999995,
+        -4029.9999999999995,
+        0
+      ],
+      [
+        54030,
+        24030,
+        16503.55399584476
+      ]
+    ],
+    "child_groups": 95,
+    "own_faces": 0
+  },
+  "target_absent": [
+    "ENVELOPE_OUTER",
+    "INNER_ENCLOSURE_COMPLETION"
+  ],
+  "keep_paths": [
+    [
+      "STRUCTURE_EXISTING"
+    ],
+    [
+      "FLOORS"
+    ],
+    [
+      "ROOF_TIMBER"
+    ],
+    [
+      "RAMPS"
+    ],
+    [
+      "CIRCULATION_EXTERNAL"
+    ],
+    [
+      "CIRCULATION_INTERNAL"
+    ],
+    [
+      "INTERIOR"
+    ],
+    [
+      "SITE_GROUND"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "INNER_GLAZING"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "BUFFER_CANOPIES"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "TENSION_BRACING"
+    ]
+  ],
+  "upper_boundary": "Read actual roof geometry/world transforms; do not reuse stale roof_low13800 or old mirrored axes estimates. L3top10800 actual preserved.",
+  "lower_boundaries": "Actual lower frame x0..50000,y0..20000,z0/3600/7200/10800; L2 west has floor only y11000..20000, east is present. Existing INTERIOR/CORE_EAST x47000..50000,y13500..20000,z0..3600; do not glaze over solid core. Existing end stair x50500..52700,y1000..7240; maintain supported entry/exit connections.",
+  "inference_authorization": "Owner16Oct: hidden/unseen parts may be reasonably inferred without repeatedly asking choices."
+}

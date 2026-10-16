@@ -1,0 +1,3046 @@
+{
+  "keep_checks": [
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B1"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B2"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B3"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B4"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B5"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B6"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B7"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B8"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B9"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B1"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B2"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B3"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B4"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B5"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B6"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B7"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B8"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B9"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "RAMPS"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "INTERIOR"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_GLASS_EDGE"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_GLASS_EDGE"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_GLASS_EDGE"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_GLASS_EDGE"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_GLASS_EDGE"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_GLASS_EDGE"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800"
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800"
+      ],
+      "passed": true
+    }
+  ],
+  "keep_after": [
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "persistent_id": 20615,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -180,
+          -180,
+          0
+        ],
+        "max": [
+          50180,
+          20180,
+          10800
+        ],
+        "size": [
+          50360,
+          20360,
+          10800
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 75,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "COLUMN_X00_Y00",
+          "persistent_id": 20648,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -180,
+              -180,
+              0
+            ],
+            "max": [
+              180,
+              180,
+              10800
+            ],
+            "size": [
+              360,
+              360,
+              10800
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "2deeb029925b55bbb55d637c99838a966a07e88569ad08697b7712ca55eba670"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER"
+      ],
+      "persistent_id": 41319,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“631”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          -4030,
+          0
+        ],
+        "max": [
+          54030,
+          24030,
+          16503.6
+        ],
+        "size": [
+          58060,
+          28060,
+          16503.6
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 95,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "SOUTH_BAY_00",
+          "persistent_id": 41557,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4030,
+              7175
+            ],
+            "max": [
+              -1100,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "4333278e865184ddc5b6357db546dcab39adda72982dcbad926465a85ff0caf2"
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL"
+      ],
+      "persistent_id": 45400,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“802”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          34682.5,
+          1000,
+          0
+        ],
+        "max": [
+          52700,
+          8817.5,
+          11916.9
+        ],
+        "size": [
+          18017.5,
+          7817.5,
+          11916.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 201,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "SPIRAL_L0_L1",
+          "persistent_id": 45402,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34882,
+              4382,
+              70
+            ],
+            "max": [
+              39118,
+              8618,
+              4716.9
+            ],
+            "size": [
+              4235.9,
+              4235.9,
+              4646.9
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "5d56e0c5d53c29f6140ad63a305595bd952378116f4c50e85cafd595c0864b89"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B1"
+      ],
+      "persistent_id": 75036,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1850”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          4940,
+          12000,
+          3600
+        ],
+        "max": [
+          5060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "873ab348dce6318279d5edaef50385afbaa407b65fa842f56ec9db76bf50c84a"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B2"
+      ],
+      "persistent_id": 75068,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1851”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          9940,
+          12000,
+          3600
+        ],
+        "max": [
+          10060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "cfc642e1c379b3197ce64b4a2e3778acfb26b98932594d8abc5262b0c09558ab"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B3"
+      ],
+      "persistent_id": 75100,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1852”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          14940,
+          12000,
+          3600
+        ],
+        "max": [
+          15060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "38c64a6991718796c1c8c3446c35ed0854178eadcf124505faaa1172956d2bd8"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B4"
+      ],
+      "persistent_id": 75132,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1853”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          19940,
+          12000,
+          3600
+        ],
+        "max": [
+          20060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "7f7edb90d0e96033e4a81fe4d78908f00fbfdee92010f34cd7a13fd3234cadef"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B5"
+      ],
+      "persistent_id": 75164,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1854”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          24940,
+          12000,
+          3600
+        ],
+        "max": [
+          25060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "62bd58503ff4c2a6d42c456d05a7a09dcc00268df342e5a03a2a5af9985c96ba"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B6"
+      ],
+      "persistent_id": 75196,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1855”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          29940,
+          12000,
+          3600
+        ],
+        "max": [
+          30060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "8ae373fc01c2d495b7d2db24f17f3e2b0492c5279b8c56a276f09d191cb069be"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B7"
+      ],
+      "persistent_id": 75228,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1856”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          34940,
+          12000,
+          3600
+        ],
+        "max": [
+          35060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "2c91a4a149434baffc00f90a4c29b2647fad365fb39f6d8d16d18aebd16981bc"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B8"
+      ],
+      "persistent_id": 75260,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1857”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          39940,
+          12000,
+          3600
+        ],
+        "max": [
+          40060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "25cea411cfca4d52e3e14e4d9824764f9a5679cce56061af000f11e1640abe29"
+    },
+    {
+      "path": [
+        "PARTITION_Z3600_B9"
+      ],
+      "persistent_id": 75292,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1858”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          44940,
+          12000,
+          3600
+        ],
+        "max": [
+          45060,
+          20000,
+          6700
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "4a48f8019694b71744639c8327cd78b8f2ac7b85958dc3e4053c12c708675253"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B1"
+      ],
+      "persistent_id": 75324,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1859”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          4940,
+          12000,
+          7200
+        ],
+        "max": [
+          5060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "5902be5c365b433064339131152799348cf12561998ad6014ca578c682f16aae"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B2"
+      ],
+      "persistent_id": 75356,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1860”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          9940,
+          12000,
+          7200
+        ],
+        "max": [
+          10060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "ef4f623b4d0512714e2608465e954051f89446232e8b08bc21b30526035179d0"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B3"
+      ],
+      "persistent_id": 75388,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1861”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          14940,
+          12000,
+          7200
+        ],
+        "max": [
+          15060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "c62cfeaa08fc9117322bb03913ed7695d8d6f0c7e2c025ba33a3bfbe54157e06"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B4"
+      ],
+      "persistent_id": 75420,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1862”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          19940,
+          12000,
+          7200
+        ],
+        "max": [
+          20060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "5bfe3b306c6d5f3d72346a17ad6ae52fd91720056b63f4783a041570626e0a81"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B5"
+      ],
+      "persistent_id": 75452,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1863”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          24940,
+          12000,
+          7200
+        ],
+        "max": [
+          25060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "9158e30ebb81bd2e4dd141fb81f60228980517b887466222d6e6ebe90589a17f"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B6"
+      ],
+      "persistent_id": 75484,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1864”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          29940,
+          12000,
+          7200
+        ],
+        "max": [
+          30060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "3265bc0d136f64350959ae1556f254f1119141a6031d90168dd4c7faa4afb321"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B7"
+      ],
+      "persistent_id": 75516,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1865”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          34940,
+          12000,
+          7200
+        ],
+        "max": [
+          35060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "0b3870b41d98348b376dca1481624646d3cd8e60a5638a8bab33a5e8a4326b19"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B8"
+      ],
+      "persistent_id": 75548,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1866”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          39940,
+          12000,
+          7200
+        ],
+        "max": [
+          40060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "0f1f70434495c2b7b3fa46049012d7474fbdc64369bc632b238c81d67b385a08"
+    },
+    {
+      "path": [
+        "PARTITION_Z7200_B9"
+      ],
+      "persistent_id": 75580,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1867”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          44940,
+          12000,
+          7200
+        ],
+        "max": [
+          45060,
+          20000,
+          10300
+        ],
+        "size": [
+          120,
+          8000,
+          3100
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "19859736c519122e1d4cf8a3e1d4c89b429465ef589fa7df4855f9d1e180605b"
+    },
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "persistent_id": 76256,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1890”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          -280
+        ],
+        "size": [
+          71000,
+          42000,
+          220
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 1,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "ADJACENT_GROUND",
+          "persistent_id": 76258,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              -280
+            ],
+            "size": [
+              71000,
+              42000,
+              220
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "4729109faa9b2cbb9b6cf77c6bbe60b7a2224b5634f8fdda86b2b1df24c740ba"
+    },
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "persistent_id": 76290,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1892”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          -250
+        ],
+        "max": [
+          50000,
+          20000,
+          10800
+        ],
+        "size": [
+          50000,
+          20000,
+          11050
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 5,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "L0",
+          "persistent_id": 76291,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              -250
+            ],
+            "max": [
+              50000,
+              20000,
+              0
+            ],
+            "size": [
+              50000,
+              20000,
+              250
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "63d10be192f0311b349057612f3c77c21d0fd7a70e7f86ff0c29873f9685a96e"
+    },
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "persistent_id": 77872,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1898”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -55,
+          -90,
+          10800
+        ],
+        "max": [
+          50055,
+          20090,
+          16710.2
+        ],
+        "size": [
+          50110,
+          20180,
+          5910.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 2,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "CURVED_SHELL",
+          "persistent_id": 77873,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              14776.3
+            ],
+            "max": [
+              50000,
+              20000,
+              16710.2
+            ],
+            "size": [
+              50000,
+              20000,
+              1933.9
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "d5d7abf131681913a2cd583800e0ff3e4c4396a5f4e7fdedf5379347e00d4c06"
+    },
+    {
+      "path": [
+        "RAMPS"
+      ],
+      "persistent_id": 78998,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1901”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8500,
+          -4000,
+          -160
+        ],
+        "max": [
+          -1700,
+          24000,
+          10800
+        ],
+        "size": [
+          6800,
+          28000,
+          10960
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 3,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_1",
+          "persistent_id": 78999,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -4000,
+              -160
+            ],
+            "max": [
+              -6300,
+              24000,
+              3600
+            ],
+            "size": [
+              2200,
+              28000,
+              3760
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "5f49f3e926400e76dc62f29c8b001c6d41ce3afd3ed5fe2ac1242b57a5de88f7"
+    },
+    {
+      "path": [
+        "INTERIOR"
+      ],
+      "persistent_id": 79083,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组#5",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          5000,
+          4000,
+          0
+        ],
+        "max": [
+          50000,
+          20000,
+          11585
+        ],
+        "size": [
+          45000,
+          16000,
+          11585
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 3,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GREEN_PANEL_SOUTH",
+          "persistent_id": 79085,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30000,
+              19850,
+              7200
+            ],
+            "max": [
+              34900,
+              20000,
+              10300
+            ],
+            "size": [
+              4900,
+              150,
+              3100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "6b5eb859ffe04d2c2367cec674ea2d794d144e8c10f643279aefdbb20d001690"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      "persistent_id": 36695,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“479”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8517.5,
+          -4017.5,
+          0
+        ],
+        "max": [
+          -8482.5,
+          24017.5,
+          4714.9
+        ],
+        "size": [
+          35,
+          28035,
+          4714.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 23,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_1_OUTER_POST_0",
+          "persistent_id": 36697,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8517.5,
+              23982.5,
+              0
+            ],
+            "max": [
+              -8482.5,
+              24017.5,
+              1100
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "82dee2ba24066f9a56f2b080ebf1285e1488556588a9ac913e13d83ae1baabae"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      "persistent_id": 37433,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“503”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -6317.5,
+          -4017.5,
+          0
+        ],
+        "max": [
+          -6282.5,
+          24017.5,
+          4714.9
+        ],
+        "size": [
+          35,
+          28035,
+          4714.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 23,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_1_INNER_POST_0",
+          "persistent_id": 37435,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -6317.5,
+              23982.5,
+              0
+            ],
+            "max": [
+              -6282.5,
+              24017.5,
+              1100
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "3db96bc0c67bdaab051fc803674a492468f748ccb42b526f395dc8c9f74bcc69"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      "persistent_id": 38203,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“528”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -3917.5,
+          -3016.3,
+          3600
+        ],
+        "max": [
+          -3882.5,
+          23016.3,
+          8314.9
+        ],
+        "size": [
+          35,
+          26032.5,
+          4714.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 23,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_2_OUTER_POST_0",
+          "persistent_id": 38205,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -6317.5,
+              -4017.5,
+              3600
+            ],
+            "max": [
+              -6282.5,
+              -3982.5,
+              4700
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "d8fbf64323a8347b6303c6b984a7c91b343e9790c9d8a1f81f03bb10a62bbbf1"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      "persistent_id": 38941,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“552”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1717.5,
+          -3016.3,
+          3600
+        ],
+        "max": [
+          -1682.5,
+          23016.3,
+          8314.9
+        ],
+        "size": [
+          35,
+          26032.5,
+          4714.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 23,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_2_INNER_POST_0",
+          "persistent_id": 38943,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4117.5,
+              -4017.5,
+              3600
+            ],
+            "max": [
+              -4082.5,
+              -3982.5,
+              4700
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "1bcdaf8ab02820b2a3092ec86eb0db3bf4742881b950eb9362893f39b1807e49"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      "persistent_id": 39711,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“577”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -3917.5,
+          -3016.3,
+          7200
+        ],
+        "max": [
+          -3882.5,
+          23016.3,
+          11914.9
+        ],
+        "size": [
+          35,
+          26032.5,
+          4714.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 23,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_3_OUTER_POST_0",
+          "persistent_id": 39713,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4117.5,
+              23982.5,
+              7200
+            ],
+            "max": [
+              -4082.5,
+              24017.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "a10983b6808074f01c1b3d9c4c2f8763be94040a6c52843f0dccf9e26c4032ed"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      "persistent_id": 40449,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“601”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1717.5,
+          -3016.3,
+          7200
+        ],
+        "max": [
+          -1682.5,
+          23016.3,
+          11914.9
+        ],
+        "size": [
+          35,
+          26032.5,
+          4714.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 23,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "RAMP_3_INNER_POST_0",
+          "persistent_id": 40451,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1917.5,
+              23982.5,
+              7200
+            ],
+            "max": [
+              -1882.5,
+              24017.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "c28c3d8505683d815a172668ae0dac106bd4be637f2a4a98a49f410a1c351f7d"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS"
+      ],
+      "persistent_id": 41189,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“626”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8517.5,
+          -6217.5,
+          -160
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          11915
+        ],
+        "size": [
+          8535,
+          32435,
+          12075
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 4,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LANDING_L0",
+          "persistent_id": 41191,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -6200,
+              -160
+            ],
+            "max": [
+              -6300,
+              -4000,
+              0
+            ],
+            "size": [
+              2200,
+              2200,
+              160
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "1d24c3dc96515b2cf406deafab06eccdeecdd514396d006b4f05685f7f948c90"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      "persistent_id": 28139,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“206”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          3600
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          4715
+        ],
+        "size": [
+          58070,
+          70,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_SOUTH_Z3600_POST_0",
+          "persistent_id": 28141,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4052.5,
+              -4017.5,
+              3600
+            ],
+            "max": [
+              -4017.5,
+              -3982.5,
+              4700
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "3c035b49fd4e35b81aa3e7730b63999c2552b64d31f4a38c74f43d246b1eb8e1"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600"
+      ],
+      "persistent_id": 29517,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“250”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4052.5,
+          23982.5,
+          3600
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          4715
+        ],
+        "size": [
+          58070,
+          70,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_NORTH_Z3600_POST_0",
+          "persistent_id": 29519,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4052.5,
+              23982.5,
+              3600
+            ],
+            "max": [
+              -4017.5,
+              24017.5,
+              4700
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "9ed161d588ea52b7532c75fe79348d1040a33c086fab5ffa0bec7bfe21a3fc30"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_GLASS_EDGE"
+      ],
+      "persistent_id": 88285,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2144”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          -4000,
+          7050
+        ],
+        "max": [
+          -3950,
+          0,
+          7200
+        ],
+        "size": [
+          50,
+          4000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "ce75b691b20f5ef65a043d126ea7d2388b74b0b9694c4572a0964eb90ba55ab0"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+      ],
+      "persistent_id": 88349,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2146”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1667.5,
+          -3017.5,
+          7200
+        ],
+        "max": [
+          -1632.5,
+          17.5,
+          8315
+        ],
+        "size": [
+          35,
+          3035,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 7,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERY_Z7200_SIDE0_SLOT_GUARD_P0",
+          "persistent_id": 88351,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1667.5,
+              -3017.5,
+              7200
+            ],
+            "max": [
+              -1632.5,
+              -2982.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "4a1622d319a801fea3b851417935d4309f94e956dfcbea05ccfe2709f8d6364f"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_GLASS_EDGE"
+      ],
+      "persistent_id": 88575,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2154”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          20000,
+          7050
+        ],
+        "max": [
+          -3950,
+          24000,
+          7200
+        ],
+        "size": [
+          50,
+          4000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "9622037efc0db32172347ba466ddeb60eccf8e96b2faa4d8c7ba2200dbe264c8"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+      ],
+      "persistent_id": 88639,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2156”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1667.5,
+          19982.5,
+          7200
+        ],
+        "max": [
+          -1632.5,
+          23017.5,
+          8315
+        ],
+        "size": [
+          35,
+          3035,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 7,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERY_Z7200_SIDE1_SLOT_GUARD_P0",
+          "persistent_id": 88641,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1667.5,
+              19982.5,
+              7200
+            ],
+            "max": [
+              -1632.5,
+              20017.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "e100f744144bb5dd794ed1792b52995b8a3cd7f5c1ea03360f0469cd18d02b07"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_GLASS_EDGE"
+      ],
+      "persistent_id": 88865,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2164”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          0,
+          7050
+        ],
+        "max": [
+          -3950,
+          20000,
+          7200
+        ],
+        "size": [
+          50,
+          20000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "3ed8a95dcc848a44ba64e79a0f925212a230780b42362d18d7edc1b0f82aee55"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+      ],
+      "persistent_id": 88929,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2166”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1667.5,
+          -17.5,
+          7200
+        ],
+        "max": [
+          -1632.5,
+          20017.5,
+          8315
+        ],
+        "size": [
+          35,
+          20035,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 20,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERY_Z7200_SIDE2_SLOT_GUARD_P0",
+          "persistent_id": 88931,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1667.5,
+              -17.5,
+              7200
+            ],
+            "max": [
+              -1632.5,
+              17.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "7506ea5ec06038d86ebfc63deaeb55a335f787cab9171445b4e15c941a266a44"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200"
+      ],
+      "persistent_id": 31023,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“298”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          7200
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          8315
+        ],
+        "size": [
+          58070,
+          70,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_SOUTH_Z7200_POST_0",
+          "persistent_id": 31025,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4052.5,
+              -4017.5,
+              7200
+            ],
+            "max": [
+              -4017.5,
+              -3982.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "85d96405d362ddcacf240b3c43f8173a9562efa600263744f7a8804b24b2629f"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200"
+      ],
+      "persistent_id": 32401,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“342”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4052.5,
+          23982.5,
+          7200
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          8315
+        ],
+        "size": [
+          58070,
+          70,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_NORTH_Z7200_POST_0",
+          "persistent_id": 32403,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4052.5,
+              23982.5,
+              7200
+            ],
+            "max": [
+              -4017.5,
+              24017.5,
+              8300
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "cdb5216b4786c4a9337361f305cb82bf339fc121604407b2cae65c8de7f37324"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_GLASS_EDGE"
+      ],
+      "persistent_id": 89571,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2187”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          -4000,
+          10650
+        ],
+        "max": [
+          -3950,
+          0,
+          10800
+        ],
+        "size": [
+          50,
+          4000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "5fae1158854a425000ae7eb9a052e5266295f47d6a6191f62732270b435966fa"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+      ],
+      "persistent_id": 89667,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2190”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1667.5,
+          -3017.5,
+          10800
+        ],
+        "max": [
+          -1632.5,
+          17.5,
+          11915
+        ],
+        "size": [
+          35,
+          3035,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 7,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERY_Z10800_SIDE0_SLOT_GUARD_P0",
+          "persistent_id": 89669,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1667.5,
+              -3017.5,
+              10800
+            ],
+            "max": [
+              -1632.5,
+              -2982.5,
+              11900
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "b38d506839706d5b81eee4c88b8ca9d1e799e7056a949d30cb18266b6514c1ea"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_GLASS_EDGE"
+      ],
+      "persistent_id": 89893,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2198”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          20000,
+          10650
+        ],
+        "max": [
+          -3950,
+          24000,
+          10800
+        ],
+        "size": [
+          50,
+          4000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "f0b6cfd7f916d10923fc4e94c4af10feecaa6e3877b5e84bd36bd9fbbf728a89"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+      ],
+      "persistent_id": 89957,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2200”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1667.5,
+          19982.5,
+          10800
+        ],
+        "max": [
+          -1632.5,
+          23017.5,
+          11915
+        ],
+        "size": [
+          35,
+          3035,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 7,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERY_Z10800_SIDE1_SLOT_GUARD_P0",
+          "persistent_id": 89959,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1667.5,
+              19982.5,
+              10800
+            ],
+            "max": [
+              -1632.5,
+              20017.5,
+              11900
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "87b7de6d46adf05f376174e1fdd0d3a9bd329342fb5bfb00a95f39c56c7e89de"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_GLASS_EDGE"
+      ],
+      "persistent_id": 90183,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2208”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4000,
+          0,
+          10650
+        ],
+        "max": [
+          -3950,
+          20000,
+          10800
+        ],
+        "size": [
+          50,
+          20000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_geometry_material_sha256": "1efdb793d5651847b54bcdad0938372a9896703130ee672dd4983c3376941def"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+      ],
+      "persistent_id": 90247,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2210”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1667.5,
+          -17.5,
+          10800
+        ],
+        "max": [
+          -1632.5,
+          20017.5,
+          11915
+        ],
+        "size": [
+          35,
+          20035,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 20,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GALLERY_Z10800_SIDE2_SLOT_GUARD_P0",
+          "persistent_id": 90249,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1667.5,
+              -17.5,
+              10800
+            ],
+            "max": [
+              -1632.5,
+              17.5,
+              11900
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "f7d10dfd6a1fb1c2f79709215785ab6de051ce0564a5626f8638be85798d6196"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800"
+      ],
+      "persistent_id": 33907,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“390”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4017.5,
+          -4017.5,
+          10800
+        ],
+        "max": [
+          54017.5,
+          -3982.5,
+          11915
+        ],
+        "size": [
+          58035,
+          35,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_SOUTH_Z10800_POST_0",
+          "persistent_id": 33909,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4017.5,
+              -4017.5,
+              10800
+            ],
+            "max": [
+              -3982.5,
+              -3982.5,
+              11900
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "6dbda5541d353b3454ed45c9378dc393b8688e18e99bbaae0a8ba6e31ef424c4"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800"
+      ],
+      "persistent_id": 35285,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“434”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4052.5,
+          23982.5,
+          10800
+        ],
+        "max": [
+          54017.5,
+          24052.5,
+          11915
+        ],
+        "size": [
+          58070,
+          70,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_NORTH_Z10800_POST_0",
+          "persistent_id": 35287,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4052.5,
+              23982.5,
+              10800
+            ],
+            "max": [
+              -4017.5,
+              24017.5,
+              11900
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_geometry_material_sha256": "4f38cf62119a059b7e5c55e435665ade371a8a9185b9327547f5eca66f797ba5"
+    }
+  ],
+  "representative_panel": {
+    "script_id": "glass_curved_roof",
+    "revision": 9,
+    "read_only": true,
+    "path": [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z3600_SIDE0",
+      "GALLERY_Z3600_SIDE0_OPEN_GRID",
+      "GAL0_PANEL_U0_V0"
+    ],
+    "persistent_id": 92174,
+    "locked": false,
+    "definition_instances": 1706,
+    "definition_name": "KS_GALLERY_OPEN_1000_1000",
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -4000,
+        -4000,
+        3565
+      ],
+      "max": [
+        -3000,
+        -3000,
+        3600
+      ],
+      "size": [
+        1000,
+        1000,
+        35
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 40,
+    "offset": 0,
+    "next_offset": 1,
+    "truncated": true,
+    "objects": [
+      {
+        "name": "GRID_1000.0_1000.0_BEARING_0",
+        "persistent_id": 90895,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            0,
+            -35
+          ],
+          "max": [
+            3,
+            1000,
+            0
+          ],
+          "size": [
+            3,
+            1000,
+            35
+          ]
+        }
+      }
+    ],
+    "oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "5a0052c1dea4dcb978cfb0afb47de93bffb0b7f12a9bbb005384b78a39231f0b",
+      "events": []
+    },
+    "edit_scope_receipt": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE2"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE3"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE0",
+          "GALLERY_Z7200_SIDE0_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE1",
+          "GALLERY_Z7200_SIDE1_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE2",
+          "GALLERY_Z7200_SIDE2_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE3"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_SOUTH_FLAT"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE1",
+          "GALLERY_Z10800_SIDE1_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE2",
+          "GALLERY_Z10800_SIDE2_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE3"
+        ]
+      ],
+      "required_deep_keep_paths": [
+        [
+          "RAMPS"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS"
+        ],
+        [
+          "ROOF_TIMBER"
+        ],
+        [
+          "ENVELOPE_OUTER"
+        ],
+        [
+          "FLOORS"
+        ],
+        [
+          "CIRCULATION_INTERNAL"
+        ],
+        [
+          "INTERIOR"
+        ]
+      ],
+      "allowed_top_level": [
+        "CIRCULATION_EXTERNAL"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  "independent_review": {
+    "needs_fix": true,
+    "issues": [
+      {
+        "priority": 1,
+        "view": "source-matched",
+        "problem": "CURRENT 16–17 substitutes prominent stacked rails and heavy framing for the source’s slender white enclosure and fine mesh gallery guards. This obscures the recessed glazing and overwhelms the otherwise comparable massing.",
+        "action": "Locally reduce the visible frame and rail sections, apply the source’s light finish, and replace coarse horizontal guard infill with fine mesh where shown. Preserve the gallery positions and ramp slopes."
+      },
+      {
+        "priority": 2,
+        "view": "source-matched",
+        "problem": "CURRENT 18 shows circular floor openings without surrounding guards, while SOURCE 4 shows continuous cylindrical mesh protection. The existing guarded opening does not resolve the exposed openings elsewhere.",
+        "action": "Match the source-backed opening locations and fit continuous mesh guards around their exposed perimeters, seated on the floor and connected at their returns."
+      },
+      {
+        "priority": 3,
+        "view": "source-matched",
+        "problem": "SOURCE 4 shows a pale floor and large curved translucent curtain divisions beneath the timber ceiling. CURRENT 18 instead has an uninterrupted brown floor and lacks those prominent spatial divisions.",
+        "action": "Change the upper floor to the observed pale finish and add the visible curved curtain tracks and translucent hanging panels. Retain the concave timber ceiling."
+      }
+    ],
+    "assessment": "SOURCE 1–2 establish the ramp end and adjoining long facade: a recessed building frame, three descending ramp flights, projecting galleries, a transparent upper enclosure and a raised concave timber roof. SOURCE 3 shows the glazed entrance and gallery underside; SOURCE 4 shows the curved timber ceiling, pale floor, curtain divisions and guarded circular openings. SOURCE 5 and 8 show stepped interior floor levels and substantial voids; SOURCE 6 separates the structural layers; all three SOURCE 7 plans show distinct floor arrangements. CURRENT captures the principal exterior composition, but its enclosure reads substantially heavier and its upper interior remains incomplete. The uncut section views and roof-occluded plan cannot establish whether the concealed floor arrangements match. No numerical dimensions were supplied, and screenshots alone cannot certify concealed joints.",
+    "reviewer": {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 300187,
+      "input_tokens": 59959,
+      "output_tokens": 1003,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    "model_revisions": {
+      "glass_curved_roof": 9
+    }
+  },
+  "local_scope_result": "13 slab leaves replaced by real bar grating and discrete beams, target outlines/elevations unchanged;51 protected paths PID/count/bounds unchanged. Entire model NEEDS_FIX for protected rails/interior, no further writes.",
+  "save": "No r9 save/reopen confirmation; current host download checkpoint is r8. Do not advertise old checkpoint as r9."
+}

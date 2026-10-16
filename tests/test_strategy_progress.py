@@ -1,8 +1,9 @@
 """Progress must reflect actual model readback; planning and executed are distinct."""
 from pathlib import Path
+import pytest
 
 from app.construction_strategy import CONSTRUCTION_STAGE_ORDER, validate_construction_strategy_payload
-from app.strategy_progress import assess_strategy_progress, persist_verified_strategy_progress
+from app.strategy_progress import assess_strategy_progress, persist_verified_strategy_progress, collect_verified_strategy_paths
 
 
 def _plan():
@@ -63,3 +64,38 @@ def test_missing_plan_or_missing_system_not_false_built(tmp_path: Path):
         tmp_path, script_id="coffee", revision=1, root_pid=8,
         named_paths=[["GROUND_SHELL"]], full_readback=True,
     ) is None
+
+
+def test_existing_nested_geometry_requires_real_readback_before_progress_change():
+    plan = _plan()
+    plan['systems'][1]['status'] = 'built'
+    calls = []
+
+    def native(paths):
+        calls.append(paths)
+        return [{'path': paths[0], 'persistent_id': 123, 'objects_total': 17}]
+
+    names = collect_verified_strategy_paths(
+        plan, [['GROUND_SHELL'], ['UPPER_GLASS_PAVILION']], native,
+    )
+    updated, report = assess_strategy_progress(
+        plan, script_id='same-case', revision=11, root_pid=20606,
+        named_paths=names, full_readback=True,
+    )
+    assert calls == [[['UPPER_GLASS_PAVILION', 'GABLE_GLAZING']]]
+    assert updated['systems'][1]['status'] == 'built'
+    assert report['systems'][1]['missing_paths'] == []
+    assert report['visual_verification'] == 'NOT_RUN'
+
+
+@pytest.mark.parametrize('snapshots', [[], [{'path': ['WRONG'], 'persistent_id': 123, 'objects_total': 17}], [{'path': ['UPPER_GLASS_PAVILION', 'GABLE_GLAZING'], 'persistent_id': 0, 'objects_total': 17}]])
+def test_partial_or_mismatched_nested_snapshot_cannot_certify_progress(snapshots):
+    with pytest.raises(ValueError, match='native'):
+        collect_verified_strategy_paths(_plan(), [['UPPER_GLASS_PAVILION']], lambda _: snapshots)
+
+
+def test_absent_root_never_triggers_nested_probe_or_fakes_presence():
+    names = collect_verified_strategy_paths(
+        _plan(), [['GROUND_SHELL']], lambda _: pytest.fail('nested ancestor absent'),
+    )
+    assert names == [['GROUND_SHELL']]

@@ -11,6 +11,10 @@ the committed owned SketchUp root instead of trusting a success string.
 
 from __future__ import annotations
 
+# Eight original contact sheets can contain more than twelve distinct panels.
+# Keep per-image path/revision/provenance checks while allowing their real views.
+MAX_SOURCE_MATCHED_PAIRS = 24
+
 from dataclasses import dataclass
 import hashlib
 import json
@@ -542,8 +546,8 @@ def validate_source_matched_pairs(
     """
     if pairs in (None, []):
         return []
-    if not isinstance(pairs, list) or len(pairs) > 12:
-        raise ValueError("evidence_pairs must be a list of at most 12 source/current pairs.")
+    if not isinstance(pairs, list) or len(pairs) > MAX_SOURCE_MATCHED_PAIRS:
+        raise ValueError(f"evidence_pairs must be a list of at most {MAX_SOURCE_MATCHED_PAIRS} source/current pairs.")
 
     project_root = project_dir.resolve()
     inputs_root = (project_root / "inputs").resolve()

@@ -1,0 +1,1252 @@
+{
+  "status": "PASS_ACTUAL_NATIVE_READONLY",
+  "elapsed_ms": 906,
+  "geometry_writes": 0,
+  "persisted_project_strategy_changed": false,
+  "root_only_old_receipt": {
+    "schema_version": 1,
+    "source": "committed_owned_root_named_path_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 11,
+    "root_pid": 20606,
+    "full_readback": true,
+    "current_stage": "primary_form",
+    "systems": [
+      {
+        "system_id": "frame",
+        "target_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ]
+        ],
+        "present_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      },
+      {
+        "system_id": "floors",
+        "target_paths": [
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ]
+        ],
+        "present_paths": [],
+        "missing_paths": [
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ]
+        ],
+        "result": "unresolved_paths",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "roof",
+        "target_paths": [
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ]
+        ],
+        "present_paths": [],
+        "missing_paths": [
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ]
+        ],
+        "result": "unresolved_paths",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "envelope_bounds",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "ramps",
+        "target_paths": [
+          [
+            "RAMPS"
+          ]
+        ],
+        "present_paths": [
+          [
+            "RAMPS"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      },
+      {
+        "system_id": "module",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ],
+          [
+            "CIRCULATION_EXTERNAL",
+            "GALLERIES",
+            "LONG_RAIL_SOUTH_Z3600"
+          ]
+        ],
+        "present_paths": [],
+        "missing_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ],
+          [
+            "CIRCULATION_EXTERNAL",
+            "GALLERIES",
+            "LONG_RAIL_SOUTH_Z3600"
+          ]
+        ],
+        "result": "unresolved_paths",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "repeat",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "present_paths": [],
+        "missing_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "result": "unresolved_paths",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "stairs_partitions",
+        "target_paths": [
+          [
+            "CIRCULATION_INTERNAL"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "present_paths": [
+          [
+            "CIRCULATION_INTERNAL"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "finish",
+        "target_paths": [
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED"
+          ]
+        ],
+        "present_paths": [
+          [
+            "SITE_GROUND"
+          ]
+        ],
+        "missing_paths": [
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED"
+          ]
+        ],
+        "result": "unresolved_paths",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "approved_enclosure_addition",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_SOUTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_NORTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_WEST_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_EAST_ADDITION"
+          ]
+        ],
+        "present_paths": [],
+        "missing_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_SOUTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_NORTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_WEST_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_EAST_ADDITION"
+          ]
+        ],
+        "result": "unresolved_paths",
+        "new_status": "pending"
+      }
+    ],
+    "visual_verification": "NOT_RUN"
+  },
+  "native_nested_snapshots": [
+    {
+      "path": [
+        "FLOORS",
+        "L0"
+      ],
+      "persistent_id": 76291,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“45”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          -250
+        ],
+        "max": [
+          50000,
+          20000,
+          0
+        ],
+        "size": [
+          50000,
+          20000,
+          250
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "3d3b1c18c1b399cf488556e1e3c3b99cbe7147bed26f3c1dc98294feee529dfb"
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L1"
+      ],
+      "persistent_id": 76319,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“46”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          3350
+        ],
+        "max": [
+          50000,
+          20000,
+          3600
+        ],
+        "size": [
+          50000,
+          20000,
+          250
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "a1a15f09dbca1c1c1f28ded8235f3518d814d899e8f504996ac364a33b926e06"
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      "persistent_id": 76635,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“47”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          11000,
+          6950
+        ],
+        "max": [
+          50000,
+          20000,
+          7200
+        ],
+        "size": [
+          50000,
+          9000,
+          250
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "56ab30cb229acdedae94371205450dba18386ad935888bbf7918ff97995ea196"
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      "persistent_id": 76663,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“48”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          30000,
+          0,
+          6950
+        ],
+        "max": [
+          50000,
+          11000,
+          7200
+        ],
+        "size": [
+          20000,
+          11000,
+          250
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "ba6751452df209cd94ce4b9e1de8bbef5b1715436759de23662ecad6c51abe92"
+    },
+    {
+      "path": [
+        "FLOORS",
+        "L3"
+      ],
+      "persistent_id": 76979,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“49”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          10550
+        ],
+        "max": [
+          50000,
+          20000,
+          10800
+        ],
+        "size": [
+          50000,
+          20000,
+          250
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "f9fd4023865306aa7ff5e0e69594e7fdb10df0a34c3e24688d3368bba5b9e5f2"
+    },
+    {
+      "path": [
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      "persistent_id": 77873,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“51”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          0,
+          0,
+          14776.3
+        ],
+        "max": [
+          50000,
+          20000,
+          16710.2
+        ],
+        "size": [
+          50000,
+          20000,
+          1933.9
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 0,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "3a743816cf53dce41f67182d9ed37ab6bda266a384983204c4de3a70ecd4a2af"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ],
+      "persistent_id": 41557,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "CURTAIN_2900x6300#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          -4030,
+          7175
+        ],
+        "max": [
+          -1100,
+          -3970,
+          13525
+        ],
+        "size": [
+          2930,
+          60,
+          6350
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 8,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GLASS",
+          "persistent_id": 85716,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              7200
+            ],
+            "max": [
+              2900,
+              0,
+              13500
+            ],
+            "size": [
+              2900,
+              0,
+              6300
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "be9c7fbbb1370657ab5b44f9d922557adbbf4af15d9a9801fce5042fe323ac47"
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      "persistent_id": 28139,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“206”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4052.5,
+          -4017.5,
+          3600
+        ],
+        "max": [
+          54017.5,
+          -3947.5,
+          4715
+        ],
+        "size": [
+          58070,
+          70,
+          1115
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 43,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LONG_RAIL_SOUTH_Z3600_POST_0",
+          "persistent_id": 28141,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4052.5,
+              -4017.5,
+              3600
+            ],
+            "max": [
+              -4017.5,
+              -3982.5,
+              4700
+            ],
+            "size": [
+              35,
+              35,
+              1100
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "241a22cc4114253abf705baea0ee986b5e6cd14bb3a35daebe8bfedb8b69c1a8"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ],
+      "persistent_id": 41577,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "CURTAIN_2900x6300#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          23970,
+          7175
+        ],
+        "max": [
+          -1100,
+          24030,
+          13525
+        ],
+        "size": [
+          2930,
+          60,
+          6350
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 8,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "GLASS",
+          "persistent_id": 84990,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              7200
+            ],
+            "max": [
+              2900,
+              0,
+              13500
+            ],
+            "size": [
+              2900,
+              0,
+              6300
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "cf81b72dbe543352e620a0724c2743a4c996a0b19edb5ca9bfcf12f200f07269"
+    },
+    {
+      "path": [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED"
+      ],
+      "persistent_id": 79087,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“1871”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          5000,
+          4000,
+          720
+        ],
+        "max": [
+          37400,
+          5000,
+          11585
+        ],
+        "size": [
+          32400,
+          1000,
+          10865
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 18,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "TABLE_Z0_0",
+          "persistent_id": 75680,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5000,
+              4000,
+              720
+            ],
+            "max": [
+              7400,
+              5000,
+              785
+            ],
+            "size": [
+              2400,
+              1000,
+              65
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "f947cb666879d6735be2a06fd79bd221d8ce78625bf2213adc56220119bf89f4"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_SOUTH_ADDITION"
+      ],
+      "persistent_id": 162283,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2725”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          55,
+          -1050,
+          10800
+        ],
+        "max": [
+          49945,
+          25,
+          16440.2
+        ],
+        "size": [
+          49890,
+          1075,
+          5640.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 20,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "BAY_00_DOOR",
+          "persistent_id": 162789,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              55,
+              -1050,
+              10800
+            ],
+            "max": [
+              2445,
+              25,
+              16440.2
+            ],
+            "size": [
+              2390,
+              1075,
+              5640.2
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "6f65166686a2597b210c8ba4312632b63292c338ba286cbab76bb8ba5f60e2c1"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_NORTH_ADDITION"
+      ],
+      "persistent_id": 162930,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2752”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          55,
+          19975,
+          10800
+        ],
+        "max": [
+          49945,
+          21050,
+          15437
+        ],
+        "size": [
+          49890,
+          1075,
+          4637
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 20,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "BAY_00_DOOR",
+          "persistent_id": 163436,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              55,
+              19975,
+              10800
+            ],
+            "max": [
+              2445,
+              21050,
+              15437
+            ],
+            "size": [
+              2390,
+              1075,
+              4637
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "06d8d532e9f1235e3db9433910de6435c5e593de733b6487655789fb7ac6c2a5"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION"
+      ],
+      "persistent_id": 163577,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“2779”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -1100,
+          180,
+          0
+        ],
+        "max": [
+          25,
+          19820,
+          10380
+        ],
+        "size": [
+          1125,
+          19640,
+          10380
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 24,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LEVEL_0_BAY_0",
+          "persistent_id": 163579,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -20,
+              180,
+              0
+            ],
+            "max": [
+              20,
+              2520,
+              3180
+            ],
+            "size": [
+              40,
+              2340,
+              3180
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "c1e4308837cdf71670c1dfdb0b1e679a73f0aee40fabd6620a0d4a098e3d9d25"
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER",
+        "LOWER_END_EAST_ADDITION"
+      ],
+      "persistent_id": 169920,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“3042”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          49975,
+          180,
+          0
+        ],
+        "max": [
+          51100,
+          19820,
+          10380
+        ],
+        "size": [
+          1125,
+          19640,
+          10380
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 22,
+      "offset": 0,
+      "next_offset": 1,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "LEVEL_0_BAY_0",
+          "persistent_id": 169922,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49980,
+              180,
+              0
+            ],
+            "max": [
+              50020,
+              2520,
+              3180
+            ],
+            "size": [
+              40,
+              2340,
+              3180
+            ]
+          }
+        }
+      ],
+      "deep_fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+      "deep_geometry_material_sha256": "87884fac101ab9982c39a5ff3400f5332391600f0ff4a2ea1dd10242435b0967"
+    }
+  ],
+  "new_progress_report": {
+    "schema_version": 1,
+    "source": "committed_owned_root_named_path_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 11,
+    "root_pid": 20606,
+    "full_readback": true,
+    "current_stage": "primary_form",
+    "systems": [
+      {
+        "system_id": "frame",
+        "target_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ]
+        ],
+        "present_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      },
+      {
+        "system_id": "floors",
+        "target_paths": [
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ]
+        ],
+        "present_paths": [
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "roof",
+        "target_paths": [
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "envelope_bounds",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "ramps",
+        "target_paths": [
+          [
+            "RAMPS"
+          ]
+        ],
+        "present_paths": [
+          [
+            "RAMPS"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      },
+      {
+        "system_id": "module",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ],
+          [
+            "CIRCULATION_EXTERNAL",
+            "GALLERIES",
+            "LONG_RAIL_SOUTH_Z3600"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ],
+          [
+            "CIRCULATION_EXTERNAL",
+            "GALLERIES",
+            "LONG_RAIL_SOUTH_Z3600"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "repeat",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "stairs_partitions",
+        "target_paths": [
+          [
+            "CIRCULATION_INTERNAL"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "present_paths": [
+          [
+            "CIRCULATION_INTERNAL"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "finish",
+        "target_paths": [
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED"
+          ]
+        ],
+        "present_paths": [
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "approved_enclosure_addition",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_SOUTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_NORTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_WEST_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_EAST_ADDITION"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_SOUTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_NORTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_WEST_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_EAST_ADDITION"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      }
+    ],
+    "visual_verification": "NOT_RUN"
+  }
+}

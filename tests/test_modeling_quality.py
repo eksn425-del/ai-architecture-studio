@@ -753,6 +753,36 @@ def test_visual_review_accepts_current_source_matched_pair(tmp_path):
     assert receipt["evidence_pairs"][0]["model_revisions"] == {"villa": 3}
 
 
+def test_eight_sheet_panel_coverage_can_exceed_twelve_without_accepting_stale_images(tmp_path):
+    import json
+    import pytest
+    from PIL import Image
+    from app.modeling_quality import validate_source_matched_pairs, MAX_SOURCE_MATCHED_PAIRS
+
+    project, _, _ = _current_review_fixture(tmp_path)
+    source = project / 'inputs/reference/multi-panel-original.png'
+    source.parent.mkdir(parents=True, exist_ok=True)
+    Image.new('RGB', (16, 12), 'white').save(source)
+    pairs = []
+    for n in range(MAX_SOURCE_MATCHED_PAIRS):
+        current = project / f'outputs/renders/agent-view-panel-{n}.png'
+        Image.new('RGB', (16, 12), 'white').save(current)
+        current.with_suffix('.evidence.json').write_text(json.dumps({
+            'path': current.relative_to(project).as_posix(),
+            'width': 16, 'height': 12, 'model_revisions': {'villa': 3},
+        }), encoding='utf-8')
+        pairs.append({'source_ref': source.relative_to(project).as_posix(),
+                      'current_view': current.relative_to(project).as_posix(),
+                      'label': f'actual distinct panel view {n}'})
+    assert len(validate_source_matched_pairs(project, {'villa': 3}, pairs)) == 24
+    with pytest.raises(ValueError, match='at most 24'):
+        validate_source_matched_pairs(project, {'villa': 3}, pairs + [pairs[0]])
+    stale = project / pairs[12]['current_view']
+    stale.with_suffix('.evidence.json').write_text(json.dumps({'model_revisions': {'villa': 2}}), encoding='utf-8')
+    with pytest.raises(ValueError, match='stale'):
+        validate_source_matched_pairs(project, {'villa': 3}, pairs)
+
+
 def test_canonical_camera_contract_is_deterministic_and_axis_aligned():
     bounds = {"min": [0.0, 0.0, 0.0], "max": [10000.0, 8000.0, 6400.0]}
     front = canonical_camera_from_bounds_mm(bounds, "front")
