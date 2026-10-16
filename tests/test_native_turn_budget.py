@@ -50,6 +50,30 @@ def _run(runtime, project, workspace, **kw):
     )
 
 
+def test_explicit_unlimited_native_turn_still_finishes_normally(tmp_path, monkeypatch):
+    events = [
+        {"method": "item/completed", "params": {"item": {"type": "agentMessage", "text": "完成"}}},
+        {"method": "turn/completed", "params": {"turn": {"status": "completed"}}},
+    ]
+    runtime, project, workspace = _fixture(tmp_path, monkeypatch, events)
+    runtime.timeout_seconds = 0
+    result = _run(runtime, project, workspace)
+    assert result.status == "completed"
+    assert result.reply == "完成"
+
+
+def test_zero_timeout_is_opt_in_and_event_reader_handles_no_deadline(tmp_path, monkeypatch):
+    import queue
+    monkeypatch.setenv("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "0")
+    runtime = subject.CodexAppServerRuntime(tmp_path, codex_executable="fixture")
+    assert runtime.timeout_seconds == 0
+    events = queue.Queue()
+    events.put('{"method":"turn/completed"}')
+    assert runtime._next_event(events, None)["method"] == "turn/completed"
+    events.put(None)
+    assert runtime._next_event(events, None) is None
+
+
 def test_native_token_budget_aborts_before_unbounded_builder_work(tmp_path, monkeypatch):
     monkeypatch.setenv("ARCH_STUDIO_CODEX_MAX_TURN_INPUT_TOKENS", "250")
     events = [

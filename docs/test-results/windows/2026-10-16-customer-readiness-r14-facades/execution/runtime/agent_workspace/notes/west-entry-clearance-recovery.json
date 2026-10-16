@@ -1,0 +1,57 @@
+{
+  "status": "HOST_VERIFIED_RECOVERY_APPROVED",
+  "actual_targets": {
+    "revision": 11,
+    "geometry_writes": 0,
+    "root_pid": 20606,
+    "targets": [
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "LOWER_END_WEST_ADDITION",
+          "LEVEL_7200_BAY_6",
+          "DOOR_LEFT_OPEN_90"
+        ],
+        "pid": 169319,
+        "bounds_mm": [
+          [
+            -1100,
+            15176,
+            7200
+          ],
+          [
+            12,
+            15200,
+            9600
+          ]
+        ]
+      },
+      {
+        "path": [
+          "ENVELOPE_OUTER",
+          "LOWER_END_WEST_ADDITION",
+          "LEVEL_7200_BAY_6",
+          "DOOR_RIGHT_OPEN_90"
+        ],
+        "pid": 169458,
+        "bounds_mm": [
+          [
+            -1100,
+            17400,
+            7200
+          ],
+          [
+            12,
+            17424,
+            9600
+          ]
+        ]
+      }
+    ]
+  },
+  "scope_change": "Exact two existing newly-built door leaves, no ancestor expansion. Preserve apertures/frame/sill and all rest.",
+  "reason": "New open90 leaves project1100mm into actual1650mmreturn. Sliding side-parked leaves at72mm projection inferred from source adjacency, empty2200x2400portal retained. Actual leaf/world/clearance verification required.",
+  "initial_failed_call": "Old four-creation policy rejected narrower descendant declaration before native eval; no geometry change from rejected attempt.",
+  "r11_backup": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-r11-before-west-entry-clearance-20261016.skp",
+  "current_native_revision": 11
+}

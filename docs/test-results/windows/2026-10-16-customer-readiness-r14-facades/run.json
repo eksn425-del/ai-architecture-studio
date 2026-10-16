@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r14-facades",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "SAME original eight whole sources/project/root20606 r13->r14",
+  "base_commit": "5d7e01aaed435b982a539e194c3c21b73e2ba595",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 13,
+    "after_revision": 14
+  },
+  "qa": {
+    "exact_scope": "PASS47targets protectedSHA41ca19e611e4d5c06b8b1c875fec856b4922d70fdff9dfc5598478d2179eb74d equal",
+    "native_samples": "288portal rays/216declared-level approach surfaces/140pane field controls/120rafter contacts PASS after classifying initial confounded controls",
+    "source_fidelity": "NEEDS_FIX independent all8sources/24pairs; eave/spirals/curtains remain",
+    "native_delivery": "PASS_WITH_DECLARED_PRECISION; rawstrictFAIL retained",
+    "strict_blank_replay": "NOT_RUN",
+    "normal_turn_closeout": "FAIL_TIMEOUT3600 after native commit and independent review; actual website saved/download verified by host",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

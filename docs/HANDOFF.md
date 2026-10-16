@@ -1,3 +1,15 @@
+## ONGOING 2026-10-16 — actual r14 facade/native delivery completed, next remaining systems
+
+[Real r14 evidence](test-results/windows/2026-10-16-customer-readiness-r14-facades/README.md): same eight/project/root20606, actual Studio Sol6.1Medium retry committed once after hostKEEP correction.47exact targets, protectedSHA41ca19e611e4d5c06b8b1c875fec856b4922d70fdff9dfc5598478d2179eb74d equal.52exterior recessed portals+20roomdoors, floor-specific40glazing leaves,4lightframe/panel canopies+hall joints. Actual288portal rays/216level surfaces/140pane fields/120rafter contactsPASS; initial beam-top/purlin-confounded failures retained.7actual same-camera pairs. True website browserdownload/SU24reopen3stage declaredprecisionPASS, rawstrictFAIL; originalr4unchanged, strictblankreplayNOT_RUN. DownloadSHAd7a2a1d9fe6ed4e25d1f7e6f68f4318be85c663e28c9f36045dbe97fc844c22f.
+
+Independent all8source/24pairCritic stillNEEDS_FIX: outer eave/opening-panel articulation, unsupported/coarse-guarded spirals, missing upper curved translucent curtains. Source05 shows hanging outward-tilted edge panels; distinguish physical panels from Source08blue ventilation arrows before changing main roof. Actual spiral local headroom/landing gap and tables already measured. Continue exact repairs, no full rebuild. Source/room/door dimensions inferred, not measured.
+
+Retry77tools1failure/5007194input6372output/3625891ms; finalCritic88700input1153output269265ms separate. Existing3600s total turn timeout interrupted AFTER commit and24pairCritic; normal Agent closeoutFAIL, host then completed actual browser/native verification. Initial5115285input attempt separate, no history reset. Current native conversation is >350k context and slow; next same-project fresh native context recovery will preserve sources/scripts/evidence/cumulative usage, not newbuilding/CLIcomparison/modelchange. Source ledger still contains duplicated runtime plans/stale readonly flags, causing receipt invalidation: archive and separate after frozen r14, never manufacture a reused receipt.
+
+Native runtime now supports explicit timeout0unlimited while normal default/finite settings remain, bootstrap120s retained; eventrecords configured value.23related regressionsPASS, actual unlimited website run pending server reload. Token/tool caps remain0. Original timeout evidence preserved. Task active; finish meaningful remaining geometry and native/replay/customer provider readiness, no arbitrary acceptance-only stop.
+
+---
+
 ## ONGOING 2026-10-16 — r14 initial host KEEP conflict recovered; same-task site retry ACTIVE
 
 [Initial real failure and guard recovery](test-results/windows/2026-10-16-r14-initial-scope-recovery/README.md): first Studio47-target attempt aborted atomically, root remainsr13. Host preparation incorrectly inherited required_preserve_paths for entire ENVELOPE_OUTER/INTERIOR while writing new intended paths under wrong mandatory_preserve_paths alias. Actual scope conflict, not modeling inability. Original policy/baseline/failedsource/report/5115285input/24299output/40tools1failure/3043156ms retained. Full native graph after rollback equalsr13 under declared contract.

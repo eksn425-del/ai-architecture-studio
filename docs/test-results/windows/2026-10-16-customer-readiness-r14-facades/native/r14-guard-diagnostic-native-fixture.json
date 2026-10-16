@@ -1,0 +1,21 @@
+{
+  "geometry_writes": 0,
+  "native_version": "24.0.484",
+  "strict_equal": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "DIAGNOSTIC_ONLY"
+      ]
+    ],
+    "allowed_creation_paths": [],
+    "allowed_top_level": [
+      "DIAGNOSTIC_ONLY"
+    ],
+    "required_deep_keep_paths": [],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "deliberate_in_memory_mismatch_rejected": "Protected geometry changed outside approved exact paths: [{\"path\":\"masked_root/loose_sha\",\"before\":\"original\",\"after\":\"changed\"}]",
+  "guard_behavior": "Exact equality still required; diagnostic-only in-memory fixtures; no document geometry touched"
+}

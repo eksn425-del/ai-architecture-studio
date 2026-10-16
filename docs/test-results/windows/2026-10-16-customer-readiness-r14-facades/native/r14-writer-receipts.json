@@ -1,0 +1,815 @@
+{
+  "model_guid": "a7e72d6b-50a3-40b5-87d6-a7e3d31b5d14",
+  "revision": 14,
+  "root_pid": 20606,
+  "source_sha256": "62af6c638a0f7270e24a8444d1b49fc115ab2efb6dca1ec41e601874d72c87d7",
+  "last_report": "runtime/scripts/reports/glass_curved_roof-r14-bc6b48a7.json",
+  "last_screenshot": "outputs/renders/ruby-glass_curved_roof-r14.png",
+  "last_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 14,
+        "actual": 14
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000.0,
+            -9000.0,
+            -500.0
+          ],
+          "max": [
+            59000.0,
+            33000.0,
+            16710.2
+          ],
+          "size": [
+            71000.0,
+            42000.0,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "last_verification_report": "runtime/scripts/reports/glass_curved_roof-r14-bc6b48a7.verification.json",
+  "last_precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "FLOORS",
+      "ROOF_TIMBER",
+      "RAMPS",
+      "CIRCULATION_EXTERNAL",
+      "CIRCULATION_INTERNAL",
+      "SITE_GROUND",
+      "ENVELOPE_OUTER/TENSION_BRACING",
+      "ENVELOPE_OUTER/HALL_LONG_SOUTH_ADDITION",
+      "ENVELOPE_OUTER/HALL_LONG_NORTH_ADDITION",
+      "ENVELOPE_OUTER/LOWER_END_WEST_ADDITION",
+      "ENVELOPE_OUTER/LOWER_END_EAST_ADDITION",
+      "INTERIOR/FURNITURE_SIMPLIFIED",
+      "INTERIOR/GREEN_PANEL_SOUTH",
+      "INTERIOR/CORE_EAST",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_0",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_1",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_2",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_3",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_4",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_5",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_6",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_7",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_8",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_9",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_10",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_11",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_12",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_13",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_14",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_15",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_16",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_17",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_18",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_0_19",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_0",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_1",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_2",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_3",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_4",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_5",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_6",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_7",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_8",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_9",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_10",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_11",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_12",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_13",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_14",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_15",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_16",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_17",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_18",
+      "ENVELOPE_OUTER/INNER_GLAZING/INNER_POST_1_19",
+      "PARTITION_Z3600_B1",
+      "PARTITION_Z3600_B2",
+      "PARTITION_Z3600_B3",
+      "PARTITION_Z3600_B4",
+      "PARTITION_Z3600_B5",
+      "PARTITION_Z3600_B6",
+      "PARTITION_Z3600_B7",
+      "PARTITION_Z3600_B8",
+      "PARTITION_Z3600_B9",
+      "PARTITION_Z7200_B1",
+      "PARTITION_Z7200_B2",
+      "PARTITION_Z7200_B3",
+      "PARTITION_Z7200_B4",
+      "PARTITION_Z7200_B5",
+      "PARTITION_Z7200_B6",
+      "PARTITION_Z7200_B7",
+      "PARTITION_Z7200_B8",
+      "PARTITION_Z7200_B9"
+    ]
+  },
+  "last_oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "62af6c638a0f7270e24a8444d1b49fc115ab2efb6dca1ec41e601874d72c87d7",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 14,
+    "root_pid": 20606
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_10"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_11"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_12"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_13"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_14"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_15"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_16"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_17"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_18"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_0_19"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_4"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_5"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_6"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_7"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_8"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_9"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_10"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_11"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_12"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_13"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_14"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_15"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_16"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_17"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_18"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "INNER_GLASS_1_19"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_1"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_2"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES",
+        "CANOPY_3"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "LOWER_LONG_SIDE_FRAMING"
+      ],
+      [
+        "INTERIOR",
+        "ROOM_FRONT_COMPLETION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "HALL_WINDOW_JOINTS"
+      ]
+    ],
+    "allowed_creation_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING",
+        "LOWER_LONG_SIDE_FRAMING"
+      ],
+      [
+        "INTERIOR",
+        "ROOM_FRONT_COMPLETION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "HALL_WINDOW_JOINTS"
+      ]
+    ],
+    "allowed_top_level": [
+      "ENVELOPE_OUTER",
+      "INTERIOR"
+    ],
+    "required_deep_keep_paths": [
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "FLOORS"
+      ],
+      [
+        "ROOF_TIMBER"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "CIRCULATION_INTERNAL"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "TENSION_BRACING"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_SOUTH_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "HALL_LONG_NORTH_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "LOWER_END_EAST_ADDITION"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED"
+      ],
+      [
+        "INTERIOR",
+        "GREEN_PANEL_SOUTH"
+      ],
+      [
+        "INTERIOR",
+        "CORE_EAST"
+      ]
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "last_strategy_progress": {
+    "schema_version": 1,
+    "source": "committed_owned_root_named_path_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 14,
+    "root_pid": 20606,
+    "full_readback": true,
+    "current_stage": "primary_form",
+    "systems": [
+      {
+        "system_id": "frame",
+        "target_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ]
+        ],
+        "present_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      },
+      {
+        "system_id": "floors",
+        "target_paths": [
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ]
+        ],
+        "present_paths": [
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "roof",
+        "target_paths": [
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "envelope_bounds",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "ramps",
+        "target_paths": [
+          [
+            "RAMPS"
+          ]
+        ],
+        "present_paths": [
+          [
+            "RAMPS"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      },
+      {
+        "system_id": "module",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ],
+          [
+            "CIRCULATION_EXTERNAL",
+            "GALLERIES",
+            "LONG_RAIL_SOUTH_Z3600"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ],
+          [
+            "CIRCULATION_EXTERNAL",
+            "GALLERIES",
+            "LONG_RAIL_SOUTH_Z3600"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "repeat",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "NORTH_BAY_0"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "SOUTH_BAY_00"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "stairs_partitions",
+        "target_paths": [
+          [
+            "CIRCULATION_INTERNAL"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "present_paths": [
+          [
+            "CIRCULATION_INTERNAL"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "finish",
+        "target_paths": [
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED"
+          ]
+        ],
+        "present_paths": [
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "needs_fix"
+      },
+      {
+        "system_id": "approved_enclosure_addition",
+        "target_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_SOUTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_NORTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_WEST_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_EAST_ADDITION"
+          ]
+        ],
+        "present_paths": [
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_SOUTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "HALL_LONG_NORTH_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_WEST_ADDITION"
+          ],
+          [
+            "ENVELOPE_OUTER",
+            "LOWER_END_EAST_ADDITION"
+          ]
+        ],
+        "missing_paths": [],
+        "result": "geometry_present_not_visually_verified",
+        "new_status": "built"
+      }
+    ],
+    "visual_verification": "NOT_RUN"
+  },
+  "last_oss_method_adoption": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {},
+    "any_oss_product_use": false,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": [
+      {
+        "system": "frame",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "floors",
+        "method_id": "adai.profile_with_holes",
+        "selection_reason": "Existing perforated floor/ramp native profiles use the installed ADAI adapter; preserve actual committed ledger, no new donor invocation claimed.",
+        "disposition": "selected_but_not_invoked"
+      },
+      {
+        "system": "roof",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "envelope_bounds",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "ramps",
+        "method_id": "adai.profile",
+        "selection_reason": "Existing perforated floor/ramp native profiles use the installed ADAI adapter; preserve actual committed ledger, no new donor invocation claimed.",
+        "disposition": "selected_but_not_invoked"
+      },
+      {
+        "system": "module",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "repeat",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "stairs_partitions",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "finish",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      },
+      {
+        "system": "approved_enclosure_addition",
+        "method_id": "kstudio.custom_owned_ruby",
+        "selection_reason": "Additive zero-thickness transparent glazing, slender frames and open door leaves must meet existing timber edges and exposed concrete beams without modifying them. SAIE wall/opening creates opaque solid straight walls and does not fit this all-glass enclosure. ADAI is not enabled.",
+        "disposition": "custom_fallback_not_automatically_attributed"
+      }
+    ]
+  }
+}

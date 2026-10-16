@@ -212,8 +212,8 @@ class CodexAppServerRuntime:
             raise ValueError("ARCH_STUDIO_CODEX_RECONSTRUCTION_THREAD_MODE must be compact or native.")
         self.timeout_seconds = (timeout_seconds if timeout_seconds is not None
                                 else int(os.environ.get("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "900")))
-        if not 30 <= self.timeout_seconds <= 3600:
-            raise ValueError("Codex turn timeout must be between 30 and 3600 seconds.")
+        if self.timeout_seconds != 0 and not 30 <= self.timeout_seconds <= 3600:
+            raise ValueError("Codex turn timeout must be 0 (explicitly unlimited) or between 30 and 3600 seconds.")
         # Owner-authorized local Native development tests have no token/tool
         # cap by default. Explicit opt-in caps remain available; usage is retained.
         self.max_tool_calls_per_turn = int(
@@ -583,6 +583,7 @@ class CodexAppServerRuntime:
             turn_input = _app_server_turn_input(prompt, reference_images)
             record({"event": "turn_input", "thread_id": resolved_thread_id,
                     "model": model, "reasoning_effort": reasoning_effort,
+                    "turn_timeout_seconds": self.timeout_seconds,
                     "workflow_mode": workflow_mode, "tool_profile": tool_profile,
                     "previous_thread_id": previous_thread_id,
                     "thread_transition": "resumed" if previous_thread_id == resolved_thread_id else "started_with_registered_tools",
@@ -612,7 +613,7 @@ class CodexAppServerRuntime:
                     "sandboxPolicy": {"type": "readOnly", "networkAccess": False} if read_only else _workspace_write_policy(agent_workspace),
                 },
             })
-            deadline = time.monotonic() + self.timeout_seconds
+            deadline = time.monotonic() + self.timeout_seconds if self.timeout_seconds else None
             tool_calls: list[dict[str, str]] = []
             tool_call_count = 0
             failed_tool_calls = 0
@@ -621,7 +622,7 @@ class CodexAppServerRuntime:
             usage_total_before: tuple[int, int] | None = None
             reply = ""
             turn_status = "failed"
-            while time.monotonic() < deadline:
+            while deadline is None or time.monotonic() < deadline:
                 message = self._next_event(events, deadline)
                 if message is None:
                     break
@@ -766,7 +767,7 @@ class CodexAppServerRuntime:
         except TimeoutError as error:
             # The queue waits until the turn deadline. Expiry is the configured
             # wall-clock stop, not evidence of a broken provider connection.
-            if time.monotonic() >= deadline:
+            if deadline is not None and time.monotonic() >= deadline:
                 raise interrupted(NativeAgentUnavailable(
                     f"Codex agent turn exceeded {self.timeout_seconds} seconds."
                 )) from error
@@ -788,7 +789,7 @@ class CodexAppServerRuntime:
                  request_id: int, method: str, params: dict[str, Any],
                  buffered: list[dict[str, Any]]) -> dict[str, Any]:
         self._send(process, {"id": request_id, "method": method, "params": params})
-        deadline = time.monotonic() + min(self.timeout_seconds, 120)
+        deadline = time.monotonic() + min(self.timeout_seconds or 120, 120)
         while time.monotonic() < deadline:
             message = self._next_event(events, deadline)
             if message is None:
@@ -815,9 +816,9 @@ class CodexAppServerRuntime:
         self._send(process, {"method": method, "params": params})
 
     @staticmethod
-    def _next_event(events: queue.Queue[str | None], deadline: float) -> dict[str, Any] | None:
+    def _next_event(events: queue.Queue[str | None], deadline: float | None) -> dict[str, Any] | None:
         try:
-            line = events.get(timeout=max(0.01, deadline - time.monotonic()))
+            line = events.get(timeout=None if deadline is None else max(0.01, deadline - time.monotonic()))
         except queue.Empty as error:
             raise TimeoutError("Timed out waiting for Codex app-server event.") from error
         if line is None:

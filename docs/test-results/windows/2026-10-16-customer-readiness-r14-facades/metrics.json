@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 3625891,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "tool_call_count": 77,
+  "failed_tool_calls": 1,
+  "input_tokens": 5007194,
+  "output_tokens": 6372,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 269265,
+    "input_tokens": 88700,
+    "output_tokens": 1153,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "native_bridge_total_calls": null,
+  "paid_api_calls": 0,
+  "initial_failed_attempt": "../2026-10-16-r14-initial-scope-recovery/metrics.json",
+  "note": "Retry actual telemetry separate from initial5115285input; localcaps0, no history reset. Native turn timed out after actual commit and24pair Critic; host completed real download/native verification.",
+  "token_source": "Actual real website Codex App Server turn delta for retry; independent Critic separate; prior initial attempt5115285input retained separately. Outer/total internal SDK calls unavailable null."
+}
