@@ -1,0 +1,64 @@
+{
+  "phase": "CURRENT r6 upper glass openings only; older ramp/gate notes historical",
+  "allowed_paths": [
+    [
+      "ENVELOPE_OUTER",
+      "NORTH_BAY_0"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "SOUTH_BAY_00"
+    ]
+  ],
+  "all_other_modules_and_r6_ramps_landings_rails_roof_floors": "KEEP",
+  "opening_world_x_mm": [
+    -3650,
+    -1450
+  ],
+  "north_opening_bottoms_mm": [
+    7200,
+    10800
+  ],
+  "south_opening_bottoms_mm": [
+    7200
+  ],
+  "module_existing_bounds_and_mullions": "KEEP",
+  "transom_changes": "only portions crossing door clear apertures; retain remaining segments/sections",
+  "shared_instance_strategy": "make target bay and affected nested contents unique before replacement; all other bays protected",
+  "source_complete_interior_registration": "UNRESOLVED, never guess whole floors",
+  "exact_dimensions": "estimated, not measured source facts",
+  "native_geometry_evidence": {
+    "NORTH_BAY_0": {
+      "glass_y_mm": 24000,
+      "glass_z_mm": [
+        7200,
+        13500
+      ],
+      "glass_x_mm": [
+        -4000,
+        -1100
+      ]
+    },
+    "SOUTH_BAY_00": {
+      "glass_y_mm": -4000,
+      "glass_z_mm": [
+        7200,
+        13500
+      ],
+      "glass_x_mm": [
+        -4000,
+        -1100
+      ]
+    },
+    "transom_levels_mm": [
+      7200,
+      8250,
+      9300,
+      10800,
+      12000,
+      13500
+    ]
+  },
+  "host_capabilities": "Read-only sketchup_inspect_owned paths batches now exposed. clear_owned_contents.call(full_path_array) keeps target container PID; requires unique target and ancestors. Use make_unique for each target shared bay and affected nested groups before content replacement. Deep guard checks other instances, not reference count/GUID bookkeeping.",
+  "custom_geometry_reason": "Existing SAIE wall-with-openings builds a new root-level solid wall, unsuitable for thin shared glazing leaf inside existing bay. Reuse native faces/profiles and exact-path safe helper, keep all unrelated geometry. ADAI off; no artificial adoption invocation."
+}

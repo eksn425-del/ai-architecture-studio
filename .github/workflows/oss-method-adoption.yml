@@ -8,6 +8,10 @@ on:
       - 'app/oss_method_runtime.rb'
       - 'app/edit_scope_guard.rb'
       - 'app/path_scope_guard.rb'
+      - 'app/path_scope_graph_guard.rb'
+      - 'app/shared_definition_scope.rb'
+      - 'tests/ruby/shared_definition_scope_test.rb'
+      - 'tests/ruby/native_delivery_preflight_test.rb'
       - 'tests/test_path_scope_guard.py'
       - 'tests/test_native_path_scope_audit.py'
       - 'tests/test_capture_camera.py'
@@ -78,6 +82,10 @@ on:
       - 'app/oss_method_runtime.rb'
       - 'app/edit_scope_guard.rb'
       - 'app/path_scope_guard.rb'
+      - 'app/path_scope_graph_guard.rb'
+      - 'app/shared_definition_scope.rb'
+      - 'tests/ruby/shared_definition_scope_test.rb'
+      - 'tests/ruby/native_delivery_preflight_test.rb'
       - 'tests/test_path_scope_guard.py'
       - 'tests/test_native_path_scope_audit.py'
       - 'tests/test_capture_camera.py'
@@ -170,3 +178,5 @@ jobs:
           ruby tests/ruby/oss_method_runtime_test.rb
           ruby tests/ruby/edit_scope_guard_test.rb
           ruby tests/ruby/path_scope_guard_test.rb
+          ruby tests/ruby/shared_definition_scope_test.rb
+          ruby tests/ruby/native_delivery_preflight_test.rb

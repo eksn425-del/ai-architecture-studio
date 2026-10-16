@@ -1,0 +1,28 @@
+[
+  {
+    "event": "thread_model_identity",
+    "thread_id": null,
+    "model": null,
+    "requested_model": "gpt-6.1-sol",
+    "reported_model": "gpt-6.1-sol",
+    "requested_effort": "medium",
+    "reasoning_effort": null,
+    "thread_transition": null,
+    "previous_thread_id": null,
+    "turn_timeout_seconds": null,
+    "source_fingerprint_verified": null
+  },
+  {
+    "event": "turn_input",
+    "thread_id": "01a14483-1960-7ee0-8052-4b92345c6f89",
+    "model": "gpt-6.1-sol",
+    "requested_model": null,
+    "reported_model": null,
+    "requested_effort": null,
+    "reasoning_effort": "medium",
+    "thread_transition": "started_with_registered_tools",
+    "previous_thread_id": null,
+    "turn_timeout_seconds": 0,
+    "source_fingerprint_verified": true
+  }
+]

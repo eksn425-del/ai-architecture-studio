@@ -1,0 +1,265 @@
+{
+  "script_id": "glass_curved_roof",
+  "revision": 16,
+  "source_sha256": "809add9dab757b732cc10e6a390a0e53b3e6b1d0f749b4b79bdb2385f9bdb74e",
+  "transaction_status": "committed",
+  "model_identity": {
+    "guid": "ca5ca877-79d0-44f9-ab9b-8b9076e2f5b1",
+    "model_name": "blank-disposable-customer-readiness-r4-20261015.skp"
+  },
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 16,
+        "actual": 16
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "precommit_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "ENVELOPE_OUTER",
+      "CIRCULATION_EXTERNAL",
+      "RAMPS",
+      "SITE_GROUND",
+      "FLOORS/L0",
+      "FLOORS/L1",
+      "FLOORS/L2_PARTIAL_SOUTH",
+      "FLOORS/L2_PARTIAL_EAST",
+      "ROOF_TIMBER/ROOF_SUPPORTS",
+      "CIRCULATION_INTERNAL/SMALL_CIRCULAR_VOID_GUARDS",
+      "INTERIOR/ROOM_FRONT_COMPLETION",
+      "INTERIOR/CORE_EAST",
+      "INTERIOR/GREEN_PANEL_SOUTH",
+      "CIRCULATION_INTERNAL/SPIRAL_L0_L1",
+      "CIRCULATION_INTERNAL/SPIRAL_L1_L2",
+      "CIRCULATION_INTERNAL/SPIRAL_L2_L3",
+      "INTERIOR/HALL_CURTAINS",
+      "CIRCULATION_INTERNAL/LARGE_CIRCULAR_VOID_MESH",
+      "FLOORS/L3",
+      "ROOF_TIMBER/CURVED_SHELL"
+    ]
+  },
+  "edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_5"
+      ]
+    ],
+    "allowed_creation_paths": [],
+    "allowed_top_level": [
+      "INTERIOR"
+    ],
+    "required_deep_keep_paths": [
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "ENVELOPE_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "FLOORS",
+        "L0"
+      ],
+      [
+        "FLOORS",
+        "L1"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      [
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS"
+      ],
+      [
+        "INTERIOR",
+        "ROOM_FRONT_COMPLETION"
+      ],
+      [
+        "INTERIOR",
+        "CORE_EAST"
+      ],
+      [
+        "INTERIOR",
+        "GREEN_PANEL_SOUTH"
+      ]
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "809add9dab757b732cc10e6a390a0e53b3e6b1d0f749b4b79bdb2385f9bdb74e",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 16,
+    "root_pid": 20606
+  },
+  "views": {
+    "front": "outputs/renders/agent-view-front-442db73e15.png",
+    "rear": "outputs/renders/agent-view-rear-017fefd99d.png",
+    "left": "outputs/renders/agent-view-left-fca39be1cb.png",
+    "right": "outputs/renders/agent-view-right-6b8b5f040e.png",
+    "roof": "outputs/renders/agent-view-roof-1cb8b8fa54.png",
+    "oblique": "outputs/renders/agent-view-oblique-8f095668cc.png"
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-3354c952d8.png",
+      "label": "Source 1 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-969f6a0c5c.png",
+      "label": "Source 2 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-bd4676ab88.png",
+      "label": "Source 3 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-1311bbbafa.png",
+      "label": "Source 4 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-4a4b0ef135.png",
+      "label": "Source 5 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-1606c80b1a.png",
+      "label": "Source 6 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-1745f9549a.png",
+      "label": "Source 7 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-261e739d11.png",
+      "label": "Source 8 registered view; section/plan remains uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-4f6f93240a.png",
+      "label": "Lower interior"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-4907c619e6.png",
+      "label": "Upper hall reverse"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-2e5e561c04.png",
+      "label": "Upper spiral landing"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-1df0db9c68.png",
+      "label": "Spiral support close"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-01a0dbef69.png",
+      "label": "Relocated table support close"
+    }
+  ],
+  "next_refinement": "REJECTED_BEFORE_TRANSACTION_TURN_WRITE_BUDGET_EXHAUSTED"
+}

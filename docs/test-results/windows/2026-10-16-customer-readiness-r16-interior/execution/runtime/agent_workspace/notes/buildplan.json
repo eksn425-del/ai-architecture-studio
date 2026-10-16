@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "run_id": "20261016-spiral-and-hall-completion",
+  "design_graph_digest": "sha256:c993d26a8bf433f744796b7ff603c29e4d5284320f7608d3a664687c497e335e",
+  "steps": [
+    {
+      "id": "complete_spiral_and_hall_space",
+      "object": "complete_spiral_and_hall_space",
+      "action": "existing_guarded_workspace_ruby_edit",
+      "parameters": {
+        "allowed_mutation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L0_L1"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L1_L2"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SPIRAL_L2_L3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_0"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_1"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_2"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_4"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z0_5"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_0"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_1"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_2"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_4"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z3600_5"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_0"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_1"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_2"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_3"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_4"
+          ],
+          [
+            "INTERIOR",
+            "FURNITURE_SIMPLIFIED",
+            "TABLE_Z10800_5"
+          ],
+          [
+            "FLOORS",
+            "L3"
+          ],
+          [
+            "ROOF_TIMBER",
+            "CURVED_SHELL"
+          ],
+          [
+            "INTERIOR",
+            "HALL_CURTAINS"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "LARGE_CIRCULAR_VOID_MESH"
+          ]
+        ],
+        "preserve_paths": [
+          [
+            "STRUCTURE_EXISTING"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "RAMPS"
+          ],
+          [
+            "SITE_GROUND"
+          ],
+          [
+            "FLOORS",
+            "L0"
+          ],
+          [
+            "FLOORS",
+            "L1"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_SOUTH"
+          ],
+          [
+            "FLOORS",
+            "L2_PARTIAL_EAST"
+          ],
+          [
+            "ROOF_TIMBER",
+            "ROOF_SUPPORTS"
+          ],
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ],
+          [
+            "INTERIOR",
+            "ROOM_FRONT_COMPLETION"
+          ],
+          [
+            "INTERIOR",
+            "CORE_EAST"
+          ],
+          [
+            "INTERIOR",
+            "GREEN_PANEL_SOUTH"
+          ]
+        ]
+      },
+      "depends_on": [],
+      "tag": "interior_completion",
+      "component_strategy": "25exact targets, existing stair/table containers stable; two missing semantic leaves, actual repeatable curved mesh/curtain/support methods. Finish-only roof/slab shape independently checked.",
+      "risk": "Stair headroom/floor arrival gaps, table intrusion, curtain obstruction, shared material or protected roof geometry changes",
+      "evidence_refs": [
+        "ref_04",
+        "ref_05",
+        "ref_07",
+        "ref_08"
+      ],
+      "preconditions": [
+        "Actual r14 frozen/downloaded/nativeverified",
+        "fresh native unique existing and missing leaf checks",
+        "same sourceSHA/order/root and exact scope activated"
+      ],
+      "postconditions": [
+        "Three existing spiral containers keepPID; build continuous native central support/tread contacts and curved fine mesh, real floor arrival bridges and compatible guard openings. Protect all concrete beams/slabs/void shapes; resolve measured west-edge low headroom by coherent stair geometry inside real hole, never secretly remove beams.",
+        "Actual existing 18table containers gain source-consistent supports. Move only conflicting placeholder furniture within occupied floor, clear actual circular void and stair headroom. No unsupported floating tabletops.",
+        "Add source04curved suspended tracks/translucent curtains in upper hall, source07zones guide coherent infill. Maintain actual circular openings and circulation routes, track hangers join actual roof underside rather than stale roof heights. Record inferred hidden details.",
+        "Large existing circular guard rings gain fine curved mesh in new leaf, actual current stair arrival sectors remain open; preserve existing small-circle mesh guards.",
+        "FLOORS/L3 and ROOF_TIMBER/CURVED_SHELL are FINISH_ONLY targets: only target surface materials may change, all vertices/loops/entityIDs/transformations/void locations/roof shape unchanged. New pale materials only; do not change shared original global materials.",
+        "Exact fullgraph protection outside25targets and originalr4/r14immutable; independent all8source/current6+source views, actual native tread headroom/support/arrival/furniture/curtain clearance and material-only shape audit. Real site save/download/native3stages."
+      ],
+      "rollback_group": "preserved_r14",
+      "qa_view": [
+        "six current canonical",
+        "all8original source matched",
+        "source04upper curtain hall and lower spiral",
+        "real spiral arrival and table support"
+      ]
+    }
+  ]
+}

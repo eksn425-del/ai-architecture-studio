@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-r14-context-and-shared-scope-preparation",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "SAME eight-source project/root20606 r14 before next repair; read-only engineering preparation",
+  "base_commit": "2b132e4e16f39d5566d42c9e54b0961ae8bdc68a",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio; next same-case fresh thread identity verified"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "revision_at_readonly_probes": 14
+  },
+  "qa": {
+    "fresh_context": "Actual new native thread01a14483-1960-7ee0-8052-4b92345c6f89, unchanged model/effort/sourceSHA/order, all historical usage retained",
+    "unlimited": "Actual turn_input timeout0 plus token/tool caps0; bootstrap remains finite",
+    "source_memory": "All original source observations/constraints/assumptions unchanged, duplicated runtime plans and stale readonly/status archived separately; old whole ledger preserved",
+    "shared_scope": "Actual38shared longglass physical paths proven; missing actual path correctly rejected, six in-memory negatives PASS; NOT integrated into live shared writer, native write/rollback NOT_RUN",
+    "complete_precommit": "Existing actual native document passes complete collector. Added same full check after edit before commit, unchanged cap; native new-geometry negative pending",
+    "next_geometry": "Real website r15 is active separately; this preparation is NOT a modeling PASS"
+  },
+  "paid_api_calls": 0
+}

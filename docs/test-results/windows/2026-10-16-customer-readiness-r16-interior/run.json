@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r16-interior",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "Same original eight sources/project/root20606 r14->r15->r16",
+  "base_commit": "2b132e4e16f39d5566d42c9e54b0961ae8bdc68a",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 14,
+    "after_revision": 16
+  },
+  "qa": {
+    "exact_scope": "PASS full native graph outside25exact leaves across14/15/16; actual r16 narrower3table writer receipt retained",
+    "native_samples": "216headroom72tread18arrival18mesh72table39hanger PASS;720actual translucent fabric faces",
+    "source_fidelity": "NEEDS_FIX independent all8sources/13pairs",
+    "native_delivery": "Bound and actual browser download reopen PASS_WITH_DECLARED_PRECISION; original pre-site-save stage16 NOT_CAPTURED, rawstrictFAIL",
+    "strict_blank_replay": "NOT_RUN",
+    "normal_turn_closeout": "COMPLETED actual timeout0",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

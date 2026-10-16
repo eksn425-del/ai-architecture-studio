@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 2446422,
+  "committed_writes": 2,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 2,
+  "tool_call_count": 166,
+  "failed_tool_calls": 8,
+  "input_tokens": 16711404,
+  "output_tokens": 38902,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 130687,
+    "input_tokens": 64165,
+    "output_tokens": 1490,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "native_bridge_total_calls": null,
+  "paid_api_calls": 0,
+  "token_source": "Actual completed website native turn delta,166tools8failures/16711404input38902output2446422ms. Independent final Critic64165input1490output130687ms separate. Fresh native context retains project cumulative usage/history; caps and timeout0. No subtraction of any observed upstream cached/prefill notification."
+}

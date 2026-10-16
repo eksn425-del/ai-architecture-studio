@@ -1,0 +1,7 @@
+{
+  "status": "FAIL_NATIVE_FIXTURE_EXPECTATION",
+  "stage": "undeclared_nested_occurrence",
+  "actual_error": "Negative case escaped undeclared_nested_occurrence",
+  "production_restore": "PASS declared native equality; original r4 unchanged",
+  "limitation": "The initial fixture instantiated a Group definition as a ComponentInstance without proving it still shared the target definition. New fixture uses an actual shared curtain-wall BAY ComponentDefinition and checks definition equality before testing."
+}

@@ -2,6 +2,7 @@
 # Host-only full definition graph fence; enabled by explicit host policy only.
 require 'json'
 require_relative 'native_definition_graph'
+require_relative 'shared_definition_scope'
 module KStudioPathScopeGraphGuard
   extend self
   CONTRACT = 'deep_exact_paths_graph_v1'
@@ -76,8 +77,10 @@ module KStudioPathScopeGraphGuard
     paths!(approved) unless approved.empty?
     raise 'Creation approval must name exact HOST-approved leaves' unless approved.all? { |p| policy['allowed_paths'].include?(p) }
     creations = paths.select { |p| approved.include?(p) }
+    shared_proofs = shared_edit_proofs(root, paths, policy)
     model = root.model
     raise 'Exit active edit context' unless model.active_path.nil?
+    validate_complete_document!(root, phase)
     c = KStudioNativeDeepFingerprint
     groups = model.entities.select { |e| e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance) }
     raise 'Root must be document owned group' unless groups.include?(root)
@@ -88,10 +91,39 @@ module KStudioPathScopeGraphGuard
     loose = KStudioNativeDefinitionGraph.scan(model.entities.reject { |e| groups.include?(e) }, [], 0, graph)
     external = groups.reject { |e| e == root }.map { |e| KStudioNativeDefinitionGraph.node(e, Geom::Transformation.new, graph) }.sort_by { |n| n[:pid] }
     masked = branch(root, Geom::Transformation.new, [], paths, creations, phase, {graph: graph})
-    {contract: CONTRACT, paths: paths, creation_paths: creations, masked_root: masked,
+    result = {contract: CONTRACT, paths: paths, creation_paths: creations, masked_root: masked,
      protected_definition_graph: {definitions: graph[:definitions], identities: KStudioNativeDefinitionGraph.sorted(graph[:identities])},
      required_deep_keep: keeps, document_loose_sha: c.sha(loose), external: external,
      presentation_sha: c.sha(c.presentation(model)), model_path: model.path, model_guid: model.guid}
+    result[:shared_definition_proofs] = shared_proofs unless shared_proofs.empty?
+    result
+  end
+
+  def shared_edit_proofs(root, paths, policy)
+    shared = policy.fetch('shared_definition_edit_paths', [])
+    return [] if shared.empty?
+    paths!(shared)
+    raise 'Shared whitelist must name existing exact HOST-approved leaves' unless shared.all? { |p|
+      policy['allowed_paths'].include?(p) && !policy.fetch('allowed_creation_paths', []).include?(p)
+    }
+    seen = {}; proofs = []
+    paths.select { |p| shared.include?(p) }.each do |path|
+      leaf = KStudioProfessionalHelpers.named_owned_group(root, path)
+      next if seen[leaf.definition.object_id]
+      proofs << KStudioSharedDefinitionScope.prove!(root, leaf, paths, shared)
+      seen[leaf.definition.object_id] = true
+    end
+    proofs.sort_by { |v| JSON.generate(v) }
+  end
+
+  def validate_complete_document!(root, phase)
+    return unless phase == :after
+    # Masking approved targets protects their siblings but does not inspect the
+    # new target contents. Verify those contents can also be delivered through
+    # the unchanged complete native collector BEFORE the transaction commits.
+    KStudioNativeDefinitionGraph.capture(root.model, root_pid: root.persistent_id)
+  rescue RuntimeError => error
+    raise 'Edited model failed complete native delivery preflight; reuse geometry definitions rather than bypassing collector limits: ' + error.message
   end
 
   def compare!(before, after, paths)
@@ -105,11 +137,13 @@ module KStudioPathScopeGraphGuard
       differences = difference_paths(before, after)
       raise 'Protected geometry changed outside approved exact paths: ' + JSON.generate(differences)
     end
-    {'status' => 'passed', 'guard' => CONTRACT, 'allowed_paths' => paths,
+    receipt = {'status' => 'passed', 'guard' => CONTRACT, 'allowed_paths' => paths,
      'allowed_creation_paths' => before[:creation_paths],
      'allowed_top_level' => paths.map(&:first).uniq,
      'required_deep_keep_paths' => before[:required_deep_keep].map { |v| v[:path] },
      'protected_deep_geometry_and_loose_entities' => true}
+    receipt['shared_definition_proofs'] = before[:shared_definition_proofs] if before.key?(:shared_definition_proofs)
+    receipt
   end
 
   def difference_paths(before, after, path = [], found = [])

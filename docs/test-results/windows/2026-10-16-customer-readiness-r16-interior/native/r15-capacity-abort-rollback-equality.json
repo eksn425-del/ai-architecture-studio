@@ -1,0 +1,18 @@
+{
+  "contract": "KStudioNativeStableGeometry/1",
+  "precision": {
+    "face_normal_decimals": 12,
+    "affine_linear_decimals": 12,
+    "coordinates_mm": "exact native doubles",
+    "translations_mm": "exact native doubles",
+    "all_other_fields": "exact"
+  },
+  "status": "FAIL",
+  "before_sha256": "a4e9f04551b6bdbe5e2ab0db7ed7639298f0a9b62b0f0d41f7ce94e8ef272636",
+  "after_sha256": "e5be720e2dda0def53aba992a37601a65696af28e8371b17d5a275919f74fcc5",
+  "raw_document_sha_equal": false,
+  "raw_strict_verdict_overridden": false,
+  "source_fidelity": "NOT_ASSESSED",
+  "blank_program_replay": "NOT_ASSESSED",
+  "capture_limitation": "Comparison crossed a subsequent real r15 commit. Root state is already15 and new geometry differs from14; FAIL is not proof of failed rollback. Original two aborted reports retained, no fabricated full rollback equality."
+}

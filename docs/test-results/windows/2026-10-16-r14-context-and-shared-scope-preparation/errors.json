@@ -1,0 +1,19 @@
+[
+  {
+    "stage": "first_server_restart",
+    "geometry_writes": 0,
+    "inference_calls": 0,
+    "detail": "Wrong launcher override variable let saved prior model appear on readonly status. Corrected ARCH_STUDIO_USE_LAUNCHER_MODEL before any website request; actual Sol6.1Medium thread later proven."
+  },
+  {
+    "stage": "session_context_reset",
+    "geometry_writes": 0,
+    "inference_calls": 0,
+    "detail": "thread_id null violated AgentSession string schema and project GET404; corrected to supported empty string, original session preserved; same project intact."
+  },
+  {
+    "stage": "shared_negative_selector",
+    "geometry_writes": 0,
+    "detail": "Initial negative omitted unique SOUTH_BAY_00, which does not use common38definition. Native proof rightly still passed. Correct negative removes an actual shared occurrence; it rejects."
+  }
+]

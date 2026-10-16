@@ -5,6 +5,7 @@ require_relative 'vendor/saie/opening_geometry'
 require_relative 'vendor/stultus/bounds'
 require_relative 'native_deep_fingerprint'
 require_relative 'native_definition_graph'
+require_relative 'shared_definition_scope'
 
 module KStudioProfessionalHelpers
   module_function
@@ -94,7 +95,20 @@ module KStudioProfessionalHelpers
     raise 'Root contents clearing is forbidden' unless path.is_a?(Array) && !path.empty?
     raise 'Contents clearing requires declared edit scope' unless approved_paths.is_a?(Array) &&
       approved_paths.any? { |approved| path.take(approved.length) == approved }
-    child = named_owned_group(root, path, true)
+    # Shared prototype edits require an additional exact HOST whitelist and a
+    # complete document occurrence proof. The default unique-instance rule is
+    # unchanged, including callers that provide only a Builder declaration.
+    policy_file = File.join(File.dirname(File.dirname(File.dirname(root.model.path))), 'runtime', 'active_edit_scope.json')
+    policy = File.file?(policy_file) ? JSON.parse(File.read(policy_file, encoding: 'UTF-8')) : {}
+    shared = policy.fetch('shared_definition_edit_paths', [])
+    if shared.include?(path)
+      raise 'Shared edit requires complete graph fence' unless policy['scope_contract'] == 'deep_exact_paths_graph_v1'
+      KStudioPathScopeGuard.validate_authorization!(policy, approved_paths, root.model.path, root.persistent_id)
+      child = named_owned_group(root, path)
+      KStudioSharedDefinitionScope.prove!(root, child, approved_paths, shared)
+    else
+      child = named_owned_group(root, path, true)
+    end
     entities = child.is_a?(Sketchup::Group) ? child.entities : child.definition.entities
     count = entities.length
     entities.erase_entities(entities.to_a) unless count.zero?
