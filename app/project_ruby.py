@@ -41,7 +41,7 @@ _FORBIDDEN_SOURCE = re.compile(
     # geometry in the injected owned root. Block root-to-model traversal and
     # whole-document edit/save operations from agent-provided source.
     r"|\bmodel\s*\.\s*(?:entities|save|save_copy|close|start_operation|commit_operation|abort_operation)\b"
-    r"|\.\s*(?:parent|erase!|erase_entities|clear!|explode|save|save_copy|save_as|close|start_operation|commit_operation|abort_operation|write_image|write_to_file|export|import|open_file|popen|download)\b"
+    r"|\.\s*(?:parent|erase!|erase_entities|clear!|explode|save|save_copy|save_as|close|start_operation|commit_operation|abort_operation|write_image|write_to_file|export|import|open_file|popen|download)(?![A-Za-z0-9_])"
     r"|(?<![A-Za-z0-9_])\$[A-Za-z_][A-Za-z0-9_]*"
     r"|`|%x\s*[({]",
 )
@@ -233,6 +233,10 @@ class ProjectRubyExecutor:
             "  end",
             "  clear_owned_contents = lambda do |path|",
             "    KStudioProfessionalHelpers.clear_named_owned_contents(root, path, JSON.parse(" +
+            self._ruby_string(json.dumps(allowed_mutation_paths or [], ensure_ascii=False)) + "))",
+            "  end",
+            "  erase_owned_faces = lambda do |path, face_pids|",
+            "    KStudioProfessionalHelpers.erase_named_owned_faces(root, path, face_pids, JSON.parse(" +
             self._ruby_string(json.dumps(allowed_mutation_paths or [], ensure_ascii=False)) + "))",
             "  end",
             *(

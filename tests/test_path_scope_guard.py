@@ -19,6 +19,18 @@ def test_exact_nested_paths_reach_precommit_host_guard(monkeypatch, tmp_path):
     assert text.index("KStudioPathScopeGuard.verify!") < text.index("oss_method_ledger")
     assert "clear_owned_contents = lambda" in text
     assert "clear_named_owned_contents(root, path" in text
+    assert "erase_owned_faces = lambda do |path, face_pids|" in text
+    assert "erase_named_owned_faces(root, path, face_pids" in text
+
+
+@pytest.mark.parametrize("source", ["root.erase!", "face.erase!", "owned.clear!", "face.erase!()", "owned.erase_entities([])"])
+def test_raw_deletion_including_bang_methods_is_blocked(source):
+    with pytest.raises(ValueError, match="blocked host"):
+        validate_project_ruby_source("building", source)
+
+
+def test_scoped_face_aperture_helper_is_available_to_builder():
+    validate_project_ruby_source("building", 'erase_owned_faces.call(["ENVELOPE", "GLASS"], [hole.persistent_id])')
 
 
 @pytest.mark.parametrize("source", ["KStudioPathScopeGuard.capture(root, [])", "KStudioNativeDeepFingerprint.scan([])", "KStudioPathScopeGraphGuard.capture(root, [], {})", "KStudioSharedDefinitionScope.prove!(root, root, [], [])"])

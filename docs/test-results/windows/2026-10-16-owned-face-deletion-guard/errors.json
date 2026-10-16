@@ -1,0 +1,19 @@
+[
+  {
+    "attempt": 1,
+    "status": "FAILED_FIXTURE_ASSUMPTION",
+    "actual_file": "native/actual-failure.json",
+    "detail": "Adding a Face from existing aperture loop vertices did not create the intended fill; deleting returned face altered target geometry. Full target-equality assertion failed, productionrestorePASS."
+  },
+  {
+    "attempt": 2,
+    "status": "FAILED_NATIVE_FACE_AREA_PRECONDITION",
+    "actual_file": "native/actual-failure2.json",
+    "detail": "Added actual fill-area precondition; native returned Face was not2720x800mm, rejected before typed deletion. ProductionrestorePASS."
+  },
+  {
+    "attempt": 3,
+    "status": "PASS_CORRECT_FRESH_FACE_CONSTRUCTION",
+    "detail": "Rebuild approved shared leaf once, create fresh outer+inner rectangular faces, verify actual inner area before typed erasure; actual one-holed Face area16094000mm2, complete geometry SHA matches original. Primitive FacePID recreated inside allowed leaf, containerPID41323stable.6negatives refused and complete document unchanged."
+  }
+]

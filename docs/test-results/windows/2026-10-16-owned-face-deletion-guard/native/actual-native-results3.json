@@ -1,0 +1,188 @@
+{
+  "status": "PASS_NATIVE_SCOPED_FACE_DELETION",
+  "native_version": "24.0.484",
+  "root_pid": 20606,
+  "revision": 17,
+  "production_geometry_writes": 0,
+  "disposable_operations_committed": 1,
+  "actual_removed_face": {
+    "persistent_id": 41323,
+    "removed_face_ids": [
+      1372029
+    ]
+  },
+  "actual_shared_occurrences": 38,
+  "positive_protected_graph_equal": true,
+  "positive_original_complete_document_equal": true,
+  "actual_target_faces_before": [
+    {
+      "pid": 1371564,
+      "normal": [
+        0,
+        -1,
+        0
+      ],
+      "area_mm2": 16094000,
+      "front": "KS_Clear_Glass",
+      "back": "KS_Clear_Glass",
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              0,
+              0,
+              283.46456692913387
+            ],
+            [
+              114.1732283464567,
+              0,
+              283.46456692913387
+            ],
+            [
+              114.1732283464567,
+              0,
+              531.496062992126
+            ],
+            [
+              0,
+              0,
+              531.496062992126
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              110.62992125984253,
+              0,
+              496.0629921259843
+            ],
+            [
+              3.5433070866141736,
+              0,
+              496.0629921259843
+            ],
+            [
+              3.5433070866141736,
+              0,
+              527.5590551181102
+            ],
+            [
+              110.62992125984253,
+              0,
+              527.5590551181102
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "actual_target_faces_after": [
+    {
+      "pid": 1372020,
+      "normal": [
+        0,
+        -1,
+        0
+      ],
+      "area_mm2": 16094000,
+      "front": "KS_Clear_Glass",
+      "back": "KS_Clear_Glass",
+      "loops": [
+        {
+          "outer": true,
+          "points": [
+            [
+              0,
+              0,
+              283.46456692913387
+            ],
+            [
+              114.1732283464567,
+              0,
+              283.46456692913387
+            ],
+            [
+              114.1732283464567,
+              0,
+              531.496062992126
+            ],
+            [
+              0,
+              0,
+              531.496062992126
+            ]
+          ]
+        },
+        {
+          "outer": false,
+          "points": [
+            [
+              110.62992125984253,
+              0,
+              496.0629921259843
+            ],
+            [
+              3.5433070866141736,
+              0,
+              496.0629921259843
+            ],
+            [
+              3.5433070866141736,
+              0,
+              527.5590551181102
+            ],
+            [
+              110.62992125984253,
+              0,
+              527.5590551181102
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "actual_native_before_sha": "309d4c9aaf97834811ec8d5fb9b535644380a72492a1f9f9c015f3477a9aa518",
+  "actual_native_after_sha": "309d4c9aaf97834811ec8d5fb9b535644380a72492a1f9f9c015f3477a9aa518",
+  "negative_cases": [
+    {
+      "case": "root_path",
+      "status": "PASS",
+      "rejection": "Root contents clearing is forbidden",
+      "complete_document_equal": true
+    },
+    {
+      "case": "foreign_face",
+      "status": "PASS",
+      "rejection": "Face IDs must belong directly to the approved owned leaf",
+      "complete_document_equal": true
+    },
+    {
+      "case": "non_face_id",
+      "status": "PASS",
+      "rejection": "Face IDs must belong directly to the approved owned leaf",
+      "complete_document_equal": true
+    },
+    {
+      "case": "duplicate_face_ids",
+      "status": "PASS",
+      "rejection": "Provide 1..256 distinct owned face IDs",
+      "complete_document_equal": true
+    },
+    {
+      "case": "empty_ids",
+      "status": "PASS",
+      "rejection": "Provide 1..256 distinct owned face IDs",
+      "complete_document_equal": true
+    },
+    {
+      "case": "missing_one_shared_occurrence",
+      "status": "PASS",
+      "rejection": "Shared definition occurrence lacks exact approval: ENVELOPE_OUTER/SOUTH_BAY_1/GLASS",
+      "complete_document_equal": true
+    }
+  ],
+  "scope": "Safety-copy typed host helper; target Face lifecycle may change target identity/winding, actual protected graph remains exact and native aperture area/inner-loop checked. Not website UX success or model-quality PASS"
+}

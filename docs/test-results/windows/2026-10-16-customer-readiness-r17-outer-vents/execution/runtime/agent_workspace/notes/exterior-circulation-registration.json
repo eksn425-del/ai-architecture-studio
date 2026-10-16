@@ -1,0 +1,1169 @@
+{
+  "status": "ACTIVE_NATIVE_VERIFIED_R11",
+  "root_pid": 20606,
+  "expected_start_revision": 12,
+  "existing_targets_r10_native": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      "pid": 41255,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          -3967.5,
+          -6217.5,
+          7040
+        ],
+        [
+          17.5,
+          26217.5,
+          8314.999999999998
+        ]
+      ],
+      "child_groups": 10,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L3"
+      ],
+      "pid": 41287,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          -3967.5,
+          23000,
+          10640
+        ],
+        [
+          17.5,
+          26217.5,
+          11914.999999999998
+        ]
+      ],
+      "child_groups": 5,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE3"
+      ],
+      "pid": 28107,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          50000,
+          0,
+          3450
+        ],
+        [
+          54000,
+          20000,
+          3600
+        ]
+      ],
+      "child_groups": 2,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE3"
+      ],
+      "pid": 30991,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          50000,
+          0,
+          7050.000000000001
+        ],
+        [
+          54000,
+          20000,
+          7200.000000000001
+        ]
+      ],
+      "child_groups": 2,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE3"
+      ],
+      "pid": 33875,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          50000,
+          0,
+          10650.000000000002
+        ],
+        [
+          54000,
+          20000,
+          10800.000000000002
+        ]
+      ],
+      "child_groups": 2,
+      "own_faces": 0
+    }
+  ],
+  "continuity_proof": "r11 enclosure protected entire CIRCULATION_EXTERNAL/INTERNAL exactly; verify fresh identities/absence immediately before activation.",
+  "new_exact_leaves": [
+    [
+      "CIRCULATION_INTERNAL",
+      "END_STAIR_COMPLETION"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "REMOTE_END_EDGE_GUARDS"
+    ]
+  ],
+  "actual_remote_tread_layout": "Existing source Ruby creates three24-tread runs at x50500..52700, y1000..7240, rise150mm, going260mm, z0/3600/7200. Read actual native transforms and endpoints before adding. Existing gallery widthx50000..54000; keep clear routes past any new stair slot.",
+  "actual_new_remote_door": "r11 new lower east end portals y7600..9600 at each z0/3600/7200, plus y15200..17400 at upper levels. These are source-based inferred entrance subdivisions, retain and connect supported landings.",
+  "ground_level": "Read actual site top and current first tread/base; do not leave approach floating or invent an unconnected pad.",
+  "upper_platforms": "Actual outer glass y-4000/24000, current upper pad stubs extend to-6200/26200. Preserved RAMP2/3 current ends y-3000/23000; existing inside flat landing strips are needed. Remove unsupported outside residue, retain real inside route/gates and actual mirrored transforms.",
+  "guard_style": "Adjacent source03 fine pale mesh, inferred wire/pitch. Existing new small-hole guard is not this task.",
+  "all_approved_paths": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z3600_SIDE3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE3"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "END_STAIR_COMPLETION"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "REMOTE_END_EDGE_GUARDS"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE0",
+      "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE1",
+      "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2",
+      "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE0",
+      "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE1",
+      "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE2",
+      "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_4"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_5"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_6"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_7"
+    ]
+  ],
+  "mesh_targets_from_actual_native_r10": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE0",
+      "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE1",
+      "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2",
+      "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE0",
+      "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE1",
+      "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE2",
+      "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_4"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_5"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_6"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_7"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ]
+  ],
+  "current_closure": "r11 protects entire original circulation; r12 modifies only two new west end door leaves. Actual33targets/2absences must be re-verified before activation.",
+  "fine_mesh_inferred": "Estimate mesh pitch/wire from original03; genuine transparent wire construction with reusable prototypes, not opacity texture. Preserve real gate gaps/return joins. Use actual existing local/world transforms of mirrored ramp rail groups; avoid double mirroring.",
+  "actual_target_verification": {
+    "revision": 12,
+    "root_pid": 20606,
+    "geometry_writes": 0,
+    "targets": [
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L2"
+        ],
+        "pid": 41255,
+        "bounds_mm": [
+          [
+            -3967.5,
+            -6217.5,
+            7040
+          ],
+          [
+            17.5,
+            26217.5,
+            8314.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L3"
+        ],
+        "pid": 41287,
+        "bounds_mm": [
+          [
+            -3967.5,
+            23000,
+            10640
+          ],
+          [
+            17.5,
+            26217.5,
+            11914.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE3"
+        ],
+        "pid": 28107,
+        "bounds_mm": [
+          [
+            50000,
+            0,
+            3450
+          ],
+          [
+            54000,
+            20000,
+            3600
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE3"
+        ],
+        "pid": 30991,
+        "bounds_mm": [
+          [
+            50000,
+            0,
+            7050.000000000001
+          ],
+          [
+            54000,
+            20000,
+            7200.000000000001
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE3"
+        ],
+        "pid": 33875,
+        "bounds_mm": [
+          [
+            50000,
+            0,
+            10650.000000000002
+          ],
+          [
+            54000,
+            20000,
+            10800.000000000002
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_INTERNAL",
+          "END_STAIR_COMPLETION"
+        ],
+        "absent": true,
+        "parent_pid": 45400
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "REMOTE_END_EDGE_GUARDS"
+        ],
+        "absent": true,
+        "parent_pid": 28007
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_SOUTH_Z3600"
+        ],
+        "pid": 28139,
+        "bounds_mm": [
+          [
+            -4052.5,
+            -4017.5000000000005,
+            3600
+          ],
+          [
+            54017.49999999999,
+            -3947.4999999999995,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_NORTH_Z3600"
+        ],
+        "pid": 29517,
+        "bounds_mm": [
+          [
+            -4052.5,
+            23982.5,
+            3600
+          ],
+          [
+            54017.49999999999,
+            24052.5,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE0",
+          "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+        ],
+        "pid": 88349,
+        "bounds_mm": [
+          [
+            -1667.5000000000002,
+            -3017.5,
+            7200
+          ],
+          [
+            -1632.5000000000002,
+            17.5,
+            8314.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE1",
+          "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+        ],
+        "pid": 88639,
+        "bounds_mm": [
+          [
+            -1667.5000000000002,
+            19982.5,
+            7200
+          ],
+          [
+            -1632.5000000000002,
+            23017.499999999996,
+            8314.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE2",
+          "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+        ],
+        "pid": 88929,
+        "bounds_mm": [
+          [
+            -1667.5000000000002,
+            -17.5,
+            7200
+          ],
+          [
+            -1632.5000000000002,
+            20017.5,
+            8314.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_SOUTH_Z7200"
+        ],
+        "pid": 31023,
+        "bounds_mm": [
+          [
+            -4052.5,
+            -4017.5000000000005,
+            7200
+          ],
+          [
+            54017.49999999999,
+            -3947.4999999999995,
+            8314.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_NORTH_Z7200"
+        ],
+        "pid": 32401,
+        "bounds_mm": [
+          [
+            -4052.5,
+            23982.5,
+            7200
+          ],
+          [
+            54017.49999999999,
+            24052.5,
+            8314.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+        ],
+        "pid": 89667,
+        "bounds_mm": [
+          [
+            -1667.5000000000002,
+            -3017.5,
+            10800
+          ],
+          [
+            -1632.5000000000002,
+            17.5,
+            11914.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE1",
+          "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+        ],
+        "pid": 89957,
+        "bounds_mm": [
+          [
+            -1667.5000000000002,
+            19982.5,
+            10800
+          ],
+          [
+            -1632.5000000000002,
+            23017.499999999996,
+            11914.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE2",
+          "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+        ],
+        "pid": 90247,
+        "bounds_mm": [
+          [
+            -1667.5000000000002,
+            -17.5,
+            10800
+          ],
+          [
+            -1632.5000000000002,
+            20017.5,
+            11914.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_SOUTH_Z10800"
+        ],
+        "pid": 33907,
+        "bounds_mm": [
+          [
+            -4017.5000000000005,
+            -4017.5000000000005,
+            10800
+          ],
+          [
+            54017.49999999999,
+            -3982.4999999999995,
+            11914.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_NORTH_Z10800"
+        ],
+        "pid": 35285,
+        "bounds_mm": [
+          [
+            -4052.5,
+            23982.5,
+            10800
+          ],
+          [
+            54017.49999999999,
+            24052.5,
+            11914.999999999998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "RAMP_1_OUTER"
+        ],
+        "pid": 36695,
+        "bounds_mm": [
+          [
+            -8517.5,
+            -4017.4999999999986,
+            0
+          ],
+          [
+            -8482.5,
+            24017.5,
+            4714.877536629611
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "RAMP_1_INNER"
+        ],
+        "pid": 37433,
+        "bounds_mm": [
+          [
+            -6317.500000000001,
+            -4017.4999999999986,
+            0
+          ],
+          [
+            -6282.5,
+            24017.5,
+            4714.877536629611
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "RAMP_2_OUTER"
+        ],
+        "pid": 38203,
+        "bounds_mm": [
+          [
+            -3917.5000000000005,
+            -3016.250000000001,
+            3600
+          ],
+          [
+            -3882.5,
+            23016.25,
+            8314.877536629612
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "RAMP_2_INNER"
+        ],
+        "pid": 38941,
+        "bounds_mm": [
+          [
+            -1717.5000000000007,
+            -3016.250000000001,
+            3600
+          ],
+          [
+            -1682.5,
+            23016.25,
+            8314.877536629612
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "RAMP_3_OUTER"
+        ],
+        "pid": 39711,
+        "bounds_mm": [
+          [
+            -3917.5000000000005,
+            -3016.25,
+            7200
+          ],
+          [
+            -3882.5,
+            23016.250000000004,
+            11914.87753662961
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "RAMP_3_INNER"
+        ],
+        "pid": 40449,
+        "bounds_mm": [
+          [
+            -1717.5,
+            -3016.25,
+            7200
+          ],
+          [
+            -1682.5,
+            23016.250000000004,
+            11914.87753662961
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_0"
+        ],
+        "pid": 80791,
+        "bounds_mm": [
+          [
+            -3958.132352941177,
+            -6217.5,
+            3600
+          ],
+          [
+            8.132352941176471,
+            -6182.499999999999,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_1"
+        ],
+        "pid": 81145,
+        "bounds_mm": [
+          [
+            -3967.500000000001,
+            -6217.5,
+            3600
+          ],
+          [
+            -3932.5,
+            -3982.4999999999995,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_2"
+        ],
+        "pid": 81339,
+        "bounds_mm": [
+          [
+            -3967.5,
+            -4007.9545454545455,
+            3600
+          ],
+          [
+            -3932.4999999999995,
+            -2992.045454545454,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_3"
+        ],
+        "pid": 81533,
+        "bounds_mm": [
+          [
+            -17.5,
+            -6217.5,
+            3600
+          ],
+          [
+            17.5,
+            -3982.4999999999995,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_4"
+        ],
+        "pid": 81727,
+        "bounds_mm": [
+          [
+            -8517.5,
+            26182.500000000004,
+            3600
+          ],
+          [
+            17.5,
+            26217.5,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_5"
+        ],
+        "pid": 82081,
+        "bounds_mm": [
+          [
+            -8517.5,
+            23982.5,
+            3600
+          ],
+          [
+            -8482.5,
+            26217.5,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_6"
+        ],
+        "pid": 82275,
+        "bounds_mm": [
+          [
+            -6317.500000000001,
+            23982.5,
+            3600
+          ],
+          [
+            -3982.4999999999995,
+            24017.5,
+            4715
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "LANDINGS",
+          "LANDING_L1",
+          "LANDING_L1_GUARD_7"
+        ],
+        "pid": 82469,
+        "bounds_mm": [
+          [
+            -17.5,
+            23982.5,
+            3600
+          ],
+          [
+            17.5,
+            26217.5,
+            4715
+          ]
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "native_equality": {
+    "contract": "KStudioNativeStableGeometry/1",
+    "precision": {
+      "face_normal_decimals": 12,
+      "affine_linear_decimals": 12,
+      "coordinates_mm": "exact native doubles",
+      "translations_mm": "exact native doubles",
+      "all_other_fields": "exact"
+    },
+    "status": "PASS",
+    "before_sha256": "a917ea49d5c7557efa19c7f1a0f8661bc3e3555ac55740abf9e9ded6cf9e07b8",
+    "after_sha256": "a917ea49d5c7557efa19c7f1a0f8661bc3e3555ac55740abf9e9ded6cf9e07b8",
+    "raw_document_sha_equal": true,
+    "raw_strict_verdict_overridden": false,
+    "source_fidelity": "NOT_ASSESSED",
+    "blank_program_replay": "NOT_ASSESSED"
+  },
+  "active_policy_bytes_restored": true,
+  "production_geometry_writes": 0
+}

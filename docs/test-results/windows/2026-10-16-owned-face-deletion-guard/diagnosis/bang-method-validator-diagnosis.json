@@ -1,0 +1,23 @@
+{
+  "geometry_writes": 0,
+  "actual_static_reproduction": [
+    {
+      "source": "root.erase!",
+      "blocked": false
+    },
+    {
+      "source": "face.erase!",
+      "blocked": false
+    },
+    {
+      "source": "owned.clear!",
+      "blocked": false
+    },
+    {
+      "source": "owned.erase_entities([])",
+      "blocked": true
+    }
+  ],
+  "actual_accepted_r17_source_sha": "ca18a8fc26e521d7edb820727535d0f0d67a2a0ebeb8b3d776437937da4f2454",
+  "context": "Actual17 used face.erase! within fully graph-guarded approved leaf. Complete native external-scope protection passed. Source blacklist bang methods unexpectedly have a trailing word-boundary mismatch; repair with explicitly scoped owned-face helper, not broad raw deletion."
+}

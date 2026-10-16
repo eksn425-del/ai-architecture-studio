@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "expected_revision": 0,
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-20261013-144354.skp",
+  "guid_before": "396321ea-139f-49bd-a407-b06949e5b628",
+  "status": "aborted",
+  "at": "2026-10-13T06:50:55Z",
+  "scenes_before": {
+    "available": true,
+    "pages": [
+
+    ]
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "objects_total": 0,
+    "truncated": false,
+    "objects": [
+
+    ]
+  },
+  "error": "ArgumentError: All Entities must have a common parent",
+  "backtrace": [
+    "glass_curved_roof.rb:118:in `add_group'",
+    "glass_curved_roof.rb:118:in `block in <main>'",
+    "C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-ce5bb0d1bc8d41f980ba5206f2254711.rb:22:in `eval'",
+    "C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-ce5bb0d1bc8d41f980ba5206f2254711.rb:22:in `block in <main>'",
+    "E:/K AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:114:in `run'",
+    "C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-ce5bb0d1bc8d41f980ba5206f2254711.rb:13:in `<main>'",
+    "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'",
+    "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'",
+    "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'",
+    "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'"
+  ],
+  "scenes_after": {
+    "available": true,
+    "pages": [
+
+    ]
+  },
+  "scene_state_requires_review": true
+}

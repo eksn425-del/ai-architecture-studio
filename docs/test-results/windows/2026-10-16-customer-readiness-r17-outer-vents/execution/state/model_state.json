@@ -1,0 +1,62 @@
+{
+  "project_id": "architecture-project-4f0e4",
+  "model_path": "outputs/model/agent-checkpoint-2abcfaff99d2.skp",
+  "objects": [],
+  "last_capture": "outputs/renders/agent-75f5ac86b4.png",
+  "last_operation": {
+    "action": "native_agent_turn",
+    "tool_calls": [
+      {
+        "server": "codex_native",
+        "tool": "commandExecution"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_get_model_context"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_inspect_owned"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_capture_canonical_view"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_set_camera"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_export_view_image"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_submit_visual_review"
+      },
+      {
+        "server": "codex_native",
+        "tool": "fileChange"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_run_workspace_ruby"
+      }
+    ],
+    "readback": {
+      "model_name": "blank-disposable-customer-readiness-r4-20261015",
+      "units": "mm",
+      "entity_count": 1,
+      "selection_count": 0
+    },
+    "delivery_status": "UNVERIFIED_NATIVE_REOPEN",
+    "delivery_receipt": "runtime/native_delivery_checkpoint.json"
+  },
+  "connector_readback": {
+    "model_name": "blank-disposable-customer-readiness-r4-20261015",
+    "units": "mm",
+    "entity_count": 1,
+    "selection_count": 0
+  },
+  "status": "agentic"
+}

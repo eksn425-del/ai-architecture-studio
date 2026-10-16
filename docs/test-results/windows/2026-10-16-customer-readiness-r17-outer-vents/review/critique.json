@@ -1,0 +1,730 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+    "sources": [
+      {
+        "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "原图1，全部面板直接对照",
+        "notes": [
+          "上：坡道短端外观，右屋顶边高于左边，中央下垂；三条坡道投影均向左上升。",
+          "下：实体模型同一短端，确认上述高低及坡道投影；外廊与内框架有深度。"
+        ],
+        "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "原图2，全部面板直接对照",
+        "notes": [
+          "上：场地轴测，长条平面、短跨下垂屋顶沿长向延伸；近短端有坡道。",
+          "下：坡道端与相邻长边模型斜视，验证外廊、平台及多层玻璃；透视不改变端部高低。"
+        ],
+        "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "原图3，全部面板直接对照",
+        "notes": [
+          "上：近地入口侧视，地面坡道接首个架空平台；此角度画面左右不能替代图1短端左右。",
+          "下：长边外廊底部，格栅、横梁、混凝土柱与内玻璃分离。"
+        ],
+        "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+        "kind": "interior_image",
+        "provenance": "observed",
+        "role": "原图4，全部面板直接对照",
+        "notes": [
+          "上：顶层木色曲面顶棚、圆洞护栏、帘幕；圆洞不等同于中间层大挑空。",
+          "下：双层高工作空间、螺旋梯、局部中间楼板及梁柱；确有跨层空间。"
+        ],
+        "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "kind": "floorplan_image",
+        "provenance": "observed",
+        "role": "原图5，全部面板直接对照",
+        "notes": [
+          "上：透视横剖，地面、完整下层、局部中间层、顶层；剖面左侧挑空、右侧中间楼板。其左右须经端部标志对齐。",
+          "下：底层平面；长条柱网、内部交通、远端楼梯与服务核；无可读尺寸。"
+        ],
+        "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+        "kind": "document",
+        "provenance": "observed",
+        "role": "原图6，全部面板直接对照",
+        "notes": [
+          "自上至下四幅：外钢架与玻璃缓冲区；木质加层与下垂屋顶；保留旧框架及局部楼板；旧构件再利用示意。文字是设计说明，不是实测或当前模型证明。"
+        ],
+        "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+        "kind": "floorplan_image",
+        "provenance": "observed",
+        "role": "原图7，全部面板直接对照",
+        "notes": [
+          "上：开放顶层平面，圆洞与外环廊。",
+          "中：近坡道端半部大挑空，另一侧及远端保留局部楼板，远端螺旋梯与服务核。",
+          "下：较完整下层平面、分隔房间与梯核。上/中/下暂对应L3/L2/L1，图中无清晰层名。"
+        ],
+        "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+        "kind": "document",
+        "provenance": "observed",
+        "role": "原图8，全部面板直接对照",
+        "notes": [
+          "上：气候概念剖面，支持屋顶中垂、双层围护及大挑空；箭头非实体构件。",
+          "下：结构横剖，四个使用标高、局部中间楼板；右边屋顶较高。不能单凭此图断定真实方位。"
+        ],
+        "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+        ],
+        "notes": [
+          "坡道短端，右高左低；以此定义左右。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+          "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+        ],
+        "notes": [
+          "远端服务核和端梯见平面，无独立正立面。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+          "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+          "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+        ],
+        "notes": [
+          "长边外廊可见，但照片所示长边与+Y侧对应仍待原生相机/地标核验。"
+        ]
+      },
+      "right": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+          "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+          "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+        ],
+        "notes": [
+          "另一长边关系由平剖面约束，不能直接镜像所有细节。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+          "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+          "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+          "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+          "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+        ],
+        "notes": [
+          "横跨下垂，边缘不等高；实际曲率、最低点位置未量测。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+        ],
+        "notes": [
+          "相邻短长边及外廊深度可见。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": true,
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+      ],
+      "levels": [
+        "L0：图5下，暂定",
+        "L1/L2局部/L3：图7下/中/上，暂定"
+      ],
+      "notes": [
+        "几何关系可见；层名、尺寸与精确端点不可读。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "无DWG或尺寸CAD。"
+      ]
+    },
+    "interior": {
+      "provided": true,
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+        "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+      ],
+      "spaces": [
+        "曲面顶层大厅",
+        "下层双层高工作空间",
+        "局部中间层",
+        "圆洞及螺旋梯"
+      ],
+      "notes": [
+        "挑空与圆洞分别表达，不能假定所有洞口都贯穿四层。"
+      ]
+    },
+    "scale_anchors": [],
+    "hard_constraints": [
+      "坡道端观察：屋顶右边高于左边，中央下垂，沿建筑长向延伸。",
+      "旧框架、上加木质空间、内外两层围护及深外廊分别表达。",
+      "L2为局部楼板，L1至L3之间保留大挑空；圆洞另行定位。",
+      "外坡道、转接平台、环廊和内楼梯不能互相替代。",
+      "本轮仅绘制草图与更新计划，不运行或修改SketchUp。"
+    ],
+    "assumptions": [
+      "拟定观察者位于坡道短端X<0，朝+X看；+Z向上，画面左为+Y（Y=20000），画面右为-Y（Y=0）。X沿长向；没有真实北向。原平面图左端对应草图下端，原图上边对应草图左边。此为源图与草图约定，当前模型变换未重新原生核验。",
+      "层号L0/L1/L2/L3是工作命名，暂对应图5下图及图7下/中/上图；没有可读原层名。",
+      "地面起点在坡道端画面右侧，各段向左上升；完整连续通路拟由环廊回到右侧下一段起点，未有连续路径图证实具体绕行边。",
+      "50×20m及0/3.6/7.2/10.8m仅保留旧估值，不是用户提供或图纸测量。",
+      "未重新核验模型根、深层变换、下载及重开几何；历史修正是否提交、保存前屋顶状态均不能据本轮证明。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    },
+    "user_confirmed": [
+      "用户指出从坡道端看屋顶右边更高；保留现有曲面，坡道及其他部分先不动。"
+    ]
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 162672,
+    "input_tokens": 65784,
+    "output_tokens": 1330,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE 1–2 establish the ramp-facing short end and adjoining long elevation: a recessed lower frame, projecting glazed buffer galleries and an asymmetric sagging roof. SOURCE 3 shows the ground-level glazing and gallery underside; SOURCE 4 shows both the curved timber hall ceiling and the lower interior structure. SOURCE 5 and 8 provide transverse sections, SOURCE 6 separates the structural layers, and SOURCE 7 supplies three floor plans. CURRENT broadly reproduces the exterior arrangement, but the lower interior ceiling assembly and major interior finishes remain visibly different. Uncut CURRENT views cannot verify the sectional floor arrangement; exact dimensions and concealed joints remain uncertain.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "lower",
+      "problem": "SOURCE 4’s lower panel shows timber ceiling infill between concrete beams, with shallow V-shaped steel members beneath. CURRENT 23 instead exposes extensive open beam grids and views into the storey above, without that ceiling assembly.",
+      "action": "Locally add the source-backed ceiling infill and shallow steel members over the occupied lower bays, retaining only the stair openings and double-height voids supported by SOURCE 5 and 7. Connect member ends to their supporting beams."
+    },
+    {
+      "priority": 2,
+      "view": "source4",
+      "problem": "SOURCE 4 shows a pale timber ceiling and light floor surfaces. CURRENT 18 and 23 have dark gray floors, while the curved ceiling reads as dark, densely striped boards. These large material zones substantially change the observed interior.",
+      "action": "Lighten the occupied floor finishes and curved timber soffit to match SOURCE 4; reduce the prominence of board seams without changing the curved ceiling geometry."
+    }
+  ],
+  "keep": [
+    "Asymmetric concave short-end roof profile, with one edge higher than the other.",
+    "Three descending ramp flights across the short end.",
+    "Setback between the lower frame and projecting upper glazed enclosure."
+  ],
+  "model_revisions": {
+    "glass_curved_roof": 17
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-61d6f19c84.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 17
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          23.5,
+          -179.4,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-362d680c0d.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 17
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          23.5,
+          203.4,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-b36874f332.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 17
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          -182.4,
+          12.0,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-f76ae9c1a4.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 17
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          229.4,
+          12.0,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-859f2e5281.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 17
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          23.5,
+          12.0,
+          187.11020000000002
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.1051
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-2fb4ddaa61.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 17
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          191.912,
+          -141.912,
+          98.5022
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-4415be7328.png",
+      "label": "Source1 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-eebffb189d.png",
+      "label": "Source2 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-0723ff977b.png",
+      "label": "Source3 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-687a87257d.png",
+      "label": "Source4 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-e9f5623017.png",
+      "label": "Source5 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-890375ef14.png",
+      "label": "Source6 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-5aa7cde8b2.png",
+      "label": "Source7 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-5dbd131667.png",
+      "label": "Source8 registered camera; section/plan stays uncut and occluded",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-63016fc669.png",
+      "label": "Lower interior preserved",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-189ace459d.png",
+      "label": "Long eave general",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-1ddff5c0ca.png",
+      "label": "South hinge sash stay and backing aperture",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-bc88f554be.png",
+      "label": "North hinge sash stay and backing aperture",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-a70b5f1301.png",
+      "label": "South inside aperture outward",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-1a82987680.png",
+      "label": "Preserved west door/ramp bay",
+      "model_revisions": {
+        "glass_curved_roof": 17
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": true,
+    "mode": "multi_view_reconstruction",
+    "observed_sources": [
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png"
+    ],
+    "paired_sources": [
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png"
+    ]
+  },
+  "writer_verifications": {
+    "glass_curved_roof": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 20606,
+          "actual": 20606
+        },
+        {
+          "check": "revision",
+          "expected": 17,
+          "actual": 17
+        },
+        {
+          "check": "objects_total",
+          "expected": 27,
+          "actual": 27
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -12000.0,
+              -9000.0,
+              -500.0
+            ],
+            "max": [
+              59000.0,
+              33000.0,
+              16710.2
+            ],
+            "size": [
+              71000.0,
+              42000.0,
+              17210.2
+            ]
+          },
+          "actual": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              16710.2
+            ],
+            "size": [
+              71000,
+              42000,
+              17210.2
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+    "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+    "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+    "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+    "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+    "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+    "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+    "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+    "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+    "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+    "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+    "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+    "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+    "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+    "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+    "outputs/renders/agent-view-0723ff977b.evidence.json": "0ebd8679394ab607788d9703aa48c5e9f32ff247a3d0ea3cfa559203fcef112c",
+    "outputs/renders/agent-view-0723ff977b.png": "4240d861227e9819a95ffba99b339f03c7374b98d8aee7c54735f2f03bc36cc1",
+    "outputs/renders/agent-view-189ace459d.evidence.json": "886b1e6b3f06227cd539a9c3dd7dae470b4c14f8e4a0b578e1daa8532beeec7c",
+    "outputs/renders/agent-view-189ace459d.png": "b9388af4bce916b8ab83146bd6424b74400f87533ed1b4d6d74e3cbe25e84572",
+    "outputs/renders/agent-view-1a82987680.evidence.json": "f0d622dc60453e84c717e8ee54346797ccd725f8fae6773610c0c15fb8a14b47",
+    "outputs/renders/agent-view-1a82987680.png": "661e2e81e4142ece66ceacdb230505905c0de35ba11bd521f174f816dd470430",
+    "outputs/renders/agent-view-1ddff5c0ca.evidence.json": "4eae9e790cec69b074bffe3486285b38e8ae0d72b0889f915077cb1f2eb4cab7",
+    "outputs/renders/agent-view-1ddff5c0ca.png": "924f43f2b7044f34c18737eeda0338cae65c6cc335569dc145f40f30e1054627",
+    "outputs/renders/agent-view-4415be7328.evidence.json": "af5aa8cabc071d6104ba5f81a379fa71f2ec3a0a574d7d11b4952b60c45145a2",
+    "outputs/renders/agent-view-4415be7328.png": "df534bc0b82127579a23883389fe392b712707b8d35dc6be6ab97c1d9797f792",
+    "outputs/renders/agent-view-5aa7cde8b2.evidence.json": "9e3547a9fb812d189cbf1ad34a57d2e650ccd6c4f42bfc34888e889f7c95a265",
+    "outputs/renders/agent-view-5aa7cde8b2.png": "5be3479520bdc99c444277439b25c15cee1db6d6b45df67cbeca86620e72d8cb",
+    "outputs/renders/agent-view-5dbd131667.evidence.json": "6b9ca81dccd73a834513f5a484151906ced3df861755c25023cf34232361c04e",
+    "outputs/renders/agent-view-5dbd131667.png": "a4746efd200ecb85cc225ce16c477da7794599cbb662bf942cb9aaaf46b7b6c0",
+    "outputs/renders/agent-view-63016fc669.evidence.json": "d68dbc130995283071e7b2c326b692e0a7f3474ffa9f24258af2befe228d7cee",
+    "outputs/renders/agent-view-63016fc669.png": "af2cc74a3fab4ca4c572f3f1dbe79f446da3432bc88e7a1e1b8eb017fcbff09d",
+    "outputs/renders/agent-view-687a87257d.evidence.json": "802b5ae91f676df9692dc091b09760c199344d0b8c992bbe627e3f03e6969f86",
+    "outputs/renders/agent-view-687a87257d.png": "67858ac6e652179cb90217346161b7e758443c1684d18c479049e01f6a3caf4b",
+    "outputs/renders/agent-view-890375ef14.evidence.json": "721ceb01c766ecd7e63eb8a230d0cb59aff0994caa1baad019379bcee831cedd",
+    "outputs/renders/agent-view-890375ef14.png": "234dbc4aa807050d880bdebd024ab7e99307c8304d57ad0b840d4fc5388b476d",
+    "outputs/renders/agent-view-a70b5f1301.evidence.json": "d2c77489989bac600e15d49d246f6b7a20bf33070319f1bde8400fae4c194069",
+    "outputs/renders/agent-view-a70b5f1301.png": "3fe97414240eabaf2983b011cbaff2b151f6f697aed2d60d38a011c9c6d7bb15",
+    "outputs/renders/agent-view-bc88f554be.evidence.json": "65cccd13c743cd24b321b99c2b746c56f0ee36957b33d21585e464bd5b16af00",
+    "outputs/renders/agent-view-bc88f554be.png": "5e6495736441c8505bfc78d5d0838c8057b94b3a8c58cc05b48abc4891aa8b5d",
+    "outputs/renders/agent-view-e9f5623017.evidence.json": "b6215d73153b1579c077344002ece9fffd839df1229f3992b03738b214747af8",
+    "outputs/renders/agent-view-e9f5623017.png": "62e53c61c17998545966aad7415f000fb8ddd9b0ecc6ff3d9782af22637c45c8",
+    "outputs/renders/agent-view-eebffb189d.evidence.json": "fe1bd0a58e4ca0d3bec560c5f4a2bc72c7a6151b977202f6935e6844017af514",
+    "outputs/renders/agent-view-eebffb189d.png": "072f4a7794c8ea8055320cc52a585df05424b3b0b61c1f4c45007b34a071490a",
+    "outputs/renders/agent-view-front-61d6f19c84.evidence.json": "fb3a953d172447d4d920cd8092680ff90b9faea0125802a22a472e0763f1fbc2",
+    "outputs/renders/agent-view-front-61d6f19c84.png": "121d55bae58af16f862ad659aa9e750951e1b675a11bf9f277663ab0bf341b3a",
+    "outputs/renders/agent-view-left-b36874f332.evidence.json": "16f63be9187e7fc51968bba3ef9a967f975d3e2baed8707ce6bef091c41050ca",
+    "outputs/renders/agent-view-left-b36874f332.png": "ad62712a006ed7144f0b04a32e6677f7a43356b3ff4881307bc475f581877cca",
+    "outputs/renders/agent-view-oblique-2fb4ddaa61.evidence.json": "d68580f3fd87753700ceba71d0b4f05f5637ebcf87fbf820dccf1ca5a5e73206",
+    "outputs/renders/agent-view-oblique-2fb4ddaa61.png": "ea28ad99fff828b6565087130fda89dfc658c7f207a8f899ca220f2f95e737eb",
+    "outputs/renders/agent-view-rear-362d680c0d.evidence.json": "73ab1cc25e333f782187015dad336f199ed6b5b2503e94d79a542553b52c7744",
+    "outputs/renders/agent-view-rear-362d680c0d.png": "3f5ee7522516aa73abd0d2b608c655358f6be937534ed9616be0f62798092e8b",
+    "outputs/renders/agent-view-right-f76ae9c1a4.evidence.json": "48b926e040bf619c0bba104a6211ecee6d3a6c09e91cf29ae65086fb095bc669",
+    "outputs/renders/agent-view-right-f76ae9c1a4.png": "742b7e90ad27bc8840559b1768d93757997a0798e6b95349827784d46f5fea05",
+    "outputs/renders/agent-view-roof-859f2e5281.evidence.json": "62747635d7c945940c159a73858515dc5fa3631f192bb72619e10597031c3156",
+    "outputs/renders/agent-view-roof-859f2e5281.png": "d719d833d69a1b2598295d4733276aba76517418db362e54da21d75bc3ed9787",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "962252463852e4ca0264d99444a897b41b996b46fed151913a4aa25c9c7c685b"
+  }
+}

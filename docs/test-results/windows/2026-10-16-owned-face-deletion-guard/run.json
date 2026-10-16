@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-owned-face-deletion-guard",
+  "status": "PASS",
+  "geometry_committed": false,
+  "source_case": "Same eight-source case actual saved17, isolated native safety copy only",
+  "base_commit": "00ebd064105eef4fbd07d57024e770aa17227278",
+  "model": {
+    "actual": "NOT_RUN",
+    "reasoning_effort": "NOT_RUN",
+    "runtime": "No modeling inference; fixed host native helper fixture"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "production_revision": 17
+  },
+  "qa": {
+    "static_validator": "Rawroot/face.erase! and clear! now rejected; typed scoped face helper injected",
+    "code_regressions": "88relatedPythonPASS",
+    "native_safety_copy": "One actual shared38-face deletion aperture positive,6negative cases refused; complete negative rollback equal",
+    "production_unchanged": "All3actual restore checksPASS",
+    "source_fidelity": "NOT_ASSESSED",
+    "website_typed_helper_use": "NOT_RUN",
+    "customer_delivery": "NOT_READY"
+  },
+  "missing_model_images_reason": "No new customer model revision generated. Safety-copy temporary faces only, production17 unchanged; real17screenshots/model remain in sibling r17 evidence. Fixed helper tests do not stand in for source or website UX acceptance.",
+  "paid_api_calls": 0
+}

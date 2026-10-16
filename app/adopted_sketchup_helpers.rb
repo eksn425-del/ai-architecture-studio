@@ -91,7 +91,7 @@ module KStudioProfessionalHelpers
 
   # Preserve the declared container and only replace its owned contents.
   # Reuse the existing exact-path resolver and its locked/shared checks.
-  def clear_named_owned_contents(root, path, approved_paths)
+  def owned_contents_target(root, path, approved_paths)
     raise 'Root contents clearing is forbidden' unless path.is_a?(Array) && !path.empty?
     raise 'Contents clearing requires declared edit scope' unless approved_paths.is_a?(Array) &&
       approved_paths.any? { |approved| path.take(approved.length) == approved }
@@ -109,10 +109,30 @@ module KStudioProfessionalHelpers
     else
       child = named_owned_group(root, path, true)
     end
+    child
+  end
+
+  def clear_named_owned_contents(root, path, approved_paths)
+    child = owned_contents_target(root, path, approved_paths)
     entities = child.is_a?(Sketchup::Group) ? child.entities : child.definition.entities
     count = entities.length
     entities.erase_entities(entities.to_a) unless count.zero?
     {persistent_id: child.persistent_id, removed_entities: count}
+  end
+
+  # Cut a real aperture without exposing arbitrary entity/root deletion. Face
+  # IDs must resolve directly inside the approved leaf; shared leaves retain
+  # the same all-document exact occurrence proof as contents replacement.
+  def erase_named_owned_faces(root, path, face_pids, approved_paths)
+    raise 'Provide 1..256 distinct owned face IDs' unless face_pids.is_a?(Array) &&
+      (1..256).cover?(face_pids.length) && face_pids.uniq.length == face_pids.length &&
+      face_pids.all? { |pid| pid.is_a?(Integer) && pid > 0 }
+    child = owned_contents_target(root, path, approved_paths)
+    entities = child.is_a?(Sketchup::Group) ? child.entities : child.definition.entities
+    faces = entities.grep(Sketchup::Face).select { |face| face_pids.include?(face.persistent_id) }
+    raise 'Face IDs must belong directly to the approved owned leaf' unless faces.length == face_pids.length
+    entities.erase_entities(faces)
+    {persistent_id: child.persistent_id, removed_face_ids: face_pids}
   end
 
   def inspect_named_owned_group(root, path, offset, limit, deep = false)
