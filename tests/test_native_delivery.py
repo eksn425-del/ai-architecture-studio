@@ -5,8 +5,25 @@ from pathlib import Path
 
 import pytest
 
-from app.native_delivery import record_delivery_checkpoint
+from app.native_delivery import record_delivery_checkpoint, bind_current_checkpoint_download
 from scripts.audit_native_delivery_stages import audit_stages
+
+
+def test_current_download_uses_final_host_save_but_history_and_external_links_stay_fixed():
+    old = "../../outputs/model/agent-checkpoint-df810517c351.skp"
+    new = "outputs/model/agent-checkpoint-cae9fff9c706.skp"
+    reply = f"[下载已保存的第8版 SKP]({old}) [下载修改前模型]({old}) [下载历史文件](https://example.test/outputs/model/agent-checkpoint-df810517c351.skp)"
+    result = bind_current_checkpoint_download(reply, new)
+    assert f"[下载已保存的第8版 SKP](../../{new})" in result
+    assert f"[下载修改前模型]({old})" in result
+    assert "https://example.test/outputs/model/agent-checkpoint-df810517c351.skp" in result
+    assert bind_current_checkpoint_download(result, new) == result
+
+
+@pytest.mark.parametrize('path', ['../outside.skp', '/outputs/model/file.skp', 'inputs/reference/file.skp', 'outputs/model/file.png'])
+def test_download_binding_rejects_non_checkpoint_locations(path):
+    with pytest.raises(ValueError):
+        bind_current_checkpoint_download('result', path)
 
 
 def item(name="ROOF", fingerprint="a", *, count=20, pid=1, children=None):

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-r8-readonly-recovery",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "architecture-project-4f0e4 same eight original whole images, r8/root20606 read-only recovery",
+  "base_commit": "7be8f9b8eb9dba96c0ef813c2de0006474fa6db4",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "project": "architecture-project-4f0e4",
+    "root_pid": 20606,
+    "before_revision": 8,
+    "after_revision": 8
+  },
+  "qa": {
+    "eight_source_independent_review": "COMPLETED; NEEDS_FIX",
+    "geometry_unchanged": "PASS entire doc geometry/material and group PID tree",
+    "final_download_native_delivery": "PASS",
+    "source_fidelity": "FAIL",
+    "strict_blank_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY",
+    "new_download_link_binding": "63offline regression tests PASS; real website NOT_RUN at this checkpoint"
+  },
+  "paid_api_calls": 0
+}

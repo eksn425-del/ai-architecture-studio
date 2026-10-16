@@ -1,0 +1,373 @@
+{
+  "phase": "CURRENT next r7->candidate upper ramp containment; previous ramp/gate/glazing tasks are history",
+  "allowed_paths": [
+    [
+      "RAMPS",
+      "RAMP_2"
+    ],
+    [
+      "RAMPS",
+      "RAMP_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE2"
+    ]
+  ],
+  "status": "PROPOSED_PARAMETERS_NOT_NATIVE_SUCCESS",
+  "source_basis": "SOURCE01/02 upper flights behind outer end glazing; SOURCE07 middle/top plan short-end apron, lower ramp outside. Exact dimensions inferred.",
+  "before_native": {
+    "RAMP_2": {
+      "x_mm": [
+        -6300,
+        -4100
+      ],
+      "y_mm": [
+        -4000,
+        24000
+      ],
+      "z_surface_mm": [
+        3600,
+        7200
+      ]
+    },
+    "RAMP_3": {
+      "x_mm": [
+        -6300,
+        -4100
+      ],
+      "y_mm": [
+        -4000,
+        24000
+      ],
+      "z_surface_mm": [
+        7200,
+        10800
+      ]
+    },
+    "outer_end_glass_x_mm": -4000,
+    "short_end_gallery_x_mm": [
+      -4000,
+      0
+    ]
+  },
+  "proposed": {
+    "upper_flights_x_mm": [
+      -3900,
+      -1700
+    ],
+    "upper_flights_y_mm": [
+      -3000,
+      23000
+    ],
+    "RAMP_2_z_mm": [
+      3600,
+      7200
+    ],
+    "RAMP_3_z_mm": [
+      7200,
+      10800
+    ],
+    "apron_slot_x_mm": [
+      -3950,
+      -1650
+    ],
+    "apron_slot_y_mm": [
+      -3000,
+      23000
+    ],
+    "slot_levels_mm": [
+      7200,
+      10800
+    ],
+    "flat_inside_landings_y_mm": [
+      [
+        -4000,
+        -3000
+      ],
+      [
+        23000,
+        24000
+      ]
+    ],
+    "outside_upper_pad_x_mm": [
+      -3950,
+      0
+    ],
+    "outside_upper_pad_y_mm": [
+      [
+        -6200,
+        -4000
+      ],
+      [
+        24000,
+        26200
+      ]
+    ],
+    "preserve_original_L1_north_pad_and_guards": true,
+    "exact_dimensions": "inferred estimated layout; source/photo intrinsics not calibrated"
+  },
+  "keep_paths_inside_allowed_parent": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_PAD_ADDED_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_4"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_5"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_6"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_7"
+    ]
+  ],
+  "all_other_geometry": "KEEP, especially RAMP1, roof, glass including r7doors, structure, interior floors, distant rails and original L1north arrival pad",
+  "verified_actual_targets": [
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_2"
+      ],
+      "pid": 79027
+    },
+    {
+      "path": [
+        "RAMPS",
+        "RAMP_3"
+      ],
+      "pid": 79055
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      "pid": 38203
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      "pid": 38941
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      "pid": 39711
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      "pid": 40449
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1"
+      ],
+      "pid": 41223
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      "pid": 41255
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L3"
+      ],
+      "pid": 41287
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0"
+      ],
+      "pid": 30895
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1"
+      ],
+      "pid": 30927
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2"
+      ],
+      "pid": 30959
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0"
+      ],
+      "pid": 33779
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1"
+      ],
+      "pid": 33811
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2"
+      ],
+      "pid": 33843
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_PAD_ADDED_0"
+      ],
+      "pid": 80759
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_4"
+      ],
+      "pid": 81727
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_5"
+      ],
+      "pid": 82081
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_6"
+      ],
+      "pid": 82275
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_7"
+      ],
+      "pid": 82469
+    }
+  ],
+  "method": "Use existing guarded native geometry and exact-path safe contents helper. Reuse existing ramp slabs; rebuild only dependent rail/slot parts when necessary. No new engine or full rebuild.",
+  "analytical_checks": {
+    "signed_rise": "+Y, all three existing flights retain correct direction",
+    "stacked_flight_nominal_headroom_mm": 3440,
+    "side_corridor_min_width_mm": 1650,
+    "inside_flat_landing_depth_mm": 1000,
+    "opening_width_mm": 2300,
+    "ramp_width_mm": 2200,
+    "slab_slot_endpoints_match_ramp_caps": true,
+    "no_native_geometry_written": true,
+    "whole_navigation_verdict": "NOT_RUN until real committed candidate native probes"
+  }
+}

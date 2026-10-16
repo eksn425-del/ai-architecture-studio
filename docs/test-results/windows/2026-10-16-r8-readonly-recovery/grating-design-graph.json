@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "units": "m",
+  "sources": [
+    {
+      "id": "ref_01",
+      "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_02",
+      "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_03",
+      "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_04",
+      "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_05",
+      "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_06",
+      "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_07",
+      "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_08",
+      "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+      "provenance": "observed"
+    }
+  ],
+  "objects": [
+    {
+      "id": "gallery_open_grating",
+      "provenance": "inferred",
+      "allowed_paths": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE2"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE3"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE0",
+          "GALLERY_Z7200_SIDE0_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE1",
+          "GALLERY_Z7200_SIDE1_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE2",
+          "GALLERY_Z7200_SIDE2_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE3"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_SOUTH_FLAT"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE1",
+          "GALLERY_Z10800_SIDE1_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE2",
+          "GALLERY_Z10800_SIDE2_RETURN_STRIP"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE3"
+        ]
+      ],
+      "dimensions": {
+        "clear_cell_pitch_proposal": {
+          "value": 0.04,
+          "unit": "m",
+          "provenance": "inferred",
+          "confidence": 0.4,
+          "evidence_refs": [
+            "ref_03"
+          ]
+        }
+      }
+    }
+  ],
+  "constraints": {
+    "status": "OFFLINE_DRAFT_NOT_ACTIVE_WRITE_AUTHORIZATION",
+    "observed": "Original whole source03 lower panel shows light passing through gallery underside open grating; current native thirteen selected decks are opaque closed plates. Mesh guards are separate.",
+    "inferred": "Grid pitch/bar dimensions and unseen framing not measured. Match open/light construction using reusable editable modules, retain top levels, outer deck outlines, current ramp slots and receiving flats.",
+    "allowed_target_identity": [
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE0"
+        ],
+        "pid": 28011
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE1"
+        ],
+        "pid": 28043
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE2"
+        ],
+        "pid": 28075
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z3600_SIDE3"
+        ],
+        "pid": 28107
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE0",
+          "GALLERY_Z7200_SIDE0_RETURN_STRIP"
+        ],
+        "pid": 88317
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE1",
+          "GALLERY_Z7200_SIDE1_RETURN_STRIP"
+        ],
+        "pid": 88607
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE2",
+          "GALLERY_Z7200_SIDE2_RETURN_STRIP"
+        ],
+        "pid": 88897
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z7200_SIDE3"
+        ],
+        "pid": 30991
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_RETURN_STRIP"
+        ],
+        "pid": 89603
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE0",
+          "GALLERY_Z10800_SIDE0_SOUTH_FLAT"
+        ],
+        "pid": 89635
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE1",
+          "GALLERY_Z10800_SIDE1_RETURN_STRIP"
+        ],
+        "pid": 89925
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE2",
+          "GALLERY_Z10800_SIDE2_RETURN_STRIP"
+        ],
+        "pid": 90215
+      },
+      {
+        "path": [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "GALLERY_Z10800_SIDE3"
+        ],
+        "pid": 33875
+      }
+    ],
+    "preserve": "All ramps, landings, all rails and slot guards, all glass/doors, roof, interior slabs and other non-target geometry. No broad ancestor allowed.",
+    "acceptance": [
+      "native holes genuinely open; no hidden retained solid underside",
+      "coincident geometry and accidental infill at ramp slots absent",
+      "module use and bounds/top heights recorded",
+      "source03 underside/oblique visual check",
+      "deep exact scope, KEEP, save/download/native reopen pass"
+    ],
+    "limitations": "NOT structural/accessibility sizing; no measured load-bearing specification"
+  }
+}

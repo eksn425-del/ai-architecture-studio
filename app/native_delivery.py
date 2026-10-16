@@ -10,8 +10,35 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
+
+
+def bind_current_checkpoint_download(reply: str, model_path: str) -> str:
+    """Bind current-download claims to the host checkpoint saved AFTER inference.
+
+    Historical/comparison links remain immutable. The model cannot know the
+    new checkpoint's random filename before the host finishes saving it.
+    """
+    path = Path(model_path)
+    if path.is_absolute() or ".." in path.parts or path.suffix.lower() != ".skp" or path.parts[:2] != ("outputs", "model"):
+        raise ValueError("Current download must name a project model checkpoint.")
+    target = "../../" + path.as_posix()
+
+    def replace(match: re.Match[str]) -> str:
+        label, old_target = match.group(1), match.group(2)
+        current = any(word in label for word in ("下载", "当前", "本轮", "最新"))
+        historical = any(word in label for word in ("历史", "原始", "修改前", "旧版", "上一版"))
+        owned_checkpoint = "://" not in old_target and re.search(
+            r"(?:^|/)outputs/model/(?:agent-checkpoint-[a-f0-9]{12}|fast-assembly-agent)\.skp(?:\?[^\s]*)?$",
+            old_target, re.I,
+        )
+        if current and not historical and owned_checkpoint:
+            return f"[{label}]({target})"
+        return match.group(0)
+
+    return re.sub(r"(?<!!)\[([^\]\n]+)\]\(([^\s)]+)\)", replace, reply)
 
 
 def _artifact_identity(project_dir: Path, path: Path) -> dict[str, Any]:

@@ -36,7 +36,7 @@ from .model_router import DeterministicModelRouter, ModelRoute
 from .provider_readiness import readiness_matrix
 from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
-from .native_delivery import record_delivery_checkpoint
+from .native_delivery import record_delivery_checkpoint, bind_current_checkpoint_download
 from .agent_progress import select_turn_progress_log
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
@@ -1891,6 +1891,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if mcp_enabled:
             try:
                 checkpoint_agent_model()
+                reply = bind_current_checkpoint_download(reply, current_state.model_path)
                 reply += "\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。"
             except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                 session.error = f"Model action completed, but readback/capture/checkpoint failed: {error}"[:1200]

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1356656,
+  "committed_writes": 0,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "tool_call_count": 62,
+  "failed_tool_calls": 0,
+  "input_tokens": 4135127,
+  "output_tokens": 8261,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 291516,
+    "input_tokens": 59932,
+    "output_tokens": 685,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "paid_api_calls": 0,
+  "token_source": "Actual raw app-server recovery turn delta; independent Critic usage reported separately; outer unavailable"
+}

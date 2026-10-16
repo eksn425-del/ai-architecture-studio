@@ -1,3 +1,13 @@
+# ACTIVE r8 recovery completed — 2026-10-16
+
+[Read-only recovery evidence](test-results/windows/2026-10-16-r8-readonly-recovery/README.md): actual site Sol6.1 Medium completed 8-original/12-pair independent review, still NEEDS_FIX. No geometry commit, r8/root20606 and entire native geometry/material SHA plus group PID tree unchanged. Final actual browser downloadcae9fff9c706 and new controlled native deep3stage PASS; originalr4 unchanged.62tools/0fail,4,135,127input/8,261output,1,356,656ms(22.6min); independentCritic291,516ms/59,932input/685output separate. High latency/usage preserved, no local caps or paid API.
+
+New Critic suspects diagonal connections, but frozen actual six-face/eight-corner native geometry shows22TENSION_BRACING upper end caps inside timber posts, lower centers contacting gallery upper outer edge. Not structural certification or identification of every critic-mentioned rod; no blind brace move. Source-explicit opaque galleries/coarse guards and missing circular mesh guards remain FAIL; interior registration unresolved.13actual exact gallery plate paths prepared for next grating repair, plan validator valid. All ramps/landings/slot guards/glass/roof/interior kept. Strict replay/customer/provider remain NOT_RUN/NOT_READY; Codex continues.
+
+Actual UX bug: AI reply linked the prior checkpoint before host final save generated a fresh filename. Host now binds current-download claims to final saved checkpoint, retaining historical/previous/external links.63relevant offline checks PASS, new live site acceptance pending next same-case operation. No feature expansion or customer-ready claim. Previous r8 timeout and all historical evidence remain below.
+
+---
+
 # ACTIVE 2026-10-16 — actual r8 contained ramps; native delivery PASS, source quality still FAIL
 
 [Actual r8 evidence](test-results/windows/2026-10-16-customer-readiness-r8-ramps/README.md): same eight sources/project/root20606, real site Sol6.1 Medium committed r7→r8 once. Upper RAMP2/3 moved behind outer glazing, shortened to leave flat receivers; associated rails/platforms and six exact apron plates adjusted.15exact paths and five mandatory nested KEEP preserved; protected snapshot SHA647472959c5c7fb770eca74e36c33ee0f3bbe7435f7dda895ef0fae1b724ea65 equal. Originalr4 bytes unchanged. Actual browser download df810517c351 and controlled native deep3stage PASS, workingr8 restored.180vertical support/headroom samples PASS, minimum sampled flight headroom2600mm.51body-height route lines clear and187route support samples PASS; not swept-body navigation/guard/accessibility certification. Old horizontal door rays now intersect rising flights, so do not label their increased hits new obstructions.
