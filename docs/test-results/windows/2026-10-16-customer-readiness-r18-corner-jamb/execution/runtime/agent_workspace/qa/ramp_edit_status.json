@@ -1,0 +1,220 @@
+{
+  "revision": 5,
+  "root_pid": 20606,
+  "model": "blank-disposable-customer-readiness-r4-20261015",
+  "committed": true,
+  "protected_paths": [
+    [
+      "STRUCTURE_EXISTING"
+    ],
+    [
+      "ENVELOPE_OUTER"
+    ],
+    [
+      "CIRCULATION_INTERNAL"
+    ],
+    [
+      "SITE_GROUND"
+    ],
+    [
+      "FLOORS"
+    ],
+    [
+      "ROOF_TIMBER"
+    ],
+    [
+      "INTERIOR"
+    ],
+    [
+      "PARTITION_Z3600_B1"
+    ],
+    [
+      "PARTITION_Z3600_B2"
+    ],
+    [
+      "PARTITION_Z3600_B3"
+    ],
+    [
+      "PARTITION_Z3600_B4"
+    ],
+    [
+      "PARTITION_Z3600_B5"
+    ],
+    [
+      "PARTITION_Z3600_B6"
+    ],
+    [
+      "PARTITION_Z3600_B7"
+    ],
+    [
+      "PARTITION_Z3600_B8"
+    ],
+    [
+      "PARTITION_Z3600_B9"
+    ],
+    [
+      "PARTITION_Z7200_B1"
+    ],
+    [
+      "PARTITION_Z7200_B2"
+    ],
+    [
+      "PARTITION_Z7200_B3"
+    ],
+    [
+      "PARTITION_Z7200_B4"
+    ],
+    [
+      "PARTITION_Z7200_B5"
+    ],
+    [
+      "PARTITION_Z7200_B6"
+    ],
+    [
+      "PARTITION_Z7200_B7"
+    ],
+    [
+      "PARTITION_Z7200_B8"
+    ],
+    [
+      "PARTITION_Z7200_B9"
+    ],
+    [
+      "RAMPS",
+      "RAMP_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES"
+    ]
+  ],
+  "allowed_paths": [
+    [
+      "RAMPS",
+      "RAMP_1"
+    ],
+    [
+      "RAMPS",
+      "RAMP_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ]
+  ],
+  "numeric_checks": "all run low caps Y=-4000, high caps Y=24000; 0/3600/7200/10800mm; run 3 moved -2200 X clear of gallery footprint",
+  "completed": "Flights 1/3 and their own rails reflected; original platform containers reshaped and added receiving pads/guards",
+  "unresolved": "Gallery long guards still block same-level returns. Attempt to scope local gate groups rejected by host exact authorization. Gallery remained protected.",
+  "save_reopen": "NOT_AVAILABLE_IN_TOOL_ALLOWLIST",
+  "review": "Independent read-only r5 review completed: NEEDS_FIX",
+  "views": {
+    "front": "outputs/renders/agent-view-front-66c7a1d0ee.png",
+    "rear": "outputs/renders/agent-view-rear-314bea3027.png",
+    "left": "outputs/renders/agent-view-left-07de331beb.png",
+    "right": "outputs/renders/agent-view-right-d147d04138.png",
+    "roof": "outputs/renders/agent-view-roof-067dcb9d63.png",
+    "oblique": "outputs/renders/agent-view-oblique-a9a2b79983.png"
+  },
+  "pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-9b3c50afbf.png",
+      "label": "坡道端"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-92709b10a4.png",
+      "label": "端部与长边"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-cb0023216b.png",
+      "label": "首段及底层"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-ca7f5fb5ec.png",
+      "label": "顶层室内"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-9e70078c81.png",
+      "label": "剖面位置外观；未剖切，不能证明内部"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-7e140c572d.png",
+      "label": "整体构造外观；非分解图"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-d7845db462.png",
+      "label": "平面位置俯视；屋顶遮挡"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-a40a45f2ec.png",
+      "label": "剖面位置外观；非剖切"
+    }
+  ],
+  "independent_issues": [
+    {
+      "priority": 1,
+      "view": "unspecified",
+      "problem": "SOURCE images 1–2 place the upper ramp runs and landings largely within the outer glazed end’s width. CURRENT images 15–16 extend both upper runs and their return landings substantially beyond its corners, widening the circulation silhouette.",
+      "action": "Locally shorten and reposition the upper runs and landings to match the source’s inset endpoints, retaining their descending arrangement. Ensure each landing connects continuously to its corresponding perimeter walkway."
+    },
+    {
+      "priority": 2,
+      "view": "unspecified",
+      "problem": "SOURCE images 1–3 show a fine, pale outer frame and mesh guards with visually distinct glazing behind. CURRENT images 16–17 instead read as repeated heavy dark horizontal rails; ramp guards are open bars, and the source’s mesh infill is absent.",
+      "action": "Correct the visible frame and guard sections and finishes, add the source-backed mesh infill, and preserve the separation between glazing, guards and walkway edges."
+    },
+    {
+      "priority": 3,
+      "view": "unspecified",
+      "problem": "SOURCE image 4 shows circular floor openings enclosed by raised mesh guards. CURRENT image 18 exposes two circular openings with no surrounding guards; the distant guarded stair opening does not resolve these omissions.",
+      "action": "Add fitted circular mesh guards around the two exposed openings, connected to their floor rims, using the source’s slender pale construction."
+    }
+  ]
+}

@@ -1,0 +1,687 @@
+{
+  "status": "ACTIVE_NATIVE_VERIFIED_R14",
+  "revision": 14,
+  "allowed_paths": [
+    [
+      "CIRCULATION_INTERNAL",
+      "SPIRAL_L0_L1"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SPIRAL_L1_L2"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SPIRAL_L2_L3"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z0_0"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z0_1"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z0_2"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z0_3"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z0_4"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z0_5"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z3600_0"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z3600_1"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z3600_2"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z3600_3"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z3600_4"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z3600_5"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z10800_0"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z10800_1"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z10800_2"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z10800_3"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z10800_4"
+    ],
+    [
+      "INTERIOR",
+      "FURNITURE_SIMPLIFIED",
+      "TABLE_Z10800_5"
+    ],
+    [
+      "FLOORS",
+      "L3"
+    ],
+    [
+      "ROOF_TIMBER",
+      "CURVED_SHELL"
+    ],
+    [
+      "INTERIOR",
+      "HALL_CURTAINS"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "LARGE_CIRCULAR_VOID_MESH"
+    ]
+  ],
+  "allowed_creation_paths": [
+    [
+      "INTERIOR",
+      "HALL_CURTAINS"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "LARGE_CIRCULAR_VOID_MESH"
+    ]
+  ],
+  "mandatory_preserve_paths": [
+    [
+      "STRUCTURE_EXISTING"
+    ],
+    [
+      "ENVELOPE_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL"
+    ],
+    [
+      "RAMPS"
+    ],
+    [
+      "SITE_GROUND"
+    ],
+    [
+      "FLOORS",
+      "L0"
+    ],
+    [
+      "FLOORS",
+      "L1"
+    ],
+    [
+      "FLOORS",
+      "L2_PARTIAL_SOUTH"
+    ],
+    [
+      "FLOORS",
+      "L2_PARTIAL_EAST"
+    ],
+    [
+      "ROOF_TIMBER",
+      "ROOF_SUPPORTS"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SMALL_CIRCULAR_VOID_GUARDS"
+    ],
+    [
+      "INTERIOR",
+      "ROOM_FRONT_COMPLETION"
+    ],
+    [
+      "INTERIOR",
+      "CORE_EAST"
+    ],
+    [
+      "INTERIOR",
+      "GREEN_PANEL_SOUTH"
+    ]
+  ],
+  "source_refs": [
+    "ref_04",
+    "ref_05",
+    "ref_07",
+    "ref_08"
+  ],
+  "observed": [
+    "Native216spiral headroom rays have14failures against westX35mbeams or table5intrusion; actual arrival gap200mm; existing stairs lack continuous central support and fine mesh. Source04shows these.",
+    "Source04upperhall has curved translucent suspended enclosure and pale floor/timber, model lacks these defining spatial divisions."
+  ],
+  "inferred": [
+    "Spiral support/landing connection details and curtain tracks/panel folds estimated from images, real floor/roof geometry and coherent circulation. No measured dimensions."
+  ],
+  "acceptance": [
+    "Three existing spiral containers keepPID; build continuous native central support/tread contacts and curved fine mesh, real floor arrival bridges and compatible guard openings. Protect all concrete beams/slabs/void shapes; resolve measured west-edge low headroom by coherent stair geometry inside real hole, never secretly remove beams.",
+    "Actual existing 18table containers gain source-consistent supports. Move only conflicting placeholder furniture within occupied floor, clear actual circular void and stair headroom. No unsupported floating tabletops.",
+    "Add source04curved suspended tracks/translucent curtains in upper hall, source07zones guide coherent infill. Maintain actual circular openings and circulation routes, track hangers join actual roof underside rather than stale roof heights. Record inferred hidden details.",
+    "Large existing circular guard rings gain fine curved mesh in new leaf, actual current stair arrival sectors remain open; preserve existing small-circle mesh guards.",
+    "FLOORS/L3 and ROOF_TIMBER/CURVED_SHELL are FINISH_ONLY targets: only target surface materials may change, all vertices/loops/entityIDs/transformations/void locations/roof shape unchanged. New pale materials only; do not change shared original global materials.",
+    "Exact fullgraph protection outside25targets and originalr4/r14immutable; independent all8source/current6+source views, actual native tread headroom/support/arrival/furniture/curtain clearance and material-only shape audit. Real site save/download/native3stages."
+  ],
+  "remaining_exterior": "Source05outer hanging tilted vent/eave stillneeds separate exact all-occurrence shared glazing safety proof before reopening fixed shared panes; preserve r14canopies now.",
+  "actual_target_verification": {
+    "revision": 14,
+    "root_pid": 20606,
+    "geometry_writes": 0,
+    "targets": [
+      {
+        "path": [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L0_L1"
+        ],
+        "pid": 45402,
+        "bounds_mm": [
+          [
+            34882.04687401656,
+            4382.046874016566,
+            70
+          ],
+          [
+            39117.95312598344,
+            8617.953125983435,
+            4716.879545462996
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L1_L2"
+        ],
+        "pid": 47708,
+        "bounds_mm": [
+          [
+            34882.04687401656,
+            4382.046874016566,
+            3670
+          ],
+          [
+            39117.95312598344,
+            8617.953125983435,
+            8316.879545462998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_L2_L3"
+        ],
+        "pid": 50014,
+        "bounds_mm": [
+          [
+            34882.04687401656,
+            4382.046874016566,
+            7270
+          ],
+          [
+            39117.95312598344,
+            8617.953125983435,
+            11916.879545462998
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_0"
+        ],
+        "pid": 75680,
+        "bounds_mm": [
+          [
+            5000,
+            4000,
+            720
+          ],
+          [
+            7400.000000000001,
+            5000,
+            785
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_1"
+        ],
+        "pid": 75712,
+        "bounds_mm": [
+          [
+            11000,
+            4000,
+            720
+          ],
+          [
+            13399.999999999998,
+            5000,
+            785
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_2"
+        ],
+        "pid": 75744,
+        "bounds_mm": [
+          [
+            17000,
+            4000,
+            720
+          ],
+          [
+            19400,
+            5000,
+            785
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_3"
+        ],
+        "pid": 75776,
+        "bounds_mm": [
+          [
+            23000,
+            4000,
+            720
+          ],
+          [
+            25400,
+            5000,
+            785
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_4"
+        ],
+        "pid": 75808,
+        "bounds_mm": [
+          [
+            29000,
+            4000,
+            720
+          ],
+          [
+            31400.000000000004,
+            5000,
+            785
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z0_5"
+        ],
+        "pid": 75840,
+        "bounds_mm": [
+          [
+            35000,
+            4000,
+            720
+          ],
+          [
+            37400,
+            5000,
+            785
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_0"
+        ],
+        "pid": 75872,
+        "bounds_mm": [
+          [
+            5000,
+            4000,
+            4320
+          ],
+          [
+            7400.000000000001,
+            5000,
+            4385
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_1"
+        ],
+        "pid": 75904,
+        "bounds_mm": [
+          [
+            11000,
+            4000,
+            4320
+          ],
+          [
+            13399.999999999998,
+            5000,
+            4385
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_2"
+        ],
+        "pid": 75936,
+        "bounds_mm": [
+          [
+            17000,
+            4000,
+            4320
+          ],
+          [
+            19400,
+            5000,
+            4385
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_3"
+        ],
+        "pid": 75968,
+        "bounds_mm": [
+          [
+            23000,
+            4000,
+            4320
+          ],
+          [
+            25400,
+            5000,
+            4385
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_4"
+        ],
+        "pid": 76000,
+        "bounds_mm": [
+          [
+            29000,
+            4000,
+            4320
+          ],
+          [
+            31400.000000000004,
+            5000,
+            4385
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z3600_5"
+        ],
+        "pid": 76032,
+        "bounds_mm": [
+          [
+            35000,
+            4000,
+            4320
+          ],
+          [
+            37400,
+            5000,
+            4385
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_0"
+        ],
+        "pid": 76064,
+        "bounds_mm": [
+          [
+            5000,
+            4000,
+            11520
+          ],
+          [
+            7400.000000000001,
+            5000,
+            11585
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_1"
+        ],
+        "pid": 76096,
+        "bounds_mm": [
+          [
+            11000,
+            4000,
+            11520
+          ],
+          [
+            13399.999999999998,
+            5000,
+            11585
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_2"
+        ],
+        "pid": 76128,
+        "bounds_mm": [
+          [
+            17000,
+            4000,
+            11520
+          ],
+          [
+            19400,
+            5000,
+            11585
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_3"
+        ],
+        "pid": 76160,
+        "bounds_mm": [
+          [
+            23000,
+            4000,
+            11520
+          ],
+          [
+            25400,
+            5000,
+            11585
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_4"
+        ],
+        "pid": 76192,
+        "bounds_mm": [
+          [
+            29000,
+            4000,
+            11520
+          ],
+          [
+            31400.000000000004,
+            5000,
+            11585
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED",
+          "TABLE_Z10800_5"
+        ],
+        "pid": 76224,
+        "bounds_mm": [
+          [
+            35000,
+            4000,
+            11520
+          ],
+          [
+            37400,
+            5000,
+            11585
+          ]
+        ]
+      },
+      {
+        "path": [
+          "FLOORS",
+          "L3"
+        ],
+        "pid": 76979,
+        "bounds_mm": [
+          [
+            0,
+            0,
+            10550
+          ],
+          [
+            50000,
+            20000,
+            10800
+          ]
+        ]
+      },
+      {
+        "path": [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ],
+        "pid": 77873,
+        "bounds_mm": [
+          [
+            0,
+            0,
+            14776.271200000001
+          ],
+          [
+            50000,
+            20000,
+            16710.1912
+          ]
+        ]
+      },
+      {
+        "path": [
+          "INTERIOR",
+          "HALL_CURTAINS"
+        ],
+        "absent": true,
+        "parent_pid": 79083
+      },
+      {
+        "path": [
+          "CIRCULATION_INTERNAL",
+          "LARGE_CIRCULAR_VOID_MESH"
+        ],
+        "absent": true,
+        "parent_pid": 45400
+      }
+    ]
+  }
+}

@@ -3,6 +3,7 @@
 require 'json'
 require_relative 'native_definition_graph'
 require_relative 'shared_definition_scope'
+require_relative 'surface_edit_guard'
 module KStudioPathScopeGraphGuard
   extend self
   CONTRACT = 'deep_exact_paths_graph_v1'
@@ -80,6 +81,7 @@ module KStudioPathScopeGraphGuard
     shared_proofs = shared_edit_proofs(root, paths, policy)
     model = root.model
     raise 'Exit active edit context' unless model.active_path.nil?
+    surface_edits = KStudioSurfaceEditGuard.capture(root, policy)
     validate_complete_document!(root, phase)
     c = KStudioNativeDeepFingerprint
     groups = model.entities.select { |e| e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance) }
@@ -96,6 +98,7 @@ module KStudioPathScopeGraphGuard
      required_deep_keep: keeps, document_loose_sha: c.sha(loose), external: external,
      presentation_sha: c.sha(c.presentation(model)), model_path: model.path, model_guid: model.guid}
     result[:shared_definition_proofs] = shared_proofs unless shared_proofs.empty?
+    result[:constrained_surface_edits] = surface_edits if surface_edits
     result
   end
 
@@ -143,6 +146,12 @@ module KStudioPathScopeGraphGuard
      'required_deep_keep_paths' => before[:required_deep_keep].map { |v| v[:path] },
      'protected_deep_geometry_and_loose_entities' => true}
     receipt['shared_definition_proofs'] = before[:shared_definition_proofs] if before.key?(:shared_definition_proofs)
+    if before[:constrained_surface_edits]
+      surface = before[:constrained_surface_edits]
+      receipt['constrained_surface_edits'] = {contract: surface[:contract], paths: surface[:paths],
+        shape_sha256: surface[:shape_sha256], face_material_count: surface[:face_material_pids].length,
+        soft_smooth_edge_count: surface[:soft_smooth_edge_pids].length}
+    end
     receipt
   end
 

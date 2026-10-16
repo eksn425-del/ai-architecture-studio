@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 252735,
+  "elapsed_measurement": "Sum of eight successful native fixture eval calls only; excludes earlier failed aggregate attempts/copy/lifecycle/restore and orchestration overhead",
+  "native_fixture_eval_calls": 8,
+  "tool_call_count": null,
+  "failed_tool_calls": 2,
+  "committed_writes": 0,
+  "disposable_operations_committed": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "outer_tokens": null,
+  "token_source": "Fixed host native safety-copy fixtures, no Builder/Critic inference. Total bridge calls/outer usage not metered. Two earlier real failures retained, not erased."
+}

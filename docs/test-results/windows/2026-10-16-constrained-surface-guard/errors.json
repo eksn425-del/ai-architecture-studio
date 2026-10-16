@@ -1,0 +1,19 @@
+[
+  {
+    "attempt": 1,
+    "status": "FAIL_RETAINED",
+    "file": "native/actual-failure.json",
+    "detail": "Initial aggregate fixture did not establish expected rejection for vertex_shift. Underlying original condition not fully recorded, cause unconfirmed; do not invent a guard rejection or fixture cause. Production18restorePASS."
+  },
+  {
+    "attempt": 2,
+    "status": "NATIVE_AGGREGATE_TIMEOUT",
+    "file": "native/actual-failure2.json",
+    "detail": "Changed actual fixture to1mm entity translation, attempted all cases in one240sbridge call. Timed out; individual completion unknown. Production18restorePASS."
+  },
+  {
+    "attempt": 3,
+    "status": "PASS_NATIVE_SPLIT_CASES",
+    "detail": "One positive and7negative cases each separate native eval; retained actual errors and after-rollback full native SHA. No collector cap increase, omissions or skipped cases. Production18restorePASS."
+  }
+]

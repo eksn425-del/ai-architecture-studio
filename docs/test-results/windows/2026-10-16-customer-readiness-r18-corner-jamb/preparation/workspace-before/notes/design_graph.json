@@ -1,0 +1,513 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-4f0e4",
+  "units": "m",
+  "sources": [
+    {
+      "id": "ref_01",
+      "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_02",
+      "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_03",
+      "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_04",
+      "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_05",
+      "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_06",
+      "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_07",
+      "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+      "provenance": "observed"
+    },
+    {
+      "id": "ref_08",
+      "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+      "provenance": "observed"
+    }
+  ],
+  "objects": [
+    {
+      "id": "complete_outer_eave_vents",
+      "provenance": "observed",
+      "source_refs": [
+        "ref_01",
+        "ref_02",
+        "ref_05",
+        "ref_08"
+      ],
+      "allowed_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_1",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_10",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_11",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_12",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_13",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_14",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_15",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_16",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_17",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_18",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_19",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_2",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_3",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_4",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_5",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_6",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_7",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_8",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_9",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_1",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_10",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_11",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_12",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_13",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_14",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_15",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_16",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_17",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_18",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_19",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_2",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_3",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_4",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_5",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_6",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_7",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_8",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_9",
+          "GLASS"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "OUTER_EAVE_VENTS"
+        ]
+      ],
+      "inferred_details": [
+        "Exact flap dimensions/hinges/stays and module count inferred from source05 section and existing facade, not measured. Existing two door bays excluded for verified route protection."
+      ]
+    }
+  ],
+  "constraints": {
+    "allowed_paths": [
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_10",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_11",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_12",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_13",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_14",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_15",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_16",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_17",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_18",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_19",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_2",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_3",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_4",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_5",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_6",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_7",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_8",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_9",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_1",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_10",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_11",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_12",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_13",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_14",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_15",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_16",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_17",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_18",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_19",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_2",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_3",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_4",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_5",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_6",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_7",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_8",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_9",
+        "GLASS"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "OUTER_EAVE_VENTS"
+      ]
+    ],
+    "required_preserve_paths": [
+      [
+        "ROOF_TIMBER"
+      ],
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "FLOORS"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "CIRCULATION_EXTERNAL"
+      ],
+      [
+        "CIRCULATION_INTERNAL"
+      ],
+      [
+        "INTERIOR"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "BUFFER_CANOPIES"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ]
+    ],
+    "acceptance": [
+      "38existing exact shared GLASS leaves retain physical PID41323 and transforms. All38 actual physical occurrences explicitly approved, no outside occurrences, no locked ancestors; helper clears shared prototype ONCE, not38times. Use complete shared-definition proof before/after and full exact protected graph; do not edit parent bay or frame.",
+      "Source05 upper section shows outward-down hanging/sloped flap from buffer roof outer edge, distinct from current shallow buffer-roof strip and source08 blue airflow arrows. Add38slender framed translucent outward-hinged top vent panels in one exact new semantic leaf, coherent inferred estimate ~450mm outward projection/~900mm fall, not whole-roof rotation. Match native facade axes and source proportions; record dimensions/counts inferred.",
+      "Make genuine unbacked high-level openings in those38 fixed glazing leaves, estimated localZ12600..13400 within7200..13500 glass. Preserve lower glazing and all original mullions/transoms (top13500 and prior12000), other facade geometry untouched. Keep two earlier unique west door bays SOUTH_BAY_00/NORTH_BAY_0 entirely unchanged, no awning over their proven door/ramp route.",
+      "Connect real slim hinge/header and stay endpoints to actual roof-edge/frame and flap; avoid unsupported/floating panels, old false shallow parts remain as legitimate inboard buffer roof. No new opaque backing. Protect all current roof/structure/slabs/voids/circulation/interior/curtains/mesh/other enclosures.",
+      "Reuse actual panel/frame prototypes, no unique-per-wire large duplicated geometry. Whole complete unchanged250k native unique-entity cap must pass beforecommit. Fresh six current canonical, all8source pairs and source05 flap/opening/connection closeups, independent Critic, exact KEEP, website save/download/native reopening. Originalr4/r16 immutable."
+    ]
+  }
+}

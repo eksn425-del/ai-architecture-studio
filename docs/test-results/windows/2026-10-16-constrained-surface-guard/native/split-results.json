@@ -1,0 +1,199 @@
+{
+  "status": "PASS_NATIVE_CONSTRAINED_SURFACE_GUARD",
+  "native_version": "24.0.484",
+  "production_geometry_writes": 0,
+  "disposable_committed_operations": 1,
+  "native_fixture_eval_calls": 8,
+  "positive_surface_proof": {
+    "contract": "native_constrained_surface_edits_v1",
+    "paths": [
+      [
+        "FLOORS",
+        "L0"
+      ],
+      [
+        "FLOORS",
+        "L1"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_SOUTH"
+      ],
+      [
+        "FLOORS",
+        "L2_PARTIAL_EAST"
+      ],
+      [
+        "FLOORS",
+        "L3"
+      ],
+      [
+        "ROOF_TIMBER",
+        "CURVED_SHELL"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z0_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z3600_5"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_0"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_1"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_2"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_3"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_4"
+      ],
+      [
+        "INTERIOR",
+        "FURNITURE_SIMPLIFIED",
+        "TABLE_Z10800_5"
+      ]
+    ],
+    "shape_sha256": "be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15",
+    "face_material_count": 25,
+    "soft_smooth_edge_count": 158
+  },
+  "negative_cases": [
+    {
+      "case": "vertex_shift",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"af98e1805b1dd916e257ef0d73a5ca1df5d273bfc7e0512f576df2b359edf5e8\",\"bytes\":2375657}},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"fba889524ff527c9d6578f422ff1da0f95216d9a35db6be4458a39517855516b\"}]"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 31781
+    },
+    {
+      "case": "face_reverse",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"ccad4dc4215f81eb03a30c2f9a7128182d8108209d2ad719f17608b753c92453\",\"bytes\":2375303}},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"9f33b33f474c49f962895bf04533b1e32100f75e9cae7c008a11763a9eddfd92\"}]"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 32125
+    },
+    {
+      "case": "new_edge",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"7948e5a76c0c030d00c089fea0dc355371a2fc90067179eea880fa30231747e6\",\"bytes\":2375561}},{\"path\":\"constrained_surface_edits/captured_entities\",\"before\":6128,\"after\":6129},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"014bacce52f36ec9820d3c4f13aeb193cd059364c1c3b3bf98af976b7a251d2f\"}]"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 35688
+    },
+    {
+      "case": "unapproved_material",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"82877c18da33b9f4c7bbe4cb3e4474def18340bdc2b0ab324f7521902a21284f\",\"bytes\":2375352}},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"563eada567cedf81b6c41b42eb938dd60544bdb1e22c40c412c1eedf9dbf2889\"}]"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 35344
+    },
+    {
+      "case": "hidden_seam",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"66100b1a3dad93aa35a50b61094687e7182ba4613678f120f6f4d992052a9e9e\",\"bytes\":2375299}},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"e1b3e7e5e451cea7a61adc2ead03fe4ec0149089620c4a3ba136b08f0f543541\"}]"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 35469
+    },
+    {
+      "case": "unapproved_soft_edge",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"a85073c665aa60eef0b80debcf19917ebf6ea04a84b9ca521bd9a98e8f94c428\",\"bytes\":2375299}},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"3b554ec18ab6cf603c3ca8eb12cdd277072cd9d5b9c58791c95aa3cb4fa90f7b\"}]"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 33500
+    },
+    {
+      "case": "unknown_mask_id",
+      "native_error": {
+        "class": "RuntimeError",
+        "message": "Unknown or out-of-target surface face ID"
+      },
+      "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+      "actual_call_elapsed_ms": 16375
+    }
+  ],
+  "raw_initial_failures_retained": [
+    "actual-failure.json",
+    "actual-failure2.json"
+  ],
+  "limitation": "Safety-copy native guard proof, not website finish commit/source quality acceptance"
+}

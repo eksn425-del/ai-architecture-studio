@@ -1,0 +1,2085 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": "comparison/after-r18/capture-receipt.json",
+      "bytes": 18198,
+      "sha256": "794a0b8bdef30ef98674befa6adcc6b6db6b53f76036220b4919ac9f66d5ce54"
+    },
+    {
+      "path": "comparison/after-r18/guard-macro.evidence.json",
+      "bytes": 2229,
+      "sha256": "aef9eb20d91c511783b33477e15beea01d41cd6f6c0039285dc8e309b710191c"
+    },
+    {
+      "path": "comparison/after-r18/guard-macro.png",
+      "bytes": 707371,
+      "sha256": "35ea08f70c3120c3222ac91943e7e0897b95697fea39f4661d7d6fae304d8525"
+    },
+    {
+      "path": "comparison/after-r18/native-after.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "comparison/after-r18/native-before.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "comparison/after-r18/remote-stair-low.evidence.json",
+      "bytes": 2243,
+      "sha256": "1db2c5ab656a53a373a5c4677c8e9d12018afa1a4628f6c1cf28c00306d67725"
+    },
+    {
+      "path": "comparison/after-r18/remote-stair-low.png",
+      "bytes": 736374,
+      "sha256": "05ea64e301d5b553b34bb2b620ac11c0b9b8360b0bc090118744e1f29d527a3b"
+    },
+    {
+      "path": "comparison/after-r18/remote-stair.evidence.json",
+      "bytes": 2191,
+      "sha256": "82ac5be9a4122869d6bcc48d3197be8c36c513f40ba08a51e9b042c2d32cbfbf"
+    },
+    {
+      "path": "comparison/after-r18/remote-stair.png",
+      "bytes": 1027322,
+      "sha256": "5eae7cae8fb66f26db22e8866884d1add45b9c77a5a8efabe6b0ff129fb0df9e"
+    },
+    {
+      "path": "comparison/after-r18/reverse-exterior-corner.evidence.json",
+      "bytes": 2292,
+      "sha256": "f5c4c723f509892d442e799eb07a4f4691e348c6ac56512ea615a535b4639dba"
+    },
+    {
+      "path": "comparison/after-r18/reverse-exterior-corner.png",
+      "bytes": 931826,
+      "sha256": "c3596019d461c2378f8955bba5d2697a3075f86238ca0360486cbe1ae9d08cd8"
+    },
+    {
+      "path": "comparison/after-r18/source01-ramp-end.evidence.json",
+      "bytes": 2184,
+      "sha256": "832b296a91879c2852ca91a067d3e228ed7a3eaa1a91a0c70c968b1dee80c417"
+    },
+    {
+      "path": "comparison/after-r18/source01-ramp-end.png",
+      "bytes": 448709,
+      "sha256": "a4718c768df484c024d4989093438bb40ce512cca7cbe75661fb45f31ca9559a"
+    },
+    {
+      "path": "comparison/after-r18/source02-exterior-corner.evidence.json",
+      "bytes": 2293,
+      "sha256": "673d264186a2f28a18af31a859d208c88450d17d60d585a18e56e637b2c8d2e6"
+    },
+    {
+      "path": "comparison/after-r18/source02-exterior-corner.png",
+      "bytes": 610218,
+      "sha256": "e0454ea84883836880f4e7060168247367054dd77a329e59f49adb0b05c5f8c5"
+    },
+    {
+      "path": "comparison/after-r18/source03-entrance.evidence.json",
+      "bytes": 2235,
+      "sha256": "423040e41d039761767d7223327e53271fa7c301fb11cbc17d4b513786ad1153"
+    },
+    {
+      "path": "comparison/after-r18/source03-entrance.png",
+      "bytes": 833182,
+      "sha256": "121071d2acecc381b905c693a412985ffd677212fe548db52f154b343a836f89"
+    },
+    {
+      "path": "comparison/before-r17/capture-receipt.json",
+      "bytes": 18198,
+      "sha256": "baf4a8a5c94d955dd154892565dccad91a6151d0ba83a3776b0e68ba914f02ab"
+    },
+    {
+      "path": "comparison/before-r17/guard-macro.evidence.json",
+      "bytes": 2229,
+      "sha256": "6a5f89b7d8dbbbd6371398a869c9087cdf1f11390e1cee0bbad31d16e1629ebd"
+    },
+    {
+      "path": "comparison/before-r17/guard-macro.png",
+      "bytes": 707369,
+      "sha256": "a6efa85826a871a683f92215b5e17d6bb9c161ae1aea861da0b5c2894c7d8662"
+    },
+    {
+      "path": "comparison/before-r17/native-after.json.gz",
+      "bytes": 3479232,
+      "sha256": "236a2b4385e74b58ceea33a79868101e05fbcf02b133653d14357e06e43e4e8c"
+    },
+    {
+      "path": "comparison/before-r17/native-before.json.gz",
+      "bytes": 3479232,
+      "sha256": "236a2b4385e74b58ceea33a79868101e05fbcf02b133653d14357e06e43e4e8c"
+    },
+    {
+      "path": "comparison/before-r17/remote-stair-low.evidence.json",
+      "bytes": 2243,
+      "sha256": "817a8b68f4c3570f5ac9ed2ff6345ff1a677b5dd092f78334cfce06f92b213e4"
+    },
+    {
+      "path": "comparison/before-r17/remote-stair-low.png",
+      "bytes": 736378,
+      "sha256": "2fb43c830fa360fa6c602f70ea0e30b46a88b03ba6a7840c624e5181b251a274"
+    },
+    {
+      "path": "comparison/before-r17/remote-stair.evidence.json",
+      "bytes": 2191,
+      "sha256": "68bec74b628026e0c0530c8620c98293eae2febf1a407579084169c25f9028d4"
+    },
+    {
+      "path": "comparison/before-r17/remote-stair.png",
+      "bytes": 1027324,
+      "sha256": "0e3cde2014ac1b01c0ec22a69d8cd97544a8f856d57135fce0536e49917ec180"
+    },
+    {
+      "path": "comparison/before-r17/reverse-exterior-corner.evidence.json",
+      "bytes": 2292,
+      "sha256": "9f18330ade45a4f5c45c810e70b7a8efd03c272b4f29c15c40a455b2382361ac"
+    },
+    {
+      "path": "comparison/before-r17/reverse-exterior-corner.png",
+      "bytes": 931666,
+      "sha256": "fafb9024b13828615e694ecd357aebf4263c0df1786c9280da34357bb8f63289"
+    },
+    {
+      "path": "comparison/before-r17/source01-ramp-end.evidence.json",
+      "bytes": 2184,
+      "sha256": "2ff412330282d176a1b778cdb31ec4b8e4add5f35760c77d0a32c421813f9a58"
+    },
+    {
+      "path": "comparison/before-r17/source01-ramp-end.png",
+      "bytes": 448706,
+      "sha256": "72ee3c4b2771c9aec2b58b26b9ee28379391e003a902cb85f98fe619d3546371"
+    },
+    {
+      "path": "comparison/before-r17/source02-exterior-corner.evidence.json",
+      "bytes": 2293,
+      "sha256": "5fc57bd7feb0779841675b405344050cfdcd64c0d04f8a485c16d49f85460d57"
+    },
+    {
+      "path": "comparison/before-r17/source02-exterior-corner.png",
+      "bytes": 610215,
+      "sha256": "a65113afc16adc44065b654a8b837053ba8653d1a3eecbfccdbc330c5faac7dc"
+    },
+    {
+      "path": "comparison/before-r17/source03-entrance.evidence.json",
+      "bytes": 2235,
+      "sha256": "7326cee4882706bd8df06a6d7b6be0370055930229b59a63958fb117df8db519"
+    },
+    {
+      "path": "comparison/before-r17/source03-entrance.png",
+      "bytes": 833180,
+      "sha256": "31ab8318c25cb5264697a9305e42a12ed19fc4537dd13fc354a4f5ca44d3c836"
+    },
+    {
+      "path": "comparison/camera-pairs-r17-r18.json",
+      "bytes": 1052,
+      "sha256": "6ac55ee0e4d1c42530928cf2f57b03a6fae140f70c2a7205d5364e7af5b3c93d"
+    },
+    {
+      "path": "diagnostic-scripts/activate-corner-jamb-r17-20261016.py",
+      "bytes": 6317,
+      "sha256": "9e4fd457c844b67a10928fce0fa8c2c3692cd0f7ceecd7527b45556a14f17e7e"
+    },
+    {
+      "path": "diagnostic-scripts/capture-r18-comparison-20261016.py",
+      "bytes": 3598,
+      "sha256": "fb3a77643aa2080f69c5bbaccf8838fb470f2155447a96ece454480dcd91518e"
+    },
+    {
+      "path": "diagnostic-scripts/capture-r18-interior-diagnosis-20261016.py",
+      "bytes": 4194,
+      "sha256": "01eaa2d722806d3b802bcdb60e775fcd4541aae8da6e0372b0b78ff4b76cd3b9"
+    },
+    {
+      "path": "diagnostic-scripts/probe-r18-display-lighting-20261016.py",
+      "bytes": 4501,
+      "sha256": "8e6485d5e0d5966619f1696dff74fe34cf508143eec3ce9f93014534c05b6407"
+    },
+    {
+      "path": "diagnostic-scripts/probe-r18-display-neutral-20261016.py",
+      "bytes": 4538,
+      "sha256": "20258bef462277844cbd457fdfe62f321517575b8e61fa2d5105d79d0e2385ea"
+    },
+    {
+      "path": "diagnostic-scripts/probe-r18-vents-20261016.py",
+      "bytes": 6863,
+      "sha256": "3274c650ad2c7d473eaded11cb3318dee970141a8fed0007a52738053293e512"
+    },
+    {
+      "path": "diagnostic-scripts/verify-r18-delivery-20261016.py",
+      "bytes": 5561,
+      "sha256": "1dde0eb670533d5a50889bcfd4d4fbce6eaf9741b9c7c28c205314e3f491e52b"
+    },
+    {
+      "path": "diagnostic-scripts/watch-r18-presave-20261016.py",
+      "bytes": 1987,
+      "sha256": "2d6d2d95ac3744a639586f0c281be16645b3495eda7f1363e61cf504d943ed81"
+    },
+    {
+      "path": "errors.json",
+      "bytes": 914,
+      "sha256": "42e7e73b2434f1523a5e5c91648402efdaad49204a74eb2df3ea4444218520c7"
+    },
+    {
+      "path": "execution/models/r18-actual-browser-download.skp",
+      "bytes": 5382154,
+      "sha256": "b31d1d0f9e11e0e5ade65d190985adac5af155c978af02607e45d39d0a64c629"
+    },
+    {
+      "path": "execution/models/r18-bound-working.skp",
+      "bytes": 5382156,
+      "sha256": "65799228c8a6b8970b89641e7b6ffdda336be9e8e03401d206240ae4c3338f69"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-0bc2b4bf3a.evidence.json",
+      "bytes": 2167,
+      "sha256": "d3d3cef262100ec673342f8cabdcbe22b91d5953b8893ced02d9c1441bf491cc"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-0bc2b4bf3a.png",
+      "bytes": 345689,
+      "sha256": "de3941c7979207442f5b10e528040c3f782e3cfe79f201dde2c769ac5ce47c54"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-2056a335d2.evidence.json",
+      "bytes": 2179,
+      "sha256": "d6d9aec8ad0c6356393f815f01da00cdcf1dea320833581c2fab76af4c283700"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-2056a335d2.png",
+      "bytes": 555301,
+      "sha256": "8ee871173ba81369055fb96c87c7a4927756a4582f7edeb2df7b5481267ee09d"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-23f0892cd2.evidence.json",
+      "bytes": 2179,
+      "sha256": "1caad3c41f2cf0a4b045377701548954d11ef586ac00c33894e2b5a27c1c1797"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-23f0892cd2.png",
+      "bytes": 996471,
+      "sha256": "d5881529349031df30a83c2dd0aa514d80a147386e49d168924d9b5f10214e3d"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-29c7bd765a.evidence.json",
+      "bytes": 2017,
+      "sha256": "2d21d98f4000c6fe226bfa013c48213f6db80ea1f7a5c263801254e6fd9adac1"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-29c7bd765a.png",
+      "bytes": 738710,
+      "sha256": "9bf7b2eb006b420dc1ae2fcfd945253f6a414e37d4d28b0c1c2a59d0e374c179"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-3be3f41597.evidence.json",
+      "bytes": 2167,
+      "sha256": "0ae07aa118259fb44a37b578405fa68e82c7da7827acb72a7c70bfa33b3e3b23"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-3be3f41597.png",
+      "bytes": 448714,
+      "sha256": "2c08e2ee5c86d7f154ecd49edc2d28a464e00103153952d1318c1e6c7c13af8a"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-3faf2aa39f.evidence.json",
+      "bytes": 2378,
+      "sha256": "58e387a0175272028d943b48f58b90770fb7b17a2a57c5dcbf48d017b278fac5"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-3faf2aa39f.png",
+      "bytes": 1209388,
+      "sha256": "b704755926d05d615e5ce12acf354e5235c59ed3c79751427287b21f69fcff16"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-5b5e3751a7.evidence.json",
+      "bytes": 2218,
+      "sha256": "e78a58c53cd0dbefeec2b32686bf0093759b5c7230321e861eca77797f2a7dc6"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-5b5e3751a7.png",
+      "bytes": 833176,
+      "sha256": "9dbcee76a0e992ccf3b985bc509fd02b0562b73011dc210490811fc5344ec39b"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-5f6c3a7fc3.evidence.json",
+      "bytes": 2173,
+      "sha256": "7ffde65b686c447a4af3576b09f534180b5041f73d20454145ffa54bb14456bf"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-5f6c3a7fc3.png",
+      "bytes": 272973,
+      "sha256": "4e476825a9a81e2a25801dfcbcc02c83c9eaf93f9c086913a0afc8d1d9c98d53"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-5f8c16bd60.evidence.json",
+      "bytes": 2224,
+      "sha256": "36befd5c17539931b239b3c1599f69a66f8490eb667c702d4b24a8d9603bc86f"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-5f8c16bd60.png",
+      "bytes": 833936,
+      "sha256": "f250604c93aa4d0ac438009faf8b31d90c47eddaa28fae19ee567222d7de74a7"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-7ae0cf844f.evidence.json",
+      "bytes": 2269,
+      "sha256": "e7e41bef8f3c8f70376a181f6ceec8715bcea00d1c8522b94f4fc6cef2dfdf97"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-7ae0cf844f.png",
+      "bytes": 610211,
+      "sha256": "67497d1cf4dacd3a4b6089935c4920aa54da5c54a5c98bd9e4d657906392a7fc"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-840565ce54.evidence.json",
+      "bytes": 2185,
+      "sha256": "3d07f400b37e84b08f3468bf2e5d3dabf23a19bf5e10633a6b1934f08473227e"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-840565ce54.png",
+      "bytes": 1012468,
+      "sha256": "f3a419b32d5e180cb38562203cfcd27c76476fb10f3099746dcfd6343b2c65f4"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-964cf8e96b.evidence.json",
+      "bytes": 2011,
+      "sha256": "53f91ed6da01efaa4d75bb0cefff3a88502a7e6c4ddcbf71be53ae9a438c81ec"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-964cf8e96b.png",
+      "bytes": 297105,
+      "sha256": "addfda645665efd19ec7a2af5a22f9028f97e9f7097da19057bc0eabdee13fd3"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-9bc873e548.evidence.json",
+      "bytes": 2221,
+      "sha256": "c47bd902d61b0f9bacc4589602a5fa5b89e1e25704ca38c791f6c081684d924d"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-9bc873e548.png",
+      "bytes": 689154,
+      "sha256": "d902dfc5947305e624258947e24c35e02eef01099eb7c8565a34ebae526a6bef"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-b98e52a178.evidence.json",
+      "bytes": 2110,
+      "sha256": "c9be81c15239e382289edaca78f404685eadb9efe54af97d7b8228ca96d21bc6"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-b98e52a178.png",
+      "bytes": 41367,
+      "sha256": "c8ae38f06753b4bb784d177832c4b9562e4392951a3460ff8992f1264fddb468"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-d02975e366.evidence.json",
+      "bytes": 2011,
+      "sha256": "9f084d9f14eaf325af40cf0beeef926b17ba8e3750c51962ced54a3dee6fa59c"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-d02975e366.png",
+      "bytes": 257617,
+      "sha256": "77c9bb0ee9509c248d4a58903a3e8c8ea3b8db4135df7bdca48f062c3bf5ff93"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-front-705f6f72d3.evidence.json",
+      "bytes": 2628,
+      "sha256": "01610a2b845142439ed9f0ea88c15368c13dc7e1557ce84fe8d9f544981cb52f"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-front-705f6f72d3.png",
+      "bytes": 70655,
+      "sha256": "201701a9d9bd30ca1d09748aa13799fa3b612bf22ab5a4e51a971c1e2396ea60"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-left-a8fe192209.evidence.json",
+      "bytes": 2620,
+      "sha256": "d93fedc91a819138181a3ff71e88ef6d1ca7d96f2454c61024bb4f54d91e8d1f"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-left-a8fe192209.png",
+      "bytes": 53781,
+      "sha256": "9bcd74ff95a8eaa7fb22c765a6c375cf0c34100007d07ea512506763b42bf0e0"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-oblique-92c393d586.evidence.json",
+      "bytes": 2804,
+      "sha256": "f63442f14d4f5d2f7a83a4d1550b7b71cdef6a3ca8d32e606e8836c7e201fd54"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-oblique-92c393d586.png",
+      "bytes": 132457,
+      "sha256": "9a5710cf171c971cb0b893d0e5283b0921aec6596be53288f6d831060855e3d0"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-rear-0776cb5d7e.evidence.json",
+      "bytes": 2622,
+      "sha256": "fa670aa41448edf88c35fece97b5a4160cf8a7ad79ac560ad445e89c65080529"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-rear-0776cb5d7e.png",
+      "bytes": 65394,
+      "sha256": "0ebed9d8d2f24b486e08a7f409a237310c99d7f60c8cbd27077c467117f1be46"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-right-b16aef0d80.evidence.json",
+      "bytes": 2618,
+      "sha256": "38a1be2160a21426fb2f39976e7216bf19dd908c218221b4f5ba46da00454d08"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-right-b16aef0d80.png",
+      "bytes": 46923,
+      "sha256": "7471cc93bae79b9385b80764f3ca3e5f8eefbd05860f2c97db2ab98153160b9c"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-roof-47b9be6569.evidence.json",
+      "bytes": 2644,
+      "sha256": "22d4236f2f276c08dae0ab4f9dbe31eef937d054900bfb33f8b72bb4796f8e10"
+    },
+    {
+      "path": "execution/outputs/renders/agent-view-roof-47b9be6569.png",
+      "bytes": 74864,
+      "sha256": "6f8325845c66861c42f434daaa8ba92e11ecf9111aa519cbccd5520c49d53b08"
+    },
+    {
+      "path": "execution/runtime/agent_events/ea0c2e65628c4dc9b2aed00fc71eeb7f.jsonl",
+      "bytes": 47738,
+      "sha256": "d3978922119c8e6f23b8342626af603d945265db433707944ebeae9c3e2bbfb5"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/adai_geometry_contract.md",
+      "bytes": 111,
+      "sha256": "aa1ada415a96c1beff691b20b13c3314cea27b8b5279e74c1309102fdffdc259"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/buildplan.json",
+      "bytes": 3234,
+      "sha256": "6d8b2e3ab36bce4d8552e03014d250bc6df5bcf66a4971ff5ca8958ac730b15d"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/circulation_local_diagnosis.md",
+      "bytes": 1926,
+      "sha256": "c04056c9e00d7ff32e539f186f805aacee0c338be51f1a2b99f885092c52121c"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/construction_progress.json",
+      "bytes": 5625,
+      "sha256": "9acc90e3caa65adcbf83be73587566de380d33d1d29a62e7ddbfabd10c7cf359"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/construction_strategy.json",
+      "bytes": 17282,
+      "sha256": "1e6c586fcf3ad792aabf8a16615d7c382c7b4763cbeed35649982b9cf1ef9c08"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/construction_strategy_schema.md",
+      "bytes": 2551,
+      "sha256": "deb9710ffccc4244ae99f8bd63a60dd21e253e70bdfbb084ddb62999cad93b4a"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/corner-jamb-registration.json",
+      "bytes": 2046,
+      "sha256": "aeabd2713127089af83735c70d02b937d46c7505348542e416550801d5868a86"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/corner_jamb_plan.json",
+      "bytes": 1378,
+      "sha256": "7130cf0bea6be8b9e0bfa3b3e1d8185b1f9e90715df9f91a25c7b9440b057e3f"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/design_graph.json",
+      "bytes": 4661,
+      "sha256": "9c7bf8bdf469feeea40738949bff6ec380c14fcb6d844906ade2b1528d86c21f"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/design_notes.md",
+      "bytes": 381,
+      "sha256": "2e02cfaba9a1c3ea942dd8580e6f9b89b8123639fb089cd69fa3450a20a96290"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/direction_sketch.png",
+      "bytes": 180997,
+      "sha256": "a1e99374a76ac52f2f4633338f17ccac24b3a31ab54262023b53d0667b778d71"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/enclosure_addition_r11.md",
+      "bytes": 4486,
+      "sha256": "da9f2ea4803454b1b56c129bd32b33d446ac8294045ccff21f0704f7cdf1bbef"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/enclosure_addition_scope.json",
+      "bytes": 7441,
+      "sha256": "1c823b78029bbb7568229a010e8a32c8bfe8180e8ffdb281778ad87a4f7e5651"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/exterior-circulation-registration.json",
+      "bytes": 24754,
+      "sha256": "fe9780040309e33beb13e89e74b637ea46384b9cfbbfa50bf9dfec01b4cc9da6"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/exterior-enclosure-registration.json",
+      "bytes": 2500,
+      "sha256": "3b5faa27a1b9c034da45351519852782eaabc3cb01d64556f931365ae568c727"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/exterior-facade-finishing-registration.json",
+      "bytes": 24242,
+      "sha256": "e4644d17243bece5470a0066ba5bf06bf4da198972ed481875d2fc1dba36026e"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/exterior_circulation_r13.md",
+      "bytes": 1694,
+      "sha256": "fb19b722afdbfb6c580ac477a5a65161cb3f0d97f481bb65100945be4645b8ef"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/exterior_completion_audit_r10.md",
+      "bytes": 6423,
+      "sha256": "1710e457e91e2664bc4dd5b6aeb3e0cefccd570ce129782848abfdad55a34b18"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/facade_schedule.json",
+      "bytes": 15426,
+      "sha256": "77394d5a85761a0daa4e8c8f8a0b2ef2dff2ae124f41eace5fdf188c72ecb9bb"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/gallery_grating_edit.md",
+      "bytes": 2680,
+      "sha256": "13a0ae5ce87ee02baef7810f4e9668b47ad34a65daeab4ce2af9288622ebe495"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/grating-buildplan.json",
+      "bytes": 3707,
+      "sha256": "5293f65f29d8f90d44d542f58887c3af8d2963a6bf2ce33d5f31bee5f38571a8"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/grating-design-graph.json",
+      "bytes": 8065,
+      "sha256": "9ab617c56154e4445488d2b1dbee929ba49aca56c363bd6e1baa8c6d5627f483"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/grating-plan-validation.json",
+      "bytes": 63,
+      "sha256": "b623e33d3611ba87619dadcb2207fe2969e94b56061507d8fe789a2a51f8d21f"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/grating-target-inventory-r8.json",
+      "bytes": 2875,
+      "sha256": "2ad8c5f23c06f457adff2b8050188340cfa80d208c8648f075d58eb0465e2b80"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/history/before-exterior-20261016-construction_strategy.json",
+      "bytes": 22877,
+      "sha256": "b518e3d8631f0a321584ff3db42ba4db88937287a7b46222b807d9d019d94d53"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/history/before-exterior-20261016-reconstruction_card.md",
+      "bytes": 6143,
+      "sha256": "b764f568d25b1b543e93688fb6e2f2566af34754486209a6b2fdcefb82835f02"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/history/before-exterior-20261016-volume_inventory.md",
+      "bytes": 2401,
+      "sha256": "f487a8690960bfc6f5aef00719c7f4325d17af287553c3c9d9bfd910e51dc55e"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/history/r14-source-ledger-execution-history.json",
+      "bytes": 12009,
+      "sha256": "d35c5b2a15f0fbb6c10cf8688cb84ff678a035a710be38d7f2a93c3980d70b95"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/host-r13-void-spiral-readback.json",
+      "bytes": 96954,
+      "sha256": "5bcde9f1c1295fe94d6b6bab9d79fa19352d3a3521a411d9140c0a43e5e9cdc8"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/host-r14-scope-correction.md",
+      "bytes": 606,
+      "sha256": "3c57a23ad2f3930d3390e8947bf9af789aceb0c3957d8fd4fb7a9216c366df11"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/host_native_vents_r17_diagnosis.json",
+      "bytes": 1169,
+      "sha256": "62ef9a699ae0a9c2e9b658de98ce2ad11ae63719fb811c9c0f2cf9738de8a4cd"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/interior-completion-registration.json",
+      "bytes": 14363,
+      "sha256": "9ef2a3b9711aaf34c27e7148e208219e2f4a6d97a1f48cf69d5c5e93e647b422"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/interior_completion_plan.json",
+      "bytes": 3020,
+      "sha256": "07420909b0ab8e24be9ddfcf84bd71d838f3b80e9bafc1dd94d515a138d10631"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/local-edit-scope.json",
+      "bytes": 1435,
+      "sha256": "60cfefda18761aab7cc537331fc423c32cfd3a2a1e41231ab41e8cd59c9487de"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/long_facade_finish_r14_plan.json",
+      "bytes": 3480,
+      "sha256": "a13377c734a10ec0b3b81dc12eca7dd72515be10aa09c344bf88ff5602c3d7a5"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/native-circulation-coordinate-readback.json",
+      "bytes": 193840,
+      "sha256": "1495aa4df84b2a1de03f0663450c10aa9196704a049a770027e1afda914134f0"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/outer-vents-registration.json",
+      "bytes": 30538,
+      "sha256": "40a58e5e7e84c263b9ecb850550f57fbd3b8d0c399fdb1821502f7a2f5e401f9"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/outer_vents_plan.json",
+      "bytes": 2259,
+      "sha256": "c56e06ba5a90a69a512b884d5d0b54b29c33cea01725dee87ef05dd205535f92"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/ramp_remaining_scope.md",
+      "bytes": 1697,
+      "sha256": "37bf26195616c8b468e9d4f6792ae87e3152a94168822abb4d3734664a299dd5"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/readonly_envelope_void_stair_r13.md",
+      "bytes": 4209,
+      "sha256": "1de045ecbc708de5bdf7629bd28d1766ec3049fde53e564df6d6c694ced0f34f"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/receiving_gate_edit.md",
+      "bytes": 3425,
+      "sha256": "3bd145cf489ef1c4410f7d0779f2ce68f1c3a30b58537ae8ab2abfb25228ed5d"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/receiving_gate_scope.json",
+      "bytes": 58858,
+      "sha256": "7a772ac162d03d0331046bb540f97a0ef3024b34de2d83b520f2368f85614ebf"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/reconstruction_card.md",
+      "bytes": 2647,
+      "sha256": "11f4e176c0eafc51112b9c9acc826e769a2ce97e3b5ff9a3ec00559f82dc70a1"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/reconstruction_contracts.md",
+      "bytes": 3667,
+      "sha256": "0854159148edc99567722321711d08aa17c26a41ad85b3284f2eff9d059316c1"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/reconstruction_evidence.json",
+      "bytes": 11267,
+      "sha256": "962252463852e4ca0264d99444a897b41b996b46fed151913a4aa25c9c7c685b"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/roof_clearance_edit.md",
+      "bytes": 2744,
+      "sha256": "c8b6d74a4c5a4cc7c5b1f97d1230880b6cfd3581a5a659cafaad41cfed422e71"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/roof_local_edit.md",
+      "bytes": 1417,
+      "sha256": "7b25cd987f4cbbfa16167b0cf94ad1642f0522810ce1b1922cec01c3229aefa2"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/small-circle-registration.json",
+      "bytes": 31662,
+      "sha256": "8e2db62de1438b24d4ddaf1309fcec9ff77ca4543635852b9734d9947cff685a"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/small_circle_guard_edit.md",
+      "bytes": 3219,
+      "sha256": "a65c05fe3b6f1c1299262766d0900e1f171b898a26e4093abdd370552e0f76f0"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/spatial_spec.json",
+      "bytes": 3152,
+      "sha256": "87e93b7c870c424724def655db52212ccbe9836cc432f19ad2cbe0b57884eaa3"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/upper_glazing_door_edit.md",
+      "bytes": 2420,
+      "sha256": "ce6cc5249fee4672f6ec7ad56d0e969b3a780301430c032726e7477905c95138"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/upper_ramp_containment_edit.md",
+      "bytes": 2142,
+      "sha256": "779f05d9ae1d2c1f2aa6b519452b279fa2e05d5e689ae545199a359e03746fe4"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/upper_ramp_layout_proposal.svg",
+      "bytes": 3075,
+      "sha256": "76be698a685c55fc1da2d10d48a798be2890e0d6af5c23e84fafdff99d22a5a9"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/upper_ramp_placement_scope.json",
+      "bytes": 7354,
+      "sha256": "6405cdda6ac731b543dfd0b99fe1fcc4fbe04e91dda99a7a64e1d609f854fe17"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/upper_receiving_glazing_scope.json",
+      "bytes": 2092,
+      "sha256": "291b01c0bf69dabe4df6f617dfa399b43a2a4053ed0be077ae53328ad4730d93"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/volume_inventory.md",
+      "bytes": 2956,
+      "sha256": "ac8bf562af9d1ffcc31d2fb6b230dc5b3bff9184de4de9b5d83c6c530b358405"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/west-entry-clearance-recovery.json",
+      "bytes": 1715,
+      "sha256": "43fa401c69a53338d4f093366e1c1bd2c0b1dbeba8493223e6635b40ad266c95"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/notes/west_entry_sliding_current.md",
+      "bytes": 1471,
+      "sha256": "8296eff567a782d1909daba28f61e2dea0d0a6d79c256871c9ac21ccfac17e3b"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/corner_jamb_r18.md",
+      "bytes": 1773,
+      "sha256": "d8ae40edb002b269d45ef4f0acd9cd4f20776fd75732fc179278c8e06ab79cac"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/corner_jamb_r18_captures.json",
+      "bytes": 134,
+      "sha256": "b5d486bdd0a5d3900231bce29c0652154266c7d85bf0024bf2ba88a36e3555a7"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/corner_source_cameras.json",
+      "bytes": 7712,
+      "sha256": "bf4a08a763f96f542f5f36a3a49f9e685558784bbe541e6c4140d40dc09e0012"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/enclosure_addition_r11_native.json",
+      "bytes": 44325,
+      "sha256": "76d9afb14439abff33cb430a75435a6fc2fa7700a15c2b17aafff38189b5e876"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/enclosure_addition_r11_receipt.json",
+      "bytes": 12231,
+      "sha256": "0b79233d84bd81d34e2f7f1b870267c04774e25309153d10262d836fc82b185c"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/exterior_circulation_r13_receipt.json",
+      "bytes": 13383,
+      "sha256": "68298b9233e34adaa19de70befcfd5dbb849141ce18d2ba96c0ae49e71228dd7"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/exterior_circulation_r13_review.json",
+      "bytes": 9047,
+      "sha256": "8d05019cda5c6380fde0f0933a1ec1027a15b02cd0386e8a72f8e7b92cfae770"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/exterior_readonly_r10_20261016.json",
+      "bytes": 188366,
+      "sha256": "4780cae63592f56c83bb9f18d9c5b3594d6507e6547dbca300769613ff605ea7"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/grating_r9_evidence.json",
+      "bytes": 173579,
+      "sha256": "e68be62e87f40ea9ca48c1330e06aefd7cf6b17e066bb7f84a46ec11796ff325"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/grating_r9_final_checks.json",
+      "bytes": 68160,
+      "sha256": "60c5ab3dcc13dfbed83b03fa38393157ead602f680249a33f7d4964a558ea05b"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/grating_r9_write_receipt.json",
+      "bytes": 105596,
+      "sha256": "f8506155539d11a3481c27b8c9d4b4d14bfb4cf95244fa3a4233bef544649fe7"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/interior_completion_r16.md",
+      "bytes": 3322,
+      "sha256": "bc625b76f7a4bfa0d9e9634be0c18fb1d883e10e3296f3a5a455fab35d9865f0"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/interior_r15_committed.json",
+      "bytes": 43763,
+      "sha256": "2eff8c4e7fc30def9ae311da0268f1644522416a360a015acaea3fab13dfe3eb"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/interior_r15_followup.md",
+      "bytes": 394,
+      "sha256": "10e0dec713395bfc2efc3c5cb8f08ab0e888e3a2c922bb3c0dec766b1b1c3867"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/interior_r15_scope_used.json",
+      "bytes": 2837,
+      "sha256": "17d4ad2493709281b561ad9896b31243a85023fab6878a865edb2449c7ed118c"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/interior_r16_receipt.json",
+      "bytes": 7750,
+      "sha256": "172d4e814f228ace654e492fcf8b6038e488568144a2f25ccc61985791faff39"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/keep-preservation-write-1.json",
+      "bytes": 92400,
+      "sha256": "300844d944f009b3b5759b9a8a0b3c991f14c8d2e259d02eacbab129d9c563ce"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/keep-preservation-write-2.json",
+      "bytes": 26922,
+      "sha256": "e80552116758f48c6446bbab175f08c5ca57a7d90e282ba2fb3e0080da8a6640"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/long_facade_finish_attempt.json",
+      "bytes": 18659,
+      "sha256": "206931113e40edd0420fc0c539d17699495382d3feb2f58eb06a21d8ef783ddb"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/outer_vents_r17_receipt.json",
+      "bytes": 86090,
+      "sha256": "222ed162d99ff4dbe1e0be394ee2c68c7d732b49b51835ff58b7337baf014f00"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/outer_vents_r17_result.md",
+      "bytes": 2498,
+      "sha256": "5b3dc194fde29a27cd303e6ade77b00acf9819005873efb2d58789620f4d4e51"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/ramp_edit_status.json",
+      "bytes": 6657,
+      "sha256": "40551361afbe997caa5f7baf8ad042a5feee1460c39ec15c2fbd160ea5643bce"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/readonly_envelope_void_stair_r13.json",
+      "bytes": 62708,
+      "sha256": "765482bdf317f9c6211ba233b14b24671bc4f07b658e7bbe31e463853ef7d872"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/readonly_r8_audit_20261016.json",
+      "bytes": 95636,
+      "sha256": "26928b4f29baead2d7c242b74db898bea3182ac2f1d07242dac4bf0c99babf1a"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/receiving_gate_edit_receipt.json",
+      "bytes": 28763,
+      "sha256": "e0346b1d78a42aa64b4243d3a243a5d60c73586b4bad959c1e3b48092f4f1fac"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/receiving_gate_readback.json",
+      "bytes": 13287,
+      "sha256": "aebbf02cc339626115ccbe7b6ff0f51756ff91a0791532a67c7c1eabf0427d3d"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/repair_history.json",
+      "bytes": 88078,
+      "sha256": "718b779959e0fa377eb1ea738d020199d9a9a40c5c5a5e2952d68a9eec695563"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/roof_edit_receipt.json",
+      "bytes": 11182,
+      "sha256": "605d9f9ea7b0e684b4655b1be7ad3315818876ba1565cf950f3c653b20c718ef"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/small_circle_guard_r10_receipt.json",
+      "bytes": 4812,
+      "sha256": "d46b93b9b76133c3d907d7dd2a936193d1e5973465b4dadd36c1a4539fbe89c5"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/small_circle_guard_status.json",
+      "bytes": 1625,
+      "sha256": "219ea347311ed76c403fa87659485cbc2f7d1d81415cf32c1eac62875efdfadd"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/source_comparison_r8_20261016.md",
+      "bytes": 4426,
+      "sha256": "d47f1fbae94de70ef7ede6998cd8ab3a337a4f5253b4cd5abc9d80290bb5f4d0"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/upper_glazing_door_receipt.json",
+      "bytes": 74042,
+      "sha256": "a8b1ea16a529a467ffcd185bccc143a0169278959635a7dd2a5ba1fbddc9cbc5"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/upper_ramp_containment_receipt.json",
+      "bytes": 90603,
+      "sha256": "cdfca16771ccb668b7b5520cc96fb8d55122b514150b829a04204924a9a49afd"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/visual_qa.md",
+      "bytes": 5490,
+      "sha256": "7c52b601858a4b2acc82ae919c9c6ccd0beb71147ff486ce801d590f22dc2e8c"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/visual_review.json",
+      "bytes": 33583,
+      "sha256": "6d1728f91407548c116261fca63191cf3ab6d26e151cf7188e4ebe5d7843dbdc"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/visual_review_history.jsonl",
+      "bytes": 748962,
+      "sha256": "3c9d5a2206bcb0fd52efc1e833905071dbb926729654c89e07a28e5375f31982"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/qa/west_entry_sliding_r12.json",
+      "bytes": 5082,
+      "sha256": "cd2d606623e9e55dc6dd707601347a5426415517a9dd2d65e6d4ccf1e4502eca"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/add_north_east_corner_jamb.rb",
+      "bytes": 2484,
+      "sha256": "9eb88c0a134f80711d973aa93454671d69c92772ba10d1c139f0c8e7d2589e29"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/add_small_circle_guards.rb",
+      "bytes": 3400,
+      "sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/align_table_supports.rb",
+      "bytes": 1584,
+      "sha256": "809add9dab757b732cc10e6a390a0e53b3e6b1d0f749b4b79bdb2385f9bdb74e"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/clear_west_middle_entry.rb",
+      "bytes": 2315,
+      "sha256": "a05c099872062be25df78f24078b86acd540b6e8e097ebe38293d0f026935d58"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/complete_exterior_circulation.rb",
+      "bytes": 13178,
+      "sha256": "4039e8b95b9cfa318ff48c65d8310639852175c5902012e571cee70ea00a1ccb"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/complete_inner_enclosures.rb",
+      "bytes": 9142,
+      "sha256": "b1c402b29c62e3cfb08bd55f69ab0065837f3127609e0052d65ff6614a33d209"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/complete_interior.rb",
+      "bytes": 12414,
+      "sha256": "a885a8d7eee4a473300c6ac0ba12f823fa458db0e02172d12937ec568316ea63"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/contain_upper_ramps.rb",
+      "bytes": 7196,
+      "sha256": "cd856b600d80384949ee8c9f24539c8d471209db62e34357592e0ef9c1793a86"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/convert_gallery_grating.rb",
+      "bytes": 6114,
+      "sha256": "e96a7036379b163b2a40069e92cdab7f3b0241411d61e9b3586164f9a38398fd"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/correct_ramp_connections.rb",
+      "bytes": 4975,
+      "sha256": "e159733743a1e07cad5296ebcae07df61a4b1917f74ae299ccec69306a491d71"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/correct_roof_clearance.rb",
+      "bytes": 5466,
+      "sha256": "9ccce9f731649ddaed5a2157a5fe7fa9b6c3963c7511dcd0c766e3387ba0ef30"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/correct_roof_handedness.rb",
+      "bytes": 1481,
+      "sha256": "53837ec3ed0cc771a08bca928547529b6aa3b8e795331e422e3d816228df55c6"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/finish_long_facades.rb",
+      "bytes": 17713,
+      "sha256": "62af6c638a0f7270e24a8444d1b49fc115ab2efb6dca1ec41e601874d72c87d7"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/open_outer_eave_vents.rb",
+      "bytes": 5575,
+      "sha256": "ca18a8fc26e521d7edb820727535d0f0d67a2a0ebeb8b3d776437937da4f2454"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/open_receiving_gates.rb",
+      "bytes": 3816,
+      "sha256": "af59bd793b43501959ca559731329243e9c1f3829cd8a40bec81bf2760e5928c"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/open_upper_glazing_doors.rb",
+      "bytes": 2941,
+      "sha256": "d98b964ef5dd0787160356f871067ab6cf7661ee0b2822b5519e136c4398e070"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/reconstruct_building.rb",
+      "bytes": 11690,
+      "sha256": "8c1aa366379f12d418bec3b9facc74f6774c81fe47425b32608cec2052fce9eb"
+    },
+    {
+      "path": "execution/runtime/agent_workspace/scripts/refine_interior_support_finish.rb",
+      "bytes": 3264,
+      "sha256": "b58c5ff76e3c8f8ac2eee9fb31cfde790b0da9b7b6e5a8a85a095d15b6fef103"
+    },
+    {
+      "path": "execution/runtime/native_delivery_checkpoint.json",
+      "bytes": 845,
+      "sha256": "71d14e5bd67eb017dd28fb6df2c0ec29fc2ac02d720543c51bb6f33d377232ed"
+    },
+    {
+      "path": "execution/runtime/project_ruby_state.json",
+      "bytes": 11988,
+      "sha256": "21409b3f5f1edec6c983d27debb9c3bd7b225776734f823ecd27c2919c361969"
+    },
+    {
+      "path": "execution/runtime/scripts/glass_curved_roof.rb",
+      "bytes": 2484,
+      "sha256": "9eb88c0a134f80711d973aa93454671d69c92772ba10d1c139f0c8e7d2589e29"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r1-17ed3663.json",
+      "bytes": 30881,
+      "sha256": "55c471e7597ee28b607577db7f051f52d406ad2cf9ff85bc84ffb8bcdfd4c5f1"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r1-17ed3663.verification.json",
+      "bytes": 1130,
+      "sha256": "09b577f1f3fa06883ad469528ae6cf6fa90e602399b43dcb9aee1effae187c05"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r1-2f7d76b6.json",
+      "bytes": 2639,
+      "sha256": "e792d59c9baba058db04d038ee3ea4a652127c8669302a235962fbfe10dac5d4"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r1-5b0af81b.json",
+      "bytes": 2639,
+      "sha256": "262f7d5cb12a96dae7b4c79d7cb579ae58b06de95671b811635f7b7bb11fcec4"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r1-7a7f4040.json",
+      "bytes": 2377,
+      "sha256": "13a5ffbcf93cbdd34157d83e16be63d2061b863e3bdacc56f8bb355c78982226"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r10-f65e454a.committed.rb",
+      "bytes": 3400,
+      "sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r10-f65e454a.json",
+      "bytes": 38043,
+      "sha256": "510e7c319907373feae3e07acd560ace3d45008b6c5e90c9af3bffed4dc02c0c"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r10-f65e454a.verification.json",
+      "bytes": 1132,
+      "sha256": "bb6c53ec0bb413c1eac5085be603af6d4b282c5acf40ffb383b3f8131c0fa29f"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r11-0623a261.committed.rb",
+      "bytes": 9142,
+      "sha256": "b1c402b29c62e3cfb08bd55f69ab0065837f3127609e0052d65ff6614a33d209"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r11-0623a261.json",
+      "bytes": 38046,
+      "sha256": "9b34af6ade67b3a61a4ad4628e18a51006d0421c66b495107229cb130ef147d1"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r11-0623a261.verification.json",
+      "bytes": 1132,
+      "sha256": "40e47ff13c3b65024c3958d50e2abe37cba15d46b106e86d10f08b35d2989685"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-31ef3e68.json",
+      "bytes": 14480,
+      "sha256": "f2bfa1c19017292117c5712c678719b255f9f57aa9a4c99d92ec075432c326a4"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-33b520e5.failed.rb",
+      "bytes": 2439,
+      "sha256": "6a2a274f78c76f5ba90a5a902755e1aaf3535e870cdd248231abf7994ac15803"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-45c0b1d7.failed.rb",
+      "bytes": 2284,
+      "sha256": "856ba633e54616b0ca1daadfc439bc525f090dc77a54535d89424ca5b82b636c"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-5ab4c0a9.committed.rb",
+      "bytes": 2315,
+      "sha256": "a05c099872062be25df78f24078b86acd540b6e8e097ebe38293d0f026935d58"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-5ab4c0a9.json",
+      "bytes": 38046,
+      "sha256": "9c67155bf13962619e8dc69763778f212b0e5cf547727b60375081f7d5755af1"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-5ab4c0a9.verification.json",
+      "bytes": 1132,
+      "sha256": "ae6f35f4c8ee37aa021590ebc0f99ca661a08242c86d7a211bc13c9022e4b755"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r12-d7892bd4.json",
+      "bytes": 14480,
+      "sha256": "443f4444e2ff68a6aaf15f5fbf37ed2ad4567e79f7530b4e50cbe17b895f43b5"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r13-f1170d8f.committed.rb",
+      "bytes": 13178,
+      "sha256": "4039e8b95b9cfa318ff48c65d8310639852175c5902012e571cee70ea00a1ccb"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r13-f1170d8f.json",
+      "bytes": 38054,
+      "sha256": "db9e36de068250a66b0ff9d1754990730fb1997a7c60498bfc7a3ec2df3377f2"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r13-f1170d8f.verification.json",
+      "bytes": 1132,
+      "sha256": "9987e4a3478a77caa996feaebceef55015074ccdd3226b18744b38967d66b98f"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r14-33d9ed85.json",
+      "bytes": 14386,
+      "sha256": "db8b78646444bbea516d665772f49fbcab7c9d4fd602d7e58cec86b165a5530d"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r14-9b6d7a6a.failed.rb",
+      "bytes": 18052,
+      "sha256": "94c6333a074affc310e5902400fa68f6f36b85d8efbcb00756dbb0990bc4d013"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r14-bc6b48a7.committed.rb",
+      "bytes": 17713,
+      "sha256": "62af6c638a0f7270e24a8444d1b49fc115ab2efb6dca1ec41e601874d72c87d7"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r14-bc6b48a7.json",
+      "bytes": 38054,
+      "sha256": "88e4eca9142b885ccf476616a8eb591c5acc6e2aed3d37c3102781b7b9d06ad2"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r14-bc6b48a7.verification.json",
+      "bytes": 1132,
+      "sha256": "7d68c297eb0f3b5ef0fd081b48a2a3e64a91c066563068a7931b4f594c7d2c79"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-1b52a9b0.failed.rb",
+      "bytes": 11717,
+      "sha256": "46065cc4698ab9a4bf57f6d4892f1831c7cdb2104e1eb36e699412b86956cfbc"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-3055c612.json",
+      "bytes": 13877,
+      "sha256": "43cba875f4657274b9c0c80274e206baa474db147902e1e802e70e3c4606529b"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-4bb9bf0c.committed.rb",
+      "bytes": 12053,
+      "sha256": "fb7863a03cea9577ad00f7022d1bdad6f8152684477fab8509104959230a6c04"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-4bb9bf0c.json",
+      "bytes": 38050,
+      "sha256": "36d126b36d948d0418935878d1cec9813a6a03d9b64240084131810df27da083"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-4bb9bf0c.verification.json",
+      "bytes": 1132,
+      "sha256": "bd82616b4b37385e247bad24700e7ebf8b6a5a0620c15d3e6c524804b621d491"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-e8db84b6.failed.rb",
+      "bytes": 11744,
+      "sha256": "abe4b8eabb891b73b1f73f2ebfbda3c606ee7c2569d5e056e569daadc54459d6"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r15-f2c28a7b.json",
+      "bytes": 14397,
+      "sha256": "b77abf602c876aaee68573682ceee44f1ef68c541db13c8082f65fe468f79a28"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r16-db7a176a.committed.rb",
+      "bytes": 1584,
+      "sha256": "809add9dab757b732cc10e6a390a0e53b3e6b1d0f749b4b79bdb2385f9bdb74e"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r16-db7a176a.json",
+      "bytes": 38052,
+      "sha256": "bfabc30c0c649d746c7a53a53be1868edae03a7d0354f1d7e9b0d0d76635b573"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r16-db7a176a.verification.json",
+      "bytes": 1132,
+      "sha256": "b7c1d06a119fd2332eac7fd730e2a6e627e0286c1bc5fd825c280f7b4c667d51"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r17-8db8cf92.committed.rb",
+      "bytes": 5575,
+      "sha256": "ca18a8fc26e521d7edb820727535d0f0d67a2a0ebeb8b3d776437937da4f2454"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r17-8db8cf92.json",
+      "bytes": 38052,
+      "sha256": "31b1f8b91ee1bfa932472708b7b75066c883ccda71f703bb949be363d4b4cc03"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r17-8db8cf92.verification.json",
+      "bytes": 1132,
+      "sha256": "849eee3b6171f75351d64e9bfca4776d49c98f3fb18023a0a516f14f83b4b986"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r18-89a3f558.committed.rb",
+      "bytes": 2484,
+      "sha256": "9eb88c0a134f80711d973aa93454671d69c92772ba10d1c139f0c8e7d2589e29"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r18-89a3f558.json",
+      "bytes": 38052,
+      "sha256": "130ae6ab5a8af63629cf072f6954a6062b146340644a9b797537d03eb44434da"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r18-89a3f558.verification.json",
+      "bytes": 1132,
+      "sha256": "ea258fb5fc952f0d15facadf9fefc2a5c8e0ed584f11bf1514d5547e871e652c"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r3-f136b4d6.json",
+      "bytes": 38022,
+      "sha256": "43358474fdb6c514ea1c0479fafe280093a905b0f6dd430406a816443cd8789f"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r3-f136b4d6.verification.json",
+      "bytes": 1130,
+      "sha256": "d076703ab2a6c8e0a2600655876437ee45a56103515894841d51f5cb96098ff8"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r4-697cdeb5.json",
+      "bytes": 38022,
+      "sha256": "d2a0a2fad20a50d25df93e2d95fb0ba2d901571e8ecbb51dbfd30a6ceba86422"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r4-697cdeb5.verification.json",
+      "bytes": 1130,
+      "sha256": "93a6b2a964f62aa101f7e22682991c77285a8ad4fe5dcd8bc56e6a636ef0f601"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r5-3c12266c.json",
+      "bytes": 14476,
+      "sha256": "efe433e0887f348cf2fdf2e2349e6a4ce84a84c23995b9ee17ab4531b04c78e4"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r5-78043395.json",
+      "bytes": 38038,
+      "sha256": "88d29a671e89d50501925ccedc46e6497ee06db3bcf50bdeb971b7c87e49b265"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r5-78043395.verification.json",
+      "bytes": 1130,
+      "sha256": "db10ff810e9171a474b9d89d8a0400babaed83ff54fb1f94d14ba860e335da08"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r5-7c36b554.failed.rb",
+      "bytes": 6461,
+      "sha256": "91b35e265d33809773787b3b156bb946e30bbfc61205bd73740113f39721e40d"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r6-41905a71.json",
+      "bytes": 38038,
+      "sha256": "76fb223bc138384e5606e083d6f3e3abb625657f71eb8aa63cf7eafa11223fde"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r6-41905a71.verification.json",
+      "bytes": 1130,
+      "sha256": "5fc04629740df31285a87a8d51cb6f51004d08b13574e3e234b21e5affb4fa8b"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-252cea63.json",
+      "bytes": 38038,
+      "sha256": "9a09f3276c275e321beb64f9436a9df1d28ee55f74f325082c5ee2899ba4bfc9"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-252cea63.verification.json",
+      "bytes": 1130,
+      "sha256": "2ce06cf9c130b51c3c43a31e6a4a8206a57a3d35031723b5a826c70738278769"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-312c0c88.json",
+      "bytes": 38037,
+      "sha256": "d731965ae107a44ff9cbe0655c020d154cbb5a6a23cb946833a7b5a99e0f0104"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-312c0c88.verification.json",
+      "bytes": 1130,
+      "sha256": "2ce06cf9c130b51c3c43a31e6a4a8206a57a3d35031723b5a826c70738278769"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-40a6ed45.failed.rb",
+      "bytes": 269,
+      "sha256": "9aba9c0833498e93171de6ff354d8113dd33a2290b5a3bc4364286c3203bdd93"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-5fd5d9da.json",
+      "bytes": 14456,
+      "sha256": "9725a688d8d50a2782628d2a4443868be3a8c61d10c62d2d3e83376695508c5d"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-9dbfec3d.failed.rb",
+      "bytes": 345,
+      "sha256": "f17f43434d5217a1dc52bf7ef53da0cd9ddfe6f0696e59309a6935fd6898c52d"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r7-b7835df1.json",
+      "bytes": 14456,
+      "sha256": "14368fcb5cec8e4bfce7e75e9aa12efeb732aac9fd21a26af6a973ec071ce4d4"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r8-12d63713.json",
+      "bytes": 14400,
+      "sha256": "a467f2f965dfbfee48b4511dd563311966bd382167a443538154fb129b892efa"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r8-30560e99.failed.rb",
+      "bytes": 428,
+      "sha256": "cebdbfaba6804fca52dfbf0344021e4d7877d3c45042d2a9edfe56991ca582f1"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r8-772d93db.json",
+      "bytes": 38038,
+      "sha256": "5e4875a54127ff9447d4ae73058cc4778727268c74a0ff390645158a33b2454a"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r8-772d93db.verification.json",
+      "bytes": 1130,
+      "sha256": "3923dcedcca13f2d7c8741f809f08a99f95578a6303551137f7b030775afe0b0"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r8-82640871.json",
+      "bytes": 14463,
+      "sha256": "79da711adc2002d54de21a85fe83f6179b2e9f3908e8449e065225e51884a645"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r8-ac49b350.failed.rb",
+      "bytes": 428,
+      "sha256": "cebdbfaba6804fca52dfbf0344021e4d7877d3c45042d2a9edfe56991ca582f1"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r9-bdd193f6.committed.rb",
+      "bytes": 6005,
+      "sha256": "5a0052c1dea4dcb978cfb0afb47de93bffb0b7f12a9bbb005384b78a39231f0b"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r9-bdd193f6.json",
+      "bytes": 38038,
+      "sha256": "7a755edf6ec3a9033eb387b814d092437f94c093e21641ee3c03b6c38157178e"
+    },
+    {
+      "path": "execution/runtime/scripts/reports/glass_curved_roof-r9-bdd193f6.verification.json",
+      "bytes": 1130,
+      "sha256": "c2898af8c7535d0c07fb4f3cbb56adae0a6b0dfe1df3a5480fc2112e1654c96e"
+    },
+    {
+      "path": "execution/runtime/scripts/source_history.jsonl",
+      "bytes": 13690,
+      "sha256": "6d9ab754c52d95fb91f708002d5ed20af7abfd43fcab85271abe5d595e8bd708"
+    },
+    {
+      "path": "execution/state/agent_session.json",
+      "bytes": 21932,
+      "sha256": "6546b2c069f598f49cc434f2f7f33639aa5235e85f22269c324b35c152f25bc8"
+    },
+    {
+      "path": "execution/state/model_state.json",
+      "bytes": 1714,
+      "sha256": "0f192a2db880f1d070a1fbeb9b0ee141fc57ac4ecfdd9ca5b6b23d2dab940952"
+    },
+    {
+      "path": "metrics.json",
+      "bytes": 1013,
+      "sha256": "a89d981d404139a175c7c791751fc5b670d09219bbbebe3506902391775224f7"
+    },
+    {
+      "path": "model/geometry-readback.json",
+      "bytes": 10596,
+      "sha256": "ef05d68288b43b5f6e3704ae942b3ae6a034e62d3ef0b40130f119ac1851431b"
+    },
+    {
+      "path": "model/native-reopen.json",
+      "bytes": 25605,
+      "sha256": "04d2061a855ee379e785136170224f1c0ea06b348e2518e52215182bffbae4ce"
+    },
+    {
+      "path": "model/oss-method-adoption.json",
+      "bytes": 4148,
+      "sha256": "d05c71b8dca364baa145ab2352621ba16696096cd70c00d07863088e16ed8de8"
+    },
+    {
+      "path": "model/oss-method-ledger.json",
+      "bytes": 238,
+      "sha256": "caeb219ed8ec8dfea748b2771c83ede140ff189a49d078b01a44c4bec3429983"
+    },
+    {
+      "path": "model/write-verifications.json",
+      "bytes": 1070,
+      "sha256": "5395551663587da09b0bb8aa5cb384946694bb41dead796c935e3aaafe513ad9"
+    },
+    {
+      "path": "native/r18-actual-pre-site-save-ordering.json",
+      "bytes": 565,
+      "sha256": "e08ebd12f7cea2d1d551c964bf816e407ba5398f3bbe769458072c5308677279"
+    },
+    {
+      "path": "native/r18-actual-site-route.json",
+      "bytes": 2273,
+      "sha256": "b845d738a336984f8b606180d52c15b20e7934ed8e0b7225ca2e91ad116eeb6b"
+    },
+    {
+      "path": "native/r18-finish-material-inventory.json",
+      "bytes": 59324,
+      "sha256": "bcaf187ebb7f4ac15755fa413e2d1acd715be2ff14942c447847c738a746da7b"
+    },
+    {
+      "path": "native/r18-graph-before-site-final-save.json.gz",
+      "bytes": 3479624,
+      "sha256": "df32229cc7d8027c8587f93e7ea8c6bddfc0a7fd9dc9fb4675ef69a97d3568fd"
+    },
+    {
+      "path": "native/r18-graph-bound-reopened.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "native/r18-graph-browser-download-reopened.json.gz",
+      "bytes": 3479493,
+      "sha256": "12b0a0e6fdb8c508b931ef09ca705b24333dab66393819260f6dcd28ee42662d"
+    },
+    {
+      "path": "native/r18-graph-working-restored.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "native/r18-native-delivery-verification.json",
+      "bytes": 26191,
+      "sha256": "100041edb64f400cf0564780a278f928a1263ba5b80636daa72a0393178e67cc"
+    },
+    {
+      "path": "native/r18-path-audit.json",
+      "bytes": 783,
+      "sha256": "baa27479c5f39f6877eb065910361d0a093ae28b35edd039f41b9ffef5d0ba5d"
+    },
+    {
+      "path": "native/r18-review-coverage.json",
+      "bytes": 349,
+      "sha256": "2c8e4c78716790f86b9910b52169a9fced832feb1533c1ad9b17b2259d923676"
+    },
+    {
+      "path": "native/r18-stable-native-delivery.json",
+      "bytes": 13771,
+      "sha256": "99282948125dcf20c64b4e8534febede20d1637081f0bbf94807718d160f8a8a"
+    },
+    {
+      "path": "native/r18-vent-probe-source.rb",
+      "bytes": 5825,
+      "sha256": "699c6e5a8f3713c44eae94206f42f8d368d7939c793f5a51df57b0db76aa1bdb"
+    },
+    {
+      "path": "native/r18-vent-probe.json",
+      "bytes": 217623,
+      "sha256": "2554b9ebd254f048f9691712f08e77d4d7cb366622a504790f097f664e671ae3"
+    },
+    {
+      "path": "native/r18-website-corner-jamb-request.png",
+      "bytes": 74138,
+      "sha256": "20c2c5ccd973c048588ba7ca919c5eea6418a2bffa6b323c5a217952913d60d2"
+    },
+    {
+      "path": "native/r18-website-final-download.png",
+      "bytes": 97998,
+      "sha256": "ff6f7f7050a22abd0e70da162e1fae4ff3640b63c16636dfc7c70106928b81b9"
+    },
+    {
+      "path": "native/r18-writer-state.json",
+      "bytes": 11988,
+      "sha256": "21409b3f5f1edec6c983d27debb9c3bd7b225776734f823ecd27c2919c361969"
+    },
+    {
+      "path": "native/scope-corner-jamb-after-r18.json.gz",
+      "bytes": 3493094,
+      "sha256": "f2f64787fe6eed35bef693caa482042f89fcb19e8bbf118ba7564fa0e3ed644f"
+    },
+    {
+      "path": "native/scope-corner-jamb-before-r17.json.gz",
+      "bytes": 3493094,
+      "sha256": "b302622ffe1d37414ddc7aa7f657db57c30cfe97b4e1ae21097b971b2c185164"
+    },
+    {
+      "path": "preparation/authorization-active.json",
+      "bytes": 1435,
+      "sha256": "60cfefda18761aab7cc537331fc423c32cfd3a2a1e41231ab41e8cd59c9487de"
+    },
+    {
+      "path": "preparation/authorization-prepared.json",
+      "bytes": 1366,
+      "sha256": "bae0442130efaa8dfcd7b93ea9129bd1326a18c2f03c90ff6c1d7ddafd75f2e2"
+    },
+    {
+      "path": "preparation/buildplan.json",
+      "bytes": 3234,
+      "sha256": "6d8b2e3ab36bce4d8552e03014d250bc6df5bcf66a4971ff5ca8958ac730b15d"
+    },
+    {
+      "path": "preparation/design_graph.json",
+      "bytes": 4661,
+      "sha256": "9c7bf8bdf469feeea40738949bff6ec380c14fcb6d844906ade2b1528d86c21f"
+    },
+    {
+      "path": "preparation/native-target-verification-r17.json",
+      "bytes": 313,
+      "sha256": "1ed777443713ccc986f64c74146208d3936656032056fc60a76821d1b3be75d1"
+    },
+    {
+      "path": "preparation/original-active-edit-scope.json",
+      "bytes": 7268,
+      "sha256": "f0d661631588da56a1c3ba69fd80db393c48c332a93b9e054ebb3c28c76c4f4a"
+    },
+    {
+      "path": "preparation/registration.json",
+      "bytes": 1659,
+      "sha256": "d074dc8c0da8875902227ce8faf212eb78311a4075117145e480ce2ab00530ef"
+    },
+    {
+      "path": "preparation/validation.json",
+      "bytes": 63,
+      "sha256": "b623e33d3611ba87619dadcb2207fe2969e94b56061507d8fe789a2a51f8d21f"
+    },
+    {
+      "path": "preparation/workspace-before/notes/adai_geometry_contract.md",
+      "bytes": 111,
+      "sha256": "aa1ada415a96c1beff691b20b13c3314cea27b8b5279e74c1309102fdffdc259"
+    },
+    {
+      "path": "preparation/workspace-before/notes/buildplan.json",
+      "bytes": 8453,
+      "sha256": "c4b5bc3c05af33dd1e89351ecbbe8bd5e0369a3abb634e1c096c4489fa6db770"
+    },
+    {
+      "path": "preparation/workspace-before/notes/circulation_local_diagnosis.md",
+      "bytes": 1926,
+      "sha256": "c04056c9e00d7ff32e539f186f805aacee0c338be51f1a2b99f885092c52121c"
+    },
+    {
+      "path": "preparation/workspace-before/notes/construction_progress.json",
+      "bytes": 5625,
+      "sha256": "027859b35f53c5159a9a4d32ab883476fddf20ec22edc9782644b5694cab4c79"
+    },
+    {
+      "path": "preparation/workspace-before/notes/construction_strategy.json",
+      "bytes": 17799,
+      "sha256": "b2c372d067ca840e91f4da8f542c0367aca0ef4e6e7bed67a7d0f9b13cd07952"
+    },
+    {
+      "path": "preparation/workspace-before/notes/construction_strategy_schema.md",
+      "bytes": 2551,
+      "sha256": "deb9710ffccc4244ae99f8bd63a60dd21e253e70bdfbb084ddb62999cad93b4a"
+    },
+    {
+      "path": "preparation/workspace-before/notes/design_graph.json",
+      "bytes": 12477,
+      "sha256": "f63f58c9254a78b777a9231cd524142925ad78ed099107db842eb8f244d854b9"
+    },
+    {
+      "path": "preparation/workspace-before/notes/design_notes.md",
+      "bytes": 381,
+      "sha256": "2e02cfaba9a1c3ea942dd8580e6f9b89b8123639fb089cd69fa3450a20a96290"
+    },
+    {
+      "path": "preparation/workspace-before/notes/direction_sketch.png",
+      "bytes": 180997,
+      "sha256": "a1e99374a76ac52f2f4633338f17ccac24b3a31ab54262023b53d0667b778d71"
+    },
+    {
+      "path": "preparation/workspace-before/notes/enclosure_addition_r11.md",
+      "bytes": 4486,
+      "sha256": "da9f2ea4803454b1b56c129bd32b33d446ac8294045ccff21f0704f7cdf1bbef"
+    },
+    {
+      "path": "preparation/workspace-before/notes/enclosure_addition_scope.json",
+      "bytes": 7441,
+      "sha256": "1c823b78029bbb7568229a010e8a32c8bfe8180e8ffdb281778ad87a4f7e5651"
+    },
+    {
+      "path": "preparation/workspace-before/notes/exterior-circulation-registration.json",
+      "bytes": 24754,
+      "sha256": "fe9780040309e33beb13e89e74b637ea46384b9cfbbfa50bf9dfec01b4cc9da6"
+    },
+    {
+      "path": "preparation/workspace-before/notes/exterior-enclosure-registration.json",
+      "bytes": 2500,
+      "sha256": "3b5faa27a1b9c034da45351519852782eaabc3cb01d64556f931365ae568c727"
+    },
+    {
+      "path": "preparation/workspace-before/notes/exterior-facade-finishing-registration.json",
+      "bytes": 24242,
+      "sha256": "e4644d17243bece5470a0066ba5bf06bf4da198972ed481875d2fc1dba36026e"
+    },
+    {
+      "path": "preparation/workspace-before/notes/exterior_circulation_r13.md",
+      "bytes": 1694,
+      "sha256": "fb19b722afdbfb6c580ac477a5a65161cb3f0d97f481bb65100945be4645b8ef"
+    },
+    {
+      "path": "preparation/workspace-before/notes/exterior_completion_audit_r10.md",
+      "bytes": 6423,
+      "sha256": "1710e457e91e2664bc4dd5b6aeb3e0cefccd570ce129782848abfdad55a34b18"
+    },
+    {
+      "path": "preparation/workspace-before/notes/facade_schedule.json",
+      "bytes": 15426,
+      "sha256": "77394d5a85761a0daa4e8c8f8a0b2ef2dff2ae124f41eace5fdf188c72ecb9bb"
+    },
+    {
+      "path": "preparation/workspace-before/notes/gallery_grating_edit.md",
+      "bytes": 2680,
+      "sha256": "13a0ae5ce87ee02baef7810f4e9668b47ad34a65daeab4ce2af9288622ebe495"
+    },
+    {
+      "path": "preparation/workspace-before/notes/grating-buildplan.json",
+      "bytes": 3707,
+      "sha256": "5293f65f29d8f90d44d542f58887c3af8d2963a6bf2ce33d5f31bee5f38571a8"
+    },
+    {
+      "path": "preparation/workspace-before/notes/grating-design-graph.json",
+      "bytes": 8065,
+      "sha256": "9ab617c56154e4445488d2b1dbee929ba49aca56c363bd6e1baa8c6d5627f483"
+    },
+    {
+      "path": "preparation/workspace-before/notes/grating-plan-validation.json",
+      "bytes": 63,
+      "sha256": "b623e33d3611ba87619dadcb2207fe2969e94b56061507d8fe789a2a51f8d21f"
+    },
+    {
+      "path": "preparation/workspace-before/notes/grating-target-inventory-r8.json",
+      "bytes": 2875,
+      "sha256": "2ad8c5f23c06f457adff2b8050188340cfa80d208c8648f075d58eb0465e2b80"
+    },
+    {
+      "path": "preparation/workspace-before/notes/history/before-exterior-20261016-construction_strategy.json",
+      "bytes": 22877,
+      "sha256": "b518e3d8631f0a321584ff3db42ba4db88937287a7b46222b807d9d019d94d53"
+    },
+    {
+      "path": "preparation/workspace-before/notes/history/before-exterior-20261016-reconstruction_card.md",
+      "bytes": 6143,
+      "sha256": "b764f568d25b1b543e93688fb6e2f2566af34754486209a6b2fdcefb82835f02"
+    },
+    {
+      "path": "preparation/workspace-before/notes/history/before-exterior-20261016-volume_inventory.md",
+      "bytes": 2401,
+      "sha256": "f487a8690960bfc6f5aef00719c7f4325d17af287553c3c9d9bfd910e51dc55e"
+    },
+    {
+      "path": "preparation/workspace-before/notes/history/r14-source-ledger-execution-history.json",
+      "bytes": 12009,
+      "sha256": "d35c5b2a15f0fbb6c10cf8688cb84ff678a035a710be38d7f2a93c3980d70b95"
+    },
+    {
+      "path": "preparation/workspace-before/notes/host-r13-void-spiral-readback.json",
+      "bytes": 96954,
+      "sha256": "5bcde9f1c1295fe94d6b6bab9d79fa19352d3a3521a411d9140c0a43e5e9cdc8"
+    },
+    {
+      "path": "preparation/workspace-before/notes/host-r14-scope-correction.md",
+      "bytes": 606,
+      "sha256": "3c57a23ad2f3930d3390e8947bf9af789aceb0c3957d8fd4fb7a9216c366df11"
+    },
+    {
+      "path": "preparation/workspace-before/notes/host_native_vents_r17_diagnosis.json",
+      "bytes": 1169,
+      "sha256": "62ef9a699ae0a9c2e9b658de98ce2ad11ae63719fb811c9c0f2cf9738de8a4cd"
+    },
+    {
+      "path": "preparation/workspace-before/notes/interior-completion-registration.json",
+      "bytes": 14363,
+      "sha256": "9ef2a3b9711aaf34c27e7148e208219e2f4a6d97a1f48cf69d5c5e93e647b422"
+    },
+    {
+      "path": "preparation/workspace-before/notes/interior_completion_plan.json",
+      "bytes": 3020,
+      "sha256": "07420909b0ab8e24be9ddfcf84bd71d838f3b80e9bafc1dd94d515a138d10631"
+    },
+    {
+      "path": "preparation/workspace-before/notes/local-edit-scope.json",
+      "bytes": 7268,
+      "sha256": "f0d661631588da56a1c3ba69fd80db393c48c332a93b9e054ebb3c28c76c4f4a"
+    },
+    {
+      "path": "preparation/workspace-before/notes/long_facade_finish_r14_plan.json",
+      "bytes": 3480,
+      "sha256": "a13377c734a10ec0b3b81dc12eca7dd72515be10aa09c344bf88ff5602c3d7a5"
+    },
+    {
+      "path": "preparation/workspace-before/notes/native-circulation-coordinate-readback.json",
+      "bytes": 193840,
+      "sha256": "1495aa4df84b2a1de03f0663450c10aa9196704a049a770027e1afda914134f0"
+    },
+    {
+      "path": "preparation/workspace-before/notes/outer-vents-registration.json",
+      "bytes": 30538,
+      "sha256": "40a58e5e7e84c263b9ecb850550f57fbd3b8d0c399fdb1821502f7a2f5e401f9"
+    },
+    {
+      "path": "preparation/workspace-before/notes/outer_vents_plan.json",
+      "bytes": 2259,
+      "sha256": "c56e06ba5a90a69a512b884d5d0b54b29c33cea01725dee87ef05dd205535f92"
+    },
+    {
+      "path": "preparation/workspace-before/notes/ramp_remaining_scope.md",
+      "bytes": 1697,
+      "sha256": "37bf26195616c8b468e9d4f6792ae87e3152a94168822abb4d3734664a299dd5"
+    },
+    {
+      "path": "preparation/workspace-before/notes/readonly_envelope_void_stair_r13.md",
+      "bytes": 4209,
+      "sha256": "1de045ecbc708de5bdf7629bd28d1766ec3049fde53e564df6d6c694ced0f34f"
+    },
+    {
+      "path": "preparation/workspace-before/notes/receiving_gate_edit.md",
+      "bytes": 3425,
+      "sha256": "3bd145cf489ef1c4410f7d0779f2ce68f1c3a30b58537ae8ab2abfb25228ed5d"
+    },
+    {
+      "path": "preparation/workspace-before/notes/receiving_gate_scope.json",
+      "bytes": 58858,
+      "sha256": "7a772ac162d03d0331046bb540f97a0ef3024b34de2d83b520f2368f85614ebf"
+    },
+    {
+      "path": "preparation/workspace-before/notes/reconstruction_card.md",
+      "bytes": 3376,
+      "sha256": "3c5466dfdb75b3262eccb50e7b4b0d02ee1349f0a088c342b14e0cbea8adb06c"
+    },
+    {
+      "path": "preparation/workspace-before/notes/reconstruction_contracts.md",
+      "bytes": 3667,
+      "sha256": "0854159148edc99567722321711d08aa17c26a41ad85b3284f2eff9d059316c1"
+    },
+    {
+      "path": "preparation/workspace-before/notes/reconstruction_evidence.json",
+      "bytes": 11267,
+      "sha256": "962252463852e4ca0264d99444a897b41b996b46fed151913a4aa25c9c7c685b"
+    },
+    {
+      "path": "preparation/workspace-before/notes/roof_clearance_edit.md",
+      "bytes": 2744,
+      "sha256": "c8b6d74a4c5a4cc7c5b1f97d1230880b6cfd3581a5a659cafaad41cfed422e71"
+    },
+    {
+      "path": "preparation/workspace-before/notes/roof_local_edit.md",
+      "bytes": 1417,
+      "sha256": "7b25cd987f4cbbfa16167b0cf94ad1642f0522810ce1b1922cec01c3229aefa2"
+    },
+    {
+      "path": "preparation/workspace-before/notes/small-circle-registration.json",
+      "bytes": 31662,
+      "sha256": "8e2db62de1438b24d4ddaf1309fcec9ff77ca4543635852b9734d9947cff685a"
+    },
+    {
+      "path": "preparation/workspace-before/notes/small_circle_guard_edit.md",
+      "bytes": 3219,
+      "sha256": "a65c05fe3b6f1c1299262766d0900e1f171b898a26e4093abdd370552e0f76f0"
+    },
+    {
+      "path": "preparation/workspace-before/notes/spatial_spec.json",
+      "bytes": 3152,
+      "sha256": "87e93b7c870c424724def655db52212ccbe9836cc432f19ad2cbe0b57884eaa3"
+    },
+    {
+      "path": "preparation/workspace-before/notes/upper_glazing_door_edit.md",
+      "bytes": 2420,
+      "sha256": "ce6cc5249fee4672f6ec7ad56d0e969b3a780301430c032726e7477905c95138"
+    },
+    {
+      "path": "preparation/workspace-before/notes/upper_ramp_containment_edit.md",
+      "bytes": 2142,
+      "sha256": "779f05d9ae1d2c1f2aa6b519452b279fa2e05d5e689ae545199a359e03746fe4"
+    },
+    {
+      "path": "preparation/workspace-before/notes/upper_ramp_placement_scope.json",
+      "bytes": 7354,
+      "sha256": "6405cdda6ac731b543dfd0b99fe1fcc4fbe04e91dda99a7a64e1d609f854fe17"
+    },
+    {
+      "path": "preparation/workspace-before/notes/upper_receiving_glazing_scope.json",
+      "bytes": 2092,
+      "sha256": "291b01c0bf69dabe4df6f617dfa399b43a2a4053ed0be077ae53328ad4730d93"
+    },
+    {
+      "path": "preparation/workspace-before/notes/volume_inventory.md",
+      "bytes": 2569,
+      "sha256": "e3c0459da846c5c5f071474bf15299dd0f19a355c56d44cc9a90a7ca36ca5f8f"
+    },
+    {
+      "path": "preparation/workspace-before/notes/west-entry-clearance-recovery.json",
+      "bytes": 1715,
+      "sha256": "43fa401c69a53338d4f093366e1c1bd2c0b1dbeba8493223e6635b40ad266c95"
+    },
+    {
+      "path": "preparation/workspace-before/notes/west_entry_sliding_current.md",
+      "bytes": 1471,
+      "sha256": "8296eff567a782d1909daba28f61e2dea0d0a6d79c256871c9ac21ccfac17e3b"
+    },
+    {
+      "path": "publication-receipt.json",
+      "bytes": 133066,
+      "sha256": "3d96310d0cfb5003f3cc6f5b17462b545c465fd7a2b88e412c08862db91dc380"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3185,
+      "sha256": "59d6de238f8e626ca1c7b06ae0e5ed1d8f9686608bdba3373c23d3ec61ca92eb"
+    },
+    {
+      "path": "readonly-diagnosis/display-lighting-diagnosis-r18/capture-receipt.json",
+      "bytes": 11956,
+      "sha256": "61e3ae29780d89b186944062bf80316e426a0dc5687dd84be8ef45f7373871c8"
+    },
+    {
+      "path": "readonly-diagnosis/display-lighting-diagnosis-r18/native-after.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "readonly-diagnosis/display-lighting-diagnosis-r18/native-before.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "readonly-diagnosis/display-lighting-neutral-diagnosis-r18/capture-receipt.json",
+      "bytes": 11992,
+      "sha256": "c614589ccdfb9bc08e9857bc98e37f20c635315b929002c51d0fabba54203fd5"
+    },
+    {
+      "path": "readonly-diagnosis/display-lighting-neutral-diagnosis-r18/native-after.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "readonly-diagnosis/display-lighting-neutral-diagnosis-r18/native-before.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "readonly-diagnosis/interior-diagnosis-r18/actual-display-settings.json",
+      "bytes": 2920,
+      "sha256": "ac5a1f18a3c117d30e4d4c1e4284d7ad8a9149430c88084e48ed08581c86a5ae"
+    },
+    {
+      "path": "readonly-diagnosis/interior-diagnosis-r18/capture-receipt.json",
+      "bytes": 11287,
+      "sha256": "8ebb9dbda2f1e6e532be9e15e4b96ebc199aa61bc995214d48c06f88fe81df4d"
+    },
+    {
+      "path": "readonly-diagnosis/interior-diagnosis-r18/native-after.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "readonly-diagnosis/interior-diagnosis-r18/native-before.json.gz",
+      "bytes": 3479483,
+      "sha256": "9e4e73c37cf141f64c4afe9e3543b2dba83e2ef5d8fd84a1b3557f4f87b1d2f2"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-lower-void-bright-test.evidence.json",
+      "bytes": 2488,
+      "sha256": "0c2781432bf3a18a6252b13189916a23fc6d6323a2d67391174fdc290b5f91e1"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-lower-void-bright-test.png",
+      "bytes": 259957,
+      "sha256": "484923f86df7aba147f4c482e1b99d187cbdbd3d03b48a868bd7294bd9672f0f"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-lower-void-default.evidence.json",
+      "bytes": 2481,
+      "sha256": "4829f3463a5f992e78fbdc1b039640bf571a32026dcc96b54dd982839d32d24e"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-lower-void-default.png",
+      "bytes": 290296,
+      "sha256": "603a176776350e6b6f9deee94ab16a02c59157095c3bfc0045c141b249b4b44f"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-upper-hall-bright-test.evidence.json",
+      "bytes": 2449,
+      "sha256": "e5e17cb5d7c5871131030def2cff17465407d3e0b6c5f7444406b4f7fc824c90"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-upper-hall-bright-test.png",
+      "bytes": 348474,
+      "sha256": "55b0df08d489ab2b4a8f525ba4f1ce2fed298616401305f87d2409c47d4b158c"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-upper-hall-default.evidence.json",
+      "bytes": 2442,
+      "sha256": "207ce9abd599b56c215ea5b66f0824bd8a16368e16caca32814b2a7ec6c08b38"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-lighting-upper-hall-default.png",
+      "bytes": 593624,
+      "sha256": "eee480a0ce45cd1e18fc22171b619a35289908e775d5923a7c138dce1458b01a"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-lower-void-default.evidence.json",
+      "bytes": 2489,
+      "sha256": "6dc98e3096c7db31d14546d41f54253c8f56f7caf408cd34ee159d9497aab4b9"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-lower-void-default.png",
+      "bytes": 290307,
+      "sha256": "e0ffe4615bc2865e6903504650f3b9b62aa3cba48fdbd00980e624b8c6000cdc"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-lower-void-neutral-test.evidence.json",
+      "bytes": 2498,
+      "sha256": "c15e3e4b007d24cb5a82977057084efda535725b2be348b00c5f941067c1d710"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-lower-void-neutral-test.png",
+      "bytes": 314145,
+      "sha256": "232ddd210bf73638a356b7ff04f11e062c40eb232d45eab4225700a639f07465"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-upper-hall-default.evidence.json",
+      "bytes": 2450,
+      "sha256": "8ee545498286e1d6e5f12ffd17376e2fa06f89f988375d52eadb3406c18d9312"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-upper-hall-default.png",
+      "bytes": 593623,
+      "sha256": "b2352dfb484c2ba2061a4b2816b2b5bdcc78adc56b6ef238d68171af422d28da"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-upper-hall-neutral-test.evidence.json",
+      "bytes": 2459,
+      "sha256": "a9b229b501a66b91a8363a2b230f60e794aedaf1a75a750102e3e599f052c88f"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-neutral-lighting-upper-hall-neutral-test.png",
+      "bytes": 413604,
+      "sha256": "3651d97a9a4ff72035fb64580238f00606eea588732629fa3e413109a0d5ca45"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-lower-long-wide.evidence.json",
+      "bytes": 2393,
+      "sha256": "7454f623e945623788d0bdb4ccc6e4d7ca4bdef4eb832594c5882f031e976298"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-lower-long-wide.png",
+      "bytes": 209852,
+      "sha256": "c5191d0a6bbe06f72ec61973d5f0bbcb220ac3d73f113d2006680fd971683706"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-lower-reverse-wide.evidence.json",
+      "bytes": 2429,
+      "sha256": "95d1a265ea054891c63cc6dbcf23f35d7c8e5901143479c8b8b3f6da9bf2629d"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-lower-reverse-wide.png",
+      "bytes": 361136,
+      "sha256": "1b7cc9e0cf42f172e2d9529542d4f09b6733621602bd8970303e1e8a04898367"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-lower-void-wide.evidence.json",
+      "bytes": 2435,
+      "sha256": "7fedeee770b672416f1a6106eeb020ad6e7835128f6f8579a323cc485cd6c952"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-lower-void-wide.png",
+      "bytes": 290302,
+      "sha256": "45a4ddad54e273799c4f7015aaeb9eb8a6a91b1164c004c9bd853b98bee702f3"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-upper-hall-wide.evidence.json",
+      "bytes": 2396,
+      "sha256": "ddd2b3613dda19348f4b440de11725011615237ceadf225d0047f912092efca5"
+    },
+    {
+      "path": "readonly-diagnosis/views/host-r18-source4-upper-hall-wide.png",
+      "bytes": 593625,
+      "sha256": "e1760f5429eb80818cb5a23ffb7e2f543bcaf8dfdafa323e69f7585f66b078d9"
+    },
+    {
+      "path": "review/critique.json",
+      "bytes": 32842,
+      "sha256": "ec75373580ed845262eb6408de52a34a34bb204119f6992bb32be6b2a01dae3b"
+    },
+    {
+      "path": "review/review.md",
+      "bytes": 5490,
+      "sha256": "7c52b601858a4b2acc82ae919c9c6ccd0beb71147ff486ce801d590f22dc2e8c"
+    },
+    {
+      "path": "run.json",
+      "bytes": 1208,
+      "sha256": "5ee5a3a81578416099b67cf2d6d12c1dc3771b784b73ae9b696f694abb47a747"
+    },
+    {
+      "path": "source-perspective.png",
+      "bytes": 448714,
+      "sha256": "2c08e2ee5c86d7f154ecd49edc2d28a464e00103153952d1318c1e6c7c13af8a"
+    },
+    {
+      "path": "views/front.evidence.json",
+      "bytes": 2628,
+      "sha256": "01610a2b845142439ed9f0ea88c15368c13dc7e1557ce84fe8d9f544981cb52f"
+    },
+    {
+      "path": "views/front.png",
+      "bytes": 70655,
+      "sha256": "201701a9d9bd30ca1d09748aa13799fa3b612bf22ab5a4e51a971c1e2396ea60"
+    },
+    {
+      "path": "views/left.evidence.json",
+      "bytes": 2620,
+      "sha256": "d93fedc91a819138181a3ff71e88ef6d1ca7d96f2454c61024bb4f54d91e8d1f"
+    },
+    {
+      "path": "views/left.png",
+      "bytes": 53781,
+      "sha256": "9bcd74ff95a8eaa7fb22c765a6c375cf0c34100007d07ea512506763b42bf0e0"
+    },
+    {
+      "path": "views/oblique.evidence.json",
+      "bytes": 2804,
+      "sha256": "f63442f14d4f5d2f7a83a4d1550b7b71cdef6a3ca8d32e606e8836c7e201fd54"
+    },
+    {
+      "path": "views/oblique.png",
+      "bytes": 132457,
+      "sha256": "9a5710cf171c971cb0b893d0e5283b0921aec6596be53288f6d831060855e3d0"
+    },
+    {
+      "path": "views/rear.evidence.json",
+      "bytes": 2622,
+      "sha256": "fa670aa41448edf88c35fece97b5a4160cf8a7ad79ac560ad445e89c65080529"
+    },
+    {
+      "path": "views/rear.png",
+      "bytes": 65394,
+      "sha256": "0ebed9d8d2f24b486e08a7f409a237310c99d7f60c8cbd27077c467117f1be46"
+    },
+    {
+      "path": "views/right.evidence.json",
+      "bytes": 2618,
+      "sha256": "38a1be2160a21426fb2f39976e7216bf19dd908c218221b4f5ba46da00454d08"
+    },
+    {
+      "path": "views/right.png",
+      "bytes": 46923,
+      "sha256": "7471cc93bae79b9385b80764f3ca3e5f8eefbd05860f2c97db2ab98153160b9c"
+    },
+    {
+      "path": "views/roof.evidence.json",
+      "bytes": 2644,
+      "sha256": "22d4236f2f276c08dae0ab4f9dbe31eef937d054900bfb33f8b72bb4796f8e10"
+    },
+    {
+      "path": "views/roof.png",
+      "bytes": 74864,
+      "sha256": "6f8325845c66861c42f434daaa8ba92e11ecf9111aa519cbccd5520c49d53b08"
+    }
+  ]
+}

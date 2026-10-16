@@ -1,0 +1,14 @@
+{
+  "revision_before":16,
+  "source_inspection":"All eight original sheets and every panel directly inspected. Source05 upper section observes a small outward-down hanging flap at both outer buffer eaves. Source08 arrows are airflow. Exterior1/2 verify thin glazed outer frame, deep buffer and independent concave roof. Interior4, plan5/7, systems6 and section8 retain their void/structure relations.",
+  "scope":"38 verified shared GLASS occurrences plus explicitly approved new OUTER_EAVE_VENTS leaf. All other geometry protected, including two unique west door bays and all original frame/canopies/roof/ramps.",
+  "method_id":"kstudio.custom_owned_ruby",
+  "reason":"Available SAIE straight opaque wall/opening methods do not fit transparent zero-thickness shared glazing aperture and hinged sloped clear panes. ADAI disabled.",
+  "observed":"Outward-down flap is outside upper buffer roof edge, not a rotation of the buffer canopy or concave main roof.",
+  "inferred_mm":{"count":38,"projection":450,"fall":900,"hinge_z":13400,"hinge_outboard_offset":25,"frame_width":28,"opening_width":2720,"opening_bottom":12600,"opening_top":13400},
+  "sequence":["native identity/shared-proof and KEEP readback","one shared glass aperture and one representative vent prototype","38 transformed instances, two door bays omitted","hinge clips and stays meet frame/flap","actual area and76short aperture rays; six canonical and all8source pairs plus eave details; independent review"],
+  "connectivity":"Hinge clips at existing eave frame top13500 connect header13400; stay feet bear on existing vertical mullions; all new flaps outboard of original glass. Lower glazing and all original transoms/mullions unchanged. No backing pane inside opening.",
+  "not_in_scope":"Do not resume previous interior support or material refinement; do not trim slabs or beams based on perspective overlap.",
+  "status":"committed_revision17_native_verified",
+  "actual_result":{"vent_count":38,"opening_area_each_m2":2.176,"opening_rays_passed":76,"retained_glass_pid":41323,"new_vent_leaf_pid":1371575,"deep_keep_paths_passed":12,"independent_current_review":"completed_NEEDS_FIX_original_interior_ceiling_and_finishes_outside_scope","review_details":"qa/outer_vents_r17_result.md"}
+}

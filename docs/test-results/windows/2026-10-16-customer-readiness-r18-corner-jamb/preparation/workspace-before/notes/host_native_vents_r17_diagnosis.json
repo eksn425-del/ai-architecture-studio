@@ -1,0 +1,32 @@
+{
+  "source": "Actual host read-only SketchUp24 fixed probe",
+  "revision": 17,
+  "root_pid": 20606,
+  "geometry_writes": 0,
+  "openings": "228/228PASS",
+  "remaining_glass": "152/152PASS",
+  "contacts": "151/152PASS",
+  "failed_actual_controls": [
+    {
+      "side": "NORTH",
+      "bay": 19,
+      "type": "stay",
+      "index": 1,
+      "start_mm": [
+        53984.99999999999,
+        24000,
+        12800
+      ],
+      "end_mm": [
+        53944.99999999999,
+        24340,
+        12770
+      ],
+      "start_in_original_frame": false,
+      "end_in_sash": true,
+      "passed": false
+    }
+  ],
+  "diagnosis": "NORTH bay19 right stay starts global53985,24000,12800 without an actual corner mullion. Long facade has only left mullions, next bay20 absent; short-end native mullions stop atY21200. Correct native solid test includes all original short/long mullions. Add coherent slender missing north-east corner jamb anchored original horizontal frames12000/13500 after host exact new-leaf registration; no wholesale frame rewrite.",
+  "protected_scope": "PASS SHAfc13e2e5cec490c71193164a505607d59c9af85a8fcf27f36804dbf1ebdfd3ef"
+}

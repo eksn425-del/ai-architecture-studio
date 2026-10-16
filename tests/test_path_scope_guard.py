@@ -33,7 +33,7 @@ def test_scoped_face_aperture_helper_is_available_to_builder():
     validate_project_ruby_source("building", 'erase_owned_faces.call(["ENVELOPE", "GLASS"], [hole.persistent_id])')
 
 
-@pytest.mark.parametrize("source", ["KStudioPathScopeGuard.capture(root, [])", "KStudioNativeDeepFingerprint.scan([])", "KStudioPathScopeGraphGuard.capture(root, [], {})", "KStudioSharedDefinitionScope.prove!(root, root, [], [])"])
+@pytest.mark.parametrize("source", ["KStudioPathScopeGuard.capture(root, [])", "KStudioNativeDeepFingerprint.scan([])", "KStudioPathScopeGraphGuard.capture(root, [], {})", "KStudioSharedDefinitionScope.prove!(root, root, [], [])", "KStudioSurfaceEditGuard.capture(root, {})"])
 def test_agent_cannot_call_host_guard_or_collector(source):
     with pytest.raises(ValueError, match="blocked host"):
         validate_project_ruby_source("building", source)

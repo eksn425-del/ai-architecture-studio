@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 
 
@@ -67,6 +68,74 @@ def validate_protected_graph(snapshot: dict) -> None:
         identity_refs.add(ref)
     if identity_refs != set(parsed):
         raise ValueError("Protected definition identity coverage missing")
+    if snapshot.get("constrained_surface_edits") is not None:
+        validate_surface_protection(snapshot["constrained_surface_edits"])
+
+
+def validate_surface_protection(value: dict) -> None:
+    if value.get("contract") != "native_constrained_surface_edits_v1":
+        raise ValueError("Unknown constrained surface contract")
+    canonical = value.get("canonical_shape_json")
+    if not isinstance(canonical, str) or hashlib.sha256(canonical.encode("utf8")).hexdigest() != value.get("shape_sha256"):
+        raise ValueError("Constrained surface payload SHA mismatch")
+    rows = json.loads(canonical)
+    if not isinstance(rows, list) or [r["path"] for r in rows] != value.get("paths") or not rows:
+        raise ValueError("Constrained surface target coverage mismatch")
+    faces, edges = set(), set()
+    material_ids = value.get("face_material_pids", [])
+    seam_ids = value.get("soft_smooth_edge_pids", [])
+    for ids, maximum in [(material_ids, 1024), (seam_ids, 4096)]:
+        if (not isinstance(ids, list) or len(ids) > maximum or len(ids) != len(set(ids))
+                or any(type(v) is not int or v <= 0 for v in ids)):
+            raise ValueError("Invalid constrained surface primitive whitelist")
+    def visit(node):
+        kind, pid = node["type"], node["pid"]
+        if type(pid) is not int or pid <= 0:
+            raise ValueError("Missing native surface primitive identity")
+        if type(node.get("hidden")) is not bool or not isinstance(node.get("tag"), dict):
+            raise ValueError("Missing surface visibility/tag record")
+        def vertices(values, minimum):
+            if not isinstance(values, list) or len(values) < minimum:
+                raise ValueError("Missing surface vertex geometry")
+            for v in values:
+                p = v.get("point_mm")
+                if (type(v.get("pid")) is not int or v["pid"] <= 0 or not isinstance(p, list) or len(p) != 3
+                        or any(type(x) not in (int, float) or not math.isfinite(x) for x in p)):
+                    raise ValueError("Invalid native surface vertex identity/coordinates")
+        if kind == "Face":
+            faces.add(pid)
+            loops, normal = node.get("loops"), node.get("normal")
+            if (not isinstance(loops, list) or not loops or not isinstance(normal, list) or len(normal) != 3
+                    or any(type(x) not in (int, float) or not math.isfinite(x) for x in normal)):
+                raise ValueError("Incomplete surface face topology/normal")
+            for loop in loops:
+                if type(loop.get("outer")) is not bool:
+                    raise ValueError("Missing surface face loop role")
+                vertices(loop.get("vertices"), 3)
+            if (node["front"] == "approved_material") != (pid in material_ids) or (node["back"] == "approved_material") != (pid in material_ids):
+                raise ValueError("Unapproved surface material masking")
+        elif kind == "Edge":
+            edges.add(pid)
+            vertices(node.get("vertices"), 2)
+            if len(node["vertices"]) != 2:
+                raise ValueError("Invalid surface edge endpoints")
+            if (node["soft"] == "approved_seam") != (pid in seam_ids) or (node["smooth"] == "approved_seam") != (pid in seam_ids):
+                raise ValueError("Unapproved surface seam masking")
+        elif kind in {"Group", "ComponentInstance"}:
+            matrix = node.get("transform")
+            if (not isinstance(matrix, list) or len(matrix) != 16
+                    or any(type(x) not in (int, float) or not math.isfinite(x) for x in matrix)
+                    or not isinstance(node.get("name"), str) or not isinstance(node.get("definition_name"), str)
+                    or type(node.get("locked")) is not bool or not isinstance(node.get("entities"), list)):
+                raise ValueError("Incomplete native surface instance record")
+            return 1 + sum(visit(child) for child in node["entities"])
+        else:
+            raise ValueError("Unsupported constrained surface entity")
+        return 1
+    count = sum(visit(r["shape"]) for r in rows)
+    if (not set(material_ids) <= faces or not set(seam_ids) <= edges
+            or count != value.get("captured_entities", -1) + len(rows)):
+        raise ValueError("Incomplete native constrained surface capture")
 
 
 def audit(before: dict, after: dict, writer: dict) -> dict:
@@ -89,6 +158,13 @@ def audit(before: dict, after: dict, writer: dict) -> dict:
                 if snap.get("contract") != "deep_exact_paths_graph_v1":
                     raise ValueError("Native scope contract mismatch")
                 validate_protected_graph(snap)
+            if old.get("constrained_surface_edits") is not None:
+                surface, proof = old["constrained_surface_edits"], scope.get("constrained_surface_edits", {})
+                if (proof.get("contract") != surface["contract"] or proof.get("paths") != surface["paths"]
+                        or proof.get("shape_sha256") != surface["shape_sha256"]
+                        or proof.get("face_material_count") != len(surface["face_material_pids"])
+                        or proof.get("soft_smooth_edge_count") != len(surface["soft_smooth_edge_pids"])):
+                    raise ValueError("Missing committed constrained-surface guard receipt")
             if scope.get("allowed_creation_paths") != old.get("creation_paths") or old.get("creation_paths") != new.get("creation_paths"):
                 raise ValueError("Host-approved exact creation paths differ")
         if scope.get("allowed_paths") != old["paths"] or old["paths"] != new["paths"]:

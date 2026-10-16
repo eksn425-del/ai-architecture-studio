@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r18-corner-jamb",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "Same eight original whole references/project/root20606 r17->r18",
+  "base_commit": "813ebefdece5f1d6c4b0982fb2cc8a634e329ba5",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 17,
+    "after_revision": 18
+  },
+  "qa": {
+    "exact_scope": "PASS one exact missing corner leaf; protectedSHA7ca35bcd3adfeb651f50b7798ed60259115c6b3ecf83bbc5dcdd640e3407dca0 equal",
+    "native_samples": "228open/152retainedglass/152hinge-stay contacts/38translucentpanes/6actual horizontal-frame-to-jamb solid contactsPASS",
+    "source_fidelity": "NEEDS_FIX independent8sources/15pairs, interior ceiling/V members and finishes remain",
+    "native_delivery": "Real presave/bound/download PASS_WITH_DECLARED_PRECISION, rawstrictFAIL retained",
+    "strict_blank_replay": "NOT_RUN",
+    "normal_turn_closeout": "COMPLETED timeout0",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "current_stage": "pending",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "body_length": {
+      "value": 50000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "body_depth": {
+      "value": 20000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "envelope_length": {
+      "value": 58000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "envelope_depth": {
+      "value": 28000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "buffer_depth": {
+      "value": 4000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "bay_length": {
+      "value": 5000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "level_0": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "level_1": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "level_2": {
+      "value": 7200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "level_3": {
+      "value": 10800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "roof_low": {
+      "value": 13800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "roof_edge_a": {
+      "value": 15500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "roof_edge_b": {
+      "value": 16500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "ramp_width": {
+      "value": 2200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "rail_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "slab_thickness": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "旧计划估值，图纸无可读尺寸；本轮仅比较方向与拓扑，未测量、未批准执行。"
+    },
+    "scope": {
+      "value": "本轮源图方向草图和计划确认；不修改既有模型，不重建。",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "2026-10-14最新用户请求。"
+    },
+    "roof_screen_relation": {
+      "value": "从坡道短端朝+X看，右(Y=0)高于左(Y=20000)，中央下垂",
+      "units": "text",
+      "provenance": "observed",
+      "source": "图1上/下与用户说明；图2下及图5/8横剖支持屋顶形态。"
+    },
+    "coordinate_convention": {
+      "value": "拟定观察者位于坡道短端X<0，朝+X看；+Z向上，画面左为+Y（Y=20000），画面右为-Y（Y=0）。X沿长向；没有真实北向。原平面图左端对应草图下端，原图上边对应草图左边。此为源图与草图约定，当前模型变换未重新原生核验。",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "仅草图约定，尚未验证当前模型变换。"
+    },
+    "ramp_connection": {
+      "value": "短端坡道向左上升，经平台接环廊；环廊返回下一段起点的精确路线待确认",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "图1/2各段坡向可见，图3入口与图7环廊约束衔接。"
+    },
+    "floor_topology": {
+      "value": "L0地面；L1较完整下层；L2局部板与大挑空；L3顶层含圆洞",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "图5/8剖面与图7下/中/上平面，层名暂定。"
+    }
+  },
+  "systems": [
+    {
+      "id": "frame",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "Repeated observed concrete columns and beams require component instances rather than solid-wall helpers.",
+      "status": "pending",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "bay_length",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "STRUCTURE_EXISTING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "floors",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "profile_extrusion",
+      "method_id": "adai_geometry.profile_with_holes",
+      "selection_reason": "Enabled verified ADAI profile_with_holes for interior circular openings; split profiles for boundary-connected atrium.",
+      "status": "pending",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "slab_thickness",
+        "floor_topology"
+      ],
+      "target_paths": [
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "roof",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "method_id": "kstudio.project_ruby.scoped_existing_roof_transform",
+      "selection_reason": "若以后只改左右高低，应先核验现有屋顶及支承变换并保留现有曲面；SAIE直墙或ADAI重新挤出不能保留该现有曲面。具体变换尚未选择，本轮不执行。",
+      "status": "pending",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "roof_low",
+        "roof_edge_a",
+        "roof_edge_b",
+        "roof_screen_relation",
+        "coordinate_convention"
+      ],
+      "target_paths": [
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "envelope_bounds",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "method_id": "sketchup.entities.add_face",
+      "selection_reason": "Custom owned faces and frame components express transparent skin and separated deep buffer; solid SAIE wall does not fit.",
+      "status": "pending",
+      "depends_on": [
+        "envelope_length",
+        "envelope_depth",
+        "buffer_depth",
+        "level_1",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "ramps",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "method_id": "adai_geometry.profile",
+      "selection_reason": "Enabled verified ADAI yz profiles express individual inclined runs with exact endpoint elevations.",
+      "status": "pending",
+      "depends_on": [
+        "ramp_width",
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "buffer_depth",
+        "ramp_connection"
+      ],
+      "target_paths": [
+        [
+          "EXTERNAL_ASSEMBLY"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。",
+        "本轮及已提出的屋顶局部修正均不授权修改坡道。"
+      ]
+    },
+    {
+      "id": "module",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "One dimension-checked glass/frame component is repeated; glass and mullions remain independent.",
+      "status": "pending",
+      "depends_on": [
+        "bay_length",
+        "buffer_depth",
+        "rail_height"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "MODULE"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "RAIL_MODULE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "repeat",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "Repeat verified dimensions with unique instance names; structural bays differ from glazing divisions.",
+      "status": "pending",
+      "depends_on": [
+        "envelope_length",
+        "envelope_depth",
+        "bay_length"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "FRONT"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "REAR"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LEFT"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "stairs_partitions",
+      "stage": "variants",
+      "role": "interior_detail",
+      "method": "custom_owned_ruby",
+      "method_id": "sketchup.entities.add_face_and_component_instances",
+      "selection_reason": "Custom radial tread assemblies for spiral stairs; actual saie.wall for ordinary straight partitions.",
+      "status": "pending",
+      "depends_on": [
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "scope"
+      ],
+      "target_paths": [
+        [
+          "CIRCULATION_INTERNAL",
+          "SPIRAL_STAIRS"
+        ],
+        [
+          "CIRCULATION_INTERNAL",
+          "END_STAIRS"
+        ],
+        [
+          "INTERIOR",
+          "PARTITIONS"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    },
+    {
+      "id": "finish",
+      "stage": "finish",
+      "role": "site",
+      "method": "prototype_instance",
+      "method_id": "sketchup.component_definition_and_instances",
+      "selection_reason": "Simplified tables and adjacent ground only, as approved.",
+      "status": "pending",
+      "depends_on": [
+        "scope",
+        "envelope_length",
+        "envelope_depth"
+      ],
+      "target_paths": [
+        [
+          "SITE_GROUND"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "历史构造方法仅保留为候选；本轮未调用，不代表已建或验证。",
+        "只在核验模型身份与实际命名路径后用于批准范围；先建空父组，再在其entities内建子项；兄弟元素语义ID唯一。"
+      ]
+    }
+  ],
+  "notes": [
+    "本轮仅计划草图；不以pending推断当前模型没有几何，不以旧记录宣称原生身份已验证。",
+    "主体/楼板/屋顶/坡道归primary_form；玻璃栏杆样件归representative_module；重复归replication；内梯隔墙归variants；地面家具归finish。该阶段划分不是重建指令。",
+    "ADAI合同记载0.5.39启用；只记录候选，不宣称本轮调用。",
+    "后续屋顶局部修正须冻结坡道、楼板、围护、室内及场地；关联支承是否需动须依据接缝另定，不能默认扩大范围。",
+    "深层原生保存/重开证据和历史保存前状态缺失：BLOCKED；不得用本草图代替原生交付证据。"
+  ],
+  "local_edit": {
+    "date": "2026-10-14",
+    "scope": [
+      "ROOF_TIMBER",
+      "ENVELOPE_OUTER/TENSION_BRACING"
+    ],
+    "method_id": "kstudio.custom_owned_ruby",
+    "selection_reason": "Reflect current native shell and its supports without recreating mesh. SAIE straight walls and ADAI extrusion cannot preserve the existing mesh and persistent IDs. No helper is invoked for this edit.",
+    "source_relation": "Ramp-end camera looks +X: screen right=-Y high, screen left=+Y low. Sources 1,2,5,8 corroborate asymmetric concave roof.",
+    "preserve": "All ramps, floors, other direct assemblies, envelope children except roof tension ties.",
+    "status": "committed_r3_roof_handedness_corrected_whole_model_needs_fix"
+  },
+  "roof_clearance_edit": {
+    "status": "approved_ready",
+    "base_revision": 3,
+    "method_id": "kstudio.custom_owned_ruby",
+    "selection_reason": "In-place existing native vertex correction retains shell and assembly identity. SAIE straight walls are incompatible with a hanging roof; ADAI profile extrusion would replace existing mesh rather than correct it. No wrapped helper is used.",
+    "scope": [
+      "ROOF_TIMBER/CURVED_SHELL",
+      "ROOF_TIMBER/ROOF_SUPPORTS/END_GLASS_* upper edges only",
+      "ROOF_TIMBER/ROOF_SUPPORTS/END_MULLION_* top only"
+    ],
+    "parameters": {
+      "central_lift_mm": 1000,
+      "bump": "4*t*(1-t), t=root Y/20000",
+      "fixed_edge_y_mm": [
+        0,
+        20000
+      ],
+      "top_floor_z_mm": 10800
+    },
+    "source": "Sources 5/8 sections and 1/2 end views show greater valley-to-canopy band, source 4 concave timber soffit. Lift is estimated, not dimensioned.",
+    "preserve": "Every other direct assembly, all other glass, ramps, floors, roof timber side posts and high-edge rails; lower edges of end glass/mullions unchanged.",
+    "validation": "Original shell underside samples define both corrected glass top joints and numerical error checks. Keep original 250mm roof and 500mm glass sampling; check interpolation residual rather than assert screen contact."
+  },
+  "approved_ramp_local_edit": {
+    "date": "2026-10-15",
+    "goal": "Correct ramp 1 and 3 ascent and connected platforms/guards only",
+    "source_observed": "All eight originals directly inspected; sheet 1 end and sheet 2 oblique show all three runs rising toward screen left (+Y)",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing sloping deck transforms and slender rail joints do not fit SAIE straight wall/opening; ADAI disabled",
+    "direction": "reflect runs 1/3 about Y=10000; keep run 2",
+    "connection": "existing west end gallery used as same-level return, connect north/south pads and open only corresponding local rail ends",
+    "inferred": "run 3 shifted -2200mm in X to avoid fixed gallery floor; exact return geometry not dimensioned",
+    "protected": "run 2 with rails, all gallery slabs and other rails, roof, glass, floors, frame, internal circulation and other groups"
+  },
+  "ramp_execution_r5": {
+    "revision": 5,
+    "root_pid": 20606,
+    "direction": "Ramps 1/3 corrected to +Y ascent; all three now share source end-view direction",
+    "scope": "Only ten allowed ramp/rail/landing subtrees; all gallery geometry protected",
+    "blocker": "Host refused local gallery gate scope. Platforms join decks, but existing guards obstruct return route",
+    "third_run": "X shifted outward 2200mm to avoid fixed gallery floor; exact source offset inferred",
+    "save_reopen": "NOT_AVAILABLE",
+    "completion": "PARTIAL_PENDING_GALLERY_GATE_SCOPE",
+    "review": "Current six canonical plus eight source camera pairs submitted"
+  },
+  "receiving_gate_only": {
+    "dimensions": "existing model, not measured source dimensions",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing slender rail cap deformation and post jamb reuse do not fit SAIE wall/opening; ADAI disabled",
+    "revision_before": 5,
+    "preserve": "All other objects including 185 distant posts and all ramps/platforms",
+    "intent": "Open five receiving gates only",
+    "mutable": "30 exact leaf paths in notes/receiving_gate_scope.json",
+    "aperture_mm": 4000
+  },
+  "upper_receiving_doors": {
+    "revision": 7,
+    "status": "committed_pending_independent_review",
+    "targets": [
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ]
+    ],
+    "apertures": [
+      {
+        "side": "north",
+        "bottom_z_mm": 7200
+      },
+      {
+        "side": "north",
+        "bottom_z_mm": 10800
+      },
+      {
+        "side": "south",
+        "bottom_z_mm": 7200
+      }
+    ],
+    "clear_width_mm": 2200,
+    "clear_height_mm": 2400,
+    "world_x_mm": [
+      -3650,
+      -1450
+    ],
+    "dimensions": "current-model estimated; no readable source dimensions",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "SAIE root-level solid wall opening does not fit existing nested planar glazing/profile clipping; ADAI unavailable",
+    "protected": "all other objects, all ramps/platforms/floors/roof, all adjacent bays, original target mullions and all geometry outside door cuts",
+    "qa": "qa/upper_glazing_door_receipt.json"
+  },
+  "upper_ramp_containment": {
+    "base_revision": 7,
+    "scope_file": "notes/upper_ramp_placement_scope.json",
+    "execution_script": "scripts/contain_upper_ramps.rb",
+    "plan": "notes/upper_ramp_containment_edit.md",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing sloping ramp/rail solids and horizontal apron slots are incompatible with SAIE straight wall/opening; ADAI disabled",
+    "source": "All eight originals directly compared; SOURCE1/2 upper flights behind glass, SOURCE3 lowest external, SOURCE7 end apron; dimensions estimated",
+    "keep": "lowest flight and north L1 arrival pad/guards; roof, glass including r7 doors, indoor floors and other correct assemblies",
+    "status": "approved_local_candidate"
+  },
+  "gallery_grating_edit": {
+    "revision": 9,
+    "base_revision": 8,
+    "script": "scripts/convert_gallery_grating.rb",
+    "scope": "notes/grating-target-inventory-r8.json",
+    "plan": "notes/gallery_grating_edit.md",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "SAIE straight wall/opening unsuitable for horizontal open grating; ADAI unavailable",
+    "status": "committed_readback_review_pending",
+    "estimated_mm": {
+      "tile_max": 1000,
+      "bearing_bar_width": 3,
+      "bearing_bar_depth": 35,
+      "bearing_pitch": 40,
+      "cross_pitch": 80,
+      "support_spacing_max": 2500
+    },
+    "protected": "all ramps, platforms, rails including slot guards, glazing, roof, indoor floors and other objects",
+    "report": "runtime/scripts/reports/glass_curved_roof-r9-bdd193f6.json"
+  }
+}

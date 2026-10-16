@@ -1,0 +1,9 @@
+{
+  "case": "unapproved_soft_edge",
+  "native_error": {
+    "class": "RuntimeError",
+    "message": "Protected geometry changed outside approved exact paths: [{\"path\":\"constrained_surface_edits/canonical_shape_json\",\"before\":{\"sha256\":\"e481382d1c8a5219d75586049b32816a09db0100ebf4b9a88c64595f1a2ab2a6\",\"bytes\":2375300},\"after\":{\"sha256\":\"a85073c665aa60eef0b80debcf19917ebf6ea04a84b9ca521bd9a98e8f94c428\",\"bytes\":2375299}},{\"path\":\"constrained_surface_edits/shape_sha256\",\"before\":\"be2569d44f18262204d9d06d84ee03f36154bedfe9ae1982d419eca1860cee15\",\"after\":\"3b554ec18ab6cf603c3ca8eb12cdd277072cd9d5b9c58791c95aa3cb4fa90f7b\"}]"
+  },
+  "after_native_sha": "3c80c3172260b8cf4fcdf0749f3106ed446e257b0c556d9bf292232b931fabb2",
+  "actual_call_elapsed_ms": 33500
+}
