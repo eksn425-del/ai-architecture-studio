@@ -1,0 +1,17 @@
+{
+  "status": "PUBLISHED_AND_REMOTE_VERIFIED",
+  "verified_at_utc": "2026-10-16T08:28:20Z",
+  "repository": "eksn425-del/ai-architecture-studio",
+  "visibility": "public",
+  "branch": "experiment/dot-blender-bridge-20261016",
+  "evidence_commit": "b626dd00b00153b93f58cf469ed160e9b8f33828",
+  "evidence_tree": "40ced4ee0545fd909395fea3c6195db2d0d97995",
+  "base_commit": "59fa229b5ae8873d05d42aafadfbc61c7af7ec41",
+  "local_checkpoint": "7c5777210f0f55cd602b5c7e2e7651bb3d6507dc",
+  "verification": "git ls-remote branch SHA matched; all 26 uploaded blobs and full Git tree matched local snapshot",
+  "publication_transport": "existing authenticated GitHub connector; shell git had no credentials",
+  "scope": "Only experiments/dot_blender_bridge; no merge or production changes",
+  "handoff_note": "This receipt supersedes publication-pending wording in HANDOFF.md. Earlier denial and authentication failure were resolved with explicit approval and existing connector; no new credentials.",
+  "recovery": "Check out this branch or evidence_commit and read HANDOFF.md, README.md and PROJECT_DECISIONS.md. The commit adding this receipt is the handoff commit; obtain it with git log -1 --format=%H -- experiments/dot_blender_bridge/PUBLICATION.json.",
+  "limits": "Supervised bounded box-assembly pipeline; production Agent, live API, website and independent Critic remain unfinished"
+}
