@@ -8,6 +8,7 @@ from app.construction_strategy import (
     default_construction_strategy,
     strategy_has_signal,
     validate_construction_strategy_payload,
+    load_construction_strategy,
 )
 
 
@@ -127,3 +128,37 @@ def test_strategy_rejects_arbitrary_stage_order_or_view():
     }]
     with pytest.raises(ValueError, match="invalid verification views"):
         validate_construction_strategy_payload(value)
+
+
+def test_persisted_invalid_strategy_is_not_missing_at_writer_preflight(tmp_path):
+    from app.project_ruby import ProjectRubyExecutor
+
+    note = tmp_path / "runtime/agent_workspace/notes/construction_strategy.json"
+    note.parent.mkdir(parents=True)
+    assert load_construction_strategy(tmp_path, strict=True) is None
+    strategy = default_construction_strategy()
+    strategy["systems"] = [{
+        "id": "frame", "stage": "primary_form", "role": "shell",
+        "method": "prototype_instance", "status": "pending",
+        "method_id": "sketchup.component_definition_and_instances",
+        "selection_reason": "Historical invalid registry identifier from real r10 case.",
+    }]
+    note.write_text(json.dumps(strategy), encoding="utf-8")
+    assert load_construction_strategy(tmp_path) is None  # compatible optional reader
+    with pytest.raises(ValueError, match="frame.*invalid OSS method_id"):
+        load_construction_strategy(tmp_path, strict=True)
+
+    executor = object.__new__(ProjectRubyExecutor)
+    executor.project_dir = tmp_path
+    executor.ruby_state = {}
+    executor._assert_active_model = lambda: pytest.fail("must reject before contacting SketchUp")
+    with pytest.raises(ValueError, match="No model operation was attempted"):
+        executor.run({"script_id": "frame", "ruby_source": "root.entities.add_group"})
+    assert not (tmp_path / "runtime/scripts").exists()
+    assert note.read_text(encoding="utf-8") == json.dumps(strategy)
+
+    note.write_text("{invalid", encoding="utf-8")
+    with pytest.raises(ValueError, match="Invalid notes/construction_strategy.json"):
+        load_construction_strategy(tmp_path, strict=True)
+    note.write_text(json.dumps(default_construction_strategy()), encoding="utf-8")
+    assert load_construction_strategy(tmp_path, strict=True) == default_construction_strategy()

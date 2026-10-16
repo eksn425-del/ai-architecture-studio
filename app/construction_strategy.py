@@ -269,7 +269,7 @@ def strategy_has_signal(value: dict[str, Any] | None) -> bool:
     return False
 
 
-def load_construction_strategy(project_dir: Path) -> dict[str, Any] | None:
+def load_construction_strategy(project_dir: Path, *, strict: bool = False) -> dict[str, Any] | None:
     path = (
         project_dir.resolve()
         / "runtime"
@@ -277,9 +277,20 @@ def load_construction_strategy(project_dir: Path) -> dict[str, Any] | None:
         / "notes"
         / "construction_strategy.json"
     )
-    if not path.is_file() or path.is_symlink() or path.stat().st_size > 96 * 1024:
+    # Old readers may omit an unusable optional note. A geometry writer must
+    # distinguish absence from a broken persisted plan before any native call.
+    if not path.exists() and not path.is_symlink():
         return None
     try:
+        if not path.is_file() or path.is_symlink() or path.stat().st_size > 96 * 1024:
+            raise ValueError("strategy must be a regular non-symlink file of at most 96 KiB")
         return validate_construction_strategy_payload(json.loads(path.read_text(encoding="utf-8")))
-    except (OSError, json.JSONDecodeError, ValueError):
+    except (OSError, ValueError) as error:
+        if strict:
+            raise ValueError(
+                f"Invalid notes/construction_strategy.json: {error}. "
+                "Read notes/construction_strategy_schema.md and correct the persisted plan; "
+                "do not discard it or infer that the existing model is unbuilt. "
+                "No model operation was attempted."
+            ) from error
         return None

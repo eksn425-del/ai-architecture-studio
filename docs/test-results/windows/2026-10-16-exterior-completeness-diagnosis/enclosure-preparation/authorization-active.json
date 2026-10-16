@@ -1,0 +1,62 @@
+{
+  "status": "active",
+  "phase": "Complete missing upper long-side and lower short-end inner enclosure, owner16Oct",
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+  "root_pid": 20606,
+  "scope_contract": "deep_exact_paths_graph_v1",
+  "allowed_paths": [
+    [
+      "ENVELOPE_OUTER",
+      "INNER_ENCLOSURE_COMPLETION"
+    ]
+  ],
+  "allowed_creation_paths": [
+    [
+      "ENVELOPE_OUTER",
+      "INNER_ENCLOSURE_COMPLETION"
+    ]
+  ],
+  "required_preserve_paths": [
+    [
+      "STRUCTURE_EXISTING"
+    ],
+    [
+      "FLOORS"
+    ],
+    [
+      "ROOF_TIMBER"
+    ],
+    [
+      "RAMPS"
+    ],
+    [
+      "CIRCULATION_EXTERNAL"
+    ],
+    [
+      "CIRCULATION_INTERNAL"
+    ],
+    [
+      "INTERIOR"
+    ],
+    [
+      "SITE_GROUND"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "INNER_GLAZING"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "BUFFER_CANOPIES"
+    ],
+    [
+      "ENVELOPE_OUTER",
+      "TENSION_BRACING"
+    ]
+  ],
+  "verified_start_revision": 10,
+  "max_geometry_commits": 1,
+  "owner_inference_authorized": true,
+  "source_registration": "notes/exterior-enclosure-registration.json",
+  "model_guid_at_activation": "3160215b-9396-4e65-ae2b-e932a414229f"
+}

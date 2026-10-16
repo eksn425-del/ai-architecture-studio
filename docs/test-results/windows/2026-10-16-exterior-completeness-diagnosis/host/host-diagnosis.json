@@ -1,0 +1,26 @@
+{
+  "native_revision": 10,
+  "root_pid": 20606,
+  "geometry_writes": 0,
+  "inner_long_side_glass_panels": 40,
+  "lower_inner_short_end_glass_panels": 0,
+  "scope_obstruction": {
+    "previous_allowed_creation_only": [
+      "CIRCULATION_INTERNAL",
+      "SMALL_CIRCULAR_VOID_GUARDS"
+    ],
+    "all_existing_geometry_frozen": true,
+    "cause": "Host local task restrictions, not lack of MCP construction capability."
+  },
+  "confirmed_geometry_differences": [
+    "Lower inner enclosure short ends absent from actual native child inventory and original script",
+    "Exterior guard groups contain35mm posts and30mm three horizontal bars, no fine mesh infill",
+    "Upper landing pads extend beyond glazed side lines, visible in actual current views and independent Critic"
+  ],
+  "display_confounder": {
+    "edges": "black",
+    "silhouette_width": 2,
+    "note": "Black foreground edges amplify apparent thickness; material geometry must be evaluated separately."
+  },
+  "source_metric_accuracy": "Dimensions estimated; source photographs not surveyed. Hidden completion inference expressly authorized by owner."
+}

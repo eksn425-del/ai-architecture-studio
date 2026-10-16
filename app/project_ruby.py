@@ -404,6 +404,7 @@ class ProjectRubyExecutor:
                 "For a local correction use update_mode=edit and remove_owned_group on the affected child. "
                 "Only an intentional complete rebuild may set allow_full_rebuild=true. No model operation was attempted."
             )
+        load_construction_strategy(self.project_dir, strict=True)
         identity_before = self._assert_active_model()
         scripts_dir = self._project_runtime_path()
         script_path = scripts_dir / f"{script_id}.rb"
