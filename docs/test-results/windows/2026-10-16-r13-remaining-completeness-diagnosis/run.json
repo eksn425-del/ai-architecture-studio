@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-r13-remaining-completeness-diagnosis",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "Same eight originals/project/root20606 actualr13 readonly diagnosis",
+  "base_commit": "bcc5cda5c1c6dcc152a3a8cc334acb3ec9535d21",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "revision": 13,
+    "root_pid": 20606
+  },
+  "qa": {
+    "diagnosis": "COMPLETED actual source8/native readback/7views; no Builder geometry write",
+    "whole_graph": "PASS separately declared numerical contract; all actual geometry/material unchanged",
+    "intermediate_void": "EXISTS,9/9actualpoints open, not solid slab",
+    "spiral": "FAIL local west-edge headroom and handrail-to-beam joint, real upper arrival gap; no full-width penetration claim",
+    "exterior": "Lower long-side level glass/doors, room fronts, canopy lightframe and joints stillmissing",
+    "continued_action": "47exact targets(44existing+3new) nativeverified, backed up and activated; actual real Studio finishing request now active, outcome pending"
+  },
+  "paid_api_calls": 0
+}
