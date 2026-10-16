@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED",
+  "stage": "r9 whole-document legacy deep collector",
+  "geometry_writes": 0,
+  "error_type": "MCPCallError",
+  "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Deep native fingerprint exceeded entity cap\",\n    \"backtrace\": [\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:62:in `block in scan'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:60:in `each'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:60:in `scan'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:91:in `inspect_instance'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:75:in `block in scan'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:60:in `each'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:60:in `scan'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:91:in `inspect_instance'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:75:in `block in scan'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:60:in `each'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:60:in `scan'\",\n      \"E:/K AI 产品建模网站/app/native_deep_fingerprint.rb:91:in `inspect_instance'\"\n    ]\n  }\n}",
+  "elapsed_ms": 7062,
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+  "model_guid": "26dfc99e-2dde-409e-a3a3-5230f9a3011e",
+  "root_pid": 20606
+}

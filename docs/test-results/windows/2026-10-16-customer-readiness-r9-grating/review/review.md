@@ -1,0 +1,1 @@
+Actual independent eight-original/12-pair review: NEEDS_FIX. Open gallery grating improved; heavy guards, missing two circular mesh guards and interior source differences remain. See critique.json for raw actual review and model identity. Strict native three-stage hash FAIL retained separately; whole-source/customer NOT_READY.

@@ -1,0 +1,2191 @@
+{
+  "collector": "KStudioNativeOpenGratingProbe/1",
+  "revision": 9,
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+  "model_guid": "7ebefd08-edd3-4ca5-b3fc-f8ede32d6ffd",
+  "root_pid": 20606,
+  "geometry_writes": 0,
+  "rows": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE0"
+      ],
+      "pid": 28011,
+      "local_parent_bounds_mm": [
+        [
+          -4000,
+          -4000,
+          3450
+        ],
+        [
+          54000.00000000001,
+          0,
+          3600
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -3780,
+            -3720,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 3899.9999999999995,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -3998.5000000000005,
+            -3720,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28011,
+              "name": "GALLERY_Z3600_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 90889,
+              "name": "GALLERY_Z3600_SIDE0_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 92174,
+              "name": "GAL0_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -3780,
+            -3678.5,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28011,
+              "name": "GALLERY_Z3600_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 90889,
+              "name": "GALLERY_Z3600_SIDE0_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 92174,
+              "name": "GAL0_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE1"
+      ],
+      "pid": 28043,
+      "local_parent_bounds_mm": [
+        [
+          -4000,
+          20000,
+          3450
+        ],
+        [
+          54000.00000000001,
+          24000,
+          3600
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -3780,
+            20280,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 3899.9999999999995,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -3998.5000000000005,
+            20280,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28043,
+              "name": "GALLERY_Z3600_SIDE1",
+              "type": "Group"
+            },
+            {
+              "pid": 93271,
+              "name": "GALLERY_Z3600_SIDE1_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 93274,
+              "name": "GAL1_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -3780,
+            20321.5,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28043,
+              "name": "GALLERY_Z3600_SIDE1",
+              "type": "Group"
+            },
+            {
+              "pid": 93271,
+              "name": "GALLERY_Z3600_SIDE1_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 93274,
+              "name": "GAL1_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE2"
+      ],
+      "pid": 28075,
+      "local_parent_bounds_mm": [
+        [
+          -4000,
+          0,
+          3450
+        ],
+        [
+          0,
+          20000,
+          3600
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -280,
+            220,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 3899.9999999999995,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -280,
+            1.5,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28075,
+              "name": "GALLERY_Z3600_SIDE2",
+              "type": "Group"
+            },
+            {
+              "pid": 94371,
+              "name": "GALLERY_Z3600_SIDE2_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 94374,
+              "name": "GAL2_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -321.5,
+            220,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28075,
+              "name": "GALLERY_Z3600_SIDE2",
+              "type": "Group"
+            },
+            {
+              "pid": 94371,
+              "name": "GALLERY_Z3600_SIDE2_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 94374,
+              "name": "GAL2_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE3"
+      ],
+      "pid": 28107,
+      "local_parent_bounds_mm": [
+        [
+          50000,
+          0,
+          3450
+        ],
+        [
+          54000,
+          20000,
+          3600
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            53720,
+            220,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 3899.9999999999995,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            53720,
+            1.5,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28107,
+              "name": "GALLERY_Z3600_SIDE3",
+              "type": "Group"
+            },
+            {
+              "pid": 94807,
+              "name": "GALLERY_Z3600_SIDE3_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 94810,
+              "name": "GAL3_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            53678.5,
+            220,
+            3619.9999999999995
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 28107,
+              "name": "GALLERY_Z3600_SIDE3",
+              "type": "Group"
+            },
+            {
+              "pid": 94807,
+              "name": "GALLERY_Z3600_SIDE3_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 94810,
+              "name": "GAL3_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_RETURN_STRIP"
+      ],
+      "pid": 88317,
+      "local_parent_bounds_mm": [
+        [
+          -1650.0000000000002,
+          -4000,
+          7050.000000000001
+        ],
+        [
+          54000,
+          0,
+          7200.000000000001
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -1430.0000000000002,
+            -3720,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 7500.000000000001,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -1648.5000000000002,
+            -3720,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30895,
+              "name": "GALLERY_Z7200_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 88317,
+              "name": "GALLERY_Z7200_SIDE0_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 95243,
+              "name": "GALLERY_Z7200_SIDE0_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 95246,
+              "name": "GAL4_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -1430.0000000000002,
+            -3678.5,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30895,
+              "name": "GALLERY_Z7200_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 88317,
+              "name": "GALLERY_Z7200_SIDE0_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 95243,
+              "name": "GALLERY_Z7200_SIDE0_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 95246,
+              "name": "GAL4_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_RETURN_STRIP"
+      ],
+      "pid": 88607,
+      "local_parent_bounds_mm": [
+        [
+          -1650.0000000000002,
+          20000,
+          7050.000000000001
+        ],
+        [
+          54000,
+          24000,
+          7200.000000000001
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -1430.0000000000002,
+            20280,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 7500.000000000001,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -1648.5000000000002,
+            20280,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30927,
+              "name": "GALLERY_Z7200_SIDE1",
+              "type": "Group"
+            },
+            {
+              "pid": 88607,
+              "name": "GALLERY_Z7200_SIDE1_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 97329,
+              "name": "GALLERY_Z7200_SIDE1_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 97332,
+              "name": "GAL5_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -1430.0000000000002,
+            20321.5,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30927,
+              "name": "GALLERY_Z7200_SIDE1",
+              "type": "Group"
+            },
+            {
+              "pid": 88607,
+              "name": "GALLERY_Z7200_SIDE1_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 97329,
+              "name": "GALLERY_Z7200_SIDE1_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 97332,
+              "name": "GAL5_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_RETURN_STRIP"
+      ],
+      "pid": 88897,
+      "local_parent_bounds_mm": [
+        [
+          -1650.0000000000002,
+          0,
+          7050.000000000001
+        ],
+        [
+          0,
+          20000,
+          7200.000000000001
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -280,
+            220,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 7500.000000000001,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -280,
+            1.5,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30959,
+              "name": "GALLERY_Z7200_SIDE2",
+              "type": "Group"
+            },
+            {
+              "pid": 88897,
+              "name": "GALLERY_Z7200_SIDE2_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 98389,
+              "name": "GALLERY_Z7200_SIDE2_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 98392,
+              "name": "GAL6_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -321.5,
+            220,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30959,
+              "name": "GALLERY_Z7200_SIDE2",
+              "type": "Group"
+            },
+            {
+              "pid": 88897,
+              "name": "GALLERY_Z7200_SIDE2_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 98389,
+              "name": "GALLERY_Z7200_SIDE2_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 98392,
+              "name": "GAL6_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE3"
+      ],
+      "pid": 30991,
+      "local_parent_bounds_mm": [
+        [
+          50000,
+          0,
+          7050.000000000001
+        ],
+        [
+          54000,
+          20000,
+          7200.000000000001
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            53720,
+            220,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 7500.000000000001,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            53720,
+            1.5,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30991,
+              "name": "GALLERY_Z7200_SIDE3",
+              "type": "Group"
+            },
+            {
+              "pid": 99939,
+              "name": "GALLERY_Z7200_SIDE3_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 99942,
+              "name": "GAL7_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            53678.5,
+            220,
+            7220.000000000001
+          ],
+          "first_hit_distance_mm": 19.999999999999783,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 30991,
+              "name": "GALLERY_Z7200_SIDE3",
+              "type": "Group"
+            },
+            {
+              "pid": 99939,
+              "name": "GALLERY_Z7200_SIDE3_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 99942,
+              "name": "GAL7_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_RETURN_STRIP"
+      ],
+      "pid": 89603,
+      "local_parent_bounds_mm": [
+        [
+          -1650.0000000000002,
+          -4000,
+          10650.000000000002
+        ],
+        [
+          54000,
+          0,
+          10800.000000000002
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -1430.0000000000002,
+            -3720,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 11100.000000000002,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -1648.5000000000002,
+            -3720,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33779,
+              "name": "GALLERY_Z10800_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 89603,
+              "name": "GALLERY_Z10800_SIDE0_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 100375,
+              "name": "GALLERY_Z10800_SIDE0_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 100378,
+              "name": "GAL8_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -1430.0000000000002,
+            -3678.5,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33779,
+              "name": "GALLERY_Z10800_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 89603,
+              "name": "GALLERY_Z10800_SIDE0_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 100375,
+              "name": "GALLERY_Z10800_SIDE0_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 100378,
+              "name": "GAL8_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SOUTH_FLAT"
+      ],
+      "pid": 89635,
+      "local_parent_bounds_mm": [
+        [
+          -3949.9999999999995,
+          -4000,
+          10650.000000000002
+        ],
+        [
+          -1650.0000000000002,
+          -3000,
+          10800.000000000002
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -3729.999999999999,
+            -3720,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 3620.000000000001,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 41189,
+              "name": "LANDINGS",
+              "type": "Group"
+            },
+            {
+              "pid": 41255,
+              "name": "LANDING_L2",
+              "type": "Group"
+            },
+            {
+              "pid": 86155,
+              "name": "L2_INNER_FLAT_-1",
+              "type": "Group"
+            },
+            {
+              "pid": 86177,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -3948.4999999999995,
+            -3720,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33779,
+              "name": "GALLERY_Z10800_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 89635,
+              "name": "GALLERY_Z10800_SIDE0_SOUTH_FLAT",
+              "type": "Group"
+            },
+            {
+              "pid": 101435,
+              "name": "GALLERY_Z10800_SIDE0_SOUTH_FLAT_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 101438,
+              "name": "GAL9_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -3729.999999999999,
+            -3678.5,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33779,
+              "name": "GALLERY_Z10800_SIDE0",
+              "type": "Group"
+            },
+            {
+              "pid": 89635,
+              "name": "GALLERY_Z10800_SIDE0_SOUTH_FLAT",
+              "type": "Group"
+            },
+            {
+              "pid": 101435,
+              "name": "GALLERY_Z10800_SIDE0_SOUTH_FLAT_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 101438,
+              "name": "GAL9_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_RETURN_STRIP"
+      ],
+      "pid": 89925,
+      "local_parent_bounds_mm": [
+        [
+          -1650.0000000000002,
+          20000,
+          10650.000000000002
+        ],
+        [
+          54000,
+          24000,
+          10800.000000000002
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -1430.0000000000002,
+            20280,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 11100.000000000002,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -1648.5000000000002,
+            20280,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33811,
+              "name": "GALLERY_Z10800_SIDE1",
+              "type": "Group"
+            },
+            {
+              "pid": 89925,
+              "name": "GALLERY_Z10800_SIDE1_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 102308,
+              "name": "GALLERY_Z10800_SIDE1_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 102311,
+              "name": "GAL10_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -1430.0000000000002,
+            20321.5,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33811,
+              "name": "GALLERY_Z10800_SIDE1",
+              "type": "Group"
+            },
+            {
+              "pid": 89925,
+              "name": "GALLERY_Z10800_SIDE1_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 102308,
+              "name": "GALLERY_Z10800_SIDE1_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 102311,
+              "name": "GAL10_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_RETURN_STRIP"
+      ],
+      "pid": 90215,
+      "local_parent_bounds_mm": [
+        [
+          -1650.0000000000002,
+          0,
+          10650.000000000002
+        ],
+        [
+          0,
+          20000,
+          10800.000000000002
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            -280,
+            220,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 11100.000000000002,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            -280,
+            1.5,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33843,
+              "name": "GALLERY_Z10800_SIDE2",
+              "type": "Group"
+            },
+            {
+              "pid": 90215,
+              "name": "GALLERY_Z10800_SIDE2_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 103368,
+              "name": "GALLERY_Z10800_SIDE2_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 103371,
+              "name": "GAL11_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            -321.5,
+            220,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33843,
+              "name": "GALLERY_Z10800_SIDE2",
+              "type": "Group"
+            },
+            {
+              "pid": 90215,
+              "name": "GALLERY_Z10800_SIDE2_RETURN_STRIP",
+              "type": "Group"
+            },
+            {
+              "pid": 103368,
+              "name": "GALLERY_Z10800_SIDE2_RETURN_STRIP_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 103371,
+              "name": "GAL11_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE3"
+      ],
+      "pid": 33875,
+      "local_parent_bounds_mm": [
+        [
+          50000,
+          0,
+          10650.000000000002
+        ],
+        [
+          54000,
+          20000,
+          10800.000000000002
+        ]
+      ],
+      "probes": [
+        {
+          "kind": "open_cell",
+          "point_mm": [
+            53720,
+            220,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 11100.000000000002,
+          "first_hit_owned_target": false,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 76256,
+              "name": "SITE_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76258,
+              "name": "ADJACENT_GROUND",
+              "type": "Group"
+            },
+            {
+              "pid": 76280,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "bearing_bar",
+          "point_mm": [
+            53720,
+            1.5,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33875,
+              "name": "GALLERY_Z10800_SIDE3",
+              "type": "Group"
+            },
+            {
+              "pid": 103764,
+              "name": "GALLERY_Z10800_SIDE3_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 103767,
+              "name": "GAL12_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 90895,
+              "name": "GRID_1000.0_1000.0_BEARING_0",
+              "type": "Group"
+            },
+            {
+              "pid": 90917,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        },
+        {
+          "kind": "cross_bar",
+          "point_mm": [
+            53678.5,
+            220,
+            10820.000000000002
+          ],
+          "first_hit_distance_mm": 20.000000000001226,
+          "first_hit_owned_target": true,
+          "pass": true,
+          "hit_path": [
+            {
+              "pid": 20606,
+              "name": "Architecture architecture-project-4f0e4",
+              "type": "Group"
+            },
+            {
+              "pid": 28007,
+              "name": "CIRCULATION_EXTERNAL",
+              "type": "Group"
+            },
+            {
+              "pid": 28009,
+              "name": "GALLERIES",
+              "type": "Group"
+            },
+            {
+              "pid": 33875,
+              "name": "GALLERY_Z10800_SIDE3",
+              "type": "Group"
+            },
+            {
+              "pid": 103764,
+              "name": "GALLERY_Z10800_SIDE3_OPEN_GRID",
+              "type": "Group"
+            },
+            {
+              "pid": 103767,
+              "name": "GAL12_PANEL_U0_V0",
+              "type": "ComponentInstance"
+            },
+            {
+              "pid": 91855,
+              "name": "GRID_1000.0_1000.0_CROSS_4",
+              "type": "Group"
+            },
+            {
+              "pid": 91877,
+              "name": null,
+              "type": "Face"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": "One actual open cell plus two solid top-bar controls per selected target. Discrete evidence, not uniform load-bearing or accessibility certification."
+}

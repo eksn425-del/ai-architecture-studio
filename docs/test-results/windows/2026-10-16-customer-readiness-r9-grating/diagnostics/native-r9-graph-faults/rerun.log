@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "E:\K AI ��Ʒ��ģ��վ\runtime\test-r9-native-graph-and-creation-rerun-20261016.py", line 71, in <module>
+    source=source.replace('LOADS',loads).replace('GUID',json.dumps(i['model_guid'])).replace('PATH',json.dumps(i['model_path'],ensure_ascii=False));(D/'native-fault-source.rb').write_text(source,encoding='utf-8');start=time.monotonic();result=eval_(source,'Disposable native graph mutations and exact missing-leaf guard acceptance');result['elapsed_ms']=round((time.monotonic()-start)*1000);result['candidate_source_sha256']=hashlib.sha256((R/'runtime/exact_path_creation_guard_candidate.rb').read_bytes()).hexdigest();(D/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps({'status':result['status'],'graph_faults':len(result['graph_faults']),'creation_negatives':len(result['creation_negatives']),'elapsed_ms':result['elapsed_ms']}))
+                                                                                                                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\runtime\test-r9-native-graph-and-creation-rerun-20261016.py", line 10, in eval_
+    f=_generated_script_dir()/f'studio-native-r9-fault-{time.time_ns()}.rb';f.write_text(source,encoding='utf-8');raw=ad.client.call('sketchup_eval_project_file',{'script_path':str(f),'operation_name':label});v=raw.get('result',raw) if isinstance(raw,dict) else raw;return json.loads(v) if isinstance(v,str) else v
+                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\sketchup_mcp.py", line 203, in call
+    result = self.call_raw(tool_name, arguments)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\sketchup_mcp.py", line 183, in call_raw
+    return self._request(requests, 3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\sketchup_mcp.py", line 153, in _request
+    raise MCPCallError(message or "The SketchUp MCP tool returned an error.")
+app.sketchup_mcp.MCPCallError: {
+  "code": "GENERATED_SCRIPT_ERROR",
+  "message": "Generated SketchUp script failed.",
+  "message_zh": "Generated SketchUp script failed.",
+  "details": {
+    "class": "NoMethodError",
+    "message": "undefined method `empty?' for #<Sketchup::Entities:0x000001fac81aa008>",
+    "backtrace": [
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:23:in `branch'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:48:in `block in branch'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:48:in `map'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:48:in `branch'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:48:in `block in branch'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:48:in `map'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:48:in `branch'",
+      "E:/K AI ��Ʒ��ģ��վ/runtime/exact_path_creation_guard_candidate.rb:77:in `capture'",
+      "C:/ProgramData/archflow-mcp/generated_scripts/studio-native-r9-fault-1792122285764300300.rb:34:in `<main>'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'"
+    ]
+  }
+}

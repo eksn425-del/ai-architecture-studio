@@ -115,3 +115,43 @@ def test_autosave_guid_rebind_failure_keeps_old_token(tmp_path, monkeypatch):
     with pytest.raises(MCPCallError, match='Could not verify'):
         executor._assert_active_model()
     assert executor.expected_model_guid == 'guid-live'
+
+
+@pytest.mark.parametrize('mode', ['same_owned_document', 'different_path', 'failed_proof', 'second_race'])
+def test_guid_race_retries_only_read_once_after_owned_identity_proof(tmp_path, monkeypatch, mode):
+    from pathlib import Path
+    executor, adapter, mcp, _ = _executor(tmp_path, state={'main': {'root_pid': 701, 'revision': 3}})
+    monkeypatch.setenv('ARCHFLOW_GENERATED_SCRIPT_DIR', str(tmp_path / 'transport'))
+    calls = []
+    inspections = []
+    initial_state = json.dumps(executor.ruby_state)
+
+    def race(name, args):
+        source = Path(args['script_path']).read_text(encoding='utf8')
+        calls.append(source)
+        assert 'start_operation' not in source and 'eval(source' not in source
+        if 'guid_rebind_verified' in source:
+            assert 'Project identity mismatch' in source and 'Revision mismatch' in source
+            return {'result': {'guid_rebind_verified': mode != 'failed_proof'}}
+        inspections.append(source)
+        if len(inspections) == 1:
+            adapter.guid = 'guid-raced-save'
+            if mode == 'different_path':
+                adapter.model_path = tmp_path / 'another-original.skp'
+            raise MCPCallError('Active model GUID changed')
+        assert 'model.guid == "guid-raced-save"' in source
+        if mode == 'second_race':
+            raise MCPCallError('Active model GUID changed')
+        return {'result': {'objects': [], 'next_offset': None}}
+
+    mcp.call = race
+    if mode == 'same_owned_document':
+        assert executor.inspect_owned({'script_id': 'main'})['success']
+        assert len(calls) == 3 and len(inspections) == 2
+    else:
+        with pytest.raises(MCPCallError):
+            executor.inspect_owned({'script_id': 'main'})
+        assert len(inspections) == (2 if mode == 'second_race' else 1)
+    assert json.dumps(executor.ruby_state) == initial_state
+    assert not adapter.captures
+    assert not list((tmp_path / 'transport').glob('*.rb'))

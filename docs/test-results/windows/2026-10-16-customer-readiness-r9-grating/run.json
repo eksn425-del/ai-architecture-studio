@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r9-grating",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "architecture-project-4f0e4 SAME eight originals r8->r9 root20606",
+  "base_commit": "0a024349cceb726d04d14bcd58497dada5acd2e3",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 8,
+    "after_revision": 9
+  },
+  "qa": {
+    "target_grating": "IMPROVED;39/39corrected hole/bar controls",
+    "exact_path_protection": "PASS13targets",
+    "source_fidelity": "FAIL independent Critic NEEDS_FIX",
+    "native_delivery_strict_three_stage": "FAIL; separately diagnosed dimensionless roundoff only",
+    "bound_download_deep_equality": "PASS",
+    "strict_blank_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "event": "tool_result",
+    "tool": "sketchup_run_workspace_ruby",
+    "success": false,
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Active model GUID changed\",\n    \"backtrace\": [\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-owned-inspection-e828f1da38ff4253b5f8a2c78932974c.rb:6:in `<main>'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `block in handle_payload'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:185:in `on_main_thread'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `handle_payload'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:116:in `handle_socket'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:94:in `block in poll_accept_once'\",\n      \"C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:86:in `loop'\"\n    ]\n  }\n}",
+    "content_types": [
+      "inputText"
+    ]
+  },
+  {
+    "stage": "legacy_deep",
+    "status": "FAIL_ENTITY_LIMIT",
+    "detail": "Actual expanded r9 exceeds250000 collector cap; no count-only acceptance."
+  },
+  {
+    "stage": "tcp_utf8",
+    "status": "FIXED_ACTUAL_SDK_CAPTURE",
+    "detail": "Per-chunk UTF8 decoding corrupted Chinese definition names. Node streaming decoder repair, fixed-source SHA and backed-up-original SHA retained; no secrets/config copied."
+  },
+  {
+    "stage": "creation_guard_candidate",
+    "status": "FIXED_RETESTED_ON_DISPOSABLE_ONLY",
+    "detail": "Sketchup::Entities lacks empty?; use length. Initial native failure log retained.3graph faults,7creation negatives and positive commit/cleanup pass on separate copy; candidate NOT deployed."
+  },
+  {
+    "stage": "native_three_stage",
+    "status": "STRICT_FAIL_RETAINED",
+    "detail": "917 normal/linear-matrix last-bit differences, max2.220446049250313e-16. Vertices/topology/material/translation exact; bound/download strictly equal. Separate roundoff diagnosis does not override strict FAIL."
+  },
+  {
+    "stage": "host_camera_capture",
+    "status": "CONTROLLED_RECAPTURE",
+    "detail": "Fixed camera aspect masked export dark. Corrected aspect0 saved-version recapture3matchingpairs; original dark images retained."
+  },
+  {
+    "stage": "source_ledger_growth",
+    "status": "UNRESOLVED",
+    "detail": "Agent appended gallery_grating_edit despite source-only instruction; QA invalidation remains strict."
+  }
+]

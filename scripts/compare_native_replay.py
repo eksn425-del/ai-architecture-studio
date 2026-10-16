@@ -10,6 +10,7 @@ import argparse
 import json
 from pathlib import Path
 from typing import Any
+from app.native_graph_evidence import GRAPH_COLLECTOR, validate_definition_graph
 
 
 def _indexed(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -29,6 +30,9 @@ def _indexed(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def compare(before: dict[str, Any], replay: dict[str, Any]) -> dict[str, Any]:
+    for snapshot in (before, replay):
+        if snapshot.get("collector") == GRAPH_COLLECTOR:
+            validate_definition_graph(snapshot)
     old, new = _indexed(before), _indexed(replay)
     missing = sorted(old.keys() - new.keys())
     added = sorted(new.keys() - old.keys())
@@ -67,11 +71,12 @@ def compare(before: dict[str, Any], replay: dict[str, Any]) -> dict[str, Any]:
     )
     return {
         "schema_version": 1,
-        "status": "PASS" if not (missing or added or changed or root_changed or presentation_changed or document_changed) else "FAIL",
+        "status": "PASS" if not (missing or added or changed or root_changed or presentation_changed or document_changed or before.get("collector") != replay.get("collector")) else "FAIL",
         "document_geometry_changed": document_changed,
         "root_geometry_changed": root_changed,
         "presentation_changed": presentation_changed,
-        "deep_native_collector_both_stages": before.get("collector") == replay.get("collector") == "KStudioNativeDeepFingerprint/1",
+        "deep_native_collector_both_stages": before.get("collector") == replay.get("collector") and before.get("collector") in {"KStudioNativeDeepFingerprint/1", GRAPH_COLLECTOR},
+        "fingerprint_collector": before.get("collector") if before.get("collector") == replay.get("collector") else "MISMATCH",
         "before_group_count": len(old),
         "replay_group_count": len(new),
         "missing_groups": missing,

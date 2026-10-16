@@ -327,7 +327,8 @@ class SketchUpAdapter:
         return {"collector": "KStudioNativeCamera/1", **self.get_active_model_identity(include_camera=True)}
 
     def capture_native_deep_fingerprint(self, *, expected_model_path: Path, expected_guid: str,
-                                        root_pid: int, output_path: Path) -> dict[str, Any]:
+                                        root_pid: int, output_path: Path,
+                                        representation: str = "expanded") -> dict[str, Any]:
         """Fixed host-only READ-ONLY SketchUp traversal, NEVER an Agent writer tool.
 
         The live SketchUp identity must already be the caller-selected disposable
@@ -336,6 +337,13 @@ class SketchUpAdapter:
         """
         if type(root_pid) is not int or root_pid <= 0 or not expected_guid:
             raise ValueError("Deep capture needs actual positive owned root PID and GUID.")
+        representations = {
+            "expanded": ("native_deep_fingerprint.rb", "KStudioNativeDeepFingerprint", "KStudioNativeDeepFingerprint/1"),
+            "definition_graph": ("native_definition_graph.rb", "KStudioNativeDefinitionGraph", "KStudioNativeDefinitionGraph/1"),
+        }
+        if representation not in representations:
+            raise ValueError("Unsupported native fingerprint representation.")
+        helper_name, module_name, collector_name = representations[representation]
         model_path = expected_model_path.expanduser().resolve()
         output = output_path.expanduser().resolve()
         if output.exists() or output.is_symlink() or not output.parent.is_dir():
@@ -347,7 +355,7 @@ class SketchUpAdapter:
             raise MCPCallError("Deep capture refused: wrong native document/path/GUID.")
         if initial["active_context"]:
             raise MCPCallError("Deep capture refused: exit nested SketchUp edit context first.")
-        helper = (Path(__file__).parent / "native_deep_fingerprint.rb").resolve()
+        helper = (Path(__file__).parent / helper_name).resolve()
         if not helper.is_file():
             raise MCPCallError("Reviewed fixed native deep fingerprint Ruby helper missing.")
         generated_dir = _generated_script_dir()
@@ -361,7 +369,7 @@ class SketchUpAdapter:
             f"raise 'Wrong SketchUp model path' unless File.expand_path(model.path) == File.expand_path({json.dumps(model_path.as_posix(), ensure_ascii=False)})",
             f"raise 'Wrong SketchUp model GUID' unless model.guid == {json.dumps(expected_guid, ensure_ascii=False)}",
             "raise 'SketchUp active edit path is not closed' unless model.active_path.nil?",
-            f"KStudioNativeDeepFingerprint.capture(model, root_pid: {root_pid})",
+            f"{module_name}.capture(model, root_pid: {root_pid})",
         ]
         script_path.write_text(chr(10).join(script_lines) + chr(10), encoding="utf-8", newline=chr(10))
         try:
@@ -376,7 +384,7 @@ class SketchUpAdapter:
             candidates.extend([raw.get("result"), raw.get("text")])
         payload = None
         for candidate in candidates:
-            if isinstance(candidate, dict) and candidate.get("collector") == "KStudioNativeDeepFingerprint/1":
+            if isinstance(candidate, dict) and candidate.get("collector") == collector_name:
                 payload = candidate
                 break
             if isinstance(candidate, str):
@@ -384,13 +392,16 @@ class SketchUpAdapter:
                     parsed = json.loads(candidate)
                 except json.JSONDecodeError:
                     continue
-                if isinstance(parsed, dict) and parsed.get("collector") == "KStudioNativeDeepFingerprint/1":
+                if isinstance(parsed, dict) and parsed.get("collector") == collector_name:
                     payload = parsed
                     break
         if not isinstance(payload, dict) or payload.get("root_pid") != root_pid or not isinstance(payload.get("groups"), list):
             raise MCPCallError("Native deep fingerprint returned no verified complete model evidence.")
         if payload.get("model_guid") != expected_guid or Path(str(payload.get("model_path") or "")).resolve() != model_path:
             raise MCPCallError("Native deep evidence identity changed; discarded.")
+        if representation == "definition_graph":
+            from .native_graph_evidence import validate_definition_graph
+            validate_definition_graph(payload)
         after = self.get_active_model_identity()
         if (after["model_guid"] != expected_guid or Path(str(after["model_path"])).resolve() != model_path
                 or after["active_context"]):

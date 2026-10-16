@@ -34,7 +34,7 @@ _FORBIDDEN_SOURCE = re.compile(
     r"\b(?:File|Dir|IO|Process|Kernel|Object|BasicObject|Module|RubyVM|ObjectSpace|KStudioProfessionalHelpers|KStudioSAIE|KStudioStultusBounds|Marshal|ENV|ARGV|Socket|BasicSocket|TCPSocket|UDPSocket|IPSocket|Thread|Gem|URI|Net|OpenURI|UI)\b"
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|\bKStudioOSSMethodRuntime\b"
-    r"|\b(?:KStudioEditScopeGuard|KStudioPathScopeGuard|KStudioNativeDeepFingerprint|edit_scope_before|edit_scope_receipt)\b"
+    r"|\b(?:KStudioEditScopeGuard|KStudioPathScopeGuard|KStudioNativeDeepFingerprint|KStudioNativeDefinitionGraph|edit_scope_before|edit_scope_receipt)\b"
     r"|\b(?:ADAIConstructionGeometry|oss_method_events|oss_method_ledger)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
@@ -341,7 +341,20 @@ class ProjectRubyExecutor:
         ]) + "\n"
         script.write_text(source, encoding="utf-8")
         try:
-            result = self.mcp.call("sketchup_eval_project_file", {"script_path": str(script), "operation_name": "Read owned groups; no geometry edit"})
+            try:
+                result = self.mcp.call("sketchup_eval_project_file", {"script_path": str(script), "operation_name": "Read owned groups; no geometry edit"})
+            except MCPCallError as error:
+                if "Active model GUID changed" not in str(error):
+                    raise
+                # Autosave can race the identity check and this queued native
+                # read. Retry ONLY the read, once, after the existing native
+                # path/root/project/revision proof. Never replay a writer.
+                old_guard = f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}"
+                self._assert_active_model()
+                new_guard = f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}"
+                source = source.replace(old_guard, new_guard, 1)
+                script.write_text(source, encoding="utf-8")
+                result = self.mcp.call("sketchup_eval_project_file", {"script_path": str(script), "operation_name": "Retry read after verified owned GUID refresh; no geometry edit"})
         finally:
             script.unlink(missing_ok=True)
         self._assert_active_model()

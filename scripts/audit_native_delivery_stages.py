@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from scripts.compare_native_replay import compare
+from app.native_graph_evidence import GRAPH_COLLECTOR, validate_definition_graph
 
 
 def audit_stages(before_save: dict[str, Any], bound_reopened: dict[str, Any],
@@ -31,13 +32,23 @@ def audit_stages(before_save: dict[str, Any], bound_reopened: dict[str, Any],
                     "document_geometry_material_sha256")
         if any(
             not isinstance(value, dict)
-            or value.get("collector") != "KStudioNativeDeepFingerprint/1"
+            or value.get("collector") not in {"KStudioNativeDeepFingerprint/1", GRAPH_COLLECTOR}
             or any(not isinstance(value.get(key), str) or not value[key] for key in required)
             or not isinstance(value.get("groups"), list)
             for value in snapshots
         ):
             return {"status": "BLOCKED", "reason": "three_verified_native_deep_captures_required",
                     "native_delivery_proven": False, "transitions": []}
+        if len({value['collector'] for value in snapshots}) != 1:
+            return {"status": "BLOCKED", "reason": "native_fingerprint_representation_mismatch",
+                    "native_delivery_proven": False, "transitions": []}
+        if snapshots[0]['collector'] == GRAPH_COLLECTOR:
+            try:
+                for snapshot in snapshots:
+                    validate_definition_graph(snapshot)
+            except (ValueError, TypeError, KeyError) as error:
+                return {"status": "BLOCKED", "reason": str(error),
+                        "native_delivery_proven": False, "transitions": []}
     if receipt is not None:
         if receipt.get("status") != "UNVERIFIED_NATIVE_REOPEN":
             raise ValueError("Expected original unverified native checkpoint, not an asserted PASS.")

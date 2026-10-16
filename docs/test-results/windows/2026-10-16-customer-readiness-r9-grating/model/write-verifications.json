@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "post_commit_owned_root_readback",
+  "checks": [
+    {
+      "check": "transaction_status",
+      "expected": "committed",
+      "actual": "committed"
+    },
+    {
+      "check": "root_persistent_id",
+      "expected": 20606,
+      "actual": 20606
+    },
+    {
+      "check": "revision",
+      "expected": 9,
+      "actual": 9
+    },
+    {
+      "check": "objects_total",
+      "expected": 27,
+      "actual": 27
+    },
+    {
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          16710.2
+        ],
+        "size": [
+          71000.0,
+          42000.0,
+          17210.2
+        ]
+      },
+      "actual": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          16710.2
+        ],
+        "size": [
+          71000,
+          42000,
+          17210.2
+        ]
+      }
+    }
+  ]
+}
