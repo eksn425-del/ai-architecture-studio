@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r13-circulation-mesh",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "SAME eight originals architecture-project-4f0e4 root20606 r12->r13",
+  "base_commit": "76de032cc397cd968fc68c5be19713d56e024f39",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 12,
+    "after_revision": 13
+  },
+  "qa": {
+    "target_native": "216headroom/144support/9deck/78isolatedmesh/2platform bounds pass;72old treads unchanged; nine west return rays stillclear",
+    "scope": "PASS33exact targets(31existing+2new), all unrelated completegraph protected",
+    "source_critic": "NEEDS_FIX, all8sources/16pairs; interior void/spiral/curtain remaining, some uncut-view claims need native diagnosis before cuts",
+    "native_delivery": "PASS_WITH_DECLARED_PRECISION; rawstrictFAIL retained",
+    "strict_blank_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

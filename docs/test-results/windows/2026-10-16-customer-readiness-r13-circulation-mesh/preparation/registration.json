@@ -1,0 +1,518 @@
+{
+  "status": "PREPARED_NOT_ACTIVE",
+  "root_pid": 20606,
+  "expected_start_revision": 12,
+  "existing_targets_r10_native": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      "pid": 41255,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          -3967.5,
+          -6217.5,
+          7040
+        ],
+        [
+          17.5,
+          26217.5,
+          8314.999999999998
+        ]
+      ],
+      "child_groups": 10,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L3"
+      ],
+      "pid": 41287,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          -3967.5,
+          23000,
+          10640
+        ],
+        [
+          17.5,
+          26217.5,
+          11914.999999999998
+        ]
+      ],
+      "child_groups": 5,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE3"
+      ],
+      "pid": 28107,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          50000,
+          0,
+          3450
+        ],
+        [
+          54000,
+          20000,
+          3600
+        ]
+      ],
+      "child_groups": 2,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE3"
+      ],
+      "pid": 30991,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          50000,
+          0,
+          7050.000000000001
+        ],
+        [
+          54000,
+          20000,
+          7200.000000000001
+        ]
+      ],
+      "child_groups": 2,
+      "own_faces": 0
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE3"
+      ],
+      "pid": 33875,
+      "type": "Group",
+      "definition_instances": 1,
+      "material": {
+        "name": "KS_White_Steel",
+        "color": [
+          236,
+          238,
+          234,
+          255
+        ],
+        "alpha": 1
+      },
+      "bounds_parent_mm": [
+        [
+          50000,
+          0,
+          10650.000000000002
+        ],
+        [
+          54000,
+          20000,
+          10800.000000000002
+        ]
+      ],
+      "child_groups": 2,
+      "own_faces": 0
+    }
+  ],
+  "continuity_proof": "r11 enclosure protected entire CIRCULATION_EXTERNAL/INTERNAL exactly; verify fresh identities/absence immediately before activation.",
+  "new_exact_leaves": [
+    [
+      "CIRCULATION_INTERNAL",
+      "END_STAIR_COMPLETION"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "REMOTE_END_EDGE_GUARDS"
+    ]
+  ],
+  "actual_remote_tread_layout": "Existing source Ruby creates three24-tread runs at x50500..52700, y1000..7240, rise150mm, going260mm, z0/3600/7200. Read actual native transforms and endpoints before adding. Existing gallery widthx50000..54000; keep clear routes past any new stair slot.",
+  "actual_new_remote_door": "r11 new lower east end portals y7600..9600 at each z0/3600/7200, plus y15200..17400 at upper levels. These are source-based inferred entrance subdivisions, retain and connect supported landings.",
+  "ground_level": "Read actual site top and current first tread/base; do not leave approach floating or invent an unconnected pad.",
+  "upper_platforms": "Actual outer glass y-4000/24000, current upper pad stubs extend to-6200/26200. Preserved RAMP2/3 current ends y-3000/23000; existing inside flat landing strips are needed. Remove unsupported outside residue, retain real inside route/gates and actual mirrored transforms.",
+  "guard_style": "Adjacent source03 fine pale mesh, inferred wire/pitch. Existing new small-hole guard is not this task.",
+  "all_approved_paths": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z3600_SIDE3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE3"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "END_STAIR_COMPLETION"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "REMOTE_END_EDGE_GUARDS"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE0",
+      "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE1",
+      "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2",
+      "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE0",
+      "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE1",
+      "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE2",
+      "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_4"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_5"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_6"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_7"
+    ]
+  ],
+  "mesh_targets_from_actual_native_r10": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE0",
+      "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE1",
+      "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2",
+      "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE0",
+      "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE1",
+      "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE2",
+      "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_1_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_2_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_OUTER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "RAMP_3_INNER"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_4"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_5"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_6"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1",
+      "LANDING_L1_GUARD_7"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ]
+  ],
+  "current_closure": "r11 protects entire original circulation; r12 modifies only two new west end door leaves. Actual33targets/2absences must be re-verified before activation.",
+  "fine_mesh_inferred": "Estimate mesh pitch/wire from original03; genuine transparent wire construction with reusable prototypes, not opacity texture. Preserve real gate gaps/return joins. Use actual existing local/world transforms of mirrored ramp rail groups; avoid double mirroring."
+}

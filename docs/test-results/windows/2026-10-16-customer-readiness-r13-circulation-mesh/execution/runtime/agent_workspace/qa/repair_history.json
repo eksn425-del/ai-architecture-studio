@@ -1,0 +1,1059 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 establish the same elongated building through its zigzag ramp end, projecting two-level glazed perimeter and curved roof. SOURCE 3 shows recessed lower glazing and exposed columns beneath projecting walkways; SOURCE 4 shows the timber roof underside, open interior and spiral stair. SOURCE 5–8 provide sections, plans and assembly diagrams showing the retained frame, added roof storey and outer buffer zone. CURRENT contains these broad exterior systems, but its roof-to-enclosure proportions differ visibly. The ramp-end view also shows unresolved landing connections. Repeated uncut obliques do not verify the source interior, floor voids or stair arrangement. No confirmed dimensions are supplied; screenshots cannot establish actual joint connectivity or hidden geometry.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "roof",
+            "problem": "In SOURCE 1–2, the roof’s lowest central edge remains appreciably above the horizontal outer enclosure top, leaving a visible band of upper-storey glazing. In CURRENT 15, that central edge nearly meets the enclosure top, compressing this defining glazed band. The unequal high ends also appear reversed relative to SOURCE 1; camera handedness remains uncertain.",
+            "action": "Locally adjust the roof profile and corresponding upper glazing/support heights to restore the source-backed central clearance. Establish matching ramp-end orientation before assigning the higher roof edge; retain the existing lower building during this correction."
+          },
+          {
+            "priority": 2,
+            "view": "left",
+            "problem": "CURRENT 15 shows the upper diagonal ramp/rail assembly extending beyond the right enclosure edge without a clearly resolved landing connection. SOURCE 1–2 show ramp flights terminating at identifiable perimeter landings. Dense overlapping lines in CURRENT obscure whether these are connected joints or passing intersections.",
+            "action": "Review the ramp-end landing closeups against the source, then locally trim or connect only confirmed overshooting ramp and rail ends. Verify deck-to-landing contact and continuous guarding; do not treat projected overlap as a completed joint."
+          }
+        ],
+        "keep": [
+          "The straight horizontal top edge of the outer glazed enclosure, separate from the curved roof.",
+          "The existing roof’s smooth concave curvature; retain that character while correcting its vertical profile."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 3,
+        "relative_path": "scripts/correct_roof_handedness.rb",
+        "update_mode": "edit",
+        "source_sha256": "53837ec3ed0cc771a08bca928547529b6aa3b8e795331e422e3d816228df55c6",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "CIRCULATION_EXTERNAL",
+            "CIRCULATION_INTERNAL",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS",
+            "RAMPS"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Sources 1–2 establish the same elongated building through its curved roof, projecting glazed upper enclosure and zigzag ramps at the short end. Source 3 shows the recessed entrance and open grated gallery; source 4 shows the timber ceiling, circular floor openings, spiral stair and double-height lower workspace. Sources 5–8 corroborate the concrete frame, timber upper addition, perimeter buffer zone and unequal internal floor extents. CURRENT captures these broad systems, but the ramp direction, internal void configuration and gallery construction differ visibly. Exact dimensions are not supplied. Images 22–25 repeat uncut exterior views and cannot verify the source sections; screenshots also cannot establish concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "end",
+            "problem": "SOURCE 1–2 shows the lowest ramp descending toward the right, with alternating flights above. CURRENT 15–16 descends toward the left and reverses that defining end composition; the upper flight also projects beyond the enclosure without a clearly resolved landing connection.",
+            "action": "Locally correct the ramp flights’ direction and landing positions using the shared end-view landmarks. Connect each flight to its intended floor or gallery with continuous walking surfaces and guards; verify clearances at the glazed enclosure."
+          },
+          {
+            "priority": 2,
+            "view": "lower_interior",
+            "problem": "SOURCE 4–5 shows a substantial double-height workspace beside a partial intermediate floor. CURRENT 21 instead shows closely stacked horizontal beams and floor surfaces across that region, substantially reducing the observed vertical opening. CURRENT 20 also leaves a circular floor opening unguarded, unlike the source’s circular mesh guards.",
+            "action": "Correct only the intermediate floor extent and associated beams around the source-backed double-height void. Align the spiral stair with the actual floor openings and landings, and guard the exposed circular opening."
+          },
+          {
+            "priority": 3,
+            "view": "gallery",
+            "problem": "SOURCE 3 shows a light, open gallery with visible transverse steel beams and translucent/open grating overhead. CURRENT 19 replaces this with a broad opaque grey soffit and deep continuous edge, obscuring the source’s structural rhythm and openness.",
+            "action": "Locally revise the gallery deck, soffit and edge assembly to expose the observed beam-and-grating construction. Check inclined support endpoints against actual structural members rather than accepting apparent screen-space contact."
+          }
+        ],
+        "keep": [
+          "The visible short-end roof edge’s concave profile, including its higher right endpoint in the matched end view.",
+          "The recessed ground-level column line beneath the projecting gallery."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a recessed lower frame, a projecting two-storey glazed buffer enclosure, perimeter decks, three alternating end-ramp flights, and a curved timber roof with unequal raised edges. Exterior photographs, the aerial drawing and physical-model views share these landmarks. Interior panels show the curved timber soffit, exposed frame and spiral circulation; plans and sections show floor openings and differing internal floor extents. CURRENT retains the recognizable exterior arrangement, but the roof trough sits too close to the enclosure’s top edge, and ramp terminations need correction or closer verification. No user-confirmed dimensions are supplied. These uncut exterior views cannot establish internal fidelity or prove physical connections; dark outlines alone do not establish incorrect materials.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "roof",
+            "problem": "SOURCE end views show a substantial glazed zone between the roof trough and the horizontal buffer-enclosure roofline. In CURRENT image 15, the trough nearly touches that roofline, compressing the defining upper-storey silhouette.",
+            "action": "Raise the central portion of the curved roof and adjust its adjoining glazing/support heights locally to restore the source-visible clearance. Preserve the right-higher edge relationship; do not protect the entire existing roof profile."
+          },
+          {
+            "priority": 2,
+            "view": "ramp",
+            "problem": "CURRENT image 15 shows the upper ramp/rail extending beyond the right enclosure edge and broad projecting pieces at the flight ends. SOURCE physical-model views show flights resolving into perimeter decks and defined landings. The current overlaps do not demonstrate continuous walking surfaces or correctly terminated rails.",
+            "action": "Locally align flight endpoints with their receiving decks, trim unsupported overruns, and resolve landing surfaces and rail returns. Verify the joints in close views before accepting them; preserve correctly positioned flight portions."
+          }
+        ],
+        "keep": [
+          "Right roof edge higher than the left in the matched ramp-end orientation.",
+          "Alternating slopes of the three exterior ramp flights."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 4,
+        "relative_path": "scripts/correct_roof_clearance.rb",
+        "update_mode": "edit",
+        "source_sha256": "9ccce9f731649ddaed5a2157a5fe7fa9b6c3963c7511dcd0c766e3387ba0ef30",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "CIRCULATION_EXTERNAL",
+            "ENVELOPE_OUTER",
+            "CIRCULATION_INTERNAL",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building with a recessed lower frame, projecting two-level glazed buffer, exterior ramps, a raised concave timber roof, partial intermediate floors and circular stair/opening features. Exterior perspectives, interior views, plans, sections and exploded diagrams share these landmarks. CURRENT captures the broad massing but differs in ramp routing, interior floor configuration and opening assemblies. No confirmed dimensions are supplied. CURRENT exterior “section” views and roof-covered plans cannot verify hidden construction or concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "SOURCE 1–2 show successive visible ramp flights descending toward the same side beneath the asymmetric roof landmark. CURRENT 15/22 instead places alternating diagonal flights across the exposed end, changing the defining circulation elevation.",
+            "action": "Locally reroute the affected flights and return landings using the source end views and plans together; connect each flight flush to its receiving deck and remove unsupported projecting tails."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "SOURCE 4–5/7–8 show a substantial double-height interior beside a partial intermediate floor. CURRENT 17/19 shows repeated floor and beam bands across that region, making the interior read as uniformly stacked storeys.",
+            "action": "Correct the intermediate slab extent and associated beams to preserve the source double-height opening. Verify the resulting configuration with an actual section through the matching location."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 4 shows circular floor openings enclosed by cylindrical mesh guards. CURRENT 18 has two visibly unguarded holes and a long gray strip crossing the floor and opening edges, with no corresponding source feature.",
+            "action": "Complete the guards around the source-backed openings and remove or resolve the crossing strip so floor edges, stair access and guards form coherent assemblies."
+          }
+        ],
+        "keep": [
+          "Concave roof-edge profile with one side higher than the other.",
+          "Raised roof volume inset from the outer rectangular buffer enclosure.",
+          "Recessed lower columns beneath the projecting perimeter decks."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building with a recessed lower frame, projecting two-level glazed buffer, exterior ramps, a raised concave timber roof, partial intermediate floors and circular stair/opening features. Exterior perspectives, interior views, plans, sections and exploded diagrams share these landmarks. CURRENT captures the broad massing but differs in ramp routing, interior floor configuration and opening assemblies. No confirmed dimensions are supplied. CURRENT exterior “section” views and roof-covered plans cannot verify hidden construction or concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "SOURCE 1–2 show successive visible ramp flights descending toward the same side beneath the asymmetric roof landmark. CURRENT 15/22 instead places alternating diagonal flights across the exposed end, changing the defining circulation elevation.",
+            "action": "Locally reroute the affected flights and return landings using the source end views and plans together; connect each flight flush to its receiving deck and remove unsupported projecting tails."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "SOURCE 4–5/7–8 show a substantial double-height interior beside a partial intermediate floor. CURRENT 17/19 shows repeated floor and beam bands across that region, making the interior read as uniformly stacked storeys.",
+            "action": "Correct the intermediate slab extent and associated beams to preserve the source double-height opening. Verify the resulting configuration with an actual section through the matching location."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 4 shows circular floor openings enclosed by cylindrical mesh guards. CURRENT 18 has two visibly unguarded holes and a long gray strip crossing the floor and opening edges, with no corresponding source feature.",
+            "action": "Complete the guards around the source-backed openings and remove or resolve the crossing strip so floor edges, stair access and guards form coherent assemblies."
+          }
+        ],
+        "keep": [
+          "Concave roof-edge profile with one side higher than the other.",
+          "Raised roof volume inset from the outer rectangular buffer enclosure.",
+          "Recessed lower columns beneath the projecting perimeter decks."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 5,
+        "relative_path": "scripts/correct_ramp_connections.rb",
+        "update_mode": "edit",
+        "source_sha256": "3f143f6ba3160ba068a6fe124c613975c055ddc9c117c3b4f49204cbf8efa259",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "ENVELOPE_OUTER",
+            "CIRCULATION_INTERNAL",
+            "SITE_GROUND",
+            "FLOORS",
+            "ROOF_TIMBER",
+            "INTERIOR",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE exterior panels share a recessed rectangular core, two upper glazed buffer levels, three descending ramp runs at the short end, and an elevated concave roof with unequal edge heights. Ground-level panels show concrete columns and projecting steel walkway supports; interior panels show a pale timber ceiling, light floors and guarded circular openings. Plans and sections additionally establish internal partitions and double-height regions. CURRENT captures the principal roof profile and layered arrangement, but ramp extents, facade/guard assembly and exposed floor openings differ visibly. CURRENT exterior views cannot verify the source’s internal section arrangement or concealed joints; no numerical dimensions are confirmed by these images.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "SOURCE images 1–2 place the upper ramp runs and landings largely within the outer glazed end’s width. CURRENT images 15–16 extend both upper runs and their return landings substantially beyond its corners, widening the circulation silhouette.",
+            "action": "Locally shorten and reposition the upper runs and landings to match the source’s inset endpoints, retaining their descending arrangement. Ensure each landing connects continuously to its corresponding perimeter walkway."
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "SOURCE images 1–3 show a fine, pale outer frame and mesh guards with visually distinct glazing behind. CURRENT images 16–17 instead read as repeated heavy dark horizontal rails; ramp guards are open bars, and the source’s mesh infill is absent.",
+            "action": "Correct the visible frame and guard sections and finishes, add the source-backed mesh infill, and preserve the separation between glazing, guards and walkway edges."
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "SOURCE image 4 shows circular floor openings enclosed by raised mesh guards. CURRENT image 18 exposes two circular openings with no surrounding guards; the distant guarded stair opening does not resolve these omissions.",
+            "action": "Add fitted circular mesh guards around the two exposed openings, connected to their floor rims, using the source’s slender pale construction."
+          }
+        ],
+        "keep": [
+          "Concave roof end profile with one edge higher than the other.",
+          "Three descending ramp runs at the short end.",
+          "Recessed ground-level column line beneath the projecting perimeter walkway."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-004",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE exterior perspectives show an elongated glazed building, a recessed lower frame, projecting circulation decks, end ramps, and a raised roof with an asymmetric sagging profile. The aerial panel establishes its length; sections and plans establish a double-height lower interior, partial intermediate floor, room partitions and circular openings. Interior panels show pale floors, concrete framing, a timber ceiling and mesh guards around openings. These recurring landmarks identify the same building across the collages; no numerical dimensions are confirmed. CURRENT retains the recognizable roof profile and circulation arrangement, but continuous floor plates, exaggerated ramp-end projections and incomplete opening guards materially change the observed architecture. Screenshots cannot establish whether all deck, ramp and brace connections are physically joined; hidden connections remain unverified.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "CURRENT has continuous intermediate slabs across the lower interior, whereas SOURCE sections 5 and 8 show a substantial double-height space beside a partial intermediate floor. CURRENT also reads as largely undivided framing where SOURCE plans and interior views show enclosed room zones.",
+            "action": "Locally trim the intermediate slab to the source-backed void boundary and add the visible room partitions and glazed boundaries using plans 5 and 7. Preserve correctly positioned columns rather than replacing the frame."
+          },
+          {
+            "priority": 2,
+            "view": "left",
+            "problem": "CURRENT ramp landings project conspicuously beyond both sides of the end enclosure. In SOURCE 1 and 2, these returns sit much closer to the surrounding deck edges, producing a tighter end silhouette.",
+            "action": "Shorten and reposition the projecting landing returns to match the source end views. Maintain continuous ramp-to-landing and landing-to-deck geometry, checking each junction rather than relying on overlapping edges."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "CURRENT view 18 shows two circular floor openings without perimeter guards. SOURCE interior panel 4 shows raised cylindrical mesh guards around the corresponding openings; these are substantial spatial elements, not decorative trim.",
+            "action": "Add continuous circular mesh guards at the exposed openings, seated on their slab rims, matching the source proportions and retaining the existing stair enclosure where appropriate."
+          }
+        ],
+        "keep": [
+          "Asymmetric sagging profile of the roof’s visible end edge.",
+          "Raised roof set inward from the outer glazed circulation enclosure.",
+          "Circular form of the existing spiral-stair guard."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 6,
+        "relative_path": "scripts/open_receiving_gates.rb",
+        "update_mode": "edit",
+        "source_sha256": "af59bd793b43501959ca559731329243e9c1f3829cd8a40bec81bf2760e5928c",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "ENVELOPE_OUTER",
+            "CIRCULATION_INTERNAL",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS",
+            "ROOF_TIMBER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a recessed concrete frame, a timber upper hall beneath a sagging roof, a projecting glazed perimeter, and stacked ramps at one short end. Exterior views share the ramp and roof landmarks; interior views, sections and plans show cellular lower rooms, a substantial double-height space, spiral circulation and guarded circular floor openings. The exploded diagram confirms the layered assembly. CURRENT captures the principal exterior arrangement, but the interior remains substantially more open, receiving landings meet uninterrupted glazing, and several upper-floor holes lack guards. Geographic orientation and exact dimensions are not established by the source images; the uncut CURRENT views cannot verify every internal connection.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "entry",
+            "problem": "SOURCE plans and sections show enclosed lower-storey rooms and an asymmetric double-height interior. CURRENT views 15–17 and 23–25 expose largely uninterrupted floor plates and bare columns, omitting major internal spatial boundaries.",
+            "action": "Locally add the source-visible room enclosures and correct the corresponding floor opening for the double-height space. Retain correctly positioned structural members; use the source plans and sections together to locate these patches."
+          },
+          {
+            "priority": 2,
+            "view": "receiving",
+            "problem": "CURRENT views 23–26 show continuous glass panels and framing across the apparent receiving passages. Openings in the landing rails therefore do not establish usable connections through the envelope. SOURCE plans show circulation connecting perimeter access with interior door openings.",
+            "action": "At each receiving passage, provide an actual opening or operable door through the glazing, aligned with the landing and interior access. Resolve any brace crossing that passage locally, preserving adjacent glazing."
+          },
+          {
+            "priority": 3,
+            "view": "top",
+            "problem": "SOURCE interior panel 4 shows circular floor openings enclosed by raised mesh guards. CURRENT view 18 shows the foreground and middle circular holes with exposed, unguarded edges; only the distant stair opening has a guard.",
+            "action": "Add circular mesh guards around the exposed openings, joined to the floor perimeter, matching the source’s slender posts and raised top rail."
+          }
+        ],
+        "keep": [
+          "Short-end roof profile with a central sag and unequal raised edges.",
+          "Recessed lower concrete column line beneath the projecting perimeter.",
+          "Three stacked inclined ramp runs at the short end."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 6
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-005",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a recessed concrete frame, a timber upper hall beneath a sagging roof, a projecting glazed perimeter, and stacked ramps at one short end. Exterior views share the ramp and roof landmarks; interior views, sections and plans show cellular lower rooms, a substantial double-height space, spiral circulation and guarded circular floor openings. The exploded diagram confirms the layered assembly. CURRENT captures the principal exterior arrangement, but the interior remains substantially more open, receiving landings meet uninterrupted glazing, and several upper-floor holes lack guards. Geographic orientation and exact dimensions are not established by the source images; the uncut CURRENT views cannot verify every internal connection.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "entry",
+            "problem": "SOURCE plans and sections show enclosed lower-storey rooms and an asymmetric double-height interior. CURRENT views 15–17 and 23–25 expose largely uninterrupted floor plates and bare columns, omitting major internal spatial boundaries.",
+            "action": "Locally add the source-visible room enclosures and correct the corresponding floor opening for the double-height space. Retain correctly positioned structural members; use the source plans and sections together to locate these patches."
+          },
+          {
+            "priority": 2,
+            "view": "receiving",
+            "problem": "CURRENT views 23–26 show continuous glass panels and framing across the apparent receiving passages. Openings in the landing rails therefore do not establish usable connections through the envelope. SOURCE plans show circulation connecting perimeter access with interior door openings.",
+            "action": "At each receiving passage, provide an actual opening or operable door through the glazing, aligned with the landing and interior access. Resolve any brace crossing that passage locally, preserving adjacent glazing."
+          },
+          {
+            "priority": 3,
+            "view": "top",
+            "problem": "SOURCE interior panel 4 shows circular floor openings enclosed by raised mesh guards. CURRENT view 18 shows the foreground and middle circular holes with exposed, unguarded edges; only the distant stair opening has a guard.",
+            "action": "Add circular mesh guards around the exposed openings, joined to the floor perimeter, matching the source’s slender posts and raised top rail."
+          }
+        ],
+        "keep": [
+          "Short-end roof profile with a central sag and unequal raised edges.",
+          "Recessed lower concrete column line beneath the projecting perimeter.",
+          "Three stacked inclined ramp runs at the short end."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 6
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 7,
+        "relative_path": "scripts/open_upper_glazing_doors.rb",
+        "update_mode": "edit",
+        "source_sha256": "d98b964ef5dd0787160356f871067ab6cf7661ee0b2822b5519e136c4398e070",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "CIRCULATION_EXTERNAL",
+            "CIRCULATION_INTERNAL",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS",
+            "ROOF_TIMBER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a retained concrete frame with split-level/double-height spaces, a glazed upper timber hall beneath a concave roof, projecting circulation decks, end ramps, spiral stairs and circular floor openings. Exterior perspectives share the ramp end and adjoining long facade; interior panels show the upper hall and lower double-height workspace; sections, plans and exploded diagrams establish their relationships. CURRENT captures the broad roof profile and circulation concept, but differs in ramp placement, internal floor continuity and opening guards. Absolute dimensions are unconfirmed. Uncut section views and roof-occluded plans cannot establish concealed connections or partition fidelity.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "CURRENT places all three diagonal ramp flights prominently outside the end glazing, with large projecting turnaround platforms. SOURCE 1–2 show the upper flights behind the outer glazed screen and a more restrained relationship between ramps, perimeter decks and end landings.",
+            "action": "Locally reposition the upper flights within the screened circulation zone and reduce the excessive landing projections. Align each flight endpoint with its receiving deck and opening; close-ups 24–26 still show railing across the apparent approach, so provide actual clear passages and connected landings."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "SOURCE 4 lower and sections 5/8 show a double-height hall beside an intermediate floor, with an open upper gallery and spiral connection. CURRENT 23 instead shows a continuous low ceiling across the hall, suppressing this major interior volume.",
+            "action": "Remove only the slab and beam portions spanning the source-backed void. Retain the adjacent intermediate floor and concrete columns, and connect the spiral stair to the resulting gallery edge."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 4 upper shows circular floor openings enclosed by substantial cylindrical mesh guards. CURRENT 18 leaves the foreground circular opening unguarded and uses sparse vertical bars around the larger stair opening.",
+            "action": "Add continuous circular mesh guards around the corresponding openings and revise the existing stair guard locally, preserving clear stair access."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof profile with unequal edge heights.",
+          "Raised timber hall set inward from the outer glazed perimeter.",
+          "Recurring rectangular concrete columns visible along the lower facade."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 7
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-006",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 establish the ramp end and adjoining long facade: a rectangular concrete frame, projecting glazed buffer galleries, stacked ramps and a raised timber hall with a concave roof. SOURCE 3 shows the entrance and open-grid gallery undersides; SOURCE 4 shows the curved timber ceiling, guarded circular openings and a tall lower hall with a spiral stair. SOURCE 5–8 supply sections, structural layers and three floor plans, confirming partial intermediate floors and connected circulation. CURRENT retains these main exterior landmarks, but the lower hall’s vertical openness, stair assembly and gallery construction differ visibly. The uncut section views and roof-occluded plan cannot verify internal floor extents; exact dimensions and concealed joints remain uncertain.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "SOURCE 4 lower shows a tall hall beside a partial upper gallery; SOURCE 5, 7 and 8 confirm the corresponding floor void. CURRENT 23 instead shows a low ceiling of repeated beams across the hall, suppressing this defining double-height space.",
+            "action": "Locally trim the intermediate slab and associated beams to the source-backed void boundary, retaining the adjoining occupied floor and supporting columns."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "The source spiral stair has a coherent helical flight, continuous curved guarding and a connected upper landing. CURRENT 23 shows separated tread sequences without a legible continuous supporting assembly or complete guarding; CURRENT 18 also shows an unguarded circular opening.",
+            "action": "Connect the existing stair flights to their floor openings and landings, complete the curved guards, and guard the exposed circular opening. Verify actual tread and landing connections rather than apparent overlap."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 3 shows open-grid gallery decking on slender projecting beams, with light mesh guards. CURRENT 17 and 24–26 show broad opaque gallery soffits and coarse horizontal-bar guards, making the buffer galleries substantially heavier and less permeable.",
+            "action": "Patch the visible gallery decks to open grating with discrete supporting beams, and replace the coarse guard infill with the source’s fine mesh treatment while preserving aligned landing thresholds."
+          }
+        ],
+        "keep": [
+          "Concave transverse profile of the raised hall roof, including its unequal edge heights.",
+          "Stacked ramp flights descending across the short end in the source’s observed direction.",
+          "Raised timber hall set inside the wider rectangular buffer-gallery footprint."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 7
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 8,
+        "relative_path": "scripts/contain_upper_ramps.rb",
+        "update_mode": "edit",
+        "source_sha256": "cd856b600d80384949ee8c9f24539c8d471209db62e34357592e0ef9c1793a86",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "ENVELOPE_OUTER",
+            "CIRCULATION_INTERNAL",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS",
+            "ROOF_TIMBER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: retained concrete framing, staggered interior floors and a double-height region, a glazed timber upper hall beneath a concave roof, and projecting perimeter circulation connected by end ramps. End views share the descending ramp landmark; obliques establish its connection to the long-side galleries. Interior panels show circular floor openings with mesh guards; plans and sections establish internal voids and rooms. CURRENT captures the principal roof profile and projecting circulation, but the close-ups show apparent glazing barriers at ramp returns, while guard construction differs visibly. Uncut section-position views and the roof-obscured plan cannot verify the internal floor arrangement. No numerical dimensions are user-confirmed here, and hidden connections remain uncertain.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "The ramp-to-gallery routes appear closed by full-height glazed panels and continuous horizontal framing. Coplanar walking surfaces alone do not establish an open connection; SOURCE shows continuous circulation around these returns.",
+            "action": "Locally open the glazing at each landing connection, terminate crossing framing outside the passage, and retain flush ramp-to-gallery walking surfaces. Verify each junction from both sides."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "CURRENT substitutes repeated open horizontal-bar guards for the fine mesh infill visible along SOURCE ramps and galleries. The stacked bars substantially change the circulation envelope’s appearance.",
+            "action": "Retain correctly positioned decks and posts; replace the intermediate horizontal-bar arrangement with fine mesh panels and slender perimeter rails where SOURCE shows them."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "The foreground circular floor opening has no raised enclosure. SOURCE’s upper interior shows circular openings surrounded by cylindrical mesh guards.",
+            "action": "Add a fitted cylindrical mesh guard around the exposed opening, joined to the floor perimeter; preserve the existing opening rather than filling it."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof profile with unequal edge heights.",
+          "Recessed upper-hall glazing beneath the curved roof.",
+          "Descending end-ramp direction visible in the SOURCE end elevations."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 8
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-007",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 establish the ramp end and adjoining long facade: a recessed building frame, three descending ramp flights, projecting galleries, a transparent upper enclosure and a raised concave timber roof. SOURCE 3 shows the glazed entrance and gallery underside; SOURCE 4 shows the curved timber ceiling, pale floor, curtain divisions and guarded circular openings. SOURCE 5 and 8 show stepped interior floor levels and substantial voids; SOURCE 6 separates the structural layers; all three SOURCE 7 plans show distinct floor arrangements. CURRENT captures the principal exterior composition, but its enclosure reads substantially heavier and its upper interior remains incomplete. The uncut section views and roof-occluded plan cannot establish whether the concealed floor arrangements match. No numerical dimensions were supplied, and screenshots alone cannot certify concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "CURRENT 16–17 substitutes prominent stacked rails and heavy framing for the source’s slender white enclosure and fine mesh gallery guards. This obscures the recessed glazing and overwhelms the otherwise comparable massing.",
+            "action": "Locally reduce the visible frame and rail sections, apply the source’s light finish, and replace coarse horizontal guard infill with fine mesh where shown. Preserve the gallery positions and ramp slopes."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "CURRENT 18 shows circular floor openings without surrounding guards, while SOURCE 4 shows continuous cylindrical mesh protection. The existing guarded opening does not resolve the exposed openings elsewhere.",
+            "action": "Match the source-backed opening locations and fit continuous mesh guards around their exposed perimeters, seated on the floor and connected at their returns."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 4 shows a pale floor and large curved translucent curtain divisions beneath the timber ceiling. CURRENT 18 instead has an uninterrupted brown floor and lacks those prominent spatial divisions.",
+            "action": "Change the upper floor to the observed pale finish and add the visible curved curtain tracks and translucent hanging panels. Retain the concave timber ceiling."
+          }
+        ],
+        "keep": [
+          "Concave roof end profile with its higher right edge in the matched ramp-end view.",
+          "Three descending ramp flights across the ramp end.",
+          "Open gallery underside with projecting transverse beams and recessed glazing."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 9
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 10,
+        "relative_path": "scripts/add_small_circle_guards.rb",
+        "update_mode": "edit",
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "CIRCULATION_EXTERNAL",
+            "ENVELOPE_OUTER",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS",
+            "ROOF_TIMBER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 show the same elongated building from the ramp end, adjoining long elevation and above: a recessed lower frame, projecting two-storey glazed buffer, zigzag ramps and a raised concave roof. SOURCE 3 shows entrance glazing and thin grating balconies with exposed supporting beams. SOURCE 4 shows the timber ceiling, circular guarded floor openings and a double-height interior with spiral stair. SOURCE 5–8 provide sections, plans and an exploded assembly confirming the layered frame, partial intermediate floor and lightweight outer enclosure. CURRENT reproduces the main arrangement, but adds conspicuous projecting landings, substitutes heavy open rails for fine mesh guards, and does not visibly resolve the circular floor openings. No numerical dimensions are supplied; roof-obscured plans and uncut exterior views cannot verify hidden floor layouts or structural joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "CURRENT 15–16 show repeated balcony landing stubs extending beyond both sides of the glazed end enclosure at upper levels. SOURCE 1–2 show the upper circulation contained within the rectangular enclosure, with the lower open terrace and ground ramp distinguished below. These added projections change the end silhouette and circulation connections.",
+            "action": "Locally shorten the unsupported upper landing extensions to the source enclosure boundary; connect each ramp termination flush to its corresponding landing, retaining the source-backed lower terrace and ground approach."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "SOURCE 4 shows clear circular voids through the pale floor, enclosed by mesh guards. CURRENT 18 shows tan surfaces and straight floor edges continuing across the guarded circles, so the rings read as cages standing over covered or obstructed openings.",
+            "action": "Cut the circular openings through all overlapping floor faces and remove crossing infill within their footprints. Seat the guards continuously around the resulting slab edges."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 1–3 distinguish slender pale curtain-wall framing from fine mesh balcony and ramp guards. CURRENT 16–17 uses prominent dark multi-rail barriers throughout, producing dense horizontal bands that obscure the glazing and ramp relationships.",
+            "action": "Replace the affected guard infill with fine mesh and reduce the visible rail/post sections to source proportions. Apply the source’s pale finish to these exposed members while preserving the separate curtain-wall grid."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof profile with unequal raised edges.",
+          "Alternating descent directions of the three ramp flights at the ramp end.",
+          "Rectangular concrete columns visible beneath the projecting upper enclosure."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 10
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-008",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 show the same elongated building from the ramp end, adjoining long elevation and above: a recessed lower frame, projecting two-storey glazed buffer, zigzag ramps and a raised concave roof. SOURCE 3 shows entrance glazing and thin grating balconies with exposed supporting beams. SOURCE 4 shows the timber ceiling, circular guarded floor openings and a double-height interior with spiral stair. SOURCE 5–8 provide sections, plans and an exploded assembly confirming the layered frame, partial intermediate floor and lightweight outer enclosure. CURRENT reproduces the main arrangement, but adds conspicuous projecting landings, substitutes heavy open rails for fine mesh guards, and does not visibly resolve the circular floor openings. No numerical dimensions are supplied; roof-obscured plans and uncut exterior views cannot verify hidden floor layouts or structural joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "CURRENT 15–16 show repeated balcony landing stubs extending beyond both sides of the glazed end enclosure at upper levels. SOURCE 1–2 show the upper circulation contained within the rectangular enclosure, with the lower open terrace and ground ramp distinguished below. These added projections change the end silhouette and circulation connections.",
+            "action": "Locally shorten the unsupported upper landing extensions to the source enclosure boundary; connect each ramp termination flush to its corresponding landing, retaining the source-backed lower terrace and ground approach."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "SOURCE 4 shows clear circular voids through the pale floor, enclosed by mesh guards. CURRENT 18 shows tan surfaces and straight floor edges continuing across the guarded circles, so the rings read as cages standing over covered or obstructed openings.",
+            "action": "Cut the circular openings through all overlapping floor faces and remove crossing infill within their footprints. Seat the guards continuously around the resulting slab edges."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "SOURCE 1–3 distinguish slender pale curtain-wall framing from fine mesh balcony and ramp guards. CURRENT 16–17 uses prominent dark multi-rail barriers throughout, producing dense horizontal bands that obscure the glazing and ramp relationships.",
+            "action": "Replace the affected guard infill with fine mesh and reduce the visible rail/post sections to source proportions. Apply the source’s pale finish to these exposed members while preserving the separate curtain-wall grid."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof profile with unequal raised edges.",
+          "Alternating descent directions of the three ramp flights at the ramp end.",
+          "Rectangular concrete columns visible beneath the projecting upper enclosure."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 10
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 11,
+        "relative_path": "scripts/complete_inner_enclosures.rb",
+        "update_mode": "edit",
+        "source_sha256": "b1c402b29c62e3cfb08bd55f69ab0065837f3127609e0052d65ff6614a33d209",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "CIRCULATION_EXTERNAL",
+            "CIRCULATION_INTERNAL",
+            "PARTITION_Z3600_B1",
+            "PARTITION_Z3600_B2",
+            "PARTITION_Z3600_B3",
+            "PARTITION_Z3600_B4",
+            "PARTITION_Z3600_B5",
+            "PARTITION_Z3600_B6",
+            "PARTITION_Z3600_B7",
+            "PARTITION_Z3600_B8",
+            "PARTITION_Z3600_B9",
+            "PARTITION_Z7200_B1",
+            "PARTITION_Z7200_B2",
+            "PARTITION_Z7200_B3",
+            "PARTITION_Z7200_B4",
+            "PARTITION_Z7200_B5",
+            "PARTITION_Z7200_B6",
+            "PARTITION_Z7200_B7",
+            "PARTITION_Z7200_B8",
+            "PARTITION_Z7200_B9",
+            "SITE_GROUND",
+            "FLOORS",
+            "ROOF_TIMBER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 show the same elongated building from the ramp end and an adjoining long side: a recessed lower body, projecting glazed upper buffer zone, external ramps and a concave timber roof. SOURCE 3 shows the entrance and exposed concrete frame beneath grated circulation decks; both SOURCE 4 interiors show the upper hall and a lower double-height workspace. SOURCE 5 and 8 sections establish partial intermediate floors; SOURCE 7’s three plans show classroom partitions, stepped enclosure lines and floor openings. SOURCE 6 distinguishes the retained frame, timber addition and outer lightweight enclosure. CURRENT captures the principal exterior arrangement, but ramp landing projections, intermediate enclosure geometry and major material zones remain inconsistent. CURRENT 19–22 are uncut or roof-obscured, so they cannot establish whether the source’s internal voids are correct. No confirmed dimensions are supplied; concealed joints cannot be certified from these screenshots.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "CURRENT 15 and 19 show upper ramp landings projecting conspicuously beyond both sides of the glazed end elevation. In SOURCE 1’s frontal model photograph, those upper connections sit within the outer façade outline.",
+            "action": "Shorten and reposition the projecting upper landing ends locally, retaining the diagonal ramp runs. Connect each landing to its corresponding circulation deck without overlapping the façade framing."
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "CURRENT 25–26 show broadly continuous glazed enclosure lines and an undivided interior where SOURCE 7’s intermediate plans show repeated classroom partitions, stepped room fronts and a distinct open workspace. The source’s room-to-buffer-zone depth is consequently lost.",
+            "action": "Patch the affected intermediate enclosure bays with the source-shown partition returns and recessed entrances. Preserve verified structural columns; use a cutaway to check the partial floors before changing obscured slab geometry."
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "CURRENT 17 presents almost uninterrupted full-height glazing around the entrance level. SOURCE 3’s entrance has a substantial textured concrete header, while SOURCE 1–2 also show opaque lower enclosure bands and narrower glazing zones. These major wall-versus-glass distinctions are missing.",
+            "action": "Replace only the affected glazing portions with the observed concrete headers and opaque bands, matching their heights and positions against the entrance and adjoining source views."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof-edge silhouette with unequal raised ends.",
+          "Recessed ground-level enclosure beneath the projecting circulation decks.",
+          "Exposed rectangular concrete columns and beams at the lower levels."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 11
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-009",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1–2 show the same elongated building from the ramp end and an adjoining long side: a recessed lower body, projecting glazed upper buffer zone, external ramps and a concave timber roof. SOURCE 3 shows the entrance and exposed concrete frame beneath grated circulation decks; both SOURCE 4 interiors show the upper hall and a lower double-height workspace. SOURCE 5 and 8 sections establish partial intermediate floors; SOURCE 7’s three plans show classroom partitions, stepped enclosure lines and floor openings. SOURCE 6 distinguishes the retained frame, timber addition and outer lightweight enclosure. CURRENT captures the principal exterior arrangement, but ramp landing projections, intermediate enclosure geometry and major material zones remain inconsistent. CURRENT 19–22 are uncut or roof-obscured, so they cannot establish whether the source’s internal voids are correct. No confirmed dimensions are supplied; concealed joints cannot be certified from these screenshots.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "CURRENT 15 and 19 show upper ramp landings projecting conspicuously beyond both sides of the glazed end elevation. In SOURCE 1’s frontal model photograph, those upper connections sit within the outer façade outline.",
+            "action": "Shorten and reposition the projecting upper landing ends locally, retaining the diagonal ramp runs. Connect each landing to its corresponding circulation deck without overlapping the façade framing."
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "CURRENT 25–26 show broadly continuous glazed enclosure lines and an undivided interior where SOURCE 7’s intermediate plans show repeated classroom partitions, stepped room fronts and a distinct open workspace. The source’s room-to-buffer-zone depth is consequently lost.",
+            "action": "Patch the affected intermediate enclosure bays with the source-shown partition returns and recessed entrances. Preserve verified structural columns; use a cutaway to check the partial floors before changing obscured slab geometry."
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "CURRENT 17 presents almost uninterrupted full-height glazing around the entrance level. SOURCE 3’s entrance has a substantial textured concrete header, while SOURCE 1–2 also show opaque lower enclosure bands and narrower glazing zones. These major wall-versus-glass distinctions are missing.",
+            "action": "Replace only the affected glazing portions with the observed concrete headers and opaque bands, matching their heights and positions against the entrance and adjoining source views."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof-edge silhouette with unequal raised ends.",
+          "Recessed ground-level enclosure beneath the projecting circulation decks.",
+          "Exposed rectangular concrete columns and beams at the lower levels."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 11
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 12,
+        "relative_path": "scripts/clear_west_middle_entry.rb",
+        "update_mode": "edit",
+        "source_sha256": "a05c099872062be25df78f24078b86acd540b6e8e097ebe38293d0f026935d58",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "FLOORS",
+            "ROOF_TIMBER",
+            "RAMPS",
+            "CIRCULATION_EXTERNAL",
+            "CIRCULATION_INTERNAL",
+            "INTERIOR",
+            "SITE_GROUND",
+            "ENVELOPE_OUTER/INNER_GLAZING",
+            "ENVELOPE_OUTER/BUFFER_CANOPIES",
+            "ENVELOPE_OUTER/TENSION_BRACING",
+            "ENVELOPE_OUTER/HALL_LONG_SOUTH_ADDITION",
+            "ENVELOPE_OUTER/HALL_LONG_NORTH_ADDITION",
+            "ENVELOPE_OUTER/LOWER_END_EAST_ADDITION"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a retained concrete frame, a glazed ground level, upper circulation galleries within a lightweight glazed envelope, stacked ramps across one short end, and a recessed upper hall beneath a concave timber roof. Exterior frontal, oblique and aerial panels share these landmarks; interior views, sections and plans establish a partial intermediate floor, a double-height workspace and spiral stairs. CURRENT captures the principal arrangement, but its continuous intermediate floor, projecting gallery ends and incomplete stair assembly differ materially. No numerical dimensions are supplied. Hidden connections cannot be verified from screenshots; CURRENT “门洞向室内” shows no usable building evidence.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "SOURCE 4 lower panel, SOURCE 5 section and SOURCE 7 middle plan show a substantial double-height workspace beside a partial intermediate floor. CURRENT 23 and 26 instead show closely stacked, continuous floor-and-beam levels, removing this defining interior void.",
+            "action": "Locally trim the intermediate slab and affected beams to the source-backed void boundary. Retain the adjacent occupied floor and supporting columns; connect the exposed floor edge and stair landing coherently."
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "SOURCE 1–2 show upper galleries terminating within the rectangular outer envelope, with slender mesh guards. CURRENT 15–16 and 19 show repeated balcony-like tabs projecting beyond both sides of the ramp elevation, plus open horizontal-bar guards that substantially change its outline and transparency.",
+            "action": "Shorten the unsupported gallery-end extensions to the source envelope, preserving the demonstrated ramp turning connections. Replace the visible gallery and ramp guard infill with the source’s fine mesh and slender framing; check each revised landing meets its ramp without overlap or a gap."
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "CURRENT 23 contains a diagonal chain of isolated stair treads, detached rectangular tread-like plates and a spiral flight whose upper passage is obstructed visually by continuous floor beams. SOURCE 4 shows a coherent spiral stair with a clear opening and connected landing.",
+            "action": "Remove stray tread pieces and locally resolve the spiral’s floor opening, beam clearance and landing connections. Retain only flights that form a continuous supported route between the intended levels."
+          }
+        ],
+        "keep": [
+          "The recessed position of the upper hall inside the outer gallery perimeter.",
+          "The roof’s observed concave transverse profile.",
+          "The short-end arrangement of stacked diagonal ramps."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 12
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-010",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a retained concrete frame, a glazed ground level, upper circulation galleries within a lightweight glazed envelope, stacked ramps across one short end, and a recessed upper hall beneath a concave timber roof. Exterior frontal, oblique and aerial panels share these landmarks; interior views, sections and plans establish a partial intermediate floor, a double-height workspace and spiral stairs. CURRENT captures the principal arrangement, but its continuous intermediate floor, projecting gallery ends and incomplete stair assembly differ materially. No numerical dimensions are supplied. Hidden connections cannot be verified from screenshots; CURRENT “门洞向室内” shows no usable building evidence.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "unspecified",
+            "problem": "SOURCE 4 lower panel, SOURCE 5 section and SOURCE 7 middle plan show a substantial double-height workspace beside a partial intermediate floor. CURRENT 23 and 26 instead show closely stacked, continuous floor-and-beam levels, removing this defining interior void.",
+            "action": "Locally trim the intermediate slab and affected beams to the source-backed void boundary. Retain the adjacent occupied floor and supporting columns; connect the exposed floor edge and stair landing coherently."
+          },
+          {
+            "priority": 2,
+            "view": "unspecified",
+            "problem": "SOURCE 1–2 show upper galleries terminating within the rectangular outer envelope, with slender mesh guards. CURRENT 15–16 and 19 show repeated balcony-like tabs projecting beyond both sides of the ramp elevation, plus open horizontal-bar guards that substantially change its outline and transparency.",
+            "action": "Shorten the unsupported gallery-end extensions to the source envelope, preserving the demonstrated ramp turning connections. Replace the visible gallery and ramp guard infill with the source’s fine mesh and slender framing; check each revised landing meets its ramp without overlap or a gap."
+          },
+          {
+            "priority": 3,
+            "view": "unspecified",
+            "problem": "CURRENT 23 contains a diagonal chain of isolated stair treads, detached rectangular tread-like plates and a spiral flight whose upper passage is obstructed visually by continuous floor beams. SOURCE 4 shows a coherent spiral stair with a clear opening and connected landing.",
+            "action": "Remove stray tread pieces and locally resolve the spiral’s floor opening, beam clearance and landing connections. Retain only flights that form a continuous supported route between the intended levels."
+          }
+        ],
+        "keep": [
+          "The recessed position of the upper hall inside the outer gallery perimeter.",
+          "The roof’s observed concave transverse profile.",
+          "The short-end arrangement of stacked diagonal ramps."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 12
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "glass_curved_roof",
+        "revision": 13,
+        "relative_path": "scripts/complete_exterior_circulation.rb",
+        "update_mode": "edit",
+        "source_sha256": "4039e8b95b9cfa318ff48c65d8310639852175c5902012e571cee70ea00a1ccb",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "STRUCTURE_EXISTING",
+            "FLOORS",
+            "ROOF_TIMBER",
+            "RAMPS",
+            "ENVELOPE_OUTER",
+            "INTERIOR",
+            "SITE_GROUND",
+            "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+            "CIRCULATION_INTERNAL/SMALL_CIRCULAR_VOID_GUARDS",
+            "CIRCULATION_INTERNAL/SPIRAL_L0_L1",
+            "CIRCULATION_INTERNAL/SPIRAL_L1_L2",
+            "CIRCULATION_INTERNAL/SPIRAL_L2_L3",
+            "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE panels show one elongated building: a retained concrete frame with a partial intermediate floor and double-height workspace, an added hall beneath a sagging timber roof, projecting glazed perimeter galleries, end ramps, and remote end stairs. Entrance views establish recessed glazing beneath grated galleries; interior views establish spiral stairs, circular floor openings and curved curtain enclosures. CURRENT captures the broad exterior arrangement, but its interior floor continuity, stair assembly and upper-hall enclosure remain inconsistent with those observations. The uncut section-direction views and roof-occluded plan cannot verify hidden openings or joints; no numerical dimensions are confirmed here.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source4",
+            "problem": "SOURCE 4 lower panel and SOURCE 5/8 sections show a substantial double-height workspace beside a partial intermediate floor. CURRENT 23/26 instead show repeated floor-and-beam layers continuing across the corresponding interior, suppressing that defining vertical space.",
+            "action": "Locally trim the intermediate slab and associated beams to the source-backed mezzanine boundary, retaining the surrounding concrete frame and connecting gallery."
+          },
+          {
+            "priority": 2,
+            "view": "source4",
+            "problem": "CURRENT 23 shows the spiral stair disappearing into deep transverse beams, without a clearly resolved arrival opening. SOURCE 4 shows an unobstructed spiral flight connecting to the mezzanine. The current repeated brown horizontal plates also appear unsupported, unlike the source’s furnished workspace.",
+            "action": "Resolve the stair opening, beam clearance and landing connection locally. Give retained table plates their source-visible supports, or remove unsupported placeholder plates."
+          },
+          {
+            "priority": 3,
+            "view": "source4",
+            "problem": "SOURCE 4 upper panel shows large curved translucent curtain enclosures and a pale floor beneath a light timber ceiling. CURRENT 18 presents an undivided brown floor and substantially darker timber surfaces; the circular guards alone do not reproduce the observed spatial enclosure.",
+            "action": "Add the visible curved curtain tracks and suspended translucent curtains, preserving circulation around the circular openings; lighten the floor and timber finishes to match the source material zones."
+          }
+        ],
+        "keep": [
+          "Concave transverse roof profile with unequal raised edges.",
+          "Recessed entrance glazing beneath the projecting gallery.",
+          "Alternating inclined ramp runs at the ramp end."
+        ],
+        "model_revisions": {
+          "glass_curved_roof": 13
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

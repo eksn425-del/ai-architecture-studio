@@ -1,0 +1,105 @@
+{
+  "status": "prepared",
+  "phase": "Complete exterior circulation platforms and remote stair junctions after r11 enclosure",
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+  "root_pid": 20606,
+  "scope_contract": "deep_exact_paths_graph_v1",
+  "allowed_paths": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z3600_SIDE3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE3"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z10800_SIDE3"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "END_STAIR_COMPLETION"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "REMOTE_END_EDGE_GUARDS"
+    ]
+  ],
+  "allowed_creation_paths": [
+    [
+      "CIRCULATION_INTERNAL",
+      "END_STAIR_COMPLETION"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "REMOTE_END_EDGE_GUARDS"
+    ]
+  ],
+  "required_preserve_paths": [
+    [
+      "STRUCTURE_EXISTING"
+    ],
+    [
+      "FLOORS"
+    ],
+    [
+      "ROOF_TIMBER"
+    ],
+    [
+      "RAMPS"
+    ],
+    [
+      "ENVELOPE_OUTER"
+    ],
+    [
+      "INTERIOR"
+    ],
+    [
+      "SITE_GROUND"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "LANDINGS",
+      "LANDING_L1"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SMALL_CIRCULAR_VOID_GUARDS"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SPIRAL_L0_L1"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SPIRAL_L1_L2"
+    ],
+    [
+      "CIRCULATION_INTERNAL",
+      "SPIRAL_L2_L3"
+    ]
+  ],
+  "verified_start_revision": 11,
+  "max_geometry_commits": 1,
+  "owner_inference_authorized": true,
+  "source_registration": "notes/exterior-circulation-registration.json"
+}

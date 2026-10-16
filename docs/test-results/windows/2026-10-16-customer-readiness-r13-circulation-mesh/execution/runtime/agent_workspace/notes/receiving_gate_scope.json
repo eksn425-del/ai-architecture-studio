@@ -1,0 +1,2563 @@
+{
+  "phase": "现在只解决r5平台接入口，坡道/平台已改的部分不动",
+  "native_revision": 5,
+  "source_observation": "坡道上端必须能接现有环廊，实心栏杆横跨入口不是可用连接；沿哪条长边返回仍属估算",
+  "approved_native_paths": [
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600",
+      "LONG_RAIL_SOUTH_Z3600_POST_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600",
+      "LONG_RAIL_SOUTH_Z3600_POST_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600",
+      "LONG_RAIL_SOUTH_Z3600_POST_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600",
+      "LONG_RAIL_SOUTH_Z3600_RAIL_120"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600",
+      "LONG_RAIL_SOUTH_Z3600_RAIL_550"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z3600",
+      "LONG_RAIL_SOUTH_Z3600_RAIL_1100"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600",
+      "LONG_RAIL_NORTH_Z3600_POST_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600",
+      "LONG_RAIL_NORTH_Z3600_POST_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600",
+      "LONG_RAIL_NORTH_Z3600_POST_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600",
+      "LONG_RAIL_NORTH_Z3600_RAIL_120"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600",
+      "LONG_RAIL_NORTH_Z3600_RAIL_550"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z3600",
+      "LONG_RAIL_NORTH_Z3600_RAIL_1100"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200",
+      "LONG_RAIL_SOUTH_Z7200_POST_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200",
+      "LONG_RAIL_SOUTH_Z7200_POST_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200",
+      "LONG_RAIL_SOUTH_Z7200_POST_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200",
+      "LONG_RAIL_SOUTH_Z7200_RAIL_120"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200",
+      "LONG_RAIL_SOUTH_Z7200_RAIL_550"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_SOUTH_Z7200",
+      "LONG_RAIL_SOUTH_Z7200_RAIL_1100"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200",
+      "LONG_RAIL_NORTH_Z7200_POST_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200",
+      "LONG_RAIL_NORTH_Z7200_POST_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200",
+      "LONG_RAIL_NORTH_Z7200_POST_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200",
+      "LONG_RAIL_NORTH_Z7200_RAIL_120"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200",
+      "LONG_RAIL_NORTH_Z7200_RAIL_550"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z7200",
+      "LONG_RAIL_NORTH_Z7200_RAIL_1100"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800",
+      "LONG_RAIL_NORTH_Z10800_POST_0"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800",
+      "LONG_RAIL_NORTH_Z10800_POST_1"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800",
+      "LONG_RAIL_NORTH_Z10800_POST_2"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800",
+      "LONG_RAIL_NORTH_Z10800_RAIL_120"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800",
+      "LONG_RAIL_NORTH_Z10800_RAIL_550"
+    ],
+    [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "LONG_RAIL_NORTH_Z10800",
+      "LONG_RAIL_NORTH_Z10800_RAIL_1100"
+    ]
+  ],
+  "native_target_details": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_0"
+      ],
+      "pid": 28141,
+      "min_x_mm": -4017.5,
+      "max_x_mm": -3982.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_1"
+      ],
+      "pid": 28173,
+      "min_x_mm": -2530.321,
+      "max_x_mm": -2495.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_2"
+      ],
+      "pid": 28205,
+      "min_x_mm": -1043.141,
+      "max_x_mm": -1008.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_RAIL_120"
+      ],
+      "pid": 29421,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_RAIL_550"
+      ],
+      "pid": 29453,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_RAIL_1100"
+      ],
+      "pid": 29485,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_0"
+      ],
+      "pid": 29519,
+      "min_x_mm": -4017.5,
+      "max_x_mm": -3982.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_1"
+      ],
+      "pid": 29551,
+      "min_x_mm": -2530.321,
+      "max_x_mm": -2495.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_2"
+      ],
+      "pid": 29583,
+      "min_x_mm": -1043.141,
+      "max_x_mm": -1008.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_RAIL_120"
+      ],
+      "pid": 30799,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_RAIL_550"
+      ],
+      "pid": 30831,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_RAIL_1100"
+      ],
+      "pid": 30863,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_0"
+      ],
+      "pid": 31025,
+      "min_x_mm": -4017.5,
+      "max_x_mm": -3982.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_1"
+      ],
+      "pid": 31057,
+      "min_x_mm": -2530.321,
+      "max_x_mm": -2495.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_2"
+      ],
+      "pid": 31089,
+      "min_x_mm": -1043.141,
+      "max_x_mm": -1008.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_RAIL_120"
+      ],
+      "pid": 32305,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_RAIL_550"
+      ],
+      "pid": 32337,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_RAIL_1100"
+      ],
+      "pid": 32369,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_0"
+      ],
+      "pid": 32403,
+      "min_x_mm": -4017.5,
+      "max_x_mm": -3982.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_1"
+      ],
+      "pid": 32435,
+      "min_x_mm": -2530.321,
+      "max_x_mm": -2495.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_2"
+      ],
+      "pid": 32467,
+      "min_x_mm": -1043.141,
+      "max_x_mm": -1008.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_RAIL_120"
+      ],
+      "pid": 33683,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_RAIL_550"
+      ],
+      "pid": 33715,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_RAIL_1100"
+      ],
+      "pid": 33747,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_0"
+      ],
+      "pid": 35287,
+      "min_x_mm": -4017.5,
+      "max_x_mm": -3982.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_1"
+      ],
+      "pid": 35319,
+      "min_x_mm": -2530.321,
+      "max_x_mm": -2495.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_2"
+      ],
+      "pid": 35351,
+      "min_x_mm": -1043.141,
+      "max_x_mm": -1008.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_RAIL_120"
+      ],
+      "pid": 36567,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_RAIL_550"
+      ],
+      "pid": 36599,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_RAIL_1100"
+      ],
+      "pid": 36631,
+      "min_x_mm": -4000,
+      "max_x_mm": 54000
+    }
+  ],
+  "protected_distant_posts": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_3"
+      ],
+      "pid": 28237,
+      "min_x_mm": 444.038,
+      "max_x_mm": 479.038
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_4"
+      ],
+      "pid": 28269,
+      "min_x_mm": 1931.218,
+      "max_x_mm": 1966.218
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_5"
+      ],
+      "pid": 28301,
+      "min_x_mm": 3418.397,
+      "max_x_mm": 3453.397
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_6"
+      ],
+      "pid": 28333,
+      "min_x_mm": 4905.577,
+      "max_x_mm": 4940.577
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_7"
+      ],
+      "pid": 28365,
+      "min_x_mm": 6392.756,
+      "max_x_mm": 6427.756
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_8"
+      ],
+      "pid": 28397,
+      "min_x_mm": 7879.936,
+      "max_x_mm": 7914.936
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_9"
+      ],
+      "pid": 28429,
+      "min_x_mm": 9367.115,
+      "max_x_mm": 9402.115
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_10"
+      ],
+      "pid": 28461,
+      "min_x_mm": 10854.295,
+      "max_x_mm": 10889.295
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_11"
+      ],
+      "pid": 28493,
+      "min_x_mm": 12341.474,
+      "max_x_mm": 12376.474
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_12"
+      ],
+      "pid": 28525,
+      "min_x_mm": 13828.654,
+      "max_x_mm": 13863.654
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_13"
+      ],
+      "pid": 28557,
+      "min_x_mm": 15315.833,
+      "max_x_mm": 15350.833
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_14"
+      ],
+      "pid": 28589,
+      "min_x_mm": 16803.013,
+      "max_x_mm": 16838.013
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_15"
+      ],
+      "pid": 28621,
+      "min_x_mm": 18290.192,
+      "max_x_mm": 18325.192
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_16"
+      ],
+      "pid": 28653,
+      "min_x_mm": 19777.372,
+      "max_x_mm": 19812.372
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_17"
+      ],
+      "pid": 28685,
+      "min_x_mm": 21264.551,
+      "max_x_mm": 21299.551
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_18"
+      ],
+      "pid": 28717,
+      "min_x_mm": 22751.731,
+      "max_x_mm": 22786.731
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_19"
+      ],
+      "pid": 28749,
+      "min_x_mm": 24238.91,
+      "max_x_mm": 24273.91
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_20"
+      ],
+      "pid": 28781,
+      "min_x_mm": 25726.09,
+      "max_x_mm": 25761.09
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_21"
+      ],
+      "pid": 28813,
+      "min_x_mm": 27213.269,
+      "max_x_mm": 27248.269
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_22"
+      ],
+      "pid": 28845,
+      "min_x_mm": 28700.449,
+      "max_x_mm": 28735.449
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_23"
+      ],
+      "pid": 28877,
+      "min_x_mm": 30187.628,
+      "max_x_mm": 30222.628
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_24"
+      ],
+      "pid": 28909,
+      "min_x_mm": 31674.808,
+      "max_x_mm": 31709.808
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_25"
+      ],
+      "pid": 28941,
+      "min_x_mm": 33161.987,
+      "max_x_mm": 33196.987
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_26"
+      ],
+      "pid": 28973,
+      "min_x_mm": 34649.167,
+      "max_x_mm": 34684.167
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_27"
+      ],
+      "pid": 29005,
+      "min_x_mm": 36136.346,
+      "max_x_mm": 36171.346
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_28"
+      ],
+      "pid": 29037,
+      "min_x_mm": 37623.526,
+      "max_x_mm": 37658.526
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_29"
+      ],
+      "pid": 29069,
+      "min_x_mm": 39110.705,
+      "max_x_mm": 39145.705
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_30"
+      ],
+      "pid": 29101,
+      "min_x_mm": 40597.885,
+      "max_x_mm": 40632.885
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_31"
+      ],
+      "pid": 29133,
+      "min_x_mm": 42085.064,
+      "max_x_mm": 42120.064
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_32"
+      ],
+      "pid": 29165,
+      "min_x_mm": 43572.244,
+      "max_x_mm": 43607.244
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_33"
+      ],
+      "pid": 29197,
+      "min_x_mm": 45059.423,
+      "max_x_mm": 45094.423
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_34"
+      ],
+      "pid": 29229,
+      "min_x_mm": 46546.603,
+      "max_x_mm": 46581.603
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_35"
+      ],
+      "pid": 29261,
+      "min_x_mm": 48033.782,
+      "max_x_mm": 48068.782
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_36"
+      ],
+      "pid": 29293,
+      "min_x_mm": 49520.962,
+      "max_x_mm": 49555.962
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_37"
+      ],
+      "pid": 29325,
+      "min_x_mm": 51008.141,
+      "max_x_mm": 51043.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_38"
+      ],
+      "pid": 29357,
+      "min_x_mm": 52495.321,
+      "max_x_mm": 52530.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600",
+        "LONG_RAIL_SOUTH_Z3600_POST_39"
+      ],
+      "pid": 29389,
+      "min_x_mm": 53982.5,
+      "max_x_mm": 54017.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_3"
+      ],
+      "pid": 29615,
+      "min_x_mm": 444.038,
+      "max_x_mm": 479.038
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_4"
+      ],
+      "pid": 29647,
+      "min_x_mm": 1931.218,
+      "max_x_mm": 1966.218
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_5"
+      ],
+      "pid": 29679,
+      "min_x_mm": 3418.397,
+      "max_x_mm": 3453.397
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_6"
+      ],
+      "pid": 29711,
+      "min_x_mm": 4905.577,
+      "max_x_mm": 4940.577
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_7"
+      ],
+      "pid": 29743,
+      "min_x_mm": 6392.756,
+      "max_x_mm": 6427.756
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_8"
+      ],
+      "pid": 29775,
+      "min_x_mm": 7879.936,
+      "max_x_mm": 7914.936
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_9"
+      ],
+      "pid": 29807,
+      "min_x_mm": 9367.115,
+      "max_x_mm": 9402.115
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_10"
+      ],
+      "pid": 29839,
+      "min_x_mm": 10854.295,
+      "max_x_mm": 10889.295
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_11"
+      ],
+      "pid": 29871,
+      "min_x_mm": 12341.474,
+      "max_x_mm": 12376.474
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_12"
+      ],
+      "pid": 29903,
+      "min_x_mm": 13828.654,
+      "max_x_mm": 13863.654
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_13"
+      ],
+      "pid": 29935,
+      "min_x_mm": 15315.833,
+      "max_x_mm": 15350.833
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_14"
+      ],
+      "pid": 29967,
+      "min_x_mm": 16803.013,
+      "max_x_mm": 16838.013
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_15"
+      ],
+      "pid": 29999,
+      "min_x_mm": 18290.192,
+      "max_x_mm": 18325.192
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_16"
+      ],
+      "pid": 30031,
+      "min_x_mm": 19777.372,
+      "max_x_mm": 19812.372
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_17"
+      ],
+      "pid": 30063,
+      "min_x_mm": 21264.551,
+      "max_x_mm": 21299.551
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_18"
+      ],
+      "pid": 30095,
+      "min_x_mm": 22751.731,
+      "max_x_mm": 22786.731
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_19"
+      ],
+      "pid": 30127,
+      "min_x_mm": 24238.91,
+      "max_x_mm": 24273.91
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_20"
+      ],
+      "pid": 30159,
+      "min_x_mm": 25726.09,
+      "max_x_mm": 25761.09
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_21"
+      ],
+      "pid": 30191,
+      "min_x_mm": 27213.269,
+      "max_x_mm": 27248.269
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_22"
+      ],
+      "pid": 30223,
+      "min_x_mm": 28700.449,
+      "max_x_mm": 28735.449
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_23"
+      ],
+      "pid": 30255,
+      "min_x_mm": 30187.628,
+      "max_x_mm": 30222.628
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_24"
+      ],
+      "pid": 30287,
+      "min_x_mm": 31674.808,
+      "max_x_mm": 31709.808
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_25"
+      ],
+      "pid": 30319,
+      "min_x_mm": 33161.987,
+      "max_x_mm": 33196.987
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_26"
+      ],
+      "pid": 30351,
+      "min_x_mm": 34649.167,
+      "max_x_mm": 34684.167
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_27"
+      ],
+      "pid": 30383,
+      "min_x_mm": 36136.346,
+      "max_x_mm": 36171.346
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_28"
+      ],
+      "pid": 30415,
+      "min_x_mm": 37623.526,
+      "max_x_mm": 37658.526
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_29"
+      ],
+      "pid": 30447,
+      "min_x_mm": 39110.705,
+      "max_x_mm": 39145.705
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_30"
+      ],
+      "pid": 30479,
+      "min_x_mm": 40597.885,
+      "max_x_mm": 40632.885
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_31"
+      ],
+      "pid": 30511,
+      "min_x_mm": 42085.064,
+      "max_x_mm": 42120.064
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_32"
+      ],
+      "pid": 30543,
+      "min_x_mm": 43572.244,
+      "max_x_mm": 43607.244
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_33"
+      ],
+      "pid": 30575,
+      "min_x_mm": 45059.423,
+      "max_x_mm": 45094.423
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_34"
+      ],
+      "pid": 30607,
+      "min_x_mm": 46546.603,
+      "max_x_mm": 46581.603
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_35"
+      ],
+      "pid": 30639,
+      "min_x_mm": 48033.782,
+      "max_x_mm": 48068.782
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_36"
+      ],
+      "pid": 30671,
+      "min_x_mm": 49520.962,
+      "max_x_mm": 49555.962
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_37"
+      ],
+      "pid": 30703,
+      "min_x_mm": 51008.141,
+      "max_x_mm": 51043.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_38"
+      ],
+      "pid": 30735,
+      "min_x_mm": 52495.321,
+      "max_x_mm": 52530.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600",
+        "LONG_RAIL_NORTH_Z3600_POST_39"
+      ],
+      "pid": 30767,
+      "min_x_mm": 53982.5,
+      "max_x_mm": 54017.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_3"
+      ],
+      "pid": 31121,
+      "min_x_mm": 444.038,
+      "max_x_mm": 479.038
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_4"
+      ],
+      "pid": 31153,
+      "min_x_mm": 1931.218,
+      "max_x_mm": 1966.218
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_5"
+      ],
+      "pid": 31185,
+      "min_x_mm": 3418.397,
+      "max_x_mm": 3453.397
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_6"
+      ],
+      "pid": 31217,
+      "min_x_mm": 4905.577,
+      "max_x_mm": 4940.577
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_7"
+      ],
+      "pid": 31249,
+      "min_x_mm": 6392.756,
+      "max_x_mm": 6427.756
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_8"
+      ],
+      "pid": 31281,
+      "min_x_mm": 7879.936,
+      "max_x_mm": 7914.936
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_9"
+      ],
+      "pid": 31313,
+      "min_x_mm": 9367.115,
+      "max_x_mm": 9402.115
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_10"
+      ],
+      "pid": 31345,
+      "min_x_mm": 10854.295,
+      "max_x_mm": 10889.295
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_11"
+      ],
+      "pid": 31377,
+      "min_x_mm": 12341.474,
+      "max_x_mm": 12376.474
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_12"
+      ],
+      "pid": 31409,
+      "min_x_mm": 13828.654,
+      "max_x_mm": 13863.654
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_13"
+      ],
+      "pid": 31441,
+      "min_x_mm": 15315.833,
+      "max_x_mm": 15350.833
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_14"
+      ],
+      "pid": 31473,
+      "min_x_mm": 16803.013,
+      "max_x_mm": 16838.013
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_15"
+      ],
+      "pid": 31505,
+      "min_x_mm": 18290.192,
+      "max_x_mm": 18325.192
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_16"
+      ],
+      "pid": 31537,
+      "min_x_mm": 19777.372,
+      "max_x_mm": 19812.372
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_17"
+      ],
+      "pid": 31569,
+      "min_x_mm": 21264.551,
+      "max_x_mm": 21299.551
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_18"
+      ],
+      "pid": 31601,
+      "min_x_mm": 22751.731,
+      "max_x_mm": 22786.731
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_19"
+      ],
+      "pid": 31633,
+      "min_x_mm": 24238.91,
+      "max_x_mm": 24273.91
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_20"
+      ],
+      "pid": 31665,
+      "min_x_mm": 25726.09,
+      "max_x_mm": 25761.09
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_21"
+      ],
+      "pid": 31697,
+      "min_x_mm": 27213.269,
+      "max_x_mm": 27248.269
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_22"
+      ],
+      "pid": 31729,
+      "min_x_mm": 28700.449,
+      "max_x_mm": 28735.449
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_23"
+      ],
+      "pid": 31761,
+      "min_x_mm": 30187.628,
+      "max_x_mm": 30222.628
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_24"
+      ],
+      "pid": 31793,
+      "min_x_mm": 31674.808,
+      "max_x_mm": 31709.808
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_25"
+      ],
+      "pid": 31825,
+      "min_x_mm": 33161.987,
+      "max_x_mm": 33196.987
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_26"
+      ],
+      "pid": 31857,
+      "min_x_mm": 34649.167,
+      "max_x_mm": 34684.167
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_27"
+      ],
+      "pid": 31889,
+      "min_x_mm": 36136.346,
+      "max_x_mm": 36171.346
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_28"
+      ],
+      "pid": 31921,
+      "min_x_mm": 37623.526,
+      "max_x_mm": 37658.526
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_29"
+      ],
+      "pid": 31953,
+      "min_x_mm": 39110.705,
+      "max_x_mm": 39145.705
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_30"
+      ],
+      "pid": 31985,
+      "min_x_mm": 40597.885,
+      "max_x_mm": 40632.885
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_31"
+      ],
+      "pid": 32017,
+      "min_x_mm": 42085.064,
+      "max_x_mm": 42120.064
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_32"
+      ],
+      "pid": 32049,
+      "min_x_mm": 43572.244,
+      "max_x_mm": 43607.244
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_33"
+      ],
+      "pid": 32081,
+      "min_x_mm": 45059.423,
+      "max_x_mm": 45094.423
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_34"
+      ],
+      "pid": 32113,
+      "min_x_mm": 46546.603,
+      "max_x_mm": 46581.603
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_35"
+      ],
+      "pid": 32145,
+      "min_x_mm": 48033.782,
+      "max_x_mm": 48068.782
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_36"
+      ],
+      "pid": 32177,
+      "min_x_mm": 49520.962,
+      "max_x_mm": 49555.962
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_37"
+      ],
+      "pid": 32209,
+      "min_x_mm": 51008.141,
+      "max_x_mm": 51043.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_38"
+      ],
+      "pid": 32241,
+      "min_x_mm": 52495.321,
+      "max_x_mm": 52530.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200",
+        "LONG_RAIL_SOUTH_Z7200_POST_39"
+      ],
+      "pid": 32273,
+      "min_x_mm": 53982.5,
+      "max_x_mm": 54017.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_3"
+      ],
+      "pid": 32499,
+      "min_x_mm": 444.038,
+      "max_x_mm": 479.038
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_4"
+      ],
+      "pid": 32531,
+      "min_x_mm": 1931.218,
+      "max_x_mm": 1966.218
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_5"
+      ],
+      "pid": 32563,
+      "min_x_mm": 3418.397,
+      "max_x_mm": 3453.397
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_6"
+      ],
+      "pid": 32595,
+      "min_x_mm": 4905.577,
+      "max_x_mm": 4940.577
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_7"
+      ],
+      "pid": 32627,
+      "min_x_mm": 6392.756,
+      "max_x_mm": 6427.756
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_8"
+      ],
+      "pid": 32659,
+      "min_x_mm": 7879.936,
+      "max_x_mm": 7914.936
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_9"
+      ],
+      "pid": 32691,
+      "min_x_mm": 9367.115,
+      "max_x_mm": 9402.115
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_10"
+      ],
+      "pid": 32723,
+      "min_x_mm": 10854.295,
+      "max_x_mm": 10889.295
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_11"
+      ],
+      "pid": 32755,
+      "min_x_mm": 12341.474,
+      "max_x_mm": 12376.474
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_12"
+      ],
+      "pid": 32787,
+      "min_x_mm": 13828.654,
+      "max_x_mm": 13863.654
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_13"
+      ],
+      "pid": 32819,
+      "min_x_mm": 15315.833,
+      "max_x_mm": 15350.833
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_14"
+      ],
+      "pid": 32851,
+      "min_x_mm": 16803.013,
+      "max_x_mm": 16838.013
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_15"
+      ],
+      "pid": 32883,
+      "min_x_mm": 18290.192,
+      "max_x_mm": 18325.192
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_16"
+      ],
+      "pid": 32915,
+      "min_x_mm": 19777.372,
+      "max_x_mm": 19812.372
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_17"
+      ],
+      "pid": 32947,
+      "min_x_mm": 21264.551,
+      "max_x_mm": 21299.551
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_18"
+      ],
+      "pid": 32979,
+      "min_x_mm": 22751.731,
+      "max_x_mm": 22786.731
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_19"
+      ],
+      "pid": 33011,
+      "min_x_mm": 24238.91,
+      "max_x_mm": 24273.91
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_20"
+      ],
+      "pid": 33043,
+      "min_x_mm": 25726.09,
+      "max_x_mm": 25761.09
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_21"
+      ],
+      "pid": 33075,
+      "min_x_mm": 27213.269,
+      "max_x_mm": 27248.269
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_22"
+      ],
+      "pid": 33107,
+      "min_x_mm": 28700.449,
+      "max_x_mm": 28735.449
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_23"
+      ],
+      "pid": 33139,
+      "min_x_mm": 30187.628,
+      "max_x_mm": 30222.628
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_24"
+      ],
+      "pid": 33171,
+      "min_x_mm": 31674.808,
+      "max_x_mm": 31709.808
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_25"
+      ],
+      "pid": 33203,
+      "min_x_mm": 33161.987,
+      "max_x_mm": 33196.987
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_26"
+      ],
+      "pid": 33235,
+      "min_x_mm": 34649.167,
+      "max_x_mm": 34684.167
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_27"
+      ],
+      "pid": 33267,
+      "min_x_mm": 36136.346,
+      "max_x_mm": 36171.346
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_28"
+      ],
+      "pid": 33299,
+      "min_x_mm": 37623.526,
+      "max_x_mm": 37658.526
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_29"
+      ],
+      "pid": 33331,
+      "min_x_mm": 39110.705,
+      "max_x_mm": 39145.705
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_30"
+      ],
+      "pid": 33363,
+      "min_x_mm": 40597.885,
+      "max_x_mm": 40632.885
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_31"
+      ],
+      "pid": 33395,
+      "min_x_mm": 42085.064,
+      "max_x_mm": 42120.064
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_32"
+      ],
+      "pid": 33427,
+      "min_x_mm": 43572.244,
+      "max_x_mm": 43607.244
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_33"
+      ],
+      "pid": 33459,
+      "min_x_mm": 45059.423,
+      "max_x_mm": 45094.423
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_34"
+      ],
+      "pid": 33491,
+      "min_x_mm": 46546.603,
+      "max_x_mm": 46581.603
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_35"
+      ],
+      "pid": 33523,
+      "min_x_mm": 48033.782,
+      "max_x_mm": 48068.782
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_36"
+      ],
+      "pid": 33555,
+      "min_x_mm": 49520.962,
+      "max_x_mm": 49555.962
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_37"
+      ],
+      "pid": 33587,
+      "min_x_mm": 51008.141,
+      "max_x_mm": 51043.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_38"
+      ],
+      "pid": 33619,
+      "min_x_mm": 52495.321,
+      "max_x_mm": 52530.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200",
+        "LONG_RAIL_NORTH_Z7200_POST_39"
+      ],
+      "pid": 33651,
+      "min_x_mm": 53982.5,
+      "max_x_mm": 54017.5
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_3"
+      ],
+      "pid": 35383,
+      "min_x_mm": 444.038,
+      "max_x_mm": 479.038
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_4"
+      ],
+      "pid": 35415,
+      "min_x_mm": 1931.218,
+      "max_x_mm": 1966.218
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_5"
+      ],
+      "pid": 35447,
+      "min_x_mm": 3418.397,
+      "max_x_mm": 3453.397
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_6"
+      ],
+      "pid": 35479,
+      "min_x_mm": 4905.577,
+      "max_x_mm": 4940.577
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_7"
+      ],
+      "pid": 35511,
+      "min_x_mm": 6392.756,
+      "max_x_mm": 6427.756
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_8"
+      ],
+      "pid": 35543,
+      "min_x_mm": 7879.936,
+      "max_x_mm": 7914.936
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_9"
+      ],
+      "pid": 35575,
+      "min_x_mm": 9367.115,
+      "max_x_mm": 9402.115
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_10"
+      ],
+      "pid": 35607,
+      "min_x_mm": 10854.295,
+      "max_x_mm": 10889.295
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_11"
+      ],
+      "pid": 35639,
+      "min_x_mm": 12341.474,
+      "max_x_mm": 12376.474
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_12"
+      ],
+      "pid": 35671,
+      "min_x_mm": 13828.654,
+      "max_x_mm": 13863.654
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_13"
+      ],
+      "pid": 35703,
+      "min_x_mm": 15315.833,
+      "max_x_mm": 15350.833
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_14"
+      ],
+      "pid": 35735,
+      "min_x_mm": 16803.013,
+      "max_x_mm": 16838.013
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_15"
+      ],
+      "pid": 35767,
+      "min_x_mm": 18290.192,
+      "max_x_mm": 18325.192
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_16"
+      ],
+      "pid": 35799,
+      "min_x_mm": 19777.372,
+      "max_x_mm": 19812.372
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_17"
+      ],
+      "pid": 35831,
+      "min_x_mm": 21264.551,
+      "max_x_mm": 21299.551
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_18"
+      ],
+      "pid": 35863,
+      "min_x_mm": 22751.731,
+      "max_x_mm": 22786.731
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_19"
+      ],
+      "pid": 35895,
+      "min_x_mm": 24238.91,
+      "max_x_mm": 24273.91
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_20"
+      ],
+      "pid": 35927,
+      "min_x_mm": 25726.09,
+      "max_x_mm": 25761.09
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_21"
+      ],
+      "pid": 35959,
+      "min_x_mm": 27213.269,
+      "max_x_mm": 27248.269
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_22"
+      ],
+      "pid": 35991,
+      "min_x_mm": 28700.449,
+      "max_x_mm": 28735.449
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_23"
+      ],
+      "pid": 36023,
+      "min_x_mm": 30187.628,
+      "max_x_mm": 30222.628
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_24"
+      ],
+      "pid": 36055,
+      "min_x_mm": 31674.808,
+      "max_x_mm": 31709.808
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_25"
+      ],
+      "pid": 36087,
+      "min_x_mm": 33161.987,
+      "max_x_mm": 33196.987
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_26"
+      ],
+      "pid": 36119,
+      "min_x_mm": 34649.167,
+      "max_x_mm": 34684.167
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_27"
+      ],
+      "pid": 36151,
+      "min_x_mm": 36136.346,
+      "max_x_mm": 36171.346
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_28"
+      ],
+      "pid": 36183,
+      "min_x_mm": 37623.526,
+      "max_x_mm": 37658.526
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_29"
+      ],
+      "pid": 36215,
+      "min_x_mm": 39110.705,
+      "max_x_mm": 39145.705
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_30"
+      ],
+      "pid": 36247,
+      "min_x_mm": 40597.885,
+      "max_x_mm": 40632.885
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_31"
+      ],
+      "pid": 36279,
+      "min_x_mm": 42085.064,
+      "max_x_mm": 42120.064
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_32"
+      ],
+      "pid": 36311,
+      "min_x_mm": 43572.244,
+      "max_x_mm": 43607.244
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_33"
+      ],
+      "pid": 36343,
+      "min_x_mm": 45059.423,
+      "max_x_mm": 45094.423
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_34"
+      ],
+      "pid": 36375,
+      "min_x_mm": 46546.603,
+      "max_x_mm": 46581.603
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_35"
+      ],
+      "pid": 36407,
+      "min_x_mm": 48033.782,
+      "max_x_mm": 48068.782
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_36"
+      ],
+      "pid": 36439,
+      "min_x_mm": 49520.962,
+      "max_x_mm": 49555.962
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_37"
+      ],
+      "pid": 36471,
+      "min_x_mm": 51008.141,
+      "max_x_mm": 51043.141
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_38"
+      ],
+      "pid": 36503,
+      "min_x_mm": 52495.321,
+      "max_x_mm": 52530.321
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800",
+        "LONG_RAIL_NORTH_Z10800_POST_39"
+      ],
+      "pid": 36535,
+      "min_x_mm": 53982.5,
+      "max_x_mm": 54017.5
+    }
+  ],
+  "limits": [
+    "只处理五处x=-4000..0mm接入口",
+    "目标叶容器PID保留，不扩大成LONG_RAIL或整个GALLERIES",
+    "对应长横杆的X>=0段、截面及右端保持原样",
+    "185个远处立柱、其余栏杆、玻璃、楼板、屋顶、三跑坡道和平台全部保护",
+    "不能用外部脚本直接写SketchUp；必须网站受保护单写者"
+  ]
+}

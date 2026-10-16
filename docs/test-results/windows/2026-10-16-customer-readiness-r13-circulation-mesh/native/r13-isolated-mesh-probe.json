@@ -1,0 +1,1046 @@
+{
+  "revision": 13,
+  "geometry_writes": 0,
+  "method": "Actual native face-plane intersections restricted to real mesh prototype and all nested wire transforms; no hiding/geometry changes; adjacent glass cannot occlude controls",
+  "controls": [
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_0"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_0"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_0"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_1"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_1"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_1"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_2"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_2"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_2"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_3"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_3"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_3"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_4"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_4"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_4"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_5"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_5"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_5"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_6"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_6"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_6"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_7"
+      ],
+      "label": "open_cell",
+      "expected_wire": false,
+      "actual_face_intersections_mm": [],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_7"
+      ],
+      "label": "vertical_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_7"
+      ],
+      "label": "horizontal_wire",
+      "expected_wire": true,
+      "actual_face_intersections_mm": [
+        99.1,
+        100.89999999999999
+      ],
+      "passed": true
+    }
+  ],
+  "status": "PASS_ISOLATED_MESH_SAMPLES"
+}

@@ -1,0 +1,131 @@
+{
+  "revision": 12,
+  "root_pid": 20606,
+  "script": "scripts/clear_west_middle_entry.rb",
+  "committed": true,
+  "scope_passed": true,
+  "keep_verified": true,
+  "targets": [
+    {
+      "pid": 169319,
+      "min": [
+        -72,
+        14100,
+        7200
+      ],
+      "max": [
+        -48,
+        15200,
+        9600
+      ]
+    },
+    {
+      "pid": 169458,
+      "min": [
+        -72,
+        17400,
+        7200
+      ],
+      "max": [
+        -48,
+        18500,
+        9600
+      ]
+    }
+  ],
+  "clear_aperture_mm": [
+    2200,
+    2400
+  ],
+  "estimated_corridor_clear_mm": 1578,
+  "views": {
+    "front": "outputs/renders/agent-view-front-80e15a2c9c.png",
+    "rear": "outputs/renders/agent-view-rear-2179d1ca2d.png",
+    "left": "outputs/renders/agent-view-left-50c6e62a9e.png",
+    "right": "outputs/renders/agent-view-right-5b9721dd27.png",
+    "roof": "outputs/renders/agent-view-roof-dc138a7ebd.png",
+    "oblique": "outputs/renders/agent-view-oblique-6cf421d489.png"
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-23fb9515ab.png",
+      "label": "原图对照机位 1"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-94cb2ea754.png",
+      "label": "原图对照机位 2"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-a1a57eb9b1.png",
+      "label": "原图对照机位 3"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-4653dbb62c.png",
+      "label": "原图对照机位 4"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-6dc3dd00f7.png",
+      "label": "原图对照机位 5"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-f553784acf.png",
+      "label": "原图对照机位 6"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-07d351f150.png",
+      "label": "原图对照机位 7"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-3c79a681f6.png",
+      "label": "原图对照机位 8"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-1d5af57292.png",
+      "label": "原图对照机位 9"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-9ff36701b9.png",
+      "label": "原图对照机位 10"
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-652cd92cef.png",
+      "label": "原图对照机位 11"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-1c95f67db0.png",
+      "label": "原图对照机位 12"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-383725769d.png",
+      "label": "原图对照机位 13"
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-2b7db7b225.png",
+      "label": "窄回廊沿线"
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-1384eb38d7.png",
+      "label": "门洞向室内"
+    }
+  ],
+  "review_status": "independent_current_revision_needs_fix",
+  "save_reopen": "not confirmed",
+  "remaining": "Existing deeper interior geometry obscures the door-facing image. Local leaf/corridor correction is dimensionally verified; full circulation route not certified.",
+  "review_file": "qa/visual_review.json",
+  "review_remaining": "Whole-model issues: intermediate void/floor-beam relationships, projecting gallery ends and mesh guards, incomplete stair assembly. Door-facing current capture unusable; no claim of complete indoor route."
+}
