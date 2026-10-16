@@ -56,6 +56,26 @@ KStudioPathScopeGuard.validate_authorization!(policy, [paths[0]], 'same.skp', 20
 end
 puts 'host-approved exact path scope: positive + 5 negatives PASS'
 
+# A protected child inside an editable assembly is legitimate. A KEEP ancestor
+# of an editable target is contradictory and must fail before source execution.
+KStudioPathScopeGuard.validate_authorization!(
+  policy.merge('required_preserve_paths' => [['RAMPS', 'RAMP_1', 'RETAINED_DETAIL']]),
+  [paths[0]], 'same.skp', 20606)
+[
+  policy.merge('required_preserve_paths' => [['RAMPS']]),
+  policy.merge('required_preserve_paths' => [paths[0]]),
+  policy.merge('mandatory_preserve_paths' => [['ROOF']])
+].each do |bad|
+  begin
+    KStudioPathScopeGuard.validate_authorization!(bad, [paths[0]], 'same.skp', 20606)
+  rescue RuntimeError => error
+    raise unless error.message.include?('KEEP conflicts') || error.message.include?('unsupported mandatory_preserve_paths')
+    next
+  end
+  raise 'Contradictory or misspelled host KEEP accepted'
+end
+puts 'KEEP target preflight: protected descendant PASS, ancestor/equal/unsupported alias rejected'
+
 original = {pid: 1, definition_guid: 'old', definition_instances: 2,
   geometry_material_sha256: 'actual-geometry', children: [{pid: 2, definition_instances: 2}]}
 unique = Marshal.load(Marshal.dump(original)); unique[:definition_guid] = 'new'; unique[:definition_instances] = 1
@@ -64,3 +84,19 @@ raise 'Definition bookkeeping blocked safe uniqueness' unless KStudioPathScopeGu
 unique[:geometry_material_sha256] = 'illegal-shared-geometry-change'
 raise 'Shared geometry escaped normalization' if KStudioPathScopeGuard.protected_node(original) == KStudioPathScopeGuard.protected_node(unique)
 puts 'shared definition normalization: bookkeeping-only PASS; geometry still protected'
+
+graph = {contract: KStudioPathScopeGraphGuard::CONTRACT, paths: paths,
+  creation_paths: [], required_deep_keep: [], masked_root: {loose_sha: 'original'}}
+KStudioPathScopeGraphGuard.compare!(graph, Marshal.load(Marshal.dump(graph)), paths)
+changed = Marshal.load(Marshal.dump(graph)); changed[:masked_root][:loose_sha] = 'changed'
+begin
+  KStudioPathScopeGraphGuard.compare!(graph, changed, paths)
+  raise 'Graph mutation escaped'
+rescue RuntimeError => error
+  raise unless error.message.include?('Protected geometry changed outside approved exact paths') &&
+    error.message.include?('masked_root/loose_sha')
+end
+large_before = {items: Array.new(20) { |i| "old#{i}" }}
+large_after = {items: Array.new(20) { |i| "new#{i}" }}
+raise 'Unbounded mismatch diagnostic' unless KStudioPathScopeGraphGuard.difference_paths(large_before, large_after).length == 12
+puts 'Graph strict equality retained; precise bounded mismatch diagnostics PASS'

@@ -99,11 +99,38 @@ module KStudioPathScopeGraphGuard
     raise 'Path scope contract changed' unless before[:contract] == CONTRACT && after[:contract] == CONTRACT
     raise 'Path scope declaration changed' unless before[:paths] == paths && after[:paths] == paths &&
       before[:creation_paths].is_a?(Array) && before[:creation_paths] == after[:creation_paths]
-    raise 'Protected geometry changed outside approved exact paths' unless before == after
+    unless before == after
+      # Preserve the exact comparison. Report the actual differing fields so a
+      # failed local edit can be diagnosed without widening its authorization.
+      differences = difference_paths(before, after)
+      raise 'Protected geometry changed outside approved exact paths: ' + JSON.generate(differences)
+    end
     {'status' => 'passed', 'guard' => CONTRACT, 'allowed_paths' => paths,
      'allowed_creation_paths' => before[:creation_paths],
      'allowed_top_level' => paths.map(&:first).uniq,
      'required_deep_keep_paths' => before[:required_deep_keep].map { |v| v[:path] },
      'protected_deep_geometry_and_loose_entities' => true}
+  end
+
+  def difference_paths(before, after, path = [], found = [])
+    return found if before == after || found.length >= 12
+    if before.is_a?(Hash) && after.is_a?(Hash)
+      (before.keys | after.keys).sort_by(&:to_s).each do |key|
+        difference_paths(before[key], after[key], path + [key.to_s], found)
+        break if found.length >= 12
+      end
+    elsif before.is_a?(Array) && after.is_a?(Array) && before.length == after.length
+      before.each_index do |index|
+        difference_paths(before[index], after[index], path + [index.to_s], found)
+        break if found.length >= 12
+      end
+    else
+      describe = lambda do |value|
+        text = JSON.generate(value)
+        text.length <= 140 ? value : {sha256: Digest::SHA256.hexdigest(text), bytes: text.bytesize}
+      end
+      found << {path: path.join('/'), before: describe.call(before), after: describe.call(after)}
+    end
+    found
   end
 end

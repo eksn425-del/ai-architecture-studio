@@ -98,6 +98,8 @@ module KStudioPathScopeGuard
   end
 
   def validate_authorization!(policy, declared, model_path, root_pid)
+    raise 'Host policy uses unsupported mandatory_preserve_paths; use required_preserve_paths' if
+      policy.key?('mandatory_preserve_paths')
     approved = policy['allowed_paths']
     paths!(approved)
     raise 'Host edit authorization is inactive' unless policy['status'] == 'active'
@@ -105,6 +107,10 @@ module KStudioPathScopeGuard
       File.expand_path(policy['model_path']) == File.expand_path(model_path)
     raise 'Declared scope exceeds exact HOST-approved paths; do not widen to an ancestor' unless
       declared.all? { |path| approved.include?(path) }
+    required = policy.fetch('required_preserve_paths', [])
+    paths!(required) unless required.empty?
+    conflict = required.find { |keep| declared.any? { |target| target.take(keep.length) == keep } }
+    raise 'Host KEEP conflicts with declared target: ' + conflict.join('/') if conflict
     true
   end
 

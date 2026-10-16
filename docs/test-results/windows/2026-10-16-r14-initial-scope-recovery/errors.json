@@ -1,0 +1,9 @@
+[
+  {
+    "stage": "initial_native_writer",
+    "status": "ABORTED",
+    "error": "Protected geometry changed outside approved exact paths",
+    "root_cause": "Host configuration inherited required_preserve_paths containing entire ENVELOPE_OUTER and INTERIOR while mistakenly adding new mandatory_preserve_paths alias; contradicts existing authorized47leaf targets. Fixed field and parent KEEP conflict without expanding allowed paths.",
+    "geometry_committed": false
+  }
+]

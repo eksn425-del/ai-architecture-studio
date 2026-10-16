@@ -1,0 +1,932 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "multi_view_reconstruction",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "multi_view_reconstruction",
+    "primary_source": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+    "sources": [
+      {
+        "path": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "原图1，全部面板直接对照",
+        "notes": [
+          "上：坡道短端外观，右屋顶边高于左边，中央下垂；三条坡道投影均向左上升。",
+          "下：实体模型同一短端，确认上述高低及坡道投影；外廊与内框架有深度。"
+        ],
+        "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "原图2，全部面板直接对照",
+        "notes": [
+          "上：场地轴测，长条平面、短跨下垂屋顶沿长向延伸；近短端有坡道。",
+          "下：坡道端与相邻长边模型斜视，验证外廊、平台及多层玻璃；透视不改变端部高低。"
+        ],
+        "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "原图3，全部面板直接对照",
+        "notes": [
+          "上：近地入口侧视，地面坡道接首个架空平台；此角度画面左右不能替代图1短端左右。",
+          "下：长边外廊底部，格栅、横梁、混凝土柱与内玻璃分离。"
+        ],
+        "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+        "kind": "interior_image",
+        "provenance": "observed",
+        "role": "原图4，全部面板直接对照",
+        "notes": [
+          "上：顶层木色曲面顶棚、圆洞护栏、帘幕；圆洞不等同于中间层大挑空。",
+          "下：双层高工作空间、螺旋梯、局部中间楼板及梁柱；确有跨层空间。"
+        ],
+        "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "kind": "floorplan_image",
+        "provenance": "observed",
+        "role": "原图5，全部面板直接对照",
+        "notes": [
+          "上：透视横剖，地面、完整下层、局部中间层、顶层；剖面左侧挑空、右侧中间楼板。其左右须经端部标志对齐。",
+          "下：底层平面；长条柱网、内部交通、远端楼梯与服务核；无可读尺寸。"
+        ],
+        "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+        "kind": "document",
+        "provenance": "observed",
+        "role": "原图6，全部面板直接对照",
+        "notes": [
+          "自上至下四幅：外钢架与玻璃缓冲区；木质加层与下垂屋顶；保留旧框架及局部楼板；旧构件再利用示意。文字是设计说明，不是实测或当前模型证明。"
+        ],
+        "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+        "kind": "floorplan_image",
+        "provenance": "observed",
+        "role": "原图7，全部面板直接对照",
+        "notes": [
+          "上：开放顶层平面，圆洞与外环廊。",
+          "中：近坡道端半部大挑空，另一侧及远端保留局部楼板，远端螺旋梯与服务核。",
+          "下：较完整下层平面、分隔房间与梯核。上/中/下暂对应L3/L2/L1，图中无清晰层名。"
+        ],
+        "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      },
+      {
+        "path": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+        "kind": "document",
+        "provenance": "observed",
+        "role": "原图8，全部面板直接对照",
+        "notes": [
+          "上：气候概念剖面，支持屋顶中垂、双层围护及大挑空；箭头非实体构件。",
+          "下：结构横剖，四个使用标高、局部中间楼板；右边屋顶较高。不能单凭此图断定真实方位。"
+        ],
+        "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+        "image_size_px": [
+          1080,
+          1441
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+        ],
+        "notes": [
+          "坡道短端，右高左低；以此定义左右。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+          "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+        ],
+        "notes": [
+          "远端服务核和端梯见平面，无独立正立面。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+          "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+          "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+        ],
+        "notes": [
+          "长边外廊可见，但照片所示长边与+Y侧对应仍待原生相机/地标核验。"
+        ]
+      },
+      "right": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+          "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+          "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+        ],
+        "notes": [
+          "另一长边关系由平剖面约束，不能直接镜像所有细节。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+          "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+          "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+          "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+          "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+        ],
+        "notes": [
+          "横跨下垂，边缘不等高；实际曲率、最低点位置未量测。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png"
+        ],
+        "notes": [
+          "相邻短长边及外廊深度可见。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": true,
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png"
+      ],
+      "levels": [
+        "L0：图5下，暂定",
+        "L1/L2局部/L3：图7下/中/上，暂定"
+      ],
+      "notes": [
+        "几何关系可见；层名、尺寸与精确端点不可读。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "无DWG或尺寸CAD。"
+      ]
+    },
+    "interior": {
+      "provided": true,
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+        "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+        "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+        "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png"
+      ],
+      "spaces": [
+        "曲面顶层大厅",
+        "下层双层高工作空间",
+        "局部中间层",
+        "圆洞及螺旋梯"
+      ],
+      "notes": [
+        "挑空与圆洞分别表达，不能假定所有洞口都贯穿四层。"
+      ]
+    },
+    "scale_anchors": [],
+    "hard_constraints": [
+      "坡道端观察：屋顶右边高于左边，中央下垂，沿建筑长向延伸。",
+      "旧框架、上加木质空间、内外两层围护及深外廊分别表达。",
+      "L2为局部楼板，L1至L3之间保留大挑空；圆洞另行定位。",
+      "外坡道、转接平台、环廊和内楼梯不能互相替代。",
+      "本轮仅绘制草图与更新计划，不运行或修改SketchUp。"
+    ],
+    "assumptions": [
+      "拟定观察者位于坡道短端X<0，朝+X看；+Z向上，画面左为+Y（Y=20000），画面右为-Y（Y=0）。X沿长向；没有真实北向。原平面图左端对应草图下端，原图上边对应草图左边。此为源图与草图约定，当前模型变换未重新原生核验。",
+      "层号L0/L1/L2/L3是工作命名，暂对应图5下图及图7下/中/上图；没有可读原层名。",
+      "地面起点在坡道端画面右侧，各段向左上升；完整连续通路拟由环廊回到右侧下一段起点，未有连续路径图证实具体绕行边。",
+      "50×20m及0/3.6/7.2/10.8m仅保留旧估值，不是用户提供或图纸测量。",
+      "未重新核验模型根、深层变换、下载及重开几何；历史修正是否提交、保存前屋顶状态均不能据本轮证明。"
+    ],
+    "user_confirmed": [
+      "先不修改模型，先用八张原图做平面和剖面方向确认。",
+      "用户指出从坡道端看屋顶右边更高；保留现有曲面，坡道及其他部分先不动。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    },
+    "review_status": {
+      "source_review": "eight_original_sheets_all_panels_compared",
+      "geometry_written": false,
+      "native_model_identity": "NOT_VERIFIED_THIS_TURN",
+      "native_save_reopen": "BLOCKED_NO_NATIVE_EVIDENCE",
+      "historic_pre_save_geometry": "BLOCKED_MISSING_EVIDENCE"
+    },
+    "sketch": "notes/direction_sketch.png",
+    "approved_ramp_local_edit": {
+      "date": "2026-10-15",
+      "goal": "Correct ramp 1 and 3 ascent and connected platforms/guards only",
+      "source_observed": "All eight originals directly inspected; sheet 1 end and sheet 2 oblique show all three runs rising toward screen left (+Y)",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "Existing sloping deck transforms and slender rail joints do not fit SAIE straight wall/opening; ADAI disabled",
+      "direction": "reflect runs 1/3 about Y=10000; keep run 2",
+      "connection": "existing west end gallery used as same-level return, connect north/south pads and open only corresponding local rail ends",
+      "inferred": "run 3 shifted -2200mm in X to avoid fixed gallery floor; exact return geometry not dimensioned",
+      "protected": "run 2 with rails, all gallery slabs and other rails, roof, glass, floors, frame, internal circulation and other groups"
+    },
+    "ramp_execution_r5": {
+      "revision": 5,
+      "root_pid": 20606,
+      "direction": "Ramps 1/3 corrected to +Y ascent; all three now share source end-view direction",
+      "scope": "Only ten allowed ramp/rail/landing subtrees; all gallery geometry protected",
+      "blocker": "Host refused local gallery gate scope. Platforms join decks, but existing guards obstruct return route",
+      "third_run": "X shifted outward 2200mm to avoid fixed gallery floor; exact source offset inferred",
+      "save_reopen": "NOT_AVAILABLE",
+      "completion": "PARTIAL_PENDING_GALLERY_GATE_SCOPE",
+      "review": "Current six canonical plus eight source camera pairs submitted"
+    },
+    "receiving_gate_only": {
+      "dimensions": "existing model, not measured source dimensions",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "Existing slender rail cap deformation and post jamb reuse do not fit SAIE wall/opening; ADAI disabled",
+      "revision_before": 5,
+      "preserve": "All other objects including 185 distant posts and all ramps/platforms",
+      "intent": "Open five receiving gates only",
+      "mutable": "30 exact leaf paths in notes/receiving_gate_scope.json",
+      "aperture_mm": 4000
+    },
+    "upper_receiving_doors": {
+      "revision": 7,
+      "status": "committed_pending_independent_review",
+      "targets": [
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_0"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ]
+      ],
+      "apertures": [
+        {
+          "side": "north",
+          "bottom_z_mm": 7200
+        },
+        {
+          "side": "north",
+          "bottom_z_mm": 10800
+        },
+        {
+          "side": "south",
+          "bottom_z_mm": 7200
+        }
+      ],
+      "clear_width_mm": 2200,
+      "clear_height_mm": 2400,
+      "world_x_mm": [
+        -3650,
+        -1450
+      ],
+      "dimensions": "current-model estimated; no readable source dimensions",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "SAIE root-level solid wall opening does not fit existing nested planar glazing/profile clipping; ADAI unavailable",
+      "protected": "all other objects, all ramps/platforms/floors/roof, all adjacent bays, original target mullions and all geometry outside door cuts",
+      "qa": "qa/upper_glazing_door_receipt.json"
+    },
+    "upper_ramp_containment": {
+      "base_revision": 7,
+      "scope_file": "notes/upper_ramp_placement_scope.json",
+      "execution_script": "scripts/contain_upper_ramps.rb",
+      "plan": "notes/upper_ramp_containment_edit.md",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "Existing sloping ramp/rail solids and horizontal apron slots are incompatible with SAIE straight wall/opening; ADAI disabled",
+      "source": "All eight originals directly compared; SOURCE1/2 upper flights behind glass, SOURCE3 lowest external, SOURCE7 end apron; dimensions estimated",
+      "keep": "lowest flight and north L1 arrival pad/guards; roof, glass including r7 doors, indoor floors and other correct assemblies",
+      "status": "approved_local_candidate"
+    },
+    "gallery_grating_edit": {
+      "revision": 9,
+      "base_revision": 8,
+      "script": "scripts/convert_gallery_grating.rb",
+      "scope": "notes/grating-target-inventory-r8.json",
+      "plan": "notes/gallery_grating_edit.md",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "SAIE straight wall/opening unsuitable for horizontal open grating; ADAI unavailable",
+      "status": "committed_readback_review_pending",
+      "estimated_mm": {
+        "tile_max": 1000,
+        "bearing_bar_width": 3,
+        "bearing_bar_depth": 35,
+        "bearing_pitch": 40,
+        "cross_pitch": 80,
+        "support_spacing_max": 2500
+      },
+      "protected": "all ramps, platforms, rails including slot guards, glazing, roof, indoor floors and other objects",
+      "report": "runtime/scripts/reports/glass_curved_roof-r9-bdd193f6.json"
+    },
+    "west_entry_sliding_current": {
+      "targets": [
+        "ENVELOPE_OUTER/LOWER_END_WEST_ADDITION/LEVEL_7200_BAY_6/DOOR_LEFT_OPEN_90",
+        "ENVELOPE_OUTER/LOWER_END_WEST_ADDITION/LEVEL_7200_BAY_6/DOOR_RIGHT_OPEN_90"
+      ],
+      "receipt": "qa/west_entry_sliding_r12.json",
+      "leaf_projection_mm": 72,
+      "inferred_detail": "User-requested sliding mode, existing aperture and frame retained",
+      "evidence": "notes/west_entry_sliding_current.md",
+      "clear_height_mm": 2400,
+      "method_id": "kstudio.custom_owned_ruby",
+      "method_reason": "Existing nested transparent leaves unsuitable for SAIE solid walls/openings; ADAI disabled",
+      "clear_width_mm": 2200,
+      "revision": 12
+    },
+    "exterior_circulation_r13": {
+      "platforms": "L2 L3 outside tabs removed; retained inboard grating flats meet returns",
+      "independent_review": "NEEDS_FIX: protected doubleheight floor/beam mismatch, spiral arrival clearance, curved curtain enclosures and materials",
+      "inferred": "1100mm guards; <=50mm mesh pitch; 1.8mm wire; concealed joints inferred",
+      "revision": 13,
+      "status": "committed_and_independently_reviewed",
+      "script": "scripts/complete_exterior_circulation.rb",
+      "preserved": "Deep checks passed for all required thirteen KEEP paths; native scope protects all other existing entities including repaired doors and tread groups",
+      "qa": "qa/exterior_circulation_r13_review.json",
+      "guards": "26 original containers replaced by editable open white mesh; added stair and platform edge guards",
+      "stairs": "72 original treads retained; three external grating openings; stringers seats handrails supports ground arrival added",
+      "plan": "notes/exterior_circulation_r13.md"
+    },
+    "readonly_envelope_void_stair_r13": {
+      "status": "read_only_revision13_no_geometry_write",
+      "report": "notes/readonly_envelope_void_stair_r13.md",
+      "evidence": "qa/readonly_envelope_void_stair_r13.json",
+      "correction": "Large intermediate void already exists; previous continuous-floor verdict overgeneralized. Local west stair-edge clearance and handrail-to-beam intersection require attention."
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 231672,
+    "input_tokens": 83568,
+    "output_tokens": 1060,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE 1–2 show the same elongated building from the ramp end and adjacent long side: a recessed lower frame, projecting glazed buffer enclosure, external ramps and a raised hall beneath a sagging timber roof. SOURCE 3 shows entrance glazing and open grating galleries; SOURCE 4 shows upper and lower interiors. SOURCE 5 and 7 establish partial floors, enclosed room bands and end service spaces; SOURCE 6 separates structural systems; SOURCE 8 confirms the transverse section. CURRENT retains the principal silhouette and circulation arrangement, but omits substantial source-backed interior enclosure and simplifies the buffer roof interface. Roof-occluded plans and uncut elevations cannot verify hidden floor openings or stair joints. No numerical dimensions are confirmed by these images.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "south",
+      "problem": "SOURCE 7’s middle and bottom plans show a substantial band of enclosed rooms along one long side and enclosed service rooms at the remote end. CURRENT 23, 26, 31 and 32 instead show largely uninterrupted open floor plates through repeated frames. This loses primary interior volumes and their opening pattern.",
+      "action": "Locally add the source-shown partition runs, room entrances and end enclosures, locating them against the existing column bays. Preserve the source-backed open hall areas."
+    },
+    {
+      "priority": 2,
+      "view": "south",
+      "problem": "SOURCE 5 and 8 show a layered buffer roof edge with an outward-sloping glazed/vent portion; SOURCE 2 also shows a shallow, articulated perimeter roof. CURRENT 33 presents a broad, continuous opaque flat surface terminating directly at the vertical glazing, omitting that roof-to-facade transition.",
+      "action": "Patch the perimeter roof edge with the observed shallow sloping glazing and separate vent/eave profile. Retain the matching inner roof boundary and curved hall roof."
+    },
+    {
+      "priority": 3,
+      "view": "source4",
+      "problem": "SOURCE 4’s upper hall has a pale floor and large translucent curtain enclosures suspended from curved tracks. CURRENT 18 has a dominant dark brown floor and lacks those defining spatial screens, making the hall read as an undivided timber interior.",
+      "action": "Change the upper walking surface to the source’s pale finish and add the visible curved curtain tracks and translucent screens around the observed zones, maintaining clear circulation around the circular openings."
+    }
+  ],
+  "keep": [
+    "Concave transverse profile of the raised hall roof.",
+    "Recessed lower frame beneath the projecting upper glazed enclosure.",
+    "Ramp-end arrangement of descending flights and horizontal turning landings.",
+    "Open grating treatment of the exposed galleries."
+  ],
+  "model_revisions": {
+    "glass_curved_roof": 13
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-fa9caae657.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 13
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          23.5,
+          -179.4,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-2d57bfcfb9.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 13
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          23.5,
+          203.4,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-e49ed15c8b.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 13
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          -182.4,
+          12.0,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-dbca5b5d0a.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 13
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          229.4,
+          12.0,
+          8.449304
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-6829b4d212.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 13
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          23.5,
+          12.0,
+          187.11020000000002
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.1051
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-f4dade7efb.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "glass_curved_roof": 13
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "glass_curved_roof",
+      "camera": {
+        "eye_m": [
+          191.912,
+          -141.912,
+          98.5022
+        ],
+        "target_m": [
+          23.5,
+          12.0,
+          8.449304
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-c249a641d3.png",
+      "label": "Source1 ramp end",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-ed7bc4de7f.png",
+      "label": "Source2 oblique",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-bb3d25c871.png",
+      "label": "Source3 entrance",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-e89125c59c.png",
+      "label": "Source4 upper hall",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-f2c5335a94.png",
+      "label": "Source5 section direction, model uncut",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-b48e2bd340.png",
+      "label": "Source6 systems, model assembled",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-9176601cda.png",
+      "label": "Source7 plan direction, roof occlusion",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-57910def76.png",
+      "label": "Source8 section direction, model uncut",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-79c9e2b54e.png",
+      "label": "Source4 lower interior",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-023947755d.png",
+      "label": "Upper long enclosure and door",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-e3b05a846f.png",
+      "label": "Retained r12 sliding door",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-441be19617.png",
+      "label": "Remote door and stair approach",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-de840af99b.png",
+      "label": "Remote oblique",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-d39f804430.png",
+      "label": "Remote stacked straight stair mesh and supports, source7 end stairs inferred joints",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-756e3712a1.png",
+      "label": "Remote top tread to grating landing and opening",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-e5c46122c1.png",
+      "label": "Upper ramp inboard turning flat and retained ring gallery",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-a16d0d7814.png",
+      "label": "south long facade; existing r13 same revision",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-c5bbb4f9ae.png",
+      "label": "north long facade; existing r13 same revision",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-2c4c288e81.png",
+      "label": "south buffer roof edge; existing r13 same revision",
+      "model_revisions": {
+        "glass_curved_roof": 13
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": true,
+    "mode": "multi_view_reconstruction",
+    "observed_sources": [
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png"
+    ],
+    "paired_sources": [
+      "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png"
+    ]
+  },
+  "writer_verifications": {
+    "glass_curved_roof": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 20606,
+          "actual": 20606
+        },
+        {
+          "check": "revision",
+          "expected": 13,
+          "actual": 13
+        },
+        {
+          "check": "objects_total",
+          "expected": 27,
+          "actual": 27
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -12000.0,
+              -9000.0,
+              -500.0
+            ],
+            "max": [
+              59000.0,
+              33000.0,
+              16710.2
+            ],
+            "size": [
+              71000.0,
+              42000.0,
+              17210.2
+            ]
+          },
+          "actual": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              16710.2
+            ],
+            "size": [
+              71000,
+              42000,
+              17210.2
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+    "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+    "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+    "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+    "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+    "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+    "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+    "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331",
+    "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13",
+    "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe",
+    "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096",
+    "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d",
+    "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088",
+    "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080",
+    "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095",
+    "outputs/renders/agent-view-023947755d.evidence.json": "6678e052b5ffbbdf9bc3f76cf684f2e01cba877a19083e1bcc46917dadb9acea",
+    "outputs/renders/agent-view-023947755d.png": "2e933bc424261952576006bebc43780d29fe264ffc114821ecbc6c417705fb7e",
+    "outputs/renders/agent-view-2c4c288e81.evidence.json": "53ebed1ddba26ef4a04de6b57cb6c037a3c3b7d7bd3e63b3b26a7591fe36167d",
+    "outputs/renders/agent-view-2c4c288e81.png": "16ac899f61c9f3a1c9422b566e16c6b2a1a684dc7db215fecacb34a17dee660e",
+    "outputs/renders/agent-view-441be19617.evidence.json": "66bf9c00390734cbdb19ae2d93e12d62ee836d3c1fa14496ff854472b773e648",
+    "outputs/renders/agent-view-441be19617.png": "bd9faf2276785eb01fd1ca967c4c7dd88eeb23086b828ba12fee55e10e4a6c7f",
+    "outputs/renders/agent-view-57910def76.evidence.json": "03d0f4b7b326a174e8e371bc562cc68ce4539be4bd7875a5594a0753794d1fab",
+    "outputs/renders/agent-view-57910def76.png": "9256a9b87cd42bd54b5a3aba09ca23f0a4998af6cc10a70f3c5582693bd9138e",
+    "outputs/renders/agent-view-756e3712a1.evidence.json": "a94c336d3e8fcc896cc3a2466987456a83e6b04123e328785e2a98db05d2d12f",
+    "outputs/renders/agent-view-756e3712a1.png": "81b63a940707db9e69518721b159a935c84045af7c4d9db029ef90a3c9e430e0",
+    "outputs/renders/agent-view-79c9e2b54e.evidence.json": "475e10af3d1fb17ba61204d8401795c0c55d8c65c1ca9be40d76d67314dabe86",
+    "outputs/renders/agent-view-79c9e2b54e.png": "31283bfece749a43a7b9a357ad6fa328369aaed57e1ae6f7749f3dcf383a895b",
+    "outputs/renders/agent-view-9176601cda.evidence.json": "cbcf7d8569aeb5459b0b99c2eb544b97e0a09e22e71b830e99faad5e51cc9bbe",
+    "outputs/renders/agent-view-9176601cda.png": "6db837c046825631919c3d1bb0dec2954a1201911b831e9652df92f3c0db3016",
+    "outputs/renders/agent-view-a16d0d7814.evidence.json": "674ce316fd8854b9322b87a91ea3489c88aecd8458860436a608fbe568c02529",
+    "outputs/renders/agent-view-a16d0d7814.png": "91906da7a215e277e35b3de8942f23095b0c2037f3cf73c019a8cb87c3cd40f1",
+    "outputs/renders/agent-view-b48e2bd340.evidence.json": "0534b6d76bdeb04bc1429eb4a03815c63cecf632d973a21de1d7cee1f7079591",
+    "outputs/renders/agent-view-b48e2bd340.png": "eb70c02f825a06ad55b3598b55ec9b2767a8af8af251acd8617da6afbd0737d5",
+    "outputs/renders/agent-view-bb3d25c871.evidence.json": "7632d2924af1dcd617ad7b32ddd25556e0660433f7cebf83889906a26b5aaf0c",
+    "outputs/renders/agent-view-bb3d25c871.png": "4dfbcb1bcc69245c2e04f88ea146f1ac88d4ece95df76756fc1e329461488203",
+    "outputs/renders/agent-view-c249a641d3.evidence.json": "1e9cd5a1be56b802fb336ad87ee258d85c7de408494c3ef7aba782fa905fae29",
+    "outputs/renders/agent-view-c249a641d3.png": "3fdd39ebb344baef4bd0d9162df62e238810f29bc399657afb01f1e7e141af81",
+    "outputs/renders/agent-view-c5bbb4f9ae.evidence.json": "89f00e10556f3f8d60f73d74433e949e57d8b7680ceb630a7d9e08e0d02d6431",
+    "outputs/renders/agent-view-c5bbb4f9ae.png": "0d8d520c666b33d3696f8cc6ac7c09f7b351244f22ca4a6761a14b66c7bf4e88",
+    "outputs/renders/agent-view-d39f804430.evidence.json": "4d2c2ca90198647a4aaabab236a6902e459b0c88432e7a7921cbceb3f24f74ef",
+    "outputs/renders/agent-view-d39f804430.png": "eabd07e50c3b843b7732e6a5bfcd43abae46c55b4190b7e892c284979d50b0f3",
+    "outputs/renders/agent-view-de840af99b.evidence.json": "c6c91b217aea0d96426735d88c610b4924beb33e28ad4db0ece42b1db29c268f",
+    "outputs/renders/agent-view-de840af99b.png": "0eb114073ba1dad987a01639e1170042aea0eb79990be25155739cf4ecbb3b86",
+    "outputs/renders/agent-view-e3b05a846f.evidence.json": "bccdfc9ca1630e5bad8e78b0bd9f1cc3707f31b5673b1b6cb05e5ae72100a5b1",
+    "outputs/renders/agent-view-e3b05a846f.png": "3445ba969811a3ec1f99520d49e24665b23aa7e9da63bd2819f282a6ed1e52ad",
+    "outputs/renders/agent-view-e5c46122c1.evidence.json": "16cb283e7866b47d1efb92768ec21bced0bf6a9af2e4c3f9fdc1434e4df29865",
+    "outputs/renders/agent-view-e5c46122c1.png": "38f214c78d90973ce5eba7807b6592dd3055c49ff2e3d5fcb0265eec1ea8b8cd",
+    "outputs/renders/agent-view-e89125c59c.evidence.json": "206cffba79ef8c36390ad921c2ea3dc0f6a2f3bb968ddcbe3291fa2eac4e1159",
+    "outputs/renders/agent-view-e89125c59c.png": "73f82cbfe63d8769bcfc0be52cf286046be7505b29443396aeef1ae1e178f6f7",
+    "outputs/renders/agent-view-ed7bc4de7f.evidence.json": "60035ea2c2c6d8a00a6768d8a3d1bb3a350d61f855c4034a8c23315076d76827",
+    "outputs/renders/agent-view-ed7bc4de7f.png": "55994b372e36634c1c30773541e26851900de8ff9a24d9bf27d33966a1023355",
+    "outputs/renders/agent-view-f2c5335a94.evidence.json": "bf7cf65f02ada9654201416e223e48f2f472687628de4569bb175f237c41e67d",
+    "outputs/renders/agent-view-f2c5335a94.png": "850611eff787b542614a67a80c166d8c6c298f935819ac5f4b3dadcc7ab4b9a4",
+    "outputs/renders/agent-view-front-fa9caae657.evidence.json": "b977cc32dd84bd74974d1039ad6f8b03ea9c061d182ce65299b3a425a5b25e02",
+    "outputs/renders/agent-view-front-fa9caae657.png": "e0486ce260ee745919f21dd7c7297f9d04d092531b37ac04be86138002e4dc9e",
+    "outputs/renders/agent-view-left-e49ed15c8b.evidence.json": "eb9bc4e9b8cbc7583c576bdf716281bf9ad2f292df37a93d0bfca02299c6c7f0",
+    "outputs/renders/agent-view-left-e49ed15c8b.png": "df03630f22becb3c6248ff34b87827b863301a1ee2083c3227267f5191a5b30c",
+    "outputs/renders/agent-view-oblique-f4dade7efb.evidence.json": "20ad038b755f6bed00f159b0ad7a21441003335ee419406cd811075a08a5bd0a",
+    "outputs/renders/agent-view-oblique-f4dade7efb.png": "82068202a3d22e573cd07c0da408616c5e67d642e604f5d89b793042982c89c9",
+    "outputs/renders/agent-view-rear-2d57bfcfb9.evidence.json": "c66367cc11ea24f30e658f86c1e62d63a1f1efc9051706eda6153fbc2ba59e96",
+    "outputs/renders/agent-view-rear-2d57bfcfb9.png": "88fdbdd48996acb3d615ca291753538e482139e8eafe6376581a3d1670f1d169",
+    "outputs/renders/agent-view-right-dbca5b5d0a.evidence.json": "95a4cd340396af70b7fcf03a55abf3cbf975526452c1ffd0b3cd5c979b5fb5bc",
+    "outputs/renders/agent-view-right-dbca5b5d0a.png": "94d4dcbe57d0f03776051a3741eb4cbd98580de08216ac5d3ca4b4ea111c06b9",
+    "outputs/renders/agent-view-roof-6829b4d212.evidence.json": "4a46fa574d4e033d2dabf9f57eff5e1a5903484961761667d260ff2f288b28a9",
+    "outputs/renders/agent-view-roof-6829b4d212.png": "3e68f8d0c0a369665d3079a24a5b1f385f3e027ae61140aad9251d6f4360a12e",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "6f16637e6e973eb70db88a0c4f7223e4ed41f5520aa24ab72d5911ec20807622"
+  }
+}

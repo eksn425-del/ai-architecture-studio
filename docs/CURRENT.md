@@ -1,3 +1,13 @@
+## ONGOING 2026-10-16 — r14 initial host KEEP conflict recovered; same-task site retry ACTIVE
+
+[Initial real failure and guard recovery](test-results/windows/2026-10-16-r14-initial-scope-recovery/README.md): first Studio47-target attempt aborted atomically, root remainsr13. Host preparation incorrectly inherited required_preserve_paths for entire ENVELOPE_OUTER/INTERIOR while writing new intended paths under wrong mandatory_preserve_paths alias. Actual scope conflict, not modeling inability. Original policy/baseline/failedsource/report/5115285input/24299output/40tools1failure/3043156ms retained. Full native graph after rollback equalsr13 under declared contract.
+
+Corrected to canonical required_preserve_paths15nonoverlappingKEEP; exact47targets/3creations unchanged. Fresh before snapshot scope-facade-finishing-corrected-before-r13.json supersedes initial contradictory snapshot for final comparison. Guard now rejects misspelled policy alias and KEEP ancestors/equal targets before construction, retains legitimate protected descendants and full strict equality; failure gives bounded actual field paths.33Python checks and actualSU24Ruby exact-scope positive/negative fixturesPASS, geometry_writes0. No whole-parent widening/disabled protection/modelquality promotion.
+
+Real website same-task retry started event994dc5d1a68844d3ae149e22b36a8a60, actualSol6.1Medium verified, original active native thread/sourceSHA/order retained. Current outcomes pending; pre-final-save watcher83995waitingactualr14. Continue native openings/canopy/KEEP, independentreview/save/download/reopen, remaining unique outer vents and measured spiral/furniture fixes; task ongoing, no arbitrary stop.
+
+---
+
 ## ONGOING 2026-10-16 — confirmed r13 diagnosis, real r14 request ACTIVE
 
 [Actual remaining-system diagnosis](test-results/windows/2026-10-16-r13-remaining-completeness-diagnosis/README.md): real Studio all8source/7views,53tools/0failure,3062386input/13546output,1869859ms, no geometry. Full native graph after readonly equals r13 under declared contract. Actual30x11m middlevoid exists(9/9points), previous Critic continuous-slab claim corrected; no bulk beam/slab cuts. Spiral west outer edge has local low headroom/fitting conflict and200mmarrival gap, nearby other beams merely perspective overlap; tables also intrude void. Native center-ray min1230mm, separate offline extreme-edge calculation1080mm, do not conflate. Lower long-side40fullheight glazing leaves and4opaque100mmcanopies genuinely unfinished; upperhall40modules/sixdoors already present.

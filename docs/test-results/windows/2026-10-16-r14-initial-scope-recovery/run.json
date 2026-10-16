@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-r14-initial-scope-recovery",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "SAME architecture-project-4f0e4 eight originals root20606 r13 remains unchanged",
+  "base_commit": "26ff98715bb93d5fcc9cff42b29a02e7d02629be",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "revision": 13,
+    "root_pid": 20606
+  },
+  "qa": {
+    "initial_attempt": "FAIL_ROLLED_BACK host conflicting KEEP configuration",
+    "full_native_rollback_equality": "PASS separate declared numerical contract",
+    "code_safety": "33Python PASS; actual SU24Ruby fixtures PASS with geometry_writes0",
+    "policy_correction": "47exact targets unchanged; corrected nonoverlapping15KEEP paths; initial and corrected before snapshots retained",
+    "real_site_retry": "ACTIVE_NOT_YET_VERIFIED",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

@@ -1,0 +1,65 @@
+{
+  "revision_from": 13,
+  "status": "blocked_by_host_scope_conflict_no_commit",
+  "user_goal": "Complete lower long-side floor-specific doors/windows and recessed room fronts; articulate four solid buffer covers; preserve completed assemblies.",
+  "source_anchors": [
+    "SOURCE1/2 unequal concave hall roof and rectangular white perimeter stay",
+    "SOURCE3 entrance under retained headers and open grating",
+    "SOURCE4 upper/lower interior depth and doubleheight stay",
+    "SOURCE5/7/8 partial floors, enclosed room band, recessed fronts, shallow buffer roof vent/eave",
+    "SOURCE6 retained frame and distinct greenhouse skin"
+  ],
+  "dimensions_estimated_mm": {
+    "portal_width": 1600,
+    "portal_height": 2400,
+    "exterior_recess": 600,
+    "room_recess": 800,
+    "canopy_depth": 4000,
+    "canopy_z": [
+      13400,
+      13500
+    ],
+    "outer_glazed_fall": 72
+  },
+  "systems": [
+    {
+      "id": "lower_long_glazing",
+      "targets": "40 exact existing INNER_GLASS leaves, container PIDs retained;40posts preserved",
+      "scope": "Segment by real floors/headers,52actual portals; no door over real middle void; existing core/green panel bypassed",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "Transparent planar glass and nested existing leaves unsuitable for root-only SAIE solid walls/openings; ADAI disabled"
+    },
+    {
+      "id": "room_front",
+      "target": "INTERIOR/ROOM_FRONT_COMPLETION",
+      "scope": "20recessed fronts join18existing dividers atY12000; recessed doors atY12800; approach floor faces classified",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "SAIE solid-wall geometry suitable in principle but available wrapper is root-only and cannot create exact nested approved new leaf without forbidden reparenting"
+    },
+    {
+      "id": "canopies",
+      "targets": "4 exact CANOPY leaves",
+      "scope": "Original outline/100depth retained; edge beams/rafters/purlins, translucent main cover, shallow outer glazed slope and selected vent louvers; separate cap/drip/flashing; no slab backing",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "Thin composite frames/panes/sloping vent profiles cannot use SAIE straight-wall/opening helper"
+    },
+    {
+      "id": "hall_joints",
+      "target": "ENVELOPE_OUTER/HALL_WINDOW_JOINTS",
+      "scope": "Supplementary joint covers/head flashings above existing door heads only; existing hall/window geometry immutable",
+      "method_id": "kstudio.custom_owned_ruby",
+      "reason": "Nested slim profiles, not solid walls"
+    }
+  ],
+  "stages": [
+    "Native floor/header/target checks",
+    "Representative reusable window frame and pane",
+    "Replication and occupied-floor/green-panel/core variants",
+    "Recess returns and actual no-backing apertures",
+    "Canopy frame, pane fall/vent/stay/edge details; exact bounds and portal checks",
+    "Fresh six canonical plus all source/detail cameras; independent critic"
+  ],
+  "preservation": "Current mandatory_preserve_paths replaces obsolete parent ENVELOPE_OUTER/INTERIOR KEEP entries that contain authorized edit leaves. 73specific KEEP paths inspected; native exact-path guard protects all other geometry.",
+  "uncertainty": "No source measured dimensions. Recesses/door counts/canopy opaque-transparent zones/hardware inferred under source constraints; not all schematic source openings are exactly countable.",
+  "blocker_report": "qa/long_facade_finish_attempt.json"
+}
