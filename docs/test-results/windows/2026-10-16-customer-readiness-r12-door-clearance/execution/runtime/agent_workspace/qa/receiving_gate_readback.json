@@ -1,0 +1,712 @@
+[
+  {
+    "name": "LONG_RAIL_SOUTH_Z3600",
+    "revision": 6,
+    "parent_pid": 28139,
+    "next_offset": null,
+    "protected_count": 37,
+    "changed_protected": [],
+    "targets": [
+      {
+        "name": "LONG_RAIL_SOUTH_Z3600_POST_0",
+        "persistent_id": 28141,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -4052.5,
+            -4017.5,
+            3600
+          ],
+          "max": [
+            -4017.5,
+            -3982.5,
+            4700
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z3600_POST_1",
+        "persistent_id": 28173,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4017.5,
+            3600
+          ],
+          "max": [
+            35,
+            -3982.5,
+            4700
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z3600_POST_2",
+        "persistent_id": 28205,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -3982.5,
+            3600
+          ],
+          "max": [
+            35,
+            -3947.5,
+            4700
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z3600_RAIL_120",
+        "persistent_id": 29421,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4015,
+            3705
+          ],
+          "max": [
+            54000,
+            -3985,
+            3735
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z3600_RAIL_550",
+        "persistent_id": 29453,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4015,
+            4135
+          ],
+          "max": [
+            54000,
+            -3985,
+            4165
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z3600_RAIL_1100",
+        "persistent_id": 29485,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4015,
+            4685
+          ],
+          "max": [
+            54000,
+            -3985,
+            4715
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "LONG_RAIL_NORTH_Z3600",
+    "revision": 6,
+    "parent_pid": 29517,
+    "next_offset": null,
+    "protected_count": 37,
+    "changed_protected": [],
+    "targets": [
+      {
+        "name": "LONG_RAIL_NORTH_Z3600_POST_0",
+        "persistent_id": 29519,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -4052.5,
+            23982.5,
+            3600
+          ],
+          "max": [
+            -4017.5,
+            24017.5,
+            4700
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z3600_POST_1",
+        "persistent_id": 29551,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23982.5,
+            3600
+          ],
+          "max": [
+            35,
+            24017.5,
+            4700
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z3600_POST_2",
+        "persistent_id": 29583,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            24017.5,
+            3600
+          ],
+          "max": [
+            35,
+            24052.5,
+            4700
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z3600_RAIL_120",
+        "persistent_id": 30799,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            3705
+          ],
+          "max": [
+            54000,
+            24015,
+            3735
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z3600_RAIL_550",
+        "persistent_id": 30831,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            4135
+          ],
+          "max": [
+            54000,
+            24015,
+            4165
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z3600_RAIL_1100",
+        "persistent_id": 30863,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            4685
+          ],
+          "max": [
+            54000,
+            24015,
+            4715
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "LONG_RAIL_SOUTH_Z7200",
+    "revision": 6,
+    "parent_pid": 31023,
+    "next_offset": null,
+    "protected_count": 37,
+    "changed_protected": [],
+    "targets": [
+      {
+        "name": "LONG_RAIL_SOUTH_Z7200_POST_0",
+        "persistent_id": 31025,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -4052.5,
+            -4017.5,
+            7200
+          ],
+          "max": [
+            -4017.5,
+            -3982.5,
+            8300
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z7200_POST_1",
+        "persistent_id": 31057,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4017.5,
+            7200
+          ],
+          "max": [
+            35,
+            -3982.5,
+            8300
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z7200_POST_2",
+        "persistent_id": 31089,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -3982.5,
+            7200
+          ],
+          "max": [
+            35,
+            -3947.5,
+            8300
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z7200_RAIL_120",
+        "persistent_id": 32305,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4015,
+            7305
+          ],
+          "max": [
+            54000,
+            -3985,
+            7335
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z7200_RAIL_550",
+        "persistent_id": 32337,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4015,
+            7735
+          ],
+          "max": [
+            54000,
+            -3985,
+            7765
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_SOUTH_Z7200_RAIL_1100",
+        "persistent_id": 32369,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            -4015,
+            8285
+          ],
+          "max": [
+            54000,
+            -3985,
+            8315
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "LONG_RAIL_NORTH_Z7200",
+    "revision": 6,
+    "parent_pid": 32401,
+    "next_offset": null,
+    "protected_count": 37,
+    "changed_protected": [],
+    "targets": [
+      {
+        "name": "LONG_RAIL_NORTH_Z7200_POST_0",
+        "persistent_id": 32403,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -4052.5,
+            23982.5,
+            7200
+          ],
+          "max": [
+            -4017.5,
+            24017.5,
+            8300
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z7200_POST_1",
+        "persistent_id": 32435,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23982.5,
+            7200
+          ],
+          "max": [
+            35,
+            24017.5,
+            8300
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z7200_POST_2",
+        "persistent_id": 32467,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            24017.5,
+            7200
+          ],
+          "max": [
+            35,
+            24052.5,
+            8300
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z7200_RAIL_120",
+        "persistent_id": 33683,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            7305
+          ],
+          "max": [
+            54000,
+            24015,
+            7335
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z7200_RAIL_550",
+        "persistent_id": 33715,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            7735
+          ],
+          "max": [
+            54000,
+            24015,
+            7765
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z7200_RAIL_1100",
+        "persistent_id": 33747,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            8285
+          ],
+          "max": [
+            54000,
+            24015,
+            8315
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "LONG_RAIL_NORTH_Z10800",
+    "revision": 6,
+    "parent_pid": 35285,
+    "next_offset": null,
+    "protected_count": 37,
+    "changed_protected": [],
+    "targets": [
+      {
+        "name": "LONG_RAIL_NORTH_Z10800_POST_0",
+        "persistent_id": 35287,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -4052.5,
+            23982.5,
+            10800
+          ],
+          "max": [
+            -4017.5,
+            24017.5,
+            11900
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z10800_POST_1",
+        "persistent_id": 35319,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23982.5,
+            10800
+          ],
+          "max": [
+            35,
+            24017.5,
+            11900
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z10800_POST_2",
+        "persistent_id": 35351,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            24017.5,
+            10800
+          ],
+          "max": [
+            35,
+            24052.5,
+            11900
+          ],
+          "size": [
+            35,
+            35,
+            1100
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z10800_RAIL_120",
+        "persistent_id": 36567,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            10905
+          ],
+          "max": [
+            54000,
+            24015,
+            10935
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z10800_RAIL_550",
+        "persistent_id": 36599,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            11335
+          ],
+          "max": [
+            54000,
+            24015,
+            11365
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "name": "LONG_RAIL_NORTH_Z10800_RAIL_1100",
+        "persistent_id": 36631,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0,
+            23985,
+            11885
+          ],
+          "max": [
+            54000,
+            24015,
+            11915
+          ],
+          "size": [
+            54000,
+            30,
+            30
+          ]
+        }
+      }
+    ]
+  }
+]

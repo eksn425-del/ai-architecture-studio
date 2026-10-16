@@ -1,0 +1,216 @@
+{
+  "revision": 12,
+  "root_pid": 20606,
+  "geometry_writes": 0,
+  "door_leaves": [
+    {
+      "pid": 169319,
+      "path": [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION",
+        "LEVEL_7200_BAY_6",
+        "DOOR_LEFT_OPEN_90"
+      ],
+      "min_mm": [
+        -72,
+        14100.000000000002,
+        7200
+      ],
+      "max_mm": [
+        -48,
+        15200,
+        9600
+      ]
+    },
+    {
+      "pid": 169458,
+      "path": [
+        "ENVELOPE_OUTER",
+        "LOWER_END_WEST_ADDITION",
+        "LEVEL_7200_BAY_6",
+        "DOOR_RIGHT_OPEN_90"
+      ],
+      "min_mm": [
+        -72,
+        17400,
+        7200
+      ],
+      "max_mm": [
+        -48,
+        18500,
+        9600
+      ]
+    }
+  ],
+  "slot_guard": {
+    "pid": 88929,
+    "path": [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2",
+      "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+    ],
+    "min_mm": [
+      -1667.5000000000002,
+      -17.5,
+      7200
+    ],
+    "max_mm": [
+      -1632.5000000000002,
+      20017.5,
+      8314.999999999998
+    ]
+  },
+  "return_deck": {
+    "pid": 88897,
+    "path": [
+      "CIRCULATION_EXTERNAL",
+      "GALLERIES",
+      "GALLERY_Z7200_SIDE2",
+      "GALLERY_Z7200_SIDE2_RETURN_STRIP"
+    ],
+    "min_mm": [
+      -1650.0000000000002,
+      0,
+      7050.000000000001
+    ],
+    "max_mm": [
+      0,
+      20000,
+      7200.000000000001
+    ]
+  },
+  "narrowest_guard_to_leaf_width_mm": 1560.5000000000002,
+  "ray_controls": [
+    {
+      "x_mm": -1250,
+      "z_mm": 7600,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -1250,
+      "z_mm": 8300,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -1250,
+      "z_mm": 9100,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -850,
+      "z_mm": 7600,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -850,
+      "z_mm": 8300,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -850,
+      "z_mm": 9100,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -450,
+      "z_mm": 7600,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -450,
+      "z_mm": 8300,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "clear": true
+    },
+    {
+      "x_mm": -450,
+      "z_mm": 9100,
+      "start_y_mm": 14500,
+      "test_length_mm": 3500,
+      "first_hit_distance_mm": 9500,
+      "first_hit_names": [
+        "Architecture architecture-project-4f0e4",
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_1",
+        "GLASS"
+      ],
+      "clear": true
+    }
+  ],
+  "clear_count": 9,
+  "blocked_count": 0,
+  "status": "PASS_SAMPLED_RETURN_CLEARANCE",
+  "limitation": "Nine actual selected side-approach rays and native widths, not full-building route certification."
+}

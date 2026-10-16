@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 544547,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "tool_call_count": 63,
+  "failed_tool_calls": 1,
+  "input_tokens": 5367338,
+  "output_tokens": 6622,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 265000,
+    "input_tokens": 69794,
+    "output_tokens": 657,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "outer_tokens": null,
+  "native_bridge_total_calls": null,
+  "native_bridge_call_limitation": "Website counter reports exposed coding/SketchUp tool actions; total internal host SDK reads not separately instrumented.",
+  "paid_api_calls": 0,
+  "token_source": "Actual website App Server turn delta; independent Critic separate. Cumulative Builder history retained, local caps0; fresh native thread due changed instruction/tool registration, same case/root/model/effort/referenceSHA, not CLI comparison or new building."
+}

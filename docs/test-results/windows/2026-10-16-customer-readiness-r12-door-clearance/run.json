@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-customer-readiness-r12-door-clearance",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "SAME architecture-project-4f0e4 eight originals r11->r12/root20606",
+  "base_commit": "59fa229b5ae8873d05d42aafadfbc61c7af7ec41",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio codex-app-server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 11,
+    "after_revision": 12
+  },
+  "qa": {
+    "target_clearance": "PASS selected approach,1560.5mm incl guard thickness;9/9raycontrols",
+    "scope": "PASS exact2existing door leaves; all rest completegraph protected",
+    "camera_evidence": "18actual non-null camera matches including real r11/r12door closeup",
+    "whole_source": "FAIL independent all8sources/15pairs; platform/mesh and interior uncertainties remain",
+    "native_delivery": "PASS_WITH_DECLARED_PRECISION; rawstrictFAIL retained",
+    "strict_blank_replay": "NOT_RUN",
+    "progress_fix": "ACTUAL_R12_WRITER_PASS zero missing planned nested targets",
+    "pair_capacity_fix": "ACTUAL_15_PAIRS_ACCEPTED with all8source refs, fresh independentCritic"
+  },
+  "paid_api_calls": 0
+}
