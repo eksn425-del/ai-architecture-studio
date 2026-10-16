@@ -27,7 +27,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Desktop package verification failed.' }
 if (-not (Test-Path -LiteralPath (Join-Path $source '_internal\app\adopted_sketchup_helpers.rb'))) {
     throw 'Desktop package lacks the owned-model Ruby helper. Rebuild the current package.'
 }
-foreach ($helper in @('native_deep_fingerprint.rb', 'native_definition_graph.rb', 'path_scope_guard.rb', 'edit_scope_guard.rb', 'oss_method_runtime.rb')) {
+foreach ($helper in @('native_deep_fingerprint.rb', 'native_definition_graph.rb', 'path_scope_guard.rb', 'path_scope_graph_guard.rb', 'edit_scope_guard.rb', 'oss_method_runtime.rb')) {
     if (-not (Test-Path -LiteralPath (Join-Path $source ("_internal\app\" + $helper)))) {
         throw "Desktop package lacks required native helper $helper. Rebuild the current package."
     }

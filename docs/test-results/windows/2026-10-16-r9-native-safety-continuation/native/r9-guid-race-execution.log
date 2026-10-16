@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "E:\K AI ��Ʒ��ģ��վ\runtime\test-r9-guid-race-20261016.py", line 23, in <module>
+    result=executor.inspect_owned({'script_id':'glass_curved_roof','path':['ROOF_TIMBER'],'limit':1});assert result['success'];assert len(race.errors)==1 and 'Active model GUID changed' in race.errors[0];assert sum('Retry read after' in (v or '') for v in race.calls)==1
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\project_ruby.py", line 345, in inspect_owned
+    result = self.mcp.call("sketchup_eval_project_file", {"script_path": str(script), "operation_name": "Read owned groups; no geometry edit"})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\runtime\test-r9-guid-race-20261016.py", line 18, in call
+    source='# ARCHFLOW_GENERATED_SCRIPT\nm=Sketchup.active_model\nraise "Wrong fault-copy identity" unless m.guid=='+json.dumps(i['model_guid'])+' && File.expand_path(m.path)==File.expand_path('+json.dumps(str(target),ensure_ascii=False)+')\nr=m.entities.find{|e| e.respond_to?(:persistent_id)&&e.persistent_id==20606}\nraise "Wrong owned revision" unless r && r.get_attribute("sketchup_architect","revision")==9\nr.set_attribute("kstudio_disposable_fault","guid_race",'+str(time.time_ns())+')\n{metadata_only_on_disposable_copy:true}\n';f.write_text(source,encoding='utf8');(D/'metadata-fault-source.rb').write_text(source,encoding='utf8');base.call('sketchup_eval_project_file',{'script_path':str(f),'operation_name':'Inject metadata-only GUID race on disposable copy'});ad.save_model(target,'Save metadata-only GUID fault copy',expected_root_ids=[20606]);now=ad.get_active_model_identity();assert now['model_guid']!=i['model_guid'],'Fault did not advance actual GUID'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\sketchup_mcp.py", line 203, in call
+    result = self.call_raw(tool_name, arguments)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\sketchup_mcp.py", line 183, in call_raw
+    return self._request(requests, 3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\K AI ��Ʒ��ģ��վ\app\sketchup_mcp.py", line 153, in _request
+    raise MCPCallError(message or "The SketchUp MCP tool returned an error.")
+app.sketchup_mcp.MCPCallError: {
+  "code": "GENERATED_SCRIPT_ERROR",
+  "message": "Generated SketchUp script failed.",
+  "message_zh": "Generated SketchUp script failed.",
+  "details": {
+    "class": "RangeError",
+    "message": "bignum too big to convert into `long'",
+    "backtrace": [
+      "C:/ProgramData/archflow-mcp/generated_scripts/studio-guid-race-metadata-1792122930537754300.rb:6:in `set_attribute'",
+      "C:/ProgramData/archflow-mcp/generated_scripts/studio-guid-race-metadata-1792122930537754300.rb:6:in `<main>'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `block in handle_payload'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:185:in `on_main_thread'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `handle_payload'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:116:in `handle_socket'",
+      "C:/Users/[REDACTED_USER]/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:94:in `block in poll_accept_once'"
+    ]
+  }
+}

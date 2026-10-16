@@ -17,8 +17,9 @@ def encode(value):
     return raw, hashlib.sha256(raw.encode()).hexdigest()
 
 
-def graph(*, mirrored_second=False, leaf_color=None, omitted_boundary=False, normal_x=0, linear_offset=0):
+def graph(*, mirrored_second=False, leaf_color=None, omitted_boundary=False, normal_x=0, linear_offset=0, translation_offset=0, vertex_offset=0):
     points = [[0, 0, 0], [1000, 0, 0], [1000, 1000, 0], [0, 1000, 0]]
+    points[2][0] += vertex_offset
     edges = [{'endpoints': sorted([points[i], points[(i+1) % 4]]), 'hidden': False, 'soft': False, 'smooth': False, 'tag': None} for i in range(4)]
     if omitted_boundary:
         edges.pop()
@@ -28,6 +29,7 @@ def graph(*, mirrored_second=False, leaf_color=None, omitted_boundary=False, nor
     def instance(name, ref, mirrored=False):
         transform = IDENTITY.copy()
         transform[1] = linear_offset
+        transform[12] = translation_offset
         if mirrored:
             transform[0] = -1
         return {'type': 'Group', 'name': name, 'definition_name': 'RootDefinition' if name == 'Architecture case' else 'PanelDefinition', 'definition_ref': ref, 'local_transform': transform, 'material': None, 'hidden': False, 'locked': False, 'tag': None}
@@ -70,6 +72,25 @@ def test_roundoff_diagnosis_rejects_real_changes(kwargs):
     result = diagnose_roundoff(graph(), graph(**kwargs))
     assert result['status'] == 'GEOMETRIC_OR_METADATA_DIFFERENCE'
     assert result['failures']
+
+
+def test_stable_precision_is_separate_and_binds_all_raw_evidence():
+    from app.native_stable_geometry import derive_stable_geometry, verify_stable_geometry, compare_stable_geometry
+    before, after = graph(), graph(normal_x=2e-16, linear_offset=2e-16)
+    assert compare_stable_geometry(before, after)['status'] == 'PASS'
+    assert audit_stages(before, after, after, require_deep=True)['status'] == 'FAIL'
+    receipt = derive_stable_geometry(after)
+    verify_stable_geometry(receipt, after)
+    assert receipt['normalization']['changed_fields'] > 0
+    receipt['precision']['face_normal_decimals'] = 3
+    with pytest.raises(ValueError):
+        verify_stable_geometry(receipt, after)
+
+
+@pytest.mark.parametrize('kwargs', [{'linear_offset': 1e-9}, {'mirrored_second': True}, {'leaf_color': {'name': 'changed'}}, {'translation_offset': 1e-16}, {'vertex_offset': 1e-9}])
+def test_stable_precision_rejects_real_mutations(kwargs):
+    from app.native_stable_geometry import compare_stable_geometry
+    assert compare_stable_geometry(graph(), graph(**kwargs))['status'] == 'FAIL'
 
 
 @pytest.mark.parametrize('fault', ['missing_definition', 'tampered_payload', 'wrong_counts', 'omitted_group', 'omitted_document_instance', 'false_complete', 'nonfinite', 'extra_definition'])

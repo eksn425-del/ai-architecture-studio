@@ -1,0 +1,111 @@
+{
+  "status": "PASS_ON_DISPOSABLE_COPY_ONLY",
+  "root_pid": 20606,
+  "website_revision": 9,
+  "production_geometry_commits": 0,
+  "graph_faults": [
+    {
+      "case": "one_instance_transform",
+      "detected": true,
+      "owned_counts_equal": true,
+      "rollback_document_equal": true
+    },
+    {
+      "case": "shared_definition_material",
+      "detected": true,
+      "owned_counts_equal": true,
+      "rollback_document_equal": true
+    },
+    {
+      "case": "document_loose_edge",
+      "detected": true,
+      "owned_counts_equal": true,
+      "rollback_document_equal": true
+    }
+  ],
+  "creation_positive": {
+    "committed_on_copy": true,
+    "created_pid": 104203,
+    "explicit_probe_cleanup_equal": true,
+    "receipt": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "CIRCULATION_INTERNAL",
+          "TEST_NEW_CIRCULAR_GUARD"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "CIRCULATION_INTERNAL",
+          "TEST_NEW_CIRCULAR_GUARD"
+        ]
+      ],
+      "allowed_top_level": [
+        "CIRCULATION_INTERNAL"
+      ],
+      "required_deep_keep_paths": [
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES"
+        ],
+        [
+          "ROOF_TIMBER"
+        ],
+        [
+          "FLOORS"
+        ]
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  "creation_negatives": [
+    {
+      "case": "undeclared_sibling",
+      "rejected": true,
+      "reason": "Protected geometry changed outside approved exact paths",
+      "rollback_document_equal": true
+    },
+    {
+      "case": "parent_transform",
+      "rejected": true,
+      "reason": "Protected geometry changed outside approved exact paths",
+      "rollback_document_equal": true
+    },
+    {
+      "case": "protected_shared_panel_material",
+      "rejected": true,
+      "reason": "Protected geometry changed outside approved exact paths",
+      "rollback_document_equal": true
+    },
+    {
+      "case": "document_loose_edge",
+      "rejected": true,
+      "reason": "Protected geometry changed outside approved exact paths",
+      "rollback_document_equal": true
+    },
+    {
+      "case": "missing_target",
+      "rejected": true,
+      "reason": "Missing scope path CIRCULATION_INTERNAL/TEST_NEW_CIRCULAR_GUARD",
+      "rollback_document_equal": true
+    },
+    {
+      "case": "empty_target",
+      "rejected": true,
+      "reason": "New target must be an unlocked unique nonempty group",
+      "rollback_document_equal": true
+    },
+    {
+      "case": "duplicate_target",
+      "rejected": true,
+      "reason": "Ambiguous path ancestor children",
+      "rollback_document_equal": true
+    }
+  ],
+  "document_sha_before_after": "8cfbd18c4eda021aa59c9184f3e0e3605786e24f96099075da24ffa89452fc32",
+  "limitation": "Production host dispatcher on disposable copy only. Website writer receipt/live circle geometry NOT_RUN; mandatory gallery/roof/floor graph KEEP exercised.",
+  "elapsed_ms": 40469,
+  "candidate_source_sha256": "e1d4caacdcf401aae7c3aed38cc9df07751d535f38e4fed02f569227cf8b2f7b"
+}

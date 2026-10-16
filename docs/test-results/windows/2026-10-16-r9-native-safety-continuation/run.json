@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-16-r9-native-safety-continuation",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "source_case": "SAME architecture-project-4f0e4 eight originals/r9 root20606; native diagnostic copies only",
+  "base_commit": "905448f91be6e4d670f4a48439244a73dbdffcae",
+  "model": {
+    "actual": "NO_BUILDER_INFERENCE",
+    "runtime": "SketchUp2024 native fault tests and deterministic host audit",
+    "reasoning_effort": null
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "production_revision_before": 9,
+    "production_revision_after": 9
+  },
+  "qa": {
+    "actual_guid_read_race": "PASS disposable native copy; first read failed, proof + one readonly retry succeeded",
+    "production_graph_scope_dispatcher": "PASS disposable copy positive+7negative, mandatory deepKEEP includes huge gallery",
+    "declared_precision_three_stage": "PASS_WITH_DECLARED_PRECISION; raw full-double strict FAIL retained",
+    "source_fidelity": "FAIL unchanged from r9; this safety run not a visual fix",
+    "next_circle_plan": "VALID offline, two actual existing L3 holes; not yet written",
+    "strict_blank_program_replay": "NOT_RUN",
+    "customer_delivery": "NOT_READY"
+  },
+  "paid_api_calls": 0
+}

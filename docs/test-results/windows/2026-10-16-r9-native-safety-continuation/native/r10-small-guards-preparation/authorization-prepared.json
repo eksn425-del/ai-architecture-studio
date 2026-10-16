@@ -1,0 +1,42 @@
+{
+  "status": "prepared",
+  "phase": "Add only two missing small circle mesh guards at same r9 holes",
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-4f0e4\\outputs\\model\\blank-disposable-customer-readiness-r4-20261015.skp",
+  "root_pid": 20606,
+  "scope_contract": "deep_exact_paths_graph_v1",
+  "allowed_paths": [
+    [
+      "CIRCULATION_INTERNAL",
+      "SMALL_CIRCULAR_VOID_GUARDS"
+    ]
+  ],
+  "allowed_creation_paths": [
+    [
+      "CIRCULATION_INTERNAL",
+      "SMALL_CIRCULAR_VOID_GUARDS"
+    ]
+  ],
+  "required_preserve_paths": [
+    [
+      "RAMPS"
+    ],
+    [
+      "CIRCULATION_EXTERNAL"
+    ],
+    [
+      "ROOF_TIMBER"
+    ],
+    [
+      "ENVELOPE_OUTER"
+    ],
+    [
+      "FLOORS"
+    ],
+    [
+      "INTERIOR"
+    ]
+  ],
+  "max_geometry_commits": 1,
+  "source_registration": "notes/small-circle-registration.json",
+  "source_quality_before": "FAIL; no implicit completion claim"
+}

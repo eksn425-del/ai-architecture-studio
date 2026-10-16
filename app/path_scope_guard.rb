@@ -3,6 +3,7 @@
 # ONLY exact declared subtree paths; ancestor geometry and siblings stay fixed.
 require_relative 'native_deep_fingerprint'
 require_relative 'adopted_sketchup_helpers'
+require_relative 'path_scope_graph_guard'
 module KStudioPathScopeGuard
   extend self
 
@@ -63,7 +64,7 @@ module KStudioPathScopeGuard
      children: children.sort_by { |e| c.entity_name(e) }.map { |e| branch(e, world, path + [c.entity_name(e)], paths, counter) }}
   end
 
-  def capture(root, paths)
+  def capture(root, paths, phase: :before)
     paths!(paths)
     model = root.model
     # Optional HOST-owned per-project authorization. A Builder declaration must
@@ -74,6 +75,10 @@ module KStudioPathScopeGuard
     if File.file?(policy_file)
       policy = JSON.parse(File.read(policy_file, encoding: 'UTF-8'))
       validate_authorization!(policy, paths, model.path, root.persistent_id)
+      if policy['scope_contract'] == 'deep_exact_paths_graph_v1'
+        return KStudioPathScopeGraphGuard.capture(root, paths, policy, phase: phase)
+      end
+      raise 'Unknown host path scope contract' if policy.key?('scope_contract')
       keep_paths = policy.fetch('required_preserve_paths', [])
       paths!(keep_paths) unless keep_paths.empty?
       required_keep = keep_paths.map do |path|
@@ -104,6 +109,9 @@ module KStudioPathScopeGuard
   end
 
   def compare!(before, after, paths)
+    if before[:contract] == 'deep_exact_paths_graph_v1'
+      return KStudioPathScopeGraphGuard.compare!(before, after, paths)
+    end
     paths!(paths)
     raise 'Path scope declaration changed' unless before[:paths] == paths && after[:paths] == paths
     raise 'Path scope regression: protected geometry/identity/presentation changed' unless before == after
@@ -114,6 +122,6 @@ module KStudioPathScopeGuard
   end
 
   def verify!(root, before, paths)
-    compare!(before, capture(root, paths), paths)
+    compare!(before, capture(root, paths, phase: :after), paths)
   end
 end

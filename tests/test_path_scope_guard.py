@@ -21,7 +21,7 @@ def test_exact_nested_paths_reach_precommit_host_guard(monkeypatch, tmp_path):
     assert "clear_named_owned_contents(root, path" in text
 
 
-@pytest.mark.parametrize("source", ["KStudioPathScopeGuard.capture(root, [])", "KStudioNativeDeepFingerprint.scan([])"])
+@pytest.mark.parametrize("source", ["KStudioPathScopeGuard.capture(root, [])", "KStudioNativeDeepFingerprint.scan([])", "KStudioPathScopeGraphGuard.capture(root, [], {})"])
 def test_agent_cannot_call_host_guard_or_collector(source):
     with pytest.raises(ValueError, match="blocked host"):
         validate_project_ruby_source("building", source)

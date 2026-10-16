@@ -550,6 +550,7 @@ class AgentToolSurface:
                     "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
                     "complete rebuild; local corrections must use edit. After a visual review, correction writes are host-forced to edit mode; "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs. For every targeted edit pass exact full allowed_mutation_paths: protected sibling and ancestor geometry plus document loose entities are checked deeply before commit. Keep target container PIDs stable. "
+                    "A genuinely absent leaf may be created only when the host has explicitly approved that exact creation path; its existing ancestors and all other geometry remain protected. Never widen scope to create it. "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs, "
                     "object counts and mm bounds did not change. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected clear_owned_contents.call(full_path_array) replaces only the contents of an approved target or its descendant, preserving its container PID. Shared target and ancestor definitions must first be made unique; other instances remain deeply protected. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "

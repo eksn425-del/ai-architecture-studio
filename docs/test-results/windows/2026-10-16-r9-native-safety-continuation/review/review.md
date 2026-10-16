@@ -1,0 +1,1 @@
+Production r9 unchanged. No new independent visual Critic call and no source-fidelity promotion. Existing r9 NEEDS_FIX remains. Actual native safety acceptance and separately declared numeric precision are covered here; missing small circular guards are a next real website operation.
