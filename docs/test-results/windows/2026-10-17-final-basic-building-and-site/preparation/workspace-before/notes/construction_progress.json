@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "glass_curved_roof",
+  "revision": 19,
+  "root_pid": 20606,
+  "full_readback": true,
+  "current_stage": "primary_form",
+  "systems": [
+    {
+      "system_id": "frame",
+      "target_paths": [
+        [
+          "STRUCTURE_EXISTING"
+        ]
+      ],
+      "present_paths": [
+        [
+          "STRUCTURE_EXISTING"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "floors",
+      "target_paths": [
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_SOUTH"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_EAST"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ]
+      ],
+      "present_paths": [
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_SOUTH"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_EAST"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "roof",
+      "target_paths": [
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "envelope_bounds",
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVELOPE_OUTER"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "ramps",
+      "target_paths": [
+        [
+          "RAMPS"
+        ]
+      ],
+      "present_paths": [
+        [
+          "RAMPS"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "module",
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_SOUTH_Z3600"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_SOUTH_Z3600"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "repeat",
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_0"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_0"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "stairs_partitions",
+      "target_paths": [
+        [
+          "CIRCULATION_INTERNAL"
+        ],
+        [
+          "INTERIOR"
+        ]
+      ],
+      "present_paths": [
+        [
+          "CIRCULATION_INTERNAL"
+        ],
+        [
+          "INTERIOR"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "finish",
+      "target_paths": [
+        [
+          "SITE_GROUND"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED"
+        ]
+      ],
+      "present_paths": [
+        [
+          "SITE_GROUND"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "needs_fix"
+    },
+    {
+      "system_id": "approved_enclosure_addition",
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "HALL_LONG_SOUTH_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "HALL_LONG_NORTH_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LOWER_END_WEST_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LOWER_END_EAST_ADDITION"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "HALL_LONG_SOUTH_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "HALL_LONG_NORTH_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LOWER_END_WEST_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LOWER_END_EAST_ADDITION"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}

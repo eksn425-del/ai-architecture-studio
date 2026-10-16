@@ -1,0 +1,44 @@
+{
+  "revision_before": 14,
+  "source_inspection": "All eight attached original sheets and every panel directly inspected. Sheets1/2/3 envelope and ramp;4 interior;5 section/ground plan;6 existing structural layers;7 three plans;8 sections. Source4 anchors this local edit.",
+  "preserved_relations": [
+    "Asymmetric concave timber roof above recessed hall and outer buffer",
+    "L2 actual west atrium remains open; all floor loops and frame immutable",
+    "Existing circular stair hole centered37000,6500 radius2300; existing guard gap0..45deg"
+  ],
+  "method_id": "kstudio.custom_owned_ruby",
+  "reason": "SAIE straight opaque wall/opening helpers cannot form helical supports, wire mesh, suspended curved translucent folds or assign finishes without changing geometry. ADAI disabled.",
+  "stages": [
+    "Verify stair/roof/floor identities and shapes",
+    "Representative stair support, tread, guard and roof-fit curtain segment",
+    "Repeat three stair flights and18supported tables",
+    "Three curved curtain zones with inferred tracks and hangers",
+    "New pale finishes on existing L3 surface and timber shell only; native shape audit"
+  ],
+  "geometry": {
+    "stair_outer_radius_mm": 1700,
+    "central_support_radius_mm": 370,
+    "rise_mm": 150,
+    "steps": 24,
+    "rotation_deg": 330,
+    "start_deg": 45,
+    "arrival": "0..45deg landing reaches2400radius, matching existing guard opening; no floor/beam changes",
+    "table5": "relocate y4000->1500; retain floor supports; clear circular hole by>=1000mm",
+    "curtains": "Left ellipse at8000,5000; rear zones21000,16500 and34000,15500. Open ends allow circulation; keep all holes and stairs clear; folded translucent off-white. Actual roof underside sampled from existing vertices for suspension heights."
+  },
+  "inferred": "Exact core diameter, stair sweep, landing joints, curtain positions/folds/hanger spacing are coherent estimates; source has no measured dimensions.",
+  "finish_only": [
+    "FLOORS/L3",
+    "ROOF_TIMBER/CURVED_SHELL"
+  ],
+  "scope_source": "notes/interior-completion-registration.json",
+  "landing_detail": "Top inner landing15..45deg; outer radial bridge0..15deg fromr1700to2400. This avoids covering penultimate tread below. Existing ring entrance0..45deg remains open.",
+  "verification": "Post-build native216 upward tread rays at650/1150/1600mm radii; exact original shell/floor edge IDs and face-loop vertex coordinates before/after finish must match. Preserve all14registered KEEP paths.",
+  "execution_status": {
+    "committed_revision": 15,
+    "exact_keep_verified": 14,
+    "geometry_and_headroom_assertions": "passed in committed Ruby",
+    "shared_definition": "All new rods use one reused native unit-bar definition; first box-per-wire attempt aborted before commit at unique-entity cap",
+    "remaining_local_defect": "Only3relocated table5 support frames need-2500Y alignment; original tops remain correct. Patch prepared; independent r15review pending."
+  }
+}

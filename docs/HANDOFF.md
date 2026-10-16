@@ -1,3 +1,15 @@
+## CLOSED 2026-10-17 — final r20 basic building/site case complete by owner scope
+
+Owner-requested closeout COMPLETE; END this case, no further refinement or older readiness work. [Final SKP/evidence](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [19nativebuilding](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same8wholeoriginals/project/root20606, original4immutable, real StudioSol6.1Medium ordinaryChinese, outerunchanged.20only adds new SITE_GROUND/SIMPLE_SURROUNDINGS:6paths/4greenbeds/4schematic trees. All original building/ground exact deep protectionPASS, SHA1589ada84f2d9e53cb7b11a55a41959608222977a00d19e68d0e31f02cac5174 equal;6actualsamecamera pairs,6pathsolid/4treecontact/6west-ramp+eaststairentrypointsPASS. Basic named33columns/18partitiongroups/3spirals/door-glazingassemblies present, prior selected route/joint evidence retained, counts not quality certification.
+
+Actual website save/browserdownload/SU24bound and download reopen3stage declaredprecisionPASS/rawstrictdoubleFAIL. Genuine presave20capture receipt19, four native shading settingspersist, working20restored/original4unchanged. Final friendlySKP5391194bytes/SHA062eb01595b026add4252b6b71429e0b358b2bb8a9acdca9a64d345ad1bd78cb equals actual browserdownload/native-reopened20candidate. Original model save uncertainty preserved; separate explicitly labeled native-host note records actual later save/reopen/download, no model reply forgery. Friendly download eventwait20stimeout retained though actual file andSHA show success.
+
+253tools0failed/7255759input11565output1107547ms; final independentCritic78849input736output209860ms,8originals20pairs stillNEEDS_FIX beam/void/curtain appearance. Do not turn owner acceptance into full-sourcePASS, cut beams or keep refining. CumulativeBuilderinput114744007/localcaps0/timeout0 preserved, paidAPI0. Native delivery228578ms separate. Strict two original-program blank replaysNOT_RUN and independent-provider/commercial customer readiness not certified; owner narrowed this case to basic building/environment, so leave deferred. Final runPARTIAL/fullfidelity vs owner_scopeCOMPLETE/caseCLOSED separate.
+
+Current scope authorization CLOSED, latest reconstruction card says case ended; no website Builder running, no new inference. Secrets excluded, complete genuine files/SHAmanifest uploaded, original history intact. Ownership returns for review; only a NEW owner instruction may reopen this case.
+
+---
+
 ## OWNER CLOSEOUT 2026-10-17 — no more refinement; basic surroundings then END case
 
 Latest owner says this project is sufficient: retain current building, check basic doors/windows/stairs/walls/columns, add simple surroundings, publish records and finish. Do not continue old fine-detail/ceiling/curtain/holes/beam/replay-infrastructure/customer-provider tasks. Owner scope acceptance does not become independent fidelityPASS or customer-commercial certification.

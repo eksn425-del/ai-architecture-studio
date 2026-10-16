@@ -1,0 +1,8854 @@
+{
+  "date": "2026-10-16",
+  "script_id": "glass_curved_roof",
+  "revision": 10,
+  "root_pid": 20606,
+  "mode": "read_only_exterior_audit",
+  "geometry_writes": 0,
+  "reference_scope": "All eight originals and all panels directly compared. Sources1/2 exterior/model;3 entry/underside;4 interior glazing/edge guards;5 section/ground plan;6 system explosion;7 three plans;8 climate/structure sections.",
+  "captures": [
+    {
+      "label": "坡道端正视",
+      "path": "outputs/renders/agent-view-cd5becf1a2.png",
+      "eye": [
+        -48,
+        10,
+        11
+      ],
+      "target": [
+        8,
+        10,
+        8
+      ],
+      "revision": 10
+    },
+    {
+      "label": "近侧长立面",
+      "path": "outputs/renders/agent-view-f382bed957.png",
+      "eye": [
+        25,
+        -65,
+        14
+      ],
+      "target": [
+        25,
+        8,
+        7
+      ],
+      "revision": 10
+    },
+    {
+      "label": "另一长立面",
+      "path": "outputs/renders/agent-view-6f1372871a.png",
+      "eye": [
+        25,
+        85,
+        14
+      ],
+      "target": [
+        25,
+        12,
+        7
+      ],
+      "revision": 10
+    },
+    {
+      "label": "远端正视",
+      "path": "outputs/renders/agent-view-48cd5d3a44.png",
+      "eye": [
+        96,
+        10,
+        13
+      ],
+      "target": [
+        46,
+        10,
+        8
+      ],
+      "revision": 10
+    },
+    {
+      "label": "坡道端近侧斜视",
+      "path": "outputs/renders/agent-view-8a9f4728e8.png",
+      "eye": [
+        -37,
+        -35,
+        22
+      ],
+      "target": [
+        12,
+        9,
+        8
+      ],
+      "revision": 10
+    },
+    {
+      "label": "远端近侧斜视",
+      "path": "outputs/renders/agent-view-8756e10391.png",
+      "eye": [
+        80,
+        -40,
+        24
+      ],
+      "target": [
+        37,
+        8,
+        8
+      ],
+      "revision": 10
+    },
+    {
+      "label": "远端另一侧斜视",
+      "path": "outputs/renders/agent-view-abbda8ae6b.png",
+      "eye": [
+        80,
+        60,
+        24
+      ],
+      "target": [
+        37,
+        12,
+        8
+      ],
+      "revision": 10
+    },
+    {
+      "label": "坡道端平台近景",
+      "path": "outputs/renders/agent-view-a6bf279b8a.png",
+      "eye": [
+        -12,
+        -13,
+        9
+      ],
+      "target": [
+        -2,
+        0,
+        7
+      ],
+      "revision": 10
+    },
+    {
+      "label": "远端梯围护近景",
+      "path": "outputs/renders/agent-view-c0a7e53114.png",
+      "eye": [
+        62,
+        2,
+        8
+      ],
+      "target": [
+        49,
+        7,
+        6
+      ],
+      "revision": 10
+    },
+    {
+      "label": "长侧檐下",
+      "path": "outputs/renders/agent-view-b3e59e69d9.png",
+      "eye": [
+        4,
+        -2,
+        2
+      ],
+      "target": [
+        32,
+        -2,
+        4
+      ],
+      "revision": 10
+    }
+  ],
+  "readbacks": {
+    "root": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [],
+      "persistent_id": 20606,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“0”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          16710.2
+        ],
+        "size": [
+          71000,
+          42000,
+          17210.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 27,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "STRUCTURE_EXISTING",
+          "persistent_id": 20615,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -180,
+              -180,
+              0
+            ],
+            "max": [
+              50180,
+              20180,
+              10800
+            ],
+            "size": [
+              50360,
+              20360,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "CIRCULATION_EXTERNAL",
+          "persistent_id": 28007,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8517.5,
+              -6217.5,
+              -160
+            ],
+            "max": [
+              54017.5,
+              26217.5,
+              11915
+            ],
+            "size": [
+              62535,
+              32435,
+              12075
+            ]
+          }
+        },
+        {
+          "name": "ENVELOPE_OUTER",
+          "persistent_id": 41319,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4030,
+              0
+            ],
+            "max": [
+              54030,
+              24030,
+              16503.6
+            ],
+            "size": [
+              58060,
+              28060,
+              16503.6
+            ]
+          }
+        },
+        {
+          "name": "CIRCULATION_INTERNAL",
+          "persistent_id": 45400,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10863,
+              1000,
+              0
+            ],
+            "max": [
+              52700,
+              11637,
+              11916.9
+            ],
+            "size": [
+              41837,
+              10637,
+              11916.9
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B1",
+          "persistent_id": 75036,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4940,
+              12000,
+              3600
+            ],
+            "max": [
+              5060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B2",
+          "persistent_id": 75068,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9940,
+              12000,
+              3600
+            ],
+            "max": [
+              10060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B3",
+          "persistent_id": 75100,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              14940,
+              12000,
+              3600
+            ],
+            "max": [
+              15060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B4",
+          "persistent_id": 75132,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19940,
+              12000,
+              3600
+            ],
+            "max": [
+              20060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B5",
+          "persistent_id": 75164,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24940,
+              12000,
+              3600
+            ],
+            "max": [
+              25060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B6",
+          "persistent_id": 75196,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              29940,
+              12000,
+              3600
+            ],
+            "max": [
+              30060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B7",
+          "persistent_id": 75228,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34940,
+              12000,
+              3600
+            ],
+            "max": [
+              35060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B8",
+          "persistent_id": 75260,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39940,
+              12000,
+              3600
+            ],
+            "max": [
+              40060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z3600_B9",
+          "persistent_id": 75292,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              44940,
+              12000,
+              3600
+            ],
+            "max": [
+              45060,
+              20000,
+              6700
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B1",
+          "persistent_id": 75324,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4940,
+              12000,
+              7200
+            ],
+            "max": [
+              5060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B2",
+          "persistent_id": 75356,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9940,
+              12000,
+              7200
+            ],
+            "max": [
+              10060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B3",
+          "persistent_id": 75388,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              14940,
+              12000,
+              7200
+            ],
+            "max": [
+              15060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B4",
+          "persistent_id": 75420,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19940,
+              12000,
+              7200
+            ],
+            "max": [
+              20060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B5",
+          "persistent_id": 75452,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24940,
+              12000,
+              7200
+            ],
+            "max": [
+              25060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B6",
+          "persistent_id": 75484,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              29940,
+              12000,
+              7200
+            ],
+            "max": [
+              30060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B7",
+          "persistent_id": 75516,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34940,
+              12000,
+              7200
+            ],
+            "max": [
+              35060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B8",
+          "persistent_id": 75548,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39940,
+              12000,
+              7200
+            ],
+            "max": [
+              40060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "PARTITION_Z7200_B9",
+          "persistent_id": 75580,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              44940,
+              12000,
+              7200
+            ],
+            "max": [
+              45060,
+              20000,
+              10300
+            ],
+            "size": [
+              120,
+              8000,
+              3100
+            ]
+          }
+        },
+        {
+          "name": "SITE_GROUND",
+          "persistent_id": 76256,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -12000,
+              -9000,
+              -500
+            ],
+            "max": [
+              59000,
+              33000,
+              -280
+            ],
+            "size": [
+              71000,
+              42000,
+              220
+            ]
+          }
+        },
+        {
+          "name": "FLOORS",
+          "persistent_id": 76290,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              -250
+            ],
+            "max": [
+              50000,
+              20000,
+              10800
+            ],
+            "size": [
+              50000,
+              20000,
+              11050
+            ]
+          }
+        },
+        {
+          "name": "ROOF_TIMBER",
+          "persistent_id": 77872,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -55,
+              -90,
+              10800
+            ],
+            "max": [
+              50055,
+              20090,
+              16710.2
+            ],
+            "size": [
+              50110,
+              20180,
+              5910.2
+            ]
+          }
+        },
+        {
+          "name": "RAMPS",
+          "persistent_id": 78998,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -4000,
+              -160
+            ],
+            "max": [
+              -1700,
+              24000,
+              10800
+            ],
+            "size": [
+              6800,
+              28000,
+              10960
+            ]
+          }
+        },
+        {
+          "name": "INTERIOR",
+          "persistent_id": 79083,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5000,
+              4000,
+              0
+            ],
+            "max": [
+              50000,
+              20000,
+              11585
+            ],
+            "size": [
+              45000,
+              16000,
+              11585
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "envelope": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "ENVELOPE_OUTER"
+      ],
+      "persistent_id": 41319,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“631”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -4030,
+          -4030,
+          0
+        ],
+        "max": [
+          54030,
+          24030,
+          16503.6
+        ],
+        "size": [
+          58060,
+          28060,
+          16503.6
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 95,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "SOUTH_BAY_00",
+          "persistent_id": 41557,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4030,
+              7175
+            ],
+            "max": [
+              -1100,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_1",
+          "persistent_id": 41558,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1130,
+              -4030,
+              7175
+            ],
+            "max": [
+              1800,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_2",
+          "persistent_id": 41559,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1770,
+              -4030,
+              7175
+            ],
+            "max": [
+              4700,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_3",
+          "persistent_id": 41560,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4670,
+              -4030,
+              7175
+            ],
+            "max": [
+              7600,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_4",
+          "persistent_id": 41561,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7570,
+              -4030,
+              7175
+            ],
+            "max": [
+              10500,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_5",
+          "persistent_id": 41562,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10470,
+              -4030,
+              7175
+            ],
+            "max": [
+              13400,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_6",
+          "persistent_id": 41563,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              13370,
+              -4030,
+              7175
+            ],
+            "max": [
+              16300,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_7",
+          "persistent_id": 41564,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              16270,
+              -4030,
+              7175
+            ],
+            "max": [
+              19200,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_8",
+          "persistent_id": 41565,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19170,
+              -4030,
+              7175
+            ],
+            "max": [
+              22100,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_9",
+          "persistent_id": 41566,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22070,
+              -4030,
+              7175
+            ],
+            "max": [
+              25000,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_10",
+          "persistent_id": 41567,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24970,
+              -4030,
+              7175
+            ],
+            "max": [
+              27900,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_11",
+          "persistent_id": 41568,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27870,
+              -4030,
+              7175
+            ],
+            "max": [
+              30800,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_12",
+          "persistent_id": 41569,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30770,
+              -4030,
+              7175
+            ],
+            "max": [
+              33700,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_13",
+          "persistent_id": 41570,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              33670,
+              -4030,
+              7175
+            ],
+            "max": [
+              36600,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_14",
+          "persistent_id": 41571,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              36570,
+              -4030,
+              7175
+            ],
+            "max": [
+              39500,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_15",
+          "persistent_id": 41572,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39470,
+              -4030,
+              7175
+            ],
+            "max": [
+              42400,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_16",
+          "persistent_id": 41573,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42370,
+              -4030,
+              7175
+            ],
+            "max": [
+              45300,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_17",
+          "persistent_id": 41574,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              45270,
+              -4030,
+              7175
+            ],
+            "max": [
+              48200,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_18",
+          "persistent_id": 41575,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              48170,
+              -4030,
+              7175
+            ],
+            "max": [
+              51100,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SOUTH_BAY_19",
+          "persistent_id": 41576,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              51070,
+              -4030,
+              7175
+            ],
+            "max": [
+              54000,
+              -3970,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_0",
+          "persistent_id": 41577,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              23970,
+              7175
+            ],
+            "max": [
+              -1100,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_1",
+          "persistent_id": 41578,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -1130,
+              23970,
+              7175
+            ],
+            "max": [
+              1800,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_2",
+          "persistent_id": 41579,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              1770,
+              23970,
+              7175
+            ],
+            "max": [
+              4700,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_3",
+          "persistent_id": 41580,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4670,
+              23970,
+              7175
+            ],
+            "max": [
+              7600,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_4",
+          "persistent_id": 41581,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7570,
+              23970,
+              7175
+            ],
+            "max": [
+              10500,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_5",
+          "persistent_id": 41582,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10470,
+              23970,
+              7175
+            ],
+            "max": [
+              13400,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_6",
+          "persistent_id": 41583,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              13370,
+              23970,
+              7175
+            ],
+            "max": [
+              16300,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_7",
+          "persistent_id": 41584,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              16270,
+              23970,
+              7175
+            ],
+            "max": [
+              19200,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_8",
+          "persistent_id": 41585,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19170,
+              23970,
+              7175
+            ],
+            "max": [
+              22100,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_9",
+          "persistent_id": 41586,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22070,
+              23970,
+              7175
+            ],
+            "max": [
+              25000,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_10",
+          "persistent_id": 41587,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24970,
+              23970,
+              7175
+            ],
+            "max": [
+              27900,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_11",
+          "persistent_id": 41588,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27870,
+              23970,
+              7175
+            ],
+            "max": [
+              30800,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_12",
+          "persistent_id": 41589,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30770,
+              23970,
+              7175
+            ],
+            "max": [
+              33700,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_13",
+          "persistent_id": 41590,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              33670,
+              23970,
+              7175
+            ],
+            "max": [
+              36600,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_14",
+          "persistent_id": 41591,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              36570,
+              23970,
+              7175
+            ],
+            "max": [
+              39500,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_15",
+          "persistent_id": 41592,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39470,
+              23970,
+              7175
+            ],
+            "max": [
+              42400,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_16",
+          "persistent_id": 41593,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42370,
+              23970,
+              7175
+            ],
+            "max": [
+              45300,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_17",
+          "persistent_id": 41594,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              45270,
+              23970,
+              7175
+            ],
+            "max": [
+              48200,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_18",
+          "persistent_id": 41595,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              48170,
+              23970,
+              7175
+            ],
+            "max": [
+              51100,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "NORTH_BAY_19",
+          "persistent_id": 41596,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              51070,
+              23970,
+              7175
+            ],
+            "max": [
+              54000,
+              24030,
+              13525
+            ],
+            "size": [
+              2930,
+              60,
+              6350
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_0",
+          "persistent_id": 41598,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              -4000,
+              7200
+            ],
+            "max": [
+              -4000,
+              -1200,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_0",
+          "persistent_id": 41609,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4030,
+              7200
+            ],
+            "max": [
+              -3970,
+              -3970,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_1",
+          "persistent_id": 41641,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              -1200,
+              7200
+            ],
+            "max": [
+              -4000,
+              1600,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_1",
+          "persistent_id": 41652,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -1230,
+              7200
+            ],
+            "max": [
+              -3970,
+              -1170,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_2",
+          "persistent_id": 41684,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              1600,
+              7200
+            ],
+            "max": [
+              -4000,
+              4400,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_2",
+          "persistent_id": 41695,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              1570,
+              7200
+            ],
+            "max": [
+              -3970,
+              1630,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_3",
+          "persistent_id": 41727,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              4400,
+              7200
+            ],
+            "max": [
+              -4000,
+              7200,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_3",
+          "persistent_id": 41738,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              4370,
+              7200
+            ],
+            "max": [
+              -3970,
+              4430,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_4",
+          "persistent_id": 41770,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              7200,
+              7200
+            ],
+            "max": [
+              -4000,
+              10000,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_4",
+          "persistent_id": 41781,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              7170,
+              7200
+            ],
+            "max": [
+              -3970,
+              7230,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_5",
+          "persistent_id": 41813,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              10000,
+              7200
+            ],
+            "max": [
+              -4000,
+              12800,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_5",
+          "persistent_id": 41824,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              9970,
+              7200
+            ],
+            "max": [
+              -3970,
+              10030,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_6",
+          "persistent_id": 41856,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              12800,
+              7200
+            ],
+            "max": [
+              -4000,
+              15600,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_6",
+          "persistent_id": 41867,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              12770,
+              7200
+            ],
+            "max": [
+              -3970,
+              12830,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_7",
+          "persistent_id": 41899,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              15600,
+              7200
+            ],
+            "max": [
+              -4000,
+              18400,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_7",
+          "persistent_id": 41910,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              15570,
+              7200
+            ],
+            "max": [
+              -3970,
+              15630,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_8",
+          "persistent_id": 41942,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              18400,
+              7200
+            ],
+            "max": [
+              -4000,
+              21200,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_8",
+          "persistent_id": 41953,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              18370,
+              7200
+            ],
+            "max": [
+              -3970,
+              18430,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_0_9",
+          "persistent_id": 41985,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              21200,
+              7200
+            ],
+            "max": [
+              -4000,
+              24000,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_0_9",
+          "persistent_id": 41996,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              21170,
+              7200
+            ],
+            "max": [
+              -3970,
+              21230,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_0_7200",
+          "persistent_id": 42028,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4000,
+              7170
+            ],
+            "max": [
+              -3970,
+              24000,
+              7230
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_0_8250",
+          "persistent_id": 42060,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4000,
+              8220
+            ],
+            "max": [
+              -3970,
+              24000,
+              8280
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_0_9300",
+          "persistent_id": 42092,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4000,
+              9270
+            ],
+            "max": [
+              -3970,
+              24000,
+              9330
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_0_10800",
+          "persistent_id": 42124,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4000,
+              10770
+            ],
+            "max": [
+              -3970,
+              24000,
+              10830
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_0_12000",
+          "persistent_id": 42156,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4000,
+              11970
+            ],
+            "max": [
+              -3970,
+              24000,
+              12030
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_0_13500",
+          "persistent_id": 42188,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4030,
+              -4000,
+              13470
+            ],
+            "max": [
+              -3970,
+              24000,
+              13530
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_0",
+          "persistent_id": 42220,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              -4000,
+              7200
+            ],
+            "max": [
+              54000,
+              -1200,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_0",
+          "persistent_id": 42231,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4030,
+              7200
+            ],
+            "max": [
+              54030,
+              -3970,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_1",
+          "persistent_id": 42263,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              -1200,
+              7200
+            ],
+            "max": [
+              54000,
+              1600,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_1",
+          "persistent_id": 42274,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -1230,
+              7200
+            ],
+            "max": [
+              54030,
+              -1170,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_2",
+          "persistent_id": 42306,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              1600,
+              7200
+            ],
+            "max": [
+              54000,
+              4400,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_2",
+          "persistent_id": 42317,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              1570,
+              7200
+            ],
+            "max": [
+              54030,
+              1630,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_3",
+          "persistent_id": 42349,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              4400,
+              7200
+            ],
+            "max": [
+              54000,
+              7200,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_3",
+          "persistent_id": 42360,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              4370,
+              7200
+            ],
+            "max": [
+              54030,
+              4430,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_4",
+          "persistent_id": 42392,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              7200,
+              7200
+            ],
+            "max": [
+              54000,
+              10000,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_4",
+          "persistent_id": 42403,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              7170,
+              7200
+            ],
+            "max": [
+              54030,
+              7230,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_5",
+          "persistent_id": 42435,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              10000,
+              7200
+            ],
+            "max": [
+              54000,
+              12800,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_5",
+          "persistent_id": 42446,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              9970,
+              7200
+            ],
+            "max": [
+              54030,
+              10030,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_6",
+          "persistent_id": 42478,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              12800,
+              7200
+            ],
+            "max": [
+              54000,
+              15600,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_6",
+          "persistent_id": 42489,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              12770,
+              7200
+            ],
+            "max": [
+              54030,
+              12830,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_7",
+          "persistent_id": 42521,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              15600,
+              7200
+            ],
+            "max": [
+              54000,
+              18400,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_7",
+          "persistent_id": 42532,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              15570,
+              7200
+            ],
+            "max": [
+              54030,
+              15630,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_8",
+          "persistent_id": 42564,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              18400,
+              7200
+            ],
+            "max": [
+              54000,
+              21200,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_8",
+          "persistent_id": 42575,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              18370,
+              7200
+            ],
+            "max": [
+              54030,
+              18430,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_GLASS_1_9",
+          "persistent_id": 42607,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              54000,
+              21200,
+              7200
+            ],
+            "max": [
+              54000,
+              24000,
+              13500
+            ],
+            "size": [
+              0,
+              2800,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_MULLION_1_9",
+          "persistent_id": 42618,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              21170,
+              7200
+            ],
+            "max": [
+              54030,
+              21230,
+              13500
+            ],
+            "size": [
+              60,
+              60,
+              6300
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_1_7200",
+          "persistent_id": 42650,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4000,
+              7170
+            ],
+            "max": [
+              54030,
+              24000,
+              7230
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_1_8250",
+          "persistent_id": 42682,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4000,
+              8220
+            ],
+            "max": [
+              54030,
+              24000,
+              8280
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_1_9300",
+          "persistent_id": 42714,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4000,
+              9270
+            ],
+            "max": [
+              54030,
+              24000,
+              9330
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_1_10800",
+          "persistent_id": 42746,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4000,
+              10770
+            ],
+            "max": [
+              54030,
+              24000,
+              10830
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_1_12000",
+          "persistent_id": 42778,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4000,
+              11970
+            ],
+            "max": [
+              54030,
+              24000,
+              12030
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "SHORT_TRANSOM_1_13500",
+          "persistent_id": 42810,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              53970,
+              -4000,
+              13470
+            ],
+            "max": [
+              54030,
+              24000,
+              13530
+            ],
+            "size": [
+              60,
+              28000,
+              60
+            ]
+          }
+        },
+        {
+          "name": "BUFFER_CANOPIES",
+          "persistent_id": 42842,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -4000,
+              -4000,
+              13400
+            ],
+            "max": [
+              54000,
+              24000,
+              13500
+            ],
+            "size": [
+              58000,
+              28000,
+              100
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLAZING",
+          "persistent_id": 42972,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30,
+              -30,
+              0
+            ],
+            "max": [
+              50000,
+              20030,
+              10800
+            ],
+            "size": [
+              50030,
+              20060,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "TENSION_BRACING",
+          "persistent_id": 44694,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -12,
+              -4011.5,
+              3596.2
+            ],
+            "max": [
+              50012,
+              24011.4,
+              16503.6
+            ],
+            "size": [
+              50024,
+              28022.8,
+              12907.4
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "inner_glazing": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "ENVELOPE_OUTER",
+        "INNER_GLAZING"
+      ],
+      "persistent_id": 42972,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“698”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -30,
+          -30,
+          0
+        ],
+        "max": [
+          50000,
+          20030,
+          10800
+        ],
+        "size": [
+          50030,
+          20060,
+          10800
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 80,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "INNER_GLASS_0_0",
+          "persistent_id": 42974,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              2500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_0",
+          "persistent_id": 42985,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30,
+              -30,
+              0
+            ],
+            "max": [
+              30,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_1",
+          "persistent_id": 43017,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500,
+              0,
+              0
+            ],
+            "max": [
+              5000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_1",
+          "persistent_id": 43028,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2470,
+              -30,
+              0
+            ],
+            "max": [
+              2530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_2",
+          "persistent_id": 43060,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5000,
+              0,
+              0
+            ],
+            "max": [
+              7500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_2",
+          "persistent_id": 43071,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4970,
+              -30,
+              0
+            ],
+            "max": [
+              5030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_3",
+          "persistent_id": 43103,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7500,
+              0,
+              0
+            ],
+            "max": [
+              10000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_3",
+          "persistent_id": 43114,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7470,
+              -30,
+              0
+            ],
+            "max": [
+              7530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_4",
+          "persistent_id": 43146,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              0,
+              0
+            ],
+            "max": [
+              12500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_4",
+          "persistent_id": 43157,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9970,
+              -30,
+              0
+            ],
+            "max": [
+              10030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_5",
+          "persistent_id": 43189,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12500,
+              0,
+              0
+            ],
+            "max": [
+              15000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_5",
+          "persistent_id": 43200,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12470,
+              -30,
+              0
+            ],
+            "max": [
+              12530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_6",
+          "persistent_id": 43232,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              15000,
+              0,
+              0
+            ],
+            "max": [
+              17500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_6",
+          "persistent_id": 43243,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              14970,
+              -30,
+              0
+            ],
+            "max": [
+              15030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_7",
+          "persistent_id": 43275,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              17500,
+              0,
+              0
+            ],
+            "max": [
+              20000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_7",
+          "persistent_id": 43286,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              17470,
+              -30,
+              0
+            ],
+            "max": [
+              17530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_8",
+          "persistent_id": 43318,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              20000,
+              0,
+              0
+            ],
+            "max": [
+              22500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_8",
+          "persistent_id": 43329,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19970,
+              -30,
+              0
+            ],
+            "max": [
+              20030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_9",
+          "persistent_id": 43361,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22500,
+              0,
+              0
+            ],
+            "max": [
+              25000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_9",
+          "persistent_id": 43372,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22470,
+              -30,
+              0
+            ],
+            "max": [
+              22530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_10",
+          "persistent_id": 43404,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              25000,
+              0,
+              0
+            ],
+            "max": [
+              27500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_10",
+          "persistent_id": 43415,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24970,
+              -30,
+              0
+            ],
+            "max": [
+              25030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_11",
+          "persistent_id": 43447,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27500,
+              0,
+              0
+            ],
+            "max": [
+              30000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_11",
+          "persistent_id": 43458,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27470,
+              -30,
+              0
+            ],
+            "max": [
+              27530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_12",
+          "persistent_id": 43490,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30000,
+              0,
+              0
+            ],
+            "max": [
+              32500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_12",
+          "persistent_id": 43501,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              29970,
+              -30,
+              0
+            ],
+            "max": [
+              30030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_13",
+          "persistent_id": 43533,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              32500,
+              0,
+              0
+            ],
+            "max": [
+              35000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_13",
+          "persistent_id": 43544,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              32470,
+              -30,
+              0
+            ],
+            "max": [
+              32530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_14",
+          "persistent_id": 43576,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              35000,
+              0,
+              0
+            ],
+            "max": [
+              37500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_14",
+          "persistent_id": 43587,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34970,
+              -30,
+              0
+            ],
+            "max": [
+              35030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_15",
+          "persistent_id": 43619,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              37500,
+              0,
+              0
+            ],
+            "max": [
+              40000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_15",
+          "persistent_id": 43630,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              37470,
+              -30,
+              0
+            ],
+            "max": [
+              37530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_16",
+          "persistent_id": 43662,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              40000,
+              0,
+              0
+            ],
+            "max": [
+              42500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_16",
+          "persistent_id": 43673,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39970,
+              -30,
+              0
+            ],
+            "max": [
+              40030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_17",
+          "persistent_id": 43705,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42500,
+              0,
+              0
+            ],
+            "max": [
+              45000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_17",
+          "persistent_id": 43716,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42470,
+              -30,
+              0
+            ],
+            "max": [
+              42530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_18",
+          "persistent_id": 43748,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              45000,
+              0,
+              0
+            ],
+            "max": [
+              47500,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_18",
+          "persistent_id": 43759,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              44970,
+              -30,
+              0
+            ],
+            "max": [
+              45030,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_0_19",
+          "persistent_id": 43791,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              47500,
+              0,
+              0
+            ],
+            "max": [
+              50000,
+              0,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_0_19",
+          "persistent_id": 43802,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              47470,
+              -30,
+              0
+            ],
+            "max": [
+              47530,
+              30,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_0",
+          "persistent_id": 43834,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              20000,
+              0
+            ],
+            "max": [
+              2500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_0",
+          "persistent_id": 43845,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -30,
+              19970,
+              0
+            ],
+            "max": [
+              30,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_1",
+          "persistent_id": 43877,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2500,
+              20000,
+              0
+            ],
+            "max": [
+              5000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_1",
+          "persistent_id": 43888,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2470,
+              19970,
+              0
+            ],
+            "max": [
+              2530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_2",
+          "persistent_id": 43920,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              5000,
+              20000,
+              0
+            ],
+            "max": [
+              7500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_2",
+          "persistent_id": 43931,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4970,
+              19970,
+              0
+            ],
+            "max": [
+              5030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_3",
+          "persistent_id": 43963,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7500,
+              20000,
+              0
+            ],
+            "max": [
+              10000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_3",
+          "persistent_id": 43974,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7470,
+              19970,
+              0
+            ],
+            "max": [
+              7530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_4",
+          "persistent_id": 44006,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              10000,
+              20000,
+              0
+            ],
+            "max": [
+              12500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_4",
+          "persistent_id": 44017,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9970,
+              19970,
+              0
+            ],
+            "max": [
+              10030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_5",
+          "persistent_id": 44049,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12500,
+              20000,
+              0
+            ],
+            "max": [
+              15000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_5",
+          "persistent_id": 44060,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12470,
+              19970,
+              0
+            ],
+            "max": [
+              12530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_6",
+          "persistent_id": 44092,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              15000,
+              20000,
+              0
+            ],
+            "max": [
+              17500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_6",
+          "persistent_id": 44103,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              14970,
+              19970,
+              0
+            ],
+            "max": [
+              15030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_7",
+          "persistent_id": 44135,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              17500,
+              20000,
+              0
+            ],
+            "max": [
+              20000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_7",
+          "persistent_id": 44146,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              17470,
+              19970,
+              0
+            ],
+            "max": [
+              17530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_8",
+          "persistent_id": 44178,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              20000,
+              20000,
+              0
+            ],
+            "max": [
+              22500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_8",
+          "persistent_id": 44189,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19970,
+              19970,
+              0
+            ],
+            "max": [
+              20030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_9",
+          "persistent_id": 44221,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22500,
+              20000,
+              0
+            ],
+            "max": [
+              25000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_9",
+          "persistent_id": 44232,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22470,
+              19970,
+              0
+            ],
+            "max": [
+              22530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_10",
+          "persistent_id": 44264,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              25000,
+              20000,
+              0
+            ],
+            "max": [
+              27500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_10",
+          "persistent_id": 44275,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24970,
+              19970,
+              0
+            ],
+            "max": [
+              25030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_11",
+          "persistent_id": 44307,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27500,
+              20000,
+              0
+            ],
+            "max": [
+              30000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_11",
+          "persistent_id": 44318,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27470,
+              19970,
+              0
+            ],
+            "max": [
+              27530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_12",
+          "persistent_id": 44350,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              30000,
+              20000,
+              0
+            ],
+            "max": [
+              32500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_12",
+          "persistent_id": 44361,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              29970,
+              19970,
+              0
+            ],
+            "max": [
+              30030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_13",
+          "persistent_id": 44393,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              32500,
+              20000,
+              0
+            ],
+            "max": [
+              35000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_13",
+          "persistent_id": 44404,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              32470,
+              19970,
+              0
+            ],
+            "max": [
+              32530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_14",
+          "persistent_id": 44436,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              35000,
+              20000,
+              0
+            ],
+            "max": [
+              37500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_14",
+          "persistent_id": 44447,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34970,
+              19970,
+              0
+            ],
+            "max": [
+              35030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_15",
+          "persistent_id": 44479,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              37500,
+              20000,
+              0
+            ],
+            "max": [
+              40000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_15",
+          "persistent_id": 44490,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              37470,
+              19970,
+              0
+            ],
+            "max": [
+              37530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_16",
+          "persistent_id": 44522,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              40000,
+              20000,
+              0
+            ],
+            "max": [
+              42500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_16",
+          "persistent_id": 44533,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39970,
+              19970,
+              0
+            ],
+            "max": [
+              40030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_17",
+          "persistent_id": 44565,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42500,
+              20000,
+              0
+            ],
+            "max": [
+              45000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_17",
+          "persistent_id": 44576,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42470,
+              19970,
+              0
+            ],
+            "max": [
+              42530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_18",
+          "persistent_id": 44608,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              45000,
+              20000,
+              0
+            ],
+            "max": [
+              47500,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_18",
+          "persistent_id": 44619,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              44970,
+              19970,
+              0
+            ],
+            "max": [
+              45030,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_GLASS_1_19",
+          "persistent_id": 44651,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              47500,
+              20000,
+              0
+            ],
+            "max": [
+              50000,
+              20000,
+              10800
+            ],
+            "size": [
+              2500,
+              0,
+              10800
+            ]
+          }
+        },
+        {
+          "name": "INNER_POST_1_19",
+          "persistent_id": 44662,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              47470,
+              19970,
+              0
+            ],
+            "max": [
+              47530,
+              20030,
+              10800
+            ],
+            "size": [
+              60,
+              60,
+              10800
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "roof_supports_first": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS"
+      ],
+      "persistent_id": 78849,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“52”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -55,
+          -90,
+          10800
+        ],
+        "max": [
+          50055,
+          20090,
+          16620.2
+        ],
+        "size": [
+          50110,
+          20180,
+          5820.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 146,
+      "offset": 0,
+      "next_offset": 100,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "TIMBER_POST_0_0",
+          "persistent_id": 78851,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -55,
+              -55,
+              10800
+            ],
+            "max": [
+              55,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_0_1",
+          "persistent_id": 78852,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -55,
+              19945,
+              10800
+            ],
+            "max": [
+              55,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_1_0",
+          "persistent_id": 78853,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2445,
+              -55,
+              10800
+            ],
+            "max": [
+              2555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_1_1",
+          "persistent_id": 78854,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              2445,
+              19945,
+              10800
+            ],
+            "max": [
+              2555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_2_0",
+          "persistent_id": 78855,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4945,
+              -55,
+              10800
+            ],
+            "max": [
+              5055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_2_1",
+          "persistent_id": 78856,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              4945,
+              19945,
+              10800
+            ],
+            "max": [
+              5055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_3_0",
+          "persistent_id": 78857,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7445,
+              -55,
+              10800
+            ],
+            "max": [
+              7555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_3_1",
+          "persistent_id": 78858,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              7445,
+              19945,
+              10800
+            ],
+            "max": [
+              7555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_4_0",
+          "persistent_id": 78859,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9945,
+              -55,
+              10800
+            ],
+            "max": [
+              10055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_4_1",
+          "persistent_id": 78860,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              9945,
+              19945,
+              10800
+            ],
+            "max": [
+              10055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_5_0",
+          "persistent_id": 78861,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12445,
+              -55,
+              10800
+            ],
+            "max": [
+              12555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_5_1",
+          "persistent_id": 78862,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              12445,
+              19945,
+              10800
+            ],
+            "max": [
+              12555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_6_0",
+          "persistent_id": 78863,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              14945,
+              -55,
+              10800
+            ],
+            "max": [
+              15055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_6_1",
+          "persistent_id": 78864,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              14945,
+              19945,
+              10800
+            ],
+            "max": [
+              15055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_7_0",
+          "persistent_id": 78865,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              17445,
+              -55,
+              10800
+            ],
+            "max": [
+              17555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_7_1",
+          "persistent_id": 78866,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              17445,
+              19945,
+              10800
+            ],
+            "max": [
+              17555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_8_0",
+          "persistent_id": 78867,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19945,
+              -55,
+              10800
+            ],
+            "max": [
+              20055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_8_1",
+          "persistent_id": 78868,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              19945,
+              19945,
+              10800
+            ],
+            "max": [
+              20055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_9_0",
+          "persistent_id": 78869,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22445,
+              -55,
+              10800
+            ],
+            "max": [
+              22555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_9_1",
+          "persistent_id": 78870,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              22445,
+              19945,
+              10800
+            ],
+            "max": [
+              22555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_10_0",
+          "persistent_id": 78871,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24945,
+              -55,
+              10800
+            ],
+            "max": [
+              25055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_10_1",
+          "persistent_id": 78872,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              24945,
+              19945,
+              10800
+            ],
+            "max": [
+              25055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_11_0",
+          "persistent_id": 78873,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27445,
+              -55,
+              10800
+            ],
+            "max": [
+              27555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_11_1",
+          "persistent_id": 78874,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              27445,
+              19945,
+              10800
+            ],
+            "max": [
+              27555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_12_0",
+          "persistent_id": 78875,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              29945,
+              -55,
+              10800
+            ],
+            "max": [
+              30055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_12_1",
+          "persistent_id": 78876,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              29945,
+              19945,
+              10800
+            ],
+            "max": [
+              30055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_13_0",
+          "persistent_id": 78877,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              32445,
+              -55,
+              10800
+            ],
+            "max": [
+              32555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_13_1",
+          "persistent_id": 78878,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              32445,
+              19945,
+              10800
+            ],
+            "max": [
+              32555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_14_0",
+          "persistent_id": 78879,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34945,
+              -55,
+              10800
+            ],
+            "max": [
+              35055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_14_1",
+          "persistent_id": 78880,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              34945,
+              19945,
+              10800
+            ],
+            "max": [
+              35055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_15_0",
+          "persistent_id": 78881,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              37445,
+              -55,
+              10800
+            ],
+            "max": [
+              37555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_15_1",
+          "persistent_id": 78882,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              37445,
+              19945,
+              10800
+            ],
+            "max": [
+              37555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_16_0",
+          "persistent_id": 78883,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39945,
+              -55,
+              10800
+            ],
+            "max": [
+              40055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_16_1",
+          "persistent_id": 78884,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              39945,
+              19945,
+              10800
+            ],
+            "max": [
+              40055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_17_0",
+          "persistent_id": 78885,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42445,
+              -55,
+              10800
+            ],
+            "max": [
+              42555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_17_1",
+          "persistent_id": 78886,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              42445,
+              19945,
+              10800
+            ],
+            "max": [
+              42555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_18_0",
+          "persistent_id": 78887,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              44945,
+              -55,
+              10800
+            ],
+            "max": [
+              45055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_18_1",
+          "persistent_id": 78888,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              44945,
+              19945,
+              10800
+            ],
+            "max": [
+              45055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_19_0",
+          "persistent_id": 78889,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              47445,
+              -55,
+              10800
+            ],
+            "max": [
+              47555,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_19_1",
+          "persistent_id": 78890,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              47445,
+              19945,
+              10800
+            ],
+            "max": [
+              47555,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_20_0",
+          "persistent_id": 78891,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49945,
+              -55,
+              10800
+            ],
+            "max": [
+              50055,
+              55,
+              15527
+            ],
+            "size": [
+              110,
+              110,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "TIMBER_POST_20_1",
+          "persistent_id": 78892,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49945,
+              19945,
+              10800
+            ],
+            "max": [
+              50055,
+              20055,
+              16530.2
+            ],
+            "size": [
+              110,
+              110,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "HIGH_EDGE_0",
+          "persistent_id": 78893,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              -90,
+              15437
+            ],
+            "max": [
+              50000,
+              90,
+              15617
+            ],
+            "size": [
+              50000,
+              180,
+              180
+            ]
+          }
+        },
+        {
+          "name": "HIGH_EDGE_1",
+          "persistent_id": 78894,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              19910,
+              16440.2
+            ],
+            "max": [
+              50000,
+              20090,
+              16620.2
+            ],
+            "size": [
+              50000,
+              180,
+              180
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_0",
+          "persistent_id": 78895,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              -32.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              32.5,
+              15527
+            ],
+            "size": [
+              65,
+              65,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_1",
+          "persistent_id": 78896,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              1967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              2032.5,
+              15200
+            ],
+            "size": [
+              65,
+              65,
+              4400
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_2",
+          "persistent_id": 78897,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              3967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              4032.5,
+              14962.8
+            ],
+            "size": [
+              65,
+              65,
+              4162.8
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_3",
+          "persistent_id": 78898,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              5967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              6032.5,
+              14821.5
+            ],
+            "size": [
+              65,
+              65,
+              4021.5
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_4",
+          "persistent_id": 78899,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              7967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              8032.5,
+              14776.4
+            ],
+            "size": [
+              65,
+              65,
+              3976.4
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_5",
+          "persistent_id": 78900,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              9967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              10032.5,
+              14830.3
+            ],
+            "size": [
+              65,
+              65,
+              4030.3
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_6",
+          "persistent_id": 78901,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              11967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              12032.5,
+              14980.2
+            ],
+            "size": [
+              65,
+              65,
+              4180.2
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_7",
+          "persistent_id": 78902,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              13967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              14032.5,
+              15226.1
+            ],
+            "size": [
+              65,
+              65,
+              4426.1
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_8",
+          "persistent_id": 78903,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              15967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              16032.5,
+              15568
+            ],
+            "size": [
+              65,
+              65,
+              4768
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_9",
+          "persistent_id": 78904,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              17967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              18032.5,
+              16005.8
+            ],
+            "size": [
+              65,
+              65,
+              5205.8
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_0_10",
+          "persistent_id": 78905,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -32.5,
+              19967.5,
+              10800
+            ],
+            "max": [
+              32.5,
+              20032.5,
+              16530.2
+            ],
+            "size": [
+              65,
+              65,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_0",
+          "persistent_id": 78906,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              0,
+              10800
+            ],
+            "max": [
+              0,
+              500,
+              15527
+            ],
+            "size": [
+              0,
+              500,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_1",
+          "persistent_id": 78907,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              500,
+              10800
+            ],
+            "max": [
+              0,
+              1000,
+              15435.1
+            ],
+            "size": [
+              0,
+              500,
+              4635.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_2",
+          "persistent_id": 78908,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              1000,
+              10800
+            ],
+            "max": [
+              0,
+              1500,
+              15349.2
+            ],
+            "size": [
+              0,
+              500,
+              4549.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_3",
+          "persistent_id": 78909,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              1500,
+              10800
+            ],
+            "max": [
+              0,
+              2000,
+              15269.2
+            ],
+            "size": [
+              0,
+              500,
+              4469.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_4",
+          "persistent_id": 78910,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              2000,
+              10800
+            ],
+            "max": [
+              0,
+              2500,
+              15195.3
+            ],
+            "size": [
+              0,
+              500,
+              4395.3
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_5",
+          "persistent_id": 78911,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              2500,
+              10800
+            ],
+            "max": [
+              0,
+              3000,
+              15127.4
+            ],
+            "size": [
+              0,
+              500,
+              4327.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_6",
+          "persistent_id": 78912,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              3000,
+              10800
+            ],
+            "max": [
+              0,
+              3500,
+              15065.5
+            ],
+            "size": [
+              0,
+              500,
+              4265.5
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_7",
+          "persistent_id": 78913,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              3500,
+              10800
+            ],
+            "max": [
+              0,
+              4000,
+              15009.6
+            ],
+            "size": [
+              0,
+              500,
+              4209.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_8",
+          "persistent_id": 78914,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              4000,
+              10800
+            ],
+            "max": [
+              0,
+              4500,
+              14959.6
+            ],
+            "size": [
+              0,
+              500,
+              4159.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_9",
+          "persistent_id": 78915,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              4500,
+              10800
+            ],
+            "max": [
+              0,
+              5000,
+              14915.7
+            ],
+            "size": [
+              0,
+              500,
+              4115.7
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_10",
+          "persistent_id": 78916,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              5000,
+              10800
+            ],
+            "max": [
+              0,
+              5500,
+              14877.8
+            ],
+            "size": [
+              0,
+              500,
+              4077.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_11",
+          "persistent_id": 78917,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              5500,
+              10800
+            ],
+            "max": [
+              0,
+              6000,
+              14845.9
+            ],
+            "size": [
+              0,
+              500,
+              4045.9
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_12",
+          "persistent_id": 78918,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              6000,
+              10800
+            ],
+            "max": [
+              0,
+              6500,
+              14820
+            ],
+            "size": [
+              0,
+              500,
+              4020
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_13",
+          "persistent_id": 78919,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              6500,
+              10800
+            ],
+            "max": [
+              0,
+              7000,
+              14800
+            ],
+            "size": [
+              0,
+              500,
+              4000
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_14",
+          "persistent_id": 78920,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              7000,
+              10800
+            ],
+            "max": [
+              0,
+              7500,
+              14786.1
+            ],
+            "size": [
+              0,
+              500,
+              3986.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_15",
+          "persistent_id": 78921,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              7500,
+              10800
+            ],
+            "max": [
+              0,
+              8000,
+              14778.2
+            ],
+            "size": [
+              0,
+              500,
+              3978.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_16",
+          "persistent_id": 78922,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              8000,
+              10800
+            ],
+            "max": [
+              0,
+              8500,
+              14780.4
+            ],
+            "size": [
+              0,
+              500,
+              3980.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_17",
+          "persistent_id": 78923,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              8500,
+              10800
+            ],
+            "max": [
+              0,
+              9000,
+              14790.4
+            ],
+            "size": [
+              0,
+              500,
+              3990.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_18",
+          "persistent_id": 78924,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              9000,
+              10800
+            ],
+            "max": [
+              0,
+              9500,
+              14806.5
+            ],
+            "size": [
+              0,
+              500,
+              4006.5
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_19",
+          "persistent_id": 78925,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              9500,
+              10800
+            ],
+            "max": [
+              0,
+              10000,
+              14828.6
+            ],
+            "size": [
+              0,
+              500,
+              4028.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_20",
+          "persistent_id": 78926,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              10000,
+              10800
+            ],
+            "max": [
+              0,
+              10500,
+              14856.7
+            ],
+            "size": [
+              0,
+              500,
+              4056.7
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_21",
+          "persistent_id": 78927,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              10500,
+              10800
+            ],
+            "max": [
+              0,
+              11000,
+              14890.8
+            ],
+            "size": [
+              0,
+              500,
+              4090.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_22",
+          "persistent_id": 78928,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              11000,
+              10800
+            ],
+            "max": [
+              0,
+              11500,
+              14930.8
+            ],
+            "size": [
+              0,
+              500,
+              4130.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_23",
+          "persistent_id": 78929,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              11500,
+              10800
+            ],
+            "max": [
+              0,
+              12000,
+              14976.9
+            ],
+            "size": [
+              0,
+              500,
+              4176.9
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_24",
+          "persistent_id": 78930,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              12000,
+              10800
+            ],
+            "max": [
+              0,
+              12500,
+              15029
+            ],
+            "size": [
+              0,
+              500,
+              4229
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_25",
+          "persistent_id": 78931,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              12500,
+              10800
+            ],
+            "max": [
+              0,
+              13000,
+              15087.1
+            ],
+            "size": [
+              0,
+              500,
+              4287.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_26",
+          "persistent_id": 78932,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              13000,
+              10800
+            ],
+            "max": [
+              0,
+              13500,
+              15151.2
+            ],
+            "size": [
+              0,
+              500,
+              4351.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_27",
+          "persistent_id": 78933,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              13500,
+              10800
+            ],
+            "max": [
+              0,
+              14000,
+              15221.2
+            ],
+            "size": [
+              0,
+              500,
+              4421.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_28",
+          "persistent_id": 78934,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              14000,
+              10800
+            ],
+            "max": [
+              0,
+              14500,
+              15297.3
+            ],
+            "size": [
+              0,
+              500,
+              4497.3
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_29",
+          "persistent_id": 78935,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              14500,
+              10800
+            ],
+            "max": [
+              0,
+              15000,
+              15379.4
+            ],
+            "size": [
+              0,
+              500,
+              4579.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_30",
+          "persistent_id": 78936,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              15000,
+              10800
+            ],
+            "max": [
+              0,
+              15500,
+              15467.5
+            ],
+            "size": [
+              0,
+              500,
+              4667.5
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_31",
+          "persistent_id": 78937,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              15500,
+              10800
+            ],
+            "max": [
+              0,
+              16000,
+              15561.6
+            ],
+            "size": [
+              0,
+              500,
+              4761.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_32",
+          "persistent_id": 78938,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              16000,
+              10800
+            ],
+            "max": [
+              0,
+              16500,
+              15661.6
+            ],
+            "size": [
+              0,
+              500,
+              4861.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_33",
+          "persistent_id": 78939,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              16500,
+              10800
+            ],
+            "max": [
+              0,
+              17000,
+              15767.7
+            ],
+            "size": [
+              0,
+              500,
+              4967.7
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_34",
+          "persistent_id": 78940,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              17000,
+              10800
+            ],
+            "max": [
+              0,
+              17500,
+              15879.8
+            ],
+            "size": [
+              0,
+              500,
+              5079.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_35",
+          "persistent_id": 78941,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              17500,
+              10800
+            ],
+            "max": [
+              0,
+              18000,
+              15997.9
+            ],
+            "size": [
+              0,
+              500,
+              5197.9
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_36",
+          "persistent_id": 78942,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              18000,
+              10800
+            ],
+            "max": [
+              0,
+              18500,
+              16122
+            ],
+            "size": [
+              0,
+              500,
+              5322
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_37",
+          "persistent_id": 78943,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              18500,
+              10800
+            ],
+            "max": [
+              0,
+              19000,
+              16252
+            ],
+            "size": [
+              0,
+              500,
+              5452
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_38",
+          "persistent_id": 78944,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              19000,
+              10800
+            ],
+            "max": [
+              0,
+              19500,
+              16388.1
+            ],
+            "size": [
+              0,
+              500,
+              5588.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_0_39",
+          "persistent_id": 78945,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              0,
+              19500,
+              10800
+            ],
+            "max": [
+              0,
+              20000,
+              16530.2
+            ],
+            "size": [
+              0,
+              500,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_0",
+          "persistent_id": 78946,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              -32.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              32.5,
+              15527
+            ],
+            "size": [
+              65,
+              65,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_1",
+          "persistent_id": 78947,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              1967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              2032.5,
+              15200
+            ],
+            "size": [
+              65,
+              65,
+              4400
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_2",
+          "persistent_id": 78948,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              3967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              4032.5,
+              14962.8
+            ],
+            "size": [
+              65,
+              65,
+              4162.8
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_3",
+          "persistent_id": 78949,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              5967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              6032.5,
+              14821.5
+            ],
+            "size": [
+              65,
+              65,
+              4021.5
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_4",
+          "persistent_id": 78950,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              7967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              8032.5,
+              14776.4
+            ],
+            "size": [
+              65,
+              65,
+              3976.4
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "roof_supports_last": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "ROOF_TIMBER",
+        "ROOF_SUPPORTS"
+      ],
+      "persistent_id": 78849,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“52”#2",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -55,
+          -90,
+          10800
+        ],
+        "max": [
+          50055,
+          20090,
+          16620.2
+        ],
+        "size": [
+          50110,
+          20180,
+          5820.2
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 146,
+      "offset": 100,
+      "next_offset": null,
+      "truncated": true,
+      "objects": [
+        {
+          "name": "END_MULLION_1_5",
+          "persistent_id": 78951,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              9967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              10032.5,
+              14830.3
+            ],
+            "size": [
+              65,
+              65,
+              4030.3
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_6",
+          "persistent_id": 78952,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              11967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              12032.5,
+              14980.2
+            ],
+            "size": [
+              65,
+              65,
+              4180.2
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_7",
+          "persistent_id": 78953,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              13967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              14032.5,
+              15226.1
+            ],
+            "size": [
+              65,
+              65,
+              4426.1
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_8",
+          "persistent_id": 78954,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              15967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              16032.5,
+              15568
+            ],
+            "size": [
+              65,
+              65,
+              4768
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_9",
+          "persistent_id": 78955,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              17967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              18032.5,
+              16005.8
+            ],
+            "size": [
+              65,
+              65,
+              5205.8
+            ]
+          }
+        },
+        {
+          "name": "END_MULLION_1_10",
+          "persistent_id": 78956,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              49967.5,
+              19967.5,
+              10800
+            ],
+            "max": [
+              50032.5,
+              20032.5,
+              16530.2
+            ],
+            "size": [
+              65,
+              65,
+              5730.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_0",
+          "persistent_id": 78957,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              0,
+              10800
+            ],
+            "max": [
+              50000,
+              500,
+              15527
+            ],
+            "size": [
+              0,
+              500,
+              4727
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_1",
+          "persistent_id": 78958,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              500,
+              10800
+            ],
+            "max": [
+              50000,
+              1000,
+              15435.1
+            ],
+            "size": [
+              0,
+              500,
+              4635.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_2",
+          "persistent_id": 78959,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              1000,
+              10800
+            ],
+            "max": [
+              50000,
+              1500,
+              15349.2
+            ],
+            "size": [
+              0,
+              500,
+              4549.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_3",
+          "persistent_id": 78960,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              1500,
+              10800
+            ],
+            "max": [
+              50000,
+              2000,
+              15269.2
+            ],
+            "size": [
+              0,
+              500,
+              4469.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_4",
+          "persistent_id": 78961,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              2000,
+              10800
+            ],
+            "max": [
+              50000,
+              2500,
+              15195.3
+            ],
+            "size": [
+              0,
+              500,
+              4395.3
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_5",
+          "persistent_id": 78962,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              2500,
+              10800
+            ],
+            "max": [
+              50000,
+              3000,
+              15127.4
+            ],
+            "size": [
+              0,
+              500,
+              4327.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_6",
+          "persistent_id": 78963,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              3000,
+              10800
+            ],
+            "max": [
+              50000,
+              3500,
+              15065.5
+            ],
+            "size": [
+              0,
+              500,
+              4265.5
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_7",
+          "persistent_id": 78964,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              3500,
+              10800
+            ],
+            "max": [
+              50000,
+              4000,
+              15009.6
+            ],
+            "size": [
+              0,
+              500,
+              4209.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_8",
+          "persistent_id": 78965,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              4000,
+              10800
+            ],
+            "max": [
+              50000,
+              4500,
+              14959.6
+            ],
+            "size": [
+              0,
+              500,
+              4159.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_9",
+          "persistent_id": 78966,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              4500,
+              10800
+            ],
+            "max": [
+              50000,
+              5000,
+              14915.7
+            ],
+            "size": [
+              0,
+              500,
+              4115.7
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_10",
+          "persistent_id": 78967,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              5000,
+              10800
+            ],
+            "max": [
+              50000,
+              5500,
+              14877.8
+            ],
+            "size": [
+              0,
+              500,
+              4077.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_11",
+          "persistent_id": 78968,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              5500,
+              10800
+            ],
+            "max": [
+              50000,
+              6000,
+              14845.9
+            ],
+            "size": [
+              0,
+              500,
+              4045.9
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_12",
+          "persistent_id": 78969,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              6000,
+              10800
+            ],
+            "max": [
+              50000,
+              6500,
+              14820
+            ],
+            "size": [
+              0,
+              500,
+              4020
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_13",
+          "persistent_id": 78970,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              6500,
+              10800
+            ],
+            "max": [
+              50000,
+              7000,
+              14800
+            ],
+            "size": [
+              0,
+              500,
+              4000
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_14",
+          "persistent_id": 78971,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              7000,
+              10800
+            ],
+            "max": [
+              50000,
+              7500,
+              14786.1
+            ],
+            "size": [
+              0,
+              500,
+              3986.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_15",
+          "persistent_id": 78972,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              7500,
+              10800
+            ],
+            "max": [
+              50000,
+              8000,
+              14778.2
+            ],
+            "size": [
+              0,
+              500,
+              3978.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_16",
+          "persistent_id": 78973,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              8000,
+              10800
+            ],
+            "max": [
+              50000,
+              8500,
+              14780.4
+            ],
+            "size": [
+              0,
+              500,
+              3980.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_17",
+          "persistent_id": 78974,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              8500,
+              10800
+            ],
+            "max": [
+              50000,
+              9000,
+              14790.4
+            ],
+            "size": [
+              0,
+              500,
+              3990.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_18",
+          "persistent_id": 78975,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              9000,
+              10800
+            ],
+            "max": [
+              50000,
+              9500,
+              14806.5
+            ],
+            "size": [
+              0,
+              500,
+              4006.5
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_19",
+          "persistent_id": 78976,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              9500,
+              10800
+            ],
+            "max": [
+              50000,
+              10000,
+              14828.6
+            ],
+            "size": [
+              0,
+              500,
+              4028.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_20",
+          "persistent_id": 78977,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              10000,
+              10800
+            ],
+            "max": [
+              50000,
+              10500,
+              14856.7
+            ],
+            "size": [
+              0,
+              500,
+              4056.7
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_21",
+          "persistent_id": 78978,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              10500,
+              10800
+            ],
+            "max": [
+              50000,
+              11000,
+              14890.8
+            ],
+            "size": [
+              0,
+              500,
+              4090.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_22",
+          "persistent_id": 78979,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              11000,
+              10800
+            ],
+            "max": [
+              50000,
+              11500,
+              14930.8
+            ],
+            "size": [
+              0,
+              500,
+              4130.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_23",
+          "persistent_id": 78980,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              11500,
+              10800
+            ],
+            "max": [
+              50000,
+              12000,
+              14976.9
+            ],
+            "size": [
+              0,
+              500,
+              4176.9
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_24",
+          "persistent_id": 78981,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              12000,
+              10800
+            ],
+            "max": [
+              50000,
+              12500,
+              15029
+            ],
+            "size": [
+              0,
+              500,
+              4229
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_25",
+          "persistent_id": 78982,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              12500,
+              10800
+            ],
+            "max": [
+              50000,
+              13000,
+              15087.1
+            ],
+            "size": [
+              0,
+              500,
+              4287.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_26",
+          "persistent_id": 78983,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              13000,
+              10800
+            ],
+            "max": [
+              50000,
+              13500,
+              15151.2
+            ],
+            "size": [
+              0,
+              500,
+              4351.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_27",
+          "persistent_id": 78984,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              13500,
+              10800
+            ],
+            "max": [
+              50000,
+              14000,
+              15221.2
+            ],
+            "size": [
+              0,
+              500,
+              4421.2
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_28",
+          "persistent_id": 78985,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              14000,
+              10800
+            ],
+            "max": [
+              50000,
+              14500,
+              15297.3
+            ],
+            "size": [
+              0,
+              500,
+              4497.3
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_29",
+          "persistent_id": 78986,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              14500,
+              10800
+            ],
+            "max": [
+              50000,
+              15000,
+              15379.4
+            ],
+            "size": [
+              0,
+              500,
+              4579.4
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_30",
+          "persistent_id": 78987,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              15000,
+              10800
+            ],
+            "max": [
+              50000,
+              15500,
+              15467.5
+            ],
+            "size": [
+              0,
+              500,
+              4667.5
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_31",
+          "persistent_id": 78988,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              15500,
+              10800
+            ],
+            "max": [
+              50000,
+              16000,
+              15561.6
+            ],
+            "size": [
+              0,
+              500,
+              4761.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_32",
+          "persistent_id": 78989,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              16000,
+              10800
+            ],
+            "max": [
+              50000,
+              16500,
+              15661.6
+            ],
+            "size": [
+              0,
+              500,
+              4861.6
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_33",
+          "persistent_id": 78990,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              16500,
+              10800
+            ],
+            "max": [
+              50000,
+              17000,
+              15767.7
+            ],
+            "size": [
+              0,
+              500,
+              4967.7
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_34",
+          "persistent_id": 78991,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              17000,
+              10800
+            ],
+            "max": [
+              50000,
+              17500,
+              15879.8
+            ],
+            "size": [
+              0,
+              500,
+              5079.8
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_35",
+          "persistent_id": 78992,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              17500,
+              10800
+            ],
+            "max": [
+              50000,
+              18000,
+              15997.9
+            ],
+            "size": [
+              0,
+              500,
+              5197.9
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_36",
+          "persistent_id": 78993,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              18000,
+              10800
+            ],
+            "max": [
+              50000,
+              18500,
+              16122
+            ],
+            "size": [
+              0,
+              500,
+              5322
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_37",
+          "persistent_id": 78994,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              18500,
+              10800
+            ],
+            "max": [
+              50000,
+              19000,
+              16252
+            ],
+            "size": [
+              0,
+              500,
+              5452
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_38",
+          "persistent_id": 78995,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              19000,
+              10800
+            ],
+            "max": [
+              50000,
+              19500,
+              16388.1
+            ],
+            "size": [
+              0,
+              500,
+              5588.1
+            ]
+          }
+        },
+        {
+          "name": "END_GLASS_1_39",
+          "persistent_id": 78996,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              19500,
+              10800
+            ],
+            "max": [
+              50000,
+              20000,
+              16530.2
+            ],
+            "size": [
+              0,
+              500,
+              5730.2
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "landings": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS"
+      ],
+      "persistent_id": 41189,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“626”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -8517.5,
+          -6217.5,
+          -160
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          11915
+        ],
+        "size": [
+          8535,
+          32435,
+          12075
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 4,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "LANDING_L0",
+          "persistent_id": 41191,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8500,
+              -6200,
+              -160
+            ],
+            "max": [
+              -6300,
+              -4000,
+              0
+            ],
+            "size": [
+              2200,
+              2200,
+              160
+            ]
+          }
+        },
+        {
+          "name": "LANDING_L1",
+          "persistent_id": 41223,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -8517.5,
+              -6217.5,
+              3440
+            ],
+            "max": [
+              17.5,
+              26217.5,
+              4715
+            ],
+            "size": [
+              8535,
+              32435,
+              1275
+            ]
+          }
+        },
+        {
+          "name": "LANDING_L2",
+          "persistent_id": 41255,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3967.5,
+              -6217.5,
+              7040
+            ],
+            "max": [
+              17.5,
+              26217.5,
+              8315
+            ],
+            "size": [
+              3985,
+              32435,
+              1275
+            ]
+          }
+        },
+        {
+          "name": "LANDING_L3",
+          "persistent_id": 41287,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3967.5,
+              23000,
+              10640
+            ],
+            "max": [
+              17.5,
+              26217.5,
+              11915
+            ],
+            "size": [
+              3985,
+              3217.5,
+              1275
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "landing_l2": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      "persistent_id": 41255,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“629”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          -3967.5,
+          -6217.5,
+          7040
+        ],
+        "max": [
+          17.5,
+          26217.5,
+          8315
+        ],
+        "size": [
+          3985,
+          32435,
+          1275
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 10,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "L2_INNER_FLAT_-1",
+          "persistent_id": 86155,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3950,
+              -4000,
+              7050
+            ],
+            "max": [
+              -1650,
+              -3000,
+              7200
+            ],
+            "size": [
+              2300,
+              1000,
+              150
+            ]
+          }
+        },
+        {
+          "name": "L2_REDUCED_OUTSIDE_-1",
+          "persistent_id": 86187,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3950,
+              -6200,
+              7040
+            ],
+            "max": [
+              0,
+              -4000,
+              7200
+            ],
+            "size": [
+              3950,
+              2200,
+              160
+            ]
+          }
+        },
+        {
+          "name": "L2_EDGE_-1_0",
+          "persistent_id": 86219,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3967.5,
+              -6217.5,
+              7200
+            ],
+            "max": [
+              17.5,
+              -6182.5,
+              8315
+            ],
+            "size": [
+              3985,
+              35,
+              1115
+            ]
+          }
+        },
+        {
+          "name": "L2_EDGE_-1_1",
+          "persistent_id": 86477,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3967.5,
+              -6217.5,
+              7200
+            ],
+            "max": [
+              -3932.5,
+              -3982.5,
+              8315
+            ],
+            "size": [
+              35,
+              2235,
+              1115
+            ]
+          }
+        },
+        {
+          "name": "L2_EDGE_-1_2",
+          "persistent_id": 86671,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -17.5,
+              -6217.5,
+              7200
+            ],
+            "max": [
+              17.5,
+              -3982.5,
+              8315
+            ],
+            "size": [
+              35,
+              2235,
+              1115
+            ]
+          }
+        },
+        {
+          "name": "L2_INNER_FLAT_1",
+          "persistent_id": 86865,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3950,
+              23000,
+              7050
+            ],
+            "max": [
+              -1650,
+              24000,
+              7200
+            ],
+            "size": [
+              2300,
+              1000,
+              150
+            ]
+          }
+        },
+        {
+          "name": "L2_REDUCED_OUTSIDE_1",
+          "persistent_id": 86897,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3950,
+              24000,
+              7040
+            ],
+            "max": [
+              0,
+              26200,
+              7200
+            ],
+            "size": [
+              3950,
+              2200,
+              160
+            ]
+          }
+        },
+        {
+          "name": "L2_EDGE_1_0",
+          "persistent_id": 86929,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3967.5,
+              26182.5,
+              7200
+            ],
+            "max": [
+              17.5,
+              26217.5,
+              8315
+            ],
+            "size": [
+              3985,
+              35,
+              1115
+            ]
+          }
+        },
+        {
+          "name": "L2_EDGE_1_1",
+          "persistent_id": 87187,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -3967.5,
+              23982.5,
+              7200
+            ],
+            "max": [
+              -3932.5,
+              26217.5,
+              8315
+            ],
+            "size": [
+              35,
+              2235,
+              1115
+            ]
+          }
+        },
+        {
+          "name": "L2_EDGE_1_2",
+          "persistent_id": 87381,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              -17.5,
+              23982.5,
+              7200
+            ],
+            "max": [
+              17.5,
+              26217.5,
+              8315
+            ],
+            "size": [
+              35,
+              2235,
+              1115
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    },
+    "east_gallery": {
+      "script_id": "glass_curved_roof",
+      "revision": 10,
+      "read_only": true,
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE3"
+      ],
+      "persistent_id": 28107,
+      "locked": false,
+      "definition_instances": 1,
+      "definition_name": "组“205”#1",
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "bounds_mm": {
+        "min": [
+          50000,
+          0,
+          3450
+        ],
+        "max": [
+          54000,
+          20000,
+          3600
+        ],
+        "size": [
+          4000,
+          20000,
+          150
+        ]
+      },
+      "object_bounds_frame": "selected-group-local",
+      "objects_total": 2,
+      "offset": 0,
+      "next_offset": null,
+      "truncated": false,
+      "objects": [
+        {
+          "name": "GALLERY_Z3600_SIDE3_OPEN_GRID",
+          "persistent_id": 94807,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              0,
+              3565
+            ],
+            "max": [
+              54000,
+              20000,
+              3600
+            ],
+            "size": [
+              4000,
+              20000,
+              35
+            ]
+          }
+        },
+        {
+          "name": "GALLERY_Z3600_SIDE3_DISCRETE_BEAMS",
+          "persistent_id": 94809,
+          "locked": false,
+          "bounds_mm": {
+            "min": [
+              50000,
+              0,
+              3450
+            ],
+            "max": [
+              54000,
+              20000,
+              3565
+            ],
+            "size": [
+              4000,
+              20000,
+              115
+            ]
+          }
+        }
+      ],
+      "oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "f4efdeafa738419781c52a2782f327b75402757a1545463bad1988d4d92f5ce3",
+        "events": []
+      },
+      "edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_graph_v1",
+        "allowed_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_creation_paths": [
+          [
+            "CIRCULATION_INTERNAL",
+            "SMALL_CIRCULAR_VOID_GUARDS"
+          ]
+        ],
+        "allowed_top_level": [
+          "CIRCULATION_INTERNAL"
+        ],
+        "required_deep_keep_paths": [
+          [
+            "RAMPS"
+          ],
+          [
+            "CIRCULATION_EXTERNAL"
+          ],
+          [
+            "ROOF_TIMBER"
+          ],
+          [
+            "ENVELOPE_OUTER"
+          ],
+          [
+            "FLOORS"
+          ],
+          [
+            "INTERIOR"
+          ]
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      }
+    }
+  },
+  "limits": [
+    "Unobserved remote exterior details inferred from plans and neighboring construction, not independently photographed.",
+    "Names and bounds supplement screenshots; they do not certify every hidden joint.",
+    "No destructive section, model write, geometry correction, or new independent acceptance review performed.",
+    "Dark viewport outlines are not proof of black material; source script specifies pale steel and glass alpha0.13."
+  ],
+  "final_readback": {
+    "revision": 10,
+    "root_pid": 20606,
+    "root_direct_children": 27,
+    "direct_child_ids_bounds_unchanged": true,
+    "geometry_writer_calls": 0
+  }
+}

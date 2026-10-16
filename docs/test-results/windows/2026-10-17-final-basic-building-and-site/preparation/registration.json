@@ -1,0 +1,65 @@
+{
+  "owner_intent": "Finish basic [REDACTED_AUTH] surroundings then end case; no more refinement",
+  "source_facts": "Source01campuspaths/greenery visible; precise setting is inference",
+  "actual_native_site": [
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "pid": 76256,
+      "type": "Group",
+      "definition": "组“1890”#1",
+      "instances": 1,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          -280
+        ]
+      }
+    },
+    {
+      "path": [
+        "SITE_GROUND",
+        "ADJACENT_GROUND"
+      ],
+      "pid": 76258,
+      "type": "Group",
+      "definition": "组“1891”#1",
+      "instances": 1,
+      "locked": false,
+      "bounds_mm": {
+        "min": [
+          -12000,
+          -9000,
+          -500
+        ],
+        "max": [
+          59000,
+          33000,
+          -280
+        ]
+      }
+    }
+  ],
+  "native_ground_top_mm": -280,
+  "entry_landing_top_mm": 0,
+  "suggested_tree_count": [
+    4,
+    6
+  ],
+  "do_not_block": [
+    "actual west ground ramp landing around[-8500..-6300,-6200..-4000]",
+    "east remote stair landing/discharge",
+    "existing facade doors",
+    "main foot routes"
+  ],
+  "expected_environment": "Plain paving, a few lowgreenbeds and lowdetailtrees only",
+  "basic_building_frozen": true
+}

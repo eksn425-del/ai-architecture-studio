@@ -1,0 +1,532 @@
+{
+  "revision": 13,
+  "root_pid": 20606,
+  "status": "committed",
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 13,
+        "actual": 13
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "keep": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "FLOORS",
+      "ROOF_TIMBER",
+      "RAMPS",
+      "ENVELOPE_OUTER",
+      "INTERIOR",
+      "SITE_GROUND",
+      "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L0",
+      "CIRCULATION_INTERNAL/SMALL_CIRCULAR_VOID_GUARDS",
+      "CIRCULATION_INTERNAL/SPIRAL_L0_L1",
+      "CIRCULATION_INTERNAL/SPIRAL_L1_L2",
+      "CIRCULATION_INTERNAL/SPIRAL_L2_L3",
+      "CIRCULATION_EXTERNAL/LANDINGS/LANDING_L1/LANDING_L1_PAD_ADDED_0"
+    ]
+  },
+  "scope": {
+    "status": "passed",
+    "guard": "deep_exact_paths_graph_v1",
+    "allowed_paths": [
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L3"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z3600_SIDE3"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE3"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE3"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "END_STAIR_COMPLETION"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "REMOTE_END_EDGE_GUARDS"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z3600"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z3600"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE0",
+        "GALLERY_Z7200_SIDE0_SLOT_GUARD"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE1",
+        "GALLERY_Z7200_SIDE1_SLOT_GUARD"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z7200_SIDE2",
+        "GALLERY_Z7200_SIDE2_SLOT_GUARD"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z7200"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z7200"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE0",
+        "GALLERY_Z10800_SIDE0_SLOT_GUARD"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE1",
+        "GALLERY_Z10800_SIDE1_SLOT_GUARD"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "GALLERY_Z10800_SIDE2",
+        "GALLERY_Z10800_SIDE2_SLOT_GUARD"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_SOUTH_Z10800"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "GALLERIES",
+        "LONG_RAIL_NORTH_Z10800"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_1_INNER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_2_INNER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_OUTER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "RAMP_3_INNER"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_0"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_1"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_2"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_3"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_4"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_5"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_6"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_GUARD_7"
+      ]
+    ],
+    "allowed_creation_paths": [
+      [
+        "CIRCULATION_INTERNAL",
+        "END_STAIR_COMPLETION"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "REMOTE_END_EDGE_GUARDS"
+      ]
+    ],
+    "allowed_top_level": [
+      "CIRCULATION_EXTERNAL",
+      "CIRCULATION_INTERNAL"
+    ],
+    "required_deep_keep_paths": [
+      [
+        "STRUCTURE_EXISTING"
+      ],
+      [
+        "FLOORS"
+      ],
+      [
+        "ROOF_TIMBER"
+      ],
+      [
+        "RAMPS"
+      ],
+      [
+        "ENVELOPE_OUTER"
+      ],
+      [
+        "INTERIOR"
+      ],
+      [
+        "SITE_GROUND"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L0"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L0_L1"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2"
+      ],
+      [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3"
+      ],
+      [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_PAD_ADDED_0"
+      ]
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "4039e8b95b9cfa318ff48c65d8310639852175c5902012e571cee70ea00a1ccb",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 13,
+    "root_pid": 20606
+  },
+  "canonical_views": {
+    "front": "outputs/renders/agent-view-front-a5db19ded0.png",
+    "rear": "outputs/renders/agent-view-rear-d504e1c38d.png",
+    "left": "outputs/renders/agent-view-left-315cb3d318.png",
+    "right": "outputs/renders/agent-view-right-6123024cdc.png",
+    "roof": "outputs/renders/agent-view-roof-2144b40d95.png",
+    "oblique": "outputs/renders/agent-view-oblique-62c2c79658.png"
+  },
+  "source_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-c249a641d3.png",
+      "label": "Source1 ramp end"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-ed7bc4de7f.png",
+      "label": "Source2 oblique"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-bb3d25c871.png",
+      "label": "Source3 entrance"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-e89125c59c.png",
+      "label": "Source4 upper hall"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-f2c5335a94.png",
+      "label": "Source5 section direction, model uncut"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-b48e2bd340.png",
+      "label": "Source6 systems, model assembled"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-9176601cda.png",
+      "label": "Source7 plan direction, roof occlusion"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-57910def76.png",
+      "label": "Source8 section direction, model uncut"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-79c9e2b54e.png",
+      "label": "Source4 lower interior"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-023947755d.png",
+      "label": "Upper long enclosure and door"
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-e3b05a846f.png",
+      "label": "Retained r12 sliding door"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-441be19617.png",
+      "label": "Remote door and stair approach"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-de840af99b.png",
+      "label": "Remote oblique"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-d39f804430.png",
+      "label": "Remote stacked straight stair mesh and supports, source7 end stairs inferred joints"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-756e3712a1.png",
+      "label": "Remote top tread to grating landing and opening"
+    },
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-e5c46122c1.png",
+      "label": "Upper ramp inboard turning flat and retained ring gallery"
+    }
+  ],
+  "keep_readback_checks": [
+    {
+      "path": [
+        "STRUCTURE_EXISTING"
+      ],
+      "pid": 20615,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "FLOORS"
+      ],
+      "pid": 76290,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "ROOF_TIMBER"
+      ],
+      "pid": 77872,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "RAMPS"
+      ],
+      "pid": 78998,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "ENVELOPE_OUTER"
+      ],
+      "pid": 41319,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "INTERIOR"
+      ],
+      "pid": 79083,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "SITE_GROUND"
+      ],
+      "pid": 76256,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L0"
+      ],
+      "pid": 41191,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL",
+        "SMALL_CIRCULAR_VOID_GUARDS"
+      ],
+      "pid": 104200,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L0_L1"
+      ],
+      "pid": 45402,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L1_L2"
+      ],
+      "pid": 47708,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "CIRCULATION_INTERNAL",
+        "SPIRAL_L2_L3"
+      ],
+      "pid": 50014,
+      "deep_equal": true
+    },
+    {
+      "path": [
+        "CIRCULATION_EXTERNAL",
+        "LANDINGS",
+        "LANDING_L1",
+        "LANDING_L1_PAD_ADDED_0"
+      ],
+      "pid": 80759,
+      "deep_equal": true
+    }
+  ],
+  "review": "qa/exterior_circulation_r13_review.json"
+}

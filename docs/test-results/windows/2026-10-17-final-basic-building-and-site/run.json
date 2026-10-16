@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-10-17-final-basic-building-and-site",
+  "status": "PARTIAL",
+  "owner_scope_result": "COMPLETE_BASIC_BUILDING_AND_SIMPLE_SURROUNDINGS",
+  "case_status": "CLOSED_BY_OWNER_NO_MORE_REFINEMENT",
+  "geometry_committed": true,
+  "source_case": "Same original eight whole images/architecture-project-4f0e4/root20606, actual real website19->20",
+  "base_commit": "dbac3495b0290525e94dbc9c2ee20e8e5d219fcc",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "runtime": "real Studio native App Server"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "root_pid": 20606,
+    "before_revision": 19,
+    "after_revision": 20
+  },
+  "qa": {
+    "basic_building": "Actual named33columns/18partitiongroups/3spirals plus door/glazing assemblies present; prior selected native route/joint/clearance evidence retained, counts alone not qualityPASS",
+    "scoped_environment": "6pathpieces/4greenbeds/4lowdetailtrees, exact new leaf only",
+    "exact_scope": "PASS full protectedSHA1589ada84f2d9e53cb7b11a55a41959608222977a00d19e68d0e31f02cac5174equal, all building/originalground unchanged",
+    "native_samples": "6realpaththickness/4tree-ground-crown contacts/6west-ramp-and-east-stair-entrypointsPASS",
+    "camera_comparison": "Six true19/20same-native-camera canonical pairs",
+    "source_fidelity": "NEEDS_FIX independent8sources/20pairs, original beam/void and curtain differences retained; owner stops refinement",
+    "native_delivery": "Real website save/browserdownload/SU24bound/download3stage PASS_WITH_DECLARED_PRECISION, rawstrictdoubleFAIL retained, four shading settingspersist",
+    "strict_blank_replay": "NOT_RUN_DEFERRED_BY_OWNER_CLOSEOUT",
+    "commercial_readiness": "NOT_CERTIFIED_NOT_A_CASE_CLOSEOUT_REQUIREMENT",
+    "normal_turn_closeout": "COMPLETED timeout0, host performed real saving after model claimed tool has no save entry; actual native proof recorded as host note, not forged model output"
+  },
+  "paid_api_calls": 0
+}

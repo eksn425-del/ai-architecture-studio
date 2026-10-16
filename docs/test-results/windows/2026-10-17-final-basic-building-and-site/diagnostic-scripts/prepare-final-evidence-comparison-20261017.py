@@ -1,0 +1,7 @@
+from pathlib import Path
+import sys,json
+R=Path.cwd();sys.path.insert(0,str(R));from app.modeling_quality import verified_camera_match
+D=R/'runtime/basic-closeout-20261017';old=R/'runtime/exterior-completion-20261016/r19-record';new=D/'r20-record';a=json.loads((old/'runtime/agent_workspace/qa/visual_review.json').read_text(encoding='utf8'));b=json.loads((new/'runtime/agent_workspace/qa/visual_review.json').read_text(encoding='utf8'));pairs=[]
+for k in ['front','rear','left','right','roof','oblique']:
+ before=old/a['views'][k]['path'];after=new/b['views'][k]['path'];x=json.loads(before.with_suffix('.evidence.json').read_text(encoding='utf8'));y=json.loads(after.with_suffix('.evidence.json').read_text(encoding='utf8'));pairs.append({'view':k,'before':str(before.relative_to(R)),'after':str(after.relative_to(R)),'before_revision':19,'after_revision':20,'same_actual_camera':x.get('camera_verified_during_capture') is True and y.get('camera_verified_during_capture') is True and verified_camera_match(x.get('native_camera'),y.get('native_camera'))})
+out={'status':'PASS_SIX_SAME_CAMERAS' if all(p['same_actual_camera'] for p in pairs) else 'MIXED_CAMERA_MATCHES_NOT_ASSUMED','pairs':pairs,'geometry_comparison':'Actual full protected scope outside new site leaf equal. No new host view captures, using frozen real website certified images only.'};(D/'r19-r20-canonical-camera-comparison.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf8');print(json.dumps(out,ensure_ascii=False,indent=2))

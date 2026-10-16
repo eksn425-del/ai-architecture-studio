@@ -1,0 +1,25 @@
+{
+  "intent": "Freeze existing building; check basic [REDACTED_AUTH]; add minimal surroundings; save and close case",
+  "revision_before": 19,
+  "script_id": "glass_curved_roof",
+  "target": [
+    "SITE_GROUND",
+    "SIMPLE_SURROUNDINGS"
+  ],
+  "source_observed": "Directly inspected all panels of eight original images. Preserve concave roof, projecting upper glazing, short-end ramps, partial intermediate floor and circular openings. Sources 1/3/5 show paths, low greenery and trees.",
+  "inference": "Exact site layout, dimensions and tree forms are simplified owner-authorized design, not surveyed source reconstruction.",
+  "method_id": "kstudio.custom_owned_ruby",
+  "method_reason": "Available SAIE straight wall/opening methods do not fit paving, elliptical planting and trees. ADAI disabled.",
+  "stages": [
+    "Read-only building/site inspection",
+    "Representative paving",
+    "Route connections",
+    "Four beds and four schematic trees",
+    "Current six canonical and source cameras; independent review"
+  ],
+  "ground_top_mm": -280,
+  "connections": "Original west ramp landing, two west ground doors, original east stair approach; no vegetation at discharge or door swings.",
+  "keep": "All 27 exact required preserve paths in local-edit-scope.json.",
+  "basic_check": "33 columns, 18 partitions, east/west door groups, three spiral flights and remote stair present. Basic model inventory only; not concealed joint certification.",
+  "remaining_visual_difference": "Original double-height beam obstruction and curtain visibility retained at owner request; no further building refinement."
+}

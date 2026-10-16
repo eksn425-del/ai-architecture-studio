@@ -1,0 +1,502 @@
+{
+  "schema_version": 1,
+  "current_stage": "primary_form",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "body_length": {
+      "value": 50000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "body_depth": {
+      "value": 20000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "envelope_length": {
+      "value": 58000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "envelope_depth": {
+      "value": 28000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "buffer_depth": {
+      "value": 4000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "bay_length": {
+      "value": 5000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "level_0": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "level_1": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "level_2": {
+      "value": 7200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "level_3": {
+      "value": 10800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "roof_low": {
+      "value": 13800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "roof_edge_a": {
+      "value": 15500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "roof_edge_b": {
+      "value": 16500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "ramp_width": {
+      "value": 2200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "rail_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "slab_thickness": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "scope": {
+      "value": "\u672c\u8f6e\u6e90\u56fe\u65b9\u5411\u8349\u56fe\u548c\u8ba1\u5212\u786e\u8ba4\uff1b\u4e0d\u4fee\u6539\u65e2\u6709\u6a21\u578b\uff0c\u4e0d\u91cd\u5efa\u3002",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "roof_screen_relation": {
+      "value": "\u4ece\u5761\u9053\u77ed\u7aef\u671d+X\u770b\uff0c\u53f3(Y=0)\u9ad8\u4e8e\u5de6(Y=20000)\uff0c\u4e2d\u592e\u4e0b\u5782",
+      "units": "text",
+      "provenance": "observed",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "coordinate_convention": {
+      "value": "\u62df\u5b9a\u89c2\u5bdf\u8005\u4f4d\u4e8e\u5761\u9053\u77ed\u7aefX<0\uff0c\u671d+X\u770b\uff1b+Z\u5411\u4e0a\uff0c\u753b\u9762\u5de6\u4e3a+Y\uff08Y=20000\uff09\uff0c\u753b\u9762\u53f3\u4e3a-Y\uff08Y=0\uff09\u3002X\u6cbf\u957f\u5411\uff1b\u6ca1\u6709\u771f\u5b9e\u5317\u5411\u3002\u539f\u5e73\u9762\u56fe\u5de6\u7aef\u5bf9\u5e94\u8349\u56fe\u4e0b\u7aef\uff0c\u539f\u56fe\u4e0a\u8fb9\u5bf9\u5e94\u8349\u56fe\u5de6\u8fb9\u3002\u6b64\u4e3a\u6e90\u56fe\u4e0e\u8349\u56fe\u7ea6\u5b9a\uff0c\u5f53\u524d\u6a21\u578b\u53d8\u6362\u672a\u91cd\u65b0\u539f\u751f\u6838\u9a8c\u3002",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "ramp_connection": {
+      "value": "\u77ed\u7aef\u5761\u9053\u5411\u5de6\u4e0a\u5347\uff0c\u7ecf\u5e73\u53f0\u63a5\u73af\u5eca\uff1b\u73af\u5eca\u8fd4\u56de\u4e0b\u4e00\u6bb5\u8d77\u70b9\u7684\u7cbe\u786e\u8def\u7ebf\u5f85\u786e\u8ba4",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    },
+    "floor_topology": {
+      "value": "L0\u5730\u9762\uff1bL1\u8f83\u5b8c\u6574\u4e0b\u5c42\uff1bL2\u5c40\u90e8\u677f\u4e0e\u5927\u6311\u7a7a\uff1bL3\u9876\u5c42\u542b\u5706\u6d1e",
+      "units": "text",
+      "provenance": "inferred",
+      "source": "Original source-based metric estimate, not surveyed; latest actual native geometry controls local fit."
+    }
+  },
+  "systems": [
+    {
+      "id": "frame",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "bay_length",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "STRUCTURE_EXISTING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "floors",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "profile_extrusion",
+      "status": "needs_fix",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "slab_thickness",
+        "floor_topology"
+      ],
+      "target_paths": [
+        [
+          "FLOORS",
+          "L0"
+        ],
+        [
+          "FLOORS",
+          "L1"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_SOUTH"
+        ],
+        [
+          "FLOORS",
+          "L2_PARTIAL_EAST"
+        ],
+        [
+          "FLOORS",
+          "L3"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "Existing perforated floor/ramp native profiles use the installed ADAI adapter; preserve actual committed ledger, no new donor invocation claimed."
+    },
+    {
+      "id": "roof",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "needs_fix",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "roof_low",
+        "roof_edge_a",
+        "roof_edge_b",
+        "roof_screen_relation",
+        "coordinate_convention"
+      ],
+      "target_paths": [
+        [
+          "ROOF_TIMBER",
+          "CURVED_SHELL"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "envelope_bounds",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "needs_fix",
+      "depends_on": [
+        "envelope_length",
+        "envelope_depth",
+        "buffer_depth",
+        "level_1",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "ramps",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "ramp_width",
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "buffer_depth",
+        "ramp_connection"
+      ],
+      "target_paths": [
+        [
+          "RAMPS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "adai.profile",
+      "selection_reason": "Existing perforated floor/ramp native profiles use the installed ADAI adapter; preserve actual committed ledger, no new donor invocation claimed."
+    },
+    {
+      "id": "module",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "status": "needs_fix",
+      "depends_on": [
+        "bay_length",
+        "buffer_depth",
+        "rail_height"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ],
+        [
+          "CIRCULATION_EXTERNAL",
+          "GALLERIES",
+          "LONG_RAIL_SOUTH_Z3600"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "repeat",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "needs_fix",
+      "depends_on": [
+        "envelope_length",
+        "envelope_depth",
+        "bay_length"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "NORTH_BAY_0"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "SOUTH_BAY_00"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "stairs_partitions",
+      "stage": "variants",
+      "role": "interior_detail",
+      "method": "custom_owned_ruby",
+      "status": "needs_fix",
+      "depends_on": [
+        "level_0",
+        "level_1",
+        "level_2",
+        "level_3",
+        "scope"
+      ],
+      "target_paths": [
+        [
+          "CIRCULATION_INTERNAL"
+        ],
+        [
+          "INTERIOR"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "finish",
+      "stage": "finish",
+      "role": "site",
+      "method": "prototype_instance",
+      "status": "needs_fix",
+      "depends_on": [
+        "scope",
+        "envelope_length",
+        "envelope_depth"
+      ],
+      "target_paths": [
+        [
+          "SITE_GROUND"
+        ],
+        [
+          "INTERIOR",
+          "FURNITURE_SIMPLIFIED"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "Actual r10 named paths corrected from MCP readback; built is geometry presence only. Historical strategy retained."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution."
+    },
+    {
+      "id": "approved_enclosure_addition",
+      "stage": "variants",
+      "role": "opening_system",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "body_length",
+        "body_depth",
+        "level_3"
+      ],
+      "target_paths": [
+        [
+          "ENVELOPE_OUTER",
+          "HALL_LONG_SOUTH_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "HALL_LONG_NORTH_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LOWER_END_WEST_ADDITION"
+        ],
+        [
+          "ENVELOPE_OUTER",
+          "LOWER_END_EAST_ADDITION"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "User authorized missing hall long-side and lower-end enclosure only; root10 retained.",
+        "Use existing 2500mm side rhythm, read actual world roof edge, fit under concrete cross beams.",
+        "No doorway at west L2 absent floor; ground east service core remains opaque.",
+        "Door count and subdivision inferred; verify open portal and existing floor support on both sides."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Additive zero-thickness transparent glazing, slender frames and open door leaves must meet existing timber edges and exposed concrete beams without modifying them. SAIE wall/opening creates opaque solid straight walls and does not fit this all-glass enclosure. ADAI is not enabled."
+    }
+  ],
+  "notes": [
+    "Owner16Oct authorizes exterior completion and coherent unseen inference. Current card/scope supersede historic read-only roof-only notes.",
+    "Missing upper long-side and lower short-end inner enclosure first; then circulation and mesh.",
+    "Do not infer native geometry absence from old pending status or nonexistent historical target names."
+  ],
+  "site_closeout_r20": {
+    "revision": 20,
+    "scope": "SITE_GROUND/SIMPLE_SURROUNDINGS only",
+    "building_frozen": true,
+    "source": "All eight attached sheets directly inspected; source1/3/5 context observed, exact layout inferred",
+    "method_id": "kstudio.custom_owned_ruby",
+    "method_reason": "SAIE wall/opening helpers unsuitable for paths and planting; ADAI disabled",
+    "counts": {
+      "walk_pieces": 6,
+      "green_beds": 4,
+      "schematic_trees": 4
+    },
+    "verification": "27 deep KEEP checks passed; six canonical +20source/detail captures; independent review NEEDS_FIX for retained building interior only",
+    "owner_requests_end": true,
+    "save_status": "Awaiting host save confirmation; currently no supplied save tool"
+  }
+}

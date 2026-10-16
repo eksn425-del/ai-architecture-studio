@@ -1,0 +1,12 @@
+# Upper receiving apertures, r6 local correction
+
+All eight attached original sheets directly inspected, including both exterior panels in 1/2/3, both interiors in 4, section/plan in 5, four system layers in 6, three floor plans in 7 and both sections in 8. Main elongated envelope, recessed structure, asymmetric sagging roof and floor solids/voids remain as existing. Sources 1/2 show end ramps reaching perimeter galleries; 5/7 support open circulation connections, without readable gate dimensions. No site adaptation.
+
+Only ENVELOPE_OUTER/NORTH_BAY_0 and SOUTH_BAY_00 are authorized. North at Z7200 and10800; south at Z7200. Each aperture world X=-3650..-1450, 2200mm clear width and2400mm clear height, inside the existing guard gate. Sizes are estimated in current geometry, not measured source facts. Retain original module bounds, mullions, all glass outside cut rectangles and all transom segments outside the door clear rectangle. Bottom bars remain flush below floor elevation; no raised threshold. No doors added elsewhere.
+
+Method kstudio.custom_owned_ruby: native planar glazing/profile clipping. Installed saie.wall_with_openings produces new root-level solid walls, incompatible with these nested zero-thickness shared curtain leaves. ADAI unavailable. Make only target bay and affected leaf definitions unique, keep their containers and all unrelated bays intact. No wrapped OSS method claimed.
+
+Stages: native module registration -> three door cutouts -> transom clearance -> current six canonical, eight source cameras and close-ups -> independent review. All roofs, ramps, platforms, floors, guard openings, adjacent glazing and framing protected. Existing interior/unguarded hole discrepancies are outside the user request.
+
+
+Final r7: native committed readback and deep exact-path/KEEP passed. Bay PIDs41577/41557 unchanged and each definition unique; original overall bounds and mullion dimensions unchanged. Independent current-revision review remains NEEDS_FIX: it still questions rail obstruction in the apparent approach and larger ramp placement, continuous low interior ceiling and circular mesh guards. Glass/transom cuts are complete, but whole-route walkability cannot be certified from these views. Other components are explicitly outside this request; no further geometry edits. No native save/reopen confirmation available. See qa/visual_qa.md and upper_glazing_door_receipt.json.

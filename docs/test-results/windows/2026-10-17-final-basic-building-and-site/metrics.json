@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 1107547,
+  "committed_writes": 1,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "tool_call_count": 253,
+  "failed_tool_calls": 0,
+  "input_tokens": 7255759,
+  "output_tokens": 11565,
+  "critic_last_review": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 209860,
+    "input_tokens": 78849,
+    "output_tokens": 736,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "native_delivery_elapsed_ms": 228578,
+  "cumulative_builder_input_after_this_turn": 114744007,
+  "outer_tokens": null,
+  "native_bridge_total_calls": null,
+  "paid_api_calls": 0,
+  "token_source": "Actual completed real Studio turn253tools0fail/7255759input11565output1107547ms. Independent finalCritic78849input736output209860ms separate, included in turn wall time. Prior107488248Builderinput retained. Host native delivery228578ms separate. Host/outer full-call and token totals not metered, null."
+}

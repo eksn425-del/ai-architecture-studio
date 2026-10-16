@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "ledger_status": "committed_readback",
+  "actual_wrapped_calls": {},
+  "any_oss_product_use": false,
+  "effect_verified": false,
+  "effect_verification_required": "Named component readback and independent source-matched visual review.",
+  "plan_choices": [
+    {
+      "system": "frame",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "floors",
+      "method_id": "adai.profile_with_holes",
+      "selection_reason": "Existing perforated floor/ramp native profiles use the installed ADAI adapter; preserve actual committed ledger, no new donor invocation claimed.",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "roof",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "envelope_bounds",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "ramps",
+      "method_id": "adai.profile",
+      "selection_reason": "Existing perforated floor/ramp native profiles use the installed ADAI adapter; preserve actual committed ledger, no new donor invocation claimed.",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "module",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "repeat",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "stairs_partitions",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "finish",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Existing scoped transparent frames, repeated bars and retained native assemblies require guarded in-place Ruby; straight opaque SAIE walls do not fit this correction. Planned method is not proof of execution.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "approved_enclosure_addition",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Additive zero-thickness transparent glazing, slender frames and open door leaves must meet existing timber edges and exposed concrete beams without modifying them. SAIE wall/opening creates opaque solid straight walls and does not fit this all-glass enclosure. ADAI is not enabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    }
+  ]
+}

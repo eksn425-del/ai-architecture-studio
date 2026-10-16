@@ -1,0 +1,1440 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "CIRCULATION_EXTERNAL",
+    "CIRCULATION_INTERNAL",
+    "ENVELOPE_OUTER",
+    "FLOORS",
+    "INTERIOR",
+    "PARTITION_Z3600_B1",
+    "PARTITION_Z3600_B2",
+    "PARTITION_Z3600_B3",
+    "PARTITION_Z3600_B4",
+    "PARTITION_Z3600_B5",
+    "PARTITION_Z3600_B6",
+    "PARTITION_Z3600_B7",
+    "PARTITION_Z3600_B8",
+    "PARTITION_Z3600_B9",
+    "PARTITION_Z7200_B1",
+    "PARTITION_Z7200_B2",
+    "PARTITION_Z7200_B3",
+    "PARTITION_Z7200_B4",
+    "PARTITION_Z7200_B5",
+    "PARTITION_Z7200_B6",
+    "PARTITION_Z7200_B7",
+    "PARTITION_Z7200_B8",
+    "PARTITION_Z7200_B9",
+    "RAMPS",
+    "ROOF_TIMBER",
+    "SITE_GROUND/ADJACENT_GROUND",
+    "STRUCTURE_EXISTING"
+  ],
+  "checks": [
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "persistent_id",
+      "expected": 28007,
+      "actual": 28007
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "objects_total",
+      "expected": 9,
+      "actual": 9
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8515.0,
+          -6215.0,
+          -160.0
+        ],
+        "max": [
+          54015.0,
+          26215.0,
+          11915.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8515.0,
+          -6215.0,
+          -160.0
+        ],
+        "max": [
+          54015.0,
+          26215.0,
+          11915.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "deep_geometry_material_sha256",
+      "expected": "61db16ce55ed667635a2f9a5a7724cbf9c77dc7b001cc0991d1f7249421865c0",
+      "actual": "61db16ce55ed667635a2f9a5a7724cbf9c77dc7b001cc0991d1f7249421865c0"
+    },
+    {
+      "path": "CIRCULATION_EXTERNAL",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "persistent_id",
+      "expected": 45400,
+      "actual": 45400
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "objects_total",
+      "expected": 204,
+      "actual": 204
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          10863.0,
+          -2600.0,
+          -390.0
+        ],
+        "max": [
+          54000.0,
+          11637.0,
+          12063.0
+        ]
+      },
+      "actual": {
+        "min": [
+          10863.0,
+          -2600.0,
+          -390.0
+        ],
+        "max": [
+          54000.0,
+          11637.0,
+          12063.0
+        ]
+      }
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "deep_geometry_material_sha256",
+      "expected": "2d05b1f138498fa9664a7f3f6b31de74cd78cc4c4c23f2a10e733f7d72a1034c",
+      "actual": "2d05b1f138498fa9664a7f3f6b31de74cd78cc4c4c23f2a10e733f7d72a1034c"
+    },
+    {
+      "path": "CIRCULATION_INTERNAL",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "persistent_id",
+      "expected": 41319,
+      "actual": 41319
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "objects_total",
+      "expected": 101,
+      "actual": 101
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -4030.0,
+          -4489.0,
+          0.0
+        ],
+        "max": [
+          54030.0,
+          24489.0,
+          16503.6
+        ]
+      },
+      "actual": {
+        "min": [
+          -4030.0,
+          -4489.0,
+          0.0
+        ],
+        "max": [
+          54030.0,
+          24489.0,
+          16503.6
+        ]
+      }
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "deep_geometry_material_sha256",
+      "expected": "69428b64d6a5b7f10c442b89fe75a5852b9890b8552f37d65b0acff8e90e5325",
+      "actual": "69428b64d6a5b7f10c442b89fe75a5852b9890b8552f37d65b0acff8e90e5325"
+    },
+    {
+      "path": "ENVELOPE_OUTER",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "FLOORS",
+      "check": "persistent_id",
+      "expected": 76290,
+      "actual": 76290
+    },
+    {
+      "path": "FLOORS",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "FLOORS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          -250.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "FLOORS",
+      "check": "deep_geometry_material_sha256",
+      "expected": "b9e40e065325bcb2869dd17507763f632d69008a2c9ac425091f0b5aa848bb43",
+      "actual": "b9e40e065325bcb2869dd17507763f632d69008a2c9ac425091f0b5aa848bb43"
+    },
+    {
+      "path": "FLOORS",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "INTERIOR",
+      "check": "persistent_id",
+      "expected": 79083,
+      "actual": 79083
+    },
+    {
+      "path": "INTERIOR",
+      "check": "objects_total",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "path": "INTERIOR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          60.0,
+          120.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          16038.6
+        ]
+      },
+      "actual": {
+        "min": [
+          60.0,
+          120.0,
+          0.0
+        ],
+        "max": [
+          50000.0,
+          20000.0,
+          16038.6
+        ]
+      }
+    },
+    {
+      "path": "INTERIOR",
+      "check": "deep_geometry_material_sha256",
+      "expected": "c67468d695dc0a0b5eac91e19f237ec9567fba427f8364d9f52ba6ace9a16ecb",
+      "actual": "c67468d695dc0a0b5eac91e19f237ec9567fba427f8364d9f52ba6ace9a16ecb"
+    },
+    {
+      "path": "INTERIOR",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "persistent_id",
+      "expected": 75036,
+      "actual": 75036
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "deep_geometry_material_sha256",
+      "expected": "91639bc2855f7b548d2640af7257a2d4af9b39a90e840d328cc12d3fa8eca1b8",
+      "actual": "91639bc2855f7b548d2640af7257a2d4af9b39a90e840d328cc12d3fa8eca1b8"
+    },
+    {
+      "path": "PARTITION_Z3600_B1",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "persistent_id",
+      "expected": 75068,
+      "actual": 75068
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "deep_geometry_material_sha256",
+      "expected": "bc8581004e41c98f21fd130dbdcf0e1bbca86841cf328e87acd304d180e48a85",
+      "actual": "bc8581004e41c98f21fd130dbdcf0e1bbca86841cf328e87acd304d180e48a85"
+    },
+    {
+      "path": "PARTITION_Z3600_B2",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "persistent_id",
+      "expected": 75100,
+      "actual": 75100
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "314df80cd838de501b9459d2ba0418b936b227705ce12927e634042a356be310",
+      "actual": "314df80cd838de501b9459d2ba0418b936b227705ce12927e634042a356be310"
+    },
+    {
+      "path": "PARTITION_Z3600_B3",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "persistent_id",
+      "expected": 75132,
+      "actual": 75132
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "deep_geometry_material_sha256",
+      "expected": "a8e1a37d30ad3b2380c52c0a0e7f2fa5e44e6a8b0a938d13a9410a96d6f2a1fa",
+      "actual": "a8e1a37d30ad3b2380c52c0a0e7f2fa5e44e6a8b0a938d13a9410a96d6f2a1fa"
+    },
+    {
+      "path": "PARTITION_Z3600_B4",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "persistent_id",
+      "expected": 75164,
+      "actual": 75164
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0e35fbc26aaf783504a0244e26cb7eed25a0f4e08133f7d685b4c9bac1b1b277",
+      "actual": "0e35fbc26aaf783504a0244e26cb7eed25a0f4e08133f7d685b4c9bac1b1b277"
+    },
+    {
+      "path": "PARTITION_Z3600_B5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "persistent_id",
+      "expected": 75196,
+      "actual": 75196
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "deep_geometry_material_sha256",
+      "expected": "940409af5b415a14c67fd89a8bd98be6f51e68dc93a44299e40f54def603aef8",
+      "actual": "940409af5b415a14c67fd89a8bd98be6f51e68dc93a44299e40f54def603aef8"
+    },
+    {
+      "path": "PARTITION_Z3600_B6",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "persistent_id",
+      "expected": 75228,
+      "actual": 75228
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "deep_geometry_material_sha256",
+      "expected": "e0849312cbf124925f5ded5b869fe06a3f9ad3e18c9682278999073765cd805a",
+      "actual": "e0849312cbf124925f5ded5b869fe06a3f9ad3e18c9682278999073765cd805a"
+    },
+    {
+      "path": "PARTITION_Z3600_B7",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "persistent_id",
+      "expected": 75260,
+      "actual": 75260
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "deep_geometry_material_sha256",
+      "expected": "016c4526978abb2ec94321f37f48599de775cf2bc8d89d797efb802b3ba7a3a8",
+      "actual": "016c4526978abb2ec94321f37f48599de775cf2bc8d89d797efb802b3ba7a3a8"
+    },
+    {
+      "path": "PARTITION_Z3600_B8",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "persistent_id",
+      "expected": 75292,
+      "actual": 75292
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          3600.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          6700.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "deep_geometry_material_sha256",
+      "expected": "5f1e0baeb518341da7a0d2a5aafc2db56392680dfcdaa050d62a9d48a75f3bf3",
+      "actual": "5f1e0baeb518341da7a0d2a5aafc2db56392680dfcdaa050d62a9d48a75f3bf3"
+    },
+    {
+      "path": "PARTITION_Z3600_B9",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "persistent_id",
+      "expected": 75324,
+      "actual": 75324
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          5060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "deep_geometry_material_sha256",
+      "expected": "c5acd0e6dfaac8243953075d411bc23d4354f04140c5e4e0527725d47bd0ae44",
+      "actual": "c5acd0e6dfaac8243953075d411bc23d4354f04140c5e4e0527725d47bd0ae44"
+    },
+    {
+      "path": "PARTITION_Z7200_B1",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "persistent_id",
+      "expected": 75356,
+      "actual": 75356
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          9940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          10060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9532b0d3c1772d8a3df9bd8708fa2fa1593886fed7da980c5f68f2fce3dcd5c9",
+      "actual": "9532b0d3c1772d8a3df9bd8708fa2fa1593886fed7da980c5f68f2fce3dcd5c9"
+    },
+    {
+      "path": "PARTITION_Z7200_B2",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "persistent_id",
+      "expected": 75388,
+      "actual": 75388
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          14940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          15060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "deep_geometry_material_sha256",
+      "expected": "329cd7b97809b2056a3fb11ce6d1f97b3e8f2eaca177d08ecb748bfa42bb0231",
+      "actual": "329cd7b97809b2056a3fb11ce6d1f97b3e8f2eaca177d08ecb748bfa42bb0231"
+    },
+    {
+      "path": "PARTITION_Z7200_B3",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "persistent_id",
+      "expected": 75420,
+      "actual": 75420
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          19940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          20060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9118a4e4d63960046f321e2ff22ee0eb2ef7140b0c95bf15883d8688247f1fd7",
+      "actual": "9118a4e4d63960046f321e2ff22ee0eb2ef7140b0c95bf15883d8688247f1fd7"
+    },
+    {
+      "path": "PARTITION_Z7200_B4",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "persistent_id",
+      "expected": 75452,
+      "actual": 75452
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          24940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          25060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "e81ad955cd6c1fe0273f9751d546a56971d0ff3c2d7cd2dfeffbf04aeebfb7f2",
+      "actual": "e81ad955cd6c1fe0273f9751d546a56971d0ff3c2d7cd2dfeffbf04aeebfb7f2"
+    },
+    {
+      "path": "PARTITION_Z7200_B5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "persistent_id",
+      "expected": 75484,
+      "actual": 75484
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          29940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          30060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "deep_geometry_material_sha256",
+      "expected": "fc2dceeca814ace67a06543469aedbf690799bda5531e6a4d4d6dcf9bd0b1546",
+      "actual": "fc2dceeca814ace67a06543469aedbf690799bda5531e6a4d4d6dcf9bd0b1546"
+    },
+    {
+      "path": "PARTITION_Z7200_B6",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "persistent_id",
+      "expected": 75516,
+      "actual": 75516
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          34940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          35060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "deep_geometry_material_sha256",
+      "expected": "e0759af7592a05ed33ab35616974ef082d4c1d3f4580404c0b862f6bfab5869d",
+      "actual": "e0759af7592a05ed33ab35616974ef082d4c1d3f4580404c0b862f6bfab5869d"
+    },
+    {
+      "path": "PARTITION_Z7200_B7",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "persistent_id",
+      "expected": 75548,
+      "actual": 75548
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          39940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          40060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "deep_geometry_material_sha256",
+      "expected": "b30029367f3d9517aaaec4f8cb8a04d8ea6eef08e212d6451b3bdc3af5a160bb",
+      "actual": "b30029367f3d9517aaaec4f8cb8a04d8ea6eef08e212d6451b3bdc3af5a160bb"
+    },
+    {
+      "path": "PARTITION_Z7200_B8",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "persistent_id",
+      "expected": 75580,
+      "actual": 75580
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          44940.0,
+          12000.0,
+          7200.0
+        ],
+        "max": [
+          45060.0,
+          20000.0,
+          10300.0
+        ]
+      }
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "deep_geometry_material_sha256",
+      "expected": "60c2e79492c5f4cf984556262f327bd82aacf855f1eb915454bb675ac0cc9544",
+      "actual": "60c2e79492c5f4cf984556262f327bd82aacf855f1eb915454bb675ac0cc9544"
+    },
+    {
+      "path": "PARTITION_Z7200_B9",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "RAMPS",
+      "check": "persistent_id",
+      "expected": 78998,
+      "actual": 78998
+    },
+    {
+      "path": "RAMPS",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "RAMPS",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -1700.0,
+          24000.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -8500.0,
+          -4000.0,
+          -160.0
+        ],
+        "max": [
+          -1700.0,
+          24000.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "RAMPS",
+      "check": "deep_geometry_material_sha256",
+      "expected": "2204c9a10774ddeeaceecc3270cee8e9287e9d104cf5417f23716e537827fb7f",
+      "actual": "2204c9a10774ddeeaceecc3270cee8e9287e9d104cf5417f23716e537827fb7f"
+    },
+    {
+      "path": "RAMPS",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "persistent_id",
+      "expected": 77872,
+      "actual": 77872
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "objects_total",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -55.0,
+          -90.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20090.0,
+          16710.2
+        ]
+      },
+      "actual": {
+        "min": [
+          -55.0,
+          -90.0,
+          10800.0
+        ],
+        "max": [
+          50055.0,
+          20090.0,
+          16710.2
+        ]
+      }
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "deep_geometry_material_sha256",
+      "expected": "154f7e77c707a7237d524867ca2d6f35fa5df23c0c42d3282132c5158bb8a457",
+      "actual": "154f7e77c707a7237d524867ca2d6f35fa5df23c0c42d3282132c5158bb8a457"
+    },
+    {
+      "path": "ROOF_TIMBER",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "SITE_GROUND/ADJACENT_GROUND",
+      "check": "persistent_id",
+      "expected": 76258,
+      "actual": 76258
+    },
+    {
+      "path": "SITE_GROUND/ADJACENT_GROUND",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "SITE_GROUND/ADJACENT_GROUND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -12000.0,
+          -9000.0,
+          -500.0
+        ],
+        "max": [
+          59000.0,
+          33000.0,
+          -280.0
+        ]
+      }
+    },
+    {
+      "path": "SITE_GROUND/ADJACENT_GROUND",
+      "check": "deep_geometry_material_sha256",
+      "expected": "6bedc926910087be3030d657808888e89ab91cfa16656d3ec83003073e41ed7a",
+      "actual": "6bedc926910087be3030d657808888e89ab91cfa16656d3ec83003073e41ed7a"
+    },
+    {
+      "path": "SITE_GROUND/ADJACENT_GROUND",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "persistent_id",
+      "expected": 20615,
+      "actual": 20615
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "objects_total",
+      "expected": 75,
+      "actual": 75
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -180.0,
+          -180.0,
+          0.0
+        ],
+        "max": [
+          50180.0,
+          20180.0,
+          10800.0
+        ]
+      }
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "96bec1fd3eb9f065cb493747c85a91cd78aa1f616dc7540b1bef423fd0e12317",
+      "actual": "96bec1fd3eb9f065cb493747c85a91cd78aa1f616dc7540b1bef423fd0e12317"
+    },
+    {
+      "path": "STRUCTURE_EXISTING",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDefinitionGraph/1",
+      "actual": "KStudioNativeDefinitionGraph/1"
+    }
+  ]
+}

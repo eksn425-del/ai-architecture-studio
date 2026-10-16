@@ -1,0 +1,264 @@
+{
+  "revision": 20,
+  "script_id": "glass_curved_roof",
+  "root_pid": 20606,
+  "transaction_status": "committed",
+  "identity": {
+    "guid": "b3c9a67c-9470-4398-9edd-234a0258c67b",
+    "model_name": "blank-disposable-customer-readiness-r4-20261015.skp"
+  },
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 20606,
+        "actual": 20606
+      },
+      {
+        "check": "revision",
+        "expected": 20,
+        "actual": 20
+      },
+      {
+        "check": "objects_total",
+        "expected": 27,
+        "actual": 27
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        },
+        "actual": {
+          "min": [
+            -12000,
+            -9000,
+            -500
+          ],
+          "max": [
+            59000,
+            33000,
+            16710.2
+          ],
+          "size": [
+            71000,
+            42000,
+            17210.2
+          ]
+        }
+      }
+    ]
+  },
+  "keep_guard": {
+    "armed": true,
+    "passed": true,
+    "paths": [
+      "STRUCTURE_EXISTING",
+      "CIRCULATION_EXTERNAL",
+      "ENVELOPE_OUTER",
+      "CIRCULATION_INTERNAL",
+      "PARTITION_Z3600_B1",
+      "PARTITION_Z3600_B2",
+      "PARTITION_Z3600_B3",
+      "PARTITION_Z3600_B4",
+      "PARTITION_Z3600_B5",
+      "PARTITION_Z3600_B6",
+      "PARTITION_Z3600_B7",
+      "PARTITION_Z3600_B8",
+      "PARTITION_Z3600_B9",
+      "PARTITION_Z7200_B1",
+      "PARTITION_Z7200_B2",
+      "PARTITION_Z7200_B3",
+      "PARTITION_Z7200_B4",
+      "PARTITION_Z7200_B5",
+      "PARTITION_Z7200_B6",
+      "PARTITION_Z7200_B7",
+      "PARTITION_Z7200_B8",
+      "PARTITION_Z7200_B9",
+      "FLOORS",
+      "ROOF_TIMBER",
+      "RAMPS",
+      "INTERIOR",
+      "SITE_GROUND/ADJACENT_GROUND"
+    ]
+  },
+  "oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "9239cb090732e0425ca3f8bc4edce8beb2992cb09a0e17949c5f301640d5685b",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "glass_curved_roof",
+    "revision": 20,
+    "root_pid": 20606
+  },
+  "views": {
+    "front": "outputs/renders/agent-view-front-689765e43d.png",
+    "rear": "outputs/renders/agent-view-rear-b5cd63d030.png",
+    "left": "outputs/renders/agent-view-left-2175f13c28.png",
+    "right": "outputs/renders/agent-view-right-6e76d9c95f.png",
+    "roof": "outputs/renders/agent-view-roof-b2d738e691.png",
+    "oblique": "outputs/renders/agent-view-oblique-b3b74b0918.png"
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+      "current_view": "outputs/renders/agent-view-08548acb7a.png",
+      "label": "Source1 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+      "current_view": "outputs/renders/agent-view-79b32e4510.png",
+      "label": "Source2 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-22ad37fc57.png",
+      "label": "Source3 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-6bc4ed7cc6.png",
+      "label": "Source4 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-4d34dfbfb8.png",
+      "label": "Source5 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+      "current_view": "outputs/renders/agent-view-e993fa70f4.png",
+      "label": "Source6 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+      "current_view": "outputs/renders/agent-view-b106bb4dcc.png",
+      "label": "Source7 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+      "current_view": "outputs/renders/agent-view-1ce34ff2d7.png",
+      "label": "Source8 registered camera; section/plan stays uncut and occluded"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-4b3a07cb76.png",
+      "label": "Lower interior preserved"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-c06d66e4d1.png",
+      "label": "Long eave general"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-8c12fe37bc.png",
+      "label": "South hinge sash stay and backing aperture"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-56cf93809d.png",
+      "label": "North hinge sash stay and backing aperture"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-c18eef1f59.png",
+      "label": "South inside aperture outward"
+    },
+    {
+      "source_ref": "inputs/reference/da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+      "current_view": "outputs/renders/agent-view-dba560511e.png",
+      "label": "Preserved west door/ramp bay"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-d7ab2affa8.png",
+      "label": "Lower workspace basic stair check"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-32ea544f5d.png",
+      "label": "Lower reverse"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-296b666a60.png",
+      "label": "Double height preserved"
+    },
+    {
+      "source_ref": "inputs/reference/c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+      "current_view": "outputs/renders/agent-view-a1d09279a0.png",
+      "label": "Upper hall preserved"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-ff062a3eb9.png",
+      "label": "West ground door and walk connections"
+    },
+    {
+      "source_ref": "inputs/reference/8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+      "current_view": "outputs/renders/agent-view-050366744d.png",
+      "label": "East stair discharge"
+    }
+  ],
+  "basic_check": "Read-only inventory and close-up views; not hidden-joint or regulatory validation",
+  "save_status": "NOT_CONFIRMED: supplied tools expose no save or reopen lifecycle. Existing native_delivery_checkpoint.json still revision19.",
+  "owner_closeout": true,
+  "independent_review": {
+    "revision": 20,
+    "needs_fix": true,
+    "assessment": "SOURCE 1\u20132 show the same elongated building from the ramp end and an adjoining long side: a recessed lower structure, projecting two-storey glazed buffer, external circulation and a raised concave timber roof. SOURCE 3 shows ground entrances and the exposed walkway assembly. Both SOURCE 4 panels establish the upper hall and lower double-height workspace. SOURCE 5 and 8 sections confirm the partial intermediate floor; SOURCE 6 distinguishes the retained frame, timber addition and outer enclosure; all three SOURCE 7 plans show their floor-specific arrangements. CURRENT captures the principal exterior arrangement, but intermediate beams still obstruct the source-backed double-height region, and the upper hall lacks its large curtain enclosures. The uncut CURRENT section/plan cameras cannot verify concealed layouts or exact joints; no numerical dimensions are confirmed by the supplied evidence.",
+    "issues": [
+      {
+        "priority": 1,
+        "view": "lower",
+        "problem": "CURRENT 23, 29 and 31 retain several deep horizontal beams across the intermediate level of the intended double-height workspace. SOURCE 4 lower panel and SOURCE 5/8 sections show this region opening up to the higher ceiling, with the intermediate floor confined to adjoining areas. Removing slab faces alone has left the spatial opening obstructed.",
+        "action": "Locally remove or trim only the intermediate beams crossing the source-defined double-height footprint. Retain the surrounding columns, upper ceiling structure and beams supporting the adjoining occupied floor; terminate the remaining members at actual supported boundaries."
+      },
+      {
+        "priority": 2,
+        "view": "upper",
+        "problem": "CURRENT 18 and 32 show an almost undivided glazed hall. SOURCE 4 upper panel shows large curved translucent curtain enclosures and suspended tracks that define substantial room-sized zones beneath the timber ceiling; these defining elements are absent.",
+        "action": "Add the source-visible curved curtain runs and their suspended tracks locally, using the upper plan to locate them. Keep the circular floor openings and circulation clear; do not replace the curtains with solid walls."
+      }
+    ],
+    "reviewer": {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 209860,
+      "input_tokens": 78849,
+      "output_tokens": 736,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    "owner_decision": "No further building refinement; closeout scope only",
+    "save_status": "No current native save confirmation; no supplied lifecycle tool"
+  }
+}

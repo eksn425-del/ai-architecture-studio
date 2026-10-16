@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "source_mode": "multi_view_reconstruction",
+  "dimensions_mm": {
+    "overall_width": 58000,
+    "overall_depth": 28000,
+    "level_height": 3600,
+    "floor_count": 4
+  },
+  "views": {
+    "front": {
+      "provenance": "observed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "\u5761\u9053\u77ed\u7aef\uff0c\u53f3\u9ad8\u5de6\u4f4e\uff1b\u4ee5\u6b64\u5b9a\u4e49\u5de6\u53f3\u3002"
+      ],
+      "notes": [
+        "\u4e0d\u51ed\u6750\u6599\u5206\u7f1d\u589e\u52a0\u697c\u5c42\uff1b\u73bb\u7483\u3001\u6846\u67b6\u3001\u680f\u6746\u548c\u6b65\u884c\u9762\u5206\u522b\u4fdd\u7559\u3002"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "\u8fdc\u7aef\u670d\u52a1\u6838\u548c\u7aef\u68af\u89c1\u5e73\u9762\uff0c\u65e0\u72ec\u7acb\u6b63\u7acb\u9762\u3002"
+      ],
+      "notes": [
+        "\u4e0d\u51ed\u6750\u6599\u5206\u7f1d\u589e\u52a0\u697c\u5c42\uff1b\u73bb\u7483\u3001\u6846\u67b6\u3001\u680f\u6746\u548c\u6b65\u884c\u9762\u5206\u522b\u4fdd\u7559\u3002"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "\u957f\u8fb9\u5916\u5eca\u53ef\u89c1\uff0c\u4f46\u7167\u7247\u6240\u793a\u957f\u8fb9\u4e0e+Y\u4fa7\u5bf9\u5e94\u4ecd\u5f85\u539f\u751f\u76f8\u673a/\u5730\u6807\u6838\u9a8c\u3002"
+      ],
+      "notes": [
+        "\u4e0d\u51ed\u6750\u6599\u5206\u7f1d\u589e\u52a0\u697c\u5c42\uff1b\u73bb\u7483\u3001\u6846\u67b6\u3001\u680f\u6746\u548c\u6b65\u884c\u9762\u5206\u522b\u4fdd\u7559\u3002"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "\u53e6\u4e00\u957f\u8fb9\u5173\u7cfb\u7531\u5e73\u5256\u9762\u7ea6\u675f\uff0c\u4e0d\u80fd\u76f4\u63a5\u955c\u50cf\u6240\u6709\u7ec6\u8282\u3002"
+      ],
+      "notes": [
+        "\u4e0d\u51ed\u6750\u6599\u5206\u7f1d\u589e\u52a0\u697c\u5c42\uff1b\u73bb\u7483\u3001\u6846\u67b6\u3001\u680f\u6746\u548c\u6b65\u884c\u9762\u5206\u522b\u4fdd\u7559\u3002"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "observed",
+    "type": "\u77ed\u8de8\u4e2d\u5782\u66f2\u9762\uff0c\u5761\u9053\u7aef\u753b\u9762\u53f3\u9ad8\u5de6\u4f4e\uff0c\u6cbf\u957f\u5411\u5ef6\u4f38",
+    "parapet": "\u672a\u89c1\u8fde\u7eed\u5b9e\u5fc3\u5973\u513f\u5899\u7684\u5145\u5206\u8bc1\u636e",
+    "divisions": [
+      "\u6728\u8272\u66f2\u9762\u9876\u68da/\u5c4b\u9762",
+      "\u9ad8\u4f4e\u8fb9\u652f\u627f\u4e0e\u4e0a\u90e8\u73bb\u7483",
+      "\u5916\u5eca\u4f4e\u4f4d\u5e73\u6a90\uff0c\u72ec\u7acb\u4e8e\u4e3b\u5c4b\u9876"
+    ],
+    "notes": [
+      "\u5916\u5eca\u5e73\u6a90\u4e0d\u53ef\u5f53\u4f5c\u4e3b\u5c4b\u9876\u3002",
+      "\u5c4b\u9876\u8fb9\u7f18\u7edd\u5bf9\u9ad8\u5ea6\u548c\u66f2\u7387\u5f85\u6d4b\uff1b\u4e0d\u6839\u636e\u65e7\u9ad8\u8fb9\u53c2\u6570\u540d\u51b3\u5b9a\u5de6\u53f3\u3002"
+    ],
+    "approved_clearance_edit": {
+      "lift_mm_estimated": 1000,
+      "profile": "concave, unchanged unequal side endpoints",
+      "mutable_glass": "Only the roof-adjoining short-end upper edges and end-frame tops",
+      "other_glass": "KEEP"
+    }
+  },
+  "global_features": [
+    "\u957f\u6761\u67f1\u6881\u6846\u67b6",
+    "\u9000\u8fdb\u4e0b\u90e8\u4e0e\u5916\u6269\u4e0a\u90e8",
+    "\u73bb\u7483\u7f13\u51b2\u5c42\u53ca\u683c\u6805\u5916\u73af\u5eca",
+    "\u56db\u4e2a\u4f7f\u7528\u6807\u9ad8\uff0c\u5176\u4e2d\u4e2d\u95f4\u5c42\u5c40\u90e8\u94fa\u677f",
+    "\u5ba4\u5185\u5706\u6d1e\u3001\u87ba\u65cb\u68af\u3001\u7aef\u90e8\u697c\u68af"
+  ],
+  "user_confirmed": [
+    "\u5148\u4e0d\u4fee\u6539\u6a21\u578b\uff0c\u5148\u7528\u516b\u5f20\u539f\u56fe\u505a\u5e73\u9762\u548c\u5256\u9762\u65b9\u5411\u786e\u8ba4\u3002",
+    "\u7528\u6237\u6307\u51fa\u4ece\u5761\u9053\u7aef\u770b\u5c4b\u9876\u53f3\u8fb9\u66f4\u9ad8\uff1b\u4fdd\u7559\u73b0\u6709\u66f2\u9762\uff0c\u5761\u9053\u53ca\u5176\u4ed6\u90e8\u5206\u5148\u4e0d\u52a8\u3002"
+  ],
+  "inferred": [
+    "dimensions_mm\u5747\u4e3a\u65e7\u4f30\u503c\uff1b4\u8868\u793a\u4f7f\u7528\u6807\u9ad8\u6570\uff0c\u5e76\u975e\u56db\u5c42\u5b8c\u6574\u697c\u677f\u3002",
+    "\u62df\u5b9a\u89c2\u5bdf\u8005\u4f4d\u4e8e\u5761\u9053\u77ed\u7aefX<0\uff0c\u671d+X\u770b\uff1b+Z\u5411\u4e0a\uff0c\u753b\u9762\u5de6\u4e3a+Y\uff08Y=20000\uff09\uff0c\u753b\u9762\u53f3\u4e3a-Y\uff08Y=0\uff09\u3002X\u6cbf\u957f\u5411\uff1b\u6ca1\u6709\u771f\u5b9e\u5317\u5411\u3002\u539f\u5e73\u9762\u56fe\u5de6\u7aef\u5bf9\u5e94\u8349\u56fe\u4e0b\u7aef\uff0c\u539f\u56fe\u4e0a\u8fb9\u5bf9\u5e94\u8349\u56fe\u5de6\u8fb9\u3002\u6b64\u4e3a\u6e90\u56fe\u4e0e\u8349\u56fe\u7ea6\u5b9a\uff0c\u5f53\u524d\u6a21\u578b\u53d8\u6362\u672a\u91cd\u65b0\u539f\u751f\u6838\u9a8c\u3002",
+    "2026-10-16 approved enclosure subdivision is inferred: hall long sides20 bays each and3 access portals each; lower west2/2/1 and east1/2/2 doors at0/3600/7200mm, widths2000-2200mm and height2400mm. Exact schedule in qa/enclosure_addition_r11_receipt.json; not observed source door counts."
+  ],
+  "approved_ramp_local_edit": {
+    "date": "2026-10-15",
+    "goal": "Correct ramp 1 and 3 ascent and connected platforms/guards only",
+    "source_observed": "All eight originals directly inspected; sheet 1 end and sheet 2 oblique show all three runs rising toward screen left (+Y)",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing sloping deck transforms and slender rail joints do not fit SAIE straight wall/opening; ADAI disabled",
+    "direction": "reflect runs 1/3 about Y=10000; keep run 2",
+    "connection": "existing west end gallery used as same-level return, connect north/south pads and open only corresponding local rail ends",
+    "inferred": "run 3 shifted -2200mm in X to avoid fixed gallery floor; exact return geometry not dimensioned",
+    "protected": "run 2 with rails, all gallery slabs and other rails, roof, glass, floors, frame, internal circulation and other groups"
+  },
+  "ramp_execution_r5": {
+    "revision": 5,
+    "root_pid": 20606,
+    "direction": "Ramps 1/3 corrected to +Y ascent; all three now share source end-view direction",
+    "scope": "Only ten allowed ramp/rail/landing subtrees; all gallery geometry protected",
+    "blocker": "Host refused local gallery gate scope. Platforms join decks, but existing guards obstruct return route",
+    "third_run": "X shifted outward 2200mm to avoid fixed gallery floor; exact source offset inferred",
+    "save_reopen": "NOT_AVAILABLE",
+    "completion": "PARTIAL_PENDING_GALLERY_GATE_SCOPE",
+    "review": "Current six canonical plus eight source camera pairs submitted"
+  },
+  "receiving_gate_only": {
+    "dimensions": "existing model, not measured source dimensions",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing slender rail cap deformation and post jamb reuse do not fit SAIE wall/opening; ADAI disabled",
+    "revision_before": 5,
+    "preserve": "All other objects including 185 distant posts and all ramps/platforms",
+    "intent": "Open five receiving gates only",
+    "mutable": "30 exact leaf paths in notes/receiving_gate_scope.json",
+    "aperture_mm": 4000
+  },
+  "upper_receiving_doors": {
+    "revision": 7,
+    "status": "committed_pending_independent_review",
+    "targets": [
+      [
+        "ENVELOPE_OUTER",
+        "NORTH_BAY_0"
+      ],
+      [
+        "ENVELOPE_OUTER",
+        "SOUTH_BAY_00"
+      ]
+    ],
+    "apertures": [
+      {
+        "side": "north",
+        "bottom_z_mm": 7200
+      },
+      {
+        "side": "north",
+        "bottom_z_mm": 10800
+      },
+      {
+        "side": "south",
+        "bottom_z_mm": 7200
+      }
+    ],
+    "clear_width_mm": 2200,
+    "clear_height_mm": 2400,
+    "world_x_mm": [
+      -3650,
+      -1450
+    ],
+    "dimensions": "current-model estimated; no readable source dimensions",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "SAIE root-level solid wall opening does not fit existing nested planar glazing/profile clipping; ADAI unavailable",
+    "protected": "all other objects, all ramps/platforms/floors/roof, all adjacent bays, original target mullions and all geometry outside door cuts",
+    "qa": "qa/upper_glazing_door_receipt.json"
+  },
+  "upper_ramp_containment": {
+    "base_revision": 7,
+    "scope_file": "notes/upper_ramp_placement_scope.json",
+    "execution_script": "scripts/contain_upper_ramps.rb",
+    "plan": "notes/upper_ramp_containment_edit.md",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "Existing sloping ramp/rail solids and horizontal apron slots are incompatible with SAIE straight wall/opening; ADAI disabled",
+    "source": "All eight originals directly compared; SOURCE1/2 upper flights behind glass, SOURCE3 lowest external, SOURCE7 end apron; dimensions estimated",
+    "keep": "lowest flight and north L1 arrival pad/guards; roof, glass including r7 doors, indoor floors and other correct assemblies",
+    "status": "approved_local_candidate"
+  },
+  "gallery_grating_edit": {
+    "revision": 9,
+    "base_revision": 8,
+    "script": "scripts/convert_gallery_grating.rb",
+    "scope": "notes/grating-target-inventory-r8.json",
+    "plan": "notes/gallery_grating_edit.md",
+    "method_id": "kstudio.custom_owned_ruby",
+    "reason": "SAIE straight wall/opening unsuitable for horizontal open grating; ADAI unavailable",
+    "status": "committed_readback_review_pending",
+    "estimated_mm": {
+      "tile_max": 1000,
+      "bearing_bar_width": 3,
+      "bearing_bar_depth": 35,
+      "bearing_pitch": 40,
+      "cross_pitch": 80,
+      "support_spacing_max": 2500
+    },
+    "protected": "all ramps, platforms, rails including slot guards, glazing, roof, indoor floors and other objects",
+    "report": "runtime/scripts/reports/glass_curved_roof-r9-bdd193f6.json"
+  },
+  "west_entry_sliding_current": {
+    "targets": [
+      "ENVELOPE_OUTER/LOWER_END_WEST_ADDITION/LEVEL_7200_BAY_6/DOOR_LEFT_OPEN_90",
+      "ENVELOPE_OUTER/LOWER_END_WEST_ADDITION/LEVEL_7200_BAY_6/DOOR_RIGHT_OPEN_90"
+    ],
+    "receipt": "qa/west_entry_sliding_r12.json",
+    "leaf_projection_mm": 72,
+    "inferred_detail": "User-requested sliding mode, existing aperture and frame retained",
+    "evidence": "notes/west_entry_sliding_current.md",
+    "clear_height_mm": 2400,
+    "method_id": "kstudio.custom_owned_ruby",
+    "method_reason": "Existing nested transparent leaves unsuitable for SAIE solid walls/openings; ADAI disabled",
+    "clear_width_mm": 2200,
+    "revision": 12
+  },
+  "exterior_circulation_r13": {
+    "platforms": "L2 L3 outside tabs removed; retained inboard grating flats meet returns",
+    "independent_review": "NEEDS_FIX: protected doubleheight floor/beam mismatch, spiral arrival clearance, curved curtain enclosures and materials",
+    "inferred": "1100mm guards; <=50mm mesh pitch; 1.8mm wire; concealed joints inferred",
+    "revision": 13,
+    "status": "committed_and_independently_reviewed",
+    "script": "scripts/complete_exterior_circulation.rb",
+    "preserved": "Deep checks passed for all required thirteen KEEP paths; native scope protects all other existing entities including repaired doors and tread groups",
+    "qa": "qa/exterior_circulation_r13_review.json",
+    "guards": "26 original containers replaced by editable open white mesh; added stair and platform edge guards",
+    "stairs": "72 original treads retained; three external grating openings; stringers seats handrails supports ground arrival added",
+    "plan": "notes/exterior_circulation_r13.md"
+  },
+  "readonly_envelope_void_stair_r13": {
+    "status": "read_only_revision13_no_geometry_write",
+    "report": "notes/readonly_envelope_void_stair_r13.md",
+    "evidence": "qa/readonly_envelope_void_stair_r13.json",
+    "correction": "Large intermediate void already exists; previous continuous-floor verdict overgeneralized. Local west stair-edge clearance and handrail-to-beam intersection require attention."
+  },
+  "approved_long_facade_finish_r14": {
+    "revision_from": 13,
+    "status": "executing_host_scope_reconciled",
+    "user_goal": "Complete lower long-side floor-specific doors/windows and recessed room fronts; articulate four solid buffer covers; preserve completed assemblies.",
+    "source_anchors": [
+      "SOURCE1/2 unequal concave hall roof and rectangular white perimeter stay",
+      "SOURCE3 entrance under retained headers and open grating",
+      "SOURCE4 upper/lower interior depth and doubleheight stay",
+      "SOURCE5/7/8 partial floors, enclosed room band, recessed fronts, shallow buffer roof vent/eave",
+      "SOURCE6 retained frame and distinct greenhouse skin"
+    ],
+    "dimensions_estimated_mm": {
+      "portal_width": 1600,
+      "portal_height": 2400,
+      "exterior_recess": 600,
+      "room_recess": 800,
+      "canopy_depth": 4000,
+      "canopy_z": [
+        13400,
+        13500
+      ],
+      "outer_glazed_fall": 72
+    },
+    "systems": [
+      {
+        "id": "lower_long_glazing",
+        "targets": "40 exact existing INNER_GLASS leaves, container PIDs retained;40posts preserved",
+        "scope": "Segment by real floors/headers,52actual portals; no door over real middle void; existing core/green panel bypassed",
+        "method_id": "kstudio.custom_owned_ruby",
+        "reason": "Transparent planar glass and nested existing leaves unsuitable for root-only SAIE solid walls/openings; ADAI disabled"
+      },
+      {
+        "id": "room_front",
+        "target": "INTERIOR/ROOM_FRONT_COMPLETION",
+        "scope": "20recessed fronts join18existing dividers atY12000; recessed doors atY12800; approach floor faces classified",
+        "method_id": "kstudio.custom_owned_ruby",
+        "reason": "SAIE solid-wall geometry suitable in principle but available wrapper is root-only and cannot create exact nested approved new leaf without forbidden reparenting"
+      },
+      {
+        "id": "canopies",
+        "targets": "4 exact CANOPY leaves",
+        "scope": "Original outline/100depth retained; edge beams/rafters/purlins, translucent main cover, shallow outer glazed slope and selected vent louvers; separate cap/drip/flashing; no slab backing",
+        "method_id": "kstudio.custom_owned_ruby",
+        "reason": "Thin composite frames/panes/sloping vent profiles cannot use SAIE straight-wall/opening helper"
+      },
+      {
+        "id": "hall_joints",
+        "target": "ENVELOPE_OUTER/HALL_WINDOW_JOINTS",
+        "scope": "Supplementary joint covers/head flashings above existing door heads only; existing hall/window geometry immutable",
+        "method_id": "kstudio.custom_owned_ruby",
+        "reason": "Nested slim profiles, not solid walls"
+      }
+    ],
+    "stages": [
+      "Native floor/header/target checks",
+      "Representative reusable window frame and pane",
+      "Replication and occupied-floor/green-panel/core variants",
+      "Recess returns and actual no-backing apertures",
+      "Canopy frame, pane fall/vent/stay/edge details; exact bounds and portal checks",
+      "Fresh six canonical plus all source/detail cameras; independent critic"
+    ],
+    "preservation": "Host policy now uses15precise required KEEP paths;73specific KEEP paths inspected including40posts and18room dividers. All47exact edit/creation paths unchanged.",
+    "uncertainty": "No source measured dimensions. Recesses/door counts/canopy opaque-transparent zones/hardware inferred under source constraints; not all schematic source openings are exactly countable.",
+    "blocker_report": "qa/long_facade_finish_attempt.json"
+  },
+  "outer_eave_vents_r17": {
+    "revision": 17,
+    "stage": "local_finish_committed_reviewed",
+    "method_id": "kstudio.custom_owned_ruby",
+    "selection_reason": "Transparent zero-thickness shared-glass apertures and top-hinged sloped sash/stay geometry do not fit installed SAIE opaque straight-wall helpers; ADAI disabled.",
+    "parameters_mm": {
+      "projection": 450,
+      "fall": 900,
+      "opening_width": 2720,
+      "opening_bottom": 12600,
+      "opening_top": 13400,
+      "sash_profile": 28
+    },
+    "inferred_count": 38,
+    "target_paths": [
+      "ENVELOPE_OUTER/OUTER_EAVE_VENTS",
+      "all38 registered shared GLASS occurrences"
+    ],
+    "protected": "12 exact deep KEEP paths in local-edit-scope.json; all passed",
+    "verification": "76short aperture rays and actual face area/inner loop passed; current6canonical+14source/detail captures independently reviewed: NEEDS_FIX for original interior ceiling/material differences outside local vent scope; see qa/outer_vents_r17_result.md",
+    "uncertainty": "Opening angle, count, division and concealed hinge/stay profiles inferred from source05 section and actual frame; source08 blue arrows excluded."
+  },
+  "site_closeout_r20": {
+    "revision": 20,
+    "scope": "SITE_GROUND/SIMPLE_SURROUNDINGS only",
+    "building_frozen": true,
+    "source": "All eight attached sheets directly inspected; source1/3/5 context observed, exact layout inferred",
+    "method_id": "kstudio.custom_owned_ruby",
+    "method_reason": "SAIE wall/opening helpers unsuitable for paths and planting; ADAI disabled",
+    "counts": {
+      "walk_pieces": 6,
+      "green_beds": 4,
+      "schematic_trees": 4
+    },
+    "verification": "27 deep KEEP checks passed; six canonical +20source/detail captures; independent review NEEDS_FIX for retained building interior only",
+    "owner_requests_end": true,
+    "save_status": "Awaiting host save confirmation; currently no supplied save tool"
+  }
+}

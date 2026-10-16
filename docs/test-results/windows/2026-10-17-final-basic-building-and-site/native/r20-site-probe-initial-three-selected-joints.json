@@ -1,0 +1,243 @@
+{
+  "revision": 20,
+  "root_pid": 20606,
+  "geometry_writes": 0,
+  "site_leaf_pid": 1379720,
+  "original_ground_pid": 76258,
+  "path_count": 6,
+  "green_bed_count": 4,
+  "tree_count": 4,
+  "path_solid_controls": [
+    {
+      "name": "SOUTH_MAIN_WALK",
+      "actual_z_intersections_mm": [
+        -350,
+        -280
+      ],
+      "actual_original_ground_intersections_mm": [
+        -500,
+        -280
+      ],
+      "has_real_thickness": true,
+      "embedded_on_original_ground": true
+    },
+    {
+      "name": "WEST_ENTRY_LINK",
+      "actual_z_intersections_mm": [
+        -350,
+        -280
+      ],
+      "actual_original_ground_intersections_mm": [
+        -500,
+        -280
+      ],
+      "has_real_thickness": true,
+      "embedded_on_original_ground": true
+    },
+    {
+      "name": "EAST_STAIR_LINK",
+      "actual_z_intersections_mm": [
+        -350,
+        -280
+      ],
+      "actual_original_ground_intersections_mm": [
+        -500,
+        -280
+      ],
+      "has_real_thickness": true,
+      "embedded_on_original_ground": true
+    },
+    {
+      "name": "WEST_RAMP_APPROACH",
+      "actual_z_intersections_mm": [
+        -350,
+        -140
+      ],
+      "actual_original_ground_intersections_mm": [
+        -500,
+        -280
+      ],
+      "has_real_thickness": true,
+      "embedded_on_original_ground": true
+    },
+    {
+      "name": "WEST_DOOR_APPROACH_1",
+      "actual_z_intersections_mm": [
+        -350,
+        -139.99999999999997
+      ],
+      "actual_original_ground_intersections_mm": [
+        -500,
+        -280
+      ],
+      "has_real_thickness": true,
+      "embedded_on_original_ground": true
+    },
+    {
+      "name": "WEST_DOOR_APPROACH_2",
+      "actual_z_intersections_mm": [
+        -350,
+        -140
+      ],
+      "actual_original_ground_intersections_mm": [
+        -500,
+        -280
+      ],
+      "has_real_thickness": true,
+      "embedded_on_original_ground": true
+    }
+  ],
+  "tree_ground_and_crown_contacts": [
+    {
+      "tree": "TREE_1",
+      "center_mm": [
+        14000,
+        -5200
+      ],
+      "trunk_z_mm": [
+        -235.00000000000003,
+        2665
+      ],
+      "bed_z_mm": [
+        -280,
+        -234.99999999999997
+      ],
+      "crown_z_mm": [
+        2200,
+        5900
+      ],
+      "original_ground_z_mm": [
+        -500,
+        -280
+      ],
+      "passed": true
+    },
+    {
+      "tree": "TREE_2",
+      "center_mm": [
+        37000,
+        -5200
+      ],
+      "trunk_z_mm": [
+        -235.00000000000003,
+        2665
+      ],
+      "bed_z_mm": [
+        -280,
+        -234.99999999999997
+      ],
+      "crown_z_mm": [
+        2200,
+        5900
+      ],
+      "original_ground_z_mm": [
+        -500,
+        -280
+      ],
+      "passed": true
+    },
+    {
+      "tree": "TREE_3",
+      "center_mm": [
+        13000,
+        29200
+      ],
+      "trunk_z_mm": [
+        -235.00000000000003,
+        2665
+      ],
+      "bed_z_mm": [
+        -280,
+        -234.99999999999997
+      ],
+      "crown_z_mm": [
+        2200,
+        5900
+      ],
+      "original_ground_z_mm": [
+        -500,
+        -280
+      ],
+      "passed": true
+    },
+    {
+      "tree": "TREE_4",
+      "center_mm": [
+        39000,
+        29200
+      ],
+      "trunk_z_mm": [
+        -235.00000000000003,
+        2665
+      ],
+      "bed_z_mm": [
+        -280,
+        -234.99999999999997
+      ],
+      "crown_z_mm": [
+        2200,
+        5900
+      ],
+      "original_ground_z_mm": [
+        -500,
+        -280
+      ],
+      "passed": true
+    }
+  ],
+  "entrance_joints": [
+    {
+      "type": "west ground ramp",
+      "point_mm": [
+        -8300,
+        -6200,
+        0
+      ],
+      "approach_z": [
+        -350,
+        0
+      ],
+      "existing_z": [
+        -160,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "type": "west ground ramp",
+      "point_mm": [
+        -7400,
+        -6200,
+        0
+      ],
+      "approach_z": [
+        -350,
+        0
+      ],
+      "existing_z": [
+        -160,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "type": "west ground ramp",
+      "point_mm": [
+        -6500,
+        -6200,
+        0
+      ],
+      "approach_z": [
+        -350,
+        0
+      ],
+      "existing_z": [
+        -160,
+        0
+      ],
+      "passed": true
+    }
+  ],
+  "status": "PASS_SELECTED_BASIC_SITE_CONTROLS",
+  "limitations": "Simple owner-approved context inference, no surveyed landscape reconstruction/full-route/civil/structural certification. Paving main surfaces are intentionally ground-level overlays; old native ground remains unchanged. Whole building protection is separate complete graph audit."
+}
