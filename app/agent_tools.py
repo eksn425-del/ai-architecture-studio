@@ -129,15 +129,30 @@ class AgentToolSurface:
                 ruby_state: dict[str, dict[str, Any]] | None,
                 tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False) -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
+        from .stage_quality import geometry_stage_limit, continuation_message, ReviewProgress
         from .blender_backend import enabled, BlenderBackend
         if enabled(resolved_project_dir):
             backend = BlenderBackend(resolved_project_dir)
+            stage, limit = geometry_stage_limit(bool(backend.dispatch("blender_inspect_scene", {}).get("revision")))
+            quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
             def blender_dispatch(name, arguments):
                 if not mcp_enabled:
                     raise ValueError("Blender writes require an approved execution turn")
-                return backend.dispatch(name, arguments)
+                writing = name == "blender_apply_objects"
+                if writing and quality["writes"] >= limit:
+                    quality["stop_reason"] = "budget_exhausted"
+                    raise ValueError(continuation_message(stage, quality["writes"], limit))
+                before = backend.dispatch("blender_inspect_scene", {}).get("revision", 0)
+                try:
+                    result = backend.dispatch(name, arguments)
+                    if writing:
+                        quality["geometry_qa"] = result.get("geometry_qa")
+                    return result
+                finally:
+                    if writing and backend.dispatch("blender_inspect_scene", {}).get("revision", 0) > before:
+                        quality["writes"] += 1
             return AgentToolContext(dynamic_tools=backend.tools() if mcp_enabled else [],
-                                    dispatch=blender_dispatch, quality_state={"backend": "blender"})
+                                    dispatch=blender_dispatch, quality_state=quality)
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
         executor = None
@@ -157,12 +172,15 @@ class AgentToolSurface:
         writes = 0
         # One primary build plus two corrections; an existing model gets two
         # corrections. A committed write consumes budget even if capture fails.
-        write_limit = 2 if executor and executor.ruby_state else 3
+        stage, write_limit = geometry_stage_limit(bool(executor and executor.ruby_state))
+        progress = ReviewProgress()
         existing_review = (
             load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
             if executor and tool_profile == "reconstruction_coding" and executor.ruby_state else None
         )
         quality_state: dict[str, Any] = {
+            "stage": stage,
+            "quality_status": "unverified",
             "writes": 0,
             "write_limit": write_limit,
             "review": existing_review,
@@ -170,6 +188,8 @@ class AgentToolSurface:
             "preservation": None,
             "repair_memory": None,
         }
+
+        progress.observe(existing_review)
 
         def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
             if executor is None:
@@ -215,6 +235,8 @@ class AgentToolSurface:
                     raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
                 receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
                 finalized_repair = finalize_latest_repair_attempt(resolved_project_dir, receipt)
+                progress.observe(receipt)
+                quality_state["no_progress"] = progress.blocked
                 quality_state["review"] = receipt
                 quality_state["review_reused"] = False
                 quality_state["repair_memory"] = finalized_repair
@@ -242,8 +264,10 @@ class AgentToolSurface:
                     quality_state["review"] = None
                     quality_state["review_reused"] = False
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
-            if bounded and writes >= write_limit:
-                raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
+            if bounded and (writes >= write_limit or progress.blocked):
+                reason = "no_progress" if progress.blocked else "budget_exhausted"
+                quality_state["stop_reason"] = reason
+                raise MCPCallError(continuation_message(stage, writes, write_limit, reason))
             preservation_before: dict[str, dict[str, Any]] = {}
             preservation_script_id = ""
             review_before_write: dict[str, Any] | None = None

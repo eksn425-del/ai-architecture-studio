@@ -96,6 +96,10 @@ class BlenderBackend:
                 objects[obj['id']] = obj
             if len(objects)>2048 or sum(len(o.get('vertices',[])) or 8 for o in objects.values())>50000:
                 raise ValueError('Project object limit reached')
+            if objects == old['objects']:
+                raise ValueError('No geometry progress: identical object state; prior candidate retained. Inspect remaining issues before retrying.')
+            from .stage_quality import geometry_diagnostics
+            diagnostics = geometry_diagnostics(objects)
             revision = old['revision']+1
             run = self.root / uuid.uuid4().hex
             run.mkdir()
@@ -109,7 +113,7 @@ class BlenderBackend:
             before=json.loads(receipt.read_text()); after=json.loads(reopen.read_text())
             if before != after or set(after) != set(objects):
                 raise ValueError('Native save/reopen mismatch; previous revision retained')
-            result={'objects':objects,'revision':revision,'native_reopen':'PASS','geometry':after,'model_path':str(output.relative_to(self.project_dir)), 'sha256':hashlib.sha256(output.read_bytes()).hexdigest()}
+            result={'geometry_qa':diagnostics,'candidate_status':'saved_candidate','quality_status':'unverified','objects':objects,'revision':revision,'native_reopen':'PASS','geometry':after,'model_path':str(output.relative_to(self.project_dir)), 'sha256':hashlib.sha256(output.read_bytes()).hexdigest()}
             temp=self.state.with_suffix('.tmp');temp.write_text(json.dumps(result,indent=2));temp.replace(self.state)
             return result
 
