@@ -49,7 +49,7 @@ function renderJourney() {
   $("setup-model").hidden = available;
   $("setup-model").disabled = state.busy;
   $("journey-hint").textContent = !available
-    ? "先填写 DeepSeek API Key 并保存为默认，下次打开自动恢复。图片和草稿会保留，分析阶段无需 SketchUp。"
+    ? (routeInfo("economy").provider === "codex-app-server" ? "当前选择的本机 Codex 不可用。请先检查本机安装和配置，或在「模型 / 自带 API」主动选择其他连接。图片和草稿会保留。" : "请在「模型 / 自带 API」检查所选供应商的连接。图片和草稿会保留，分析阶段无需 SketchUp。")
     : state.busy ? "本轮正在处理，资料与对话会保存在当前会话。"
     : {idle: "上传同一建筑的图片（整张多视图也可以），或直接描述目标。先分析，不会修改 SketchUp。", clarifying: "回答 AI 的关键问题；没有实测尺寸也可以采用估算，再检查计划。", planned: "先核对范围、尺寸与推断。可以提问、修改或下载计划，准备好后再连接建模。", building: "已有执行结果，质量尚未验收。先对照参考图检查立面、屋顶，再继续修改同一模型。"}[stage];
   $("clarification-shortcuts").hidden = stage !== "clarifying";
@@ -71,7 +71,7 @@ function renderWorkflowChecks(progress = null) {
   const geometry = Object.values(agent.ruby_state || {}).some(v => v.revision > 0);
   const plan = ["planned", "building"].includes(agent.reconstruction_state);
   const items = progress?.checks || [
-    {label:"模型 API", status:routeAvailable("economy") ? "done" : "blocked", detail:routeAvailable("economy") ? "已配置；本轮调用状态见进度" : "请配置模型连接"},
+    {label:"模型 API", status:routeAvailable("economy") ? "done" : "blocked", detail:routeReadinessLabel("economy")},
     {label:"建模需求", status:sourceImages().length || state.project?.context?.conversation?.length ? "done" : "pending", detail:sourceImages().length ? `${sourceImages().length} 张项目图片；发送后仍保留上下文` : "也可以用文字描述建筑；AI 会先整理假设与计划"},
     {label:"建模计划", status:plan ? "done" : "pending", detail:plan ? "参数已整理" : "回答关键问题后生成计划"},
     {label:"SketchUp 连接", status:agent.status === "ready" ? "done" : "pending", detail:agent.status === "ready" ? "已绑定独立模型；执行前再核验" : "建模前连接独立模型"},
@@ -171,6 +171,12 @@ function routeAvailable(tier) {
   return !!state.modelRouter.providers?.[route.provider]?.available;
 }
 
+function routeReadinessLabel(tier) {
+  const route = routeInfo(tier);
+  if (!routeAvailable(tier)) return route.provider === "codex-app-server" ? "本机 Codex 不可用" : "模型连接未配置";
+  return route.provider === "codex-app-server" ? "已检测到本机程序；调用未验证" : "已配置；调用未验证";
+}
+
 function refreshTierLabels() {
   const select = $("conversation-tier");
   if (!select) return;
@@ -184,7 +190,7 @@ function refreshTierLabels() {
     : `${economyRoute.model} · ${(economyRoute.reasoning_effort || "provider-default").toUpperCase()}`;
   economy.textContent = economyRoute.provider === "managed-responses"
     ? `K Studio · ${economyRoute.model} · ${routeAvailable("economy") ? "内部测试中" : "未验证 / 暂不可用"}`
-    : `${economyLabel}${routeAvailable("economy") ? " · 已配置" : " · 未配置"}`;
+    : `${economyLabel} · ${routeReadinessLabel("economy")}`;
   premium.textContent = `精修 · ${premiumRoute.model}（仅本轮${routeAvailable("premium") ? "" : " · 未配置"}）`;
 }
 
@@ -228,6 +234,8 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/Codex config\.toml was not found|local native agent is not configured/i.test(message)) return "本机 Codex 尚未配置。请先在运行 K Studio 的电脑上完成 Codex 配置，再回到本会话重试。已上传的图片和对话仍在，无需新建项目；这不是 DeepSeek Key 错误。";
+  if (/Codex CLI is unavailable|local Codex App Server is unavailable/i.test(message)) return "未找到可用的本机 Codex 程序。请检查 K Studio 所在电脑的程序安装和启动路径，再回到本会话重试；图片和对话仍保留。";
   if (/Selected model is at capacity|model.*capacity/i.test(message)) return "当前模型服务繁忙，暂时无法继续。图片和已保存的计划仍在；请稍后在本会话重试，无需重新上传，也无需重新填写 Key。";
   if (/workspace routing discovery unauthorized|refresh token was already used/i.test(message)) return "Codex 本机登录缓存已失效，需要刷新 Codex 登录；这不是 DeepSeek API Key 问题。图片、计划和模型已保留。";
   if (/Failed to fetch|NetworkError|Load failed/i.test(message)) return "工作台连接暂时中断。草稿已保留；恢复连接后先同步已有模型，请勿重复发送修改请求。";
@@ -588,8 +596,8 @@ async function boot() {
     const economyRoute = routeInfo("economy");
     const premiumRoute = routeInfo("premium");
     const routeStatus = routeAvailable("economy")
-      ? `Economy · ${economyRoute.model} · ${(economyRoute.reasoning_effort || "low").toUpperCase()} 已就绪`
-      : "DeepSeek V4.1 Flash 尚未配置";
+      ? `Economy · ${economyRoute.model} · ${(economyRoute.reasoning_effort || "low").toUpperCase()} · ${routeReadinessLabel("economy")}`
+      : routeReadinessLabel("economy");
     $("brain-status").textContent = `建筑 Agent · ${routeStatus}`;
     document.querySelector(".signal-dot").classList.toggle("ready", state.nativeAgentAvailable);
     const savedId = localStorage.getItem("architecture-studio-project");
@@ -1169,7 +1177,7 @@ $("model-settings-form").addEventListener("submit", async event => {
   $("model-settings-status").textContent = "正在设置连接…";
   try {
     state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value})});
-    refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeAvailable("economy") ? "已就绪" : "未配置"}`; $("model-settings-dialog").close();
+    refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeReadinessLabel("economy")}`; $("model-settings-dialog").close();
     showToast(state.modelRouter.credential_storage === "windows-dpapi" ? "模型连接已加密保存在本机；重启自动恢复。尚未发送测试请求。" : "模型连接已设置；本机仅支持内存保存，重启需重新填写。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
   finally { $("api-key").value = ""; button.disabled = false; }

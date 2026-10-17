@@ -136,3 +136,26 @@ const nodes={};const $=id=>nodes[id]||(nodes[id]={});const artifactTypeLabels={s
     assert warning in result['links']
     assert '/current' in result['links']
     assert '/history' not in result['links'] + result['cards']
+
+
+def test_local_codex_configuration_error_is_actionable_not_wrong_provider():
+    result = run(function('friendlyError') + '''
+console.log(JSON.stringify(friendlyError(new Error('Codex config.toml was not found; local native agent is not configured'))));
+''')
+    assert '本机 Codex 尚未配置' in result
+    assert '无需新建项目' in result
+    assert '不是 DeepSeek Key 错误' in result
+
+
+def test_native_program_detection_does_not_claim_verified_model_call():
+    result = run('''const routeInfo=()=>({provider:'codex-app-server'});
+const routeAvailable=()=>true;
+''' + function('routeReadinessLabel') + "console.log(JSON.stringify(routeReadinessLabel('economy')));")
+    assert result == '已检测到本机程序；调用未验证'
+
+
+def test_missing_native_route_names_codex_not_unrelated_api_provider():
+    result = run('''const routeInfo=()=>({provider:'codex-app-server'});
+const routeAvailable=()=>false;
+''' + function('routeReadinessLabel') + "console.log(JSON.stringify(routeReadinessLabel('economy')));")
+    assert result == '本机 Codex 不可用'

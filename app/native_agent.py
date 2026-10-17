@@ -245,7 +245,9 @@ class CodexAppServerRuntime:
 
     @property
     def available(self) -> bool:
-        return bool(self.codex_executable)
+        # A configured string is not proof that the executable is installed.
+        # Probe only the path; never read credentials or launch a provider here.
+        return bool(self.codex_executable and shutil.which(self.codex_executable))
 
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
                 mcp_enabled: bool, developer_instructions: str,
