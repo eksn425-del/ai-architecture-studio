@@ -19,7 +19,7 @@ def run(program):
     node = shutil.which('node')
     if not node:
         pytest.skip('Node required for frontend regression')
-    result = subprocess.run([node, '-e', program], capture_output=True, text=True, check=True, timeout=10)
+    result = subprocess.run([node, '-e', program], capture_output=True, text=True, encoding='utf-8', check=True, timeout=10)
     return json.loads(result.stdout)
 
 STUB = '''
@@ -150,8 +150,21 @@ console.log(JSON.stringify(friendlyError(new Error('Codex config.toml was not fo
 def test_native_program_detection_does_not_claim_verified_model_call():
     result = run('''const routeInfo=()=>({provider:'codex-app-server'});
 const routeAvailable=()=>true;
+const state={project:null};
 ''' + function('routeReadinessLabel') + "console.log(JSON.stringify(routeReadinessLabel('economy')));")
     assert result == '已检测到本机程序；调用未验证'
+
+
+def test_route_success_label_requires_current_project_model_and_effort():
+    result = run('''const routeInfo=()=>({provider:'codex-app-server',model:'gpt-6.1-sol',reasoning_effort:'medium'});
+const routeAvailable=()=>true;
+const state={project:{agent_session:{provider:'codex-app-server',model:'gpt-6.1-sol',reasoning_effort:'medium',latency_ms:100,last_reply:'done',error:''}}};
+''' + function('routeReadinessLabel') + '''
+const exact=routeReadinessLabel('economy');state.project.agent_session.reasoning_effort='low';
+const otherEffort=routeReadinessLabel('economy');state.project.agent_session.reasoning_effort='medium';
+state.project.agent_session.error='failed';console.log(JSON.stringify({exact,otherEffort,error:routeReadinessLabel('economy')}));
+''')
+    assert result == {'exact':'本会话最近调用成功','otherEffort':'已检测到本机程序；调用未验证','error':'已检测到本机程序；调用未验证'}
 
 
 def test_missing_native_route_names_codex_not_unrelated_api_provider():

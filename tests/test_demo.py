@@ -555,7 +555,8 @@ def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tm
     assert project["agent_session"]["status"] == "ready"
     assert project["agent_session"]["thread_id"] == "thr-fast-assembly"
     assert project["model_state"]["model_path"].endswith("fast-assembly-agent.skp")
-    assert "软件已保存当前独立模型和可下载 SKP" in project["agent_session"]["last_reply"]
+    assert "【工作台保存记录｜在上述 Agent 回复后完成】" in project["agent_session"]["last_reply"]
+    assert "本轮最新可下载 SKP" in project["agent_session"]["last_reply"]
     bound_saves = [call for call in sketchup.calls if call[0] == "save_model"
                    and call[1]["operation_name"] == "Persist bound agent document"]
     assert len(bound_saves) == 1

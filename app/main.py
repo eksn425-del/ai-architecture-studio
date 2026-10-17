@@ -1892,7 +1892,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             try:
                 checkpoint_agent_model()
                 reply = bind_current_checkpoint_download(reply, current_state.model_path)
-                reply += "\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。"
+                reply += "\n\n【工作台保存记录｜在上述 Agent 回复后完成】已保存当前独立模型和本轮最新可下载 SKP。保存成功不代表原生重开或外观验收通过。"
             except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                 session.error = f"Model action completed, but readback/capture/checkpoint failed: {error}"[:1200]
                 reply += "\n\nSketchUp 的模型回读、截图或检查点保存未完成；请检查本机桥接后重试。"

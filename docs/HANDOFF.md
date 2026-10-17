@@ -1,3 +1,9 @@
+## LOCAL SU TRIAL COMPLETE 2026-10-17 — personal candidate available, stop here
+
+[Candidate launch/result/limitations](SU_TRIAL_CANDIDATE_2026-10-17.md), [engineering index](test-results/windows/2026-10-17-local-su-trial/README.md). Both requested fixes reviewed/included on isolated branch. Real Sol6.1Medium native proxy and SU24, independent su-1017/root19: completed actual website build3/local rail edit4,16protected groups+loose geometry full native equality, six paired cameras, save/latest browser download/SU24 actual GUI reopen and restore/reconnect. Declaredprecision3stagePASS/rawstrictdoubleFAIL retained, sourceCriticNEEDS_FIX (header clearance, intentionally excluded terrace), commercial provider/replay NOT_RUN. Ready for owner local trial only; leave http://127.0.0.1:8787/ and stop. Launcher `Start K Studio SU Trial.cmd`; existing encrypted DeepSeek credential preserved. Final545pass/13skip are code checks, not model-quality PASS. All raw new sources/logs/SKP ignored/local; no main merge/push/deployment/thesis action. Old r20/SKP/state unchanged. Further feature/modeling work requires new owner feedback. Historical records below preserved.
+
+---
+
 ## 2026-10-16 UTC — Separate product recovery patch (local review)
 
 New product-only work after the r20 case closeout; no old building geometry was resumed. See [recovery/readiness report](TRIAL_RECOVERY_READINESS_2026-10-16.md). Fixes project-switch identity, active-turn polling/retry/draft safety and current-checkpoint download selection, with explicit native-delivery verification wording. Core checks: 537 passed / 15 skipped; actual browser UI and SketchUp native NOT_RUN. A separate native Blender fixture is not website integration or model-quality certification. Prepared on an isolated branch; no remote publication attempted. Historical handoff below is unchanged.

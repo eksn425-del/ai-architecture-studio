@@ -1,3 +1,9 @@
+## LOCAL SU TRIAL COMPLETE 2026-10-17 — ready for owner's local trial, with limitations
+
+New owner personal SU trial COMPLETE. [Launch/result/limits](SU_TRIAL_CANDIDATE_2026-10-17.md), [engineering evidence index](test-results/windows/2026-10-17-local-su-trial/README.md). Isolated `codex/su-trial-candidate-20261017` includes both reviewed trial fixes, main unchanged. Actual website gpt-6.1-sol/medium, independent `su-1017`/root19: original synthetic image upload, Chinese clarification/plan/approval, native build r3, one railing-height edit r4, KEEP+16group full protection PASS, six true same-camera pairs, actual latest download and SU24 GUI reopen. Save-before/bound/download three-stage declaredprecisionPASS, rawstrictdoubleFAIL retained; Critic sourceNEEDS_FIX remains, no commercial/full-source claim. Restore/reconnect working r4, trial fence archived, page left available. Refresh/project switch/draft/double-click/browser outage/cancel checks pass; hard-kill/cross-client NOT_RUN. Final545pass/13skip separate from real geometry. Raw new sources/models/logs local only; no push/merge main/deployment/thesis action. STOP feature/model work and await owner experience. Old r20 remains closed and byte unchanged.
+
+---
+
 ## CLOSED 2026-10-17 — basic building and simple surroundings completed, final r20
 
 **Owner-directed case closeout COMPLETE.** Owner says current development is sufficient; retain basic doors/windows/stairs/walls/columns, add simple surroundings, upload records and finish. No further refinement or old customer-readiness milestones. [Final actual evidence/model](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [prior19building/native evidence](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same original8wholeimages/order/projectarchitecture-project-4f0e4/root20606, original4unchanged; actual real Studio ordinaryChinese/Sol6.1Medium, outercontroller unchanged.

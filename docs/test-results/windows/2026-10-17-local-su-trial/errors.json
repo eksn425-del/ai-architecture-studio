@@ -1,0 +1,51 @@
+[
+  {
+    "phase": "initial_offline_regression",
+    "failures": 8,
+    "cause": "Node stdout UTF-8 decoded with Windows GBK",
+    "resolution": "explicit UTF-8; final suite pass"
+  },
+  {
+    "phase": "initial_build",
+    "failures": 5,
+    "causes": [
+      "invalid construction method ID",
+      "malformed exact target paths",
+      "missing source ref for inferred exterior",
+      "one native coding command exit 1",
+      "write limit after initial+two corrections"
+    ],
+    "resolution": "first four corrected within turn; fifth rejected; remaining visual mismatch retained"
+  },
+  {
+    "phase": "local_edit",
+    "failures": 2,
+    "cause": "rail height assertions and stale native bounds before invalidation",
+    "resolution": "transactions rejected, corrected bounds handling, exactly one successful revision3-to4 commit"
+  },
+  {
+    "phase": "host_ui_automation",
+    "failures": 2,
+    "causes": [
+      "App switch invalid handle",
+      "download locator after toggling auto-opened panel closed"
+    ],
+    "resolution": "stopped dependent input; used observed taskbar and fresh native dialog; checked actual panel before actual download"
+  },
+  {
+    "phase": "native_delivery",
+    "result": "raw strict double FAIL",
+    "resolution": "retained raw failure; existing declared precision rule passes all three stages; no geometry moved"
+  },
+  {
+    "phase": "visual_review",
+    "result": "NEEDS_FIX",
+    "cause": "ground-floor header clearance; excluded terrace not modeled",
+    "resolution": "preserved limitation; no new refinement authorization used"
+  },
+  {
+    "phase": "status_copy_and_cache",
+    "cause": "program detection label persisted after successful calls; old static script version cached",
+    "resolution": "exact matching-session success label and new asset version verified through real normal refresh"
+  }
+]

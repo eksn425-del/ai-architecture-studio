@@ -174,6 +174,10 @@ function routeAvailable(tier) {
 function routeReadinessLabel(tier) {
   const route = routeInfo(tier);
   if (!routeAvailable(tier)) return route.provider === "codex-app-server" ? "本机 Codex 不可用" : "模型连接未配置";
+  const session = state.project?.agent_session;
+  if (session && !session.error && session.last_reply && session.latency_ms > 0 &&
+      session.provider === route.provider && session.model === route.model &&
+      session.reasoning_effort === route.reasoning_effort) return "本会话最近调用成功";
   return route.provider === "codex-app-server" ? "已检测到本机程序；调用未验证" : "已配置；调用未验证";
 }
 
@@ -305,6 +309,7 @@ function allArtifacts() {
 
 function updateHeader() {
   refreshTierLabels();
+  if (state.modelRouter) $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeReadinessLabel("economy")}`;
   const project = state.project;
   if (!project) return;
   const context = project.context;
