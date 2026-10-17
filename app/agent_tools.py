@@ -750,7 +750,7 @@ class AgentToolSurface:
             # Preserve the camera the Agent just chose for a source match.
             # The connector's default zoom_extents can silently replace it.
             safe_arguments.setdefault("zoom_extents", False)
-            read_camera = getattr(project_ruby.adapter, "get_camera_snapshot", None) if project_ruby else None
+            read_camera = getattr(getattr(project_ruby, "adapter", None), "get_camera_snapshot", None)
             camera_before = read_camera() if callable(read_camera) else None
             try:
                 result = self.sketchup_mcp.call_for_agent(name, safe_arguments)

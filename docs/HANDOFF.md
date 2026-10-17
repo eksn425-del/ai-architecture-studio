@@ -1,3 +1,9 @@
+## 2026-10-16 UTC — Separate product recovery patch (local review)
+
+New product-only work after the r20 case closeout; no old building geometry was resumed. See [recovery/readiness report](TRIAL_RECOVERY_READINESS_2026-10-16.md). Fixes project-switch identity, active-turn polling/retry/draft safety and current-checkpoint download selection, with explicit native-delivery verification wording. Core checks: 537 passed / 15 skipped; actual browser UI and SketchUp native NOT_RUN. A separate native Blender fixture is not website integration or model-quality certification. Prepared on an isolated branch; no remote publication attempted. Historical handoff below is unchanged.
+
+---
+
 ## CLOSED 2026-10-17 — final r20 basic building/site case complete by owner scope
 
 Owner-requested closeout COMPLETE; END this case, no further refinement or older readiness work. [Final SKP/evidence](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [19nativebuilding](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same8wholeoriginals/project/root20606, original4immutable, real StudioSol6.1Medium ordinaryChinese, outerunchanged.20only adds new SITE_GROUND/SIMPLE_SURROUNDINGS:6paths/4greenbeds/4schematic trees. All original building/ground exact deep protectionPASS, SHA1589ada84f2d9e53cb7b11a55a41959608222977a00d19e68d0e31f02cac5174 equal;6actualsamecamera pairs,6pathsolid/4treecontact/6west-ramp+eaststairentrypointsPASS. Basic named33columns/18partitiongroups/3spirals/door-glazingassemblies present, prior selected route/joint evidence retained, counts not quality certification.

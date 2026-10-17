@@ -6,8 +6,10 @@ let progressTimer = null;
 let liveProgressTimer = null;
 let progressGeneration = 0;
 let planRequestId = 0;
+let projectLoadGeneration = 0;
 let pendingExecutionProject = null;
 let observingTurn = false;
+let observedRunningTurn = false;
 
 function saveDraft() {
   if (!state.projectId) return;
@@ -280,7 +282,11 @@ function artifactByType(type) {
   const manifest = state.project?.output_manifest;
   if (!manifest) return null;
   const all = ["drawing", "render", "presentation", "model_captures"].flatMap((key) => manifest[key] || []);
-  return all.filter((item) => item.type === type).at(-1) || null;
+  // Recovery can make an older checkpoint current. Manifest insertion order
+  // is not the identity of the model the user is looking at.
+  const modelPath = state.project?.model_state?.model_path;
+  return all.filter((item) => item.type === type &&
+    (type !== "skp" || !modelPath || item.path === modelPath)).at(-1) || null;
 }
 
 function allArtifacts() {
@@ -464,8 +470,13 @@ function renderArtifacts() {
   const board = artifactByType("presentation");
   const skp = hasGeometry ? artifactByType("skp") : null;
   const deliveryUnverified = state.project?.model_state?.last_operation?.delivery_status === "UNVERIFIED_NATIVE_REOPEN";
+  // A recovery/legacy operation may have no delivery_status at all. Absence
+  // is not a verified native reopen receipt, so retain an explicit warning.
+  const deliveryNote = deliveryUnverified
+    ? "候选模型：尚未通过 SketchUp 原生重开及深层几何一致性验收"
+    : "已保存的模型文件：保存不等于原生重开验收，请查看与本文件对应的原生重开核验记录。";
   $("artifact-links").innerHTML = [
-    skp ? `<a class="artifact-link" href="${skp.url}" download>↓ 下载 SKP</a>${deliveryUnverified ? '<small class="artifact-delivery-note">候选模型：尚未通过 SketchUp 原生重开及深层几何一致性验收</small>' : ""}` : "",
+    skp ? `<a class="artifact-link" href="${skp.url}" download>↓ 下载 SKP</a><small class="artifact-delivery-note">${deliveryNote}</small>` : "",
     dxf ? `<a class="artifact-link" href="${dxf.url}" download>↓ 下载 DXF</a>` : "",
     board ? `<a class="artifact-link" href="${board.url}" target="_blank" rel="noreferrer">↗ 查看 A3 展板</a>` : "",
   ].join("");
@@ -546,15 +557,21 @@ function renderPreview() {
 }
 
 async function loadProject(projectId) {
+  const generation = ++projectLoadGeneration;
   if (projectId !== state.projectId) saveDraft();
+  // Commit identity and data together. A failed read must not send the old
+  // visible conversation (or its draft) to a different project.
+  const project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
+  if (generation !== projectLoadGeneration) return;
   state.planEditing = false;
   state.projectId = projectId;
-  state.project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
-  localStorage.setItem("architecture-studio-project", projectId);
+  state.project = project;
+  try { localStorage.setItem("architecture-studio-project", projectId); } catch (_) { /* Optional storage. */ }
   $("project-select").value = projectId;
   restoreDraft();
   $("parameter-plan").open = false;
   await loadParameterPlan();
+  if (generation !== projectLoadGeneration) return;
   state.tab = artifactByType("viewport") ? "model" : "design";
   setTab(state.tab);
   updateHeader();
@@ -897,13 +914,16 @@ $("project-history").addEventListener("click", async (event) => {
   updateHeader();
   try { await loadProject(item.dataset.project); showResults(false); }
   catch (error) { showToast(friendlyError(error), true); }
-  finally { state.busy = false; document.body.classList.remove("sidebar-open"); $("mobile-menu").setAttribute("aria-expanded", "false"); updateHeader(); }
+  finally { state.busy = false; document.body.classList.remove("sidebar-open"); $("mobile-menu").setAttribute("aria-expanded", "false"); updateHeader(); await observeRunningTurn(); }
 });
 $("cancel-project").addEventListener("click", () => $("project-dialog").close());
 $("project-select").addEventListener("change", async (event) => {
-  if (state.busy) return;
-  try { await loadProject(event.target.value); setTab(state.tab); }
-  catch (error) { showToast(friendlyError(error), true); }
+  if (state.busy) { event.target.value = state.projectId; return; }
+  const projectId = event.target.value;
+  state.busy = true; updateHeader();
+  try { await loadProject(projectId); setTab(state.tab); }
+  catch (error) { event.target.value = state.projectId; showToast(friendlyError(error), true); }
+  finally { state.busy = false; updateHeader(); await observeRunningTurn(); }
 });
 $("create-project-form").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -1043,28 +1063,53 @@ $("connect-open").addEventListener("click", async () => {
 });
 async function observeRunningTurn() {
   if (!state.projectId || state.busy) return;
+  const projectId = state.projectId;
+  const generation = progressGeneration;
+  observedRunningTurn = false;
+  // A reload/switch can find a still-running turn. Do not open a repeat-send
+  // window while its status request is in flight.
+  state.busy = true; updateHeader();
   try {
-    const progress = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
+    const progress = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/progress`);
+    if (projectId !== state.projectId || generation !== progressGeneration) return;
     if (!progress.running) return;
-    observingTurn = true; state.busy = true;
+    observingTurn = true; observedRunningTurn = true;
     beginProgress("已恢复正在处理的回合");
     startLiveProgress();
-  } catch (_) { /* A status outage must not submit the draft again. */ }
+  } catch (_) {
+    if (projectId === state.projectId && generation === progressGeneration) {
+      // Unknown is not idle. Keep sending locked and retry read-only status
+      // checks until the server can confirm whether this turn has finished.
+      observingTurn = true;
+      beginProgress("连接暂时中断，正在同步本轮状态");
+      startLiveProgress();
+    }
+  }
+  finally {
+    if (projectId === state.projectId && !observingTurn) { state.busy = false; updateHeader(); }
+  }
 }
 
 function startLiveProgress() {
   const generation = ++progressGeneration;
   clearInterval(progressTimer);
+  let refreshing = false;
   const refresh = async () => {
+    if (refreshing || generation !== progressGeneration) return;
+    refreshing = true;
     try {
       const p = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
       if (generation !== progressGeneration || !state.busy) return;
       if (!p.running) {
         if (observingTurn) {
-          observingTurn = false; endProgress(); state.busy = false;
+          // Keep the observer and busy lock until the completed project has
+          // loaded. On a read failure, the next poll retries synchronization.
           await loadProject(state.projectId);
+          if (generation !== progressGeneration) return;
+          const completedObservedTurn = observedRunningTurn;
+          observingTurn = false; observedRunningTurn = false; endProgress(); state.busy = false;
           const lastUser = [...(state.project.context.conversation || [])].reverse().find(m => m.role === "user");
-          if (!state.project.agent_session?.error && lastUser?.content === $("conversation-input").value.trim()) {
+          if (completedObservedTurn && !state.project.agent_session?.error && lastUser?.content === $("conversation-input").value.trim()) {
             $("conversation-input").value = ""; saveDraft();
           }
           if (state.project.agent_session?.reconstruction_state === "planned") $("parameter-plan").open = true;
@@ -1072,6 +1117,7 @@ function startLiveProgress() {
         }
         return;
       }
+      if (observingTurn) observedRunningTurn = true;
       renderWorkflowChecks(p);
       $("operation-progress").textContent = `${p.stage} · ${p.elapsed_seconds} 秒 · 已调用 ${p.tool_calls} 次工具${p.failed_tool_calls ? `（${p.failed_tool_calls} 次失败）` : ""}${p.action !== "execute" ? " · 不改动 SketchUp" : p.committed_revisions.length ? " · SU 已提交实际模型修改" : " · 尚无新的模型提交"}`;
       if (p.preview_url) {
@@ -1079,6 +1125,7 @@ function startLiveProgress() {
         $("preview-title").textContent = "建模中的真实截图";
       }
     } catch (_) { if (generation === progressGeneration) $("operation-progress").textContent = "进度暂时无法读取，当前回合仍在等待；请勿重复提交。"; }
+    finally { refreshing = false; }
   };
   refresh(); liveProgressTimer = setInterval(refresh, 3000);
 }
