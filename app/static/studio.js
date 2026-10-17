@@ -389,6 +389,12 @@ function updateHeader() {
   const reconstructionState = agent.reconstruction_state || "idle";
   $("reconstruction-state").hidden = !reconstruction;
   $("reconstruction-state").textContent = state.busy ? "正在处理，请等待" : {idle: "待分析", clarifying: "等待补充信息", planned: "等待批准", building: "已有模型 · 可继续修改"}[reconstructionState] || "待分析";
+  const detailContext = `${state.projectId}:${reconstructionState}`;
+  const taskDetails = $("task-details");
+  if (taskDetails.dataset.context !== detailContext) {
+    taskDetails.open = reconstructionState === "planned";
+    taskDetails.dataset.context = detailContext;
+  }
   const hasImages = sourceImages().length > 0;
   $("prepare-plan").hidden = reconstructionState !== "clarifying";
   $("prepare-plan").disabled = state.busy;
@@ -1022,7 +1028,7 @@ async function uploadAttachments(files) {
   if (!files.length) return;
   if (!state.projectId) { showToast("请先新建或选择建模会话，再上传资料。", true); return; }
   if (state.busy) { showToast("本轮正在处理，请结束后再上传资料。", true); return; }
-  if (files.some(f => f.size > 25 * 1024 * 1024)) { showToast("单个文件不能超过 25 MB，请压缩或拆分后上传。", true); $("reference-file").value = ""; return; }
+  if (files.some(f => f.size > 25 * 1024 * 1024)) { showToast("单个文件不能超过 25 MiB，请压缩或拆分后上传。", true); $("reference-file").value = ""; return; }
   const images = files.filter(f => f.type.startsWith("image/") || /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i.test(f.name));
   if (images.length && !["target_building", "defect_location"].includes($("reference-role").value)) { showToast("请先选择图片用途：目标建筑图或待修问题截图。", true); $("reference-file").value = ""; return; }
   if (images.length + sourceImages().length > 8) {

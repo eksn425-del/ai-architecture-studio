@@ -204,3 +204,20 @@ def test_image_upload_sends_explicit_role_in_query():
     assert result['ok'] is True
     assert result['upload'].endswith('filename=x.png&evidence_role=defect_location')
     assert result['busy'] is False
+
+
+def test_contextual_controls_keep_features_and_single_approval_gate():
+    from html.parser import HTMLParser
+    html=(Path(__file__).parents[1]/'app/static/index.html').read_text()
+    class IDs(HTMLParser):
+        def __init__(self):super().__init__();self.ids=[]
+        def handle_starttag(self,tag,attrs):self.ids.extend(v for k,v in attrs if k=='id')
+    parser=IDs();parser.feed(html)
+    assert len(parser.ids)==len(set(parser.ids))
+    for name in ['task-details','workflow-progress','parameter-plan','revise-reconstruction-plan','approve-reconstruction','model-settings-toggle','conversation-tier']:
+        assert name in parser.ids
+    assert 'reconstructionState !== "planned"' in SOURCE
+    assert 'taskDetails.open = reconstructionState === "planned"' in SOURCE
+    assert 'taskDetails.dataset.context !== detailContext' in SOURCE
+    assert '25 MiB' in html and '转换后最多 8 MiB' in html
+    assert '\ufffd' not in html and '\ufffd' not in SOURCE
