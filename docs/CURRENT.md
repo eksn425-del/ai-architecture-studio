@@ -1,3 +1,9 @@
+## 2026-10-17｜新单图SU三轮真实验收：未通过，已停止追加建模
+
+[完整脱敏结果](test-results/windows/2026-10-17-su-three-round-9a44706/README.md)。冻结trial/readiness-20261016的9a44706，远端起止相同；独立副本/项目/8797。真实Codex App Server / gpt-6.1-sol / medium，SU24.0.484。本次未改产品代码，测试者未代写几何。首轮2次提交到r2，外观及最终独立审查未验收，不能交付；第二轮露台栏杆和第三轮单窗高度新方案均先计划、自然中文批准，但冲突审查守卫阻断，0次新增提交，保护机制不能算成功验收。3份真正网页下载SHA与各网站候选一致，均由原生GUI打开；基础分组编辑上下文可进入，未代建，深层一致性未验证。116工具/11失败，4943940输入/27170输出；7次独立Critic另209005/6494。原图/模型/原始日志/截图全私有保留，公共仅脱敏报告。隔离验收分支codex/su-three-round-20261017，不合并main/部署/forcepush；不在测试中修守卫掩盖失败。历史下面保留，旧案例不续建。
+
+---
+
 ## CLOSED 2026-10-17 — basic building and simple surroundings completed, final r20
 
 **Owner-directed case closeout COMPLETE.** Owner says current development is sufficient; retain basic doors/windows/stairs/walls/columns, add simple surroundings, upload records and finish. No further refinement or old customer-readiness milestones. [Final actual evidence/model](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [prior19building/native evidence](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same original8wholeimages/order/projectarchitecture-project-4f0e4/root20606, original4unchanged; actual real Studio ordinaryChinese/Sol6.1Medium, outercontroller unchanged.

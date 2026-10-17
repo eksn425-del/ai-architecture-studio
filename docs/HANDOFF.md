@@ -1,3 +1,9 @@
+## 2026-10-17 real SU three-round owner test — FAIL/BLOCKED, no product patch
+
+[Sanitized results](test-results/windows/2026-10-17-su-three-round-9a44706/README.md). Exact9a44706 at trial/readiness-20261016 verified before/after. New owner single image, independent project/worktree/8797, real gpt-6.1-sol/medium/nativeCodex/SU24.0.484. Round1 r1→r2, not deliverable; accepted Critic stillr1, subsequent reviews rejected. Round2 terrace rail design andRound3 one-window height change planned/approved but no geometry commits.6 review-text reversal rejections +5Agent parameter/script validation failures.116site tools/11fails;4943940input27170output, Critic7calls209005input6494output separate. Actual3browserdownloads byte-match their candidates and open inSU24; basic group-entry editable, not deep equality or successful edit protection. No tester geometry or product code changes; do NOT fix/relax guards under this test authorization. Private materials persist original workspace runtime/su-three-round-20261017; no images/models/rawlogs/credentials publicly uploaded. Publish docs only oncodex/su-three-round-20261017; no main merge/deployment/forcepush. Workbench idle and working model restored. History below unchanged.
+
+---
+
 ## 2026-10-16 UTC — Separate product recovery patch (local review)
 
 New product-only work after the r20 case closeout; no old building geometry was resumed. See [recovery/readiness report](TRIAL_RECOVERY_READINESS_2026-10-16.md). Fixes project-switch identity, active-turn polling/retry/draft safety and current-checkpoint download selection, with explicit native-delivery verification wording. Core checks: 537 passed / 15 skipped; actual browser UI and SketchUp native NOT_RUN. A separate native Blender fixture is not website integration or model-quality certification. Prepared on an isolated branch; no remote publication attempted. Historical handoff below is unchanged.

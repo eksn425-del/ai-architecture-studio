@@ -1,0 +1,47 @@
+[
+  {
+    "category": "KStudio_critic_policy",
+    "count": 6,
+    "confirmed": "Review guard rejects different desired_state text for any historical same feature_id; no accepted review beyond revision1. Source-consistent refinements and later design context still rejected.",
+    "code": "app/reference_roles.py:66-103",
+    "effect": "Initial round stops at r2; subsequent local wishes cannot execute.",
+    "fixed_in_this_test": false
+  },
+  {
+    "category": "Agent_plan_or_script_arguments",
+    "count": 5,
+    "confirmed": [
+      "Invalid OSS method identifier",
+      "Blocked host-operation token in generated Ruby",
+      "Invalid construction-strategy target path shape",
+      "Guessed script_id not present in project",
+      "Invalid KEEP batch paths"
+    ],
+    "effect": "Rejected calls, no unauthorized geometric change from those calls.",
+    "fixed_in_this_test": "Product Agent attempted its own recovery; tester did not supply code or tool parameters."
+  },
+  {
+    "category": "UI",
+    "confirmed": [
+      "Provider footer still said invocation unverified after successful recorded Medium calls",
+      "Reconnection dialog reused previous progress text before a new automatic-check click",
+      "Read-only follow-up plan responses auto-saved candidate/opened result panel",
+      "No dedicated approval button for follow-up plans; natural Chinese confirmation was used"
+    ],
+    "scope": "Observed in this exact real website, not a claim that all other UX is broken"
+  },
+  {
+    "category": "SU_native",
+    "confirmed": "All three actual browser downloads opened in SketchUp24.0.484; root group edit context can be entered. Two initial geometry commits succeeded.",
+    "not_confirmed": [
+      "Full deep geometry equality",
+      "Complete gap/duplicate-face/junction correctness",
+      "Successful new-change protection"
+    ]
+  },
+  {
+    "category": "provider",
+    "confirmed": "All7 site calls and7 Critic calls used real gpt-6.1-sol/medium via existing Codex App Server.",
+    "not_confirmed": "Independent supplier-specific fault or standalone commercial API quality; no provider comparison or new provider used."
+  }
+]
