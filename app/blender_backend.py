@@ -9,6 +9,7 @@ import subprocess
 import threading
 import uuid
 from pathlib import Path
+from .blender_views import REVIEW_CAMERAS
 
 _LOCK = threading.Lock()
 _NAME = re.compile(r'^[A-Za-z][A-Za-z0-9_-]{0,63}$')
@@ -33,23 +34,45 @@ class BlenderBackend:
         number={'type':'number'}
         vector={'type':'array','items':number,'minItems':3,'maxItems':3}
         obj={'type':'object','required':['id','location'],'properties':{'id':{'type':'string','pattern':_NAME.pattern},'location':vector,'dimensions':vector,'vertices':{'type':'array','items':vector,'minItems':3,'maxItems':256},'faces':{'type':'array','items':{'type':'array','items':{'type':'integer'},'minItems':3,'maxItems':64},'maxItems':512},'material':{'type':'object','properties':{'color':{'type':'array','items':number,'minItems':4,'maxItems':4},'roughness':number,'transmission':number},'additionalProperties':False}},'additionalProperties':False}
-        return [dict(name='blender_apply_objects',description='Create or update named project-owned boxes or bounded indexed meshes in metres, with simple RGBA/PBR materials. Use dimensions OR vertices+faces. Unmentioned objects preserved. Native save/reopen checked. No arbitrary code.',inputSchema={'type':'object','required':['objects'],'properties':{'objects':{'type':'array','minItems':0,'maxItems':256,'items':obj},'delete_ids':{'type':'array','maxItems':256,'items':{'type':'string','pattern':_NAME.pattern}}},'additionalProperties':False}),dict(name='blender_inspect_scene',description='Read current native geometry receipt.',inputSchema={'type':'object','properties':{},'additionalProperties':False}),dict(name='blender_render_scene',description='CPU render saved model from fixed front or rear camera. Appearance review still required.',inputSchema={'type':'object','properties':{'view':{'type':'string','enum':['front','rear']}},'additionalProperties':False})]
+        return [dict(name='blender_audit_connections',description='Read-only declared connections: connections[{a:existingID,b:existingID,axis:0|1|2,tolerance:metres0..0.1}]. Compare A max bound to B min bound; signed gap, positive AABB overlap and perpendicular alignment. Exact for boxes, conservative for meshes. Contact is not automatically a defect.',inputSchema={'type':'object','required':['connections'],'properties':{'connections':{'type':'array','minItems':1,'maxItems':64,'items':{'type':'object'}}},'additionalProperties':False}),dict(name='blender_prepare_component',description='Prepare bounded parameterized window_wall,sloped_closure,leaf_rosette,floor_opening,furniture,u_staircase geometry. All lengths metres. Parameters: window_wall(name,start,end,plane,thickness,base,height,openings[max8 [horizontal_start,horizontal_end,zbottom,ztop]],wall_material,glass_material,frame_material,axis=0(X) or1(Y)); sloped_closure(name,x0,x1,y0,y1,bottom,top0,top1,material); leaf_rosette(name,location,radius=.3,height=.65,seed=0,material); floor_opening(name,x0,x1,y0,y1,bottom,thickness,opening[x0,x1,y0,y1],material); furniture(name,location,width,depth,height,kind[sofa|bed|table|chair|cabinet|desk],material,quarter_turns=0); u_staircase(name,location,width,depth,height,step_count=18,landing_depth=1,gap=.1,material). Stair/furniture location Z is floor/base; XY centered. Materials use color RGBA,roughness,transmission in0..1. Explicit previous_ids ownership receipt required (empty for new); returns patch,component_ids,writes_performed=0,quality_status=unverified. Preparation is read-only; apply returned patch through blender_apply_objects. Furniture location Z is floor, quarter_turns0..3; interior/hidden design is inferred.',inputSchema={'type':'object','required':['kind','parameters','previous_ids'],'properties':{'kind':{'type':'string','enum':['window_wall','sloped_closure','leaf_rosette','floor_opening','furniture','u_staircase']},'parameters':{'type':'object'},'previous_ids':{'type':'array','items':{'type':'string'},'maxItems':256}},'additionalProperties':False}),dict(name='blender_audit_clearance',description='Read-only rectangular design clearance checks; zones(name,location,dimensions,ignore_ids). Exact positive-volume box blockers and conservative mesh candidates; not navigation/compliance.',inputSchema={'type':'object','required':['zones'],'properties':{'zones':{'type':'array','minItems':1,'maxItems':32,'items':{'type':'object'}}},'additionalProperties':False}),dict(name='blender_apply_objects',description='Create or update named project-owned boxes or bounded indexed meshes in metres, with simple RGBA/PBR materials. Use dimensions OR vertices+faces. Unmentioned objects preserved. Native save/reopen checked. No arbitrary code.',inputSchema={'type':'object','required':['objects'],'properties':{'objects':{'type':'array','minItems':0,'maxItems':256,'items':obj},'delete_ids':{'type':'array','maxItems':256,'items':{'type':'string','pattern':_NAME.pattern}}},'additionalProperties':False}),dict(name='blender_inspect_scene',description='Read current native geometry receipt.',inputSchema={'type':'object','properties':{},'additionalProperties':False}),dict(name='blender_render_scene',description='CPU render saved model from fitted review views or explicit perspective camera. Optional hide_ids creates labeled render-only cutaway; saved geometry unchanged. Appearance review required.',inputSchema={'type':'object','properties':{'view':{'type':'string','enum':list(REVIEW_CAMERAS)},'camera':{'type':'object','required':['position','target','lens'],'properties':{'position':vector,'target':vector,'lens':{'type':'number','minimum':12,'maximum':120}},'additionalProperties':False},'hide_ids':{'type':'array','items':{'type':'string'},'maxItems':256}},'additionalProperties':False})]
 
     def dispatch(self, name, arguments):
         with _LOCK:
+            if name == 'blender_audit_connections':
+                from .blender_connections import audit_connections
+                if set(arguments)!={'connections'}:raise ValueError('Invalid connection arguments')
+                current=json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}}
+                return audit_connections(current['objects'],arguments['connections'])
+            if name == 'blender_prepare_component':
+                from .declarative_architecture import window_wall,sloped_closure,leaf_rosette,floor_opening,scoped_replacement_patch
+                from .declarative_interior import furniture,u_staircase
+                if not isinstance(arguments,dict) or set(arguments)!={'kind','parameters','previous_ids'} or not isinstance(arguments['parameters'],dict):raise ValueError('Invalid component arguments')
+                helpers={'window_wall':window_wall,'sloped_closure':sloped_closure,'leaf_rosette':leaf_rosette,'floor_opening':floor_opening,'furniture':furniture,'u_staircase':u_staircase}
+                if arguments['kind'] not in helpers:raise ValueError('Invalid component kind')
+                generated=helpers[arguments['kind']](**arguments['parameters']);objects=generated['objects'] if arguments['kind']=='u_staircase' else (generated if isinstance(generated,list) else [generated])
+                current=json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}}
+                patch=scoped_replacement_patch(objects,arguments['previous_ids'],current['objects'])
+                return {'patch':patch,'component_ids':[o['id'] for o in objects],'writes_performed':0,'quality_status':'unverified'}
+            if name == 'blender_audit_clearance':
+                from .blender_clearance import audit_clearance
+                if set(arguments)!={'zones'}:raise ValueError('Invalid clearance arguments')
+                current=json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}}
+                return audit_clearance(current['objects'],arguments['zones'])
             if name == 'blender_inspect_scene':
                 return json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}, 'revision':0}
             if name == 'blender_render_scene':
-                if set(arguments)-{'view'} or arguments.get('view','front') not in ('front','rear'):
-                    raise ValueError('Invalid render view')
+                from .blender_render_options import validate_render_options
                 current=json.loads(self.state.read_text())
+                options=validate_render_options(arguments,current['objects'])
                 model=(self.project_dir/current['model_path']).resolve()
                 if not model.is_relative_to(self.root) or not model.is_file():
                     raise ValueError('Invalid saved model path')
-                image=model.parent/('view-'+arguments.get('view','front')+'.png')
-                self._run(model.parent,'render',[self.executable,'--background','--disable-autoexec',str(model),'--python',str(Path(__file__).with_name('blender_worker.py')),'--','render',str(image),arguments.get('view','front')])
-                result={'image_path':str(image.relative_to(self.project_dir)),'revision':current['revision']}
-                current.setdefault('renders',{})[arguments.get('view','front')]=result
+                key=options['view']
+                if options['camera'] or options['hide_ids']:key+='-'+hashlib.sha256(json.dumps(options,sort_keys=True).encode()).hexdigest()[:12]
+                image=model.parent/('view-'+key+'.png')
+                self._run(model.parent,'render',[self.executable,'--background','--disable-autoexec',str(model),'--python',str(Path(__file__).with_name('blender_worker.py')),'--','render',str(image),options['view'],json.dumps(options)])
+                result={'image_path':str(image.relative_to(self.project_dir)),'revision':current['revision'],'cutaway':bool(options['hide_ids']),'hidden_ids':options['hide_ids'],'camera':options['camera']}
+                current.setdefault('renders',{})[key]=result
                 temporary=self.root/'scene.tmp.json'
                 temporary.write_text(json.dumps(current,ensure_ascii=False,indent=2))
                 temporary.replace(self.state)
@@ -120,7 +143,7 @@ class BlenderBackend:
     @staticmethod
     def _run(run_dir, phase, command):
         try:
-            result = subprocess.run(command, check=True, timeout=240, capture_output=True, text=True)
+            result = subprocess.run(command, check=True, timeout=600 if phase == 'render' else 240, capture_output=True, text=True)
         except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
             (run_dir / (phase + '-failure.txt')).write_text(str(error) + '\n' + str(getattr(error,'stdout','')) + '\n' + str(getattr(error,'stderr','')))
             raise

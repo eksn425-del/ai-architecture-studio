@@ -5,6 +5,8 @@ import sys
 import math
 from pathlib import Path
 from mathutils import Vector
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from blender_views import fitted_axis_camera
 args=sys.argv[sys.argv.index('--')+1:]
 def snapshot():
     return {o.name:{'location':list(o.location),'dimensions':list(o.dimensions),'vertices':[list(v.co) for v in o.data.vertices],'faces':[list(p.vertices) for p in o.data.polygons],'material':[{'color':list(m.diffuse_color),'roughness':m.node_tree.nodes.get('Principled BSDF').inputs['Roughness'].default_value,'transmission':m.node_tree.nodes.get('Principled BSDF').inputs['Transmission Weight'].default_value} for m in o.data.materials]} for o in bpy.data.objects if o.type=='MESH'}
@@ -12,7 +14,9 @@ if args[0]=='inspect':
     Path(args[1]).write_text(json.dumps(snapshot(),sort_keys=True))
 elif args[0]=='render':
     scene=bpy.context.scene
-    scene.render.engine='CYCLES';scene.cycles.device='CPU';scene.cycles.samples=64;scene.cycles.use_denoising=False
+    options=json.loads(args[3]) if len(args)>3 else {}
+    for name in options.get("hide_ids",[]):bpy.data.objects[name].hide_render=True
+    scene.render.engine='CYCLES';scene.cycles.device='CPU';scene.cycles.samples=128;scene.cycles.use_denoising=False
     scene.render.resolution_x=800;scene.render.resolution_y=800;scene.render.resolution_percentage=100
     scene.world.use_nodes=True
     scene.world.node_tree.nodes.get('Background').inputs['Color'].default_value=(0.82,0.82,0.82,1)
@@ -22,8 +26,14 @@ elif args[0]=='render':
     area=bpy.data.objects.new('ReviewFill',area_data);scene.collection.objects.link(area);area.location=(1,-8,12)
     area.rotation_euler=(Vector((0,0,3))-area.location).to_track_quat('-Z','Y').to_euler()
     camera_data=bpy.data.cameras.new('ReviewCamera');camera=bpy.data.objects.new('ReviewCamera',camera_data);scene.collection.objects.link(camera)
-    camera.location=(17,-23,18) if args[2]=='front' else (-17,23,18)
-    camera.rotation_euler=(Vector((0,0,2.5))-camera.location).to_track_quat('-Z','Y').to_euler();camera_data.type='ORTHO';camera_data.ortho_scale=21;scene.camera=camera
+    points=[o.matrix_world @ Vector(corner) for o in scene.objects if o.type=='MESH' for corner in o.bound_box]
+    if not points:raise ValueError('No mesh geometry')
+    bounds=[(min(p[i] for p in points),max(p[i] for p in points)) for i in range(3)]
+    position,target,scale,clip=fitted_axis_camera(args[2],bounds)
+    camera.location=position;camera.rotation_euler=(Vector(target)-camera.location).to_track_quat('-Z','Y').to_euler();camera_data.type='ORTHO';camera_data.ortho_scale=scale;camera_data.clip_end=clip;scene.camera=camera
+    if options.get('camera'):
+        config=options['camera'];camera.location=config['position'];camera.rotation_euler=(Vector(config['target'])-camera.location).to_track_quat('-Z','Y').to_euler();camera_data.type='PERSP';camera_data.lens=config['lens'];camera_data.clip_start=.02;camera_data.clip_end=max(1000,(Vector(config['target'])-camera.location).length+2*max(b-a for a,b in bounds))
+        scene.cycles.use_denoising=bool(getattr(bpy.app.build_options,'openimagedenoise',False));scene.cycles.samples=256;area.location=camera.location;area.rotation_euler=camera.rotation_euler;area_data.energy=140;area_data.size=3
     light_data=bpy.data.lights.new('ReviewSun','SUN');light_data.energy=3
     light=bpy.data.objects.new('ReviewSun',light_data);scene.collection.objects.link(light);light.rotation_euler=(0.5,-0.4,-0.5)
     scene.render.image_settings.file_format='PNG';scene.render.filepath=args[1]
