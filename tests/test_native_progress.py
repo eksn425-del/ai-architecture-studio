@@ -22,14 +22,14 @@ def test_native_coding_operations_are_counted_and_logged(tmp_path, monkeypatch):
 
     monkeypatch.setattr(subject.subprocess, "Popen", lambda *args, **kwargs: Process())
     runtime = subject.CodexAppServerRuntime(tmp_path, codex_executable="fixture")
-    monkeypatch.setattr(runtime, "_request", lambda *args: {"thread": {"id": "fixture-thread"}})
+    monkeypatch.setattr(runtime, "_request", lambda *args: {"turn": {"id": "fixture-turn"}} if args[3] == "turn/start" else {"thread": {"id": "fixture-thread"}})
     events = iter([
         {"method": "item/started", "params": {"item": {"type": "commandExecution"}}},
         {"method": "item/completed", "params": {"item": {"type": "commandExecution", "status": "completed", "exitCode": 1}}},
         {"method": "item/started", "params": {"item": {"type": "fileChange"}}},
         {"method": "item/completed", "params": {"item": {"type": "fileChange", "status": "completed"}}},
         {"method": "item/completed", "params": {"item": {"type": "agentMessage", "text": "planned"}}},
-        {"method": "turn/completed", "params": {"turn": {"status": "completed"}}},
+        {"method": "turn/completed", "params": {"turn": {"id": "fixture-turn", "status": "completed"}}},
     ])
     monkeypatch.setattr(runtime, "_next_event", lambda *args: next(events))
     project = tmp_path / "project"

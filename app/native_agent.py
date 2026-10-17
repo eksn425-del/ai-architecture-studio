@@ -25,6 +25,7 @@ from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique
                               require_observed_source_view_pairs)
 from .reconstruction_evidence import load_reconstruction_evidence
 from .project_turn_budget import read_project_builder_usage
+from .native_turn_control import NativeTurnControl, NativeTurnRegistry, native_progress_event
 
 
 class NativeAgentUnavailable(RuntimeError):
@@ -193,6 +194,8 @@ class AgentTurnResult:
     latency_ms: int = 0
     tool_call_count: int = 0
     failed_tool_calls: int = 0
+    turn_id: str = ""
+    cancellation_requested: bool = False
 
 
 class CodexAppServerRuntime:
@@ -245,6 +248,8 @@ class CodexAppServerRuntime:
         self.sketchup_mcp = sketchup_mcp or ConfiguredSketchUpMCP(timeout_seconds=180)
         self.tool_surface = AgentToolSurface(self.runtime_root, self.sketchup_mcp)
         self._lock = threading.RLock()
+        self._write_lock = threading.RLock()
+        self._turn_registry = NativeTurnRegistry()
 
     @property
     def available(self) -> bool:
@@ -252,13 +257,18 @@ class CodexAppServerRuntime:
         # Probe only the path; never read credentials or launch a provider here.
         return bool(self.codex_executable and shutil.which(self.codex_executable))
 
+    def cancel_turn(self, project_dir: Path) -> dict[str, Any]:
+        """Request interruption without waiting for respond or claiming rollback."""
+        return self._turn_registry.cancel(project_dir)
+
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
                 mcp_enabled: bool, developer_instructions: str,
                 model_path: Path | None = None, model_guid: str = "",
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
-                tool_profile: ToolProfile = "full") -> AgentTurnResult:
+                tool_profile: ToolProfile = "full",
+                progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
         if not self.codex_executable:
             raise NativeAgentUnavailable("Codex CLI is unavailable; install/sign in to Codex CLI to start the native agent.")
         with self._lock:
@@ -299,6 +309,8 @@ class CodexAppServerRuntime:
                         ruby_state=ruby_state,
                         arguments=arguments, model=selected_model, reasoning_effort=selected_effort,
                     )
+                if self._turn_registry.cancelled(project_dir):
+                    raise MCPCallError("Cancellation requested; no new tool effect was started. Existing changes are not rolled back.")
                 return tools.dispatch(name, arguments)
 
             return self._run_turn(
@@ -309,7 +321,7 @@ class CodexAppServerRuntime:
                 model=selected_model, reasoning_effort=selected_effort,
                 reference_images=reference_images,
                 workflow_mode=workflow_mode, tool_profile=tool_profile,
-                compact_project_context=bool(ruby_state),
+                compact_project_context=bool(ruby_state), progress_callback=progress_callback,
             )
 
     def _native_visual_review(self, *, project_dir: Path, agent_workspace: Path,
@@ -491,8 +503,12 @@ class CodexAppServerRuntime:
                   model: str, reasoning_effort: str,
                   reference_images: list[Path], workflow_mode: WorkflowMode = "architecture_design",
                   tool_profile: ToolProfile = "full", read_only: bool = False,
-                  compact_project_context: bool = False) -> AgentTurnResult:
+                  compact_project_context: bool = False, readonly_role: str = "visual_critic",
+                  progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
         started = time.monotonic()
+        deadline: float | None = None
+        if readonly_role not in {"visual_critic", "conversation_intent"}:
+            raise ValueError("Unknown native read-only role.")
         is_builder = not read_only and mcp_enabled and workflow_mode == "image_reconstruction"
         prior_usage = read_project_builder_usage(project_dir / "runtime" / "agent_events") if is_builder else None
         if is_builder and self.max_project_input_tokens:
@@ -545,26 +561,49 @@ class CodexAppServerRuntime:
         evidence_dir.mkdir(parents=True, exist_ok=True)
         evidence_path = evidence_dir / f"{uuid.uuid4().hex}.jsonl"
 
+        record_lock = threading.RLock()
+
         def record(event: dict[str, Any]) -> None:
-            with evidence_path.open("a", encoding="utf-8") as handle:
+            with record_lock, evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+        def emit(event: dict[str, Any]) -> None:
+            record(event)
+            if progress_callback:
+                try:
+                    progress_callback(dict(event))
+                except Exception:
+                    # Progress observers cannot turn a tool success into a retry.
+                    record({"event": "progress_callback_failed"})
+
+        control = NativeTurnControl(lambda message: self._send(process, message),
+                                    lambda: events.put(""), emit)
+        self._turn_registry.register(project_dir, control)
 
         record({"event": "project_budget_started", "is_builder": is_builder, "prior_input_tokens": prior_input})
 
         def interrupted(error: NativeAgentUnavailable) -> NativeAgentUnavailable:
-            record({"event": "project_budget_finished", "is_builder": is_builder, "status": "interrupted",
+            # Only an upstream terminal notification proves interrupted. A local
+            # timeout/transport/budget failure is not a turn/interrupt receipt.
+            status = control.terminal_status or ("cancelled_before_start" if control.cancel_requested and not control.turn_id else "failed")
+            control.finish(status)
+            record({"event": "project_budget_finished", "is_builder": is_builder, "status": status,
                     "input_tokens": input_tokens, "output_tokens": output_tokens})
             # Persist the terminal state too: sparse usage events alone cannot
             # distinguish an active turn from a timeout after process shutdown.
-            record({
-                "event": "turn_interrupted", "status": "interrupted",
+            emit({
+                "event": "turn_interrupted" if status == "interrupted" else "turn_failed", "status": status,
+                "thread_id": resolved_thread_id, "turn_id": control.turn_id,
+                "cancellation_requested": control.cancel_requested,
+                "interrupted_confirmed": status == "interrupted", "rollback_performed": False,
                 "reason": str(error), "input_tokens": input_tokens,
                 "output_tokens": output_tokens, "tool_call_count": tool_call_count,
                 "failed_tool_calls": failed_tool_calls,
                 "latency_ms": round((time.monotonic() - started) * 1000),
             })
             error.partial_result = AgentTurnResult(
-                thread_id=resolved_thread_id, reply="", status="interrupted",
+                thread_id=resolved_thread_id, turn_id=control.turn_id, reply="", status=status,
+                cancellation_requested=control.cancel_requested,
                 tool_calls=_dedupe_calls(tool_calls), model_name=model,
                 reasoning_effort=reasoning_effort, input_tokens=input_tokens,
                 output_tokens=output_tokens, latency_ms=round((time.monotonic() - started) * 1000),
@@ -572,6 +611,8 @@ class CodexAppServerRuntime:
             return error
 
         try:
+            if control.cancel_requested:
+                raise NativeAgentUnavailable("Cancellation requested before the native turn started.")
             self._request(process, events, request_id, "initialize", {
                 "clientInfo": {"name": "ai-architecture-studio", "title": "AI Architecture Studio", "version": "0.1.0"},
                 "capabilities": {"experimentalApi": True},
@@ -627,9 +668,10 @@ class CodexAppServerRuntime:
                     "source": "actual app-server thread/start or resume response"})
             if reported_model and reported_model != model:
                 raise NativeAgentUnavailable("App-server returned a different model; no tools or inference started.")
-            resolved_thread_id = str((thread.get("thread") or {}).get("id") or thread_id or "")
+            resolved_thread_id = str((thread.get("thread") or {}).get("id") or "")
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
+            control.bind_thread(resolved_thread_id)
             registrations[resolved_thread_id] = _thread_tool_fingerprint(registered_tools)
             instruction_registry[resolved_thread_id] = instruction_fingerprint
             instruction_registry_path.write_text(json.dumps(instruction_registry, indent=2), encoding="utf-8")
@@ -654,22 +696,27 @@ class CodexAppServerRuntime:
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],
                     "sandbox_policy": {"type": "readOnly" if read_only else "workspaceWrite", "networkAccess": False},
-                    "role": "visual_critic" if read_only else "builder_or_planner",
+                    "role": readonly_role if read_only else "builder_or_planner",
                     "tool_names": [tool["name"] for tool in dynamic_tools]})
-            self._send(process, {
-                "id": request_id,
-                "method": "turn/start",
-                "params": {
-                    "threadId": resolved_thread_id,
-                    "input": turn_input,
-                    "cwd": str(agent_workspace),
-                    "runtimeWorkspaceRoots": [str(agent_workspace)],
-                    "model": model,
-                    "effort": reasoning_effort,
-                    "approvalPolicy": "never",
-                    "sandboxPolicy": {"type": "readOnly", "networkAccess": False} if read_only else _workspace_write_policy(agent_workspace),
-                },
-            })
+            if control.cancel_requested:
+                raise NativeAgentUnavailable("Cancellation requested before the native turn started.")
+            turn_response = self._request(process, events, request_id, "turn/start", {
+                "threadId": resolved_thread_id,
+                "input": turn_input,
+                "cwd": str(agent_workspace),
+                "runtimeWorkspaceRoots": [str(agent_workspace)],
+                "model": model,
+                "effort": reasoning_effort,
+                "approvalPolicy": "never",
+                "sandboxPolicy": {"type": "readOnly", "networkAccess": False} if read_only else _workspace_write_policy(agent_workspace),
+            }, buffered)
+            try:
+                control.bind_turn(turn_response)
+            except ValueError as error:
+                raise NativeAgentUnavailable(str(error)) from error
+            emit({"event": "turn_started", "thread_id": resolved_thread_id,
+                  "turn_id": control.turn_id, "status": "inProgress",
+                  "cancellation_requested": control.cancel_requested})
             deadline = time.monotonic() + self.timeout_seconds if self.timeout_seconds else None
             tool_calls: list[dict[str, str]] = []
             tool_call_count = 0
@@ -680,13 +727,36 @@ class CodexAppServerRuntime:
             reply = ""
             turn_status = "failed"
             while deadline is None or time.monotonic() < deadline:
-                message = self._next_event(events, deadline)
+                # An explicitly unlimited turn still has a bounded wait after
+                # stop. A running tool is allowed to return; it cannot be rolled
+                # back by killing this client. Empty wake events recompute this.
+                cancel_deadline = control.wait_started_at + 30 if control.wait_started_at is not None else None
+                if cancel_deadline is not None and time.monotonic() >= cancel_deadline:
+                    raise TimeoutError("No terminal interruption arrived within the cancellation drain window.")
+                event_deadline = min(value for value in (deadline, cancel_deadline) if value is not None) if deadline is not None or cancel_deadline is not None else None
+                message = buffered.pop(0) if buffered else self._next_event(events, event_deadline)
                 if message is None:
                     break
+                if control.handle_response(message):
+                    continue
                 if message.get("id") == request_id and "error" in message:
                     raise NativeAgentUnavailable(str(message["error"].get("message", "Codex turn could not start.")))
                 method = str(message.get("method", ""))
                 params = message.get("params") or {}
+                dynamic_request = method in {"item/tool/call", "dynamicToolCall"} and message.get("id") is not None
+                missing_identity = (dynamic_request and (params.get("threadId") != resolved_thread_id or params.get("turnId") != control.turn_id)) or (method == "turn/completed" and (params.get("turn") or {}).get("id") != control.turn_id)
+                if missing_identity or not control.matches(params):
+                    # Never run a tool from a foreign/stale turn on this project.
+                    if method in {"item/tool/call", "dynamicToolCall"} and message.get("id") is not None:
+                        self._send(process, {"id": message["id"], "result": {
+                            "success": False, "contentItems": [{"type": "inputText", "text": "Tool request does not belong to the active native turn."}]}})
+                    continue
+                progress = native_progress_event(method, params, thread_id=resolved_thread_id, turn_id=control.turn_id)
+                if progress:
+                    progress["cancellation_requested"] = control.cancel_requested
+                    if method == "turn/completed":
+                        progress["interrupted_confirmed"] = progress.get("status") == "interrupted"
+                    emit(progress)
                 if method in {"item/started", "item/completed", "turn/completed"}:
                     event_item = params.get("item") or {}
                     if event_item.get("type") in {"commandExecution", "fileChange"}:
@@ -760,19 +830,36 @@ class CodexAppServerRuntime:
                             "not an unbounded retry loop."
                         )
                     call = _tool_summary(params)
+                    if not control.begin_tool(call["tool"]):
+                        self._send(process, {"id": message["id"], "result": {
+                            "success": False, "contentItems": [{"type": "inputText", "text": "Cancellation requested; this tool was not started. Earlier changes were not rolled back."}]}})
+                        emit({"event": "tool_cancelled", "thread_id": resolved_thread_id,
+                              "turn_id": control.turn_id, "tool": call["tool"], "status": "not_started"})
+                        continue
                     tool_calls.append(call)
                     tool_call_count += 1
-                    record({"event": "tool_started", "tool": call["tool"]})
+                    emit({"event": "tool_started", "thread_id": resolved_thread_id,
+                          "turn_id": control.turn_id, "tool": call["tool"]})
                     try:
                         if call["tool"] not in {str(tool.get("name", "")) for tool in registered_tools}:
                             raise MCPCallError("The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist.")
+                        # A stop may arrive from a progress observer after the
+                        # start marker but before crossing the tool boundary.
+                        if control.cancel_requested:
+                            raise MCPCallError("Cancellation requested; this tool effect was not started.")
                         output = tool_handler(call["tool"], params.get("arguments") or {})
                         if output.get("success") is False or output.get("isError") is True:
                             failed_tool_calls += 1
                     except (ConnectorUnavailable, MCPCallError, OSError, RuntimeError, ValueError) as error:
                         failed_tool_calls += 1
                         output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
+                    finally:
+                        control.end_tool()
                     self._send(process, {"id": message["id"], "result": output})
+                    emit({"event": "tool_completed", "thread_id": resolved_thread_id,
+                          "turn_id": control.turn_id, "tool": call["tool"],
+                          "success": output.get("success", not output.get("isError", False)),
+                          "cancellation_requested": control.cancel_requested, "rollback_performed": False})
                     record({"event": "tool_result", "tool": call["tool"],
                             "success": output.get("success", not output.get("isError", False)),
                             "error": " ".join(str(part.get("text", "")) for part in output.get("contentItems", []) if part.get("type") == "inputText")[:2000] if output.get("success") is False or output.get("isError") else "",
@@ -796,19 +883,24 @@ class CodexAppServerRuntime:
                 if method == "turn/completed":
                     turn = params.get("turn") or {}
                     turn_status = str(turn.get("status", "failed"))
+                    if turn_status in {"completed", "interrupted", "failed"}:
+                        control.finish(turn_status)
+                    if turn_status == "interrupted":
+                        break
                     if turn_status != "completed":
                         detail = (turn.get("error") or {}).get("message", "Codex agent turn did not complete.")
                         raise NativeAgentUnavailable(str(detail))
                     break
             else:
                 raise NativeAgentUnavailable(f"Codex agent turn exceeded {self.timeout_seconds} seconds.")
-            if turn_status != "completed":
-                raise NativeAgentUnavailable("Codex app-server ended without a completed turn.")
-            record({"event": "project_budget_finished", "is_builder": is_builder, "status": "completed",
+            if turn_status not in {"completed", "interrupted"}:
+                raise NativeAgentUnavailable("Codex app-server ended without a terminal turn notification; interruption is not confirmed.")
+            record({"event": "project_budget_finished", "is_builder": is_builder, "status": turn_status,
                     "input_tokens": input_tokens, "output_tokens": output_tokens})
             return AgentTurnResult(
-                thread_id=resolved_thread_id,
-                reply=reply or "已完成这轮推演；模型操作记录已保存。",
+                thread_id=resolved_thread_id, turn_id=control.turn_id,
+                cancellation_requested=control.cancel_requested,
+                reply=reply or ("这轮已停止。已经执行的操作不会自动撤销。" if turn_status == "interrupted" else "已完成这轮推演；模型操作记录已保存。"),
                 status=turn_status,
                 tool_calls=_dedupe_calls(tool_calls),
                 model_name=model,
@@ -822,6 +914,10 @@ class CodexAppServerRuntime:
         except NativeAgentUnavailable as error:
             raise interrupted(error)
         except TimeoutError as error:
+            if control.cancel_requested:
+                raise interrupted(NativeAgentUnavailable(
+                    "Cancellation was requested, but no terminal interruption was confirmed. Already-running tool changes are not rolled back."
+                )) from error
             # The queue waits until the turn deadline. Expiry is the configured
             # wall-clock stop, not evidence of a broken provider connection.
             if deadline is not None and time.monotonic() >= deadline:
@@ -834,6 +930,7 @@ class CodexAppServerRuntime:
         except (BrokenPipeError, OSError, json.JSONDecodeError) as error:
             raise interrupted(NativeAgentUnavailable(f"Codex app-server communication failed: {error}")) from error
         finally:
+            self._turn_registry.unregister(project_dir, control)
             if process.poll() is None:
                 process.terminate()
                 try:
@@ -862,12 +959,13 @@ class CodexAppServerRuntime:
             return result
         raise NativeAgentUnavailable(f"Codex {method} timed out.")
 
-    @staticmethod
-    def _send(process: subprocess.Popen[bytes], message: dict[str, Any]) -> None:
-        if process.stdin is None:
-            raise NativeAgentUnavailable("Codex app-server input stream is closed.")
-        process.stdin.write((json.dumps(message, ensure_ascii=False) + "\n").encode("utf-8"))
-        process.stdin.flush()
+    def _send(self, process: subprocess.Popen[bytes], message: dict[str, Any]) -> None:
+        # Cancel callers share the existing transport; JSON lines cannot interleave.
+        with self._write_lock:
+            if process.stdin is None:
+                raise NativeAgentUnavailable("Codex app-server input stream is closed.")
+            process.stdin.write((json.dumps(message, ensure_ascii=False) + "\n").encode("utf-8"))
+            process.stdin.flush()
 
     def _notify(self, process: subprocess.Popen[bytes], method: str, params: dict[str, Any]) -> None:
         self._send(process, {"method": method, "params": params})

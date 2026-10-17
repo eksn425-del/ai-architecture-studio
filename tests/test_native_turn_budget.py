@@ -30,7 +30,7 @@ def test_owner_local_native_defaults_have_no_token_or_tool_caps(tmp_path, monkey
 def _fixture(tmp_path, monkeypatch, events):
     monkeypatch.setattr(subject.subprocess, "Popen", lambda *a, **k: _FakeProcess())
     runtime = subject.CodexAppServerRuntime(tmp_path, codex_executable="fixture")
-    monkeypatch.setattr(runtime, "_request", lambda *a: {"thread": {"id": "budget-test"}})
+    monkeypatch.setattr(runtime, "_request", lambda *a: {"turn": {"id": "fixture-turn"}} if a[3] == "turn/start" else {"thread": {"id": "budget-test"}})
     iterator = iter(events)
     monkeypatch.setattr(runtime, "_next_event", lambda *a: next(iterator))
     project = tmp_path / "project"
@@ -53,7 +53,7 @@ def _run(runtime, project, workspace, **kw):
 def test_explicit_unlimited_native_turn_still_finishes_normally(tmp_path, monkeypatch):
     events = [
         {"method": "item/completed", "params": {"item": {"type": "agentMessage", "text": "完成"}}},
-        {"method": "turn/completed", "params": {"turn": {"status": "completed"}}},
+        {"method": "turn/completed", "params": {"turn": {"id": "fixture-turn", "status": "completed"}}},
     ]
     runtime, project, workspace = _fixture(tmp_path, monkeypatch, events)
     runtime.timeout_seconds = 0
@@ -89,14 +89,14 @@ def test_native_token_budget_aborts_before_unbounded_builder_work(tmp_path, monk
     runtime, project, workspace = _fixture(tmp_path, monkeypatch, events)
     with pytest.raises(subject.NativeAgentUnavailable, match="input-token budget") as exc:
         _run(runtime, project, workspace)
-    assert exc.value.partial_result.status == "interrupted"
+    assert exc.value.partial_result.status == "failed"
     assert exc.value.partial_result.input_tokens == 301
     logfile = next((project / "runtime/agent_events").glob("*.jsonl"))
     assert "native_budget_exhausted" in logfile.read_text(encoding="utf8")
     terminal = json.loads(logfile.read_text(encoding="utf8").splitlines()[-1])
-    assert terminal["event"] == "turn_interrupted"
+    assert terminal["event"] == "turn_failed"
     assert terminal["input_tokens"] == 301
-    assert terminal["status"] == "interrupted"
+    assert terminal["status"] == "failed"
 
 
 @pytest.mark.parametrize("deadline_expired", [True, False])
@@ -112,7 +112,7 @@ def test_event_wait_timeout_distinguishes_turn_deadline_from_transport(tmp_path,
     expected = "turn exceeded" if deadline_expired else "communication failed"
     with pytest.raises(subject.NativeAgentUnavailable, match=expected) as exc:
         _run(runtime, project, workspace)
-    assert exc.value.partial_result.status == "interrupted"
+    assert exc.value.partial_result.status == "failed"
     assert exc.value.partial_result.input_tokens is None
 
 
@@ -120,7 +120,7 @@ def test_native_tool_budget_stops_before_dispatch(tmp_path, monkeypatch):
     monkeypatch.setenv("ARCH_STUDIO_CODEX_MAX_TURN_TOOL_CALLS", "1")
     calls = [{"method": "item/started", "params": {"item": {"type": "commandExecution"}}},
              {"id": 8, "method": "item/tool/call",
-              "params": {"tool": "sketchup_run_workspace_ruby", "arguments": {}}}]
+              "params": {"threadId": "budget-test", "turnId": "fixture-turn", "tool": "sketchup_run_workspace_ruby", "arguments": {}}}]
     runtime, project, workspace = _fixture(tmp_path, monkeypatch, calls)
     with pytest.raises(subject.NativeAgentUnavailable, match="tool-call budget") as exc:
         _run(runtime, project, workspace)

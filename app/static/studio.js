@@ -29,9 +29,10 @@ function restoreDraft() {
 
 // This is a USER utterance. Internal execution instructions stay in workflow_context.py.
 function executionUserMessage(typed) {
-  return typed || "确认，按当前计划开始建模。";
+  return typed.trim() ? typed : "确认，按当前计划开始建模。";
 }
 
+// Historical compatibility helper only. Live conversation routing belongs to the host.
 function isBuildApproval(message) {
   if (/^\s*(?:已)?(?:批准|确认|同意).*(?:执行|开始|建模)/.test(message)) {
     message = message.replace(/不要执行旧(?:整栋)?(?:基线|脚本|计划)/g, "")
@@ -79,7 +80,9 @@ function referenceRoleMarkup(ref) {
     explicit_user_choice: "按上传时的选择",
     explicit_user_correction: "已按你的选择更正",
   };
-  const detail = [origin, reasons[ref.role_reason] || (!known ? "请说明这张图的用途" : "可更正用途")].filter(Boolean).join(" · ");
+  const revisions = Object.entries(ref.evidence_model_revisions || {}).map(([model, revision]) => `${model}: r${revision}`).join("，");
+  const provenance = revisions ? `对应模型 ${revisions}` : "模型版本未记录";
+  const detail = [origin, reasons[ref.role_reason] || (!known ? "请说明这张图的用途" : "可更正用途"), provenance].filter(Boolean).join(" · ");
   return `<label class="reference-role-item"><span title="${escapeHtml(ref.source)}">${escapeHtml(ref.source.split('/').at(-1))}<br><small title="${escapeHtml(detail)}">${escapeHtml(detail)}</small></span><select data-reference-role="${escapeHtml(ref.source)}" aria-label="更正图片用途" ${state.busy ? "disabled" : ""}><option value="" ${!known ? "selected" : ""}>待确认用途</option><option value="target_building" ${ref.evidence_role === "target_building" ? "selected" : ""}>目标建筑图</option><option value="defect_location" ${ref.evidence_role === "defect_location" ? "selected" : ""}>待修问题截图</option></select></label>`;
 }
 
@@ -87,7 +90,45 @@ function projectFileUrl(path) {
   return `/api/projects/${encodeURIComponent(state.projectId)}/files/${path.split("/").map(encodeURIComponent).join("/")}`;
 }
 
-function pendingImages() { return sourceImages().filter(ref => !ref.submitted_at); }
+function pendingImages() {
+  const submitted = new Set((state.project?.context?.conversation || []).flatMap(message => [
+    ...(message.metadata?.attachments || []), ...(message.metadata?.legacy_attachments || []),
+  ]));
+  return sourceImages().filter(ref => !ref.submitted_at && !submitted.has(ref.source));
+}
+
+function pendingAttachmentSources() {
+  const context = state.project?.context || {};
+  const references = context.references || [];
+  const submitted = new Set((context.conversation || []).flatMap(message => [
+    ...(message.metadata?.attachments || []), ...(message.metadata?.legacy_attachments || []),
+  ]));
+  return [...new Set([
+    ...pendingImages().map(ref => ref.source),
+    ...(context.brief?.source_files || []), ...(context.site?.source_files || []),
+    ...references.filter(ref => ref.type === "note").map(ref => ref.source),
+  ])].filter(path => !references.find(ref => ref.source === path)?.submitted_at && !submitted.has(path));
+}
+
+function renderReferenceComposer() {
+  const images = sourceImages();
+  const pending = pendingImages();
+  const pendingSources = new Set(pending.map(ref => ref.source));
+  const submitted = images.filter(ref => !pendingSources.has(ref.source));
+  $("reference-role-review").hidden = !!pendingMessage || !pending.length;
+  $("reference-role-review").innerHTML = pending.map(referenceRoleMarkup).join("");
+  $("reference-gallery").hidden = !!pendingMessage || !pending.length;
+  $("reference-gallery").innerHTML = pending.map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>待发送 · 查看原图 ↗</span></a><button class="image-remove" title="移除待发送图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
+  const history = $("submitted-reference-history");
+  history.hidden = !submitted.length;
+  // Keep the optional history disclosure state; updating a turn never forces a role questionnaire.
+  $("submitted-reference-summary").textContent = `已发送图片 ${submitted.length} 张 · 查看来源 / 更正用途`;
+  $("submitted-reference-roles").innerHTML = submitted.map(referenceRoleMarkup).join("");
+  const ambiguous = images.filter(ref => !["target_building", "defect_location"].includes(ref.evidence_role));
+  $("reference-ambiguity").hidden = !ambiguous.length;
+  $("reference-ambiguity").textContent = ambiguous.length
+    ? `${ambiguous.length} 张图片用途尚未确认。可以继续说明；建模前请在待发送资料或已发送图片记录中核对。` : "";
+}
 
 function renderWorkflowChecks(progress = null) {
   const agent = state.project?.agent_session || {};
@@ -164,6 +205,77 @@ function endProgress() {
   clearInterval(progressTimer);
   clearInterval(liveProgressTimer); progressGeneration++;
   $("operation-progress").hidden = true;
+  state.activeTurnProgress = null;
+  state.turnCancellation = null;
+  renderTurnControls();
+}
+
+function renderTurnControls(progress = null) {
+  if (progress) state.activeTurnProgress = {projectId: state.projectId, ...progress};
+  const current = state.activeTurnProgress;
+  const active = current?.projectId === state.projectId && current.running === true;
+  const supported = active && current.cancel_supported === true && typeof current.request_id === "string" && !!current.request_id;
+  const cancellation = state.turnCancellation?.projectId === state.projectId && state.turnCancellation.requestId === current?.request_id
+    ? state.turnCancellation : null;
+  const requested = !!(current?.cancel_requested || cancellation?.attempted);
+  const button = $("cancel-agent-turn");
+  button.hidden = !supported;
+  button.disabled = !supported || requested;
+  button.textContent = requested ? "正在等待停止确认…" : "停止本轮";
+  const notice = $("cancel-agent-turn-status");
+  notice.hidden = !active || !requested;
+  renderNativeTurnEvent(active ? current.native_event : null);
+  notice.textContent = cancellation?.uncertain
+    ? "停止请求的结果尚未确认，正在同步实际状态。已提交的修改不会自动回滚。"
+    : "已请求停止，正在等待当前操作结束和服务端确认。已提交的修改不会自动回滚。";
+}
+
+function renderNativeTurnEvent(event) {
+  const output = $("native-turn-event");
+  let text = "";
+  if (event && typeof event === "object") {
+    const name = event.event;
+    if (name === "turn/plan/updated" && Array.isArray(event.plan)) {
+      const labels = {pending: "待处理", inProgress: "处理中", in_progress: "处理中", completed: "已完成"};
+      text = "当前步骤：" + event.plan.filter(item => typeof item?.step === "string")
+        .slice(0, 8).map(item => `${item.step}（${labels[item.status] || "状态未确认"}）`).join("；");
+    } else if ((name === "item/agentMessage/delta" || (["item/started", "item/completed"].includes(name) && event.item_type === "agentMessage")) && typeof event.text === "string") {
+      text = "Agent 最新消息：" + event.text;
+    } else if (typeof event.tool === "string" && ["tool_started", "tool_completed", "tool_cancelled"].includes(name)) {
+      text = ({tool_started: "正在调用工具：", tool_completed: event.success === false ? "工具报告失败：" : "工具已返回：", tool_cancelled: "未启动的工具已取消："})[name] + event.tool;
+    } else if (name === "turn/completed") {
+      text = event.interrupted_confirmed === true ? "本轮已确认中断。已提交的修改不会自动回滚。"
+        : event.status === "failed" ? "本轮失败，请查看记录与当前模型。" : "本轮已结束，正在同步结果。";
+    } else if (name === "turn_started") text = "本轮已开始处理。";
+  }
+  // Safe native event allowlist only. Never render reasoning, shell arguments or raw event JSON.
+  output.textContent = text.slice(0, 2400);
+  output.hidden = !text;
+}
+
+async function cancelConversationTurn() {
+  const projectId = state.projectId;
+  const progress = state.activeTurnProgress;
+  if (!projectId || progress?.projectId !== projectId || progress.running !== true || progress.cancel_supported !== true
+      || typeof progress.request_id !== "string" || !progress.request_id || progress.cancel_requested
+      || (state.turnCancellation?.requestId === progress.request_id && state.turnCancellation.attempted)) return;
+  const cancellation = {projectId, requestId: progress.request_id, attempted: true, uncertain: false};
+  state.turnCancellation = cancellation;
+  renderTurnControls();
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/cancel`, {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({expected_request_id: cancellation.requestId}),
+    });
+    if (projectId !== state.projectId || state.turnCancellation !== cancellation) return;
+    // Acknowledgement is not completion. Keep the turn and composer send lock until progress confirms terminal state.
+    cancellation.uncertain = result.cancel_requested !== true && result.cancellation_requested !== true;
+    renderTurnControls();
+  } catch (_) {
+    if (projectId !== state.projectId || state.turnCancellation !== cancellation) return;
+    cancellation.uncertain = true;
+    renderTurnControls();
+  }
 }
 
 function parameterPlanMarkup(card) {
@@ -201,7 +313,18 @@ async function loadParameterPlan() {
     const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(card.replace(/\r\n?/g, "\n")));
     if (requestId !== planRequestId || projectId !== state.projectId) return;
     $("parameter-plan-content").innerHTML = '<p class="plan-review-note">请重点核对层数、各立面的门窗数量、尺寸与推断。AI 可能误读图片；有差异时点击「修改参数」纠正后再批准。</p>' + parameterPlanMarkup(card);
-    state.displayedPlan = {projectId, sha256: Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("")};
+    const sha256 = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+    let pendingPlan;
+    try { pendingPlan = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/pending-plan`); }
+    catch (_) { pendingPlan = null; }
+    if (requestId !== planRequestId || projectId !== state.projectId) return;
+    if (!pendingPlan || typeof pendingPlan.pending_plan_id !== "string" || !pendingPlan.pending_plan_id
+        || pendingPlan.consumed || pendingPlan.plan_sha256 !== sha256) {
+      state.displayedPlan = null;
+      $("parameter-plan-content").insertAdjacentHTML("afterbegin", '<p class="plan-review-note">计划版本尚未核验或已更新，请刷新或重新整理计划后再批准。</p>');
+      return;
+    }
+    state.displayedPlan = {projectId, sha256, pendingPlanId: pendingPlan.pending_plan_id};
   } catch (_) {
     if (requestId === planRequestId && projectId === state.projectId) {
       state.displayedPlan = null;
@@ -388,13 +511,12 @@ function updateHeader() {
   $("recover-agent-checkpoint").hidden = state.project?.agent_session?.reconstruction_state !== "building" || agent.modeling_backend === "blender";
   $("recover-agent-checkpoint").disabled = state.busy;
   renderProjectHistory();
+  renderTurnControls();
   for (const id of ["workflow-mode", "conversation-tier", "reference-file", "reference-role", "brief-file", "site-file", "project-name"]) $(id).disabled = state.busy;
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
-  $("reference-role-review").innerHTML = sourceImages().map(referenceRoleMarkup).join("");
-  $("reference-gallery").hidden = !!pendingMessage;
-  $("reference-gallery").innerHTML = pendingImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="image-remove" title="移除图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
+  renderReferenceComposer();
   $("project-title").textContent = context.project_name;
   $("project-name").value = context.project_name;
   $("sidebar-project-name").textContent = context.project_name.replace(" · ", " ");
@@ -468,7 +590,12 @@ function updateHeader() {
   $("revise-reconstruction-plan").hidden = !reconstruction || !["planned", "building"].includes(reconstructionState);
   $("revise-reconstruction-plan").disabled = state.busy;
   $("approve-reconstruction").hidden = !reconstruction || reconstructionState !== "planned";
-  $("approve-reconstruction").disabled = state.busy || !routeAvailable($("conversation-tier").value);
+  const hasDraft = !!$("conversation-input").value.trim();
+  const approvalReady = state.displayedPlan?.projectId === state.projectId && !!state.displayedPlan?.pendingPlanId
+    && !state.planEditing && !pendingAttachmentSources().length;
+  $("approve-reconstruction").disabled = state.busy || !routeAvailable($("conversation-tier").value) || (!hasDraft && !approvalReady);
+  $("approve-reconstruction").querySelector("span:first-child").textContent = $("conversation-input").value.trim()
+    ? "发送草稿后再批准" : "批准计划并开始建模";
   if (!state.busy) $("conversation-send").querySelector("span:first-child").textContent = state.planEditing ? "更新参数计划" : !reconstruction ? "发送消息" : {idle: "发送", clarifying: "继续交流", planned: "继续交流 / 更新计划", building: "发送修改要求"}[reconstructionState];
   $("conversation-send").setAttribute("aria-label", $("conversation-send").querySelector("span:first-child").textContent);
   $("conversation-send").title = $("conversation-send").getAttribute("aria-label");
@@ -503,7 +630,7 @@ function updateHeader() {
 
 function renderConversation() {
   const messages = [...(state.project?.context?.conversation || [])];
-  if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingImages().map(ref => ref.source)}});
+  if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
   const history = $("conversation-history");
   if (!messages.length) {
     history.innerHTML = '<div class="welcome"><div class="welcome-symbol">◇</div><h2>把建模交给 AI</h2><p>图片、文字或任务资料都可以。简单说你想做什么，AI 会帮你补充确认。</p><div class="suggestions"><button class="suggestion" data-prompt="按参考图片还原建筑，保留屋顶、窗洞与立面细节。">从图片还原建筑</button><button class="suggestion" data-prompt="没有实测尺寸，请按图像比例估算并标明，允许推断背面。">估算尺寸与补全背面</button><button class="suggestion" data-prompt="请生成可编辑 SketchUp 模型，检查正面、背面和侧面截图。">多角度检查与修改</button></div></div>';
@@ -860,25 +987,34 @@ async function applyEdit(instruction) {
 async function sendConversation(event, agentAction = "auto") {
   event?.preventDefault();
   if (state.busy) return;
-  if (agentAction === "auto" && state.planEditing) agentAction = "plan";
-  const typed = $("conversation-input").value.trim();
-  if (agentAction === "execute" && (state.planEditing || (typed && !isBuildApproval(typed)))) {
-    agentAction = "plan";
-    showToast("输入框还有补充要求，先更新计划供你检查，再批准建模。");
+  // The composer never classifies natural language as approval, denial or plan editing.
+  // Only a clean explicit button gesture is sent separately; the host validates context.
+  const typed = $("conversation-input").value;
+  const approvalButton = agentAction === "execute";
+  if (approvalButton && typed.trim()) agentAction = "auto";
+  const approvalGesture = approvalButton && !typed.trim() ? "plan_button" : undefined;
+  if (approvalGesture && (state.planEditing || pendingAttachmentSources().length)) {
+    showToast("还有未提交的参数或资料，请先发送并检查更新后的计划，再批准建模。");
+    return;
   }
-  if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && isBuildApproval(typed)) agentAction = "execute";
-  if (agentAction === "execute" && state.project?.agent_session?.status !== "ready" && state.project?.agent_session?.modeling_backend !== "blender") {
+  const submittedProjectId = state.projectId;
+  const approvedPlanSha256 = state.displayedPlan && state.displayedPlan.projectId === submittedProjectId
+    ? state.displayedPlan.sha256 : undefined;
+  const approvedPendingPlanId = approvedPlanSha256 ? state.displayedPlan.pendingPlanId : undefined;
+  if (approvalGesture && (!approvedPlanSha256 || !approvedPendingPlanId)) {
+    showToast("当前计划尚未读取或已失效，请重新检查计划后再批准。", true);
+    return;
+  }
+  if (approvalGesture && state.project?.agent_session?.status !== "ready" && state.project?.agent_session?.modeling_backend !== "blender") {
     openConnectDialog(true);
     return;
   }
-  // Preserve the human's message; execution policy belongs in the backend.
-  const message = agentAction === "execute"
-    ? executionUserMessage(typed)
-    : typed || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
+  // Preserve the human's exact text, including whitespace. Never replace a draft with approval.
+  const message = approvalGesture ? executionUserMessage(typed)
+    : typed.trim() ? typed
+    : pendingAttachmentSources().length ? "请结合新上传的资料继续分析，整理需要我确认的内容。"
+    : ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
-  const submittedProjectId = state.projectId;
-  const approvedPlanSha256 = agentAction === "execute" && state.displayedPlan && state.displayedPlan.projectId === submittedProjectId
-    ? state.displayedPlan.sha256 : undefined;
   if (agentAction === "plan") state.displayedPlan = null;
   $("conversation-input").value = "";
   state.planEditing = false;
@@ -887,19 +1023,20 @@ async function sendConversation(event, agentAction = "auto") {
   state.busy = true;
   const button = $("conversation-send");
   const requestedTier = $("conversation-tier").value;
+  const clientRequestId = globalThis.crypto?.randomUUID?.();
   const route = routeInfo(requestedTier);
   setBusy(button, true, `${requestedTier === "premium" ? "精修" : "Economy"} · ${route.model} 处理中…`);
   const built = state.project?.agent_session?.status === "ready";
   const reconstruction = $("workflow-mode").value === "image_reconstruction";
   const resolvedAction = agentAction;
-  const executesModel = agentAction === "execute" || (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "building");
+  const executesModel = !!approvalGesture;
   showResults(false);
-  beginProgress(executesModel ? "正在建模与检查截图" : "正在分析图片与建模计划");
+  beginProgress(executesModel ? "正在校验批准并处理计划" : "正在处理本轮要求");
   // Keep the conversation visible while the approved plan is executing.
   if (executesModel) $("parameter-plan").open = false;
   $("workflow-progress").open = false;
   $("approve-reconstruction").disabled = true;
-  setStatus(reconstruction && !executesModel ? "正在分析图片与建模参数，SketchUp 不会被修改。" : "Agent 正在建模/修改并检查截图。");
+  setStatus("正在结合对话、资料与当前计划核对本轮要求；实际执行状态以实时进度为准。");
   try {
     startLiveProgress();
     const result = await api(`/api/projects/${encodeURIComponent(submittedProjectId)}/conversation`, {
@@ -909,7 +1046,9 @@ async function sendConversation(event, agentAction = "auto") {
         tier: requestedTier,
         workflow_mode: $("workflow-mode").value,
         agent_action: resolvedAction,
-        ...(approvedPlanSha256 ? {approved_plan_sha256: approvedPlanSha256} : {}),
+        ...(clientRequestId ? {client_request_id: clientRequestId} : {}),
+        ...(approvedPlanSha256 && approvedPendingPlanId ? {approved_plan_sha256: approvedPlanSha256, approved_pending_plan_id: approvedPendingPlanId} : {}),
+        ...(approvalGesture ? {approval_gesture: approvalGesture} : {}),
       }),
     });
     if (state.projectId !== submittedProjectId) return;
@@ -951,6 +1090,7 @@ async function sendConversation(event, agentAction = "auto") {
 
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
 $("conversation-form").addEventListener("submit", sendConversation);
+$("cancel-agent-turn").addEventListener("click", cancelConversationTurn);
 $("conversation-input").addEventListener("focus", () => {
   if (window.innerWidth <= 1050) showResults(false);
 });
@@ -1088,10 +1228,9 @@ $("recover-agent-checkpoint").addEventListener("click", async () => {
 });
 
 function renderAttachments() {
-  const context = state.project?.context || {};
-  const files = [...new Set([...(context.brief?.source_files || []), ...(context.site?.source_files || []),
-    ...(context.references || []).filter(r => r.type === "note").map(r => r.source)])]
-    .filter(path => !(context.references || []).find(r => r.source === path)?.submitted_at);
+  const images = new Set(sourceImages().map(ref => ref.source));
+  const files = pendingAttachmentSources().filter(path => !images.has(path));
+  $("attachment-list").hidden = !!pendingMessage || !files.length;
   $("attachment-list").innerHTML = files.map(path => `<a class="file-chip" href="${projectFileUrl(path)}" target="_blank" rel="noopener">${escapeHtml(path.split("/").pop())}</a>`).join("");
 }
 async function uploadAttachments(files) {
@@ -1227,6 +1366,7 @@ async function observeRunningTurn() {
   try {
     const progress = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/progress`);
     if (projectId !== state.projectId || generation !== progressGeneration) return;
+    renderTurnControls(progress);
     if (!progress.running) return;
     observingTurn = true; observedRunningTurn = true;
     beginProgress("已恢复正在处理的回合");
@@ -1255,6 +1395,7 @@ function startLiveProgress() {
     try {
       const p = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
       if (generation !== progressGeneration || !state.busy) return;
+      renderTurnControls(p);
       if (!p.running) {
         if (observingTurn) {
           // Keep the observer and busy lock until the completed project has
@@ -1422,16 +1563,19 @@ $("start-blender-session")?.addEventListener("click", async () => {
   }
 });
 
-$("reference-role-review").addEventListener("change", async event => {
+async function correctReferenceRole(event) {
   const source = event.target.dataset.referenceRole, role = event.target.value;
   if (!source || state.busy || !["target_building", "defect_location"].includes(role)) return;
   const projectId = state.projectId;
   state.busy = true; updateHeader();
   try {
     await api(`/api/projects/${encodeURIComponent(projectId)}/reference-role`, {method:"PATCH", headers:{"Content-Type":"application/json"}, body:JSON.stringify({source,evidence_role:role})});
+    if (state.projectId === projectId) state.displayedPlan = null;
     const project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
     if (state.projectId === projectId) state.project = project;
     showToast("图片用途已确认，请重新整理并批准建模计划。");
   } catch(error) { showToast(friendlyError(error), true); }
   finally { state.busy = false; updateHeader(); }
-});
+}
+$("reference-role-review").addEventListener("change", correctReferenceRole);
+$("submitted-reference-roles").addEventListener("change", correctReferenceRole);

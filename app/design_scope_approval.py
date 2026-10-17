@@ -6,9 +6,10 @@ user approval action, never an inferred auto/execution request.
 """
 import hashlib
 import json
+import uuid
 from pathlib import Path
 from .reference_roles import (parse_design_scope, record_approved_design_scope,
-    load_approved_design_scope, reference_manifest, manifest_fingerprint, canonical_plan_text)
+    load_approved_design_scope, reference_manifest, manifest_fingerprint, canonical_plan_text, current_model_revisions)
 
 
 def _path(project, name):
@@ -72,7 +73,7 @@ def capture_pending_design_plan(project_dir: Path, plan_text: str, *, is_followu
     plan_text = canonical_plan_text(plan_text)
     _invalidate(project_dir, 'new_plan_pending')
     features = parse_design_scope(plan_text) if is_followup else []
-    snapshot = {'plan_sha256':hashlib.sha256(plan_text.encode()).hexdigest(),
+    snapshot = {'pending_plan_id':uuid.uuid4().hex,'project_identity':str(project_dir.resolve()),'model_revisions':current_model_revisions(project_dir),'consumed':False,'plan_sha256':hashlib.sha256(plan_text.encode()).hexdigest(),
                 'features':features, 'is_followup':bool(is_followup),
                 'reference_manifest_fingerprint':current_reference_fingerprint(project_dir)}
     _save(project_dir, 'pending_design_scope.json', snapshot)
@@ -87,6 +88,9 @@ def approve_pending_design_plan(project_dir: Path, approval_message_id: str,
         raise ValueError('Plan has no host snapshot; refresh and review the plan first.')
     snapshot = json.loads(path.read_text(encoding="utf-8"))
     digest = hashlib.sha256(plan_text.encode()).hexdigest()
+    if snapshot.get('model_revisions',{}) != current_model_revisions(project_dir):
+        _invalidate(project_dir,'model_changed_since_plan')
+        raise ValueError('Model changed since this plan was displayed; refresh the plan.')
     if digest != snapshot.get('plan_sha256') or approved_plan_sha256 != digest or not approval_message_id:
         _invalidate(project_dir, 'plan_approval_mismatch')
         raise ValueError('Approve the unchanged displayed plan; stale or missing approval hash.')
@@ -104,3 +108,13 @@ def approve_pending_design_plan(project_dir: Path, approval_message_id: str,
     scope = {**scope,'reference_manifest_fingerprint':snapshot['reference_manifest_fingerprint'],'valid':True}
     _save(project_dir, 'approved_design_scope.json', scope)
     return scope
+
+
+def consume_pending_design_plan(project_dir: Path, pending_plan_id: str) -> None:
+    path=_path(project_dir,'pending_design_scope.json')
+    snapshot=json.loads(path.read_text(encoding='utf-8'))
+    if not pending_plan_id or snapshot.get('pending_plan_id')!=pending_plan_id or snapshot.get('consumed'):
+        raise ValueError('This pending plan was already consumed or replaced.')
+    snapshot['consumed']=True
+    _save(project_dir,'pending_design_scope.json',snapshot)
+    _save(project_dir,'relation_execution_epoch.json',{'pending_plan_id':pending_plan_id})

@@ -148,7 +148,7 @@ function conversationContext() {
   let resolve;
   const sandbox = context('let pendingMessage=null,pendingExecutionProject=null;\n' + production('sendConversation'), {
     $, state, localStorage: { setItem() {} }, saveDraft() {}, executionUserMessage: x => x || "确认，按当前计划开始建模。", isBuildApproval: () => false,
-    sourceImages: () => [], routeInfo: () => route, setBusy() {}, showResults: value => calls.results.push(value),
+    sourceImages: () => [], pendingAttachmentSources: () => [], routeInfo: () => route, setBusy() {}, showResults: value => calls.results.push(value),
     beginProgress() {}, setStatus() {}, startLiveProgress() {}, loadParameterPlan: async () => {}, updateHeader() {},
     showToast() {}, setTab: value => calls.tabs.push(value), friendlyError: e => e.message, endProgress() {},
     observeRunningTurn: async () => {}, loadProject: async () => {},
@@ -183,11 +183,19 @@ test('serial sending and next draft survive the result gating change', async () 
 });
 
 const { createHash, webcrypto } = require('node:crypto');
-function planContext(api, crypto = webcrypto) {
+function planContext(api, crypto = webcrypto, pending = undefined) {
   const nodes = {}, state = { projectId: 'p', project: { agent_session: { reconstruction_state: 'planned' } }, displayedPlan: { projectId: 'p', sha256: 'old' } };
-  const $ = id => nodes[id] ||= {};
+  const $ = id => nodes[id] ||= { insertAdjacentHTML(position, content) { this.innerHTML = content + (this.innerHTML || ""); } };
   const sandbox = context('let planRequestId=0;\n' + production('escapeHtml', 'parameterPlanMarkup', 'loadParameterPlan'), {
-    $, state, api, crypto, TextEncoder, projectFileUrl: value => value, chatText: value => value,
+    $, state, api: async target => {
+      if (target.endsWith('/agent/pending-plan') && pending !== undefined) {
+        if (pending instanceof Error) throw pending;
+        return pending;
+      }
+      if (target.endsWith('/agent/pending-plan')) return { pending_plan_id: 'pending-' + state.projectId,
+        plan_sha256: createHash('sha256').update(state.testCard.replace(/\r\n?/g, '\n'), 'utf8').digest('hex') };
+      const card = await api(target); state.testCard = card; return card;
+    }, crypto, TextEncoder, projectFileUrl: value => value, chatText: value => value,
   });
   return { sandbox, state, $, nodes };
 }
@@ -240,19 +248,35 @@ test('newer project/card wins over a late plan fetch and hash', async () => {
 });
 for (const [name, action, displayedProject, included] of [
   ['explicit execute of displayed plan', 'execute', 'p', true],
-  ['auto discussion', 'auto', 'p', false],
-  ['new plan request', 'plan', 'p', false],
-  ['different-project snapshot', 'execute', 'q', false],
+  ['auto discussion provides context, not approval', 'auto', 'p', true],
+  ['new plan request carries displayed context before invalidation', 'plan', 'p', true],
+  ['different-project snapshot', 'auto', 'q', false],
 ]) {
   test(`approval snapshot is bounded: ${name}`, async () => {
     const { sandbox, state, $ } = conversationContext();
-    state.displayedPlan = { projectId: displayedProject, sha256: 'a'.repeat(64) };
+    state.displayedPlan = { projectId: displayedProject, sha256: 'a'.repeat(64), pendingPlanId: 'pending-p' };
     $('conversation-input').value = action === 'execute' ? '' : '请整理计划';
     let body;
     sandbox.api = async (_, options) => { body = JSON.parse(options.body); return { project: state.project, reply: 'ok', agent: {} }; };
     await sandbox.sendConversation(null, action);
     assert.equal(Object.hasOwn(body, 'approved_plan_sha256'), included);
     if (included) assert.equal(body.approved_plan_sha256, 'a'.repeat(64));
+    assert.equal(body.approval_gesture, action === 'execute' ? 'plan_button' : undefined);
     if (action === 'plan') assert.equal(state.displayedPlan, null);
+  });
+}
+
+for (const [label, pending] of [
+  ['missing ID', { plan_sha256: createHash('sha256').update('# Plan').digest('hex') }],
+  ['mismatched hash', { pending_plan_id: 'pending-p', plan_sha256: 'different' }],
+  ['consumed', { pending_plan_id: 'pending-p', plan_sha256: createHash('sha256').update('# Plan').digest('hex'), consumed: true }],
+  ['unavailable', Error('controlled offline')],
+]) {
+  test(`pending plan ${label} retains the readable card but never an approval snapshot`, async () => {
+    const { sandbox, state, $ } = planContext(async () => '# Plan', webcrypto, pending);
+    await sandbox.loadParameterPlan();
+    assert.equal(state.displayedPlan, null);
+    assert.match($('parameter-plan-content').innerHTML, /# Plan/);
+    assert.match($('parameter-plan-content').innerHTML, /刷新或重新整理计划/);
   });
 }

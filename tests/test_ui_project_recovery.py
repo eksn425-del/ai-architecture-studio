@@ -29,7 +29,7 @@ const nodes={}; const $=id=>nodes[id]||(nodes[id]={value:'old draft'});
 const saveDraft=()=>{}; const restoreDraft=()=>{}; const localStorage={setItem:()=>{}};
 const loadParameterPlan=async()=>{}; const artifactByType=()=>null; const setTab=()=>{};
 const updateHeader=()=>{}; const setStatus=()=>{}; const showToast=()=>{};
-const beginProgress=()=>{}; const startLiveProgress=()=>{};
+const beginProgress=()=>{}; const startLiveProgress=()=>{}; const renderTurnControls=()=>{};
 '''
 
 def test_failed_project_switch_preserves_visible_project_identity():

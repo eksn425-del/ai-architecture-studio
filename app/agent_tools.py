@@ -135,6 +135,8 @@ class AgentToolSurface:
         from .blender_backend import enabled, BlenderBackend
         if enabled(resolved_project_dir):
             backend = BlenderBackend(resolved_project_dir)
+            from .relation_tool_context import prepare_relation_tools, NAMES as RELATION_TOOLS
+            relation_specs, relation_dispatch, relation_before, relation_after = prepare_relation_tools(resolved_project_dir,backend)
             stage, limit = geometry_stage_limit(bool(backend.dispatch("blender_inspect_scene", {}).get("revision")))
             quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
             def blender_dispatch(name, arguments):
@@ -142,7 +144,10 @@ class AgentToolSurface:
                     return research_dispatch(name, arguments)
                 if not mcp_enabled:
                     raise ValueError("Blender writes require an approved execution turn")
+                if name in RELATION_TOOLS:
+                    return relation_dispatch(name,arguments)
                 writing = name == "blender_apply_objects"
+                if writing:relation_before(arguments)
                 if writing and quality["writes"] >= limit:
                     quality["stop_reason"] = "budget_exhausted"
                     raise ValueError(continuation_message(stage, quality["writes"], limit))
@@ -151,11 +156,13 @@ class AgentToolSurface:
                     result = backend.dispatch(name, arguments)
                     if writing:
                         quality["geometry_qa"] = result.get("geometry_qa")
+                        quality["relation_repair"] = relation_after()
+                        if quality["relation_repair"] is not None:result["relation_repair"]=quality["relation_repair"]
                     return result
                 finally:
                     if writing and backend.dispatch("blender_inspect_scene", {}).get("revision", 0) > before:
                         quality["writes"] += 1
-            return AgentToolContext(dynamic_tools=(backend.tools() if mcp_enabled else []) + research_tools,
+            return AgentToolContext(dynamic_tools=((backend.tools()+relation_specs) if mcp_enabled else []) + research_tools,
                                     dispatch=blender_dispatch, quality_state=quality)
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 

@@ -1585,13 +1585,69 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     def converse(project_id: str, request: ConversationRequest) -> dict[str, Any]:
         if not app.state.agent_lock.acquire(blocking=False):
             raise HTTPException(status_code=409, detail="另一个 Agent 回合正在运行，请等待完成后继续。")
+        from .conversation_receipts import begin, finish
+        request_receipt = None
         try:
+            try:
+                request_receipt, replay = begin(store.project_dir(project_id), request)
+            except ValueError as error:
+                raise HTTPException(409,str(error)) from error
+            if replay is not None:
+                request_receipt = None
+                return replay
             app.state.active_turns[project_id] = {"started": time.time(), "action": request.agent_action,
+                "provider":app.state.model_router.route(request.tier).provider,
+                "request_id":uuid.uuid4().hex,
                 "baseline": store.load_state(project_id, "agent_session.json", AgentSession).ruby_state}
-            return converse_turn(project_id, request)
+            result = converse_turn(project_id, request)
+            finish(request_receipt,result)
+            request_receipt = None
+            return result
         finally:
+            if request_receipt is not None:
+                finish(request_receipt)
             app.state.active_turns.pop(project_id, None)
             app.state.agent_lock.release()
+
+    @app.get("/api/projects/{project_id}/agent/pending-plan")
+    def pending_plan_identity(project_id: str) -> dict[str, Any]:
+        project_dir=store.project_dir(project_id)
+        pending=project_dir / "runtime/pending_design_scope.json"
+        snapshot=json.loads(pending.read_text(encoding="utf-8")) if pending.is_file() else {}
+        return {key:snapshot.get(key) for key in ("pending_plan_id","plan_sha256","model_revisions","consumed")}
+
+    @app.post("/api/projects/{project_id}/agent/cancel")
+    def cancel_native_turn(project_id: str, payload: dict[str, str]) -> dict[str, Any]:
+        # Never take the conversation lock: it is held by the running turn.
+        project_dir = store.project_dir(project_id)
+        active = app.state.active_turns.get(project_id)
+        if not active:
+            return {"status":"not_running", "rollback_performed":False}
+        if not payload.get("expected_request_id") or payload["expected_request_id"] != active.get("request_id"):
+            raise HTTPException(409,"运行回合已变化，请刷新状态后再停止。")
+        runtime = app.state.model_router.codex_runtime
+        if active.get("provider") != "codex-app-server" or not callable(getattr(runtime,"cancel_turn",None)):
+            raise HTTPException(409,"当前运行通道不支持这个停止接口。")
+        active["cancel_requested"] = True
+        cancel = getattr(runtime, "cancel_turn", None)
+        receipt = cancel(project_dir) if callable(cancel) else {"status":"not_running"}
+        return {**receipt, "status":"requested", "cancel_requested":True,
+                "terminal_confirmed":False, "rollback_performed":False,
+                "detail":"停止请求已发送；正在执行的工具可能需要完成安全回读，已有修改不会自动撤销。"}
+
+    def native_progress_callback(project_id: str):
+        def receive(event: dict[str, Any]) -> None:
+            active = app.state.active_turns.get(project_id)
+            if active is None:
+                return
+            active["native_event"] = event
+            log = store.project_dir(project_id) / "runtime/native_progress.jsonl"
+            log.parent.mkdir(parents=True, exist_ok=True)
+            with log.open("a", encoding="utf-8") as stream:
+                stream.write(json.dumps(event, ensure_ascii=False) + "\n")
+        return receive
+
+    app.state.native_progress_callback = native_progress_callback
 
     @app.get("/api/projects/{project_id}/agent/progress")
     def agent_progress(project_id: str) -> dict[str, Any]:
@@ -1600,6 +1656,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if not active:
             return {"running": False}
         started = active["started"]
+        native_event = active.get("native_event")
+        cancel_supported = active.get("provider") == "codex-app-server" and callable(getattr(app.state.model_router.codex_runtime,"cancel_turn",None))
         from .blender_backend import enabled as blender_enabled
         if blender_enabled(project_dir):
             receipt_file=project_dir/'runtime/blender/scene.json'
@@ -1608,7 +1666,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             stage="Blender 几何已保存，正在完成检查或预览" if committed else "Blender 正在处理本轮要求"
             return {"running":True,"backend":"blender","action":active["action"],"stage":stage,
                 "elapsed_seconds":int(time.time()-started),"tool_calls":None,"failed_tool_calls":0,
-                "committed_revisions":[receipt['revision']] if committed else [],"preview_url":None}
+                "committed_revisions":[receipt['revision']] if committed else [],"preview_url":None,"request_id":active.get("request_id"),"native_event":native_event,"cancel_supported":cancel_supported,"cancel_requested":bool(active.get("cancel_requested"))}
         event_log = select_turn_progress_log(list((project_dir / "runtime/agent_events").glob("*.jsonl")), started)
         calls = failures = 0
         api_started = api_responded = script_written = False
@@ -1649,7 +1707,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             {"label": "实际模型修改", "status": "done" if committed else "blocked" if failures else "pending", "detail": "已提交模型修改" if committed else f"已发生 {failures} 次工具失败，正在处理" if failures else "尚无本轮几何提交"},
             {"label": "截图回读", "status": "done" if capture else "pending", "detail": "已有本轮真实截图；质量需继续检查" if capture else "等待截图"},
         ]
-        return {"running": True, "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
+        return {"running": True, "request_id":active.get("request_id"), "native_event":native_event, "cancel_supported":cancel_supported, "cancel_requested":bool(active.get("cancel_requested")), "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
                 "checks": checks,
                 "tool_calls": calls, "failed_tool_calls": failures, "committed_revisions": committed,
                 "preview_url": _artifact(project_id, project_dir, capture, "viewport").url if capture else None}
@@ -1695,10 +1753,18 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             store.save(context, project_dir / "state/project_context.json")
             invalidate_stale_design_scope(project_dir)
         session_ready = session.status == "ready" and bool(session.model_path)
+        from .contextual_turn import resolve_host_action
+        contextual = None
+        if request.workflow_mode == "image_reconstruction":
+            try:
+                contextual = resolve_host_action(app.state.model_router, project=project_dir,
+                    session=session, request=request, context=context)
+            except (ValueError, NativeAgentUnavailable) as error:
+                raise HTTPException(409, str(error)) from error
         policy = None
         if request.workflow_mode == "image_reconstruction":
             try:
-                policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=session_ready)
+                policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=session_ready, resolved_action=contextual[0] if contextual else None)
             except ValueError as error:
                 raise HTTPException(status_code=409, detail=str(error)) from error
         action = policy.action if policy else request.agent_action
@@ -1727,7 +1793,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if requested_tier == "premium":
             session.premium_rescue_pending = False
             session.economy_tool_failure_streak = 0
-        evidence_turn_id = "message:" + uuid.uuid4().hex
+        evidence_turn_id = contextual[1]["user_message_id"] if contextual else "message:" + uuid.uuid4().hex
         _append_conversation(context, "user", phase, request.message.strip(), {
             "evidence_turn_id": evidence_turn_id,
             "workflow_mode": request.workflow_mode,
@@ -1749,6 +1815,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     approve_pending_design_plan(project_dir, evidence_turn_id, card.read_text(encoding="utf-8"), request.approved_plan_sha256)
                 except (ValueError, OSError) as error:
                     raise HTTPException(409, str(error)) from error
+        if app.state.active_turns.get(project_id, {}).get("cancel_requested"):
+            raise HTTPException(409, "本轮已请求停止，未开启下一步建模。")
+        if contextual and action == "execute" and session.reconstruction_state == "planned":
+            from .design_scope_approval import consume_pending_design_plan
+            consume_pending_design_plan(project_dir,request.approved_pending_plan_id)
         mcp_enabled = policy.tools_enabled if policy else session_ready
         adapter: SketchUpAdapter = app.state.sketchup
         model_info: dict[str, Any] | None = None
@@ -1790,6 +1861,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             workflow_mode=request.workflow_mode,
             agent_action=action,
         )
+        if contextual and contextual[1].get("confirmation_required"):
+            prompt += "\nHOST AUTHORIZATION STATE: no execution grant exists for this message. Do not claim the user has authorized model writes. Briefly explain that the current plan is ready for the visible confirmation button; if scope changes are requested, revise the plan first."
         if action == "plan" and current_model_revisions(project_dir, session.ruby_state):
             prompt += '\nFor a follow-up design change, include in the saved reconstruction card a <design_scope> JSON array </design_scope>. Each entry has exactly feature_id (stable ID matching prior requirements) and requested_state (the user requested new state). List only changed features, not KEEP features. Display the scope for user approval. Do not infer permission to reverse prior requirements without this approved scope.'
         def checkpoint_agent_model() -> None:
@@ -1899,6 +1972,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 workflow_mode=request.workflow_mode,
                 tool_profile=workflow_tool_profile(request.workflow_mode),
                 developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled, action=action),
+                **({"progress_callback": native_progress_callback(project_id)} if isinstance(app.state.model_router.codex_runtime, CodexAppServerRuntime) and route.provider == "codex-app-server" else {}),
             )
         except (NativeAgentUnavailable, ConnectorUnavailable) as error:
             session.status = "ready" if session_ready else "conversation"
@@ -1958,6 +2032,26 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session.tool_call_count = result.tool_call_count or len(result.tool_calls)
         session.failed_tool_calls = result.failed_tool_calls
         session.last_tool_calls = result.tool_calls[-40:]
+        if result.status != "completed":
+            terminal_status = "interrupted" if result.status == "interrupted" else "failed"
+            if mcp_enabled and geometry_committed:
+                try:
+                    checkpoint_agent_model()
+                    checkpoint_saved = True
+                    session.reconstruction_state = "building"
+                except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
+                    session.error = str(error)[:1200]
+            reply = ("本轮已停止。" if terminal_status == "interrupted" else "本轮未完成。")
+            reply += "已提交的修改已保存，质量尚未验收。" if checkpoint_saved else "已有模型保留，没有新的已保存交付。"
+            metadata = {"execution_status":terminal_status,"geometry_committed":geometry_committed,
+                        "checkpoint_saved":checkpoint_saved,"turn_id":getattr(result,"turn_id",""),
+                        "cancellation_requested":getattr(result,"cancellation_requested",False)}
+            session.last_reply = reply
+            session.error = session.error or "本轮未完成全部任务。"
+            _append_conversation(context,"assistant",phase,reply,metadata)
+            store.save(context,project_dir/"state/project_context.json")
+            store.save_state(project_id,session,"agent_session.json")
+            return {"phase":phase,"reply":reply,"agent":{**metadata,"agent_action":action},"project":store.load_project(project_id)}
         if policy:
             card = project_dir / "runtime" / "agent_workspace" / "notes" / "reconstruction_card.md"
             if action == "clarify":

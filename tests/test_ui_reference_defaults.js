@@ -118,14 +118,9 @@ test('role review escapes filenames and never renders unknown provenance as raw 
 });
 function correction({ busy = false, failure = false } = {}) {
   const state = { projectId: 'p & one', project: { agent_session: { reconstruction_state: 'planned' } }, busy };
-  let change;
   const requests = [], notices = [];
-  const marker = '$("reference-role-review").addEventListener("change",';
-  const start = source.indexOf(marker);
-  const end = source.indexOf('\n});', start) + 4;
-  assert.ok(start >= 0 && end > start);
-  sandbox(source.slice(start, end), {
-    state, $: () => ({ addEventListener: (type, callback) => { change = callback; } }),
+  const ctx = sandbox(production('correctReferenceRole'), {
+    state,
     updateHeader() {}, showToast: text => notices.push(text), friendlyError: e => e.message,
     api: async (url, options) => {
       requests.push({ url, options });
@@ -133,7 +128,7 @@ function correction({ busy = false, failure = false } = {}) {
       return options ? {} : { agent_session: { reconstruction_state: 'clarifying', approved_plan_sha256: null } };
     },
   });
-  return { change, state, requests, notices };
+  return { change: ctx.correctReferenceRole, state, requests, notices };
 }
 test('correcting a role PATCHes exact source then reloads invalidated approval state', async () => {
   const { change, requests, state, notices } = correction();

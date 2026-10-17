@@ -131,8 +131,9 @@ def build_reconstruction_turn_policy(
     request: ConversationRequest,
     *,
     sketchup_session_ready: bool,
+    resolved_action: ResolvedAction | None = None,
 ) -> ReconstructionTurnPolicy:
-    action = resolve_reconstruction_action(session, request)
+    action = resolved_action if resolved_action is not None else resolve_reconstruction_action(session, request)
     validate_reconstruction_action(session, action)
     if action == "execute" and not sketchup_session_ready:
         raise ValueError("请先打开当前项目的 SketchUp 空白副本，再批准执行。")
