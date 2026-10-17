@@ -16,7 +16,8 @@ from typing import Any, Callable
 from .agent_tools import AgentToolSurface
 from .reference_assets import discover_project_reference_images, reference_image_label
 from .reference_roles import (reference_manifest, role_labels, manifest_fingerprint,
-                              validate_review_requirements, load_review_history)
+                              validate_review_requirements, load_review_history, active_requirements, requirement_states,
+                              validate_review_resolutions, load_approved_design_scope)
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
@@ -347,6 +348,9 @@ class CodexAppServerRuntime:
                 images.append(path)
             elif label not in labels[existing].split("; "):
                 labels[existing] += "; " + label
+        from .design_scope_approval import invalidate_stale_design_scope
+        invalidate_stale_design_scope(project_dir)
+        approved_scope = load_approved_design_scope(project_dir)
         image_hashes = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in images}
         prompt = build_visual_critic_prompt([label for label, item in zip(labels, manifest) if item["role"] == "target_building"], labels[len(sources):])
         prompt += "\nImages below follow this exact order:\n" + "\n".join(
@@ -366,7 +370,14 @@ class CodexAppServerRuntime:
                    "Each entry must contain feature_id (stable lowercase path), desired_state, source_ref (exact SOURCE TARGET path), "
                    "and model_revisions equal to " + json.dumps(revisions, sort_keys=True) + ". "
                    "If prior intent contradicts current evidence, do not oscillate or hide it; report unresolved uncertainty. "
-                   "Prior revision-bound requirements: " + json.dumps(history, ensure_ascii=False))
+                   "Requirement states (resolved intent remains protected; omission does not resolve): " + json.dumps(requirement_states(history), ensure_ascii=False)
+                   + "\nUse relation new for new features, unchanged for unchanged intent. For paraphrase/refinement use equivalent/refines, "
+                   "prior_requirement_id and evidence explaining the SAME intent from current source/capture. Use regression for the same defect reappearing after resolution. Preserve a stable intent "
+                   "{property,value} when provided; changed wording alone is not conflict. Opposite intent is NOT refinement. "
+                   "Only a feature-specific host approved scope permits supersedes: cite design_scope_version and approved_requested_state exactly. "
+                   "To retire a satisfied old requirement return <requirement_resolutions>JSON array</requirement_resolutions> with feature_id, "
+                   "prior_requirement_id, status=resolved, source_ref, model_revisions and current evidence. Never resolve by omission. "
+                   "Host-approved design scope: " + json.dumps(approved_scope, ensure_ascii=False))
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
             prompt=prompt, mcp_enabled=False, developer_instructions="Independent read-only architectural visual review. No geometry writes, commands or file changes.",
@@ -383,9 +394,14 @@ class CodexAppServerRuntime:
             raise ValueError("Review became stale during inference; recapture and review current evidence.")
         if any(hashlib.sha256(Path(path).read_bytes()).hexdigest() != digest for path, digest in image_hashes.items()):
             raise ValueError("Review image changed during inference; recapture before correction.")
+        if load_approved_design_scope(project_dir) != approved_scope:
+            raise ValueError("Approved design scope changed during review; repeat against current intent.")
+        resolutions = validate_review_resolutions(result.reply, manifest=manifest, revisions=revisions, history=history)
         requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
-                                                   issue_count=len(critique.issues), history=history)
-        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements}
+                                                   issue_count=len(critique.issues), history=history, approved_scope=approved_scope)
+        if {item['feature_id'] for item in resolutions} & {item['feature_id'] for item in requirements}:
+            raise ValueError("A feature cannot be resolved and still require correction in one review.")
+        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements, "resolutions": resolutions, "approved_design_scope": approved_scope}
         history_path = project_dir / "runtime/reference_role_review_history.jsonl"
         history_path.parent.mkdir(parents=True, exist_ok=True)
         if history_path.is_symlink():
@@ -394,7 +410,8 @@ class CodexAppServerRuntime:
             stream.write(json.dumps(record, ensure_ascii=False) + "\n")
         return {**arguments, "critique": result.reply, "_reviewer": {
             "reference_manifest": manifest, "reference_manifest_fingerprint": fingerprint,
-            "review_requirements": requirements,
+            "review_requirements": requirements, "requirement_resolutions": resolutions,
+            "approved_design_scope": approved_scope,
             "mode": "dedicated_read_only", "runtime": "codex-native", "model": result.model_name,
             "reasoning_effort": result.reasoning_effort, "latency_ms": result.latency_ms,
             "input_tokens": result.input_tokens, "output_tokens": result.output_tokens,

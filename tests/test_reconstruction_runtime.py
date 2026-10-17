@@ -1,3 +1,4 @@
+from app.reconstruction_runtime import explicit_build_approval
 import pytest
 
 from app.models import AgentSession, ConversationRequest, ProjectContext
@@ -122,3 +123,53 @@ def test_non_approval_does_not_execute(message):
     session = AgentSession(project_id="demo", reconstruction_state="planned")
     request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
     assert not build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled
+
+
+@pytest.mark.parametrize("action", ["auto", "execute"])
+@pytest.mark.parametrize("message, expected", [
+    ("把露台栏杆换成深灰金属竖杆，先给我计划，确认后再执行。", "plan"),
+    ("先说明窗户降低20%的衔接方案，等我确认。", "plan"),
+    ("暂停，不要修改模型。", "clarify"),
+    ("暂不执行，这轮只看现有模型。", "clarify"),
+    ("不批准，先别建模。", "clarify"),
+])
+def test_existing_model_stop_and_plan_override_stale_execute(message, expected, action):
+    session=AgentSession(project_id="demo",reconstruction_state="building")
+    request=ConversationRequest(message=message,workflow_mode="image_reconstruction",agent_action=action)
+    policy=build_reconstruction_turn_policy(session,request,sketchup_session_ready=True)
+    assert policy.action==expected
+    assert not policy.tools_enabled
+
+
+@pytest.mark.parametrize("message,expected", [
+ ("还没有批准执行，等我看完。","clarify"),
+ ("未确认，不要现在开始建模。","clarify"),
+ ("请直接修复这扇窗，不要修改其他构件。","execute"),
+ ("先按已经批准的方案直接修复这扇窗。","execute"),
+])
+def test_followup_stop_and_scoped_keep_counterexamples(message,expected):
+ session=AgentSession(project_id="demo",reconstruction_state="building")
+ request=ConversationRequest(message=message,workflow_mode="image_reconstruction")
+ assert resolve_reconstruction_action(session,request)==expected
+
+@pytest.mark.parametrize("action",["auto","execute"])
+@pytest.mark.parametrize("message,expected",[("还没有确认，等我看完。","clarify"),("先只出方案，不要实际操作。","plan"),("这次仅提供计划。","plan")])
+def test_only_plan_and_unconfirmed_followups(message,expected,action):
+ session=AgentSession(project_id="demo",reconstruction_state="building")
+ assert resolve_reconstruction_action(session,ConversationRequest(message=message,agent_action=action))==expected
+
+@pytest.mark.parametrize("state",["planned","building"])
+@pytest.mark.parametrize("message",["先讨论一下窗户为什么错位。","只分析，不做任何改动。"])
+def test_readonly_intent_overrides_stale_execute(state,message):
+ assert resolve_reconstruction_action(AgentSession(project_id="demo",reconstruction_state=state),ConversationRequest(message=message,agent_action="execute"))=="clarify"
+
+@pytest.mark.parametrize("action",["auto","execute"])
+@pytest.mark.parametrize("message",["停止建模。","停止操作模型。","不要实际操作模型。","禁止修改模型。"])
+def test_global_stop_synonyms(message,action):
+ assert resolve_reconstruction_action(AgentSession(project_id="demo",reconstruction_state="building"),ConversationRequest(message=message,agent_action=action))=="clarify"
+
+@pytest.mark.parametrize("state",["planned","building"])
+@pytest.mark.parametrize("message",["确认停止建模。","确认禁止执行。"])
+def test_confirm_stop_is_not_execution_approval(state,message):
+ assert not explicit_build_approval(message)
+ assert resolve_reconstruction_action(AgentSession(project_id="demo",reconstruction_state=state),ConversationRequest(message=message,agent_action="execute"))=="clarify"

@@ -286,6 +286,7 @@ class EditPlan(Model):
 
 
 class ConversationRequest(Model):
+    approved_plan_sha256: str = Field(default="", max_length=64, pattern=r"^(?:[a-f0-9]{64})?$")
     message: str = Field(min_length=1, max_length=1200)
     tier: Literal["economy", "premium"] = "economy"
     workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"

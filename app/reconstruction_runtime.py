@@ -26,7 +26,7 @@ def explicit_build_approval(message: str) -> bool:
         message = re.sub(r"不要执行旧(?:整栋)?(?:基线|脚本|计划)", "", message)
         message = re.sub(r"不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*", "", message)
         message = re.sub(r"(?:检查|核对|验证)是否", "检查", message)
-    if re.search(r"不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
+    if re.search(r"不要(?:开始|执行|建模|动|修改|操作)|不要.{0,8}(?:开始建模|执行建模|执行计划|操作)|不执行|不建模|先别|暂不|暂停|停止(?:建模|操作|执行|修改)|禁止.{0,8}(?:建模|操作|执行|修改)|取消|先不|不同意|不批准|未确认|未批准|还没(?:有)?(?:批准|确认)|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成", message):
         return False
     if re.fullmatch(r"(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*", message.strip()):
         return True
@@ -55,6 +55,17 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     The user/host may explicitly request clarify/plan/execute. Execution is validated
     separately and must never occur before an approved plan exists.
     """
+    # User stop/plan intent outranks a stale UI execute action and existing model state.
+    action_message = re.sub(r"不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*", "", request.message)
+    if re.search(r"(?:只|仅)(?:出|提供|给|写|整理)(?:一份|个|一下)?(?:计划|方案)", action_message):
+        return "plan"
+    approved = explicit_build_approval(action_message)
+    if not approved and re.search(r"暂停|停止(?:建模|操作|执行|修改)|禁止.{0,8}(?:建模|操作|执行|修改)|取消|先别|暂不|先不|不执行|不建模|不同意|不批准|未批准|未确认|还没(?:有)?(?:批准|确认)|不要.{0,8}(?:开始|执行|建模|动|修改|操作)", action_message):
+        return "clarify"
+    if re.search(r"(?:只|仅)(?:出|提供|给|写|整理)(?:一份|个|一下)?(?:计划|方案)|先.{0,8}(?:给|写|整理|说明|讨论|提供|制定|看).{0,12}(?:计划|方案)|先说明|(?:确认|批准)后再(?:执行|建模)|等我(?:确认|批准)", request.message):
+        return "plan"
+    if re.search(r"先聊|先讨论|只(?:聊|分析|解释|讨论)|仅(?:分析|解释|讨论)|不做(?:任何)?改动", action_message):
+        return "clarify"
     if request.agent_action in {"clarify", "plan", "execute"}:
         return request.agent_action
     if session.reconstruction_state == "idle":
@@ -70,7 +81,7 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     stopped_or_question = re.search(
         r"[?？]|吗[。！!\s]*$|暂停|取消|暂不|先不|先别|先聊|先讨论|只聊|只分析|只解释|"
         r"不执行|不建模|不同意|不批准|未确认|未批准|如果|假如|示例|教程|不要(?:执行|修改|建模|动)",
-        request.message,
+        action_message,
     )
     if session.reconstruction_state == "building" and direct_revision and not stopped_or_question:
         return "execute"

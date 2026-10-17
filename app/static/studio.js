@@ -8,6 +8,7 @@ let progressGeneration = 0;
 let planRequestId = 0;
 let projectLoadGeneration = 0;
 let pendingExecutionProject = null;
+let connectDialogGeneration = 0;
 let observingTurn = false;
 let observedRunningTurn = false;
 
@@ -37,7 +38,7 @@ function isBuildApproval(message) {
       .replace(/不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*/g, "")
       .replace(/(?:检查|核对|验证)是否/g, "检查");
   }
-  if (/不要(?:开始|执行|建模|动|修改)|不要.{0,8}(?:开始建模|执行建模|执行计划)|不执行|不建模|先别|暂不|暂停|取消|先不|不同意|不批准|未确认|未批准|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(message)) return false;
+  if (/不要(?:开始|执行|建模|动|修改|操作)|不要.{0,8}(?:开始建模|执行建模|执行计划|操作)|不执行|不建模|先别|暂不|暂停|停止(?:建模|操作|执行|修改)|禁止.{0,8}(?:建模|操作|执行|修改)|取消|先不|不同意|不批准|未确认|未批准|还没(?:有)?(?:批准|确认)|不想|不希望|如果|假如|能否|是否|怎么|如何|示例|教程|[?？]|改为|修改|调整|改成/.test(message)) return false;
   return /^(?:已)?(?:确认|开始|继续|同意|批准)(?:吧|了|执行|开工)?[。！!\s]*$/.test(message) || /(?:批准|确认|同意).*(?:执行|开始|建模)|(?:开始|继续)(?:按计划)?建模(?:吧|了|。|！|!|$)/.test(message);
 }
 
@@ -143,9 +144,29 @@ function endProgress() {
   $("operation-progress").hidden = true;
 }
 
+function parameterPlanMarkup(card) {
+  const blocks = [...card.matchAll(/<design_scope>\s*([\s\S]*?)\s*<\/design_scope>/g)];
+  if (!blocks.length) return chatText(card);
+  try {
+    if (blocks.length !== 1) throw new Error("ambiguous scope");
+    const features = JSON.parse(blocks[0][1]);
+    if (!Array.isArray(features) || !features.length || features.some(feature =>
+      !feature || typeof feature.feature_id !== "string" || !feature.feature_id.trim()
+      || typeof feature.requested_state !== "string" || !feature.requested_state.trim())) throw new Error("invalid scope");
+    const scope = '<section class="plan-scoped-features"><strong>本轮功能范围（批准后执行）</strong><ul>'
+      + features.map(feature => `<li>${escapeHtml(feature.feature_id)}：${escapeHtml(feature.requested_state)}</li>`).join("") + '</ul></section>';
+    // Only this bounded, validated host contract is replaced for presentation.
+    // The approval hash covers this card with the host's universal-newline normalization.
+    return chatText(card.slice(0, blocks[0].index)) + scope + chatText(card.slice(blocks[0].index + blocks[0][0].length));
+  } catch (_) {
+    return '<p class="plan-review-note">本轮功能范围格式有误，请先更新计划再批准。</p>' + chatText(card);
+  }
+}
+
 async function loadParameterPlan() {
   const requestId = ++planRequestId;
   const projectId = state.projectId;
+  state.displayedPlan = null;
   $("download-plan").href = projectFileUrl("runtime/agent_workspace/notes/reconstruction_card.md");
   const visible = ["planned", "building"].includes(state.project?.agent_session?.reconstruction_state);
   $("parameter-plan").hidden = !visible;
@@ -153,9 +174,17 @@ async function loadParameterPlan() {
   if (!visible) return;
   try {
     const card = await api(projectFileUrl("runtime/agent_workspace/notes/reconstruction_card.md"));
-    if (requestId === planRequestId && projectId === state.projectId) $("parameter-plan-content").innerHTML = '<p class="plan-review-note">请重点核对层数、各立面的门窗数量、尺寸与推断。AI 可能误读图片；有差异时点击「修改参数」纠正后再批准。</p>' + chatText(card);
+    // Python reads the approved card with universal newlines on every platform.
+    // Canonicalize CRLF/CR before hashing so unchanged Windows plans match.
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(card.replace(/\r\n?/g, "\n")));
+    if (requestId !== planRequestId || projectId !== state.projectId) return;
+    $("parameter-plan-content").innerHTML = '<p class="plan-review-note">请重点核对层数、各立面的门窗数量、尺寸与推断。AI 可能误读图片；有差异时点击「修改参数」纠正后再批准。</p>' + parameterPlanMarkup(card);
+    state.displayedPlan = {projectId, sha256: Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("")};
   } catch (_) {
-    if (requestId === planRequestId) $("parameter-plan-content").textContent = "参数文件暂时无法读取，请查看下方 AI 的计划回复后再决定是否批准。";
+    if (requestId === planRequestId && projectId === state.projectId) {
+      state.displayedPlan = null;
+      $("parameter-plan-content").textContent = "参数文件暂时无法读取或核验，请重新加载计划后再批准。";
+    }
   }
 }
 
@@ -175,6 +204,17 @@ function routeAvailable(tier) {
 function routeReadinessLabel(tier) {
   const route = routeInfo(tier);
   if (!routeAvailable(tier)) return route.provider === "codex-app-server" ? "本机 Codex 不可用" : "模型连接未配置";
+  // Only host-recorded assistant responses in this project prove an invocation.
+  // Session defaults and connector setup also carry route fields, but are not calls.
+  const verified = route.model && state.project?.context?.project_id === state.projectId
+    && (state.project.context.conversation || []).some(message => {
+      const receipt = message.metadata || {};
+      return message.role === "assistant" && !!message.content?.trim()
+        && !["failed", "interrupted", "error"].includes(receipt.status) && !receipt.error
+        && receipt.provider === route.provider && receipt.model === route.model
+        && receipt.reasoning_effort === route.reasoning_effort;
+    });
+  if (verified) return "本会话已有成功调用";
   return route.provider === "codex-app-server" ? "已检测到本机程序；调用未验证" : "已配置；调用未验证";
 }
 
@@ -190,9 +230,10 @@ function refreshTierLabels() {
     ? "DeepSeek V4.1 Flash"
     : `${economyRoute.model} · ${(economyRoute.reasoning_effort || "provider-default").toUpperCase()}`;
   economy.textContent = economyRoute.provider === "managed-responses"
-    ? `K Studio · ${economyRoute.model} · ${routeAvailable("economy") ? "内部测试中" : "未验证 / 暂不可用"}`
+    ? `K Studio · ${economyRoute.model} · ${routeReadinessLabel("economy")} · 内部测试中`
     : `${economyLabel} · ${routeReadinessLabel("economy")}`;
-  premium.textContent = `精修 · ${premiumRoute.model}（仅本轮${routeAvailable("premium") ? "" : " · 未配置"}）`;
+  premium.textContent = `精修 · ${premiumRoute.model}（仅本轮 · ${routeReadinessLabel("premium")}）`;
+  $("brain-status").textContent = `建筑 Agent · ${economyLabel} · ${routeReadinessLabel("economy")}`;
 }
 
 const modelStatusLabels = {
@@ -599,7 +640,7 @@ function renderPreview() {
 
 async function loadProject(projectId) {
   const generation = ++projectLoadGeneration;
-  if (projectId !== state.projectId) saveDraft();
+  if (projectId !== state.projectId) { saveDraft(); state.displayedPlan = null; }
   // Commit identity and data together. A failed read must not send the old
   // visible conversation (or its draft) to a different project.
   const project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
@@ -803,9 +844,7 @@ async function sendConversation(event, agentAction = "auto") {
   }
   if (agentAction === "auto" && state.project?.agent_session?.reconstruction_state === "planned" && isBuildApproval(typed)) agentAction = "execute";
   if (agentAction === "execute" && state.project?.agent_session?.status !== "ready" && state.project?.agent_session?.modeling_backend !== "blender") {
-    pendingExecutionProject = state.projectId;
-    $("connect-status").textContent = "计划和资料已保留。连接本会话的独立模型后才会开始建模；也可以稍后再连接。";
-    $("connect-dialog").showModal();
+    openConnectDialog(true);
     return;
   }
   // Preserve the human's message; execution policy belongs in the backend.
@@ -814,6 +853,9 @@ async function sendConversation(event, agentAction = "auto") {
     : typed || ((state.project?.agent_session?.reconstruction_state || "idle") === "idle" && sourceImages().length ? "请分析这张建筑图片，先确认建模目标与关键未知项。" : "");
   if (!message || state.busy) return;
   const submittedProjectId = state.projectId;
+  const approvedPlanSha256 = agentAction === "execute" && state.displayedPlan && state.displayedPlan.projectId === submittedProjectId
+    ? state.displayedPlan.sha256 : undefined;
+  if (agentAction === "plan") state.displayedPlan = null;
   $("conversation-input").value = "";
   state.planEditing = false;
   saveDraft();
@@ -843,6 +885,7 @@ async function sendConversation(event, agentAction = "auto") {
         tier: requestedTier,
         workflow_mode: $("workflow-mode").value,
         agent_action: resolvedAction,
+        ...(approvedPlanSha256 ? {approved_plan_sha256: approvedPlanSha256} : {}),
       }),
     });
     if (state.projectId !== submittedProjectId) return;
@@ -859,7 +902,9 @@ async function sendConversation(event, agentAction = "auto") {
     const agent = result.agent || {};
     showToast((agent.tier === "premium" ? "精修" : "Economy") + " · " + (agent.model || "Agent")
       + " 已处理" + (agent.agent_action === "clarify" ? "图片澄清" : agent.agent_action === "plan" ? "建模计划，等待批准" : built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
-    if (agent.agent_action === "execute") { setTab("model"); showResults(true); }
+    // Executing or inspecting an existing model is not a new result. Only the
+    // host's current-turn commit/checkpoint receipts may open the result panel.
+    if (agent.geometry_committed === true || agent.checkpoint_saved === true) { setTab("model"); showResults(true); }
   } catch (error) {
     try { localStorage.setItem(`kstudio-failed-message:${submittedProjectId}`, message); } catch (_) {}
     if (state.projectId !== submittedProjectId) return;
@@ -887,6 +932,7 @@ $("conversation-input").addEventListener("focus", () => {
 });
 $("approve-reconstruction").addEventListener("click", (event) => sendConversation(event, "execute"));
 $("revise-reconstruction-plan").addEventListener("click", () => {
+  state.displayedPlan = null;
   state.planEditing = true;
   saveDraft();
   updateHeader();
@@ -909,7 +955,7 @@ $("workflow-mode").addEventListener("change", () => {
     : "输入设计方向或模型修改要求…";
   updateHeader();
 });
-$("start-agent-session").addEventListener("click", () => $("connect-dialog").showModal());
+$("start-agent-session").addEventListener("click", () => openConnectDialog());
 $("prepare-design").addEventListener("click", prepareDesign);
 $("build-model").addEventListener("click", buildModel);
 $("disposable-confirm").addEventListener("change", updateHeader);
@@ -1083,34 +1129,68 @@ $("conversation-input").addEventListener("keydown", event => {
   if ((event.ctrlKey || event.metaKey) && event.key === "Enter" && !event.isComposing && !$("conversation-send").disabled) sendConversation(event);
 });
 window.addEventListener("beforeunload", saveDraft);
-$("connect-close").addEventListener("click", () => { pendingExecutionProject = null; $("connect-dialog").close(); });
-$("connect-check").addEventListener("click", async () => {
-  if (state.busy || $("connect-check").disabled || $("connect-open").disabled) return;
+function openConnectDialog(executeAfterConnect = false) {
+  if (state.busy || !state.projectId) return;
+  connectDialogGeneration++;
+  pendingExecutionProject = executeAfterConnect ? state.projectId : null;
+  $("connect-status").textContent = executeAfterConnect
+    ? "计划和资料已保留。连接本会话的独立模型后才会开始建模；也可以稍后再连接。"
+    : "交流与分析无需连接；开始建模前才需要连接。";
+  $("connect-check").disabled = false;
+  $("connect-open").disabled = false;
+  if (!$("connect-dialog").open) $("connect-dialog").showModal();
+}
+
+function closeConnectDialog() {
+  connectDialogGeneration++;
+  pendingExecutionProject = null;
+  $("connect-dialog").close();
+}
+
+function isCurrentConnectDialog(generation, projectId) {
+  return generation === connectDialogGeneration && projectId === state.projectId && $("connect-dialog").open;
+}
+
+async function checkConnectDialog() {
+  if (state.busy || !$("connect-dialog").open || $("connect-check").disabled || $("connect-open").disabled) return;
+  const generation = connectDialogGeneration;
+  const projectId = state.projectId;
   $("connect-check").disabled = true;
   $("connect-status").textContent = "正在检查本机连接…";
   try {
-    const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
+    const result = await api(`/api/projects/${encodeURIComponent(projectId)}/connector`);
+    if (!isCurrentConnectDialog(generation, projectId)) return;
     $("connect-status").textContent = result.reachable ? "MCP 已连接。下一步：点击自动连接，打开本会话的独立模型。" : friendlyError(new Error(result.detail || "请在 SketchUp 扩展菜单启动 Kongxing Local Bridge，然后重试。"));
-  } catch (_) { $("connect-status").textContent = "连接未就绪，请检查 SketchUp 与插件是否已启动。"; }
-  finally { $("connect-check").disabled = false; }
-});
-$("connect-open").addEventListener("click", async () => {
-  if (state.busy || $("connect-open").disabled || $("connect-check").disabled) return;
+  } catch (_) {
+    if (isCurrentConnectDialog(generation, projectId)) $("connect-status").textContent = "连接未就绪，请检查 SketchUp 与插件是否已启动。";
+  } finally { if (isCurrentConnectDialog(generation, projectId)) $("connect-check").disabled = false; }
+}
+
+async function connectCurrentProject() {
+  if (state.busy || !$("connect-dialog").open || $("connect-open").disabled || $("connect-check").disabled) return;
+  const generation = connectDialogGeneration;
+  const projectId = state.projectId;
   $("connect-open").disabled = true;
   $("connect-status").textContent = "正在自动检查连接；成功后打开本会话独立模型…";
   try {
-    const result = await api(`/api/projects/${encodeURIComponent(state.projectId)}/connector`);
+    const result = await api(`/api/projects/${encodeURIComponent(projectId)}/connector`);
+    if (!isCurrentConnectDialog(generation, projectId)) return;
     $("connect-status").textContent = result.reachable ? "MCP 已连接，正在打开并校验项目副本…" : "正在启动 SketchUp，并尝试连接已安装的插件…";
     if (await startAgentSession()) {
-      $("connect-dialog").close();
-      if (pendingExecutionProject === state.projectId) {
-        pendingExecutionProject = null;
-        await sendConversation(null, "execute");
-      }
+      if (!isCurrentConnectDialog(generation, projectId)) return;
+      const executeAfterConnect = pendingExecutionProject === projectId;
+      closeConnectDialog();
+      if (executeAfterConnect) await sendConversation(null, "execute");
     }
-  } catch (error) { $("connect-status").textContent = friendlyError(error); }
-  finally { $("connect-open").disabled = false; }
-});
+  } catch (error) {
+    if (isCurrentConnectDialog(generation, projectId)) $("connect-status").textContent = friendlyError(error);
+  } finally { if (isCurrentConnectDialog(generation, projectId)) $("connect-open").disabled = false; }
+}
+
+$("connect-close").addEventListener("click", closeConnectDialog);
+$("connect-dialog").addEventListener("cancel", event => { event.preventDefault(); closeConnectDialog(); });
+$("connect-check").addEventListener("click", checkConnectDialog);
+$("connect-open").addEventListener("click", connectCurrentProject);
 async function observeRunningTurn() {
   if (!state.projectId || state.busy) return;
   const projectId = state.projectId;

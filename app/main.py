@@ -732,6 +732,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             raise HTTPException(status_code=404, detail=str(error)) from error
 
     def invalidate_reference_plan(project_id: str) -> None:
+        from .design_scope_approval import capture_pending_design_plan
+        capture_pending_design_plan(store.project_dir(project_id), "", is_followup=False)
         session = store.load_state(project_id, "agent_session.json", AgentSession)
         session.thread_id = ""
         session.reconstruction_state = "clarifying"
@@ -1666,6 +1668,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 context.references[index] = Reference.model_validate(app.state.reference_ingestor.ingest(reference.source))
 
         project_dir = store.ensure_layout(project_id)
+        from .design_scope_approval import invalidate_stale_design_scope, capture_pending_design_plan, approve_pending_design_plan
+        from .reference_roles import current_model_revisions
+        invalidate_stale_design_scope(project_dir)
         session_ready = session.status == "ready" and bool(session.model_path)
         policy = None
         if request.workflow_mode == "image_reconstruction":
@@ -1675,6 +1680,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 raise HTTPException(status_code=409, detail=str(error)) from error
         action = policy.action if policy else request.agent_action
         if policy and action == "plan":
+            capture_pending_design_plan(project_dir, "", is_followup=False)
             # A failed update must never leave the old plan available for approval.
             # An identical retry can finish a card written before a provider disconnect.
             if session.plan_request_message != request.message.strip() or not session.plan_started_ns or session.reconstruction_state in {"planned", "building"}:
@@ -1708,6 +1714,16 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         })
         project_dir = store.ensure_layout(project_id)
         store.save(context, project_dir / "state" / "project_context.json")
+        if policy and action == "execute" and session.reconstruction_state == "planned":
+            card = project_dir / "runtime/agent_workspace/notes/reconstruction_card.md"
+            pending = project_dir / "runtime/pending_design_scope.json"
+            snapshot = json.loads(pending.read_text()) if pending.exists() else {}
+            # Legacy/initial unscoped approval cannot grant any intent override.
+            if request.approved_plan_sha256 or snapshot.get("features"):
+                try:
+                    approve_pending_design_plan(project_dir, evidence_turn_id, card.read_text(encoding="utf-8"), request.approved_plan_sha256)
+                except (ValueError, OSError) as error:
+                    raise HTTPException(409, str(error)) from error
         mcp_enabled = policy.tools_enabled if policy else session_ready
         adapter: SketchUpAdapter = app.state.sketchup
         model_info: dict[str, Any] | None = None
@@ -1749,6 +1765,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             workflow_mode=request.workflow_mode,
             agent_action=action,
         )
+        if action == "plan" and current_model_revisions(project_dir, session.ruby_state):
+            prompt += '\nFor a follow-up design change, include in the saved reconstruction card a <design_scope> JSON array </design_scope>. Each entry has exactly feature_id (stable ID matching prior requirements) and requested_state (the user requested new state). List only changed features, not KEEP features. Display the scope for user approval. Do not infer permission to reverse prior requirements without this approved scope.'
         def checkpoint_agent_model() -> None:
             identity = adapter.get_active_model_identity()
             if Path(str(identity.get("model_path") or "")).resolve() != active_model:
@@ -1839,6 +1857,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 # Retain the prior backup, and permit an explicitly approved recovery build.
                 session.error = "现有建筑根组丢失，保留上次检查点；本轮需恢复建筑。"
 
+        from .reference_roles import current_model_revisions
+        before_turn_revisions = current_model_revisions(project_dir, session.ruby_state)
         try:
             result = app.state.model_router.respond(
                 tier=effective_tier,
@@ -1873,7 +1893,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 session.input_tokens = partial.input_tokens
                 session.output_tokens = partial.output_tokens
                 session.last_tool_calls = partial.tool_calls[-40:]
-            committed = any(int(item.get("revision", 0)) > 0 for item in session.ruby_state.values())
+            now_revisions = current_model_revisions(project_dir, session.ruby_state)
+            committed = any(value > before_turn_revisions.get(key, 0) for key, value in now_revisions.items())
             if mcp_enabled and committed:
                 session.reconstruction_state = "building" if policy else session.reconstruction_state
                 try:
@@ -1893,6 +1914,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             store.save_state(project_id, session, "agent_session.json")
             raise HTTPException(status_code=503, detail=str(error)) from error
 
+        after_turn_revisions = current_model_revisions(project_dir, session.ruby_state)
+        geometry_committed = any(value > before_turn_revisions.get(key, 0) for key, value in after_turn_revisions.items())
+        checkpoint_saved = False
         session.thread_id = result.thread_id
         # Persist runtime identity even if the host rejects an incomplete plan or
         # uncommitted execution below. Retry must resume its actual tool history.
@@ -1922,9 +1946,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     session.updated_at = utc_now()
                     store.save_state(project_id, session, "agent_session.json")
                     raise HTTPException(status_code=422, detail=session.error)
+                try:
+                    capture_pending_design_plan(project_dir, text, is_followup=bool(before_turn_revisions))
+                except ValueError as error:
+                    raise HTTPException(422, str(error)) from error
                 session.reconstruction_state = "planned"
             else:
-                if not (result.tool_call_count or result.tool_calls) or not any(int(item.get("revision", 0)) > 0 for item in session.ruby_state.values()):
+                if not (result.tool_call_count or result.tool_calls) or (not geometry_committed and not before_turn_revisions):
                     session.reconstruction_state = "planned"
                     session.error = "本轮尚无已提交的建模几何。已保留脚本；写文件或工具返回不等于已建模，请查看执行记录后继续。"
                     session.updated_at = utc_now()
@@ -1945,21 +1973,27 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 session.economy_tool_failure_streak = 0
         session.updated_at = utc_now()
         session.last_tool_calls = result.tool_calls[-40:]
-        session.error = ""
+        session.error = "本轮没有新的几何提交；已有模型保持不变，未新建交付检查点。" if mcp_enabled and not geometry_committed else ""
         reply = _sanitize_agent_reply(result.reply.strip()[:12000], project_dir) or "已完成这轮设计推演。"
-        if mcp_enabled:
+        if mcp_enabled and geometry_committed:
             try:
                 checkpoint_agent_model()
+                checkpoint_saved = True
                 reply = bind_current_checkpoint_download(reply, current_state.model_path)
                 reply += "\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。"
             except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                 session.error = f"Model action completed, but readback/capture/checkpoint failed: {error}"[:1200]
                 reply += "\n\nSketchUp 的模型回读、截图或检查点保存未完成；请检查本机桥接后重试。"
+        if mcp_enabled and not geometry_committed:
+            reply += "\n\n" + session.error
         session.last_reply = reply
         turn_metadata = {
             "workflow_mode": request.workflow_mode,
             "agent_action": action,
             "reconstruction_state": session.reconstruction_state,
+            "geometry_committed": geometry_committed,
+            "checkpoint_saved": checkpoint_saved,
+            "execution_status": "committed" if geometry_committed else "no_geometry_committed" if mcp_enabled else "read_only",
             "tier": effective_tier,
             "provider": session.provider,
             "model": session.model,
@@ -1984,6 +2018,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 "agent_action": action,
                 "reconstruction_state": session.reconstruction_state,
                 "tool_profile": workflow_tool_profile(request.workflow_mode),
+                "geometry_committed": geometry_committed,
+                "checkpoint_saved": checkpoint_saved,
+                "execution_status": "committed" if geometry_committed else "no_geometry_committed" if mcp_enabled else "read_only",
                 "model": session.model,
                 "reasoning_effort": session.reasoning_effort,
                 "tier": effective_tier,
