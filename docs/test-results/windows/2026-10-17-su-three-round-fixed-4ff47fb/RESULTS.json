@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "test_kind": "real_browser_acceptance",
+  "baseline_commit": "4ff47fb1b85a30f2d65d45ec133fe01b20d30ab8",
+  "baseline_remote_branch": "trial/readiness-20261016",
+  "acceptance_branch": "codex/su-three-round-fixed-20261017",
+  "overall": "FAIL_WORKFLOW_BLOCKED",
+  "round1": {
+    "workflow": "FAIL",
+    "quality": "NOT_VERIFIED_NO_BUILDING",
+    "geometry_commits": 0,
+    "six_views": "NOT_RUN",
+    "save": "NOT_RUN",
+    "browser_download": "NOT_RUN",
+    "native_reopen": "NOT_RUN"
+  },
+  "round2": {
+    "status": "NOT_RUN",
+    "reason": "No initial building; cannot edit eight existing railings.",
+    "actual_modified_count": null,
+    "scope_protection": "NOT_VERIFIED",
+    "save_download_reopen": "NOT_RUN"
+  },
+  "round3": {
+    "status": "NOT_RUN",
+    "reason": "No initial building; cannot identify or edit target window.",
+    "actual_modified_count": null,
+    "scope_protection": "NOT_VERIFIED",
+    "save_download_reopen": "NOT_RUN"
+  },
+  "provider": "codex-app-server",
+  "actual_model": "gpt-6.1-sol",
+  "actual_effort": "medium",
+  "actual_identity_responses": 3,
+  "geometry_committed": false,
+  "website_port": 8798,
+  "project_id": "1017",
+  "original_reference_sha256": "69f59b2ce2c8bdba74ff100c44a1d7da8af39dfa19013cf934c7bc8ebd869183",
+  "source_is_original": true,
+  "metrics": {
+    "input_tokens": 320558,
+    "output_tokens": 4182,
+    "latency_ms": 134327,
+    "tool_call_count": 5,
+    "failed_tool_calls": 0
+  },
+  "http_500_count": 3,
+  "pause_idle": "ACKNOWLEDGED_NO_WRITE_BEFORE_INITIAL_BUILD_ONLY",
+  "plan_only": "HTTP500_NO_WRITE_NOT_FUNCTIONAL_PASS",
+  "existing_model_pause_and_later_approved_edit": "NOT_RUN",
+  "in_flight_cancel": "NOT_RUN",
+  "native_connection": "PASS_TO_EMPTY_PROJECT_MODEL_ONLY",
+  "native_entity_count": 0,
+  "native_guid": "396321ea-139f-49bd-a407-b06949e5b628",
+  "product_code_modified": false,
+  "budget_raised": false,
+  "private_evidence_root": "E:/K AI 产品建模网站/runtime/su-three-round-fixed-20261017",
+  "private_file_count": 73,
+  "private_manifest_sha256": "535cbe0f8231e91ebe3cef948c6159fee3e73d1434913adf32c931f46cd06db0",
+  "public_raw_materials": false,
+  "full_native_evidence_protocol_pass": false
+}
