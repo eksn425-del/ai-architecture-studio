@@ -16,7 +16,7 @@ _NAME = re.compile(r'^[A-Za-z][A-Za-z0-9_-]{0,63}$')
 
 def enabled(project_dir: Path) -> bool:
     marker = project_dir / 'state/modeling_backend.json'
-    return marker.is_file() and json.loads(marker.read_text()).get('backend') == 'blender'
+    return marker.is_file() and json.loads(marker.read_text(encoding="utf-8")).get('backend') == 'blender'
 
 class BlenderBackend:
     def __init__(self, project_dir: Path):
@@ -41,7 +41,7 @@ class BlenderBackend:
             if name == 'blender_audit_connections':
                 from .blender_connections import audit_connections
                 if set(arguments)!={'connections'}:raise ValueError('Invalid connection arguments')
-                current=json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}}
+                current=json.loads(self.state.read_text(encoding="utf-8")) if self.state.exists() else {'objects':{}}
                 return audit_connections(current['objects'],arguments['connections'])
             if name == 'blender_prepare_component':
                 from .declarative_architecture import window_wall,sloped_closure,leaf_rosette,floor_opening,scoped_replacement_patch
@@ -50,19 +50,19 @@ class BlenderBackend:
                 helpers={'window_wall':window_wall,'sloped_closure':sloped_closure,'leaf_rosette':leaf_rosette,'floor_opening':floor_opening,'furniture':furniture,'u_staircase':u_staircase}
                 if arguments['kind'] not in helpers:raise ValueError('Invalid component kind')
                 generated=helpers[arguments['kind']](**arguments['parameters']);objects=generated['objects'] if arguments['kind']=='u_staircase' else (generated if isinstance(generated,list) else [generated])
-                current=json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}}
+                current=json.loads(self.state.read_text(encoding="utf-8")) if self.state.exists() else {'objects':{}}
                 patch=scoped_replacement_patch(objects,arguments['previous_ids'],current['objects'])
                 return {'patch':patch,'component_ids':[o['id'] for o in objects],'writes_performed':0,'quality_status':'unverified'}
             if name == 'blender_audit_clearance':
                 from .blender_clearance import audit_clearance
                 if set(arguments)!={'zones'}:raise ValueError('Invalid clearance arguments')
-                current=json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}}
+                current=json.loads(self.state.read_text(encoding="utf-8")) if self.state.exists() else {'objects':{}}
                 return audit_clearance(current['objects'],arguments['zones'])
             if name == 'blender_inspect_scene':
-                return json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}, 'revision':0}
+                return json.loads(self.state.read_text(encoding="utf-8")) if self.state.exists() else {'objects':{}, 'revision':0}
             if name == 'blender_render_scene':
                 from .blender_render_options import validate_render_options
-                current=json.loads(self.state.read_text())
+                current=json.loads(self.state.read_text(encoding="utf-8"))
                 options=validate_render_options(arguments,current['objects'])
                 model=(self.project_dir/current['model_path']).resolve()
                 if not model.is_relative_to(self.root) or not model.is_file():
@@ -74,14 +74,14 @@ class BlenderBackend:
                 result={'image_path':str(image.relative_to(self.project_dir)),'revision':current['revision'],'cutaway':bool(options['hide_ids']),'hidden_ids':options['hide_ids'],'camera':options['camera']}
                 current.setdefault('renders',{})[key]=result
                 temporary=self.root/'scene.tmp.json'
-                temporary.write_text(json.dumps(current,ensure_ascii=False,indent=2))
+                temporary.write_text(json.dumps(current,ensure_ascii=False,indent=2), encoding="utf-8")
                 temporary.replace(self.state)
                 return result
             if name != 'blender_apply_objects':
                 raise ValueError('Unknown Blender tool')
             if set(arguments)-{'objects','delete_ids'} or not isinstance(arguments.get('objects'), list) or not 0 <= len(arguments['objects']) <= 256:
                 raise ValueError('Expected up to 256 objects')
-            old = json.loads(self.state.read_text()) if self.state.exists() else {'objects':{}, 'revision':0}
+            old = json.loads(self.state.read_text(encoding="utf-8")) if self.state.exists() else {'objects':{}, 'revision':0}
             objects = dict(old['objects'])
             deleted=arguments.get('delete_ids',[])
             if not isinstance(deleted,list) or len(deleted)>256 or any(not isinstance(k,str) or not _NAME.fullmatch(k) or k not in objects for k in deleted) or len(set(deleted))!=len(deleted):
@@ -126,18 +126,18 @@ class BlenderBackend:
             revision = old['revision']+1
             run = self.root / uuid.uuid4().hex
             run.mkdir()
-            spec=run/'input.json'; spec.write_text(json.dumps(objects))
+            spec=run/'input.json'; spec.write_text(json.dumps(objects), encoding="utf-8")
             output=run/'model.blend'; receipt=run/'receipt.json'
             script=Path(__file__).with_name('blender_worker.py')
             self._run(run, 'build', [self.executable,'--background','--factory-startup','--disable-autoexec','--python',str(script),'--',str(spec),str(output),str(receipt)])
             # Independent fresh process reopens the saved native file with autoexec disabled.
             reopen=run/'reopen.json'
             self._run(run, 'reopen', [self.executable,'--background','--disable-autoexec',str(output),'--python',str(script),'--','inspect',str(reopen)])
-            before=json.loads(receipt.read_text()); after=json.loads(reopen.read_text())
+            before=json.loads(receipt.read_text(encoding="utf-8")); after=json.loads(reopen.read_text(encoding="utf-8"))
             if before != after or set(after) != set(objects):
                 raise ValueError('Native save/reopen mismatch; previous revision retained')
             result={'geometry_qa':diagnostics,'candidate_status':'saved_candidate','quality_status':'unverified','objects':objects,'revision':revision,'native_reopen':'PASS','geometry':after,'model_path':str(output.relative_to(self.project_dir)), 'sha256':hashlib.sha256(output.read_bytes()).hexdigest()}
-            temp=self.state.with_suffix('.tmp');temp.write_text(json.dumps(result,indent=2));temp.replace(self.state)
+            temp=self.state.with_suffix('.tmp');temp.write_text(json.dumps(result,indent=2), encoding="utf-8");temp.replace(self.state)
             return result
 
     @staticmethod
@@ -145,6 +145,6 @@ class BlenderBackend:
         try:
             result = subprocess.run(command, check=True, timeout=600 if phase == 'render' else 240, capture_output=True, text=True)
         except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
-            (run_dir / (phase + '-failure.txt')).write_text(str(error) + '\n' + str(getattr(error,'stdout','')) + '\n' + str(getattr(error,'stderr','')))
+            (run_dir / (phase + '-failure.txt')).write_text(str(error) + '\n' + str(getattr(error,'stdout','')) + '\n' + str(getattr(error,'stderr','')), encoding="utf-8")
             raise
-        (run_dir / (phase + '.log')).write_text(result.stdout + "\n" + result.stderr)
+        (run_dir / (phase + '.log')).write_text(result.stdout + "\n" + result.stderr, encoding="utf-8")

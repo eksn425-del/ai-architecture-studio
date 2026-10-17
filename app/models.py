@@ -29,6 +29,9 @@ class Site(Model):
 
 class Reference(Model):
     evidence_role: Literal["target_building", "defect_location", "supporting", "unknown"] = "unknown"
+    role_origin: Literal["legacy", "user", "context_default", "awaiting_context"] = "legacy"
+    role_reason: str = ""
+    role_batch_count: int = Field(default=1, ge=1, le=8)
     evidence_turn_id: str = ""
     evidence_model_revisions: dict[str, int] = Field(default_factory=dict)
     type: Literal["url", "image", "note"] = "note"

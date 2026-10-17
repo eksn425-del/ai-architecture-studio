@@ -22,14 +22,14 @@ def _save(project, name, value):
     p = _path(project, name);p.parent.mkdir(parents=True, exist_ok=True)
     temp = p.with_suffix('.tmp')
     if temp.is_symlink():raise ValueError('Unsafe approval temporary path.')
-    temp.write_text(json.dumps(value, ensure_ascii=False))
+    temp.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
     temp.replace(p)
 
 
 def current_reference_fingerprint(project: Path) -> str:
     context_path = project / 'state/project_context.json'
     if context_path.is_symlink():raise ValueError('Unsafe project context.')
-    context = json.loads(context_path.read_text()) if context_path.exists() else {}
+    context = json.loads(context_path.read_text(encoding="utf-8")) if context_path.exists() else {}
     paths = []
     for ref in context.get('references', []):
         if ref.get('type') != 'image':continue
@@ -49,7 +49,7 @@ def _invalidate(project, reason):
         # Preserve audit history and version; do not silently reset approval epoch.
         log = _path(project, 'design_scope_invalidations.jsonl')
         log.parent.mkdir(parents=True, exist_ok=True)
-        with log.open('a') as stream:
+        with log.open('a', encoding='utf-8') as stream:
             stream.write(json.dumps({'reason':reason,'previous_scope':scope}, ensure_ascii=False)+'\n')
         _save(project, 'approved_design_scope.json', {**scope,'features':[], 'valid':False,'invalidation_reason':reason})
 
@@ -85,7 +85,7 @@ def approve_pending_design_plan(project_dir: Path, approval_message_id: str,
     path = _path(project_dir, 'pending_design_scope.json')
     if not path.exists():
         raise ValueError('Plan has no host snapshot; refresh and review the plan first.')
-    snapshot = json.loads(path.read_text())
+    snapshot = json.loads(path.read_text(encoding="utf-8"))
     digest = hashlib.sha256(plan_text.encode()).hexdigest()
     if digest != snapshot.get('plan_sha256') or approved_plan_sha256 != digest or not approval_message_id:
         _invalidate(project_dir, 'plan_approval_mismatch')

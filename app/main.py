@@ -860,6 +860,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 raise HTTPException(status_code=409, detail="Unsafe evidence-role audit path.")
             old_role = matches[0].evidence_role
             matches[0].evidence_role = data["evidence_role"]
+            matches[0].role_origin = "user"
+            matches[0].role_reason = "explicit_user_correction"
             # Preserve upload/revision provenance; a role edit is not a new screenshot.
             store.save(context, project_dir / "state/project_context.json")
             invalidate_reference_plan(project_id)
@@ -888,9 +890,15 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         except ValueError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
         from .reference_roles import ROLES
-        role = request.query_params.get("evidence_role", "unknown")
-        if role not in ROLES:
+        role = request.query_params.get("evidence_role", "auto")
+        if role not in ROLES | {"auto"}:
             raise HTTPException(status_code=400, detail="Invalid image evidence role.")
+        try:
+            role_batch_count = int(request.query_params.get("batch_image_count", "1"))
+            if not 1 <= role_batch_count <= 8: raise ValueError()
+        except ValueError:
+            raise HTTPException(400, "Invalid image batch count.") from None
+        role_context = request.query_params.get("role_context", "")[:3000]
         content = await request.body()
         if not content:
             raise HTTPException(status_code=400, detail="Uploaded file is empty.")
@@ -934,11 +942,22 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         relative = _relative(project_dir, destination)
         context = store.load_context(project_id)
         source_list = getattr(context.brief if category == "brief" else context.site if category == "site" else context, "source_files") if category != "reference" else None
+        role_origin = "user"; role_reason = "explicit_user_choice"
+        if category == "reference" and role == "auto":
+            from .reference_defaults import infer_reference_role
+            role, role_reason = infer_reference_role(project_dir, content, context.references,
+                has_model=bool(upload_revisions), context=role_context, batch_count=role_batch_count)
+            role_origin = "awaiting_context" if role == "unknown" else "context_default"
+        if category == "reference":
+            from .reference_defaults import duplicate_defect_version
+            original_version = duplicate_defect_version(project_dir, content, context.references)
+            if original_version is not None:
+                upload_revisions = original_version
         if category == "reference":
             context.references.append(Reference(
                 type="image" if destination.suffix.lower() in IMAGE_SUFFIXES else "note",
                 source=relative,
-                evidence_role=role,
+                evidence_role=role, role_origin=role_origin, role_reason=role_reason, role_batch_count=role_batch_count,
                 evidence_turn_id="",
                 evidence_model_revisions=upload_revisions,
             ))
@@ -1584,7 +1603,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         from .blender_backend import enabled as blender_enabled
         if blender_enabled(project_dir):
             receipt_file=project_dir/'runtime/blender/scene.json'
-            receipt=json.loads(receipt_file.read_text()) if receipt_file.exists() else {}
+            receipt=json.loads(receipt_file.read_text(encoding="utf-8")) if receipt_file.exists() else {}
             committed=receipt.get('revision',0)>active.get('blender_baseline',receipt.get('revision',0))
             stage="Blender 几何已保存，正在完成检查或预览" if committed else "Blender 正在处理本轮要求"
             return {"running":True,"backend":"blender","action":active["action"],"stage":stage,
@@ -1671,6 +1690,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         from .design_scope_approval import invalidate_stale_design_scope, capture_pending_design_plan, approve_pending_design_plan
         from .reference_roles import current_model_revisions
         invalidate_stale_design_scope(project_dir)
+        from .reference_defaults import resolve_pending_reference_defaults
+        if resolve_pending_reference_defaults(project_dir, context, request.message, current_model_revisions(project_dir, session.ruby_state)):
+            store.save(context, project_dir / "state/project_context.json")
+            invalidate_stale_design_scope(project_dir)
         session_ready = session.status == "ready" and bool(session.model_path)
         policy = None
         if request.workflow_mode == "image_reconstruction":
@@ -1679,6 +1702,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             except ValueError as error:
                 raise HTTPException(status_code=409, detail=str(error)) from error
         action = policy.action if policy else request.agent_action
+        if (action in {"plan", "execute"} or (policy.tools_enabled if policy else session_ready)) and any(ref.type == "image" and ref.evidence_role == "unknown" for ref in context.references):
+            raise HTTPException(409, "有图片用途仍不明确：请说明哪些是目标建筑图、哪些是当前模型的问题截图，或更正图片标签。")
         if policy and action == "plan":
             capture_pending_design_plan(project_dir, "", is_followup=False)
             # A failed update must never leave the old plan available for approval.
@@ -1717,7 +1742,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if policy and action == "execute" and session.reconstruction_state == "planned":
             card = project_dir / "runtime/agent_workspace/notes/reconstruction_card.md"
             pending = project_dir / "runtime/pending_design_scope.json"
-            snapshot = json.loads(pending.read_text()) if pending.exists() else {}
+            snapshot = json.loads(pending.read_text(encoding="utf-8")) if pending.exists() else {}
             # Legacy/initial unscoped approval cannot grant any intent override.
             if request.approved_plan_sha256 or snapshot.get("features"):
                 try:

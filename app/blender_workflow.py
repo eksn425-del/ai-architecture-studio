@@ -20,7 +20,7 @@ def install(app, store):
             backend=BlenderBackend(project_dir)
             if enabled(project_dir):
                 return {'backend':'blender','project':store.load_project(project_id),'executable_available':True}
-            (project_dir/'state/modeling_backend.json').write_text(json.dumps({'backend':'blender','capability':'bounded boxes and indexed meshes'}))
+            (project_dir/'state/modeling_backend.json').write_text(json.dumps({'backend':'blender','capability':'bounded boxes and indexed meshes'}), encoding="utf-8")
             session.modeling_backend='blender';session.status='conversation';session.thread_id='';session.reconstruction_state='idle'
             store.save_state(project_id,session,'agent_session.json')
             return {'backend':'blender','project':store.load_project(project_id),'executable_available':bool(backend.executable)}
@@ -34,6 +34,10 @@ def converse(app,store,project_id,request):
     backend=BlenderBackend(project_dir)
     context=store.load_context(project_id)
     session=store.load_state(project_id,'agent_session.json',AgentSession)
+    from .reference_defaults import resolve_pending_reference_defaults
+    from .reference_roles import current_model_revisions
+    if resolve_pending_reference_defaults(project_dir,context,request.message,current_model_revisions(project_dir)):
+        store.save(context,project_dir/'state/project_context.json')
     from .reconstruction_runtime import resolve_reconstruction_action, next_reconstruction_state
     action=resolve_reconstruction_action(session,request)
     execute=action=='execute'
@@ -62,7 +66,7 @@ def converse(app,store,project_id,request):
     if execute and session.reconstruction_state == 'planned':
         card=project_dir/'runtime/agent_workspace/notes/reconstruction_card.md'
         pending=project_dir/'runtime/pending_design_scope.json'
-        snapshot=json.loads(pending.read_text()) if pending.exists() else {}
+        snapshot=json.loads(pending.read_text(encoding="utf-8")) if pending.exists() else {}
         if request.approved_plan_sha256 or snapshot.get('features'):
             try:
                 approve_pending_design_plan(project_dir,turn_id,card.read_text(encoding='utf-8'),request.approved_plan_sha256)

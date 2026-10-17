@@ -11,11 +11,11 @@ ROLES = {"target_building", "defect_location", "supporting", "unknown"}
 
 def current_model_revisions(project_dir: Path, fallback: dict | None = None) -> dict[str, int]:
     backend_path = project_dir / "state/modeling_backend.json"
-    if backend_path.is_file() and json.loads(backend_path.read_text()).get("backend") == "blender":
+    if backend_path.is_file() and json.loads(backend_path.read_text(encoding="utf-8")).get("backend") == "blender":
         scene = project_dir / "runtime/blender/scene.json"
         if scene.is_symlink():
             raise ValueError("Unsafe model revision state.")
-        revision = int(json.loads(scene.read_text()).get("revision", 0)) if scene.exists() else 0
+        revision = int(json.loads(scene.read_text(encoding="utf-8")).get("revision", 0)) if scene.exists() else 0
         return {"blender_scene": revision} if revision > 0 else {}
     path = project_dir / "runtime/project_ruby_state.json"
     if path.is_symlink():
@@ -113,7 +113,7 @@ def load_approved_design_scope(project_dir: Path) -> dict:
     path = project_dir / 'runtime/approved_design_scope.json'
     if path.is_symlink():
         raise ValueError('Unsafe approved design scope.')
-    return json.loads(path.read_text()) if path.exists() else {}
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 
 def canonical_plan_text(text: str) -> str:
@@ -145,7 +145,7 @@ def record_approved_design_scope(project_dir: Path, approval_message_id: str,
     temporary = path.with_suffix('.tmp')
     if temporary.is_symlink():
         raise ValueError('Unsafe design scope temporary file.')
-    temporary.write_text(json.dumps(value, ensure_ascii=False))
+    temporary.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
     temporary.replace(path)
     return value
 

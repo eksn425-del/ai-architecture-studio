@@ -180,29 +180,32 @@ await p;console.log(JSON.stringify({cleared,calls,draft:$('conversation-input').
     assert result=={'cleared':True,'calls':1,'draft':'next request','busy':False}
 
 
-def test_image_role_controls_require_explicit_choice_and_keep_legacy_visible():
+def test_image_role_controls_default_to_auto_and_keep_legacy_visible():
     html=(Path(__file__).parents[1]/'app/static/index.html').read_text()
     assert 'id="reference-role"' in html
-    assert '<option value="">请选择用途</option>' in html
+    assert '<option value="auto" selected>自动判断（可更正）</option>' in html
     assert 'value="target_building">目标建筑图' in html
     assert 'value="defect_location">待修问题截图' in html
     assert 'data-reference-role=' in SOURCE
-    assert '请确认用途' in SOURCE
-    assert 'evidence_role=${encodeURIComponent($("reference-role").value)}' in SOURCE
+    assert '待确认用途' in SOURCE
+    assert '请先选择图片用途' not in SOURCE
 
 
-def test_image_upload_without_role_stops_before_any_request():
-    program='''const state={projectId:'p',busy:false};const nodes={};const $=id=>nodes[id]||(nodes[id]={value:''});let message='';const showToast=m=>message=m;const sourceImages=()=>[];const beginProgress=()=>{throw Error('upload must not start')};'''
-    result=run(program+function('uploadAttachments').split('$("conversation-input").addEventListener')[0]+'''(async()=>{await uploadAttachments([{name:'ref.png',type:'image/png',size:20}]);console.log(JSON.stringify({message,busy:state.busy}));})();''')
-    assert '请先选择图片用途' in result['message']
+def test_image_upload_without_role_uses_auto():
+    program='''const state={projectId:'p',busy:false};const nodes={};const $=id=>nodes[id]||(nodes[id]={value:''});let options;const showToast=()=>{};const sourceImages=()=>[];const beginProgress=()=>{},endProgress=()=>{},updateHeader=()=>{};const uploadFile=async(c,f,t,b,o)=>{options=o;return true};'''
+    result=run(program+function('uploadAttachments').split('$("conversation-input").addEventListener')[0]+'''(async()=>{await uploadAttachments([{name:'ref.png',type:'image/png',size:20}]);console.log(JSON.stringify({options,busy:state.busy}));})();''')
+    assert result['options'] == {'evidence_role':'auto', 'role_context':'', 'batch_image_count':1}
     assert result['busy'] is False
 
 
 def test_image_upload_sends_explicit_role_in_query():
+    from urllib.parse import parse_qs, urlsplit
     program='''const state={projectId:'p',busy:false};let upload='';const nodes={};const $=id=>nodes[id]||(nodes[id]={value:id==='reference-role'?'defect_location':'',append:()=>{}});const document={createElement:()=>({})};const updateHeader=()=>{};const showToast=()=>{};const friendlyError=e=>e.message;const api=async(path,options)=>{if(options){upload=path;return {path:'inputs/reference/x.png',filename:'x.png'}}return {context:{}}};'''
     result=run(program+function('uploadFile')+'''(async()=>{const ok=await uploadFile('reference',{name:'x.png',type:'image/png'},'reference-files');console.log(JSON.stringify({ok,upload,busy:state.busy}));})();''')
     assert result['ok'] is True
-    assert result['upload'].endswith('filename=x.png&evidence_role=defect_location')
+    assert parse_qs(urlsplit(result['upload']).query, keep_blank_values=True) == {
+        'filename':['x.png'], 'evidence_role':['defect_location'], 'role_context':[''], 'batch_image_count':['1'],
+    }
     assert result['busy'] is False
 
 

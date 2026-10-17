@@ -61,6 +61,28 @@ function sourceImages() {
   return (state.project?.context?.references || []).filter((ref) => ref.type === "image" && ref.source.startsWith("inputs/reference/"));
 }
 
+function referenceRoleMarkup(ref) {
+  const known = ["target_building", "defect_location"].includes(ref.evidence_role);
+  const origin = {user: "已手动确认", context_default: "自动判断", awaiting_context: "待确认用途", legacy: "历史图片"}[ref.role_origin] || "";
+  const reasons = {
+    first_image_new_project: "首张参考图，按目标建筑使用",
+    same_image_previous_role: "沿用这张图已确认的用途",
+    explicit_current_target_context: "按当前描述作为目标建筑",
+    current_problem_context: "按当前描述定位模型问题",
+    mixed_or_conflicting_context: "图片用途有歧义，请确认",
+    duplicate_role_uncertain: "这张图的用途尚未确认",
+    explicit_non_target_or_interface: "这可能是界面或其他资料，请确认用途",
+    duplicate_version_conflict: "同图的历史版本不一致，请确认",
+    duplicate_context_conflict: "当前描述与原用途不同，请确认",
+    problem_without_model_version: "尚无模型版本，请确认用途",
+    needs_current_context: "请说明这张图的用途",
+    explicit_user_choice: "按上传时的选择",
+    explicit_user_correction: "已按你的选择更正",
+  };
+  const detail = [origin, reasons[ref.role_reason] || (!known ? "请说明这张图的用途" : "可更正用途")].filter(Boolean).join(" · ");
+  return `<label class="reference-role-item"><span title="${escapeHtml(ref.source)}">${escapeHtml(ref.source.split('/').at(-1))}<br><small title="${escapeHtml(detail)}">${escapeHtml(detail)}</small></span><select data-reference-role="${escapeHtml(ref.source)}" aria-label="更正图片用途" ${state.busy ? "disabled" : ""}><option value="" ${!known ? "selected" : ""}>待确认用途</option><option value="target_building" ${ref.evidence_role === "target_building" ? "selected" : ""}>目标建筑图</option><option value="defect_location" ${ref.evidence_role === "defect_location" ? "selected" : ""}>待修问题截图</option></select></label>`;
+}
+
 function projectFileUrl(path) {
   return `/api/projects/${encodeURIComponent(state.projectId)}/files/${path.split("/").map(encodeURIComponent).join("/")}`;
 }
@@ -370,7 +392,7 @@ function updateHeader() {
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
-  $("reference-role-review").innerHTML = sourceImages().map(ref => `<label class="reference-role-item"><span title="${escapeHtml(ref.source)}">${escapeHtml(ref.source.split('/').at(-1))}</span><select data-reference-role="${escapeHtml(ref.source)}" aria-label="确认图片用途" ${state.busy ? "disabled" : ""}><option value="" ${!["target_building","defect_location"].includes(ref.evidence_role) ? "selected" : ""}>请确认用途</option><option value="target_building" ${ref.evidence_role === "target_building" ? "selected" : ""}>目标建筑图</option><option value="defect_location" ${ref.evidence_role === "defect_location" ? "selected" : ""}>待修问题截图</option></select></label>`).join("");
+  $("reference-role-review").innerHTML = sourceImages().map(referenceRoleMarkup).join("");
   $("reference-gallery").hidden = !!pendingMessage;
   $("reference-gallery").innerHTML = pendingImages().map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>查看原图 ↗</span></a><button class="image-remove" title="移除图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
   $("project-title").textContent = context.project_name;
@@ -683,11 +705,13 @@ async function boot() {
   }
 }
 
-async function uploadFile(category, file, targetId, manageBusy = true) {
+async function uploadFile(category, file, targetId, manageBusy = true, referenceOptions = null) {
   if (!state.projectId || !file || (manageBusy && state.busy)) return false;
   if (manageBusy) { state.busy = true; updateHeader(); }
   try {
-    const url = `/api/projects/${encodeURIComponent(state.projectId)}/inputs/${category}?filename=${encodeURIComponent(file.name)}${category === "reference" ? `&evidence_role=${encodeURIComponent($("reference-role").value)}` : ""}`;
+    const reference = referenceOptions || {evidence_role: $("reference-role").value || "auto", role_context: $("conversation-input").value, batch_image_count: 1};
+    const roleQuery = category === "reference" ? `&evidence_role=${encodeURIComponent(reference.evidence_role || "auto")}&role_context=${encodeURIComponent(reference.role_context || "")}&batch_image_count=${encodeURIComponent(reference.batch_image_count || 1)}` : "";
+    const url = `/api/projects/${encodeURIComponent(state.projectId)}/inputs/${category}?filename=${encodeURIComponent(file.name)}${roleQuery}`;
     const result = await api(url, { method: "POST", headers: { "Content-Type": file.type || "application/octet-stream" }, body: file });
     const chip = document.createElement("span");
     chip.className = "file-chip";
@@ -1076,12 +1100,13 @@ async function uploadAttachments(files) {
   if (state.busy) { showToast("本轮正在处理，请结束后再上传资料。", true); return; }
   if (files.some(f => f.size > 25 * 1024 * 1024)) { showToast("单个文件不能超过 25 MiB，请压缩或拆分后上传。", true); $("reference-file").value = ""; return; }
   const images = files.filter(f => f.type.startsWith("image/") || /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i.test(f.name));
-  if (images.length && !["target_building", "defect_location"].includes($("reference-role").value)) { showToast("请先选择图片用途：目标建筑图或待修问题截图。", true); $("reference-file").value = ""; return; }
   if (images.length + sourceImages().length > 8) {
     showToast("每个会话最多使用 8 张参考图。请减少选择的图片数量；完整多视图整图可直接上传。", true);
     $("reference-file").value = "";
     return;
   }
+  // Capture one context for the batch, even if the user keeps typing during upload.
+  const referenceOptions = {evidence_role: $("reference-role").value || "auto", role_context: $("conversation-input").value, batch_image_count: images.length};
   // Hold one busy state across a mixed batch; sending/switching cannot race
   // the transition from images to documents.
   state.busy = true;
@@ -1090,7 +1115,7 @@ async function uploadAttachments(files) {
   try {
     for (const file of files) {
       const category = images.includes(file) ? "reference" : /\.(dxf|dwg)$/i.test(file.name) ? "site" : "brief";
-      if (await uploadFile(category, file, `${category}-files`, false)) completed++;
+      if (await uploadFile(category, file, `${category}-files`, false, referenceOptions)) completed++;
       updateHeader();
     }
     showToast(`已上传 ${completed} / ${files.length} 个文件${completed < files.length ? "，失败的文件请重新上传" : "。请描述建模要求后发送"}。`, completed < files.length);
