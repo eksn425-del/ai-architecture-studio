@@ -162,7 +162,7 @@ def _append_conversation(context: ProjectContext, role: str, phase: str, content
     context.conversation = context.conversation[-40:]
 
 
-def _reference_attachments(context: ProjectContext, project_dir: Path, *, submit: bool = False) -> list[str]:
+def _reference_attachments(context: ProjectContext, project_dir: Path, *, submit: bool = False, turn_id: str = "") -> list[str]:
     """Bind uploads to their sending turn; project evidence remains independently stored."""
     pending = []
     for ref in context.references:
@@ -188,6 +188,7 @@ def _reference_attachments(context: ProjectContext, project_dir: Path, *, submit
             pending.append(ref.source)
             if submit:
                 ref.submitted_at = utc_now()
+                ref.evidence_turn_id = turn_id or "message:" + uuid.uuid4().hex
     return pending
 
 
@@ -838,6 +839,36 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         finally:
             app.state.agent_lock.release()
 
+    @app.patch("/api/projects/{project_id}/reference-role")
+    async def update_reference_role(project_id: str, request: Request) -> dict[str, Any]:
+        from .reference_roles import ROLES
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等当前回合结束后再确认图片用途。")
+        try:
+            data = await request.json()
+            if not isinstance(data, dict) or data.get("evidence_role") not in ROLES:
+                raise HTTPException(status_code=400, detail="Invalid image evidence role.")
+            project_dir = store.ensure_layout(project_id)
+            context = store.load_context(project_id)
+            matches = [ref for ref in context.references if ref.source == data.get("source") and ref.type == "image"]
+            if len(matches) != 1:
+                raise HTTPException(status_code=404, detail="Unique image reference not found.")
+            audit_path = project_dir / "runtime/reference_role_changes.jsonl"
+            if audit_path.is_symlink():
+                raise HTTPException(status_code=409, detail="Unsafe evidence-role audit path.")
+            old_role = matches[0].evidence_role
+            matches[0].evidence_role = data["evidence_role"]
+            # Preserve upload/revision provenance; a role edit is not a new screenshot.
+            store.save(context, project_dir / "state/project_context.json")
+            invalidate_reference_plan(project_id)
+            audit_path.parent.mkdir(parents=True, exist_ok=True)
+            with audit_path.open("a", encoding="utf-8") as stream:
+                stream.write(json.dumps({"source": matches[0].source, "previous_role": old_role,
+                    "evidence_role": matches[0].evidence_role, "changed_at": utc_now()}, ensure_ascii=False) + "\n")
+            return {"source": matches[0].source, "evidence_role": matches[0].evidence_role}
+        finally:
+            app.state.agent_lock.release()
+
     @app.post("/api/projects/{project_id}/inputs/{category}")
     async def upload_input(project_id: str, category: str, request: Request, filename: str = "upload") -> dict[str, Any]:
         if not app.state.agent_lock.acquire(blocking=False):
@@ -854,6 +885,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             project_dir = store.ensure_layout(project_id)
         except ValueError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
+        from .reference_roles import ROLES
+        role = request.query_params.get("evidence_role", "unknown")
+        if role not in ROLES:
+            raise HTTPException(status_code=400, detail="Invalid image evidence role.")
         content = await request.body()
         if not content:
             raise HTTPException(status_code=400, detail="Uploaded file is empty.")
@@ -889,6 +924,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             from .reference_assets import discover_project_reference_images
             if len(discover_project_reference_images(project_dir)) >= 8:
                 raise HTTPException(status_code=409, detail="每个会话最多使用 8 张图片，请新建会话或减少参考图。")
+        from .reference_roles import current_model_revisions
+        upload_revisions = current_model_revisions(project_dir,
+            store.load_state(project_id, "agent_session.json", AgentSession).ruby_state)
         destination = project_dir / "inputs" / category / f"{uuid.uuid4().hex[:10]}-{safe_name}"
         destination.write_bytes(content)
         relative = _relative(project_dir, destination)
@@ -898,6 +936,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             context.references.append(Reference(
                 type="image" if destination.suffix.lower() in IMAGE_SUFFIXES else "note",
                 source=relative,
+                evidence_role=role,
+                evidence_turn_id="",
+                evidence_model_revisions=upload_revisions,
             ))
         else:
             if relative not in source_list:
@@ -1036,6 +1077,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             app.state.agent_lock.release()
 
     def _start_agent_session(project_id: str, request: dict[str, Any]) -> dict[str, Any]:
+        from .blender_backend import enabled as blender_enabled
+        if blender_enabled(store.project_dir(project_id)):
+            raise HTTPException(status_code=409, detail="This project is bound to Blender; use a separate project for SketchUp.")
         if request.get("confirm_disposable_model") is not True:
             raise HTTPException(status_code=400, detail="Confirm that AI Architecture Studio may open a blank disposable SketchUp copy.")
         try:
@@ -1535,6 +1579,15 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if not active:
             return {"running": False}
         started = active["started"]
+        from .blender_backend import enabled as blender_enabled
+        if blender_enabled(project_dir):
+            receipt_file=project_dir/'runtime/blender/scene.json'
+            receipt=json.loads(receipt_file.read_text()) if receipt_file.exists() else {}
+            committed=receipt.get('revision',0)>active.get('blender_baseline',receipt.get('revision',0))
+            stage="Blender 几何已保存，正在完成检查或预览" if committed else "Blender 正在处理本轮要求"
+            return {"running":True,"backend":"blender","action":active["action"],"stage":stage,
+                "elapsed_seconds":int(time.time()-started),"tool_calls":None,"failed_tool_calls":0,
+                "committed_revisions":[receipt['revision']] if committed else [],"preview_url":None}
         event_log = select_turn_progress_log(list((project_dir / "runtime/agent_events").glob("*.jsonl")), started)
         calls = failures = 0
         api_started = api_responded = script_written = False
@@ -1581,6 +1634,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 "preview_url": _artifact(project_id, project_dir, capture, "viewport").url if capture else None}
 
     def converse_turn(project_id: str, request: ConversationRequest) -> dict[str, Any]:
+        from .blender_backend import enabled as blender_enabled
+        if blender_enabled(store.project_dir(project_id)):
+            from .blender_workflow import converse as blender_converse
+            return blender_converse(app, store, project_id, request)
         try:
             context = store.load_context(project_id)
             current_state: ModelState = store.load_state(project_id, "model_state.json", ModelState)
@@ -1639,13 +1696,15 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if requested_tier == "premium":
             session.premium_rescue_pending = False
             session.economy_tool_failure_streak = 0
+        evidence_turn_id = "message:" + uuid.uuid4().hex
         _append_conversation(context, "user", phase, request.message.strip(), {
+            "evidence_turn_id": evidence_turn_id,
             "workflow_mode": request.workflow_mode,
             "agent_action": action,
             "requested_tier": requested_tier,
             "effective_tier": effective_tier,
             "routing_reason": route_reason,
-            "attachments": _reference_attachments(context, project_dir, submit=True),
+            "attachments": _reference_attachments(context, project_dir, submit=True, turn_id=evidence_turn_id),
         })
         project_dir = store.ensure_layout(project_id)
         store.save(context, project_dir / "state" / "project_context.json")
@@ -1957,6 +2016,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         media_type = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
         return FileResponse(target, media_type=media_type, filename=target.name if media_type == "application/octet-stream" else None)
 
+    from .blender_workflow import install as install_blender
+    install_blender(app, store)
     return app
 
 

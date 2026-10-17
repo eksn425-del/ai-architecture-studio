@@ -15,6 +15,8 @@ from typing import Any, Callable
 
 from .agent_tools import AgentToolSurface
 from .reference_assets import discover_project_reference_images, reference_image_label
+from .reference_roles import (reference_manifest, role_labels, manifest_fingerprint,
+                              validate_review_requirements, load_review_history)
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
@@ -102,7 +104,7 @@ def _reference_images_fingerprint(project_dir: Path, images: list[Path]) -> str:
         if not real.is_file() or path.is_symlink() or not real.is_relative_to(root / "inputs"):
             raise ValueError("A resumed Codex source must be a real project input image.")
         inventory.append((real.relative_to(root).as_posix(), hashlib.sha256(real.read_bytes()).hexdigest()))
-    return hashlib.sha256(json.dumps(inventory, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).hexdigest()
+    return manifest_fingerprint(reference_manifest(root, images))
 
 
 def _native_thread_can_resume(
@@ -320,7 +322,16 @@ class CodexAppServerRuntime:
         pairs = validate_source_matched_pairs(project_dir, revisions, arguments.get("evidence_pairs"))
         require_observed_source_view_pairs(project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
         sources = discover_project_reference_images(project_dir, categories=("reference",))
-        labels = ["SOURCE " + path.relative_to(project_dir).as_posix() for path in sources]
+        manifest = reference_manifest(project_dir, sources)
+        fingerprint = manifest_fingerprint(manifest)
+        targets = {item['source'] for item in manifest if item['role'] == 'target_building'}
+        if sources and not targets:
+            raise ValueError("Reference roles are unresolved: confirm target_building versus defect_location before visual review.")
+        if any(pair.get('source_ref') not in targets for pair in pairs):
+            raise ValueError("Source-matched fidelity pairs may cite only target_building images, not defect screenshots.")
+        labels = role_labels(manifest)
+        target_fingerprint = manifest_fingerprint([item for item in manifest if item["role"] == "target_building"])
+        history = load_review_history(project_dir, target_fingerprint)
         images = list(sources)
         for name, path in captures.items():
             labels.append("CURRENT canonical " + name)
@@ -336,7 +347,8 @@ class CodexAppServerRuntime:
                 images.append(path)
             elif label not in labels[existing].split("; "):
                 labels[existing] += "; " + label
-        prompt = build_visual_critic_prompt(labels[:len(sources)], labels[len(sources):])
+        image_hashes = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in images}
+        prompt = build_visual_critic_prompt([label for label, item in zip(labels, manifest) if item["role"] == "target_building"], labels[len(sources):])
         prompt += "\nImages below follow this exact order:\n" + "\n".join(
             f"{index + 1}. {label}" for index, label in enumerate(labels))
         prompt += ("\nInventory only elements actually shown by this project's SOURCE before judging CURRENT. "
@@ -347,6 +359,14 @@ class CodexAppServerRuntime:
                    "KEEP only geometry whose source-backed proportions are correct; use named paths only when known. "
                    "Do not protect an entire roof or volume unless all its visible source-backed parts are correct. "
                    "Do not run commands or edit files; answer the review envelope directly from images.")
+        prompt += ("\nISSUE LOCATION images are historical defect evidence, never a restoration target. "
+                   "UNKNOWN ROLE and SUPPORTING images cannot prove source fidelity. Their absence of an element is not evidence to remove it. "
+                   "Use stable feature_id values and explicit desired_state for each correction. "
+                   "Return <review_requirements>JSON array</review_requirements>, one entry per issue, or [] for no issues. "
+                   "Each entry must contain feature_id (stable lowercase path), desired_state, source_ref (exact SOURCE TARGET path), "
+                   "and model_revisions equal to " + json.dumps(revisions, sort_keys=True) + ". "
+                   "If prior intent contradicts current evidence, do not oscillate or hide it; report unresolved uncertainty. "
+                   "Prior revision-bound requirements: " + json.dumps(history, ensure_ascii=False))
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
             prompt=prompt, mcp_enabled=False, developer_instructions="Independent read-only architectural visual review. No geometry writes, commands or file changes.",
@@ -357,7 +377,24 @@ class CodexAppServerRuntime:
         critique = parse_visual_critique_response(result.reply)
         if critique.malformed or critique.needs_fix is None:
             raise ValueError("Independent Native Critic returned an invalid envelope; do not accept Builder fallback as independent review.")
+        refreshed = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else state
+        latest_revisions, _, _ = validate_visual_review_views(project_dir, refreshed, arguments.get("views"))
+        if latest_revisions != revisions or manifest_fingerprint(reference_manifest(project_dir, sources)) != fingerprint:
+            raise ValueError("Review became stale during inference; recapture and review current evidence.")
+        if any(hashlib.sha256(Path(path).read_bytes()).hexdigest() != digest for path, digest in image_hashes.items()):
+            raise ValueError("Review image changed during inference; recapture before correction.")
+        requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
+                                                   issue_count=len(critique.issues), history=history)
+        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements}
+        history_path = project_dir / "runtime/reference_role_review_history.jsonl"
+        history_path.parent.mkdir(parents=True, exist_ok=True)
+        if history_path.is_symlink():
+            raise ValueError("Unsafe role review history.")
+        with history_path.open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps(record, ensure_ascii=False) + "\n")
         return {**arguments, "critique": result.reply, "_reviewer": {
+            "reference_manifest": manifest, "reference_manifest_fingerprint": fingerprint,
+            "review_requirements": requirements,
             "mode": "dedicated_read_only", "runtime": "codex-native", "model": result.model_name,
             "reasoning_effort": result.reasoning_effort, "latency_ms": result.latency_ms,
             "input_tokens": result.input_tokens, "output_tokens": result.output_tokens,

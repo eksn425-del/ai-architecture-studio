@@ -73,3 +73,8 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 .plan-in-chat .parameter-plan[hidden]{display:none}
 .plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;bottom:auto;right:auto;width:100%;max-width:100%;max-height:38vh;overflow:auto;padding:12px 2px;box-shadow:none;border:0;border-radius:0;z-index:auto}
 @media(max-width:650px){.plan-in-chat{padding:0 12px}}
+
+#reference-role-review { max-height: 100px; overflow-y: auto; }
+.reference-role-item { display: flex; align-items: center; gap: 8px; margin: 3px 0; font-size: 12px; }
+.reference-role-item > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.reference-role-item > select { flex-shrink: 0; max-width: 150px; }

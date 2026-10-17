@@ -931,12 +931,16 @@ def test_harness_parity_restores_only_current_independent_source_review(tmp_path
     source = project / "inputs/reference/source.png"
     source.parent.mkdir(parents=True, exist_ok=True)
     source.write_bytes(b"original owner image")
+    from app.reference_roles import reference_manifest, manifest_fingerprint
+    (project / "state").mkdir(exist_ok=True)
+    (project / "state/project_context.json").write_text(json.dumps({"references": [{"source": "inputs/reference/source.png", "evidence_role": "target_building"}]}))
+    role_fingerprint = manifest_fingerprint(reference_manifest(project, [source]))
     critique = ("NEEDS_FIX: YES\n<assessment>Roof needs correction.</assessment>\n"
                 '<issue priority="1" view="front">problem: folded roof wrong\naction: correct ROOF</issue>\n'
                 "<keep>ENTRY</keep>")
     receipt = submit_visual_review(project, state, {
         "views": views, "critique": "".join(critique),
-        "_reviewer": {"mode": "dedicated_read_only", "model": "gpt-6.1-sol"},
+        "_reviewer": {"mode": "dedicated_read_only", "model": "gpt-6.1-sol", "reference_manifest_fingerprint": role_fingerprint},
     })
     assert receipt["evidence_sha256"]
     assert load_current_independent_visual_review(project, state) == receipt

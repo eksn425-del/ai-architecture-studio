@@ -28,6 +28,9 @@ class Site(Model):
 
 
 class Reference(Model):
+    evidence_role: Literal["target_building", "defect_location", "supporting", "unknown"] = "unknown"
+    evidence_turn_id: str = ""
+    evidence_model_revisions: dict[str, int] = Field(default_factory=dict)
     type: Literal["url", "image", "note"] = "note"
     source: str = ""
     submitted_at: str = ""
@@ -177,6 +180,7 @@ class ModelState(Model):
 
 
 class AgentSession(Model):
+    modeling_backend: Literal["sketchup", "blender"] = "sketchup"
     project_id: str
     status: Literal["idle", "conversation", "ready", "failed"] = "idle"
     thread_id: str = ""

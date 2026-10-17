@@ -4,6 +4,9 @@ from app import native_agent as subject
 def test_independent_native_critic_has_fresh_read_only_context(tmp_path, monkeypatch):
     project=tmp_path/'project'; workspace=project/'runtime/agent_workspace'; workspace.mkdir(parents=True)
     source=project/'inputs/reference/source.png'; source.parent.mkdir(parents=True); source.write_bytes(b'source')
+    import json
+    (project/'state').mkdir()
+    (project/'state/project_context.json').write_text(json.dumps({'references':[{'source':'inputs/reference/source.png','evidence_role':'target_building'}]}))
     image=project/'outputs/renders/agent-view-front.png'; image.parent.mkdir(parents=True); image.write_bytes(b'current')
     monkeypatch.setattr(subject, 'validate_visual_review_views', lambda *args: ({'cafe':3},{},{'front':image}))
     monkeypatch.setattr(subject, 'validate_source_matched_pairs', lambda *args: [])
@@ -11,7 +14,7 @@ def test_independent_native_critic_has_fresh_read_only_context(tmp_path, monkeyp
     calls=[]
     def run(**kw):
         calls.append(kw)
-        return subject.AgentTurnResult('critic', 'NEEDS_FIX: YES\n<assessment>Missing annex</assessment>\n<issue priority="1" view="right">problem: lower roof missing\naction: add attached roof</issue>\n<keep>entry</keep>',model_name='gpt-6-luna',reasoning_effort='max')
+        return subject.AgentTurnResult('critic', 'NEEDS_FIX: YES\n<assessment>Missing annex</assessment>\n<issue priority="1" view="right">problem: lower roof missing\naction: add attached roof</issue>\n<keep>entry</keep>\n<review_requirements>[{"feature_id":"annex.roof","desired_state":"present","source_ref":"inputs/reference/source.png","model_revisions":{"cafe":3}}]</review_requirements>',model_name='gpt-6-luna',reasoning_effort='max')
     monkeypatch.setattr(runtime,'_run_turn',run)
     result=runtime._native_visual_review(project_dir=project,agent_workspace=workspace,ruby_state={},arguments={'views':{},'critique':'BUILDER_FAKE_PASS'},model='gpt-6-luna',reasoning_effort='max')
     call=calls[0]
@@ -23,8 +26,8 @@ def test_independent_native_critic_has_fresh_read_only_context(tmp_path, monkeyp
     assert result['_reviewer']['mode']=='dedicated_read_only'
     assert 'Missing annex' in result['critique']
     monkeypatch.setattr(subject, 'validate_source_matched_pairs', lambda *args: [
-        {'current_view':'outputs/renders/agent-view-front.png','label':'ramp end'},
-        {'current_view':'outputs/renders/agent-view-front.png','label':'roof section'},
+        {'source_ref':'inputs/reference/source.png','current_view':'outputs/renders/agent-view-front.png','label':'ramp end'},
+        {'source_ref':'inputs/reference/source.png','current_view':'outputs/renders/agent-view-front.png','label':'roof section'},
     ])
     runtime._native_visual_review(project_dir=project,agent_workspace=workspace,ruby_state={},arguments={'views':{}},model='gpt-6-luna',reasoning_effort='max')
     assert calls[-1]['reference_images']==[source,image]

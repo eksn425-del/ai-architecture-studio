@@ -159,3 +159,48 @@ def test_missing_native_route_names_codex_not_unrelated_api_provider():
 const routeAvailable=()=>false;
 ''' + function('routeReadinessLabel') + "console.log(JSON.stringify(routeReadinessLabel('economy')));")
     assert result == '本机 Codex 不可用'
+
+@pytest.mark.parametrize('failure', [False, True])
+def test_next_draft_survives_turn_success_and_failure(failure):
+    stub = '''
+const state={projectId:'p',project:{agent_session:{modeling_backend:'blender',reconstruction_state:'building',status:'ready'}},busy:false,planEditing:false};
+const nodes={};const $=id=>nodes[id]||(nodes[id]={value:id==='conversation-input'?'first request':'economy',open:false,disabled:false});
+let pendingMessage=null,pendingExecutionProject=null,resolve,reject,calls=0;
+const localStorage={setItem:()=>{}};
+const saveDraft=()=>{},executionUserMessage=x=>x,isBuildApproval=()=>false,sourceImages=()=>[],routeInfo=()=>({model:'simulation'});
+const setBusy=()=>{},showResults=()=>{},beginProgress=()=>{},setStatus=()=>{},startLiveProgress=()=>{},loadParameterPlan=async()=>{},updateHeader=()=>{},showToast=()=>{},setTab=()=>{},friendlyError=e=>e.message,endProgress=()=>{},observeRunningTurn=async()=>{},loadProject=async()=>{};
+const api=()=>{calls++;return new Promise((r,j)=>{resolve=r;reject=j})};
+'''
+    result=run(stub + function('sendConversation').split('\ndocument.querySelectorAll')[0] + '''
+(async()=>{const p=sendConversation(null);const cleared=$('conversation-input').value==='';
+$('conversation-input').value='next request';await sendConversation(null);
+''' + ("reject(Error('offline'));" if failure else "resolve({project:state.project,agent:{},reply:'ok'});") + '''
+await p;console.log(JSON.stringify({cleared,calls,draft:$('conversation-input').value,busy:state.busy}));})();
+''')
+    assert result=={'cleared':True,'calls':1,'draft':'next request','busy':False}
+
+
+def test_image_role_controls_require_explicit_choice_and_keep_legacy_visible():
+    html=(Path(__file__).parents[1]/'app/static/index.html').read_text()
+    assert 'id="reference-role"' in html
+    assert '<option value="">请选择用途</option>' in html
+    assert 'value="target_building">目标建筑图' in html
+    assert 'value="defect_location">待修问题截图' in html
+    assert 'data-reference-role=' in SOURCE
+    assert '请确认用途' in SOURCE
+    assert 'evidence_role=${encodeURIComponent($("reference-role").value)}' in SOURCE
+
+
+def test_image_upload_without_role_stops_before_any_request():
+    program='''const state={projectId:'p',busy:false};const nodes={};const $=id=>nodes[id]||(nodes[id]={value:''});let message='';const showToast=m=>message=m;const sourceImages=()=>[];const beginProgress=()=>{throw Error('upload must not start')};'''
+    result=run(program+function('uploadAttachments').split('$("conversation-input").addEventListener')[0]+'''(async()=>{await uploadAttachments([{name:'ref.png',type:'image/png',size:20}]);console.log(JSON.stringify({message,busy:state.busy}));})();''')
+    assert '请先选择图片用途' in result['message']
+    assert result['busy'] is False
+
+
+def test_image_upload_sends_explicit_role_in_query():
+    program='''const state={projectId:'p',busy:false};let upload='';const nodes={};const $=id=>nodes[id]||(nodes[id]={value:id==='reference-role'?'defect_location':'',append:()=>{}});const document={createElement:()=>({})};const updateHeader=()=>{};const showToast=()=>{};const friendlyError=e=>e.message;const api=async(path,options)=>{if(options){upload=path;return {path:'inputs/reference/x.png',filename:'x.png'}}return {context:{}}};'''
+    result=run(program+function('uploadFile')+'''(async()=>{const ok=await uploadFile('reference',{name:'x.png',type:'image/png'},'reference-files');console.log(JSON.stringify({ok,upload,busy:state.busy}));})();''')
+    assert result['ok'] is True
+    assert result['upload'].endswith('filename=x.png&evidence_role=defect_location')
+    assert result['busy'] is False

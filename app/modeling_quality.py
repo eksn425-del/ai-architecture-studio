@@ -697,6 +697,12 @@ def load_current_independent_visual_review(
             project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
         if receipt.get("source_view_coverage") != coverage:
             return None
+        from .reference_roles import reference_manifest, manifest_fingerprint
+        from .reference_assets import discover_project_reference_images
+        role_fingerprint = manifest_fingerprint(reference_manifest(project_dir,
+            discover_project_reference_images(project_dir, categories=("reference",))))
+        if receipt.get("reviewer", {}).get("reference_manifest_fingerprint") != role_fingerprint:
+            return None  # Legacy receipt lacks role provenance; fresh review required.
         current_sources = sorted(p.relative_to(project_dir).as_posix() for p in (project_dir / "inputs/reference").glob("*") if p.is_file())
         if receipt.get("source_images") != current_sources:
             return None

@@ -129,6 +129,15 @@ class AgentToolSurface:
                 ruby_state: dict[str, dict[str, Any]] | None,
                 tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False) -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
+        from .blender_backend import enabled, BlenderBackend
+        if enabled(resolved_project_dir):
+            backend = BlenderBackend(resolved_project_dir)
+            def blender_dispatch(name, arguments):
+                if not mcp_enabled:
+                    raise ValueError("Blender writes require an approved execution turn")
+                return backend.dispatch(name, arguments)
+            return AgentToolContext(dynamic_tools=backend.tools() if mcp_enabled else [],
+                                    dispatch=blender_dispatch, quality_state={"backend": "blender"})
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
         executor = None
