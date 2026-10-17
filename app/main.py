@@ -187,6 +187,7 @@ def _reference_attachments(context: ProjectContext, project_dir: Path, *, submit
         if not ref.submitted_at:
             pending.append(ref.source)
             if submit:
+                ref.role_clarification_pending = ref.evidence_role == "unknown" and ref.role_origin == "awaiting_context"
                 ref.submitted_at = utc_now()
                 ref.evidence_turn_id = turn_id or "message:" + uuid.uuid4().hex
     return pending
@@ -1755,14 +1756,17 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         session_ready = session.status == "ready" and bool(session.model_path)
         from .contextual_turn import resolve_host_action
         contextual = None
-        if request.workflow_mode == "image_reconstruction":
+        if request.workflow_mode == "image_reconstruction" or any(ref.type == "image" and (not ref.submitted_at or ref.role_clarification_pending) and ref.role_origin in ("context_default", "awaiting_context") for ref in context.references):
             try:
                 contextual = resolve_host_action(app.state.model_router, project=project_dir,
                     session=session, request=request, context=context)
             except (ValueError, NativeAgentUnavailable) as error:
                 raise HTTPException(409, str(error)) from error
+        if contextual and contextual[1].get("attachment_roles_changed"):
+            store.save(context, project_dir / "state/project_context.json")
+            store.save_state(project_id, session, "agent_session.json")
         policy = None
-        if request.workflow_mode == "image_reconstruction":
+        if request.workflow_mode == "image_reconstruction" or contextual is not None:
             try:
                 policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=session_ready, resolved_action=contextual[0] if contextual else None)
             except ValueError as error:

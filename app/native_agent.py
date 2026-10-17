@@ -198,6 +198,18 @@ class AgentTurnResult:
     cancellation_requested: bool = False
 
 
+def dynamic_tool_response(output):
+    """Serialize internal receipts into the App Server DynamicToolCallResponse."""
+    if not isinstance(output,dict):raise ValueError('Dynamic tool result must be an object.')
+    success=output.get('success') is not False and output.get('isError') is not True
+    items=output.get('contentItems')
+    if items is None:
+        items=[{'type':'inputText','text':json.dumps(output,ensure_ascii=False,allow_nan=False)}]
+    if not isinstance(items,list) or any(not isinstance(item,dict) for item in items):
+        raise ValueError('Dynamic tool contentItems must be a list of content objects.')
+    return {'success':success,'contentItems':items}
+
+
 class CodexAppServerRuntime:
     """Runs Codex app-server with project-local tools and an isolated writable workspace."""
 
@@ -847,7 +859,7 @@ class CodexAppServerRuntime:
                         # start marker but before crossing the tool boundary.
                         if control.cancel_requested:
                             raise MCPCallError("Cancellation requested; this tool effect was not started.")
-                        output = tool_handler(call["tool"], params.get("arguments") or {})
+                        output = dynamic_tool_response(tool_handler(call["tool"], params.get("arguments") or {}))
                         if output.get("success") is False or output.get("isError") is True:
                             failed_tool_calls += 1
                     except (ConnectorUnavailable, MCPCallError, OSError, RuntimeError, ValueError) as error:

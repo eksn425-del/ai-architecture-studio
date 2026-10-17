@@ -407,3 +407,21 @@ def test_uncertain_interrupt_write_is_not_claimed_sent_or_retried():
     assert first["interrupt_error"] == "closed"
     assert second["status"] == "already_requested" and len(attempts) == 1
     assert not control.begin_tool("writer")
+
+@pytest.mark.parametrize('receipt',[
+    {'backend':'sketchup','revision':3,'connections':[{'status':'unverified'}]},
+    {'backend':'blender','revision':2,'zones':[{'status':'clear_for_declared_zone'}]},
+    {'success':True,'contentItems':[{'type':'inputText','text':'existing response'}]},
+])
+def test_actual_json_lines_dynamic_response_wraps_structured_receipt(tmp_path,monkeypatch,receipt):
+    def start(process,message):
+        process.feed({'id':message['id'],'result':{'turn':{'id':'actual-turn'}}})
+        process.feed(tool_request())
+        process.complete()
+    runtime,project,workspace,process=fixture(tmp_path,monkeypatch,process=FakeProcess(start=start))
+    result=run(runtime,project,workspace,tool_handler=lambda *_:receipt)
+    assert result.status=='completed'
+    response=next(x['result'] for x in process.sent if x.get('id')==20)
+    assert set(response)=={'success','contentItems'} and response['success'] is True
+    if 'contentItems' in receipt:assert response['contentItems']==receipt['contentItems']
+    else:assert json.loads(response['contentItems'][0]['text'])==receipt

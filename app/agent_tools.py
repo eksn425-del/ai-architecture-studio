@@ -137,13 +137,22 @@ class AgentToolSurface:
             backend = BlenderBackend(resolved_project_dir)
             from .relation_tool_context import prepare_relation_tools, NAMES as RELATION_TOOLS
             relation_specs, relation_dispatch, relation_before, relation_after = prepare_relation_tools(resolved_project_dir,backend)
+            from .spatial_clearance import prepare_blender_clearance_tools
+            clearance_specs, clearance_dispatch = prepare_blender_clearance_tools(backend)
+            clearance_request = None
             stage, limit = geometry_stage_limit(bool(backend.dispatch("blender_inspect_scene", {}).get("revision")))
             quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
             def blender_dispatch(name, arguments):
+                nonlocal clearance_request
                 if research_dispatch and name in RESEARCH_TOOL_NAMES:
                     return research_dispatch(name, arguments)
                 if not mcp_enabled:
                     raise ValueError("Blender writes require an approved execution turn")
+                if name == 'blender_audit_spatial_clearance':
+                    receipt=clearance_dispatch(name,arguments)
+                    clearance_request=json.loads(json.dumps(arguments))
+                    quality['spatial_clearance']=receipt
+                    return receipt
                 if name in RELATION_TOOLS:
                     return relation_dispatch(name,arguments)
                 writing = name == "blender_apply_objects"
@@ -156,13 +165,18 @@ class AgentToolSurface:
                     result = backend.dispatch(name, arguments)
                     if writing:
                         quality["geometry_qa"] = result.get("geometry_qa")
+                        if clearance_request is not None:
+                            try:audit=clearance_dispatch('blender_audit_spatial_clearance',clearance_request)
+                            except (ValueError,RuntimeError,KeyError) as error:
+                                audit={'status':'unverified','error':str(error),'geometry_already_committed':True}
+                            quality['spatial_clearance']=audit;result['spatial_clearance']=audit
                         quality["relation_repair"] = relation_after()
                         if quality["relation_repair"] is not None:result["relation_repair"]=quality["relation_repair"]
                     return result
                 finally:
                     if writing and backend.dispatch("blender_inspect_scene", {}).get("revision", 0) > before:
                         quality["writes"] += 1
-            return AgentToolContext(dynamic_tools=((backend.tools()+relation_specs) if mcp_enabled else []) + research_tools,
+            return AgentToolContext(dynamic_tools=((backend.tools()+relation_specs+clearance_specs) if mcp_enabled else []) + research_tools,
                                     dispatch=blender_dispatch, quality_state=quality)
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
@@ -178,6 +192,10 @@ class AgentToolSurface:
             ruby_enabled=executor is not None,
             tool_profile=tool_profile,
         ) if mcp_enabled else []
+        from .su_relation_audit import prepare_su_relation_tools
+        su_audit_specs, su_audit_dispatch = prepare_su_relation_tools(executor) if executor else ([],None)
+        dynamic_tools.extend(su_audit_specs)
+        su_audit_requests = {}
         dynamic_tools.extend(research_tools)
         if workspace_tools_enabled:
             dynamic_tools.extend(workspace_file_tools())
@@ -244,6 +262,11 @@ class AgentToolSurface:
                 return research_dispatch(name, arguments)
             if workspace_tools_enabled and name in {"workspace_read", "workspace_write"}:
                 return workspace_file_call(resolved_project_dir / "runtime" / "agent_workspace", name, arguments)
+            if su_audit_dispatch and name in {'sketchup_audit_relations','sketchup_audit_clearance'}:
+                receipt=su_audit_dispatch(name,arguments)
+                su_audit_requests[name]=json.loads(json.dumps(arguments))
+                quality_state[name]=receipt
+                return receipt
             if name == "sketchup_submit_visual_review":
                 if executor is None:
                     raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
@@ -418,6 +441,17 @@ class AgentToolSurface:
                             "status": "memory_write_failed",
                             "error": str(error),
                         }
+                if bounded and any(state.get('revision',0)>before.get(key,0) for key,state in executor.ruby_state.items()):
+                    audits={}
+                    for audit_name,audit_args in su_audit_requests.items():
+                        try:audits[audit_name]=su_audit_dispatch(audit_name,audit_args)
+                        except (ValueError,RuntimeError,KeyError) as error:
+                            audits[audit_name]={'status':'unverified','error':str(error),'geometry_already_committed':True}
+                    if audits:
+                        quality_state['post_write_spatial_audits']=audits
+                        if isinstance(output,dict):
+                            output['post_write_spatial_audits']=audits
+                            if 'contentItems' in output:output['contentItems'].append({'type':'inputText','text':'Post-write spatial audit: '+json.dumps(audits,ensure_ascii=False)})
                 return output
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):

@@ -49,6 +49,8 @@ def converse(app,store,project_id,request):
         contextual=resolve_host_action(app.state.model_router,project=project_dir,session=session,request=request,context=context)
     except (ValueError, RuntimeError) as error:
         raise HTTPException(409,str(error)) from error
+    if contextual and contextual[1].get('attachment_roles_changed'):
+        store.save(context,project_dir/'state/project_context.json');store.save_state(project_id,session,'agent_session.json')
     action=contextual[0] if contextual else resolve_reconstruction_action(session,request)
     if app.state.active_turns.get(project_id,{}).get('cancel_requested'):
         raise HTTPException(409,'本轮已请求停止，未开启下一步建模。')
@@ -72,6 +74,7 @@ def converse(app,store,project_id,request):
     for ref in context.references:
         source=(project_dir/ref.source).resolve()
         if ref.source.startswith('inputs/') and not ref.submitted_at and source.is_relative_to((project_dir/'inputs').resolve()) and source.is_file():
+            ref.role_clarification_pending=ref.evidence_role=='unknown' and ref.role_origin=='awaiting_context'
             attachments.append(ref.source);ref.submitted_at=submitted;ref.evidence_turn_id=turn_id
     context.conversation.append(ConversationMessage(role='user',phase='agent',content=request.message,created_at=submitted,metadata={'attachments':attachments,'evidence_turn_id':turn_id}))
     store.save(context,project_dir/'state/project_context.json')

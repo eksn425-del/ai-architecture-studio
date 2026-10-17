@@ -140,15 +140,17 @@ def test_duplicate_conflicting_description_then_defect_keeps_old_version(tmp_pat
  assert context.references[-1].evidence_role=='defect_location' and context.references[-1].evidence_model_revisions=={'main':2}
 
 
-def test_ambiguous_image_blocks_formal_plan_before_provider(tmp_path):
- _,client,pid=client_project(tmp_path)
+def test_ambiguous_image_blocks_formal_plan_before_provider(tmp_path,monkeypatch):
+ app,client,pid=client_project(tmp_path)
+ _mock_readonly_intent(monkeypatch,app)
  assert upload(client,pid,'&batch_image_count=2').status_code==200
  result=client.post('/api/projects/'+pid+'/conversation',json={'message':'请制定计划','workflow_mode':'image_reconstruction','agent_action':'plan'})
  assert result.status_code==409 and '用途' in result.text
 
 
-def test_unknown_reference_blocks_default_ready_auto_before_provider(tmp_path):
+def test_unknown_reference_blocks_default_ready_auto_before_provider(tmp_path,monkeypatch):
  app,client,pid=client_project(tmp_path)
+ _mock_readonly_intent(monkeypatch,app)
  assert upload(client,pid,'&batch_image_count=2').status_code==200
  session=app.state.store.load_state(pid,'agent_session.json',AgentSession);session.status='ready';session.model_path='outputs/model/fixture.skp';app.state.store.save_state(pid,session,'agent_session.json')
  result=client.post('/api/projects/'+pid+'/conversation',json={'message':'继续'})
@@ -158,3 +160,15 @@ def test_unrelated_design_negation_does_not_negate_target_photo(tmp_path):
  text="这是杭州来福士双塔的目标建筑照片。先研究讨论建成案例，不是改造设计。先不要建模。"
  assert infer_reference_role(tmp_path,image(),[],has_model=False,context=text)==('target_building','explicit_current_target_context')
  assert infer_reference_role(tmp_path,image(),[],has_model=False,context="这是界面截图，不是我要建的建筑。")[0]=='unknown'
+
+
+def _mock_readonly_intent(monkeypatch,app):
+ import json
+ from types import SimpleNamespace
+ runtime=app.state.model_router.codex_runtime
+ monkeypatch.setattr(runtime,'_prepare_home',lambda **kw:None)
+ def run(**kw):
+  assert kw['read_only'] and not kw['mcp_enabled'] and not kw['dynamic_tools']
+  c=json.loads(kw['prompt'])['CURRENT_USER']
+  return SimpleNamespace(status='completed',reply=json.dumps({'action':'plan','user_message_id':c['user_message_id'],'user_message':c['user_message'],'plan_sha256':c['plan_sha256'],'changes_plan':False,'conditional':False,'reason':'Roles still ambiguous','attachment_roles':[]}))
+ monkeypatch.setattr(runtime,'_run_turn',run)
