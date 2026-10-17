@@ -1,0 +1,558 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "single_view_inference",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "single_view_inference",
+    "primary_source": "inputs/reference/c0ab78b0c8-image.png",
+    "sources": [
+      {
+        "path": "inputs/reference/c0ab78b0c8-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "original_building_source",
+        "notes": [
+          "单幅近正面街景原照片；主要外观高保真目标；没有第二个原建筑角度。"
+        ]
+      },
+      {
+        "path": "inputs/reference/d047629277-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "current_model_evidence",
+        "notes": [
+          "现有模型后立面与正面左侧墙斜视；后门双级台阶、五窗，转角相邻竖管、错接压顶及未闭合院墙可见。"
+        ]
+      },
+      {
+        "path": "inputs/reference/3d688842ef-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "current_model_evidence",
+        "notes": [
+          "现有模型后立面与正面右侧墙斜视；右侧三小窗，后部转角双竖线，前檐短条终止于侧墙。"
+        ]
+      },
+      {
+        "path": "inputs/reference/a8fb3910a3-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "current_model_evidence",
+        "notes": [
+          "现有模型后上方俯视；大面积平屋面、多个深灰盖板拼接、最高小体量、边缘绿植；不能据此证明真实屋面形态。"
+        ]
+      },
+      {
+        "path": "inputs/reference/e2b569fd28-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "current_model_evidence",
+        "notes": [
+          "现有模型正面左斜视；两层阳台、左黑板与砖侧墙交接、顶部侧面，前围墙分段且未沿侧后连接。"
+        ]
+      },
+      {
+        "path": "inputs/reference/539ea0734d-image.png",
+        "kind": "exterior_image",
+        "provenance": "observed",
+        "role": "current_model_evidence",
+        "notes": [
+          "现有模型正面右斜视；阶梯砖墙与三小侧窗，檐口转折、四段窄窗与未闭合前围墙。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/c0ab78b0c8-image.png"
+        ],
+        "notes": [
+          "左七格深灰竖缝及一道横缝；右红褐砖主墙左缘阶梯；两层内凹阳台下宽上窄；右窄窗四段；最高玻璃房三列",
+          "底层深色退入口、双扇门及左窗内斜梯局部；两段前砖围墙和金属门；阳台/露台与前院植物可见"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "原建筑背面未提供；图2—4为现有模型诊断证据，其五窗、后门不提升为原建筑事实"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "图2、5记录现有左侧；原建筑侧墙、进深与开窗关系未知"
+        ]
+      },
+      "right": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "图3、6记录现有右侧；原建筑侧墙三小窗不能由模型截图证实"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/c0ab78b0c8-image.png"
+        ],
+        "notes": [
+          "最高玻璃体量的薄深色出檐、左低檐、右砖压顶与局部露台绿化可见；完整屋面平面、坡度和排水未知"
+        ]
+      },
+      "oblique": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "原建筑无斜视照片；图2—6只用于模型交接与完整性诊断"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "不建立完整室内平面"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": []
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "仅见左底层局部斜梯，不能确认楼梯平台及各层连通"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "假设入口门高，非实测",
+        "value_mm": 2200,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/c0ab78b0c8-image.png"
+      }
+    ],
+    "hard_constraints": [
+      "保留七格黑板节奏、上部三列玻璃、上下阳台外轮廓和右砖墙阶梯轮廓",
+      "所有模型截图按现状证据处理，不作为原建筑新增角度",
+      "本轮仅计划；后续仅在核实身份后的同一独立模型原根内局部修改"
+    ],
+    "assumptions": [
+      "既有宽11200/深12000/高12300mm均沿用估算；进深低可信，不由模型截图反证尺寸正确",
+      "标高0/2900/5900/8600mm为既有组织估计；图示四层外观不等于已确认四个完整楼层",
+      "入口门高2200mm仅尺度假设；楼梯仅照片底层左窗内局部斜段可见，层间路径未知",
+      "侧后窗、后门、屋面坡向与排水均为推定，模型截图仅证明现状",
+      "围墙闭合和新增庭院绿化为用户要求的补充设计，不冒充照片原状",
+      "围墙既有记录2200mm与早期1600mm冲突；拟用1600mm比较照片围墙/门高比例，执行前核实原模型，协调入口而不改变上部建筑"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "do_not_infer",
+      "preserve_circulation": true
+    },
+    "user_confirmed": [
+      "无实测尺寸，未知尺寸合理估算并标明",
+      "外部建筑为主，侧后可合理推断并标明，支持多角度查看",
+      "修复两个面的交界、顶部细节与重合面",
+      "围墙环绕建筑，增加适量绿化，修复正面细节"
+    ],
+    "diagnostics": {
+      "observed_current": [
+        "转角有重复平行竖向收边/落水管；檐口压顶交接错层，局部短条无清楚收头",
+        "顶面大面积空白，灰色屋面与深色盖板界线生硬",
+        "前院仅分段围墙，侧后未闭合",
+        "窄窗下两段中竖梃缺失，砖面偏均匀平滑"
+      ],
+      "user_reported": [
+        "有面重合"
+      ],
+      "requires_geometry_readback": [
+        "重合面的对象、面积及是否属于重复壳体，单凭截图不能确证",
+        "所有接缝隐藏连接、围墙与地坪现状、可用侧后通道宽度"
+      ]
+    },
+    "cross_view_comparison": [
+      "图2与图3为同一后门立面的两个方向，窗位关系相容；侧窗不同是左右侧差异，不是原图矛盾",
+      "图4俯视解释图2、3屋顶盖板层次；不能判定重合面具体位置",
+      "图5、6均由双阳台、窄窗和三列顶窗锚定为正面斜视；图1为唯一原建筑正面对照"
+    ]
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 41156,
+    "input_tokens": 50096,
+    "output_tokens": 881,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE 1 shows the street elevation: a right brick volume with a narrow stacked window, left dark vertical cladding, two recessed balconies, a raised glazed rooftop volume, recessed ground-floor entrance, and brick frontage walls with gates. SOURCE 2–6 show the old model from opposite rear corners, above, and both front corners; shared rooftop and window landmarks establish orientation, but these problem-model screenshots do not independently verify the actual building’s hidden sides or roof construction. CURRENT preserves the principal front arrangement and opening positions. The clearest remaining discrepancies are the compressed ground storey and low frontage walls. No obvious floating balcony connection is visible; concealed joints and absolute dimensions remain unverified.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "Compared with SOURCE 1, CURRENT 13 compresses the ground storey beneath the continuous dark beam. The entrance and adjacent glazing are too squat relative to the closely matching upper facade.",
+      "action": "Increase the ground-storey height locally, retaining the upper facade’s opening layout and balcony relationships. Match the beam-to-entry-threshold proportion to the photograph."
+    },
+    {
+      "priority": 2,
+      "view": "front",
+      "problem": "CURRENT’s frontage brick walls and gates are substantially shallower vertically than those in SOURCE 1, exposing too much ground-floor glazing and weakening the enclosed entrance composition.",
+      "action": "Raise the front wall tops and adjoining gates to the photograph’s proportions relative to the entrance and beam; preserve their horizontal opening locations."
+    }
+  ],
+  "keep": [
+    "Three upper panes across the rooftop front glazing.",
+    "Right-hand narrow window stack with paired upper lights and single-width lower lights.",
+    "Two central balconies, with the lower balcony wider than the upper.",
+    "Brick notch above the lower balcony’s right-hand reveal."
+  ],
+  "model_revisions": {
+    "villa_reconstruction": 7
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-805d077bae.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_reconstruction": 7
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "villa_reconstruction",
+      "camera": {
+        "eye_m": [
+          5.25,
+          -44.04,
+          6.324000000000001
+        ],
+        "target_m": [
+          5.25,
+          5.55,
+          6.324000000000001
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-50882344f7.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_reconstruction": 7
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "villa_reconstruction",
+      "camera": {
+        "eye_m": [
+          5.25,
+          55.14,
+          6.324000000000001
+        ],
+        "target_m": [
+          5.25,
+          5.55,
+          6.324000000000001
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-7fdbb22d6e.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_reconstruction": 7
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "villa_reconstruction",
+      "camera": {
+        "eye_m": [
+          -43.74,
+          5.55,
+          6.324000000000001
+        ],
+        "target_m": [
+          5.25,
+          5.55,
+          6.324000000000001
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-8e1f543306.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_reconstruction": 7
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "villa_reconstruction",
+      "camera": {
+        "eye_m": [
+          54.239999999999995,
+          5.55,
+          6.324000000000001
+        ],
+        "target_m": [
+          5.25,
+          5.55,
+          6.324000000000001
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-1632420079.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_reconstruction": 7
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "villa_reconstruction",
+      "camera": {
+        "eye_m": [
+          5.25,
+          5.55,
+          53.34
+        ],
+        "target_m": [
+          5.25,
+          5.55,
+          6.075
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-175d376a3d.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "villa_reconstruction": 7
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "villa_reconstruction",
+      "camera": {
+        "eye_m": [
+          45.211200000000005,
+          -35.0112,
+          31.9992
+        ],
+        "target_m": [
+          5.25,
+          5.55,
+          6.324000000000001
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/c0ab78b0c8-image.png",
+      "current_view": "outputs/renders/agent-view-e2fd440fee.png",
+      "label": "原建筑正面",
+      "model_revisions": {
+        "villa_reconstruction": 7
+      }
+    },
+    {
+      "source_ref": "inputs/reference/d047629277-image.png",
+      "current_view": "outputs/renders/agent-view-89c9f761eb.png",
+      "label": "旧模型问题角度复核（非原建筑照片）",
+      "model_revisions": {
+        "villa_reconstruction": 7
+      }
+    },
+    {
+      "source_ref": "inputs/reference/3d688842ef-image.png",
+      "current_view": "outputs/renders/agent-view-e0bbc1c6a8.png",
+      "label": "旧模型问题角度复核（非原建筑照片）",
+      "model_revisions": {
+        "villa_reconstruction": 7
+      }
+    },
+    {
+      "source_ref": "inputs/reference/a8fb3910a3-image.png",
+      "current_view": "outputs/renders/agent-view-484500d235.png",
+      "label": "旧模型问题角度复核（非原建筑照片）",
+      "model_revisions": {
+        "villa_reconstruction": 7
+      }
+    },
+    {
+      "source_ref": "inputs/reference/e2b569fd28-image.png",
+      "current_view": "outputs/renders/agent-view-88da182797.png",
+      "label": "旧模型问题角度复核（非原建筑照片）",
+      "model_revisions": {
+        "villa_reconstruction": 7
+      }
+    },
+    {
+      "source_ref": "inputs/reference/539ea0734d-image.png",
+      "current_view": "outputs/renders/agent-view-b429de24f0.png",
+      "label": "旧模型问题角度复核（非原建筑照片）",
+      "model_revisions": {
+        "villa_reconstruction": 7
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": false,
+    "mode": "single_view_inference",
+    "observed_sources": [],
+    "paired_sources": []
+  },
+  "writer_verifications": {
+    "villa_reconstruction": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 7,
+          "actual": 7
+        },
+        {
+          "check": "objects_total",
+          "expected": 27,
+          "actual": 27
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -2700.0,
+              -3000.0,
+              -150.0
+            ],
+            "max": [
+              13200.0,
+              14100.0,
+              12300.0
+            ],
+            "size": [
+              15900.0,
+              17100.0,
+              12450.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -2700,
+              -3000,
+              -150
+            ],
+            "max": [
+              13200,
+              14100,
+              12300
+            ],
+            "size": [
+              15900,
+              17100,
+              12450
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/3d688842ef-image.png",
+    "inputs/reference/539ea0734d-image.png",
+    "inputs/reference/a8fb3910a3-image.png",
+    "inputs/reference/c0ab78b0c8-image.png",
+    "inputs/reference/d047629277-image.png",
+    "inputs/reference/e2b569fd28-image.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/3d688842ef-image.png": "5c49a205a376f654b48cfb39a5d54946e7632ecc1ac39cf2001d1d771a4901bc",
+    "inputs/reference/539ea0734d-image.png": "e4dda51a11fb59cf236b9e8dd7563c97b7e32ad19d4c09e11072c9c5cf38dbe3",
+    "inputs/reference/a8fb3910a3-image.png": "2f1dc784144e3a0525ec40e29422e6b663e1bdf16433613fec043787e40f94be",
+    "inputs/reference/c0ab78b0c8-image.png": "e08a51d71268d658c260acce972115426b063ef3cc5a4eeaefb2b982af0ef2d1",
+    "inputs/reference/d047629277-image.png": "7e8a549491221eb4be884cf231a2da61cdcb93be43a8a85ad07cec5b42483369",
+    "inputs/reference/e2b569fd28-image.png": "5fc8cc6172c5dfd0eaac251bf53d3a7b1b5aee0481b7946c2cdeb914b8d62f56",
+    "outputs/renders/agent-view-484500d235.evidence.json": "ecd459d79d7b24001d9fc2e63532588fcd83cef5f09a66637ec09d3ff78950a0",
+    "outputs/renders/agent-view-484500d235.png": "be44e27b89056a31fe3421cee8ac85d108716f41448e785f825a2293358e2ead",
+    "outputs/renders/agent-view-88da182797.evidence.json": "72496699cdd60ea3e0027e8268c018f22ce56d0884e75e329334ccaf6713d742",
+    "outputs/renders/agent-view-88da182797.png": "8493ee218c7e659d05050463bf76288973578d2b756856f5b46ac91e5e709459",
+    "outputs/renders/agent-view-89c9f761eb.evidence.json": "0cb2cb7e4c31b31137d2c04563c94d6f88ab71b174febd0b28fdbdb824145864",
+    "outputs/renders/agent-view-89c9f761eb.png": "9b3ceaaa9b86db0bd9defe069038ca01403f83a1c9c1589884bce9082db646cc",
+    "outputs/renders/agent-view-b429de24f0.evidence.json": "3014d94d6b3ed2ebd61072f18eb1c94a7e36226719b4a050bfcfdd344be7f842",
+    "outputs/renders/agent-view-b429de24f0.png": "69f89a77a80730963ea3cd9afb0dd256510eee4f9ae0c7c5ec4cad27252324e6",
+    "outputs/renders/agent-view-e0bbc1c6a8.evidence.json": "33e30efa63dd1a25572e3c487f26d65f74b513d5f1afe05728cf87f81acb5dd9",
+    "outputs/renders/agent-view-e0bbc1c6a8.png": "440a09edeb4ba8a46f3437135709c4b27ca163db95cff3cc03e71ebae29156cd",
+    "outputs/renders/agent-view-e2fd440fee.evidence.json": "7585d47f5811d7bd44a0e3064b9b358db3524ac73bde0c33034bf1e844eab3f4",
+    "outputs/renders/agent-view-e2fd440fee.png": "e184941c710be8490a3149071ec1a80169bd2a14fa257514b90f9dbf09e0aacf",
+    "outputs/renders/agent-view-front-805d077bae.evidence.json": "8e3422ffcd04008bfe81332d174ffc07702f1809d664143d46e59deedb4d7f02",
+    "outputs/renders/agent-view-front-805d077bae.png": "00153d3828c37b93ca3bef377875a767ff9bd4870a7d26814d39387a834cfeca",
+    "outputs/renders/agent-view-left-7fdbb22d6e.evidence.json": "cad926a73fc34056d0062f80e024843c3f11f6201356ec889301eeeba0c76ab1",
+    "outputs/renders/agent-view-left-7fdbb22d6e.png": "61dadd339885e35aa6bfad72020f97ef7d4c7820f175cd75ab3528e3ea62339a",
+    "outputs/renders/agent-view-oblique-175d376a3d.evidence.json": "95d68d420f16d48574cc13522ac5a981fcef179e360a32a3654145da6ee9f618",
+    "outputs/renders/agent-view-oblique-175d376a3d.png": "ebaa3e0642892875d1c19e6c4b764d5ffd9a89c5bfbe5bdabe7feebd49f8f688",
+    "outputs/renders/agent-view-rear-50882344f7.evidence.json": "3c3dc6cec70d00fa63e56dc165cd0c3583d266bcf6764e90bf17512ab2e2cfb3",
+    "outputs/renders/agent-view-rear-50882344f7.png": "59e22532496cac9bbe22f81de6598ac3188cdf8cad6a721176a4d2785dcd6b21",
+    "outputs/renders/agent-view-right-8e1f543306.evidence.json": "86aa668e24fd665a01a9e8cb1b9edb36337d1711edc563c4e0cd3f501a399d0e",
+    "outputs/renders/agent-view-right-8e1f543306.png": "a66e5fbe619c005fb5eafcc8938cbad98e4f201767e8b035366d6798e5399524",
+    "outputs/renders/agent-view-roof-1632420079.evidence.json": "f8445776711dfda1aaac64bb399f2606a017ad6c9a12cc71f17490a112f9d265",
+    "outputs/renders/agent-view-roof-1632420079.png": "bef8c2b211fbc630cc513a3c91ccb1b605fa038a3212d2bec1e3e2bd7202c1db",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "66e5a34c1dd4e6b465a2687a893113f8bf76976f95e32fef192b6ff9898732f3"
+  }
+}

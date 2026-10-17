@@ -1,3 +1,7 @@
+## OWNER PUBLICATION CORRECTION 2026-10-17 — NOON RED HOUSE, not morning su-1017
+
+Owner clarifies requested records are today's noon red-brick house: architecture-project-fa471, project name 测试, 12:16:00–12:57:15 Asia/Shanghai, villa_reconstruction r7/root19. Publish ALL251 project files/images/SKP/events and honest execution history on existing isolated branch, link SU Issue20 and correct earlier mistaken su-1017 attribution. Archive only; no geometry/model calls/main merge/deployment. Credentials excluded. Native reopen is UNVERIFIED; do NOT transfer morning su-1017 PASS verdicts. Correct evidence: docs/test-results/windows/2026-10-17-noon-red-house-fa471/README.md. Earlier publication below remains separate historical trial.
+
 ## OWNER SU TRIAL PUBLICATION 2026-10-17 — publish records on isolated branch only
 
 Owner now explicitly requests ALL this SU trial records, images and execution details on GitHub. Publish the complete sanitized frozen su-1017 trial evidence on codex/su-trial-candidate-20261017 and link SU Issue #20. This overrides the preceding trial raw-material withholding rule only. Credentials/passwords/API keys/login tokens/cookies/auth containers remain excluded. No main merge/deployment/new modeling authorized; old r20 stays closed. Full public evidence: docs/test-results/windows/2026-10-17-local-su-trial/README.md. Historical initial withholding statement below is preserved.

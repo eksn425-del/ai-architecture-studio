@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "current_stage": "finish",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "overall_width": {
+      "value": 11200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有估算，入口假设尺度；本轮不改变建筑总宽"
+    },
+    "overall_depth": {
+      "value": 12000,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "无原建筑侧视和测量，沿用"
+    },
+    "overall_height": {
+      "value": 12300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用原图轮廓比例"
+    },
+    "level_0": {
+      "value": 0,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有楼层外观组织，非实测"
+    },
+    "level_1": {
+      "value": 2900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有楼层外观组织，非实测"
+    },
+    "level_2": {
+      "value": 5900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有楼层外观组织，非实测"
+    },
+    "level_3": {
+      "value": 8600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "既有楼层外观组织，非实测"
+    },
+    "boundary_height": {
+      "value": 1600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图围墙约为门高的0.7倍；既有2200记录须核对，拟协调前院比例"
+    },
+    "boundary_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "用户要求环绕围墙，尺寸未给"
+    },
+    "side_clearance": {
+      "value": 1000,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "拟保留可通行庭院宽度，须检查原地坪与边界"
+    },
+    "cap_overhang": {
+      "value": 30,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "压顶外挑建议"
+    },
+    "roof_drain_slope": {
+      "value": 0.015,
+      "units": "ratio",
+      "provenance": "inferred",
+      "source": "未见真实屋顶排水"
+    },
+    "mullion_width": {
+      "value": 55,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "现有框料及原图相对比例"
+    },
+    "brick_course_height": {
+      "value": 65,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "以原图细长砖及既有65mm样段复核，不视为测量"
+    }
+  },
+  "systems": [
+    {
+      "id": "junction_and_overlap_repair",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth"
+      ],
+      "target_paths": [
+        [
+          "MASS_LEFT",
+          "LEFT_RETURN"
+        ],
+        [
+          "MASS_RIGHT_BRICK"
+        ],
+        [
+          "INFERRED_RIGHT_WALL"
+        ],
+        [
+          "INFERRED_REAR_WALL"
+        ],
+        [
+          "ROOF_LEFT",
+          "INFERRED_REAR_ROOF_LINK"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "先按对象路径、面法向、边界和平面定位重合，删除确认多余的面或壳体，在原组内重做接缝，禁止叠加新皮掩盖",
+        "墙体转角明确单一接缝，饰面按实际厚度返回；檐口互不穿插；管线不重复",
+        "仅交接区域进入修改范围，上部正确轮廓、洞口和阳台位置保留"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部既有命名组的转角、薄板、收口与组件修改；标准SAIE新墙洞口助手不适合保留现有叶节点和材料层，ADAI禁用；此处为方法计划，尚未调用。"
+    },
+    {
+      "id": "roof_detail_prototype",
+      "stage": "representative_module",
+      "role": "roof",
+      "method": "profile_extrusion",
+      "status": "built",
+      "depends_on": [
+        "cap_overhang",
+        "roof_drain_slope"
+      ],
+      "target_paths": [
+        [
+          "ROOF_LEFT",
+          "INFERRED_REAR_ROOF_LINK"
+        ],
+        [
+          "SLABS",
+          "RIGHT_ROOF"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "rear",
+        "oblique"
+      ],
+      "notes": [
+        "先核实后两条路径，缺失则回读定位，不凭名称清空或重建",
+        "先完成一个压顶转角和雨水口/泛水节点，验证层次无重面后复制",
+        "保持ROOF_TOP薄檐轮廓，其他屋面重叠处局部裁接"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部既有命名组的转角、薄板、收口与组件修改；标准SAIE新墙洞口助手不适合保留现有叶节点和材料层，ADAI禁用；此处为方法计划，尚未调用。"
+    },
+    {
+      "id": "roof_detail_replication",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "cap_overhang"
+      ],
+      "target_paths": [
+        [
+          "ROOF_LEFT"
+        ],
+        [
+          "PARAPET_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "left",
+        "right",
+        "rear"
+      ],
+      "notes": [
+        "按实际转角配置实例及独立语义ID，必要端部做变体，避免相邻条材交叉"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部既有命名组的转角、薄板、收口与组件修改；标准SAIE新墙洞口助手不适合保留现有叶节点和材料层，ADAI禁用；此处为方法计划，尚未调用。"
+    },
+    {
+      "id": "surrounding_boundary",
+      "stage": "variants",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "built_needs_proportion_fix",
+      "depends_on": [
+        "boundary_height",
+        "boundary_thickness",
+        "side_clearance",
+        "cap_overhang"
+      ],
+      "target_paths": [
+        [
+          "BOUNDARY_LEFT",
+          "FRONT_LEFT"
+        ],
+        [
+          "BOUNDARY_LEFT",
+          "WEST_RETURN"
+        ],
+        [
+          "BOUNDARY_LEFT",
+          "REAR_RETURN"
+        ],
+        [
+          "BOUNDARY_RIGHT",
+          "FRONT_RIGHT"
+        ],
+        [
+          "BOUNDARY_RIGHT",
+          "EAST_RETURN"
+        ],
+        [
+          "GATE_MAIN"
+        ],
+        [
+          "GATE_LEFT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "后三个为拟新增准确语义路径；先测原围墙、门扇和地坪，仅在确有需要时局部扩展庭院地坪，不缩放建筑",
+        "闭合指墙段及可关闭门洞组成完整边界，后门保留门内通路，不任意新增后门洞",
+        "门柱、压顶、墙脚与转角接好；消除墙端悬空及重复面"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部既有命名组的转角、薄板、收口与组件修改；标准SAIE新墙洞口助手不适合保留现有叶节点和材料层，ADAI禁用；此处为方法计划，尚未调用。"
+    },
+    {
+      "id": "front_repair",
+      "stage": "finish",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "built_needs_proportion_fix",
+      "depends_on": [
+        "mullion_width",
+        "brick_course_height"
+      ],
+      "target_paths": [
+        [
+          "FRONT_NARROW_WINDOW"
+        ],
+        [
+          "ENTRY"
+        ],
+        [
+          "MASS_RIGHT_BRICK"
+        ],
+        [
+          "BOUNDARY_LEFT"
+        ],
+        [
+          "BOUNDARY_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "窄窗逐段对照；既有审查对竖梃意见曾反复，按图1可见框线核实，优先校对下两段，避免盲目重复旧修法",
+        "先验证局部砖样，调整色差与浅灰缝，不再堆叠共面砖面；门窗分格与入口凹深参考照片",
+        "若底层比例确有偏差仅提交明确局部范围，不能以正面修复为由移动全部上层"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部既有命名组的转角、薄板、收口与组件修改；标准SAIE新墙洞口助手不适合保留现有叶节点和材料层，ADAI禁用；此处为方法计划，尚未调用。"
+    },
+    {
+      "id": "landscape",
+      "stage": "finish",
+      "role": "site",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "side_clearance"
+      ],
+      "target_paths": [
+        [
+          "PLANTERS",
+          "GROUND_SHRUB_0"
+        ],
+        [
+          "PLANTERS",
+          "GROUND_SHRUB_5"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "均为拟新增分组：低灌木、少量小乔木及花箱，窗前/入口留空；现有露台植物能复用则复用",
+        "先完成建筑修复与围墙再布置植物，不用植物遮盖问题"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "局部既有命名组的转角、薄板、收口与组件修改；标准SAIE新墙洞口助手不适合保留现有叶节点和材料层，ADAI禁用；此处为方法计划，尚未调用。"
+    }
+  ],
+  "notes": [
+    "历史repair_history保持只读，revision6_unexecuted.rb不得当作已提交状态或直接执行",
+    "先建空命名父组再在其entities内建子项，兄弟语义ID唯一；禁止从已有实体集合重新包组",
+    "项目Ruby仅访问提供的根及必要几何/材质，不访问文件、进程、网络、反射、其他模型或全模型编辑保存",
+    "几何验收：重面/交叉消除、屋面与压顶封口、围墙边界连续且门洞保留、通路与平台接地、原图主要正面关系不变",
+    "截图不足以证明隐藏几何无重合；本轮未验证实时几何，无修改完成或质量通过的结论"
+  ],
+  "execution_readback": {
+    "revision": 7,
+    "root_pid": 19,
+    "visual_status": "needs_fix",
+    "unexecuted_candidate": "scripts/villa_revision8_unexecuted.rb",
+    "model": "blank-disposable-20261017-121652"
+  }
+}

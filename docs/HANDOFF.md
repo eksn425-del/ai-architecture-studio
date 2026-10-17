@@ -1,3 +1,9 @@
+## Correction: owner requested NOON red house records, 2026-10-17
+
+[Correct full evidence](test-results/windows/2026-10-17-noon-red-house-fa471/README.md): architecture-project-fa471 / 测试 / villa_reconstruction7/root19, 12:16–12:57 Shanghai.251project files,87PNG,6SKP,2SKB, full conversation/16events/9Critics/10failures. Morning su-1017 archive was wrong request attribution and stays separate history. Red-house native reopen UNVERIFIED/sourceNEEDS_FIX; no morning PASS transferred. Publication only, same isolated branch, no model calls/main merge/deployment. Credentials excluded;1text profile-name redaction; images/models byte-identical. Correct Issue20 attribution and keep prior history.
+
+---
+
 ## SU trial full-record publication 2026-10-17 — owner explicitly authorized
 
 [Complete public evidence, images, SKPs and execution details](test-results/windows/2026-10-17-local-su-trial/README.md). All296 frozen trial files copied with per-file original/publicSHA;6text files anonymize local profile name only, images/models byte-identical. Credential stores never collected or uploaded. Publish isolated codex/su-trial-candidate-20261017 and link SU Issue#20; main merge/deployment/new modeling remain unauthorized. Previous local-only wording below is historical authorization, now superseded for publication only. Trial/source/replay/provider verdicts unchanged; leave existing trial page/models intact.

@@ -1,0 +1,661 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-fa471",
+  "expected_revision": 5,
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-fa471\\outputs\\model\\blank-disposable-20261017-121652.skp",
+  "guid_before": "47626738-aada-42fa-882b-cb6939a3325c",
+  "status": "aborted",
+  "at": "2026-10-17T04:50:57Z",
+  "scenes_before": {
+    "available": true,
+    "pages": [
+
+    ]
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -2600.0,
+        -3000.0,
+        -150.0
+      ],
+      "max": [
+        13200.0,
+        12820.0,
+        12300.0
+      ],
+      "size": [
+        15800.0,
+        15820.0,
+        12450.0
+      ]
+    },
+    "objects_total": 27,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 27,
+        "name": "MASS_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -285.0,
+            100.0,
+            0.0
+          ],
+          "max": [
+            3500.0,
+            12080.0,
+            10300.0
+          ],
+          "size": [
+            3785.0,
+            11980.0,
+            10300.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 125,
+        "name": "MASS_RIGHT_BRICK",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4900.0,
+            -2.5,
+            2900.0
+          ],
+          "max": [
+            11200.0,
+            280.0,
+            10700.0
+          ],
+          "size": [
+            6300.0,
+            282.5,
+            7800.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 287,
+        "name": "INFERRED_RIGHT_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            10915.0,
+            240.0,
+            0.0
+          ],
+          "max": [
+            11490.0,
+            12040.0,
+            10765.0
+          ],
+          "size": [
+            575.0,
+            11800.0,
+            10765.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 319,
+        "name": "INFERRED_REAR_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            210.0,
+            11710.0,
+            0.0
+          ],
+          "max": [
+            10990.0,
+            12820.0,
+            10765.0
+          ],
+          "size": [
+            10780.0,
+            1110.0,
+            10765.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 351,
+        "name": "MASS_TOP_GLAZED",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3500.0,
+            350.0,
+            8600.0
+          ],
+          "max": [
+            8200.0,
+            4250.0,
+            12120.0
+          ],
+          "size": [
+            4700.0,
+            3900.0,
+            3520.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 449,
+        "name": "SLABS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250.0,
+            280.0,
+            100.0
+          ],
+          "max": [
+            10950.0,
+            11750.0,
+            10580.0
+          ],
+          "size": [
+            10700.0,
+            11470.0,
+            10480.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 611,
+        "name": "ROOF_TOP",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3390.0,
+            -1.0,
+            12100.0
+          ],
+          "max": [
+            8440.0,
+            4400.0,
+            12300.0
+          ],
+          "size": [
+            5050.0,
+            4401.0,
+            200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 643,
+        "name": "ROOF_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -110.0,
+            3499.0,
+            0.0
+          ],
+          "max": [
+            4900.0,
+            12300.0,
+            10500.0
+          ],
+          "size": [
+            5010.0,
+            8801.0,
+            10500.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 675,
+        "name": "PARAPET_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4850.0,
+            -40.0,
+            10700.0
+          ],
+          "max": [
+            11250.0,
+            360.0,
+            10775.0
+          ],
+          "size": [
+            6400.0,
+            400.0,
+            75.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 707,
+        "name": "GROUND_CANOPY",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            -150.0,
+            2720.0
+          ],
+          "max": [
+            11200.0,
+            1650.0,
+            2900.0
+          ],
+          "size": [
+            11200.0,
+            1800.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 739,
+        "name": "BALCONY_LOWER",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3300.0,
+            -180.0,
+            2820.0
+          ],
+          "max": [
+            6200.0,
+            1520.0,
+            3000.0
+          ],
+          "size": [
+            2900.0,
+            1700.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 771,
+        "name": "BALCONY_UPPER",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3400.0,
+            -100.0,
+            5820.0
+          ],
+          "max": [
+            5100.0,
+            1520.0,
+            6000.0
+          ],
+          "size": [
+            1700.0,
+            1620.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 803,
+        "name": "FRONT_NARROW_WINDOW",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8100.0,
+            20.0,
+            3000.0
+          ],
+          "max": [
+            9400.0,
+            190.0,
+            9400.0
+          ],
+          "size": [
+            1300.0,
+            170.0,
+            6400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1061,
+        "name": "TOP_GLAZING",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3500.0,
+            250.0,
+            8500.0
+          ],
+          "max": [
+            8200.0,
+            600.0,
+            12120.0
+          ],
+          "size": [
+            4700.0,
+            350.0,
+            3620.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1319,
+        "name": "BALCONY_GLAZING",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3500.0,
+            400.0,
+            3000.0
+          ],
+          "max": [
+            6000.0,
+            1670.0,
+            8400.0
+          ],
+          "size": [
+            2500.0,
+            1270.0,
+            5400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1741,
+        "name": "GROUND_LEFT_GLAZING",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            300.0,
+            650.0,
+            300.0
+          ],
+          "max": [
+            3300.0,
+            770.0,
+            2720.0
+          ],
+          "size": [
+            3000.0,
+            120.0,
+            2420.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1967,
+        "name": "ENTRY",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3300.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            10950.0,
+            2000.0,
+            2720.0
+          ],
+          "size": [
+            7650.0,
+            2000.0,
+            2720.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2097,
+        "name": "RAIL_LOWER",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3300.0,
+            -170.0,
+            3000.0
+          ],
+          "max": [
+            6240.0,
+            -120.0,
+            4050.0
+          ],
+          "size": [
+            2940.0,
+            50.0,
+            1050.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2291,
+        "name": "RAIL_UPPER",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3400.0,
+            -90.0,
+            6000.0
+          ],
+          "max": [
+            5140.0,
+            -40.0,
+            7050.0
+          ],
+          "size": [
+            1740.0,
+            50.0,
+            1050.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2485,
+        "name": "CLADDING_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -250.0,
+            25.0,
+            2900.0
+          ],
+          "max": [
+            3500.0,
+            325.0,
+            8800.0
+          ],
+          "size": [
+            3750.0,
+            300.0,
+            5900.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2519,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -1000.0,
+            -3000.0,
+            -150.0
+          ],
+          "max": [
+            13200.0,
+            12500.0,
+            0.0
+          ],
+          "size": [
+            14200.0,
+            15500.0,
+            150.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2553,
+        "name": "BOUNDARY_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -1500.0,
+            -2705.4,
+            0.0
+          ],
+          "max": [
+            3500.0,
+            -2450.0,
+            2200.0
+          ],
+          "size": [
+            5000.0,
+            255.4,
+            2200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2585,
+        "name": "BOUNDARY_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            8000.0,
+            -2705.4,
+            0.0
+          ],
+          "max": [
+            12900.0,
+            -2450.0,
+            2200.0
+          ],
+          "size": [
+            4900.0,
+            255.4,
+            2200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2617,
+        "name": "GATE_MAIN",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6600.0,
+            -2730.0,
+            0.0
+          ],
+          "max": [
+            7800.0,
+            -2660.0,
+            2200.0
+          ],
+          "size": [
+            1200.0,
+            70.0,
+            2200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2651,
+        "name": "GATE_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -2600.0,
+            -2730.0,
+            0.0
+          ],
+          "max": [
+            -1600.0,
+            -2660.0,
+            2200.0
+          ],
+          "size": [
+            1000.0,
+            70.0,
+            2200.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2685,
+        "name": "ENTRY_STEPS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            3600.0,
+            -2600.0,
+            0.0
+          ],
+          "max": [
+            6500.0,
+            1750.0,
+            260.0
+          ],
+          "size": [
+            2900.0,
+            4350.0,
+            260.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2783,
+        "name": "PLANTERS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -70.0,
+            -19.7,
+            3050.0
+          ],
+          "max": [
+            10300.0,
+            1440.4,
+            11150.0
+          ],
+          "size": [
+            10370.0,
+            1460.1,
+            8100.0
+          ]
+        }
+      }
+    ]
+  },
+  "error": "NoMethodError: undefined method `pushpull' for nil:NilClass",
+  "backtrace": [
+    "villa_reconstruction.rb:131:in `block in shrub'",
+    "villa_reconstruction.rb:129:in `times'",
+    "villa_reconstruction.rb:129:in `shrub'",
+    "villa_reconstruction.rb:140:in `block (2 levels) in <main>'",
+    "villa_reconstruction.rb:136:in `each'",
+    "villa_reconstruction.rb:136:in `each_with_index'",
+    "villa_reconstruction.rb:136:in `block in <main>'",
+    "C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-6142bed4632f4197b2e283012bd7cac8.rb:26:in `eval'",
+    "C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-6142bed4632f4197b2e283012bd7cac8.rb:26:in `block in <main>'",
+    "E:/K AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:115:in `run'"
+  ],
+  "scenes_after": {
+    "available": true,
+    "pages": [
+
+    ]
+  },
+  "scene_state_requires_review": true
+}

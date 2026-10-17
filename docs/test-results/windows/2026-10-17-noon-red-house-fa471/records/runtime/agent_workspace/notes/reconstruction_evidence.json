@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "single_view_inference",
+  "primary_source": "inputs/reference/c0ab78b0c8-image.png",
+  "sources": [
+    {
+      "path": "inputs/reference/c0ab78b0c8-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "original_building_source",
+      "notes": [
+        "单幅近正面街景原照片；主要外观高保真目标；没有第二个原建筑角度。"
+      ]
+    },
+    {
+      "path": "inputs/reference/d047629277-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "current_model_evidence",
+      "notes": [
+        "现有模型后立面与正面左侧墙斜视；后门双级台阶、五窗，转角相邻竖管、错接压顶及未闭合院墙可见。"
+      ]
+    },
+    {
+      "path": "inputs/reference/3d688842ef-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "current_model_evidence",
+      "notes": [
+        "现有模型后立面与正面右侧墙斜视；右侧三小窗，后部转角双竖线，前檐短条终止于侧墙。"
+      ]
+    },
+    {
+      "path": "inputs/reference/a8fb3910a3-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "current_model_evidence",
+      "notes": [
+        "现有模型后上方俯视；大面积平屋面、多个深灰盖板拼接、最高小体量、边缘绿植；不能据此证明真实屋面形态。"
+      ]
+    },
+    {
+      "path": "inputs/reference/e2b569fd28-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "current_model_evidence",
+      "notes": [
+        "现有模型正面左斜视；两层阳台、左黑板与砖侧墙交接、顶部侧面，前围墙分段且未沿侧后连接。"
+      ]
+    },
+    {
+      "path": "inputs/reference/539ea0734d-image.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "current_model_evidence",
+      "notes": [
+        "现有模型正面右斜视；阶梯砖墙与三小侧窗，檐口转折、四段窄窗与未闭合前围墙。"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/c0ab78b0c8-image.png"
+      ],
+      "notes": [
+        "左七格深灰竖缝及一道横缝；右红褐砖主墙左缘阶梯；两层内凹阳台下宽上窄；右窄窗四段；最高玻璃房三列",
+        "底层深色退入口、双扇门及左窗内斜梯局部；两段前砖围墙和金属门；阳台/露台与前院植物可见"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "原建筑背面未提供；图2—4为现有模型诊断证据，其五窗、后门不提升为原建筑事实"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "图2、5记录现有左侧；原建筑侧墙、进深与开窗关系未知"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "图3、6记录现有右侧；原建筑侧墙三小窗不能由模型截图证实"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/c0ab78b0c8-image.png"
+      ],
+      "notes": [
+        "最高玻璃体量的薄深色出檐、左低檐、右砖压顶与局部露台绿化可见；完整屋面平面、坡度和排水未知"
+      ]
+    },
+    "oblique": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "原建筑无斜视照片；图2—6只用于模型交接与完整性诊断"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "不建立完整室内平面"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": []
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "仅见左底层局部斜梯，不能确认楼梯平台及各层连通"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "假设入口门高，非实测",
+      "value_mm": 2200,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/c0ab78b0c8-image.png"
+    }
+  ],
+  "hard_constraints": [
+    "保留七格黑板节奏、上部三列玻璃、上下阳台外轮廓和右砖墙阶梯轮廓",
+    "所有模型截图按现状证据处理，不作为原建筑新增角度",
+    "本轮仅计划；后续仅在核实身份后的同一独立模型原根内局部修改"
+  ],
+  "assumptions": [
+    "既有宽11200/深12000/高12300mm均沿用估算；进深低可信，不由模型截图反证尺寸正确",
+    "标高0/2900/5900/8600mm为既有组织估计；图示四层外观不等于已确认四个完整楼层",
+    "入口门高2200mm仅尺度假设；楼梯仅照片底层左窗内局部斜段可见，层间路径未知",
+    "侧后窗、后门、屋面坡向与排水均为推定，模型截图仅证明现状",
+    "围墙闭合和新增庭院绿化为用户要求的补充设计，不冒充照片原状",
+    "围墙既有记录2200mm与早期1600mm冲突；拟用1600mm比较照片围墙/门高比例，执行前核实原模型，协调入口而不改变上部建筑"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "do_not_infer",
+    "preserve_circulation": true
+  },
+  "user_confirmed": [
+    "无实测尺寸，未知尺寸合理估算并标明",
+    "外部建筑为主，侧后可合理推断并标明，支持多角度查看",
+    "修复两个面的交界、顶部细节与重合面",
+    "围墙环绕建筑，增加适量绿化，修复正面细节"
+  ],
+  "diagnostics": {
+    "observed_current": [
+      "转角有重复平行竖向收边/落水管；檐口压顶交接错层，局部短条无清楚收头",
+      "顶面大面积空白，灰色屋面与深色盖板界线生硬",
+      "前院仅分段围墙，侧后未闭合",
+      "窄窗下两段中竖梃缺失，砖面偏均匀平滑"
+    ],
+    "user_reported": [
+      "有面重合"
+    ],
+    "requires_geometry_readback": [
+      "重合面的对象、面积及是否属于重复壳体，单凭截图不能确证",
+      "所有接缝隐藏连接、围墙与地坪现状、可用侧后通道宽度"
+    ]
+  },
+  "cross_view_comparison": [
+    "图2与图3为同一后门立面的两个方向，窗位关系相容；侧窗不同是左右侧差异，不是原图矛盾",
+    "图4俯视解释图2、3屋顶盖板层次；不能判定重合面具体位置",
+    "图5、6均由双阳台、窄窗和三列顶窗锚定为正面斜视；图1为唯一原建筑正面对照"
+  ]
+}

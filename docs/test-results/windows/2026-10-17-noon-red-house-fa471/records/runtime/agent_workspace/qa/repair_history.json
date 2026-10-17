@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one near-frontal street photograph showing a tall right brick facade with four stacked window sections, a recessed central bay with two glass balconies, left dark vertical cladding, an elevated glazed pavilion, thin roof edges and brick boundary walls with metal gates. CURRENT preserves this overall arrangement, but simplifies defining facade relief and window divisions and misrepresents the visible entrance recess. Rear elevations, most side walls and roof-plan depths are unobserved; the additional CURRENT views cannot establish their fidelity. Screenshots alone do not verify concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE’s left facade has closely spaced vertical panel seams and a horizontal joint; CURRENT makes it a single smooth dark face. Both brick facade and boundary walls also lack the clearly visible brick courses.",
+            "action": "Add the observed panel divisions and shallow relief locally, and apply correctly scaled brick coursing to the visible brick surfaces."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "SOURCE’s entrance doors sit beneath a substantial dark recessed head zone. CURRENT raises the door heads almost to the main beam and surrounds them with a broad, exposed tan wall, weakening the entrance depth.",
+            "action": "Lower the door heads relative to the beam and reproduce the recessed dark head and side returns. Ensure the doors and enclosing surfaces connect within the recess."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "CURRENT retains four stacked sections in the right window strip, but omits SOURCE’s visible vertical subdivisions, particularly in the upper two sections, and reduces its substantial dark framing to thin divisions.",
+            "action": "Retain the four-section arrangement; add the source-visible vertical mullions and adjust frame and intermediate-band thicknesses locally."
+          }
+        ],
+        "keep": [
+          "Three upper glazed pavilion bays.",
+          "Two vertically stacked central glass balconies, with the lower balcony wider than the upper.",
+          "Thin projecting dark roof edge above the glazed pavilion."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 1
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "villa_reconstruction",
+        "revision": 2,
+        "relative_path": "scripts/villa_reconstruction.rb",
+        "update_mode": "edit",
+        "source_sha256": "ebc4a778ccb8bfbd360c0fc4620fde70765777b7ebe62e07fa01752b7e3352bd",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "TOP_GLAZING",
+            "ROOF_TOP",
+            "BALCONY_LOWER",
+            "BALCONY_UPPER",
+            "RAIL_LOWER",
+            "RAIL_UPPER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The source shows a street-facing brick volume with a stepped left edge, a narrow four-part window stack, two recessed glazed balcony bays, seven dark vertical cladding bays, an upper glazed pavilion, thin roof edges, and a recessed ground-floor entrance behind brick boundary walls. CURRENT preserves these principal landmarks and their broad proportions. The strongest discrepancies are the ground-floor right enclosure and brick coursing. Rear elevations, roof depths and concealed connections are not established by the single source photograph; screenshots alone cannot verify concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Beneath the right brick volume, SOURCE shows a dark recessed glazed frontage. CURRENT instead exposes broad orange wall faces and a prominent brick-colored support beside the entrance, changing the visible ground-floor enclosure.",
+            "action": "Locally revise this bay to reproduce the source-visible dark recessed glazing and slim framing; retain the entrance position and continuous fascia above."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT brick courses are substantially taller and more uniformly flat than SOURCE’s fine, closely spaced horizontal brickwork. This affects both the main facade and boundary walls.",
+            "action": "Reduce brick course height and adjust the brick material toward the source’s muted reddish-brown variation and fine mortar relief, preserving existing facade outlines and openings."
+          }
+        ],
+        "keep": [
+          "Seven vertical bays of dark cladding with the intermediate horizontal joint.",
+          "Two stacked balconies, with the lower balcony wider than the upper.",
+          "Three-column upper pavilion glazing and its thin projecting dark roof edge.",
+          "Four vertically stacked glazed sections in the narrow right-hand opening."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "The source shows a street-facing brick volume with a stepped left edge, a narrow four-part window stack, two recessed glazed balcony bays, seven dark vertical cladding bays, an upper glazed pavilion, thin roof edges, and a recessed ground-floor entrance behind brick boundary walls. CURRENT preserves these principal landmarks and their broad proportions. The strongest discrepancies are the ground-floor right enclosure and brick coursing. Rear elevations, roof depths and concealed connections are not established by the single source photograph; screenshots alone cannot verify concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Beneath the right brick volume, SOURCE shows a dark recessed glazed frontage. CURRENT instead exposes broad orange wall faces and a prominent brick-colored support beside the entrance, changing the visible ground-floor enclosure.",
+            "action": "Locally revise this bay to reproduce the source-visible dark recessed glazing and slim framing; retain the entrance position and continuous fascia above."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT brick courses are substantially taller and more uniformly flat than SOURCE’s fine, closely spaced horizontal brickwork. This affects both the main facade and boundary walls.",
+            "action": "Reduce brick course height and adjust the brick material toward the source’s muted reddish-brown variation and fine mortar relief, preserving existing facade outlines and openings."
+          }
+        ],
+        "keep": [
+          "Seven vertical bays of dark cladding with the intermediate horizontal joint.",
+          "Two stacked balconies, with the lower balcony wider than the upper.",
+          "Three-column upper pavilion glazing and its thin projecting dark roof edge.",
+          "Four vertically stacked glazed sections in the narrow right-hand opening."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "villa_reconstruction",
+        "revision": 3,
+        "relative_path": "scripts/villa_reconstruction.rb",
+        "update_mode": "edit",
+        "source_sha256": "7109bbff374f146e226635a030602a3248838a3263d52a4efc78fe85a0602c5f",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "CLADDING_LEFT",
+            "FRONT_NARROW_WINDOW",
+            "TOP_GLAZING",
+            "ROOF_TOP",
+            "BALCONY_LOWER",
+            "BALCONY_UPPER",
+            "RAIL_LOWER",
+            "RAIL_UPPER"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The source shows one street-facing view: a stepped brick frontage, seven-bay dark cladding at left, two stacked recessed balconies, a narrow four-tier window, and an elevated glazed pavilion with projecting flat roof edges. CURRENT reproduces this arrangement and its main silhouette closely. The clearest discrepancies concern the lower balcony opening and pavilion framing. Rear elevations, building depth and concealed roof construction are unverified; the additional CURRENT views cannot establish their source fidelity or confirm concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The lower balcony glazing extends almost to the brick recess’s right edge. The source shows a substantial warm-colored right reveal between the window frame and brick corner, giving this opening appreciable depth.",
+            "action": "Locally narrow and recess the lower balcony glazing, restoring the visible right reveal and overhead soffit. Preserve the balcony’s outer width and stepped brick outline."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The elevated glazed pavilion has thinner perimeter framing and a shallower dark roof-to-glass band than the source. This weakens the heavy framed opening that defines the upper silhouette.",
+            "action": "Thicken the visible pavilion perimeter posts and roof underside locally, reducing the glazing within the existing outer silhouette to match the source."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "CURRENT brickwork reads as smooth, uniform orange courses. The source’s dominant brick surfaces have thinner-looking courses, irregular tonal variation and pronounced horizontal texture.",
+            "action": "Adjust the brick material’s course proportions, color variation and relief on the visible frontage and boundary walls."
+          }
+        ],
+        "keep": [
+          "Seven vertical bays in the left dark-clad frontage.",
+          "Four stacked glazed sections in the narrow right-hand window.",
+          "The two balconies’ outer widths and vertical arrangement.",
+          "The stepped left edge of the main brick frontage."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a street-facing elevation with a stepped brick frontage, a two-storey dark panel zone, two stacked glass balconies, a narrow four-part window strip, raised three-bay glazing beneath a thin roof edge, and a recessed entrance behind brick boundary walls and metal gates. CURRENT preserves this overall arrangement, but the entrance doors are oversized and the narrow window strip has incorrect width and subdivisions. SOURCE does not establish rear elevations, building depth or concealed roof construction; those CURRENT regions cannot be judged for fidelity. Screenshots alone do not establish concealed assembly joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT entrance doors nearly fill the central opening and read as a broad, subdivided screen. SOURCE shows a substantially narrower pair of doors within a dark recessed porch.",
+            "action": "Locally narrow the door assembly, restore two leaves and the surrounding recessed reveals, and preserve the existing entrance opening and balcony above."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT right-hand window strip is roughly one-fifth narrower relative to the brick frontage. Its central vertical mullion continues through all four glazed sections; SOURCE shows that division in the upper pair, with undivided lower panes.",
+            "action": "Widen the strip locally while retaining its approximate centerline and vertical extent. Remove the central mullion from the lower two sections and retain the substantial dark separator between the upper and lower pairs."
+          }
+        ],
+        "keep": [
+          "Seven vertical bays across the dark two-storey panel zone.",
+          "Two stacked balconies, with the lower balcony wider than the upper.",
+          "Three glazing bays across the exposed top of the raised glazed volume."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "villa_reconstruction",
+        "revision": 4,
+        "relative_path": "scripts/villa_reconstruction.rb",
+        "update_mode": "edit",
+        "source_sha256": "64412e72a4dceca2bfecc26b859518365f7386c18d881136e733efaf7c521c0b",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "CLADDING_LEFT",
+            "BALCONY_LOWER",
+            "BALCONY_UPPER",
+            "RAIL_LOWER",
+            "RAIL_UPPER",
+            "ENTRY_STEPS",
+            "SITE"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a frontal elevation with a recessed ground-floor entrance, two stacked balconies, two-storey dark vertical cladding, a stepped brick frontage containing a tall divided window, and an upper glazed pavilion with thin projecting roof edges. CURRENT captures these principal elements, but compresses the ground storey and changes the tall window’s proportions and divisions. No source-backed primary volume is missing. SOURCE does not establish rear elevations, building depth or concealed roof construction; those CURRENT regions cannot establish fidelity. Visible balcony connections appear continuous, although screenshots alone cannot verify their underlying joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The ground storey is compressed. In the source-matched view, the distance from the main dark frontage beam to entrance ground level is roughly 15% shorter relative to the brick frontage above than in SOURCE. The boundary-wall tops also sit too close to that beam.",
+            "action": "Locally increase the ground-storey height below the main beam, coordinating entrance glazing, doorway, steps and boundary-wall elevations while preserving the upper frontage proportions."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The tall window in the right brick frontage is too narrow and stops too far above the frontage’s bottom beam. SOURCE shows four stacked glazed sections with central vertical divisions; CURRENT omits those divisions from the lower two sections.",
+            "action": "Widen this opening locally, extend its lower end toward the beam, and restore the lower central mullions. Preserve its approximately correct head offset below the parapet."
+          }
+        ],
+        "keep": [
+          "Seven-bay vertical seam arrangement and intermediate horizontal joint in the dark left cladding.",
+          "Three upper glazing bays across the highest pavilion.",
+          "Two stacked glass-fronted balconies, with the lower balcony wider than the upper.",
+          "Thin dark projecting roof edge above the upper glazed pavilion."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-004",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a frontal elevation with a recessed ground-floor entrance, two stacked balconies, two-storey dark vertical cladding, a stepped brick frontage containing a tall divided window, and an upper glazed pavilion with thin projecting roof edges. CURRENT captures these principal elements, but compresses the ground storey and changes the tall window’s proportions and divisions. No source-backed primary volume is missing. SOURCE does not establish rear elevations, building depth or concealed roof construction; those CURRENT regions cannot establish fidelity. Visible balcony connections appear continuous, although screenshots alone cannot verify their underlying joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The ground storey is compressed. In the source-matched view, the distance from the main dark frontage beam to entrance ground level is roughly 15% shorter relative to the brick frontage above than in SOURCE. The boundary-wall tops also sit too close to that beam.",
+            "action": "Locally increase the ground-storey height below the main beam, coordinating entrance glazing, doorway, steps and boundary-wall elevations while preserving the upper frontage proportions."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The tall window in the right brick frontage is too narrow and stops too far above the frontage’s bottom beam. SOURCE shows four stacked glazed sections with central vertical divisions; CURRENT omits those divisions from the lower two sections.",
+            "action": "Widen this opening locally, extend its lower end toward the beam, and restore the lower central mullions. Preserve its approximately correct head offset below the parapet."
+          }
+        ],
+        "keep": [
+          "Seven-bay vertical seam arrangement and intermediate horizontal joint in the dark left cladding.",
+          "Three upper glazing bays across the highest pavilion.",
+          "Two stacked glass-fronted balconies, with the lower balcony wider than the upper.",
+          "Thin dark projecting roof edge above the upper glazed pavilion."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "villa_reconstruction",
+        "revision": 5,
+        "relative_path": "scripts/villa_reconstruction.rb",
+        "update_mode": "edit",
+        "source_sha256": "0df94231d685bc0c44a9f2f15aa03de581b544ee8981be0bd8276c8510bb414e",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "CLADDING_LEFT",
+            "BALCONY_LOWER",
+            "BALCONY_UPPER",
+            "RAIL_LOWER",
+            "RAIL_UPPER",
+            "TOP_GLAZING",
+            "ROOF_TOP",
+            "ENTRY",
+            "SITE"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The source is one near-frontal street photograph showing a tall right brick frontage, left dark vertical panels, two staggered recessed balconies, an upper three-bay glazed volume with projecting roof edge, a narrow stacked window strip, and brick boundary walls with metal gates. CURRENT captures this arrangement without a major primary-volume omission. The clearest differences are the window subdivisions and brick surface character. Rear elevations, concealed roof areas and exact recess depths are unverified; the additional CURRENT views cannot establish their source fidelity. No definite floating facade connection is evident.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The lower two glazed sections of the right-hand vertical window strip lack the central vertical mullions visible in SOURCE, making them read as broad single panes.",
+            "action": "Add aligned central mullions within those two sections; preserve the existing opening position, outer frame and horizontal divisions."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT brickwork reads as smooth, regular orange coursing. SOURCE shows rougher, elongated reddish-brown bricks with pronounced uneven horizontal joints across the main frontage and boundary walls.",
+            "action": "Locally revise the brick material scale, color variation and shallow joint relief on those visible surfaces, retaining their existing openings and wall outlines."
+          }
+        ],
+        "keep": [
+          "Seven-panel vertical rhythm of the left dark facade.",
+          "Two staggered glass-fronted balcony positions, with the lower balcony wider.",
+          "Three upper glazing bays beneath the projecting dark roof edge."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-005",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1 shows the street elevation; SOURCE 2–3 show opposite rear corners, SOURCE 4 the roof, and SOURCE 5–6 opposite front corners. Shared landmarks establish the brick enclosure, dark upper enclosure, raised glazed room, two recessed balconies, narrow front window stack and boundary walls. CURRENT retains these primary elements and broadly matches their arrangement, rear opening count and side opening patterns. No source-backed primary volume is missing. The photograph reveals remaining differences in front window assembly and brick character that the supplied SketchUp references simplify. Screenshots cannot establish concealed connections or confirm watertight joints; no obvious floating primary volume is visible. No dimensions are supplied.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The lower two sections of the narrow front window stack lack the central vertical mullion visible in SOURCE 1. Its surrounding dark reveal also reads substantially thinner and flatter than the photographed recessed frame.",
+            "action": "Locally add the lower central mullion and deepen the perimeter reveal/frame to match the photograph, retaining the opening’s position and overall extent."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT brickwork reads as flat, uniform, regular masonry. SOURCE 1 shows markedly thinner, elongated bricks with irregular faces and pronounced horizontal mortar relief across the main facade and boundary walls.",
+            "action": "Adjust the brick material scale, surface variation and shallow relief on these visible zones; preserve their existing outlines and openings."
+          }
+        ],
+        "keep": [
+          "Two stacked balconies, with the lower balcony wider than the upper.",
+          "Rear arrangement of five individual windows above a central double glazed door.",
+          "Three narrow left-side openings and three short right-side openings.",
+          "Left front dark cladding’s vertical divisions and intermediate horizontal joint."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "villa_reconstruction",
+        "revision": 6,
+        "relative_path": "scripts/villa_reconstruction.rb",
+        "update_mode": "edit",
+        "source_sha256": "74b7f9f0a243e52431a69e9d27308b0dd77bcd377ac02574fb69c118f8347fab",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "CLADDING_LEFT",
+            "BALCONY_LOWER",
+            "BALCONY_UPPER",
+            "RAIL_LOWER",
+            "RAIL_UPPER",
+            "TOP_GLAZING",
+            "ENTRY",
+            "GROUND_LEFT_GLAZING",
+            "MASS_TOP_GLAZED",
+            "ENTRY_STEPS"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1 shows the street front; SOURCE 2–3 show opposite rear corners, SOURCE 4 the roof, and SOURCE 5–6 opposite front corners. Shared landmarks establish the brick main volume, dark vertically divided left facade, two recessed balconies, narrow stacked front glazing, raised glazed roof room, lower dark roof volume, and rear/side openings. CURRENT retains these principal elements, but changes the entrance enclosure, lower front glazing divisions, and upper rear brick relief. No dimensions are supplied; concealed construction and joint integrity cannot be verified from screenshots alone.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT closes the central entrance with a broad continuous barred gate. The source photograph shows an open central approach with a narrower gate beside it; SOURCE 5–6 likewise retain an opening between the boundary-wall sections.",
+            "action": "Locally revise the central gate width and placement to restore the source entrance opening and visible approach steps."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT adds a central vertical mullion through the two lower lights of the narrow right-hand window stack. These lower lights are undivided vertically in the photograph and SOURCE 6.",
+            "action": "Remove the additional lower vertical mullion and align the horizontal frame divisions with the source, retaining the upper paired glazing."
+          },
+          {
+            "priority": 3,
+            "view": "rear",
+            "problem": "SOURCE 2–4 show a distinct rectangular brick apron projecting below the upper-right rear roof edge, partly overlapping the window zone. CURRENT rear appears flush beneath the horizontal gutter, losing this relief.",
+            "action": "Restore that local brick apron and its visible bottom and side edges; connect it cleanly to the roof return without covering more of the opening than shown."
+          }
+        ],
+        "keep": [
+          "Three upper rear windows arranged as one centered opening above a pair, with a second pair below.",
+          "Three vertically aligned small rectangular openings on the right side.",
+          "Three-column upper glazing in the raised roof room.",
+          "Thin dark coping along the front brick parapet."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 6
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-006",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1 shows the street front; SOURCE 2–3 show opposite rear corners, SOURCE 4 the roof, and SOURCE 5–6 opposite front corners. Shared landmarks establish the brick main volume, dark vertically divided left facade, two recessed balconies, narrow stacked front glazing, raised glazed roof room, lower dark roof volume, and rear/side openings. CURRENT retains these principal elements, but changes the entrance enclosure, lower front glazing divisions, and upper rear brick relief. No dimensions are supplied; concealed construction and joint integrity cannot be verified from screenshots alone.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT closes the central entrance with a broad continuous barred gate. The source photograph shows an open central approach with a narrower gate beside it; SOURCE 5–6 likewise retain an opening between the boundary-wall sections.",
+            "action": "Locally revise the central gate width and placement to restore the source entrance opening and visible approach steps."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT adds a central vertical mullion through the two lower lights of the narrow right-hand window stack. These lower lights are undivided vertically in the photograph and SOURCE 6.",
+            "action": "Remove the additional lower vertical mullion and align the horizontal frame divisions with the source, retaining the upper paired glazing."
+          },
+          {
+            "priority": 3,
+            "view": "rear",
+            "problem": "SOURCE 2–4 show a distinct rectangular brick apron projecting below the upper-right rear roof edge, partly overlapping the window zone. CURRENT rear appears flush beneath the horizontal gutter, losing this relief.",
+            "action": "Restore that local brick apron and its visible bottom and side edges; connect it cleanly to the roof return without covering more of the opening than shown."
+          }
+        ],
+        "keep": [
+          "Three upper rear windows arranged as one centered opening above a pair, with a second pair below.",
+          "Three vertically aligned small rectangular openings on the right side.",
+          "Three-column upper glazing in the raised roof room.",
+          "Thin dark coping along the front brick parapet."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 6
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "villa_reconstruction",
+        "revision": 7,
+        "relative_path": "scripts/villa_reconstruction.rb",
+        "update_mode": "edit",
+        "source_sha256": "e88ee38459309a247702b4276d4743068008c52a442362ca1806c842e7dbe167",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "CLADDING_LEFT",
+            "BALCONY_LOWER",
+            "BALCONY_UPPER",
+            "RAIL_LOWER",
+            "RAIL_UPPER",
+            "TOP_GLAZING",
+            "ENTRY",
+            "GROUND_LEFT_GLAZING",
+            "MASS_TOP_GLAZED",
+            "ENTRY_STEPS",
+            "INFERRED_REAR_WALL",
+            "INFERRED_RIGHT_WALL",
+            "MASS_LEFT/LEFT_RETURN",
+            "PARAPET_RIGHT",
+            "BOUNDARY_LEFT",
+            "BOUNDARY_RIGHT"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE 1 shows the street elevation: a right brick volume with a narrow stacked window, left dark vertical cladding, two recessed balconies, a raised glazed rooftop volume, recessed ground-floor entrance, and brick frontage walls with gates. SOURCE 2–6 show the old model from opposite rear corners, above, and both front corners; shared rooftop and window landmarks establish orientation, but these problem-model screenshots do not independently verify the actual building’s hidden sides or roof construction. CURRENT preserves the principal front arrangement and opening positions. The clearest remaining discrepancies are the compressed ground storey and low frontage walls. No obvious floating balcony connection is visible; concealed joints and absolute dimensions remain unverified.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Compared with SOURCE 1, CURRENT 13 compresses the ground storey beneath the continuous dark beam. The entrance and adjacent glazing are too squat relative to the closely matching upper facade.",
+            "action": "Increase the ground-storey height locally, retaining the upper facade’s opening layout and balcony relationships. Match the beam-to-entry-threshold proportion to the photograph."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT’s frontage brick walls and gates are substantially shallower vertically than those in SOURCE 1, exposing too much ground-floor glazing and weakening the enclosed entrance composition.",
+            "action": "Raise the front wall tops and adjoining gates to the photograph’s proportions relative to the entrance and beam; preserve their horizontal opening locations."
+          }
+        ],
+        "keep": [
+          "Three upper panes across the rooftop front glazing.",
+          "Right-hand narrow window stack with paired upper lights and single-width lower lights.",
+          "Two central balconies, with the lower balcony wider than the upper.",
+          "Brick notch above the lower balcony’s right-hand reveal."
+        ],
+        "model_revisions": {
+          "villa_reconstruction": 7
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

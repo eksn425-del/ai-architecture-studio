@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "villa_reconstruction",
+  "revision": 7,
+  "root_pid": 19,
+  "full_readback": true,
+  "current_stage": "representative_module",
+  "systems": [
+    {
+      "system_id": "junction_and_overlap_repair",
+      "target_paths": [
+        [
+          "MASS_LEFT",
+          "LEFT_RETURN"
+        ],
+        [
+          "MASS_RIGHT_BRICK"
+        ],
+        [
+          "INFERRED_RIGHT_WALL"
+        ],
+        [
+          "INFERRED_REAR_WALL"
+        ],
+        [
+          "ROOF_LEFT",
+          "INFERRED_REAR_ROOF_LINK"
+        ]
+      ],
+      "present_paths": [
+        [
+          "MASS_LEFT",
+          "LEFT_RETURN"
+        ],
+        [
+          "MASS_RIGHT_BRICK"
+        ],
+        [
+          "INFERRED_RIGHT_WALL"
+        ],
+        [
+          "INFERRED_REAR_WALL"
+        ],
+        [
+          "ROOF_LEFT",
+          "INFERRED_REAR_ROOF_LINK"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "roof_detail_prototype",
+      "target_paths": [
+        [
+          "ROOF_LEFT"
+        ],
+        [
+          "PARAPET_RIGHT"
+        ],
+        [
+          "INFERRED_SIDE_REAR",
+          "ROOF_CLOSURE"
+        ],
+        [
+          "INFERRED_SIDE_REAR",
+          "DRAINAGE"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ROOF_LEFT"
+        ],
+        [
+          "PARAPET_RIGHT"
+        ]
+      ],
+      "missing_paths": [
+        [
+          "INFERRED_SIDE_REAR",
+          "ROOF_CLOSURE"
+        ],
+        [
+          "INFERRED_SIDE_REAR",
+          "DRAINAGE"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "roof_detail_replication",
+      "target_paths": [
+        [
+          "ROOF_LEFT"
+        ],
+        [
+          "PARAPET_RIGHT"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ROOF_LEFT"
+        ],
+        [
+          "PARAPET_RIGHT"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "surrounding_boundary",
+      "target_paths": [
+        [
+          "BOUNDARY_LEFT"
+        ],
+        [
+          "BOUNDARY_RIGHT"
+        ],
+        [
+          "GATE_MAIN"
+        ],
+        [
+          "GATE_LEFT"
+        ],
+        [
+          "SITE"
+        ],
+        [
+          "BOUNDARY_SIDE_LEFT"
+        ],
+        [
+          "BOUNDARY_REAR"
+        ],
+        [
+          "BOUNDARY_SIDE_RIGHT"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BOUNDARY_LEFT"
+        ],
+        [
+          "BOUNDARY_RIGHT"
+        ],
+        [
+          "GATE_MAIN"
+        ],
+        [
+          "GATE_LEFT"
+        ],
+        [
+          "SITE"
+        ]
+      ],
+      "missing_paths": [
+        [
+          "BOUNDARY_SIDE_LEFT"
+        ],
+        [
+          "BOUNDARY_REAR"
+        ],
+        [
+          "BOUNDARY_SIDE_RIGHT"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    },
+    {
+      "system_id": "front_repair",
+      "target_paths": [
+        [
+          "FRONT_NARROW_WINDOW"
+        ],
+        [
+          "ENTRY"
+        ],
+        [
+          "MASS_RIGHT_BRICK"
+        ],
+        [
+          "BOUNDARY_LEFT"
+        ],
+        [
+          "BOUNDARY_RIGHT"
+        ]
+      ],
+      "present_paths": [
+        [
+          "FRONT_NARROW_WINDOW"
+        ],
+        [
+          "ENTRY"
+        ],
+        [
+          "MASS_RIGHT_BRICK"
+        ],
+        [
+          "BOUNDARY_LEFT"
+        ],
+        [
+          "BOUNDARY_RIGHT"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "landscape",
+      "target_paths": [
+        [
+          "LANDSCAPE_GROUND"
+        ],
+        [
+          "LANDSCAPE_TERRACE"
+        ]
+      ],
+      "present_paths": [],
+      "missing_paths": [
+        [
+          "LANDSCAPE_GROUND"
+        ],
+        [
+          "LANDSCAPE_TERRACE"
+        ]
+      ],
+      "result": "unresolved_paths",
+      "new_status": "pending"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}
