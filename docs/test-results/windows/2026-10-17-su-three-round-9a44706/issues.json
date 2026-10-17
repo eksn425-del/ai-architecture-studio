@@ -8,7 +8,7 @@
     "fixed_in_this_test": false
   },
   {
-    "category": "Agent_plan_or_script_arguments",
+    "category": "Agent_arguments_and_script_safety_validation",
     "count": 5,
     "confirmed": [
       "Invalid OSS method identifier",
@@ -18,7 +18,10 @@
       "Invalid KEEP batch paths"
     ],
     "effect": "Rejected calls, no unauthorized geometric change from those calls.",
-    "fixed_in_this_test": "Product Agent attempted its own recovery; tester did not supply code or tool parameters."
+    "fixed_in_this_test": "Product Agent attempted its own recovery; tester did not supply code or tool parameters.",
+    "confirmed_agent_argument_errors": 4,
+    "ambiguous_script_safety_rejection": 1,
+    "attribution_limit": "The blocked system token alone does not establish unsafe Agent intent or a valid-code false positive; precise responsibility for that one rejection remains unconfirmed."
   },
   {
     "category": "UI",
