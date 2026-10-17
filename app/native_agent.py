@@ -587,7 +587,8 @@ class CodexAppServerRuntime:
                 "serviceName": "ai_architecture_studio_oss_takeover_v1",
                 "developerInstructions": developer_instructions,
             }
-            registered_tools = dynamic_tools if mcp_enabled else []
+            from .research_tool_context import RESEARCH_TOOL_NAMES
+            registered_tools = dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES]
             thread_params["dynamicTools"] = registered_tools
             registry_path = project_dir / "runtime" / "native_thread_tools.json"
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
@@ -763,7 +764,7 @@ class CodexAppServerRuntime:
                     tool_call_count += 1
                     record({"event": "tool_started", "tool": call["tool"]})
                     try:
-                        if call["tool"] not in {str(tool.get("name", "")) for tool in dynamic_tools}:
+                        if call["tool"] not in {str(tool.get("name", "")) for tool in registered_tools}:
                             raise MCPCallError("The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist.")
                         output = tool_handler(call["tool"], params.get("arguments") or {})
                         if output.get("success") is False or output.get("isError") is True:

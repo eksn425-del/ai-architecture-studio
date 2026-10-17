@@ -153,3 +153,8 @@ def test_unknown_reference_blocks_default_ready_auto_before_provider(tmp_path):
  session=app.state.store.load_state(pid,'agent_session.json',AgentSession);session.status='ready';session.model_path='outputs/model/fixture.skp';app.state.store.save_state(pid,session,'agent_session.json')
  result=client.post('/api/projects/'+pid+'/conversation',json={'message':'继续'})
  assert result.status_code==409 and '用途' in result.text
+
+def test_unrelated_design_negation_does_not_negate_target_photo(tmp_path):
+ text="这是杭州来福士双塔的目标建筑照片。先研究讨论建成案例，不是改造设计。先不要建模。"
+ assert infer_reference_role(tmp_path,image(),[],has_model=False,context=text)==('target_building','explicit_current_target_context')
+ assert infer_reference_role(tmp_path,image(),[],has_model=False,context="这是界面截图，不是我要建的建筑。")[0]=='unknown'

@@ -129,6 +129,8 @@ class AgentToolSurface:
                 ruby_state: dict[str, dict[str, Any]] | None,
                 tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False) -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
+        from .research_tool_context import prepare_public_research, RESEARCH_TOOL_NAMES
+        research_tools, research_dispatch = prepare_public_research(resolved_project_dir)
         from .stage_quality import geometry_stage_limit, continuation_message, ReviewProgress
         from .blender_backend import enabled, BlenderBackend
         if enabled(resolved_project_dir):
@@ -136,6 +138,8 @@ class AgentToolSurface:
             stage, limit = geometry_stage_limit(bool(backend.dispatch("blender_inspect_scene", {}).get("revision")))
             quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
             def blender_dispatch(name, arguments):
+                if research_dispatch and name in RESEARCH_TOOL_NAMES:
+                    return research_dispatch(name, arguments)
                 if not mcp_enabled:
                     raise ValueError("Blender writes require an approved execution turn")
                 writing = name == "blender_apply_objects"
@@ -151,7 +155,7 @@ class AgentToolSurface:
                 finally:
                     if writing and backend.dispatch("blender_inspect_scene", {}).get("revision", 0) > before:
                         quality["writes"] += 1
-            return AgentToolContext(dynamic_tools=backend.tools() if mcp_enabled else [],
+            return AgentToolContext(dynamic_tools=(backend.tools() if mcp_enabled else []) + research_tools,
                                     dispatch=blender_dispatch, quality_state=quality)
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
@@ -167,6 +171,7 @@ class AgentToolSurface:
             ruby_enabled=executor is not None,
             tool_profile=tool_profile,
         ) if mcp_enabled else []
+        dynamic_tools.extend(research_tools)
         if workspace_tools_enabled:
             dynamic_tools.extend(workspace_file_tools())
         writes = 0
@@ -228,6 +233,8 @@ class AgentToolSurface:
 
         def dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
             nonlocal writes
+            if research_dispatch and name in RESEARCH_TOOL_NAMES:
+                return research_dispatch(name, arguments)
             if workspace_tools_enabled and name in {"workspace_read", "workspace_write"}:
                 return workspace_file_call(resolved_project_dir / "runtime" / "agent_workspace", name, arguments)
             if name == "sketchup_submit_visual_review":

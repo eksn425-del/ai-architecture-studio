@@ -59,6 +59,10 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
     action_message = re.sub(r"不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*", "", request.message)
     if re.search(r"(?:只|仅)(?:出|提供|给|写|整理)(?:一份|个|一下)?(?:计划|方案)", action_message):
         return "plan"
+    # A requested plan plus "do not build yet" is still a plan, not a canceled discussion.
+    # Hard cancellation or refusal of the plan itself remains read-only clarification.
+    if re.search(r"先.{0,8}(?:给|写|整理|说明|提供|制定).{0,12}(?:计划|方案)", action_message) and not re.search(r"暂停|停止|取消|禁止|不要.{0,8}(?:计划|方案)", action_message):
+        return "plan"
     approved = explicit_build_approval(action_message)
     if not approved and re.search(r"暂停|停止(?:建模|操作|执行|修改)|禁止.{0,8}(?:建模|操作|执行|修改)|取消|先别|暂不|先不|不执行|不建模|不同意|不批准|未批准|未确认|还没(?:有)?(?:批准|确认)|不要.{0,8}(?:开始|执行|建模|动|修改|操作)", action_message):
         return "clarify"
