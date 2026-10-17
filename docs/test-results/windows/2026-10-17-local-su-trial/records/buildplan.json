@@ -1,0 +1,424 @@
+{
+  "schema_version": "2.0",
+  "project_id": "su-1017",
+  "run_id": "su-trial-20261017-initial",
+  "design_graph_digest": "sha256:a944c405d8f681bb294bc12989fade229c1fd50155123db3f40830beba633cf2",
+  "model_units": "millimeters",
+  "intent_summary": "Execute the real website plan for a two-storey exterior only.",
+  "steps": [
+    {
+      "id": "enclosure",
+      "object": "enclosure",
+      "action": "custom_owned_ruby",
+      "parameters": {
+        "overall_width": {
+          "value": 8000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认建模面宽，非实测"
+        },
+        "overall_depth": {
+          "value": 7000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认建模进深，非实测"
+        },
+        "storey_height": {
+          "value": 3000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认层高"
+        },
+        "floor_count": {
+          "value": 2,
+          "units": "count",
+          "provenance": "user_confirmed",
+          "source": "两层小住宅"
+        },
+        "wall_thickness": {
+          "value": 200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；不可见墙厚的建模假定"
+        }
+      },
+      "depends_on": [],
+      "tag": "enclosure",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "roof",
+      "object": "roof",
+      "action": "custom_owned_ruby",
+      "parameters": {
+        "overall_width": {
+          "value": 8000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认建模面宽，非实测"
+        },
+        "overall_depth": {
+          "value": 7000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认建模进深，非实测"
+        },
+        "storey_height": {
+          "value": 3000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认层高"
+        },
+        "roof_thickness": {
+          "value": 180,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；薄屋顶边缘可见，真实构造未知"
+        }
+      },
+      "depends_on": [],
+      "tag": "roof",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "balcony",
+      "object": "balcony",
+      "action": "custom_owned_ruby",
+      "parameters": {
+        "balcony_left": {
+          "value": 600,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；阳台左端略退于主体左角"
+        },
+        "balcony_width": {
+          "value": 7200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；阳台接近立面全宽、两端略退"
+        },
+        "balcony_projection": {
+          "value": 1200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；左侧回折栏板和板底透视"
+        },
+        "balcony_thickness": {
+          "value": 300,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；白色阳台边梁相对门高"
+        },
+        "storey_height": {
+          "value": 3000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认层高"
+        }
+      },
+      "depends_on": [],
+      "tag": "balcony",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "opening_prototype",
+      "object": "opening_prototype",
+      "action": "prototype_instance",
+      "parameters": {
+        "frame_width": {
+          "value": 60,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；可见深灰细框"
+        },
+        "frame_recess": {
+          "value": 80,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；窗框相对白墙内凹阴影"
+        },
+        "door_height": {
+          "value": 2400,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；门洞与层高比例"
+        }
+      },
+      "depends_on": [],
+      "tag": "opening_prototype",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "opening_instances",
+      "object": "opening_instances",
+      "action": "prototype_instance",
+      "parameters": {
+        "front_ground_door_x": {
+          "value": 1700,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；首层宽门位于主体中部偏右"
+        },
+        "front_ground_door_width": {
+          "value": 4200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；约正面宽度一半"
+        },
+        "upper_door_left_x": {
+          "value": 1300,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；二层左门距左角约立面六分之一"
+        },
+        "upper_door_left_width": {
+          "value": 2200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；二层左组门与正面比例"
+        },
+        "upper_door_right_x": {
+          "value": 4900,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；二层右门与右木格栅间留白"
+        },
+        "upper_door_right_width": {
+          "value": 1800,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；透视中右门较窄，采用初估"
+        },
+        "left_window_y": {
+          "value": 4000,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；左墙窄窗位于进深中后部，透视估算"
+        },
+        "left_window_width": {
+          "value": 600,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；窄竖窗比例"
+        },
+        "left_window_height": {
+          "value": 1800,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；两层同类窗的竖向比例"
+        },
+        "left_window_sill": {
+          "value": 700,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；首层窗台与门洞比例"
+        }
+      },
+      "depends_on": [],
+      "tag": "opening_instances",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "screen",
+      "object": "screen",
+      "action": "prototype_instance",
+      "parameters": {
+        "screen_width": {
+          "value": 900,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；右端木带约立面九分之一"
+        },
+        "screen_depth": {
+          "value": 80,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；木条侧向阴影，非实测"
+        },
+        "slat_count": {
+          "value": 12,
+          "units": "count",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；单图分辨率下近似根数，执行时按原图复核"
+        },
+        "slat_width": {
+          "value": 45,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；木条与暗缝的视觉比例"
+        },
+        "storey_height": {
+          "value": 3000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认层高"
+        }
+      },
+      "depends_on": [],
+      "tag": "screen",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "glass_guard",
+      "object": "glass_guard",
+      "action": "custom_owned_ruby",
+      "parameters": {
+        "balcony_width": {
+          "value": 7200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；阳台接近立面全宽、两端略退"
+        },
+        "balcony_projection": {
+          "value": 1200,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；左侧回折栏板和板底透视"
+        },
+        "railing_height": {
+          "value": 1100,
+          "units": "mm",
+          "provenance": "estimated",
+          "source": "inputs/reference/2fc62f9b95-villa-single-view.png；栏板相对二层门高"
+        }
+      },
+      "depends_on": [],
+      "tag": "glass_guard",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    },
+    {
+      "id": "finish",
+      "object": "finish",
+      "action": "custom_owned_ruby",
+      "parameters": {
+        "overall_width": {
+          "value": 8000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认建模面宽，非实测"
+        },
+        "overall_depth": {
+          "value": 7000,
+          "units": "mm",
+          "provenance": "user_confirmed",
+          "source": "用户确认建模进深，非实测"
+        }
+      },
+      "depends_on": [],
+      "tag": "finish",
+      "component_strategy": "named_owned_groups",
+      "risk": [
+        "single-view inferred depth and hidden elevations"
+      ],
+      "evidence_refs": [
+        "ref_front_01"
+      ],
+      "preconditions": [
+        "actual blank disposable identity verified by website before write"
+      ],
+      "postconditions": [
+        "native readback resolves planned semantic paths"
+      ],
+      "rollback_group": "project-owned root",
+      "qa_view": "source matched front-left and six canonical views"
+    }
+  ]
+}

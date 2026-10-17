@@ -1,0 +1,462 @@
+{
+  "project_id": "su-1017",
+  "status": "ready",
+  "thread_id": "01a147f7-9210-7b13-a515-c6de8e8f55bd",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "medium",
+  "routing_tier": "economy",
+  "provider": "codex-app-server",
+  "region": "codex-managed (not exposed)",
+  "workflow_mode": "image_reconstruction",
+  "reconstruction_state": "building",
+  "clarification_rounds": 1,
+  "plan_started_ns": 1792208545744403600,
+  "plan_request_message": "就按你估算的面宽8米、进深7米、层高3米做。背面和右侧做简洁封闭墙体，这次不做内部隔墙、楼梯和家具，请整理计划。",
+  "input_tokens": 2416100,
+  "output_tokens": 13616,
+  "latency_ms": 424125,
+  "tool_call_count": 60,
+  "failed_tool_calls": 5,
+  "economy_tool_failure_streak": 5,
+  "premium_rescue_pending": true,
+  "model_path": "outputs/model/blank-disposable-20261017-114606.skp",
+  "model_guid": "1dde0369-ac1f-4394-8ecf-4744abd4eba1",
+  "started_at": "2026-10-17T03:46:08+00:00",
+  "updated_at": "2026-10-17T03:53:12+00:00",
+  "last_reply": "已在当前模型中建成可编辑候选版：两层墙体、真实门窗洞口、平屋顶、玻璃阳台和右侧通高木格栅，按 8×7 米、层高 3 米控制。\n\n已完成六视图及原图角度复核。仍有一处明显偏差：首层门头与阳台底之间的白墙间距偏紧，尚未通过最终外观验收。背面、右侧及精确门窗尺寸仍按单图估算；内部和周边环境未做。\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。",
+  "last_tool_calls": [
+    {
+      "server": "codex_native",
+      "tool": "commandExecution"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_get_model_context"
+    },
+    {
+      "server": "codex_native",
+      "tool": "fileChange"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_run_workspace_ruby"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_capture_canonical_view"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_set_camera"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_export_view_image"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_submit_visual_review"
+    },
+    {
+      "server": "sketchup_tool_surface",
+      "tool": "sketchup_inspect_owned"
+    }
+  ],
+  "last_model_info": {
+    "model_name": "blank-disposable-20261017-114606",
+    "units": "mm",
+    "entity_count": 1,
+    "selection_count": 0
+  },
+  "ruby_state": {
+    "su1017_villa": {
+      "model_guid": "f1257b7d-8bc7-4477-917a-e84c3d5aeb43",
+      "revision": 3,
+      "root_pid": 19,
+      "source_sha256": "94e88f46ad77d7cea4293827cdebe91c8e2d77e9a158a13647d6872e7d923e4c",
+      "last_report": "runtime/scripts/reports/su1017_villa-r3-0a8bc704.json",
+      "last_screenshot": "outputs/renders/ruby-su1017_villa-r3.png",
+      "last_verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 3,
+            "actual": 3
+          },
+          {
+            "check": "objects_total",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -15.0,
+                -1200.0,
+                -180.0
+              ],
+              "max": [
+                8015.0,
+                7015.0,
+                6050.0
+              ],
+              "size": [
+                8030.0,
+                8215.0,
+                6230.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -15,
+                -1200,
+                -180
+              ],
+              "max": [
+                8015,
+                7015,
+                6050
+              ],
+              "size": [
+                8030,
+                8215,
+                6230
+              ]
+            }
+          }
+        ]
+      },
+      "last_verification_report": "runtime/scripts/reports/su1017_villa-r3-0a8bc704.verification.json",
+      "last_precommit_keep_guard": {
+        "armed": true,
+        "passed": true,
+        "paths": [
+          "WINDOW_LEFT_L1_01",
+          "WINDOW_LEFT_L2_01",
+          "DOOR_FRONT_L1_01",
+          "SCREEN_FRONT_RIGHT"
+        ]
+      },
+      "last_oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "94e88f46ad77d7cea4293827cdebe91c8e2d77e9a158a13647d6872e7d923e4c",
+        "events": [],
+        "status": "committed_readback",
+        "script_id": "su1017_villa",
+        "revision": 3,
+        "root_pid": 19
+      },
+      "last_edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_v2",
+        "allowed_paths": [
+          [
+            "SHELL_FRONT"
+          ],
+          [
+            "DOOR_FRONT_L2_01"
+          ],
+          [
+            "DOOR_FRONT_L2_02"
+          ],
+          [
+            "BALCONY_SLAB"
+          ]
+        ],
+        "required_deep_keep_paths": [],
+        "allowed_top_level": [
+          "SHELL_FRONT",
+          "DOOR_FRONT_L2_01",
+          "DOOR_FRONT_L2_02",
+          "BALCONY_SLAB"
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      },
+      "last_strategy_progress": {
+        "schema_version": 1,
+        "source": "committed_owned_root_named_path_readback",
+        "script_id": "su1017_villa",
+        "revision": 3,
+        "root_pid": 19,
+        "full_readback": true,
+        "current_stage": "finish",
+        "systems": [
+          {
+            "system_id": "enclosure",
+            "target_paths": [
+              [
+                "SHELL_FRONT"
+              ],
+              [
+                "SHELL_LEFT"
+              ],
+              [
+                "SHELL_REAR"
+              ],
+              [
+                "SHELL_RIGHT"
+              ],
+              [
+                "SLAB_GROUND"
+              ],
+              [
+                "SLAB_LEVEL_2"
+              ]
+            ],
+            "present_paths": [
+              [
+                "SHELL_FRONT"
+              ],
+              [
+                "SHELL_LEFT"
+              ],
+              [
+                "SHELL_REAR"
+              ],
+              [
+                "SHELL_RIGHT"
+              ],
+              [
+                "SLAB_GROUND"
+              ],
+              [
+                "SLAB_LEVEL_2"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "roof",
+            "target_paths": [
+              [
+                "ROOF_FLAT"
+              ],
+              [
+                "ROOF_CAP"
+              ]
+            ],
+            "present_paths": [
+              [
+                "ROOF_FLAT"
+              ],
+              [
+                "ROOF_CAP"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "balcony",
+            "target_paths": [
+              [
+                "BALCONY_SLAB"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BALCONY_SLAB"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "opening_prototype",
+            "target_paths": [
+              [
+                "DOOR_FRONT_L2_01"
+              ]
+            ],
+            "present_paths": [
+              [
+                "DOOR_FRONT_L2_01"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "opening_instances",
+            "target_paths": [
+              [
+                "DOOR_FRONT_L1_01"
+              ],
+              [
+                "DOOR_FRONT_L2_01"
+              ],
+              [
+                "DOOR_FRONT_L2_02"
+              ],
+              [
+                "WINDOW_LEFT_L1_01"
+              ],
+              [
+                "WINDOW_LEFT_L2_01"
+              ]
+            ],
+            "present_paths": [
+              [
+                "DOOR_FRONT_L1_01"
+              ],
+              [
+                "DOOR_FRONT_L2_01"
+              ],
+              [
+                "DOOR_FRONT_L2_02"
+              ],
+              [
+                "WINDOW_LEFT_L1_01"
+              ],
+              [
+                "WINDOW_LEFT_L2_01"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "screen",
+            "target_paths": [
+              [
+                "SCREEN_FRONT_RIGHT"
+              ]
+            ],
+            "present_paths": [
+              [
+                "SCREEN_FRONT_RIGHT"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "glass_guard",
+            "target_paths": [
+              [
+                "BALCONY_GUARD_FRONT"
+              ],
+              [
+                "BALCONY_GUARD_LEFT"
+              ],
+              [
+                "BALCONY_GUARD_RIGHT"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BALCONY_GUARD_FRONT"
+              ],
+              [
+                "BALCONY_GUARD_LEFT"
+              ],
+              [
+                "BALCONY_GUARD_RIGHT"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "finish",
+            "target_paths": [
+              [
+                "FINISH_PLINTH"
+              ]
+            ],
+            "present_paths": [
+              [
+                "FINISH_PLINTH"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          }
+        ],
+        "visual_verification": "NOT_RUN"
+      },
+      "last_oss_method_adoption": {
+        "schema_version": 1,
+        "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {},
+        "any_oss_product_use": false,
+        "effect_verified": false,
+        "effect_verification_required": "Named component readback and independent source-matched visual review.",
+        "plan_choices": [
+          {
+            "system": "enclosure",
+            "method_id": "saie.wall_with_openings",
+            "selection_reason": "Verified installed SAIE adapter supports continuous straight walls with the observed rectangular apertures. Solid rear/right walls use saie.wall.",
+            "disposition": "selected_but_not_invoked"
+          },
+          {
+            "system": "roof",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "balcony",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "opening_prototype",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "opening_instances",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "screen",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "glass_guard",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "finish",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          }
+        ]
+      }
+    }
+  },
+  "error": ""
+}

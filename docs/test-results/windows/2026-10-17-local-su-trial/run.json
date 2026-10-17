@@ -3,7 +3,7 @@
   "result": "READY_FOR_LOCAL_OWNER_TRIAL_WITH_LIMITATIONS",
   "geometry_committed": true,
   "private_raw_evidence_retained": true,
-  "public_raw_evidence": "WITHHELD_BY_CURRENT_OWNER_INSTRUCTION",
+  "public_raw_evidence": "OWNER_AUTHORIZED_PUBLISHED_WITH_PROFILE_NAME_REDACTION",
   "base_commit": "564d75c2361f8ac73b3024abffba5035581aa661",
   "reviewed_fixes": [
     "55b492dedd5585c40a93725a95c0b36ebc07edf8",
@@ -40,5 +40,31 @@
   "deployment": "NOT_RUN",
   "old_r20_and_r4_unchanged": true,
   "page_left_open": "http://127.0.0.1:8787/",
-  "private_evidence_folder": "runtime/su-trial-20261017"
+  "private_evidence_folder": "runtime/su-trial-20261017",
+  "schema_version": 1,
+  "test_id": "2026-10-17-local-su-trial",
+  "status": "PARTIAL",
+  "source_case": "cloud-villa/villa-single-view.png; pixel-identical uploaded 2fc62f9b95-villa-single-view.png",
+  "model": {
+    "actual": "gpt-6.1-sol",
+    "runtime": "codex-app-server",
+    "reasoning_effort": "medium"
+  },
+  "environment": {
+    "os": "Windows",
+    "sketchup": "24.0.484",
+    "bridge": "0.1.0",
+    "site": "http://127.0.0.1:8787/"
+  },
+  "qa": {
+    "source_fidelity": "NEEDS_FIX",
+    "local_edit": "PASS",
+    "protected_geometry": "PASS",
+    "native_delivery": "PASS_WITH_DECLARED_PRECISION",
+    "raw_strict_double": "FAIL",
+    "strict_program_replay": "NOT_RUN",
+    "independent_commercial_api": "NOT_RUN"
+  },
+  "engineering_commit": "9ae94384a419deaccbdfdd4b867fb297666defec",
+  "publication_note": "Owner subsequently requested ALL trial records on GitHub. Branch publication only; main unchanged."
 }

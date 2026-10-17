@@ -1,0 +1,52 @@
+[
+  {
+    "event_file": "5ec12da8c1c143b2bd04d6cde247b74d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "Invalid notes/construction_strategy.json: construction strategy system 'enclosure' has invalid OSS method_id.. Read notes/construction_strategy_schema.md and correct the persisted plan; do not discard it or infer that the existing model is unbuilt. No model operation was attempted.",
+    "exit_code": null
+  },
+  {
+    "event_file": "5ec12da8c1c143b2bd04d6cde247b74d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "Invalid notes/construction_strategy.json: systems[3].target_paths paths must contain 1..8 exact owned-group names.. Read notes/construction_strategy_schema.md and correct the persisted plan; do not discard it or infer that the existing model is unbuilt. No model operation was attempted.",
+    "exit_code": null
+  },
+  {
+    "event_file": "5ec12da8c1c143b2bd04d6cde247b74d.jsonl",
+    "tool": "sketchup_submit_visual_review",
+    "error": "Invalid notes/reconstruction_evidence.json: exterior_views.rear marked user_confirmed requires source_refs.. Read notes/reconstruction_contracts.md and repair the evidence contract before visual acceptance.",
+    "exit_code": null
+  },
+  {
+    "event_file": "5ec12da8c1c143b2bd04d6cde247b74d.jsonl",
+    "tool": "codex_commandExecution",
+    "error": "Native coding operation failed",
+    "exit_code": 1
+  },
+  {
+    "event_file": "5ec12da8c1c143b2bd04d6cde247b74d.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。",
+    "exit_code": null
+  },
+  {
+    "event_file": "b2b6ab7ae37f447d88b6f06d9592df76.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Unexpected existing height BALCONY_GUARD_FRONT\",\n    \"backtrace\": [\n      \"su1017_villa.rb:184:in `block (2 levels) in <main>'\",\n      \"su1017_villa.rb:178:in `each'\",\n      \"su1017_villa.rb:178:in `block in <main>'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-c4b0b067fa3d404d94a7e3544186785d.rb:26:in `eval'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-c4b0b067fa3d404d94a7e3544186785d.rb:26:in `block in <main>'\",\n      \"E:/K AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:115:in `run'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-c4b0b067fa3d404d94a7e3544186785d.rb:12:in `<main>'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\"\n    ]\n  }\n}",
+    "exit_code": null
+  },
+  {
+    "event_file": "b2b6ab7ae37f447d88b6f06d9592df76.jsonl",
+    "tool": "sketchup_run_workspace_ruby",
+    "error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Guard height verification failed BALCONY_GUARD_FRONT\",\n    \"backtrace\": [\n      \"su1017_villa.rb:188:in `block (2 levels) in <main>'\",\n      \"su1017_villa.rb:178:in `each'\",\n      \"su1017_villa.rb:178:in `block in <main>'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-b6e8f577efff49f7a8958f2d967181ad.rb:26:in `eval'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-b6e8f577efff49f7a8958f2d967181ad.rb:26:in `block in <main>'\",\n      \"E:/K AI 产品建模网站/app/vendor/sketchup_architect/scripts/model_session.rb:115:in `run'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-project-ruby-b6e8f577efff49f7a8958f2d967181ad.rb:12:in `<main>'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\"\n    ]\n  }\n}",
+    "exit_code": null
+  },
+  {
+    "phase": "initial_offline_tests",
+    "error": "8 failures: Node UTF-8 stdout decoded with Windows GBK. Fixed explicit UTF-8; 29 focused and final full suite pass."
+  },
+  {
+    "phase": "host_ui_automation",
+    "error": "App switch returned Invalid window handle; no dependent input performed. Recovered through observed SketchUp taskbar button and fresh foreground Snapshot."
+  }
+]

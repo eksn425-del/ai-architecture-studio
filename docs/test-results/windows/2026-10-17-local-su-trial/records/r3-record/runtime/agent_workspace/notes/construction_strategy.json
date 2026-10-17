@@ -1,0 +1,454 @@
+{
+  "schema_version": 1,
+  "current_stage": "finish",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "overall_width": {
+      "value": 8000,
+      "units": "mm",
+      "provenance": "user_confirmed",
+      "source": "用户确认建模面宽，非实测"
+    },
+    "overall_depth": {
+      "value": 7000,
+      "units": "mm",
+      "provenance": "user_confirmed",
+      "source": "用户确认建模进深，非实测"
+    },
+    "storey_height": {
+      "value": 3000,
+      "units": "mm",
+      "provenance": "user_confirmed",
+      "source": "用户确认层高"
+    },
+    "floor_count": {
+      "value": 2,
+      "units": "count",
+      "provenance": "user_confirmed",
+      "source": "两层小住宅"
+    },
+    "wall_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；不可见墙厚的建模假定"
+    },
+    "roof_thickness": {
+      "value": 180,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；薄屋顶边缘可见，真实构造未知"
+    },
+    "balcony_left": {
+      "value": 600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；阳台左端略退于主体左角"
+    },
+    "balcony_width": {
+      "value": 6750,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；阳台接近立面全宽、两端略退"
+    },
+    "balcony_projection": {
+      "value": 1200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；左侧回折栏板和板底透视"
+    },
+    "balcony_thickness": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；白色阳台边梁相对门高"
+    },
+    "railing_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；栏板相对二层门高"
+    },
+    "front_ground_door_x": {
+      "value": 1700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；首层宽门位于主体中部偏右"
+    },
+    "front_ground_door_width": {
+      "value": 4200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；约正面宽度一半"
+    },
+    "door_height": {
+      "value": 2400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；门洞与层高比例"
+    },
+    "upper_door_left_x": {
+      "value": 1300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；二层左门距左角约立面六分之一"
+    },
+    "upper_door_left_width": {
+      "value": 2200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；二层左组门与正面比例"
+    },
+    "upper_door_right_x": {
+      "value": 4900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；二层右门与右木格栅间留白"
+    },
+    "upper_door_right_width": {
+      "value": 1800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；透视中右门较窄，采用初估"
+    },
+    "left_window_y": {
+      "value": 4000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；左墙窄窗位于进深中后部，透视估算"
+    },
+    "left_window_width": {
+      "value": 850,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；窄竖窗比例"
+    },
+    "left_window_height": {
+      "value": 1600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；两层同类窗的竖向比例"
+    },
+    "left_window_sill": {
+      "value": 800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；首层窗台与门洞比例"
+    },
+    "frame_width": {
+      "value": 60,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；可见深灰细框"
+    },
+    "frame_recess": {
+      "value": 80,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；窗框相对白墙内凹阴影"
+    },
+    "screen_width": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；右端木带约立面九分之一"
+    },
+    "screen_depth": {
+      "value": 80,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；木条侧向阴影，非实测"
+    },
+    "slat_count": {
+      "value": 12,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；单图分辨率下近似根数，执行时按原图复核"
+    },
+    "slat_width": {
+      "value": 45,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png；木条与暗缝的视觉比例"
+    }
+  },
+  "systems": [
+    {
+      "id": "enclosure",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth",
+        "storey_height",
+        "floor_count",
+        "wall_thickness"
+      ],
+      "target_paths": [
+        [
+          "SHELL_FRONT"
+        ],
+        [
+          "SHELL_LEFT"
+        ],
+        [
+          "SHELL_REAR"
+        ],
+        [
+          "SHELL_RIGHT"
+        ],
+        [
+          "SLAB_GROUND"
+        ],
+        [
+          "SLAB_LEVEL_2"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "Verified installed SAIE adapter supports continuous straight walls with the observed rectangular apertures. Solid rear/right walls use saie.wall."
+    },
+    {
+      "id": "roof",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth",
+        "storey_height",
+        "roof_thickness"
+      ],
+      "target_paths": [
+        [
+          "ROOF_FLAT"
+        ],
+        [
+          "ROOF_CAP"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    },
+    {
+      "id": "balcony",
+      "stage": "primary_form",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "balcony_left",
+        "balcony_width",
+        "balcony_projection",
+        "balcony_thickness",
+        "storey_height"
+      ],
+      "target_paths": [
+        [
+          "BALCONY_SLAB"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    },
+    {
+      "id": "opening_prototype",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "frame_width",
+        "frame_recess",
+        "door_height"
+      ],
+      "target_paths": [
+        [
+          "DOOR_FRONT_L2_01"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    },
+    {
+      "id": "opening_instances",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "front_ground_door_x",
+        "front_ground_door_width",
+        "upper_door_left_x",
+        "upper_door_left_width",
+        "upper_door_right_x",
+        "upper_door_right_width",
+        "left_window_y",
+        "left_window_width",
+        "left_window_height",
+        "left_window_sill"
+      ],
+      "target_paths": [
+        [
+          "DOOR_FRONT_L1_01"
+        ],
+        [
+          "DOOR_FRONT_L2_01"
+        ],
+        [
+          "DOOR_FRONT_L2_02"
+        ],
+        [
+          "WINDOW_LEFT_L1_01"
+        ],
+        [
+          "WINDOW_LEFT_L2_01"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    },
+    {
+      "id": "screen",
+      "stage": "replication",
+      "role": "facade_detail",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "screen_width",
+        "screen_depth",
+        "slat_count",
+        "slat_width",
+        "storey_height"
+      ],
+      "target_paths": [
+        [
+          "SCREEN_FRONT_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    },
+    {
+      "id": "glass_guard",
+      "stage": "variants",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "balcony_width",
+        "balcony_projection",
+        "railing_height"
+      ],
+      "target_paths": [
+        [
+          "BALCONY_GUARD_FRONT"
+        ],
+        [
+          "BALCONY_GUARD_LEFT"
+        ],
+        [
+          "BALCONY_GUARD_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    },
+    {
+      "id": "finish",
+      "stage": "finish",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "overall_width",
+        "overall_depth"
+      ],
+      "target_paths": [
+        [
+          "FINISH_PLINTH"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "仅计划，尚未调用；父组先创建，子对象直接在父组 entities 内生成；同级语义 ID 唯一。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled."
+    }
+  ],
+  "notes": [
+    "Revision 3 on the same owned root; 19 semantic assemblies.",
+    "Upper front doors corrected to 2100 high, heads at5100. User-confirmed 3000 floor datum retained; not raised in response to perspective-only evidence.",
+    "Initial wall build used committed SAIE events; scoped aperture corrections use native face loops to preserve existing target container IDs.",
+    "Terrace intentionally omitted under explicit no-environment user scope."
+  ]
+}

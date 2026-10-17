@@ -1,0 +1,184 @@
+{
+  "project_id": "su-1017",
+  "project_name": "SU 候选版验收 · 单图住宅 1017",
+  "brief": {
+    "source_files": [],
+    "summary": "",
+    "requirements": []
+  },
+  "site": {
+    "source_files": [],
+    "summary": "",
+    "boundary": [],
+    "north": null,
+    "access_points": []
+  },
+  "references": [
+    {
+      "type": "image",
+      "source": "inputs/reference/2fc62f9b95-villa-single-view.png",
+      "submitted_at": "2026-10-17T03:41:06+00:00",
+      "status": "pending",
+      "title": "",
+      "excerpt": "",
+      "fetched_at": "",
+      "error": "",
+      "observed_principles": []
+    }
+  ],
+  "user_intent": "",
+  "decisions": [],
+  "unresolved": [],
+  "conversation": [
+    {
+      "role": "user",
+      "phase": "agent",
+      "content": "请根据这张图做一栋两层小住宅，先把墙、门窗、平屋顶、玻璃阳台和右侧木格栅建出来，内部家具和周边环境这次不做。",
+      "created_at": "2026-10-17T03:41:06+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "clarify",
+        "requested_tier": "economy",
+        "effective_tier": "economy",
+        "routing_reason": "默认 Economy",
+        "attachments": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ]
+      }
+    },
+    {
+      "role": "assistant",
+      "phase": "agent",
+      "content": "图中住宅为两层白色方盒体，平屋顶带薄压顶；正面首层是宽幅落地玻璃门，二层有两组玻璃门，连接外挑阳台。阳台采用玻璃栏板，左侧有短边回折；左侧墙每层各一扇窄竖窗，正面右端为贯穿两层的竖向木格栅。\n\n需确认两点：\n\n1. 有指定尺寸吗？没有的话，暂按面宽约 8 米、进深约 7 米、层高约 3 米估算，再依图片比例调整。\n2. 背面、右侧及室内楼梯未展示，是否有补充要求？默认背面和右侧先做简洁封闭墙体，内部隔墙、楼梯及家具、周边环境均不做。\n\n阳台挑出深度和门窗尺寸也只能由单图估算。本轮仅确认，不修改模型。",
+      "created_at": "2026-10-17T03:41:30+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "clarify",
+        "reconstruction_state": "clarifying",
+        "tier": "economy",
+        "provider": "codex-app-server",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "medium",
+        "region": "codex-managed (not exposed)",
+        "input_tokens": 18173,
+        "output_tokens": 294,
+        "latency_ms": 24297,
+        "tool_call_count": 0,
+        "failed_tool_calls": 0,
+        "routing_reason": "默认 Economy",
+        "premium_rescue_pending": false
+      }
+    },
+    {
+      "role": "user",
+      "phase": "agent",
+      "content": "就按你估算的面宽8米、进深7米、层高3米做。背面和右侧做简洁封闭墙体，这次不做内部隔墙、楼梯和家具，请整理计划。",
+      "created_at": "2026-10-17T03:42:25+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "plan",
+        "requested_tier": "economy",
+        "effective_tier": "economy",
+        "routing_reason": "默认 Economy",
+        "attachments": []
+      }
+    },
+    {
+      "role": "assistant",
+      "phase": "agent",
+      "content": "计划已保存至四份规划文件，尚未修改模型：\n\n按面宽8米、进深7米、层高3米建两层住宅；先做白色墙体、真实门窗洞口和平屋顶，再做外挑玻璃阳台及正面右端通高木格栅。保留首层一组宽玻璃门、二层两组玻璃门、左侧每层一扇窄窗；背面和右侧为封闭墙体。不做内部隔墙、楼梯、家具及周边环境。\n\n阳台暂按挑出1.2米、栏高1.1米；门窗尺寸、木条根数及未见屋面构造仍属估算。\n\n请确认是否按此计划开始建模。",
+      "created_at": "2026-10-17T03:44:37+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "plan",
+        "reconstruction_state": "planned",
+        "tier": "economy",
+        "provider": "codex-app-server",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "medium",
+        "region": "codex-managed (not exposed)",
+        "input_tokens": 207121,
+        "output_tokens": 6535,
+        "latency_ms": 131438,
+        "tool_call_count": 5,
+        "failed_tool_calls": 0,
+        "routing_reason": "默认 Economy",
+        "premium_rescue_pending": false
+      }
+    },
+    {
+      "role": "user",
+      "phase": "agent",
+      "content": "确认，按当前计划开始建模。",
+      "created_at": "2026-10-17T03:46:08+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "execute",
+        "requested_tier": "economy",
+        "effective_tier": "economy",
+        "routing_reason": "默认 Economy",
+        "attachments": []
+      }
+    },
+    {
+      "role": "assistant",
+      "phase": "agent",
+      "content": "已在当前模型中建成可编辑候选版：两层墙体、真实门窗洞口、平屋顶、玻璃阳台和右侧通高木格栅，按 8×7 米、层高 3 米控制。\n\n已完成六视图及原图角度复核。仍有一处明显偏差：首层门头与阳台底之间的白墙间距偏紧，尚未通过最终外观验收。背面、右侧及精确门窗尺寸仍按单图估算；内部和周边环境未做。\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。",
+      "created_at": "2026-10-17T03:53:14+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "execute",
+        "reconstruction_state": "building",
+        "tier": "economy",
+        "provider": "codex-app-server",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "medium",
+        "region": "codex-managed (not exposed)",
+        "input_tokens": 2416100,
+        "output_tokens": 13616,
+        "latency_ms": 424125,
+        "tool_call_count": 60,
+        "failed_tool_calls": 5,
+        "routing_reason": "默认 Economy",
+        "premium_rescue_pending": true
+      }
+    },
+    {
+      "role": "user",
+      "phase": "agent",
+      "content": "请只把阳台玻璃栏杆整体加高到1.2米，阳台板、门窗、屋顶、墙体和木格栅都保持不变，完成后保存让我下载。",
+      "created_at": "2026-10-17T03:54:17+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "execute",
+        "requested_tier": "economy",
+        "effective_tier": "economy",
+        "routing_reason": "默认 Economy",
+        "attachments": []
+      }
+    },
+    {
+      "role": "assistant",
+      "phase": "agent",
+      "content": "阳台正面及两侧玻璃栏杆已统一加高至 **1.2 米**；阳台板、门窗、屋顶、墙体和木格栅均已核对保持不变。\n\n当前接口未提供保存操作，尚未确认更新后的可下载 SKP 已生成。\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。",
+      "created_at": "2026-10-17T03:57:06+00:00",
+      "metadata": {
+        "workflow_mode": "image_reconstruction",
+        "agent_action": "execute",
+        "reconstruction_state": "building",
+        "tier": "economy",
+        "provider": "codex-app-server",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "medium",
+        "region": "codex-managed (not exposed)",
+        "input_tokens": 2526740,
+        "output_tokens": 4181,
+        "latency_ms": 165516,
+        "tool_call_count": 28,
+        "failed_tool_calls": 2,
+        "routing_reason": "默认 Economy",
+        "premium_rescue_pending": true
+      }
+    }
+  ]
+}

@@ -1,3 +1,65 @@
+# SU 本机试用：全部记录公开归档（2026-10-17）
+
+所有者在本轮验收结束后明确要求上传全部记录、图片和执行细节。**296份冻结文件全部上传**，仅六份文字记录中的本机账户目录用户名替换为 `LOCAL_USER`；图片与模型字节不变。凭据容器未收集、未上传。隔离分支 `codex/su-trial-candidate-20261017`，不合并 main、不部署、不继续建模。
+
+**可开始本机个人试用；整体结果 PARTIAL。** 网站初建、一次局部修改、16组保护、保存、真正网页下载及 SU24 原生重开完成。源图保真仍 NEEDS_FIX；三阶段声明精度 PASS、原始严格比较 FAIL、严格空白重放和独立商业API NOT_RUN，全部保留。
+
+- [逐步执行、完整中文需求、修复及失败、耗时和Token](EXECUTION_DETAILS.md)
+- [全部296份原始执行资料（用户名脱敏）](records/) · [逐文件原始/公开SHA与脱敏清单](publication-provenance.json) · [公开SHA256清单](artifacts.json)
+- [实际网站完整项目：对话、输入、脚本、回执、事件、Critic和模型](records/final-project-record/) · [修改前r3冻结记录](records/r3-record/)
+- [最终r4实际网页下载SKP](model/SU-trial-r4-browser-download.skp) · [局部修改前r3 SKP](model/SU-trial-r3-before-edit.skp)
+- [规划图/BuildPlan/校验](records/validation.json) · [实际写入回执](model/write-verifications.json) · [栏杆1.2米原生测量](records/actual-r4-rail-height.json)
+- [16组KEEP和深层作用域保护](records/local-edit-protection.json) · [六对同机位实际相机检查](records/paired-camera-check.json)
+- [网页下载SHA证明](records/browser-download-proof.json) · [三阶段声明精度检查](records/native-delivery-declared-precision.json) · [严格失败原文](records/native-delivery-strict.json)
+- [独立Critic原文](review/critique.json) · [独立Critic历史](records/final-project-record/runtime/agent_workspace/qa/visual_review_history.jsonl) · [宿主单独复核](review/review.md)
+- [所有失败记录](errors.json) · [原生实际用量](metrics.json) · [最终代码回归输出](records/final-status-tests.txt) · [可启动候选版说明](../../../SU_TRIAL_CANDIDATE_2026-10-17.md)
+
+实际路线 `gpt-6.1-sol/medium`，SU 24.0.484，项目 `su-1017`，根19，第4版。网站97工具/7失败、6250695输入/25390输出；独立Critic另119942输入/4271输出。代码545通过/13跳过不是建模保真通过。完整原图在 [真实上传文件](records/final-project-record/inputs/reference/2fc62f9b95-villa-single-view.png)，原始已有公开合成图在 [仓库源图](../../../test-assets/cloud-villa/villa-single-view.png)。
+
+## 实际页面与原图机位
+
+| 最终真实网站 | 真实模型的原图对应角度 |
+| --- | --- |
+| ![最终试用页面](records/08-candidate-ready.png) | ![原生模型原图机位](source-perspective.png) |
+
+[分析运行](records/01-analysis-running.png)、[草稿恢复](records/02-draft-restored.png)、[断网提示](records/03-offline-plan-state.png)、[计划](records/04-plan-approved-scope.png)、[建模中](records/05-build-running.png)、[r3预览](records/06-initial-model-preview.png)、[保存和下载](records/07-final-save-and-download.png)。
+
+## 修改前后：同一原生相机
+
+| front r3：修改前 | front r4：栏杆升高后 |
+| --- | --- |
+| ![r3 front](records/r3-record/outputs/renders/agent-view-front-edcf5035c1.png) | ![r4 front](records/final-project-record/outputs/renders/agent-view-front-f759e273e9.png) |
+
+| rear r3：修改前 | rear r4：栏杆升高后 |
+| --- | --- |
+| ![r3 rear](records/r3-record/outputs/renders/agent-view-rear-b312617ae5.png) | ![r4 rear](records/final-project-record/outputs/renders/agent-view-rear-56685dafbe.png) |
+
+| left r3：修改前 | left r4：栏杆升高后 |
+| --- | --- |
+| ![r3 left](records/r3-record/outputs/renders/agent-view-left-885b952794.png) | ![r4 left](records/final-project-record/outputs/renders/agent-view-left-0431bc1711.png) |
+
+| right r3：修改前 | right r4：栏杆升高后 |
+| --- | --- |
+| ![r3 right](records/r3-record/outputs/renders/agent-view-right-581fc54ac6.png) | ![r4 right](records/final-project-record/outputs/renders/agent-view-right-7298e37e25.png) |
+
+| roof r3：修改前 | roof r4：栏杆升高后 |
+| --- | --- |
+| ![r3 roof](records/r3-record/outputs/renders/agent-view-roof-7af21af71a.png) | ![r4 roof](records/final-project-record/outputs/renders/agent-view-roof-06a94715b4.png) |
+
+| oblique r3：修改前 | oblique r4：栏杆升高后 |
+| --- | --- |
+| ![r3 oblique](records/r3-record/outputs/renders/agent-view-oblique-c74b7a0fac.png) | ![r4 oblique](records/final-project-record/outputs/renders/agent-view-oblique-2f73e1f3bc.png) |
+
+## 归档边界
+
+preserved/ 是旧r20和原r4的保护备份；test-generated/ 是离线测试夹具，不能算真实建模。原始日志、失败和历史清单保留，机器用户名脱敏导致文字文件SHA变化由 provenance 明确列出。PNG与SKP均字节相同。没有账户密码、Key、令牌、Cookie、认证容器；没有完整外层Codex聊天导出或桌面录像，未编造缺失材料。
+
+## 以下为上传授权前的历史工程索引
+
+下段“本机保留/不上传”是前一条授权下的历史状态，已被本页顶部这次明确上传授权覆盖；其他验收结论不变。
+
+---
+
 # 2026-10-17 本机 SU 试用候选版：真实主流程完成，保留质量限制
 
 本次是新授权的独立本机产品验收，不继续旧八图r20。隔离分支 `codex/su-trial-candidate-20261017`，以r20/main `564d75c` 为基线，审查并包含 `55b492d`、`a6347ca`。[完整工程结论及启动方式](../../../SU_TRIAL_CANDIDATE_2026-10-17.md)。

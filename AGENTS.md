@@ -1,3 +1,7 @@
+## OWNER SU TRIAL PUBLICATION 2026-10-17 — publish records on isolated branch only
+
+Owner now explicitly requests ALL this SU trial records, images and execution details on GitHub. Publish the complete sanitized frozen su-1017 trial evidence on codex/su-trial-candidate-20261017 and link SU Issue #20. This overrides the preceding trial raw-material withholding rule only. Credentials/passwords/API keys/login tokens/cookies/auth containers remain excluded. No main merge/deployment/new modeling authorized; old r20 stays closed. Full public evidence: docs/test-results/windows/2026-10-17-local-su-trial/README.md. Historical initial withholding statement below is preserved.
+
 ## OWNER LOCAL SU TRIAL 2026-10-17 — isolated candidate, old r20 stays closed
 
 New owner instruction: review/integrate trial fixes 55b492d and a6347ca on an isolated branch; reuse existing exact gpt-6.1-sol/medium local configuration, perform one independent real-browser/SU build and bounded local edit/save/download/reopen plus recovery UX checks. Preserve existing files/models. No new features, old r20 refinement, model substitution, new credentials, bulk retries, main merge, deployment or thesis work. Raw trial images/logs/models stay local; sanitized engineering records may be committed on the isolated branch, with no automatic public upload. Current trial entry: docs/SU_TRIAL_CANDIDATE_2026-10-17.md.

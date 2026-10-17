@@ -1,0 +1,35 @@
+{
+  "project_id": "su-1017",
+  "model_path": "outputs/model/agent-checkpoint-225ad68bf890.skp",
+  "objects": [],
+  "last_capture": "outputs/renders/agent-edd9627985.png",
+  "last_operation": {
+    "action": "native_agent_turn",
+    "tool_calls": [
+      {
+        "server": "codex_native",
+        "tool": "commandExecution"
+      },
+      {
+        "server": "sketchup_tool_surface",
+        "tool": "sketchup_inspect_owned"
+      }
+    ],
+    "readback": {
+      "model_name": "blank-disposable-20261017-114606",
+      "units": "mm",
+      "entity_count": 1,
+      "selection_count": 0
+    },
+    "delivery_status": "HOST_VERIFIED_NATIVE_WITH_DECLARED_PRECISION",
+    "delivery_receipt": "runtime/native_delivery_checkpoint.json",
+    "delivery_verification": "runtime/su_trial_native_verification_r4.json"
+  },
+  "connector_readback": {
+    "model_name": "blank-disposable-20261017-114606",
+    "units": "mm",
+    "entity_count": 1,
+    "selection_count": 0
+  },
+  "status": "agentic"
+}

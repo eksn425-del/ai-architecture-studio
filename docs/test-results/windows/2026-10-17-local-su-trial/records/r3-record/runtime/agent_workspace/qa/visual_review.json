@@ -1,0 +1,454 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "single_view_inference",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "single_view_inference",
+    "primary_source": "inputs/reference/2fc62f9b95-villa-single-view.png",
+    "sources": [
+      {
+        "id": "source_01",
+        "kind": "exterior_image",
+        "path": "inputs/reference/2fc62f9b95-villa-single-view.png",
+        "provenance": "observed",
+        "role": "唯一复原目标：正面及左侧单幅斜视图",
+        "notes": [
+          "已直接查看原始图片；1 个文件、1 个画面、1 个视角。",
+          "无任务书、场地、URL、CAD或平面图；无需场地/功能改编。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ],
+        "notes": [
+          "白色两层方盒，首层一组宽落地玻璃门，二层两组玻璃门。",
+          "阳台外挑；玻璃前栏、左回折及细金属分格可见；正面右端暖木格栅自基脚上方延续至屋顶。"
+        ]
+      },
+      "left": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ],
+        "notes": [
+          "每层一扇窄竖窗，上下大致对齐；主体无已知侧翼。"
+        ]
+      },
+      "rear": {
+        "provenance": "user_confirmed",
+        "source_refs": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ],
+        "notes": [
+          "Not visible in the source image. Closed wall is explicitly user-confirmed, not an observed absence of openings."
+        ]
+      },
+      "right": {
+        "provenance": "user_confirmed",
+        "source_refs": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ],
+        "notes": [
+          "Not visible in the source image. Closed wall is explicitly user-confirmed, not an observed absence of openings."
+        ]
+      },
+      "roof": {
+        "provenance": "inferred",
+        "source_refs": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ],
+        "notes": [
+          "仅屋顶外缘薄压顶可见，顶面未露出；平板为整体轮廓推定，不虚构天窗、设备、露台或高女儿墙。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/2fc62f9b95-villa-single-view.png"
+        ],
+        "notes": [
+          "唯一观察角度；正面门洞、左侧窄窗、悬挑板底和格栅共同定位。",
+          "没有独立第二角度可交叉测量，未发现可证实矛盾。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "无平面；不恢复内部隔墙和楼梯。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供 CAD。"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "外景玻璃后可见家具和窗帘，但按用户范围不制作；无独立室内证据。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "用户确认面宽",
+        "value_mm": 8000,
+        "provenance": "user_confirmed"
+      },
+      {
+        "name": "用户确认进深",
+        "value_mm": 7000,
+        "provenance": "user_confirmed"
+      },
+      {
+        "name": "用户确认层高",
+        "value_mm": 3000,
+        "provenance": "user_confirmed"
+      },
+      {
+        "name": "阳台挑出初估",
+        "value_mm": 1200,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/2fc62f9b95-villa-single-view.png"
+      }
+    ],
+    "hard_constraints": [
+      "两层；面宽8000、进深7000、层高3000毫米作为建模约束，非原建筑测量值。",
+      "墙、门窗、平屋顶、玻璃阳台、正面右端通高木格栅在范围内。",
+      "背面及右侧简洁封闭；不做内部隔墙、楼梯、家具及周边环境。",
+      "User approved execution on 2026-10-17. Geometry built in the verified disposable model; no interior/site scope added."
+    ],
+    "assumptions": [
+      "墙厚200毫米、门高2400毫米、阳台挑出1200毫米、栏高1100毫米均为估算。",
+      "主体层面 z=0/3000/6000；屋顶板向下布置，薄压顶高度另按源图控制。",
+      "二层两组门直通同一阳台，门槛与二层完成面齐平；不推定未见室内垂直交通。",
+      "阳台右短回折、屋面顶面构造不可见；只作最简闭合。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "do_not_infer",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "latency_ms": 34750,
+    "input_tokens": 29978,
+    "output_tokens": 1049,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE shows one two-storey white volume from the front-left: two upper glazed openings, one broad ground-floor opening, two stacked narrow left windows, a projecting glass-railed balcony, a full-height right timber strip, thin roof coping and surrounding paving. CURRENT preserves this opening arrangement and material placement, but compresses the clearance beneath the balcony and omits the projecting paved terrace. The supplied source-matched camera still differs in perspective, so apparent building width/depth differences are uncertain. Rear, right elevation and roof surface are unobserved in SOURCE. Screenshots show no obvious floating balcony components, but cannot establish concealed connections.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "CURRENT places the balcony underside almost against the ground-floor glazing head. SOURCE has a clearly visible white wall band between them, giving the balcony and lower opening distinct separation.",
+      "action": "Locally adjust balcony elevation and ground-floor opening head height to restore the source clearance; retain the opening’s two-panel division and horizontal placement."
+    },
+    {
+      "priority": 2,
+      "view": "front-left",
+      "problem": "SOURCE has a paved terrace projecting beyond both the front and left walls, including beyond the balcony footprint. CURRENT terminates at a narrow base strip, losing this visible ground-level silhouette.",
+      "action": "Add the shallow projecting paved platform along the observed front and left edges, keeping it distinct from the wall plinth. Infer concealed extents conservatively."
+    }
+  ],
+  "keep": [
+    "Two separate paired upper glazed openings.",
+    "Central division of the broad ground-floor glazing.",
+    "Two vertically aligned narrow left-side windows.",
+    "Placement of the full-height timber strip at the front-right edge."
+  ],
+  "model_revisions": {
+    "su1017_villa": 3
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-edcf5035c1.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "su1017_villa": 3
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "su1017_villa",
+      "camera": {
+        "eye_m": [
+          4.0,
+          -20.915999999999997,
+          3.0595999999999997
+        ],
+        "target_m": [
+          4.0,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-b312617ae5.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "su1017_villa": 3
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "su1017_villa",
+      "camera": {
+        "eye_m": [
+          4.0,
+          26.730999999999998,
+          3.0595999999999997
+        ],
+        "target_m": [
+          4.0,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-885b952794.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "su1017_villa": 3
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "su1017_villa",
+      "camera": {
+        "eye_m": [
+          -19.730999999999998,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "target_m": [
+          4.0,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-581fc54ac6.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "su1017_villa": 3
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "su1017_villa",
+      "camera": {
+        "eye_m": [
+          27.730999999999998,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "target_m": [
+          4.0,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-7af21af71a.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "su1017_villa": 3
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "su1017_villa",
+      "camera": {
+        "eye_m": [
+          4.0,
+          2.9074999999999998,
+          25.766
+        ],
+        "target_m": [
+          4.0,
+          2.9074999999999998,
+          2.935
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-c74b7a0fac.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "su1017_villa": 3
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "su1017_villa",
+      "camera": {
+        "eye_m": [
+          23.393479999999997,
+          -16.57848,
+          15.513679999999997
+        ],
+        "target_m": [
+          4.0,
+          2.9074999999999998,
+          3.0595999999999997
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/2fc62f9b95-villa-single-view.png",
+      "current_view": "outputs/renders/agent-view-c7c738cea5.png",
+      "label": "当前第三版正面及左侧源图对比",
+      "model_revisions": {
+        "su1017_villa": 3
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": false,
+    "mode": "single_view_inference",
+    "observed_sources": [],
+    "paired_sources": []
+  },
+  "writer_verifications": {
+    "su1017_villa": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -15.0,
+              -1200.0,
+              -180.0
+            ],
+            "max": [
+              8015.0,
+              7015.0,
+              6050.0
+            ],
+            "size": [
+              8030.0,
+              8215.0,
+              6230.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -15,
+              -1200,
+              -180
+            ],
+            "max": [
+              8015,
+              7015,
+              6050
+            ],
+            "size": [
+              8030,
+              8215,
+              6230
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/2fc62f9b95-villa-single-view.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/2fc62f9b95-villa-single-view.png": "7c4a2f72a36b59940e834625f33f6c02815c996e682af5f7cdd1c1a6f79a7109",
+    "outputs/renders/agent-view-c7c738cea5.evidence.json": "05f05d91d4b130964d54f45813bb57e8763a5bb2777855739fde9c906f72a23b",
+    "outputs/renders/agent-view-c7c738cea5.png": "e64720f63f1544feb0c488195867d49f0b24f6588a712da4af4c4f143732d837",
+    "outputs/renders/agent-view-front-edcf5035c1.evidence.json": "6f5b5d849d283ba1ebf629a69ec1c507b77142f1f74cb6038ba9995697b769c0",
+    "outputs/renders/agent-view-front-edcf5035c1.png": "e9876e2d9db74221543e62b880f7f2f4ce810554643106d20b3f4319fb0b503b",
+    "outputs/renders/agent-view-left-885b952794.evidence.json": "f050f3aaf7f3929eb568fb121bf2fcfe5a5cfc975f188c528e8decb0daf619e0",
+    "outputs/renders/agent-view-left-885b952794.png": "5713c964fbe7e1809f3c469afce38c182984a4300a834632d8535d5f19437796",
+    "outputs/renders/agent-view-oblique-c74b7a0fac.evidence.json": "3389fa213656b0899cfd11e19de287d717b8de18fa9a1dd2780f1d4acfbc781c",
+    "outputs/renders/agent-view-oblique-c74b7a0fac.png": "d0a2e44ef24b1e0d90ba0a2f6467d4a79e5fafcae2a0664fbaf66b779b02cfa0",
+    "outputs/renders/agent-view-rear-b312617ae5.evidence.json": "5f619edb8e1bd52ba9f9671f78b5898e31053a0130f25698ec3152a12f213948",
+    "outputs/renders/agent-view-rear-b312617ae5.png": "dca4383d587313cca8af83f32f43c874de27f5b330ed966bb92e293fb3a05586",
+    "outputs/renders/agent-view-right-581fc54ac6.evidence.json": "290963147fc52e117ab99e2a14addd9b126b618c527aacd92afac47eef73b70c",
+    "outputs/renders/agent-view-right-581fc54ac6.png": "1ca462dcf11063d7a1d0b2eecc2044025b35385612552f300a1270b04bd7c1d9",
+    "outputs/renders/agent-view-roof-7af21af71a.evidence.json": "f0288ce64a244f49e86684e5ecb75bbb32378e451fe567f7ff1bdd7717e0afb8",
+    "outputs/renders/agent-view-roof-7af21af71a.png": "74d4eee2b3e45c46e8f54013c6c929e16fa4af7f5661399b1741041c78ba9538",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "ca63ffe7bd836cc5e36de8fd07751c8d7d5fd904abb9db8ce1212bcdc06b1d72"
+  }
+}

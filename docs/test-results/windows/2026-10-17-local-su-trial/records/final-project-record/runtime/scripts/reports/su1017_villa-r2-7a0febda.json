@@ -1,0 +1,1373 @@
+{
+  "schema_version": 1,
+  "project_id": "su-1017",
+  "expected_revision": 1,
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\su-1017\\outputs\\model\\blank-disposable-20261017-114606.skp",
+  "guid_before": "396321ea-139f-49bd-a407-b06949e5b628",
+  "status": "committed",
+  "at": "2026-10-17T03:49:39Z",
+  "scenes_before": {
+    "available": true,
+    "pages": [
+
+    ]
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -15.0,
+        -1200.0,
+        -180.0
+      ],
+      "max": [
+        8015.0,
+        7015.0,
+        6050.0
+      ],
+      "size": [
+        8030.0,
+        8215.0,
+        6230.0
+      ]
+    },
+    "objects_total": 19,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 160,
+        "name": "SHELL_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            200.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            200.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 807,
+        "name": "SHELL_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            200.0,
+            0.0
+          ],
+          "max": [
+            200.0,
+            6800.0,
+            6000.0
+          ],
+          "size": [
+            200.0,
+            6600.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1185,
+        "name": "SHELL_REAR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            6800.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            200.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1217,
+        "name": "SHELL_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7800.0,
+            200.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            6800.0,
+            6000.0
+          ],
+          "size": [
+            200.0,
+            6600.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1249,
+        "name": "SLAB_GROUND",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            -180.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            0.0
+          ],
+          "size": [
+            8000.0,
+            7000.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1281,
+        "name": "SLAB_LEVEL_2",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            200.0,
+            200.0,
+            2820.0
+          ],
+          "max": [
+            7800.0,
+            6800.0,
+            3000.0
+          ],
+          "size": [
+            7600.0,
+            6600.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1313,
+        "name": "ROOF_FLAT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            5820.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            7000.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1345,
+        "name": "ROOF_CAP",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -15.0,
+            -20.0,
+            6000.0
+          ],
+          "max": [
+            8015.0,
+            7015.0,
+            6050.0
+          ],
+          "size": [
+            8030.0,
+            7035.0,
+            50.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1377,
+        "name": "BALCONY_SLAB",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            600.0,
+            -1200.0,
+            2700.0
+          ],
+          "max": [
+            7800.0,
+            200.0,
+            3000.0
+          ],
+          "size": [
+            7200.0,
+            1400.0,
+            300.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1409,
+        "name": "DOOR_FRONT_L2_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1300.0,
+            65.0,
+            3000.0
+          ],
+          "max": [
+            3500.0,
+            155.0,
+            5400.0
+          ],
+          "size": [
+            2200.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1635,
+        "name": "DOOR_FRONT_L1_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1700.0,
+            65.0,
+            0.0
+          ],
+          "max": [
+            5900.0,
+            155.0,
+            2400.0
+          ],
+          "size": [
+            4200.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1861,
+        "name": "DOOR_FRONT_L2_02",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4900.0,
+            65.0,
+            3000.0
+          ],
+          "max": [
+            6700.0,
+            155.0,
+            5400.0
+          ],
+          "size": [
+            1800.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2087,
+        "name": "WINDOW_LEFT_L1_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            65.0,
+            4000.0,
+            700.0
+          ],
+          "max": [
+            155.0,
+            4600.0,
+            2500.0
+          ],
+          "size": [
+            90.0,
+            600.0,
+            1800.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2313,
+        "name": "WINDOW_LEFT_L2_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            65.0,
+            4000.0,
+            3700.0
+          ],
+          "max": [
+            155.0,
+            4600.0,
+            5500.0
+          ],
+          "size": [
+            90.0,
+            600.0,
+            1800.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2539,
+        "name": "SCREEN_FRONT_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7100.0,
+            -100.0,
+            60.0
+          ],
+          "max": [
+            8000.0,
+            0.0,
+            5980.0
+          ],
+          "size": [
+            900.0,
+            100.0,
+            5920.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2957,
+        "name": "BALCONY_GUARD_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            620.0,
+            -1180.0,
+            3000.0
+          ],
+          "max": [
+            7785.0,
+            -1150.0,
+            4105.0
+          ],
+          "size": [
+            7165.0,
+            30.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3439,
+        "name": "BALCONY_GUARD_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            614.0,
+            -1170.0,
+            3000.0
+          ],
+          "max": [
+            639.0,
+            -10.0,
+            4105.0
+          ],
+          "size": [
+            25.0,
+            1160.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3537,
+        "name": "BALCONY_GUARD_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7754.0,
+            -1170.0,
+            3000.0
+          ],
+          "max": [
+            7779.0,
+            -10.0,
+            4105.0
+          ],
+          "size": [
+            25.0,
+            1160.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3635,
+        "name": "FINISH_PLINTH",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5.0,
+            -5.0,
+            0.0
+          ],
+          "max": [
+            8005.0,
+            7005.0,
+            220.0
+          ],
+          "size": [
+            8010.0,
+            7010.0,
+            220.0
+          ]
+        }
+      }
+    ]
+  },
+  "owned_precommit": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -15.0,
+        -1200.0,
+        -180.0
+      ],
+      "max": [
+        8015.0,
+        7015.0,
+        6050.0
+      ],
+      "size": [
+        8030.0,
+        8215.0,
+        6230.0
+      ]
+    },
+    "objects_total": 19,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 160,
+        "name": "SHELL_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            200.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            200.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 807,
+        "name": "SHELL_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            200.0,
+            0.0
+          ],
+          "max": [
+            200.0,
+            6800.0,
+            6000.0
+          ],
+          "size": [
+            200.0,
+            6600.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1185,
+        "name": "SHELL_REAR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            6800.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            200.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1217,
+        "name": "SHELL_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7800.0,
+            200.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            6800.0,
+            6000.0
+          ],
+          "size": [
+            200.0,
+            6600.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1249,
+        "name": "SLAB_GROUND",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            -180.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            0.0
+          ],
+          "size": [
+            8000.0,
+            7000.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1281,
+        "name": "SLAB_LEVEL_2",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            200.0,
+            200.0,
+            2820.0
+          ],
+          "max": [
+            7800.0,
+            6800.0,
+            3000.0
+          ],
+          "size": [
+            7600.0,
+            6600.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1313,
+        "name": "ROOF_FLAT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            5820.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            7000.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1345,
+        "name": "ROOF_CAP",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -15.0,
+            -20.0,
+            6000.0
+          ],
+          "max": [
+            8015.0,
+            7015.0,
+            6050.0
+          ],
+          "size": [
+            8030.0,
+            7035.0,
+            50.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1377,
+        "name": "BALCONY_SLAB",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            600.0,
+            -1200.0,
+            2700.0
+          ],
+          "max": [
+            7800.0,
+            200.0,
+            3000.0
+          ],
+          "size": [
+            7200.0,
+            1400.0,
+            300.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1409,
+        "name": "DOOR_FRONT_L2_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1300.0,
+            65.0,
+            3000.0
+          ],
+          "max": [
+            3500.0,
+            155.0,
+            5400.0
+          ],
+          "size": [
+            2200.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1635,
+        "name": "DOOR_FRONT_L1_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1700.0,
+            65.0,
+            0.0
+          ],
+          "max": [
+            5900.0,
+            155.0,
+            2400.0
+          ],
+          "size": [
+            4200.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1861,
+        "name": "DOOR_FRONT_L2_02",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4900.0,
+            65.0,
+            3000.0
+          ],
+          "max": [
+            6700.0,
+            155.0,
+            5400.0
+          ],
+          "size": [
+            1800.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2087,
+        "name": "WINDOW_LEFT_L1_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            70.0,
+            3875.0,
+            800.0
+          ],
+          "max": [
+            155.0,
+            4725.0,
+            2400.0
+          ],
+          "size": [
+            85.0,
+            850.0,
+            1600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2313,
+        "name": "WINDOW_LEFT_L2_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            70.0,
+            3875.0,
+            3800.0
+          ],
+          "max": [
+            155.0,
+            4725.0,
+            5400.0
+          ],
+          "size": [
+            85.0,
+            850.0,
+            1600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2539,
+        "name": "SCREEN_FRONT_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7100.0,
+            -100.0,
+            60.0
+          ],
+          "max": [
+            8000.0,
+            0.0,
+            5980.0
+          ],
+          "size": [
+            900.0,
+            100.0,
+            5920.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2957,
+        "name": "BALCONY_GUARD_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            620.0,
+            -1180.0,
+            3000.0
+          ],
+          "max": [
+            7785.0,
+            -1150.0,
+            4105.0
+          ],
+          "size": [
+            7165.0,
+            30.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3439,
+        "name": "BALCONY_GUARD_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            614.0,
+            -1170.0,
+            3000.0
+          ],
+          "max": [
+            639.0,
+            -10.0,
+            4105.0
+          ],
+          "size": [
+            25.0,
+            1160.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3537,
+        "name": "BALCONY_GUARD_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7754.0,
+            -1170.0,
+            3000.0
+          ],
+          "max": [
+            7779.0,
+            -10.0,
+            4105.0
+          ],
+          "size": [
+            25.0,
+            1160.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3635,
+        "name": "FINISH_PLINTH",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5.0,
+            -5.0,
+            0.0
+          ],
+          "max": [
+            8005.0,
+            7005.0,
+            220.0
+          ],
+          "size": [
+            8010.0,
+            7010.0,
+            220.0
+          ]
+        }
+      }
+    ]
+  },
+  "revision": 2,
+  "root_pid": 19,
+  "owned_after": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -15.0,
+        -1200.0,
+        -180.0
+      ],
+      "max": [
+        8015.0,
+        7015.0,
+        6050.0
+      ],
+      "size": [
+        8030.0,
+        8215.0,
+        6230.0
+      ]
+    },
+    "objects_total": 19,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 160,
+        "name": "SHELL_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            200.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            200.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 807,
+        "name": "SHELL_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            200.0,
+            0.0
+          ],
+          "max": [
+            200.0,
+            6800.0,
+            6000.0
+          ],
+          "size": [
+            200.0,
+            6600.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1185,
+        "name": "SHELL_REAR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            6800.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            200.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1217,
+        "name": "SHELL_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7800.0,
+            200.0,
+            0.0
+          ],
+          "max": [
+            8000.0,
+            6800.0,
+            6000.0
+          ],
+          "size": [
+            200.0,
+            6600.0,
+            6000.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1249,
+        "name": "SLAB_GROUND",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            -180.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            0.0
+          ],
+          "size": [
+            8000.0,
+            7000.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1281,
+        "name": "SLAB_LEVEL_2",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            200.0,
+            200.0,
+            2820.0
+          ],
+          "max": [
+            7800.0,
+            6800.0,
+            3000.0
+          ],
+          "size": [
+            7600.0,
+            6600.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1313,
+        "name": "ROOF_FLAT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            5820.0
+          ],
+          "max": [
+            8000.0,
+            7000.0,
+            6000.0
+          ],
+          "size": [
+            8000.0,
+            7000.0,
+            180.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1345,
+        "name": "ROOF_CAP",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -15.0,
+            -20.0,
+            6000.0
+          ],
+          "max": [
+            8015.0,
+            7015.0,
+            6050.0
+          ],
+          "size": [
+            8030.0,
+            7035.0,
+            50.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1377,
+        "name": "BALCONY_SLAB",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            600.0,
+            -1200.0,
+            2700.0
+          ],
+          "max": [
+            7350.0,
+            200.0,
+            3000.0
+          ],
+          "size": [
+            6750.0,
+            1400.0,
+            300.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1409,
+        "name": "DOOR_FRONT_L2_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1300.0,
+            65.0,
+            3000.0
+          ],
+          "max": [
+            3500.0,
+            155.0,
+            5400.0
+          ],
+          "size": [
+            2200.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1635,
+        "name": "DOOR_FRONT_L1_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1700.0,
+            65.0,
+            0.0
+          ],
+          "max": [
+            5900.0,
+            155.0,
+            2400.0
+          ],
+          "size": [
+            4200.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1861,
+        "name": "DOOR_FRONT_L2_02",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4900.0,
+            65.0,
+            3000.0
+          ],
+          "max": [
+            6700.0,
+            155.0,
+            5400.0
+          ],
+          "size": [
+            1800.0,
+            90.0,
+            2400.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2087,
+        "name": "WINDOW_LEFT_L1_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            70.0,
+            3875.0,
+            800.0
+          ],
+          "max": [
+            155.0,
+            4725.0,
+            2400.0
+          ],
+          "size": [
+            85.0,
+            850.0,
+            1600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2313,
+        "name": "WINDOW_LEFT_L2_01",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            70.0,
+            3875.0,
+            3800.0
+          ],
+          "max": [
+            155.0,
+            4725.0,
+            5400.0
+          ],
+          "size": [
+            85.0,
+            850.0,
+            1600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2539,
+        "name": "SCREEN_FRONT_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7100.0,
+            -100.0,
+            60.0
+          ],
+          "max": [
+            8000.0,
+            0.0,
+            5980.0
+          ],
+          "size": [
+            900.0,
+            100.0,
+            5920.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 2957,
+        "name": "BALCONY_GUARD_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            620.0,
+            -1180.0,
+            3000.0
+          ],
+          "max": [
+            7335.0,
+            -1150.0,
+            4105.0
+          ],
+          "size": [
+            6715.0,
+            30.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3439,
+        "name": "BALCONY_GUARD_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            614.0,
+            -1170.0,
+            3000.0
+          ],
+          "max": [
+            639.0,
+            -10.0,
+            4105.0
+          ],
+          "size": [
+            25.0,
+            1160.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3537,
+        "name": "BALCONY_GUARD_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            7304.0,
+            -1170.0,
+            3000.0
+          ],
+          "max": [
+            7329.0,
+            -10.0,
+            4105.0
+          ],
+          "size": [
+            25.0,
+            1160.0,
+            1105.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 3635,
+        "name": "FINISH_PLINTH",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5.0,
+            -5.0,
+            0.0
+          ],
+          "max": [
+            8005.0,
+            7005.0,
+            220.0
+          ],
+          "size": [
+            8010.0,
+            7010.0,
+            220.0
+          ]
+        }
+      }
+    ]
+  },
+  "scenes_after": {
+    "available": true,
+    "pages": [
+
+    ]
+  }
+}

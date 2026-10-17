@@ -1,0 +1,124 @@
+{
+  "actual_site_turns": [
+    {
+      "agent_action": "clarify",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "provider": "codex-app-server",
+      "input_tokens": 18173,
+      "output_tokens": 294,
+      "latency_ms": 24297,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0
+    },
+    {
+      "agent_action": "plan",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "provider": "codex-app-server",
+      "input_tokens": 207121,
+      "output_tokens": 6535,
+      "latency_ms": 131438,
+      "tool_call_count": 5,
+      "failed_tool_calls": 0
+    },
+    {
+      "agent_action": "execute",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "provider": "codex-app-server",
+      "input_tokens": 2416100,
+      "output_tokens": 13616,
+      "latency_ms": 424125,
+      "tool_call_count": 60,
+      "failed_tool_calls": 5
+    },
+    {
+      "agent_action": "execute",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "provider": "codex-app-server",
+      "input_tokens": 2526740,
+      "output_tokens": 4181,
+      "latency_ms": 165516,
+      "tool_call_count": 28,
+      "failed_tool_calls": 2
+    },
+    {
+      "agent_action": "execute",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "provider": "codex-app-server",
+      "input_tokens": 1082561,
+      "output_tokens": 764,
+      "latency_ms": 269907,
+      "tool_call_count": 4,
+      "failed_tool_calls": 0
+    }
+  ],
+  "site_turn_input_tokens": 6250695,
+  "site_turn_output_tokens": 25390,
+  "site_tool_calls": 97,
+  "site_failed_tool_calls": 7,
+  "paid_provider_inference_calls": 0,
+  "billing_usd": null,
+  "latency_note": "Per website turn; Builder duration already includes nested Critic wall time. Do not add Critic duration to it.",
+  "independent_critics": [
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 29468,
+      "input_tokens": 29986,
+      "output_tokens": 746,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 35469,
+      "input_tokens": 29988,
+      "output_tokens": 1133,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 34750,
+      "input_tokens": 29978,
+      "output_tokens": 1049,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    },
+    {
+      "mode": "dedicated_read_only",
+      "runtime": "codex-native",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "latency_ms": 43938,
+      "input_tokens": 29990,
+      "output_tokens": 1343,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "fresh_context": true,
+      "sandbox": "readOnly",
+      "writer_tools": []
+    }
+  ]
+}

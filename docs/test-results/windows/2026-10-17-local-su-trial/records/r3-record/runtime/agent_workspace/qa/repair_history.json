@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one two-storey white volume from the front-left: thin roof coping, two upper glazed door bays, one wide ground-floor glazed opening, two stacked narrow left-wall windows, a projecting glass balcony, a full-height timber strip at front-right, grey plinth and surrounding paved terrace. CURRENT captures these principal facade elements but misplaces the balcony’s right termination, alters the side-window proportions and omits the terrace. Rear/right elevations and roof surface are unobserved in SOURCE; their fidelity cannot be established. Screenshots show apparent balcony attachment but cannot verify concealed joints.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT’s balcony extends beyond the right building edge in the source-matched view. SOURCE terminates it slightly inside that edge, in front of the timber strip.",
+            "action": "Shorten the balcony slab and front railing at the right end; relocate the return together so it meets the facade without floating or crossing the corner."
+          },
+          {
+            "priority": 2,
+            "view": "left",
+            "problem": "CURRENT’s stacked side windows read as thinner, taller slits with conspicuous central mullions. SOURCE shows broader narrow windows with a single dominant glazed field.",
+            "action": "Locally widen and shorten both openings and simplify their internal framing, preserving their stacked alignment and existing position along the wall."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "SOURCE has a paved terrace projecting beyond the front and visible left wall. CURRENT ends at the narrow grey building base, omitting this visible ground-level geometry.",
+            "action": "Add a shallow terrace slab extending along those observed edges, keeping it distinct from the grey wall plinth."
+          }
+        ],
+        "keep": [
+          "Two separate upper front glazed bays.",
+          "One wide ground-floor front opening with a central division.",
+          "Full-height vertical timber treatment at the front-right edge.",
+          "Thin coping along the visible roof edges."
+        ],
+        "model_revisions": {
+          "su1017_villa": 1
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "su1017_villa",
+        "revision": 2,
+        "relative_path": "scripts/reconstruct_villa.rb",
+        "update_mode": "edit",
+        "source_sha256": "f0d9e493860c1df0bcd853e1aed504d19b87739535852fc8a42f5cb49d2c21d3",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "DOOR_FRONT_L1_01",
+            "DOOR_FRONT_L2_01",
+            "DOOR_FRONT_L2_02",
+            "SCREEN_FRONT_RIGHT",
+            "ROOF_CAP",
+            "BALCONY_GUARD_LEFT"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The source shows a two-storey white rectangular building from the front-left: two upper glazed openings, one broad ground-floor opening, two vertically aligned narrow left windows, a projecting glass-railed balcony, a full-height timber strip at the front-right, thin roof edging, grey plinth and projecting paved terrace. CURRENT reproduces these main facade elements, but the upper openings and balcony assembly have incorrect vertical proportions, and the terrace is missing. The supplied source-matched camera still differs in perspective, so apparent building depth alone is not grounds for correction. The rear, right wall and roof surface are unobserved in SOURCE. Screenshots show apparent balcony-to-wall contact but cannot establish whether the joint is physically connected.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT upper glazed openings are approximately as tall as the ground-floor opening and start too close to the roof. SOURCE shows shorter upper openings, a deeper wall zone above them, and a higher balcony floor relative to the facade height.",
+            "action": "Locally lower the upper opening heads and raise their thresholds with the balcony floor, using normalized facade heights in the front-left comparison. Preserve the two-opening arrangement and central mullions."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT balcony fascia is noticeably thinner than SOURCE’s substantial white slab edge, weakening the projecting balcony silhouette.",
+            "action": "Increase the slab/fascia thickness downward from the corrected balcony floor. Keep the glass railing seated on the slab and maintain continuous side returns and wall contact."
+          },
+          {
+            "priority": 3,
+            "view": "front-left",
+            "problem": "SOURCE has a paved terrace projecting beyond the front and left walls, including beyond the balcony footprint. CURRENT terminates at a narrow base strip.",
+            "action": "Add the visible shallow terrace apron locally around the front and left base, retaining the separate grey wall plinth. Its hidden extent remains uncertain."
+          }
+        ],
+        "keep": [
+          "Two vertically aligned narrow openings on the left wall.",
+          "Two upper front openings with a central mullion in each.",
+          "Broad ground-floor glazing divided into two principal panes.",
+          "Full-height narrow timber strip at the front-right edge."
+        ],
+        "model_revisions": {
+          "su1017_villa": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "The source shows a two-storey white rectangular building from the front-left: two upper glazed openings, one broad ground-floor opening, two vertically aligned narrow left windows, a projecting glass-railed balcony, a full-height timber strip at the front-right, thin roof edging, grey plinth and projecting paved terrace. CURRENT reproduces these main facade elements, but the upper openings and balcony assembly have incorrect vertical proportions, and the terrace is missing. The supplied source-matched camera still differs in perspective, so apparent building depth alone is not grounds for correction. The rear, right wall and roof surface are unobserved in SOURCE. Screenshots show apparent balcony-to-wall contact but cannot establish whether the joint is physically connected.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT upper glazed openings are approximately as tall as the ground-floor opening and start too close to the roof. SOURCE shows shorter upper openings, a deeper wall zone above them, and a higher balcony floor relative to the facade height.",
+            "action": "Locally lower the upper opening heads and raise their thresholds with the balcony floor, using normalized facade heights in the front-left comparison. Preserve the two-opening arrangement and central mullions."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "CURRENT balcony fascia is noticeably thinner than SOURCE’s substantial white slab edge, weakening the projecting balcony silhouette.",
+            "action": "Increase the slab/fascia thickness downward from the corrected balcony floor. Keep the glass railing seated on the slab and maintain continuous side returns and wall contact."
+          },
+          {
+            "priority": 3,
+            "view": "front-left",
+            "problem": "SOURCE has a paved terrace projecting beyond the front and left walls, including beyond the balcony footprint. CURRENT terminates at a narrow base strip.",
+            "action": "Add the visible shallow terrace apron locally around the front and left base, retaining the separate grey wall plinth. Its hidden extent remains uncertain."
+          }
+        ],
+        "keep": [
+          "Two vertically aligned narrow openings on the left wall.",
+          "Two upper front openings with a central mullion in each.",
+          "Broad ground-floor glazing divided into two principal panes.",
+          "Full-height narrow timber strip at the front-right edge."
+        ],
+        "model_revisions": {
+          "su1017_villa": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "su1017_villa",
+        "revision": 3,
+        "relative_path": "scripts/reconstruct_villa.rb",
+        "update_mode": "edit",
+        "source_sha256": "94e88f46ad77d7cea4293827cdebe91c8e2d77e9a158a13647d6872e7d923e4c",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WINDOW_LEFT_L1_01",
+            "WINDOW_LEFT_L2_01",
+            "DOOR_FRONT_L1_01",
+            "SCREEN_FRONT_RIGHT"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one two-storey white volume from the front-left: two upper glazed openings, one broad ground-floor opening, two stacked narrow left windows, a projecting glass-railed balcony, a full-height right timber strip, thin roof coping and surrounding paving. CURRENT preserves this opening arrangement and material placement, but compresses the clearance beneath the balcony and omits the projecting paved terrace. The supplied source-matched camera still differs in perspective, so apparent building width/depth differences are uncertain. Rear, right elevation and roof surface are unobserved in SOURCE. Screenshots show no obvious floating balcony components, but cannot establish concealed connections.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT places the balcony underside almost against the ground-floor glazing head. SOURCE has a clearly visible white wall band between them, giving the balcony and lower opening distinct separation.",
+            "action": "Locally adjust balcony elevation and ground-floor opening head height to restore the source clearance; retain the opening’s two-panel division and horizontal placement."
+          },
+          {
+            "priority": 2,
+            "view": "front-left",
+            "problem": "SOURCE has a paved terrace projecting beyond both the front and left walls, including beyond the balcony footprint. CURRENT terminates at a narrow base strip, losing this visible ground-level silhouette.",
+            "action": "Add the shallow projecting paved platform along the observed front and left edges, keeping it distinct from the wall plinth. Infer concealed extents conservatively."
+          }
+        ],
+        "keep": [
+          "Two separate paired upper glazed openings.",
+          "Central division of the broad ground-floor glazing.",
+          "Two vertically aligned narrow left-side windows.",
+          "Placement of the full-height timber strip at the front-right edge."
+        ],
+        "model_revisions": {
+          "su1017_villa": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

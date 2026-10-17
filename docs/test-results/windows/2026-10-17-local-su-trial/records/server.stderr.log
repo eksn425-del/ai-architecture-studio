@@ -1,0 +1,78 @@
+INFO:     Started server process [24284]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8787 (Press CTRL+C to quit)
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "D:\python3.10.4\Lib\site-packages\starlette\_utils.py", line 81, in collapse_excgroups
+  |     yield
+  |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "D:\python3.10.4\Lib\site-packages\anyio\_backends\_asyncio.py", line 783, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "D:\python3.10.4\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "D:\python3.10.4\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "D:\python3.10.4\Lib\site-packages\fastapi\applications.py", line 1160, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    |     raise exc
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "D:\python3.10.4\Lib\contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\_utils.py", line 87, in collapse_excgroups
+    |     raise exc
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    |     await response(scope, wrapped_receive, send)
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 238, in __call__
+    |     await send({"type": "http.response.body", "body": chunk, "more_body": True})
+    |   File "D:\python3.10.4\Lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    |     await send(message)
+    |   File "D:\python3.10.4\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 543, in send
+    |     raise RuntimeError("Response content longer than Content-Length")
+    | RuntimeError: Response content longer than Content-Length
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\python3.10.4\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.10.4\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.10.4\Lib\site-packages\fastapi\applications.py", line 1160, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\python3.10.4\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\python3.10.4\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\python3.10.4\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "D:\python3.10.4\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "D:\python3.10.4\Lib\site-packages\starlette\_utils.py", line 87, in collapse_excgroups
+    raise exc
+  File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "D:\python3.10.4\Lib\site-packages\starlette\middleware\base.py", line 238, in __call__
+    await send({"type": "http.response.body", "body": chunk, "more_body": True})
+  File "D:\python3.10.4\Lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "D:\python3.10.4\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 543, in send
+    raise RuntimeError("Response content longer than Content-Length")
+RuntimeError: Response content longer than Content-Length

@@ -121,5 +121,17 @@
       "writer_tools": []
     }
   ],
-  "outer_controller_tokens": null
+  "schema_version": 1,
+  "elapsed_ms": 1015283,
+  "tool_call_count": 97,
+  "failed_tool_calls": 7,
+  "committed_writes": 4,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 3,
+  "input_tokens": 6250695,
+  "output_tokens": 25390,
+  "token_source": "Actual five website turns in project_context; independent Critic shown separately; controller tokens unavailable.",
+  "counter_notes": "Four commits: initial build + two bounded initial corrections + one owner local edit. No whole-root rebuild after initial creation. targeted_corrections=3 counts all three correction writes.",
+  "outer_controller_input_tokens": null,
+  "outer_controller_output_tokens": null
 }

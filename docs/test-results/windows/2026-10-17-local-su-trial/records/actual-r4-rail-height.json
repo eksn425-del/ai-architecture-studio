@@ -1,0 +1,54 @@
+{
+  "read_only": true,
+  "geometry_writes": 0,
+  "project_id": "su-1017",
+  "root_pid": 19,
+  "revision": 4,
+  "rails": [
+    {
+      "name": "BALCONY_GUARD_FRONT",
+      "pid": 2957,
+      "min_mm": [
+        620,
+        -1180,
+        3000
+      ],
+      "max_mm": [
+        7334.999999999999,
+        -1150,
+        4200
+      ],
+      "top_above_deck_mm": 1200
+    },
+    {
+      "name": "BALCONY_GUARD_LEFT",
+      "pid": 3439,
+      "min_mm": [
+        614,
+        -1170,
+        3000
+      ],
+      "max_mm": [
+        639,
+        -10,
+        4200
+      ],
+      "top_above_deck_mm": 1200
+    },
+    {
+      "name": "BALCONY_GUARD_RIGHT",
+      "pid": 3537,
+      "min_mm": [
+        7303.999999999999,
+        -1170,
+        3000
+      ],
+      "max_mm": [
+        7328.999999999999,
+        -10,
+        4200
+      ],
+      "top_above_deck_mm": 1200
+    }
+  ]
+}

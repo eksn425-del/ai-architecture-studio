@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "source_mode": "single_view_inference",
+  "dimensions_mm": {
+    "overall_width": 8000,
+    "overall_depth": 7000,
+    "level_height": 3000,
+    "floor_count": 2
+  },
+  "views": {
+    "front": {
+      "provenance": "observed",
+      "opening_count": 3,
+      "door_count": 3,
+      "features": [
+        "首层一组宽双扇玻璃门",
+        "二层两组双扇玻璃门，接同一悬挑阳台",
+        "阳台前玻璃栏板、细金属框及左回折",
+        "正面右端通高竖木格栅"
+      ],
+      "notes": [
+        "按洞口组计数，不按扇数；各尺寸见 shared_parameters，均为估算。",
+        "二层门宽差部分受透视影响，不能视作可靠实测。"
+      ]
+    },
+    "left": {
+      "provenance": "observed",
+      "opening_count": 2,
+      "door_count": 0,
+      "features": [
+        "每层一扇窄竖窗",
+        "白墙与浅灰基脚",
+        "阳台左回折可见"
+      ],
+      "notes": [
+        "窗位置和尺寸估算，上下对齐；不增加侧门。"
+      ]
+    },
+    "rear": {
+      "provenance": "user_confirmed",
+      "opening_count": 0,
+      "door_count": 0,
+      "features": [
+        "简洁封闭白墙"
+      ],
+      "notes": [
+        "用户指定的未知面处理，非观察事实。"
+      ]
+    },
+    "right": {
+      "provenance": "user_confirmed",
+      "opening_count": 0,
+      "door_count": 0,
+      "features": [
+        "简洁封闭白墙"
+      ],
+      "notes": [
+        "保留正面右端木格栅，不将其扩展到右侧全墙。"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "平屋顶",
+    "parapet": "可见薄压顶；高女儿墙未获证据",
+    "divisions": [],
+    "notes": [
+      "两条可见顶缘连续，图中斜线来自透视，不作坡屋顶。",
+      "屋面顶面未见，采用简单平板封顶，不加天窗或设备。"
+    ]
+  },
+  "global_features": [
+    "主体两层无已见退台或附属侧翼",
+    "白色微粗糙墙、深灰门窗框、暖木条、微灰透明玻璃、浅灰基脚",
+    "先核整体轮廓与开洞，再重复构件"
+  ],
+  "user_confirmed": [
+    "两层；面宽8000、进深7000、层高3000毫米作为建模约束，非原建筑测量值。",
+    "墙、门窗、平屋顶、玻璃阳台、正面右端通高木格栅在范围内。",
+    "背面及右侧简洁封闭；不做内部隔墙、楼梯、家具及周边环境。"
+  ],
+  "inferred": [
+    "阳台约7.2米宽、1.2米挑出、0.30米厚，栏高1.10米。",
+    "木带宽约0.90米、约12根；真实根数待建模时源图复核。",
+    "窗框内凹约80毫米、墙厚200毫米。"
+  ]
+}

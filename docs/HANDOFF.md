@@ -1,3 +1,9 @@
+## SU trial full-record publication 2026-10-17 — owner explicitly authorized
+
+[Complete public evidence, images, SKPs and execution details](test-results/windows/2026-10-17-local-su-trial/README.md). All296 frozen trial files copied with per-file original/publicSHA;6text files anonymize local profile name only, images/models byte-identical. Credential stores never collected or uploaded. Publish isolated codex/su-trial-candidate-20261017 and link SU Issue#20; main merge/deployment/new modeling remain unauthorized. Previous local-only wording below is historical authorization, now superseded for publication only. Trial/source/replay/provider verdicts unchanged; leave existing trial page/models intact.
+
+---
+
 ## LOCAL SU TRIAL COMPLETE 2026-10-17 — personal candidate available, stop here
 
 [Candidate launch/result/limitations](SU_TRIAL_CANDIDATE_2026-10-17.md), [engineering index](test-results/windows/2026-10-17-local-su-trial/README.md). Both requested fixes reviewed/included on isolated branch. Real Sol6.1Medium native proxy and SU24, independent su-1017/root19: completed actual website build3/local rail edit4,16protected groups+loose geometry full native equality, six paired cameras, save/latest browser download/SU24 actual GUI reopen and restore/reconnect. Declaredprecision3stagePASS/rawstrictdoubleFAIL retained, sourceCriticNEEDS_FIX (header clearance, intentionally excluded terrace), commercial provider/replay NOT_RUN. Ready for owner local trial only; leave http://127.0.0.1:8787/ and stop. Launcher `Start K Studio SU Trial.cmd`; existing encrypted DeepSeek credential preserved. Final545pass/13skip are code checks, not model-quality PASS. All raw new sources/logs/SKP ignored/local; no main merge/push/deployment/thesis action. Old r20/SKP/state unchanged. Further feature/modeling work requires new owner feedback. Historical records below preserved.

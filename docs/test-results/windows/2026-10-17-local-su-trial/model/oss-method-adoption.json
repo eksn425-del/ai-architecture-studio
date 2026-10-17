@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "ledger_status": "committed_readback",
+  "actual_wrapped_calls": {},
+  "any_oss_product_use": false,
+  "effect_verified": false,
+  "effect_verification_required": "Named component readback and independent source-matched visual review.",
+  "plan_choices": [
+    {
+      "system": "enclosure",
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "Verified installed SAIE adapter supports continuous straight walls with the observed rectangular apertures. Solid rear/right walls use saie.wall.",
+      "disposition": "selected_but_not_invoked"
+    },
+    {
+      "system": "roof",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "balcony",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "opening_prototype",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "opening_instances",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "screen",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "glass_guard",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    },
+    {
+      "system": "finish",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Source-specific slab, thin coping, recessed frames, glass panels or timber profiles; installed SAIE adapters provide straight walls and rectangular openings only; ADAI disabled.",
+      "disposition": "custom_fallback_not_automatically_attributed"
+    }
+  ]
+}

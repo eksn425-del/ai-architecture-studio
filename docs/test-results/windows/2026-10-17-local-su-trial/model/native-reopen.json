@@ -1,0 +1,571 @@
+{
+  "status": "PASS_WITH_DECLARED_PRECISION",
+  "contract": "KStudioNativeStableGeometry/1",
+  "transitions": [
+    {
+      "transition": "before_save_to_bound_reopen",
+      "contract": "KStudioNativeStableGeometry/1",
+      "precision": {
+        "face_normal_decimals": 12,
+        "affine_linear_decimals": 12,
+        "coordinates_mm": "exact native doubles",
+        "translations_mm": "exact native doubles",
+        "all_other_fields": "exact"
+      },
+      "status": "PASS",
+      "before_sha256": "9a3cf96e6093e4e225af3f7a2282d31e81fa1e90b4e4aae44bc95185279506cb",
+      "after_sha256": "9a3cf96e6093e4e225af3f7a2282d31e81fa1e90b4e4aae44bc95185279506cb",
+      "raw_document_sha_equal": false,
+      "raw_strict_verdict_overridden": false,
+      "source_fidelity": "NOT_ASSESSED",
+      "blank_program_replay": "NOT_ASSESSED"
+    },
+    {
+      "transition": "bound_reopen_to_download_reopen",
+      "contract": "KStudioNativeStableGeometry/1",
+      "precision": {
+        "face_normal_decimals": 12,
+        "affine_linear_decimals": 12,
+        "coordinates_mm": "exact native doubles",
+        "translations_mm": "exact native doubles",
+        "all_other_fields": "exact"
+      },
+      "status": "PASS",
+      "before_sha256": "9a3cf96e6093e4e225af3f7a2282d31e81fa1e90b4e4aae44bc95185279506cb",
+      "after_sha256": "9a3cf96e6093e4e225af3f7a2282d31e81fa1e90b4e4aae44bc95185279506cb",
+      "raw_document_sha_equal": true,
+      "raw_strict_verdict_overridden": false,
+      "source_fidelity": "NOT_ASSESSED",
+      "blank_program_replay": "NOT_ASSESSED"
+    },
+    {
+      "transition": "before_save_to_download_reopen",
+      "contract": "KStudioNativeStableGeometry/1",
+      "precision": {
+        "face_normal_decimals": 12,
+        "affine_linear_decimals": 12,
+        "coordinates_mm": "exact native doubles",
+        "translations_mm": "exact native doubles",
+        "all_other_fields": "exact"
+      },
+      "status": "PASS",
+      "before_sha256": "9a3cf96e6093e4e225af3f7a2282d31e81fa1e90b4e4aae44bc95185279506cb",
+      "after_sha256": "9a3cf96e6093e4e225af3f7a2282d31e81fa1e90b4e4aae44bc95185279506cb",
+      "raw_document_sha_equal": false,
+      "raw_strict_verdict_overridden": false,
+      "source_fidelity": "NOT_ASSESSED",
+      "blank_program_replay": "NOT_ASSESSED"
+    }
+  ],
+  "raw_strict_three_stage": {
+    "schema_version": 1,
+    "status": "FAIL",
+    "native_delivery_proven": false,
+    "first_failing_transition": "before_save_to_bound_reopen",
+    "failed_transitions": [
+      "before_save_to_bound_reopen",
+      "before_save_to_clean_download_reopen"
+    ],
+    "transitions": [
+      {
+        "transition": "before_save_to_bound_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "FAIL",
+          "document_geometry_changed": true,
+          "root_geometry_changed": true,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+          "before_group_count": 19,
+          "replay_group_count": 19,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [
+            {
+              "name": "BALCONY_GUARD_FRONT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 90,
+                "edges": 180,
+                "instances": 15
+              },
+              "replay_counts": {
+                "faces": 90,
+                "edges": 180,
+                "instances": 15
+              },
+              "before_sha256": "13fc0f952291fcfc15eae40e60b886e86e23c2531d2182a91fe6c49aaef985ec",
+              "replay_sha256": "fb58bdf35986a1789c54038414bb64c7d630b38de417e7d1fac43574f01d87f8",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "BALCONY_GUARD_LEFT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "replay_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "before_sha256": "6656c1bc2e224771eae08eb90f1ce180a6ecc35a47c2c4ce0130b8f866f7dee8",
+              "replay_sha256": "60ef703185f411895a6d974e30d23d05f5b771a4c75e9f0e4dc8781b543533f9",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "BALCONY_GUARD_RIGHT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "replay_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "before_sha256": "a2fb0a7c70741d35e509baaeb50a686ec46d8ca6e60bebef5f0f6b7bcda8bde2",
+              "replay_sha256": "a97a913dc1906faf552b013980d747fbfedd9eb92f297fd29c880fae1dffc49d",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "DOOR_FRONT_L2_01",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "replay_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "before_sha256": "2cf40e8859681fdce5ce6453ef4ea612b4a5d0c46f40549b68ef62b0c2287e2c",
+              "replay_sha256": "a80e5b2385b04d68249fa4ce43d1e4681b32e8ea01cb2220b674f00a3ed48491",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "DOOR_FRONT_L2_02",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "replay_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "before_sha256": "1c62631e71f01b009f75fd8c29224bd73575850575694fbb2b3d8b17c960bfb2",
+              "replay_sha256": "caf9ef163345890c295bf25422ed1c139bf5693c35c1c45d60186551b879460b",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "FINISH_PLINTH",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 30,
+                "edges": 60,
+                "instances": 5
+              },
+              "replay_counts": {
+                "faces": 30,
+                "edges": 60,
+                "instances": 5
+              },
+              "before_sha256": "169f907ba125666d1062582b5ef4ec669a02980032f1bcde41fef6f6589f4d2a",
+              "replay_sha256": "661a584e724e1961211b48a0c0ebc2e9cd52d08a6fa4156005faed08c70d5107",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "ROOF_CAP",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "before_sha256": "8ddfb24549ffc5979f9936e5fb1b5619b727c30f9cfd3d32756ffdd0a77d281c",
+              "replay_sha256": "94a617ac1dc104577f7f962ff952f37b65f7cb1b0f46948b6554aa27a41e623a",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SCREEN_FRONT_RIGHT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 78,
+                "edges": 156,
+                "instances": 13
+              },
+              "replay_counts": {
+                "faces": 78,
+                "edges": 156,
+                "instances": 13
+              },
+              "before_sha256": "5fbde50614cabb16591c068216a9df224c51c27c6507f14a4ecaf8038277b29a",
+              "replay_sha256": "5548d3f901ddd499d68e5d5df65811632e694d3da6b9250891c0dc615f900054",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_FRONT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 18,
+                "edges": 48,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 18,
+                "edges": 48,
+                "instances": 0
+              },
+              "before_sha256": "8f8e4868fb1a487948698d6e05782fbaa50b9f7e65de4b89f4620868b0e7f000",
+              "replay_sha256": "4a37bf7234d340d4903d7eff0e8f663b40d9f526235780574ddf6a6c338cb75b",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_LEFT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 14,
+                "edges": 36,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 14,
+                "edges": 36,
+                "instances": 0
+              },
+              "before_sha256": "fe4f2f686f10ab3f32ea6b4a0204eb317e667391ee61d9f4573f7a0804bc023a",
+              "replay_sha256": "48164bd504b0e81aafdb026cf49dc398fd38061800fea94e77281ee3234ead69",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_REAR",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "before_sha256": "1f0b0bbb7b408d756b43b368787146f03b95210a3c448d62fcbaa6732f810bff",
+              "replay_sha256": "b8daac6fabb13711d0e506d5a8e6a14de4d01614d7d8e7a5bc1fbbc4e9043e0e",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_RIGHT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "before_sha256": "e7cbc1e99e1a7da74abffa18a7de3cbe98ad29dad9430854d47463861e0ea01a",
+              "replay_sha256": "1ae2e7c67eddc030b63cbddb5e68d0c32ae57b685f6a952d9e7eb19168ef78cc",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            }
+          ],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "bound_reopen_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "PASS",
+          "document_geometry_changed": false,
+          "root_geometry_changed": false,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+          "before_group_count": 19,
+          "replay_group_count": 19,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      },
+      {
+        "transition": "before_save_to_clean_download_reopen",
+        "comparison": {
+          "schema_version": 1,
+          "status": "FAIL",
+          "document_geometry_changed": true,
+          "root_geometry_changed": true,
+          "presentation_changed": false,
+          "deep_native_collector_both_stages": true,
+          "fingerprint_collector": "KStudioNativeDefinitionGraph/1",
+          "before_group_count": 19,
+          "replay_group_count": 19,
+          "missing_groups": [],
+          "added_groups": [],
+          "changed_groups": [
+            {
+              "name": "BALCONY_GUARD_FRONT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 90,
+                "edges": 180,
+                "instances": 15
+              },
+              "replay_counts": {
+                "faces": 90,
+                "edges": 180,
+                "instances": 15
+              },
+              "before_sha256": "13fc0f952291fcfc15eae40e60b886e86e23c2531d2182a91fe6c49aaef985ec",
+              "replay_sha256": "fb58bdf35986a1789c54038414bb64c7d630b38de417e7d1fac43574f01d87f8",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "BALCONY_GUARD_LEFT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "replay_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "before_sha256": "6656c1bc2e224771eae08eb90f1ce180a6ecc35a47c2c4ce0130b8f866f7dee8",
+              "replay_sha256": "60ef703185f411895a6d974e30d23d05f5b771a4c75e9f0e4dc8781b543533f9",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "BALCONY_GUARD_RIGHT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "replay_counts": {
+                "faces": 18,
+                "edges": 36,
+                "instances": 3
+              },
+              "before_sha256": "a2fb0a7c70741d35e509baaeb50a686ec46d8ca6e60bebef5f0f6b7bcda8bde2",
+              "replay_sha256": "a97a913dc1906faf552b013980d747fbfedd9eb92f297fd29c880fae1dffc49d",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "DOOR_FRONT_L2_01",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "replay_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "before_sha256": "2cf40e8859681fdce5ce6453ef4ea612b4a5d0c46f40549b68ef62b0c2287e2c",
+              "replay_sha256": "a80e5b2385b04d68249fa4ce43d1e4681b32e8ea01cb2220b674f00a3ed48491",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "DOOR_FRONT_L2_02",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "replay_counts": {
+                "faces": 42,
+                "edges": 84,
+                "instances": 7
+              },
+              "before_sha256": "1c62631e71f01b009f75fd8c29224bd73575850575694fbb2b3d8b17c960bfb2",
+              "replay_sha256": "caf9ef163345890c295bf25422ed1c139bf5693c35c1c45d60186551b879460b",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "FINISH_PLINTH",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 30,
+                "edges": 60,
+                "instances": 5
+              },
+              "replay_counts": {
+                "faces": 30,
+                "edges": 60,
+                "instances": 5
+              },
+              "before_sha256": "169f907ba125666d1062582b5ef4ec669a02980032f1bcde41fef6f6589f4d2a",
+              "replay_sha256": "661a584e724e1961211b48a0c0ebc2e9cd52d08a6fa4156005faed08c70d5107",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "ROOF_CAP",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "before_sha256": "8ddfb24549ffc5979f9936e5fb1b5619b727c30f9cfd3d32756ffdd0a77d281c",
+              "replay_sha256": "94a617ac1dc104577f7f962ff952f37b65f7cb1b0f46948b6554aa27a41e623a",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SCREEN_FRONT_RIGHT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 78,
+                "edges": 156,
+                "instances": 13
+              },
+              "replay_counts": {
+                "faces": 78,
+                "edges": 156,
+                "instances": 13
+              },
+              "before_sha256": "5fbde50614cabb16591c068216a9df224c51c27c6507f14a4ecaf8038277b29a",
+              "replay_sha256": "5548d3f901ddd499d68e5d5df65811632e694d3da6b9250891c0dc615f900054",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_FRONT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 18,
+                "edges": 48,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 18,
+                "edges": 48,
+                "instances": 0
+              },
+              "before_sha256": "8f8e4868fb1a487948698d6e05782fbaa50b9f7e65de4b89f4620868b0e7f000",
+              "replay_sha256": "4a37bf7234d340d4903d7eff0e8f663b40d9f526235780574ddf6a6c338cb75b",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_LEFT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 14,
+                "edges": 36,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 14,
+                "edges": 36,
+                "instances": 0
+              },
+              "before_sha256": "fe4f2f686f10ab3f32ea6b4a0204eb317e667391ee61d9f4573f7a0804bc023a",
+              "replay_sha256": "48164bd504b0e81aafdb026cf49dc398fd38061800fea94e77281ee3234ead69",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_REAR",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "before_sha256": "1f0b0bbb7b408d756b43b368787146f03b95210a3c448d62fcbaa6732f810bff",
+              "replay_sha256": "b8daac6fabb13711d0e506d5a8e6a14de4d01614d7d8e7a5bc1fbbc4e9043e0e",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            },
+            {
+              "name": "SHELL_RIGHT",
+              "counts_equal": true,
+              "before_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "replay_counts": {
+                "faces": 6,
+                "edges": 12,
+                "instances": 0
+              },
+              "before_sha256": "e7cbc1e99e1a7da74abffa18a7de3cbe98ad29dad9430854d47463861e0ea01a",
+              "replay_sha256": "1ae2e7c67eddc030b63cbddb5e68d0c32ae57b685f6a952d9e7eb19168ef78cc",
+              "child_differences": null,
+              "next_diagnostic": "Inspect per-child named transforms, normalized world-space face/edge coordinates, front/back face material and inherited material in a read-only native traversal."
+            }
+          ],
+          "persistent_ids_ignored": true,
+          "equal_group_counts_do_not_prove_geometry_equality": true
+        }
+      }
+    ],
+    "limitations": [
+      "PASS applies only to the three actual read-only native fingerprints supplied.",
+      "No claim about new images, user edit/save/reopen, strict blank replay, or visual source fidelity."
+    ]
+  },
+  "raw_strict_verdict_overridden": false,
+  "source_fidelity": "NOT_ASSESSED",
+  "strict_blank_program_replay": "NOT_RUN",
+  "customer_delivery": "NOT_ASSESSED"
+}

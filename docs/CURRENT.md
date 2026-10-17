@@ -1,3 +1,9 @@
+## SU 试用资料公开归档 2026-10-17 — 本轮上传授权
+
+所有者明确要求本轮全部记录、图片、执行细节上传 GitHub。已将冻结目录296份文件完整整理入[公开证据包](test-results/windows/2026-10-17-local-su-trial/README.md)，含真实截图/侧证/输入/SKP/脚本/事件/全部失败/用量/三阶段原生数据；仅6份文字记录中的本机账户目录用户名脱敏，PNG/SKP字节保持。凭据未收集未上传。公开清单和逐文件原始/公开SHA可复核。发布隔离分支 codex/su-trial-candidate-20261017，关联 SU Issue #20；不合并main，不部署，不继续几何工作。历史“原始资料本机保留”是上传授权前状态。候选版仍仅供本机个人试用，源保真NEEDS_FIX/严格比较FAIL/独立商业API和严格重放NOT_RUN不变。
+
+---
+
 ## LOCAL SU TRIAL COMPLETE 2026-10-17 — ready for owner's local trial, with limitations
 
 New owner personal SU trial COMPLETE. [Launch/result/limits](SU_TRIAL_CANDIDATE_2026-10-17.md), [engineering evidence index](test-results/windows/2026-10-17-local-su-trial/README.md). Isolated `codex/su-trial-candidate-20261017` includes both reviewed trial fixes, main unchanged. Actual website gpt-6.1-sol/medium, independent `su-1017`/root19: original synthetic image upload, Chinese clarification/plan/approval, native build r3, one railing-height edit r4, KEEP+16group full protection PASS, six true same-camera pairs, actual latest download and SU24 GUI reopen. Save-before/bound/download three-stage declaredprecisionPASS, rawstrictdoubleFAIL retained; Critic sourceNEEDS_FIX remains, no commercial/full-source claim. Restore/reconnect working r4, trial fence archived, page left available. Refresh/project switch/draft/double-click/browser outage/cancel checks pass; hard-kill/cross-client NOT_RUN. Final545pass/13skip separate from real geometry. Raw new sources/models/logs local only; no push/merge main/deployment/thesis action. STOP feature/model work and await owner experience. Old r20 remains closed and byte unchanged.

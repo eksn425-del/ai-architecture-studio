@@ -1,0 +1,51 @@
+..........s.......................................................ssssss [ 12%]
+sssss................................................................... [ 25%]
+........................................................................ [ 38%]
+........................................................................ [ 51%]
+...s.................................................................... [ 64%]
+........................................................................ [ 77%]
+........................................................................ [ 90%]
+.....................................................                    [100%]
+============================== warnings summary ===============================
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:50
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:50: PyparsingDeprecationWarning: 'addParseAction' deprecated - use 'add_parse_action'
+    number.addParseAction(lambda t: float(t[0]))  # convert to float
+
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:51
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:51: PyparsingDeprecationWarning: 'addParseAction' deprecated - use 'add_parse_action'
+    string_ = quotedString.addParseAction(lambda t: t[0][1:-1])  # remove quotes
+
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:57
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:57: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    Relation = oneOf(["==", "!=", "<", "<=", ">", ">=", "?", "!?"])
+
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:63
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:63: PyparsingDeprecationWarning: 'setResultsName' deprecated - use 'set_results_name'
+    ).setResultsName("EntityQuery")
+
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:65
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:65: PyparsingDeprecationWarning: 'infixNotation' deprecated - use 'infix_notation'
+    InfixBoolQuery = infixNotation(
+
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:72
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:72: PyparsingDeprecationWarning: 'setResultsName' deprecated - use 'set_results_name'
+    ).setResultsName("AttribQuery")
+
+D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:74
+  D:\python3.10.4\Lib\site-packages\ezdxf\queryparser.py:74: PyparsingDeprecationWarning: 'setResultsName' deprecated - use 'set_results_name'
+    AttribQueryOptions = Literal("i").setResultsName("AttribQueryOptions")
+
+tests/test_demo.py::test_unknown_unit_site_dxf_prefers_redline_and_normalizes_survey_coordinates
+tests/test_demo.py::test_dxf_and_presentation_generation
+tests/test_novice_flow.py::test_readable_dxf_site_reaches_reconstruction_context
+  D:\python3.10.4\Lib\site-packages\ezdxf\query.py:444: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    query_args = EntityQueryParser.parseString(query, parseAll=True)
+
+tests/test_demo.py::test_unknown_unit_site_dxf_prefers_redline_and_normalizes_survey_coordinates
+tests/test_demo.py::test_dxf_and_presentation_generation
+tests/test_novice_flow.py::test_readable_dxf_site_reaches_reconstruction_context
+  D:\python3.10.4\Lib\site-packages\pyparsing\util.py:466: PyparsingDeprecationWarning: 'parseAll' argument is deprecated, use 'parse_all'
+    return fn(self, *args, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+544 passed, 13 skipped, 13 warnings in 26.69s

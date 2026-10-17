@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "su1017_villa",
+  "revision": 3,
+  "root_pid": 19,
+  "full_readback": true,
+  "current_stage": "finish",
+  "systems": [
+    {
+      "system_id": "enclosure",
+      "target_paths": [
+        [
+          "SHELL_FRONT"
+        ],
+        [
+          "SHELL_LEFT"
+        ],
+        [
+          "SHELL_REAR"
+        ],
+        [
+          "SHELL_RIGHT"
+        ],
+        [
+          "SLAB_GROUND"
+        ],
+        [
+          "SLAB_LEVEL_2"
+        ]
+      ],
+      "present_paths": [
+        [
+          "SHELL_FRONT"
+        ],
+        [
+          "SHELL_LEFT"
+        ],
+        [
+          "SHELL_REAR"
+        ],
+        [
+          "SHELL_RIGHT"
+        ],
+        [
+          "SLAB_GROUND"
+        ],
+        [
+          "SLAB_LEVEL_2"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "roof",
+      "target_paths": [
+        [
+          "ROOF_FLAT"
+        ],
+        [
+          "ROOF_CAP"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ROOF_FLAT"
+        ],
+        [
+          "ROOF_CAP"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "balcony",
+      "target_paths": [
+        [
+          "BALCONY_SLAB"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BALCONY_SLAB"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "opening_prototype",
+      "target_paths": [
+        [
+          "DOOR_FRONT_L2_01"
+        ]
+      ],
+      "present_paths": [
+        [
+          "DOOR_FRONT_L2_01"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "opening_instances",
+      "target_paths": [
+        [
+          "DOOR_FRONT_L1_01"
+        ],
+        [
+          "DOOR_FRONT_L2_01"
+        ],
+        [
+          "DOOR_FRONT_L2_02"
+        ],
+        [
+          "WINDOW_LEFT_L1_01"
+        ],
+        [
+          "WINDOW_LEFT_L2_01"
+        ]
+      ],
+      "present_paths": [
+        [
+          "DOOR_FRONT_L1_01"
+        ],
+        [
+          "DOOR_FRONT_L2_01"
+        ],
+        [
+          "DOOR_FRONT_L2_02"
+        ],
+        [
+          "WINDOW_LEFT_L1_01"
+        ],
+        [
+          "WINDOW_LEFT_L2_01"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "screen",
+      "target_paths": [
+        [
+          "SCREEN_FRONT_RIGHT"
+        ]
+      ],
+      "present_paths": [
+        [
+          "SCREEN_FRONT_RIGHT"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "glass_guard",
+      "target_paths": [
+        [
+          "BALCONY_GUARD_FRONT"
+        ],
+        [
+          "BALCONY_GUARD_LEFT"
+        ],
+        [
+          "BALCONY_GUARD_RIGHT"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BALCONY_GUARD_FRONT"
+        ],
+        [
+          "BALCONY_GUARD_LEFT"
+        ],
+        [
+          "BALCONY_GUARD_RIGHT"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "finish",
+      "target_paths": [
+        [
+          "FINISH_PLINTH"
+        ]
+      ],
+      "present_paths": [
+        [
+          "FINISH_PLINTH"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}

@@ -1,0 +1,1 @@
+本机SU个人试用候选版已完成。主流程/局部修改/KEEP/真实网页下载完成；原生三阶段PASS_WITH_DECLARED_PRECISION，raw strict double FAIL保留，source NEEDS_FIX。正式脱敏索引见仓库 docs/test-results/windows/2026-10-17-local-su-trial/README.md。此目录完整原始数据按本次所有者要求不进入Git或公开发布。
