@@ -15,7 +15,7 @@ ReconstructionState = Literal["idle", "clarifying", "planned", "building"]
 
 def discussion_only(message: str) -> bool:
     """Questions/explanations must not implicitly authorize model changes."""
-    return bool(re.search(r"先聊|先讨论|只聊|只分析|只解释|为什么|怎么|如何|能否|是否|能不能|[?？]|吗[。！!\s]*$", message))
+    return bool(re.search(r"先聊|先讨论|只聊|只分析|只解释|为什么|怎么|如何|能否|是否|能不能|如果|假如|示例|教程|是什么意思|[?？]|吗[。！!\s]*$", message))
 
 
 def explicit_build_approval(message: str) -> bool:
@@ -88,6 +88,18 @@ def resolve_reconstruction_action(session: AgentSession, request: ConversationRe
         action_message,
     )
     if session.reconstruction_state == "building" and direct_revision and not stopped_or_question:
+        return "execute"
+    # A question about the previous stop can be followed by a separate direct
+    # instruction to finish the already-approved build. Pure questions, plan-only
+    # and pause requests retain their earlier non-writing precedence.
+    continue_build = re.search(
+        r"(?:^|[，。；！!？?\n])\s*(?:请|你)?(?:现在|立即|直接)?(?:继续(?:建模|施工|完成)(?:(?:剩余|其余)(?:的)?(?:部分|工作|建筑|模型))?|全部完成|完成(?:剩余|其余|这个|当前)(?:的)?(?:建筑|模型|建模|部分|工作))(?:吧|就行)?(?=[，。；！!\n]|$)",
+        action_message,
+    )
+    if session.reconstruction_state == "building" and continue_build and not re.search(
+        r"如果|假如|示例|教程|(?:能否|是否|能不能|要不要).{0,6}(?:继续|完成)|(?:继续|完成)[^。；\n]{0,16}[?？]|吗[。！!\s]*$",
+        action_message,
+    ):
         return "execute"
     if discussion_only(request.message):
         return "clarify"

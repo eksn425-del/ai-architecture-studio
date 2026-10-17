@@ -11,7 +11,7 @@ class ScopedPlanningAgent(PlanningAgent):
             self.plans+=1
             if self.plans>1:
                 card=kwargs['project_dir']/'runtime/agent_workspace/notes/reconstruction_card.md'
-                text=card.read_text()+'\n<design_scope>'+json.dumps([{'feature_id':'terrace.rails','requested_state':'深灰栏杆，其他构件保持'}],ensure_ascii=False)+'</design_scope>\n'
+                text=card.read_text(encoding='utf-8')+'\n<design_scope>'+json.dumps([{'feature_id':'terrace.rails','requested_state':'深灰栏杆，其他构件保持'}],ensure_ascii=False)+'</design_scope>\n'
                 card.write_bytes(text.replace('\n','\r\n').encode('utf-8'))
         return result
 
@@ -43,8 +43,8 @@ def test_scoped_followup_requires_displayed_hash_windows_unicode(tmp_path):
 def test_changed_card_rejected_before_tools(tmp_path):
     client,agent,su,project=prepare(tmp_path)
     card=project/'runtime/agent_workspace/notes/reconstruction_card.md'
-    digest=hashlib.sha256(card.read_text().encode()).hexdigest()
-    card.write_text(card.read_text()+'changed')
+    digest=hashlib.sha256(card.read_text(encoding='utf-8').encode()).hexdigest()
+    card.write_text(card.read_text(encoding='utf-8')+'changed', encoding='utf-8')
     su.calls.clear()
     assert execute(client,digest).status_code==409
     assert not su.calls

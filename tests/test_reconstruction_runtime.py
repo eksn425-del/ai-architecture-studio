@@ -173,3 +173,31 @@ def test_global_stop_synonyms(message,action):
 def test_confirm_stop_is_not_execution_approval(state,message):
  assert not explicit_build_approval(message)
  assert resolve_reconstruction_action(AgentSession(project_id="demo",reconstruction_state=state),ConversationRequest(message=message,agent_action="execute"))=="clarify"
+
+
+@pytest.mark.parametrize("message", [
+    "为什么要拦截？我没有限制的，你全部完成",
+    "为什么停了？请继续完成剩余部分。",
+])
+def test_question_then_explicit_completion_keeps_approved_writer(message):
+    session = AgentSession(project_id="demo", reconstruction_state="building")
+    request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
+    assert build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled
+
+
+@pytest.mark.parametrize("message", [
+    "为什么要拦截？", "你全部完成了吗？", "请继续完成？", "请继续完成，先只给计划，等我批准。",
+    "暂停，不要修改模型。请继续完成。", "为什么不继续完成？", "如果可以，你全部完成。",
+    "我想知道，你全部完成是什么意思", "只解释为什么停了，你全部完成。",
+    "为什么停止建模？请继续建模。",
+])
+def test_completion_question_or_explicit_nonwrite_still_has_no_writer(message):
+    session = AgentSession(project_id="demo", reconstruction_state="building")
+    request = ConversationRequest(message=message, workflow_mode="image_reconstruction")
+    assert not build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled
+
+
+def test_completion_does_not_skip_initial_approval():
+    session = AgentSession(project_id="demo", reconstruction_state="idle")
+    request = ConversationRequest(message="为什么没建？你全部完成。", workflow_mode="image_reconstruction")
+    assert not build_reconstruction_turn_policy(session, request, sketchup_session_ready=True).tools_enabled
