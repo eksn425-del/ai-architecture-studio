@@ -1,3 +1,9 @@
+## 2026-10-17 — Owner staged-group block fixed locally; fresh manual workbench prepared
+
+Owner's separate single-image apartment trial (default session demo-cultural-center, apartment_reconstruction r3/root19) stopped at `Missing scope path RESIDENTIAL_MODULES`; subsequent mixed question/finish instruction was clarify-only. Exact absent leaves now use verified transaction-local graph protection, without widening active host policies. Original local e14960d integrated onto latest trial762b519 as8577730. [Actual diagnosis, failures, usage and checks](test-results/windows/2026-10-17-owner-staged-group-block/README.md): SU-focused178PASS/2optionalRubySKIP; Ruby offline contracts PASS; broader selection219PASS/10environmentalFAIL/4SKIP retained. Actual post-fix SU continuation/native delivery/source-quality NOT_RUN. New isolated8800 empty website session is for OWNER MANUAL testing, no inference/approval/geometry issued by tester. Original files/8799 project and raw evidence remain private/local; publish sanitized code/report on isolated branch and link Issue20 only. Old eight-source/r20 stays closed; no main merge, deployment or automatic three-round test.
+
+---
+
 ## 2026-10-16 UTC — Separate product recovery patch (local review)
 
 New product-only work after the r20 case closeout; no old building geometry was resumed. See [recovery/readiness report](TRIAL_RECOVERY_READINESS_2026-10-16.md). Fixes project-switch identity, active-turn polling/retry/draft safety and current-checkpoint download selection, with explicit native-delivery verification wording. Core checks: 537 passed / 15 skipped; actual browser UI and SketchUp native NOT_RUN. A separate native Blender fixture is not website integration or model-quality certification. Prepared on an isolated branch; no remote publication attempted. Historical handoff below is unchanged.

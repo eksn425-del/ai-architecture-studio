@@ -1,3 +1,9 @@
+## 2026-10-17 — Owner staged-group block fixed locally; fresh manual workbench prepared
+
+Owner's separate single-image apartment trial (default session demo-cultural-center, apartment_reconstruction r3/root19) stopped at `Missing scope path RESIDENTIAL_MODULES`; subsequent mixed question/finish instruction was clarify-only. Exact absent leaves now use verified transaction-local graph protection, without widening active host policies. Original local e14960d integrated onto latest trial762b519 as8577730. [Actual diagnosis, failures, usage and checks](test-results/windows/2026-10-17-owner-staged-group-block/README.md): SU-focused178PASS/2optionalRubySKIP; Ruby offline contracts PASS; broader selection219PASS/10environmentalFAIL/4SKIP retained. Actual post-fix SU continuation/native delivery/source-quality NOT_RUN. New isolated8800 empty website session is for OWNER MANUAL testing, no inference/approval/geometry issued by tester. Original files/8799 project and raw evidence remain private/local; publish sanitized code/report on isolated branch and link Issue20 only. Old eight-source/r20 stays closed; no main merge, deployment or automatic three-round test.
+
+---
+
 ## CLOSED 2026-10-17 — basic building and simple surroundings completed, final r20
 
 **Owner-directed case closeout COMPLETE.** Owner says current development is sufficient; retain basic doors/windows/stairs/walls/columns, add simple surroundings, upload records and finish. No further refinement or old customer-readiness milestones. [Final actual evidence/model](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [prior19building/native evidence](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same original8wholeimages/order/projectarchitecture-project-4f0e4/root20606, original4unchanged; actual real Studio ordinaryChinese/Sol6.1Medium, outercontroller unchanged.
