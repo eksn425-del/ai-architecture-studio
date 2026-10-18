@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#203e34"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=contextual-turn-20261017"><link rel="stylesheet" href="/static/atelier.css?v=atelier-20261018"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#203e34"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=contextual-turn-20261017"><link rel="stylesheet" href="/static/atelier.css?v=connect-guide-20261018"></head>
 <body>
 <div class="assistant-shell">
   <aside class="sidebar" aria-label="建模会话">
@@ -44,7 +44,19 @@
     </div>
   </main>
 </div>
-<dialog id="connect-dialog"><div class="dialog-kicker">首次连接 · 本机 SketchUp</div><h2>让 AI 连接你的 SketchUp</h2><ol class="help-steps"><li>在本机安装 SketchUp 2024。已有工作建议先保存；无标题模型会先保留一份本地副本。</li><li>在 SketchUp「扩展程序管理器」安装 Kongxing 插件。已有插件无需重复安装。</li><li>点击自动连接，为这次会话打开独立模型；已有插件无需重新安装。</li><li>插件未响应时，在 SketchUp 扩展菜单启动 Kongxing Local Bridge 后重试。失败原因会保留在此窗口。</li></ol><p id="connect-status" role="status">交流与分析无需连接；开始建模前才需要连接。</p><div class="dialog-actions"><button id="connect-close" class="button-quiet">稍后连接</button><button id="connect-check" class="button-quiet">检查 MCP 连接</button><button id="connect-open" class="button-primary">自动检查并连接</button></div></dialog>
+<dialog id="connect-dialog" aria-labelledby="connect-title" aria-describedby="connect-access-note">
+  <button id="connect-dismiss" class="dialog-dismiss icon-button" type="button" aria-label="关闭 SketchUp 连接窗口"><span aria-hidden="true">×</span></button>
+  <div class="dialog-kicker">本机连接 / SKETCHUP</div><h2 id="connect-title">连接你的 SketchUp</h2>
+  <p id="connect-access-note">通过本机 MCP 桥接访问 SketchUp。检查连接只读取连接与模型信息；打开项目模型会启动或切换 SketchUp，读取并校验本会话的独立副本。</p>
+  <div class="connect-prerequisite">首次使用需先安装 <strong>SketchUp 2024</strong> 和 <strong>Kongxing 插件</strong>。已有插件无需重装，自动连接不会代装插件。</div>
+  <details id="connect-manual" class="connect-manual"><summary>想手动连接 MCP？查看步骤 <span aria-hidden="true">↗</span></summary>
+    <ol class="help-steps"><li>手动打开 SketchUp 2024，保存当前工作，并退出群组或组件编辑。</li><li>若尚未安装插件，在「扩展程序管理器」安装 Kongxing 插件；然后在扩展菜单启动 <strong>Kongxing Local Bridge</strong>。</li><li>回到这里，点击「仅检查 MCP」，确认桥接是否响应。这一步不会打开、切换或修改模型。</li><li>桥接就绪后，再点击「打开项目模型并连接」，绑定本会话的独立副本。MCP 可达不等于项目模型已绑定。</li></ol>
+    <p>当前使用已配置的 Kongxing MCP。若提示“未配置”，还需由安装程序或管理员完成本机 MCP 配置；此窗口暂不提供任意 MCP 服务地址的填写入口。</p>
+  </details>
+  <p class="connect-execution-note">连接后仍需批准计划才会建模；如果你已批准计划并从执行流程进入，此处连接成功后会继续执行该计划。</p>
+  <p id="connect-status" role="status">交流与分析无需连接；开始建模前才需要连接。</p>
+  <div class="dialog-actions"><button id="connect-close" class="button-quiet" type="button">稍后连接</button><button id="connect-check" class="button-quiet" type="button">仅检查 MCP</button><button id="connect-open" class="button-primary" type="button">打开项目模型并连接</button></div>
+</dialog>
 <dialog id="model-settings-dialog"><form id="model-settings-form"><div class="dialog-kicker">默认建模模型</div><h2>DeepSeek V4.1 Flash</h2><p>填写一次，以后打开自动使用。</p><input id="provider-mode" type="hidden" value="deepseek"><input id="api-model" type="hidden" value="deepseek/deepseek-flash"><input id="api-base" type="hidden" value="https://api.deepseek.com"><input id="api-effort" type="hidden" value="provider-default"><div id="byok-fields"><label for="api-key">API Key</label><input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="粘贴 DeepSeek API Key"><p id="saved-key-status" role="status"></p><p>Key 在本机使用当前 Windows 用户的系统加密保存，关闭或重启后自动恢复，不会显示在聊天中或上传到 GitHub。建模时仅用于连接 DeepSeek 官方 API。</p><p>保存属于这台电脑的当前 Windows 用户；更换电脑或系统用户需要重新配置。可随时更换或移除。</p><p><a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener noreferrer">打开 DeepSeek 官方平台创建 Key ↗</a></p></div><p id="model-settings-status" role="status"></p><div class="dialog-actions"><button id="forget-api-key" type="button" class="button-quiet">移除已保存的 Key</button><button id="model-settings-close" type="button" class="button-quiet">取消</button><button class="button-primary" type="submit">保存并设为默认</button></div></form></dialog>
 <dialog id="help-dialog"><div class="dialog-kicker">快速开始</div><h2>先聊清楚，再开始建模</h2><ol class="help-steps"><li>新建会话，上传、粘贴图片或拖入资料，也可以先直接提问。</li><li>简单说「请根据这些资料帮我建模」，与 AI 交流缺少的信息。</li><li>确认后点击「整理建模计划」，查看估算与范围。</li><li>批准之前按连接教学检查 MCP、打开独立 SU 模型。</li><li>批准后查看真实工具进度与截图，下载 SKP；继续对话可修改。</li></ol><p>支持图片、PDF、DOCX、TXT、MD、CSV、DXF、DWG。DWG 只保存原文件，需补带尺寸的 PDF/图片；扫描 PDF 需清晰截图。网址可直接粘贴，读取失败会提示补截图。聊天与计划不会改动 SU。</p><button id="help-close" class="button-primary">开始使用</button></dialog>
 <dialog id="project-dialog"><form id="create-project-form"><div class="dialog-kicker">新建会话</div><h2>这次想建什么？</h2><label for="new-project-name">会话名称</label><input id="new-project-name" required maxlength="120" placeholder="例如：山墙玻璃别墅"><label for="new-project-brief">目标说明（可选）</label><textarea id="new-project-brief" rows="3" placeholder="创建后上传图片，在对话中补充要求。"></textarea><div class="dialog-actions"><button id="cancel-project" type="button" class="button-quiet">取消</button><button id="create-project-submit" type="submit" class="button-primary">创建会话 </button></div></form></dialog>
@@ -54,5 +66,5 @@
 <!-- Compatibility elements for existing backend paths, outside the modeling UI. -->
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
-<script src="/static/studio.js?v=atelier-20261018" defer></script>
+<script src="/static/studio.js?v=connect-guide-20261018" defer></script>
 </body></html>

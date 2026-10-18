@@ -1312,6 +1312,8 @@ function openConnectDialog(executeAfterConnect = false) {
     : "交流与分析无需连接；开始建模前才需要连接。";
   $("connect-check").disabled = false;
   $("connect-open").disabled = false;
+  $("connect-open").textContent = executeAfterConnect ? "连接并执行已批准计划" : "打开项目模型并连接";
+  $("connect-manual").open = false;
   if (!$("connect-dialog").open) $("connect-dialog").showModal();
 }
 
@@ -1334,7 +1336,7 @@ async function checkConnectDialog() {
   try {
     const result = await api(`/api/projects/${encodeURIComponent(projectId)}/connector`);
     if (!isCurrentConnectDialog(generation, projectId)) return;
-    $("connect-status").textContent = result.reachable ? "MCP 已连接。下一步：点击自动连接，打开本会话的独立模型。" : friendlyError(new Error(result.detail || "请在 SketchUp 扩展菜单启动 Kongxing Local Bridge，然后重试。"));
+    $("connect-status").textContent = result.reachable ? "MCP 桥接已响应。本次仅检查连接，未打开或绑定项目模型。需要建模时，请使用下方的项目连接按钮。" : friendlyError(new Error(result.detail || "请在 SketchUp 扩展菜单启动 Kongxing Local Bridge，然后重试。"));
   } catch (_) {
     if (isCurrentConnectDialog(generation, projectId)) $("connect-status").textContent = "连接未就绪，请检查 SketchUp 与插件是否已启动。";
   } finally { if (isCurrentConnectDialog(generation, projectId)) $("connect-check").disabled = false; }
@@ -1362,6 +1364,7 @@ async function connectCurrentProject() {
 }
 
 $("connect-close").addEventListener("click", closeConnectDialog);
+$("connect-dismiss").addEventListener("click", closeConnectDialog);
 $("connect-dialog").addEventListener("cancel", event => { event.preventDefault(); closeConnectDialog(); });
 $("connect-check").addEventListener("click", checkConnectDialog);
 $("connect-open").addEventListener("click", connectCurrentProject);
