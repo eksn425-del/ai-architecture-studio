@@ -38,23 +38,17 @@ function uploads({ role = 'auto', text = '', afterPost = () => {} } = {}) {
 const image = (name = 'reference.png') => ({ name, type: 'image/png', size: 100 });
 const query = request => new URL(request.url, 'http://localhost').searchParams;
 
-test('upload selector defaults to auto, with target and defect overrides', () => {
-  const select = html.match(/<select id="reference-role"[^>]*>(.*?)<\/select>/)[1];
-  assert.match(select, /^<option value="auto" selected>自动判断（可更正）<\/option>/);
-  assert.match(select, /value="target_building"/);
-  assert.match(select, /value="defect_location"/);
-  assert.doesNotMatch(source, /请先选择图片用途/);
-});
-for (const role of ['', 'auto', 'target_building', 'defect_location']) {
-  test(`upload proceeds with ${role || 'blank'} selector and preserves explicit choice`, async () => {
+test('the composer has no image classification selector and uploads rely on conversation context', async () => {
+  assert.doesNotMatch(html, /id="reference-role"|图片用途|待发送图片用途|更正用途/);
+  for (const role of ['', 'auto', 'target_building', 'defect_location']) {
     const { ctx, requests, state } = uploads({ role });
     await ctx.uploadAttachments([image()]);
     assert.equal(requests.length, 1);
-    assert.equal(query(requests[0]).get('evidence_role'), role || 'auto');
+    assert.equal(query(requests[0]).get('evidence_role'), 'auto');
     assert.equal(query(requests[0]).get('batch_image_count'), '1');
     assert.equal(state.busy, false);
-  });
-}
+  }
+});
 test('context and filename are encoded without adding query parameters or using filename as role', async () => {
   const text = '这张是待修问题：屋顶 A&B？\n不要复制旧模型 #定位 + "比较"';
   const { ctx, requests } = uploads({ text });
@@ -86,73 +80,23 @@ test('existing limits still reject an oversized image batch before upload', asyn
   assert.equal(requests.length, 0);
   assert.ok(messages.some(value => value.includes('最多使用 8 张')));
 });
-function markup(ref, busy = false) {
-  return sandbox(production('escapeHtml', 'referenceRoleMarkup'), { state: { busy } }).referenceRoleMarkup(ref);
+function markup(ref) {
+  return sandbox(production('escapeHtml', 'referenceSourceMarkup'), { projectFileUrl: p => '/files/' + encodeURIComponent(p) }).referenceSourceMarkup(ref);
 }
-test('auto role label explains the server decision and remains correctable', () => {
-  const rendered = markup({ source: 'inputs/reference/first.png', evidence_role: 'target_building', role_origin: 'context_default', role_reason: 'first_image_new_project' });
-  assert.match(rendered, /自动判断 · 首张参考图，按目标建筑使用/);
-  assert.match(rendered, /<option value="target_building" selected>/);
-  assert.match(rendered, /data-reference-role="inputs\/reference\/first.png"/);
-  assert.doesNotMatch(rendered, /context_default|first_image_new_project/);
+
+test('image history provides actual originals and historical versions without classification controls', () => {
+  const ref = { source: 'inputs/reference/first.png', evidence_role: 'unknown', role_origin: 'awaiting_context', evidence_model_revisions: { model: 3 } };
+  const before = JSON.stringify(ref), rendered = markup(ref);
+  assert.match(rendered, /first.png/);
+  assert.match(rendered, /model: r3/);
+  assert.doesNotMatch(rendered, /<select|target_building|defect_location|用途/);
+  assert.equal(JSON.stringify(ref), before);
 });
-test('unknown and legacy images remain pending without client-side promotion', () => {
-  for (const roleOrigin of ['legacy', 'awaiting_context']) {
-    const ref = { source: 'inputs/reference/old.png', evidence_role: 'unknown', role_origin: roleOrigin, role_reason: 'needs_current_context' };
-    const rendered = markup(ref);
-    assert.match(rendered, /<option value="" selected>待确认用途/);
-    assert.match(rendered, /请说明这张图的用途/);
-    assert.doesNotMatch(rendered, /<option value="target_building" selected>/);
-    assert.equal(ref.evidence_role, 'unknown');
-  }
-});
-test('user correction and ambiguous decisions display understandable labels', () => {
-  assert.match(markup({ source: 'inputs/reference/x.png', evidence_role: 'defect_location', role_origin: 'user', role_reason: 'explicit_user_correction' }), /已手动确认 · 已按你的选择更正/);
-  assert.match(markup({ source: 'inputs/reference/x.png', evidence_role: 'unknown', role_origin: 'awaiting_context', role_reason: 'mixed_or_conflicting_context' }), /图片用途有歧义，请确认/);
-});
-test('role review escapes filenames and never renders unknown provenance as raw HTML', () => {
-  const rendered = markup({ source: 'inputs/reference/<img src=x onerror="bad">.png', evidence_role: 'unknown', role_origin: '<b>unsafe</b>', role_reason: '<script>unsafe</script>' }, true);
-  assert.doesNotMatch(rendered, /<img|<script|<b>/);
+
+test('image history escapes attachment text and keeps safe local asset links', () => {
+  const rendered = markup({ source: 'inputs/reference/<img src=x onerror="bad">.png', evidence_model_revisions: { 'model<x>': 6 } });
+  assert.doesNotMatch(rendered, /<script|<x>/);
   assert.match(rendered, /&lt;img/);
-  assert.match(rendered, /aria-label="更正图片用途" disabled/);
-});
-function correction({ busy = false, failure = false } = {}) {
-  const state = { projectId: 'p & one', project: { agent_session: { reconstruction_state: 'planned' } }, busy };
-  const requests = [], notices = [];
-  const ctx = sandbox(production('correctReferenceRole'), {
-    state,
-    updateHeader() {}, showToast: text => notices.push(text), friendlyError: e => e.message,
-    api: async (url, options) => {
-      requests.push({ url, options });
-      if (failure) throw Error('offline');
-      return options ? {} : { agent_session: { reconstruction_state: 'clarifying', approved_plan_sha256: null } };
-    },
-  });
-  return { change: ctx.correctReferenceRole, state, requests, notices };
-}
-test('correcting a role PATCHes exact source then reloads invalidated approval state', async () => {
-  const { change, requests, state, notices } = correction();
-  const sourcePath = 'inputs/reference/target & old.png';
-  await change({ target: { dataset: { referenceRole: sourcePath }, value: 'defect_location' } });
-  assert.equal(requests[0].url, '/api/projects/p%20%26%20one/reference-role');
-  assert.equal(requests[0].options.method, 'PATCH');
-  assert.deepEqual(JSON.parse(requests[0].options.body), { source: sourcePath, evidence_role: 'defect_location' });
-  assert.equal(state.project.agent_session.reconstruction_state, 'clarifying');
-  assert.equal(state.project.agent_session.approved_plan_sha256, null);
-  assert.ok(notices.some(text => text.includes('重新整理并批准建模计划')));
-  assert.equal(state.busy, false);
-});
-test('blank role and in-flight work cannot submit a correction', async () => {
-  for (const [busy, value] of [[false, ''], [true, 'target_building']]) {
-    const { change, requests } = correction({ busy });
-    await change({ target: { dataset: { referenceRole: 'inputs/reference/x.png' }, value } });
-    assert.equal(requests.length, 0);
-  }
-});
-test('failed role correction keeps the old server state and releases busy status', async () => {
-  const { change, state, notices } = correction({ failure: true });
-  await change({ target: { dataset: { referenceRole: 'inputs/reference/x.png' }, value: 'target_building' } });
-  assert.equal(state.project.agent_session.reconstruction_state, 'planned');
-  assert.equal(state.busy, false);
-  assert.deepEqual(notices, ['offline']);
+  assert.match(rendered, /model&lt;x&gt;: r6/);
+  assert.match(rendered, /rel="noreferrer"/);
 });

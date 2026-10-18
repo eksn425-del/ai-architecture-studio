@@ -40,7 +40,7 @@ function composer({ text = '', stage = 'planned', ready = true, refs = [], histo
     },
   });
   vm.runInContext('let pendingMessage=null;\n' + production('escapeHtml', 'executionUserMessage', 'sourceImages', 'pendingImages',
-    'pendingAttachmentSources', 'referenceRoleMarkup', 'renderReferenceComposer', 'renderAttachments', 'sendConversation', 'correctReferenceRole', 'renderTurnControls', 'renderLiveActivity', 'renderNativeTurnEvent', 'cancelConversationTurn'), context);
+    'pendingAttachmentSources', 'referenceSourceMarkup', 'renderReferenceComposer', 'renderAttachments', 'sendConversation', 'renderTurnControls', 'renderLiveActivity', 'renderNativeTurnEvent', 'cancelConversationTurn'), context);
   return { context, state, $, nodes, requests, notices };
 }
 for (const text of ['我批准', '确认', '好，照做', '不要开始建模', '我批准，但是屋顶要改为双坡', '如果我批准会怎样？', '  我批准\n请保留原图。  ']) {
@@ -135,8 +135,6 @@ test('pending files and images are separated from submitted history, including l
   assert.deepEqual(Array.from(context.pendingAttachmentSources()), ['inputs/reference/new.png', 'inputs/brief/new.txt']);
   assert.match(nodes['reference-gallery'].innerHTML, /new\.png/);
   assert.doesNotMatch(nodes['reference-gallery'].innerHTML, /sent\.png|legacy\.png/);
-  assert.match(nodes['reference-role-review'].innerHTML, /new\.png/);
-  assert.doesNotMatch(nodes['reference-role-review'].innerHTML, /sent\.png|legacy\.png/);
   assert.match(nodes['submitted-reference-roles'].innerHTML, /sent\.png/);
   assert.match(nodes['submitted-reference-roles'].innerHTML, /legacy\.png/);
   assert.match(nodes['submitted-reference-roles'].innerHTML, /model: r5/);
@@ -147,33 +145,23 @@ test('pending files and images are separated from submitted history, including l
   context.renderReferenceComposer();
   assert.equal($('submitted-reference-history').open, true);
 });
-test('ambiguous roles stay visible and unpromoted even after submission', () => {
+test('unclear attachments remain unpromoted and available as originals, without a classification form', () => {
   const ref = image('uncertain.png', { submitted_at: '2026-10-17', evidence_role: 'unknown', role_origin: 'awaiting_context',
     role_reason: 'mixed_or_conflicting_context', evidence_model_revisions: { 'model<x>': 6 } });
   const { context, nodes } = composer({ refs: [ref] });
   const before = JSON.stringify(ref);
   context.renderReferenceComposer();
-  assert.equal(nodes['reference-ambiguity'].hidden, false);
-  assert.match(nodes['reference-ambiguity'].textContent, /1 张图片用途尚未确认/);
-  assert.match(nodes['submitted-reference-roles'].innerHTML, /图片用途有歧义，请确认/);
+  assert.doesNotMatch(nodes['submitted-reference-roles'].innerHTML, /<select|用途/);
   assert.match(nodes['submitted-reference-roles'].innerHTML, /model&lt;x&gt;: r6/);
-  assert.match(nodes['submitted-reference-roles'].innerHTML, /<option value="" selected>/);
+  assert.match(nodes['submitted-reference-roles'].innerHTML, /uncertain\.png/);
   assert.equal(JSON.stringify(ref), before);
 });
 test('submission hides pending attachment controls rather than forcing per-image choices', () => {
   const { context, nodes } = composer({ refs: [image('new.png')] });
   vm.runInContext('pendingMessage="controlled pending message";', context);
   context.renderReferenceComposer(); context.renderAttachments();
-  assert.equal(nodes['reference-role-review'].hidden, true);
   assert.equal(nodes['reference-gallery'].hidden, true);
   assert.equal(nodes['attachment-list'].hidden, true);
-});
-test('manual correction invalidates the displayed approval snapshot while preserving source-specific PATCH', async () => {
-  const { context, state, requests } = composer();
-  await context.correctReferenceRole({ target: { dataset: { referenceRole: 'inputs/reference/original.png' }, value: 'defect_location' } });
-  assert.deepEqual(requests[0].body, { source: 'inputs/reference/original.png', evidence_role: 'defect_location' });
-  assert.equal(state.displayedPlan, null);
-  assert.match(source, /\$\("submitted-reference-roles"\)\.addEventListener\("change", correctReferenceRole\)/);
 });
 
 for (const progress of [null, { running: true }, { running: true, cancel_supported: true }, { running: false, cancel_supported: true }, { running: true, cancel_supported: false }]) {

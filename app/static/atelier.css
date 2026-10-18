@@ -179,8 +179,8 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
   .suggestion:hover { transform: none; }
 }
 
-/* Always visible during a confirmed run, independent of the technical details drawer. */
-.live-activity { flex-shrink: 0; margin: 4px max(24px, calc((100% - 856px)/2)) 12px; padding: 18px 22px; border: 1px solid #cbd5c8; border-left: 3px solid #35624e; border-radius: 12px; background: #edf1e7; color: #284b3c; }
+/* Execution is an ordinary chat item; the entire conversation remains scrollable. */
+.live-activity { margin: 14px 0 20px; padding: 12px 16px; border: 1px solid #cbd5c8; border-left: 3px solid #35624e; border-radius: 12px; background: #edf1e7; color: #284b3c; }
 .live-activity[hidden] { display: none; }
 .live-activity-heading { display: flex; align-items: center; gap: 13px; }
 .live-activity-heading small { font-size: 8px; letter-spacing: 2px; color: #6d806c; }
@@ -193,3 +193,11 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 @keyframes live-orbit { to { transform: rotate(360deg); } }
 @media (max-width: 650px) { .live-activity { margin: 4px 14px 10px; padding: 12px; } .live-activity-heading { flex-wrap: wrap; } #live-activity-metrics { width: 100%; margin-left: 36px; } }
 @media (prefers-reduced-motion: reduce) { .live-orbit { animation: none; } }
+
+/* A single scroll surface contains messages, progress, plans and image history. */
+.conversation-history > .task-details, .conversation-history > .submitted-reference-history { margin: 0 auto 12px; width: 100%; }
+#conversation-messages:has(.welcome) { min-height: 100%; }
+.reference-source { display: flex; align-items: center; gap: 10px; padding: 8px 0; text-decoration: none; font-size: 11px; overflow-wrap: anywhere; }
+.reference-source img { width: 64px; height: 48px; object-fit: contain; border: 1px solid var(--line); border-radius: 5px; }
+.reference-source small { display: block; color: var(--muted); font-size: 10px; }
+@media (max-width: 650px) { .live-activity { margin: 10px 0 16px; padding: 10px 12px; } }

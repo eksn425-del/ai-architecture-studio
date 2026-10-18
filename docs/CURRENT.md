@@ -1,3 +1,11 @@
+## 2026-10-18 — Conversation scroll, natural image understanding, local owner recording
+
+Owner requested execution status inside the scrollable dialogue and removal of image-purpose forms. Isolated `codex/chatflow-recording-20261018` based on actual local987a30b implements one chat scroll surface, preserves reading position, removes selectors, sends fresh image pixels to the existing native read-only interpreter and turns ambiguity into no-write conversation. [Evidence and boundaries](test-results/windows/2026-10-18-chatflow-and-capture/README.md).89NodePASS;67contextualPythonPASS/2Windows-symlink-environmentFAIL;107approval/reference/progressPASS;43finalfocusedPASS. Actual browser desktop/mobile layout verified with controlled progress, no inference/native quality claim.
+
+Owner project 剧院设计/dce61 is r3/root19 with a new saved plan awaiting owner approval for back/site/roof. No geometry or approval by recorder. Local exact-window dual capture began17:27:19; original app tracks, timestamps, source snapshots and historical model output are private local promotional material, not a public release or a full-generation video. Never relabel idle capture or historical snapshots as a new build. Preserve shared runtime/provider/SKP; reload only after verifying every current project idle. Old r20 stays closed; no main merge/deploy or automatic raw upload.
+
+---
+
 ## 2026-10-18 — Local connector onboarding, visible progress, pre-start tool protocol fix
 
 Owner manual project 剧院设计/dce61 remains preserved. Real first approval failed before thread/start because mixed canonical/legacy dynamic tool registrations; local normalization reproduced FAIL then PASS using actual App Server thread/start only, with no inference/native writes. Consumed-plan eligibility restored against immutable evidence; NEW owner approval required. Added prominent truthful run activity and private local connector installer wizard; existing legacy connector preserved. [Evidence and limitations](test-results/windows/2026-10-18-ui-atelier/README.md).69PythonPASS/1SKIP +108NodePASS; protocol42PASS/2Windows-symlink-permissionFAIL retained. Public package/new-machine/native modeling acceptance NOT_RUN; no main merge/deploy/raw publication. Old service stop blocked by automatic review; use separately verified new local service. Older geometry instructions remain closed.

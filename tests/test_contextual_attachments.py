@@ -72,7 +72,7 @@ def test_same_readonly_turn_interprets_attachment_and_invalidates_plan(tmp_path)
     action,receipt=interpret_turn(Runtime(),project=tmp_path,session=session,request=request,context=c,model='fixture',reasoning_effort='low')
     assert action=='plan' and receipt['attachment_roles_changed']
     assert session.reconstruction_state=='clarifying'
-    pending=json.loads((tmp_path/'runtime/pending_design_scope.json').read_text())
+    pending=json.loads((tmp_path/'runtime/pending_design_scope.json').read_text(encoding='utf-8'))
     assert pending['features']==[] and pending['plan_sha256']
 
 
@@ -89,23 +89,20 @@ def test_two_host_turns_sent_unknown_can_be_clarified_without_manual_selector(tm
     from fastapi.testclient import TestClient
     from app.main import create_app
     from app.native_agent import AgentTurnResult
-    from app.blender_backend import BlenderBackend
     app=create_app(runtime_root=tmp_path);client=TestClient(app)
     pid=client.post('/api/projects',json={'project_name':'Role clarification fixture'}).json()['project_id'];base='/api/projects/'+pid
-    assert client.post(base+'/blender/session').status_code==200
     project=app.state.store.project_dir(pid)
     refs=project/'inputs/reference';refs.mkdir(exist_ok=True)
     for name in ['a.png','b.png']:(refs/name).write_bytes(name.encode())
     context=app.state.store.load_context(pid)
     context.references=[Reference(type='image',source='inputs/reference/'+n,role_origin='awaiting_context',evidence_model_revisions={'blender_scene':1}) for n in ['a.png','b.png']]
     app.state.store.save(context,project/'state/project_context.json')
-    (project/'runtime/blender/scene.json').write_text(json.dumps({'revision':1,'objects':{}}))
-    monkeypatch.setattr(BlenderBackend,'dispatch',lambda *_:{'revision':1,'objects':{}})
     runtime=app.state.model_router.codex_runtime
     monkeypatch.setattr(runtime,'_prepare_home',lambda **kw:None)
     calls=[]
     def interpret(**kw):
         assert kw['read_only'] and not kw['dynamic_tools']
+        assert kw['reference_images']==[project/'inputs/reference/a.png',project/'inputs/reference/b.png']
         c=json.loads(kw['prompt'])['CURRENT_USER'];calls.append(c)
         clarify=len(calls)==1
         answer={'action':'clarify' if clarify else 'plan','user_message_id':c['user_message_id'],'user_message':c['user_message'],'plan_sha256':c['plan_sha256'],'conditional':False,'changes_plan':False,'reason':'Role intent','attachment_roles':[] if clarify else decisions(c['attachments'],['target_building','defect_location'],c['user_message'])}
@@ -113,7 +110,11 @@ def test_two_host_turns_sent_unknown_can_be_clarified_without_manual_selector(tm
     monkeypatch.setattr(runtime,'_run_turn',interpret)
     def respond(**kw):
         assert not kw['mcp_enabled']
-        return AgentTurnResult(thread_id='fixture',reply='请说明图片用途。' if len(calls)==1 else '已按来源整理计划。')
+        if len(calls) > 1:
+            card = project/'runtime/agent_workspace/notes/reconstruction_card.md'
+            card.parent.mkdir(parents=True, exist_ok=True)
+            card.write_text('按用户已解释的两张图整理两层建筑方案。', encoding='utf-8')
+        return AgentTurnResult(thread_id='fixture',reply='你想照着哪张图建，哪张是现在模型的问题？' if len(calls)==1 else '已按来源整理计划。')
     monkeypatch.setattr(runtime,'respond',respond)
     first=client.post(base+'/conversation',json={'message':'请先聊一下这些图片','agent_action':'auto'})
     assert first.status_code==200,first.text

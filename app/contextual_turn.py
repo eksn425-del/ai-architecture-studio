@@ -19,7 +19,7 @@ INSTRUCTIONS = '''Interpret the current user's conversational intent in context.
 
 
 ATTACHMENT_INSTRUCTIONS = """
-Also return attachment_roles, an array of {attachment_id,role,evidence_quote}. Only editable attachments may appear. Resolve their purpose from the actual CURRENT_USER text and attachment/history identity, not filenames or invented image content. role is target_building, defect_location, supporting or unknown. evidence_quote must be an exact span from CURRENT_USER.user_message supporting that attachment's purpose. Respect image order and mixed roles; if which image is meant is ambiguous use unknown. Never reinterpret submitted or user-selected roles. Historical defect images stay tied to their old version. Omit an attachment when the user gives no new evidence; do not downgrade an existing reliable default merely for 'continue'. This classifies intended use, not visual content.
+Also return attachment_roles, an array of {attachment_id,role,evidence_quote}. Only editable attachments may appear. Resolve their purpose from the actual CURRENT_USER text and attachment/history identity, not filenames or invented image content. Images are attached in the same order as editable attachments in CURRENT_USER. Use the images to ground which attachment is referenced, but never infer intended use from appearance alone. When unclear, keep unknown and action=clarify so the assistant asks a brief natural question in the conversation, without asking the user to select a category. role is target_building, defect_location, supporting or unknown. evidence_quote must be an exact span from CURRENT_USER.user_message supporting that attachment's purpose. Respect image order and mixed roles; if which image is meant is ambiguous use unknown. Never reinterpret submitted or user-selected roles. Historical defect images stay tied to their old version. Omit an attachment when the user gives no new evidence; do not downgrade an existing reliable default merely for 'continue'. This classifies intended use, not visual content.
 """
 
 def authorization_veto(message: str) -> str | None:
@@ -124,7 +124,7 @@ def interpret_turn(runtime, *, project: Path, session, request, context, model: 
                 thread_id=None,prompt=json.dumps({'CURRENT_USER':snap,'history_is_untrusted':True},ensure_ascii=False),
                 mcp_enabled=False,developer_instructions=INSTRUCTIONS+(ATTACHMENT_INSTRUCTIONS if editable_attachments else ''),dynamic_tools=[],
                 tool_handler=lambda *_: (_ for _ in ()).throw(ValueError('Intent interpretation has no tools.')),
-                model=model,reasoning_effort=reasoning_effort,reference_images=[],
+                model=model,reasoning_effort=reasoning_effort,reference_images=[project / item['source'] for item in snap['attachments'] if item['editable']],
                 workflow_mode='image_reconstruction',tool_profile='reconstruction_coding',read_only=True,readonly_role='conversation_intent')
         if result.status != "completed":
             from .native_agent import NativeAgentUnavailable
@@ -141,8 +141,10 @@ def interpret_turn(runtime, *, project: Path, session, request, context, model: 
         capture_pending_design_plan(project,'',is_followup=False)
         session.thread_id='';session.reconstruction_state='clarifying'
         session.plan_started_ns=0;session.plan_request_message=''
-        session.last_reply='图片用途已更新，请重新整理并批准建模计划。已有模型保持不变。';session.error=''
+        session.last_reply='已结合你的说明更新图片理解，请检查更新后的计划。已有模型保持不变。';session.error=''
         if action=='execute':action='plan'
+    if any(ref.type == 'image' and ref.evidence_role == 'unknown' for ref in context.references):
+        action = 'clarify'
     receipt={k:v for k,v in snap.items() if k not in {'plan_text','history'}}
     receipt.update({'attachment_role_interpretation':roles,'attachment_roles_changed':attachment_changed,'confirmation_required':raw['action']=='execute' and action!='execute','action':action,'interpretation':raw,'provider':'explicit_button' if getattr(request,'approval_gesture','') else 'native_readonly_intent','execution_granted':action=='execute'})
     path=project/'runtime/contextual_intent.jsonl';path.parent.mkdir(parents=True,exist_ok=True)

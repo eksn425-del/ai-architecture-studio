@@ -62,28 +62,10 @@ function sourceImages() {
   return (state.project?.context?.references || []).filter((ref) => ref.type === "image" && ref.source.startsWith("inputs/reference/"));
 }
 
-function referenceRoleMarkup(ref) {
-  const known = ["target_building", "defect_location"].includes(ref.evidence_role);
-  const origin = {user: "已手动确认", context_default: "自动判断", awaiting_context: "待确认用途", legacy: "历史图片"}[ref.role_origin] || "";
-  const reasons = {
-    first_image_new_project: "首张参考图，按目标建筑使用",
-    same_image_previous_role: "沿用这张图已确认的用途",
-    explicit_current_target_context: "按当前描述作为目标建筑",
-    current_problem_context: "按当前描述定位模型问题",
-    mixed_or_conflicting_context: "图片用途有歧义，请确认",
-    duplicate_role_uncertain: "这张图的用途尚未确认",
-    explicit_non_target_or_interface: "这可能是界面或其他资料，请确认用途",
-    duplicate_version_conflict: "同图的历史版本不一致，请确认",
-    duplicate_context_conflict: "当前描述与原用途不同，请确认",
-    problem_without_model_version: "尚无模型版本，请确认用途",
-    needs_current_context: "请说明这张图的用途",
-    explicit_user_choice: "按上传时的选择",
-    explicit_user_correction: "已按你的选择更正",
-  };
+function referenceSourceMarkup(ref) {
+  const filename = ref.source.split('/').at(-1);
   const revisions = Object.entries(ref.evidence_model_revisions || {}).map(([model, revision]) => `${model}: r${revision}`).join("，");
-  const provenance = revisions ? `对应模型 ${revisions}` : "模型版本未记录";
-  const detail = [origin, reasons[ref.role_reason] || (!known ? "请说明这张图的用途" : "可更正用途"), provenance].filter(Boolean).join(" · ");
-  return `<label class="reference-role-item"><span title="${escapeHtml(ref.source)}">${escapeHtml(ref.source.split('/').at(-1))}<br><small title="${escapeHtml(detail)}">${escapeHtml(detail)}</small></span><select data-reference-role="${escapeHtml(ref.source)}" aria-label="更正图片用途" ${state.busy ? "disabled" : ""}><option value="" ${!known ? "selected" : ""}>待确认用途</option><option value="target_building" ${ref.evidence_role === "target_building" ? "selected" : ""}>目标建筑图</option><option value="defect_location" ${ref.evidence_role === "defect_location" ? "selected" : ""}>待修问题截图</option></select></label>`;
+  return `<a class="reference-source" href="${projectFileUrl(ref.source)}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(filename)}" loading="lazy"><span>${escapeHtml(filename)}${revisions ? `<small>记录于 ${escapeHtml(revisions)}</small>` : ""}</span></a>`;
 }
 
 function projectFileUrl(path) {
@@ -115,19 +97,14 @@ function renderReferenceComposer() {
   const pending = pendingImages();
   const pendingSources = new Set(pending.map(ref => ref.source));
   const submitted = images.filter(ref => !pendingSources.has(ref.source));
-  $("reference-role-review").hidden = !!pendingMessage || !pending.length;
-  $("reference-role-review").innerHTML = pending.map(referenceRoleMarkup).join("");
   $("reference-gallery").hidden = !!pendingMessage || !pending.length;
   $("reference-gallery").innerHTML = pending.map((ref) => `<div class="image-item"><a href="${projectFileUrl(ref.source)}" title="${escapeHtml(ref.source.split('/').at(-1))}" target="_blank" rel="noreferrer"><img src="${projectFileUrl(ref.source)}" alt="${escapeHtml(ref.source.split('/').at(-1))}"><span>待发送 · 查看原图 ↗</span></a><button class="image-remove" title="移除待发送图片" data-delete-image="${escapeHtml(ref.source)}" aria-label="删除图片 ${escapeHtml(ref.source.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>`).join("");
   const history = $("submitted-reference-history");
   history.hidden = !submitted.length;
-  // Keep the optional history disclosure state; updating a turn never forces a role questionnaire.
-  $("submitted-reference-summary").textContent = `已发送图片 ${submitted.length} 张 · 查看来源 / 更正用途`;
-  $("submitted-reference-roles").innerHTML = submitted.map(referenceRoleMarkup).join("");
-  const ambiguous = images.filter(ref => !["target_building", "defect_location"].includes(ref.evidence_role));
-  $("reference-ambiguity").hidden = !ambiguous.length;
-  $("reference-ambiguity").textContent = ambiguous.length
-    ? `${ambiguous.length} 张图片用途尚未确认。可以继续说明；建模前请在待发送资料或已发送图片记录中核对。` : "";
+  // Keep image history optional. Discuss unclear references in the conversation.
+  $("submitted-reference-summary").textContent = `已发送图片 ${submitted.length} 张 · 查看原图`;
+  $("submitted-reference-roles").innerHTML = submitted.map(referenceSourceMarkup).join("");
+
 }
 
 function renderWorkflowChecks(progress = null) {
@@ -233,6 +210,8 @@ function renderTurnControls(progress = null) {
 
 function renderLiveActivity(progress, unavailable = false) {
   const card = $("live-activity");
+  const viewport = $("conversation-history");
+  const followLatest = viewport.scrollHeight - viewport.clientHeight - viewport.scrollTop < 72;
   card.hidden = !progress || progress.running !== true;
   if (card.hidden) return;
   card.setAttribute("data-state", unavailable ? "uncertain" : "running");
@@ -241,6 +220,7 @@ function renderLiveActivity(progress, unavailable = false) {
   $("live-activity-metrics").textContent = `${seconds} · ${Number.isInteger(progress.tool_calls) ? `已调用 ${progress.tool_calls} 次工具` : "工具次数尚未报告"}${progress.failed_tool_calls ? ` · ${progress.failed_tool_calls} 次失败` : ""}`;
   $("live-activity-event").textContent = unavailable ? "暂时无法确认最新进度，正在重连；请勿重复提交。" : $("native-turn-event").textContent || "本轮仍在运行，等待 Agent 返回下一条公开状态；不代表已完成。";
   $("live-activity-model").textContent = progress.cancel_requested ? "已请求停止，等待服务端确认；已有修改不会自动撤销。" : progress.action !== "execute" ? "分析 / 计划阶段 · 不改动模型" : progress.committed_revisions?.length ? `本轮已有 ${progress.committed_revisions.length} 次模型提交 · 仍需完成检查` : "执行阶段 · 尚无本轮模型提交";
+  if (followLatest) viewport.scrollTop = viewport.scrollHeight;
 }
 
 function renderNativeTurnEvent(event) {
@@ -529,7 +509,7 @@ function updateHeader() {
   $("recover-agent-checkpoint").disabled = state.busy;
   renderProjectHistory();
   renderTurnControls();
-  for (const id of ["workflow-mode", "conversation-tier", "reference-file", "reference-role", "brief-file", "site-file", "project-name"]) $(id).disabled = state.busy;
+  for (const id of ["workflow-mode", "conversation-tier", "reference-file", "brief-file", "site-file", "project-name"]) $(id).disabled = state.busy;
   $("reference-status").hidden = reconstructionMode;
   $("reconstruction-guide").hidden = !reconstructionMode;
   $("reference-files").innerHTML = sourceImages().map((ref) => `<span class="file-chip">${escapeHtml(ref.source.split("/").at(-1))}</span>`).join("");
@@ -648,7 +628,11 @@ function updateHeader() {
 function renderConversation() {
   const messages = [...(state.project?.context?.conversation || [])];
   if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
-  const history = $("conversation-history");
+  const viewport = $("conversation-history");
+  const followLatest = state.conversationViewportProject !== state.projectId
+    || viewport.scrollHeight - viewport.clientHeight - viewport.scrollTop < 72;
+  state.conversationViewportProject = state.projectId;
+  const history = $("conversation-messages");
   if (!messages.length) {
     history.innerHTML = `<div class="welcome">
       <div class="welcome-symbol"><img src="/static/k-monogram.svg" alt="K Studio 几何 K 标志" width="180" height="180"></div>
@@ -687,7 +671,7 @@ function renderConversation() {
       + speaker + "</span><span>" + phase + '</span></header><div class="markdown-content">' + chatText(message.content)
       + "</div>" + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
-  history.scrollTop = history.scrollHeight;
+  if (followLatest) viewport.scrollTop = viewport.scrollHeight;
 }
 
 function setStage(stage, complete) {
@@ -862,7 +846,7 @@ async function uploadFile(category, file, targetId, manageBusy = true, reference
   if (!state.projectId || !file || (manageBusy && state.busy)) return false;
   if (manageBusy) { state.busy = true; updateHeader(); }
   try {
-    const reference = referenceOptions || {evidence_role: $("reference-role").value || "auto", role_context: $("conversation-input").value, batch_image_count: 1};
+    const reference = referenceOptions || {evidence_role: "auto", role_context: $("conversation-input").value, batch_image_count: 1};
     const roleQuery = category === "reference" ? `&evidence_role=${encodeURIComponent(reference.evidence_role || "auto")}&role_context=${encodeURIComponent(reference.role_context || "")}&batch_image_count=${encodeURIComponent(reference.batch_image_count || 1)}` : "";
     const url = `/api/projects/${encodeURIComponent(state.projectId)}/inputs/${category}?filename=${encodeURIComponent(file.name)}${roleQuery}`;
     const result = await api(url, { method: "POST", headers: { "Content-Type": file.type || "application/octet-stream" }, body: file });
@@ -1271,7 +1255,7 @@ async function uploadAttachments(files) {
     return;
   }
   // Capture one context for the batch, even if the user keeps typing during upload.
-  const referenceOptions = {evidence_role: $("reference-role").value || "auto", role_context: $("conversation-input").value, batch_image_count: images.length};
+  const referenceOptions = {evidence_role: "auto", role_context: $("conversation-input").value, batch_image_count: images.length};
   // Hold one busy state across a mixed batch; sending/switching cannot race
   // the transition from images to documents.
   state.busy = true;
@@ -1683,20 +1667,3 @@ $("start-blender-session")?.addEventListener("click", async () => {
     updateHeader();
   }
 });
-
-async function correctReferenceRole(event) {
-  const source = event.target.dataset.referenceRole, role = event.target.value;
-  if (!source || state.busy || !["target_building", "defect_location"].includes(role)) return;
-  const projectId = state.projectId;
-  state.busy = true; updateHeader();
-  try {
-    await api(`/api/projects/${encodeURIComponent(projectId)}/reference-role`, {method:"PATCH", headers:{"Content-Type":"application/json"}, body:JSON.stringify({source,evidence_role:role})});
-    if (state.projectId === projectId) state.displayedPlan = null;
-    const project = await api(`/api/projects/${encodeURIComponent(projectId)}`);
-    if (state.projectId === projectId) state.project = project;
-    showToast("图片用途已确认，请重新整理并批准建模计划。");
-  } catch(error) { showToast(friendlyError(error), true); }
-  finally { state.busy = false; updateHeader(); }
-}
-$("reference-role-review").addEventListener("change", correctReferenceRole);
-$("submitted-reference-roles").addEventListener("change", correctReferenceRole);

@@ -1775,7 +1775,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 raise HTTPException(status_code=409, detail=str(error)) from error
         action = policy.action if policy else request.agent_action
         if (action in {"plan", "execute"} or (policy.tools_enabled if policy else session_ready)) and any(ref.type == "image" and ref.evidence_role == "unknown" for ref in context.references):
-            raise HTTPException(409, "有图片用途仍不明确：请说明哪些是目标建筑图、哪些是当前模型的问题截图，或更正图片标签。")
+            # Unclear attachments are resolved through ordinary dialogue with no writer tools.
+            action = "clarify"
+            policy = build_reconstruction_turn_policy(session, request, sketchup_session_ready=session_ready, resolved_action="clarify")
         if policy and action == "plan":
             capture_pending_design_plan(project_dir, "", is_followup=False)
             # A failed update must never leave the old plan available for approval.
@@ -1867,6 +1869,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             workflow_mode=request.workflow_mode,
             agent_action=action,
         )
+        if any(ref.type == "image" and ref.evidence_role == "unknown" for ref in context.references):
+            prompt += "\nSome attachments remain unclear. Ask one concise, concrete question in ordinary Chinese about what the user wants to follow or change in these images. Do not ask the user to choose image-role labels, change a selector, or repeat known facts. Do not build or approve a plan in this clarification turn."
         if contextual and contextual[1].get("confirmation_required"):
             prompt += "\nHOST AUTHORIZATION STATE: no execution grant exists for this message. Do not claim the user has authorized model writes. Briefly explain that the current plan is ready for the visible confirmation button; if scope changes are requested, revise the plan first."
         if action == "plan" and current_model_revisions(project_dir, session.ruby_state):
