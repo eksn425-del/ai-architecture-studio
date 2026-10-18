@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f6f3"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=contextual-turn-20261017"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#203e34"><title>K Studio · AI 建模</title><link rel="stylesheet" href="/static/assistant.css?v=contextual-turn-20261017"><link rel="stylesheet" href="/static/atelier.css?v=atelier-20261018"></head>
 <body>
 <div class="assistant-shell">
   <aside class="sidebar" aria-label="建模会话">
-    <a class="brand" href="/" aria-label="K Studio 首页"><span class="brand-mark">K／</span><span><b>K Studio</b><small>AI ARCHITECTURE</small></span></a>
+    <a class="brand" href="/" aria-label="K Studio 首页"><span class="brand-mark"><img src="/static/k-monogram.svg" alt="" width="48" height="48"></span><span><b>K Studio</b><small>AI ARCHITECTURE</small></span></a>
     <button id="new-project" class="new-project"><span>＋</span> 新建建模会话</button>
     <div class="mode-label">◇　AI 建模 <small>SketchUp</small></div>
     <div class="history-heading">历史会话 <span id="session-count"></span></div><button id="trash-open" class="button-quiet">回收站</button><nav id="project-history" class="project-history" aria-label="历史建模会话"></nav>
@@ -54,5 +54,5 @@
 <!-- Compatibility elements for existing backend paths, outside the modeling UI. -->
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
-<script src="/static/studio.js?v=contextual-turn-20261017" defer></script>
+<script src="/static/studio.js?v=atelier-20261018" defer></script>
 </body></html>

@@ -633,7 +633,17 @@ function renderConversation() {
   if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
   const history = $("conversation-history");
   if (!messages.length) {
-    history.innerHTML = '<div class="welcome"><div class="welcome-symbol">◇</div><h2>把建模交给 AI</h2><p>图片、文字或任务资料都可以。简单说你想做什么，AI 会帮你补充确认。</p><div class="suggestions"><button class="suggestion" data-prompt="按参考图片还原建筑，保留屋顶、窗洞与立面细节。">从图片还原建筑</button><button class="suggestion" data-prompt="没有实测尺寸，请按图像比例估算并标明，允许推断背面。">估算尺寸与补全背面</button><button class="suggestion" data-prompt="请生成可编辑 SketchUp 模型，检查正面、背面和侧面截图。">多角度检查与修改</button></div></div>';
+    history.innerHTML = `<div class="welcome">
+      <div class="welcome-symbol"><img src="/static/k-monogram.svg" alt="K Studio 几何 K 标志" width="180" height="180"></div>
+      <div class="welcome-kicker">K STUDIO / FORM &amp; SPACE</div>
+      <h2>把想象，<em>构筑成形。</em></h2>
+      <p>从一张参考图、一段描述开始。<br>与你一起推敲空间，让灵感成为可编辑的建筑。</p>
+      <div class="suggestions">
+        <button class="suggestion" data-prompt="按参考图片还原建筑，保留屋顶、窗洞与立面细节。"><small aria-hidden="true">01 / RECONSTRUCT</small><span>从图片还原建筑</span><span class="suggestion-arrow" aria-hidden="true">↗</span></button>
+        <button class="suggestion" data-prompt="没有实测尺寸，请按图像比例估算并标明，允许推断背面。"><small aria-hidden="true">02 / EXPLORE</small><span>估算尺寸与补全背面</span><span class="suggestion-arrow" aria-hidden="true">↗</span></button>
+        <button class="suggestion" data-prompt="请生成可编辑 SketchUp 模型，检查正面、背面和侧面截图。"><small aria-hidden="true">03 / REFINE</small><span>多角度检查与修改</span><span class="suggestion-arrow" aria-hidden="true">↗</span></button>
+      </div>
+    </div>`;
     return;
   }
   history.innerHTML = messages.map((message) => {
