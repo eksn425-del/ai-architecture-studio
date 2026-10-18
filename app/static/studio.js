@@ -225,9 +225,22 @@ function renderTurnControls(progress = null) {
   const notice = $("cancel-agent-turn-status");
   notice.hidden = !active || !requested;
   renderNativeTurnEvent(active ? current.native_event : null);
+  renderLiveActivity(active ? current : null);
   notice.textContent = cancellation?.uncertain
     ? "停止请求的结果尚未确认，正在同步实际状态。已提交的修改不会自动回滚。"
     : "已请求停止，正在等待当前操作结束和服务端确认。已提交的修改不会自动回滚。";
+}
+
+function renderLiveActivity(progress, unavailable = false) {
+  const card = $("live-activity");
+  card.hidden = !progress || progress.running !== true;
+  if (card.hidden) return;
+  card.setAttribute("data-state", unavailable ? "uncertain" : "running");
+  $("live-activity-stage").textContent = unavailable ? "进度连接暂时中断" : progress.stage || "正在等待本轮状态";
+  const seconds = Number.isFinite(progress.elapsed_seconds) ? `${progress.elapsed_seconds} 秒` : "耗时同步中";
+  $("live-activity-metrics").textContent = `${seconds} · ${Number.isInteger(progress.tool_calls) ? `已调用 ${progress.tool_calls} 次工具` : "工具次数尚未报告"}${progress.failed_tool_calls ? ` · ${progress.failed_tool_calls} 次失败` : ""}`;
+  $("live-activity-event").textContent = unavailable ? "暂时无法确认最新进度，正在重连；请勿重复提交。" : $("native-turn-event").textContent || "本轮仍在运行，等待 Agent 返回下一条公开状态；不代表已完成。";
+  $("live-activity-model").textContent = progress.cancel_requested ? "已请求停止，等待服务端确认；已有修改不会自动撤销。" : progress.action !== "execute" ? "分析 / 计划阶段 · 不改动模型" : progress.committed_revisions?.length ? `本轮已有 ${progress.committed_revisions.length} 次模型提交 · 仍需完成检查` : "执行阶段 · 尚无本轮模型提交";
 }
 
 function renderNativeTurnEvent(event) {
@@ -421,6 +434,10 @@ function showToast(message, isError = false) {
 
 function friendlyError(error) {
   const message = String(error?.message || "");
+  if (/dynamic tools must use either canonical or legacy format consistently/i.test(message)) return "建模未启动：本机 Agent 的工具注册格式不一致。项目、图片和计划已保留，需要更新 K Studio 后重新检查并批准计划。";
+  if (/pending plan was already consumed or replaced/i.test(message)) return "这份计划的批准记录已使用或已更新，本次未开始建模。请重新检查当前计划；若上一轮启动失败，请先恢复批准记录。";
+  if (/Connection file not found:/i.test(message)) return "本机连接程序已就绪，但还没收到 SketchUp 插件的连接信息。请完成插件安装，在所选 SketchUp 的「扩展程序 → Kongxing AI → Start Local Bridge」启动桥接，再检查 MCP。";
+  if (/existing SketchUp MCP.*not configured|standalone SketchUp connector configuration is unavailable|kongxing_sketchup MCP server is not enabled/i.test(message)) return "SketchUp 连接器尚未配置。请在连接窗口打开「安装 K Studio 连接器」，完成插件和本机连接程序安装，再检查 MCP。";
   if (/Codex config\.toml was not found|local native agent is not configured/i.test(message)) return "本机 Codex 尚未配置。请先在运行 K Studio 的电脑上完成 Codex 配置，再回到本会话重试。已上传的图片和对话仍在，无需新建项目；这不是 DeepSeek Key 错误。";
   if (/Codex CLI is unavailable|local Codex App Server is unavailable/i.test(message)) return "未找到可用的本机 Codex 程序。请检查 K Studio 所在电脑的程序安装和启动路径，再回到本会话重试；图片和对话仍保留。";
   if (/Selected model is at capacity|model.*capacity/i.test(message)) return "当前模型服务繁忙，暂时无法继续。图片和已保存的计划仍在；请稍后在本会话重试，无需重新上传，也无需重新填写 Key。";
@@ -670,7 +687,6 @@ function renderConversation() {
       + speaker + "</span><span>" + phase + '</span></header><div class="markdown-content">' + chatText(message.content)
       + "</div>" + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
-  if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><header><span>建筑 Agent</span></header><p>正在查看参考图片、处理本轮要求，请稍候…</p></article>');
   history.scrollTop = history.scrollHeight;
 }
 
@@ -1368,6 +1384,95 @@ $("connect-dismiss").addEventListener("click", closeConnectDialog);
 $("connect-dialog").addEventListener("cancel", event => { event.preventDefault(); closeConnectDialog(); });
 $("connect-check").addEventListener("click", checkConnectDialog);
 $("connect-open").addEventListener("click", connectCurrentProject);
+let connectorSetupGeneration = 0;
+let connectorSetupInfo = null;
+let connectorSetupBusy = false;
+function closeConnectorSetup() {
+  connectorSetupGeneration++;
+  $("connector-setup-dialog").close();
+}
+function renderConnectorSetup() {
+  const info = connectorSetupInfo || {};
+  const selected = (info.installations || []).find(item => String(item.year) === $("connector-sketchup-version").value);
+  const existing = info.configuration_kind === "existing";
+  const legacyPlugin = selected?.plugin_kind === "existing";
+  const available = info.platform_supported && info.package_available && !!selected && !existing && !legacyPlugin;
+  const download = $("connector-plugin-download");
+  if (available) download.href = "/api/connectors/sketchup/plugin";
+  else download.removeAttribute("href");
+  download.setAttribute("aria-disabled", String(!available));
+  $("connector-runtime-install").disabled = !available || info.configured || connectorSetupBusy;
+  $("connector-runtime-install").textContent = info.configured ? "已有连接配置 · 已保留" : "安装本机连接程序";
+  $("connector-setup-check").disabled = connectorSetupBusy;
+  $("connector-version-note").textContent = selected
+    ? `${selected.name} · ${selected.plugin_present ? "检测到插件文件；仍需检查实际连接" : "尚未检测到插件"} · 兼容性尚未验证`
+    : info.installations?.length ? "请选择你要连接的 SketchUp 版本，不会自动替换。" : "没有识别到 SketchUp。请先安装或注册你已有的软件，本窗口不会替你安装其他版本。";
+  $("connector-package-note").textContent = existing || legacyPlugin
+    ? "检测到已有连接配置或同名插件，当前保留，不用试用包覆盖。你可以直接检查现有 MCP。"
+    : !info.platform_supported ? "当前安装程序仅适用于 Windows。"
+    : !info.package_available ? "安装包尚未准备好；下载与安装暂不可用。"
+    : info.publication === "private_local_trial" ? "本机试用包：尚未完成公开分发许可审查和新电脑原生验收，不作为正式发行版。"
+    : "安装包已就绪；仍需在所选软件版本中检查原生连接。";
+}
+async function openConnectorSetup() {
+  if (state.busy || connectorSetupBusy) return;
+  const generation = ++connectorSetupGeneration;
+  connectorSetupInfo = null;
+  $("connector-setup-status").textContent = "正在读取本机安装状态…";
+  $("connector-runtime-install").disabled = true;
+  $("connector-plugin-download").removeAttribute("href");
+  $("connector-setup-check").disabled = true;
+  $("connector-sketchup-version").innerHTML = "";
+  if (!$("connector-setup-dialog").open) $("connector-setup-dialog").showModal();
+  try {
+    const info = await api("/api/connectors/sketchup/setup");
+    if (generation !== connectorSetupGeneration || !$("connector-setup-dialog").open) return;
+    connectorSetupInfo = info;
+    $("connector-sketchup-version").innerHTML = '<option value="">请选择你使用的版本</option>' + (info.installations || []).map(item => `<option value="${item.year}">${escapeHtml(item.name)}</option>`).join("");
+    renderConnectorSetup();
+    $("connector-setup-status").textContent = info.configured ? "已发现连接配置；尚未检查实际 MCP 连通性。" : "请选择软件版本，按顺序完成插件和本机连接程序安装。";
+  } catch (error) {
+    if (generation === connectorSetupGeneration) $("connector-setup-status").textContent = friendlyError(error);
+  }
+}
+async function installConnectorRuntime() {
+  if (connectorSetupBusy || state.busy || $("connector-runtime-install").disabled) return;
+  const generation = connectorSetupGeneration;
+  connectorSetupBusy = true; renderConnectorSetup();
+  $("connector-setup-status").textContent = "正在校验安装文件并配置本机连接程序；不会修改模型…";
+  try {
+    const result = await api("/api/connectors/sketchup/install", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({confirm_install:true, year:Number($("connector-sketchup-version").value)})});
+    if (generation !== connectorSetupGeneration) return;
+    connectorSetupInfo = await api("/api/connectors/sketchup/setup");
+    $("connector-setup-status").textContent = result.status === "runtime_installed" ? "本机连接程序已安装并通过启动自检。请在 SketchUp 启动插件，然后检查 MCP；尚未验证原生连接。" : "已有连接配置已保留，未覆盖文件。请继续检查 MCP。";
+  } catch (error) {
+    if (generation === connectorSetupGeneration) $("connector-setup-status").textContent = friendlyError(error);
+  } finally {
+    connectorSetupBusy = false;
+    if (generation === connectorSetupGeneration) renderConnectorSetup();
+  }
+}
+async function checkConnectorSetup() {
+  if (state.busy || connectorSetupBusy || !state.projectId || $("connector-setup-check").disabled) return;
+  const generation = connectorSetupGeneration, projectId = state.projectId;
+  $("connector-setup-check").disabled = true;
+  $("connector-setup-status").textContent = "正在只读检查 MCP 与 SketchUp…";
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(projectId)}/connector`);
+    if (generation !== connectorSetupGeneration || projectId !== state.projectId) return;
+    $("connector-setup-status").textContent = result.reachable ? "MCP 桥接已响应。尚未打开或绑定项目模型，也未修改几何。" : friendlyError(new Error(result.detail || "插件尚未响应，请在 SketchUp 启动 Local Bridge 后重试。"));
+  } catch (error) {
+    if (generation === connectorSetupGeneration) $("connector-setup-status").textContent = friendlyError(error);
+  } finally {
+    if (generation === connectorSetupGeneration) $("connector-setup-check").disabled = false;
+  }
+}
+$("connector-setup-open").addEventListener("click", openConnectorSetup);
+$("connector-setup-close").addEventListener("click", closeConnectorSetup);
+$("connector-setup-dialog").addEventListener("cancel", event => {event.preventDefault();closeConnectorSetup();});
+$("connector-sketchup-version").addEventListener("change", renderConnectorSetup);
+$("connector-runtime-install").addEventListener("click", installConnectorRuntime);
+$("connector-setup-check").addEventListener("click", checkConnectorSetup);
 async function observeRunningTurn() {
   if (!state.projectId || state.busy) return;
   const projectId = state.projectId;
@@ -1433,7 +1538,10 @@ function startLiveProgress() {
         $("preview-canvas").innerHTML = `<img src="${escapeHtml(p.preview_url)}" alt="建模中的最新 SketchUp 截图">`;
         $("preview-title").textContent = "建模中的真实截图";
       }
-    } catch (_) { if (generation === progressGeneration) $("operation-progress").textContent = "进度暂时无法读取，当前回合仍在等待；请勿重复提交。"; }
+    } catch (_) { if (generation === progressGeneration) {
+      $("operation-progress").textContent = "进度暂时无法读取，当前回合仍在等待；请勿重复提交。";
+      renderLiveActivity({running: true, ...state.activeTurnProgress}, true);
+    } }
     finally { refreshing = false; }
   };
   refresh(); liveProgressTimer = setInterval(refresh, 3000);

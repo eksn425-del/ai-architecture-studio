@@ -32,6 +32,16 @@ class NativeAgentUnavailable(RuntimeError):
     pass
 
 
+def canonical_dynamic_tools(tools: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Use one App Server wire format for all first-party/optional flat tools."""
+    result = []
+    for tool in tools:
+        if tool.get("type") not in (None, "function") or not isinstance(tool.get("name"), str) or not isinstance(tool.get("inputSchema"), dict):
+            raise NativeAgentUnavailable("Invalid flat dynamic tool registration")
+        result.append({**tool, "type": "function"})
+    return result
+
+
 _PARENT_CODEX_CONTEXT_ENV = {
     "CODEX_APP_TOOLS_PIPE_PATH",
     "CODEX_SESSION_ID",
@@ -641,7 +651,7 @@ class CodexAppServerRuntime:
                 "developerInstructions": developer_instructions,
             }
             from .research_tool_context import RESEARCH_TOOL_NAMES
-            registered_tools = dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES]
+            registered_tools = canonical_dynamic_tools(dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES])
             thread_params["dynamicTools"] = registered_tools
             registry_path = project_dir / "runtime" / "native_thread_tools.json"
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}

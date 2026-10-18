@@ -94,7 +94,7 @@ def test_cross_project_same_plan_rejected(tmp_path):
 def test_model_changed_after_plan_before_interpreter(tmp_path):
     s,r,snap=setup(tmp_path)
     pending=tmp_path/'runtime/pending_design_scope.json'
-    d=json.loads(pending.read_text());d['model_revisions']={'test':2};pending.write_text(json.dumps(d))
+    d=json.loads(pending.read_text(encoding='utf-8'));d['model_revisions']={'test':2};pending.write_text(json.dumps(d))
     with pytest.raises(ValueError):validate_decision(decision(snap),snap,project=tmp_path,session=s,request=r)
 
 

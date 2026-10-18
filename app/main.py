@@ -545,6 +545,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.sketchup = sketchup or SketchUpAdapter()
     app.state.reference_ingestor = reference_ingestor or ReferenceIngestor()
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
+    from .connector_setup import register_routes as register_connector_setup_routes
+    register_connector_setup_routes(app, app.state.agent_lock)
 
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     def index() -> FileResponse:
@@ -1982,6 +1984,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             session.status = "ready" if session_ready else "conversation"
             session.error = str(error)[:1200]
             partial = getattr(error, "partial_result", None)
+            if contextual and action == "execute" and partial is not None:
+                from .design_scope_approval import restore_rejected_start_plan
+                try:
+                    restore_rejected_start_plan(project_dir, request.approved_pending_plan_id,
+                        error=str(error), thread_id=partial.thread_id, tool_call_count=partial.tool_call_count)
+                except (ValueError, OSError):
+                    pass  # Changed/missing evidence must keep the consumed approval locked.
             if partial and partial.thread_id:
                 session.thread_id = partial.thread_id
                 session.provider = partial.provider_name or route.provider

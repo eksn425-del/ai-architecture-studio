@@ -118,3 +118,23 @@ def consume_pending_design_plan(project_dir: Path, pending_plan_id: str) -> None
     snapshot['consumed']=True
     _save(project_dir,'pending_design_scope.json',snapshot)
     _save(project_dir,'relation_execution_epoch.json',{'pending_plan_id':pending_plan_id})
+
+
+def restore_rejected_start_plan(project_dir: Path, pending_plan_id: str, *, error: str,
+                                thread_id: str, tool_call_count: int) -> bool:
+    """Restore eligibility for NEW user approval only after proven pre-thread rejection."""
+    if (error != 'Codex thread/start failed: Invalid request: dynamic tools must use either canonical or legacy format consistently'
+            or thread_id or type(tool_call_count) is not int or tool_call_count != 0):
+        return False
+    snapshot = json.loads(_path(project_dir, 'pending_design_scope.json').read_text(encoding='utf-8'))
+    card = project_dir / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    if (not pending_plan_id or snapshot.get('pending_plan_id') != pending_plan_id
+            or not snapshot.get('consumed') or snapshot.get('project_identity') != str(project_dir.resolve())
+            or snapshot.get('model_revisions') != current_model_revisions(project_dir)
+            or snapshot.get('reference_manifest_fingerprint') != current_reference_fingerprint(project_dir)
+            or snapshot.get('plan_sha256') != hashlib.sha256(canonical_plan_text(card.read_text(encoding='utf-8')).encode()).hexdigest()):
+        return False
+    snapshot['consumed'] = False
+    snapshot['startup_recovery'] = 'protocol_rejected_before_thread_start_requires_new_approval'
+    _save(project_dir, 'pending_design_scope.json', snapshot)
+    return True

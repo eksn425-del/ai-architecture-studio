@@ -98,6 +98,18 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 #connect-access-note { font-size: 12px; line-height: 1.9; color: #5d6d5b; margin-bottom: 16px; }
 .connect-prerequisite { padding: 12px 14px; border-left: 2px solid #b29966; background: #f0f0e6; font-size: 11px; line-height: 1.9; color: #5a6654; }
 .connect-prerequisite strong { font-weight: 600; }
+.connector-setup-entry { width: 100%; margin-top: 10px; justify-content: space-between; color: var(--accent); border-color: #c8d3be; }
+#connector-setup-dialog { width: min(620px, calc(100% - 28px)); max-height: calc(100dvh - 32px); overflow-y: auto; }
+#connector-setup-dialog h2 { padding-right: 20px; }
+#connector-setup-dialog > p, .connector-install-step p { font-size: 12px; line-height: 1.8; }
+#connector-setup-dialog select { max-width: 100%; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+.connector-install-step { border-top: 1px solid var(--line); padding-top: 13px; margin-top: 15px; }
+.connector-install-step strong { font-size: 13px; font-weight: 600; }
+.connector-install-step p { color: var(--muted); margin: 7px 0 10px; }
+.connector-package-note { background: #f1efdf; color: #78613d; padding: 10px 12px; border-radius: 6px; }
+#connector-plugin-download { text-decoration: none; }
+#connector-plugin-download[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+#connector-setup-status { margin-top: 15px; padding: 10px 12px; background: #e9eee3; border-radius: 6px; }
 .connect-manual { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 18px 0 14px; padding: 11px 0; }
 .connect-manual summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; color: #315f4b; list-style: none; }
 .connect-manual summary::-webkit-details-marker { display: none; }
@@ -166,3 +178,18 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
   .suggestion { transition: none; }
   .suggestion:hover { transform: none; }
 }
+
+/* Always visible during a confirmed run, independent of the technical details drawer. */
+.live-activity { flex-shrink: 0; margin: 4px max(24px, calc((100% - 856px)/2)) 12px; padding: 18px 22px; border: 1px solid #cbd5c8; border-left: 3px solid #35624e; border-radius: 12px; background: #edf1e7; color: #284b3c; }
+.live-activity[hidden] { display: none; }
+.live-activity-heading { display: flex; align-items: center; gap: 13px; }
+.live-activity-heading small { font-size: 8px; letter-spacing: 2px; color: #6d806c; }
+.live-activity-heading h2 { font-size: 15px; font-weight: 600; margin: 3px 0; }
+#live-activity-metrics { margin-left: auto; font-size: 11px; font-variant-numeric: tabular-nums; color: #617461; }
+#live-activity-event { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 105px; overflow-y: auto; font-size: 12px; line-height: 1.7; margin: 12px 0; }
+#live-activity-model { font-size: 10px; color: #6c7d68; border-top: 1px solid #d9dfd1; padding-top: 9px; }
+.live-orbit { width: 23px; height: 23px; border: 2px solid #bacab5; border-top-color: #35624e; border-radius: 50%; animation: live-orbit 1.2s linear infinite; flex-shrink: 0; }
+.live-activity[data-state="uncertain"] .live-orbit { animation: none; border-color: #a48d56; }
+@keyframes live-orbit { to { transform: rotate(360deg); } }
+@media (max-width: 650px) { .live-activity { margin: 4px 14px 10px; padding: 12px; } .live-activity-heading { flex-wrap: wrap; } #live-activity-metrics { width: 100%; margin-left: 36px; } }
+@media (prefers-reduced-motion: reduce) { .live-orbit { animation: none; } }

@@ -19,7 +19,7 @@ def run(program):
     node = shutil.which('node')
     if not node:
         pytest.skip('Node required for frontend regression')
-    result = subprocess.run([node, '-e', program], capture_output=True, text=True, check=True, timeout=10)
+    result = subprocess.run([node, '-e', program], capture_output=True, text=True, encoding='utf-8', check=True, timeout=10)
     return json.loads(result.stdout)
 
 STUB = '''
@@ -29,7 +29,7 @@ const nodes={}; const $=id=>nodes[id]||(nodes[id]={value:'old draft'});
 const saveDraft=()=>{}; const restoreDraft=()=>{}; const localStorage={setItem:()=>{}};
 const loadParameterPlan=async()=>{}; const artifactByType=()=>null; const setTab=()=>{};
 const updateHeader=()=>{}; const setStatus=()=>{}; const showToast=()=>{};
-const beginProgress=()=>{}; const startLiveProgress=()=>{}; const renderTurnControls=()=>{};
+const renderLiveActivity=()=>{}; const beginProgress=()=>{}; const startLiveProgress=()=>{}; const renderTurnControls=()=>{};
 '''
 
 def test_failed_project_switch_preserves_visible_project_identity():
@@ -181,7 +181,7 @@ await p;console.log(JSON.stringify({cleared,calls,draft:$('conversation-input').
 
 
 def test_image_role_controls_default_to_auto_and_keep_legacy_visible():
-    html=(Path(__file__).parents[1]/'app/static/index.html').read_text()
+    html=(Path(__file__).parents[1]/'app/static/index.html').read_text(encoding='utf-8')
     assert 'id="reference-role"' in html
     assert '<option value="auto" selected>自动判断（可更正）</option>' in html
     assert 'value="target_building">目标建筑图' in html
@@ -211,7 +211,7 @@ def test_image_upload_sends_explicit_role_in_query():
 
 def test_contextual_controls_keep_features_and_single_approval_gate():
     from html.parser import HTMLParser
-    html=(Path(__file__).parents[1]/'app/static/index.html').read_text()
+    html=(Path(__file__).parents[1]/'app/static/index.html').read_text(encoding='utf-8')
     class IDs(HTMLParser):
         def __init__(self):super().__init__();self.ids=[]
         def handle_starttag(self,tag,attrs):self.ids.extend(v for k,v in attrs if k=='id')

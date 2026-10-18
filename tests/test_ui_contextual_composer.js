@@ -23,7 +23,7 @@ function composer({ text = '', stage = 'planned', ready = true, refs = [], histo
   };
   const $ = id => nodes[id] ||= {
     value: id === 'conversation-input' ? text : id === 'workflow-mode' ? 'image_reconstruction' : 'economy',
-    open: false, hidden: false,
+    open: false, hidden: false, setAttribute(k,v) { this[k]=v; },
   };
   const context = vm.createContext({
     $, state, TextEncoder, setTimeout, clearTimeout, crypto: require('node:crypto').webcrypto,
@@ -40,7 +40,7 @@ function composer({ text = '', stage = 'planned', ready = true, refs = [], histo
     },
   });
   vm.runInContext('let pendingMessage=null;\n' + production('escapeHtml', 'executionUserMessage', 'sourceImages', 'pendingImages',
-    'pendingAttachmentSources', 'referenceRoleMarkup', 'renderReferenceComposer', 'renderAttachments', 'sendConversation', 'correctReferenceRole', 'renderTurnControls', 'renderNativeTurnEvent', 'cancelConversationTurn'), context);
+    'pendingAttachmentSources', 'referenceRoleMarkup', 'renderReferenceComposer', 'renderAttachments', 'sendConversation', 'correctReferenceRole', 'renderTurnControls', 'renderLiveActivity', 'renderNativeTurnEvent', 'cancelConversationTurn'), context);
   return { context, state, $, nodes, requests, notices };
 }
 for (const text of ['我批准', '确认', '好，照做', '不要开始建模', '我批准，但是屋顶要改为双坡', '如果我批准会怎样？', '  我批准\n请保留原图。  ']) {
