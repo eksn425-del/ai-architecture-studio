@@ -7,7 +7,7 @@ param(
     [Parameter(Mandatory = $false)]
     [string]$ModelPath = '',
     [Parameter(Mandatory = $false)]
-    [ValidateRange(0,2026)]
+    [ValidateRange(0,2099)]
     [int]$SketchUpYear = 0,
     [switch]$PrepareOnly
 )
@@ -19,32 +19,13 @@ $modelDirectory = [System.IO.Path]::GetFullPath((Join-Path $runtimeRootResolved 
 if (-not $modelDirectory.StartsWith($expectedProjectsRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
     throw 'The disposable SketchUp copy must stay under this project runtime directory.'
 }
-$uninstallRoots = @(
-    'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall',
-    'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall'
-)
-$installations = foreach ($root in $uninstallRoots) {
-    Get-ChildItem $root -ErrorAction SilentlyContinue |
-        ForEach-Object { Get-ItemProperty $_.PSPath -ErrorAction SilentlyContinue } |
-        Where-Object { $_.DisplayName -match '^SketchUp( Pro)? (2018|2019|2020|2021|2022|2023|2024|2025|2026)$' -and $_.InstallLocation }
-}
-if ($SketchUpYear -ne 0 -and ($SketchUpYear -lt 2018 -or $SketchUpYear -gt 2026)) {
-    throw 'SketchUpYear must be 2018..2026, or 0 for the existing 2024/2022 default.'
-}
-if ($SketchUpYear -ne 0) {
-    # Explicit selection for per-version compatibility probes. Never substitute.
-    $installation = $installations | Where-Object {
-        $_.DisplayName -match (" " + $SketchUpYear + "$")
-    } | Select-Object -First 1
-} else {
-    # Preserve the existing default 2024 then 2022.
-    $installation = $installations | Where-Object {
-        $_.DisplayName -match '2024$|2022$'
-    } | Sort-Object @{ Expression = { if ($_.DisplayName -match '2024$') { 0 } else { 1 } } } | Select-Object -First 1
-}
-if (-not $installation) {
-    throw "Requested SketchUp version not found. Default is 2024 then 2022; explicit -SketchUpYear targets 2018..2026 only when installed."
-}
+. (Join-Path $PSScriptRoot 'sketchup_installation_selection.ps1')
+$installations = @(Get-KStudioSketchUpInstallations)
+$runningExecutables = @(Get-Process SketchUp -ErrorAction SilentlyContinue | ForEach-Object {
+    if (-not $_.Path) { throw 'A running SketchUp process cannot be identified. No version was selected.' }
+    $_.Path
+})
+$installation = Select-KStudioSketchUpInstallation -Installations $installations -RunningExecutablePaths $runningExecutables -RequestedYear $SketchUpYear -RoamingRoot $env:APPDATA
 
 $installRoot = $installation.InstallLocation.TrimEnd('\')
 $sketchupExe = Join-Path $installRoot 'SketchUp.exe'
@@ -108,16 +89,13 @@ if ($PrepareOnly) { Write-Host "Prepared disposable model: $modelPath"; return }
 # This launcher uses the EXISTING Kongxing bridge, not the separate ADAI MCP.
 # Don't open a version with no corresponding Kongxing plugin, which would
 # otherwise look like a launch success without any working K Studio tools.
-if ($installation.DisplayName -notmatch '(20[12][0-9])$') {
-    throw 'Could not resolve the selected SketchUp installation year.'
-}
-$selectedYear = [int]$Matches[1]
+$selectedYear = $installation.Year
 if (-not $env:APPDATA) {
     throw 'APPDATA unavailable; cannot check the SketchUp per-version plugin.'
 }
 $pluginMain = Join-Path $env:APPDATA "SketchUp\SketchUp $selectedYear\SketchUp\Plugins\kongxing_ai_sketchup\main.rb"
 if (-not (Test-Path -LiteralPath $pluginMain -PathType Leaf)) {
-    throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install the compatible plugin for that version, or test ADAI in a separate profile. Executable discovery is not functional compatibility."
+    throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install the matching plugin for your selected version. No alternative software version was selected; executable discovery is not functional compatibility."
 }
 $arguments = '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
 Start-Process -FilePath $sketchupExe -ArgumentList $arguments | Out-Null

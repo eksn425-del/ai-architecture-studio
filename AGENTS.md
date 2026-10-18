@@ -1,3 +1,7 @@
+## OWNER SOFTWARE VERSION POLICY 2026-10-18
+
+Respect the user's installed software/version for SketchUp and future modeling integrations. Do not impose a historically tested year or silently switch versions. Separate discovery, bridge reachability, capabilities and native validation; untested versions remain unverified. Follow [software version policy](docs/SOFTWARE_VERSION_POLICY.md). This does not reopen old geometry tasks or authorize software installation/upgrades.
+
 ## CASE CLOSED 2026-10-17 — owner basic-building and simple-site scope completed at r20
 
 The owner's narrowed closeout is COMPLETE: actual StudioSol6.1Medium same eight/project/root20606 r20, six path pieces/four green beds/four schematic trees; all existing building/originalground protected. Real website save/browserdownload/SU24bound and download reopen three-stage declaredprecisionPASS; rawstrictdoubleFAIL/sourceNEEDS_FIX and strictreplay/providerNOT_RUN preserved. [Final evidence/model](docs/test-results/windows/2026-10-17-final-basic-building-and-site/README.md). Native scoped site controls and six paired cameras recorded; originalr4immutable. Host native verification is separately labeled, original model reply/history intact. Current geometry authorization CLOSED. END this case; do not resume any older refinement/readiness task without a NEW owner instruction. No commercial-readiness/full-source-PASS claim.

@@ -48,11 +48,12 @@
   <button id="connect-dismiss" class="dialog-dismiss icon-button" type="button" aria-label="关闭 SketchUp 连接窗口"><span aria-hidden="true">×</span></button>
   <div class="dialog-kicker">本机连接 / SKETCHUP</div><h2 id="connect-title">连接你的 SketchUp</h2>
   <p id="connect-access-note">通过本机 MCP 桥接访问 SketchUp。检查连接只读取连接与模型信息；打开项目模型会启动或切换 SketchUp，读取并校验本会话的独立副本。</p>
-  <div class="connect-prerequisite">首次使用需先安装 <strong>SketchUp 2024</strong> 和 <strong>Kongxing 插件</strong>。已有插件无需重装，自动连接不会代装插件。</div>
+  <div class="connect-prerequisite">使用你已安装的 <strong>SketchUp</strong>，并为该版本安装匹配的 <strong>Kongxing 插件</strong>。无需为了连接更换软件版本，自动连接不会代装软件或插件。</div>
   <details id="connect-manual" class="connect-manual"><summary>想手动连接 MCP？查看步骤 <span aria-hidden="true">↗</span></summary>
-    <ol class="help-steps"><li>手动打开 SketchUp 2024，保存当前工作，并退出群组或组件编辑。</li><li>若尚未安装插件，在「扩展程序管理器」安装 Kongxing 插件；然后在扩展菜单启动 <strong>Kongxing Local Bridge</strong>。</li><li>回到这里，点击「仅检查 MCP」，确认桥接是否响应。这一步不会打开、切换或修改模型。</li><li>桥接就绪后，再点击「打开项目模型并连接」，绑定本会话的独立副本。MCP 可达不等于项目模型已绑定。</li></ol>
+    <ol class="help-steps"><li>打开你要使用的 SketchUp 版本，保存当前工作，并退出群组或组件编辑。安装了多个版本时，先只打开你希望连接的那一版。</li><li>若尚未安装插件，在该版本的「扩展程序管理器」安装匹配的 Kongxing 插件；然后在扩展菜单启动 <strong>Kongxing Local Bridge</strong>。</li><li>回到这里，点击「仅检查 MCP」，确认桥接是否响应。这一步不会打开、切换或修改模型。</li><li>桥接就绪后，再点击「打开项目模型并连接」，绑定本会话的独立副本。MCP 可达不等于项目模型已绑定。</li></ol>
     <p>当前使用已配置的 Kongxing MCP。若提示“未配置”，还需由安装程序或管理员完成本机 MCP 配置；此窗口暂不提供任意 MCP 服务地址的填写入口。</p>
   </details>
+  <p class="connect-version-note">检测到软件不等于兼容性已通过。插件和建模工具的实际可用性需按版本检查；未验证的版本不会标为已支持。</p>
   <p class="connect-execution-note">连接后仍需批准计划才会建模；如果你已批准计划并从执行流程进入，此处连接成功后会继续执行该计划。</p>
   <p id="connect-status" role="status">交流与分析无需连接；开始建模前才需要连接。</p>
   <div class="dialog-actions"><button id="connect-close" class="button-quiet" type="button">稍后连接</button><button id="connect-check" class="button-quiet" type="button">仅检查 MCP</button><button id="connect-open" class="button-primary" type="button">打开项目模型并连接</button></div>
