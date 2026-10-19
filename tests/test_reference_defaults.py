@@ -170,6 +170,9 @@ def _mock_readonly_intent(monkeypatch,app):
  import json
  from types import SimpleNamespace
  runtime=app.state.model_router.codex_runtime
+ # Both inference entry points below are simulated; availability must not
+ # depend on a real Codex installation or signed-in account in CI.
+ monkeypatch.setattr(type(runtime),'available',property(lambda self:True))
  monkeypatch.setattr(runtime,'_prepare_home',lambda **kw:None)
  def run(**kw):
   assert kw['read_only'] and not kw['mcp_enabled'] and not kw['dynamic_tools']

@@ -47,3 +47,9 @@ python -m scripts.verify_release_workspace
 ```
 
 最后一个脚本需要已安装Playwright及其Chromium；只启动独立loopback合成服务，结束后正常退出，不连接SU。不同机器的HTTP延迟不应当作同一测量结果。
+
+## GitHub首轮完整集成检查与修正
+
+首个候选fc4ed11：新增Windows/Linux发布契约、OSS回归、证据完整性通过；ADAI完整集成的主线对照失败。实际CI日志区分出14项缺少Blender依赖和3项模拟语境测试依赖真实Codex安装；main同期另有8项已有失败，不能把首轮失败隐藏。
+
+后续修正：在既有Linux完整集成作业明确安装并打印Blender版本；只在已经完全模拟推理的三项测试中显式模拟available，不改变生产可用性判断或借用任何账号。相关本机43项测试通过。CI内新运行的Blender测试只涉及合成测试模型，与用户SketchUp/宣传片模型无关；不会调用收费推理。原始本机22项环境失败保持上述历史结果。最终GitHub状态以PR检查页为准，不把“已安排重跑”写成PASS。

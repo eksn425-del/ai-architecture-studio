@@ -114,5 +114,20 @@
       "tests/test_stage_quality.py::test_real_blender_budget_identical_no_progress_and_retained_candidate"
     ],
     "baseline_missing_historical_fixtures_corrected_before_final_comparison": true
+  },
+  "first_github_ci": {
+    "head": "fc4ed11",
+    "release_windows_linux": "success",
+    "oss_regression": "success",
+    "evidence_integrity": "success",
+    "adai_full_regression": "failure",
+    "run_url": "https://github.com/eksn425-del/ai-architecture-studio/actions/runs/39245206791",
+    "candidate_new_relative_to_main_failures": 17,
+    "diagnosis": [
+      "14 missing Blender executable",
+      "3 fully mocked contextual tests relied on real Codex availability"
+    ],
+    "corrective_fixture_tests_passed": 43,
+    "rerun_status": "pending_at_document_write"
   }
 }

@@ -98,6 +98,8 @@ def test_two_host_turns_sent_unknown_can_be_clarified_without_manual_selector(tm
     context.references=[Reference(type='image',source='inputs/reference/'+n,role_origin='awaiting_context',evidence_model_revisions={'blender_scene':1}) for n in ['a.png','b.png']]
     app.state.store.save(context,project/'state/project_context.json')
     runtime=app.state.model_router.codex_runtime
+    # _run_turn/respond are simulated below; CI must not borrow a real login.
+    monkeypatch.setattr(type(runtime),'available',property(lambda self:True))
     monkeypatch.setattr(runtime,'_prepare_home',lambda **kw:None)
     calls=[]
     def interpret(**kw):
