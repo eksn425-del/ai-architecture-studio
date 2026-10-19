@@ -1,0 +1,55 @@
+{
+  "render_log_completion": true,
+  "engine": "Blender 4.3.2 Cycles CPU",
+  "samples_max": 256,
+  "denoising": false,
+  "images": [
+    {
+      "file": "01-hero-aerial.png",
+      "size": [
+        1920,
+        1440
+      ],
+      "mode": "RGB",
+      "sha256": "13b4244b6368dcd614c618d0b0bd2c7e39022592dcabb24ec8494eb693f2b9aa"
+    },
+    {
+      "file": "02-street-arrival.png",
+      "size": [
+        1920,
+        1440
+      ],
+      "mode": "RGB",
+      "sha256": "77493fec3e3b1f831eb067906006c769e3c5e5a92472c41e90a29d8f194b931f"
+    },
+    {
+      "file": "03-river-promenade.png",
+      "size": [
+        1920,
+        1440
+      ],
+      "mode": "RGB",
+      "sha256": "cd22870d64d7e6ba15e996ae6c0d02797f974326e65bbcfc2fa2c95a828f5b1f"
+    },
+    {
+      "file": "04-atrium-skylight.png",
+      "size": [
+        1920,
+        1440
+      ],
+      "mode": "RGB",
+      "sha256": "2002f7fd1cfad5a05443941863d3751466dd53b6c841260a3992760dd1ec0337"
+    }
+  ],
+  "render_elapsed_lines": [
+    "Time: 02:18.47 (Saving: 00:00.44)",
+    "Time: 01:06.05 (Saving: 00:00.29)",
+    "Time: 01:35.25 (Saving: 00:00.27)",
+    "Time: 02:46.70 (Saving: 00:00.28)"
+  ],
+  "visual_review": "Four views visually inspected; previous black void replaced by framed glazed skylight; river and city context visible. Stylized context and original roof surface tessellation remain; not photogrammetric or survey fidelity.",
+  "known_recovered_errors": [
+    "Original Blender build lacks OpenImageDenoise; denoising disabled and actual samples increased.",
+    "Early isolated refinement namespace error fixed before successful final render."
+  ]
+}
