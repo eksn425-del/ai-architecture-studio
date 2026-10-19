@@ -1,0 +1,241 @@
+{
+  "profile": "kstudio-v8-60s",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "duration": 60,
+  "labels": {
+    "case_a_label": "案例 01 / 项目A",
+    "case_b_label": "案例 02 / 项目B",
+    "case_b_features": "体量 / 立面 / 细节",
+    "presenter_label": "K学长 · 数字形象",
+    "cta_title": "关注后续发布",
+    "cta_emphasis": "K Studio",
+    "cta_detail": "即将发布"
+  },
+  "assets": {
+    "presenter-open.mp4": {
+      "path": "media/presenter-open.mp4",
+      "kind": "video",
+      "case": "brand",
+      "rights": "unverified"
+    },
+    "ui-full-dialogue.jpg": {
+      "path": "media/ui-full-dialogue.jpg",
+      "kind": "image",
+      "case": "ui",
+      "rights": "unverified"
+    },
+    "ui-full-plan.jpg": {
+      "path": "media/ui-full-plan.jpg",
+      "kind": "image",
+      "case": "ui",
+      "rights": "unverified"
+    },
+    "a-orbit.mp4": {
+      "path": "media/a-orbit.mp4",
+      "kind": "video",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "a-interior.mp4": {
+      "path": "media/a-interior.mp4",
+      "kind": "video",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "a-stair.mp4": {
+      "path": "media/a-stair.mp4",
+      "kind": "video",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "a-after.png": {
+      "path": "media/a-after.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "a-material-after.png": {
+      "path": "media/a-material-after.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "exterior.png": {
+      "path": "media/exterior.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "interior-render-v6.png": {
+      "path": "media/interior-render-v6.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    "tower-reference.png": {
+      "path": "media/tower-reference.png",
+      "kind": "image",
+      "case": "B",
+      "rights": "unverified"
+    },
+    "b-orbit.mp4": {
+      "path": "media/b-orbit.mp4",
+      "kind": "video",
+      "case": "B",
+      "rights": "unverified"
+    },
+    "b-detail.mp4": {
+      "path": "media/b-detail.mp4",
+      "kind": "video",
+      "case": "B",
+      "rights": "unverified"
+    },
+    "tower-render.png": {
+      "path": "media/tower-render.png",
+      "kind": "image",
+      "case": "B",
+      "rights": "unverified"
+    }
+  },
+  "references": [
+    {
+      "path": "media/ref-01.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-02.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-03.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-04.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-05.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-06.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-07.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    },
+    {
+      "path": "media/ref-08.png",
+      "kind": "image",
+      "case": "A",
+      "rights": "unverified"
+    }
+  ],
+  "clips": {
+    "presenter-open.mp4:0.07": {
+      "start": 0.07,
+      "rate": 1.2234042553,
+      "shown": 7
+    },
+    "a-orbit.mp4:3": {
+      "start": 3,
+      "rate": 1.15,
+      "shown": 2.5
+    },
+    "a-interior.mp4:1": {
+      "start": 1,
+      "rate": 1.1,
+      "shown": 1.5
+    },
+    "a-interior.mp4:6": {
+      "start": 6,
+      "rate": 1.1,
+      "shown": 1.5
+    },
+    "a-stair.mp4:2": {
+      "start": 2,
+      "rate": 1.05,
+      "shown": 5
+    },
+    "b-orbit.mp4:3": {
+      "start": 3,
+      "rate": 1.1,
+      "shown": 5
+    },
+    "b-detail.mp4:1": {
+      "start": 1,
+      "rate": 1.1,
+      "shown": 2.5
+    }
+  },
+  "narration": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 7,
+      "text": "如果一句话，就能让建筑开始成形？这是 K Studio，一个专门为建筑师设计的 AI Agent。",
+      "pace": 1.15,
+      "path": "audio/voice-1.wav"
+    },
+    {
+      "id": "website",
+      "start": 7,
+      "end": 15,
+      "text": "项目管理在左，对话和执行在右。从参考到修改，在同一个项目里继续。多模型接入，持续完善。",
+      "pace": 1.2,
+      "path": "audio/voice-2.wav"
+    },
+    {
+      "id": "references",
+      "start": 15,
+      "end": 21,
+      "text": "看这个案例。八张参考图，帮助 Agent 理解曲面屋顶、透明立面，以及连续坡道。",
+      "pace": 1.23,
+      "path": "audio/voice-3.wav"
+    },
+    {
+      "id": "case_a",
+      "start": 21,
+      "end": 37,
+      "text": "生成原生 SketchUp 模型，走进内部查看空间。想换材质，直接说，保留其他部分，继续局部修改。",
+      "pace": 1.2,
+      "path": "audio/voice-4.wav"
+    },
+    {
+      "id": "case_b",
+      "start": 37,
+      "end": 53,
+      "text": "再看曲线阳台高层。高低错落的体量，层层展开的阳台。从原生模型漫游，到效果表达，一条工作流，接着推进。",
+      "pace": 1.2,
+      "path": "audio/voice-5.wav"
+    },
+    {
+      "id": "ending",
+      "start": 53,
+      "end": 60,
+      "text": "K Studio，即将发布。Rhino 和 Blender 工作流开发中。关注后续更新，我们会继续分享新的测试结果。",
+      "pace": 1.2,
+      "path": "audio/voice-6.wav"
+    }
+  ],
+  "bgm": null,
+  "sfx": []
+}
