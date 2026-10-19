@@ -1,3 +1,9 @@
+## 2026-10-19 — Mainland release preparation; local candidate only
+
+Owner requests an audit across this chat and “K Studio 宣传片”, product consolidation and mainland-first launch preparation. [Issue audit](docs/RELEASE_ISSUE_AUDIT_2026-10-19.md), [deployment/DB/API/scale plan](docs/RELEASE_PREPARATION_CN_2026-10-19.md), [actual regression evidence](docs/test-results/windows/2026-10-19-release-preparation/README.md). Isolated `codex/release-prep-20261019` includes explicit copy ownership and rejected-review diagnostics, persistent public activity, receipt-failure lock release, one-process local runtime lease and honest release-readiness endpoint. Native identity/approval/KEEP unchanged. Existing originals, stopped copies, promo assets and active services are untouched. Cloud auth/tenant PostgreSQL/atomic credits/durable queue/remote pairing/payments are NOT implemented; public paid launch remains BLOCKED. No new native modeling, paid API call, model/provider change, main merge or public deployment; do not resume closed cases from historical instructions below.
+
+---
+
 ## OWNER SOFTWARE VERSION POLICY 2026-10-18
 
 Respect the user's installed software/version for SketchUp and future modeling integrations. Do not impose a historically tested year or silently switch versions. Separate discovery, bridge reachability, capabilities and native validation; untested versions remain unverified. Follow [software version policy](docs/SOFTWARE_VERSION_POLICY.md). This does not reopen old geometry tasks or authorize software installation/upgrades.

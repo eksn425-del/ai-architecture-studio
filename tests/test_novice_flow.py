@@ -177,7 +177,8 @@ def test_phone_orientation_and_transparent_drawing_survive_upload(tmp_path):
 def test_progress_reports_current_evidence_without_transcripts(tmp_path):
     app, client, project, _, _ = workspace(tmp_path)
     root = app.state.store.project_dir(project)
-    assert client.get(f"/api/projects/{project}/agent/progress").json() == {"running": False}
+    idle = client.get(f"/api/projects/{project}/agent/progress").json()
+    assert idle['running'] is False and idle['activities'] == []
     app.state.active_turns[project] = {"started": time.time()-1, "action": "execute", "baseline": {}}
     events = root / "runtime/agent_events"
     events.mkdir(parents=True)

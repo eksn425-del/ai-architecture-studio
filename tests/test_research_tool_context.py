@@ -113,6 +113,7 @@ def test_policy_and_receipt_symlinks_are_rejected(tmp_path, service, kind):
 
 
 def test_native_readonly_registration_filters_every_nonresearch_tool():
+    from app.native_agent import canonical_dynamic_tools
     # Evaluate the actual native registration expression without starting App Server.
     source = Path(__file__).resolve().parents[1]/'app/native_agent.py'
     tree = ast.parse(source.read_text())
@@ -120,8 +121,9 @@ def test_native_readonly_registration_filters_every_nonresearch_tool():
                    and any(isinstance(t, ast.Name) and t.id == 'registered_tools' for t in n.targets)]
     assert len(assignments) == 1
     expression = compile(ast.Expression(assignments[0].value), str(source), 'eval')
-    candidates = [{'name':name} for name in ['search_web','fetch_url','blender_apply_objects','workspace_write','execute_ruby_code','other']]
-    env = {'dynamic_tools':candidates, 'mcp_enabled':False, 'RESEARCH_TOOL_NAMES':RESEARCH_TOOL_NAMES}
+    candidates = [{'name':name, 'inputSchema':{'type':'object'}} for name in ['search_web','fetch_url','blender_apply_objects','workspace_write','execute_ruby_code','other']]
+    env = {'dynamic_tools':candidates, 'mcp_enabled':False, 'RESEARCH_TOOL_NAMES':RESEARCH_TOOL_NAMES,
+           'canonical_dynamic_tools':canonical_dynamic_tools}
     assert {t['name'] for t in eval(expression, env)} == RESEARCH_TOOL_NAMES
     env['mcp_enabled'] = True
-    assert eval(expression, env) == candidates
+    assert eval(expression, env) == canonical_dynamic_tools(candidates)

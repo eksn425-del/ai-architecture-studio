@@ -228,7 +228,15 @@ def validate_review_requirements(reply: str, *, manifest: list[dict], revisions:
                       and feature in features and item.get('approved_requested_state') == features[feature]):
                     pass
                 else:
-                    raise ValueError('Correction reverses an unresolved requirement; reconcile evidence or approve a scoped design change.')
+                    raise ValueError(
+                        'Correction reverses an unresolved requirement; reconcile evidence or approve a scoped design change. '
+                        f'feature={feature}; relation={relation}; desired_state_changed={desired != old["desired_state"]}; '
+                        f'intent_changed={intent_changed}; prior_requirement_id={old["requirement_id"]}; '
+                        f'prior_revisions={json.dumps(old.get("model_revisions", {}), sort_keys=True)}; '
+                        f'current_revisions={json.dumps(revisions, sort_keys=True)}. '
+                        'For the same intent with changed wording, the independent reviewer must explicitly use '
+                        'equivalent/refines with the exact prior identity and current evidence; do not bypass approval for changed intent.'
+                    )
             elif relation not in {'unchanged', 'equivalent', 'refines', 'regression'}:
                 raise ValueError('Invalid relation to active requirement.')
             item['prior_requirement_id'] = old['requirement_id']

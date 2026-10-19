@@ -1,3 +1,9 @@
+## 2026-10-19 — Mainland release preparation; local candidate only
+
+Owner requests an audit across this chat and “K Studio 宣传片”, product consolidation and mainland-first launch preparation. [Issue audit](RELEASE_ISSUE_AUDIT_2026-10-19.md), [deployment/DB/API/scale plan](RELEASE_PREPARATION_CN_2026-10-19.md), [actual regression evidence](test-results/windows/2026-10-19-release-preparation/README.md). Isolated `codex/release-prep-20261019` includes explicit copy ownership and rejected-review diagnostics, persistent public activity, receipt-failure lock release, one-process local runtime lease and honest release-readiness endpoint. Native identity/approval/KEEP unchanged. Existing originals, stopped copies, promo assets and active services are untouched. Cloud auth/tenant PostgreSQL/atomic credits/durable queue/remote pairing/payments are NOT implemented; public paid launch remains BLOCKED. No new native modeling, paid API call, model/provider change, main merge or public deployment; do not resume closed cases from historical instructions below.
+
+---
+
 ## 2026-10-18 — Conversation scroll, natural image understanding, local owner recording
 
 Owner requested execution status inside the scrollable dialogue and removal of image-purpose forms. Isolated `codex/chatflow-recording-20261018` based on actual local987a30b implements one chat scroll surface, preserves reading position, removes selectors, sends fresh image pixels to the existing native read-only interpreter and turns ambiguity into no-write conversation. [Evidence and boundaries](test-results/windows/2026-10-18-chatflow-and-capture/README.md).89NodePASS;67contextualPythonPASS/2Windows-symlink-environmentFAIL;107approval/reference/progressPASS;43finalfocusedPASS. Actual browser desktop/mobile layout verified with controlled progress, no inference/native quality claim.

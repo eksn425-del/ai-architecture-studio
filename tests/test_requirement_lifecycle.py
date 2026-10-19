@@ -78,3 +78,17 @@ def test_resolved_intent_cannot_be_reopened_as_opposite_new_requirement():
     with pytest.raises(ValueError):check(opposite,history)
     regression={**req(rev=2),'relation':'regression','prior_requirement_id':requirement_id(old),'evidence':'The previously removed divider reappeared in current front view.'}
     assert check(regression,history)[0]['status']=='active'
+
+
+def test_unchanged_relation_with_changed_prose_reports_exact_conflict_without_accepting():
+    old=req();history=[{'requirements':[old]}]
+    new={**req('remove only the redundant lower divider',2),'relation':'unchanged',
+         'prior_requirement_id':requirement_id(old),'evidence':'Current source shows the same missing divider requirement.'}
+    with pytest.raises(ValueError) as caught:check(new,history)
+    text=str(caught.value)
+    assert 'feature=window.mullion' in text and 'relation=unchanged' in text
+    assert 'desired_state_changed=True' in text and 'intent_changed=False' in text
+    assert requirement_id(old) in text
+    assert active_requirements(history)['window.mullion']['desired_state']==old['desired_state']
+    new['relation']='refines'
+    assert check(new,history)[0]['relation']=='refines'

@@ -405,7 +405,10 @@ class CodexAppServerRuntime:
                    "and model_revisions equal to " + json.dumps(revisions, sort_keys=True) + ". "
                    "If prior intent contradicts current evidence, do not oscillate or hide it; report unresolved uncertainty. "
                    "Requirement states (resolved intent remains protected; omission does not resolve): " + json.dumps(requirement_states(history), ensure_ascii=False)
-                   + "\nUse relation new for new features, unchanged for unchanged intent. For paraphrase/refinement use equivalent/refines, "
+                   + "\nUse relation new for new features. For relation unchanged, copy the prior desired_state and any prior intent "
+                   "exactly, including its original language; put new observations, scope exclusions and remaining uncertainty in evidence. "
+                   "Unchanged means unchanged requirement text, not a translation or paraphrase of the same intent. "
+                   "For same-intent translation/paraphrase/refinement use equivalent/refines, "
                    "prior_requirement_id and evidence explaining the SAME intent from current source/capture. Use regression for the same defect reappearing after resolution. Preserve a stable intent "
                    "{property,value} when provided; changed wording alone is not conflict. Opposite intent is NOT refinement. "
                    "Only a feature-specific host approved scope permits supersedes: cite design_scope_version and approved_requested_state exactly. "
@@ -430,9 +433,26 @@ class CodexAppServerRuntime:
             raise ValueError("Review image changed during inference; recapture before correction.")
         if load_approved_design_scope(project_dir) != approved_scope:
             raise ValueError("Approved design scope changed during review; repeat against current intent.")
-        resolutions = validate_review_resolutions(result.reply, manifest=manifest, revisions=revisions, history=history)
-        requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
-                                                   issue_count=len(critique.issues), history=history, approved_scope=approved_scope)
+        try:
+            resolutions = validate_review_resolutions(result.reply, manifest=manifest, revisions=revisions, history=history)
+            requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
+                                                       issue_count=len(critique.issues), history=history, approved_scope=approved_scope)
+        except ValueError as error:
+            # Preserve rejected independent evidence without promoting it to an
+            # accepted review or changing any identity/scope/KEEP requirement.
+            rejected_dir = project_dir / "runtime" / "rejected_visual_reviews"
+            if rejected_dir.is_symlink():
+                raise ValueError("Unsafe rejected review evidence directory.") from error
+            rejected_dir.mkdir(parents=True, exist_ok=True)
+            rejection_id = uuid.uuid4().hex
+            rejection = {"schema_version": 1, "status": "rejected_not_accepted", "error": str(error),
+                         "model_revisions": revisions, "reference_manifest_fingerprint": fingerprint,
+                         "target_manifest_fingerprint": target_fingerprint, "image_sha256": image_hashes,
+                         "prior_requirements": requirement_states(history), "approved_design_scope": approved_scope,
+                         "critique": result.reply, "model": result.model_name, "reasoning_effort": result.reasoning_effort}
+            with (rejected_dir / (rejection_id + ".json")).open("x", encoding="utf-8") as stream:
+                json.dump(rejection, stream, ensure_ascii=False, indent=2)
+            raise ValueError(f"{error} Rejected independent review evidence: {rejection_id}.") from error
         if {item['feature_id'] for item in resolutions} & {item['feature_id'] for item in requirements}:
             raise ValueError("A feature cannot be resolved and still require correction in one review.")
         record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements, "resolutions": resolutions, "approved_design_scope": approved_scope}

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 import html
 import io
 import json
@@ -38,6 +39,7 @@ from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .native_delivery import record_delivery_checkpoint, bind_current_checkpoint_download
 from .agent_progress import select_turn_progress_log
+from .progress_activity import activity_history, update_activity
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
 from .store import ProjectStore, safe_project_id, utc_now
@@ -504,7 +506,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                disposable_model_launcher: Any | None = None) -> FastAPI:
     runtime = runtime_root or Path(__import__("os").environ.get("ARCH_STUDIO_RUNTIME_DIR", ROOT / "runtime"))
     store = ProjectStore(runtime)
-    app = FastAPI(title="AI Architecture Studio Model Router", version="1.1.0")
+    from .runtime_safety import LocalRuntimeLease, release_readiness
+
+    @asynccontextmanager
+    async def local_lifespan(app):
+        with LocalRuntimeLease(store.root):
+            yield
+
+    app = FastAPI(title="AI Architecture Studio Model Router", version="1.1.0", lifespan=local_lifespan)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "[::1]", "testserver"])
 
     @app.middleware("http")
@@ -555,6 +564,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     @app.get("/showcase", response_class=HTMLResponse, include_in_schema=False)
     def showcase() -> FileResponse:
         return FileResponse(STATIC / "showcase" / "index.html", media_type="text/html; charset=utf-8")
+
+    @app.get("/api/release-readiness")
+    def current_release_readiness() -> dict[str, Any]:
+        return release_readiness()
 
     @app.get("/api/provider-readiness")
     def provider_readiness() -> dict[str, Any]:
@@ -1231,6 +1244,36 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         except (ConnectorUnavailable, MCPCallError, OSError, ValueError, ValidationError) as error:
             raise HTTPException(status_code=502, detail=str(error)) from error
 
+    @app.post("/api/projects/{project_id}/model-copy-ownership")
+    async def model_copy_ownership(project_id: str, request: Request) -> dict[str, Any]:
+        # Host lifecycle only: never offered to the modeling Agent's tool surface.
+        if request.client and request.client.host not in {"127.0.0.1", "::1", "testclient"}:
+            raise HTTPException(status_code=403, detail="副本归属迁移仅支持本机工作台。")
+        origin = request.headers.get("origin")
+        if origin and origin != str(request.base_url).rstrip("/"):
+            raise HTTPException(status_code=403, detail="请从当前工作台确认副本归属。")
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(status_code=409, detail="请等待当前建模回合结束。")
+        try:
+            if app.state.active_turns:
+                raise HTTPException(status_code=409, detail="当前仍有运行任务。")
+            from .copy_ownership import CopyOwnership
+            service = CopyOwnership(store, app.state.sketchup)
+            data = await request.json()
+            if data.get("action") == "preview":
+                return service.prepare(project_id)
+            if data.get("action") == "confirm" and data.get("receipt_id"):
+                return service.apply(project_id, str(data["receipt_id"]))
+            raise HTTPException(status_code=400, detail="请先检查副本，再明确确认迁移。")
+        except HTTPException:
+            raise
+        except (ValueError, KeyError, OSError, ValidationError) as error:
+            raise HTTPException(status_code=409, detail=str(error)) from error
+        except (ConnectorUnavailable, MCPCallError) as error:
+            raise HTTPException(status_code=502, detail=str(error)) from error
+        finally:
+            app.state.agent_lock.release()
+
     @app.post("/api/projects/{project_id}/agent/recover")
     def recover_agent_checkpoint(project_id: str) -> dict[str, Any]:
         if not app.state.agent_lock.acquire(blocking=False):
@@ -1601,16 +1644,26 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             app.state.active_turns[project_id] = {"started": time.time(), "action": request.agent_action,
                 "provider":app.state.model_router.route(request.tier).provider,
                 "request_id":uuid.uuid4().hex,
-                "baseline": store.load_state(project_id, "agent_session.json", AgentSession).ruby_state}
+                "baseline": store.load_state(project_id, "agent_session.json", AgentSession).ruby_state,
+                "message_index": len(store.load_context(project_id).conversation)}
             result = converse_turn(project_id, request)
             finish(request_receipt,result)
             request_receipt = None
             return result
         finally:
-            if request_receipt is not None:
-                finish(request_receipt)
-            app.state.active_turns.pop(project_id, None)
-            app.state.agent_lock.release()
+            try:
+                if request_receipt is not None:
+                    finish(request_receipt)
+            finally:
+                try:
+                    active = app.state.active_turns.get(project_id)
+                    if active:
+                        update_activity(store.project_dir(project_id), active, finished=True)
+                except (OSError, ValueError):
+                    __import__('logging').getLogger(__name__).exception('Could not archive public activity')
+                finally:
+                    app.state.active_turns.pop(project_id, None)
+                    app.state.agent_lock.release()
 
     @app.get("/api/projects/{project_id}/agent/pending-plan")
     def pending_plan_identity(project_id: str) -> dict[str, Any]:
@@ -1657,7 +1710,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         project_dir = store.ensure_layout(project_id)
         active = app.state.active_turns.get(project_id)
         if not active:
-            return {"running": False}
+            return {"running": False, "activities": activity_history(project_dir)}
         started = active["started"]
         native_event = active.get("native_event")
         cancel_supported = active.get("provider") == "codex-app-server" and callable(getattr(app.state.model_router.codex_runtime,"cancel_turn",None))
@@ -1710,7 +1763,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             {"label": "实际模型修改", "status": "done" if committed else "blocked" if failures else "pending", "detail": "已提交模型修改" if committed else f"已发生 {failures} 次工具失败，正在处理" if failures else "尚无本轮几何提交"},
             {"label": "截图回读", "status": "done" if capture else "pending", "detail": "已有本轮真实截图；质量需继续检查" if capture else "等待截图"},
         ]
-        return {"running": True, "request_id":active.get("request_id"), "native_event":native_event, "cancel_supported":cancel_supported, "cancel_requested":bool(active.get("cancel_requested")), "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
+        return {"running": True, "activities":update_activity(project_dir, active), "request_id":active.get("request_id"), "native_event":native_event, "cancel_supported":cancel_supported, "cancel_requested":bool(active.get("cancel_requested")), "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
                 "checks": checks,
                 "tool_calls": calls, "failed_tool_calls": failures, "committed_revisions": committed,
                 "preview_url": _artifact(project_id, project_dir, capture, "viewport").url if capture else None}
@@ -1804,6 +1857,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         evidence_turn_id = contextual[1]["user_message_id"] if contextual else "message:" + uuid.uuid4().hex
         _append_conversation(context, "user", phase, request.message.strip(), {
             "evidence_turn_id": evidence_turn_id,
+            "activity_id": app.state.active_turns.get(project_id, {}).get("request_id", ""),
             "workflow_mode": request.workflow_mode,
             "agent_action": action,
             "requested_tier": requested_tier,

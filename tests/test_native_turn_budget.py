@@ -43,7 +43,7 @@ def _run(runtime, project, workspace, **kw):
     return runtime._run_turn(
         project_dir=project, agent_workspace=workspace, thread_id=None,
         prompt="build", mcp_enabled=True, developer_instructions="safe",
-        dynamic_tools=[{"name": "sketchup_run_workspace_ruby"}],
+        dynamic_tools=[{"name": "sketchup_run_workspace_ruby", "inputSchema": {"type": "object", "properties": {}}}],
         tool_handler=lambda *a: {"success": True}, model="gpt-6-luna",
         reasoning_effort="max", reference_images=[],
         workflow_mode="image_reconstruction", **kw

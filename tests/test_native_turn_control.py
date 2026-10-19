@@ -94,7 +94,7 @@ def fixture(tmp_path, monkeypatch, *, process=None):
 def run(runtime, project, workspace, **extra):
     options = dict(project_dir=project, agent_workspace=workspace, thread_id=None,
                    prompt="mock protocol", mcp_enabled=True, developer_instructions="fixture",
-                   dynamic_tools=[{"name": "safe_tool"}], tool_handler=lambda *_: {"success": True},
+                   dynamic_tools=[{"name": "safe_tool", "inputSchema": {"type": "object", "properties": {}}}], tool_handler=lambda *_: {"success": True},
                    model="fixture-model", reasoning_effort="low", reference_images=[])
     options.update(extra)
     return runtime._run_turn(**options)

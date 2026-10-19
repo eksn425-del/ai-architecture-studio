@@ -71,6 +71,15 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 .plan-in-chat{width:min(840px,100%);margin:0 auto;padding:0 24px;flex-shrink:0}
 .plan-in-chat .parameter-plan{display:block;position:static;width:100%;max-width:100%;margin:0;padding:8px 12px;border:1px solid var(--line);border-radius:10px}
 .plan-in-chat .parameter-plan[hidden]{display:none}
+/* Persistent public execution summaries stay in the existing chat scroll surface. */
+.conversation-history{overflow-anchor:none;overscroll-behavior:contain}
+.activity-message{position:static;border-left:2px solid #b9cbb4;padding:3px 0 5px 18px!important;margin:12px 0 24px;max-width:800px}
+.activity-message ol{margin:0;padding:0 0 0 19px;color:#566d5a;font-size:13px;line-height:1.9}
+.activity-message li{padding:4px 0 4px 5px}
+.activity-message li::marker{color:#87a47c}
+.activity-message .activity-warning{color:#876224}
+.activity-message[data-running="true"] li:last-child{color:#284c37;font-weight:600}
+#latest-activity{font-size:12px;margin-left:auto;flex-shrink:0}
 .plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;bottom:auto;right:auto;width:100%;max-width:100%;max-height:38vh;overflow:auto;padding:12px 2px;box-shadow:none;border:0;border-radius:0;z-index:auto}
 @media(max-width:650px){.plan-in-chat{padding:0 12px}}
 

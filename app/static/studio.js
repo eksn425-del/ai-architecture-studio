@@ -179,6 +179,14 @@ function beginProgress(label) {
 }
 
 function endProgress() {
+  const projectId = state.projectId;
+  if (projectId && typeof KStudioActivity !== "undefined") {
+    api(`/api/projects/${encodeURIComponent(projectId)}/agent/progress`).then(progress => {
+      if (projectId !== state.projectId) return;
+      KStudioActivity.remember(projectId, progress.activities);
+      KStudioActivity.render(projectId, $("conversation-history"));
+    }).catch(() => {});
+  }
   clearInterval(progressTimer);
   clearInterval(liveProgressTimer); progressGeneration++;
   $("operation-progress").hidden = true;
@@ -188,6 +196,10 @@ function endProgress() {
 }
 
 function renderTurnControls(progress = null) {
+  if (progress && typeof KStudioActivity !== "undefined") {
+    KStudioActivity.remember(state.projectId, progress.activities);
+    KStudioActivity.render(state.projectId, $("conversation-history"));
+  }
   if (progress) state.activeTurnProgress = {projectId: state.projectId, ...progress};
   const current = state.activeTurnProgress;
   const active = current?.projectId === state.projectId && current.running === true;
@@ -629,6 +641,7 @@ function renderConversation() {
   const messages = [...(state.project?.context?.conversation || [])];
   if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
   const viewport = $("conversation-history");
+  const previousScrollTop = viewport.scrollTop;
   const followLatest = state.conversationViewportProject !== state.projectId
     || viewport.scrollHeight - viewport.clientHeight - viewport.scrollTop < 72;
   state.conversationViewportProject = state.projectId;
@@ -667,11 +680,16 @@ function renderConversation() {
         + (Number.isFinite(meta.latency_ms) ? " · " + meta.latency_ms + " ms" : " · 耗时未报告")
         + "</small>"
       : "";
-    return '<article class="chat-message ' + (isUser ? "user" : "assistant") + '"><header><span>'
+    return '<article class="chat-message ' + (isUser ? "user" : "assistant") + '" data-created-ms="' + (Date.parse(message.created_at) || 0) + '" data-activity-anchor="' + escapeHtml(meta.activity_id || "") + '"><header><span>'
       + speaker + "</span><span>" + phase + '</span></header><div class="markdown-content">' + chatText(message.content)
       + "</div>" + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
-  if (followLatest) viewport.scrollTop = viewport.scrollHeight;
+  if (typeof KStudioActivity !== "undefined") {
+    if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><p>正在处理本轮要求…</p></article>');
+    KStudioActivity.render(state.projectId, viewport);
+    KStudioActivity.bind(viewport, document.querySelector(".composer-controls"));
+  }
+  viewport.scrollTop = followLatest ? viewport.scrollHeight : previousScrollTop;
 }
 
 function setStage(stage, complete) {
@@ -817,6 +835,14 @@ async function loadProject(projectId) {
   setTab(state.tab);
   updateHeader();
   setStatus(state.project.agent_session?.reconstruction_state === "building" ? "已有模型。可查看可用预览、下载模型或发送修改要求。" : state.project.design_ir ? "方案和场地图纸已准备完成。" : "工作区已就绪。上传参考图片并分析，确认计划后再开始建模。");
+  if (typeof KStudioActivity !== "undefined") {
+    try {
+      const progress = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/progress`);
+      if (generation !== projectLoadGeneration || projectId !== state.projectId) return;
+      KStudioActivity.remember(projectId, progress.activities);
+      KStudioActivity.render(projectId, $("conversation-history"));
+    } catch (_) { /* History remains available when progress is temporarily unavailable. */ }
+  }
 }
 
 async function boot() {
@@ -1368,6 +1394,42 @@ $("connect-dismiss").addEventListener("click", closeConnectDialog);
 $("connect-dialog").addEventListener("cancel", event => { event.preventDefault(); closeConnectDialog(); });
 $("connect-check").addEventListener("click", checkConnectDialog);
 $("connect-open").addEventListener("click", connectCurrentProject);
+let copyOwnershipPreview = null;
+async function copyOwnership(action) {
+  if (state.busy || !$("connect-dialog").open) return;
+  const projectId = state.projectId;
+  const generation = connectDialogGeneration;
+  if (action === "confirm" && (!copyOwnershipPreview || copyOwnershipPreview.target_project_id !== projectId)) return;
+  state.busy = true;
+  $("copy-ownership-preview").disabled = true;
+  $("copy-ownership-confirm").disabled = true;
+  $("copy-ownership-status").textContent = action === "preview" ? "正在只读核对来源与副本…" : "正在校验并迁移独立副本归属…";
+  try {
+    const result = await api(`/api/projects/${encodeURIComponent(projectId)}/model-copy-ownership`, {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({action, receipt_id: action === "confirm" ? copyOwnershipPreview.receipt_id : undefined}),
+    });
+    if (!isCurrentConnectDialog(generation, projectId)) return;
+    if (action === "preview") {
+      copyOwnershipPreview = result;
+      $("copy-ownership-status").textContent = `来源：${result.source_project_name}（${result.source_project_id}）；目标：${result.target_project_name}（${result.target_project_id}）。独立副本、根对象与版本已核对。请确认仅迁移归属。`;
+      $("copy-ownership-confirm").disabled = false;
+    } else {
+      copyOwnershipPreview = null;
+      $("copy-ownership-status").textContent = "副本归属已迁移并保存，几何、层级与材质指纹一致。请重新连接并检查模型；尚未执行局部修改。";
+      showToast("副本归属已恢复；原件未变。", false);
+    }
+  } catch (error) {
+    copyOwnershipPreview = null;
+    if (isCurrentConnectDialog(generation, projectId)) $("copy-ownership-status").textContent = friendlyError(error);
+  } finally {
+    state.busy = false;
+    $("copy-ownership-preview").disabled = false;
+    updateHeader();
+  }
+}
+$("copy-ownership-preview").addEventListener("click", () => copyOwnership("preview"));
+$("copy-ownership-confirm").addEventListener("click", () => copyOwnership("confirm"));
 let connectorSetupGeneration = 0;
 let connectorSetupInfo = null;
 let connectorSetupBusy = false;

@@ -57,7 +57,7 @@ def test_same_parent_native_mm_contact_is_only_proxy_with_identity():
     assert row["status"] == "unverified" and row["exact_for_boxes"] is False
     assert row["metric_frame_verified"] is False
     assert result["model_identity"] == {"project_id": executor.project_id, "script_id": "main",
-                                        "model_path": "/mock/owned.skp", "model_guid": "mock-guid", "root_pid": 701}
+                                        "model_path": str(executor.expected_model_path), "model_guid": "mock-guid", "root_pid": 701}
     assert result["revision"] == 3 and result["inventory_complete"] is False
     assert result["automatic_geometry_changes"] is False
     assert result["actual_walkability"] == "unverified"

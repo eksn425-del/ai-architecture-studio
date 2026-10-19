@@ -55,6 +55,12 @@
   </details>
   <p class="connect-version-note">检测到软件不等于兼容性已通过。插件和建模工具的实际可用性需按版本检查；未验证的版本不会标为已支持。</p>
   <p class="connect-execution-note">连接后仍需批准计划才会建模；如果你已批准计划并从执行流程进入，此处连接成功后会继续执行该计划。</p>
+  <details id="copy-ownership-panel"><summary>独立副本提示项目身份不匹配？</summary>
+    <p>检查模型来源与当前会话。确认后仅迁移独立副本的归属，保留几何和材质；原件不变，不会自动开始建模。</p>
+    <p id="copy-ownership-status" role="status"></p>
+    <button id="copy-ownership-preview" class="button-quiet" type="button">检查副本归属</button>
+    <button id="copy-ownership-confirm" class="button-quiet" type="button" disabled>确认迁移到当前会话</button>
+  </details>
   <p id="connect-status" role="status">交流与分析无需连接；开始建模前才需要连接。</p>
   <div class="dialog-actions"><button id="connect-close" class="button-quiet" type="button">稍后连接</button><button id="connect-check" class="button-quiet" type="button">仅检查 MCP</button><button id="connect-open" class="button-primary" type="button">打开项目模型并连接</button></div>
 </dialog>
@@ -79,5 +85,6 @@
 <!-- Compatibility elements for existing backend paths, outside the modeling UI. -->
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
-<script src="/static/studio.js?v=conversation-flow-20261018" defer></script>
+<script src="/static/progress-ui.js?v=release-prep-20261019" defer></script>
+<script src="/static/studio.js?v=release-prep-20261019" defer></script>
 </body></html>

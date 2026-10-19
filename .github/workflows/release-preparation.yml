@@ -1,0 +1,41 @@
+name: Release preparation local contracts
+on:
+  pull_request:
+    paths: ['app/**', 'tests/**', 'scripts/**', '.github/workflows/release-preparation.yml']
+  push:
+    branches: ['codex/release-prep-20261019']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contracts:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r requirements.txt
+      - name: Local lifecycle, replay, approval and UI contracts (no paid provider/native model)
+        run: python -m pytest -q tests/test_copy_ownership.py tests/test_runtime_safety.py tests/test_progress_activity.py tests/test_conversation_receipts.py tests/test_reference_roles.py tests/test_requirement_lifecycle.py tests/test_native_turn_control.py tests/test_native_turn_budget.py tests/test_project_turn_budget.py tests/test_ui_project_recovery.py tests/test_novice_flow.py tests/test_su_relation_audit.py
+      - name: Production browser code contracts
+        run: node --test tests/test_ui_live_activity.js tests/test_ui_connector_setup.js tests/test_ui_contextual_composer.js tests/test_ui_reference_defaults.js tests/test_ui_three_round.js
+      - name: Ruby ownership lifecycle syntax (no native SketchUp)
+        if: runner.os == 'Linux'
+        run: ruby -c app/copy_ownership.rb
+      - name: Public release must remain blocked
+        shell: bash
+        run: |
+          set +e
+          python -m scripts.release_readiness --json > release-readiness.json
+          result=$?
+          test "$result" -eq 2

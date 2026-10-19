@@ -34,3 +34,19 @@ def test_api_duplicate_replay_does_not_corrupt_receipt(tmp_path):
     assert responses[0].json()==responses[1].json()==responses[2].json()
     record=json.loads((project/'runtime/conversation_requests'/('b'*32+'.json')).read_text())
     assert record['status']=='completed'
+
+
+def test_receipt_storage_failure_releases_writer_but_uncertain_request_cannot_replay(tmp_path, monkeypatch):
+    from tests.test_novice_flow import workspace
+    from app import conversation_receipts
+    from fastapi.testclient import TestClient
+    app, _, project, _, _ = workspace(tmp_path)
+    client = TestClient(app, raise_server_exceptions=False)
+    def unavailable(*args, **kwargs):
+        raise OSError('synthetic receipt disk failure')
+    monkeypatch.setattr(conversation_receipts, 'finish', unavailable)
+    body = {'message':'先讨论一下','workflow_mode':'image_reconstruction','client_request_id':'c'*32}
+    assert client.post(f'/api/projects/{project}/conversation', json=body).status_code == 500
+    assert not app.state.agent_lock.locked()
+    assert not app.state.active_turns
+    assert client.post(f'/api/projects/{project}/conversation', json=body).status_code == 409

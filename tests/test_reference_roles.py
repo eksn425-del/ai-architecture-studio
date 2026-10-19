@@ -137,3 +137,31 @@ def test_unbound_corrections_and_duplicate_metadata_fail_closed(tmp_path):
     data['references'].append({**data['references'][1], 'evidence_role': 'target_building'})
     context.write_text(json.dumps(data))
     assert reference_manifest(tmp_path, images)[1]['role'] == 'unknown'
+
+
+def test_rejected_native_requirement_is_archived_without_becoming_accepted(tmp_path, monkeypatch):
+    from app import native_agent as subject
+    from app.reference_roles import requirement_id
+    project=tmp_path/'project';project.mkdir()
+    images,manifest=fixture_manifest(project)
+    current=project/'outputs/renders/agent-view-front.png'
+    current.parent.mkdir(parents=True);current.write_bytes(b'current')
+    monkeypatch.setattr(subject,'validate_visual_review_views',lambda *_:({'villa':6},{},{'front':current}))
+    monkeypatch.setattr(subject,'validate_source_matched_pairs',lambda *_:[])
+    old=requirement(desired='absent',revision=5)
+    monkeypatch.setattr(subject,'load_review_history',lambda *_:[{'requirements':[old]}])
+    item={**requirement(desired='remove lower divider'),'relation':'unchanged',
+          'prior_requirement_id':requirement_id(old),'evidence':'Same source requirement, changed wording.'}
+    reply='NEEDS_FIX: YES\n<issues><issue>Divider remains.</issue></issues>\n'+envelope([item])
+    runtime=subject.CodexAppServerRuntime(tmp_path,codex_executable='fixture')
+    monkeypatch.setattr(runtime,'_run_turn',lambda **_:subject.AgentTurnResult('review',reply,model_name='offline-fixture'))
+    monkeypatch.setattr(subject,'parse_visual_critique_response',lambda _:type('Critique',(),{'malformed':False,'needs_fix':True,'issues':['Divider remains.']})())
+    work=project/'runtime/agent_workspace';work.mkdir(parents=True)
+    with pytest.raises(ValueError,match='Rejected independent review evidence'):
+        runtime._native_visual_review(project_dir=project,agent_workspace=work,ruby_state={},arguments={'views':{}},model='fixture',reasoning_effort='medium')
+    files=list((project/'runtime/rejected_visual_reviews').glob('*.json'));assert len(files)==1
+    record=json.loads(files[0].read_text(encoding='utf-8'))
+    assert record['critique']==reply and record['model_revisions']=={'villa':6}
+    assert record['status']=='rejected_not_accepted'
+    assert 'relation=unchanged' in record['error'] and record['image_sha256'][str(current)]
+    assert not (project/'runtime/reference_role_review_history.jsonl').exists()
