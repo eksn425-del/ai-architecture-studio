@@ -70,7 +70,8 @@ def test_first_api_plan_interruption_resumes_written_card_and_tool_history(tmp_p
         else:
             assert any(m["role"] == "tool" and m["tool_call_id"] == "write-card" for m in kwargs["messages"])
             message = {"content": "已保留参数卡，请批准后建模。"}
-        return SimpleNamespace(choices=[SimpleNamespace(message=message)], usage={})
+        return SimpleNamespace(model=kwargs["model"].split("/", 1)[-1], choices=[SimpleNamespace(message=message)],
+                               usage={"prompt_tokens": 0, "completion_tokens": 0})
     module.completion = completion
     monkeypatch.setitem(sys.modules, "litellm", module)
     assert client.post("/api/model-settings", json={"mode": "byok", "model": "openai/test-model",
@@ -236,8 +237,10 @@ def test_litellm_reconstruction_retains_history_and_uploaded_evidence(tmp_path, 
     seen = []
     def completion(**kwargs):
         seen.append(kwargs)
-        assert {t["function"]["name"] for t in kwargs["tools"]} == {"workspace_read", "workspace_write"}
-        return SimpleNamespace(choices=[SimpleNamespace(message={"content": "plan", "tool_calls": None})], usage={})
+        assert {t["function"]["name"] for t in kwargs["tools"]} == {"workspace_read", "workspace_write", "workspace_search"}
+        return SimpleNamespace(model=kwargs["model"].split("/", 1)[-1],
+            choices=[SimpleNamespace(message={"content": "plan", "tool_calls": None})],
+            usage={"prompt_tokens": 0, "completion_tokens": 0})
     module = ModuleType("litellm")
     module.completion = completion
     monkeypatch.setitem(sys.modules, "litellm", module)

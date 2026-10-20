@@ -586,8 +586,9 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         call_index = len(calls)
         if call_index == 1:
             return SimpleNamespace(
+                model=kwargs["model"].split("/", 1)[-1],
                 choices=[SimpleNamespace(message={"content": "我完成了。", "tool_calls": None})],
-                usage={},
+                usage={"prompt_tokens": 0, "completion_tokens": 0},
             )
         if call_index == 2:
             assert any(
@@ -595,6 +596,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                 for m in kwargs["messages"]
             )
             return SimpleNamespace(
+                model=kwargs["model"].split("/", 1)[-1],
                 choices=[SimpleNamespace(message={
                     "content": None,
                     "tool_calls": [{
@@ -608,7 +610,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                         },
                     }],
                 })],
-                usage={},
+                usage={"prompt_tokens": 0, "completion_tokens": 0},
             )
         if call_index == 3:
             assert "read-only visual critic" in kwargs["messages"][0]["content"]
@@ -621,6 +623,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
             assert "rear opening_count=3" in critic_payload
             assert '"opening_count": 4' in critic_payload
             return SimpleNamespace(
+                model=kwargs["model"].split("/", 1)[-1],
                 choices=[SimpleNamespace(message={
                     "content": (
                         "NEEDS_FIX: YES\n"
@@ -634,8 +637,9 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                 usage={"prompt_tokens": 100, "completion_tokens": 20},
             )
         return SimpleNamespace(
+            model=kwargs["model"].split("/", 1)[-1],
             choices=[SimpleNamespace(message={"content": "仍有问题。", "tool_calls": None})],
-            usage={},
+            usage={"prompt_tokens": 0, "completion_tokens": 0},
         )
 
     module.completion = completion

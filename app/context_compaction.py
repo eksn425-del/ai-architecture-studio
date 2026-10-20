@@ -259,13 +259,17 @@ def compact_active_reconstruction_context(
     system = dict(messages[0])
     system_content = str(system.get("content") or "")
     system["content"] = system_content.rstrip() + "\n\n" + checkpoint
-    compacted = [system, *messages[current_user:]]
+    # A model-authored card may omit an owner's old KEEP, correction or refusal.
+    # Preserve real user inputs in their original role, outside generated notes.
+    prior_users = [message for message in messages[1:current_user]
+                   if message.get("role") == "user" and not _is_internal_user_message(message)]
+    compacted = [system, *prior_users, *messages[current_user:]]
     after = _request_size_chars(compacted)
     if after >= before:
         return messages, {"compacted": False, "dropped_messages": 0, "before_chars": before, "after_chars": before}
     return compacted, {
         "compacted": True,
-        "dropped_messages": current_user - 1,
+        "dropped_messages": current_user - 1 - len(prior_users),
         "before_chars": before,
         "after_chars": after,
     }

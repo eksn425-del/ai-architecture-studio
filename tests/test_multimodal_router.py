@@ -79,6 +79,7 @@ def test_litellm_first_user_turn_contains_project_reference_image(tmp_path: Path
         assert len(image_parts) == 1
         assert image_parts[0]["image_url"]["url"].startswith("data:image/png;base64,")
         return SimpleNamespace(
+            model=kwargs["model"].split("/", 1)[-1],
             choices=[SimpleNamespace(message={"content": "已读取参考图。", "tool_calls": None})],
             usage={"prompt_tokens": 10, "completion_tokens": 4},
         )

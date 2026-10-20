@@ -260,7 +260,7 @@ class AgentToolSurface:
             nonlocal writes
             if research_dispatch and name in RESEARCH_TOOL_NAMES:
                 return research_dispatch(name, arguments)
-            if workspace_tools_enabled and name in {"workspace_read", "workspace_write"}:
+            if workspace_tools_enabled and name in {"workspace_read", "workspace_write", "workspace_search"}:
                 return workspace_file_call(resolved_project_dir / "runtime" / "agent_workspace", name, arguments)
             if su_audit_dispatch and name in {'sketchup_audit_relations','sketchup_audit_clearance'}:
                 receipt=su_audit_dispatch(name,arguments)

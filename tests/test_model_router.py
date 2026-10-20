@@ -127,6 +127,7 @@ def test_litellm_adapter_reuses_sketchup_tools_and_passes_tool_images(tmp_path, 
             )
             message = {"content": "SketchUp 状态正常，视口已检查。", "tool_calls": None}
         return SimpleNamespace(
+            model=kwargs["model"].split("/", 1)[-1],
             choices=[SimpleNamespace(message=message)],
             usage={"prompt_tokens": 123, "completion_tokens": 45},
         )
@@ -179,7 +180,8 @@ def test_deepseek_preserves_thinking_through_tools_and_next_turn(tmp_path, monke
             if len(seen) == 3:
                 assert previous[-1]["reasoning_content"] == "final-thought"
             message = {"content": "checked", "reasoning_content": "final-thought"}
-        return SimpleNamespace(choices=[SimpleNamespace(message=message)], usage={})
+        return SimpleNamespace(model=kwargs["model"].split("/", 1)[-1], choices=[SimpleNamespace(message=message)],
+                               usage={"prompt_tokens": 0, "completion_tokens": 0})
 
     module = ModuleType("litellm")
     module.completion = completion
@@ -201,8 +203,9 @@ def test_litellm_stops_repeated_modeling_failures_and_checkpoints_history(tmp_pa
     seen = []
     def completion(**kw):
         seen.append(kw)
-        return SimpleNamespace(choices=[SimpleNamespace(message={"content": None, "tool_calls": [
-            {"id": str(len(seen)), "function": {"name": tool["name"], "arguments": "{}"}}]})], usage={})
+        return SimpleNamespace(model=kw["model"].split("/", 1)[-1], choices=[SimpleNamespace(message={"content": None, "tool_calls": [
+            {"id": str(len(seen)), "function": {"name": tool["name"], "arguments": "{}"}}]})],
+            usage={"prompt_tokens": 0, "completion_tokens": 0})
     module = ModuleType("litellm")
     module.completion = completion
     monkeypatch.setitem(sys.modules, "litellm", module)
@@ -223,7 +226,8 @@ def test_litellm_skill_is_once_in_current_system_not_repeated_history(tmp_path, 
     seen = []
     def completion(**kw):
         seen.append(json.loads(json.dumps(kw["messages"])))
-        return SimpleNamespace(choices=[SimpleNamespace(message={"content": "ok"})], usage={})
+        return SimpleNamespace(model=kw["model"].split("/", 1)[-1], choices=[SimpleNamespace(message={"content": "ok"})],
+                               usage={"prompt_tokens": 0, "completion_tokens": 0})
     module = ModuleType("litellm")
     module.completion = completion
     monkeypatch.setitem(sys.modules, "litellm", module)
@@ -246,7 +250,7 @@ def test_interrupted_litellm_turn_reports_current_usage_and_checkpoint(tmp_path,
         calls.append(kw)
         if len(calls) == 2 and mode == 'provider_error':
             raise RuntimeError('fixture unavailable')
-        return SimpleNamespace(choices=[SimpleNamespace(message={'content':None,'tool_calls':[
+        return SimpleNamespace(model=kw["model"].split("/", 1)[-1], choices=[SimpleNamespace(message={'content':None,'tool_calls':[
             {'id':str(len(calls)), 'function':{'name':'sketchup_health','arguments':'{}'}}]})],
             usage={'prompt_tokens':100, 'completion_tokens':10})
     module = ModuleType('litellm')

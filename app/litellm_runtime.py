@@ -33,6 +33,10 @@ def requires_responses_tools(model: str) -> bool:
     return model.removeprefix("openai/") in {"gpt-6.1-sol", "gpt-6-astra"}
 
 
+class ProviderContractRejected(NativeAgentUnavailable):
+    """A response cannot authorize tools or another billable recovery attempt."""
+
+
 class LiteLLMRuntime:
     """Optional LiteLLM chat-completion adapter for multimodal/function-call providers."""
 
@@ -164,6 +168,9 @@ class LiteLLMRuntime:
                             if block.get("type") == "text":
                                 block["text"] = block.get("text", "").replace(skill, "")
             messages = [messages[0], *saved["messages"], messages[1]]
+        # A crash after a native write must never turn into an automatic replay.
+        # Check the complete journal before active-context filtering/compaction.
+        seen_call_ids = _completed_tool_history(messages)
         tools = [_to_litellm_tool(tool) for tool in tool_context.dynamic_tools]
         evidence_dir = project_dir / "runtime" / "agent_events"
         evidence_dir.mkdir(parents=True, exist_ok=True)
@@ -187,6 +194,7 @@ class LiteLLMRuntime:
 
         def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None]]:
             """Critique trusted current views in a clean context, separate from the Builder."""
+            nonlocal input_tokens, output_tokens
             if not isinstance(ruby_state, dict):
                 raise ValueError("Dedicated visual critic requires current writer state.")
             views = review_arguments.get("views")
@@ -284,6 +292,17 @@ class LiteLLMRuntime:
                 })
                 raise RuntimeError(f"Dedicated visual critic request failed: {safe_error}") from None
             usage = _usage_from_response(response)
+            # Rejected review responses can still be billable. Keep known usage
+            # in the interrupted result as well as the separate Critic receipt.
+            input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
+            output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
+            try:
+                _validate_provider_response(response, selected_model, usage)
+            except ProviderContractRejected:
+                record({"event": "visual_critic_contract_rejected", "model": selected_model,
+                        "input_tokens": usage[0], "output_tokens": usage[1],
+                        "latency_ms": round((time.monotonic() - critic_started) * 1000)})
+                raise
             text = _message_content(_response_message(response))
             critique = parse_visual_critique_response(text)
             record({
@@ -394,6 +413,11 @@ class LiteLLMRuntime:
                     "input_tokens": usage[0], "output_tokens": usage[1]})
             input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
             output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
+            try:
+                _validate_provider_response(response, selected_model, usage)
+            except NativeAgentUnavailable as error:
+                record({"event": "provider_contract_rejected", "error_type": "response_contract"})
+                raise interrupted(str(error)) from None
             message = _response_message(response)
             raw_tool_calls = message.get("tool_calls") or []
             last_reply = _message_content(message)
@@ -458,6 +482,20 @@ class LiteLLMRuntime:
                 raise interrupted(
                     f"LiteLLM tool loop reached the configured {self.max_tool_calls}-call limit."
                 )
+            # Validate the WHOLE batch before executing its first tool. Missing,
+            # repeated or malformed IDs/arguments cannot partially apply a batch.
+            try:
+                parsed_calls = [_tool_call_parts(call) for call in raw_tool_calls]
+                batch_ids = [call[0] for call in parsed_calls]
+                if len(set(batch_ids)) != len(batch_ids) or seen_call_ids.intersection(batch_ids):
+                    raise NativeAgentUnavailable("Provider repeated a tool call ID; execution blocked.")
+                allowed = {str(tool.get("name", "")) for tool in tool_context.dynamic_tools}
+                if any(name not in allowed for _, name, _ in parsed_calls):
+                    raise NativeAgentUnavailable("Provider requested tools outside this turn's allowlist; batch blocked.")
+            except NativeAgentUnavailable as error:
+                record({"event": "provider_contract_rejected", "error_type": "tool_batch"})
+                raise interrupted(str(error)) from None
+            seen_call_ids.update(batch_ids)
             assistant_message = {
                 "role": "assistant",
                 "content": message.get("content"),
@@ -469,14 +507,16 @@ class LiteLLMRuntime:
             if message.get("reasoning_content") is not None:
                 assistant_message["reasoning_content"] = message["reasoning_content"]
             messages.append(assistant_message)
+            # Persist intent BEFORE dispatch. If a process or disk fails after
+            # the effect, the unresolved journal blocks automatic continuation.
+            save_history()
             pending_visual_readbacks = []
-            for call in raw_tool_calls:
+            for call_id, name, arguments in parsed_calls:
                 if hasattr(self, "before_tool_execution"):
                     try:
                         self.before_tool_execution()
                     except NativeAgentUnavailable as error:
                         raise interrupted(str(error)) from None
-                call_id, name, arguments = _tool_call_parts(call)
                 tool_call_count += 1
                 tool_calls.append({"server": "kongxing_sketchup", "tool": name})
                 record({"event": "tool_started", "tool": name})
@@ -490,8 +530,6 @@ class LiteLLMRuntime:
                         and tool_profile == "reconstruction_coding"
                     ):
                         critic_text, critic_usage = run_dedicated_visual_critic(arguments)
-                        input_tokens = (input_tokens or 0) + critic_usage[0] if critic_usage[0] is not None else input_tokens
-                        output_tokens = (output_tokens or 0) + critic_usage[1] if critic_usage[1] is not None else output_tokens
                         arguments = dict(arguments)
                         arguments["critique"] = critic_text
                         arguments["_reviewer"] = {
@@ -502,6 +540,9 @@ class LiteLLMRuntime:
                     output = tool_context.dispatch(name, arguments)
                     if output.get("success") is False or output.get("isError") is True:
                         failed_tool_calls += 1
+                except ProviderContractRejected as error:
+                    record({"event": "provider_contract_rejected", "error_type": "critic_response_contract"})
+                    raise interrupted(str(error)) from None
                 except (ConnectorUnavailable, MCPCallError, OSError, ValueError, RuntimeError) as error:
                     failed_tool_calls += 1
                     output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
@@ -659,6 +700,8 @@ def _response_message(response: Any) -> dict[str, Any]:
         message = response.choices[0].message
     except (AttributeError, IndexError, TypeError) as error:
         raise NativeAgentUnavailable("LiteLLM returned no chat-completion message.") from error
+    if message is None:
+        raise NativeAgentUnavailable("LiteLLM returned no chat-completion message.")
     if isinstance(message, dict):
         return message
     if hasattr(message, "model_dump"):
@@ -682,17 +725,23 @@ def _message_content(message: dict[str, Any]) -> str:
 
 def _tool_call_parts(call: Any) -> tuple[str, str, dict[str, Any]]:
     if isinstance(call, dict):
-        call_id = str(call.get("id") or uuid.uuid4().hex)
+        call_id = call.get("id")
         function = call.get("function") or {}
     else:
-        call_id = str(getattr(call, "id", "") or uuid.uuid4().hex)
+        call_id = getattr(call, "id", None)
         function = getattr(call, "function", None)
         if function is None:
             function = {}
         elif not isinstance(function, dict) and hasattr(function, "model_dump"):
             function = function.model_dump()
-    name = str(function.get("name", ""))
-    raw_arguments = function.get("arguments", "{}")
+    if not isinstance(call_id, str) or not call_id.strip():
+        raise NativeAgentUnavailable("Provider omitted a valid tool call ID; execution blocked.")
+    if not isinstance(function, dict):
+        raise NativeAgentUnavailable("Provider returned a malformed tool function; execution blocked.")
+    name = function.get("name")
+    if not isinstance(name, str) or not name.strip():
+        raise NativeAgentUnavailable("Provider omitted a valid tool name; execution blocked.")
+    raw_arguments = function.get("arguments")
     if isinstance(raw_arguments, dict):
         arguments = raw_arguments
     else:
@@ -703,6 +752,63 @@ def _tool_call_parts(call: Any) -> tuple[str, str, dict[str, Any]]:
     if not isinstance(arguments, dict):
         raise NativeAgentUnavailable(f"LiteLLM returned non-object arguments for tool {name or '[unnamed]'}.")
     return call_id, name, arguments
+
+
+def _completed_tool_history(messages: list[dict[str, Any]]) -> set[str]:
+    """Validate the durable journal, not a lossy provider-context checkpoint."""
+    seen: set[str] = set()
+    pending: set[str] = set()
+    for message in messages:
+        role = message.get("role")
+        if role == "tool":
+            call_id = message.get("tool_call_id")
+            if not isinstance(call_id, str) or call_id not in pending:
+                raise NativeAgentUnavailable("Provider history contains an orphan tool result; inspect the journal before recovery.")
+            pending.remove(call_id)
+            continue
+        if pending:
+            raise NativeAgentUnavailable("上一轮有工具结果未确认；请先核对当前模型与执行回执，本轮不会自动重发工具。")
+        if role == "assistant":
+            for call in message.get("tool_calls") or []:
+                call_id, _, _ = _tool_call_parts(call)
+                if call_id in seen:
+                    raise NativeAgentUnavailable("Provider history contains repeated tool IDs; automatic replay blocked.")
+                seen.add(call_id)
+                pending.add(call_id)
+    if pending:
+        raise NativeAgentUnavailable("上一轮有工具结果未确认；请先核对当前模型与执行回执，本轮不会自动重发工具。")
+    return seen
+
+
+def _validate_provider_response(response: Any, selected_model: str,
+                                usage: tuple[int | None, int | None]) -> None:
+    """Require attributable, metered output before Builder tools or Critic QA.
+
+    The returned ID is a provider claim, not proof of the served model weights.
+    Only transport namespace prefixes are normalized; snapshots/aliases do not
+    silently inherit another model's native acceptance.
+    """
+    actual = getattr(response, "model", None)
+    if isinstance(response, dict):
+        actual = response.get("model")
+    prefixes = ("deepseek/", "dashscope/", "zai/", "openai/", "openrouter/")
+    def wire_name(value: str) -> str:
+        for prefix in prefixes:
+            if value.startswith(prefix):
+                return value[len(prefix):]
+        return value
+    if not isinstance(actual, str) or wire_name(actual) != wire_name(selected_model):
+        raise ProviderContractRejected("供应商返回的模型标识缺失或与所选模型不符；已停止，不会自动切换模型或执行工具。")
+    if any(type(value) is not int or value < 0 for value in usage):
+        raise ProviderContractRejected("供应商未返回有效用量；已停止后续调用和工具，请核对供应商账单。")
+    try:
+        _response_message(response)
+        choice = response.choices[0]
+    except (AttributeError, IndexError, TypeError, NativeAgentUnavailable) as error:
+        raise ProviderContractRejected("供应商返回的消息不完整；本次输出不会执行工具。") from error
+    finish = choice.get("finish_reason") if isinstance(choice, dict) else getattr(choice, "finish_reason", None)
+    if finish is not None and (not isinstance(finish, str) or finish not in {"stop", "tool_calls"}):
+        raise ProviderContractRejected("供应商输出被截断、过滤或未完成；本次输出不会执行工具。")
 
 
 def _tool_result_parts(output: dict[str, Any]) -> tuple[str, list[str]]:
@@ -735,6 +841,6 @@ def _usage_from_response(response: Any) -> tuple[int | None, int | None]:
     input_count = usage.get("prompt_tokens", usage.get("input_tokens"))
     output_count = usage.get("completion_tokens", usage.get("output_tokens"))
     return (
-        input_count if isinstance(input_count, int) and input_count >= 0 else None,
-        output_count if isinstance(output_count, int) and output_count >= 0 else None,
+        input_count if type(input_count) is int and input_count >= 0 else None,
+        output_count if type(output_count) is int and output_count >= 0 else None,
     )

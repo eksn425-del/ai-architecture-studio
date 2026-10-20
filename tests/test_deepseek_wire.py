@@ -19,7 +19,9 @@ def test_deepseek_transport_respects_cloud_proxy_setting(tmp_path, monkeypatch, 
         monkeypatch.setenv("ARCH_STUDIO_API_TRUST_ENV", setting)
     def completion(**kwargs):
         assert kwargs["client"].client._trust_env is expected
-        return SimpleNamespace(choices=[SimpleNamespace(message={"content": "checked"})], usage={})
+        return SimpleNamespace(model=kwargs["model"].split("/", 1)[-1],
+                               choices=[SimpleNamespace(message={"content": "checked"})],
+                               usage={"prompt_tokens": 0, "completion_tokens": 0})
     monkeypatch.setattr(litellm, "completion", completion)
     runtime = LiteLLMRuntime(tmp_path, model="deepseek/deepseek-flash")
     runtime.session_api_key = "test-only-placeholder"

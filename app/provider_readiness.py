@@ -76,10 +76,17 @@ CAPABILITY_MATRIX = (
     ),
     ProviderReadiness(
         "deepseek-official", "DeepSeek official API", "independent_api",
-        "deepseek/deepseek-flash", "live_tested_for_basic_chat_and_tool_contract", "LiteLLM Chat Completions",
+        "deepseek/deepseek-flash", "historical_basic_chat_tools_current_version_unverified", "LiteLLM Chat Completions",
         "adapter_available_quality_unverified",
-        "UI default exists, but a working connector is not a proven source-faithful building deliverable.",
+        "Historical basic chat/tool checks do not qualify the current rolling Flash version, vision or native source fidelity.",
         "Do not label it high-fidelity without native new-user evidence.",
+    ),
+    ProviderReadiness(
+        "aliyun-bailian", "Aliyun Bailian official API", "independent_api",
+        "dashscope/qwen3.8-flash", "official_documentation_only", "LiteLLM Chat Completions candidate",
+        "candidate_not_verified",
+        "Official vision/tools documentation and Beijing pricing checked on 2026-10-20; current K Studio native quality not tested.",
+        "Benchmark images, reasoning/tool continuation, exact model, usage and native delivery before selecting this route. No automatic switch.",
     ),
 )
 
