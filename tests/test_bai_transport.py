@@ -83,3 +83,106 @@ def test_stream_disconnect_keeps_test_budget_reservation(tmp_path, monkeypatch):
     assert len(rows) == len(requests) == 1
     assert rows[0]["status"] == "unresolved"
     assert rows[0]["liability_usd"] == "0.3538944"
+
+
+@pytest.mark.parametrize("heartbeat", [b": keepalive\n\n", b"data: "])
+def test_nonprogress_stream_is_bounded_without_retry(monkeypatch, heartbeat):
+    from app import bai_transport
+    now = [0.0]
+    monkeypatch.setattr(bai_transport.time, "monotonic", lambda: now[0])
+    records, requests = [], []
+    closed = []
+
+    class StalledStream(httpx.SyncByteStream):
+        def __iter__(self):
+            for _ in range(4):
+                now[0] += 301
+                yield heartbeat
+
+        def close(self):
+            closed.append(True)
+
+    def serve(request):
+        requests.append(request)
+        return httpx.Response(200, headers={"content-type": "text/event-stream"}, stream=StalledStream())
+
+    _, _, kwargs = perform([])
+    with pytest.raises(TimeoutError, match="timed out"):
+        complete_bai(kwargs, record=records.append, transport=httpx.MockTransport(serve))
+    assert len(requests) == 1
+    assert records[-1]["event"] == "provider_transport_failed"
+    assert records[-1]["chunks_received"] == 0
+    assert closed == [True]
+
+
+def test_unterminated_oversized_frame_is_rejected_before_json_decode():
+    class LargeStream(httpx.SyncByteStream):
+        def __iter__(self):
+            for _ in range(9):
+                yield b":" + b"x" * (1024 * 1024)
+
+    records = []
+    _, _, kwargs = perform([])
+    with pytest.raises(ValueError, match="size limit"):
+        complete_bai(kwargs, record=records.append, transport=httpx.MockTransport(
+            lambda _: httpx.Response(200, headers={"content-type": "text/event-stream"}, stream=LargeStream())))
+    assert records[-1]["error_type"] == "ValueError"
+
+
+def test_incomplete_terminal_stream_has_failure_telemetry():
+    records = []
+    _, _, kwargs = perform([])
+    with pytest.raises(ValueError, match="缺少真实用量"):
+        complete_bai(kwargs, record=records.append, transport=httpx.MockTransport(lambda _:
+            httpx.Response(200, headers={"content-type": "text/event-stream"},
+                          text="data: " + json.dumps(FINISH) + "\n\ndata: [DONE]\n\n")))
+    assert records[-1]["event"] == "provider_transport_failed"
+
+
+@pytest.mark.parametrize("newline", ["\n", "\r\n", "\r"])
+def test_byte_fragmentation_preserves_utf8_and_sse_newlines(newline):
+    events = [event({"content": "建筑计划"}), event(finish="stop"), USAGE]
+    wire = ("".join("data: " + json.dumps(e, ensure_ascii=False) + newline * 2 for e in events)
+            + "data: [DONE]" + newline * 2).encode("utf-8")
+
+    class ByteStream(httpx.SyncByteStream):
+        def __iter__(self):
+            for byte in wire:
+                yield bytes([byte])
+
+    _, _, kwargs = perform([])
+    result = complete_bai(kwargs, transport=httpx.MockTransport(lambda _:
+        httpx.Response(200, headers={"content-type": "text/event-stream"}, stream=ByteStream())))
+    assert result.choices[0].message["content"] == "建筑计划"
+    assert result.usage == USAGE["usage"]
+
+
+def test_heartbeat_timeout_keeps_unknown_cost_and_does_not_retry(tmp_path, monkeypatch):
+    from app import bai_transport
+    path = tmp_path / "budget.json"
+    path.write_text(json.dumps(dict(model="openai/" + MODEL, api_base="https://api.b.ai/v1",
+        limit_usd="1", input_usd_per_million="0.30", output_usd_per_million="1.20",
+        max_input_tokens=1048576, max_output_tokens=32768, requests=[])))
+    monkeypatch.setenv("K_STUDIO_LOCAL_API_TEST_BUDGET", str(path))
+    now = [0.0]
+    monkeypatch.setattr(bai_transport.time, "monotonic", lambda: now[0])
+    requests = []
+
+    class HeartbeatStream(httpx.SyncByteStream):
+        def __iter__(self):
+            for _ in range(10):
+                now[0] += 100
+                yield b": ping\n\n"
+
+    def serve(request):
+        requests.append(request)
+        return httpx.Response(200, headers={"content-type": "text/event-stream"}, stream=HeartbeatStream())
+
+    _, _, kwargs = perform([])
+    with pytest.raises(TimeoutError):
+        invoke_with_test_budget(kwargs["model"], kwargs["api_base"], kwargs,
+            lambda: complete_bai(kwargs, transport=httpx.MockTransport(serve)))
+    rows = json.loads(path.read_text())["requests"]
+    assert len(requests) == len(rows) == 1
+    assert rows[0]["status"] == "unresolved"
+    assert rows[0]["liability_usd"] == "0.3538944"

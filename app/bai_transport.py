@@ -9,6 +9,33 @@ from types import SimpleNamespace
 import httpx
 
 
+def _bounded_lines(response, started):
+    """Bound bytes before line buffering, including comments/unfinished frames.
+
+    Keep HTTPX's incremental UTF-8/newline handling. Its socket read timeout
+    still bounds a silent read; elapsed time is checked on every received chunk.
+    """
+    class BoundedStream(httpx.SyncByteStream):
+        def __iter__(self):
+            received = 0
+            for chunk in response.iter_bytes():
+                if time.monotonic() - started > 900:
+                    raise TimeoutError("B.AI streaming response exceeded its time limit; Request timed out.")
+                received += len(chunk)
+                if received > 8 * 1024 * 1024:
+                    raise ValueError("B.AI streaming response exceeded its size limit; no tools executed.")
+                yield chunk
+
+    # The outer response context owns the real connection. This wrapper only
+    # supplies the bounded bytes to the public HTTPX line decoder.
+    framed = httpx.Response(200, headers={"content-type": "text/event-stream; charset=utf-8"},
+                            stream=BoundedStream())
+    try:
+        yield from framed.iter_lines()
+    finally:
+        framed.close()
+
+
 def complete_bai(kwargs: dict, *, record=lambda event: None, transport=None):
     # Do not run partial tool arguments or infer missing usage from token counts.
     body = {k: v for k, v in kwargs.items() if k not in {
@@ -19,7 +46,7 @@ def complete_bai(kwargs: dict, *, record=lambda event: None, transport=None):
     content, reasoning, calls = [], [], {}
     usage, finish, done = None, None, False
     started = last_report = time.monotonic()
-    chunk_count = size = 0
+    chunk_count = 0
     phase, request_id = "awaiting_headers", ""
 
     def telemetry(event, **fields):
@@ -27,7 +54,7 @@ def complete_bai(kwargs: dict, *, record=lambda event: None, transport=None):
                 "elapsed_ms": round((time.monotonic() - started) * 1000), **fields})
 
     def accept(data):
-        nonlocal usage, finish, done, chunk_count, size, last_report
+        nonlocal usage, finish, done, chunk_count, last_report
         if data == "[DONE]":
             done = True
             return
@@ -39,9 +66,6 @@ def complete_bai(kwargs: dict, *, record=lambda event: None, transport=None):
         chunk_count += 1
         if chunk_count == 1:
             telemetry("provider_stream_first_chunk")
-        size += len(data)
-        if size > 8 * 1024 * 1024 or time.monotonic() - started > 900:
-            raise TimeoutError("B.AI streaming response exceeded its bounded size/time; Request timed out.")
         if time.monotonic() - last_report >= 15:
             record({"event": "provider_stream_progress", "chunks_received": chunk_count,
                     "elapsed_ms": round((time.monotonic() - started) * 1000)})
@@ -98,7 +122,7 @@ def complete_bai(kwargs: dict, *, record=lambda event: None, transport=None):
                     raise ValueError("B.AI did not return the requested SSE stream.")
                 phase = "streaming"
                 data_lines = []
-                for line in response.iter_lines():
+                for line in _bounded_lines(response, started):
                     if line.startswith("data:"):
                         data_lines.append(line[5:].lstrip())
                     elif not line and data_lines:
@@ -108,16 +132,16 @@ def complete_bai(kwargs: dict, *, record=lambda event: None, transport=None):
                             break
                 if data_lines and not done:
                     accept("\n".join(data_lines))
+        if not done or finish not in {"stop", "tool_calls"}:
+            raise ValueError("B.AI 流输出中断或被截断；未执行本次工具输出。")
+        if not isinstance(usage, dict) or any(type(usage.get(k)) is not int or usage[k] < 0
+                                            for k in ("prompt_tokens", "completion_tokens")):
+            raise ValueError("B.AI 流缺少真实用量；保留预算预留，未执行本次工具输出。")
     except Exception as error:
         if isinstance(error, (httpx.ConnectError, httpx.ConnectTimeout)):
             phase = "connecting"
         telemetry("provider_transport_failed", error_type=type(error).__name__, chunks_received=chunk_count)
         raise
-    if not done or finish not in {"stop", "tool_calls"}:
-        raise ValueError("B.AI 流输出中断或被截断；未执行本次工具输出。")
-    if not isinstance(usage, dict) or any(type(usage.get(k)) is not int or usage[k] < 0
-                                        for k in ("prompt_tokens", "completion_tokens")):
-        raise ValueError("B.AI 流缺少真实用量；保留预算预留，未执行本次工具输出。")
     message = {"role": "assistant", "content": "".join(content),
                "tool_calls": [calls[i] for i in sorted(calls)]}
     if reasoning:

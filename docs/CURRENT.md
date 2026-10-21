@@ -1,3 +1,9 @@
+## 2026-10-21 — Incomplete-stream follow-up; owner declines new paid calls
+
+Owner asks to continue repair. USD2/no new paid inference remains binding. SSE heartbeat/unterminated-line traffic could bypass old bounds; checks now apply before line buffering, and terminal validation errors produce phase telemetry. Four pre-fix reproductions; final 66 focused offline checks pass. [Follow-up evidence and limitations](test-results/windows/2026-10-21-api-compatibility-repair/README.md). This does not establish the cause of historical gateway timeouts or certify real modeling. Original failed case, ledger, models and source remain preserved. No automatic retries, new paid calls, native writes, main merge or cloud deployment.
+
+---
+
 ## 2026-10-21 — Third-party API orchestration repair; live native acceptance pending
 
 Owner challenges API reliability and asks for root-cause fixes before cloud deployment. [Diagnosis, fixes and remaining acceptance](test-results/windows/2026-10-21-api-compatibility-repair/README.md). Actual B.AI case reached image/workspace tools but four 8.4k strategy rewrites failed schema and active context grew to132141chars; five network/response stalls remain unattributed. Candidate adds selected-API read-only contextual intent under unchanged host approval/identity gates, version-bound typed strategy updates and atomic workspace writes, phased SSE telemetry, and an explicit advanced OpenAI-compatible configuration entry. No hidden Codex substitution or relaxed writer/KEEP checks. Offline mock HTTP exercises the real SSE/tool/journal/typed-plan chain; this is not paid/native quality acceptance. USD2 ledger and all unknown reservations remain; no new paid/native call, original/case change, main merge or cloud deployment. Product remains internal beta, external-provider native acceptance pending.

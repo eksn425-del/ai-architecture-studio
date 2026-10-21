@@ -33,6 +33,31 @@ The same 41-file failed API project, its 24-row budget ledger and native SKP fil
 
 ## Product judgment and next acceptance
 
+### Follow-up: bounded incomplete streams, 2026-10-21
+
+Owner asks whether the remaining problems can be repaired; the prior decision to
+keep USD2 and make no new paid calls remains effective. Inspection found that
+the transport's existing 900-second/8-MiB checks ran only after a complete JSON
+event. Continuous SSE comments or an unterminated line could bypass those checks.
+This is a reproducible product defect, **not established as the cause of any of
+the five historical timeouts**.
+
+The bounds now apply to decoded response bytes before line buffering, including
+heartbeats and incomplete events. HTTPX retains incremental UTF-8 and newline
+handling. Elapsed time is checked at each received chunk; the existing 240-second
+socket idle timeout still applies while waiting for a chunk. This is not a hard
+wall-clock cancellation guarantee at precisely 900 seconds. Terminal stream
+validation failures now also emit safe phase/error telemetry. No partial tool
+arguments are returned, no automatic paid retry or refund of unknown costs occurs.
+
+Four added fault cases failed on the previous code. The final focused run passed
+66 tests across `test_bai_transport.py`, `test_api_intent_and_strategy.py`,
+`test_api_execution_contracts.py`, and `test_provider_test_budget.py`. These include
+byte-fragmented Chinese and LF/CRLF/CR frames, heartbeat timeouts, oversized
+unterminated frames, connection closure, and retained unknown-cost reservations.
+All use fixtures/mock transport; no vendor inference or native modeling was run.
+The earlier live failure and unverified post-repair native acceptance remain.
+
 The local workflow is an internal beta: conversation scrolling, inline plans, compact composer, project recency and approval controls have engineering/UX evidence. External-provider end-to-end reliability and fidelity remain unqualified. Public cloud tenant authentication, isolated storage, atomic credits, durable jobs, paired devices and load/restore testing are still separate unfinished release gates. Deploying the existing loopback JSON service does not deliver them.
 
 The compatibility target is qualified models/endpoints with image input, reliable function calling, sufficient context/code generation and attributable completion/usage. OpenAI-compatible Chat Completions and the separately configured operator Responses adapter are different routes. Arbitrary chat-only APIs, incompatible protocols and unsupported models cannot honestly inherit modeling certification. Even identical API protocols do not guarantee equal architecture fidelity.
