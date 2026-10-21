@@ -234,5 +234,14 @@ def test_unplanned_entry_never_calls_classifier_or_grants_execution(tmp_path, mo
     from app.reconstruction_runtime import build_reconstruction_turn_policy
     policy = build_reconstruction_turn_policy(AgentSession(project_id='test'),
         ConversationRequest(message='直接开始建模'), sketchup_session_ready=False, resolved_action=action)
-    assert action == 'clarify' and not receipt['execution_granted']
+    assert action in {'clarify', 'plan'} and not receipt['execution_granted']
     assert not policy.tools_enabled and calls == []
+
+
+def test_followup_can_progress_to_plan_after_readonly_first_turn(tmp_path, monkeypatch):
+    _, router, calls = provider_fixture(tmp_path, monkeypatch, lambda _: {'action': 'plan'})
+    context = ProjectContext(conversation=[{'role': 'user', 'phase':'agent', 'content': '还原建筑'}, {'role': 'assistant', 'phase':'agent', 'content': '请确认层数'}])
+    action, receipt = resolve_host_action(router, project=tmp_path,
+        session=AgentSession(project_id='test', reconstruction_state='clarifying'),
+        request=ConversationRequest(message='十层，请整理计划', workflow_mode='image_reconstruction'), context=context)
+    assert action == 'plan' and receipt['provider'] == 'api_readonly_intent' and len(calls) == 1

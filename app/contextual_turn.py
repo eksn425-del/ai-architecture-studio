@@ -180,9 +180,11 @@ def resolve_host_action(router, *, project, session, request, context):
     # mode. This is a permission ceiling, not a semantic intent classification.
     if (request.workflow_mode == 'image_reconstruction'
             and session.reconstruction_state in {'idle', 'clarifying'}
+            and not context.conversation
             and not session.model_path and not read_plan_card(project)
             and not request.approval_gesture):
-        return 'clarify', {'provider': 'host_readonly_entry', 'action': 'clarify',
+        action = 'plan' if request.agent_action == 'plan' else 'clarify'
+        return action, {'provider': 'host_readonly_entry', 'action': action,
                            'execution_granted': False, 'reason': 'No current plan or model; analysis only.'}
     from .contextual_attachments import attachment_snapshot
     has_pending=any(x['editable'] for x in attachment_snapshot(project,context))

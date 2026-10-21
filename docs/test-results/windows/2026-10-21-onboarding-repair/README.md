@@ -14,7 +14,7 @@ Owner's apartment request failed twice in the read-only conversation-intent pref
 
 ## Verification
 
-199 focused Python checks PASS; two existing symlink tests cannot create Windows symlinks (WinError1314), explicitly deselected after recording failure. 104 UI Node checks PASS. No paid inference, native model writes or cloud deployment. Original models, credential containers and USD2 ledger are preserved. Real paid provider source-to-model quality and actual spoken transcription remain unverified; removing a duplicate request does not repair an unavailable provider.
+200 focused Python checks PASS; two existing symlink tests cannot create Windows symlinks (WinError1314), explicitly deselected after recording failure. 104 UI Node checks PASS. No paid inference, native model writes or cloud deployment. Original models, credential containers and USD2 ledger are preserved. Real paid provider source-to-model quality and actual spoken transcription remain unverified; removing a duplicate request does not repair an unavailable provider.
 
 ## Public methods reviewed
 
