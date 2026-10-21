@@ -186,6 +186,9 @@ class LiteLLMRuntime:
                                            lambda: transport_completion(request_kwargs))
 
         def transport_completion(request_kwargs: dict[str, Any]):
+            if self.api_base.rstrip("/") == "https://api.b.ai/v1":
+                from .bai_transport import complete_bai
+                return complete_bai(request_kwargs, record=record)
             if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
                 import httpx
                 from litellm.llms.custom_httpx.http_handler import HTTPHandler
