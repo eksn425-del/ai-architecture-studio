@@ -45,15 +45,13 @@ function isBuildApproval(message) {
 
 function renderJourney() {
   const stage = state.project?.agent_session?.reconstruction_state || "idle";
-  const current = {idle: 0, clarifying: 1, planned: 2, building: 3}[stage];
-  $("journey-steps").innerHTML = ["上传 / 描述", "补充需求", "检查计划", "连接并建模"].map((label, i) => `<li class="${i < current ? "complete" : i === current ? "current" : ""}" ${i === current ? 'aria-current="step"' : ""}><span>${i < current ? "✓" : i+1}</span>${label}</li>`).join("");
   const available = routeAvailable("economy");
+  $("model-connection-notice").hidden = available;
   $("setup-model").hidden = available;
   $("setup-model").disabled = state.busy;
-  $("journey-hint").textContent = !available
-    ? (routeInfo("economy").provider === "codex-app-server" ? "当前选择的本机 Codex 不可用。请先检查本机安装和配置，或在「模型 / 自带 API」主动选择其他连接。图片和草稿会保留。" : "请在「模型 / 自带 API」检查所选供应商的连接。图片和草稿会保留，分析阶段无需 SketchUp。")
-    : state.busy ? "本轮正在处理，资料与对话会保存在当前会话。"
-    : {idle: "上传同一建筑的图片（整张多视图也可以），或直接描述目标。先分析，不会修改 SketchUp。", clarifying: "回答 AI 的关键问题；没有实测尺寸也可以采用估算，再检查计划。", planned: "先核对范围、尺寸与推断。可以提问、修改或下载计划，准备好后再连接建模。", building: "已有执行结果，质量尚未验收。先对照参考图检查立面、屋顶，再继续修改同一模型。"}[stage];
+  $("model-connection-hint").textContent = routeInfo("economy").provider === "codex-app-server"
+    ? "当前选择的本机 Codex 不可用。请先检查本机安装和配置，或在「模型 / 自带 API」主动选择其他连接。图片和草稿会保留。"
+    : "请在「模型 / 自带 API」检查所选供应商的连接。图片和草稿会保留，分析阶段无需 SketchUp。";
   $("clarification-shortcuts").hidden = stage !== "clarifying";
   $("use-estimates").disabled = state.busy;
 }
