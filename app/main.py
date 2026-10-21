@@ -623,6 +623,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 if data.get("mode") == "deepseek":
                     model = "deepseek/deepseek-flash"
                     base = "https://api.deepseek.com"
+                elif data.get("mode") == "bai":
+                    model = "openai/" + model.removeprefix("openai/") if model else ""
+                    base = "https://api.b.ai/v1"
                 elif data.get("mode") == "glm":
                     model = "zai/glm-5.3-flash"
                     base = "https://open.bigmodel.cn/api/paas/v4"

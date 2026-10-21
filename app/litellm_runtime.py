@@ -181,6 +181,11 @@ class LiteLLMRuntime:
 
         def invoke_completion(request_kwargs: dict[str, Any]):
             """Use the same configured transport for Builder and read-only Critic."""
+            from .provider_test_budget import invoke_with_test_budget
+            return invoke_with_test_budget(selected_model, self.api_base, request_kwargs,
+                                           lambda: transport_completion(request_kwargs))
+
+        def transport_completion(request_kwargs: dict[str, Any]):
             if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
                 import httpx
                 from litellm.llms.custom_httpx.http_handler import HTTPHandler

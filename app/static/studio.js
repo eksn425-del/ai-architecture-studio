@@ -381,7 +381,9 @@ function refreshTierLabels() {
   $("model-settings-toggle").textContent = economyRoute.provider === "managed-responses" ? "K Studio 模型服务" : "模型 / 自带 API";
   const premiumRoute = routeInfo("premium");
   const economyLabel = economyRoute.model === "deepseek/deepseek-flash"
-    ? "DeepSeek V4.1 Flash"
+    ? "DeepSeek V4.1 Flash · 官方"
+    : economyRoute.model === "openai/deepseek-v4.1-flash" && state.modelRouter?.providers?.litellm?.api_base === "https://api.b.ai/v1"
+    ? "DeepSeek V4.1 Flash · B.AI"
     : `${economyRoute.model} · ${(economyRoute.reasoning_effort || "provider-default").toUpperCase()}`;
   economy.textContent = economyRoute.provider === "managed-responses"
     ? `K Studio · ${economyRoute.model} · ${routeReadinessLabel("economy")} · 内部测试中`
@@ -1590,27 +1592,45 @@ function startLiveProgress() {
   refresh(); liveProgressTimer = setInterval(refresh, 3000);
 }
 
+function sameSavedApiConnection() {
+  const saved = state.modelRouter?.providers?.litellm;
+  const wire = $("api-model").value.trim();
+  const model = $("provider-mode").value === "bai" ? "openai/" + wire.replace(/^openai\//, "") : "deepseek/deepseek-flash";
+  return !!saved?.credential_configured && saved.model === model && saved.api_base === $("api-base").value;
+}
+function applyApiProvider() {
+  const bai = $("provider-mode").value === "bai";
+  $("api-model").value = bai ? "deepseek-v4.1-flash" : "deepseek-flash";
+  $("api-model").readOnly = !bai;
+  $("api-base").value = bai ? "https://api.b.ai/v1" : "https://api.deepseek.com";
+  $("api-key").value = "";
+  $("api-key").placeholder = bai ? "粘贴 B.AI API Key" : "粘贴 DeepSeek 官方 API Key";
+  $("provider-address-note").textContent = bai ? "模型请求将发送到 B.AI。模型名称请使用 B.AI 模型列表中的标识。" : "模型请求将发送到 DeepSeek 官方。B.AI 等第三方平台的 Key 不能用于此地址。";
+  $("provider-key-link").href = bai ? "https://chat.b.ai/key" : "https://platform.deepseek.com/api_keys";
+  $("saved-key-status").textContent = sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
+}
 function openModelSettings() {
   if (routeInfo("economy").provider === "managed-responses") {
     showToast("模型由 K Studio 服务端配置。当前为托管 Agent 内部测试，供应商质量尚未验收；普通用户无需填写 API Key。");
     return;
   }
-  const saved = state.modelRouter?.providers?.litellm?.credential_configured && routeInfo("economy").model === "deepseek/deepseek-flash";
-  $("api-key").value = "";
-  $("api-key").placeholder = saved ? "已保存；更换 Key 时填写，保持原配置可留空" : "粘贴 DeepSeek API Key";
-  $("saved-key-status").textContent = saved ? "已配置 DeepSeek；Key 已隐藏，无需重复填写。" : "尚未配置 DeepSeek。请填写后保存。";
-  $("forget-api-key").disabled = !state.modelRouter?.providers?.litellm?.credential_configured;
-  $("api-effort").value = saved ? routeInfo("economy").reasoning_effort : "provider-default";
+  const saved = state.modelRouter?.providers?.litellm;
+  $("provider-mode").value = saved?.api_base === "https://api.b.ai/v1" ? "bai" : "deepseek";
+  applyApiProvider();
+  if (saved?.api_base === "https://api.b.ai/v1" && saved.model?.startsWith("openai/")) $("api-model").value = saved.model.slice(7);
+  $("forget-api-key").disabled = !saved?.credential_configured;
+  $("api-effort").value = sameSavedApiConnection() ? routeInfo("economy").reasoning_effort : "provider-default";
   $("model-settings-status").textContent = "";
   $("model-settings-dialog").showModal();
 }
+$("provider-mode").addEventListener("change", applyApiProvider);
 $("model-settings-toggle").addEventListener("click", openModelSettings);
 $("forget-api-key").addEventListener("click", async () => {
   try {
     state.modelRouter = await api("/api/model-settings/credential", {method:"DELETE"});
     $("api-key").value = ""; refreshTierLabels(); updateHeader();
-    $("saved-key-status").textContent = "尚未配置 DeepSeek。请填写后保存。";
-    $("api-key").placeholder = "粘贴 DeepSeek API Key";
+    $("saved-key-status").textContent = "本机已移除保存的 Key。";
+    $("api-key").placeholder = "粘贴所选服务商的 API Key";
     $("forget-api-key").disabled = true;
     $("model-settings-status").textContent = "已移除本机保存的 Key；再次使用需重新填写。";
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
@@ -1620,8 +1640,8 @@ $("model-settings-form").addEventListener("submit", async event => {
   event.preventDefault();
   const button = $("model-settings-form").querySelector('button[type="submit"]');
   if (button.disabled) return;
-  if (!$("api-key").value.trim() && !(state.modelRouter?.providers?.litellm?.credential_configured && routeInfo("economy").model === "deepseek/deepseek-flash")) {
-    $("model-settings-status").textContent = "请先填写 DeepSeek API Key，再保存为默认。";
+  if (!$("api-key").value.trim() && !sameSavedApiConnection()) {
+    $("model-settings-status").textContent = "请先填写所选服务商的 API Key，再保存为默认。";
     $("api-key").focus();
     return;
   }

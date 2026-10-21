@@ -226,3 +226,5 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 .live-orbit{width:14px;height:14px}#live-activity-event{max-height:none;overflow:visible;margin:5px 0;font-size:11px}#live-activity-model{border:0;padding:0;font-size:10px}
 .activity-message{max-width:none;margin:8px 0 15px;padding-left:12px!important}.activity-message li{padding:1px 0}.activity-message ol{font-size:12px;line-height:1.65}.activity-message details{font-size:11px;color:var(--muted);margin-top:6px}
 @media(max-width:650px){.conversation-history{padding:12px 14px}.composer-area{padding:4px 10px 8px}.composer-toolbar .skill-tag{display:none}.workspace-heading{padding:10px 12px}}
+
+#model-settings-dialog{max-height:calc(100dvh - 32px);overflow-y:auto}#model-settings-dialog select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:6px;background:#fff}#model-settings-dialog input[readonly]{color:var(--muted);background:#f4f5ef}
