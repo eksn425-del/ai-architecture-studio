@@ -19,3 +19,7 @@ def test_bai_uses_gateway_model_and_never_reuses_another_host_key(tmp_path, monk
     assert client.post("/api/model-settings", json={**request, "api_key": ""}).status_code == 200
     assert client.post("/api/model-settings", json={"mode": "deepseek", "api_key": ""}).status_code == 400
     assert app.state.model_router.china_runtime.session_api_key == "fixture-bai-only"
+    updated = client.post("/api/model-settings", json={**request, "api_key": "", "reasoning_effort": "low"})
+    assert updated.status_code == 200
+    assert updated.json()["economy"]["reasoning_effort"] == "low"
+    assert app.state.model_router.china_runtime.session_api_key == "fixture-bai-only"

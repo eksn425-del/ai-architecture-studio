@@ -1604,6 +1604,7 @@ function applyApiProvider() {
   $("api-model").value = bai ? "deepseek-v4.1-flash" : "deepseek-flash";
   $("api-model").readOnly = !bai;
   $("api-base").value = bai ? "https://api.b.ai/v1" : "https://api.deepseek.com";
+  $("api-effort").value = "provider-default";
   $("api-key").value = "";
   $("api-key").placeholder = bai ? "粘贴 B.AI API Key" : "粘贴 DeepSeek 官方 API Key";
   $("provider-address-note").textContent = bai ? "模型请求将发送到 B.AI。模型名称请使用 B.AI 模型列表中的标识。" : "模型请求将发送到 DeepSeek 官方。B.AI 等第三方平台的 Key 不能用于此地址。";

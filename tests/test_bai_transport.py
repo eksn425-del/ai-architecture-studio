@@ -29,7 +29,8 @@ def perform(events, *, done=True):
         return httpx.Response(200, headers={"content-type": "text/event-stream"}, text=wire)
     kwargs = dict(model="openai/" + MODEL, api_base="https://api.b.ai/v1",
                   api_key="fixture-only", timeout=240, max_retries=0, num_retries=0,
-                  messages=[{"role": "user", "content": "fixture"}], max_tokens=32768)
+                  messages=[{"role": "user", "content": "fixture"}], max_tokens=32768,
+                  reasoning_effort="low")
     return lambda: complete_bai(kwargs, transport=httpx.MockTransport(serve)), requests, kwargs
 
 
@@ -49,6 +50,7 @@ def test_fragmented_tool_reasoning_and_actual_usage_survive():
     body = requests[0]
     assert body["model"] == MODEL and body["stream"] is True
     assert body["stream_options"] == {"include_usage": True}
+    assert body["reasoning_effort"] == "low"
     assert not {"api_key", "api_base", "timeout", "max_retries", "num_retries"} & body.keys()
 
 
