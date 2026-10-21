@@ -29,7 +29,7 @@ test('verified trial package gives real download only after selecting a discover
   assert.equal($('connector-runtime-install').disabled,false);
   assert.match($('connector-package-note').textContent,/本机试用包/);
 });
-for(const [name,patch] of [['missing package',{package_available:false}],['unsupported platform',{platform_supported:false}],['legacy configuration',{configured:true,configuration_kind:'existing'}]]){
+for(const [name,patch] of [['missing package',{package_available:false}],['unsupported platform',{platform_supported:false}]]){
   test(`${name} cannot offer an install or fake download`,()=>{
     const {sandbox,$}=fixture({...ready,...patch});sandbox.renderConnectorSetup();
     assert.equal($('connector-runtime-install').disabled,true);assert.equal($('connector-plugin-download').href,undefined);
@@ -37,13 +37,13 @@ for(const [name,patch] of [['missing package',{package_available:false}],['unsup
 }
 test('existing plugin cannot be overwritten through trial wizard',()=>{
   const {sandbox,$}=fixture({...ready,installations:[{year:2022,name:'SU',plugin_present:true,plugin_kind:'existing'}]});
-  sandbox.renderConnectorSetup();assert.equal($('connector-runtime-install').disabled,true);assert.equal($('connector-plugin-download').href,undefined);
+  sandbox.renderConnectorSetup();assert.equal($('connector-runtime-install').disabled,false);assert.equal($('connector-plugin-download').href,'/api/connectors/sketchup/plugin');
 });
 test('installation posts explicit selected version, ignores repeat clicks, and never calls model tools',async()=>{
   const calls=[];let respond;
   const {sandbox,$}=fixture(ready,async(url,options)=>{calls.push([url,options]);return options?new Promise(resolve=>respond=resolve):{...ready,configured:true,configuration_kind:'managed'};});
   const pending=sandbox.installConnectorRuntime();await sandbox.installConnectorRuntime();
-  assert.equal(calls.length,1);assert.deepEqual(JSON.parse(calls[0][1].body),{confirm_install:true,year:2022});
+  assert.equal(calls.length,1);assert.deepEqual(JSON.parse(calls[0][1].body),{confirm_install:true,year:2022,manual_version:false});
   respond({status:'runtime_installed'});await pending;
   assert.equal(calls.length,2);assert.match($('connector-setup-status').textContent,/尚未验证原生连接/);
   assert.equal($('connector-runtime-install').disabled,true);

@@ -175,6 +175,15 @@ def resolve_host_action(router, *, project, session, request, context):
     from .native_agent import CodexAppServerRuntime
     route=router.route(request.tier)
     runtime=router.codex_runtime
+    # With no plan or model, there is nothing the host can authorize. Let the
+    # selected Builder understand the original text/images once, in read-only
+    # mode. This is a permission ceiling, not a semantic intent classification.
+    if (request.workflow_mode == 'image_reconstruction'
+            and session.reconstruction_state in {'idle', 'clarifying'}
+            and not session.model_path and not read_plan_card(project)
+            and not request.approval_gesture):
+        return 'clarify', {'provider': 'host_readonly_entry', 'action': 'clarify',
+                           'execution_granted': False, 'reason': 'No current plan or model; analysis only.'}
     from .contextual_attachments import attachment_snapshot
     has_pending=any(x['editable'] for x in attachment_snapshot(project,context))
     if request.agent_action in {'clarify','plan'} and not request.approval_gesture and not has_pending:

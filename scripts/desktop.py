@@ -10,6 +10,32 @@ import time
 from pathlib import Path
 
 
+class DesktopInput:
+    """Fixed, user-clicked system dictation shortcut; no arbitrary key API."""
+    _window = None
+
+    def start_dictation(self):
+        if os.name != "nt" or self._window is None:
+            return False
+        import ctypes
+        try:
+            handle = int(self._window.native.Handle.ToInt64())
+            user32 = ctypes.windll.user32
+            user32.GetForegroundWindow.restype = ctypes.c_void_p
+            if user32.GetForegroundWindow() != handle:
+                return False
+            # Windows owns consent, microphone access and transcription.
+            user32.keybd_event(0x5B, 0, 0, 0)
+            try:
+                user32.keybd_event(0x48, 0, 0, 0)
+                user32.keybd_event(0x48, 0, 2, 0)
+            finally:
+                user32.keybd_event(0x5B, 0, 2, 0)
+            return True
+        except (AttributeError, OSError, TypeError):
+            return False
+
+
 def main() -> None:
     os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "True")
     root = Path(__file__).resolve().parents[1]
@@ -73,7 +99,8 @@ def main() -> None:
             if time.monotonic() > deadline:
                 raise RuntimeError("K Studio local service could not start.")
             time.sleep(0.1)
-    webview.create_window("K Studio · AI 建模", f"http://127.0.0.1:{port}/", width=1280, height=850, min_size=(760, 600))
+    desktop_input = DesktopInput()
+    desktop_input._window = webview.create_window("K Studio · AI 建模", f"http://127.0.0.1:{port}/", width=1280, height=850, min_size=(760, 600), text_select=True, js_api=desktop_input)
     try:
         webview.start(gui="edgechromium")
     finally:

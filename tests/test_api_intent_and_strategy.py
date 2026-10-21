@@ -41,12 +41,10 @@ def test_api_plan_with_no_build_uses_selected_readonly_interpreter(tmp_path, mon
     result = resolve_host_action(router, project=tmp_path,
         session=AgentSession(project_id="test", reconstruction_state="clarifying"),
         request=ConversationRequest(message=message, workflow_mode="image_reconstruction"), context=ProjectContext())
-    assert result[0] == "plan" and result[1]["execution_granted"] is False
-    assert result[1]["provider"] == "api_readonly_intent"
-    assert result[1]["usage"]["input_tokens"] == 123
-    assert len(requests) == 1 and requests[0]["model"] == runtime.model
-    assert not {"tools", "tool_choice", "parallel_tool_calls"} & requests[0].keys()
-    assert not (tmp_path / "runtime/provider_sessions").exists()
+    assert result[0] == "clarify" and result[1]["execution_granted"] is False
+    assert result[1]["provider"] == "host_readonly_entry"
+    assert requests == []
+
 
 
 def test_api_intent_stale_plan_and_false_execution_are_host_vetoed(tmp_path, monkeypatch):
@@ -224,3 +222,17 @@ def test_transport_diagnostics_distinguish_connection_and_stream_stall(failure, 
     assert records[-1]["phase"] == phase and records[-1]["event"] == "provider_transport_failed"
     assert records[-1]["error_type"] == type(failure).__name__
     assert "fixture-key" not in json.dumps(records)
+
+
+@pytest.mark.parametrize('action', ['auto', 'execute', 'plan'])
+def test_unplanned_entry_never_calls_classifier_or_grants_execution(tmp_path, monkeypatch, action):
+    _, router, calls = provider_fixture(tmp_path, monkeypatch, lambda _: {'action': 'execute'})
+    action, receipt = resolve_host_action(router, project=tmp_path,
+        session=AgentSession(project_id='test'),
+        request=ConversationRequest(message='直接开始建模', workflow_mode='image_reconstruction', agent_action=action),
+        context=ProjectContext())
+    from app.reconstruction_runtime import build_reconstruction_turn_policy
+    policy = build_reconstruction_turn_policy(AgentSession(project_id='test'),
+        ConversationRequest(message='直接开始建模'), sketchup_session_ready=False, resolved_action=action)
+    assert action == 'clarify' and not receipt['execution_granted']
+    assert not policy.tools_enabled and calls == []

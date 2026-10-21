@@ -451,6 +451,7 @@ function friendlyError(error) {
   if (/RateLimitError|rate.limit/i.test(message) || httpStatus(429)) return "模型供应商暂时限流，请稍后重试；无需重新上传资料。";
   if (/WinError 10061|Server disconnected without sending a response|ConnectError|ProxyError/i.test(message)) return "模型 API 连接中断；已保留图片、计划和脚本。请重试执行，当前无需恢复或重新创建模型。";
   if (/本轮 API 小额测试预算已到安全边界/.test(message)) return "本轮 API 测试已到预算安全边界，未继续调用。现有图片、方案和用量记录已保留；请先核实超时费用或调整测试上限。";
+  if (/API 意图理解[\s\S]*timed out/i.test(message)) return "模型 API 在理解请求时等待响应超时，尚未开始建模；这不是 MCP 连接失败。图片和草稿已保留。请检查服务商状态，不要连续重复发送。";
   if (/APITimeoutError|LiteLLM request failed[\s\S]*(?:Timeout|timed out)|Request timed out/i.test(message)) {
     return "模型 API 请求超时，本轮未完成；这不代表 MCP 断开。项目记录已保留，请分阶段重试，先建主体并截图，再补细节。";
   }
@@ -1437,10 +1438,11 @@ function closeConnectorSetup() {
 }
 function renderConnectorSetup() {
   const info = connectorSetupInfo || {};
-  const selected = (info.installations || []).find(item => String(item.year) === $("connector-sketchup-version").value);
+  const year = Number($("connector-sketchup-version").value);
+  const selected = (info.installations || []).find(item => item.year === year) || ((info.compatibility_policy?.candidate_years || []).includes(year) ? {year, name: `SketchUp ${year}`, manual:true} : null);
   const existing = info.configuration_kind === "existing";
   const legacyPlugin = selected?.plugin_kind === "existing";
-  const available = info.platform_supported && info.package_available && !!selected && selected.year >= 2019 && selected.year <= 2026 && !existing && !legacyPlugin;
+  const available = info.platform_supported && info.package_available && !!selected && selected.year >= 2019 && selected.year <= 2026;
   const download = $("connector-plugin-download");
   if (available) download.href = "/api/connectors/sketchup/plugin";
   else download.removeAttribute("href");
@@ -1448,12 +1450,12 @@ function renderConnectorSetup() {
   $("connector-runtime-install").disabled = !available || info.configured || connectorSetupBusy;
   $("connector-runtime-install").textContent = info.configured ? "已有连接配置 · 已保留" : "安装本机连接程序";
   $("connector-setup-check").disabled = connectorSetupBusy;
-  download.textContent = existing || legacyPlugin ? "已检测到现有插件 / 配置 · 跳过安装" : "下载 SketchUp 插件 (.rbz) ↓";
-  $("connector-version-note").textContent = selected
-    ? `${selected.name} · ${selected.plugin_present ? "检测到插件文件；仍需检查实际连接" : "尚未检测到插件"} · 兼容性尚未验证`
+  download.textContent = existing || legacyPlugin ? "重新下载插件 (.rbz) · 不自动覆盖" : "下载 SketchUp 插件 (.rbz) ↓";
+  $("connector-version-note").textContent = selected?.manual ? "手动选择：本机未检测到此版本。仅配置通用桥接，插件须在你自己的 SketchUp 中安装并检查连接。" : selected
+    ? `${selected.name}（本机检测结果，不代表仅支持此版本） · ${selected.plugin_present ? "检测到插件文件；仍需检查实际连接" : "尚未检测到插件"} · 兼容性尚未验证`
     : info.installations?.length ? "请选择你要连接的 SketchUp 版本，不会自动替换。" : "没有识别到 SketchUp。请先安装或注册你已有的软件，本窗口不会替你安装其他版本。";
   $("connector-package-note").textContent = existing || legacyPlugin
-    ? "已有插件 / 连接配置已保留，无需重复下载或安装。请直接完成第 4 步“检查 MCP 连接”；若连接失败，再查看提示。"
+    ? "已有配置已保留，可先检查连接。重新下载不会安装或覆盖现有插件；请勿在原插件可用时重复安装。"
     : !info.platform_supported ? "当前安装程序仅适用于 Windows。"
     : !info.package_available ? "安装包尚未准备好；下载与安装暂不可用。"
     : info.publication === "private_local_trial" ? "本机试用包：尚未完成公开分发许可审查和新电脑原生验收，不作为正式发行版。"
@@ -1473,7 +1475,7 @@ async function openConnectorSetup() {
     const info = await api("/api/connectors/sketchup/setup");
     if (generation !== connectorSetupGeneration || !$("connector-setup-dialog").open) return;
     connectorSetupInfo = info;
-    $("connector-sketchup-version").innerHTML = '<option value="">请选择你使用的版本</option>' + (info.installations || []).map(item => `<option value="${item.year}">${escapeHtml(item.name)}</option>`).join("");
+    $("connector-sketchup-version").innerHTML = '<option value="">请选择你使用的版本</option>' + (info.installations || []).map(item => `<option value="${item.year}">${escapeHtml(item.name)} · 已检测</option>`).join("") + (info.compatibility_policy?.candidate_years || []).filter(year => !(info.installations || []).some(item => item.year === year)).map(year => `<option value="${year}">SketchUp ${year} · 手动选择 / 待验证</option>`).join("");
     if (info.installations?.length === 1) $("connector-sketchup-version").value = String(info.installations[0].year);
     renderConnectorSetup();
     $("connector-setup-status").textContent = info.configured ? "已发现连接配置；尚未检查实际 MCP 连通性。" : "请选择软件版本，按顺序完成插件和本机连接程序安装。";
@@ -1487,7 +1489,7 @@ async function installConnectorRuntime() {
   connectorSetupBusy = true; renderConnectorSetup();
   $("connector-setup-status").textContent = "正在校验安装文件并配置本机连接程序；不会修改模型…";
   try {
-    const result = await api("/api/connectors/sketchup/install", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({confirm_install:true, year:Number($("connector-sketchup-version").value)})});
+    const result = await api("/api/connectors/sketchup/install", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({confirm_install:true, year:Number($("connector-sketchup-version").value), manual_version:!(connectorSetupInfo?.installations || []).some(item => item.year === Number($("connector-sketchup-version").value))})});
     if (generation !== connectorSetupGeneration) return;
     connectorSetupInfo = await api("/api/connectors/sketchup/setup");
     $("connector-setup-status").textContent = result.status === "runtime_installed" ? "本机连接程序已安装并通过启动自检。请在 SketchUp 启动插件，然后检查 MCP；尚未验证原生连接。" : "已有连接配置已保留，未覆盖文件。请继续检查 MCP。";

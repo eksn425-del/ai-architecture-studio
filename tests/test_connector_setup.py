@@ -146,3 +146,21 @@ def test_explicit_missing_profile_never_borrows_managed_or_codex(fixture, tmp_pa
     monkeypatch.setenv("ARCH_STUDIO_MCP_CONFIG", str(tmp_path / "missing.json"))
     with pytest.raises(ConnectorUnavailable):
         _resolve_server()
+
+
+def test_manual_version_configures_bridge_without_claiming_installation(fixture):
+    client, _, calls, _ = fixture
+    result = client.post('/api/connectors/sketchup/install', json={
+        'confirm_install': True, 'year': 2026, 'manual_version': True})
+    assert result.status_code == 200
+    assert result.json()['plugin_installed_by_setup'] is False
+    assert result.json()['native_reachability'] == 'not_checked'
+    assert len(calls) == 1
+
+
+@pytest.mark.parametrize('year', [2010, 2018, 2027, True, '2026'])
+def test_manual_version_cannot_bypass_supported_range(fixture, year):
+    client, _, calls, _ = fixture
+    assert client.post('/api/connectors/sketchup/install', json={
+        'confirm_install': True, 'year': year, 'manual_version': True}).status_code == 400
+    assert not calls

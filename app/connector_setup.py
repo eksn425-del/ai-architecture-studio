@@ -141,10 +141,10 @@ def verify_runtime(node: Path, server: Path) -> None:
         raise ValueError("本机连接程序自检未通过；未启用配置。")
 
 
-def install_runtime(year: int) -> dict:
+def install_runtime(year: int, *, manual_version: bool = False) -> dict:
     if not platform_supported():
         raise ValueError("此连接器安装流程目前只适用于 Windows。")
-    if type(year) is not int or year not in {entry["year"] for entry in detect_installations()}:
+    if type(year) is not int or (not manual_version and year not in {entry["year"] for entry in detect_installations()}):
         raise ValueError("请先选择检测到的 SketchUp 版本；未安装或未识别的版本不会被替代。")
     if not 2019 <= year <= 2026:
         raise ValueError("此版本尚不满足当前插件要求；请查看兼容性说明，未进行安装。")
@@ -212,7 +212,7 @@ def register_routes(app, lock) -> None:
         if not lock.acquire(blocking=False):
             raise HTTPException(409, "建模正在执行，请结束后再安装连接器。")
         try:
-            return install_runtime(request.get("year"))
+            return install_runtime(request.get("year"), manual_version=request.get("manual_version") is True)
         except (OSError, ValueError, subprocess.SubprocessError) as error:
             raise HTTPException(400, "连接器未启用：" + str(error)) from error
         finally:
