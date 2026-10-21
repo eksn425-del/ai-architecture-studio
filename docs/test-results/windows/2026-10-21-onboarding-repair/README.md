@@ -21,3 +21,7 @@ Owner's apartment request failed twice in the read-only conversation-intent pref
 [Cline compatible API setup](https://docs.cline.bot/provider-config/openai-compatible): Base URL, Key, model ID; adopted simple fields, not model capability promises.
 [pywebview API](https://pywebview.flowrl.com/api/): text_select defaults false, explicitly enabled.
 [SketchUp extension installation](https://help.sketchup.com/en/extension-warehouse/installing-trial-extension): RBZ is manually installed through Extension Manager; app configures the local bridge separately.
+
+## Installed verification
+
+Local release installed with private payload; real browser confirms no visible effort selector, saved Key remains masked, candidate 2019–2026 selection works. Download endpoint returned RBZ byte-identical to its manifest payload. Real desktop normal text was selected by double-click and Ctrl+C returned exactly the selected character. Voice UI and mock callbacks verified; no ambient microphone recording was initiated. No new model request or SU write.
