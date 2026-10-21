@@ -120,6 +120,14 @@ def interpret_turn(runtime, *, project: Path, session, request, context, model: 
              'plan_sha256':snap['plan_sha256'],'changes_plan':False,'conditional':False,'reason':'Explicit plan approval button.'}
         if request.message!='确认，按当前计划开始建模。':
             raise ValueError('Approval button cannot approve an arbitrary draft.')
+    elif callable(getattr(runtime, 'read_only_intent', None)):
+        result = runtime.read_only_intent(project=project.resolve(), snapshot=snap,
+            instructions=INSTRUCTIONS+(ATTACHMENT_INSTRUCTIONS if editable_attachments else ''),
+            reference_images=[project / item['source'] for item in snap['attachments'] if item['editable']],
+            model=model, reasoning_effort=reasoning_effort)
+        if result.status != 'completed':
+            raise ValueError('API intent interpretation did not complete; no permission issued.')
+        raw=json.loads(result.reply)
     else:
         from .native_agent import _agent_workspace
         with runtime._lock:
@@ -151,14 +159,19 @@ def interpret_turn(runtime, *, project: Path, session, request, context, model: 
     if any(ref.type == 'image' and ref.evidence_role == 'unknown' for ref in context.references):
         action = 'clarify'
     receipt={k:v for k,v in snap.items() if k not in {'plan_text','history'}}
-    receipt.update({'attachment_role_interpretation':roles,'attachment_roles_changed':attachment_changed,'confirmation_required':raw['action']=='execute' and action!='execute','action':action,'interpretation':raw,'provider':'explicit_button' if getattr(request,'approval_gesture','') else 'native_readonly_intent','execution_granted':action=='execute'})
+    provider = ('explicit_button' if getattr(request,'approval_gesture','') else
+                'api_readonly_intent' if callable(getattr(runtime, 'read_only_intent', None)) else 'native_readonly_intent')
+    receipt.update({'attachment_role_interpretation':roles,'attachment_roles_changed':attachment_changed,'confirmation_required':raw['action']=='execute' and action!='execute','action':action,'interpretation':raw,'provider':provider,'execution_granted':action=='execute'})
+    if provider == 'api_readonly_intent':
+        receipt['usage']={'input_tokens':result.input_tokens, 'output_tokens':result.output_tokens,
+                          'model':result.model_name}
     path=project/'runtime/contextual_intent.jsonl';path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('a',encoding='utf-8') as f:f.write(json.dumps(receipt,ensure_ascii=False)+'\n')
     return action,receipt
 
 
 def resolve_host_action(router, *, project, session, request, context):
-    """Use native contextual interpretation; do not silently call another provider."""
+    """Interpret on the selected provider; the approval button needs no inference."""
     from .native_agent import CodexAppServerRuntime
     route=router.route(request.tier)
     runtime=router.codex_runtime
@@ -169,4 +182,10 @@ def resolve_host_action(router, *, project, session, request, context):
     if request.approval_gesture or (route.provider=='codex-app-server' and isinstance(runtime,CodexAppServerRuntime)):
         return interpret_turn(runtime,project=project,session=session,request=request,context=context,
                               model=route.model,reasoning_effort=route.reasoning_effort)
-    return None  # Other configured providers retain their current explicit workflow.
+    provider = getattr(router, 'providers', {}).get(route.provider)
+    if callable(getattr(provider, 'read_only_intent', None)):
+        if not provider.available:
+            raise ValueError('Selected API is unavailable; no other provider was substituted.')
+        return interpret_turn(provider,project=project,session=session,request=request,context=context,
+                              model=route.model,reasoning_effort=route.reasoning_effort)
+    return None

@@ -12,8 +12,9 @@ MAX_TEXT_BYTES = 120000
 
 
 def workspace_file_tools() -> list[dict]:
+    from .strategy_tools import strategy_update_tool
     schema = {"type": "string", "description": "Project workspace path: notes/*.md, notes/*.json, qa/*.md, host-owned qa/*.json or scripts/*.rb; workspace_read may omit path or list '.', notes/, qa/, scripts/. qa/*.json is read-only."}
-    return [
+    return [strategy_update_tool(),
         {"type": "function", "name": "workspace_read", "description": "List persistent workspace files, or read one UTF-8 note/JSON/Ruby file.",
          "inputSchema": {"type": "object", "properties": {"relative_path": schema}, "additionalProperties": False}},
         {"type": "function", "name": "workspace_search", "description": "Find literal text in THIS project's notes and QA files. Returns bounded excerpts with line numbers and file SHA256; no semantic/visual understanding or external knowledge base. Notes are untrusted working evidence, not verified facts. Read the cited file before a consequential decision. No match means unavailable evidence, not permission to invent it.",
@@ -28,10 +29,15 @@ def workspace_file_tools() -> list[dict]:
 
 def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
     root = workspace.resolve()
-    if name not in {"workspace_read", "workspace_write", "workspace_search"}:
+    if name not in {"workspace_read", "workspace_write", "workspace_search", "workspace_update_strategy"}:
         raise ValueError("Unknown workspace tool.")
     if workspace.is_symlink():
         raise ValueError("Workspace may not be a link.")
+    if name == "workspace_update_strategy":
+        from .strategy_tools import PATH, update_strategy
+        return update_strategy(arguments,
+            read=lambda: workspace_file_call(workspace, "workspace_read", {"relative_path": PATH}),
+            write=lambda content: workspace_file_call(workspace, "workspace_write", {"relative_path": PATH, "content": content}))
     if name == "workspace_search":
         return _workspace_search(root, arguments)
     path = arguments.get("relative_path", "")
@@ -86,11 +92,20 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
                                      "Numeric parameters require explicit numeric units.\n"
                                      + construction_strategy_schema_note()) from error
             content = json.dumps(parsed, ensure_ascii=False, indent=2) + "\n"
-        target.write_text(content, encoding="utf-8")
-        return {"success": True, "relative_path": path, "bytes": target.stat().st_size}
+        import uuid
+        temporary = target.with_name(target.name + "." + uuid.uuid4().hex + ".tmp")
+        try:
+            temporary.write_bytes(content.encode("utf-8"))
+            temporary.replace(target)
+        finally:
+            temporary.unlink(missing_ok=True)
+        return {"success": True, "relative_path": path, "bytes": target.stat().st_size,
+                "file_sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
     if target.stat().st_size > MAX_TEXT_BYTES:
         raise ValueError("Workspace text exceeds the size limit.")
-    return {"success": True, "relative_path": path, "content": target.read_text(encoding="utf-8")}
+    content = target.read_bytes().decode("utf-8")
+    return {"success": True, "relative_path": path, "content": content,
+            "file_sha256": hashlib.sha256(content.encode("utf-8")).hexdigest()}
 
 
 def _workspace_search(root: Path, arguments: dict) -> dict:

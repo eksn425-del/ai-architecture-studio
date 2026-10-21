@@ -1596,18 +1596,22 @@ function startLiveProgress() {
 function sameSavedApiConnection() {
   const saved = state.modelRouter?.providers?.litellm;
   const wire = $("api-model").value.trim();
-  const model = $("provider-mode").value === "bai" ? "openai/" + wire.replace(/^openai\//, "") : "deepseek/deepseek-flash";
-  return !!saved?.credential_configured && saved.model === model && saved.api_base === $("api-base").value;
+  const model = $("provider-mode").value !== "deepseek" ? "openai/" + wire.replace(/^openai\//, "") : "deepseek/deepseek-flash";
+  return !!saved?.credential_configured && saved.model === model && saved.api_base === $("api-base").value.trim().replace(/\/+$/, "");
 }
 function applyApiProvider() {
   const bai = $("provider-mode").value === "bai";
-  $("api-model").value = bai ? "deepseek-v4.1-flash" : "deepseek-flash";
-  $("api-model").readOnly = !bai;
-  $("api-base").value = bai ? "https://api.b.ai/v1" : "https://api.deepseek.com";
+  const compatible = $("provider-mode").value === "compatible";
+  $("api-model").value = compatible ? "" : bai ? "deepseek-v4.1-flash" : "deepseek-flash";
+  $("api-model").readOnly = !bai && !compatible;
+  $("api-base").value = compatible ? "" : bai ? "https://api.b.ai/v1" : "https://api.deepseek.com";
+  $("api-base").readOnly = !compatible;
+  $("api-base").placeholder = "https://服务商地址/v1";
   $("api-effort").value = "provider-default";
   $("api-key").value = "";
-  $("api-key").placeholder = bai ? "粘贴 B.AI API Key" : "粘贴 DeepSeek 官方 API Key";
-  $("provider-address-note").textContent = bai ? "模型请求将发送到 B.AI。模型名称请使用 B.AI 模型列表中的标识。" : "模型请求将发送到 DeepSeek 官方。B.AI 等第三方平台的 Key 不能用于此地址。";
+  $("api-key").placeholder = compatible ? "粘贴该服务商的 API Key" : bai ? "粘贴 B.AI API Key" : "粘贴 DeepSeek 官方 API Key";
+  $("provider-address-note").textContent = compatible ? "填写服务商提供的 HTTPS Base URL（通常以 /v1 结尾，不要包含 /chat/completions）。此入口需要兼容 Chat Completions、支持图片和工具调用的模型；保存配置后仍需实际建模验证。" : bai ? "模型请求将发送到 B.AI。模型名称请使用 B.AI 模型列表中的标识。" : "模型请求将发送到 DeepSeek 官方。B.AI 等第三方平台的 Key 不能用于此地址。";
+  $("provider-key-link").hidden = compatible;
   $("provider-key-link").href = bai ? "https://chat.b.ai/key" : "https://platform.deepseek.com/api_keys";
   $("saved-key-status").textContent = sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
 }
@@ -1617,11 +1621,16 @@ function openModelSettings() {
     return;
   }
   const saved = state.modelRouter?.providers?.litellm;
-  $("provider-mode").value = saved?.api_base === "https://api.b.ai/v1" ? "bai" : "deepseek";
+  $("provider-mode").value = saved?.api_base === "https://api.b.ai/v1" ? "bai" : saved?.api_base && saved.api_base !== "https://api.deepseek.com" ? "compatible" : "deepseek";
   applyApiProvider();
   if (saved?.api_base === "https://api.b.ai/v1" && saved.model?.startsWith("openai/")) $("api-model").value = saved.model.slice(7);
+  if ($("provider-mode").value === "compatible") {
+    $("api-base").value = saved.api_base;
+    $("api-model").value = (saved.model || "").replace(/^openai\//, "");
+  }
   $("forget-api-key").disabled = !saved?.credential_configured;
   $("api-effort").value = sameSavedApiConnection() ? routeInfo("economy").reasoning_effort : "provider-default";
+  $("saved-key-status").textContent = sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
   $("model-settings-status").textContent = "";
   $("model-settings-dialog").showModal();
 }

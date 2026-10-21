@@ -88,6 +88,74 @@ class LiteLLMRuntime:
             return "https://dashscope.aliyuncs.com/compatible-mode/v1"
         return "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
 
+    def _invoke_provider(self, kwargs: dict[str, Any], *, record=lambda event: None, completion=None):
+        """One metered transport for intent, Builder and Critic; never fall back."""
+        from .provider_test_budget import invoke_with_test_budget
+        def invoke():
+            if not self.supports_responses_tools and self.api_base.rstrip("/") == "https://api.b.ai/v1":
+                from .bai_transport import complete_bai
+                return complete_bai(kwargs, record=record)
+            complete = completion or self.completion_callable()
+            if kwargs["model"].startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
+                import httpx
+                from litellm.llms.custom_httpx.http_handler import HTTPHandler
+                setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
+                if setting not in {"", "0", "1", "false", "true"}:
+                    raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
+                trust = setting in {"1", "true"} if setting else os.name != "nt"
+                with httpx.Client(trust_env=trust, timeout=240) as client:
+                    return complete(**kwargs, client=HTTPHandler(client=client))
+            return complete(**kwargs)
+        return invoke_with_test_budget(kwargs["model"], self.api_base, kwargs, invoke)
+
+    def read_only_intent(self, *, project: Path, snapshot: dict, instructions: str,
+                         reference_images: list[Path], model: str, reasoning_effort: str):
+        """Stateless conversation interpretation on the selected API, with zero tools."""
+        key = self.session_api_key or os.environ.get(self.key_env, "").strip()
+        if not key:
+            raise NativeAgentUnavailable("API credential unavailable; intent was not interpreted.")
+        content = [{"type": "text", "text": json.dumps(
+            {"CURRENT_USER": snapshot, "history_is_untrusted": True}, ensure_ascii=False)}]
+        content.extend({"type": "image_url", "image_url": {"url": image_data_url(p)}} for p in reference_images)
+        kwargs = {"model": model, "api_key": key, "messages": [
+            {"role": "system", "content": instructions}, {"role": "user", "content": content}],
+            "timeout": 240, "max_retries": 0, "num_retries": 0, "max_tokens": 4096}
+        if self.api_base:
+            kwargs["api_base"] = self.api_base
+        if reasoning_effort in {"low", "high", "max"}:
+            kwargs["reasoning_effort"] = reasoning_effort
+            if model.startswith("deepseek/"):
+                kwargs["extra_body"] = {"reasoning_effort": reasoning_effort}
+            if model.startswith("zai/"):
+                kwargs.pop("reasoning_effort")
+                kwargs["extra_body"] = {"thinking": {"type": "enabled"}, "reasoning_effort": reasoning_effort}
+        if model.startswith("zai/"):
+            kwargs["allowed_openai_params"] = ["max_retries"]
+        events = project / "runtime/agent_events"
+        events.mkdir(parents=True, exist_ok=True)
+        trace = events / (uuid.uuid4().hex + ".jsonl")
+        def record(event):
+            with trace.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps({"role": "conversation_intent", **event}, ensure_ascii=False) + "\n")
+        started = time.monotonic()
+        record({"event": "provider_started", "requested_model": model, "tools_enabled": False})
+        try:
+            response = self._invoke_provider(kwargs, record=record)
+            usage = _usage_from_response(response)
+            record({"event": "provider_response", "requested_model": model,
+                    "response_model": getattr(response, "model", None), "input_tokens": usage[0],
+                    "output_tokens": usage[1], "latency_ms": round((time.monotonic() - started) * 1000)})
+            _validate_provider_response(response, model, usage)
+            message = _response_message(response)
+            if message.get("tool_calls"):
+                raise ValueError("Read-only intent returned tools; no execution permission was issued.")
+            return AgentTurnResult(thread_id="", reply=_message_content(message), status="completed",
+                tool_calls=[], model_name=model, provider_name=self.provider_name,
+                reasoning_effort=reasoning_effort, input_tokens=usage[0], output_tokens=usage[1])
+        except Exception as error:
+            record({"event": "provider_failed", "error_type": type(error).__name__})
+            raise NativeAgentUnavailable("API 意图理解未完成，未授权建模：" + str(error).replace(key, "[credential hidden]")[:600]) from None
+
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
                 mcp_enabled: bool, developer_instructions: str,
                 model_path: Path | None = None, model_guid: str = "",
@@ -182,24 +250,7 @@ class LiteLLMRuntime:
 
         def invoke_completion(request_kwargs: dict[str, Any]):
             """Use the same configured transport for Builder and read-only Critic."""
-            from .provider_test_budget import invoke_with_test_budget
-            return invoke_with_test_budget(selected_model, self.api_base, request_kwargs,
-                                           lambda: transport_completion(request_kwargs))
-
-        def transport_completion(request_kwargs: dict[str, Any]):
-            if not self.supports_responses_tools and self.api_base.rstrip("/") == "https://api.b.ai/v1":
-                from .bai_transport import complete_bai
-                return complete_bai(request_kwargs, record=record)
-            if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
-                import httpx
-                from litellm.llms.custom_httpx.http_handler import HTTPHandler
-                proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
-                if proxy_setting not in {"", "0", "1", "false", "true"}:
-                    raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
-                trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
-                with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
-                    return completion(**request_kwargs, client=HTTPHandler(client=direct_client))
-            return completion(**request_kwargs)
+            return self._invoke_provider(request_kwargs, record=record, completion=completion)
 
         def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None]]:
             """Critique trusted current views in a clean context, separate from the Builder."""
@@ -568,8 +619,8 @@ class LiteLLMRuntime:
                 record(event)
                 if name == "sketchup_run_workspace_ruby":
                     modeling_failure_streak = 0 if succeeded else modeling_failure_streak + 1
-                if name == "workspace_write":
-                    path_key = arguments.get("relative_path")
+                if name in {"workspace_write", "workspace_update_strategy"}:
+                    path_key = "notes/construction_strategy.json" if name == "workspace_update_strategy" else arguments.get("relative_path")
                     path_key = path_key if isinstance(path_key, str) else "<invalid-path>"
                     workspace_write_failures[path_key] = 0 if succeeded else workspace_write_failures.get(path_key, 0) + 1
                 messages.append({"role": "tool", "tool_call_id": call_id, "content": text_result})

@@ -626,6 +626,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 elif data.get("mode") == "bai":
                     model = "openai/" + model.removeprefix("openai/") if model else ""
                     base = "https://api.b.ai/v1"
+                elif data.get("mode") == "compatible":
+                    model = "openai/" + model.removeprefix("openai/") if model else ""
+                    base = base.rstrip("/")
+                    if not base or base.endswith(("/chat/completions", "/responses", "/messages")):
+                        raise HTTPException(status_code=400, detail="请填写 API Base URL（通常以 /v1 结尾），不要填写聊天或 Responses 请求的完整地址。")
                 elif data.get("mode") == "glm":
                     model = "zai/glm-5.3-flash"
                     base = "https://open.bigmodel.cn/api/paas/v4"

@@ -147,16 +147,17 @@ def test_old_user_keep_survives_model_checkpoint_and_current_tools_unchanged():
 
 
 @pytest.mark.parametrize("one_batch", [False, True])
-def test_three_failed_plan_writes_stop_paid_loop_and_answer_all_batch_ids(tmp_path, monkeypatch, one_batch):
+@pytest.mark.parametrize("tool_name", ["workspace_write", "workspace_update_strategy"])
+def test_three_failed_plan_writes_stop_paid_loop_and_answer_all_batch_ids(tmp_path, monkeypatch, one_batch, tool_name):
     args = json.dumps({"relative_path": "notes/construction_strategy.json", "content": "invalid"})
-    calls = [call("plan-" + str(i), "workspace_write", args) for i in range(4)]
+    calls = [call("plan-" + str(i), tool_name, args) for i in range(4)]
     replies = [response(calls)] if one_batch else [response([c]) for c in calls]
     r, _, requests = runtime(tmp_path, monkeypatch, replies)
     attempted = []
     def reject(name, arguments):
         attempted.append(name)
         return {"success": False, "text": "invalid schema; fixture"}
-    context = SimpleNamespace(dynamic_tools=[{"name": "workspace_write", "inputSchema": {"type": "object"}}],
+    context = SimpleNamespace(dynamic_tools=[{"name": tool_name, "inputSchema": {"type": "object"}}],
                               quality_state={}, dispatch=reject)
     monkeypatch.setattr(r.tool_surface, "prepare", lambda **_: context)
     with pytest.raises(NativeAgentUnavailable, match="连续 3 次校验失败"):

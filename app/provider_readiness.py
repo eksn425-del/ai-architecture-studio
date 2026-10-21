@@ -54,6 +54,13 @@ CAPABILITY_MATRIX = (
         "Small pre-paid test with real model identity, function/tool/image/thinking/caching/usage checks and no hidden substitution.",
     ),
     ProviderReadiness(
+        "b-ai", "B.AI DeepSeek real product test", "third_party_gateway",
+        "deepseek-v4.1-flash", "live_image_recognition_with_errors", "Chat Completions SSE / functions",
+        "live_planning_failed_native_not_run",
+        "2026-10-21: 18 product responses, workspace tool cycles, five timeouts; repeated strategy validation failed before native modeling. API-only intent and typed plan updates are offline fixes awaiting a live rerun.",
+        "Preserve the USD2 liability ledger; require a live same-project build/edit/native-delivery test before promoting this route. Never substitute Codex inference.",
+    ),
+    ProviderReadiness(
         "openrouter", "OpenRouter gateway", "third_party_gateway",
         "openai/gpt-6.1-sol", "provider_documented_not_product_verified", "Responses-compatible advertised",
         "candidate_not_verified",
