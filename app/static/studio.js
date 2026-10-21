@@ -685,7 +685,7 @@ function renderConversation() {
   if (typeof KStudioActivity !== "undefined") {
     if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><p>正在处理本轮要求…</p></article>');
     KStudioActivity.render(state.projectId, viewport);
-    KStudioActivity.bind(viewport, document.querySelector(".composer-controls"));
+    KStudioActivity.bind(viewport, document.querySelector(".composer-area"));
   }
   viewport.scrollTop = followLatest ? viewport.scrollHeight : previousScrollTop;
 }

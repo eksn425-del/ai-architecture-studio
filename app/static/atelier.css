@@ -211,7 +211,12 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 .composer-controls .button-primary,.composer-controls .button-quiet{padding:5px 9px;font-size:11px}
 .turn-cancel-controls{padding:0;gap:7px}.turn-cancel-controls:has(>button[hidden]):has(>p[hidden]){display:none}
 .turn-cancel-controls button{padding:3px 8px;font-size:10px}
-#native-turn-event{display:none}
+#native-turn-event,#operation-progress{display:none}
+.chat-workflow-actions{padding:8px 0 12px}
+.chat-workflow-actions .clarification-shortcuts{margin:6px 0;flex-wrap:wrap}
+.chat-workflow-actions .agent-error{margin:8px 0 0}
+.composer-area{position:relative}
+#latest-activity{position:absolute;right:26px;bottom:100%;margin-bottom:8px;z-index:3;font-size:11px;padding:5px 9px}
 .journey-guide{padding-top:12px;padding-bottom:0}.journey-next{margin-top:6px}
 .workspace-heading{padding-top:18px;padding-bottom:16px}
 .conversation-history .task-details{padding:0;width:100%;margin:0}
