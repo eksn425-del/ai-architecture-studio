@@ -51,3 +51,12 @@ def test_uuid_filenames_cannot_reorder_conversation_and_bad_cache_is_ignored(tmp
     (folder/'broken.json').write_text('not json', 'utf-8')
     (folder/'wrong-type.json').write_text('[]', 'utf-8')
     assert [r['id'] for r in activity_history(tmp_path)] == ['z', 'a', 'm']
+
+
+def test_failed_turn_remains_visible_in_conversation_after_reload(tmp_path):
+    active = {"started": time.time(), "request_id": "failed-fixture", "outcome": "failed"}
+    update_activity(tmp_path, active, finished=True)
+    terminal = activity_history(tmp_path)[0]["events"][-1]
+    assert terminal["status"] == "warning"
+    assert "本轮未完成" in terminal["text"]
+    assert "模型结果" not in terminal["text"]

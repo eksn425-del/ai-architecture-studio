@@ -450,7 +450,8 @@ function friendlyError(error) {
   if (/Insufficient Balance|insufficient_quota|余额不足/i.test(message) || httpStatus(402)) return "模型账户余额或额度不足，请检查供应商账户；项目资料与计划已保留。";
   if (/RateLimitError|rate.limit/i.test(message) || httpStatus(429)) return "模型供应商暂时限流，请稍后重试；无需重新上传资料。";
   if (/WinError 10061|Server disconnected without sending a response|ConnectError|ProxyError/i.test(message)) return "模型 API 连接中断；已保留图片、计划和脚本。请重试执行，当前无需恢复或重新创建模型。";
-  if (/APITimeoutError|LiteLLM request failed.*Timeout|Request timed out/i.test(message)) {
+  if (/本轮 API 小额测试预算已到安全边界/.test(message)) return "本轮 API 测试已到预算安全边界，未继续调用。现有图片、方案和用量记录已保留；请先核实超时费用或调整测试上限。";
+  if (/APITimeoutError|LiteLLM request failed[\s\S]*(?:Timeout|timed out)|Request timed out/i.test(message)) {
     return "模型 API 请求超时，本轮未完成；这不代表 MCP 断开。项目记录已保留，请分阶段重试，先建主体并截图，再补细节。";
   }
   if (/active model path and GUID|active model could not be verified/i.test(message)) {

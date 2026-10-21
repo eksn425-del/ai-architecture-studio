@@ -103,7 +103,10 @@ def _update_activity(project_dir: Path, active: dict, *, finished: bool = False)
     known = {event["id"] for event in run["events"]}
     run["events"].extend(event for event in public_events(log) if event["id"] not in known)
     if finished and turn_id + ":end" not in known:
-        run["events"].append({"id": turn_id + ":end", "text": "本轮处理已结束，请查看回复与模型结果", "status": "done"})
+        failed = active.get("outcome") == "failed"
+        run["events"].append({"id": turn_id + ":end",
+                              "text": "本轮未完成；现有项目已保留，请检查错误后继续" if failed else "本轮处理已结束，请查看回复与模型结果",
+                              "status": "warning" if failed else "done"})
     run["finished"] = run.get("finished", False) or finished
     temporary = target.with_suffix(".tmp")
     temporary.write_text(json.dumps(run, ensure_ascii=False), encoding="utf-8")

@@ -1,3 +1,9 @@
+## 2026-10-21 — B.AI real API test paused at conservative budget boundary
+
+[Actual outcome and limitations](test-results/windows/2026-10-21-bai-deepseek/README.md): real product UI, same reference, separate `deepseek-20261021`; 8 actual successful exact-model responses/123093input/11540output, 2 retained timeouts, partial planning only. Known upper USD0.0507759 + two unknown-request reservations = USD0.7585647; next reservation exceeds initial USD1 ceiling. Owner asked whether to raise total ceiling to USD2; pending answer, no further inference. SSE enabled genuine workspace tool cycles but later timed out; native build/edit/delivery NOT_RUN. All647 existing SKP hashes unchanged. Failure warnings remain inside chat, read-timeout/budget guidance fixed; 47 focused checks PASS. Key/actual account data/raw case remain private local; no hidden Codex fallback, cloud/main deployment or native quality claim.
+
+---
+
 ## 2026-10-21 — B.AI real first call and retained planning timeout
 
 Real website `deepseek-20261021`: same-image natural Chinese request reached B.AI `deepseek-v4.1-flash`, returned actual model/usage (7325 input/1068 output, 32218ms). Recognition found balcony/grid/roof features but undercounted floors; owner-style ten-floor clarification then timed out after 240s before any tool/native write. Original history and USD0.3538944 unknown-request reservation retained. The new B.AI-only SSE transport waits for terminal completion, exact model and actual usage before releasing any tool output; no inferred usage or automatic retry. Fragmented tool/reasoning handling, disconnect, truncation, model mismatch and durable reservation checks pass offline; real recovery still pending. Cloud and original projects unchanged.

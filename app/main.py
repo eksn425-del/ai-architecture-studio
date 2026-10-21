@@ -1656,6 +1656,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             result = converse_turn(project_id, request)
             finish(request_receipt,result)
             request_receipt = None
+            app.state.active_turns[project_id]["outcome"] = "completed"
             return result
         finally:
             try:
@@ -1665,6 +1666,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 try:
                     active = app.state.active_turns.get(project_id)
                     if active:
+                        active.setdefault("outcome", "failed")
                         update_activity(store.project_dir(project_id), active, finished=True)
                 except (OSError, ValueError):
                     __import__('logging').getLogger(__name__).exception('Could not archive public activity')
