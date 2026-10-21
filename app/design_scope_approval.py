@@ -138,3 +138,21 @@ def restore_rejected_start_plan(project_dir: Path, pending_plan_id: str, *, erro
     snapshot['startup_recovery'] = 'protocol_rejected_before_thread_start_requires_new_approval'
     _save(project_dir, 'pending_design_scope.json', snapshot)
     return True
+
+
+def renew_empty_model_plan(project_dir: Path, pending_plan_id: str) -> dict:
+    """Fresh approval identity only. Caller must prove the live bound model is empty."""
+    snapshot = json.loads(_path(project_dir, 'pending_design_scope.json').read_text(encoding='utf-8'))
+    card = project_dir / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    text = canonical_plan_text(card.read_text(encoding='utf-8'))
+    if (not pending_plan_id or snapshot.get('pending_plan_id') != pending_plan_id
+            or not snapshot.get('consumed') or snapshot.get('is_followup')
+            or snapshot.get('project_identity') != str(project_dir.resolve())
+            or snapshot.get('model_revisions') or current_model_revisions(project_dir)
+            or snapshot.get('reference_manifest_fingerprint') != current_reference_fingerprint(project_dir)
+            or snapshot.get('plan_sha256') != hashlib.sha256(text.encode()).hexdigest()):
+        raise ValueError('无法恢复：项目、方案、图片或模型版本已变化，请重新检查当前方案。')
+    history = _path(project_dir, 'plan_retry_history.jsonl')
+    with history.open('a', encoding='utf-8') as stream:
+        stream.write(json.dumps({'reason': 'verified_empty_model_new_approval', 'previous': snapshot}, ensure_ascii=False) + '\n')
+    return capture_pending_design_plan(project_dir, text, is_followup=False)

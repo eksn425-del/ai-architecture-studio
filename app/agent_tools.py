@@ -157,7 +157,7 @@ class AgentToolSurface:
                     return relation_dispatch(name,arguments)
                 writing = name == "blender_apply_objects"
                 if writing:relation_before(arguments)
-                if writing and quality["writes"] >= limit:
+                if writing and limit and quality["writes"] >= limit:
                     quality["stop_reason"] = "budget_exhausted"
                     raise ValueError(continuation_message(stage, quality["writes"], limit))
                 before = backend.dispatch("blender_inspect_scene", {}).get("revision", 0)
@@ -301,7 +301,7 @@ class AgentToolSurface:
                     quality_state["review"] = None
                     quality_state["review_reused"] = False
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
-            if bounded and (writes >= write_limit or progress.blocked):
+            if bounded and ((write_limit and writes >= write_limit) or progress.blocked):
                 reason = "no_progress" if progress.blocked else "budget_exhausted"
                 quality_state["stop_reason"] = reason
                 raise MCPCallError(continuation_message(stage, writes, write_limit, reason))

@@ -694,6 +694,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     @app.get("/api/status")
     def status() -> dict[str, Any]:
+        from .stage_quality import execution_limits_enabled
         try:
             _resolve_server()
             connector_configured = True
@@ -714,6 +715,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "sketchup_configured": connector_configured,
             "sketchup_detail": connector_detail,
             "runtime": "local",
+            "execution_count_limits_enabled": execution_limits_enabled(),
             "platform": "windows" if os.name == "nt" else "other",
             "active_project_id": next(iter(app.state.active_turns), None),
         }
@@ -1694,6 +1696,40 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         pending=project_dir / "runtime/pending_design_scope.json"
         snapshot=json.loads(pending.read_text(encoding="utf-8")) if pending.is_file() else {}
         return {key:snapshot.get(key) for key in ("pending_plan_id","plan_sha256","model_revisions","consumed")}
+
+    @app.post("/api/projects/{project_id}/agent/retry-plan")
+    def retry_empty_model_plan(project_id: str, payload: dict[str, str]) -> dict[str, Any]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(409, "Agent 正在执行，请等待当前任务结束。")
+        try:
+            project_dir = store.project_dir(project_id)
+            session = store.load_state(project_id, "agent_session.json", AgentSession)
+            if session.reconstruction_state != "planned" or session.ruby_state:
+                raise ValueError("当前模型已有修改或不在待批准阶段，请检查已有成果。")
+            current = _disposable_model_path(str(project_dir / session.model_path), project_dir)
+            if not current or not current.is_file():
+                raise ValueError("未找到当前项目的建模副本。")
+            identity = app.state.sketchup.get_active_model_identity()
+            if (Path(str(identity.get("model_path", ""))).resolve() != current
+                    or not identity.get("model_guid") or identity.get("active_context")
+                    or identity.get("main_thread") is False):
+                raise ValueError("SketchUp 活动文档与当前项目不匹配，请先连接正确副本。")
+            info = app.state.sketchup.get_model_info()
+            if type(info.get("entity_count")) is not int or info["entity_count"] != 0:
+                raise ValueError("SketchUp 副本并非空白，不能直接重新执行初始建模；请先恢复并核对模型。")
+            # Check identity twice around the native readback, without saving or writing geometry.
+            if app.state.sketchup.get_active_model_identity() != identity:
+                raise ValueError("核对期间活动模型已变化，请重新检查。")
+            from .design_scope_approval import renew_empty_model_plan
+            snapshot = renew_empty_model_plan(project_dir, payload.get("pending_plan_id", ""))
+            return {"status": "awaiting_new_approval", "pending_plan_id": snapshot["pending_plan_id"],
+                    "model_changed": False, "execution_started": False}
+        except (ValueError, OSError, KeyError) as error:
+            raise HTTPException(409, str(error)) from error
+        except (ConnectorUnavailable, MCPCallError) as error:
+            raise HTTPException(502, f"SketchUp 核对失败：{error}") from error
+        finally:
+            app.state.agent_lock.release()
 
     @app.post("/api/projects/{project_id}/agent/cancel")
     def cancel_native_turn(project_id: str, payload: dict[str, str]) -> dict[str, Any]:

@@ -327,6 +327,22 @@ async function loadParameterPlan() {
       $("parameter-plan-content").insertAdjacentHTML("afterbegin", '<p class="plan-review-note">该计划已执行。可在对话中继续提出局部修改。</p>');
       return;
     }
+    if (pendingPlan?.consumed && pendingPlan.plan_sha256 === sha256 && state.project?.agent_session?.reconstruction_state === "planned") {
+      $("parameter-plan").hidden = false;
+      $("parameter-plan-content").insertAdjacentHTML("afterbegin", '<p class="plan-review-note">上次建模中断。可核对空白副本后重新批准同一方案。<button type="button" id="retry-empty-plan">检查副本并恢复批准按钮</button></p>');
+      $("retry-empty-plan")?.addEventListener("click", async event => {
+        if (state.busy || projectId !== state.projectId) return;
+        const control = event.currentTarget;
+        control.disabled = true;
+        try {
+          await api(`/api/projects/${encodeURIComponent(projectId)}/agent/retry-plan`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({pending_plan_id:pendingPlan.pending_plan_id})});
+          if (projectId !== state.projectId) return;
+          await loadParameterPlan(); updateHeader();
+          showToast("已核对空白副本，请重新批准当前方案。尚未开始建模。", false);
+        } catch (error) { showToast(error.message, true); control.disabled = false; }
+      });
+      return;
+    }
     if (!pendingPlan || typeof pendingPlan.pending_plan_id !== "string" || !pendingPlan.pending_plan_id
         || pendingPlan.consumed || pendingPlan.plan_sha256 !== sha256) {
       state.displayedPlan = null;

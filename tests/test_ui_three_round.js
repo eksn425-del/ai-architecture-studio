@@ -185,7 +185,7 @@ test('serial sending and next draft survive the result gating change', async () 
 const { createHash, webcrypto } = require('node:crypto');
 function planContext(api, crypto = webcrypto, pending = undefined) {
   const nodes = {}, state = { projectId: 'p', project: { agent_session: { reconstruction_state: 'planned' } }, displayedPlan: { projectId: 'p', sha256: 'old' } };
-  const $ = id => nodes[id] ||= { insertAdjacentHTML(position, content) { this.innerHTML = content + (this.innerHTML || ""); } };
+  const $ = id => nodes[id] ||= { addEventListener() {}, insertAdjacentHTML(position, content) { this.innerHTML = content + (this.innerHTML || ""); } };
   const sandbox = context('let planRequestId=0;\n' + production('escapeHtml', 'parameterPlanMarkup', 'loadParameterPlan'), {
     $, state, api: async target => {
       if (target.endsWith('/agent/pending-plan') && pending !== undefined) {
@@ -277,7 +277,7 @@ for (const [label, pending] of [
     await sandbox.loadParameterPlan();
     assert.equal(state.displayedPlan, null);
     assert.match($('parameter-plan-content').innerHTML, /# Plan/);
-    assert.match($('parameter-plan-content').innerHTML, /刷新或重新整理计划/);
+    assert.match($('parameter-plan-content').innerHTML, label === 'consumed' ? /检查副本并恢复批准按钮/ : /刷新或重新整理计划/);
   });
 }
 

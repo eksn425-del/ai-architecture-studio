@@ -1,10 +1,18 @@
-"""Finite host-owned execution budgets and conservative convergence checks."""
+"""Optional execution counts and independent geometry convergence checks."""
 import json
 import os
 
 
+def execution_limits_enabled() -> bool:
+    # Owner-controlled local testing; does not change billing, authorization,
+    # identity, KEEP, validation or uncertain-write recovery checks.
+    return os.environ.get('KSTUDIO_EXECUTION_LIMITS', 'on') != 'off'
+
+
 def geometry_stage_limit(existing: bool) -> tuple[str, int]:
     stage = 'targeted_repair' if existing else 'initial_build'
+    if not execution_limits_enabled():
+        return stage, 0  # Explicitly unlimited, never interpreted as exhausted.
     key = 'KSTUDIO_REPAIR_GEOMETRY_LIMIT' if existing else 'KSTUDIO_INITIAL_GEOMETRY_LIMIT'
     raw = os.environ.get(key, '2' if existing else '3')
     try:

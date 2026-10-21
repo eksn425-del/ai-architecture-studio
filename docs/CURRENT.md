@@ -1,3 +1,9 @@
+## 2026-10-22 — Owner removes local execution count caps
+
+[Diagnosis and evidence](test-results/windows/2026-10-22-local-execution-limits/README.md). Current API responds; three-failure loop cutoff stopped the apartment run, not account quota. Owner explicitly overrides earlier local test ceilings: persist execution_limits=off, leave historical usage/ledger unchanged. Remove tool/failure/geometry count caps while keeping model/KEEP/source checks and actual nonconvergence protection. Empty-model retry restores fresh approval eligibility only after native read-only proof. No automatic paid rerun, geometry repair, main merge or cloud deployment.
+
+---
+
 ## 2026-10-22 — First-message 500 regression and local voice hotfix
 
 [Evidence and limitations](test-results/windows/2026-10-22-voice-api-hotfix/README.md). Fix missing user_message_id before inference; replace system dictation with app PCM/local Vosk. Paid/native acceptance remains pending; preserve owner API configuration, USD2 ledger and models.

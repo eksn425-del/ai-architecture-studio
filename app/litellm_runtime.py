@@ -61,7 +61,9 @@ class LiteLLMRuntime:
         self.region = (region or os.environ.get("ARCH_STUDIO_CHINA_REGION", "international")).lower()
         if self.region not in {"international", "beijing"}:
             raise ValueError("ARCH_STUDIO_CHINA_REGION must be 'international' or 'beijing'.")
-        self.max_tool_calls = max_tool_calls
+        from .stage_quality import execution_limits_enabled
+        self.execution_limits_enabled = execution_limits_enabled()
+        self.max_tool_calls = max_tool_calls if self.execution_limits_enabled else 0
 
     @property
     def credential_configured(self) -> bool:
@@ -506,7 +508,7 @@ class LiteLLMRuntime:
                             "If a source perspective/interior/detail image needs a direct camera match, include validated evidence_pairs too. "
                             "Use NEEDS_FIX plus at most three high-impact issues and a KEEP list."
                         )
-                    elif isinstance(review, dict) and review.get("needs_fix") is True and writes < write_limit and quality_gate_nudges < max_quality_gate_nudges:
+                    elif isinstance(review, dict) and review.get("needs_fix") is True and (not write_limit or writes < write_limit) and quality_gate_nudges < max_quality_gate_nudges:
                         gate_prompt = (
                             "HOST QUALITY GATE: The current validated review says NEEDS_FIX: YES and writer budget remains. "
                             "Apply ONE targeted correction pass to the named affected groups only. First inspect the exact named "
@@ -539,9 +541,9 @@ class LiteLLMRuntime:
                     elif review.get("needs_fix") is True:
                         last_reply = (
                             (last_reply + "\n\n") if last_reply else ""
-                        ) + "当前六视图审查仍为 NEEDS_FIX；本轮修正预算已用完或质量门已停止继续写入，剩余问题按 PARTIAL 保留。"
+                        ) + "当前六视图审查仍有未解决问题，剩余问题已保留，尚不能判定还原质量通过。"
                 break
-            if tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
+            if self.max_tool_calls and tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
                 raise interrupted(
                     f"LiteLLM tool loop reached the configured {self.max_tool_calls}-call limit."
                 )
@@ -585,7 +587,7 @@ class LiteLLMRuntime:
                 record({"event": "tool_started", "tool": name})
                 allowed = {str(tool.get("name", "")) for tool in tool_context.dynamic_tools}
                 try:
-                    if any(count >= 3 for count in workspace_write_failures.values()):
+                    if self.execution_limits_enabled and any(count >= 3 for count in workspace_write_failures.values()):
                         raise ValueError("方案文件连续校验失败，本批剩余工具未执行；请先修复方案。")
                     if name not in allowed:
                         raise MCPCallError("The agent requested a tool outside this turn's Kongxing MCP allowlist.")
@@ -638,11 +640,11 @@ class LiteLLMRuntime:
             # Checkpoint complete function-call exchanges, including failed attempts.
             # Repeated full-script generation must not silently spend the whole call budget.
             save_history()
-            if any(count >= 3 for count in workspace_write_failures.values()):
+            if self.execution_limits_enabled and any(count >= 3 for count in workspace_write_failures.values()):
                 record({"event": "workspace_retry_budget_exhausted"})
                 raise interrupted("同一方案文件连续 3 次校验失败，本轮已停止继续调用。"
                                   "现有文件与完整记录已保留；请先修复方案约定后继续。")
-            if modeling_failure_streak >= 3:
+            if self.execution_limits_enabled and modeling_failure_streak >= 3:
                 record({"event": "retry_budget_exhausted", "failed_modeling_calls": modeling_failure_streak})
                 raise interrupted(
                     "建模脚本连续 3 次执行失败，本轮已停止重试以避免重复消耗。"
