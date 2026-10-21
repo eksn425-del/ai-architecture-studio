@@ -4,7 +4,7 @@ import hashlib
 import json
 import re
 
-from .construction_strategy import validate_construction_strategy_payload
+from .construction_strategy import validate_construction_strategy_payload, construction_strategy_schema_note
 from .modeling_quality import validate_facade_schedule_payload
 from .reconstruction_evidence import validate_reconstruction_evidence_payload, validate_reconstruction_evidence_sources
 
@@ -78,7 +78,13 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
                 if root.name == "agent_workspace" and root.parent.name == "runtime":
                     validate_reconstruction_evidence_sources(root.parent.parent, parsed)
             elif path == "notes/construction_strategy.json":
-                parsed = validate_construction_strategy_payload(parsed)
+                try:
+                    parsed = validate_construction_strategy_payload(parsed)
+                except ValueError as error:
+                    raise ValueError(str(error) + "\nNo file was changed. Correct all parameters and systems together. "
+                                     "Use the exact key 'units' (not 'unit'); omitted units default to text. "
+                                     "Numeric parameters require explicit numeric units.\n"
+                                     + construction_strategy_schema_note()) from error
             content = json.dumps(parsed, ensure_ascii=False, indent=2) + "\n"
         target.write_text(content, encoding="utf-8")
         return {"success": True, "relative_path": path, "bytes": target.stat().st_size}

@@ -338,6 +338,7 @@ class LiteLLMRuntime:
         tool_call_count = 0
         failed_tool_calls = 0
         modeling_failure_streak = 0
+        workspace_write_failures: dict[str, int] = {}
         last_reply = ""
         quality_gate_nudges = 0
         max_quality_gate_nudges = 6
@@ -533,6 +534,8 @@ class LiteLLMRuntime:
                 record({"event": "tool_started", "tool": name})
                 allowed = {str(tool.get("name", "")) for tool in tool_context.dynamic_tools}
                 try:
+                    if any(count >= 3 for count in workspace_write_failures.values()):
+                        raise ValueError("方案文件连续校验失败，本批剩余工具未执行；请先修复方案。")
                     if name not in allowed:
                         raise MCPCallError("The agent requested a tool outside this turn's Kongxing MCP allowlist.")
                     if (
@@ -565,6 +568,10 @@ class LiteLLMRuntime:
                 record(event)
                 if name == "sketchup_run_workspace_ruby":
                     modeling_failure_streak = 0 if succeeded else modeling_failure_streak + 1
+                if name == "workspace_write":
+                    path_key = arguments.get("relative_path")
+                    path_key = path_key if isinstance(path_key, str) else "<invalid-path>"
+                    workspace_write_failures[path_key] = 0 if succeeded else workspace_write_failures.get(path_key, 0) + 1
                 messages.append({"role": "tool", "tool_call_id": call_id, "content": text_result})
                 # Durably record each completed call. If a process dies mid-batch,
                 # Responses detects unresolved IDs and refuses unsafe replay.
@@ -580,6 +587,10 @@ class LiteLLMRuntime:
             # Checkpoint complete function-call exchanges, including failed attempts.
             # Repeated full-script generation must not silently spend the whole call budget.
             save_history()
+            if any(count >= 3 for count in workspace_write_failures.values()):
+                record({"event": "workspace_retry_budget_exhausted"})
+                raise interrupted("同一方案文件连续 3 次校验失败，本轮已停止继续调用。"
+                                  "现有文件与完整记录已保留；请先修复方案约定后继续。")
             if modeling_failure_streak >= 3:
                 record({"event": "retry_budget_exhausted", "failed_modeling_calls": modeling_failure_streak})
                 raise interrupted(

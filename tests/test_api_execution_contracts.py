@@ -146,6 +146,28 @@ def test_old_user_keep_survives_model_checkpoint_and_current_tools_unchanged():
     assert active[-3:] == current and messages[2]["content"] == "x" * 120000
 
 
+@pytest.mark.parametrize("one_batch", [False, True])
+def test_three_failed_plan_writes_stop_paid_loop_and_answer_all_batch_ids(tmp_path, monkeypatch, one_batch):
+    args = json.dumps({"relative_path": "notes/construction_strategy.json", "content": "invalid"})
+    calls = [call("plan-" + str(i), "workspace_write", args) for i in range(4)]
+    replies = [response(calls)] if one_batch else [response([c]) for c in calls]
+    r, _, requests = runtime(tmp_path, monkeypatch, replies)
+    attempted = []
+    def reject(name, arguments):
+        attempted.append(name)
+        return {"success": False, "text": "invalid schema; fixture"}
+    context = SimpleNamespace(dynamic_tools=[{"name": "workspace_write", "inputSchema": {"type": "object"}}],
+                              quality_state={}, dispatch=reject)
+    monkeypatch.setattr(r.tool_surface, "prepare", lambda **_: context)
+    with pytest.raises(NativeAgentUnavailable, match="连续 3 次校验失败"):
+        run(r, tmp_path)
+    assert len(attempted) == 3
+    assert len(requests) == (1 if one_batch else 3)
+    saved = json.loads(next((tmp_path / "runtime/provider_sessions").glob("*.json")).read_text(encoding="utf-8"))["messages"]
+    answers = [m["tool_call_id"] for m in saved if m["role"] == "tool"]
+    assert answers == [c["id"] for c in (calls if one_batch else calls[:3])]
+
+
 def test_critic_model_mismatch_stops_without_paid_recovery_or_review_dispatch(tmp_path, monkeypatch):
     import app.litellm_runtime as module
     image = tmp_path / "inputs/reference/source.png"
