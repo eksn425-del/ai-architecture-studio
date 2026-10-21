@@ -612,6 +612,7 @@ function updateHeader() {
   $("conversation-send").setAttribute("aria-label", $("conversation-send").querySelector("span:first-child").textContent);
   $("conversation-send").title = $("conversation-send").getAttribute("aria-label");
   const isBlender = agent.modeling_backend === "blender";
+  $("start-blender-session").title = "Blender 体块测试：支持有界网格、材质、局部修改和原生保存重开；外观质量尚未验收。";
   document.querySelector(".eyebrow").textContent = isBlender ? "BLENDER ASSISTANT" : "SKETCHUP ASSISTANT";
   document.querySelector(".mode-label small").textContent = isBlender ? "Blender" : "SketchUp";
   if (isBlender) {
