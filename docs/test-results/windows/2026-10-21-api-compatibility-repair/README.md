@@ -27,6 +27,8 @@ Offline tests exercise the actual SSE parser, complete tool batches, private rea
 
 Latest grouped checks: 344 Python passes, one platform skip; 102 production JavaScript passes. Two existing Windows symlink tests first failed with WinError 1314 and are excluded from the subsequent focused intent run; they are not counted as passes. A separate run without Python UTF-8 mode initially hit an existing locale-dependent test read, then passed under the CI-configured UTF-8 mode. All raw failures remain local. GitHub workflow results are checked separately for the actual final commit.
 
+The first GitHub broad baseline comparison on `db171a8` detected an outdated integration-test allowlist that still expected exactly the previous three workspace tools. It is updated to require the new fourth typed tool and its version precondition. The initial failed CI run remains visible; it is not rewritten as a pass. Existing main Ruby/MCP test-environment failures are separate from this additional contract mismatch.
+
 The same 41-file failed API project, its 24-row budget ledger and native SKP files are preserved. No fresh external inference, native build, edit, save, download, reopen, original-program replay or cloud deployment is claimed for this follow-up. Further paid acceptance needs a new explicit ceiling decision or attributable settlement of the five unknown requests; aggregate account balance is insufficient to erase them.
 
 ## Product judgment and next acceptance

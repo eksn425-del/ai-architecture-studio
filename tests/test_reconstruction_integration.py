@@ -237,7 +237,9 @@ def test_litellm_reconstruction_retains_history_and_uploaded_evidence(tmp_path, 
     seen = []
     def completion(**kwargs):
         seen.append(kwargs)
-        assert {t["function"]["name"] for t in kwargs["tools"]} == {"workspace_read", "workspace_write", "workspace_search"}
+        assert {t["function"]["name"] for t in kwargs["tools"]} == {"workspace_read", "workspace_write", "workspace_search", "workspace_update_strategy"}
+        typed = next(t["function"] for t in kwargs["tools"] if t["function"]["name"] == "workspace_update_strategy")
+        assert "expected_sha256" in typed["parameters"]["required"]
         return SimpleNamespace(model=kwargs["model"].split("/", 1)[-1],
             choices=[SimpleNamespace(message={"content": "plan", "tool_calls": None})],
             usage={"prompt_tokens": 0, "completion_tokens": 0})
