@@ -746,8 +746,15 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if app.state.agent_lock.acquire(blocking=False):
                 try:
                     context = store.load_context(project_id)
+                    before = context.model_dump(mode="json")
                     _reference_attachments(context, store.project_dir(project_id))
-                    store.save(context, store.project_dir(project_id) / "state/project_context.json")
+                    if context.model_dump(mode="json") != before:
+                        # A read-side attachment migration is not user activity.
+                        # Keep the sidebar's persisted recency while saving it.
+                        context_path = store.project_dir(project_id) / "state/project_context.json"
+                        stamp = context_path.stat()
+                        store.save(context, context_path)
+                        os.utime(context_path, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
                 finally:
                     app.state.agent_lock.release()
             return store.load_project(project_id)
