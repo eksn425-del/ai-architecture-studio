@@ -558,6 +558,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
     from .connector_setup import register_routes as register_connector_setup_routes
     register_connector_setup_routes(app, app.state.agent_lock)
+    from .speech_input import register_routes as register_speech_routes
+    register_speech_routes(app, store.root)
     from .software_updates import register_routes as register_software_update_routes
     register_software_update_routes(app)
 

@@ -1,3 +1,9 @@
+## 2026-10-22 — First-message 500 regression and local voice hotfix
+
+[Evidence and limitations](test-results/windows/2026-10-22-voice-api-hotfix/README.md). Fix missing user_message_id before inference; replace system dictation with app PCM/local Vosk. Paid/native acceptance remains pending; preserve owner API configuration, USD2 ledger and models.
+
+---
+
 ## 2026-10-21 — Owner onboarding and initial API preflight repair
 
 [Evidence and limits](test-results/windows/2026-10-21-onboarding-repair/README.md). Fix text selection, simplified BYOK, user-triggered dictation, connector download/manual candidate selection, and redundant first read-only intent inference. Actual apartment timeout was awaiting response headers for ~242s/zero chunks; upstream cause remains unproven. 200 Python +104 UI checks pass, two environment symlink cases excluded honestly. No new paid calls/native writes; USD2 ledger and originals preserved. Local connector bundle only; public rights/clean-PC/other-version/native API acceptance pending.

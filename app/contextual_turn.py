@@ -185,6 +185,8 @@ def resolve_host_action(router, *, project, session, request, context):
             and not request.approval_gesture):
         action = 'plan' if request.agent_action == 'plan' else 'clarify'
         return action, {'provider': 'host_readonly_entry', 'action': action,
+                           'user_message_id': 'message:' + uuid.uuid4().hex,
+                           'user_message': request.message,
                            'execution_granted': False, 'reason': 'No current plan or model; analysis only.'}
     from .contextual_attachments import attachment_snapshot
     has_pending=any(x['editable'] for x in attachment_snapshot(project,context))
