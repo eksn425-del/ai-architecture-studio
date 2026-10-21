@@ -28,6 +28,8 @@ The isolated 36-input/54-output-token diagnostic returned in 7.2 seconds; it is 
 - Same strategy file failing three times now stops the billable loop, answers all outstanding batch IDs and skips remaining dispatches. Validation errors include the full exact contract and units guidance; rejected files remain unchanged. These fixes are verified offline; they were not used to rewrite or promote the failed live case.
 - Final focused checks: 61 passed. This includes real transport protocol fixtures, reservation retention, credential-host separation, failure receipt persistence and production-JavaScript error rendering. Fixtures are offline evidence only; they do not establish live provider uptime or native model quality.
 
+The first remote regression also exposed the new Chat SSE branch incorrectly intercepting the separate Responses subclass. Dispatch is now restricted to Chat runtimes; 97 API/context/tool-protocol tests pass after the fix. Original failed CI runs remain visible; no fixture-key rejection was treated as paid owner inference.
+
 SSE, requested Low reasoning and earlier active-history compaction recovered genuine tool execution but did not eliminate provider/network timeouts or deliver a complete plan. The existing five-timeout run is preserved; no native geometry was generated outside Studio to substitute for it. The cause of the remaining idle read timeout is not isolated between the gateway, upstream capacity and the existing local proxy. Direct network access had timed out; successful requests used the already-configured environment proxy. Do not claim mainland direct-network stability, architecture quality, or commercial release readiness from this run.
 
 ## Sources
