@@ -581,9 +581,6 @@ function updateHeader() {
   $("conversation-input").placeholder = $("workflow-mode").value === "image_reconstruction"
     ? sourceImages().length ? "根据这些图片还原建筑，或继续描述修改要求" : "描述你想建的建筑，也可粘贴一张或多个视角图片"
     : agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
-  $("conversation-hint").textContent = agentReady
-    ? "每轮对话都在同一份 SketchUp 副本上执行；Agent 可连续调用工具、查看截图/状态并保存检查点。"
-    : "可以先讨论与上传项目资料；未启动空白模型前，SketchUp 工具保持关闭。";
   $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
   const reconstruction = $("workflow-mode").value === "image_reconstruction";
   const reconstructionState = agent.reconstruction_state || "idle";
@@ -614,18 +611,11 @@ function updateHeader() {
   if (!state.busy) $("conversation-send").querySelector("span:first-child").textContent = state.planEditing ? "更新参数计划" : !reconstruction ? "发送消息" : {idle: "发送", clarifying: "继续交流", planned: "继续交流 / 更新计划", building: "发送修改要求"}[reconstructionState];
   $("conversation-send").setAttribute("aria-label", $("conversation-send").querySelector("span:first-child").textContent);
   $("conversation-send").title = $("conversation-send").getAttribute("aria-label");
-  if (reconstruction) $("conversation-hint").textContent = state.busy
-    ? "本轮正在处理；请查看实时进度，无需重复点击批准或发送。"
-    : reconstructionState === "planned"
-    ? agentReady ? "可点击开始建模，或在对话中说“按当前计划开始建模”。更改要求会先更新计划。" : "确认当前计划后连接 SketchUp 开始；也可以在对话中确认。"
-    : reconstructionState === "building" ? "继续修改同一份模型；Agent 将查看截图并修正。" : "先聊天、补充资料；信息确认后点击「整理建模计划」。批准之前不会改动 SU。";
   const isBlender = agent.modeling_backend === "blender";
   document.querySelector(".eyebrow").textContent = isBlender ? "BLENDER ASSISTANT" : "SKETCHUP ASSISTANT";
   document.querySelector(".mode-label small").textContent = isBlender ? "Blender" : "SketchUp";
-  document.querySelector(".composer-foot > span:last-child").textContent = isBlender ? "输出可编辑 BLEND" : "输出可编辑 SKP";
   if (isBlender) {
     $("start-agent-session").hidden = true;
-    $("conversation-hint").textContent = "Blender 测试：先整理计划，再批准执行。支持有界网格、材质、局部修改和原生保存重开；外观质量尚未验收。";
     $("next-step").textContent = reconstructionState === "building" ? "继续修改同一模型，或在模型与文件中下载 .blend。" : reconstructionState === "planned" ? "查看计划后批准执行 Blender 体块测试。" : "先描述要求，再整理计划。";
     $("prepare-plan").hidden = reconstructionState === "planned" || reconstructionState === "building";
   }

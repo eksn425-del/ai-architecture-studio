@@ -82,8 +82,6 @@ body { background: var(--bg); }
 .composer-toolbar :is(.model-controls, label[for="reference-role"], .file-pick) { font-size: 10px; }
 .send-button { width: 35px; height: 35px; border-radius: 10px 10px 4px 10px; background: #315f4b; box-shadow: 0 2px 5px #315f4b17; }
 .send-button:disabled { background: #a6b6a3; opacity: .75; }
-.composer-foot { color: #909783; padding-top: 8px; font-size: 9px; }
-.composer-foot > span:last-child { color: #748469; }
 .task-details, .submitted-reference-history, .plan-in-chat { width: min(920px, 100%); }
 .task-details > summary, .submitted-reference-history > summary { font-size: 11px; }
 .chat-message.user { background: #e7ecdf; border: 1px solid #dfe5d5; border-radius: 13px 13px 3px 13px; }
@@ -204,13 +202,13 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 
 /* Owner acceptance: one conversation scroll surface and one compact composer. */
 .conversation-history{width:100%;max-width:1160px;margin:0 auto;padding:16px 26px;min-height:0;flex:1;overflow-y:auto}
-.composer-area{width:min(1160px,100%);padding:4px 26px 9px}
-.conversation-form{padding:8px 14px 7px;border-radius:13px}
-#conversation-input{min-height:44px;max-height:108px;padding:3px 2px;line-height:1.55}
+.composer-area{width:min(1160px,100%);padding:4px 26px 6px}
+.conversation-form{padding:6px 14px;border-radius:13px}
+#conversation-input{height:44px;min-height:44px;max-height:108px;padding:3px 2px;line-height:1.55}
+.composer-toolbar{margin-top:2px;padding-top:5px}
 .composer-controls{margin:0 0 3px;min-height:0;gap:6px}
 .composer-controls .turn-state{font-size:10px;margin:0}
 .composer-controls .button-primary,.composer-controls .button-quiet{padding:5px 9px;font-size:11px}
-.composer-foot{font-size:9px;padding:2px 0 0}.composer-foot span{line-height:1.4}
 .turn-cancel-controls{padding:0;gap:7px}.turn-cancel-controls:has(>button[hidden]):has(>p[hidden]){display:none}
 .turn-cancel-controls button{padding:3px 8px;font-size:10px}
 #native-turn-event{display:none}
