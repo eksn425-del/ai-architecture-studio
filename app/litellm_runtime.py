@@ -10,6 +10,7 @@ from typing import Any
 
 from .agent_tools import AgentToolSurface
 from .context_compaction import (
+    DEFAULT_COMPACTION_THRESHOLD_CHARS,
     build_reconstruction_checkpoint,
     compact_active_reconstruction_context,
 )
@@ -369,6 +370,8 @@ class LiteLLMRuntime:
                 request_messages, compaction = compact_active_reconstruction_context(
                     request_messages,
                     checkpoint,
+                    threshold_chars=60_000 if self.api_base.rstrip("/") == "https://api.b.ai/v1"
+                    else DEFAULT_COMPACTION_THRESHOLD_CHARS,
                 )
             kwargs: dict[str, Any] = {
                 "model": selected_model,
