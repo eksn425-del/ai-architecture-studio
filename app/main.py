@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+
 from contextlib import asynccontextmanager
 import html
 import io
@@ -556,6 +558,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
     from .connector_setup import register_routes as register_connector_setup_routes
     register_connector_setup_routes(app, app.state.agent_lock)
+    from .software_updates import register_routes as register_software_update_routes
+    register_software_update_routes(app)
 
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     def index() -> FileResponse:
@@ -719,8 +723,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if context_file.exists():
                 context = store.load(ProjectContext, context_file)
                 model_state = store.load_state(directory.name, "model_state.json", ModelState)
-                items.append({"project_id": context.project_id, "project_name": context.project_name, "status": model_state.status})
-        return items
+                items.append({"project_id": context.project_id, "project_name": context.project_name, "status": model_state.status, "updated_at": context_file.stat().st_mtime})
+        return sorted(items, key=lambda item: item["updated_at"], reverse=True)
 
     @app.post("/api/projects")
     def create_project(request: CreateProjectRequest) -> dict[str, Any]:
@@ -2197,6 +2201,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "routing_reason": route_reason,
             "premium_rescue_pending": session.premium_rescue_pending,
         }
+        if action == "plan" and session.reconstruction_state == "planned":
+            turn_metadata["plan_text"] = text
+            turn_metadata["plan_sha256"] = hashlib.sha256(text.replace("\r\n", "\n").replace("\r", "\n").encode()).hexdigest()
         _append_conversation(context, "assistant", phase, reply, turn_metadata)
         store.save_state(project_id, session, "agent_session.json")
         store.save(context, project_dir / "state" / "project_context.json")

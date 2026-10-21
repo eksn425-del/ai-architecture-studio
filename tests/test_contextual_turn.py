@@ -28,6 +28,19 @@ def test_natural_approval_bound_to_actual_request(tmp_path):
     assert validate_decision(decision(snap),snap,project=tmp_path,session=s,request=r)=='execute'
 
 
+@pytest.mark.parametrize('message,expected', [
+    ('修复当前模型侧背面，不要把楼板露出来，其他保留。', 'execute'),
+    ('修复当前模型，不要把楼板露出来，但先别修改。', 'clarify'),
+    ('如果修改，不要把楼板露出来。', 'clarify'),
+    ('先讨论“不要把楼板露出来”的方案。', 'plan'),
+    ('不要开始建模，不要把楼板露出来。', 'clarify'),
+])
+def test_existing_model_design_restriction_cannot_hide_a_real_stop(tmp_path, message, expected):
+    s,r,snap=setup(tmp_path,message)
+    s.reconstruction_state='building'
+    assert validate_decision(decision(snap),snap,project=tmp_path,session=s,request=r)==expected
+
+
 @pytest.mark.parametrize('message,changes,expected',[
  ('我批准，但三层改四层',{'changes_plan':True},'plan'),
  ('我没有批准',{'action':'clarify'},'clarify'),

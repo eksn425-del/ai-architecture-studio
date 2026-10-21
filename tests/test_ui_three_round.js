@@ -280,3 +280,15 @@ for (const [label, pending] of [
     assert.match($('parameter-plan-content').innerHTML, /刷新或重新整理计划/);
   });
 }
+
+test('executed archived plan stays once in conversation without granting another approval', async () => {
+  const card = 'one immutable plan', sha256 = createHash('sha256').update(card).digest('hex');
+  const { sandbox, state, $ } = planContext(async () => card, webcrypto, {pending_plan_id:'p',plan_sha256:sha256,consumed:true});
+  state.project.agent_session.reconstruction_state='building';
+  state.project.context={conversation:[{role:'assistant',metadata:{plan_text:card,plan_sha256:sha256}}]};
+  await sandbox.loadParameterPlan();
+  assert.equal($('parameter-plan').hidden,true);
+  assert.equal(state.displayedPlan,null);
+  assert.match($('parameter-plan-content').innerHTML,/已执行/);
+  assert.doesNotMatch($('parameter-plan-content').innerHTML,/版本尚未核验/);
+});

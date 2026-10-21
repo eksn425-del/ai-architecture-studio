@@ -101,6 +101,10 @@ def workflow_prompt_note(mode: WorkflowMode, action: AgentAction = "auto") -> st
 def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                                     action: AgentAction = "auto") -> str:
     safety = (
+        "Scope environment separately: restoring a building alone does not authorize streets, cars or dense planting; include them only when requested or approved. "
+        "First verify one repeated slab/wall/window module: record exterior wall planes, slab edge offsets and wall thickness in common coordinates. Measure actual slab edges at side/rear corners; unless source shows exposed bands, floors must not pierce exterior finish. "
+        "Inspect stair/landing/handrail joints and plant clearance against actual building after placement. Keep reusable vegetation separate and outside occupied building volume. Unseen facades are inferred coherent design, not source restoration. "
+
         "When using project Ruby, modify only the supplied owned root and create unique semantic IDs for sibling elements. "
         "Never use project Ruby to access files, processes, network, reflection, other models, or whole-model edit/save APIs. "
         "The static source guard is not a sandbox. Work only on the verified blank-disposable model."
@@ -120,6 +124,7 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                      "The host requires this planning turn to save the card before approval. "
                      "Reading or checking previously saved notes alone does not complete a plan retry; "
                      "save the verified compact card even when the requested scope is unchanged. "
+                     "Use only exact method IDs from notes/construction_strategy_schema.md or the supplied method catalog, never guessed method names; target_paths are arrays of 1..8 exact group-name segments. "
                      "Provide ONE concise Chinese plan for approval; no geometry writes.")
         else:
             stage = ("User approved execution or requested an edit to the existing model. Read the current "

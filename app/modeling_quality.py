@@ -115,6 +115,7 @@ def build_visual_critic_prompt(
         "roof-wall-glazing interfaces, material/relief and source-defining details only WHERE SHOWN. "
         "Missing source-backed primary geometry outranks decorative details. Check that apparent joints are real "
         "geometry, not intersections/floating elements; note intended shadow gaps separately. "
+        "Inspect slabs piercing side/rear enclosure, floating stair rails and plants colliding with buildings. Assess inferred facades for coherence rather than inventing unseen source fidelity. "
         "A six-view screenshot is evidence of a model, not proof of source fidelity; source-matched views take priority. "
         "KEEP only genuinely correct named elements, and never protect a whole system whose dimensions need correction. "
         f"Source: {refs}. Current views: {reviews}. "

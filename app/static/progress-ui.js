@@ -38,15 +38,35 @@
         else continue;
       }
       const list = article.querySelector('ol');
-      const known = new Set(Array.from(list.children, item => item.dataset.eventId));
+      // Aggregate the display; every original audit receipt remains available.
+      const grouped = new Map();
       for (const event of run.events || []) {
-        if (known.has(event.id)) continue;
+        const key = event.group || event.text.replace(/，(?:已收到执行结果|正在处理返回的问题)$/, '');
+        let group = grouped.get(key);
+        if (!group) { group = {key, count:0, warnings:0}; grouped.set(key, group); }
+        group.lastIndex = (run.events || []).indexOf(event);
+        group.count++; group.warnings += event.status === 'warning' ? 1 : 0;
+      }
+      list.replaceChildren();
+      for (const group of Array.from(grouped.values()).sort((a,b) => a.lastIndex-b.lastIndex).slice(-4)) {
         const item = document.createElement('li');
-        item.dataset.eventId = event.id;
-        item.className = event.status === 'warning' ? 'activity-warning' : '';
-        item.textContent = event.text;
+        item.className = group.warnings ? 'activity-warning' : '';
+        item.textContent = group.key + (group.count > 1 ? ` · ${group.count} 条记录` : '')
+          + (group.warnings ? ` · ${group.warnings} 次问题` : '');
         list.append(item);
       }
+      let details = article.querySelector('details');
+      if (!details) { details = document.createElement('details'); article.append(details); }
+      const opened = details.open;
+      details.replaceChildren();
+      const summary = document.createElement('summary');
+      summary.textContent = `查看本轮 ${(run.events || []).length} 条执行记录`;
+      const raw = document.createElement('ol');
+      for (const event of run.events || []) {
+        const item = document.createElement('li'); item.textContent = event.text;
+        item.className = event.status === 'warning' ? 'activity-warning' : ''; raw.append(item);
+      }
+      details.append(summary, raw); details.open = opened;
       article.dataset.running = String(!run.finished);
     }
     restore(history, position);

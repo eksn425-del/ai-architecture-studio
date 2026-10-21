@@ -22,10 +22,15 @@ ATTACHMENT_INSTRUCTIONS = """
 Also return attachment_roles, an array of {attachment_id,role,evidence_quote}. Only editable attachments may appear. Resolve their purpose from the actual CURRENT_USER text and attachment/history identity, not filenames or invented image content. Images are attached in the same order as editable attachments in CURRENT_USER. Use the images to ground which attachment is referenced, but never infer intended use from appearance alone. When unclear, keep unknown and action=clarify so the assistant asks a brief natural question in the conversation, without asking the user to select a category. role is target_building, defect_location, supporting or unknown. evidence_quote must be an exact span from CURRENT_USER.user_message supporting that attachment's purpose. Respect image order and mixed roles; if which image is meant is ambiguous use unknown. Never reinterpret submitted or user-selected roles. Historical defect images stay tied to their old version. Omit an attachment when the user gives no new evidence; do not downgrade an existing reliable default merely for 'continue'. This classifies intended use, not visual content.
 """
 
-def authorization_veto(message: str) -> str | None:
+def authorization_veto(message: str, *, existing_model: bool = False) -> str | None:
     # Scoped KEEP is a restriction within an edit, not a global stop.
     text=re.sub(r"不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*", "", message)
     text=re.sub(r"不要执行旧(?:整栋)?(?:基线|脚本|计划)", "", text)
+    if existing_model:
+        # A requested correction to an existing enclosure is not a global stop.
+        # This removes only the observed design restriction from the veto scan;
+        # the actual message, read-only intent decision, scope and KEEP stay intact.
+        text=re.sub(r"不要(?:把)?楼板(?:边缘)?(?:再)?(?:露出来|外露|露在墙外|伸出墙外|穿出外墙)", "", text)
     if not text.strip(" ，。；！!\n"):return "clarify"
     text=re.sub(r"(?:检查|核对|验证)是否", "检查", text)
     if re.search(r"(?:但是|但|不过).{0,24}(?:改成|改为|调整|修改|改\w*层)|批准.{0,12}(?:改为|改成)",text):return 'plan'
@@ -84,7 +89,7 @@ def validate_decision(raw: dict, snapshot: dict, *, project: Path, session, requ
         from .reconstruction_runtime import resolve_reconstruction_action
         constraint=resolve_reconstruction_action(session,request.model_copy(update={'agent_action':'execute'}))
         if constraint!='execute':return constraint
-        veto=authorization_veto(request.message)
+        veto=authorization_veto(request.message, existing_model=session.reconstruction_state == 'building')
         if veto:return veto
     if session.reconstruction_state not in {'planned','building'} or not snapshot['plan_sha256']:
         raise ValueError('A current plan is required before model execution.')

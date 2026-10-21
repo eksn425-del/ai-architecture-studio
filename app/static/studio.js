@@ -126,7 +126,7 @@ function renderWorkflowChecks(progress = null) {
 
 async function refreshProjects() {
   const projects = await api("/api/projects");
-  projectList = projects;
+  projectList = projects.sort((a, b) => (Number(b.updated_at) || 0) - (Number(a.updated_at) || 0));
   $("project-select").innerHTML = projects.map((project) => `<option value="${escapeHtml(project.project_id)}">${escapeHtml(project.project_name)}</option>`).join("");
   if (state.projectId) $("project-select").value = state.projectId;
   renderProjectHistory();
@@ -319,10 +319,16 @@ async function loadParameterPlan() {
     if (requestId !== planRequestId || projectId !== state.projectId) return;
     $("parameter-plan-content").innerHTML = '<p class="plan-review-note">请重点核对层数、各立面的门窗数量、尺寸与推断。AI 可能误读图片；有差异时点击「修改参数」纠正后再批准。</p>' + parameterPlanMarkup(card);
     const sha256 = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+    $("parameter-plan").hidden = (state.project?.context?.conversation || []).some(m => m.role === "assistant" && m.metadata?.plan_sha256 === sha256);
     let pendingPlan;
     try { pendingPlan = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/pending-plan`); }
     catch (_) { pendingPlan = null; }
     if (requestId !== planRequestId || projectId !== state.projectId) return;
+    if (pendingPlan?.consumed && pendingPlan.plan_sha256 === sha256 && state.project?.agent_session?.reconstruction_state === "building") {
+      state.displayedPlan = null;
+      $("parameter-plan-content").insertAdjacentHTML("afterbegin", '<p class="plan-review-note">该计划已执行。可在对话中继续提出局部修改。</p>');
+      return;
+    }
     if (!pendingPlan || typeof pendingPlan.pending_plan_id !== "string" || !pendingPlan.pending_plan_id
         || pendingPlan.consumed || pendingPlan.plan_sha256 !== sha256) {
       state.displayedPlan = null;
@@ -611,7 +617,7 @@ function updateHeader() {
   if (reconstruction) $("conversation-hint").textContent = state.busy
     ? "本轮正在处理；请查看实时进度，无需重复点击批准或发送。"
     : reconstructionState === "planned"
-    ? agentReady ? "计划已生成。点击批准执行后，Agent 将开始建模。" : "计划已生成。点击批准后按引导连接 SketchUp，再开始建模。"
+    ? agentReady ? "可点击开始建模，或在对话中说“按当前计划开始建模”。更改要求会先更新计划。" : "确认当前计划后连接 SketchUp 开始；也可以在对话中确认。"
     : reconstructionState === "building" ? "继续修改同一份模型；Agent 将查看截图并修正。" : "先聊天、补充资料；信息确认后点击「整理建模计划」。批准之前不会改动 SU。";
   const isBlender = agent.modeling_backend === "blender";
   document.querySelector(".eyebrow").textContent = isBlender ? "BLENDER ASSISTANT" : "SKETCHUP ASSISTANT";
@@ -682,7 +688,7 @@ function renderConversation() {
       : "";
     return '<article class="chat-message ' + (isUser ? "user" : "assistant") + '" data-created-ms="' + (Date.parse(message.created_at) || 0) + '" data-activity-anchor="' + escapeHtml(meta.activity_id || "") + '"><header><span>'
       + speaker + "</span><span>" + phase + '</span></header><div class="markdown-content">' + chatText(message.content)
-      + "</div>" + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
+      + "</div>" + (!isUser && meta.plan_text ? `<section class="inline-plan markdown-content"><h3>本轮计划与参数</h3>${parameterPlanMarkup(meta.plan_text)}</section>` : "") + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
   if (typeof KStudioActivity !== "undefined") {
     if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><p>正在处理本轮要求…</p></article>');
@@ -1442,7 +1448,7 @@ function renderConnectorSetup() {
   const selected = (info.installations || []).find(item => String(item.year) === $("connector-sketchup-version").value);
   const existing = info.configuration_kind === "existing";
   const legacyPlugin = selected?.plugin_kind === "existing";
-  const available = info.platform_supported && info.package_available && !!selected && !existing && !legacyPlugin;
+  const available = info.platform_supported && info.package_available && !!selected && selected.year >= 2019 && selected.year <= 2026 && !existing && !legacyPlugin;
   const download = $("connector-plugin-download");
   if (available) download.href = "/api/connectors/sketchup/plugin";
   else download.removeAttribute("href");
@@ -1450,11 +1456,12 @@ function renderConnectorSetup() {
   $("connector-runtime-install").disabled = !available || info.configured || connectorSetupBusy;
   $("connector-runtime-install").textContent = info.configured ? "已有连接配置 · 已保留" : "安装本机连接程序";
   $("connector-setup-check").disabled = connectorSetupBusy;
+  download.textContent = existing || legacyPlugin ? "已检测到现有插件 / 配置 · 跳过安装" : "下载 SketchUp 插件 (.rbz) ↓";
   $("connector-version-note").textContent = selected
     ? `${selected.name} · ${selected.plugin_present ? "检测到插件文件；仍需检查实际连接" : "尚未检测到插件"} · 兼容性尚未验证`
     : info.installations?.length ? "请选择你要连接的 SketchUp 版本，不会自动替换。" : "没有识别到 SketchUp。请先安装或注册你已有的软件，本窗口不会替你安装其他版本。";
   $("connector-package-note").textContent = existing || legacyPlugin
-    ? "检测到已有连接配置或同名插件，当前保留，不用试用包覆盖。你可以直接检查现有 MCP。"
+    ? "已有插件 / 连接配置已保留，无需重复下载或安装。请直接完成第 4 步“检查 MCP 连接”；若连接失败，再查看提示。"
     : !info.platform_supported ? "当前安装程序仅适用于 Windows。"
     : !info.package_available ? "安装包尚未准备好；下载与安装暂不可用。"
     : info.publication === "private_local_trial" ? "本机试用包：尚未完成公开分发许可审查和新电脑原生验收，不作为正式发行版。"
@@ -1475,6 +1482,7 @@ async function openConnectorSetup() {
     if (generation !== connectorSetupGeneration || !$("connector-setup-dialog").open) return;
     connectorSetupInfo = info;
     $("connector-sketchup-version").innerHTML = '<option value="">请选择你使用的版本</option>' + (info.installations || []).map(item => `<option value="${item.year}">${escapeHtml(item.name)}</option>`).join("");
+    if (info.installations?.length === 1) $("connector-sketchup-version").value = String(info.installations[0].year);
     renderConnectorSetup();
     $("connector-setup-status").textContent = info.configured ? "已发现连接配置；尚未检查实际 MCP 连通性。" : "请选择软件版本，按顺序完成插件和本机连接程序安装。";
   } catch (error) {
@@ -1728,4 +1736,12 @@ $("start-blender-session")?.addEventListener("click", async () => {
     setBusy(button, false);
     updateHeader();
   }
+});
+
+$("check-software-update").addEventListener("click", async () => {
+  const button = $("check-software-update"); if (button.disabled) return;
+  button.disabled = true; $("software-update-status").textContent = "正在检查正式版本…";
+  try { const result = await api("/api/software-update"); $("software-update-status").textContent = result.message + (result.latest_tag ? ` 版本：${result.latest_tag}` : ""); }
+  catch (_) { $("software-update-status").textContent = "暂时无法检查更新，当前版本和项目保持不变。"; }
+  finally { button.disabled = false; }
 });

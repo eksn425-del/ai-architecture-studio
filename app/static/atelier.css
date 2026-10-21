@@ -201,3 +201,30 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 .reference-source img { width: 64px; height: 48px; object-fit: contain; border: 1px solid var(--line); border-radius: 5px; }
 .reference-source small { display: block; color: var(--muted); font-size: 10px; }
 @media (max-width: 650px) { .live-activity { margin: 10px 0 16px; padding: 10px 12px; } }
+
+/* Owner acceptance: one conversation scroll surface and one compact composer. */
+.conversation-history{width:100%;max-width:1160px;margin:0 auto;padding:16px 26px;min-height:0;flex:1;overflow-y:auto}
+.composer-area{width:min(1160px,100%);padding:4px 26px 9px}
+.conversation-form{padding:8px 14px 7px;border-radius:13px}
+#conversation-input{min-height:44px;max-height:108px;padding:3px 2px;line-height:1.55}
+.composer-controls{margin:0 0 3px;min-height:0;gap:6px}
+.composer-controls .turn-state{font-size:10px;margin:0}
+.composer-controls .button-primary,.composer-controls .button-quiet{padding:5px 9px;font-size:11px}
+.composer-foot{font-size:9px;padding:2px 0 0}.composer-foot span{line-height:1.4}
+.turn-cancel-controls{padding:0;gap:7px}.turn-cancel-controls:has(>button[hidden]):has(>p[hidden]){display:none}
+.turn-cancel-controls button{padding:3px 8px;font-size:10px}
+#native-turn-event{display:none}
+.journey-guide{padding-top:12px;padding-bottom:0}.journey-next{margin-top:6px}
+.workspace-heading{padding-top:18px;padding-bottom:16px}
+.conversation-history .task-details{padding:0;width:100%;margin:0}
+.plan-in-chat{padding:0;width:100%}
+.plan-in-chat .parameter-plan{border:0;border-radius:0;background:transparent;padding:6px 0;margin:10px 0 18px}
+#parameter-plan-content,.plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;width:100%;max-height:none;height:auto;overflow:visible;box-shadow:none;padding:8px 0;border:0}
+.inline-plan{margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+.inline-plan pre,#parameter-plan-content pre{max-height:none;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere}
+.inline-plan table,#parameter-plan-content table{display:table;max-width:100%;table-layout:fixed;overflow-wrap:anywhere}
+.live-activity{background:transparent;border:0;border-left:2px solid #9db39b;border-radius:0;padding:5px 12px;margin:10px 0}
+.live-activity-heading{gap:8px}.live-activity-heading small{display:none}.live-activity-heading h2{font-size:13px;margin:0}
+.live-orbit{width:14px;height:14px}#live-activity-event{max-height:none;overflow:visible;margin:5px 0;font-size:11px}#live-activity-model{border:0;padding:0;font-size:10px}
+.activity-message{max-width:none;margin:8px 0 15px;padding-left:12px!important}.activity-message li{padding:1px 0}.activity-message ol{font-size:12px;line-height:1.65}.activity-message details{font-size:11px;color:var(--muted);margin-top:6px}
+@media(max-width:650px){.conversation-history{padding:12px 14px}.composer-area{padding:4px 10px 8px}.composer-toolbar .skill-tag{display:none}.workspace-heading{padding:10px 12px}}

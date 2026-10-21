@@ -124,6 +124,7 @@ def setup_status() -> dict:
             "package_version": version, "publication": publication,
             "configured": configured, "configuration_kind": "managed" if configured and managed else "existing" if configured else "missing",
             "installations": detect_installations(),
+            "compatibility_policy": {"candidate_years": list(range(2019, 2027)), "native_trial_years": [2024], "all_versions_verified": False},
             "native_reachability": "not_checked", "clean_machine_acceptance": "not_run"}
 
 
@@ -145,6 +146,8 @@ def install_runtime(year: int) -> dict:
         raise ValueError("此连接器安装流程目前只适用于 Windows。")
     if type(year) is not int or year not in {entry["year"] for entry in detect_installations()}:
         raise ValueError("请先选择检测到的 SketchUp 版本；未安装或未识别的版本不会被替代。")
+    if not 2019 <= year <= 2026:
+        raise ValueError("此版本尚不满足当前插件要求；请查看兼容性说明，未进行安装。")
     if _configured():
         return {"status": "existing_configuration_preserved", "configured": True,
                 "native_reachability": "not_checked", "plugin_installed_by_setup": False}

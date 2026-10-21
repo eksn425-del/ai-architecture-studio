@@ -65,6 +65,7 @@ def public_events(path: Path | None, limit: int = 524288) -> list[dict]:
             label = _label(str(item.get("tool", "")))
             failed = kind == "tool_result" and item.get("success") is False
             events.append({"id": f"{path.stem}:{offset}",
+                           "group": label, "kind": kind,
                            "text": label + ("，正在处理返回的问题" if failed else "，已收到执行结果" if kind == "tool_result" else ""),
                            "status": "warning" if failed else "done" if kind == "tool_result" else "running"})
     return events
