@@ -229,7 +229,7 @@ function renderLiveActivity(progress, unavailable = false) {
   const seconds = Number.isFinite(progress.elapsed_seconds) ? `${progress.elapsed_seconds} 秒` : "耗时同步中";
   $("live-activity-metrics").textContent = `${seconds} · ${Number.isInteger(progress.tool_calls) ? `已调用 ${progress.tool_calls} 次工具` : "工具次数尚未报告"}${progress.failed_tool_calls ? ` · ${progress.failed_tool_calls} 次失败` : ""}`;
   $("live-activity-event").textContent = unavailable ? "暂时无法确认最新进度，正在重连；请勿重复提交。" : $("native-turn-event").textContent || "本轮仍在运行，等待 Agent 返回下一条公开状态；不代表已完成。";
-  $("live-activity-model").textContent = progress.cancel_requested ? "已请求停止，等待服务端确认；已有修改不会自动撤销。" : progress.action !== "execute" ? "分析 / 计划阶段 · 不改动模型" : progress.committed_revisions?.length ? `本轮已有 ${progress.committed_revisions.length} 次模型提交 · 仍需完成检查` : "执行阶段 · 尚无本轮模型提交";
+  $("live-activity-model").textContent = progress.cancel_requested ? "已请求停止，等待服务端确认；已有修改不会自动撤销。" : progress.action !== "execute" ? "分析 / 计划阶段 · 不改动模型" : progress.committed_revisions?.length ? `本轮已有 ${progress.committed_revision_count ?? progress.committed_revisions.length} 次模型提交 · 仍需完成检查` : "执行阶段 · 尚无本轮模型提交";
   if (followLatest) viewport.scrollTop = viewport.scrollHeight;
 }
 

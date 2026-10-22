@@ -40,7 +40,7 @@ from .provider_readiness import readiness_matrix
 from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .native_delivery import record_delivery_checkpoint, bind_current_checkpoint_download
-from .agent_progress import select_turn_progress_log
+from .agent_progress import ProgressLogReader, select_turn_progress_log
 from .progress_activity import activity_history, update_activity
 from .references import ReferenceIngestor
 from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
@@ -1795,28 +1795,20 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         api_started = api_responded = script_written = False
         stage = "正在读取资料与思考"
         if event_log is not None:
-            for line in event_log.read_bytes()[-262144:].decode("utf-8", errors="replace").splitlines():
-                try:
-                    item = json.loads(line)
-                except ValueError:
-                    continue
-                api_started |= item.get("event") == "provider_started"
-                api_responded |= item.get("event") == "provider_response"
-                script_written |= item.get("event") == "tool_result" and item.get("tool") in {"workspace_write", "workspace_write_file"} and item.get("success") is not False
-                if item.get("event") in {"tool_started", "tool_result"}:
-                    calls += int(item.get("event") == "tool_result")
-                    failures += int(item.get("event") == "tool_result" and item.get("success") is False)
-                    tool = item.get("tool", "")
-                    stage = "正在执行建模脚本" if "ruby" in tool else "正在检查模型截图" if "image" in tool or "camera" in tool else "正在读取模型状态"
-                elif item.get("item_type") == "commandExecution":
-                    stage = "正在编写或检查模型脚本"
+            stats = active.setdefault("progress_reader", ProgressLogReader()).read(event_log)
+            calls, failures = stats["calls"], stats["failures"]
+            api_started, api_responded = stats["api_started"], stats["api_responded"]
+            script_written, stage = stats["script_written"], stats["stage"]
         committed = []
+        committed_revision_count = 0
         state_file = project_dir / "runtime/project_ruby_state.json"
         if state_file.is_file() and state_file.stat().st_mtime >= started:
             try:
                 scripts = json.loads(state_file.read_text(encoding="utf-8")).get("scripts", {})
                 committed = [int(v.get("revision", 0)) for k, v in scripts.items()
                              if int(v.get("revision", 0)) > int(active["baseline"].get(k, {}).get("revision", 0))]
+                committed_revision_count = sum(max(0, int(v.get("revision", 0)) -
+                    int(active["baseline"].get(k, {}).get("revision", 0))) for k, v in scripts.items())
             except (ValueError, OSError):
                 pass
         captures = [p for p in (project_dir / "outputs/renders").glob("agent-view-*.png") if p.stat().st_mtime >= started]
@@ -1833,6 +1825,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         return {"running": True, "activities":update_activity(project_dir, active), "request_id":active.get("request_id"), "native_event":native_event, "cancel_supported":cancel_supported, "cancel_requested":bool(active.get("cancel_requested")), "action": active["action"], "stage": stage, "elapsed_seconds": int(time.time()-started),
                 "checks": checks,
                 "tool_calls": calls, "failed_tool_calls": failures, "committed_revisions": committed,
+                "committed_revision_count": committed_revision_count,
                 "preview_url": _artifact(project_id, project_dir, capture, "viewport").url if capture else None}
 
     def converse_turn(project_id: str, request: ConversationRequest) -> dict[str, Any]:

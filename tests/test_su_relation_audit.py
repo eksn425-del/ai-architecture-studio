@@ -210,3 +210,21 @@ def test_actual_project_executor_guarded_contract_is_used(tmp_path, monkeypatch)
     assert len(calls) == 1
     assert result["connections"][0]["status"] == "unverified"
     assert executor.ruby_state["main"] == {"root_pid": 701, "revision": 3}
+
+
+def test_clearance_contract_exposes_zone_fields_and_rejects_wrong_frame_before_native_read():
+    executor = ContractExecutor()
+    specs, dispatch = prepare_su_relation_tools(executor)
+    schema = next(s for s in specs if s["name"] == "sketchup_audit_clearance")["inputSchema"]
+    zone_spec = schema["properties"]["zones"]["items"]
+    assert "parent_path" in zone_spec["required"] and zone_spec["additionalProperties"] is False
+    args = {"script_id": "main", "paths": [["STAIR"], ["LANDING"]], "endpoints": [],
+            "zones": [{"name": "corridor", "location": [4, 4, 4], "dimensions": [1, 1, 2],
+                       "ignore_paths": [], "parent_path": ["wrong-frame"]}]}
+    with pytest.raises(ValueError, match="path\\[:-1\\]"):
+        dispatch("sketchup_audit_clearance", args)
+    assert not executor.calls
+    args["zones"][0]["frame_id"] = "invented"
+    with pytest.raises(ValueError, match="not frame_id"):
+        dispatch("sketchup_audit_clearance", args)
+    assert not executor.calls

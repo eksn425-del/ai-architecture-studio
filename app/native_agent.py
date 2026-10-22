@@ -674,7 +674,14 @@ class CodexAppServerRuntime:
                     "Display returned image blocks through image(), or inspect the receipt's saved PNG with view_image. "
                     "For a result serialized as text plus data:image, print only the text prefix and inspect the saved PNG. "
                     "Print selected receipt fields (revision, status, errors, paths), not full KEEP ledgers. "
-                    "Keep complete evidence in workspace files; do not confuse a summary with a visual inspection."
+                    "Keep complete evidence in workspace files; do not confuse a summary with a visual inspection. "
+                    "Plan reads around the requested defect and protected geometry, not an exhaustive model inventory. "
+                    "Reuse verified exact-path inventory for unchanged subtrees; batch known paths in paths (up to48) "
+                    "instead of separate calls. Reinspect changed or ambiguous paths. Inspect array limits before writing "
+                    "(mutation paths48, KEEP paths256); protect a whole unchanged ancestor only when every descendant "
+                    "is protected. Never expand mutation scope or drop KEEP to fit. Capture the canonical set once per "
+                    "revision and reuse certified views; add only needed source/detail views. Check requested changes "
+                    "and regressions, then deliver remaining differences honestly; do not expand into cosmetic rework."
                 ),
             }
             from .research_tool_context import RESEARCH_TOOL_NAMES

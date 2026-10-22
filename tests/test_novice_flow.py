@@ -187,6 +187,12 @@ def test_progress_reports_current_evidence_without_transcripts(tmp_path):
     result = client.get(f"/api/projects/{project}/agent/progress")
     assert result.json()["tool_calls"] == 1 and result.json()["failed_tool_calls"] == 1
     assert result.json()["committed_revisions"] == [2]
+    assert result.json()["committed_revision_count"] == 2
+    app.state.active_turns[project]["baseline"] = {"house": {"revision": 2}}
+    (root / "runtime/project_ruby_state.json").write_text(json.dumps({"scripts":{"house":{"revision":5}}}), encoding="utf-8")
+    updated = client.get(f"/api/projects/{project}/agent/progress").json()
+    assert updated["committed_revisions"] == [5] and updated["committed_revision_count"] == 3
+    assert updated["tool_calls"] == 1  # Polls do not count the same event twice.
     assert "PRIVATE TEXT" not in result.text
 
 

@@ -177,19 +177,35 @@ def prepare_su_relation_tools(executor):
                     "tolerance": {"type": "number", "minimum": 0, "maximum": .1}},
                     "required": ["a", "b", "axis", "tolerance"], "additionalProperties": False}}},
             "required": ["script_id", "connections"], "additionalProperties": False}}
+    vector_schema = {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}}
+    zone_schema = {"type": "object", "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 80},
+        "location": vector_schema,
+        "dimensions": {**vector_schema, "items": {"type": "number", "exclusiveMinimum": 0}},
+        "ignore_paths": {"type": "array", "maxItems": 256, "items": path_schema},
+        "parent_path": {**path_schema, "minItems": 0}},
+        "required": ["name", "location", "dimensions", "ignore_paths", "parent_path"], "additionalProperties": False}
+    endpoint_schema = {"type": "object", "properties": {
+        "a": path_schema, "b": path_schema, "axis": {"type": "integer", "enum": [0, 1]},
+        "min_width_m": {"type": "number", "minimum": .001, "maximum": 100},
+        "max_step_m": {"type": "number", "minimum": 0, "maximum": 1},
+        "tolerance_m": {"type": "number", "minimum": 0, "maximum": .1}},
+        "required": ["a", "b", "axis", "min_width_m", "max_step_m", "tolerance_m"], "additionalProperties": False}
     clearance_spec = {"name": "sketchup_audit_clearance", "description": (
         "Read-only bounded clearance/endpoint candidates from selected exact native owned paths. "
         "paths=[[exact,names],...], max48. zones=[{name,location:[x,y,z],dimensions:[w,d,h],"
         "ignore_paths:[[exact,names],...],parent_path:[exact,parent]}]. parent_path may be [] "
-        "for direct children of the owned root. All distances in parent-local metres; native "
+        "for direct children of the owned root. It must equal path[:-1] of at least one selected path; "
+        "do not supply frame_id. ignore_paths and endpoint paths must be in paths. "
+        "All distances in parent-local metres; native "
         "ancestor transforms and full obstacle inventory are unavailable, so results stay unverified. "
         "endpoints=[{a:[exact,names],b:[exact,names],axis:0|1,min_width_m,max_step_m,tolerance_m}]. "
         "No physical walkability, stair safety, source-fidelity or building-code PASS."),
         "inputSchema": {"type": "object", "properties": {
             "script_id": {"type": "string"},
             "paths": {"type": "array", "minItems": 1, "maxItems": 48, "items": path_schema},
-            "zones": {"type": "array", "maxItems": 32, "items": {"type": "object"}},
-            "endpoints": {"type": "array", "maxItems": 32, "items": {"type": "object"}}},
+            "zones": {"type": "array", "maxItems": 32, "items": zone_schema},
+            "endpoints": {"type": "array", "maxItems": 32, "items": endpoint_schema}},
             "required": ["script_id", "paths", "zones", "endpoints"], "additionalProperties": False}}
 
     def dispatch(name, arguments):
@@ -208,10 +224,13 @@ def prepare_su_relation_tools(executor):
         zones, endpoints = [], []
         for zone in arguments["zones"]:
             if not isinstance(zone, dict) or set(zone) != {"name", "location", "dimensions", "ignore_paths", "parent_path"}:
-                raise ValueError("Invalid declared native zone")
+                raise ValueError("Native zone requires exactly name, location, dimensions, ignore_paths and parent_path; use parent_path, not frame_id. No native read was attempted.")
             parent = zone["parent_path"]
             if parent != []:
                 owned_path_id(parent)
+            if not isinstance(arguments["paths"], list) or not any(
+                    isinstance(path, list) and path[:-1] == parent for path in arguments["paths"]):
+                raise ValueError("zone.parent_path must match the parent of a selected exact path (path[:-1]); coordinates are parent-local metres. No native read was attempted.")
             if not isinstance(zone["ignore_paths"], list) or len(zone["ignore_paths"]) > 256:
                 raise ValueError("Invalid ignored exact paths")
             zones.append({"name": zone["name"], "location": zone["location"],

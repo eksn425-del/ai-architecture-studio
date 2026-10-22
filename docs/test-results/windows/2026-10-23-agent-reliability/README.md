@@ -19,3 +19,14 @@ Real native Codex exec outputs also printed the entire matching tool catalog and
 128 focused offline tests passed (102 modeling/identity/recovery/Critic +26 runtime/usage/control). One existing test was updated for the intentional postcommit exception contract; an initially requested nonexistent test filename ran no tests and was corrected. Native SU2024 read-only tests on r13 confirmed the exact missing path error and verified stale-GUID proof before a relation audit, with0 geometry writes. Native AABB relations remain proxies, not exact-solid or walkability certification.
 
 Private evidence: E-drive `outputs/agent-reliability-followup-20261023`. Real website continuation, final usage, current revision and delivery checks will be appended after execution. No source/model/credential publication, main merge or public deployment.
+
+
+## Additional defects exposed by the real continuation
+
+- Progress read only the last256KiB, eventually omitting earlier tools/errors. The actual live journal grew beyond500KiB while the UI still showed106tools. The replacement keeps scalar counters and an incremental complete-line offset, never retaining private transcript text. Nested Critic journals remain separate from Builder progress.
+- The model-commit display counted modified script IDs rather than revision increments: one script advancing several revisions displayed one commit. A separate revision-delta count now preserves the existing latest-revisions field.
+- Native clearance tool schemas exposed arbitrary objects although dispatch required exact zone/endpoint fields. Three live failures used malformed zone or incompatible parent-frame data. Explicit schemas, actionable errors and pre-native parent checks now expose the real contract without claiming solid/walkability PASS.
+- Ruby source guard errors now include the offending line; mutation-scope size errors report mode/count. Guard policy and48/256path bounds are unchanged.
+- Added execution guidance to reuse unchanged-path inventory, batch exact reads, respect path limits and reuse canonical captures at the same revision. This is behavioral guidance; cost reduction remains unverified until another real run.
+
+125 focused tests passed,4 skipped (environment-dependent cases);26 native runtime/usage/control tests passed. These are code regressions, not a new visual-quality or paid-provider acceptance. Program update waits for the current single writer to finish.
