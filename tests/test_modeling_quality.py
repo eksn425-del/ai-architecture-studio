@@ -1010,6 +1010,10 @@ def _feedback_review_fixture(tmp_path, *, accepted=False):
     (project / 'state').mkdir(exist_ok=True)
     (project / 'state/project_context.json').write_text(context.model_dump_json(), encoding='utf8')
     manifest = reference_manifest(project, [source])
+    from app.reconstruction_evidence import default_reconstruction_evidence
+    note = project / 'runtime/agent_workspace/notes/reconstruction_evidence.json'
+    note.parent.mkdir(parents=True, exist_ok=True)
+    note.write_text(json.dumps(default_reconstruction_evidence()), encoding='utf8')
     critique = 'NEEDS_FIX: NO\n<assessment>Source appearance accepted.</assessment>' if accepted else (
         'NEEDS_FIX: YES\n<assessment>Balcony needs depth.</assessment>\n'
         '<issue priority="1" view="front">problem: shallow balcony\naction: recess balcony</issue>')
@@ -1083,4 +1087,20 @@ def test_feedback_cannot_hide_changed_original_or_new_taskbook(tmp_path):
     assert load_current_independent_visual_review(project, state) is None
     assert not restore_defect_feedback_state(project, session, context)
     assert session.reconstruction_state == 'clarifying'
+
+
+def test_post_review_execution_metadata_is_not_new_target_truth(tmp_path):
+    import json
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, _, receipt = _feedback_review_fixture(tmp_path)
+    note = project / 'runtime/agent_workspace/notes/reconstruction_evidence.json'
+    evidence = json.loads(note.read_text(encoding='utf8'))
+    evidence['execution_turn'] = {'revision':3, 'geometry_written':True, 'save_reopen_verified':True}
+    note.write_text(json.dumps(evidence), encoding='utf8')
+    assert load_current_independent_visual_review(project, state) == receipt
+    # Execution metadata does not certify a reopen, change constraints, or cover
+    # a changed source specification. Every design fact stays hash-bound.
+    evidence['assumptions'] = ['a changed design assumption']
+    note.write_text(json.dumps(evidence), encoding='utf8')
+    assert load_current_independent_visual_review(project, state) is None
 

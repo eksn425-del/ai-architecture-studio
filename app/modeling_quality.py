@@ -732,8 +732,21 @@ def load_current_independent_visual_review(
         if allowed_sources != current_sources:
             return None
         stored = receipt.get("evidence_sha256")
-        if not isinstance(stored, dict) or not stored or stored != _review_evidence_hashes(project_dir, receipt):
+        if not isinstance(stored, dict) or not stored:
             return None
+        live_hashes = _review_evidence_hashes(project_dir, receipt)
+        if stored != live_hashes:
+            changed = {key for key in stored.keys() | live_hashes.keys() if stored.get(key) != live_hashes.get(key)}
+            if changed != {"runtime/agent_workspace/notes/reconstruction_evidence.json"}:
+                return None
+            # Builder may append an execution receipt AFTER Critic finishes.
+            # That claim is not source truth or permission. It cannot invalidate
+            # unchanged geometry/images, and it is never used as QA evidence.
+            old_facts = dict(receipt.get("reconstruction_evidence") or {})
+            live_facts = dict(load_reconstruction_evidence(project_dir, strict=True) or {})
+            old_facts.pop("execution_turn", None); live_facts.pop("execution_turn", None)
+            if json.dumps(old_facts, sort_keys=True) != json.dumps(live_facts, sort_keys=True):
+                return None
     except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError, StopIteration):
         return None
     return receipt

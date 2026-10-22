@@ -18,8 +18,6 @@ Frozen initial evidence reports 10,859,219 input, 10,340,096 cached input and 75
 
 Initial code checks: 36 focused Python tests and 114 UI tests passed. These are offline checks, not the pending live post-fix result. Later feedback rounds will use the same project and image with new immutable stage snapshots; they are not a controlled equal-complexity cost A/B against initial construction.
 
-## Public source review
-
 ## Second real round and follow-up candidate
 
 Owner-style defect feedback was submitted with an actual SU Orbit screenshot. The image was correctly classified as `defect_location`, leaving the original target unchanged. After installation of the first repair, real background-history navigation rendered the pending user message exactly once. The balcony correction completed normally at r8 with two targeted bays, current six-view/source-matched independent review and deep KEEP receipts; the global verdict remains NEEDS_FIX. Controller rubric: r6 72/100, r8 76/100. These subjective scores do not certify statutory compliance.
@@ -27,6 +25,8 @@ Owner-style defect feedback was submitted with an actual SU Orbit screenshot. Th
 A remaining observed friction is that a defect screenshot resets the conversation into full planning. The follow-up candidate restores the existing-model lifecycle only when fresh screenshots are all defects of the exact current revision, original targets/camera evidence remain hash-verified, and no new taskbook/site input was added. Independent current-user intent and all native/writer/scope checks still authorize execution. Added current defect screenshots may preserve an existing independent review of unchanged target/model evidence; changed targets, old defect revisions, unknown/supporting roles, altered bytes or missing provenance still invalidate it. Accepted old reviews can prove lifecycle identity without becoming a veto on a new edit. Third-round live validation is still pending.
 
 Also repair the actual `/E:/...` spelling returned in the second reply into a checked project-relative link, instead of redacting an otherwise valid project screenshot. Foreign files remain outside the allowed project. The follow-up's 142 focused Python tests passed, two Windows symlink privilege cases excluded. No live result is inferred from those checks.
+
+Actual r8 diagnostic also found that a post-Critic `execution_turn` metadata append invalidated the otherwise unchanged review. Source bytes, cameras, model revision and all other evidence facts matched. The loader now tolerates only this non-authoritative receipt field; any other source/design fact or image/sidecar change still invalidates reuse. Its claims never certify saving/reopening or grant an edit. Focused tests and passive validation of the real r8 receipt passed; third-round UI acceptance remains pending.
 
 ## Public source review
 
