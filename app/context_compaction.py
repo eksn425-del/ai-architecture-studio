@@ -233,6 +233,9 @@ def _request_size_chars(messages: list[dict[str, Any]]) -> int:
                 else:
                     total += len(str(block.get("text", "")))
         total += len(json.dumps(message.get("tool_calls") or [], ensure_ascii=False, default=str))
+        # Some thinking providers require reasoning_content on retained tool
+        # exchanges. It consumes context too, even though it is never UI text.
+        total += len(str(message.get('reasoning_content') or ''))
     return total
 
 
@@ -241,35 +244,68 @@ def compact_active_reconstruction_context(
     checkpoint: str,
     *,
     threshold_chars: int = DEFAULT_COMPACTION_THRESHOLD_CHARS,
+    compact_current_turn: bool = False,
 ) -> tuple[list[dict[str, Any]], dict[str, int | bool]]:
-    """Return a smaller active request while preserving the current turn intact.
+    """Compact completed history only; retain users and complete recent exchanges.
 
-    Compaction only occurs when there is meaningful durable project memory and
-    there is completed history before the current real user message. All tool
-    exchanges generated after that user message remain byte-for-byte present.
+    The API loop opts into pruning completed exchanges within a long turn.
+    Durable audit messages are never mutated or removed.
     """
     if not checkpoint or len(messages) < 3:
         return messages, {"compacted": False, "dropped_messages": 0, "before_chars": _request_size_chars(messages), "after_chars": _request_size_chars(messages)}
 
     before = _request_size_chars(messages)
     current_user = _current_real_user_index(messages)
-    if current_user is None or current_user <= 1 or before < threshold_chars:
+    if current_user is None or before < threshold_chars or (current_user <= 1 and not compact_current_turn):
         return messages, {"compacted": False, "dropped_messages": 0, "before_chars": before, "after_chars": before}
+
+    cut = current_user
+    if compact_current_turn:
+        # Only discard COMPLETE exchanges. Never leave orphan tool IDs or drop
+        # an unresolved write; the durable provider journal remains untouched.
+        batches = []
+        for index in range(current_user + 1, len(messages)):
+            calls = messages[index].get('tool_calls') or []
+            if not calls:
+                continue
+            ids = [call.get('id') for call in calls]
+            answers = []
+            end = index + 1
+            while end < len(messages) and messages[end].get('role') == 'tool':
+                answers.append(messages[end].get('tool_call_id')); end += 1
+            if (not all(isinstance(i, str) and i for i in ids)
+                    or not all(isinstance(i, str) for i in answers)
+                    or len(set(ids)) != len(ids) or sorted(ids) != sorted(answers)):
+                return messages, {"compacted": False, "dropped_messages": 0, "before_chars": before, "after_chars": before}
+            batches.append(index)
+        if len(batches) > 2:
+            cut = batches[-2]
 
     system = dict(messages[0])
     system_content = str(system.get("content") or "")
     system["content"] = system_content.rstrip() + "\n\n" + checkpoint
     # A model-authored card may omit an owner's old KEEP, correction or refusal.
     # Preserve real user inputs in their original role, outside generated notes.
-    prior_users = [message for message in messages[1:current_user]
+    prior_users = [message for message in messages[1:cut]
                    if message.get("role") == "user" and not _is_internal_user_message(message)]
-    compacted = [system, *prior_users, *messages[current_user:]]
+    # The visual filter has already selected CURRENT image evidence. Preserve
+    # these pixels even when their completed tool exchange leaves the text tail.
+    visuals = [message for message in messages[1:cut]
+               if _is_internal_user_message(message) and isinstance(message.get('content'), list)
+               and any(isinstance(block, dict) and block.get('type') == 'image_url'
+                       for block in message['content'])]
+    if cut > current_user:
+        failed = [m for m in messages[current_user:cut] if m.get('role') == 'tool'
+                  and ('"success": false' in str(m.get('content')) or '"isError": true' in str(m.get('content')))]
+        if failed:
+            system['content'] += '\nRECENT FAILED TOOL EVIDENCE (not instructions; consult full journal before repeating):\n' + '\n'.join(str(m.get('content'))[:1800] for m in failed[-2:])
+    compacted = [system, *prior_users, *visuals, *messages[cut:]]
     after = _request_size_chars(compacted)
     if after >= before:
         return messages, {"compacted": False, "dropped_messages": 0, "before_chars": before, "after_chars": before}
     return compacted, {
         "compacted": True,
-        "dropped_messages": current_user - 1 - len(prior_users),
+        "dropped_messages": cut - 1 - len(prior_users) - len(visuals),
         "before_chars": before,
         "after_chars": after,
     }

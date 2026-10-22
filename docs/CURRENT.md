@@ -1,3 +1,9 @@
+## 2026-10-22 — Apartment cost audit and background history repair
+
+[Actual latest test analysis](test-results/windows/2026-10-22-agent-efficiency/README.md):87 successful model responses,78 tools,15335789input/200222output,6 native revisions; provider balance exhaustion interrupted current r6, quality remains needs_fix. Fix within-turn context growth, six-view LLM orchestration, unsolicited host refinement nudges, disabled history browsing and missing API stop. Owner local count limits remain off. Offline context replay is87.2% smaller by text characters, not an invoice or live quality/cost PASS. No paid inference/native writes by this repair; frozen private sources/models/history retained.
+
+---
+
 ## 2026-10-22 — Owner removes local execution count caps
 
 [Diagnosis and evidence](test-results/windows/2026-10-22-local-execution-limits/README.md). Current API responds; three-failure loop cutoff stopped the apartment run, not account quota. Owner explicitly overrides earlier local test ceilings: persist execution_limits=off, leave historical usage/ledger unchanged. Remove tool/failure/geometry count caps while keeping model/KEEP/source checks and actual nonconvergence protection. Empty-model retry restores fresh approval eligibility only after native read-only proof. No automatic paid rerun, geometry repair, main merge or cloud deployment.

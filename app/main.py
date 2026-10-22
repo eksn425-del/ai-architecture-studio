@@ -1741,6 +1741,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if not payload.get("expected_request_id") or payload["expected_request_id"] != active.get("request_id"):
             raise HTTPException(409,"运行回合已变化，请刷新状态后再停止。")
         runtime = app.state.model_router.codex_runtime
+        if active.get("provider") == "litellm":
+            active["cancel_requested"] = True
+            return {"status": "requested", "cancel_requested": True, "terminal_confirmed": False,
+                    "rollback_performed": False,
+                    "detail": "已请求停止；当前 API 请求或模型操作结束后停止，不再开启后续请求，已有用量与模型保留。"}
         if active.get("provider") != "codex-app-server" or not callable(getattr(runtime,"cancel_turn",None)):
             raise HTTPException(409,"当前运行通道不支持这个停止接口。")
         active["cancel_requested"] = True
@@ -1772,7 +1777,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             return {"running": False, "activities": activity_history(project_dir)}
         started = active["started"]
         native_event = active.get("native_event")
-        cancel_supported = active.get("provider") == "codex-app-server" and callable(getattr(app.state.model_router.codex_runtime,"cancel_turn",None))
+        cancel_supported = active.get("provider") == "litellm" or (active.get("provider") == "codex-app-server" and callable(getattr(app.state.model_router.codex_runtime,"cancel_turn",None)))
         from .blender_backend import enabled as blender_enabled
         if blender_enabled(project_dir):
             receipt_file=project_dir/'runtime/blender/scene.json'
@@ -2096,6 +2101,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 tool_profile=workflow_tool_profile(request.workflow_mode),
                 developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled, action=action),
                 **({"progress_callback": native_progress_callback(project_id)} if isinstance(app.state.model_router.codex_runtime, CodexAppServerRuntime) and route.provider == "codex-app-server" else {}),
+                **({"cancel_requested": lambda: bool(app.state.active_turns.get(project_id, {}).get("cancel_requested"))} if route.provider == "litellm" else {}),
             )
         except (NativeAgentUnavailable, ConnectorUnavailable) as error:
             session.status = "ready" if session_ready else "conversation"

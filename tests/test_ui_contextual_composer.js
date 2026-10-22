@@ -255,3 +255,16 @@ test('a stale cancellation response cannot affect a newer same-project request',
   assert.equal(state.busy, true);
   assert.equal(state.turnCancellation.requestId, 'new-request');
 });
+
+
+test('late running-project response cannot overwrite a different project or its draft',async()=>{
+  const f=composer({text:'开始建模'});let finish;
+  f.context.api=()=>new Promise(resolve=>finish=resolve);
+  const pending=f.context.sendConversation(null);
+  assert.equal(f.state.runningProjectId,'p');
+  const other={agent_session:{},context:{conversation:[{role:'user',content:'历史q'}]}};
+  f.state.projectId='q';f.state.project=other;f.$('conversation-input').value='q的草稿';
+  finish({project:{},reply:'a finished',agent:{}});await pending;
+  assert.equal(f.state.project,other);assert.equal(f.$('conversation-input').value,'q的草稿');
+  assert.equal(f.state.runningProjectId,null);assert.equal(f.state.busy,false);
+});

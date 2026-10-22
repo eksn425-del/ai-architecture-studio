@@ -560,6 +560,13 @@ class AgentToolSurface:
             ))
             if tool_profile == "reconstruction_coding":
                 tools.append(self._dynamic_tool(
+                    "sketchup_capture_review_views",
+                    "READ-ONLY: capture all six current canonical views in ONE call. Prefer this to six separate LLM/tool exchanges. "
+                    "Host validates the bound model and each canonical camera, returns six certified paths for sketchup_submit_visual_review. No geometry changes.",
+                    {"type": "object", "required": ["script_id"], "properties": {
+                        "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"}}, "additionalProperties": False},
+                ))
+                tools.append(self._dynamic_tool(
                     "sketchup_capture_canonical_view",
                     "READ-ONLY deterministic review capture. Use this, not a hand-labeled arbitrary camera, for the six canonical "
                     "front/rear/left/right/roof/oblique quality-gate images. The host reads the selected persistent ProjectRuby root "
@@ -720,6 +727,24 @@ class AgentToolSurface:
 
     def dispatch(self, name: str, arguments: dict[str, Any], *, project_dir: Path,
                  project_ruby: ProjectRubyExecutor | None) -> dict[str, Any]:
+        if name == "sketchup_capture_review_views":
+            if project_ruby is None:
+                raise MCPCallError("Review capture requires a verified disposable model and owned root.")
+            before = {k: v.get('revision') for k, v in project_ruby.ruby_state.items() if int(v.get('revision', 0)) > 0}
+            views, evidence, images = {}, {}, []
+            for view in _CANONICAL_REVIEW_VIEWS:
+                result = self.dispatch('sketchup_capture_canonical_view',
+                    {'script_id': arguments.get('script_id'), 'view_name': view},
+                    project_dir=project_dir, project_ruby=project_ruby)
+                if result.get('success') is not True:
+                    raise MCPCallError("Canonical capture failed; no complete six-view receipt available.")
+                receipt = result['visual_evidence']
+                if receipt.get('canonical_view') != view or receipt.get('model_revisions') != before:
+                    raise MCPCallError("Model revision changed during six-view capture; views cannot be mixed.")
+                views[view], evidence[view] = receipt['path'], receipt
+                images.extend(item for item in result.get('contentItems', []) if item.get('type') == 'inputImage')
+            return {'success': True, 'views': views, 'model_revisions': before,
+                    'contentItems': [{'type': 'inputText', 'text': json.dumps({'views': views, 'model_revisions': before, 'evidence': evidence}, ensure_ascii=False)}, *images]}
         if name == "sketchup_inspect_owned":
             if project_ruby is None:
                 raise MCPCallError("Owned inspection requires a verified disposable model and existing owned root.")

@@ -12,6 +12,7 @@ from .agent_progress import select_turn_progress_log
 
 def _label(tool: str) -> str:
     labels = {
+        "sketchup_capture_review_views": "一次采集六个当前模型视角",
         "sketchup_get_model_context": "核对当前模型的构件与版本",
         "sketchup_inspect_owned": "检查当前建筑构件及连接",
         "sketchup_read_workspace_ruby": "读取当前版本的建模记录",

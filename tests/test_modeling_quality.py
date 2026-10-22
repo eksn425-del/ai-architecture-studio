@@ -662,7 +662,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         tool_profile="reconstruction_coding",
     )
     assert len(calls) == 4
-    assert "PARTIAL" in result.reply
+    assert "尚不能判定还原质量通过" in result.reply
     assert quality["review"]["needs_fix"] is True
     assert quality["review"]["reviewer"]["mode"] == "host_dedicated_read_only"
     assert result.input_tokens == 100

@@ -133,7 +133,7 @@ async function refreshProjects() {
 
 function renderProjectHistory() {
   $("session-count").textContent = projectList.length;
-  $("project-history").innerHTML = projectList.map((p) => `<div class="history-row"><button class="history-item${p.project_id === state.projectId ? " active" : ""}" data-project="${escapeHtml(p.project_id)}" title="${escapeHtml(p.project_name)}" ${state.busy ? "disabled" : ""}><span>◷</span><span>${escapeHtml(p.project_name)}</span></button></div>`).join("");
+  $("project-history").innerHTML = projectList.map((p) => `<div class="history-row"><button class="history-item${p.project_id === state.projectId ? " active" : ""}" data-project="${escapeHtml(p.project_id)}" title="${escapeHtml(p.project_name)}"><span>◷</span><span>${escapeHtml(p.project_name)}${p.project_id === state.runningProjectId ? " · 运行中" : ""}</span></button></div>`).join("");
 }
 
 function showResults(open) {
@@ -537,7 +537,7 @@ function updateHeader() {
   const reconstructionMode = $("workflow-mode").value === "image_reconstruction";
   document.body.classList.toggle("reconstruction-mode", reconstructionMode);
   document.querySelector('.tab-button[data-tab="design"]').childNodes[0].textContent = reconstructionMode ? "图片与计划 " : "方案设计 ";
-  $("project-select").disabled = state.busy;
+  $("project-select").disabled = !!state.switchingProject;
   $("new-project").disabled = state.busy;
   $("conversation-input").disabled = false;
   $("conversation-input").setAttribute("aria-description", state.busy ? "可以记录下一条要求；本轮结束前不会发送。" : "输入建模要求");
@@ -654,7 +654,8 @@ function updateHeader() {
 
 function renderConversation() {
   const messages = [...(state.project?.context?.conversation || [])];
-  if (pendingMessage) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
+  const pendingHere = pendingMessage && (!state.pendingMessageProjectId || state.pendingMessageProjectId === state.projectId);
+  if (pendingHere) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
   const viewport = $("conversation-history");
   const previousScrollTop = viewport.scrollTop;
   const followLatest = state.conversationViewportProject !== state.projectId
@@ -700,7 +701,7 @@ function renderConversation() {
       + "</div>" + (!isUser && meta.plan_text ? `<section class="inline-plan markdown-content"><h3>本轮计划与参数</h3>${parameterPlanMarkup(meta.plan_text)}</section>` : "") + (media ? `<div class="message-attachments">${media}</div>` : "") + (detail ? '<details><summary>本轮记录</summary>' + detail + '</details>' : "") + "</article>";
   }).join("");
   if (typeof KStudioActivity !== "undefined") {
-    if (pendingMessage) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><p>正在处理本轮要求…</p></article>');
+    if (pendingHere) history.insertAdjacentHTML("beforeend", '<article class="chat-message assistant pending-reply"><p>正在处理本轮要求…</p></article>');
     KStudioActivity.render(state.projectId, viewport);
     KStudioActivity.bind(viewport, document.querySelector(".composer-area"));
   }
@@ -1071,6 +1072,8 @@ async function sendConversation(event, agentAction = "auto") {
   state.planEditing = false;
   saveDraft();
   pendingMessage = message;
+  state.pendingMessageProjectId = submittedProjectId;
+  state.runningProjectId = submittedProjectId;
   state.busy = true;
   const button = $("conversation-send");
   const requestedTier = $("conversation-tier").value;
@@ -1131,8 +1134,10 @@ async function sendConversation(event, agentAction = "auto") {
     showToast(friendlyError(error), true);
   } finally {
     pendingMessage = null;
+    state.pendingMessageProjectId = null;
+    state.runningProjectId = null;
     endProgress();
-    state.busy = false;
+    state.busy = !!state.switchingProject;
     setBusy(button, false);
     updateHeader();
     await observeRunningTurn();
@@ -1214,25 +1219,32 @@ $("conversation-history").addEventListener("click", (event) => {
   $("conversation-input").focus();
   updateHeader();
 });
+async function browseProject(projectId) {
+  if (!projectId || projectId === state.projectId || state.switchingProject || (state.busy && !state.runningProjectId)) return;
+  state.switchingProject = true;
+  const running = state.runningProjectId;
+  state.busy = true;
+  try { await loadProject(projectId); showResults(false); }
+  catch (error) { showToast(friendlyError(error), true); }
+  finally {
+    state.switchingProject = false;
+    state.busy = !!state.runningProjectId;
+    document.body.classList.remove("sidebar-open"); $("mobile-menu").setAttribute("aria-expanded", "false");
+    updateHeader();
+    if (!running) await observeRunningTurn();
+  }
+}
+
 $("project-history").addEventListener("click", async (event) => {
   const removal = event.target.closest("[data-delete-project]");
   if (removal) { await deleteProject(removal.dataset.deleteProject); return; }
   const item = event.target.closest("[data-project]");
-  if (!item || state.busy || item.dataset.project === state.projectId) return;
-  state.busy = true;
-  updateHeader();
-  try { await loadProject(item.dataset.project); showResults(false); }
-  catch (error) { showToast(friendlyError(error), true); }
-  finally { state.busy = false; document.body.classList.remove("sidebar-open"); $("mobile-menu").setAttribute("aria-expanded", "false"); updateHeader(); await observeRunningTurn(); }
+  if (item) await browseProject(item.dataset.project);
 });
 $("cancel-project").addEventListener("click", () => $("project-dialog").close());
 $("project-select").addEventListener("change", async (event) => {
-  if (state.busy) { event.target.value = state.projectId; return; }
-  const projectId = event.target.value;
-  state.busy = true; updateHeader();
-  try { await loadProject(projectId); setTab(state.tab); }
-  catch (error) { event.target.value = state.projectId; showToast(friendlyError(error), true); }
-  finally { state.busy = false; updateHeader(); await observeRunningTurn(); }
+  await browseProject(event.target.value);
+  event.target.value = state.projectId;
 });
 $("create-project-form").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -1550,6 +1562,7 @@ async function observeRunningTurn() {
     if (projectId !== state.projectId || generation !== progressGeneration) return;
     renderTurnControls(progress);
     if (!progress.running) return;
+    state.runningProjectId = projectId;
     observingTurn = true; observedRunningTurn = true;
     beginProgress("已恢复正在处理的回合");
     startLiveProgress();
@@ -1558,6 +1571,7 @@ async function observeRunningTurn() {
       // Unknown is not idle. Keep sending locked and retry read-only status
       // checks until the server can confirm whether this turn has finished.
       observingTurn = true;
+      state.runningProjectId = projectId;
       beginProgress("连接暂时中断，正在同步本轮状态");
       startLiveProgress();
     }
@@ -1569,40 +1583,47 @@ async function observeRunningTurn() {
 
 function startLiveProgress() {
   const generation = ++progressGeneration;
+  const runningProjectId = state.runningProjectId || state.projectId;
   clearInterval(progressTimer);
   let refreshing = false;
   const refresh = async () => {
     if (refreshing || generation !== progressGeneration) return;
     refreshing = true;
     try {
-      const p = await api(`/api/projects/${encodeURIComponent(state.projectId)}/agent/progress`);
+      const p = await api(`/api/projects/${encodeURIComponent(runningProjectId)}/agent/progress`);
       if (generation !== progressGeneration || !state.busy) return;
-      renderTurnControls(p);
+      const viewingRunning = state.projectId === runningProjectId;
+      if (viewingRunning) renderTurnControls(p);
+      else {
+        renderTurnControls();
+        $("operation-progress").textContent = "正在浏览历史会话；原任务继续在后台运行，可从左侧返回。";
+      }
       if (!p.running) {
         if (observingTurn) {
           // Keep the observer and busy lock until the completed project has
           // loaded. On a read failure, the next poll retries synchronization.
-          await loadProject(state.projectId);
+          if (viewingRunning) await loadProject(runningProjectId);
           if (generation !== progressGeneration) return;
           const completedObservedTurn = observedRunningTurn;
-          observingTurn = false; observedRunningTurn = false; endProgress(); state.busy = false;
+          observingTurn = false; observedRunningTurn = false; endProgress(); state.busy = false; state.runningProjectId = null;
           const lastUser = [...(state.project.context.conversation || [])].reverse().find(m => m.role === "user");
-          if (completedObservedTurn && !state.project.agent_session?.error && lastUser?.content === $("conversation-input").value.trim()) {
+          if (viewingRunning && completedObservedTurn && !state.project.agent_session?.error && lastUser?.content === $("conversation-input").value.trim()) {
             $("conversation-input").value = ""; saveDraft();
           }
-          if (state.project.agent_session?.reconstruction_state === "planned") $("parameter-plan").open = true;
-          updateHeader(); showToast(state.project.agent_session?.error ? "本轮未完成，请查看原因；资料与草稿已保留。" : "本轮结果已同步，可以继续交流。", !!state.project.agent_session?.error);
+          if (viewingRunning && state.project.agent_session?.reconstruction_state === "planned") $("parameter-plan").open = true;
+          updateHeader(); showToast(!viewingRunning ? "后台任务已结束，可从左侧返回查看结果。" : state.project.agent_session?.error ? "本轮未完成，请查看原因；资料与草稿已保留。" : "本轮结果已同步，可以继续交流。", viewingRunning && !!state.project.agent_session?.error);
         }
         return;
       }
       if (observingTurn) observedRunningTurn = true;
+      if (!viewingRunning) return;
       renderWorkflowChecks(p);
       $("operation-progress").textContent = `${p.stage} · ${p.elapsed_seconds} 秒${p.tool_calls == null ? "" : ` · 已调用 ${p.tool_calls} 次工具`}${p.failed_tool_calls ? `（${p.failed_tool_calls} 次失败）` : ""}${p.action !== "execute" ? " · 不改动模型" : p.committed_revisions.length ? " · 已提交实际模型修改" : " · 尚无新的模型提交"}`;
       if (p.preview_url) {
         $("preview-canvas").innerHTML = `<img src="${escapeHtml(p.preview_url)}" alt="建模中的最新 SketchUp 截图">`;
         $("preview-title").textContent = "建模中的真实截图";
       }
-    } catch (_) { if (generation === progressGeneration) {
+    } catch (_) { if (generation === progressGeneration && state.projectId === runningProjectId) {
       $("operation-progress").textContent = "进度暂时无法读取，当前回合仍在等待；请勿重复提交。";
       renderLiveActivity({running: true, ...state.activeTurnProgress}, true);
     } }

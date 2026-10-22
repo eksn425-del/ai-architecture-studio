@@ -164,7 +164,7 @@ class LiteLLMRuntime:
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
-                tool_profile: ToolProfile = "full") -> AgentTurnResult:
+                tool_profile: ToolProfile = "full", cancel_requested=None) -> AgentTurnResult:
         if requires_responses_tools(model or self.model) and not self.supports_responses_tools:
             raise NativeAgentUnavailable("当前 API 建模适配器使用 Chat Completions；GPT-6.1 Sol / Astra 的工具调用需要 Responses API。尚未开放此 API 建模路线，没有发送请求或自动切换模型。")
         api_key = self.session_api_key or os.environ.get(self.key_env, "").strip()
@@ -257,6 +257,8 @@ class LiteLLMRuntime:
         def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None]]:
             """Critique trusted current views in a clean context, separate from the Builder."""
             nonlocal input_tokens, output_tokens
+            if cancel_requested and cancel_requested():
+                raise NativeAgentUnavailable("本轮已请求停止，未启动下一次质量检查。")
             if not isinstance(ruby_state, dict):
                 raise ValueError("Dedicated visual critic requires current writer state.")
             views = review_arguments.get("views")
@@ -412,6 +414,8 @@ class LiteLLMRuntime:
             return error
 
         while True:
+            if cancel_requested and cancel_requested():
+                raise interrupted("本轮已按要求停止；已有模型和用量已保留。")
             request_messages = _current_visual_context(messages)
             compaction = {
                 "compacted": False,
@@ -426,6 +430,7 @@ class LiteLLMRuntime:
                     checkpoint,
                     threshold_chars=60_000 if self.api_base.rstrip("/") == "https://api.b.ai/v1"
                     else DEFAULT_COMPACTION_THRESHOLD_CHARS,
+                    compact_current_turn=True,
                 )
             kwargs: dict[str, Any] = {
                 "model": selected_model,
@@ -502,20 +507,15 @@ class LiteLLMRuntime:
                     if not isinstance(review, dict) and quality_gate_nudges < max_quality_gate_nudges:
                         gate_prompt = (
                             "HOST QUALITY GATE: You have committed geometry but have not submitted a CURRENT six-view review. "
-                            "Do not finish yet and do not write geometry again. Capture six distinct current-revision views "
+                            "Do not finish yet and do not write geometry again. Use sketchup_capture_review_views ONCE to capture all six distinct current-revision views "
                             "(front, rear, left, right, roof, oblique), compare them against the attached source evidence, "
                             "then call sketchup_submit_visual_review with the actual returned output paths. "
                             "If a source perspective/interior/detail image needs a direct camera match, include validated evidence_pairs too. "
                             "Use NEEDS_FIX plus at most three high-impact issues and a KEEP list."
                         )
-                    elif isinstance(review, dict) and review.get("needs_fix") is True and (not write_limit or writes < write_limit) and quality_gate_nudges < max_quality_gate_nudges:
-                        gate_prompt = (
-                            "HOST QUALITY GATE: The current validated review says NEEDS_FIX: YES and writer budget remains. "
-                            "Apply ONE targeted correction pass to the named affected groups only. First inspect the exact named "
-                            "groups that correspond to the reviewer KEEP list, then call the writer with update_mode=edit and those "
-                            "paths in preserve_paths so the host can prove they did not move/change. Recapture all six current views "
-                            "and submit a new visual review. Do not use a full-root replace during a post-review correction."
-                        )
+                    # A genuine final review with remaining issues is reported
+                    # honestly below. Do not manufacture a fresh user instruction
+                    # to keep spending on another cosmetic pass after Builder ends.
                     if gate_prompt:
                         messages.append({
                             "role": "assistant",
@@ -576,7 +576,13 @@ class LiteLLMRuntime:
             # the effect, the unresolved journal blocks automatic continuation.
             save_history()
             pending_visual_readbacks = []
-            for call_id, name, arguments in parsed_calls:
+            for call_index, (call_id, name, arguments) in enumerate(parsed_calls):
+                if cancel_requested and cancel_requested():
+                    for pending_id, _, _ in parsed_calls[call_index:]:
+                        messages.append({'role': 'tool', 'tool_call_id': pending_id,
+                            'content': '{"success":false,"cancelled_before_dispatch":true}'})
+                    save_history()
+                    raise interrupted("本轮已按要求停止；未执行剩余工具，已有模型和用量已保留。")
                 if hasattr(self, "before_tool_execution"):
                     try:
                         self.before_tool_execution()
