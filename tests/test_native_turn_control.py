@@ -143,6 +143,25 @@ def test_actual_start_identity_and_pre_response_events_are_preserved(tmp_path, m
     assert process.stopped and runtime.cancel_turn(project)["status"] == "not_running"
 
 
+def test_cache_breakdown_is_persisted_from_actual_protocol_notifications(tmp_path, monkeypatch):
+    def start(process, message):
+        process.feed({"id": message["id"], "result": {"turn": {"id": "actual-turn", "status": "inProgress"}}})
+        for total, last in [
+            ({"inputTokens": 10000, "outputTokens": 100, "cachedInputTokens": 8000}, {"inputTokens": 2000, "outputTokens": 20, "cachedInputTokens": 1000}),
+            ({"inputTokens": 14000, "outputTokens": 150, "cachedInputTokens": 11000}, {"inputTokens": 4000, "outputTokens": 50, "cachedInputTokens": 3000}),
+        ]:
+            process.feed({"method": "thread/tokenUsage/updated", "params": {"threadId": "actual-thread", "tokenUsage": {"total": total, "last": last}}})
+        process.complete()
+    runtime, project, workspace, _ = fixture(tmp_path, monkeypatch, process=FakeProcess(start=start))
+    result = run(runtime, project, workspace)
+    assert (result.input_tokens, result.output_tokens) == (6000, 70)
+    events = [json.loads(line) for p in (project / "runtime/agent_events").glob("*.jsonl") for line in p.read_text().splitlines()]
+    usage = [event for event in events if event.get("event") == "token_usage"][-1]
+    assert usage["cached_input_tokens"] == 4000
+    assert usage["cache_write_input_tokens"] is None
+    assert usage["reasoning_output_tokens"] is None
+
+
 def test_cancel_before_start_response_defers_real_interrupt_and_blocks_tool(tmp_path, monkeypatch):
     start_seen = threading.Event()
     start_message = {}

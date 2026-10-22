@@ -12,6 +12,14 @@ AgentAction = Literal["auto", "clarify", "plan", "execute"]
 ToolProfile = Literal["full", "reconstruction_coding"]
 
 
+_RECONSTRUCTION_COMPLETION_POLICY = (
+    "Complete approved systems and requested correction, then report a coherent result with CURRENT QA and remaining issues. "
+    "First-version/draft requests are review milestones: do not spend the user's later feedback rounds polishing every Critic suggestion. "
+    "NEEDS_FIX:YES allows necessary scoped fixes, not endless cosmetics. Once a local request is complete, list unrelated suggestions for user choice; do not execute them. "
+    "NEEDS_FIX:NO ends this turn's writes. "
+)
+
+
 _HARNESS_FIRST_RECONSTRUCTION_CONTEXT = """
 You are an autonomous architectural modeling agent inside K Studio, powered by
 the real Codex App Server. Preserve the student’s short Chinese request as the
@@ -138,6 +146,8 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                      "NEEDS_FIX review was restored, it is adequate before the FIRST local correction; "
                      "AFTER a write it is stale and new review is mandatory. Check actual native readback "
                      "on tool timeout or GUID drift before attempting another writer; no blind replace. "
+                     "Prefer sketchup_capture_review_views once per revision for the six canonical views; use individual capture only to repair a missing or failed view. "
+                     + _RECONSTRUCTION_COMPLETION_POLICY +
                      "Report genuine remaining visual mismatch and save/reopen only if host confirms.")
         return (stage + " " + safety + " " +
                 ("Only supplied verified SketchUp tools may write this disposable model. " if mcp_enabled
@@ -188,7 +198,8 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "In multi_view_reconstruction, every observed facade is a hard constraint on one coherent model. The independent reviewer now REQUIRES one actual source-matched current camera for every DISTINCT observed original reference image before accepting a multi-view review; one collage file may contain several panels. Do not invent back/roof views that were not photographed. On an EXISTING committed building, first inspect both original images against CURRENT geometry, repair the largest visible massing/enclosure/folded roof/stair-platform issue by a local edit and retain the rest. " 
                 "In full_evidence_reconstruction, CAD/floorplan dimensions and every supplied exterior/interior image are hard constraints; do not redesign evidenced regions and only infer genuinely unseen gaps. "
                 "user_confirmed schedule facts are hard constraints, observed facts are source evidence, inferred facts remain revisable. "
-                "For reconstruction geometry, persistent workspace Ruby is the single writer; optional SAIE/Kongxing tools in this profile are read-only evidence helpers. After EACH committed writer pass, do not write again until you call sketchup_capture_review_views ONCE for all front/rear/left/right/roof/oblique views using the current persistent script_id, then call sketchup_submit_visual_review with those six host-certified paths. Use individual sketchup_capture_canonical_view only for a specific missing/failed view. Do not hand-label arbitrary camera screenshots as canonical views. Add evidence_pairs for the primary source perspective when canonical views do not match it, and for supplied interior/detail reference images; full-evidence quality cannot be judged from exterior six views alone. NEEDS_FIX:YES permits a justified targeted correction within the approved task, but does not require endless cosmetic refinement. Complete the approved architectural systems and necessary fixes; report outstanding visual issues honestly when a coherent pass is complete, and let the user choose the next refinement. NEEDS_FIX:NO ends geometry writes for this turn. "
+                "For reconstruction geometry, persistent workspace Ruby is the single writer; optional SAIE/Kongxing tools in this profile are read-only evidence helpers. After EACH committed writer pass, do not write again until you call sketchup_capture_review_views ONCE for all front/rear/left/right/roof/oblique views using the current persistent script_id, then call sketchup_submit_visual_review with those six host-certified paths. Use individual sketchup_capture_canonical_view only for a specific missing/failed view. Do not hand-label arbitrary camera screenshots as canonical views. Add evidence_pairs for the primary source perspective when canonical views do not match it, and for supplied interior/detail reference images; full-evidence quality cannot be judged from exterior six views alone. "
+                + _RECONSTRUCTION_COMPLETION_POLICY +
                 "Use saie_wall_with_openings inside persistent Ruby for rectangular facade walls when it is suitable; it is preferable to visible stacks of separate sill/jamb/head wall groups, but any boolean failure must be reported rather than hidden. "
                 "Execute, inspect actual screenshots/model state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing. "
                 "Saving the bound document and downloadable SKP is host-owned and runs after your final response. Do not claim saving is unavailable merely because no save tool is exposed; report geometry/QA honestly and let the host confirm persistence."

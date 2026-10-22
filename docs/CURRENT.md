@@ -1,3 +1,9 @@
+## 2026-10-22 — NEW owner image, three-round Sol High novice test IN PROGRESS
+
+[Current evidence and repair entry](test-results/windows/2026-10-22-sol-high-three-rounds/README.md). Owner now authorizes a DIFFERENT new stepped-tower image through real website gpt-6.1-sol/high, first build plus two screenshot-backed feedback rounds. Preserve all older closed cases and models. First round produced r6 but over-refined for ~2000s and was stopped through the real UI; model saved, visual NEEDS_FIX. Repair duplicate optimistic message on background-history return, synchronize concise native completion policy, and retain native cache telemetry. Post-fix feedback rounds and final native checks still pending. No paid API/cloud/public source-media authorization; video explicitly deferred. Raw evidence remains on E.
+
+---
+
 ## 2026-10-22 — Apartment cost audit and background history repair
 
 [Actual latest test analysis](test-results/windows/2026-10-22-agent-efficiency/README.md):87 successful model responses,78 tools,15335789input/200222output,6 native revisions; provider balance exhaustion interrupted current r6, quality remains needs_fix. Fix within-turn context growth, six-view LLM orchestration, unsolicited host refinement nudges, disabled history browsing and missing API stop. Owner local count limits remain off. Offline context replay is87.2% smaller by text characters, not an invoice or live quality/cost PASS. No paid inference/native writes by this repair; frozen private sources/models/history retained.

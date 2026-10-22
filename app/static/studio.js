@@ -655,7 +655,13 @@ function updateHeader() {
 function renderConversation() {
   const messages = [...(state.project?.context?.conversation || [])];
   const pendingHere = pendingMessage && (!state.pendingMessageProjectId || state.pendingMessageProjectId === state.projectId);
-  if (pendingHere) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
+  // Loading the running project can already include the server-persisted user
+  // message. Keep the pending reply, but do not append its optimistic echo twice.
+  // Only compare messages added after submission; an older identical instruction
+  // is still a distinct user turn.
+  const pendingStored = Number.isInteger(state.pendingConversationLength)
+    && messages.slice(state.pendingConversationLength).some(message => message.role === "user" && message.content === pendingMessage);
+  if (pendingHere && !pendingStored) messages.push({role: "user", content: pendingMessage, phase: "agent", metadata: {attachments: pendingAttachmentSources()}});
   const viewport = $("conversation-history");
   const previousScrollTop = viewport.scrollTop;
   const followLatest = state.conversationViewportProject !== state.projectId
@@ -1072,6 +1078,7 @@ async function sendConversation(event, agentAction = "auto") {
   state.planEditing = false;
   saveDraft();
   pendingMessage = message;
+  state.pendingConversationLength = (state.project?.context?.conversation || []).length;
   state.pendingMessageProjectId = submittedProjectId;
   state.runningProjectId = submittedProjectId;
   state.busy = true;
@@ -1135,6 +1142,7 @@ async function sendConversation(event, agentAction = "auto") {
   } finally {
     pendingMessage = null;
     state.pendingMessageProjectId = null;
+    state.pendingConversationLength = null;
     state.runningProjectId = null;
     endProgress();
     state.busy = !!state.switchingProject;

@@ -766,6 +766,7 @@ class CodexAppServerRuntime:
             input_tokens: int | None = None
             output_tokens: int | None = None
             usage_total_before: tuple[int, int] | None = None
+            usage_breakdown_before: dict[str, int | None] | None = None
             reply = ""
             turn_status = "failed"
             while deadline is None or time.monotonic() < deadline:
@@ -835,9 +836,12 @@ class CodexAppServerRuntime:
                             input_tokens, output_tokens = delta
                         else:
                             input_tokens = output_tokens = None
+                        breakdown, usage_breakdown_before = _usage_breakdown_delta(
+                            nested_usage["total"], nested_usage.get("last") or {}, usage_breakdown_before)
                         record({"event": "token_usage", "scope": "turn_delta_from_thread_total",
                                 "input_tokens": input_tokens, "output_tokens": output_tokens,
-                                "last_input_tokens": last[0], "last_output_tokens": last[1]})
+                                "last_input_tokens": last[0], "last_output_tokens": last[1],
+                                **breakdown})
                 elif usage_total_before is None:
                     input_tokens = usage[0] if usage[0] is not None else input_tokens
                     output_tokens = usage[1] if usage[1] is not None else output_tokens
@@ -1074,6 +1078,37 @@ def _extract_token_usage(payload: dict[str, Any]) -> tuple[int | None, int | Non
         return None
 
     return first_count(input_keys), first_count(output_keys)
+
+
+def _usage_breakdown_delta(
+    total: dict[str, Any], last: dict[str, Any], before: dict[str, int | None] | None,
+) -> tuple[dict[str, int | None], dict[str, int | None]]:
+    """Keep cache/reasoning telemetry without billing old resumed-thread usage again.
+
+    Missing counters remain unknown. Reasoning is a subset of output, never an
+    additional charge. These provider counters are not a currency invoice.
+    """
+    names = {
+        "cached_input_tokens": ("cachedInputTokens", "cached_input_tokens"),
+        "cache_write_input_tokens": ("cacheWriteInputTokens", "cache_write_input_tokens"),
+        "reasoning_output_tokens": ("reasoningOutputTokens", "reasoning_output_tokens"),
+    }
+    def count(value: dict[str, Any], keys: tuple[str, ...]) -> int | None:
+        for key in keys:
+            n = value.get(key)
+            if isinstance(n, int) and not isinstance(n, bool) and n >= 0:
+                return n
+        return None
+    if before is None:
+        before = {}
+        for name, keys in names.items():
+            cumulative, latest = count(total, keys), count(last, keys)
+            before[name] = cumulative - latest if cumulative is not None and latest is not None and cumulative >= latest else None
+    result = {}
+    for name, keys in names.items():
+        cumulative, baseline = count(total, keys), before.get(name)
+        result[name] = cumulative - baseline if cumulative is not None and baseline is not None and cumulative >= baseline else None
+    return result, before
 
 
 def _dedupe_calls(calls: list[dict[str, str]]) -> list[dict[str, str]]:

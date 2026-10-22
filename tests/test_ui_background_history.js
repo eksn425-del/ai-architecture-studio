@@ -31,3 +31,26 @@ test('the sidebar no longer disables history buttons just because a turn is busy
  vm.runInContext(production('renderProjectHistory'),context);context.renderProjectHistory();
  assert.doesNotMatch(nodes['project-history'].innerHTML,/disabled/);assert.match(nodes['project-history'].innerHTML,/运行中/);
 });
+
+function conversationFixture(history, baseline, projectId='a') {
+ const nodes={};const $=id=>nodes[id]||={scrollTop:0,scrollHeight:200,clientHeight:100,innerHTML:'',insertAdjacentHTML(_,s){this.innerHTML+=s;}};
+ const state={projectId,pendingMessageProjectId:'a',pendingConversationLength:baseline,project:{context:{conversation:history,references:[]}}};
+ const context=vm.createContext({state,$,pendingAttachmentSources:()=>[],escapeHtml:x=>x,chatText:x=>x,document:{querySelector:()=>({})},KStudioActivity:{render(){},bind(){}}});
+ vm.runInContext('let pendingMessage="继续修改";'+production('renderConversation'),context);
+ context.renderConversation();return nodes['conversation-messages'].innerHTML;
+}
+
+test('reopening a running chat renders the persisted pending user once and retains its processing indicator',()=>{
+ const html=conversationFixture([{role:'user',content:'最初要求'},{role:'assistant',content:'已收到'},{role:'user',content:'继续修改'}],2);
+ assert.equal((html.match(/继续修改/g)||[]).length,1);assert.match(html,/正在处理本轮要求/);
+});
+
+test('a new instruction identical to an older turn still appears before the server persists it',()=>{
+ const html=conversationFixture([{role:'user',content:'继续修改'},{role:'assistant',content:'上轮已结束'}],2);
+ assert.equal((html.match(/继续修改/g)||[]).length,2);
+});
+
+test('a pending instruction from the running project never appears in another history',()=>{
+ const html=conversationFixture([{role:'user',content:'历史要求'}],0,'b');
+ assert.doesNotMatch(html,/继续修改|正在处理本轮要求/);
+});
