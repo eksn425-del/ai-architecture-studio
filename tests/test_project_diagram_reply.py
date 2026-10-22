@@ -1,6 +1,18 @@
 from app.main import _sanitize_agent_reply
 
 
+def test_windows_slash_prefixed_project_screenshot_link(tmp_path):
+    import os
+    import pytest
+    if os.name != 'nt':
+        pytest.skip('Windows drive-path spelling needs a real Windows filesystem.')
+    image = tmp_path / 'outputs/renders/balcony.png'
+    image.parent.mkdir(parents=True); image.write_bytes(b'current capture')
+    assert _sanitize_agent_reply(f'[查看阳台](</{image.as_posix()}>)', tmp_path) == '[查看阳台](outputs/renders/balcony.png)'
+    outside = tmp_path.parent / 'unrelated-private.png'; outside.write_bytes(b'private')
+    assert 'outputs/renders' not in _sanitize_agent_reply(f'[外部](</{outside.as_posix()}>)', tmp_path)
+
+
 def test_actual_project_diagram_keeps_safe_relative_link(tmp_path):
     sketch = tmp_path / "runtime/agent_workspace/notes/direction_sketch.png"
     sketch.parent.mkdir(parents=True)

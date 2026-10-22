@@ -59,3 +59,31 @@ def apply_attachment_intent(project, context, snapshot, decisions, message):
             if role!='unknown':ref.role_clarification_pending=False
             ref.role_reason='readonly_current_message_interpretation';ref.role_origin='awaiting_context' if role=='unknown' else 'context_default';changed=True
     return changed
+
+
+def restore_defect_feedback_state(project, session, context):
+    """Restore lifecycle only; independent current-user intent still grants the edit.
+
+    Uploads initially invalidate approval while their purpose is unknown. A fresh
+    current-model defect screenshot does not change the approved target building.
+    Keep native identity, current geometry/view hashes and original-source proof.
+    """
+    if session.status != 'ready' or not session.model_path or session.reconstruction_state not in {'clarifying', 'planned'}:
+        return False
+    pending = [ref for ref in context.references if not ref.submitted_at]
+    from .reference_roles import current_model_revisions
+    revisions = current_model_revisions(project, session.ruby_state)
+    if not revisions or not pending or any(ref.type != 'image' or ref.evidence_role != 'defect_location' or ref.evidence_model_revisions != revisions for ref in pending):
+        return False
+    submitted = {source for message in context.conversation for source in (message.metadata or {}).get('attachments', [])}
+    if any(source not in submitted for source in [*context.brief.source_files, *context.site.source_files]):
+        return False # New taskbook/site inputs still require replanning.
+    from .contextual_turn import read_plan_card
+    from .modeling_quality import load_current_independent_visual_review
+    if not read_plan_card(project) or not load_current_independent_visual_review(project, session.ruby_state, include_accepted=True):
+        return False
+    session.reconstruction_state = 'building'
+    session.thread_id = '' # Image/tool continuity is checked afresh by the runtime.
+    session.plan_started_ns = 0
+    session.plan_request_message = ''
+    return True

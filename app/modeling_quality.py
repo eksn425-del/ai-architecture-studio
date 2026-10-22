@@ -663,8 +663,22 @@ def _review_evidence_hashes(project_dir: Path, receipt: dict[str, Any]) -> dict[
     return hashes
 
 
+def _review_manifest_compatible(previous: list[dict], current: list[dict], revisions: dict[str, int]) -> bool:
+    """Allow appended current-model defect locations, never changed target truth."""
+    if not previous or not isinstance(previous, list) or not isinstance(current, list):
+        return False
+    old = {row.get("source"): row for row in previous if isinstance(row, dict)}
+    now = {row.get("source"): row for row in current if isinstance(row, dict)}
+    if len(old) != len(previous) or len(now) != len(current) or not any(row.get("role") == "target_building" for row in previous):
+        return False
+    if any(now.get(source) != row for source, row in old.items()):
+        return False
+    added = [row for source, row in now.items() if source not in old]
+    return bool(added) and all(row.get("role") == "defect_location" and row.get("model_revisions") == revisions for row in added)
+
+
 def load_current_independent_visual_review(
-    project_dir: Path, ruby_state: dict[str, dict[str, Any]],
+    project_dir: Path, ruby_state: dict[str, dict[str, Any]], *, include_accepted: bool = False,
 ) -> dict[str, Any] | None:
     """Resume only a proven same-revision independent NEEDS_FIX checkpoint.
 
@@ -687,7 +701,10 @@ def load_current_independent_visual_review(
             return None
         if receipt.get("reviewer", {}).get("mode") not in {"dedicated_read_only", "host_dedicated_read_only"}:
             return None
-        if receipt.get("needs_fix") is not True or not receipt.get("issues"):
+        needs_fix = receipt.get("needs_fix")
+        if needs_fix is not True and not (include_accepted and needs_fix is False and receipt.get("quality_status") == "accepted"):
+            return None
+        if needs_fix is True and not receipt.get("issues"):
             return None
         views = {key: value["path"] for key, value in receipt["views"].items()}
         revision, _validated, _files = validate_visual_review_views(project_dir, ruby_state, views)
@@ -700,12 +717,19 @@ def load_current_independent_visual_review(
             return None
         from .reference_roles import reference_manifest, manifest_fingerprint
         from .reference_assets import discover_project_reference_images
-        role_fingerprint = manifest_fingerprint(reference_manifest(project_dir,
-            discover_project_reference_images(project_dir, categories=("reference",))))
-        if receipt.get("reviewer", {}).get("reference_manifest_fingerprint") != role_fingerprint:
-            return None  # Legacy receipt lacks role provenance; fresh review required.
+        current_manifest = reference_manifest(project_dir,
+            discover_project_reference_images(project_dir, categories=("reference",)))
+        reviewer = receipt.get("reviewer", {})
+        role_fingerprint = manifest_fingerprint(current_manifest)
+        previous_manifest = reviewer.get("reference_manifest")
+        appended_defects = (isinstance(previous_manifest, list)
+            and reviewer.get("reference_manifest_fingerprint") == manifest_fingerprint(previous_manifest)
+            and _review_manifest_compatible(previous_manifest, current_manifest, revision))
+        if reviewer.get("reference_manifest_fingerprint") != role_fingerprint and not appended_defects:
+            return None  # New targets/unknown roles/changed pixels still need fresh review.
         current_sources = sorted(p.relative_to(project_dir).as_posix() for p in (project_dir / "inputs/reference").glob("*") if p.is_file())
-        if receipt.get("source_images") != current_sources:
+        allowed_sources = sorted(row["source"] for row in current_manifest) if appended_defects else receipt.get("source_images")
+        if allowed_sources != current_sources:
             return None
         stored = receipt.get("evidence_sha256")
         if not isinstance(stored, dict) or not stored or stored != _review_evidence_hashes(project_dir, receipt):

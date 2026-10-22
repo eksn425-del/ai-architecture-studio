@@ -997,3 +997,90 @@ def test_harness_parity_rejects_self_review_or_old_unhashed_receipt(tmp_path):
     (qa / "visual_review.json").write_text(json.dumps(receipt), encoding="utf8")
     assert load_current_independent_visual_review(project, state) is None
 
+
+def _feedback_review_fixture(tmp_path, *, accepted=False):
+    import json
+    from app.models import ProjectContext, Reference
+    from app.reference_roles import reference_manifest, manifest_fingerprint
+    project, state, views = _current_review_fixture(tmp_path)
+    source = project / 'inputs/reference/source.png'
+    source.parent.mkdir(parents=True, exist_ok=True); source.write_bytes(b'original target')
+    context = ProjectContext(references=[Reference(type='image', source='inputs/reference/source.png',
+        evidence_role='target_building', submitted_at='old-turn')])
+    (project / 'state').mkdir(exist_ok=True)
+    (project / 'state/project_context.json').write_text(context.model_dump_json(), encoding='utf8')
+    manifest = reference_manifest(project, [source])
+    critique = 'NEEDS_FIX: NO\n<assessment>Source appearance accepted.</assessment>' if accepted else (
+        'NEEDS_FIX: YES\n<assessment>Balcony needs depth.</assessment>\n'
+        '<issue priority="1" view="front">problem: shallow balcony\naction: recess balcony</issue>')
+    receipt = submit_visual_review(project, state, {'views': views, 'critique': critique,
+        '_reviewer': {'mode': 'dedicated_read_only', 'reference_manifest': manifest,
+            'reference_manifest_fingerprint': manifest_fingerprint(manifest)}})
+    return project, state, context, receipt
+
+
+def _append_feedback(project, state, context, *, role='defect_location', revision=3):
+    from app.models import Reference
+    image = project / 'inputs/reference/feedback.png'; image.write_bytes(b'current model screenshot')
+    context.references.append(Reference(type='image', source='inputs/reference/feedback.png',
+        evidence_role=role, role_origin='context_default', evidence_model_revisions={'villa': revision}))
+    (project / 'state/project_context.json').write_text(context.model_dump_json(), encoding='utf8')
+
+
+def test_same_revision_defect_attachment_reuses_verified_source_review_and_restores_only_lifecycle(tmp_path):
+    from app.modeling_quality import load_current_independent_visual_review
+    from app.contextual_attachments import restore_defect_feedback_state
+    from app.models import AgentSession
+    project, state, context, receipt = _feedback_review_fixture(tmp_path)
+    _append_feedback(project, state, context)
+    assert load_current_independent_visual_review(project, state) == receipt
+    card = project / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    card.parent.mkdir(parents=True, exist_ok=True); card.write_text('Existing approved building.', encoding='utf8')
+    session = AgentSession(project_id='fixture', status='ready', model_path='outputs/model/blank.skp', ruby_state=state,
+        reconstruction_state='clarifying')
+    assert restore_defect_feedback_state(project, session, context)
+    assert session.reconstruction_state == 'building'
+    # Restoring a lifecycle cannot convert a question/refusal into execution.
+    from app.contextual_turn import snapshot_turn, validate_decision
+    from app.models import ConversationRequest
+    request = ConversationRequest(message='先别修改，只解释阳台的问题。')
+    snapshot = snapshot_turn(project, session, request, context)
+    raw = dict(action='execute', user_message_id=snapshot['user_message_id'], user_message=request.message,
+        plan_sha256=snapshot['plan_sha256'], changes_plan=False, conditional=False, reason='fixture')
+    assert validate_decision(raw, snapshot, project=project, session=session, request=request) == 'clarify'
+
+
+@pytest.mark.parametrize('role,revision', [('target_building',3), ('supporting',3), ('unknown',3), ('defect_location',2)])
+def test_appended_target_unknown_supporting_or_stale_defect_cannot_reuse_review(tmp_path, role, revision):
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, context, _ = _feedback_review_fixture(tmp_path)
+    _append_feedback(project, state, context, role=role, revision=revision)
+    assert load_current_independent_visual_review(project, state) is None
+
+
+def test_accepted_review_only_restores_identity_proof_and_never_becomes_old_writer_veto(tmp_path):
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, context, receipt = _feedback_review_fixture(tmp_path, accepted=True)
+    _append_feedback(project, state, context)
+    assert load_current_independent_visual_review(project, state) is None
+    assert load_current_independent_visual_review(project, state, include_accepted=True) == receipt
+
+
+def test_feedback_cannot_hide_changed_original_or_new_taskbook(tmp_path):
+    from app.modeling_quality import load_current_independent_visual_review
+    from app.contextual_attachments import restore_defect_feedback_state
+    from app.models import AgentSession
+    project, state, context, _ = _feedback_review_fixture(tmp_path)
+    _append_feedback(project, state, context)
+    card = project / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    card.parent.mkdir(parents=True, exist_ok=True); card.write_text('Existing building.', encoding='utf8')
+    session = AgentSession(project_id='fixture', status='ready', model_path='outputs/model/blank.skp',
+        ruby_state=state, reconstruction_state='clarifying')
+    context.brief.source_files.append('inputs/brief/new.txt')
+    assert not restore_defect_feedback_state(project, session, context)
+    context.brief.source_files.clear()
+    (project / 'inputs/reference/source.png').write_bytes(b'changed target')
+    assert load_current_independent_visual_review(project, state) is None
+    assert not restore_defect_feedback_state(project, session, context)
+    assert session.reconstruction_state == 'clarifying'
+

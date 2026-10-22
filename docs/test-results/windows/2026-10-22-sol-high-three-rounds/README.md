@@ -20,6 +20,16 @@ Initial code checks: 36 focused Python tests and 114 UI tests passed. These are 
 
 ## Public source review
 
+## Second real round and follow-up candidate
+
+Owner-style defect feedback was submitted with an actual SU Orbit screenshot. The image was correctly classified as `defect_location`, leaving the original target unchanged. After installation of the first repair, real background-history navigation rendered the pending user message exactly once. The balcony correction completed normally at r8 with two targeted bays, current six-view/source-matched independent review and deep KEEP receipts; the global verdict remains NEEDS_FIX. Controller rubric: r6 72/100, r8 76/100. These subjective scores do not certify statutory compliance.
+
+A remaining observed friction is that a defect screenshot resets the conversation into full planning. The follow-up candidate restores the existing-model lifecycle only when fresh screenshots are all defects of the exact current revision, original targets/camera evidence remain hash-verified, and no new taskbook/site input was added. Independent current-user intent and all native/writer/scope checks still authorize execution. Added current defect screenshots may preserve an existing independent review of unchanged target/model evidence; changed targets, old defect revisions, unknown/supporting roles, altered bytes or missing provenance still invalidate it. Accepted old reviews can prove lifecycle identity without becoming a veto on a new edit. Third-round live validation is still pending.
+
+Also repair the actual `/E:/...` spelling returned in the second reply into a checked project-relative link, instead of redacting an otherwise valid project screenshot. Foreign files remain outside the allowed project. The follow-up's 142 focused Python tests passed, two Windows symlink privilege cases excluded. No live result is inferred from those checks.
+
+## Public source review
+
 Pinned upstream Codex HEAD on 2026-10-22: `07316174c6f62deb20278c53add2dbd9dcf6da70`, Apache-2.0. Reviewed public `context_manager/history.rs`, `compact.rs`, `tools/router.rs`, and supported App Server documentation. K Studio already uses the actual upstream App Server; it does not need a second imitation Harness. Retain durable project facts and authoritative model identity separately from the bounded active model window, pair tool calls/results, and measure cache/latency/output rather than treating raw total tokens as invoice cost. No upstream implementation was copied by these repairs.
 
 Sources: [Codex](https://github.com/openai/codex/tree/07316174c6f62deb20278c53add2dbd9dcf6da70), [App Server](https://learn.chatgpt.com/docs/app-server), [Sol reference pricing](https://developers.openai.com/api/docs/models/gpt-6.1-sol), [compaction](https://developers.openai.com/api/docs/guides/compaction).

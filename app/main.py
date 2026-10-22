@@ -204,6 +204,9 @@ def _sanitize_agent_reply(value: str, project_dir: Path | None = None) -> str:
             target = match.group(3).strip().strip("<>")
             if target.startswith("file://"):
                 target = target[7:]
+            # Some model replies render Windows paths as Markdown /E:/... .
+            # Normalize this spelling before the existing project/file checks.
+            target = re.sub(r"^/(?=[A-Za-z]:[\\/])", "", target)
             candidate = Path(target)
             if not candidate.is_absolute() or not candidate.is_file() or candidate.is_symlink():
                 return match.group(0)
@@ -1872,6 +1875,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         if resolve_pending_reference_defaults(project_dir, context, request.message, current_model_revisions(project_dir, session.ruby_state)):
             store.save(context, project_dir / "state/project_context.json")
             invalidate_stale_design_scope(project_dir)
+        from .contextual_attachments import restore_defect_feedback_state
+        if restore_defect_feedback_state(project_dir, session, context):
+            store.save_state(project_id, session, "agent_session.json")
         session_ready = session.status == "ready" and bool(session.model_path)
         from .contextual_turn import resolve_host_action
         contextual = None
