@@ -19,6 +19,19 @@ _RECONSTRUCTION_COMPLETION_POLICY = (
     "NEEDS_FIX:NO ends this turn's writes. "
 )
 
+_SUBJECT_SCOPE_POLICY = (
+    "Default: connected building, wings, terraces, roof planting. "
+    "Neighbors and off-site roads/tracks/traffic/greenery need a human request; image visibility or Agent suggestions cannot grant it. "
+    "Skip context questions; honor scene requests. "
+)
+
+_SOURCE_FORM_POLICY = (
+    "Before facade replication, record source-visible front/side bay counts, storeys, setback direction and connected-volume ratios with confidence. "
+    "Compare these against the proposed axes and a source-matched current view; a convenient fixed module must not override visible counts. "
+    "Prioritize a wrong silhouette, setback or facade rhythm over plants and street polish. "
+    "Readable files, successful tools, editable groups and completed local edits do not make the whole building source-correct."
+)
+
 
 _HARNESS_FIRST_RECONSTRUCTION_CONTEXT = """
 You are an autonomous architectural modeling agent inside K Studio, powered by
@@ -66,9 +79,10 @@ def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool) -> str
     # Clarification/planning turns still need the reconstruction Skill even when
     # SketchUp tools are withheld. Architecture-design keeps its historical behavior.
     if mode == "image_reconstruction":
-        return (_HARNESS_FIRST_RECONSTRUCTION_CONTEXT
+        context = (_HARNESS_FIRST_RECONSTRUCTION_CONTEXT
                 if os.environ.get("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE", "full").lower() == "harness"
                 else load_image_to_sketchup_skill_context())
+        return context + "\n\n" + _SOURCE_FORM_POLICY
     if not mcp_enabled:
         return ""
     return load_architecture_skill_context()
@@ -109,7 +123,7 @@ def workflow_prompt_note(mode: WorkflowMode, action: AgentAction = "auto") -> st
 def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                                     action: AgentAction = "auto") -> str:
     safety = (
-        "Scope environment separately: restoring a building alone does not authorize streets, cars or dense planting; include them only when requested or approved. "
+        _SUBJECT_SCOPE_POLICY +
         "First verify one repeated slab/wall/window module: record exterior wall planes, slab edge offsets and wall thickness in common coordinates. Measure actual slab edges at side/rear corners; unless source shows exposed bands, floors must not pierce exterior finish. "
         "Inspect stair/landing/handrail joints and plant clearance against actual building after placement. Keep reusable vegetation separate and outside occupied building volume. Unseen facades are inferred coherent design, not source restoration. "
 

@@ -1,5 +1,7 @@
 # Real Sol High novice test — three rounds completed, overall PARTIAL
 
+**Later owner correction:** the owner rejected this result, including schematic roads and the occluding detached neighbor. The controller72/76/78 scores below are historical and withdrawn as quality-acceptance evidence. See [owner rejection and current repair](../2026-10-22-owner-rejection/README.md). The original metrics/failures remain unchanged.
+
 本轮已完成真实网站三轮体验，暂评72→76→78分：首版停在r6，阳台局部修正到r8，街角/轨道局部修正到r10。后两轮能理解截图反馈、保护其他构件并正常结束；第一轮仍发生过度细化。最终SKP已真实下载并用SU2024打开，声明精度下的完整几何比较通过，严格逐位比较失败保留。整体源图保真仍需改进，当前属于内测产品，不能称为已成熟发售。
 
 成本结论：本次没有第三方API实际扣费。按本机已观测缓存及官方参考单价估算三轮合计6.312689美元，不能承诺一个建筑5元；18层建筑和街景也不能代替小场景成本样本。旧DeepSeek案例的主要额外开销来自长回合上下文增长、逐视角编排和强制继续细化，原始中断原因是供应商余额不足。网关超时与Agent效率应分别诊断，不能把这两种问题统称为“API不能建模”。
