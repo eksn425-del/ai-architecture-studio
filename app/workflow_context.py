@@ -22,13 +22,14 @@ _RECONSTRUCTION_COMPLETION_POLICY = (
 _SUBJECT_SCOPE_POLICY = (
     "Default: connected building, wings, terraces, roof planting. "
     "Neighbors and off-site roads/tracks/traffic/greenery need a human request; image visibility or Agent suggestions cannot grant it. "
-    "Skip context questions; honor scene requests. "
+    "Don't propose extras; honor scene requests. "
 )
 
 _SOURCE_FORM_POLICY = (
     "Before facade replication, record source-visible front/side bay counts, storeys, setback direction and connected-volume ratios with confidence. "
     "Compare these against the proposed axes and a source-matched current view; a convenient fixed module must not override visible counts. "
     "Prioritize a wrong silhouette, setback or facade rhythm over plants and street polish. "
+    "Changing source/design evidence invalidates an old review; obtain fresh independent QA before writing. "
     "Readable files, successful tools, editable groups and completed local edits do not make the whole building source-correct."
 )
 
