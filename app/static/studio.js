@@ -52,7 +52,7 @@ function renderJourney() {
   $("model-connection-hint").textContent = routeInfo("economy").provider === "codex-app-server"
     ? "当前选择的本机 Codex 不可用。请先检查本机安装和配置，或在「模型 / 自带 API」主动选择其他连接。图片和草稿会保留。"
     : "请在「模型 / 自带 API」检查所选供应商的连接。图片和草稿会保留，分析阶段无需 SketchUp。";
-  $("clarification-shortcuts").hidden = stage !== "clarifying";
+  $("clarification-shortcuts").hidden = state.busy || stage !== "clarifying";
   $("use-estimates").disabled = state.busy;
 }
 
@@ -346,6 +346,13 @@ async function loadParameterPlan() {
     if (!pendingPlan || typeof pendingPlan.pending_plan_id !== "string" || !pendingPlan.pending_plan_id
         || pendingPlan.consumed || pendingPlan.plan_sha256 !== sha256) {
       state.displayedPlan = null;
+      // A direct local edit may update working notes after the approved build.
+      // Those notes are not a new pending plan and must not appear as a stale
+      // approval request below the completed conversation.
+      if (state.project?.agent_session?.reconstruction_state === "building") {
+        $("parameter-plan").hidden = true;
+        return;
+      }
       $("parameter-plan-content").insertAdjacentHTML("afterbegin", '<p class="plan-review-note">计划版本尚未核验或已更新，请刷新或重新整理计划后再批准。</p>');
       return;
     }
@@ -593,9 +600,8 @@ function updateHeader() {
   if (agent.modeling_backend === "blender") $("agent-session-state").textContent = "Blender 有限体块后端 · 原生保存/重开核验 · 非完整建筑复原";
   if (!state.busy) $("start-agent-session").querySelector("span:first-child").textContent = agentReady ? "重连 SketchUp" : "连接 SketchUp";
   const hasAgentTurn = agent.status === "conversation" || agent.status === "ready";
-  const activeTier = hasAgentTurn ? agent.routing_tier : "economy";
   const activeModel = hasAgentTurn && agent.model ? agent.model : routeInfo("economy").model;
-  $("model-tier-status").textContent = (activeTier === "premium" ? "精修 · " : "Economy · ") + activeModel;
+  $("model-tier-status").textContent = activeModel;
   $("conversation-input").placeholder = $("workflow-mode").value === "image_reconstruction"
     ? sourceImages().length ? "根据这些图片还原建筑，或继续描述修改要求" : "描述你想建的建筑，也可粘贴一张或多个视角图片"
     : agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
@@ -611,7 +617,7 @@ function updateHeader() {
     taskDetails.dataset.context = detailContext;
   }
   const hasImages = sourceImages().length > 0;
-  $("prepare-plan").hidden = reconstructionState !== "clarifying";
+  $("prepare-plan").hidden = state.busy || reconstructionState !== "clarifying";
   $("prepare-plan").disabled = state.busy;
   $("model-settings-toggle").disabled = state.busy;
   renderAttachments();
@@ -636,7 +642,7 @@ function updateHeader() {
   if (isBlender) {
     $("start-agent-session").hidden = true;
     $("next-step").textContent = reconstructionState === "building" ? "继续修改同一模型，或在模型与文件中下载 .blend。" : reconstructionState === "planned" ? "查看计划后批准执行 Blender 体块测试。" : "先描述要求，再整理计划。";
-    $("prepare-plan").hidden = reconstructionState === "planned" || reconstructionState === "building";
+    $("prepare-plan").hidden = state.busy || reconstructionState === "planned" || reconstructionState === "building";
   }
   for (const id of ["brief", "site-note", "intent"]) $(id).closest(".input-block").hidden = reconstruction;
   $("reference-url").hidden = reconstruction;
@@ -695,7 +701,7 @@ function renderConversation() {
       return ref.type === "image" ? `<div class="sent-image"><a href="${url}" target="_blank" rel="noreferrer"><img src="${url}" alt="已发送参考图 ${escapeHtml(path.split('/').at(-1))}"></a><button class="image-remove" data-delete-image="${escapeHtml(path)}" aria-label="删除已发送图片 ${escapeHtml(path.split('/').at(-1))}" ${state.busy ? "disabled" : ""}>×</button></div>` : `<a href="${url}" target="_blank" rel="noreferrer">${escapeHtml(path.split('/').at(-1))}</a>`;
     }).join("");
     const detail = !isUser && meta.model
-      ? '<small class="chat-metadata">' + escapeHtml(meta.tier === "premium" ? "精修" : "Economy")
+      ? '<small class="chat-metadata">' + escapeHtml("建筑 Agent")
         + " · " + escapeHtml(meta.model)
         + (Number.isInteger(meta.input_tokens) ? " · " + meta.input_tokens + " 输入 token" : "")
         + (Number.isInteger(meta.output_tokens) ? " · " + meta.output_tokens + " 输出 token" : "")
@@ -877,7 +883,7 @@ async function boot() {
     const economyRoute = routeInfo("economy");
     const premiumRoute = routeInfo("premium");
     const routeStatus = routeAvailable("economy")
-      ? `Economy · ${economyRoute.model} · ${(economyRoute.reasoning_effort || "low").toUpperCase()} · ${routeReadinessLabel("economy")}`
+      ? `${economyRoute.model} · ${(economyRoute.reasoning_effort || "模型默认").toUpperCase()} · ${routeReadinessLabel("economy")}`
       : routeReadinessLabel("economy");
     $("brain-status").textContent = `建筑 Agent · ${routeStatus}`;
     document.querySelector(".signal-dot").classList.toggle("ready", state.nativeAgentAvailable);
@@ -1086,7 +1092,7 @@ async function sendConversation(event, agentAction = "auto") {
   const requestedTier = $("conversation-tier").value;
   const clientRequestId = globalThis.crypto?.randomUUID?.();
   const route = routeInfo(requestedTier);
-  setBusy(button, true, `${requestedTier === "premium" ? "精修" : "Economy"} · ${route.model} 处理中…`);
+  setBusy(button, true, `${route.model} 处理中…`);
   const built = state.project?.agent_session?.status === "ready";
   const reconstruction = $("workflow-mode").value === "image_reconstruction";
   const resolvedAction = agentAction;
@@ -1124,7 +1130,7 @@ async function sendConversation(event, agentAction = "auto") {
     setStatus(result.reply);
     const calls = result.agent?.tool_calls?.length || 0;
     const agent = result.agent || {};
-    showToast((agent.tier === "premium" ? "精修" : "Economy") + " · " + (agent.model || "Agent")
+    showToast((agent.model || "建筑 Agent")
       + " 已处理" + (agent.agent_action === "clarify" ? "图片澄清" : agent.agent_action === "plan" ? "建模计划，等待批准" : built ? "当前模型" + (calls ? " · " + (agent.tool_call_count || calls) + " 次工具调用" : "") : "设计讨论") + "。", false);
     // Executing or inspecting an existing model is not a new result. Only the
     // host's current-turn commit/checkpoint receipts may open the result panel.

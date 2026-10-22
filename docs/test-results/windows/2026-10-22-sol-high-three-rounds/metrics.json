@@ -1,0 +1,151 @@
+{
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "route": "local Codex App Server development subscription; no paid provider proof",
+  "rounds": [
+    {
+      "round": 1,
+      "revision": 6,
+      "subjective_score": 72,
+      "tokens_delta": {
+        "input_tokens": 10859219,
+        "cached_input_tokens": 10340096,
+        "output_tokens": 75370,
+        "reasoning_output_tokens": 29910,
+        "total_tokens": 10934589
+      },
+      "cumulative_tokens": {
+        "input_tokens": 10859219,
+        "cached_input_tokens": 10340096,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 75370,
+        "reasoning_output_tokens": 29910,
+        "total_tokens": 10934589
+      },
+      "reference_api_usd_delta": 2.825956,
+      "cumulative_reference_api_usd": 2.825956,
+      "new_native_thread_runs": 10,
+      "tool_starts_by_name": {
+        "codex_commandExecution": 32,
+        "codex_fileChange": 13,
+        "sketchup_get_model_context": 2,
+        "sketchup_run_workspace_ruby": 8,
+        "sketchup_capture_review_views": 6,
+        "sketchup_set_camera": 17,
+        "sketchup_export_view_image": 16,
+        "sketchup_inspect_owned": 17,
+        "sketchup_submit_visual_review": 6,
+        "sketchup_audit_clearance": 1
+      },
+      "total_tool_starts": 118,
+      "native_model_tool_starts": 73,
+      "local_coding_tool_results": {
+        "codex_commandExecution": 32,
+        "codex_fileChange": 13
+      },
+      "completion": "owner-style UI stop after over-refinement"
+    },
+    {
+      "round": 2,
+      "revision": 8,
+      "subjective_score": 76,
+      "tokens_delta": {
+        "input_tokens": 7339320,
+        "cached_input_tokens": 6916480,
+        "output_tokens": 36317,
+        "reasoning_output_tokens": 10245,
+        "total_tokens": 7375637
+      },
+      "cumulative_tokens": {
+        "input_tokens": 18198539,
+        "cached_input_tokens": 17256576,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 111687,
+        "reasoning_output_tokens": 40155,
+        "total_tokens": 18310226
+      },
+      "reference_api_usd_delta": 1.900498,
+      "cumulative_reference_api_usd": 4.726454,
+      "new_native_thread_runs": 6,
+      "tool_starts_by_name": {
+        "codex_commandExecution": 31,
+        "sketchup_get_model_context": 1,
+        "sketchup_inspect_owned": 15,
+        "sketchup_set_camera": 8,
+        "sketchup_export_view_image": 9,
+        "codex_fileChange": 5,
+        "sketchup_run_workspace_ruby": 5,
+        "sketchup_capture_review_views": 3,
+        "sketchup_submit_visual_review": 3,
+        "sketchup_audit_relations": 1
+      },
+      "total_tool_starts": 81,
+      "native_model_tool_starts": 45,
+      "local_coding_tool_results": {
+        "codex_commandExecution": 31,
+        "codex_fileChange": 5
+      },
+      "completion": "normal, scope complete and stopped for review"
+    },
+    {
+      "round": 3,
+      "revision": 10,
+      "subjective_score": 78,
+      "tokens_delta": {
+        "input_tokens": 5691434,
+        "cached_input_tokens": 5306496,
+        "output_tokens": 28571,
+        "reasoning_output_tokens": 10076,
+        "total_tokens": 5720005
+      },
+      "cumulative_tokens": {
+        "input_tokens": 23889973,
+        "cached_input_tokens": 22563072,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 140258,
+        "reasoning_output_tokens": 50231,
+        "total_tokens": 24030231
+      },
+      "reference_api_usd_delta": 1.586235,
+      "cumulative_reference_api_usd": 6.312689,
+      "new_native_thread_runs": 5,
+      "tool_starts_by_name": {
+        "codex_commandExecution": 13,
+        "sketchup_get_model_context": 1,
+        "sketchup_inspect_owned": 11,
+        "sketchup_set_camera": 8,
+        "sketchup_export_view_image": 8,
+        "sketchup_capture_review_views": 3,
+        "sketchup_submit_visual_review": 3,
+        "codex_fileChange": 5,
+        "sketchup_run_workspace_ruby": 2,
+        "sketchup_audit_relations": 1
+      },
+      "total_tool_starts": 55,
+      "native_model_tool_starts": 37,
+      "local_coding_tool_results": {
+        "codex_commandExecution": 13,
+        "codex_fileChange": 5
+      },
+      "completion": "normal, scope complete and stopped for review"
+    }
+  ],
+  "observed_usage_updates": 200,
+  "peak_observed_input_tokens": 240754,
+  "native_delivery": {
+    "declared_precision_status": "PASS_WITH_DECLARED_PRECISION",
+    "raw_strict_status": "FAIL",
+    "bound_to_download_raw_status": "PASS",
+    "pre_product_save_capture": "NOT_RUN",
+    "blank_program_replay": "NOT_RUN"
+  },
+  "preservation": {
+    "original_model_count": 649,
+    "changed_original_model_count": 0,
+    "credential_container_unchanged": true,
+    "paid_provider_calls_this_run": 0
+  },
+  "global_visual_quality": "NEEDS_FIX",
+  "scores_are_subjective": true,
+  "video": "DEFERRED_BY_OWNER"
+}
