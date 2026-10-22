@@ -55,6 +55,12 @@ def inspect_su_relation_evidence(executor, script_id: str,
     ids = [owned_path_id(path) for path in paths]
     if len(set(ids)) != len(ids):
         raise ValueError("Duplicate owned paths")
+    # Resolve an already-stale autosave token through the executor's existing
+    # native ownership proof BEFORE capturing the race baseline. Never forgive
+    # an identity/revision change during the inspection below.
+    verify_identity = getattr(executor, "verify_active_model", None)
+    if callable(verify_identity):
+        verify_identity()
     identity, revision = _identity(executor, script_id)
     response = executor.inspect_owned({"script_id": script_id, "paths": deepcopy(paths)})
     if _identity(executor, script_id) != (identity, revision):

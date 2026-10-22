@@ -119,6 +119,26 @@ def test_revision_race_fails_closed():
         audit_su_relations(executor, "main", [relation()])
 
 
+def test_verified_preexisting_guid_refresh_precedes_race_baseline():
+    executor = ContractExecutor()
+    executor.verify_active_model = lambda: setattr(executor, "expected_model_guid", "verified-autosave")
+    result = audit_su_relations(executor, "main", [relation()])
+    assert result["model_identity"]["model_guid"] == "verified-autosave"
+    executor.change = lambda _: setattr(executor, "expected_model_guid", "changed-during-read")
+    with pytest.raises(ValueError, match="changed"):
+        audit_su_relations(executor, "main", [relation()])
+
+
+def test_failed_owned_identity_preflight_never_inspects_geometry():
+    executor = ContractExecutor()
+    def reject():
+        raise ValueError("native ownership proof failed")
+    executor.verify_active_model = reject
+    with pytest.raises(ValueError, match="ownership"):
+        audit_su_relations(executor, "main", [relation()])
+    assert not executor.calls
+
+
 def test_paths_are_unambiguous_and_bounded():
     assert owned_path_id(["A/B"]) != owned_path_id(["A", "B"])
     executor = ContractExecutor()

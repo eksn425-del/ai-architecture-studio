@@ -668,7 +668,14 @@ class CodexAppServerRuntime:
                 "sandbox": "read-only" if read_only else "workspace-write",
                 "approvalPolicy": "never",
                 "serviceName": "ai_architecture_studio_oss_takeover_v1",
-                "developerInstructions": developer_instructions,
+                "developerInstructions": developer_instructions + (
+                    "\nTool-output hygiene: discover tool names with a narrow filter, never print ALL_TOOLS "
+                    "or complete tool descriptions. Never stringify/print data:image/base64 payloads. "
+                    "Display returned image blocks through image(), or inspect the receipt's saved PNG with view_image. "
+                    "For a result serialized as text plus data:image, print only the text prefix and inspect the saved PNG. "
+                    "Print selected receipt fields (revision, status, errors, paths), not full KEEP ledgers. "
+                    "Keep complete evidence in workspace files; do not confuse a summary with a visual inspection."
+                ),
             }
             from .research_tool_context import RESEARCH_TOOL_NAMES
             registered_tools = canonical_dynamic_tools(dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES])
@@ -909,6 +916,8 @@ class CodexAppServerRuntime:
                     record({"event": "tool_result", "tool": call["tool"],
                             "success": output.get("success", not output.get("isError", False)),
                             "error": " ".join(str(part.get("text", "")) for part in output.get("contentItems", []) if part.get("type") == "inputText")[:2000] if output.get("success") is False or output.get("isError") else "",
+                            "text_chars": sum(len(str(part.get("text", ""))) for part in output.get("contentItems", []) if part.get("type") == "inputText"),
+                            "image_count": sum(part.get("type") == "inputImage" for part in output.get("contentItems", [])),
                             "content_types": [part.get("type") for part in output.get("contentItems", [])]})
                     continue
                 item = params.get("item") or {}

@@ -308,7 +308,7 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
         context = surface.prepare(project_dir=tmp_path / "projects" / "budget",
             mcp_enabled=True, model_path=tmp_path / "blank.skp", model_guid="fixture",
             ruby_enabled=True, ruby_state=state, tool_profile="reconstruction_coding")
-        with pytest.raises(OSError):
+        with pytest.raises(MCPCallError, match="POST_COMMIT_VERIFICATION_FAILED.*geometry_already_committed=true"):
             context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
         for _ in range(limit - 1):
             context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})

@@ -160,6 +160,15 @@ class ProjectRubyExecutor:
             raise MCPCallError("Exit the active SketchUp group/component edit context before running project Ruby.")
         return identity
 
+    def verify_active_model(self) -> dict[str, Any]:
+        """Establish the owned identity before a read-only audit's race fence.
+
+        Unlike a blind GUID refresh this verifies native path, project, root and
+        revision when an autosave changed the token. Audits still reject changes
+        occurring after this baseline was established.
+        """
+        return self._assert_active_model()
+
     def refresh_active_model_snapshot(self) -> dict[str, Any]:
         """Refresh the per-turn GUID token after an existing MCP tool edits the model."""
         identity = self.adapter.get_active_model_identity()

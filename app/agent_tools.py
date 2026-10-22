@@ -225,7 +225,13 @@ class AgentToolSurface:
             if executor is None:
                 raise MCPCallError("KEEP preservation requires a verified project writer.")
             if not isinstance(paths, list) or not paths or len(paths) > 256:
-                raise MCPCallError("preserve_paths must contain 1..256 exact owned-group paths.")
+                count = len(paths) if isinstance(paths, list) else "not a list"
+                raise MCPCallError(
+                    f"preserve_paths must contain 1..256 exact owned-group paths; received {count}. "
+                    "No geometry was attempted. Protect an unchanged ancestor instead of enumerating all its leaves "
+                    "only when the entire ancestor must stay unchanged. Never drop required KEEP objects or widen "
+                    "allowed_mutation_paths merely to fit the batch."
+                )
             snapshots: dict[str, dict[str, Any]] = {}
             for index, path in enumerate(paths):
                 if (
@@ -356,7 +362,12 @@ class AgentToolSurface:
                         "并在本次 writer 调用中传 preserve_paths；host 会在写入后核对 persistent ID / 对象数 / mm bounds。"
                     )
                 if preserve_paths:
-                    preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
+                    try:
+                        preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
+                    except (MCPCallError, ValueError) as error:
+                        raise MCPCallError(
+                            f"KEEP_PREFLIGHT_FAILED: no geometry was attempted. {error}"
+                        ) from error
             try:
                 dispatch_arguments = arguments
                 if bounded and preservation_before:
@@ -453,6 +464,25 @@ class AgentToolSurface:
                             output['post_write_spatial_audits']=audits
                             if 'contentItems' in output:output['contentItems'].append({'type':'inputText','text':'Post-write spatial audit: '+json.dumps(audits,ensure_ascii=False)})
                 return output
+            except (MCPCallError, OSError, RuntimeError, ValueError) as error:
+                committed = {
+                    key: state.get("revision", 0) for key, state in executor.ruby_state.items()
+                    if state.get("revision", 0) > before.get(key, 0)
+                } if bounded else {}
+                if committed:
+                    quality_state["post_commit_error"] = {
+                        "geometry_already_committed": True,
+                        "committed_revisions": committed,
+                        "quality_status": "unverified",
+                        "error": str(error),
+                    }
+                    raise MCPCallError(
+                        "POST_COMMIT_VERIFICATION_FAILED: geometry_already_committed=true; "
+                        f"committed_revisions={json.dumps(committed)}. Do not repeat this writer. "
+                        "Read the current owned revision and repair verification first; no quality PASS is established. "
+                        + str(error)
+                    ) from error
+                raise
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
                     writes += 1

@@ -1,3 +1,9 @@
+## 2026-10-23 — Owner requests item-by-item follow-through
+
+Owner explicitly resumes unresolved work on the current stepped-apartment case, retaining subject-only scope and actual local Sol6.1/high. [Follow-up](test-results/windows/2026-10-23-agent-reliability/README.md). Preserve r13 and all old cases. Fix observed diagnostics/efficiency causes first, then verify through the same real website; no new full build, paid-provider calls, video or cloud deployment. New evidence must not inherit r10 reopen or withdrawn quality scores.
+
+---
+
 ## 2026-10-22 — Owner REJECTS r10 source quality; subject-only scope
 
 [Owner verdict, request coverage and completed bounded correction](test-results/windows/2026-10-22-owner-rejection/README.md). The owner rejects the schematic road/occluding neighbor and the primary building quality. Prior72/76/78 controller scores are historical and WITHDRAWN as acceptance evidence; whole-source result FAIL. All30 requested/reported native thread identities through r13 are Sol6.1/high. Real website cleanup r11 removed actual context/road/street vegetation with building/own planting deep KEEP. Same-chat r12 representative row then r13 replication corrected tower6/5 bays and two low-wing recessed connections; independent Critic confirms the scoped improvement, global source fidelity remains NEEDS_FIX for loggia/infill positions. Default product behavior is connected subject only, without leading optional-context questions; source anchors precede replication. Preserve r10/r11/r13 and failures. Product save/browser download SHA captured; r13 native GUI reopen NOT_RUN because foreground use interrupted attempts, no inherited r10 PASS. Total local usage36,671,999input/189,571output, observed-cache referenceUSD9.126031, not a paid invoice or CNY5 acceptance. Stop this bounded correction for owner review; no further geometry/full rebuild/paid API/media publication/main merge/cloud. Video remains deferred.

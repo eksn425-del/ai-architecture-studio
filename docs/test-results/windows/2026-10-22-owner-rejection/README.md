@@ -1,5 +1,7 @@
 # Owner rejects the three-round visual result
 
+**2026-10-23 correction:** [Scoped raw-journal follow-up](../2026-10-23-agent-reliability/README.md) establishes that the failed named-path lookup below occurred before replication, at revision12. The subsequent r13 writer succeeded with a separate advisory strategy-progress warning. The earlier “post-write/readback” grouping was imprecise; neither event proves a duplicate geometry commit. Historical raw evidence is unchanged.
+
 The owner explicitly rejects the final street and detached neighbor, and asks whether the Agent and previous acceptance work are actually adequate. Default scope is now the connected building subject, with its attached wings, balconies/terraces and own planting; detached context requires a real human request. This supersedes the controller-authored broad scene test, not the original reference image.
 
 ## Correction to the previous report
