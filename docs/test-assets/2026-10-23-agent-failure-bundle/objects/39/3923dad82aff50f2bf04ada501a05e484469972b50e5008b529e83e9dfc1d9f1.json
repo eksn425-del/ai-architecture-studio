@@ -1,0 +1,179 @@
+{
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-16c07\\outputs\\model\\blank-disposable-20261022-173456.skp",
+  "scripts": {
+    "terraced_apartment": {
+      "model_guid": "9e1c9015-ed44-4a06-ae7d-74e26b66a461",
+      "revision": 11,
+      "root_pid": 19,
+      "source_sha256": "9d557fcc68ef45eb20e9c5a30b38b7fc186f8441c9df95fa0236f045bd7fed92",
+      "last_report": "runtime/scripts/reports/terraced_apartment-r11-2c39525b.json",
+      "last_screenshot": "outputs/renders/ruby-terraced_apartment-r11.png",
+      "last_verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 11,
+            "actual": 11
+          },
+          {
+            "check": "objects_total",
+            "expected": 3,
+            "actual": 3
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -47100.0,
+                -300.0,
+                -220.0
+              ],
+              "max": [
+                18405.0,
+                21900.0,
+                60204.0
+              ],
+              "size": [
+                65505.0,
+                22200.0,
+                60424.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -47100,
+                -300,
+                -220
+              ],
+              "max": [
+                18405,
+                21900,
+                60204
+              ],
+              "size": [
+                65505,
+                22200,
+                60424
+              ]
+            }
+          }
+        ]
+      },
+      "last_verification_report": "runtime/scripts/reports/terraced_apartment-r11-2c39525b.verification.json",
+      "last_precommit_keep_guard": {
+        "armed": true,
+        "passed": true,
+        "paths": [
+          "BUILDING",
+          "MODULE_FRONT_WALL",
+          "VEGETATION/ROOF_INSTANCES",
+          "VEGETATION/TERRACE_INSTANCES",
+          "VEGETATION/BALCONY_INSTANCES",
+          "VEGETATION/LEFT_POCKET_INSTANCES"
+        ]
+      },
+      "last_oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "9d557fcc68ef45eb20e9c5a30b38b7fc186f8441c9df95fa0236f045bd7fed92",
+        "events": [],
+        "status": "committed_readback",
+        "script_id": "terraced_apartment",
+        "revision": 11,
+        "root_pid": 19
+      },
+      "last_edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_v2",
+        "allowed_paths": [
+          [
+            "CONTEXT"
+          ],
+          [
+            "ENVIRONMENT"
+          ],
+          [
+            "VEGETATION",
+            "STREET_INSTANCES"
+          ]
+        ],
+        "required_deep_keep_paths": [],
+        "allowed_top_level": [
+          "CONTEXT",
+          "ENVIRONMENT",
+          "VEGETATION"
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      },
+      "last_strategy_progress": {
+        "status": "NOT_VERIFIED",
+        "reason": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Owned child name must match exactly one",
+        "revision": 11
+      },
+      "last_oss_method_adoption": {
+        "schema_version": 1,
+        "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {},
+        "any_oss_product_use": false,
+        "effect_verified": false,
+        "effect_verification_required": "Named component readback and independent source-matched visual review.",
+        "plan_choices": [
+          {
+            "system": "right_balcony_sample",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "right_balcony_confirmed_peers",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "right_corner_location_check",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "balcony_joint_finish",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "street_corner_tracks_endpoints",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "SAIE installed adapters support straight walls and rectangular openings, not horizontal arc paving or rail/wire transforms. ADAI is disabled. Use guarded unique owned groups.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "street_wire_finish",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "In-place transforms of existing contact wire leaves; installed SAIE straight walls/openings are incompatible and ADAI is disabled.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "extract_connected_building",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Remove existing native owned context only; installed SAIE straight wall/opening geometry helpers do not fit removal, and ADAI is disabled. No new roof/wall/opening/profile geometry.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+# Source-to-model volume inventory
+
+This is a visual reasoning record, not a finite geometry action vocabulary.
+Fill before building; update from actual source-matched views after every commit.
+
+| Stable feature ID | Source files / visible landmarks | Main or attached volume / roof / canopy | Attachment and height relation | Estimated ratio + visible anchor + uncertainty | Exact owned paths | Current source-match / missing / wrong |
+|---|---|---|---|---|---|---|
+| pending | pending | pending | pending | pending | pending | not built |
+
+Compare ALL supplied whole images. Account for lower white annexes and their separate roofs, setbacks and openings, not just the dominant facade. Mark unseen portions as inferred. A legal JSON plan or successful writer is not evidence of silhouette agreement.
+
+## Primary-form silhouette check
+
+- Source-angle high/low landmarks, roof-edge endpoints and step in height: pending
+- Largest unresolved massing mismatch (before details): pending
+- Alternate spatial interpretation / confidence: pending
+- Actual helper choice and reason (SAIE / verified ADAI profile / project Ruby): pending
+
+Do not invent landscaping to cover template people. Fix lifecycle separately. Never claim installed ADAI was used without actual script calls.

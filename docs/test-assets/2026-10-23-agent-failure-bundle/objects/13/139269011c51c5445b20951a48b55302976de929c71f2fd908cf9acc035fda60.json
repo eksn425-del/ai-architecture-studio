@@ -1,0 +1,484 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "single_view_inference",
+  "primary_source": "inputs/reference/4e52d9a057-source-target.png",
+  "sources": [
+    {
+      "path": "inputs/reference/4e52d9a057-source-target.png",
+      "kind": "exterior_image",
+      "role": "SOURCE TARGET",
+      "provenance": "observed",
+      "notes": [
+        "唯一原始建筑目标，单张街角透视。左前路缘和前景铺装圆鼻可见，轨道接地；圆角尺寸和全场地边界未知。"
+      ]
+    },
+    {
+      "path": "inputs/reference/3b597b9df4-06-round1-orbit-balcony-defects.png",
+      "kind": "exterior_image",
+      "role": "ISSUE LOCATION",
+      "provenance": "observed",
+      "notes": [
+        "历史r6阳台缺陷，不能复制为目标；已修阳台全部保留。"
+      ]
+    },
+    {
+      "path": "inputs/reference/53116483e2-09-round2-orbit-street-defects.png",
+      "kind": "exterior_image",
+      "role": "ISSUE LOCATION",
+      "provenance": "observed",
+      "notes": [
+        "历史r8街道缺陷定位；界面内小截图只辅助定位，不替代原建筑目标。"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "原图沿街退台主立面，局部凹格与玻璃/实墙混合；靠右转角只作问题复核。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "原图未见；沿用现模协调设计，本次不改。"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "左楼高低关系可见，最左端面受透视遮挡，细部未知，本次不改。"
+      ]
+    },
+    "right": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "原图塔楼右端面有局部凹阳台；本次局部修正重点，具体缺陷格对应待现模核对。"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "只见平屋顶和分级露台边缘，完整平面未知；本次保持。"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "唯一原建筑透视视角；与历史模型角度不同，禁止逐像素迁移阳台位置。"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "无平面；室内不细分。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "未提供CAD或尺寸标注。"
+    ]
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "不推定户型、楼梯或核心筒原貌。"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "标准层高",
+      "value_mm": 3100,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    },
+    {
+      "name": "首层层高",
+      "value_mm": 4200,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    },
+    {
+      "name": "塔楼高度",
+      "value_mm": 56900,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    },
+    {
+      "name": "格架跨距",
+      "value_mm": 3600,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    }
+  ],
+  "hard_constraints": [
+    "仅清理独立邻楼和全部外部环境。",
+    "保留主体四段相连建筑、原形体、层数、格架及全部立面和阳台。",
+    "保留全部建筑自身阳台、露台、屋顶及低翼种植。",
+    "只在同一模型同根精确路径清空几何，不以隐藏代替移除。",
+    "完成后独立复核并停给用户检查，不处理既有建筑差异。"
+  ],
+  "assumptions": [
+    "真实深度未知，暂按1800–2000mm估算；200mm墙厚、1100mm栏杆均为建模参数。",
+    "未见侧后面沿用协调设计，不作为原图复原；本次不改。",
+    "候选清单不代表全部有缺陷；需逐格确认。",
+    "前立面靠右转角与右端面必须按同一格架和坐标对应，不能凭截图左右位置混同。"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "do_not_infer",
+    "preserve_circulation": true
+  },
+  "user_confirmed": [
+    "首版含左侧连楼、露台绿化、街道路口和轨道；右邻楼保留简化体块。",
+    "尺寸按图片比例估算，室内不细分。",
+    "本次仅把塔楼右侧横缝状阳台修成有明显凹深的阳台，补侧墙、顶板和玻璃栏杆。",
+    "保留现有层数、米色格架和其他部分，修完先停。",
+    "最新请求覆盖历史环境保留：移除邻楼、道路、轨道、架空线、街树等，仅保留相连主体及建筑自身绿化，主体形体立面保持现状。"
+  ],
+  "observed": [
+    "原图高塔向左逐级退台，连接高低两段低楼；平屋面及种植边缘。",
+    "原图浅米色凸格架、内退玻璃与实墙混合，局部凹阳台有侧壁/上部遮阴。",
+    "历史截图及保存的r6图有若干阳台呈横缝；不据此认定所有阳台都无进深。"
+  ],
+  "design_scope": [
+    {
+      "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+      "requested_state": "仅将塔楼右侧仍呈横缝的既有阳台改为完整凹阳台：后退门窗，补齐两侧墙、相接底板和顶板、玻璃栏杆及扶手；保留现有楼层、米色格架和其余几何。"
+    }
+  ],
+  "source_comparison": {
+    "source_target_view_count": 1,
+    "issue_location_view_count": 2,
+    "all_attached_images_inspected": true,
+    "cross_view_contradiction": false,
+    "notes": [
+      "原图与模型截图摄像机不同、主体地标一致；缺陷属于模型对源图的偏差，不是两份目标图互相冲突。",
+      "无任务书、场地文件或URL；本次属于源图局部修正，不作场地或功能适配。"
+    ]
+  },
+  "current_model_evidence": {
+    "revision": 11,
+    "root_pid": 19,
+    "source_refs": [
+      "notes/cleanup_execution.md"
+    ],
+    "quality_status": "review_pending",
+    "notes": [
+      "Root native inventory now contains only BUILDING, MODULE_FRONT_WALL and VEGETATION.",
+      "Vegetation native inventory now contains only ROOF_INSTANCES, TERRACE_INSTANCES, BALCONY_INSTANCES and LEFT_POCKET_INSTANCES.",
+      "All six KEEP subtree native geometry/material fingerprints are unchanged from r10."
+    ]
+  },
+  "model_verification": {
+    "identity_verified": true,
+    "blank_disposable_verified": true,
+    "geometry_written": true,
+    "notes": [
+      "这些布尔值只记录既有r1–r6历史读回：blank-disposable-20261022-173456、terraced_apartment、PID19。",
+      "本轮未连接实时模型、未写几何；下一次执行须复核相同模型根及revision。保存重开未确认。"
+    ]
+  },
+  "plan_turn": {
+    "geometry_written_this_turn": true,
+    "scope_approval": "latest_user_direct_execute",
+    "native_readback_this_turn": true
+  },
+  "module_verification": {
+    "status": "historical_native_readback_only; local_balcony_verification_pending",
+    "coordinate_system": "mm；X沿主立面向右，Y向建筑后部，Z向上；塔楼前左角(0,0,0)",
+    "bounds": {
+      "x_min": 14400,
+      "x_max": 18000,
+      "y_min": 0,
+      "y_max": 3600,
+      "z_min": 4200,
+      "z_max": 7300
+    },
+    "wall_planes": {
+      "front_y": 0,
+      "right_x": 18000,
+      "rear_y": 14400
+    },
+    "wall_thickness_mm": 200,
+    "wall_solid_ranges": {
+      "front_y": [
+        0,
+        200
+      ],
+      "right_x": [
+        17800,
+        18000
+      ]
+    },
+    "slab_thickness_mm": 220,
+    "slab_edges": {
+      "front_y": 50,
+      "right_x": 17950,
+      "rear_y": 14350
+    },
+    "slab_edge_inset_mm": 50,
+    "frame_outer_planes": {
+      "front_y": -300,
+      "right_x": 18300
+    },
+    "glazing_planes": {
+      "front_y": 100,
+      "right_x": 17900
+    },
+    "actual_native_bounds_mm": {
+      "sample_slab": {
+        "min": [
+          50,
+          50,
+          3980
+        ],
+        "max": [
+          17950,
+          14350,
+          4200
+        ]
+      },
+      "upper_slab": {
+        "min": [
+          50,
+          50,
+          53580
+        ],
+        "max": [
+          17950,
+          14350,
+          53800
+        ]
+      },
+      "sample_wall": {
+        "min": [
+          14400,
+          0,
+          4200
+        ],
+        "max": [
+          18000,
+          200,
+          7300
+        ]
+      }
+    },
+    "provenance": "observed",
+    "source_refs": [
+      "notes/execution_log.md",
+      "notes/facade_schedule.json (prior r4 record)",
+      "scripts/module.rb"
+    ],
+    "notes": [
+      "以上是旧版原生读回记录，不是本轮测量，也不是原图实测。普通楼板侧后角均内收50mm；执行时重测实际边线。",
+      "墙厚200mm只在既有代表墙得到旧记录支持；不可声称整栋幕墙均为200mm实体墙。",
+      "r5脚本侧阳台背玻璃移至X16000；另有旧栏杆X17970或新栏杆X17930，不能只新增重复构件。",
+      "本轮需在一格内同时检查后玻璃、原浅色填板、梁底、侧墙和栏杆遮挡，尚未通过。"
+    ]
+  },
+  "environment_scope": {
+    "provenance": "user_confirmed",
+    "state": "external_geometry_removed_revision11",
+    "target_paths": [
+      [
+        "CONTEXT"
+      ],
+      [
+        "ENVIRONMENT"
+      ],
+      [
+        "VEGETATION",
+        "STREET_INSTANCES"
+      ]
+    ],
+    "preserve_paths": [
+      [
+        "BUILDING"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION",
+        "ROOF_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "TERRACE_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "BALCONY_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "LEFT_POCKET_INSTANCES"
+      ]
+    ],
+    "notes": [
+      "本轮为主体展示范围调整；源图环境仍属源图事实，但不再属于交付范围。"
+    ]
+  },
+  "execution_turn": {
+    "geometry_written": true,
+    "model_name": "blank-disposable-20261022-173456",
+    "model_guid": "c01f5f18-a652-44d5-ac86-b575670219b4",
+    "source_measurement": false,
+    "depth_provenance": "estimated_design_verified_in_current_geometry",
+    "edited_front_bays": [
+      "TOWER_L11/j4",
+      "TOWER_L09/j3"
+    ],
+    "save_reopen_verified": false,
+    "native_identity_verified": true,
+    "side_deep_loggias_preserved": 9,
+    "root_pid": 19,
+    "depth_mm": 1980,
+    "revision": 8,
+    "scope_approved": true
+  },
+  "street_correction": {
+    "provenance": "user_confirmed",
+    "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+    "target_paths": [
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "BUILDING_SIDEWALK"
+      ],
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "FAR_CORNER_PAVEMENT"
+      ],
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "FOREGROUND_PAVEMENT"
+      ],
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "CURB_FRONT"
+      ],
+      [
+        "ENVIRONMENT",
+        "TRACKS"
+      ],
+      [
+        "ENVIRONMENT",
+        "CONTACT_WIRES"
+      ]
+    ],
+    "preserve_paths": [
+      [
+        "BUILDING"
+      ],
+      [
+        "CONTEXT"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION"
+      ],
+      [
+        "ENVIRONMENT",
+        "INTERSECTION"
+      ]
+    ],
+    "observed": [
+      "原图路缘有圆弧转角；轨道位于地表。"
+    ],
+    "inferred": [
+      "路缘半径4500/5000mm；线端按既有场地边界内收1800mm。"
+    ],
+    "native_before": {
+      "revision": 8,
+      "road_top_mm": -180,
+      "rail_top_mm": 75,
+      "site_x_min_mm": -66000,
+      "site_x_max_mm": 60000
+    }
+  },
+  "current_local_request": {
+    "scope": "extract_connected_building",
+    "target_paths": [
+      [
+        "CONTEXT"
+      ],
+      [
+        "ENVIRONMENT"
+      ],
+      [
+        "VEGETATION",
+        "STREET_INSTANCES"
+      ]
+    ],
+    "preserve_paths": [
+      [
+        "BUILDING"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION",
+        "ROOF_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "TERRACE_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "BALCONY_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "LEFT_POCKET_INSTANCES"
+      ]
+    ],
+    "approval": "latest_user_direct_execute",
+    "baseline_revision": 10,
+    "result_revision": 11
+  }
+}

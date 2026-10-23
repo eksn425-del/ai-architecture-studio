@@ -1,3 +1,9 @@
+## 2026-10-23 — Owner requests full sanitized failure publication
+
+[Chinese failure handoff](test-results/windows/2026-10-23-failure-publication/README.md) and [complete content-addressed bundle](test-assets/2026-10-23-agent-failure-bundle/README.md). Owner now authorizes current-case originals/images/SKP/scripts/logs and associated DeepSeek records for web analysis, superseding previous withholding for these experiments only. Credential material and unrelated backup projects are excluded with an index. Archive only: no new geometry, inference, video, main merge or deployment. Original local failures and qualified/unverified verdicts remain unchanged.
+
+---
+
 ## 2026-10-23 — Follow-up r22 completed PARTIAL; cost FAIL
 
 [Item-by-item audit](test-results/windows/2026-10-23-agent-reliability/README.md). Real same-case Sol6.1/high ended naturally at r22:9 commits,233 tools,8 failures,14.62M new input. Source fidelity NEEDS_FIX and CNY5 target unverified. Preserve r13/r22 and private raw evidence. Current work is delivery verification and installing offline-tested progress/diagnostic/current-user-review fixes, not further geometry. Latest Critic current-instruction change still needs live acceptance. No paid calls/video/cloud/main merge.

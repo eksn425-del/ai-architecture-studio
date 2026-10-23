@@ -1,0 +1,633 @@
+{
+  "schema_version": 1,
+  "current_stage": "pending",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "overall_width_mm": {
+      "value": 13200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图正立面宽高比反算（inputs/reference/6649b42845-image.png）"
+    },
+    "overall_depth_mm": {
+      "value": 12000,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "无侧/背原图，按每层约150㎡一户推断"
+    },
+    "ground_floor_height_mm": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "卷帘门高2700＋门头带，首层比例"
+    },
+    "upper_floor_height_mm": {
+      "value": 3000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图7个住宅层等距，总高/层数反算"
+    },
+    "residential_floor_count": {
+      "value": 7,
+      "units": "count",
+      "provenance": "observed",
+      "source": "原图逐层可数：L1-L7 各一组阳台与窗"
+    },
+    "total_height_mm": {
+      "value": 24600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "3600＋7×3000，至屋面结构板顶"
+    },
+    "front_pier_width_mm": {
+      "value": 450,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图三处竖向混凝土柱垛比例"
+    },
+    "loggia_bay_width_mm": {
+      "value": 4650,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "左跨净宽，立面比例估算"
+    },
+    "glazed_bay_width_mm": {
+      "value": 7200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "右跨净宽，立面比例估算"
+    },
+    "spandrel_height_mm": {
+      "value": 600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "层高3000−洞口2400，含250板＋350外露带"
+    },
+    "window_width_mm": {
+      "value": 3500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "右跨两扇等分，中竖框200"
+    },
+    "window_height_mm": {
+      "value": 2400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "通高窗，窗间墙带扣除后"
+    },
+    "window_sill_mm": {
+      "value": 100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图玻璃近乎落地，留踢脚/窗台"
+    },
+    "window_mullion_width_mm": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "右跨两窗之间细竖框"
+    },
+    "loggia_recess_depth_mm": {
+      "value": 1500,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "由栏板与柱垛进深关系反推，无侧面原图"
+    },
+    "loggia_opening_height_mm": {
+      "value": 2400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "与窗洞同高，楼板下皮到顶板下皮"
+    },
+    "balustrade_height_mm": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "阳台玻璃栏板高度比例"
+    },
+    "slab_thickness_mm": {
+      "value": 250,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "窗间墙可见厚度"
+    },
+    "garage_door_width_mm": {
+      "value": 6000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "首层右跨卷帘宽度，略窄于柱距"
+    },
+    "garage_door_height_mm": {
+      "value": 2700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "首层卷帘门高度比例"
+    },
+    "entry_door_width_mm": {
+      "value": 1200,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "首层左跨内凹入口，低置信"
+    },
+    "entry_door_height_mm": {
+      "value": 2400,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "首层内凹入口，低置信"
+    },
+    "side_window_width_mm": {
+      "value": 1500,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "侧立面不可见，按同柱网推断"
+    },
+    "side_window_height_mm": {
+      "value": 1800,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "侧立面不可见，推断值"
+    },
+    "side_windows_per_floor": {
+      "value": 2,
+      "units": "count",
+      "provenance": "inferred",
+      "source": "侧立面每层2扇，低置信"
+    },
+    "rear_windows_per_floor": {
+      "value": 4,
+      "units": "count",
+      "provenance": "inferred",
+      "source": "背立面每层4扇，低置信"
+    },
+    "roof_parapet_height_mm": {
+      "value": 700,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图顶部混凝土带高度"
+    },
+    "roof_screen_height_mm": {
+      "value": 2200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "女儿墙以上细密竖向格栅围屏，约为层高3/4"
+    }
+  },
+  "systems": [
+    {
+      "id": "site_ground",
+      "stage": "primary_form",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm"
+      ],
+      "target_paths": [
+        [
+          "SITE",
+          "GROUND_PLANE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "默认不入模街道、车辆、行道树、邻楼。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "仅一块建筑周边薄板用于定位与投影，无开洞或剖面变化，SAIE/ADAI 无更合适的辅助方法。"
+    },
+    {
+      "id": "level_slabs_core",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "ground_floor_height_mm",
+        "upper_floor_height_mm",
+        "slab_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "LEVELS",
+          "SLAB_CORE_STACK"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique",
+        "right"
+      ],
+      "notes": [
+        "楼板边与外墙完成面齐平，不得穿出外皮。",
+        "核心筒洞口位置为推断，靠后部中央。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "8 层楼板需按共享标高逐层放置并在板面开核心筒洞口，属多层板件＋洞口，连续墙与等截面型材方法均不能表达。"
+    },
+    {
+      "id": "front_facade_wall",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "upper_floor_height_mm",
+        "ground_floor_height_mm",
+        "front_pier_width_mm",
+        "loggia_bay_width_mm",
+        "glazed_bay_width_mm",
+        "spandrel_height_mm",
+        "window_width_mm",
+        "window_height_mm",
+        "window_sill_mm",
+        "window_mullion_width_mm",
+        "loggia_recess_depth_mm",
+        "loggia_opening_height_mm",
+        "garage_door_width_mm",
+        "garage_door_height_mm",
+        "entry_door_width_mm",
+        "entry_door_height_mm"
+      ],
+      "target_paths": [
+        [
+          "FACADE",
+          "WALL_FRONT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "主形体阶段即须含阳台洞与 14 扇窗洞，不接受实心盒体。",
+        "左跨凹进 1500 由独立凹阳台单元与外墙洞共同形成。"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "正立面是一面矩形直墙，7 层阳台洞与 14 扇窗洞为规则矩形真实洞口，SAIE 批量开洞可一次成墙，避免用墙段拼出假立面。"
+    },
+    {
+      "id": "rear_facade_wall",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "upper_floor_height_mm",
+        "spandrel_height_mm",
+        "rear_windows_per_floor",
+        "entry_door_width_mm",
+        "entry_door_height_mm"
+      ],
+      "target_paths": [
+        [
+          "FACADE",
+          "WALL_REAR"
+        ]
+      ],
+      "verification_views": [
+        "rear",
+        "oblique"
+      ],
+      "notes": [
+        "无背面原图，开窗数量为低置信推断；须与正面柱网、层高一致。"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "背面同样是一面矩形直墙＋规则窗洞（推断），与正面共用开洞做法，便于复用同一参数体系。"
+    },
+    {
+      "id": "side_facade_walls",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "continuous_wall_with_openings",
+      "status": "pending",
+      "depends_on": [
+        "overall_depth_mm",
+        "upper_floor_height_mm",
+        "spandrel_height_mm",
+        "side_window_width_mm",
+        "side_window_height_mm",
+        "side_windows_per_floor"
+      ],
+      "target_paths": [
+        [
+          "FACADE",
+          "WALL_LEFT"
+        ],
+        [
+          "FACADE",
+          "WALL_RIGHT"
+        ]
+      ],
+      "verification_views": [
+        "left",
+        "right"
+      ],
+      "notes": [
+        "侧立面不可见，按同柱网与同材料连贯推断。"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "左右侧立面为矩形混凝土直墙＋每层规则窗洞（推断），同一批量开洞方法最贴合。"
+    },
+    {
+      "id": "roof_slab_parapet",
+      "stage": "primary_form",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "roof_parapet_height_mm",
+        "slab_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "ROOF",
+          "ROOF_SLAB"
+        ],
+        [
+          "ROOF",
+          "PARAPET_BAND"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique",
+        "front"
+      ],
+      "notes": [
+        "屋面为开放露台，禁止整体封顶盖住露台。",
+        "女儿墙与屋面板分开命名，便于单独修女儿墙高度。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "平屋面板＋沿周四边女儿墙为异形闭合环，需按轮廓参数生成带厚度板件与环状女儿墙，等截面型材无法一次表达四边转角。"
+    },
+    {
+      "id": "window_unit",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "status": "pending",
+      "depends_on": [
+        "window_width_mm",
+        "window_height_mm",
+        "window_sill_mm",
+        "slab_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "MODULES",
+          "WINDOW_UNIT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "框与洞口留 20mm 安装缝，玻璃嵌入框 10mm。",
+        "窗框深灰，玻璃暗色反光，窗帘面片单独成组。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "3500×2400 窗由 4 根框料＋玻璃＋内窗台组成，应先做一个命名组/定义，核对后再实例化 14 次；框料截面简单，无需 ADAI 型材依赖。"
+    },
+    {
+      "id": "loggia_unit",
+      "stage": "representative_module",
+      "role": "balcony",
+      "method": "prototype_instance",
+      "status": "pending",
+      "depends_on": [
+        "loggia_bay_width_mm",
+        "loggia_recess_depth_mm",
+        "loggia_opening_height_mm",
+        "balustrade_height_mm",
+        "slab_thickness_mm"
+      ],
+      "target_paths": [
+        [
+          "MODULES",
+          "LOGGIA_UNIT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "栏板底部与楼板留 50mm 缝，栏板与柱垛留 20mm 缝。",
+        "种植槽位于栏板内侧，不与建筑体量外的环境植被混在一起。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "7 个凹阳台为同一单元（凹进楼板、顶板、1100 玻璃栏板与立柱、种植槽），先完成一个可量测原型，再逐层复制。"
+    },
+    {
+      "id": "front_repetition",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "pending",
+      "depends_on": [
+        "upper_floor_height_mm",
+        "residential_floor_count",
+        "window_width_mm",
+        "loggia_bay_width_mm"
+      ],
+      "target_paths": [
+        [
+          "FACADE",
+          "FRONT_REPEAT"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "复制前先核对一层：窗台标高、栏板顶标高、窗间墙带厚度。",
+        "首层不复制上层单元。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "窗与阳台单元经原型核对后按层高参数阵列，是真正的重复构件；逐层重写会生成不可维护的散面。"
+    },
+    {
+      "id": "rear_side_window_repeat",
+      "stage": "replication",
+      "role": "opening_system",
+      "method": "prototype_instance",
+      "status": "pending",
+      "depends_on": [
+        "upper_floor_height_mm",
+        "residential_floor_count",
+        "side_window_width_mm",
+        "side_window_height_mm",
+        "side_windows_per_floor",
+        "rear_windows_per_floor"
+      ],
+      "target_paths": [
+        [
+          "FACADE",
+          "WALL_REAR",
+          "REAR_WINDOWS"
+        ],
+        [
+          "FACADE",
+          "WALL_LEFT",
+          "SIDE_WINDOWS"
+        ],
+        [
+          "FACADE",
+          "WALL_RIGHT",
+          "SIDE_WINDOWS"
+        ]
+      ],
+      "verification_views": [
+        "rear",
+        "left",
+        "right"
+      ],
+      "notes": [
+        "推断窗位须与外墙实际洞口对齐，不得浮在墙面上。",
+        "数量为低置信，后续如补图需按新证据修正。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "背/侧窗为同一窗型的规则阵列，复用已核对的窗单元定义，仅改尺寸与位置参数。"
+    },
+    {
+      "id": "ground_band_variant",
+      "stage": "variants",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "garage_door_width_mm",
+        "garage_door_height_mm",
+        "entry_door_width_mm",
+        "entry_door_height_mm",
+        "overall_width_mm"
+      ],
+      "target_paths": [
+        [
+          "FACADE",
+          "GROUND_BAND"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "卷帘底与地坪齐平，门头带与 L1 楼板底对齐。",
+        "入口内凹深度低置信，先取 600。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "首层含横向肋卷帘门、内凹入口与深灰基座带，为一次性异形细节，SAIE 墙洞方法不能生成肋状卷帘与门厅凹口。"
+    },
+    {
+      "id": "roof_screen_railing",
+      "stage": "finish",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "roof_screen_height_mm",
+        "roof_parapet_height_mm"
+      ],
+      "target_paths": [
+        [
+          "ROOF",
+          "SCREEN_RAILING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "立柱 25×25、间距约 120，顶杆通长；正/右侧为观察，左/背面为推断延续。",
+        "围屏不得高出原图比例，也不得遮挡露台成为实墙。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "2200 高细密竖向格栅需沿四边周长按间距排布立柱并生成上下横杆与转角，单一等截面挤出无法处理转角与分段，故用受控自有 Ruby 参数化生成。"
+    },
+    {
+      "id": "roof_planters_trellis",
+      "stage": "finish",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "overall_width_mm",
+        "overall_depth_mm",
+        "roof_screen_height_mm"
+      ],
+      "target_paths": [
+        [
+          "ROOF",
+          "PLANTERS"
+        ],
+        [
+          "ROOF",
+          "GREEN_SCREEN"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "绿植为简化体块/半透明面，与建筑体量分离，不进入室内体积。",
+        "位置与数量为低置信推断。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "种植槽为固定截面但需沿露台左侧成组布置，攀架为细杆格架，与围屏共用参数化放样逻辑更可控。"
+    },
+    {
+      "id": "curtain_screens",
+      "stage": "finish",
+      "role": "interior_detail",
+      "method": "custom_owned_ruby",
+      "status": "pending",
+      "depends_on": [
+        "window_width_mm",
+        "window_height_mm",
+        "residential_floor_count"
+      ],
+      "target_paths": [
+        [
+          "INTERIOR",
+          "CURTAIN_SCREENS"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "仅在玻璃后 150mm 处，不遮挡玻璃反射层次。",
+        "不做家具与室内分隔细节。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "玻璃后米色窗帘与浅色室内面为可见但非几何主体的面片，直接用半透明面片比建模织物更合适。"
+    }
+  ],
+  "notes": []
+}

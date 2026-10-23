@@ -1,0 +1,101 @@
+{
+  "revision": 22,
+  "root_pid": 19,
+  "transaction_status": "committed",
+  "keep_passed": true,
+  "keep_path_count": 118,
+  "write_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 19,
+        "actual": 19
+      },
+      {
+        "check": "revision",
+        "expected": 22,
+        "actual": 22
+      },
+      {
+        "check": "objects_total",
+        "expected": 3,
+        "actual": 3
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -47100,
+            -300,
+            -220
+          ],
+          "max": [
+            18300,
+            21900,
+            60204
+          ],
+          "size": [
+            65400,
+            22200,
+            60424
+          ]
+        },
+        "actual": {
+          "min": [
+            -47100,
+            -300,
+            -220
+          ],
+          "max": [
+            18300,
+            21900,
+            60204
+          ],
+          "size": [
+            65400,
+            22200,
+            60424
+          ]
+        }
+      }
+    ]
+  },
+  "oss_status": "committed_readback",
+  "oss_events": [],
+  "views": {
+    "front": "outputs/renders/agent-view-front-3b7ab46f83.png",
+    "rear": "outputs/renders/agent-view-rear-a98d73ece5.png",
+    "left": "outputs/renders/agent-view-left-a3abcc155a.png",
+    "right": "outputs/renders/agent-view-right-44719d1bb7.png",
+    "roof": "outputs/renders/agent-view-roof-904ec2519f.png",
+    "oblique": "outputs/renders/agent-view-oblique-6806848286.png"
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-e90f956f04.png",
+      "label": "r22 source-direction overall"
+    },
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-e2ee8ea481.png",
+      "label": "r22 source-facing tower recess detail"
+    },
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-fc302e546c.png",
+      "label": "r22 retained low-wing terrace detail"
+    }
+  ],
+  "side_rear": "outputs/renders/agent-view-8bfaa3163f.png",
+  "final_qa": "needs_fix",
+  "remaining_scope": "lower infill/glazing contrast and ground-frontage transparency; no additional geometry edits"
+}

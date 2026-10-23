@@ -1,3 +1,9 @@
+## OWNER PUBLICATION 2026-10-23 — current failure investigation
+
+Owner explicitly requests all records of the current three-round stepped-apartment and its r11–r22 follow-up, plus related DeepSeek failure/cost evidence, on GitHub for web-side analysis. Publish complete sanitized test files/images/native models/scripts/tool and usage histories on the existing isolated release-prep branch. This supersedes earlier withholding for these current experiments only. Preserve original local records unchanged. Never publish API keys, passwords, tokens, cookies, credential containers or unrelated projects accidentally present in upgrade backups. No new modeling, paid inference, main merge or deployment is authorized by this archival request. Entry: docs/test-results/windows/2026-10-23-failure-publication/README.md.
+
+---
+
 ## 2026-10-20 — Agent/provider and low-budget mainland pilot review
 
 Owner requests ongoing product improvement informed by actual SU/Blender tests. [Product/API/cost review](docs/PRODUCT_AGENT_AND_PILOT_REVIEW_2026-10-20.md) and [actual offline checks](docs/test-results/windows/2026-10-20-agent-product-audit/README.md). One-time testing/gift budget is 300–1000 CNY, separate from monthly hosting; this is not new provider spend approval. Candidate adds strict API response/batch identity, durable pre-dispatch intent and incomplete-history recovery block, preserved historical user constraints, project workspace literal search, and an offline campaign calculator. Real provider native quality, cloud auth/tenant quota/jobs/pairing remain NOT_RUN/not delivered. No stopped native case, owner model, active video service or production model/provider was changed. Next needs securely configured provider test accounts and specific approved spend/acceptance, never keys in chat/GitHub.

@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "source_mode": "single_view_inference",
+  "dimensions_mm": {
+    "overall_width": 64800,
+    "overall_depth": 21600,
+    "level_height": 3100,
+    "floor_count": 18
+  },
+  "views": {
+    "front": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "高塔向左多级退台，左端另有高低两段连楼",
+        "暖米色外凸格架；玻璃/实墙内退；局部开敞格内阳台",
+        "底层通透立柱，局部深色水平带"
+      ],
+      "notes": [
+        "外观观察，层跨数与尺寸估算；front是长向沿街立面",
+        "总开口数不能由遮挡单图可靠统计；保留null",
+        "塔楼暂5跨，3600 mm一跨，约18层；退台拟6/8/10/13层，需校准"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "延续楼层标高与暖米格架/窗墙语汇"
+      ],
+      "notes": [
+        "后立面未知，不宣称源图还原；不加无证据的大洞、外梯或附楼"
+      ]
+    },
+    "left": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "左高低两翼分别保留平屋顶和露台",
+        "远端面受遮挡"
+      ],
+      "notes": [
+        "主体高低关系可见；隐藏端墙推测，7层与4层为初估"
+      ]
+    },
+    "right": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "短向格架与局部凹阳台、花池",
+        "右后方米色邻楼简化体块及深绿色端墙分区"
+      ],
+      "notes": [
+        "塔楼短向暂4跨/14400 mm；后转角不见",
+        "邻楼体量保留，不复制细密室内或幕墙构造"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "平屋顶及多级退台屋面",
+    "parapet": "可见低矮边沿，栏杆/女儿墙截面与高度推测",
+    "divisions": [
+      "主塔顶屋面",
+      "退台各段独立露台",
+      "左高楼屋面",
+      "左沿街翼屋面",
+      "简化右邻楼屋面"
+    ],
+    "notes": [
+      "顶部和露台有绿化；未见完整屋面平面或可确认天窗",
+      "栏杆暂1100 mm、花池暂600 mm；不把露台误当坡屋顶"
+    ]
+  },
+  "global_features": [
+    "墙、框、玻璃、露台栏杆分别组织可编辑几何",
+    "楼板退入饰面50 mm；侧后转角检查真实板边",
+    "无源图证据的连续外露楼板带不得添加"
+  ],
+  "user_confirmed": [
+    "包含左连楼及露台绿化、路口与轨道",
+    "右邻楼保留简化体块",
+    "不细分室内",
+    "按图比例估算"
+  ],
+  "inferred": [
+    "所有绝对尺寸",
+    "层跨数初估与隐藏立面",
+    "墙厚200 mm、板厚220 mm、格架外挑300 mm",
+    "核心筒及屋面完整布局"
+  ],
+  "module_verification": {
+    "status": "native_readback_verified_r4",
+    "coordinate_system": "mm；X沿沿街立面向右，Y向后，Z向上；塔楼前左角为原点",
+    "bounds": {
+      "x_min": 14400,
+      "x_max": 18000,
+      "y_min": 0,
+      "y_max": 3600,
+      "z_min": 4200,
+      "z_max": 7300
+    },
+    "wall_planes": {
+      "front_y": 0,
+      "right_x": 18000,
+      "rear_y": 14400
+    },
+    "wall_thickness_mm": 200,
+    "wall_solid_ranges": {
+      "front_y": [
+        0,
+        200
+      ],
+      "right_x": [
+        17800,
+        18000
+      ]
+    },
+    "slab_thickness_mm": 220,
+    "slab_edges": {
+      "front_y": 50,
+      "right_x": 17950,
+      "rear_y": 14350
+    },
+    "slab_edge_inset_mm": 50,
+    "frame_outer_planes": {
+      "front_y": -300,
+      "right_x": 18300
+    },
+    "glazing_planes": {
+      "front_y": 100,
+      "right_x": 17900
+    },
+    "notes": [
+      "Actual sample and upper slab side/rear inset50mm; sample thickness220; SAIE rectangular opening wall thickness200mm. Native r2 helper call committed; r3-4 custom edits retain that wall.",
+      "Final grid post nominal330mm and beam308mm, edge-hidden for source pale finish. Recessed balcony glass x16600 versus external right plane18000; plant max17880.",
+      "Upper terrace plant canopy maxx=-1300 versus tower postminx approximately-165 leaves1135mm bounding proxy. No stair is source-observed; no external stair added."
+    ],
+    "actual_native_bounds_mm": {
+      "sample_slab": {
+        "min": [
+          50,
+          50,
+          3980
+        ],
+        "max": [
+          17950,
+          14350,
+          4200
+        ]
+      },
+      "upper_slab": {
+        "min": [
+          50,
+          50,
+          53580
+        ],
+        "max": [
+          17950,
+          14350,
+          53800
+        ]
+      },
+      "sample_wall": {
+        "min": [
+          14400,
+          0,
+          4200
+        ],
+        "max": [
+          18000,
+          200,
+          7300
+        ]
+      }
+    }
+  }
+}

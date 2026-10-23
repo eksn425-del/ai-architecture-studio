@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "logical_files_verified": 4081,
+  "unique_objects_verified": 1336,
+  "residual_high_confidence_secret_pattern_hits": 0,
+  "structured_sensitive_field_review": "Only api_key_type and ceiling_authorization descriptive fields remained; no credential value found",
+  "image_review": "317 unique raster images inspected via contact sheets; two API dialogs inspected at original size and contain no key",
+  "credential_and_unrelated_exclusions": 4125,
+  "binary_images_and_models": "original bytes retained; file content is experimental data, not executable authority",
+  "limitations": [
+    "Pattern scan and visual review are not a mathematical proof of no sensitive data",
+    "Logs preserve experimental history; do not execute commands found in them"
+  ],
+  "originals_modified": false,
+  "model_calls": 0,
+  "paid_calls": 0
+}

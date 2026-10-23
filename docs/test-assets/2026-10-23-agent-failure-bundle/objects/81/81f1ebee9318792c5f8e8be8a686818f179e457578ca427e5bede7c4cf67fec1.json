@@ -1,0 +1,505 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Source (single observed street elevation) shows a narrow 8-level concrete-frame block: ground floor + 7 residential floors, three 450 concrete piers forming a left balcony bay and a right glazed bay, 7 balcony openings + 14 full-height windows, ribbed garage shutter right and a dark, deeply recessed entry left, topped by a 700 concrete parapet with a 2200 fine grey picket screen and terrace planting above the left end. The current model gets this massing and count right: front silhouette/width-to-height, 7 aligned upper rows, 1 balcony + 2 window openings per row (21 upper openings), 2 ground openings, parapet + picket screen band with planting above the left side, coherent inferred side elevations (2 windows/level) and a flat open roof terrace whose planters do not alter the street silhouette. The remaining gaps are not count/silhouette but visible material and relief: every window and balcony pane is rendered as a blank white opening with heavy pale frames instead of dark reflective ",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "All 14 right-bay windows and the balcony back panes are empty white rectangles with thick pale borders; source shows full-height (3500×2400) dark green-grey reflective glazing in thin dark-grey frames with a 200 mullion, and beige curtains/inner room faces visible behind the glass. This removes the strongest material zone of the observed facade.",
+            "action": "Apply a dark reflective glass material to the window and balcony-back panes, slim the frames to thin dark-grey profiles and keep the 200 central mullion, then place beige curtain planes plus a light interior face roughly 250 behind the glass. Keep the existing opening counts, sizes and alignment unchanged."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The left bay openings present as flat multi-pane glazed panels with no legible 1500-deep balcony recess: no soffit/side-wall shadow depth, no reading of the 1100 glass balustrade at the front edge, and none of the source's balcony planting, so the block's balcony-bay relief against the glazed bay is lost.",
+            "action": "Keep the 7 openings but make the recess real geometry (1500 deep side walls and slab soffits at the existing levels, back wall glazed), set the 1100 glass rail with slim metal posts at the front plane of the opening rather than a flush panel, and add the planter boxes with simplified greenery on the floors where the source shows them."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The 2200 roof screen is modelled as a dense near-black ribbon and the green planter volumes visually overlap/pierce the pickets; in the source the screen is a fine light-grey vertical picket fence you can see sky through, with planting standing inside the parapet and rising above the screen at the left end.",
+            "action": "Thin and lighten the pickets to medium grey with clear gaps and a slim top/bottom rail while keeping 2200 height and the parapet top line, and move/resize the terrace planters so they sit inside the parapet with foliage rising above the screen instead of intersecting it."
+          }
+        ],
+        "keep": [
+          "Three-pier, two-bay front grid with 7 upper floors; 7 balcony openings plus 14 windows and 2 ground openings in the source positions",
+          "Ground floor: horizontal-ribbed roller shutter in the right bay and dark recessed entry wall in the left bay",
+          "Overall width-to-height ratio and 3000 level rhythm with 600 spandrel bands",
+          "700 concrete parapet with 2200 screen above it, flat open roof terrace, no added storey or roof volume",
+          "Inferred side elevations with 2 vertically aligned windows per level and matching concrete finish"
+        ],
+        "model_revisions": {
+          "apt964f3": 1
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "apt964f3",
+        "revision": 2,
+        "relative_path": "scripts/patch_r1_finish.rb",
+        "update_mode": "edit",
+        "source_sha256": "65843e4f2d90fea4b614aacff056012fa9f3aa90d9c5e79663554cc658f59dbe",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT",
+            "WALL_REAR",
+            "WALL_LEFT",
+            "WALL_RIGHT",
+            "GROUND_GARAGE_WALL",
+            "GROUND_ENTRY_WALL",
+            "LEVELS/SLAB_CORE_STACK",
+            "ROOF/PARAPET_BAND",
+            "ROOF/PLANTERS",
+            "ROOF/ROOF_SLAB",
+            "SITE/GROUND_PLANE",
+            "FACADE/GROUND_BAND"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The source-visible front shows a narrow 8-level building: ground floor plus 7 residential rows, a three-pier/two-bay concrete grid, 7 deep left-bay balconies with transparent glass railings, paired near-full-height dark glazing with curtains in the right bay, a ribbed garage door and dark left entrance, and a concrete parapet with a fine open 2200 vertical metal grille above. The current model keeps the correct storey count, bay arrangement, 7 left openings, 14 right windows, and ground-floor uses, but the left balconies read as flush white mullioned window grids rather than recessed balconies with glass balustrades. The right-bay glazing is opaque white and lacks the source’s dark reflective glass and curtain layer. The roof screen reads as a dense/opaque black perimeter band rather than the open, fine vertical grille in the source. The inferred side/rear facades are not source-verifiable but are coherent enough not to be the priority.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Left-bay balconies are expressed as flat white window grids; the source shows recessed balcony voids with a visible 1100 glass balustrade at the front edge and dark glazing behind.",
+            "action": "Keep the seven-row rhythm and planters, but remove the flush white infill, retain the 1500 recess, and add a transparent glass balustrade with thin posts plus darker rear glazing so the balconies read as open recesses."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The right-bay paired windows read as opaque white panes in heavy frames; the source has near-continuous dark reflective glazing with a thin central mullion and beige curtains behind.",
+            "action": "Keep the two windows per floor and seven rows, but assign dark glass, place curtain planes behind the glazing, and narrow/align the central mullion and frames to the paired-window reading shown in the source."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The roof perimeter screen reads as a solid dark cap/dense black band, while the source-defining element is a thin, open 2200 vertical metal grille above a 700 concrete parapet.",
+            "action": "Rebuild only the screen as sparse vertical rods between slim top and bottom rails on the existing concrete parapet, reducing slat density and removing the solid black band while keeping the terrace open."
+          }
+        ],
+        "keep": [
+          "Three-pier/two-bay front structural grid and 7 upper residential rows above ground are present.",
+          "Seven left-bay openings and fourteen right-bay windows are counted and arranged by floor.",
+          "Left ground entrance and right ribbed garage door remain in their correct ground-floor bays.",
+          "The flat open roof terrace without an added roof volume is maintained."
+        ],
+        "model_revisions": {
+          "apt964f3": 2
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "The source-visible front shows a narrow 8-level building: ground floor plus 7 residential rows, a three-pier/two-bay concrete grid, 7 deep left-bay balconies with transparent glass railings, paired near-full-height dark glazing with curtains in the right bay, a ribbed garage door and dark left entrance, and a concrete parapet with a fine open 2200 vertical metal grille above. The current model keeps the correct storey count, bay arrangement, 7 left openings, 14 right windows, and ground-floor uses, but the left balconies read as flush white mullioned window grids rather than recessed balconies with glass balustrades. The right-bay glazing is opaque white and lacks the source’s dark reflective glass and curtain layer. The roof screen reads as a dense/opaque black perimeter band rather than the open, fine vertical grille in the source. The inferred side/rear facades are not source-verifiable but are coherent enough not to be the priority.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Left-bay balconies are expressed as flat white window grids; the source shows recessed balcony voids with a visible 1100 glass balustrade at the front edge and dark glazing behind.",
+            "action": "Keep the seven-row rhythm and planters, but remove the flush white infill, retain the 1500 recess, and add a transparent glass balustrade with thin posts plus darker rear glazing so the balconies read as open recesses."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The right-bay paired windows read as opaque white panes in heavy frames; the source has near-continuous dark reflective glazing with a thin central mullion and beige curtains behind.",
+            "action": "Keep the two windows per floor and seven rows, but assign dark glass, place curtain planes behind the glazing, and narrow/align the central mullion and frames to the paired-window reading shown in the source."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The roof perimeter screen reads as a solid dark cap/dense black band, while the source-defining element is a thin, open 2200 vertical metal grille above a 700 concrete parapet.",
+            "action": "Rebuild only the screen as sparse vertical rods between slim top and bottom rails on the existing concrete parapet, reducing slat density and removing the solid black band while keeping the terrace open."
+          }
+        ],
+        "keep": [
+          "Three-pier/two-bay front structural grid and 7 upper residential rows above ground are present.",
+          "Seven left-bay openings and fourteen right-bay windows are counted and arranged by floor.",
+          "Left ground entrance and right ribbed garage door remain in their correct ground-floor bays.",
+          "The flat open roof terrace without an added roof volume is maintained."
+        ],
+        "model_revisions": {
+          "apt964f3": 2
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "apt964f3",
+        "revision": 3,
+        "relative_path": "scripts/patch_r2_glass.rb",
+        "update_mode": "edit",
+        "source_sha256": "ae83dba0fc112d25da9cbfa9273c569e3a60d33bfe3f03108d70aa29b04a7ec7",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT",
+            "WALL_REAR",
+            "WALL_LEFT",
+            "WALL_RIGHT",
+            "GROUND_GARAGE_WALL",
+            "GROUND_ENTRY_WALL",
+            "LEVELS/SLAB_CORE_STACK",
+            "ROOF/PARAPET_BAND",
+            "ROOF/PLANTERS",
+            "ROOF/ROOF_SLAB",
+            "SITE/GROUND_PLANE",
+            "FACADE/GROUND_BAND",
+            "ROOF/GREEN_SCREEN",
+            "INTERIOR/CURTAIN_SCREENS"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Source (single eye-level front view) shows a narrow slab: a warm beige board-formed concrete frame of three slim piers forming two unequal bays — a narrower left balcony bay and a wider right glazed bay — over 7 residential floors plus a dark ground floor, crowned by a concrete parapet of about 700 with a fine vertical metal screen of about 2200 (together roughly one storey tall), with tall plants at the terrace's left end. The current model matches the big topology: 7 upper floors, 3 piers / 2 bays with the left bay about 0.65 of the right, left bay recesses with planters, right bay with two glazing panels per floor divided by a narrow mullion, ground floor with recessed entry left and ribbed shutter right, open flat roof with perimeter screen and planters, and the inferred rear (4 windows/floor) and sides (2 windows/floor) follow the facade schedule coherently. The deviations are in proportion and surface, all on the one observed face: (a) the right-bay glazing is drawn as short punc",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Right bay glazing is under-sized and opaque: the two panels per floor occupy only about 60% of the storey height with a very thick white spandrel band and a blank white fill, whereas the source shows floor-to-ceiling dark green-grey reflective glazing (≈3500×2400 per panel, sill 100, 200 mullion, 600 spandrel) with pale curtains visible behind.",
+            "action": "Raise the right-bay window heads to the underside of the slim 600 band and drop the sills to 100 above each floor level, keep the single 200 mullion at the bay centre, apply the dark reflective glass material plus a thin dark frame, and add the beige curtain planes just behind the glass; do not alter the pier widths or bay split."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The roof crown is too short and too coarse: the parapet plus vertical screen band reads at only about half the required height and as a plain black railing, while the source shows a visible 700 concrete parapet with a 2200 fine-bar screen and top/bottom rails, roughly one full storey tall and prominent in silhouette, with tall planting rising at the left end.",
+            "action": "Increase the screen to ≈2200 above the 700 parapet, rebuild it as a frame with top and bottom rails plus closely spaced thin verticals returning on both side edges, keep it behind the parapet face, and let the left-end terrace planting rise above the parapet as in the source; keep the roof open (no cover) and any stair head below screen height."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The left bay balconies read as a mullioned window with an opaque lower panel and heavy frame, not as 4650×2400 open recesses with a 1100 frameless glass balustrade at the front edge; the front elevation loses the depth/shadow that defines this facade.",
+            "action": "Make each balcony aperture fully open from floor to the 600 band, replace the opaque lower panel with a real transparent 1100 glass balustrade and thin posts at the recess front edge (1500 back from the facade plane), and keep the recess side/ceiling surfaces in shadowed concrete with the planter behind the glass."
+          }
+        ],
+        "keep": [
+          "Three-pier / two-bay front grid with the correct 7 residential floors and narrower left balcony bay",
+          "Ground-floor programme: recessed entry at left bay, ribbed dark rolling shutter across the right bay",
+          "Open flat roof terrace with perimeter screen and planters, no roof covering",
+          "Inferred rear (4 windows per floor) and side (2 windows per floor) openings consistent with the facade schedule"
+        ],
+        "model_revisions": {
+          "apt964f3": 3
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Source (single eye-level front view) shows a narrow slab: a warm beige board-formed concrete frame of three slim piers forming two unequal bays — a narrower left balcony bay and a wider right glazed bay — over 7 residential floors plus a dark ground floor, crowned by a concrete parapet of about 700 with a fine vertical metal screen of about 2200 (together roughly one storey tall), with tall plants at the terrace's left end. The current model matches the big topology: 7 upper floors, 3 piers / 2 bays with the left bay about 0.65 of the right, left bay recesses with planters, right bay with two glazing panels per floor divided by a narrow mullion, ground floor with recessed entry left and ribbed shutter right, open flat roof with perimeter screen and planters, and the inferred rear (4 windows/floor) and sides (2 windows/floor) follow the facade schedule coherently. The deviations are in proportion and surface, all on the one observed face: (a) the right-bay glazing is drawn as short punc",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Right bay glazing is under-sized and opaque: the two panels per floor occupy only about 60% of the storey height with a very thick white spandrel band and a blank white fill, whereas the source shows floor-to-ceiling dark green-grey reflective glazing (≈3500×2400 per panel, sill 100, 200 mullion, 600 spandrel) with pale curtains visible behind.",
+            "action": "Raise the right-bay window heads to the underside of the slim 600 band and drop the sills to 100 above each floor level, keep the single 200 mullion at the bay centre, apply the dark reflective glass material plus a thin dark frame, and add the beige curtain planes just behind the glass; do not alter the pier widths or bay split."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The roof crown is too short and too coarse: the parapet plus vertical screen band reads at only about half the required height and as a plain black railing, while the source shows a visible 700 concrete parapet with a 2200 fine-bar screen and top/bottom rails, roughly one full storey tall and prominent in silhouette, with tall planting rising at the left end.",
+            "action": "Increase the screen to ≈2200 above the 700 parapet, rebuild it as a frame with top and bottom rails plus closely spaced thin verticals returning on both side edges, keep it behind the parapet face, and let the left-end terrace planting rise above the parapet as in the source; keep the roof open (no cover) and any stair head below screen height."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The left bay balconies read as a mullioned window with an opaque lower panel and heavy frame, not as 4650×2400 open recesses with a 1100 frameless glass balustrade at the front edge; the front elevation loses the depth/shadow that defines this facade.",
+            "action": "Make each balcony aperture fully open from floor to the 600 band, replace the opaque lower panel with a real transparent 1100 glass balustrade and thin posts at the recess front edge (1500 back from the facade plane), and keep the recess side/ceiling surfaces in shadowed concrete with the planter behind the glass."
+          }
+        ],
+        "keep": [
+          "Three-pier / two-bay front grid with the correct 7 residential floors and narrower left balcony bay",
+          "Ground-floor programme: recessed entry at left bay, ribbed dark rolling shutter across the right bay",
+          "Open flat roof terrace with perimeter screen and planters, no roof covering",
+          "Inferred rear (4 windows per floor) and side (2 windows per floor) openings consistent with the facade schedule"
+        ],
+        "model_revisions": {
+          "apt964f3": 3
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "apt964f3",
+        "revision": 4,
+        "relative_path": "scripts/patch_r3_glasssolids.rb",
+        "update_mode": "edit",
+        "source_sha256": "8c2c6edc97780be68c68c2bb284a68cb6e68a250dd4986d255f74776bdfaad6f",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT",
+            "WALL_REAR",
+            "WALL_LEFT",
+            "WALL_RIGHT",
+            "GROUND_GARAGE_WALL",
+            "GROUND_ENTRY_WALL",
+            "LEVELS/SLAB_CORE_STACK",
+            "ROOF/PARAPET_BAND",
+            "ROOF/SCREEN_RAILING",
+            "ROOF/PLANTERS",
+            "ROOF/ROOF_SLAB",
+            "FACADE/GROUND_BAND"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Source is a single street-level front view: a narrow slab block, ground floor + 7 residential floors, three ~450 concrete piers dividing a narrower left balcony bay from a wider right glazed bay, deep recessed balconies left, full-height glazing with beige curtains right, dark-ribbed roller shutter right at ground level, dark recessed entrance band left, and a concrete parapet carrying a tall densely spaced vertical metal screen with greenery/pergola showing above it. The current model matches the primary massing well: overall slenderness and aspect ratio are close, floor count is 8 (ground + 7), the bay split reads about 40/60 like the 4650/7200 source bays, the three-pier vertical grid is present, balconies are recessed on the left bay, the shutter sits in the right bay, and the parapet carries a vertical bar screen with roof planting. Remaining source-visible deviations are concentrated in the front glazing articulation, the ground-floor base, and the roof top zone; the side/rear fa",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Right-bay glazing on all 7 upper floors reads as two narrow punched windows separated by a concrete pier roughly 20% of the bay width; the source shows each floor as a near-full-bay full-height glass band with only a ~200 mm central mullion, reflective dark glass and pale beige curtains behind. The current panels are flat opaque dark rectangles with no curtain or frame articulation.",
+            "action": "Widen each window toward ~3500 of the 7200 bay, reduce the central separation to the narrow mullion, keep sill ~100 and head aligned with the underside of the spandrel band, and apply dark grey thin frames with a reflective glass material plus a beige curtain plane behind; do not change the pier/bay grid, floor count or balcony bay."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The ground floor is cream/white for its full width and the entrance is a shallow dark door applied onto that light wall; the source shows a continuous dark grey ground-level base — shadowed recessed entrance zone in the left bay and the dark-ribbed roller shutter in the right bay, with the concrete piers standing in front of it.",
+            "action": "Give the ground storey a dark grey base band across both bays, recess the left-bay entrance 1200×2400 into that band instead of surface-mounting it, and keep the existing shutter in the right bay with its horizontal ribs."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The roof zone is too bare: only three small green boxes sit on an empty deck, and the vertical screen appears only about 1.5–2× the parapet height, whereas the source shows the screen clearly taller than the concrete parapet (roughly 2200 vs 700) with a left-side pergola/climbing greenery rising above the parapet line and reading in the front silhouette.",
+            "action": "Increase the metal screen height relative to the parapet to the ~3:1 ratio, and add the left-side pergola frame with planter and climbing vegetation at the terrace edge so greenery breaks above the parapet as observed; leave the flat open terrace (no roof covering) and the low, set-back stair enclosure unchanged."
+          }
+        ],
+        "keep": [
+          "Three-pier, two-bay front grid with the narrower left balcony bay and wider right glazed bay at roughly the observed 4650/7200 proportion",
+          "Ground floor plus 7 residential floors (8 levels) with the left bay recessed per floor",
+          "Dark horizontal-rib roller shutter occupying the right bay at street level",
+          "Concrete parapet with a dense vertical metal bar screen and open roof terrace (no roof covering)",
+          "Inferred side and rear window counts (2 per floor sides, 4 per floor rear) consistent with the project facade schedule"
+        ],
+        "model_revisions": {
+          "apt964f3": 4
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-004",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Source is a single street-level front view: a narrow slab block, ground floor + 7 residential floors, three ~450 concrete piers dividing a narrower left balcony bay from a wider right glazed bay, deep recessed balconies left, full-height glazing with beige curtains right, dark-ribbed roller shutter right at ground level, dark recessed entrance band left, and a concrete parapet carrying a tall densely spaced vertical metal screen with greenery/pergola showing above it. The current model matches the primary massing well: overall slenderness and aspect ratio are close, floor count is 8 (ground + 7), the bay split reads about 40/60 like the 4650/7200 source bays, the three-pier vertical grid is present, balconies are recessed on the left bay, the shutter sits in the right bay, and the parapet carries a vertical bar screen with roof planting. Remaining source-visible deviations are concentrated in the front glazing articulation, the ground-floor base, and the roof top zone; the side/rear fa",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Right-bay glazing on all 7 upper floors reads as two narrow punched windows separated by a concrete pier roughly 20% of the bay width; the source shows each floor as a near-full-bay full-height glass band with only a ~200 mm central mullion, reflective dark glass and pale beige curtains behind. The current panels are flat opaque dark rectangles with no curtain or frame articulation.",
+            "action": "Widen each window toward ~3500 of the 7200 bay, reduce the central separation to the narrow mullion, keep sill ~100 and head aligned with the underside of the spandrel band, and apply dark grey thin frames with a reflective glass material plus a beige curtain plane behind; do not change the pier/bay grid, floor count or balcony bay."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The ground floor is cream/white for its full width and the entrance is a shallow dark door applied onto that light wall; the source shows a continuous dark grey ground-level base — shadowed recessed entrance zone in the left bay and the dark-ribbed roller shutter in the right bay, with the concrete piers standing in front of it.",
+            "action": "Give the ground storey a dark grey base band across both bays, recess the left-bay entrance 1200×2400 into that band instead of surface-mounting it, and keep the existing shutter in the right bay with its horizontal ribs."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The roof zone is too bare: only three small green boxes sit on an empty deck, and the vertical screen appears only about 1.5–2× the parapet height, whereas the source shows the screen clearly taller than the concrete parapet (roughly 2200 vs 700) with a left-side pergola/climbing greenery rising above the parapet line and reading in the front silhouette.",
+            "action": "Increase the metal screen height relative to the parapet to the ~3:1 ratio, and add the left-side pergola frame with planter and climbing vegetation at the terrace edge so greenery breaks above the parapet as observed; leave the flat open terrace (no roof covering) and the low, set-back stair enclosure unchanged."
+          }
+        ],
+        "keep": [
+          "Three-pier, two-bay front grid with the narrower left balcony bay and wider right glazed bay at roughly the observed 4650/7200 proportion",
+          "Ground floor plus 7 residential floors (8 levels) with the left bay recessed per floor",
+          "Dark horizontal-rib roller shutter occupying the right bay at street level",
+          "Concrete parapet with a dense vertical metal bar screen and open roof terrace (no roof covering)",
+          "Inferred side and rear window counts (2 per floor sides, 4 per floor rear) consistent with the project facade schedule"
+        ],
+        "model_revisions": {
+          "apt964f3": 4
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "apt964f3",
+        "revision": 5,
+        "relative_path": "scripts/patch_r4_glassband.rb",
+        "update_mode": "edit",
+        "source_sha256": "5ea332db59a80ad20ed2572c59b14830e15d5f78bab01e5bc8ded717eacbac5b",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT",
+            "WALL_REAR",
+            "WALL_LEFT",
+            "WALL_RIGHT",
+            "GROUND_GARAGE_WALL",
+            "GROUND_ENTRY_WALL",
+            "LEVELS/SLAB_CORE_STACK",
+            "ROOF/PARAPET_BAND",
+            "ROOF/SCREEN_RAILING",
+            "ROOF/ROOF_SLAB",
+            "FACADE/GROUND_BAND"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "Source is a single eye-level front-elevation photo; only the front facade, the roof-top parapet/grille and terrace planting are observed, while the rear, both flanks and the roof plane are explicitly inferred. Current front correctly reproduces the primary composition: three 450-wide concrete piers forming a narrow left bay and a wide right bay (width ratio ≈0.65 as in the source), ground storey + 7 residential storeys, 7 recessed left-bay balcony rows carrying plants, a ground-floor horizontal-rib roller shutter across the right bay, and an open flat roof with parapet, perimeter grille and planting. Proportions and storey/bay counts read close to the photo. Remaining visible divergences are on the observed front and top: the right-bay glazing is broken by a far too wide vertical mullion (reads ≈1000 mm, ~1/7 of the bay) with a wide outer return, so each floor reads as two squarish punched windows instead of the source's near-continuous band of two 3500×2400 panes separated by a 200 sl",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Right-bay glazing is divided by a mullion of roughly 1000 mm (about 1/7 of the 7200 bay) with a wide concrete margin at the outer edge, so the two panes read narrow and squarish; the source shows two 3500-wide, 2400-high panes filling the bay with only a 200 mm centre mullion and a 450 pier at the edge.",
+            "action": "Widen both right-bay glazing panes to ~3500 with 100 sill and 600 band retained, and narrow the centre mullion and outer return to ~200/450 mm so the bay reads as one wide glazed band rather than two punched windows; keep the existing frame colour and glass."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The left-bay ground floor is a flush mid-grey wall with a thin light-framed door panel; the source shows this bay as a noticeably dark, deep recessed entrance with the 1200×2400 door set back behind a shadowed reveal.",
+            "action": "Pull the ground-floor left-bay wall back to form the entry recess (dark reveal/soffit, door set behind the facade plane) and darken that zone so it reads as the shaded entry next to the roller shutter; do not change the shutter width, which currently matches the source."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The 2200-high roof screen is modelled as widely spaced, heavy black bars of slightly short height, whereas the source shows a fine, dense comb of thin light-grey metal verticals with slim posts standing on the 700 concrete parapet; in plan (roof view) the screen is not legible and the terrace edge reads only as a grey border.",
+            "action": "Rebuild the perimeter screen with thin, closely spaced vertical slats in light metal colour at the full 2200 height above the parapet, retaining the continuous four-sided run and the plants behind it, so the roofline silhouette matches the photograph."
+          }
+        ],
+        "keep": [
+          "Three-pier, two-bay front frame with left:right bay width ratio matching the source (≈4650:7200)",
+          "Ground storey plus 7 residential storeys, 7 recessed left-bay balcony rows with plants",
+          "Ground-floor horizontal-rib roller shutter spanning most of the right bay",
+          "Open flat roof terrace with no roof covering, parapet plus perimeter grille and planters",
+          "Inferred side/rear windows kept internally consistent (2 per floor per flank, 4 per floor at rear, one rear door)"
+        ],
+        "model_revisions": {
+          "apt964f3": 5
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-005",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "Source is a single eye-level front-elevation photo; only the front facade, the roof-top parapet/grille and terrace planting are observed, while the rear, both flanks and the roof plane are explicitly inferred. Current front correctly reproduces the primary composition: three 450-wide concrete piers forming a narrow left bay and a wide right bay (width ratio ≈0.65 as in the source), ground storey + 7 residential storeys, 7 recessed left-bay balcony rows carrying plants, a ground-floor horizontal-rib roller shutter across the right bay, and an open flat roof with parapet, perimeter grille and planting. Proportions and storey/bay counts read close to the photo. Remaining visible divergences are on the observed front and top: the right-bay glazing is broken by a far too wide vertical mullion (reads ≈1000 mm, ~1/7 of the bay) with a wide outer return, so each floor reads as two squarish punched windows instead of the source's near-continuous band of two 3500×2400 panes separated by a 200 sl",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Right-bay glazing is divided by a mullion of roughly 1000 mm (about 1/7 of the 7200 bay) with a wide concrete margin at the outer edge, so the two panes read narrow and squarish; the source shows two 3500-wide, 2400-high panes filling the bay with only a 200 mm centre mullion and a 450 pier at the edge.",
+            "action": "Widen both right-bay glazing panes to ~3500 with 100 sill and 600 band retained, and narrow the centre mullion and outer return to ~200/450 mm so the bay reads as one wide glazed band rather than two punched windows; keep the existing frame colour and glass."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The left-bay ground floor is a flush mid-grey wall with a thin light-framed door panel; the source shows this bay as a noticeably dark, deep recessed entrance with the 1200×2400 door set back behind a shadowed reveal.",
+            "action": "Pull the ground-floor left-bay wall back to form the entry recess (dark reveal/soffit, door set behind the facade plane) and darken that zone so it reads as the shaded entry next to the roller shutter; do not change the shutter width, which currently matches the source."
+          },
+          {
+            "priority": 3,
+            "view": "roof",
+            "problem": "The 2200-high roof screen is modelled as widely spaced, heavy black bars of slightly short height, whereas the source shows a fine, dense comb of thin light-grey metal verticals with slim posts standing on the 700 concrete parapet; in plan (roof view) the screen is not legible and the terrace edge reads only as a grey border.",
+            "action": "Rebuild the perimeter screen with thin, closely spaced vertical slats in light metal colour at the full 2200 height above the parapet, retaining the continuous four-sided run and the plants behind it, so the roofline silhouette matches the photograph."
+          }
+        ],
+        "keep": [
+          "Three-pier, two-bay front frame with left:right bay width ratio matching the source (≈4650:7200)",
+          "Ground storey plus 7 residential storeys, 7 recessed left-bay balcony rows with plants",
+          "Ground-floor horizontal-rib roller shutter spanning most of the right bay",
+          "Open flat roof terrace with no roof covering, parapet plus perimeter grille and planters",
+          "Inferred side/rear windows kept internally consistent (2 per floor per flank, 4 per floor at rear, one rear door)"
+        ],
+        "model_revisions": {
+          "apt964f3": 5
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "apt964f3",
+        "revision": 6,
+        "relative_path": "scripts/patch_r5_aligndepth.rb",
+        "update_mode": "edit",
+        "source_sha256": "2846e904f55ec56a48c9627fd904c7fc8a79186386154f5934f4b46e793be013",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "WALL_FRONT",
+            "WALL_REAR",
+            "WALL_LEFT",
+            "WALL_RIGHT",
+            "GROUND_GARAGE_WALL",
+            "GROUND_ENTRY_WALL",
+            "LEVELS/SLAB_CORE_STACK",
+            "ROOF/PARAPET_BAND",
+            "ROOF/SCREEN_RAILING",
+            "ROOF/ROOF_SLAB",
+            "FACADE/GROUND_BAND"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "The only observed source view is the street-front elevation; side, rear, roof surface and interior are inferred and are not treated as source facts. Current front keeps the seven upper rows, three-pier/two-bay count, garage/entry positions and open roof terrace, but it changes the left-bay balconies into shallow white-framed units, shortens the roof screen, and renders the right-bay glazing as uniform opaque dark green without the visible beige curtain/inner layer. The current ground-floor blank band and door heights are hard to verify from the low-resolution front view, so they are not ranked above these clear mismatches. No source evidence supports adding a canopy, lower annex or pitched roof.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The left bay reads as stacked shallow white-framed window/balcony boxes, not the source's 4650-wide, 1500-deep full-width balcony recesses with transparent glass balustrades and shadowed interiors.",
+            "action": "Deepen each left-bay opening to 1500, remove window-like white framing/mullions, keep one wide opening per floor, add a 1100 frameless glass rail with a thin top rail at the front edge, dark recessed interior and planters inside; retain the seven rows and slab bands."
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "The rooftop screen is a shallow black railing, whereas the source's silhouette is defined by a 700 concrete parapet plus a 2200-high fine vertical metal screen around the terrace.",
+            "action": "Raise the perimeter grille to 2200 above the parapet with thin vertical bars and top/bottom rails, keep the roof open with planters, and do not add a solid roof or canopy."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The right-bay glazing is uniformly opaque dark green; the source shows reflective/transparent floor-to-ceiling glass with beige curtains and a lighter inner layer visible behind it.",
+            "action": "Set the glass to 2400 high with a 100 sill and thin dark frames/200 mullion, add semi-transparent beige curtain planes behind the glass, and retain two windows per floor."
+          }
+        ],
+        "keep": [
+          "The seven upper residential rows and three-pier/two-bay front composition are present and correctly ordered.",
+          "The right-bay garage shutter and left-bay recessed entry occupy the correct first-floor positions.",
+          "The open roof terrace and planter boxes are present and should not be replaced by a solid roof or canopy.",
+          "The inferred side and rear window grids are internally coherent with the front structural grid."
+        ],
+        "model_revisions": {
+          "apt964f3": 6
+        },
+        "reviewer_mode": "host_dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

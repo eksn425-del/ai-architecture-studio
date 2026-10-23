@@ -1,0 +1,484 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-001",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "The source shows a street-level corner view of a glazed tower, an attached stepped wing descending left toward a low-rise end block, planted terraces, and a beige neighboring building with punched windows. Pale projecting facade grids, recessed glazing and transparent lower storeys define the main building. CURRENT preserves the broad arrangement but shows solid, unarticulated masses: openings, facade relief and terrace assemblies are missing. Rear elevations, hidden connections and exact dimensions are not established by the source; canonical views cannot prove their fidelity or joint construction.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "The tower and stepped wing are opaque blue-grey blocks. Both source-visible tower faces and the wing lack the repeated pale structural grid, recessed window bays and glazed street-level frontage.",
+            "action": "Retain the existing mass arrangement and locally articulate the observed elevations with projecting frame members, recessed glazing and floor/bay divisions aligned across adjoining sections. Distinguish the darker lower facade zone shown in the source."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "The stepped wing has bare block tops instead of the source-visible occupied terrace edges, planting zones and recessed outdoor bays. Its outline alone does not reproduce these spatial transitions.",
+            "action": "Locally form terrace surfaces, perimeter edges and recessed bays at the visible setbacks, including the planted terraces above the low wing. Connect these assemblies to the adjoining enclosure; avoid floating edges or slabs extending through walls. Infer concealed roof areas conservatively."
+          },
+          {
+            "priority": 3,
+            "view": "right",
+            "problem": "The beige neighboring building remains a blank prism. The source shows repeated punched windows, a darker open ground-floor frontage and a distinct vegetated far-right end wall.",
+            "action": "Articulate its source-visible street facade with the observed window rows and ground-floor openings, and distinguish the vegetated end-wall material zone. Preserve its existing position beside the tower."
+          }
+        ],
+        "keep": [
+          "Tower placement at the right end of the ascending stepped frontage.",
+          "Flat roof form of the left low-rise end block."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 1
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 2,
+        "relative_path": "scripts/module.rb",
+        "update_mode": "edit",
+        "source_sha256": "02634497fc5932bf86306be63aae9b3e77c276d11d8ab21457ca2875ead4fac5",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/LEFT_STREET/MASSING",
+            "CONTEXT/RIGHT_NEIGHBOR"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a tall corner tower, a descending terraced wing connecting toward a lower left block, pale projecting facade grids with recessed glazing, darker lower facade zones, planted terrace and roof edges, and a beige right neighbor with window rows and a vegetated end wall. CURRENT preserves their broad relative arrangement but remains predominantly blank massing. The source-angle view confirms that the isolated corner glazing sample has not articulated the building elevations. Its close-up does not establish transparent openings through the backing mass or correct slab-to-enclosure joints. Rear elevations, concealed connections and exact dimensions remain inferred; the source does not verify them.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Both source-visible tower faces and the stepped-wing frontage lack the repeated structural bays, recessed windows and transparent ground-floor openings. One corner sample leaves nearly the entire elevation opaque.",
+            "action": "Extend the pale projecting grid and recessed glazing across the source-visible elevations, matching their floor and bay rhythm and darker lower zone. Locally recess or open the backing enclosure so glazing is not merely overlaid on solid faces; terminate slabs cleanly at enclosure joints. Verify the sample proportions before repeating it."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "The descending wing and low left wing have bare prism tops instead of the source-visible recessed outdoor bays, terrace edges and planting zones. Source-visible planted roof edges are also absent.",
+            "action": "Develop the existing setbacks locally into connected terrace surfaces with perimeter edges, recessed bays and contained planting. Keep slabs clear of adjoining enclosure walls; concealed roof layouts remain inferred."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The right neighbor remains a blank beige block, omitting its source-defining punched window rows, darker street-level openings and green far-right end wall.",
+            "action": "Add those visible envelope features to the existing neighbor, retaining its placement beside the tower."
+          }
+        ],
+        "keep": [
+          "Tower placement to the right of the descending wing.",
+          "Beige neighbor placement immediately to the tower’s right."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-002",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a tall corner tower, a descending terraced wing connecting toward a lower left block, pale projecting facade grids with recessed glazing, darker lower facade zones, planted terrace and roof edges, and a beige right neighbor with window rows and a vegetated end wall. CURRENT preserves their broad relative arrangement but remains predominantly blank massing. The source-angle view confirms that the isolated corner glazing sample has not articulated the building elevations. Its close-up does not establish transparent openings through the backing mass or correct slab-to-enclosure joints. Rear elevations, concealed connections and exact dimensions remain inferred; the source does not verify them.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "Both source-visible tower faces and the stepped-wing frontage lack the repeated structural bays, recessed windows and transparent ground-floor openings. One corner sample leaves nearly the entire elevation opaque.",
+            "action": "Extend the pale projecting grid and recessed glazing across the source-visible elevations, matching their floor and bay rhythm and darker lower zone. Locally recess or open the backing enclosure so glazing is not merely overlaid on solid faces; terminate slabs cleanly at enclosure joints. Verify the sample proportions before repeating it."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "The descending wing and low left wing have bare prism tops instead of the source-visible recessed outdoor bays, terrace edges and planting zones. Source-visible planted roof edges are also absent.",
+            "action": "Develop the existing setbacks locally into connected terrace surfaces with perimeter edges, recessed bays and contained planting. Keep slabs clear of adjoining enclosure walls; concealed roof layouts remain inferred."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The right neighbor remains a blank beige block, omitting its source-defining punched window rows, darker street-level openings and green far-right end wall.",
+            "action": "Add those visible envelope features to the existing neighbor, retaining its placement beside the tower."
+          }
+        ],
+        "keep": [
+          "Tower placement to the right of the descending wing.",
+          "Beige neighbor placement immediately to the tower’s right."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 2
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 3,
+        "relative_path": "scripts/complete.rb",
+        "update_mode": "edit",
+        "source_sha256": "b4671f3a2a30e0eeb3e92ea965d9355f3eee7481e9f3fdfabd73176be6dcda49",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "CONTEXT/RIGHT_NEIGHBOR/ENVELOPE"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one street perspective: a gridded tower descending through planted setbacks toward a low connecting wing and left block, plus a beige neighboring building with punched windows and a vegetated far-right wall. Pale projecting members, recessed glazing and outdoor bays, and a darker lower facade zone define the visible architecture. CURRENT captures establish these broad relationships and now include facade grids, planting and neighbor openings, but their assemblies remain simplified. The current street camera exposes less of the tower’s right face, limiting dimensional comparisons. No confirmed dimensions are supplied; hidden elevations and concealed terrace connections remain uncertain. These screenshots do not establish a definite slab penetration or floating joint.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT reads as a nearly continuous blue glazed envelope with thin, heavily outlined divisions. SOURCE has a more substantial pale projecting grid, visibly recessed glazing and outdoor bays, and a distinct darker lower facade zone.",
+            "action": "Locally adjust the existing grid’s section, projection and finish; recess the appropriate glazing and outdoor bays, and articulate the source-visible lower facade zone while retaining correctly aligned divisions."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "CURRENT adds planting rows and roof surfaces, but the setbacks and low-wing terraces still read primarily as thin roof edges. SOURCE shows deeper planted terrace edges and recessed outdoor spaces integrated with the facade.",
+            "action": "Develop the existing terraces’ visible perimeter edges, planting zones and recessed bays. Connect their surfaces to the adjoining facade assembly and verify slab terminations without inventing concealed roof arrangements."
+          },
+          {
+            "priority": 3,
+            "view": "right",
+            "problem": "The neighboring building now has openings, but CURRENT uses more tightly spaced, narrow window columns than SOURCE. Its far-right wall is a uniform green plane rather than the visibly vegetated envelope.",
+            "action": "Correct the visible window spacing and opening proportions locally, retain the dark ground-floor openings, and give the green end-wall zone visible vegetation depth and coverage."
+          }
+        ],
+        "keep": [
+          "Right-hand placement of the beige neighboring building beside the tower.",
+          "Direction of the stepped descent from the tower toward the low connecting wing."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-003",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one street perspective: a gridded tower descending through planted setbacks toward a low connecting wing and left block, plus a beige neighboring building with punched windows and a vegetated far-right wall. Pale projecting members, recessed glazing and outdoor bays, and a darker lower facade zone define the visible architecture. CURRENT captures establish these broad relationships and now include facade grids, planting and neighbor openings, but their assemblies remain simplified. The current street camera exposes less of the tower’s right face, limiting dimensional comparisons. No confirmed dimensions are supplied; hidden elevations and concealed terrace connections remain uncertain. These screenshots do not establish a definite slab penetration or floating joint.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT reads as a nearly continuous blue glazed envelope with thin, heavily outlined divisions. SOURCE has a more substantial pale projecting grid, visibly recessed glazing and outdoor bays, and a distinct darker lower facade zone.",
+            "action": "Locally adjust the existing grid’s section, projection and finish; recess the appropriate glazing and outdoor bays, and articulate the source-visible lower facade zone while retaining correctly aligned divisions."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "CURRENT adds planting rows and roof surfaces, but the setbacks and low-wing terraces still read primarily as thin roof edges. SOURCE shows deeper planted terrace edges and recessed outdoor spaces integrated with the facade.",
+            "action": "Develop the existing terraces’ visible perimeter edges, planting zones and recessed bays. Connect their surfaces to the adjoining facade assembly and verify slab terminations without inventing concealed roof arrangements."
+          },
+          {
+            "priority": 3,
+            "view": "right",
+            "problem": "The neighboring building now has openings, but CURRENT uses more tightly spaced, narrow window columns than SOURCE. Its far-right wall is a uniform green plane rather than the visibly vegetated envelope.",
+            "action": "Correct the visible window spacing and opening proportions locally, retain the dark ground-floor openings, and give the green end-wall zone visible vegetation depth and coverage."
+          }
+        ],
+        "keep": [
+          "Right-hand placement of the beige neighboring building beside the tower.",
+          "Direction of the stepped descent from the tower toward the low connecting wing."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 3
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 4,
+        "relative_path": "scripts/refine.rb",
+        "update_mode": "edit",
+        "source_sha256": "4d6fffc5138672daea9715bdbe2534d5f60c488ce07136febfeff050ac3532cc",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/TOWER/MODULE_PROTOTYPE/SLAB",
+            "BUILDING/TOWER/MODULE_PROTOTYPE/GLAZING",
+            "MODULE_FRONT_WALL",
+            "CONTEXT/RIGHT_NEIGHBOR/ENVELOPE",
+            "ENVIRONMENT",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/STREET_INSTANCES",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/ROOF"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a tall gridded tower stepping down toward a planted low wing, recessed glazed and outdoor bays, a darker lower facade zone, transparent street frontage, and a neighboring punched-window building with a vegetated end wall. CURRENT captures these broad relationships and now demonstrates projecting grid members, glazing reveals, terrace guards and vegetation relief. Remaining differences concern the full-bay recesses, low-wing terrace articulation and neighboring window rhythm. SOURCE provides one street perspective: rear elevations, concealed connections and exact dimensions remain unverified. No definite slab penetration, floating guard or plant/building collision is established by these captures.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE has substantial recessed outdoor bays within the tower grid, particularly on its right-facing elevation. CURRENT represents several of these as short dark slots within otherwise continuous glazed bays; the close inspection establishes window reveals but does not establish equivalent outdoor-bay depth.",
+            "action": "Locally open and deepen the corresponding source-visible bays, providing connected floors, side returns, recessed glazing and perimeter guards. Preserve the demonstrated grid relief and darker lower facade treatment."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "SOURCE shows layered planted outdoor pockets above the low wing and along the setbacks. CURRENT has terrace surfaces and guards, but the connector remains predominantly a broad flat surface with isolated, regularly spaced planting boxes, losing the source-visible planted-edge depth and layering.",
+            "action": "Adjust the existing low-wing terrace edges and planting zones to form the observed stepped outdoor pockets. Connect their surfaces and perimeter assemblies without extending slabs through adjoining enclosure."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The neighboring facade remains too densely subdivided: CURRENT uses repeated shallow upper window rows and narrow lower openings, while SOURCE shows a less compressed rhythm of punched openings. The previously missing vegetated end-wall relief is now present.",
+            "action": "Locally revise the source-visible window spacing, proportions and upper-row arrangement. Preserve the neighbor's adjacency, dark ground-floor openings and established vegetation relief."
+          }
+        ],
+        "keep": [
+          "Pale projecting grid members and visible glazing reveals demonstrated in the close inspection.",
+          "Distinct darker lower facade zone.",
+          "Neighboring building's dark ground-floor openings.",
+          "Vegetation relief on the neighboring far-right end wall."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-004",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a tall gridded tower stepping down toward a planted low wing, recessed glazed and outdoor bays, a darker lower facade zone, transparent street frontage, and a neighboring punched-window building with a vegetated end wall. CURRENT captures these broad relationships and now demonstrates projecting grid members, glazing reveals, terrace guards and vegetation relief. Remaining differences concern the full-bay recesses, low-wing terrace articulation and neighboring window rhythm. SOURCE provides one street perspective: rear elevations, concealed connections and exact dimensions remain unverified. No definite slab penetration, floating guard or plant/building collision is established by these captures.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE has substantial recessed outdoor bays within the tower grid, particularly on its right-facing elevation. CURRENT represents several of these as short dark slots within otherwise continuous glazed bays; the close inspection establishes window reveals but does not establish equivalent outdoor-bay depth.",
+            "action": "Locally open and deepen the corresponding source-visible bays, providing connected floors, side returns, recessed glazing and perimeter guards. Preserve the demonstrated grid relief and darker lower facade treatment."
+          },
+          {
+            "priority": 2,
+            "view": "roof",
+            "problem": "SOURCE shows layered planted outdoor pockets above the low wing and along the setbacks. CURRENT has terrace surfaces and guards, but the connector remains predominantly a broad flat surface with isolated, regularly spaced planting boxes, losing the source-visible planted-edge depth and layering.",
+            "action": "Adjust the existing low-wing terrace edges and planting zones to form the observed stepped outdoor pockets. Connect their surfaces and perimeter assemblies without extending slabs through adjoining enclosure."
+          },
+          {
+            "priority": 3,
+            "view": "front",
+            "problem": "The neighboring facade remains too densely subdivided: CURRENT uses repeated shallow upper window rows and narrow lower openings, while SOURCE shows a less compressed rhythm of punched openings. The previously missing vegetated end-wall relief is now present.",
+            "action": "Locally revise the source-visible window spacing, proportions and upper-row arrangement. Preserve the neighbor's adjacency, dark ground-floor openings and established vegetation relief."
+          }
+        ],
+        "keep": [
+          "Pale projecting grid members and visible glazing reveals demonstrated in the close inspection.",
+          "Distinct darker lower facade zone.",
+          "Neighboring building's dark ground-floor openings.",
+          "Vegetation relief on the neighboring far-right end wall."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 4
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 5,
+        "relative_path": "scripts/pockets.rb",
+        "update_mode": "edit",
+        "source_sha256": "94595c27391be7c2cd7db890636dc1b2025ad70896caec947537b04e62f03dab",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/STEPPED_WING",
+            "BUILDING/LEFT_UPPER",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/FACADE",
+            "BUILDING/LEFT_STREET/ROOF/ROOF_DECK",
+            "CONTEXT/RIGHT_NEIGHBOR/ENVELOPE",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/GREEN_WALL_RELIEF",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/GREEN_ENDWALL",
+            "ENVIRONMENT",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/STREET_INSTANCES",
+            "VEGETATION/BALCONY_INSTANCES",
+            "MODULE_FRONT_WALL",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_0",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_1",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_2",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_3",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_4",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_5",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_6"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one street oblique: a gridded tower stepping toward a lower left wing, planted terrace pockets, recessed outdoor bays, a darker lower facade zone, glazed street frontage, and a right neighbor with punched windows and a vegetated end wall. CURRENT contains these principal elements. Image 10 confirms a full-bay loggia with a floor, return and guard; the earlier interpretation of all recesses as shallow slots is no longer conclusive. Other recess locations and street-level transparency remain unverified. The strongest remaining differences are the low-wing terrace articulation and neighboring window arrangement. SOURCE does not establish the rear elevations or complete roof plan. No definite slab penetration, floating guard or building–plant collision is demonstrated.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "SOURCE’s low-wing terraces form staggered planted pockets with substantial enclosing edges. CURRENT image 9 still shows small ledges and isolated planting boxes beside a broad exposed connector surface, weakening the visible stepped assembly.",
+            "action": "Locally adjust the existing terrace floors, returns and perimeter edges to form the source-visible layered pockets. Preserve demonstrated connections and keep slabs clear of enclosure walls; leave concealed roof areas inferred."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The right neighbor has too many tightly repeated window rows. SOURCE shows a small upper row followed by taller, vertically articulated openings; CURRENT repeats shallow upper rows and a dense square-window matrix.",
+            "action": "Locally revise the visible window count, heights and spacing to match SOURCE’s row hierarchy. Retain the dark ground openings and vegetated far-right end wall."
+          }
+        ],
+        "keep": [
+          "Projecting pale facade members and recessed glazing reveals visible in image 10.",
+          "The inspected full-bay loggia’s floor, side return and perimeter guard.",
+          "The neighboring building’s dark ground-floor openings and vegetated end-wall zone."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-005",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one street oblique: a gridded tower stepping toward a lower left wing, planted terrace pockets, recessed outdoor bays, a darker lower facade zone, glazed street frontage, and a right neighbor with punched windows and a vegetated end wall. CURRENT contains these principal elements. Image 10 confirms a full-bay loggia with a floor, return and guard; the earlier interpretation of all recesses as shallow slots is no longer conclusive. Other recess locations and street-level transparency remain unverified. The strongest remaining differences are the low-wing terrace articulation and neighboring window arrangement. SOURCE does not establish the rear elevations or complete roof plan. No definite slab penetration, floating guard or building–plant collision is demonstrated.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "SOURCE’s low-wing terraces form staggered planted pockets with substantial enclosing edges. CURRENT image 9 still shows small ledges and isolated planting boxes beside a broad exposed connector surface, weakening the visible stepped assembly.",
+            "action": "Locally adjust the existing terrace floors, returns and perimeter edges to form the source-visible layered pockets. Preserve demonstrated connections and keep slabs clear of enclosure walls; leave concealed roof areas inferred."
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "The right neighbor has too many tightly repeated window rows. SOURCE shows a small upper row followed by taller, vertically articulated openings; CURRENT repeats shallow upper rows and a dense square-window matrix.",
+            "action": "Locally revise the visible window count, heights and spacing to match SOURCE’s row hierarchy. Retain the dark ground openings and vegetated far-right end wall."
+          }
+        ],
+        "keep": [
+          "Projecting pale facade members and recessed glazing reveals visible in image 10.",
+          "The inspected full-bay loggia’s floor, side return and perimeter guard.",
+          "The neighboring building’s dark ground-floor openings and vegetated end-wall zone."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 5
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 6,
+        "relative_path": "scripts/low_terrace.rb",
+        "update_mode": "edit",
+        "source_sha256": "200b92f1a47e6970502342a40e2ed316cccafaf04ca3a7aa214183fb5ccb0a8d",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER",
+            "BUILDING/STEPPED_WING",
+            "BUILDING/LEFT_UPPER",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/FACADE",
+            "BUILDING/LEFT_STREET/ROOF/ROOF_DECK",
+            "CONTEXT/RIGHT_NEIGHBOR/ENVELOPE",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/GREEN_WALL_RELIEF",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/GREEN_ENDWALL",
+            "ENVIRONMENT",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/STREET_INSTANCES",
+            "VEGETATION/BALCONY_INSTANCES",
+            "MODULE_FRONT_WALL",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_0",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_1",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_2",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_3",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_4",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_5",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_6",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_7",
+            "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_8"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows one street-level oblique view: a gridded tower stepping down toward a connected low left wing, planted terraces and recessed outdoor bays, a darker lower facade zone, and a right neighbor with punched windows and a vegetated end wall. Street tracks establish the foreground orientation. CURRENT preserves these principal landmarks, but source-visible recess depth, low-wing terrace configuration and neighboring window-row organization remain mismatched. Rear elevations, complete roof layouts and concealed connections are unobserved in SOURCE; no dimensions are confirmed. The supplied captures establish no definite slab penetration or floating rail.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "source-matched",
+            "problem": "SOURCE’s outdoor openings occupy substantial recessed bays within the structural grid. CURRENT 8–9 still shows several as short horizontal slots or pale panels surrounded by glazing, flattening the tower elevations.",
+            "action": "Locally recess the affected bay infill and connect its floor, side returns and overhead enclosure. Retain the existing projecting grid members and glazing reveals elsewhere."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "CURRENT 9–10 improves terrace edges and guards, but the upper assemblies read as projecting balcony trays against continuous glazing. SOURCE shows staggered planted recesses integrated into the stepped wing.",
+            "action": "Adjust the existing terrace depths and adjoining enclosure locally to form those recessed outdoor spaces. Preserve the improved perimeter edges where compatible; do not extrapolate the unseen roof plan."
+          },
+          {
+            "priority": 3,
+            "view": "source-matched",
+            "problem": "CURRENT now has the small upper window row, but below it repeats six separate rows of tall rectangles. SOURCE shows fewer, taller vertically subdivided window groups, producing a different floor and opening rhythm.",
+            "action": "Regroup the existing lower openings into the source-visible taller assemblies with internal vertical articulation. Preserve the small upper row, dark ground openings and vegetated end wall."
+          }
+        ],
+        "keep": [
+          "Projecting pale structural members and existing glazing reveals.",
+          "Darker lower facade grid zone.",
+          "Right neighbor’s dark ground openings and vegetated far-right end wall."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 6
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

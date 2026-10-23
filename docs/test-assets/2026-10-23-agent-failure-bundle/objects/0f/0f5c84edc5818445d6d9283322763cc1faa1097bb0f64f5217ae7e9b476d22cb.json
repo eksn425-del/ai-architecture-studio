@@ -1,0 +1,702 @@
+{
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-16c07\\outputs\\model\\blank-disposable-20261022-173456.skp",
+  "scripts": {
+    "terraced_apartment": {
+      "model_guid": "367a7544-908e-4e72-b7f4-bc31a932609b",
+      "revision": 22,
+      "root_pid": 19,
+      "source_sha256": "d70f84ebac770931a072d36ba0c2241a78cd548ea91e138223c462df724f65d1",
+      "last_report": "runtime/scripts/reports/terraced_apartment-r22-71055b1b.json",
+      "last_screenshot": "outputs/renders/ruby-terraced_apartment-r22.png",
+      "last_verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 22,
+            "actual": 22
+          },
+          {
+            "check": "objects_total",
+            "expected": 3,
+            "actual": 3
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -47100.0,
+                -300.0,
+                -220.0
+              ],
+              "max": [
+                18300.0,
+                21900.0,
+                60204.0
+              ],
+              "size": [
+                65400.0,
+                22200.0,
+                60424.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -47100,
+                -300,
+                -220
+              ],
+              "max": [
+                18300,
+                21900,
+                60204
+              ],
+              "size": [
+                65400,
+                22200,
+                60424
+              ]
+            }
+          }
+        ]
+      },
+      "last_verification_report": "runtime/scripts/reports/terraced_apartment-r22-71055b1b.verification.json",
+      "last_precommit_keep_guard": {
+        "armed": true,
+        "passed": true,
+        "paths": [
+          "BUILDING/TOWER/MASSING",
+          "BUILDING/TOWER/ROOF",
+          "BUILDING/TOWER/MODULE_PROTOTYPE",
+          "MODULE_FRONT_WALL",
+          "VEGETATION/ROOF_INSTANCES",
+          "VEGETATION/TERRACE_INSTANCES",
+          "VEGETATION/LEFT_POCKET_INSTANCES",
+          "BUILDING/STEPPED_WING/MASSING",
+          "BUILDING/STEPPED_WING/TERRACES",
+          "BUILDING/LEFT_UPPER/MASSING",
+          "BUILDING/LEFT_UPPER/ROOF",
+          "BUILDING/LEFT_STREET/MASSING",
+          "BUILDING/LEFT_STREET/ROOF",
+          "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+          "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_HEAD_0",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_POST_0",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_HEAD_1",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_POST_1",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_HEAD_2",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_POST_2",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_HEAD_3",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L02/REAR_POST_3",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_HEAD_0",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_POST_0",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_HEAD_1",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_POST_1",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_HEAD_2",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_POST_2",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_HEAD_3",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L03/REAR_POST_3",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_HEAD_0",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_POST_0",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_HEAD_1",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_POST_1",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_HEAD_2",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_POST_2",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_HEAD_3",
+          "BUILDING/LEFT_UPPER/FACADE/LEFT_UPPER_L04/REAR_POST_3",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L02/REAR_HEAD_0",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L02/REAR_POST_0",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L02/REAR_HEAD_1",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L02/REAR_POST_1",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L02/REAR_HEAD_2",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L02/REAR_POST_2",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L03/REAR_HEAD_0",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L03/REAR_POST_0",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L03/REAR_HEAD_1",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L03/REAR_POST_1",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L03/REAR_HEAD_2",
+          "BUILDING/LEFT_STREET/FACADE/LEFT_STREET_L03/REAR_POST_2",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L02/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L02/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L02/REAR_HEAD_1",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L02/REAR_POST_1",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L02/REAR_HEAD_2",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L02/REAR_POST_2",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L03/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L03/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L03/REAR_HEAD_1",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L03/REAR_POST_1",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L03/REAR_HEAD_2",
+          "BUILDING/STEPPED_WING/FACADE/LINK_L03/REAR_POST_2",
+          "BUILDING/STEPPED_WING/FACADE/STEP_1_L02/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_1_L02/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_1_L03/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_1_L03/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_1_L04/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_1_L04/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_2_L02/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_2_L02/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_2_L03/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_2_L03/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_2_L04/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_2_L04/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_3_L02/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_3_L02/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_3_L03/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_3_L03/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_3_L04/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_3_L04/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_4_L02/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_4_L02/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_4_L03/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_4_L03/REAR_POST_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_4_L04/REAR_HEAD_0",
+          "BUILDING/STEPPED_WING/FACADE/STEP_4_L04/REAR_POST_0"
+        ]
+      },
+      "last_oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "d70f84ebac770931a072d36ba0c2241a78cd548ea91e138223c462df724f65d1",
+        "events": [],
+        "status": "committed_readback",
+        "script_id": "terraced_apartment",
+        "revision": 22,
+        "root_pid": 19
+      },
+      "last_edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_v2",
+        "allowed_paths": [
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_2_L04",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_2_L04",
+            "FRONT_HEAD_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L02",
+            "FRONT_POST_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L02",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L02",
+            "FRONT_HEAD_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L03",
+            "FRONT_POST_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L03",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L03",
+            "FRONT_HEAD_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L04",
+            "FRONT_POST_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L04",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_3_L04",
+            "FRONT_HEAD_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L02",
+            "FRONT_POST_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L02",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L02",
+            "FRONT_HEAD_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L03",
+            "FRONT_POST_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L03",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L03",
+            "FRONT_HEAD_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L04",
+            "FRONT_POST_0"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L04",
+            "FRONT_POST_1"
+          ],
+          [
+            "BUILDING",
+            "STEPPED_WING",
+            "FACADE",
+            "STEP_4_L04",
+            "FRONT_HEAD_0"
+          ]
+        ],
+        "required_deep_keep_paths": [],
+        "allowed_top_level": [
+          "BUILDING"
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      },
+      "last_strategy_progress": {
+        "schema_version": 1,
+        "source": "committed_owned_root_named_path_readback",
+        "script_id": "terraced_apartment",
+        "revision": 22,
+        "root_pid": 19,
+        "full_readback": true,
+        "current_stage": "finish",
+        "systems": [
+          {
+            "system_id": "tower_rhythm_sample",
+            "target_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L16"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L16"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "verified"
+          },
+          {
+            "system_id": "tower_rhythm_replication",
+            "target_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L00"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L01"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L02"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L03"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L04"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L05"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L06"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L07"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L08"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L09"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L10"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L11"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L12"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L13"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L14"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L15"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L16"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L17"
+              ],
+              [
+                "MODULE_FRONT_WALL"
+              ],
+              [
+                "VEGETATION",
+                "BALCONY_INSTANCES"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L00"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L01"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L02"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L03"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L04"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L05"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L06"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L07"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L08"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L09"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L10"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L11"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L12"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L13"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L14"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L15"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L16"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE",
+                "TOWER_L17"
+              ],
+              [
+                "MODULE_FRONT_WALL"
+              ],
+              [
+                "VEGETATION",
+                "BALCONY_INSTANCES"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "left_recess_connections",
+            "target_paths": [
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "ROOF",
+                "PLANTED_POCKETS",
+                "POCKET_0"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "ROOF",
+                "PLANTED_POCKETS",
+                "POCKET_1"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "ROOF",
+                "PLANTED_POCKETS",
+                "POCKET_0"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "ROOF",
+                "PLANTED_POCKETS",
+                "POCKET_1"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "verified"
+          }
+        ],
+        "visual_verification": "NOT_RUN"
+      },
+      "last_oss_method_adoption": {
+        "schema_version": 1,
+        "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {},
+        "any_oss_product_use": false,
+        "effect_verified": false,
+        "effect_verification_required": "Named component readback and independent source-matched visual review.",
+        "plan_choices": [
+          {
+            "system": "tower_rhythm_sample",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified SAIE straight-wall/opening helpers cannot transform retained multi-plane infill/loggia assemblies or edit nested terrace slab/guard profiles in place; new return walls belong to exact existing pocket leaves, whereas supplied SAIE creates root-level walls. ADAI explicitly disabled. Custom owned Ruby preserves semantic row/pocket PIDs.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "tower_rhythm_replication",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified SAIE straight-wall/opening helpers cannot transform retained multi-plane infill/loggia assemblies or edit nested terrace slab/guard profiles in place; new return walls belong to exact existing pocket leaves, whereas supplied SAIE creates root-level walls. ADAI explicitly disabled. Custom owned Ruby preserves semantic row/pocket PIDs.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "left_recess_connections",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "Verified SAIE straight-wall/opening helpers cannot transform retained multi-plane infill/loggia assemblies or edit nested terrace slab/guard profiles in place; new return walls belong to exact existing pocket leaves, whereas supplied SAIE creates root-level walls. ADAI explicitly disabled. Custom owned Ruby preserves semantic row/pocket PIDs.",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          }
+        ]
+      }
+    }
+  }
+}

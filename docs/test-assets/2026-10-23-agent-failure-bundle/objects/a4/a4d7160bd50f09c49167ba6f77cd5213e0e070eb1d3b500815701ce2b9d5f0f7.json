@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "terraced_apartment",
+  "revision": 6,
+  "root_pid": 19,
+  "full_readback": true,
+  "current_stage": "finish",
+  "systems": [
+    {
+      "system_id": "primary_envelope",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "representative_wall",
+      "target_paths": [
+        [
+          "MODULE_FRONT_WALL"
+        ]
+      ],
+      "present_paths": [
+        [
+          "MODULE_FRONT_WALL"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "verified"
+    },
+    {
+      "system_id": "representative_slab_frame",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "SLAB"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "FRAME"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "GLAZING"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "SLAB"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "FRAME"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "GLAZING"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "module_repetition",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "FACADE"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "FACADE"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "terraces_roofs",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "ROOF"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING",
+          "TERRACES"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER",
+          "ROOF"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "ROOF"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING",
+          "TERRACES"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER",
+          "ROOF"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "neighbor",
+      "target_paths": [
+        [
+          "CONTEXT",
+          "RIGHT_NEIGHBOR"
+        ]
+      ],
+      "present_paths": [
+        [
+          "CONTEXT",
+          "RIGHT_NEIGHBOR"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "vegetation",
+      "target_paths": [
+        [
+          "VEGETATION",
+          "ROOF_INSTANCES"
+        ],
+        [
+          "VEGETATION",
+          "TERRACE_INSTANCES"
+        ],
+        [
+          "VEGETATION",
+          "STREET_INSTANCES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "VEGETATION",
+          "ROOF_INSTANCES"
+        ],
+        [
+          "VEGETATION",
+          "TERRACE_INSTANCES"
+        ],
+        [
+          "VEGETATION",
+          "STREET_INSTANCES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "street_rail",
+      "target_paths": [
+        [
+          "ENVIRONMENT",
+          "INTERSECTION"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS"
+        ],
+        [
+          "ENVIRONMENT",
+          "TRACKS"
+        ],
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVIRONMENT",
+          "INTERSECTION"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS"
+        ],
+        [
+          "ENVIRONMENT",
+          "TRACKS"
+        ],
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}

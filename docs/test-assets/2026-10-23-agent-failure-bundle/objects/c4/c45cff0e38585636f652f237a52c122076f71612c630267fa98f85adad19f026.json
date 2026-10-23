@@ -1,0 +1,217 @@
+{
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-964f3\\outputs\\model\\blank-disposable-20261022-001816.skp",
+  "scripts": {
+    "apt964f3": {
+      "model_guid": "c9da0691-b4a3-4aad-94b3-466b4bc2bc69",
+      "revision": 6,
+      "root_pid": 19,
+      "source_sha256": "2846e904f55ec56a48c9627fd904c7fc8a79186386154f5934f4b46e793be013",
+      "last_report": "runtime/scripts/reports/apt964f3-r6-bbf8d65c.json",
+      "last_screenshot": "outputs/renders/ruby-apt964f3-r6.png",
+      "last_verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 6,
+            "actual": 6
+          },
+          {
+            "check": "objects_total",
+            "expected": 12,
+            "actual": 12
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -7000.0,
+                -9000.0,
+                -250.0
+              ],
+              "max": [
+                20200.0,
+                21000.0,
+                26790.0
+              ],
+              "size": [
+                27200.0,
+                30000.0,
+                27040.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -7000,
+                -9000,
+                -250
+              ],
+              "max": [
+                20200,
+                21000,
+                26790
+              ],
+              "size": [
+                27200,
+                30000,
+                27040
+              ]
+            }
+          }
+        ]
+      },
+      "last_verification_report": "runtime/scripts/reports/apt964f3-r6-bbf8d65c.verification.json",
+      "last_precommit_keep_guard": {
+        "armed": true,
+        "passed": true,
+        "paths": [
+          "WALL_FRONT",
+          "WALL_REAR",
+          "WALL_LEFT",
+          "WALL_RIGHT",
+          "GROUND_GARAGE_WALL",
+          "GROUND_ENTRY_WALL",
+          "LEVELS/SLAB_CORE_STACK",
+          "ROOF/PARAPET_BAND",
+          "ROOF/SCREEN_RAILING",
+          "ROOF/ROOF_SLAB",
+          "FACADE/GROUND_BAND"
+        ]
+      },
+      "last_oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "2846e904f55ec56a48c9627fd904c7fc8a79186386154f5934f4b46e793be013",
+        "events": [],
+        "status": "committed_readback",
+        "script_id": "apt964f3",
+        "revision": 6,
+        "root_pid": 19
+      },
+      "last_edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_v2",
+        "allowed_paths": [
+          [
+            "MODULES"
+          ]
+        ],
+        "required_deep_keep_paths": [],
+        "allowed_top_level": [
+          "MODULES"
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      },
+      "last_strategy_progress": {
+        "status": "NOT_VERIFIED",
+        "reason": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Owned child name must match exactly one",
+        "revision": 6
+      },
+      "last_oss_method_adoption": {
+        "schema_version": 1,
+        "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {},
+        "any_oss_product_use": false,
+        "effect_verified": false,
+        "effect_verification_required": "Named component readback and independent source-matched visual review.",
+        "plan_choices": [
+          {
+            "system": "site_ground",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "仅一块建筑周边薄板用于定位与投影，无开洞或剖面变化，SAIE/ADAI 无更合适的辅助方法。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "level_slabs_core",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "8 层楼板需按共享标高逐层放置并在板面开核心筒洞口，属多层板件＋洞口，连续墙与等截面型材方法均不能表达。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "front_facade_wall",
+            "method_id": "saie.wall_with_openings",
+            "selection_reason": "正立面是一面矩形直墙，7 层阳台洞与 14 扇窗洞为规则矩形真实洞口，SAIE 批量开洞可一次成墙，避免用墙段拼出假立面。",
+            "disposition": "selected_but_not_invoked"
+          },
+          {
+            "system": "rear_facade_wall",
+            "method_id": "saie.wall_with_openings",
+            "selection_reason": "背面同样是一面矩形直墙＋规则窗洞（推断），与正面共用开洞做法，便于复用同一参数体系。",
+            "disposition": "selected_but_not_invoked"
+          },
+          {
+            "system": "side_facade_walls",
+            "method_id": "saie.wall_with_openings",
+            "selection_reason": "左右侧立面为矩形混凝土直墙＋每层规则窗洞（推断），同一批量开洞方法最贴合。",
+            "disposition": "selected_but_not_invoked"
+          },
+          {
+            "system": "roof_slab_parapet",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "平屋面板＋沿周四边女儿墙为异形闭合环，需按轮廓参数生成带厚度板件与环状女儿墙，等截面型材无法一次表达四边转角。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "window_unit",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "3500×2400 窗由 4 根框料＋玻璃＋内窗台组成，应先做一个命名组/定义，核对后再实例化 14 次；框料截面简单，无需 ADAI 型材依赖。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "loggia_unit",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "7 个凹阳台为同一单元（凹进楼板、顶板、1100 玻璃栏板与立柱、种植槽），先完成一个可量测原型，再逐层复制。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "front_repetition",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "窗与阳台单元经原型核对后按层高参数阵列，是真正的重复构件；逐层重写会生成不可维护的散面。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "rear_side_window_repeat",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "背/侧窗为同一窗型的规则阵列，复用已核对的窗单元定义，仅改尺寸与位置参数。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "ground_band_variant",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "首层含横向肋卷帘门、内凹入口与深灰基座带，为一次性异形细节，SAIE 墙洞方法不能生成肋状卷帘与门厅凹口。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "roof_screen_railing",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "2200 高细密竖向格栅需沿四边周长按间距排布立柱并生成上下横杆与转角，单一等截面挤出无法处理转角与分段，故用受控自有 Ruby 参数化生成。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "roof_planters_trellis",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "种植槽为固定截面但需沿露台左侧成组布置，攀架为细杆格架，与围屏共用参数化放样逻辑更可控。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "curtain_screens",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "玻璃后米色窗帘与浅色室内面为可见但非几何主体的面片，直接用半透明面片比建模织物更合适。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          }
+        ]
+      }
+    }
+  }
+}

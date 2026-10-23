@@ -1,0 +1,24 @@
+{
+  "workspace_version": 12,
+  "purpose": "persistent-agentic-sketchup-coding",
+  "scripts_dir": "scripts",
+  "notes_dir": "notes",
+  "qa_dir": "qa",
+  "reconstruction_card": "notes/reconstruction_card.md",
+  "facade_schedule": "notes/facade_schedule.json",
+  "reconstruction_evidence": "notes/reconstruction_evidence.json",
+  "construction_strategy": "notes/construction_strategy.json",
+  "visual_qa": "qa/visual_qa.md",
+  "repair_history": "qa/repair_history.json",
+  "repair_history_policy": "host-owned-read-only",
+  "reconstruction_flow": [
+    "clarify",
+    "parameterize",
+    "approve",
+    "execute",
+    "verify",
+    "inspect",
+    "critic",
+    "revise"
+  ]
+}
