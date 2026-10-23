@@ -69,3 +69,12 @@ Browser-downloaded r22 SKP matches the product checkpoint exactly: SHA256 b0a431
 | Cloud deployment | Deferred; current runtime remains local/single-user, not public multi-tenant SaaS |
 
 Private full evidence remains under E-drive outputs/agent-reliability-followup-20261023. No raw images/SKP/credentials are committed. No main merge or deployment.
+
+
+## Delivery and update closeout
+
+r22 three-stage comparison completed **PASS_WITH_DECLARED_PRECISION**, using the existing KStudioNativeStableGeometry/1 contract. Raw strict comparison remains FAIL; source fidelity and strict blank replay are not promoted. Bound and browser-download copies genuinely opened inside SU2024 through the guarded host lifecycle, not a mouse/keyboard GUI-open flow. Returning to the original bound document was interrupted first by the local backend being absent, then by the SU bridge being closed; no extra opens/writes were queued. SU is therefore not claimed currently connected. The three collected stage files remain intact.
+
+Installed source release2490974 preserves actual local gpt-6.1-sol/high, execution_limits=off and existing API credentials. Latest backend is responsive and idle. Browser recovery after the interruption was blocked by the browser tool's URL policy; no alternate browser bypass was attempted. Updated-page visual acceptance remains NOT_RUN. Earlier real history-navigation acceptance remains valid for the prior release only.
+
+Preservation audit checked658 pre-follow-up native model files: only the current case's bound model and previous-agent-checkpoint changed. No model outside this case changed; the encrypted credential container is identical. The original r13 freeze and completed-r22 freeze are retained. GitHub PR22 remains draft; all8 checks on2490974 passed. Main is unchanged. No paid inference, recording, cloud deployment or raw owner-asset publication.
