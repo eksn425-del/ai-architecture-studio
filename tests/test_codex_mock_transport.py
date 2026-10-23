@@ -1,11 +1,32 @@
 """Characterize current native provider integration without inference/auth access."""
 import json
+from pathlib import Path
 import tomllib
 from unittest.mock import patch
 
 import pytest
 
 from app.native_agent import CodexAppServerRuntime, NativeAgentUnavailable
+
+
+def test_explicit_codex_home_does_not_resolve_missing_system_home(tmp_path, monkeypatch):
+    source = tmp_path / 'source'
+    source.mkdir()
+    (source / 'config.toml').write_text('''model_provider = "local_fixture"
+[model_providers.local_fixture]
+name = "Fixture only"
+base_url = "http://127.0.0.1:1/v1"
+wire_api = "responses"
+requires_openai_auth = false
+''')
+    runtime = CodexAppServerRuntime(tmp_path / 'runtime', home_root=tmp_path / 'target')
+    monkeypatch.setattr(Path, 'home', lambda: pytest.fail('Explicit CODEX_HOME must not inspect system home'))
+    with patch.dict('os.environ', {'CODEX_HOME': str(source)}, clear=True):
+        runtime._prepare_home(mcp_enabled=False)
+    config = tomllib.loads((runtime.home / 'config.toml').read_text())
+    assert config['model_provider'] == 'local_fixture'
+    assert config['sandbox_mode'] == 'workspace-write'
+    assert not (runtime.home / 'auth.json').exists()
 
 
 def test_missing_selected_provider_fails_before_login_or_inference(tmp_path):

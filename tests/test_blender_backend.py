@@ -37,6 +37,7 @@ def test_real_conversation_plan_execute_edit_download_reopen(tmp_path):
     r=client.post(base+'/conversation',json={'message':'按计划建模','agent_action':'execute'})
     assert r.status_code==200,r.text
     first=r.json()['agent']['model_info']
+    assert first['model_path'].startswith('runtime/blender/') and '\\' not in first['model_path']
     r=client.post(base+'/conversation',json={'message':'只把墙改为五米，柱不变','agent_action':'execute'})
     assert r.status_code==200,r.text
     second=r.json()['agent']['model_info']

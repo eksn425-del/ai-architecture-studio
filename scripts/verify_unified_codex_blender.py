@@ -151,10 +151,21 @@ def fixture_server(root: Path):
 def make_fixture_executable(root: Path, script):
     root.mkdir(parents=True, exist_ok=True)
     dump(root / 'scenarios.json', script)
-    launcher = root / 'scripted-app-server'
-    launcher.write_text('#!' + sys.executable + '\nimport runpy, sys\n'
+    bootstrap = '#!' + sys.executable + '\nimport runpy, sys\n' \
         + 'sys.argv = ' + repr([str(Path(__file__).resolve()), '--fixture-server', str(root)]) + '\n'
-        + 'runpy.run_path(' + repr(str(Path(__file__).resolve())) + ', run_name="__main__")\n')
+    bootstrap += 'runpy.run_path(' + repr(str(Path(__file__).resolve())) + ', run_name="__main__")\n'
+    if os.name == 'nt':
+        # Keep the same real subprocess/runtime on Windows; only the scripted
+        # transport peer is synthetic. No shell launch is added to the product.
+        peer = root / 'scripted-app-server.py'
+        peer.write_text(bootstrap, encoding='utf-8')
+        launcher = root / 'scripted-app-server.cmd'
+        quote = lambda path: '"' + str(path).replace('%', '%%') + '"'
+        launcher.write_text('@echo off\nchcp 65001 >nul\n' + quote(sys.executable)
+                            + ' ' + quote(peer) + '\n', encoding='utf-8')
+        return launcher
+    launcher = root / 'scripted-app-server'
+    launcher.write_text(bootstrap, encoding='utf-8')
     launcher.chmod(0o700)
     return launcher
 

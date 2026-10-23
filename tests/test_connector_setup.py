@@ -131,6 +131,9 @@ def test_repeat_install_does_not_replace_version_files(fixture):
 def test_installed_config_is_discovered_without_codex_and_uses_matching_script_root(fixture, tmp_path, monkeypatch):
     from app.sketchup_mcp import _resolve_server, _generated_script_dir
     client, _, _, _ = fixture
+    # This case checks the managed default, independently of a caller's
+    # explicitly supported writable scratch override.
+    monkeypatch.delenv("ARCHFLOW_GENERATED_SCRIPT_DIR", raising=False)
     monkeypatch.setenv("CODEX_HOME", str(tmp_path / "no-codex"))
     assert client.post("/api/connectors/sketchup/install", json={"confirm_install":True,"year":2022}).status_code == 200
     command, environment, _ = _resolve_server()

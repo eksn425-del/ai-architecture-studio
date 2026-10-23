@@ -45,7 +45,7 @@ def test_rejects_untrusted_render(render, monkeypatch, mutation):
         blender_render_data_url(project, output)
 
 
-@pytest.mark.parametrize('path', ['../other/view.png', '/tmp/view.png', 'https://example.org/a.png', 'runtime/blender/../../other/a.png'])
+@pytest.mark.parametrize('path', ['../other/view.png', '/tmp/view.png', 'https://example.org/a.png', 'runtime/blender/../../other/a.png', r'runtime\blender\run\view.png', r'C:\outside\view.png'])
 def test_rejects_paths_even_with_forged_receipt(render, path):
     project, _, output, scene, state = render
     output['image_path'] = path

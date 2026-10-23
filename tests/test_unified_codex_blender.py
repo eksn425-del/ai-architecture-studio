@@ -24,8 +24,8 @@ def test_controlled_unified_scenario_is_exact_and_does_not_mutate_source():
     assert {call['call_id'] for call in script['EDIT']} >= {'hostile-delete', 'hostile-update', 'hostile-add', 'render-edit', 'exact-detail'}
 
 
-@pytest.mark.skipif(os.name != 'posix' or not shutil.which('blender'),
-                    reason='POSIX scripted subprocess and actual Blender executable required')
+@pytest.mark.skipif(not shutil.which('blender'),
+                    reason='Actual Blender executable required')
 def test_public_codex_responses_route_drives_real_blender(tmp_path):
     pytest.importorskip('litellm')
     evidence = run(tmp_path / 'unified-blender')

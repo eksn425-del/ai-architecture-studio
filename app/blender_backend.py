@@ -87,7 +87,7 @@ class BlenderBackend:
                 settings_path=model.parent/('render-settings-'+uuid.uuid4().hex+'.json')
                 self._run(model.parent,'render',[self.executable,'--background','--disable-autoexec',str(model),'--python-exit-code','1','--python',str(Path(__file__).with_name('blender_worker.py')),'--','render',str(image),options['view'],json.dumps(options),str(settings_path)])
                 settings=json.loads(settings_path.read_text(encoding='utf-8'))
-                result={'image_path':str(image.relative_to(self.project_dir)),'revision':current['revision'],'cutaway':bool(options['hide_ids']),'hidden_ids':options['hide_ids'],'camera':options['camera'],'resolution':settings['resolution'],'denoise':settings['denoise'],'samples':settings['samples'],'denoise_requested':options.get('denoise')}
+                result={'image_path':image.relative_to(self.project_dir).as_posix(),'revision':current['revision'],'cutaway':bool(options['hide_ids']),'hidden_ids':options['hide_ids'],'camera':options['camera'],'resolution':settings['resolution'],'denoise':settings['denoise'],'samples':settings['samples'],'denoise_requested':options.get('denoise')}
                 current.setdefault('renders',{})[key]=result
                 temporary=self.root/'scene.tmp.json'
                 temporary.write_text(json.dumps(current,ensure_ascii=False,indent=2), encoding="utf-8")
@@ -162,7 +162,7 @@ class BlenderBackend:
             if validate(self.project_dir, latest, seen | set(deleted)) != contract:
                 raise ValueError('Blender host edit contract changed during execution')
             verify_result(contract, objects, after)
-            result={'geometry_qa':diagnostics,'candidate_status':'saved_candidate','quality_status':'unverified','objects':objects,'revision':revision,'native_reopen':'PASS','geometry':after,'model_path':str(output.relative_to(self.project_dir)), 'sha256':hashlib.sha256(output.read_bytes()).hexdigest()}
+            result={'geometry_qa':diagnostics,'candidate_status':'saved_candidate','quality_status':'unverified','objects':objects,'revision':revision,'native_reopen':'PASS','geometry':after,'model_path':output.relative_to(self.project_dir).as_posix(), 'sha256':hashlib.sha256(output.read_bytes()).hexdigest()}
             temp=self.state.with_suffix('.tmp');temp.write_text(json.dumps(result,indent=2), encoding="utf-8");temp.replace(self.state)
             advance(self.project_dir, contract, revision)
             return result

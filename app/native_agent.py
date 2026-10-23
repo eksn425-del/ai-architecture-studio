@@ -428,7 +428,11 @@ class CodexAppServerRuntime:
         user_config: dict[str, Any] = {}
         source_home = None
         if self.api_provider is None:
-            source_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser()
+            # An explicit home also works in isolated Windows processes without
+            # USERPROFILE. Do not eagerly evaluate Path.home() as a get default.
+            configured_source_home = os.environ.get("CODEX_HOME")
+            source_home = (Path(configured_source_home) if configured_source_home
+                           else Path.home() / ".codex").expanduser()
             source_config = source_home / "config.toml"
             if not source_config.is_file():
                 raise NativeAgentUnavailable("Codex config.toml was not found; the local native agent is not configured.")
