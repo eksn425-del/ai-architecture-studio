@@ -382,9 +382,10 @@ class CodexAppServerRuntime:
                 images.append(path)
             elif label not in labels[existing].split("; "):
                 labels[existing] += "; " + label
-        from .design_scope_approval import invalidate_stale_design_scope
+        from .design_scope_approval import invalidate_stale_design_scope, current_execution_instruction
         invalidate_stale_design_scope(project_dir)
         approved_scope = load_approved_design_scope(project_dir)
+        current_instruction = current_execution_instruction(project_dir)
         image_hashes = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in images}
         prompt = build_visual_critic_prompt([label for label, item in zip(labels, manifest) if item["role"] == "target_building"], labels[len(sources):])
         prompt += "\nImages below follow this exact order:\n" + "\n".join(
@@ -415,6 +416,12 @@ class CodexAppServerRuntime:
                    "To retire a satisfied old requirement return <requirement_resolutions>JSON array</requirement_resolutions> with feature_id, "
                    "prior_requirement_id, status=resolved, source_ref, model_revisions and current evidence. Never resolve by omission. "
                    "Host-approved design scope: " + json.dumps(approved_scope, ensure_ascii=False))
+        prompt += ("\nExact current host-granted user instruction: " + json.dumps(current_instruction, ensure_ascii=False)
+                   + "\nAssess the requested change separately from remaining whole-source differences. "
+                   "Do not tell the Builder to reverse an explicitly requested change merely to restore an old requirement. "
+                   "When feature approval is stale or conflicts, retain the unresolved requirement and clearly report the "
+                   "scope conflict; do not silently supersede it, grant new permission or demand oscillating edits. "
+                   "Builder-authored notes are not a substitute for this host-bound input.")
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
             prompt=prompt, mcp_enabled=False, developer_instructions="Independent read-only architectural visual review. No geometry writes, commands or file changes.",
@@ -433,6 +440,8 @@ class CodexAppServerRuntime:
             raise ValueError("Review image changed during inference; recapture before correction.")
         if load_approved_design_scope(project_dir) != approved_scope:
             raise ValueError("Approved design scope changed during review; repeat against current intent.")
+        if current_execution_instruction(project_dir) != current_instruction:
+            raise ValueError("Current user instruction changed during review; repeat against current intent.")
         try:
             resolutions = validate_review_resolutions(result.reply, manifest=manifest, revisions=revisions, history=history)
             requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
@@ -455,7 +464,7 @@ class CodexAppServerRuntime:
             raise ValueError(f"{error} Rejected independent review evidence: {rejection_id}.") from error
         if {item['feature_id'] for item in resolutions} & {item['feature_id'] for item in requirements}:
             raise ValueError("A feature cannot be resolved and still require correction in one review.")
-        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements, "resolutions": resolutions, "approved_design_scope": approved_scope}
+        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements, "resolutions": resolutions, "approved_design_scope": approved_scope, "current_user_instruction": current_instruction}
         history_path = project_dir / "runtime/reference_role_review_history.jsonl"
         history_path.parent.mkdir(parents=True, exist_ok=True)
         if history_path.is_symlink():
@@ -466,6 +475,7 @@ class CodexAppServerRuntime:
             "reference_manifest": manifest, "reference_manifest_fingerprint": fingerprint,
             "review_requirements": requirements, "requirement_resolutions": resolutions,
             "approved_design_scope": approved_scope,
+            "current_user_instruction": current_instruction,
             "mode": "dedicated_read_only", "runtime": "codex-native", "model": result.model_name,
             "reasoning_effort": result.reasoning_effort, "latency_ms": result.latency_ms,
             "input_tokens": result.input_tokens, "output_tokens": result.output_tokens,
@@ -681,7 +691,9 @@ class CodexAppServerRuntime:
                     "(mutation paths48, KEEP paths256); protect a whole unchanged ancestor only when every descendant "
                     "is protected. Never expand mutation scope or drop KEEP to fit. Capture the canonical set once per "
                     "revision and reuse certified views; add only needed source/detail views. Check requested changes "
-                    "and regressions, then deliver remaining differences honestly; do not expand into cosmetic rework."
+                    "and regressions, then deliver remaining differences honestly; do not expand into cosmetic rework. "
+                    "If QA asks to reverse the current explicit user instruction because of a stale historical requirement, "
+                    "report that conflict and stop editing; do not alternate between opposite designs."
                 ),
             }
             from .research_tool_context import RESEARCH_TOOL_NAMES

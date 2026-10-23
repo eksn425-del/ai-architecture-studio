@@ -69,6 +69,43 @@ def invalidate_stale_design_scope(project_dir: Path) -> bool:
     return False
 
 
+def current_execution_instruction(project_dir: Path) -> dict:
+    """Expose exact host-granted current input to QA, without granting scope override.
+
+    Builder notes, old conversation entries and its own claim of approval cannot
+    supply this context. Existing feature-specific approval rules stay intact.
+    """
+    context_path = project_dir / 'state/project_context.json'
+    journal = _path(project_dir, 'contextual_intent.jsonl')
+    if context_path.is_symlink() or not context_path.is_file() or not journal.is_file():
+        return {}
+    context = json.loads(context_path.read_text(encoding='utf-8'))
+    users = [m for m in context.get('conversation', []) if m.get('role') == 'user']
+    if not users:
+        return {}
+    message = users[-1]
+    message_id = message.get('metadata', {}).get('evidence_turn_id')
+    if not message_id:
+        return {}
+    receipt = None
+    for line in journal.read_text(encoding='utf-8').splitlines():
+        try:
+            row = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(row, dict) and row.get('user_message_id') == message_id:
+            receipt = row
+    if (not receipt or receipt.get('execution_granted') is not True
+            or receipt.get('action') != 'execute'
+            or str(receipt.get('user_message', '')).strip() != message.get('content', '').strip()
+            or receipt.get('reference_fingerprint') != current_reference_fingerprint(project_dir)):
+        return {}
+    return {'user_message_id': message_id, 'user_message': receipt['user_message'],
+            'host_action': 'execute', 'starting_model_revisions': receipt.get('model_revisions', {}),
+            'reference_fingerprint': receipt['reference_fingerprint'],
+            'feature_scope_override': False}
+
+
 def capture_pending_design_plan(project_dir: Path, plan_text: str, *, is_followup: bool) -> dict:
     plan_text = canonical_plan_text(plan_text)
     _invalidate(project_dir, 'new_plan_pending')

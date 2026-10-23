@@ -5,6 +5,29 @@ from app.design_scope_approval import (capture_pending_design_plan, approve_pend
 from app.reference_roles import load_approved_design_scope
 
 PLAN='<design_scope>[{"feature_id":"window.mullion","requested_state":"remove divider"}]</design_scope>'
+
+
+def test_current_instruction_requires_exact_latest_human_and_host_grant(tmp_path):
+    from app.design_scope_approval import current_execution_instruction, current_reference_fingerprint
+    project(tmp_path)
+    context_file = tmp_path/'state/project_context.json'
+    context = json.loads(context_file.read_text())
+    context['conversation'] = [{'role':'user', 'content':'只修改浅色格架',
+                               'metadata':{'evidence_turn_id':'message:current'}}]
+    context_file.write_text(json.dumps(context), encoding='utf8')
+    journal = tmp_path/'runtime/contextual_intent.jsonl'; journal.parent.mkdir()
+    receipt = {'user_message_id':'message:current', 'user_message':'只修改浅色格架',
+               'action':'execute','execution_granted':True,
+               'reference_fingerprint':current_reference_fingerprint(tmp_path)}
+    journal.write_text(json.dumps(receipt)+'\n', encoding='utf8')
+    assert current_execution_instruction(tmp_path)['feature_scope_override'] is False
+    for change in ({'user_message':'全部重建'}, {'execution_granted':False}, {'reference_fingerprint':'stale'}):
+        journal.write_text(json.dumps({**receipt, **change})+'\n', encoding='utf8')
+        assert current_execution_instruction(tmp_path) == {}
+    journal.write_text(json.dumps(receipt)+'\n', encoding='utf8')
+    context['conversation'].append({'role':'user','content':'先暂停','metadata':{'evidence_turn_id':'message:later'}})
+    context_file.write_text(json.dumps(context), encoding='utf8')
+    assert current_execution_instruction(tmp_path) == {}
 def project(tmp_path):
     p=tmp_path/'inputs/reference/a.png';p.parent.mkdir(parents=True);p.write_bytes(b'original')
     (tmp_path/'state').mkdir();(tmp_path/'state/project_context.json').write_text(json.dumps({'references':[{'type':'image','source':'inputs/reference/a.png','evidence_role':'target_building'}]}))
