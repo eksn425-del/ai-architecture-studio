@@ -1,0 +1,35 @@
+{
+  "baseline_commit": "4ff47fb1b85a30f2d65d45ec133fe01b20d30ab8",
+  "patch_sha256": "222b5896fad80a23056b0a50c63a2c0f745f3ef7be651e8d15cb64744de0fac3",
+  "code_test_files": 15,
+  "full_suite": {
+    "passed": 694,
+    "skipped": 15,
+    "warnings": 1,
+    "seconds": 61.34
+  },
+  "new_node_ui_tests": 15,
+  "independent_focused_review_tests": 35,
+  "windows_report_commit": "ac803e58a52e16ef903ef751ba0dcec170295ae8",
+  "cp936_regression": "Implicit-default control reproduces decode failure; explicit UTF-8 approval/reference read/write/invalidation/version chain passes under emulated cp936 defaults on Linux. Actual Windows rerun remains pending.",
+  "default_role_tests": [
+    "initial single image",
+    "explicit target/new views",
+    "problem context at upload version",
+    "same-byte old defect retains historical version",
+    "conflicting duplicate versions remain unknown",
+    "late clear message reconsiders fresh auto default",
+    "generic message retains reliable default",
+    "manual and submitted evidence preserved",
+    "mixed/negative/interface ambiguity",
+    "default ready architecture auto cannot bypass unknown-role gate",
+    "role corrections invalidate plan/scope",
+    "six target views resolve from first natural-language message before approval"
+  ],
+  "vision_understanding_claim": false,
+  "fresh_native_gui_verified": false,
+  "original_su_case_rerun": false,
+  "external_paid_model_calls": 0,
+  "main_changed": false,
+  "user_next_step": "Local startup only: pull exact commit, verify directory/service/port, restart correct server, open page and stop for owner manual testing."
+}

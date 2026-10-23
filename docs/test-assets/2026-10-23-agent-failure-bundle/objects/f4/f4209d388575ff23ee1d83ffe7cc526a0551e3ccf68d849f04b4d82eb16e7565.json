@@ -1,0 +1,592 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "FACADE/GROUND_BAND",
+    "GROUND_ENTRY_WALL",
+    "GROUND_GARAGE_WALL",
+    "LEVELS/SLAB_CORE_STACK",
+    "ROOF/PARAPET_BAND",
+    "ROOF/ROOF_SLAB",
+    "ROOF/SCREEN_RAILING",
+    "WALL_FRONT",
+    "WALL_LEFT",
+    "WALL_REAR",
+    "WALL_RIGHT"
+  ],
+  "checks": [
+    {
+      "path": "FACADE/GROUND_BAND",
+      "check": "persistent_id",
+      "expected": 40,
+      "actual": 40
+    },
+    {
+      "path": "FACADE/GROUND_BAND",
+      "check": "objects_total",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "path": "FACADE/GROUND_BAND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          12150.0,
+          860.0,
+          3350.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          12150.0,
+          860.0,
+          3350.0
+        ]
+      }
+    },
+    {
+      "path": "FACADE/GROUND_BAND",
+      "check": "deep_geometry_material_sha256",
+      "expected": "071309883b6c93e3a753f22e03070c32317b56b8eda7c08164290b45629100b3",
+      "actual": "071309883b6c93e3a753f22e03070c32317b56b8eda7c08164290b45629100b3"
+    },
+    {
+      "path": "FACADE/GROUND_BAND",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "GROUND_ENTRY_WALL",
+      "check": "persistent_id",
+      "expected": 5059,
+      "actual": 5059
+    },
+    {
+      "path": "GROUND_ENTRY_WALL",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "GROUND_ENTRY_WALL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          450.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          5100.0,
+          250.0,
+          3350.0
+        ]
+      },
+      "actual": {
+        "min": [
+          450.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          5100.0,
+          250.0,
+          3350.0
+        ]
+      }
+    },
+    {
+      "path": "GROUND_ENTRY_WALL",
+      "check": "deep_geometry_material_sha256",
+      "expected": "6b2c8a315ed44689517d1c3687c44ce1c471a0a0a74e621d627974edc29b2a34",
+      "actual": "6b2c8a315ed44689517d1c3687c44ce1c471a0a0a74e621d627974edc29b2a34"
+    },
+    {
+      "path": "GROUND_ENTRY_WALL",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "GROUND_GARAGE_WALL",
+      "check": "persistent_id",
+      "expected": 4873,
+      "actual": 4873
+    },
+    {
+      "path": "GROUND_GARAGE_WALL",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "GROUND_GARAGE_WALL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          4650.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          13200.0,
+          250.0,
+          3350.0
+        ]
+      },
+      "actual": {
+        "min": [
+          4650.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          13200.0,
+          250.0,
+          3350.0
+        ]
+      }
+    },
+    {
+      "path": "GROUND_GARAGE_WALL",
+      "check": "deep_geometry_material_sha256",
+      "expected": "8bc5147c3d66e6e8fe65e2fd362958b49ff1bcb11ffebb627b42c5f9d125a234",
+      "actual": "8bc5147c3d66e6e8fe65e2fd362958b49ff1bcb11ffebb627b42c5f9d125a234"
+    },
+    {
+      "path": "GROUND_GARAGE_WALL",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "LEVELS/SLAB_CORE_STACK",
+      "check": "persistent_id",
+      "expected": 80,
+      "actual": 80
+    },
+    {
+      "path": "LEVELS/SLAB_CORE_STACK",
+      "check": "objects_total",
+      "expected": 9,
+      "actual": 9
+    },
+    {
+      "path": "LEVELS/SLAB_CORE_STACK",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          250.0,
+          250.0,
+          -250.0
+        ],
+        "max": [
+          12950.0,
+          11750.0,
+          24350.0
+        ]
+      },
+      "actual": {
+        "min": [
+          250.0,
+          250.0,
+          -250.0
+        ],
+        "max": [
+          12950.0,
+          11750.0,
+          24350.0
+        ]
+      }
+    },
+    {
+      "path": "LEVELS/SLAB_CORE_STACK",
+      "check": "deep_geometry_material_sha256",
+      "expected": "f6b404834947c1a55f4f920fe7964d0ad2458832e63f950caf70b5ad21467020",
+      "actual": "f6b404834947c1a55f4f920fe7964d0ad2458832e63f950caf70b5ad21467020"
+    },
+    {
+      "path": "LEVELS/SLAB_CORE_STACK",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "ROOF/PARAPET_BAND",
+      "check": "persistent_id",
+      "expected": 19140,
+      "actual": 19140
+    },
+    {
+      "path": "ROOF/PARAPET_BAND",
+      "check": "objects_total",
+      "expected": 4,
+      "actual": 4
+    },
+    {
+      "path": "ROOF/PARAPET_BAND",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          24600.0
+        ],
+        "max": [
+          13200.0,
+          12000.0,
+          25300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          24600.0
+        ],
+        "max": [
+          13200.0,
+          12000.0,
+          25300.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF/PARAPET_BAND",
+      "check": "deep_geometry_material_sha256",
+      "expected": "01a926ee2647e9665dbe7ce56af45e57964ffb3a77b7ca7442cd7317da58236d",
+      "actual": "01a926ee2647e9665dbe7ce56af45e57964ffb3a77b7ca7442cd7317da58236d"
+    },
+    {
+      "path": "ROOF/PARAPET_BAND",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "ROOF/ROOF_SLAB",
+      "check": "persistent_id",
+      "expected": 19108,
+      "actual": 19108
+    },
+    {
+      "path": "ROOF/ROOF_SLAB",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF/ROOF_SLAB",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          250.0,
+          250.0,
+          24350.0
+        ],
+        "max": [
+          12950.0,
+          11750.0,
+          24600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          250.0,
+          250.0,
+          24350.0
+        ],
+        "max": [
+          12950.0,
+          11750.0,
+          24600.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF/ROOF_SLAB",
+      "check": "deep_geometry_material_sha256",
+      "expected": "1cb7438feba5cfc8e5095dac757cd8a6b3d672f245d1fd60b8fb6f733380a97c",
+      "actual": "1cb7438feba5cfc8e5095dac757cd8a6b3d672f245d1fd60b8fb6f733380a97c"
+    },
+    {
+      "path": "ROOF/ROOF_SLAB",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "ROOF/SCREEN_RAILING",
+      "check": "persistent_id",
+      "expected": 19270,
+      "actual": 19270
+    },
+    {
+      "path": "ROOF/SCREEN_RAILING",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "ROOF/SCREEN_RAILING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          100.0,
+          25300.0
+        ],
+        "max": [
+          13200.0,
+          11900.0,
+          26790.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          100.0,
+          25300.0
+        ],
+        "max": [
+          13200.0,
+          11900.0,
+          26790.0
+        ]
+      }
+    },
+    {
+      "path": "ROOF/SCREEN_RAILING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "339ac03905ab47517afd6ca5e86d7fc62f1c2c39722a8fc89d25e5b518f9cce5",
+      "actual": "339ac03905ab47517afd6ca5e86d7fc62f1c2c39722a8fc89d25e5b518f9cce5"
+    },
+    {
+      "path": "ROOF/SCREEN_RAILING",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "WALL_FRONT",
+      "check": "persistent_id",
+      "expected": 1142,
+      "actual": 1142
+    },
+    {
+      "path": "WALL_FRONT",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_FRONT",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          0.0,
+          3350.0
+        ],
+        "max": [
+          13200.0,
+          250.0,
+          24600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          0.0,
+          3350.0
+        ],
+        "max": [
+          13200.0,
+          250.0,
+          24600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_FRONT",
+      "check": "deep_geometry_material_sha256",
+      "expected": "c25b3fd97e615bbd80f25d3f3ad506c4ff3b372227f4a201e25cfb3a3dce1b3b",
+      "actual": "c25b3fd97e615bbd80f25d3f3ad506c4ff3b372227f4a201e25cfb3a3dce1b3b"
+    },
+    {
+      "path": "WALL_FRONT",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "WALL_LEFT",
+      "check": "persistent_id",
+      "expected": 12383,
+      "actual": 12383
+    },
+    {
+      "path": "WALL_LEFT",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_LEFT",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          250.0,
+          0.0
+        ],
+        "max": [
+          250.0,
+          11750.0,
+          24600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          250.0,
+          0.0
+        ],
+        "max": [
+          250.0,
+          11750.0,
+          24600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_LEFT",
+      "check": "deep_geometry_material_sha256",
+      "expected": "f96b57e25e901ec3113293bc9176f41a83b4e4e590720e421b99ae2d81c0a353",
+      "actual": "f96b57e25e901ec3113293bc9176f41a83b4e4e590720e421b99ae2d81c0a353"
+    },
+    {
+      "path": "WALL_LEFT",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "WALL_REAR",
+      "check": "persistent_id",
+      "expected": 6822,
+      "actual": 6822
+    },
+    {
+      "path": "WALL_REAR",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_REAR",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          0.0,
+          11750.0,
+          0.0
+        ],
+        "max": [
+          13200.0,
+          12000.0,
+          24600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          0.0,
+          11750.0,
+          0.0
+        ],
+        "max": [
+          13200.0,
+          12000.0,
+          24600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_REAR",
+      "check": "deep_geometry_material_sha256",
+      "expected": "63ea0eb0815a32699b826d88e763f9d48d9f420a6e0a0ba5413a8605656584eb",
+      "actual": "63ea0eb0815a32699b826d88e763f9d48d9f420a6e0a0ba5413a8605656584eb"
+    },
+    {
+      "path": "WALL_REAR",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "WALL_RIGHT",
+      "check": "persistent_id",
+      "expected": 15524,
+      "actual": 15524
+    },
+    {
+      "path": "WALL_RIGHT",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "WALL_RIGHT",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          12950.0,
+          250.0,
+          0.0
+        ],
+        "max": [
+          13200.0,
+          11750.0,
+          24600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          12950.0,
+          250.0,
+          0.0
+        ],
+        "max": [
+          13200.0,
+          11750.0,
+          24600.0
+        ]
+      }
+    },
+    {
+      "path": "WALL_RIGHT",
+      "check": "deep_geometry_material_sha256",
+      "expected": "ec6c989d057af6049a4508794d60683afaf92da384e2a94c94829735612dfe53",
+      "actual": "ec6c989d057af6049a4508794d60683afaf92da384e2a94c94829735612dfe53"
+    },
+    {
+      "path": "WALL_RIGHT",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    }
+  ]
+}

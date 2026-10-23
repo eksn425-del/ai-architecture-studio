@@ -308,7 +308,7 @@ def test_runtime_write_budget_counts_commits_and_keeps_review_available(tmp_path
         context = surface.prepare(project_dir=tmp_path / "projects" / "budget",
             mcp_enabled=True, model_path=tmp_path / "blank.skp", model_guid="fixture",
             ruby_enabled=True, ruby_state=state, tool_profile="reconstruction_coding")
-        with pytest.raises(OSError):
+        with pytest.raises(MCPCallError, match="POST_COMMIT_VERIFICATION_FAILED.*geometry_already_committed=true"):
             context.dispatch("sketchup_run_workspace_ruby", {"capture_failure": True})
         for _ in range(limit - 1):
             context.dispatch("sketchup_submit_visual_review", {"views": {}, "critique": "fixture"})
@@ -586,8 +586,9 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         call_index = len(calls)
         if call_index == 1:
             return SimpleNamespace(
+                model=kwargs["model"].split("/", 1)[-1],
                 choices=[SimpleNamespace(message={"content": "我完成了。", "tool_calls": None})],
-                usage={},
+                usage={"prompt_tokens": 0, "completion_tokens": 0},
             )
         if call_index == 2:
             assert any(
@@ -595,6 +596,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                 for m in kwargs["messages"]
             )
             return SimpleNamespace(
+                model=kwargs["model"].split("/", 1)[-1],
                 choices=[SimpleNamespace(message={
                     "content": None,
                     "tool_calls": [{
@@ -608,7 +610,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                         },
                     }],
                 })],
-                usage={},
+                usage={"prompt_tokens": 0, "completion_tokens": 0},
             )
         if call_index == 3:
             assert "read-only visual critic" in kwargs["messages"][0]["content"]
@@ -621,6 +623,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
             assert "rear opening_count=3" in critic_payload
             assert '"opening_count": 4' in critic_payload
             return SimpleNamespace(
+                model=kwargs["model"].split("/", 1)[-1],
                 choices=[SimpleNamespace(message={
                     "content": (
                         "NEEDS_FIX: YES\n"
@@ -634,8 +637,9 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                 usage={"prompt_tokens": 100, "completion_tokens": 20},
             )
         return SimpleNamespace(
+            model=kwargs["model"].split("/", 1)[-1],
             choices=[SimpleNamespace(message={"content": "仍有问题。", "tool_calls": None})],
-            usage={},
+            usage={"prompt_tokens": 0, "completion_tokens": 0},
         )
 
     module.completion = completion
@@ -658,7 +662,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         tool_profile="reconstruction_coding",
     )
     assert len(calls) == 4
-    assert "PARTIAL" in result.reply
+    assert "尚不能判定还原质量通过" in result.reply
     assert quality["review"]["needs_fix"] is True
     assert quality["review"]["reviewer"]["mode"] == "host_dedicated_read_only"
     assert result.input_tokens == 100
@@ -931,12 +935,16 @@ def test_harness_parity_restores_only_current_independent_source_review(tmp_path
     source = project / "inputs/reference/source.png"
     source.parent.mkdir(parents=True, exist_ok=True)
     source.write_bytes(b"original owner image")
+    from app.reference_roles import reference_manifest, manifest_fingerprint
+    (project / "state").mkdir(exist_ok=True)
+    (project / "state/project_context.json").write_text(json.dumps({"references": [{"source": "inputs/reference/source.png", "evidence_role": "target_building"}]}))
+    role_fingerprint = manifest_fingerprint(reference_manifest(project, [source]))
     critique = ("NEEDS_FIX: YES\n<assessment>Roof needs correction.</assessment>\n"
                 '<issue priority="1" view="front">problem: folded roof wrong\naction: correct ROOF</issue>\n'
                 "<keep>ENTRY</keep>")
     receipt = submit_visual_review(project, state, {
         "views": views, "critique": "".join(critique),
-        "_reviewer": {"mode": "dedicated_read_only", "model": "gpt-6.1-sol"},
+        "_reviewer": {"mode": "dedicated_read_only", "model": "gpt-6.1-sol", "reference_manifest_fingerprint": role_fingerprint},
     })
     assert receipt["evidence_sha256"]
     assert load_current_independent_visual_review(project, state) == receipt
@@ -987,5 +995,112 @@ def test_harness_parity_rejects_self_review_or_old_unhashed_receipt(tmp_path):
     receipt.pop("evidence_sha256")
     qa = project / "runtime/agent_workspace/qa"
     (qa / "visual_review.json").write_text(json.dumps(receipt), encoding="utf8")
+    assert load_current_independent_visual_review(project, state) is None
+
+
+def _feedback_review_fixture(tmp_path, *, accepted=False):
+    import json
+    from app.models import ProjectContext, Reference
+    from app.reference_roles import reference_manifest, manifest_fingerprint
+    project, state, views = _current_review_fixture(tmp_path)
+    source = project / 'inputs/reference/source.png'
+    source.parent.mkdir(parents=True, exist_ok=True); source.write_bytes(b'original target')
+    context = ProjectContext(references=[Reference(type='image', source='inputs/reference/source.png',
+        evidence_role='target_building', submitted_at='old-turn')])
+    (project / 'state').mkdir(exist_ok=True)
+    (project / 'state/project_context.json').write_text(context.model_dump_json(), encoding='utf8')
+    manifest = reference_manifest(project, [source])
+    from app.reconstruction_evidence import default_reconstruction_evidence
+    note = project / 'runtime/agent_workspace/notes/reconstruction_evidence.json'
+    note.parent.mkdir(parents=True, exist_ok=True)
+    note.write_text(json.dumps(default_reconstruction_evidence()), encoding='utf8')
+    critique = 'NEEDS_FIX: NO\n<assessment>Source appearance accepted.</assessment>' if accepted else (
+        'NEEDS_FIX: YES\n<assessment>Balcony needs depth.</assessment>\n'
+        '<issue priority="1" view="front">problem: shallow balcony\naction: recess balcony</issue>')
+    receipt = submit_visual_review(project, state, {'views': views, 'critique': critique,
+        '_reviewer': {'mode': 'dedicated_read_only', 'reference_manifest': manifest,
+            'reference_manifest_fingerprint': manifest_fingerprint(manifest)}})
+    return project, state, context, receipt
+
+
+def _append_feedback(project, state, context, *, role='defect_location', revision=3):
+    from app.models import Reference
+    image = project / 'inputs/reference/feedback.png'; image.write_bytes(b'current model screenshot')
+    context.references.append(Reference(type='image', source='inputs/reference/feedback.png',
+        evidence_role=role, role_origin='context_default', evidence_model_revisions={'villa': revision}))
+    (project / 'state/project_context.json').write_text(context.model_dump_json(), encoding='utf8')
+
+
+def test_same_revision_defect_attachment_reuses_verified_source_review_and_restores_only_lifecycle(tmp_path):
+    from app.modeling_quality import load_current_independent_visual_review
+    from app.contextual_attachments import restore_defect_feedback_state
+    from app.models import AgentSession
+    project, state, context, receipt = _feedback_review_fixture(tmp_path)
+    _append_feedback(project, state, context)
+    assert load_current_independent_visual_review(project, state) == receipt
+    card = project / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    card.parent.mkdir(parents=True, exist_ok=True); card.write_text('Existing approved building.', encoding='utf8')
+    session = AgentSession(project_id='fixture', status='ready', model_path='outputs/model/blank.skp', ruby_state=state,
+        reconstruction_state='clarifying')
+    assert restore_defect_feedback_state(project, session, context)
+    assert session.reconstruction_state == 'building'
+    # Restoring a lifecycle cannot convert a question/refusal into execution.
+    from app.contextual_turn import snapshot_turn, validate_decision
+    from app.models import ConversationRequest
+    request = ConversationRequest(message='先别修改，只解释阳台的问题。')
+    snapshot = snapshot_turn(project, session, request, context)
+    raw = dict(action='execute', user_message_id=snapshot['user_message_id'], user_message=request.message,
+        plan_sha256=snapshot['plan_sha256'], changes_plan=False, conditional=False, reason='fixture')
+    assert validate_decision(raw, snapshot, project=project, session=session, request=request) == 'clarify'
+
+
+@pytest.mark.parametrize('role,revision', [('target_building',3), ('supporting',3), ('unknown',3), ('defect_location',2)])
+def test_appended_target_unknown_supporting_or_stale_defect_cannot_reuse_review(tmp_path, role, revision):
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, context, _ = _feedback_review_fixture(tmp_path)
+    _append_feedback(project, state, context, role=role, revision=revision)
+    assert load_current_independent_visual_review(project, state) is None
+
+
+def test_accepted_review_only_restores_identity_proof_and_never_becomes_old_writer_veto(tmp_path):
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, context, receipt = _feedback_review_fixture(tmp_path, accepted=True)
+    _append_feedback(project, state, context)
+    assert load_current_independent_visual_review(project, state) is None
+    assert load_current_independent_visual_review(project, state, include_accepted=True) == receipt
+
+
+def test_feedback_cannot_hide_changed_original_or_new_taskbook(tmp_path):
+    from app.modeling_quality import load_current_independent_visual_review
+    from app.contextual_attachments import restore_defect_feedback_state
+    from app.models import AgentSession
+    project, state, context, _ = _feedback_review_fixture(tmp_path)
+    _append_feedback(project, state, context)
+    card = project / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    card.parent.mkdir(parents=True, exist_ok=True); card.write_text('Existing building.', encoding='utf8')
+    session = AgentSession(project_id='fixture', status='ready', model_path='outputs/model/blank.skp',
+        ruby_state=state, reconstruction_state='clarifying')
+    context.brief.source_files.append('inputs/brief/new.txt')
+    assert not restore_defect_feedback_state(project, session, context)
+    context.brief.source_files.clear()
+    (project / 'inputs/reference/source.png').write_bytes(b'changed target')
+    assert load_current_independent_visual_review(project, state) is None
+    assert not restore_defect_feedback_state(project, session, context)
+    assert session.reconstruction_state == 'clarifying'
+
+
+def test_post_review_execution_metadata_is_not_new_target_truth(tmp_path):
+    import json
+    from app.modeling_quality import load_current_independent_visual_review
+    project, state, _, receipt = _feedback_review_fixture(tmp_path)
+    note = project / 'runtime/agent_workspace/notes/reconstruction_evidence.json'
+    evidence = json.loads(note.read_text(encoding='utf8'))
+    evidence['execution_turn'] = {'revision':3, 'geometry_written':True, 'save_reopen_verified':True}
+    note.write_text(json.dumps(evidence), encoding='utf8')
+    assert load_current_independent_visual_review(project, state) == receipt
+    # Execution metadata does not certify a reopen, change constraints, or cover
+    # a changed source specification. Every design fact stays hash-bound.
+    evidence['assumptions'] = ['a changed design assumption']
+    note.write_text(json.dumps(evidence), encoding='utf8')
     assert load_current_independent_visual_review(project, state) is None
 

@@ -15,6 +15,9 @@ from typing import Any, Callable
 
 from .agent_tools import AgentToolSurface
 from .reference_assets import discover_project_reference_images, reference_image_label
+from .reference_roles import (reference_manifest, role_labels, manifest_fingerprint,
+                              validate_review_requirements, load_review_history, active_requirements, requirement_states,
+                              validate_review_resolutions, load_approved_design_scope)
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
 from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
@@ -22,10 +25,21 @@ from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique
                               require_observed_source_view_pairs)
 from .reconstruction_evidence import load_reconstruction_evidence
 from .project_turn_budget import read_project_builder_usage
+from .native_turn_control import NativeTurnControl, NativeTurnRegistry, native_progress_event
 
 
 class NativeAgentUnavailable(RuntimeError):
     pass
+
+
+def canonical_dynamic_tools(tools: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Use one App Server wire format for all first-party/optional flat tools."""
+    result = []
+    for tool in tools:
+        if tool.get("type") not in (None, "function") or not isinstance(tool.get("name"), str) or not isinstance(tool.get("inputSchema"), dict):
+            raise NativeAgentUnavailable("Invalid flat dynamic tool registration")
+        result.append({**tool, "type": "function"})
+    return result
 
 
 _PARENT_CODEX_CONTEXT_ENV = {
@@ -102,7 +116,7 @@ def _reference_images_fingerprint(project_dir: Path, images: list[Path]) -> str:
         if not real.is_file() or path.is_symlink() or not real.is_relative_to(root / "inputs"):
             raise ValueError("A resumed Codex source must be a real project input image.")
         inventory.append((real.relative_to(root).as_posix(), hashlib.sha256(real.read_bytes()).hexdigest()))
-    return hashlib.sha256(json.dumps(inventory, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).hexdigest()
+    return manifest_fingerprint(reference_manifest(root, images))
 
 
 def _native_thread_can_resume(
@@ -190,6 +204,20 @@ class AgentTurnResult:
     latency_ms: int = 0
     tool_call_count: int = 0
     failed_tool_calls: int = 0
+    turn_id: str = ""
+    cancellation_requested: bool = False
+
+
+def dynamic_tool_response(output):
+    """Serialize internal receipts into the App Server DynamicToolCallResponse."""
+    if not isinstance(output,dict):raise ValueError('Dynamic tool result must be an object.')
+    success=output.get('success') is not False and output.get('isError') is not True
+    items=output.get('contentItems')
+    if items is None:
+        items=[{'type':'inputText','text':json.dumps(output,ensure_ascii=False,allow_nan=False)}]
+    if not isinstance(items,list) or any(not isinstance(item,dict) for item in items):
+        raise ValueError('Dynamic tool contentItems must be a list of content objects.')
+    return {'success':success,'contentItems':items}
 
 
 class CodexAppServerRuntime:
@@ -242,10 +270,18 @@ class CodexAppServerRuntime:
         self.sketchup_mcp = sketchup_mcp or ConfiguredSketchUpMCP(timeout_seconds=180)
         self.tool_surface = AgentToolSurface(self.runtime_root, self.sketchup_mcp)
         self._lock = threading.RLock()
+        self._write_lock = threading.RLock()
+        self._turn_registry = NativeTurnRegistry()
 
     @property
     def available(self) -> bool:
-        return bool(self.codex_executable)
+        # A configured string is not proof that the executable is installed.
+        # Probe only the path; never read credentials or launch a provider here.
+        return bool(self.codex_executable and shutil.which(self.codex_executable))
+
+    def cancel_turn(self, project_dir: Path) -> dict[str, Any]:
+        """Request interruption without waiting for respond or claiming rollback."""
+        return self._turn_registry.cancel(project_dir)
 
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
                 mcp_enabled: bool, developer_instructions: str,
@@ -253,7 +289,8 @@ class CodexAppServerRuntime:
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
-                tool_profile: ToolProfile = "full") -> AgentTurnResult:
+                tool_profile: ToolProfile = "full",
+                progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
         if not self.codex_executable:
             raise NativeAgentUnavailable("Codex CLI is unavailable; install/sign in to Codex CLI to start the native agent.")
         with self._lock:
@@ -294,6 +331,8 @@ class CodexAppServerRuntime:
                         ruby_state=ruby_state,
                         arguments=arguments, model=selected_model, reasoning_effort=selected_effort,
                     )
+                if self._turn_registry.cancelled(project_dir):
+                    raise MCPCallError("Cancellation requested; no new tool effect was started. Existing changes are not rolled back.")
                 return tools.dispatch(name, arguments)
 
             return self._run_turn(
@@ -304,7 +343,7 @@ class CodexAppServerRuntime:
                 model=selected_model, reasoning_effort=selected_effort,
                 reference_images=reference_images,
                 workflow_mode=workflow_mode, tool_profile=tool_profile,
-                compact_project_context=bool(ruby_state),
+                compact_project_context=bool(ruby_state), progress_callback=progress_callback,
             )
 
     def _native_visual_review(self, *, project_dir: Path, agent_workspace: Path,
@@ -318,7 +357,16 @@ class CodexAppServerRuntime:
         pairs = validate_source_matched_pairs(project_dir, revisions, arguments.get("evidence_pairs"))
         require_observed_source_view_pairs(project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
         sources = discover_project_reference_images(project_dir, categories=("reference",))
-        labels = ["SOURCE " + path.relative_to(project_dir).as_posix() for path in sources]
+        manifest = reference_manifest(project_dir, sources)
+        fingerprint = manifest_fingerprint(manifest)
+        targets = {item['source'] for item in manifest if item['role'] == 'target_building'}
+        if sources and not targets:
+            raise ValueError("Reference roles are unresolved: confirm target_building versus defect_location before visual review.")
+        if any(pair.get('source_ref') not in targets for pair in pairs):
+            raise ValueError("Source-matched fidelity pairs may cite only target_building images, not defect screenshots.")
+        labels = role_labels(manifest)
+        target_fingerprint = manifest_fingerprint([item for item in manifest if item["role"] == "target_building"])
+        history = load_review_history(project_dir, target_fingerprint)
         images = list(sources)
         for name, path in captures.items():
             labels.append("CURRENT canonical " + name)
@@ -334,7 +382,12 @@ class CodexAppServerRuntime:
                 images.append(path)
             elif label not in labels[existing].split("; "):
                 labels[existing] += "; " + label
-        prompt = build_visual_critic_prompt(labels[:len(sources)], labels[len(sources):])
+        from .design_scope_approval import invalidate_stale_design_scope, current_execution_instruction
+        invalidate_stale_design_scope(project_dir)
+        approved_scope = load_approved_design_scope(project_dir)
+        current_instruction = current_execution_instruction(project_dir)
+        image_hashes = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in images}
+        prompt = build_visual_critic_prompt([label for label, item in zip(labels, manifest) if item["role"] == "target_building"], labels[len(sources):])
         prompt += "\nImages below follow this exact order:\n" + "\n".join(
             f"{index + 1}. {label}" for index, label in enumerate(labels))
         prompt += ("\nInventory only elements actually shown by this project's SOURCE before judging CURRENT. "
@@ -345,6 +398,30 @@ class CodexAppServerRuntime:
                    "KEEP only geometry whose source-backed proportions are correct; use named paths only when known. "
                    "Do not protect an entire roof or volume unless all its visible source-backed parts are correct. "
                    "Do not run commands or edit files; answer the review envelope directly from images.")
+        prompt += ("\nISSUE LOCATION images are historical defect evidence, never a restoration target. "
+                   "UNKNOWN ROLE and SUPPORTING images cannot prove source fidelity. Their absence of an element is not evidence to remove it. "
+                   "Use stable feature_id values and explicit desired_state for each correction. "
+                   "Return <review_requirements>JSON array</review_requirements>, one entry per issue, or [] for no issues. "
+                   "Each entry must contain feature_id (stable lowercase path), desired_state, source_ref (exact SOURCE TARGET path), "
+                   "and model_revisions equal to " + json.dumps(revisions, sort_keys=True) + ". "
+                   "If prior intent contradicts current evidence, do not oscillate or hide it; report unresolved uncertainty. "
+                   "Requirement states (resolved intent remains protected; omission does not resolve): " + json.dumps(requirement_states(history), ensure_ascii=False)
+                   + "\nUse relation new for new features. For relation unchanged, copy the prior desired_state and any prior intent "
+                   "exactly, including its original language; put new observations, scope exclusions and remaining uncertainty in evidence. "
+                   "Unchanged means unchanged requirement text, not a translation or paraphrase of the same intent. "
+                   "For same-intent translation/paraphrase/refinement use equivalent/refines, "
+                   "prior_requirement_id and evidence explaining the SAME intent from current source/capture. Use regression for the same defect reappearing after resolution. Preserve a stable intent "
+                   "{property,value} when provided; changed wording alone is not conflict. Opposite intent is NOT refinement. "
+                   "Only a feature-specific host approved scope permits supersedes: cite design_scope_version and approved_requested_state exactly. "
+                   "To retire a satisfied old requirement return <requirement_resolutions>JSON array</requirement_resolutions> with feature_id, "
+                   "prior_requirement_id, status=resolved, source_ref, model_revisions and current evidence. Never resolve by omission. "
+                   "Host-approved design scope: " + json.dumps(approved_scope, ensure_ascii=False))
+        prompt += ("\nExact current host-granted user instruction: " + json.dumps(current_instruction, ensure_ascii=False)
+                   + "\nAssess the requested change separately from remaining whole-source differences. "
+                   "Do not tell the Builder to reverse an explicitly requested change merely to restore an old requirement. "
+                   "When feature approval is stale or conflicts, retain the unresolved requirement and clearly report the "
+                   "scope conflict; do not silently supersede it, grant new permission or demand oscillating edits. "
+                   "Builder-authored notes are not a substitute for this host-bound input.")
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
             prompt=prompt, mcp_enabled=False, developer_instructions="Independent read-only architectural visual review. No geometry writes, commands or file changes.",
@@ -355,7 +432,50 @@ class CodexAppServerRuntime:
         critique = parse_visual_critique_response(result.reply)
         if critique.malformed or critique.needs_fix is None:
             raise ValueError("Independent Native Critic returned an invalid envelope; do not accept Builder fallback as independent review.")
+        refreshed = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else state
+        latest_revisions, _, _ = validate_visual_review_views(project_dir, refreshed, arguments.get("views"))
+        if latest_revisions != revisions or manifest_fingerprint(reference_manifest(project_dir, sources)) != fingerprint:
+            raise ValueError("Review became stale during inference; recapture and review current evidence.")
+        if any(hashlib.sha256(Path(path).read_bytes()).hexdigest() != digest for path, digest in image_hashes.items()):
+            raise ValueError("Review image changed during inference; recapture before correction.")
+        if load_approved_design_scope(project_dir) != approved_scope:
+            raise ValueError("Approved design scope changed during review; repeat against current intent.")
+        if current_execution_instruction(project_dir) != current_instruction:
+            raise ValueError("Current user instruction changed during review; repeat against current intent.")
+        try:
+            resolutions = validate_review_resolutions(result.reply, manifest=manifest, revisions=revisions, history=history)
+            requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
+                                                       issue_count=len(critique.issues), history=history, approved_scope=approved_scope)
+        except ValueError as error:
+            # Preserve rejected independent evidence without promoting it to an
+            # accepted review or changing any identity/scope/KEEP requirement.
+            rejected_dir = project_dir / "runtime" / "rejected_visual_reviews"
+            if rejected_dir.is_symlink():
+                raise ValueError("Unsafe rejected review evidence directory.") from error
+            rejected_dir.mkdir(parents=True, exist_ok=True)
+            rejection_id = uuid.uuid4().hex
+            rejection = {"schema_version": 1, "status": "rejected_not_accepted", "error": str(error),
+                         "model_revisions": revisions, "reference_manifest_fingerprint": fingerprint,
+                         "target_manifest_fingerprint": target_fingerprint, "image_sha256": image_hashes,
+                         "prior_requirements": requirement_states(history), "approved_design_scope": approved_scope,
+                         "critique": result.reply, "model": result.model_name, "reasoning_effort": result.reasoning_effort}
+            with (rejected_dir / (rejection_id + ".json")).open("x", encoding="utf-8") as stream:
+                json.dump(rejection, stream, ensure_ascii=False, indent=2)
+            raise ValueError(f"{error} Rejected independent review evidence: {rejection_id}.") from error
+        if {item['feature_id'] for item in resolutions} & {item['feature_id'] for item in requirements}:
+            raise ValueError("A feature cannot be resolved and still require correction in one review.")
+        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements, "resolutions": resolutions, "approved_design_scope": approved_scope, "current_user_instruction": current_instruction}
+        history_path = project_dir / "runtime/reference_role_review_history.jsonl"
+        history_path.parent.mkdir(parents=True, exist_ok=True)
+        if history_path.is_symlink():
+            raise ValueError("Unsafe role review history.")
+        with history_path.open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps(record, ensure_ascii=False) + "\n")
         return {**arguments, "critique": result.reply, "_reviewer": {
+            "reference_manifest": manifest, "reference_manifest_fingerprint": fingerprint,
+            "review_requirements": requirements, "requirement_resolutions": resolutions,
+            "approved_design_scope": approved_scope,
+            "current_user_instruction": current_instruction,
             "mode": "dedicated_read_only", "runtime": "codex-native", "model": result.model_name,
             "reasoning_effort": result.reasoning_effort, "latency_ms": result.latency_ms,
             "input_tokens": result.input_tokens, "output_tokens": result.output_tokens,
@@ -435,8 +555,12 @@ class CodexAppServerRuntime:
                   model: str, reasoning_effort: str,
                   reference_images: list[Path], workflow_mode: WorkflowMode = "architecture_design",
                   tool_profile: ToolProfile = "full", read_only: bool = False,
-                  compact_project_context: bool = False) -> AgentTurnResult:
+                  compact_project_context: bool = False, readonly_role: str = "visual_critic",
+                  progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
         started = time.monotonic()
+        deadline: float | None = None
+        if readonly_role not in {"visual_critic", "conversation_intent"}:
+            raise ValueError("Unknown native read-only role.")
         is_builder = not read_only and mcp_enabled and workflow_mode == "image_reconstruction"
         prior_usage = read_project_builder_usage(project_dir / "runtime" / "agent_events") if is_builder else None
         if is_builder and self.max_project_input_tokens:
@@ -489,26 +613,49 @@ class CodexAppServerRuntime:
         evidence_dir.mkdir(parents=True, exist_ok=True)
         evidence_path = evidence_dir / f"{uuid.uuid4().hex}.jsonl"
 
+        record_lock = threading.RLock()
+
         def record(event: dict[str, Any]) -> None:
-            with evidence_path.open("a", encoding="utf-8") as handle:
+            with record_lock, evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+        def emit(event: dict[str, Any]) -> None:
+            record(event)
+            if progress_callback:
+                try:
+                    progress_callback(dict(event))
+                except Exception:
+                    # Progress observers cannot turn a tool success into a retry.
+                    record({"event": "progress_callback_failed"})
+
+        control = NativeTurnControl(lambda message: self._send(process, message),
+                                    lambda: events.put(""), emit)
+        self._turn_registry.register(project_dir, control)
 
         record({"event": "project_budget_started", "is_builder": is_builder, "prior_input_tokens": prior_input})
 
         def interrupted(error: NativeAgentUnavailable) -> NativeAgentUnavailable:
-            record({"event": "project_budget_finished", "is_builder": is_builder, "status": "interrupted",
+            # Only an upstream terminal notification proves interrupted. A local
+            # timeout/transport/budget failure is not a turn/interrupt receipt.
+            status = control.terminal_status or ("cancelled_before_start" if control.cancel_requested and not control.turn_id else "failed")
+            control.finish(status)
+            record({"event": "project_budget_finished", "is_builder": is_builder, "status": status,
                     "input_tokens": input_tokens, "output_tokens": output_tokens})
             # Persist the terminal state too: sparse usage events alone cannot
             # distinguish an active turn from a timeout after process shutdown.
-            record({
-                "event": "turn_interrupted", "status": "interrupted",
+            emit({
+                "event": "turn_interrupted" if status == "interrupted" else "turn_failed", "status": status,
+                "thread_id": resolved_thread_id, "turn_id": control.turn_id,
+                "cancellation_requested": control.cancel_requested,
+                "interrupted_confirmed": status == "interrupted", "rollback_performed": False,
                 "reason": str(error), "input_tokens": input_tokens,
                 "output_tokens": output_tokens, "tool_call_count": tool_call_count,
                 "failed_tool_calls": failed_tool_calls,
                 "latency_ms": round((time.monotonic() - started) * 1000),
             })
             error.partial_result = AgentTurnResult(
-                thread_id=resolved_thread_id, reply="", status="interrupted",
+                thread_id=resolved_thread_id, turn_id=control.turn_id, reply="", status=status,
+                cancellation_requested=control.cancel_requested,
                 tool_calls=_dedupe_calls(tool_calls), model_name=model,
                 reasoning_effort=reasoning_effort, input_tokens=input_tokens,
                 output_tokens=output_tokens, latency_ms=round((time.monotonic() - started) * 1000),
@@ -516,6 +663,8 @@ class CodexAppServerRuntime:
             return error
 
         try:
+            if control.cancel_requested:
+                raise NativeAgentUnavailable("Cancellation requested before the native turn started.")
             self._request(process, events, request_id, "initialize", {
                 "clientInfo": {"name": "ai-architecture-studio", "title": "AI Architecture Studio", "version": "0.1.0"},
                 "capabilities": {"experimentalApi": True},
@@ -529,9 +678,26 @@ class CodexAppServerRuntime:
                 "sandbox": "read-only" if read_only else "workspace-write",
                 "approvalPolicy": "never",
                 "serviceName": "ai_architecture_studio_oss_takeover_v1",
-                "developerInstructions": developer_instructions,
+                "developerInstructions": developer_instructions + (
+                    "\nTool-output hygiene: discover tool names with a narrow filter, never print ALL_TOOLS "
+                    "or complete tool descriptions. Never stringify/print data:image/base64 payloads. "
+                    "Display returned image blocks through image(), or inspect the receipt's saved PNG with view_image. "
+                    "For a result serialized as text plus data:image, print only the text prefix and inspect the saved PNG. "
+                    "Print selected receipt fields (revision, status, errors, paths), not full KEEP ledgers. "
+                    "Keep complete evidence in workspace files; do not confuse a summary with a visual inspection. "
+                    "Plan reads around the requested defect and protected geometry, not an exhaustive model inventory. "
+                    "Reuse verified exact-path inventory for unchanged subtrees; batch known paths in paths (up to48) "
+                    "instead of separate calls. Reinspect changed or ambiguous paths. Inspect array limits before writing "
+                    "(mutation paths48, KEEP paths256); protect a whole unchanged ancestor only when every descendant "
+                    "is protected. Never expand mutation scope or drop KEEP to fit. Capture the canonical set once per "
+                    "revision and reuse certified views; add only needed source/detail views. Check requested changes "
+                    "and regressions, then deliver remaining differences honestly; do not expand into cosmetic rework. "
+                    "If QA asks to reverse the current explicit user instruction because of a stale historical requirement, "
+                    "report that conflict and stop editing; do not alternate between opposite designs."
+                ),
             }
-            registered_tools = dynamic_tools if mcp_enabled else []
+            from .research_tool_context import RESEARCH_TOOL_NAMES
+            registered_tools = canonical_dynamic_tools(dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES])
             thread_params["dynamicTools"] = registered_tools
             registry_path = project_dir / "runtime" / "native_thread_tools.json"
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}
@@ -570,9 +736,10 @@ class CodexAppServerRuntime:
                     "source": "actual app-server thread/start or resume response"})
             if reported_model and reported_model != model:
                 raise NativeAgentUnavailable("App-server returned a different model; no tools or inference started.")
-            resolved_thread_id = str((thread.get("thread") or {}).get("id") or thread_id or "")
+            resolved_thread_id = str((thread.get("thread") or {}).get("id") or "")
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
+            control.bind_thread(resolved_thread_id)
             registrations[resolved_thread_id] = _thread_tool_fingerprint(registered_tools)
             instruction_registry[resolved_thread_id] = instruction_fingerprint
             instruction_registry_path.write_text(json.dumps(instruction_registry, indent=2), encoding="utf-8")
@@ -597,22 +764,27 @@ class CodexAppServerRuntime:
                     "input_types": [item["type"] for item in turn_input],
                     "reference_files": [path.relative_to(project_dir).as_posix() for path in reference_images],
                     "sandbox_policy": {"type": "readOnly" if read_only else "workspaceWrite", "networkAccess": False},
-                    "role": "visual_critic" if read_only else "builder_or_planner",
+                    "role": readonly_role if read_only else "builder_or_planner",
                     "tool_names": [tool["name"] for tool in dynamic_tools]})
-            self._send(process, {
-                "id": request_id,
-                "method": "turn/start",
-                "params": {
-                    "threadId": resolved_thread_id,
-                    "input": turn_input,
-                    "cwd": str(agent_workspace),
-                    "runtimeWorkspaceRoots": [str(agent_workspace)],
-                    "model": model,
-                    "effort": reasoning_effort,
-                    "approvalPolicy": "never",
-                    "sandboxPolicy": {"type": "readOnly", "networkAccess": False} if read_only else _workspace_write_policy(agent_workspace),
-                },
-            })
+            if control.cancel_requested:
+                raise NativeAgentUnavailable("Cancellation requested before the native turn started.")
+            turn_response = self._request(process, events, request_id, "turn/start", {
+                "threadId": resolved_thread_id,
+                "input": turn_input,
+                "cwd": str(agent_workspace),
+                "runtimeWorkspaceRoots": [str(agent_workspace)],
+                "model": model,
+                "effort": reasoning_effort,
+                "approvalPolicy": "never",
+                "sandboxPolicy": {"type": "readOnly", "networkAccess": False} if read_only else _workspace_write_policy(agent_workspace),
+            }, buffered)
+            try:
+                control.bind_turn(turn_response)
+            except ValueError as error:
+                raise NativeAgentUnavailable(str(error)) from error
+            emit({"event": "turn_started", "thread_id": resolved_thread_id,
+                  "turn_id": control.turn_id, "status": "inProgress",
+                  "cancellation_requested": control.cancel_requested})
             deadline = time.monotonic() + self.timeout_seconds if self.timeout_seconds else None
             tool_calls: list[dict[str, str]] = []
             tool_call_count = 0
@@ -620,16 +792,40 @@ class CodexAppServerRuntime:
             input_tokens: int | None = None
             output_tokens: int | None = None
             usage_total_before: tuple[int, int] | None = None
+            usage_breakdown_before: dict[str, int | None] | None = None
             reply = ""
             turn_status = "failed"
             while deadline is None or time.monotonic() < deadline:
-                message = self._next_event(events, deadline)
+                # An explicitly unlimited turn still has a bounded wait after
+                # stop. A running tool is allowed to return; it cannot be rolled
+                # back by killing this client. Empty wake events recompute this.
+                cancel_deadline = control.wait_started_at + 30 if control.wait_started_at is not None else None
+                if cancel_deadline is not None and time.monotonic() >= cancel_deadline:
+                    raise TimeoutError("No terminal interruption arrived within the cancellation drain window.")
+                event_deadline = min(value for value in (deadline, cancel_deadline) if value is not None) if deadline is not None or cancel_deadline is not None else None
+                message = buffered.pop(0) if buffered else self._next_event(events, event_deadline)
                 if message is None:
                     break
+                if control.handle_response(message):
+                    continue
                 if message.get("id") == request_id and "error" in message:
                     raise NativeAgentUnavailable(str(message["error"].get("message", "Codex turn could not start.")))
                 method = str(message.get("method", ""))
                 params = message.get("params") or {}
+                dynamic_request = method in {"item/tool/call", "dynamicToolCall"} and message.get("id") is not None
+                missing_identity = (dynamic_request and (params.get("threadId") != resolved_thread_id or params.get("turnId") != control.turn_id)) or (method == "turn/completed" and (params.get("turn") or {}).get("id") != control.turn_id)
+                if missing_identity or not control.matches(params):
+                    # Never run a tool from a foreign/stale turn on this project.
+                    if method in {"item/tool/call", "dynamicToolCall"} and message.get("id") is not None:
+                        self._send(process, {"id": message["id"], "result": {
+                            "success": False, "contentItems": [{"type": "inputText", "text": "Tool request does not belong to the active native turn."}]}})
+                    continue
+                progress = native_progress_event(method, params, thread_id=resolved_thread_id, turn_id=control.turn_id)
+                if progress:
+                    progress["cancellation_requested"] = control.cancel_requested
+                    if method == "turn/completed":
+                        progress["interrupted_confirmed"] = progress.get("status") == "interrupted"
+                    emit(progress)
                 if method in {"item/started", "item/completed", "turn/completed"}:
                     event_item = params.get("item") or {}
                     if event_item.get("type") in {"commandExecution", "fileChange"}:
@@ -666,9 +862,12 @@ class CodexAppServerRuntime:
                             input_tokens, output_tokens = delta
                         else:
                             input_tokens = output_tokens = None
+                        breakdown, usage_breakdown_before = _usage_breakdown_delta(
+                            nested_usage["total"], nested_usage.get("last") or {}, usage_breakdown_before)
                         record({"event": "token_usage", "scope": "turn_delta_from_thread_total",
                                 "input_tokens": input_tokens, "output_tokens": output_tokens,
-                                "last_input_tokens": last[0], "last_output_tokens": last[1]})
+                                "last_input_tokens": last[0], "last_output_tokens": last[1],
+                                **breakdown})
                 elif usage_total_before is None:
                     input_tokens = usage[0] if usage[0] is not None else input_tokens
                     output_tokens = usage[1] if usage[1] is not None else output_tokens
@@ -703,22 +902,41 @@ class CodexAppServerRuntime:
                             "not an unbounded retry loop."
                         )
                     call = _tool_summary(params)
+                    if not control.begin_tool(call["tool"]):
+                        self._send(process, {"id": message["id"], "result": {
+                            "success": False, "contentItems": [{"type": "inputText", "text": "Cancellation requested; this tool was not started. Earlier changes were not rolled back."}]}})
+                        emit({"event": "tool_cancelled", "thread_id": resolved_thread_id,
+                              "turn_id": control.turn_id, "tool": call["tool"], "status": "not_started"})
+                        continue
                     tool_calls.append(call)
                     tool_call_count += 1
-                    record({"event": "tool_started", "tool": call["tool"]})
+                    emit({"event": "tool_started", "thread_id": resolved_thread_id,
+                          "turn_id": control.turn_id, "tool": call["tool"]})
                     try:
-                        if call["tool"] not in {str(tool.get("name", "")) for tool in dynamic_tools}:
+                        if call["tool"] not in {str(tool.get("name", "")) for tool in registered_tools}:
                             raise MCPCallError("The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist.")
-                        output = tool_handler(call["tool"], params.get("arguments") or {})
+                        # A stop may arrive from a progress observer after the
+                        # start marker but before crossing the tool boundary.
+                        if control.cancel_requested:
+                            raise MCPCallError("Cancellation requested; this tool effect was not started.")
+                        output = dynamic_tool_response(tool_handler(call["tool"], params.get("arguments") or {}))
                         if output.get("success") is False or output.get("isError") is True:
                             failed_tool_calls += 1
                     except (ConnectorUnavailable, MCPCallError, OSError, RuntimeError, ValueError) as error:
                         failed_tool_calls += 1
                         output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
+                    finally:
+                        control.end_tool()
                     self._send(process, {"id": message["id"], "result": output})
+                    emit({"event": "tool_completed", "thread_id": resolved_thread_id,
+                          "turn_id": control.turn_id, "tool": call["tool"],
+                          "success": output.get("success", not output.get("isError", False)),
+                          "cancellation_requested": control.cancel_requested, "rollback_performed": False})
                     record({"event": "tool_result", "tool": call["tool"],
                             "success": output.get("success", not output.get("isError", False)),
                             "error": " ".join(str(part.get("text", "")) for part in output.get("contentItems", []) if part.get("type") == "inputText")[:2000] if output.get("success") is False or output.get("isError") else "",
+                            "text_chars": sum(len(str(part.get("text", ""))) for part in output.get("contentItems", []) if part.get("type") == "inputText"),
+                            "image_count": sum(part.get("type") == "inputImage" for part in output.get("contentItems", [])),
                             "content_types": [part.get("type") for part in output.get("contentItems", [])]})
                     continue
                 item = params.get("item") or {}
@@ -739,19 +957,24 @@ class CodexAppServerRuntime:
                 if method == "turn/completed":
                     turn = params.get("turn") or {}
                     turn_status = str(turn.get("status", "failed"))
+                    if turn_status in {"completed", "interrupted", "failed"}:
+                        control.finish(turn_status)
+                    if turn_status == "interrupted":
+                        break
                     if turn_status != "completed":
                         detail = (turn.get("error") or {}).get("message", "Codex agent turn did not complete.")
                         raise NativeAgentUnavailable(str(detail))
                     break
             else:
                 raise NativeAgentUnavailable(f"Codex agent turn exceeded {self.timeout_seconds} seconds.")
-            if turn_status != "completed":
-                raise NativeAgentUnavailable("Codex app-server ended without a completed turn.")
-            record({"event": "project_budget_finished", "is_builder": is_builder, "status": "completed",
+            if turn_status not in {"completed", "interrupted"}:
+                raise NativeAgentUnavailable("Codex app-server ended without a terminal turn notification; interruption is not confirmed.")
+            record({"event": "project_budget_finished", "is_builder": is_builder, "status": turn_status,
                     "input_tokens": input_tokens, "output_tokens": output_tokens})
             return AgentTurnResult(
-                thread_id=resolved_thread_id,
-                reply=reply or "已完成这轮推演；模型操作记录已保存。",
+                thread_id=resolved_thread_id, turn_id=control.turn_id,
+                cancellation_requested=control.cancel_requested,
+                reply=reply or ("这轮已停止。已经执行的操作不会自动撤销。" if turn_status == "interrupted" else "已完成这轮推演；模型操作记录已保存。"),
                 status=turn_status,
                 tool_calls=_dedupe_calls(tool_calls),
                 model_name=model,
@@ -765,6 +988,10 @@ class CodexAppServerRuntime:
         except NativeAgentUnavailable as error:
             raise interrupted(error)
         except TimeoutError as error:
+            if control.cancel_requested:
+                raise interrupted(NativeAgentUnavailable(
+                    "Cancellation was requested, but no terminal interruption was confirmed. Already-running tool changes are not rolled back."
+                )) from error
             # The queue waits until the turn deadline. Expiry is the configured
             # wall-clock stop, not evidence of a broken provider connection.
             if deadline is not None and time.monotonic() >= deadline:
@@ -777,6 +1004,7 @@ class CodexAppServerRuntime:
         except (BrokenPipeError, OSError, json.JSONDecodeError) as error:
             raise interrupted(NativeAgentUnavailable(f"Codex app-server communication failed: {error}")) from error
         finally:
+            self._turn_registry.unregister(project_dir, control)
             if process.poll() is None:
                 process.terminate()
                 try:
@@ -805,12 +1033,13 @@ class CodexAppServerRuntime:
             return result
         raise NativeAgentUnavailable(f"Codex {method} timed out.")
 
-    @staticmethod
-    def _send(process: subprocess.Popen[bytes], message: dict[str, Any]) -> None:
-        if process.stdin is None:
-            raise NativeAgentUnavailable("Codex app-server input stream is closed.")
-        process.stdin.write((json.dumps(message, ensure_ascii=False) + "\n").encode("utf-8"))
-        process.stdin.flush()
+    def _send(self, process: subprocess.Popen[bytes], message: dict[str, Any]) -> None:
+        # Cancel callers share the existing transport; JSON lines cannot interleave.
+        with self._write_lock:
+            if process.stdin is None:
+                raise NativeAgentUnavailable("Codex app-server input stream is closed.")
+            process.stdin.write((json.dumps(message, ensure_ascii=False) + "\n").encode("utf-8"))
+            process.stdin.flush()
 
     def _notify(self, process: subprocess.Popen[bytes], method: str, params: dict[str, Any]) -> None:
         self._send(process, {"method": method, "params": params})
@@ -877,6 +1106,37 @@ def _extract_token_usage(payload: dict[str, Any]) -> tuple[int | None, int | Non
         return None
 
     return first_count(input_keys), first_count(output_keys)
+
+
+def _usage_breakdown_delta(
+    total: dict[str, Any], last: dict[str, Any], before: dict[str, int | None] | None,
+) -> tuple[dict[str, int | None], dict[str, int | None]]:
+    """Keep cache/reasoning telemetry without billing old resumed-thread usage again.
+
+    Missing counters remain unknown. Reasoning is a subset of output, never an
+    additional charge. These provider counters are not a currency invoice.
+    """
+    names = {
+        "cached_input_tokens": ("cachedInputTokens", "cached_input_tokens"),
+        "cache_write_input_tokens": ("cacheWriteInputTokens", "cache_write_input_tokens"),
+        "reasoning_output_tokens": ("reasoningOutputTokens", "reasoning_output_tokens"),
+    }
+    def count(value: dict[str, Any], keys: tuple[str, ...]) -> int | None:
+        for key in keys:
+            n = value.get(key)
+            if isinstance(n, int) and not isinstance(n, bool) and n >= 0:
+                return n
+        return None
+    if before is None:
+        before = {}
+        for name, keys in names.items():
+            cumulative, latest = count(total, keys), count(last, keys)
+            before[name] = cumulative - latest if cumulative is not None and latest is not None and cumulative >= latest else None
+    result = {}
+    for name, keys in names.items():
+        cumulative, baseline = count(total, keys), before.get(name)
+        result[name] = cumulative - baseline if cumulative is not None and baseline is not None and cumulative >= baseline else None
+    return result, before
 
 
 def _dedupe_calls(calls: list[dict[str, str]]) -> list[dict[str, str]]:

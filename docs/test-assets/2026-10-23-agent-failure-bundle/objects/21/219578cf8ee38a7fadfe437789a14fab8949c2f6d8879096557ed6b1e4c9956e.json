@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "UNVERIFIED_NATIVE_REOPEN",
+  "reason": "File bytes and successful save are not an editable native geometry/reopen/replay comparison.",
+  "bound_document": {
+    "path": "outputs/model/blank-disposable-20261022-001816.skp",
+    "sha256": "0ceae8ad1662c6c12aacd5c768c3b323abbc2a909f0c874bd387a58ee9266d55",
+    "bytes": 240567
+  },
+  "download_candidate": {
+    "path": "outputs/model/fast-assembly-agent.skp",
+    "sha256": "bfa84e36228ab80c9c8ab1a4da88de7dd9902279e3ebba35ce0ddb97cc580713",
+    "bytes": 240570
+  },
+  "roots": [
+    19
+  ],
+  "script_revisions": {
+    "apt964f3": 6
+  },
+  "required_next": [
+    "before_save_native_fingerprint",
+    "bound_reopened_native_fingerprint",
+    "clean_download_reopened_native_fingerprint"
+  ]
+}

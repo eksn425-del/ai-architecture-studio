@@ -129,6 +129,55 @@ class AgentToolSurface:
                 ruby_state: dict[str, dict[str, Any]] | None,
                 tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False) -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
+        from .research_tool_context import prepare_public_research, RESEARCH_TOOL_NAMES
+        research_tools, research_dispatch = prepare_public_research(resolved_project_dir)
+        from .stage_quality import geometry_stage_limit, continuation_message, ReviewProgress
+        from .blender_backend import enabled, BlenderBackend
+        if enabled(resolved_project_dir):
+            backend = BlenderBackend(resolved_project_dir)
+            from .relation_tool_context import prepare_relation_tools, NAMES as RELATION_TOOLS
+            relation_specs, relation_dispatch, relation_before, relation_after = prepare_relation_tools(resolved_project_dir,backend)
+            from .spatial_clearance import prepare_blender_clearance_tools
+            clearance_specs, clearance_dispatch = prepare_blender_clearance_tools(backend)
+            clearance_request = None
+            stage, limit = geometry_stage_limit(bool(backend.dispatch("blender_inspect_scene", {}).get("revision")))
+            quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
+            def blender_dispatch(name, arguments):
+                nonlocal clearance_request
+                if research_dispatch and name in RESEARCH_TOOL_NAMES:
+                    return research_dispatch(name, arguments)
+                if not mcp_enabled:
+                    raise ValueError("Blender writes require an approved execution turn")
+                if name == 'blender_audit_spatial_clearance':
+                    receipt=clearance_dispatch(name,arguments)
+                    clearance_request=json.loads(json.dumps(arguments))
+                    quality['spatial_clearance']=receipt
+                    return receipt
+                if name in RELATION_TOOLS:
+                    return relation_dispatch(name,arguments)
+                writing = name == "blender_apply_objects"
+                if writing:relation_before(arguments)
+                if writing and limit and quality["writes"] >= limit:
+                    quality["stop_reason"] = "budget_exhausted"
+                    raise ValueError(continuation_message(stage, quality["writes"], limit))
+                before = backend.dispatch("blender_inspect_scene", {}).get("revision", 0)
+                try:
+                    result = backend.dispatch(name, arguments)
+                    if writing:
+                        quality["geometry_qa"] = result.get("geometry_qa")
+                        if clearance_request is not None:
+                            try:audit=clearance_dispatch('blender_audit_spatial_clearance',clearance_request)
+                            except (ValueError,RuntimeError,KeyError) as error:
+                                audit={'status':'unverified','error':str(error),'geometry_already_committed':True}
+                            quality['spatial_clearance']=audit;result['spatial_clearance']=audit
+                        quality["relation_repair"] = relation_after()
+                        if quality["relation_repair"] is not None:result["relation_repair"]=quality["relation_repair"]
+                    return result
+                finally:
+                    if writing and backend.dispatch("blender_inspect_scene", {}).get("revision", 0) > before:
+                        quality["writes"] += 1
+            return AgentToolContext(dynamic_tools=((backend.tools()+relation_specs+clearance_specs) if mcp_enabled else []) + research_tools,
+                                    dispatch=blender_dispatch, quality_state=quality)
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 
         executor = None
@@ -143,17 +192,25 @@ class AgentToolSurface:
             ruby_enabled=executor is not None,
             tool_profile=tool_profile,
         ) if mcp_enabled else []
+        from .su_relation_audit import prepare_su_relation_tools
+        su_audit_specs, su_audit_dispatch = prepare_su_relation_tools(executor) if executor else ([],None)
+        dynamic_tools.extend(su_audit_specs)
+        su_audit_requests = {}
+        dynamic_tools.extend(research_tools)
         if workspace_tools_enabled:
             dynamic_tools.extend(workspace_file_tools())
         writes = 0
         # One primary build plus two corrections; an existing model gets two
         # corrections. A committed write consumes budget even if capture fails.
-        write_limit = 2 if executor and executor.ruby_state else 3
+        stage, write_limit = geometry_stage_limit(bool(executor and executor.ruby_state))
+        progress = ReviewProgress()
         existing_review = (
             load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
             if executor and tool_profile == "reconstruction_coding" and executor.ruby_state else None
         )
         quality_state: dict[str, Any] = {
+            "stage": stage,
+            "quality_status": "unverified",
             "writes": 0,
             "write_limit": write_limit,
             "review": existing_review,
@@ -162,11 +219,19 @@ class AgentToolSurface:
             "repair_memory": None,
         }
 
+        progress.observe(existing_review)
+
         def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
             if executor is None:
                 raise MCPCallError("KEEP preservation requires a verified project writer.")
             if not isinstance(paths, list) or not paths or len(paths) > 256:
-                raise MCPCallError("preserve_paths must contain 1..256 exact owned-group paths.")
+                count = len(paths) if isinstance(paths, list) else "not a list"
+                raise MCPCallError(
+                    f"preserve_paths must contain 1..256 exact owned-group paths; received {count}. "
+                    "No geometry was attempted. Protect an unchanged ancestor instead of enumerating all its leaves "
+                    "only when the entire ancestor must stay unchanged. Never drop required KEEP objects or widen "
+                    "allowed_mutation_paths merely to fit the batch."
+                )
             snapshots: dict[str, dict[str, Any]] = {}
             for index, path in enumerate(paths):
                 if (
@@ -199,13 +264,22 @@ class AgentToolSurface:
 
         def dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
             nonlocal writes
-            if workspace_tools_enabled and name in {"workspace_read", "workspace_write"}:
+            if research_dispatch and name in RESEARCH_TOOL_NAMES:
+                return research_dispatch(name, arguments)
+            if workspace_tools_enabled and name in {"workspace_read", "workspace_write", "workspace_search", "workspace_update_strategy"}:
                 return workspace_file_call(resolved_project_dir / "runtime" / "agent_workspace", name, arguments)
+            if su_audit_dispatch and name in {'sketchup_audit_relations','sketchup_audit_clearance'}:
+                receipt=su_audit_dispatch(name,arguments)
+                su_audit_requests[name]=json.loads(json.dumps(arguments))
+                quality_state[name]=receipt
+                return receipt
             if name == "sketchup_submit_visual_review":
                 if executor is None:
                     raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
                 receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
                 finalized_repair = finalize_latest_repair_attempt(resolved_project_dir, receipt)
+                progress.observe(receipt)
+                quality_state["no_progress"] = progress.blocked
                 quality_state["review"] = receipt
                 quality_state["review_reused"] = False
                 quality_state["repair_memory"] = finalized_repair
@@ -233,8 +307,10 @@ class AgentToolSurface:
                     quality_state["review"] = None
                     quality_state["review_reused"] = False
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
-            if bounded and writes >= write_limit:
-                raise MCPCallError("本轮建模写入预算已用完（首建一次、定向修正最多两次）。停止写几何；继续只读回读/当前六视图QA并报告未解决问题，不要换script_id或重建来绕过限制。")
+            if bounded and ((write_limit and writes >= write_limit) or progress.blocked):
+                reason = "no_progress" if progress.blocked else "budget_exhausted"
+                quality_state["stop_reason"] = reason
+                raise MCPCallError(continuation_message(stage, writes, write_limit, reason))
             preservation_before: dict[str, dict[str, Any]] = {}
             preservation_script_id = ""
             review_before_write: dict[str, Any] | None = None
@@ -286,7 +362,12 @@ class AgentToolSurface:
                         "并在本次 writer 调用中传 preserve_paths；host 会在写入后核对 persistent ID / 对象数 / mm bounds。"
                     )
                 if preserve_paths:
-                    preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
+                    try:
+                        preservation_before = preserve_snapshot(preservation_script_id, preserve_paths)
+                    except (MCPCallError, ValueError) as error:
+                        raise MCPCallError(
+                            f"KEEP_PREFLIGHT_FAILED: no geometry was attempted. {error}"
+                        ) from error
             try:
                 dispatch_arguments = arguments
                 if bounded and preservation_before:
@@ -371,7 +452,37 @@ class AgentToolSurface:
                             "status": "memory_write_failed",
                             "error": str(error),
                         }
+                if bounded and any(state.get('revision',0)>before.get(key,0) for key,state in executor.ruby_state.items()):
+                    audits={}
+                    for audit_name,audit_args in su_audit_requests.items():
+                        try:audits[audit_name]=su_audit_dispatch(audit_name,audit_args)
+                        except (ValueError,RuntimeError,KeyError) as error:
+                            audits[audit_name]={'status':'unverified','error':str(error),'geometry_already_committed':True}
+                    if audits:
+                        quality_state['post_write_spatial_audits']=audits
+                        if isinstance(output,dict):
+                            output['post_write_spatial_audits']=audits
+                            if 'contentItems' in output:output['contentItems'].append({'type':'inputText','text':'Post-write spatial audit: '+json.dumps(audits,ensure_ascii=False)})
                 return output
+            except (MCPCallError, OSError, RuntimeError, ValueError) as error:
+                committed = {
+                    key: state.get("revision", 0) for key, state in executor.ruby_state.items()
+                    if state.get("revision", 0) > before.get(key, 0)
+                } if bounded else {}
+                if committed:
+                    quality_state["post_commit_error"] = {
+                        "geometry_already_committed": True,
+                        "committed_revisions": committed,
+                        "quality_status": "unverified",
+                        "error": str(error),
+                    }
+                    raise MCPCallError(
+                        "POST_COMMIT_VERIFICATION_FAILED: geometry_already_committed=true; "
+                        f"committed_revisions={json.dumps(committed)}. Do not repeat this writer. "
+                        "Read the current owned revision and repair verification first; no quality PASS is established. "
+                        + str(error)
+                    ) from error
+                raise
             finally:
                 if bounded and any(state.get("revision", 0) > before.get(key, 0) for key, state in executor.ruby_state.items()):
                     writes += 1
@@ -479,6 +590,13 @@ class AgentToolSurface:
             ))
             if tool_profile == "reconstruction_coding":
                 tools.append(self._dynamic_tool(
+                    "sketchup_capture_review_views",
+                    "READ-ONLY: capture all six current canonical views in ONE call. Prefer this to six separate LLM/tool exchanges. "
+                    "Host validates the bound model and each canonical camera, returns six certified paths for sketchup_submit_visual_review. No geometry changes.",
+                    {"type": "object", "required": ["script_id"], "properties": {
+                        "script_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"}}, "additionalProperties": False},
+                ))
+                tools.append(self._dynamic_tool(
                     "sketchup_capture_canonical_view",
                     "READ-ONLY deterministic review capture. Use this, not a hand-labeled arbitrary camera, for the six canonical "
                     "front/rear/left/right/roof/oblique quality-gate images. The host reads the selected persistent ProjectRuby root "
@@ -551,7 +669,7 @@ class AgentToolSurface:
                     "the complete reconstruction script. An existing root requires allow_full_rebuild=true for an intentional "
                     "complete rebuild; local corrections must use edit. After a visual review, correction writes are host-forced to edit mode; "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs. For every targeted edit pass exact full allowed_mutation_paths: protected sibling and ancestor geometry plus document loose entities are checked deeply before commit. Keep target container PIDs stable. "
-                    "A genuinely absent leaf may be created only when the host has explicitly approved that exact creation path; its existing ancestors and all other geometry remain protected. Never widen scope to create it. "
+                    "For an already-approved staged build, declare a genuinely absent leaf in allowed_mutation_paths: the host verifies its existing unlocked unique ancestors and binds an exact transaction-local creation scope. A narrower active HOST policy must explicitly approve creation; it is never enlarged. Existing target PIDs and all other geometry remain protected. Never widen scope to an existing ancestor. "
                     "map reviewer KEEP items to exact named paths and pass preserve_paths so the host proves their persistent IDs, "
                     "object counts and mm bounds did not change. update_mode=edit retains that existing script_id root for "
                     "local patches. Injected clear_owned_contents.call(full_path_array) replaces only the contents of an approved target or its descendant, preserving its container PID. For a real face aperture use erase_owned_faces.call(full_path_array, [face.persistent_id]); every face must belong directly to that approved leaf. Raw erase!/clear! are forbidden. Shared definitions require an explicit HOST all-occurrence whitelist and complete native proof; absent that opt-in use unique instances, never widen a parent scope. Other instances remain deeply protected. Injected remove_owned_group.call(exact_name) removes exactly one unlocked direct-child "
@@ -639,6 +757,24 @@ class AgentToolSurface:
 
     def dispatch(self, name: str, arguments: dict[str, Any], *, project_dir: Path,
                  project_ruby: ProjectRubyExecutor | None) -> dict[str, Any]:
+        if name == "sketchup_capture_review_views":
+            if project_ruby is None:
+                raise MCPCallError("Review capture requires a verified disposable model and owned root.")
+            before = {k: v.get('revision') for k, v in project_ruby.ruby_state.items() if int(v.get('revision', 0)) > 0}
+            views, evidence, images = {}, {}, []
+            for view in _CANONICAL_REVIEW_VIEWS:
+                result = self.dispatch('sketchup_capture_canonical_view',
+                    {'script_id': arguments.get('script_id'), 'view_name': view},
+                    project_dir=project_dir, project_ruby=project_ruby)
+                if result.get('success') is not True:
+                    raise MCPCallError("Canonical capture failed; no complete six-view receipt available.")
+                receipt = result['visual_evidence']
+                if receipt.get('canonical_view') != view or receipt.get('model_revisions') != before:
+                    raise MCPCallError("Model revision changed during six-view capture; views cannot be mixed.")
+                views[view], evidence[view] = receipt['path'], receipt
+                images.extend(item for item in result.get('contentItems', []) if item.get('type') == 'inputImage')
+            return {'success': True, 'views': views, 'model_revisions': before,
+                    'contentItems': [{'type': 'inputText', 'text': json.dumps({'views': views, 'model_revisions': before, 'evidence': evidence}, ensure_ascii=False)}, *images]}
         if name == "sketchup_inspect_owned":
             if project_ruby is None:
                 raise MCPCallError("Owned inspection requires a verified disposable model and existing owned root.")
@@ -750,7 +886,7 @@ class AgentToolSurface:
             # Preserve the camera the Agent just chose for a source match.
             # The connector's default zoom_extents can silently replace it.
             safe_arguments.setdefault("zoom_extents", False)
-            read_camera = getattr(project_ruby.adapter, "get_camera_snapshot", None) if project_ruby else None
+            read_camera = getattr(getattr(project_ruby, "adapter", None), "get_camera_snapshot", None)
             camera_before = read_camera() if callable(read_camera) else None
             try:
                 result = self.sketchup_mcp.call_for_agent(name, safe_arguments)

@@ -1,0 +1,21 @@
+{
+  "purpose": "isolated small-text transport diagnostic; not product/native acceptance",
+  "model": "openai/deepseek-v4.1-flash",
+  "requested_effort": "low",
+  "native_tools": false,
+  "success": true,
+  "response_model": "deepseek-v4.1-flash",
+  "usage": {
+    "completion_tokens": 54,
+    "prompt_tokens": 36,
+    "total_tokens": 90,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    }
+  },
+  "reply": "连接正常。",
+  "latency_ms": 7203
+}

@@ -1,9 +1,18 @@
-param()
+param([switch]$IncludeLocalConnectorTrial)
 $ErrorActionPreference = 'Stop'
 $repoPath = Split-Path -Parent $PSScriptRoot
 $pythonPath = Join-Path $repoPath '.venv/Scripts/python.exe'
 Push-Location -LiteralPath $repoPath
 try {
+    $connectorDataArgs = @()
+    if ($IncludeLocalConnectorTrial) {
+        $connectorPackage = Join-Path $repoPath 'runtime/connector-distribution'
+        if (-not (Test-Path -LiteralPath (Join-Path $connectorPackage 'manifest.json'))) {
+            throw 'Prepare the reviewed local connector trial package first. No placeholder installer will be bundled.'
+        }
+        $connectorDataArgs = @('--add-data', "$connectorPackage;connector-distribution")
+        Write-Host 'PRIVATE LOCAL CONNECTOR TRIAL: redistribution rights and clean-machine acceptance remain unverified.' -ForegroundColor Yellow
+    }
     $env:LITELLM_LOCAL_MODEL_COST_MAP = 'True'
     # tiktoken discovers encodings via a namespace plugin, invisible to static
     # import analysis. Ship its plugin and cached vocabulary for offline startup.
@@ -17,8 +26,8 @@ try {
         --add-data "$repoPath/app/native_deep_fingerprint.rb;app" --add-data "$repoPath/app/native_definition_graph.rb;app" `
         --add-data "$repoPath/app/path_scope_guard.rb;app" --add-data "$repoPath/app/path_scope_graph_guard.rb;app" --add-data "$repoPath/app/edit_scope_guard.rb;app" --add-data "$repoPath/app/oss_method_runtime.rb;app" `
         --add-data "$env:TIKTOKEN_CACHE_DIR;tokenizer-cache" --hidden-import tiktoken_ext.openai_public `
-        --collect-submodules uvicorn --hidden-import tomli --exclude-module pytest scripts/desktop.py
+        --collect-submodules uvicorn --hidden-import tomli --exclude-module pytest @connectorDataArgs scripts/desktop.py
     if ($LASTEXITCODE -ne 0) { throw 'Desktop packaging failed.' }
     Write-Host 'Local desktop build: runtime/desktop-dist/KStudio/KStudio.exe'
-    Write-Host 'This build does not distribute SketchUp, Codex credentials or the locally installed Kongxing plugin.'
+    Write-Host 'This build never distributes SketchUp, project files, connection tokens or Codex credentials. Connector assets are included only with the explicit private-trial flag.'
 } finally { Pop-Location }

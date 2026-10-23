@@ -1,0 +1,88 @@
+{
+  "backend": "sketchup",
+  "model_identity": {
+    "project_id": "architecture-project-16c07",
+    "script_id": "terraced_apartment",
+    "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-16c07\\outputs\\model\\blank-disposable-20261022-173456.skp",
+    "model_guid": "d304b289-1cc6-458a-b5e2-4941184865ab",
+    "root_pid": 19
+  },
+  "revision": 13,
+  "provenance": {
+    "source": "ProjectRubyExecutor.inspect_owned(paths)",
+    "read_only": true,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "inspection_sha256": "ee61bd5b557e42cda59dfdeda94d7704e259a061a0d9d755d497f5f60882b550",
+    "native_paths": [
+      {
+        "path": [
+          "VEGETATION",
+          "LEFT_POCKET_INSTANCES",
+          "INTEGRATED_PLANTED_EDGE_0"
+        ],
+        "persistent_id": 203458,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "d34161a41a181ee7b942760ec8f786353f0d6c7c3829825c421b10653e89ad27"
+      },
+      {
+        "path": [
+          "VEGETATION",
+          "LEFT_POCKET_INSTANCES",
+          "INTEGRATED_PLANTED_EDGE_1"
+        ],
+        "persistent_id": 207192,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "153c0bc1a7836949b3e3b03bd59480f0ae5082c6aa5c1f0ca773d47f4743794c"
+      },
+      {
+        "path": [
+          "VEGETATION",
+          "LEFT_POCKET_INSTANCES",
+          "INTEGRATED_PLANTED_EDGE_2"
+        ],
+        "persistent_id": 208830,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "d7a2e6205df467488817a9b74b2d9687fe2f8a4eea5e97300233a68130eeb299"
+      }
+    ]
+  },
+  "inventory_complete": false,
+  "inventory_scope": "selected_owned_paths_only_not_whole_document",
+  "automatic_geometry_changes": false,
+  "navigation_verified": false,
+  "actual_walkability": "unverified",
+  "building_code_compliance": false,
+  "zones": [
+    {
+      "name": "lower_room_plant_clearance_in_existing_plant_frame",
+      "frame_id": "sketchup:parent:[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\"]",
+      "status": "unverified",
+      "box_blockers": [],
+      "bounds_candidates": [],
+      "unverified_frame_ids": [
+        "[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\",\"INTEGRATED_PLANTED_EDGE_0\"]",
+        "[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\",\"INTEGRATED_PLANTED_EDGE_1\"]",
+        "[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\",\"INTEGRATED_PLANTED_EDGE_2\"]"
+      ],
+      "ignored_ids": [],
+      "actual_walkability": "unverified"
+    },
+    {
+      "name": "upper_room_plant_clearance_in_existing_plant_frame",
+      "frame_id": "sketchup:parent:[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\"]",
+      "status": "unverified",
+      "box_blockers": [],
+      "bounds_candidates": [],
+      "unverified_frame_ids": [
+        "[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\",\"INTEGRATED_PLANTED_EDGE_0\"]",
+        "[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\",\"INTEGRATED_PLANTED_EDGE_1\"]",
+        "[\"VEGETATION\",\"LEFT_POCKET_INSTANCES\",\"INTEGRATED_PLANTED_EDGE_2\"]"
+      ],
+      "ignored_ids": [],
+      "actual_walkability": "unverified"
+    }
+  ],
+  "endpoints": [],
+  "method": "Declared axis-aligned empty-volume and adjacent-top endpoint proxies only"
+}

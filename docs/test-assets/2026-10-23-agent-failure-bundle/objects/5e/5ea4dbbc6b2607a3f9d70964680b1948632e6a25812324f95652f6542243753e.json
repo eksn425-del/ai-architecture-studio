@@ -1,0 +1,1042 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "attempt_id": "repair-010",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE为单幅街道仰视图：可见右侧高塔、向左逐级退台、相连低翼及左端低楼，浅色凸出格架、后退玻璃、局部凹阳台、深色下部立面和建筑绿化；另有独立邻楼与街道环境。CURRENT 4–10仍包含邻楼及外部环境，尚未达到最新明确的清理要求。主体还存在分跨和低翼露台关系差异，但最新要求保持主体与建筑绿化，这两项仅记录，不纳入本轮修改。背面、屋面内部及隐藏连接缺少源图证据；现有远景不能确认板墙穿插、栏杆悬空或植物碰撞。旧邻楼保留要求与最新删除指令相反，不能将其记为已满足。",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "oblique",
+            "problem": "CURRENT仍保留右侧独立邻楼、道路、轨道、架空线、场地铺装及街道树池，与最新明确移除邻楼和全部外部环境的要求冲突。",
+            "action": "仅删除独立邻楼及其附属绿墙、外部场地和街道构件；保留主体、建筑附属构件及屋顶、退台、阳台绿化。旧邻楼保留意图的冲突须显式记录，不能以删除代替保真要求验收。"
+          },
+          {
+            "priority": 2,
+            "view": "front",
+            "problem": "SOURCE最高塔段主立面约6跨、右端面约5跨；CURRENT源图方向仍为5跨和4跨，格宽及开口排列因此不同。",
+            "action": "保留为未解决的立面保真问题；本轮依最新主体保持要求不调整格架、层数或开口，也不把现有整套立面认定为正确。"
+          },
+          {
+            "priority": 3,
+            "view": "oblique",
+            "problem": "SOURCE低翼上方呈交错退台与嵌入体量的户外空间；CURRENT左侧主要表现为外挑水平托盘和连续玻璃边，凹入与围合关系仍有差异。",
+            "action": "保留为未解决的露台构造问题；本轮保持现有主体与建筑绿化。后续若单独授权，仅局部修正源图可见的露台边界与围护连接。"
+          }
+        ],
+        "keep": [
+          "浅米色格架相对玻璃凸出的表达。",
+          "已完成凹阳台中可见的后退玻璃、侧返和顶面构件；精确格位仍待核对。",
+          "屋顶及退台已有的建筑绿化，按最新要求保留。"
+        ],
+        "model_revisions": {
+          "terraced_apartment": 10
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 11,
+        "relative_path": "scripts/cleanup_environment.rb",
+        "update_mode": "edit",
+        "source_sha256": "9d557fcc68ef45eb20e9c5a30b38b7fc186f8441c9df95fa0236f045bd7fed92",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/BALCONY_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing the tower’s front and right elevations, its stepped connection to the lower left block, planted terraces, pale projecting grid, recessed glazing and darker lower facade zone. CURRENT 10–12 show these same landmarks from different camera elevations; CURRENT 4–9 clarify their geometry. The principal remaining differences are facade subdivision and the low-wing terrace enclosure. Exact dimensions, hidden connections and rear elevations are unverified; these images do not establish slab penetration or floating railings. External context has visibly been removed as requested. This does not resolve the conflicting older neighbor-retention intent, and restoration is not requested.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE’s highest tower section reads approximately six front bays and five right-end bays; CURRENT 4, 7 and 10–12 retain five and four. The wider modules change the opening rhythm and placement of solid panels and outdoor recesses.",
+            "action": "Record the unresolved bay and opening arrangement for a separately scoped facade correction. Adjust affected subdivisions locally when authorized, preserving completed loggia returns and recessed glazing. The latest instruction to retain the facade does not authorize this correction now."
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "SOURCE’s terraces above the low wing alternate with recessed, partly enclosed outdoor spaces. CURRENT 10–12 predominantly show projecting stacked trays with continuous glass edges, changing the visible relationship between terraces and enclosed rooms.",
+            "action": "Locally correct the source-visible terrace setbacks, enclosure returns and perimeter connections while retaining supported planting zones. Verify slab-to-wall joints in close views; the supplied views do not prove penetration. This remains outside the current preservation scope."
+          }
+        ],
+        "keep": [
+          "Visible side and top returns of the completed recessed tower loggias.",
+          "Pale structural-frame finish.",
+          "Darker lower-facade material zone."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 11
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-011",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique showing the tower’s front and right elevations, a stepped descent toward the connected low wing and left block, pale projecting framing, recessed glazing/outdoor pockets, planted terrace edges and a darker lower facade zone. CURRENT preserves these broad relationships, but its tower grid and low-wing terrace enclosure remain visibly different. CURRENT 10 is the closest comparison; its elevated camera still limits direct overlay. Rear elevations and concealed slab-wall connections are inferred: these screenshots do not establish penetration, floating rails or plant collisions. External context removal follows the recorded resolved intent; the conflicting older neighbor requirement remains unresolved and is not grounds to restore it.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE’s highest tower section reads approximately six front bays and five right-side bays. CURRENT 4, 7 and 10 retain five and four, producing wider openings and different positions for glazing, solid panels and recessed balconies.",
+            "action": "Locally revise the visible tower grid to the requested 6/5 arrangement and redistribute its infill and openings against SOURCE. Preserve established floor levels and retain completed loggia returns, soffits and recessed glazing wherever compatible with the corrected divisions; do not protect incorrect bay widths."
+          },
+          {
+            "priority": 2,
+            "view": "source-matched",
+            "problem": "SOURCE shows staggered outdoor pockets embedded within the low-wing mass above the connecting frontage. CURRENT 9–10 instead emphasize projecting shelves with continuous glass edges and pale backing walls, leaving the recess and enclosure relationships insufficiently articulated.",
+            "action": "Patch the source-visible low-wing terrace bays with recessed glazing, connected floors, side returns and overhead enclosure where shown. Preserve matching terrace edges and planting; verify actual slab-wall junctions without assuming hidden penetrations."
+          }
+        ],
+        "keep": [
+          "Pale finish of the projecting upper facade members.",
+          "Visible side returns and overhead faces in the already-deep tower loggia openings."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 11
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 12,
+        "relative_path": "scripts/rhythm_terrace_correction.rb",
+        "update_mode": "edit",
+        "source_sha256": "3db87a8ab70a6f16e20d4f2b78ee96195e84634b9f0f092621bfb8a9bdc6855c",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "BUILDING/STEPPED_WING",
+            "BUILDING/LEFT_UPPER",
+            "BUILDING/LEFT_STREET",
+            "MODULE_FRONT_WALL",
+            "VEGETATION",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_HEAD_0",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_POST_0",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_1",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_HEAD_1",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_POST_1",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_2",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_HEAD_2",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_POST_2",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_3",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_HEAD_3",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_POST_3",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_4",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_HEAD_4",
+            "BUILDING/TOWER/FACADE/TOWER_L16/REAR_POST_4"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique showing the tower’s front and right elevations, its descending stepped wing and connected low left block. Visible features include a pale projecting grid, recessed glazing and opaque infill, scattered recessed outdoor bays, planted terraces, flat roof edges, a darker lower facade zone and glazed street frontage. CURRENT 10–11 reproduce these broad relationships, but only L16 has the corrected six-front/five-side bay division; surrounding rows retain five/four divisions. Low-wing terraces still read as stacked projecting shelves rather than the source’s integrated outdoor pockets. Rear elevations and concealed joints cannot be verified against this source; no definite slab penetration or floating railing is established. Context removal follows recorded user intent; the conflicting older neighbor-retention requirement remains unresolved and does not justify restoration.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 11 shows L16 corrected to six front/five right-side bays, while adjacent rows remain five/four. This produces inconsistent vertical divisions and leaves source-visible opening and infill positions unresolved.",
+            "action": "Preserve L16’s corrected bay count. Locally correct the remaining source-visible rows to the corresponding six/five divisions, aligning columns, glazing, opaque panels and recessed openings across floors. Retain completed recess components where compatible; preserve existing floor elevations."
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "CURRENT 9–10 show the low-wing terraces predominantly as continuous glass-edged shelves with backing walls. SOURCE shows staggered outdoor pockets integrated into the stepped enclosure.",
+            "action": "Locally adjust the visible terrace enclosures and recesses to match those pockets, connecting floors, side returns and perimeter edges. Preserve matching planting and terrace edges; verify slab-to-wall clearances without assuming hidden intersections."
+          }
+        ],
+        "keep": [
+          "L16 representative row’s six-front/five-right-side bay count.",
+          "Completed recessed glazing and side-return relief where compatible with corrected divisions."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 12
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-012",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique showing the tower’s front and right elevations, its descending stepped wing and connected low left block. Visible features include a pale projecting grid, recessed glazing and opaque infill, scattered recessed outdoor bays, planted terraces, flat roof edges, a darker lower facade zone and glazed street frontage. CURRENT 10–11 reproduce these broad relationships, but only L16 has the corrected six-front/five-side bay division; surrounding rows retain five/four divisions. Low-wing terraces still read as stacked projecting shelves rather than the source’s integrated outdoor pockets. Rear elevations and concealed joints cannot be verified against this source; no definite slab penetration or floating railing is established. Context removal follows recorded user intent; the conflicting older neighbor-retention requirement remains unresolved and does not justify restoration.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 11 shows L16 corrected to six front/five right-side bays, while adjacent rows remain five/four. This produces inconsistent vertical divisions and leaves source-visible opening and infill positions unresolved.",
+            "action": "Preserve L16’s corrected bay count. Locally correct the remaining source-visible rows to the corresponding six/five divisions, aligning columns, glazing, opaque panels and recessed openings across floors. Retain completed recess components where compatible; preserve existing floor elevations."
+          },
+          {
+            "priority": 2,
+            "view": "oblique",
+            "problem": "CURRENT 9–10 show the low-wing terraces predominantly as continuous glass-edged shelves with backing walls. SOURCE shows staggered outdoor pockets integrated into the stepped enclosure.",
+            "action": "Locally adjust the visible terrace enclosures and recesses to match those pockets, connecting floors, side returns and perimeter edges. Preserve matching planting and terrace edges; verify slab-to-wall clearances without assuming hidden intersections."
+          }
+        ],
+        "keep": [
+          "L16 representative row’s six-front/five-right-side bay count.",
+          "Completed recessed glazing and side-return relief where compatible with corrected divisions."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 12
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 13,
+        "relative_path": "scripts/rhythm_terrace_correction.rb",
+        "update_mode": "edit",
+        "source_sha256": "1dae037b51f013672d09aec3a0ef430f9469a8f6cddc7b9d2cb6bc762748d9f7",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/FACADE/TOWER_L16",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_HEAD_0",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_POST_0",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_1",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_HEAD_1",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_POST_1",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_2",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_HEAD_2",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_POST_2",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_3",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_HEAD_3",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_POST_3",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_4",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_HEAD_4",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_POST_4",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_HEAD_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_POST_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_1",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_HEAD_1",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_POST_1",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_2",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_HEAD_2"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing the tower’s broad frontage and right return, leftward setbacks, connected low wing, planted terrace pockets, pale projecting grid, recessed openings and darker lower facade zone. CURRENT 10–12 retain these main relationships and now show consistent six-front/five-side tower subdivisions. However, the tower’s opening arrangement remains different: prominent near-corner recesses occur higher in CURRENT, while SOURCE’s distinctive planted corner recess sits lower, closer to the darker facade zone. CURRENT 11 demonstrates improved enclosed terrace pockets and connected perimeter edges; the earlier continuous projecting-tray complaint is no longer supported. No obvious floating rail or slab penetration is established by these captures. Rear elevations, concealed joints and exact recess depths remain inferred. The absent neighbor and street context conflict with the older neighbor requirement, but the recorded removal intent prevents recommendi",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10/12 have the corrected tower bay count, but the source-visible recessed-opening pattern remains misplaced, especially the lower planted corner pocket. Several right-return openings also retain broad pale upper fields instead of SOURCE’s visibly shaded recesses.",
+            "action": "Locally reconcile only identifiable source-facing recesses and their infill positions, restoring the lower corner pocket and readable full-height recessed openings where shown. Preserve the corrected six/five subdivisions, existing floor elevations and already-complete loggia assemblies."
+          }
+        ],
+        "keep": [
+          "Corrected six-front/five-side subdivisions on the source-visible tower faces.",
+          "Low-wing terrace pockets with side returns, connected surfaces and perimeter glazing shown in CURRENT 11.",
+          "Pale projecting beam-and-column relief around ordinary recessed glazing."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 13
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-013",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view: a tall right tower steps down toward a connected low wing and left block. Visible features include a pale projecting grid, recessed glazing and selected outdoor bays, planted setbacks, flat roof edges and a darker lower facade zone. CURRENT 10–12 retain this overall arrangement, the corrected six-front/five-side tower subdivisions and several clearly recessed loggias. The principal remaining mismatch is the distribution of open versus glazed tower cells, especially the missing planted corner pocket above the dark facade band. CURRENT 11 supports retaining the corrected low-wing terrace pockets. Rear elevations and concealed joints cannot be verified against this single source view; the captures do not establish slab penetration or floating railings. SOURCE includes a separate neighbor and street context, but their recorded removal intent conflicts with earlier retention requirements; the invalid host scope does not settle that conflict, so resto",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE shows a distinctive planted, recessed corner-adjacent pocket above the dark lower facade zone and an irregular arrangement of open cells. CURRENT 10 and 12 retain glazing at that landmark and distribute several recesses differently, leaving the tower more uniformly enclosed.",
+            "action": "Locally correct the source-identifiable infill and recess positions, including the planted corner pocket, within the existing grid. Retain corrected bay divisions, floor elevations and completed deep loggias. Connect each corrected recess floor, side returns, soffit and railing; keep planting clear of enclosure and guards. Do not assign exact depths or hidden construction from this image."
+          }
+        ],
+        "keep": [
+          "Corrected six-front/five-side tower bay subdivisions.",
+          "Pale projecting tower grid members and aligned floor divisions.",
+          "Completed deep loggia side returns and soffits visible in CURRENT 12.",
+          "Recessed planted low-wing terrace pockets visible in CURRENT 11."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 13
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 14,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "db7dcf551b8b51fe44d4da4d2ab44c8e1f93dbc92ccaea53c39f824060abb9a3",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a tall gridded tower descending through planted setbacks toward a connected low wing and left block, with pale primary framing, recessed glazing, selected outdoor pockets and darker lower glazing zones. CURRENT 10–12 retain these principal connections and now show clear tower recesses and connected low-wing terraces. The strongest remaining mismatch is the charcoal primary grid across the left lower elevations. Rear construction and concealed joints are unverified; no definite slab penetration or floating railing is established. Context removal conflicts with earlier neighbor-retention intent and remains unresolved; restoration is not requested here.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10/12 turns the projecting frame across several lower floors of the left block and connecting wing into a broad charcoal band. SOURCE retains pale primary framing around the darker recessed glazing, producing a lighter, more continuous structural grid.",
+            "action": "Locally correct the affected projecting beams and columns to the source-supported pale finish. Retain darker recessed glazing and secondary mullions, existing bay divisions, floor elevations and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Corrected pale tower beams and columns.",
+          "Existing six-front/five-side tower subdivisions.",
+          "Completed tower recesses with visible side returns and supported glass guards.",
+          "Connected low-wing terrace decks and recessed outdoor pockets."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 14
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-014",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE shows a tall gridded tower descending through planted setbacks toward a connected low wing and left block, with pale primary framing, recessed glazing, selected outdoor pockets and darker lower glazing zones. CURRENT 10–12 retain these principal connections and now show clear tower recesses and connected low-wing terraces. The strongest remaining mismatch is the charcoal primary grid across the left lower elevations. Rear construction and concealed joints are unverified; no definite slab penetration or floating railing is established. Context removal conflicts with earlier neighbor-retention intent and remains unresolved; restoration is not requested here.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10/12 turns the projecting frame across several lower floors of the left block and connecting wing into a broad charcoal band. SOURCE retains pale primary framing around the darker recessed glazing, producing a lighter, more continuous structural grid.",
+            "action": "Locally correct the affected projecting beams and columns to the source-supported pale finish. Retain darker recessed glazing and secondary mullions, existing bay divisions, floor elevations and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Corrected pale tower beams and columns.",
+          "Existing six-front/five-side tower subdivisions.",
+          "Completed tower recesses with visible side returns and supported glass guards.",
+          "Connected low-wing terrace decks and recessed outdoor pockets."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 14
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 15,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "242aa6af4c1144a45389a45ad167601ec39fdde9fe5b0c8a374b34db98f0b3a1",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a tall right-hand tower, successive leftward setbacks, a connected low wing, pale projecting framing, recessed glazing and selected outdoor bays, planted terrace edges, and darker lower glazing. A neighboring building and street infrastructure are also visible; hidden elevations and exact dimensions are uncertain.\n\nCURRENT 10–12 show the corresponding tower corner, stepped connections and low-wing terraces. Tower recesses now visibly include side returns, overhead surfaces and glass guards; these should remain. However, broad charcoal primary framing across the left block and connector still differs from SOURCE’s pale framing around darker recessed components. Canonical views provide assembly context but cannot establish fidelity of unseen elevations. No definite slab penetration, floating guard or plant collision is established by these captures. Missing external context remains subject to contradictory recorded intents; the supplied sco",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 retain broad charcoal beams and columns across the left block and connector. SOURCE distinguishes pale primary framing from darker recessed lower glazing.",
+            "action": "Locally correct those primary frame members to the source’s pale finish. Retain dark recessed facade components, existing subdivisions, completed tower recesses and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Tower recess side returns and overhead surfaces visible in CURRENT 11.",
+          "Pale tower corner framing surrounding the completed recesses.",
+          "Connected low-wing terrace surfaces and planted setback pockets visible in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 15
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-015",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a tall right-hand tower, successive leftward setbacks, a connected low wing, pale projecting framing, recessed glazing and selected outdoor bays, planted terrace edges, and darker lower glazing. A neighboring building and street infrastructure are also visible; hidden elevations and exact dimensions are uncertain.\n\nCURRENT 10–12 show the corresponding tower corner, stepped connections and low-wing terraces. Tower recesses now visibly include side returns, overhead surfaces and glass guards; these should remain. However, broad charcoal primary framing across the left block and connector still differs from SOURCE’s pale framing around darker recessed components. Canonical views provide assembly context but cannot establish fidelity of unseen elevations. No definite slab penetration, floating guard or plant collision is established by these captures. Missing external context remains subject to contradictory recorded intents; the supplied sco",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 retain broad charcoal beams and columns across the left block and connector. SOURCE distinguishes pale primary framing from darker recessed lower glazing.",
+            "action": "Locally correct those primary frame members to the source’s pale finish. Retain dark recessed facade components, existing subdivisions, completed tower recesses and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Tower recess side returns and overhead surfaces visible in CURRENT 11.",
+          "Pale tower corner framing surrounding the completed recesses.",
+          "Connected low-wing terrace surfaces and planted setback pockets visible in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 15
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 16,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "d73339c2baaa8fc8cdf3524e8eb9d6114715113963a655eac323acfb43d1a0de",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view: a right-hand tower steps down toward a connected low wing and left block, with pale projecting grids, recessed glazing, scattered open planted bays, flat roof edges and darker lower facade components. CURRENT 10–12 retain these principal volume relationships and show convincing depth in the completed tower recesses. The clearest remaining mismatch is the broad charcoal structural framing across the left block and connector. Rear elevations, roof interiors and concealed slab-wall joints are not established by SOURCE; the supplied views do not prove hidden connection quality. Neighbor and external-context requirements remain contradictory and unresolved; their absence does not justify restoration or resolve the earlier requirements.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 show heavy charcoal primary columns and beams across the left block and connector, interrupting SOURCE’s pale projecting grid. SOURCE’s darker lower facade components sit within that grid.",
+            "action": "Locally correct the affected primary frame members to the pale structural finish. Preserve recessed dark components, glazing subdivisions, completed tower recesses and connected terrace geometry."
+          }
+        ],
+        "keep": [
+          "Existing pale tower beam-and-column members surrounding the completed recesses.",
+          "Completed tower recess side returns and overhead surfaces visible in CURRENT 11.",
+          "Connected planted outdoor pockets above the low wing visible in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 16
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-016",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view: a right-hand tower steps down toward a connected low wing and left block, with pale projecting grids, recessed glazing, scattered open planted bays, flat roof edges and darker lower facade components. CURRENT 10–12 retain these principal volume relationships and show convincing depth in the completed tower recesses. The clearest remaining mismatch is the broad charcoal structural framing across the left block and connector. Rear elevations, roof interiors and concealed slab-wall joints are not established by SOURCE; the supplied views do not prove hidden connection quality. Neighbor and external-context requirements remain contradictory and unresolved; their absence does not justify restoration or resolve the earlier requirements.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 show heavy charcoal primary columns and beams across the left block and connector, interrupting SOURCE’s pale projecting grid. SOURCE’s darker lower facade components sit within that grid.",
+            "action": "Locally correct the affected primary frame members to the pale structural finish. Preserve recessed dark components, glazing subdivisions, completed tower recesses and connected terrace geometry."
+          }
+        ],
+        "keep": [
+          "Existing pale tower beam-and-column members surrounding the completed recesses.",
+          "Completed tower recess side returns and overhead surfaces visible in CURRENT 11.",
+          "Connected planted outdoor pockets above the low wing visible in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 16
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 17,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "bd5a65f2ab0e7a80fc7259e3da53095b2c5e5b1964ede246ecab367a500140d0",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing the right-hand tower, its leftward stepped profile, connected low wing, planted terraces, pale projecting grid, recessed glazing and darker lower facade components. CURRENT 10–12 retain these principal relationships and show visibly deeper tower loggias. However, broad charcoal framing across the left block and connector still replaces source-visible pale framing. Historical images 2–3 are not target evidence. Rear elevations, exact dimensions and concealed slab-wall joints cannot be verified from SOURCE. No obvious floating rail or slab penetration is established by these captures. Conflicting neighbor/environment intents remain unresolved; their absence warrants neither restoration nor resolution here.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 show broad charcoal primary beams and columns across the left block and connector, whereas SOURCE retains pale projecting framing around darker recessed facade components.",
+            "action": "Locally correct only the affected outer frame members to the pale material and projecting relationship. Keep the darker recessed components, existing bay divisions, completed tower recesses and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Tower loggias’ visible recessed glazing, side returns and soffits.",
+          "Connected planted surfaces at the low-wing setbacks.",
+          "Pale projecting frame members around the tower’s upper visible bays."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 17
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-017",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing the right-hand tower, its leftward stepped profile, connected low wing, planted terraces, pale projecting grid, recessed glazing and darker lower facade components. CURRENT 10–12 retain these principal relationships and show visibly deeper tower loggias. However, broad charcoal framing across the left block and connector still replaces source-visible pale framing. Historical images 2–3 are not target evidence. Rear elevations, exact dimensions and concealed slab-wall joints cannot be verified from SOURCE. No obvious floating rail or slab penetration is established by these captures. Conflicting neighbor/environment intents remain unresolved; their absence warrants neither restoration nor resolution here.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 show broad charcoal primary beams and columns across the left block and connector, whereas SOURCE retains pale projecting framing around darker recessed facade components.",
+            "action": "Locally correct only the affected outer frame members to the pale material and projecting relationship. Keep the darker recessed components, existing bay divisions, completed tower recesses and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Tower loggias’ visible recessed glazing, side returns and soffits.",
+          "Connected planted surfaces at the low-wing setbacks.",
+          "Pale projecting frame members around the tower’s upper visible bays."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 17
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 18,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "420ea5a14b2f0810a9d61ceab4c09cf562a801bbe544c09b98598a20ca9b6814",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing the tower’s front and right faces, its descending stepped wing, the connected low block, pale projecting framing, recessed glazing, scattered outdoor recesses, planted terrace edges and a darker lower facade zone. Rear elevations and concealed roof surfaces are unobserved; exact dimensions cannot be established from this image.\n\nCURRENT 10–12 retain the principal stepped composition and show clearly recessed tower balconies with side returns, soffits and glass guards. The remaining prominent mismatch is the broad charcoal outer framing across the left block and connector: SOURCE places pale projecting members around darker recessed components. The darker lower zone itself should remain. Terrace connections appear continuous; these captures do not establish concealed slab-wall contacts or railing fixings. The removed neighbor and external context remain subject to conflicting recorded intents; their absence does not resolve the old neighbo",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 retain broad charcoal primary beams and columns across the left block and connector, merging the outer grid with the darker infill. SOURCE distinguishes pale projecting framing from the recessed darker lower facade.",
+            "action": "Locally correct only the affected outer members to the source’s pale material and projecting relief. Preserve the darker recessed components, existing bay divisions, completed tower recesses and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Completed tower recess side returns and soffits visible in CURRENT 11.",
+          "Connected low-wing terrace surfaces and perimeter edges visible in CURRENT 12.",
+          "Existing pale members immediately surrounding the completed tower recesses."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 18
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-018",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing the tower’s front and right faces, its descending stepped wing, the connected low block, pale projecting framing, recessed glazing, scattered outdoor recesses, planted terrace edges and a darker lower facade zone. Rear elevations and concealed roof surfaces are unobserved; exact dimensions cannot be established from this image.\n\nCURRENT 10–12 retain the principal stepped composition and show clearly recessed tower balconies with side returns, soffits and glass guards. The remaining prominent mismatch is the broad charcoal outer framing across the left block and connector: SOURCE places pale projecting members around darker recessed components. The darker lower zone itself should remain. Terrace connections appear continuous; these captures do not establish concealed slab-wall contacts or railing fixings. The removed neighbor and external context remain subject to conflicting recorded intents; their absence does not resolve the old neighbo",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 retain broad charcoal primary beams and columns across the left block and connector, merging the outer grid with the darker infill. SOURCE distinguishes pale projecting framing from the recessed darker lower facade.",
+            "action": "Locally correct only the affected outer members to the source’s pale material and projecting relief. Preserve the darker recessed components, existing bay divisions, completed tower recesses and connected terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Completed tower recess side returns and soffits visible in CURRENT 11.",
+          "Connected low-wing terrace surfaces and perimeter edges visible in CURRENT 12.",
+          "Existing pale members immediately surrounding the completed tower recesses."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 18
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 19,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "d53930c9f239b2acfc656826c1620f6a406d5e8be30c42a83597fecdea3c27d2",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view: a tall right-hand tower steps down toward a connected low wing and left block. Visible features include pale projecting grids, recessed glazing and scattered outdoor bays, planted setbacks, flat roof edges, a darker lower facade zone and glazed ground-floor frontage. CURRENT 10–12 retain this overall arrangement and show improved tower recesses with visible side returns, soffits and inset glazing. The remaining clear mismatch is the charcoal outer framing across the left block and connector. Concealed slab-wall contacts and railing fixings remain unverified; unseen rear elevations cannot establish source fidelity. SOURCE also contains neighboring buildings and street context now absent from CURRENT. Recorded removal intent conflicts with the active neighbor requirement; the invalid host scope does not settle that conflict, so restoration is not prescribed.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 show broad charcoal outer beams and columns across the left block and connector. SOURCE maintains pale projecting members around darker recessed facade components, so the current band obscures the continuous pale grid.",
+            "action": "Locally correct the affected outward-facing grid members to the source’s pale finish. Retain the darker recessed lower facade zone, existing bay divisions, completed tower recesses and connected terrace geometry."
+          }
+        ],
+        "keep": [
+          "Tower recesses’ visible side returns, soffits and inset glazing.",
+          "Connected planted setback terraces above the low wing.",
+          "Aligned floor and bay divisions in the pale upper tower grid."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 19
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-019",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view: a tall right-hand tower steps down toward a connected low wing and left block. Visible features include pale projecting grids, recessed glazing and scattered outdoor bays, planted setbacks, flat roof edges, a darker lower facade zone and glazed ground-floor frontage. CURRENT 10–12 retain this overall arrangement and show improved tower recesses with visible side returns, soffits and inset glazing. The remaining clear mismatch is the charcoal outer framing across the left block and connector. Concealed slab-wall contacts and railing fixings remain unverified; unseen rear elevations cannot establish source fidelity. SOURCE also contains neighboring buildings and street context now absent from CURRENT. Recorded removal intent conflicts with the active neighbor requirement; the invalid host scope does not settle that conflict, so restoration is not prescribed.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 show broad charcoal outer beams and columns across the left block and connector. SOURCE maintains pale projecting members around darker recessed facade components, so the current band obscures the continuous pale grid.",
+            "action": "Locally correct the affected outward-facing grid members to the source’s pale finish. Retain the darker recessed lower facade zone, existing bay divisions, completed tower recesses and connected terrace geometry."
+          }
+        ],
+        "keep": [
+          "Tower recesses’ visible side returns, soffits and inset glazing.",
+          "Connected planted setback terraces above the low wing.",
+          "Aligned floor and bay divisions in the pale upper tower grid."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 19
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 20,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "d0a84083eb3db2e4ba7aedf63eabb3f3fa475fd8c99dd8d915a1044537196543",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a tall right-hand tower, stepped planted setbacks descending toward a low connector and left block, pale projecting framing, recessed glazing and outdoor bays, flat roof edges, and a darker lower facade zone. Neighboring buildings and street infrastructure are also visible. Historical images 2–3 are not target evidence.\n\nCURRENT 10–12 retain the principal building connections and show improved tower recesses with visible side returns, soffits, rear glazing and glass guards. However, the left block and connector still carry conspicuous charcoal outward-facing framing where SOURCE shows pale framing around darker recessed components. Canonical views 4–9 provide assembly context; unseen rear elevations and concealed slab-wall contacts cannot establish source fidelity. No definite floating guards or enclosure-piercing slabs are demonstrated. Neighbor/context restoration remains excluded because opposing recorded intents remain unresolved and ",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 retain dark projecting beams and posts across the left block and connector, interrupting SOURCE’s pale structural grid and extending the dark treatment beyond the source-visible lower facade zone.",
+            "action": "Correct only the finish of the affected outward-facing frame members to the source’s pale tone. Preserve recessed dark components, the darker lower facade zone, existing frame dimensions, repaired tower recesses and completed terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Pale tower framing surrounding the repaired recessed openings.",
+          "Visible tower recess side returns, soffits and set-back glazing.",
+          "Low-wing terrace enclosure returns and connected glass guards."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 20
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-020",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a tall right-hand tower, stepped planted setbacks descending toward a low connector and left block, pale projecting framing, recessed glazing and outdoor bays, flat roof edges, and a darker lower facade zone. Neighboring buildings and street infrastructure are also visible. Historical images 2–3 are not target evidence.\n\nCURRENT 10–12 retain the principal building connections and show improved tower recesses with visible side returns, soffits, rear glazing and glass guards. However, the left block and connector still carry conspicuous charcoal outward-facing framing where SOURCE shows pale framing around darker recessed components. Canonical views 4–9 provide assembly context; unseen rear elevations and concealed slab-wall contacts cannot establish source fidelity. No definite floating guards or enclosure-piercing slabs are demonstrated. Neighbor/context restoration remains excluded because opposing recorded intents remain unresolved and ",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "CURRENT 10 and 12 retain dark projecting beams and posts across the left block and connector, interrupting SOURCE’s pale structural grid and extending the dark treatment beyond the source-visible lower facade zone.",
+            "action": "Correct only the finish of the affected outward-facing frame members to the source’s pale tone. Preserve recessed dark components, the darker lower facade zone, existing frame dimensions, repaired tower recesses and completed terrace assemblies."
+          }
+        ],
+        "keep": [
+          "Pale tower framing surrounding the repaired recessed openings.",
+          "Visible tower recess side returns, soffits and set-back glazing.",
+          "Low-wing terrace enclosure returns and connected glass guards."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 20
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 21,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "a96b4f8184a2250dae4287b86381d99205b9d4092070d7197bcfa6284e9a2307",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a tall right-hand tower stepping down toward a connected low wing and left block, pale projecting framing, recessed glazing and selected outdoor bays, planted setbacks, a darker lower façade zone and glazed street frontage. CURRENT 10–12 retain these principal volume relationships and now show pale outward-facing framing and clearly recessed tower balconies with visible side and soffit returns. The remaining major discrepancy is the lower façade treatment. Rear elevations, concealed connections and exact recess dimensions cannot be verified from SOURCE; the supplied views establish no obvious slab penetration or floating railing. Neighbor/context restoration remains excluded because the recorded opposing intents are unresolved and the host scope is invalid.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE distinguishes a darker lower façade zone above the glazed street frontage. CURRENT 10 and 12 instead carry pale framing and similarly opaque-looking blue panels down to ground level, flattening this source-defining transition.",
+            "action": "Locally restore the darker lower façade components and make the street-level glazing read as transparent frontage. Preserve the corrected pale projecting outer framing, existing floor/bay divisions, repaired recesses and retained terrace assemblies. This finding does not authorize expanding the pending balcony-only execution scope."
+          }
+        ],
+        "keep": [
+          "Corrected pale outward-facing framing finish on the left block and connector.",
+          "Visible side and soffit returns in the repaired source-facing tower recesses.",
+          "Connected low-wing terrace surfaces, perimeter edges and recessed outdoor bays shown in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 21
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    },
+    {
+      "attempt_id": "repair-021",
+      "status": "reviewed",
+      "before_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a tall right-hand tower stepping down toward a connected low wing and left block, pale projecting framing, recessed glazing and selected outdoor bays, planted setbacks, a darker lower façade zone and glazed street frontage. CURRENT 10–12 retain these principal volume relationships and now show pale outward-facing framing and clearly recessed tower balconies with visible side and soffit returns. The remaining major discrepancy is the lower façade treatment. Rear elevations, concealed connections and exact recess dimensions cannot be verified from SOURCE; the supplied views establish no obvious slab penetration or floating railing. Neighbor/context restoration remains excluded because the recorded opposing intents are unresolved and the host scope is invalid.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE distinguishes a darker lower façade zone above the glazed street frontage. CURRENT 10 and 12 instead carry pale framing and similarly opaque-looking blue panels down to ground level, flattening this source-defining transition.",
+            "action": "Locally restore the darker lower façade components and make the street-level glazing read as transparent frontage. Preserve the corrected pale projecting outer framing, existing floor/bay divisions, repaired recesses and retained terrace assemblies. This finding does not authorize expanding the pending balcony-only execution scope."
+          }
+        ],
+        "keep": [
+          "Corrected pale outward-facing framing finish on the left block and connector.",
+          "Visible side and soffit returns in the repaired source-facing tower recesses.",
+          "Connected low-wing terrace surfaces, perimeter edges and recessed outdoor bays shown in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 21
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "writer": {
+        "script_id": "terraced_apartment",
+        "revision": 22,
+        "relative_path": "scripts/facade_scoped_pass.rb",
+        "update_mode": "edit",
+        "source_sha256": "d70f84ebac770931a072d36ba0c2241a78cd548ea91e138223c462df724f65d1",
+        "precommit_keep_guard": {
+          "armed": true,
+          "passed": true,
+          "paths": [
+            "BUILDING/TOWER/MASSING",
+            "BUILDING/TOWER/ROOF",
+            "BUILDING/TOWER/MODULE_PROTOTYPE",
+            "MODULE_FRONT_WALL",
+            "VEGETATION/ROOF_INSTANCES",
+            "VEGETATION/TERRACE_INSTANCES",
+            "VEGETATION/LEFT_POCKET_INSTANCES",
+            "BUILDING/STEPPED_WING/MASSING",
+            "BUILDING/STEPPED_WING/TERRACES",
+            "BUILDING/LEFT_UPPER/MASSING",
+            "BUILDING/LEFT_UPPER/ROOF",
+            "BUILDING/LEFT_STREET/MASSING",
+            "BUILDING/LEFT_STREET/ROOF",
+            "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+            "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0"
+          ]
+        },
+        "postcommit_keep_verified": true
+      },
+      "after_review": {
+        "needs_fix": true,
+        "assessment": "SOURCE is one street-level oblique view showing a high tower stepping down toward connected low wings, pale projecting framing, recessed glazing and selected balcony pockets, planted terraces, flat roof edges, a darker lower facade band and transparent street frontage. CURRENT 10–12 retain these broad building relationships and show readable balcony side returns and soffits. The principal remaining mismatch is the missing lower-facade material hierarchy. Exact recess dimensions and concealed connections cannot be verified; rear elevations are inferred. Historical screenshots are not target evidence. Neighbor/context restoration remains excluded because opposing recorded intents are unresolved.",
+        "issues": [
+          {
+            "priority": 1,
+            "view": "front",
+            "problem": "SOURCE distinguishes a darker lower facade band above transparent street-level frontage. CURRENT 4, 10 and 12 continue substantially the same pale framing and blue panel treatment down to ground, flattening this prominent distinction.",
+            "action": "Locally restore the source-visible darker lower facade zone and visibly transparent street frontage. Preserve the completed pale upper framing, existing bay divisions, balcony recesses and terrace geometry."
+          }
+        ],
+        "keep": [
+          "Source-facing tower’s pale projecting beam and column finish.",
+          "Visible tower balcony side returns and soffits establishing recess depth.",
+          "Low-wing terrace surfaces and planted pockets visible in CURRENT 12."
+        ],
+        "model_revisions": {
+          "terraced_apartment": 22
+        },
+        "reviewer_mode": "dedicated_read_only"
+      },
+      "outcome": "still_needs_fix"
+    }
+  ]
+}

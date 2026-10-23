@@ -1,3 +1,39 @@
+## 2026-10-18 — Conversation scroll, natural image understanding, local owner recording
+
+Owner requested execution status inside the scrollable dialogue and removal of image-purpose forms. Isolated `codex/chatflow-recording-20261018` based on actual local987a30b implements one chat scroll surface, preserves reading position, removes selectors, sends fresh image pixels to the existing native read-only interpreter and turns ambiguity into no-write conversation. [Evidence and boundaries](test-results/windows/2026-10-18-chatflow-and-capture/README.md).89NodePASS;67contextualPythonPASS/2Windows-symlink-environmentFAIL;107approval/reference/progressPASS;43finalfocusedPASS. Actual browser desktop/mobile layout verified with controlled progress, no inference/native quality claim.
+
+Owner project 剧院设计/dce61 is r3/root19 with a new saved plan awaiting owner approval for back/site/roof. No geometry or approval by recorder. Local exact-window dual capture began17:27:19; original app tracks, timestamps, source snapshots and historical model output are private local promotional material, not a public release or a full-generation video. Never relabel idle capture or historical snapshots as a new build. Preserve shared runtime/provider/SKP; actual idle-only local8803 rollout verified: r3, unconsumed plan and two SKP hashes unchanged; desktop shows corrected UI. Two bounded recordings stopped;45s labeled development edit saved locally. Incidental Blender-connect pointer misclick returned409 with backend unchanged; raw failure retained. Old r20 stays closed; no main merge/deploy or automatic raw upload.
+
+---
+
+## 2026-10-18 — Local connector onboarding, visible progress, pre-start tool protocol fix
+
+Owner manual project 剧院设计/dce61 remains preserved. Real first approval failed before thread/start because mixed canonical/legacy dynamic tool registrations; local normalization reproduced FAIL then PASS using actual App Server thread/start only, with no inference/native writes. Consumed-plan eligibility restored against immutable evidence; NEW owner approval required. Added prominent truthful run activity and private local connector installer wizard; existing legacy connector preserved. [Evidence and limitations](test-results/windows/2026-10-18-ui-atelier/README.md).69PythonPASS/1SKIP +108NodePASS; protocol42PASS/2Windows-symlink-permissionFAIL retained. Public package/new-machine/native modeling acceptance NOT_RUN; no main merge/deploy/raw publication. Old service stop blocked by automatic review; use separately verified new local service. Older geometry instructions remain closed.
+
+---
+## 2026-10-18 — Respect installed software versions; local UI follow-up
+
+Owner requires SketchUp and future modeling integrations to use the user's installed version, with explicit selection and no silent upgrade/downgrade/substitution. See [software version policy](SOFTWARE_VERSION_POLICY.md) and [local UI/launcher evidence](test-results/windows/2026-10-18-ui-atelier/README.md). Connection instructions no longer require SU2024; the launcher no longer defaults to 2024/2022. Actual running executable and matching bridge remain required; ambiguity is surfaced. Offline selection15PASS, existing component/launcher10PASS, frontend95PASS; other-version native compatibility NOT_RUN. No new modeling/inference, installation, main merge or deployment. Older geometry/acceptance conclusions below remain historical evidence.
+
+---
+## 2026-10-18 — Owner three-view manual build: IN_PROGRESS checkpoint, not acceptance
+
+[Latest actual process/results](test-results/windows/2026-10-18-owner-three-view-progress/README.md), frozen00:52:42Asia/Shanghai. Same fresh8800 projectarchitecture-project/reconstruct_building/root19, THREE owner-uploaded views (different from prior single-photo apartment and closed eight-source/r20). Last completed site reply/save isr3; active follow-up has native commit records throughr5 and latest independentCriticr5 needs_fix. Sessionr3 versus runtime5 is recorded during active work, not falsely labelled final save equality/bug. “我批准” routedplan with no write; later normal approval executed. Two active `load` source rejections retained, cause not assumed. Current task still active/no final reply at cut. Completed website4,349,075in/28,449out/76tools3fail; active telemetry lower bound3,207,912in/17,759out/57toolstarts2fail;5Critics190,291in/5,491out separate. Native download/reopen not verified, deep3stage/strict replayNOT_RUN. Per-file live snapshot is PRIVATE/non-atomic; only sanitized docs and SHA indexes public. No product/model changes or new inference by recorder, no restart/cancel/main merge/deployment. Continue owner manual work without interruption; this checkpoint does not resume oldr20 or grant a fresh auto-test.
+
+---
+
+## 2026-10-17 — Owner staged-group block fixed locally; fresh manual workbench prepared
+
+Owner's separate single-image apartment trial (default session demo-cultural-center, apartment_reconstruction r3/root19) stopped at `Missing scope path RESIDENTIAL_MODULES`; subsequent mixed question/finish instruction was clarify-only. Exact absent leaves now use verified transaction-local graph protection, without widening active host policies. Original local e14960d integrated onto latest trial762b519 as8577730. [Actual diagnosis, failures, usage and checks](test-results/windows/2026-10-17-owner-staged-group-block/README.md): SU-focused178PASS/2optionalRubySKIP; Ruby offline contracts PASS; broader selection219PASS/10environmentalFAIL/4SKIP retained. Actual post-fix SU continuation/native delivery/source-quality NOT_RUN. New isolated8800 empty website session is for OWNER MANUAL testing, no inference/approval/geometry issued by tester. Original files/8799 project and raw evidence remain private/local; publish sanitized code/report on isolated branch and link Issue20 only. Old eight-source/r20 stays closed; no main merge, deployment or automatic three-round test.
+
+---
+
+## 2026-10-16 UTC — Separate product recovery patch (local review)
+
+New product-only work after the r20 case closeout; no old building geometry was resumed. See [recovery/readiness report](TRIAL_RECOVERY_READINESS_2026-10-16.md). Fixes project-switch identity, active-turn polling/retry/draft safety and current-checkpoint download selection, with explicit native-delivery verification wording. Core checks: 537 passed / 15 skipped; actual browser UI and SketchUp native NOT_RUN. A separate native Blender fixture is not website integration or model-quality certification. Prepared on an isolated branch; no remote publication attempted. Historical handoff below is unchanged.
+
+---
+
 ## CLOSED 2026-10-17 — final r20 basic building/site case complete by owner scope
 
 Owner-requested closeout COMPLETE; END this case, no further refinement or older readiness work. [Final SKP/evidence](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [19nativebuilding](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same8wholeoriginals/project/root20606, original4immutable, real StudioSol6.1Medium ordinaryChinese, outerunchanged.20only adds new SITE_GROUND/SIMPLE_SURROUNDINGS:6paths/4greenbeds/4schematic trees. All original building/ground exact deep protectionPASS, SHA1589ada84f2d9e53cb7b11a55a41959608222977a00d19e68d0e31f02cac5174 equal;6actualsamecamera pairs,6pathsolid/4treecontact/6west-ramp+eaststairentrypointsPASS. Basic named33columns/18partitiongroups/3spirals/door-glazingassemblies present, prior selected route/joint evidence retained, counts not quality certification.

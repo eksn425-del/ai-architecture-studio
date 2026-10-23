@@ -30,6 +30,22 @@ def test_default_construction_strategy_is_empty_and_valid():
     assert strategy_has_signal(value) is False
 
 
+def test_failed_strategy_write_includes_full_contract_without_changing_file(tmp_path):
+    from app.workspace_files import workspace_file_call
+    notes = tmp_path / "notes"
+    notes.mkdir()
+    target = notes / "construction_strategy.json"
+    original = json.dumps(default_construction_strategy())
+    target.write_text(original, encoding="utf-8")
+    bad = default_construction_strategy()
+    bad["shared_parameters"] = {"width": {"value": 10800, "unit": "mm", "provenance": "generated"}}
+    with pytest.raises(ValueError) as caught:
+        workspace_file_call(tmp_path, "workspace_write", {"relative_path": "notes/construction_strategy.json", "content": json.dumps(bad)})
+    assert target.read_text(encoding="utf-8") == original
+    assert "exact key 'units'" in str(caught.value)
+    assert "Parameter provenance:" in str(caught.value) and "Roles:" in str(caught.value)
+
+
 def test_strategy_supports_shared_parameter_driven_staged_systems():
     value = validate_construction_strategy_payload({
         "schema_version": 1,

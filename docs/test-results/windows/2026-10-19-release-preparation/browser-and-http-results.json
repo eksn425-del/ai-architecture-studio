@@ -1,0 +1,27 @@
+{
+  "browser_checks": [
+    {
+      "viewport": "1920x1080",
+      "persistent_records": 14,
+      "before_scroll": 200,
+      "after_rerender_scroll": 200
+    },
+    {
+      "viewport": "390x844",
+      "history_height": 434.234375,
+      "horizontal_overflow": false
+    }
+  ],
+  "javascript_errors": [],
+  "read_only_http_smoke": {
+    "synthetic_virtual_clients": 500,
+    "concurrency": 20,
+    "requests": 1000,
+    "errors": 0,
+    "wall_seconds": 4.499319700000342,
+    "p95_ms": 211.28270000008342,
+    "scope": "local read-only HTTP only; no registered users, auth, database, cloud, paid inference or native modeling load"
+  },
+  "provider_calls": 0,
+  "native_model_calls": 0
+}

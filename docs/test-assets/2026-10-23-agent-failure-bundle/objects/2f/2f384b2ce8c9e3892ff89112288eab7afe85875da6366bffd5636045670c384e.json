@@ -1,0 +1,571 @@
+{
+  "terraced_apartment": {
+    "model_guid": "6808482c-a2c9-4c80-a1df-b24de41efd49",
+    "revision": 8,
+    "root_pid": 19,
+    "source_sha256": "532dd3b14a791474cf22293364b6b3fb2a7f61a6cf5b7b802341662b4e3ca467",
+    "last_report": "runtime/scripts/reports/terraced_apartment-r8-e6199cd5.json",
+    "last_screenshot": "outputs/renders/ruby-terraced_apartment-r8.png",
+    "last_verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 8,
+          "actual": 8
+        },
+        {
+          "check": "objects_total",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -66000.0,
+              -53000.0,
+              -500.0
+            ],
+            "max": [
+              60000.0,
+              24500.0,
+              60204.0
+            ],
+            "size": [
+              126000.0,
+              77500.0,
+              60704.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -66000,
+              -53000,
+              -500
+            ],
+            "max": [
+              60000,
+              24500,
+              60204
+            ],
+            "size": [
+              126000,
+              77500,
+              60704
+            ]
+          }
+        }
+      ]
+    },
+    "last_verification_report": "runtime/scripts/reports/terraced_apartment-r8-e6199cd5.verification.json",
+    "last_precommit_keep_guard": {
+      "armed": true,
+      "passed": true,
+      "paths": [
+        "BUILDING/TOWER/MASSING",
+        "BUILDING/TOWER/MODULE_PROTOTYPE",
+        "BUILDING/TOWER/ROOF",
+        "BUILDING/STEPPED_WING",
+        "BUILDING/LEFT_UPPER",
+        "BUILDING/LEFT_STREET",
+        "CONTEXT",
+        "ENVIRONMENT",
+        "VEGETATION",
+        "MODULE_FRONT_WALL",
+        "BUILDING/TOWER/FACADE/TOWER_L08/LOGGIA_0_DEPTH",
+        "BUILDING/TOWER/FACADE/TOWER_L09/FRONT_POST_3",
+        "BUILDING/TOWER/FACADE/TOWER_L09/FRONT_HEAD_3",
+        "BUILDING/TOWER/FACADE/TOWER_L09/FRONT_POST_4",
+        "BUILDING/TOWER/FACADE/TOWER_L09/FRONT_HEAD_4",
+        "BUILDING/TOWER/FACADE/TOWER_L11/FRONT_POST_3",
+        "BUILDING/TOWER/FACADE/TOWER_L11/FRONT_HEAD_3",
+        "BUILDING/TOWER/FACADE/TOWER_L11/FRONT_POST_4",
+        "BUILDING/TOWER/FACADE/TOWER_L11/FRONT_HEAD_4",
+        "BUILDING/TOWER/FACADE/TOWER_L11"
+      ]
+    },
+    "last_oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "532dd3b14a791474cf22293364b6b3fb2a7f61a6cf5b7b802341662b4e3ca467",
+      "events": [],
+      "status": "committed_readback",
+      "script_id": "terraced_apartment",
+      "revision": 8,
+      "root_pid": 19
+    },
+    "last_edit_scope_receipt": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "required_deep_keep_paths": [],
+      "allowed_top_level": [
+        "BUILDING"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    },
+    "last_strategy_progress": {
+      "schema_version": 1,
+      "source": "committed_owned_root_named_path_readback",
+      "script_id": "terraced_apartment",
+      "revision": 8,
+      "root_pid": 19,
+      "full_readback": true,
+      "current_stage": "finish",
+      "systems": [
+        {
+          "system_id": "right_balcony_sample",
+          "target_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_GLAZING_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_MULLION_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_BALUSTRADE_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_RAIL_4"
+            ]
+          ],
+          "present_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_GLAZING_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_MULLION_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_BALUSTRADE_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_RAIL_4"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "right_balcony_confirmed_peers",
+          "target_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_GLAZING_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_MULLION_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_BALUSTRADE_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_RAIL_3"
+            ]
+          ],
+          "present_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_GLAZING_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_MULLION_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_BALUSTRADE_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_RAIL_3"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "right_corner_location_check",
+          "target_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_GLAZING_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_MULLION_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_BALUSTRADE_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_RAIL_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_GLAZING_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_MULLION_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_BALUSTRADE_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_RAIL_3"
+            ]
+          ],
+          "present_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_GLAZING_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_MULLION_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_BALUSTRADE_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_RAIL_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_GLAZING_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_MULLION_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_BALUSTRADE_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_RAIL_3"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        },
+        {
+          "system_id": "balcony_joint_finish",
+          "target_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_GLAZING_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_MULLION_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_BALUSTRADE_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_RAIL_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_GLAZING_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_MULLION_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_BALUSTRADE_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_RAIL_3"
+            ]
+          ],
+          "present_paths": [
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_GLAZING_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_MULLION_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_BALUSTRADE_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L11",
+              "FRONT_RAIL_4"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_GLAZING_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_MULLION_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_BALUSTRADE_3"
+            ],
+            [
+              "BUILDING",
+              "TOWER",
+              "FACADE",
+              "TOWER_L09",
+              "FRONT_RAIL_3"
+            ]
+          ],
+          "missing_paths": [],
+          "result": "geometry_present_not_visually_verified",
+          "new_status": "built"
+        }
+      ],
+      "visual_verification": "NOT_RUN"
+    },
+    "last_oss_method_adoption": {
+      "schema_version": 1,
+      "ledger_status": "committed_readback",
+      "actual_wrapped_calls": {},
+      "any_oss_product_use": false,
+      "effect_verified": false,
+      "effect_verification_required": "Named component readback and independent source-matched visual review.",
+      "plan_choices": [
+        {
+          "system": "right_balcony_sample",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "right_balcony_confirmed_peers",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "right_corner_location_check",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        },
+        {
+          "system": "balcony_joint_finish",
+          "method_id": "kstudio.custom_owned_ruby",
+          "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled.",
+          "disposition": "custom_fallback_not_automatically_attributed"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "UNVERIFIED_NATIVE_REOPEN",
+  "reason": "File bytes and successful save are not an editable native geometry/reopen/replay comparison.",
+  "bound_document": {
+    "path": "outputs/model/blank-disposable-20261022-173456.skp",
+    "sha256": "29306353d6ff9edd350167b00c6b9b779cdf0a2f780532c82c04c2b62a753aed",
+    "bytes": 2965413
+  },
+  "download_candidate": {
+    "path": "outputs/model/agent-checkpoint-07f6f2d5e0f6.skp",
+    "sha256": "5d40ac85d30cefd16aa6f1cbc0e6fdfd0fa0b7ebe39e01bacdea7be827fb7728",
+    "bytes": 2965414
+  },
+  "roots": [
+    19
+  ],
+  "script_revisions": {
+    "terraced_apartment": 8
+  },
+  "required_next": [
+    "before_save_native_fingerprint",
+    "bound_reopened_native_fingerprint",
+    "clean_download_reopened_native_fingerprint"
+  ]
+}

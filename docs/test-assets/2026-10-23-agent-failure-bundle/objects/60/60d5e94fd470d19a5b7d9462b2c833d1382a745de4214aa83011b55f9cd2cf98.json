@@ -1,0 +1,514 @@
+{
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-16c07\\outputs\\model\\blank-disposable-20261022-173456.skp",
+  "scripts": {
+    "terraced_apartment": {
+      "model_guid": "8ac68dd1-64ed-4994-a42a-8b5ff2dbaf31",
+      "revision": 6,
+      "root_pid": 19,
+      "source_sha256": "200b92f1a47e6970502342a40e2ed316cccafaf04ca3a7aa214183fb5ccb0a8d",
+      "last_report": "runtime/scripts/reports/terraced_apartment-r6-313093ee.json",
+      "last_screenshot": "outputs/renders/ruby-terraced_apartment-r6.png",
+      "last_verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 6,
+            "actual": 6
+          },
+          {
+            "check": "objects_total",
+            "expected": 5,
+            "actual": 5
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -66000.0,
+                -53000.0,
+                -500.0
+              ],
+              "max": [
+                60000.0,
+                24500.0,
+                60204.0
+              ],
+              "size": [
+                126000.0,
+                77500.0,
+                60704.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -66000,
+                -53000,
+                -500
+              ],
+              "max": [
+                60000,
+                24500,
+                60204
+              ],
+              "size": [
+                126000,
+                77500,
+                60704
+              ]
+            }
+          }
+        ]
+      },
+      "last_verification_report": "runtime/scripts/reports/terraced_apartment-r6-313093ee.verification.json",
+      "last_precommit_keep_guard": {
+        "armed": true,
+        "passed": true,
+        "paths": [
+          "BUILDING/TOWER",
+          "BUILDING/STEPPED_WING",
+          "BUILDING/LEFT_UPPER",
+          "BUILDING/LEFT_STREET/MASSING",
+          "BUILDING/LEFT_STREET/FACADE",
+          "BUILDING/LEFT_STREET/ROOF/ROOF_DECK",
+          "CONTEXT/RIGHT_NEIGHBOR/ENVELOPE",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/GREEN_WALL_RELIEF",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/GREEN_ENDWALL",
+          "ENVIRONMENT",
+          "VEGETATION/ROOF_INSTANCES",
+          "VEGETATION/TERRACE_INSTANCES",
+          "VEGETATION/STREET_INSTANCES",
+          "VEGETATION/BALCONY_INSTANCES",
+          "MODULE_FRONT_WALL",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_0",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_1",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_2",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_3",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_4",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_5",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_6",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_7",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_8",
+          "CONTEXT/RIGHT_NEIGHBOR/VISIBLE_FACADE/SHOP_9"
+        ]
+      },
+      "last_oss_method_ledger": {
+        "schema_version": 1,
+        "source_sha256": "200b92f1a47e6970502342a40e2ed316cccafaf04ca3a7aa214183fb5ccb0a8d",
+        "events": [],
+        "status": "committed_readback",
+        "script_id": "terraced_apartment",
+        "revision": 6,
+        "root_pid": 19
+      },
+      "last_edit_scope_receipt": {
+        "status": "passed",
+        "guard": "deep_exact_paths_v2",
+        "allowed_paths": [
+          [
+            "BUILDING",
+            "LEFT_STREET",
+            "ROOF",
+            "PLANTED_POCKETS"
+          ],
+          [
+            "VEGETATION",
+            "LEFT_POCKET_INSTANCES"
+          ],
+          [
+            "CONTEXT",
+            "RIGHT_NEIGHBOR",
+            "VISIBLE_FACADE"
+          ]
+        ],
+        "required_deep_keep_paths": [],
+        "allowed_top_level": [
+          "BUILDING",
+          "VEGETATION",
+          "CONTEXT"
+        ],
+        "protected_deep_geometry_and_loose_entities": true
+      },
+      "last_strategy_progress": {
+        "schema_version": 1,
+        "source": "committed_owned_root_named_path_readback",
+        "script_id": "terraced_apartment",
+        "revision": 6,
+        "root_pid": 19,
+        "full_readback": true,
+        "current_stage": "finish",
+        "systems": [
+          {
+            "system_id": "primary_envelope",
+            "target_paths": [
+              [
+                "BUILDING",
+                "TOWER"
+              ],
+              [
+                "BUILDING",
+                "STEPPED_WING"
+              ],
+              [
+                "BUILDING",
+                "LEFT_UPPER"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "TOWER"
+              ],
+              [
+                "BUILDING",
+                "STEPPED_WING"
+              ],
+              [
+                "BUILDING",
+                "LEFT_UPPER"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "representative_wall",
+            "target_paths": [
+              [
+                "MODULE_FRONT_WALL"
+              ]
+            ],
+            "present_paths": [
+              [
+                "MODULE_FRONT_WALL"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "verified"
+          },
+          {
+            "system_id": "representative_slab_frame",
+            "target_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "MODULE_PROTOTYPE",
+                "SLAB"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "MODULE_PROTOTYPE",
+                "FRAME"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "MODULE_PROTOTYPE",
+                "GLAZING"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "MODULE_PROTOTYPE",
+                "SLAB"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "MODULE_PROTOTYPE",
+                "FRAME"
+              ],
+              [
+                "BUILDING",
+                "TOWER",
+                "MODULE_PROTOTYPE",
+                "GLAZING"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "module_repetition",
+            "target_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE"
+              ],
+              [
+                "BUILDING",
+                "STEPPED_WING",
+                "FACADE"
+              ],
+              [
+                "BUILDING",
+                "LEFT_UPPER",
+                "FACADE"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "FACADE"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "FACADE"
+              ],
+              [
+                "BUILDING",
+                "STEPPED_WING",
+                "FACADE"
+              ],
+              [
+                "BUILDING",
+                "LEFT_UPPER",
+                "FACADE"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "FACADE"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "terraces_roofs",
+            "target_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "ROOF"
+              ],
+              [
+                "BUILDING",
+                "STEPPED_WING",
+                "TERRACES"
+              ],
+              [
+                "BUILDING",
+                "LEFT_UPPER",
+                "ROOF"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "ROOF"
+              ]
+            ],
+            "present_paths": [
+              [
+                "BUILDING",
+                "TOWER",
+                "ROOF"
+              ],
+              [
+                "BUILDING",
+                "STEPPED_WING",
+                "TERRACES"
+              ],
+              [
+                "BUILDING",
+                "LEFT_UPPER",
+                "ROOF"
+              ],
+              [
+                "BUILDING",
+                "LEFT_STREET",
+                "ROOF"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "neighbor",
+            "target_paths": [
+              [
+                "CONTEXT",
+                "RIGHT_NEIGHBOR"
+              ]
+            ],
+            "present_paths": [
+              [
+                "CONTEXT",
+                "RIGHT_NEIGHBOR"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "vegetation",
+            "target_paths": [
+              [
+                "VEGETATION",
+                "ROOF_INSTANCES"
+              ],
+              [
+                "VEGETATION",
+                "TERRACE_INSTANCES"
+              ],
+              [
+                "VEGETATION",
+                "STREET_INSTANCES"
+              ]
+            ],
+            "present_paths": [
+              [
+                "VEGETATION",
+                "ROOF_INSTANCES"
+              ],
+              [
+                "VEGETATION",
+                "TERRACE_INSTANCES"
+              ],
+              [
+                "VEGETATION",
+                "STREET_INSTANCES"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          },
+          {
+            "system_id": "street_rail",
+            "target_paths": [
+              [
+                "ENVIRONMENT",
+                "INTERSECTION"
+              ],
+              [
+                "ENVIRONMENT",
+                "CURBS"
+              ],
+              [
+                "ENVIRONMENT",
+                "TRACKS"
+              ],
+              [
+                "ENVIRONMENT",
+                "CONTACT_WIRES"
+              ]
+            ],
+            "present_paths": [
+              [
+                "ENVIRONMENT",
+                "INTERSECTION"
+              ],
+              [
+                "ENVIRONMENT",
+                "CURBS"
+              ],
+              [
+                "ENVIRONMENT",
+                "TRACKS"
+              ],
+              [
+                "ENVIRONMENT",
+                "CONTACT_WIRES"
+              ]
+            ],
+            "missing_paths": [],
+            "result": "geometry_present_not_visually_verified",
+            "new_status": "built"
+          }
+        ],
+        "visual_verification": "NOT_RUN"
+      },
+      "last_oss_method_adoption": {
+        "schema_version": 1,
+        "ledger_status": "committed_readback",
+        "actual_wrapped_calls": {},
+        "any_oss_product_use": false,
+        "effect_verified": false,
+        "effect_verification_required": "Named component readback and independent source-matched visual review.",
+        "plan_choices": [
+          {
+            "system": "primary_envelope",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "representative_wall",
+            "method_id": "saie.wall_with_openings",
+            "selection_reason": "源图标准矩形窗格适合连续墙真实开洞；使用schema已提供的具体编号，执行前确认注入签名可用。",
+            "disposition": "selected_but_not_invoked"
+          },
+          {
+            "system": "representative_slab_frame",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "module_repetition",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "terraces_roofs",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "neighbor",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "vegetation",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          },
+          {
+            "system": "street_rail",
+            "method_id": "kstudio.custom_owned_ruby",
+            "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。",
+            "disposition": "custom_fallback_not_automatically_attributed"
+          }
+        ]
+      }
+    }
+  }
+}

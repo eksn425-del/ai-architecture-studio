@@ -28,6 +28,13 @@ class Site(Model):
 
 
 class Reference(Model):
+    evidence_role: Literal["target_building", "defect_location", "supporting", "unknown"] = "unknown"
+    role_origin: Literal["legacy", "user", "context_default", "awaiting_context"] = "legacy"
+    role_reason: str = ""
+    role_clarification_pending: bool = False
+    role_batch_count: int = Field(default=1, ge=1, le=8)
+    evidence_turn_id: str = ""
+    evidence_model_revisions: dict[str, int] = Field(default_factory=dict)
     type: Literal["url", "image", "note"] = "note"
     source: str = ""
     submitted_at: str = ""
@@ -177,6 +184,7 @@ class ModelState(Model):
 
 
 class AgentSession(Model):
+    modeling_backend: Literal["sketchup", "blender"] = "sketchup"
     project_id: str
     status: Literal["idle", "conversation", "ready", "failed"] = "idle"
     thread_id: str = ""
@@ -282,6 +290,10 @@ class EditPlan(Model):
 
 
 class ConversationRequest(Model):
+    approved_pending_plan_id: str = Field(default="", max_length=32, pattern=r"^(?:[a-f0-9]{32})?$")
+    client_request_id: str = Field(default="", max_length=36, pattern=r"^(?:[a-f0-9-]{32,36})?$")
+    approval_gesture: Literal["", "plan_button"] = ""
+    approved_plan_sha256: str = Field(default="", max_length=64, pattern=r"^(?:[a-f0-9]{64})?$")
     message: str = Field(min_length=1, max_length=1200)
     tier: Literal["economy", "premium"] = "economy"
     workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"

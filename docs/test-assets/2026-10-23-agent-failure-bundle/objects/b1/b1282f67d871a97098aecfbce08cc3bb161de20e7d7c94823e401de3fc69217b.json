@@ -1,0 +1,434 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "single_view_inference",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "single_view_inference",
+    "primary_source": "inputs/reference/6649b42845-image.png",
+    "sources": [
+      {
+        "kind": "exterior_image",
+        "path": "inputs/reference/6649b42845-image.png",
+        "provenance": "observed",
+        "notes": [
+          "单张正立面人眼高度透视，整张图为单一视图、无分幅、无文字标注。",
+          "地标：画面左侧二层奶油色邻楼与黑色老式轿车，右侧粉色老邻楼与白色小车，前景两棵落叶行道树。以此确认这是街道正面，不是侧/背立面。",
+          "可见：清水混凝土三柱两跨网格、7 个住宅层、左跨逐层内凹阳台、右跨通高玻璃窗、首层卷帘车库门与入口、屋顶女儿墙与 2200 高金属格栅围屏、露台绿植。",
+          "不可见：左右侧立面、背面、屋顶面、平面、室内；均无 CAD/尺寸标注。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/6649b42845-image.png"
+        ],
+        "notes": [
+          "面板：整张图（唯一视图）。1 个阳台洞＋2 扇通高窗/层 × 7 层 = 21 个上层洞口；首层 2 樘门（卷帘 6000×2700、入户 1200×2400）。",
+          "洞口/玻璃/栏板/卷帘逐层可数，高置信；单层凹深与门窗精确宽度为按比例估算。",
+          "正面柱网：柱垛 450，左跨 4650，右跨 7200（估算），见 facade_schedule.json。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "无原图。按正面柱网与层高连贯延续：每层 4 扇 1800×1800 窗，首层 1 樘后门；低置信计数，仅作合理推测。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "无原图。清水混凝土实墙，每层 2 扇 1500×1800 窗，首层 1 个小窗；推断值。"
+        ]
+      },
+      "right": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "无原图。与左侧对称处理：每层 2 扇 1500×1800 窗，首层 1 个小窗；推断值。"
+        ]
+      },
+      "roof": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "女儿墙带与 2200 高竖向金属格栅围屏在正面可直接观察到；屋顶面材质、后部楼梯间为推断，低置信。",
+          "平屋面开放露台，无上人以上屋面；露台左侧有攀架绿化与种植槽。"
+        ]
+      },
+      "oblique": {
+        "provenance": "pending",
+        "source_refs": [],
+        "notes": [
+          "未提供斜视图；后续仅生成模型斜视 QA 视图，不作为原始证据。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "无平面图；每层一户、核心筒靠后部中央为推断，非证据。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "无 CAD/DWG/尺寸标注；全部尺寸为比例估算，不得当作实测。"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "无室内照片；玻璃后可见米色窗帘与浅色家具面，仅作面片示意。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "正立面总宽（按比例估算）",
+        "value_mm": 13200,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/6649b42845-image.png"
+      },
+      {
+        "name": "标准层高（7 层等距网格）",
+        "value_mm": 3000,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/6649b42845-image.png"
+      },
+      {
+        "name": "车库卷帘门宽（首层比例基准）",
+        "value_mm": 6000,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/6649b42845-image.png"
+      }
+    ],
+    "hard_constraints": [
+      "建筑主体为窄板式独立体量：正立面宽约 13200、总高约 24600（至屋面板），宽高比须与原图一致。",
+      "正立面必须是清水混凝土三柱两跨网格：三处竖向柱垛 450 宽，左跨凹阳台 4650，右跨玻璃跨 7200。",
+      "左跨 7 个住宅层逐层内凹阳台，凹深 1500，前缘通长玻璃栏板 1100 高；不得做成平齐玻璃幕墙。",
+      "右跨每层两扇通高玻璃窗（3500×2400，窗台 100），中间 200 宽竖框；玻璃后可见米色窗帘。",
+      "首层右跨为深灰横向肋卷帘车库门（约 6000×2700），左跨为深色墙面与内凹入口。",
+      "顶部为混凝土女儿墙 700 加 2200 高细密竖向金属格栅围屏，屋面为开放露台，无屋顶覆盖。",
+      "环境（街道、车辆、行道树、左右邻楼）不在还原范围，仅可作背景说明。",
+      "所有尺寸为比例估算；不可将估算值标注为实测或原图复原的侧背面。"
+    ],
+    "assumptions": [
+      "总进深取 12000，使每层约 150 ㎡ 一户，前起居后卧室、核心筒靠后部中央。",
+      "侧立面、背面、屋顶面及室内为连贯推断；观测面不得被推断修改。",
+      "侧窗 1500×1800 每层 2 扇、背窗 1800×1800 每层 4 扇为低置信推断计数。",
+      "首层左跨入户门 1200×2400 位于内凹处；卷帘门与首层地面齐平。",
+      "绿色植物以简化体块/半透明面表示，种植槽位于阳台栏板内侧与露台左侧。",
+      "屋面后部楼梯间低于围屏顶且退后 ≥5 m，避免改变正面轮廓。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "infer_plausible",
+      "preserve_circulation": true
+    }
+  },
+  "reviewer": {
+    "mode": "host_dedicated_read_only",
+    "provider": "litellm",
+    "model": "openai/deepseek-flash"
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "The only observed source view is the street-front elevation; side, rear, roof surface and interior are inferred and are not treated as source facts. Current front keeps the seven upper rows, three-pier/two-bay count, garage/entry positions and open roof terrace, but it changes the left-bay balconies into shallow white-framed units, shortens the roof screen, and renders the right-bay glazing as uniform opaque dark green without the visible beige curtain/inner layer. The current ground-floor blank band and door heights are hard to verify from the low-resolution front view, so they are not ranked above these clear mismatches. No source evidence supports adding a canopy, lower annex or pitched roof.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "The left bay reads as stacked shallow white-framed window/balcony boxes, not the source's 4650-wide, 1500-deep full-width balcony recesses with transparent glass balustrades and shadowed interiors.",
+      "action": "Deepen each left-bay opening to 1500, remove window-like white framing/mullions, keep one wide opening per floor, add a 1100 frameless glass rail with a thin top rail at the front edge, dark recessed interior and planters inside; retain the seven rows and slab bands."
+    },
+    {
+      "priority": 2,
+      "view": "oblique",
+      "problem": "The rooftop screen is a shallow black railing, whereas the source's silhouette is defined by a 700 concrete parapet plus a 2200-high fine vertical metal screen around the terrace.",
+      "action": "Raise the perimeter grille to 2200 above the parapet with thin vertical bars and top/bottom rails, keep the roof open with planters, and do not add a solid roof or canopy."
+    },
+    {
+      "priority": 3,
+      "view": "front",
+      "problem": "The right-bay glazing is uniformly opaque dark green; the source shows reflective/transparent floor-to-ceiling glass with beige curtains and a lighter inner layer visible behind it.",
+      "action": "Set the glass to 2400 high with a 100 sill and thin dark frames/200 mullion, add semi-transparent beige curtain planes behind the glass, and retain two windows per floor."
+    }
+  ],
+  "keep": [
+    "The seven upper residential rows and three-pier/two-bay front composition are present and correctly ordered.",
+    "The right-bay garage shutter and left-bay recessed entry occupy the correct first-floor positions.",
+    "The open roof terrace and planter boxes are present and should not be replaced by a solid roof or canopy.",
+    "The inferred side and rear window grids are internally coherent with the front structural grid."
+  ],
+  "model_revisions": {
+    "apt964f3": 6
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-ce213807e7.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "apt964f3": 6
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "apt964f3",
+      "camera": {
+        "eye_m": [
+          6.6,
+          -81.0,
+          13.8108
+        ],
+        "target_m": [
+          6.6,
+          6.0,
+          13.8108
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-16e97761ca.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "apt964f3": 6
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "apt964f3",
+      "camera": {
+        "eye_m": [
+          6.6,
+          93.0,
+          13.8108
+        ],
+        "target_m": [
+          6.6,
+          6.0,
+          13.8108
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-27339ab162.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "apt964f3": 6
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "apt964f3",
+      "camera": {
+        "eye_m": [
+          -79.0,
+          6.0,
+          13.8108
+        ],
+        "target_m": [
+          6.6,
+          6.0,
+          13.8108
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-a97cb8a664.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "apt964f3": 6
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "apt964f3",
+      "camera": {
+        "eye_m": [
+          92.2,
+          6.0,
+          13.8108
+        ],
+        "target_m": [
+          6.6,
+          6.0,
+          13.8108
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-298f4f80d0.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "apt964f3": 6
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "apt964f3",
+      "camera": {
+        "eye_m": [
+          6.6,
+          6.0,
+          98.78999999999999
+        ],
+        "target_m": [
+          6.6,
+          6.0,
+          13.27
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-0efaa25076.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "apt964f3": 6
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "apt964f3",
+      "camera": {
+        "eye_m": [
+          76.36,
+          -65.16,
+          61.35
+        ],
+        "target_m": [
+          6.6,
+          6.0,
+          13.8108
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [],
+  "source_view_coverage": {
+    "required": false,
+    "mode": "single_view_inference",
+    "observed_sources": [],
+    "paired_sources": []
+  },
+  "writer_verifications": {
+    "apt964f3": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 6,
+          "actual": 6
+        },
+        {
+          "check": "objects_total",
+          "expected": 12,
+          "actual": 12
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -7000.0,
+              -9000.0,
+              -250.0
+            ],
+            "max": [
+              20200.0,
+              21000.0,
+              26790.0
+            ],
+            "size": [
+              27200.0,
+              30000.0,
+              27040.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -7000,
+              -9000,
+              -250
+            ],
+            "max": [
+              20200,
+              21000,
+              26790
+            ],
+            "size": [
+              27200,
+              30000,
+              27040
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/6649b42845-image.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/6649b42845-image.png": "c6993923673c145ae16a3e749a7754c244712443c062227418ad58de73c7228d",
+    "outputs/renders/agent-view-front-ce213807e7.evidence.json": "882d4b37aee106cc27d6f867f58f546951ca31ec1652433de6b377105e6cea57",
+    "outputs/renders/agent-view-front-ce213807e7.png": "0ca9f9e2f5a0183a02bb825bf6e93f4e6eaff57103dd8d7712a3cd159f51360f",
+    "outputs/renders/agent-view-left-27339ab162.evidence.json": "35338710fdb4dfc8f9aa71f7e40e12280c37a1ef4dca6276859d409494023e99",
+    "outputs/renders/agent-view-left-27339ab162.png": "6c3414b9cb9339016f7d20116d0492d47c45345931a42f8b2544a0fec046385f",
+    "outputs/renders/agent-view-oblique-0efaa25076.evidence.json": "3a5523bfbd2acf34274d9831c86b673fd46a6dcf5d06e10ef2b13c1a5b0fe1cb",
+    "outputs/renders/agent-view-oblique-0efaa25076.png": "c60c140e1b4d5ee9e4301f6ef2283e107d6e69cc38b082528085cb243bdcb16e",
+    "outputs/renders/agent-view-rear-16e97761ca.evidence.json": "bf14f36e088b02b41bcbece3649de22b50451b64b6cec9a5d0d8616a5baec715",
+    "outputs/renders/agent-view-rear-16e97761ca.png": "5c8b3f390d72c1c6aaa5286a700757bd0293ea38196c6e94f9886c36b1a2b585",
+    "outputs/renders/agent-view-right-a97cb8a664.evidence.json": "98cdd7122f69eef4295c87a9608aba4115664dddc7d3b25044a2772030431e7a",
+    "outputs/renders/agent-view-right-a97cb8a664.png": "2adaa1c1bf4a70106057b61451537300283b2c2475544f04513fa6e17149fc9c",
+    "outputs/renders/agent-view-roof-298f4f80d0.evidence.json": "5df128e939601f8f818d5b7522b6e4aad54da78e6175ea27083aa98e1c8b1819",
+    "outputs/renders/agent-view-roof-298f4f80d0.png": "230cd9847d11b1632c28d716bb6bed2ce165897eddce03f9d8c831b7d62a509e",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "bce95c423ca069c34c9207b426c48fae69eef4ac1d3ca246b0e28914d0deb360"
+  }
+}

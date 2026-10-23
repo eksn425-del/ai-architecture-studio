@@ -27,9 +27,14 @@ def test_native_timeout_can_bound_high_reasoning_benchmarks(tmp_path, monkeypatc
     monkeypatch.setenv("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "1800")
     assert CodexAppServerRuntime(tmp_path).timeout_seconds == 1800
     assert CodexAppServerRuntime(tmp_path, timeout_seconds=60).timeout_seconds == 60
+    # r20 explicitly supports an unlimited local turn. This must not erase
+    # finite timeout validation or make negative/small values unlimited.
     monkeypatch.setenv("ARCH_STUDIO_CODEX_TIMEOUT_SECONDS", "0")
-    with pytest.raises(ValueError, match="between 30 and 3600"):
-        CodexAppServerRuntime(tmp_path)
+    assert CodexAppServerRuntime(tmp_path).timeout_seconds == 0
+    assert CodexAppServerRuntime(tmp_path, timeout_seconds=0).timeout_seconds == 0
+    for invalid in (-1, 1, 29, 3601):
+        with pytest.raises(ValueError, match="between 30 and 3600"):
+            CodexAppServerRuntime(tmp_path, timeout_seconds=invalid)
 
 
 def test_codex_app_server_turn_input_uses_local_image_wire_variant(tmp_path: Path):
@@ -74,6 +79,7 @@ def test_litellm_first_user_turn_contains_project_reference_image(tmp_path: Path
         assert len(image_parts) == 1
         assert image_parts[0]["image_url"]["url"].startswith("data:image/png;base64,")
         return SimpleNamespace(
+            model=kwargs["model"].split("/", 1)[-1],
             choices=[SimpleNamespace(message={"content": "已读取参考图。", "tool_calls": None})],
             usage={"prompt_tokens": 10, "completion_tokens": 4},
         )

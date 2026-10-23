@@ -57,7 +57,8 @@ def validate_project_ruby_source(script_id: str, ruby_source: str) -> str:
     match = _FORBIDDEN_SOURCE.search(ruby_source)
     if match:
         raise ValueError(
-            f"Ruby source contains a blocked host, reflection, whole-model, or process operation: {match.group(0)!r}. "
+            f"Ruby source contains a blocked host, reflection, whole-model, or process operation: {match.group(0)!r} "
+            f"at line {ruby_source.count(chr(10), 0, match.start()) + 1}. No geometry was attempted. "
             "The host already injects model and root (Sketchup::Group) and owns the transaction/save. "
             "Remove all active_model and start/commit/abort_operation calls, including conditional ones. "
             "Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly "
@@ -159,6 +160,15 @@ class ProjectRubyExecutor:
         if identity.get("active_context"):
             raise MCPCallError("Exit the active SketchUp group/component edit context before running project Ruby.")
         return identity
+
+    def verify_active_model(self) -> dict[str, Any]:
+        """Establish the owned identity before a read-only audit's race fence.
+
+        Unlike a blind GUID refresh this verifies native path, project, root and
+        revision when an autosave changed the token. Audits still reject changes
+        occurring after this baseline was established.
+        """
+        return self._assert_active_model()
 
     def refresh_active_model_snapshot(self) -> dict[str, Any]:
         """Refresh the per-turn GUID token after an existing MCP tool edits the model."""
@@ -473,7 +483,13 @@ class ProjectRubyExecutor:
         allowed_mutation_names: list[str] = []
         if mutation_paths is not None:
             if update_mode != "edit" or not isinstance(mutation_paths, list) or not 1 <= len(mutation_paths) <= 48:
-                raise ValueError("allowed_mutation_paths requires targeted edit mode and 1..48 explicit owned group paths.")
+                count = len(mutation_paths) if isinstance(mutation_paths, list) else "not a list"
+                raise ValueError(
+                    "allowed_mutation_paths requires targeted edit mode and 1..48 explicit owned group paths; "
+                    f"received mode={update_mode!r}, count={count}. No geometry was attempted. "
+                    "Use verified coherent scopes and preserve all unrelated geometry; do not broaden the "
+                    "scope or discard protected paths simply to fit the list."
+                )
             for index, parts in enumerate(mutation_paths):
                 if (not isinstance(parts, list) or not 1 <= len(parts) <= 8 or
                         any(not isinstance(part, str) or not part.strip() or len(part) > 200 for part in parts)):

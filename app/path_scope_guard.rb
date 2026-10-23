@@ -64,6 +64,34 @@ module KStudioPathScopeGuard
      children: children.sort_by { |e| c.entity_name(e) }.map { |e| branch(e, world, path + [c.entity_name(e)], paths, counter) }}
   end
 
+  # A staged approved build may name a new leaf before it exists. Resolve its
+  # exact location without inventing missing ancestors or accepting shared ones.
+  def absent_creation_paths(root, paths)
+    paths.filter_map do |path|
+      current = root
+      ancestors = [root]
+      missing = false
+      path.each_with_index do |name, index|
+        items = current.is_a?(Sketchup::Group) ? current.entities : current.definition.entities
+        children = items.select { |e| e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance) }
+        names = children.map { |e| KStudioNativeDeepFingerprint.entity_name(e) }
+        raise 'Ambiguous path ancestor children' unless names.uniq.length == names.length
+        child = children.find { |e| KStudioNativeDeepFingerprint.entity_name(e) == name }
+        if child.nil?
+          raise "Missing scope ancestor #{path.take(index + 1).join('/')}" unless index == path.length - 1
+          raise 'Creation requires existing unlocked unique ancestors' unless ancestors.all? { |a|
+            !a.locked? && a.definition.instances.length == 1
+          }
+          missing = true
+          break
+        end
+        current = child
+        ancestors << current
+      end
+      path if missing
+    end
+  end
+
   def capture(root, paths, phase: :before)
     paths!(paths)
     model = root.model
@@ -83,6 +111,20 @@ module KStudioPathScopeGuard
       paths!(keep_paths) unless keep_paths.empty?
       required_keep = keep_paths.map do |path|
         protected_node(KStudioProfessionalHelpers.inspect_named_owned_group(root, path, 0, 1, true))
+      end
+    elsif phase == :before
+      # No narrower HOST policy is active. The already-approved writer turn
+      # declares exact mutation paths; HOST readback verifies absent leaves and
+      # binds a transaction-local creation policy to this model and root. Reuse
+      # the stronger existing definition-graph fence, including loose geometry.
+      creations = absent_creation_paths(root, paths)
+      unless creations.empty?
+        creation_policy = {'status' => 'active', 'model_path' => model.path,
+          'root_pid' => root.persistent_id, 'allowed_paths' => paths,
+          'allowed_creation_paths' => creations,
+          'scope_contract' => KStudioPathScopeGraphGuard::CONTRACT}
+        snapshot = KStudioPathScopeGraphGuard.capture(root, paths, creation_policy, phase: phase)
+        return snapshot.merge(transaction_creation_policy: creation_policy)
       end
     end
     raise 'Exit edit context before path scope capture' unless model.active_path.nil?
@@ -128,6 +170,14 @@ module KStudioPathScopeGuard
   end
 
   def verify!(root, before, paths)
+    if before[:transaction_creation_policy]
+      policy_file = File.join(File.dirname(File.dirname(File.dirname(root.model.path))), 'runtime', 'active_edit_scope.json')
+      raise 'Host edit policy changed during creation' if File.file?(policy_file)
+      policy = before[:transaction_creation_policy]
+      after = KStudioPathScopeGraphGuard.capture(root, paths, policy, phase: :after)
+      after[:transaction_creation_policy] = policy
+      return compare!(before, after, paths)
+    end
     compare!(before, capture(root, paths, phase: :after), paths)
   end
 end

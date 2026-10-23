@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "current_stage": "finish",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "storey_height": {
+      "value": 3100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "ground_height": {
+      "value": 4200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_height": {
+      "value": 56900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "bay_width": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_width": {
+      "value": 18000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_depth": {
+      "value": 14400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "wall_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "slab_thickness": {
+      "value": 220,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "slab_inset": {
+      "value": 50,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "frame_projection": {
+      "value": 300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "glazing_recess": {
+      "value": 100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_floors": {
+      "value": 18,
+      "units": "count",
+      "provenance": "user_confirmed",
+      "source": "沿用现模18层；用户要求保留既有层数，非确认原建筑实测层数。"
+    },
+    "balcony_depth": {
+      "value": 2000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "balcony_back_right_x": {
+      "value": 16000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "balcony_return_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "railing_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "scope": {
+      "value": "街角路缘圆弧、轨道贴地与线端内收；建筑阳台绿化全部保留",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "最新用户直接执行请求"
+    },
+    "environment_scope": {
+      "value": "仅六个指定街道组；完成后停止",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "最新用户直接执行请求"
+    },
+    "curb_radius": {
+      "value": 4500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "foreground_radius": {
+      "value": 5000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "endpoint_inset": {
+      "value": 1800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "rail_vertical_delta": {
+      "value": -255,
+      "units": "mm",
+      "provenance": "observed",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    }
+  },
+  "systems": [
+    {
+      "id": "right_balcony_sample",
+      "stage": "representative_module",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "storey_height",
+        "bay_width",
+        "wall_thickness",
+        "slab_thickness",
+        "slab_inset",
+        "balcony_depth",
+        "balcony_back_right_x",
+        "balcony_return_thickness",
+        "railing_height"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "先读回存在性及实际共同坐标；叶路径不存在时停止该叶操作，不伪造成功。",
+        "先查旧浅色填板、透视和前景栏杆是否遮挡完整空腔，再修一格；原梁柱不改。",
+        "代表格只是内部验证，不增加用户审批轮。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled."
+    },
+    {
+      "id": "right_balcony_confirmed_peers",
+      "stage": "replication",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "scope",
+        "balcony_depth",
+        "balcony_return_thickness",
+        "railing_height"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "候选不是全量施工清单，只处理逐格确认仍有缺陷者。",
+        "复用通过的构造关系，不新增同名兄弟组或覆盖一套重复阳台；已正确深阳台保持。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled."
+    },
+    {
+      "id": "right_corner_location_check",
+      "stage": "variants",
+      "role": "balcony",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "scope",
+        "balcony_depth",
+        "balcony_return_thickness",
+        "railing_height"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "历史截图中的右侧可能包含主立面靠右两格；先对应原图与当前格架。",
+        "仅在确认属于本次问题阳台后修改；前面内退沿+Y，侧面内退沿-X。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled."
+    },
+    {
+      "id": "balcony_joint_finish",
+      "stage": "finish",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "slab_inset",
+        "railing_height"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "检查地面—侧墙—顶板连接、栏杆底部/扶手/端柱及背门窗。",
+        "检查实际侧后角楼板边，不允许普通楼板穿外墙饰面；保持现有植物独立且不与改后构件相交。",
+        "每次提交后按源图及六个规范视图接受独立审查，之后才可继续写入；本轮无几何写入。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified writer method kstudio.custom_owned_ruby: edit existing multi-plane loggia leaf geometry and glass guards. SAIE straight continuous-wall cutters do not fit this assembly. ADAI is disabled."
+    },
+    {
+      "id": "street_corner_tracks_endpoints",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "verified",
+      "depends_on": [
+        "curb_radius",
+        "foreground_radius",
+        "endpoint_inset",
+        "rail_vertical_delta"
+      ],
+      "target_paths": [
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "BUILDING_SIDEWALK"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "FAR_CORNER_PAVEMENT"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "FOREGROUND_PAVEMENT"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "CURB_FRONT"
+        ],
+        [
+          "ENVIRONMENT",
+          "TRACKS"
+        ],
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "front",
+        "left",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "先检查临楼代表圆弧，再完成同类转角。",
+        "保持全部建筑/阳台/绿化和原路面标线。",
+        "轨顶贴路面；线端全部在旧场地边界内。",
+        "当前六面及原图视角独立审查后停。"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "SAIE installed adapters support straight walls and rectangular openings, not horizontal arc paving or rail/wire transforms. ADAI is disabled. Use guarded unique owned groups."
+    },
+    {
+      "id": "street_wire_finish",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "verified",
+      "depends_on": [
+        "endpoint_inset"
+      ],
+      "target_paths": [
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "After reviewed r9, shorten wires to X-52000..46000 so orbit projection also stays inside the site.",
+        "Retain all buildings, loggias, vegetation, curved paving and tracks."
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "In-place transforms of existing contact wire leaves; installed SAIE straight walls/openings are incompatible and ADAI is disabled."
+    }
+  ],
+  "notes": [
+    "本次计划已保存，待局部范围批准；所有新修正系统pending，旧r6存在不代表视觉通过。",
+    "仅修改供给自有根，先建空父组再建子件，兄弟语义ID唯一；禁止全模型重建或外部访问。",
+    "后续若任何写入失败，先检查实际提交revision与读回，再决定重试。",
+    "已读qa/repair_history.json；r5侧阳台平移和补壳仍未解决全部横缝，不重复整批旧修法。",
+    "完成局部阳台后停；邻楼窗列、低翼露台等既有审查问题不并入此次范围。",
+    "r10 street scope complete. Current canonical and source-matched review pending. Stop geometry writes for user inspection. See qa/street_revision10.md.",
+    "Current r10 independent critic confirms curved curb, at-grade rail crossing and contained wire endpoints satisfy requested street intent. Overall NEEDS_FIX: existing building bay rhythm, low terraces, neighbor windows. Stop; no further writes."
+  ]
+}

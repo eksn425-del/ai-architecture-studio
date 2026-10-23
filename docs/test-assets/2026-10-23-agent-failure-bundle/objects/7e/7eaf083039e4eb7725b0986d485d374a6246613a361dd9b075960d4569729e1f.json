@@ -1,0 +1,745 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "single_view_inference",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "single_view_inference",
+    "primary_source": "inputs/reference/4e52d9a057-source-target.png",
+    "sources": [
+      {
+        "path": "inputs/reference/4e52d9a057-source-target.png",
+        "kind": "exterior_image",
+        "role": "SOURCE TARGET",
+        "provenance": "observed",
+        "notes": [
+          "本轮直接检查；1080×1200，单幅街角透视；同时显示主立面、右端面及局部屋面，不是多视角图集。"
+        ]
+      },
+      {
+        "path": "inputs/reference/3b597b9df4-06-round1-orbit-balcony-defects.png",
+        "kind": "exterior_image",
+        "role": "ISSUE LOCATION",
+        "provenance": "observed",
+        "notes": [
+          "本轮直接检查；1996×1248，单幅SketchUp界面截图；历史terraced_apartment revision6，仅定位横缝缺陷，不作目标几何。"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "原图沿街退台主立面，局部凹格与玻璃/实墙混合；靠右转角只作问题复核。"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "原图未见；沿用现模协调设计，本次不改。"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "左楼高低关系可见，最左端面受透视遮挡，细部未知，本次不改。"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "原图塔楼右端面有局部凹阳台；本次局部修正重点，具体缺陷格对应待现模核对。"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "只见平屋顶和分级露台边缘，完整平面未知；本次保持。"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "唯一原建筑透视视角；与历史模型角度不同，禁止逐像素迁移阳台位置。"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "无平面；室内不细分。"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供CAD或尺寸标注。"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "不推定户型、楼梯或核心筒原貌。"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "标准层高",
+        "value_mm": 3100,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "notes": [
+          "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+        ]
+      },
+      {
+        "name": "首层层高",
+        "value_mm": 4200,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "notes": [
+          "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+        ]
+      },
+      {
+        "name": "塔楼高度",
+        "value_mm": 56900,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "notes": [
+          "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+        ]
+      },
+      {
+        "name": "格架跨距",
+        "value_mm": 3600,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "notes": [
+          "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+        ]
+      }
+    ],
+    "hard_constraints": [
+      "只修塔楼右侧已确认问题阳台。",
+      "保持现有层数、格架、层高和其余部分。",
+      "侧墙、顶板、底板及玻璃栏杆必须连成完整凹空间。",
+      "完成后停止，交用户检查。",
+      "原图为唯一目标；历史模型图仅定位问题。"
+    ],
+    "assumptions": [
+      "真实深度未知，暂按1800–2000mm估算；200mm墙厚、1100mm栏杆均为建模参数。",
+      "未见侧后面沿用协调设计，不作为原图复原；本次不改。",
+      "候选清单不代表全部有缺陷；需逐格确认。",
+      "前立面靠右转角与右端面必须按同一格架和坐标对应，不能凭截图左右位置混同。"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "do_not_infer",
+      "preserve_circulation": true
+    },
+    "user_confirmed": [
+      "首版含左侧连楼、露台绿化、街道路口和轨道；右邻楼保留简化体块。",
+      "尺寸按图片比例估算，室内不细分。",
+      "本次仅把塔楼右侧横缝状阳台修成有明显凹深的阳台，补侧墙、顶板和玻璃栏杆。",
+      "保留现有层数、米色格架和其他部分，修完先停。"
+    ],
+    "observed": [
+      "原图高塔向左逐级退台，连接高低两段低楼；平屋面及种植边缘。",
+      "原图浅米色凸格架、内退玻璃与实墙混合，局部凹阳台有侧壁/上部遮阴。",
+      "历史截图及保存的r6图有若干阳台呈横缝；不据此认定所有阳台都无进深。"
+    ],
+    "design_scope": [
+      {
+        "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+        "requested_state": "仅将塔楼右侧仍呈横缝的既有阳台改为完整凹阳台：后退门窗，补齐两侧墙、相接底板和顶板、玻璃栏杆及扶手；保留现有楼层、米色格架和其余几何。"
+      }
+    ],
+    "source_comparison": {
+      "source_target_view_count": 1,
+      "issue_location_view_count": 1,
+      "all_attached_images_inspected": true,
+      "cross_view_contradiction": false,
+      "notes": [
+        "原图与模型截图摄像机不同、主体地标一致；缺陷属于模型对源图的偏差，不是两份目标图互相冲突。",
+        "无任务书、场地文件或URL；本次属于源图局部修正，不作场地或功能适配。"
+      ]
+    },
+    "current_model_evidence": {
+      "revision": 6,
+      "root_pid": 19,
+      "source_refs": [
+        "qa/visual_review.json",
+        "notes/construction_progress.json"
+      ],
+      "directly_inspected_images": [
+        "outputs/renders/agent-view-72504801f6.png",
+        "outputs/renders/agent-view-38939b336f.png"
+      ],
+      "quality_status": "needs_fix",
+      "notes": [
+        "旧审查未通过；一处完整深阳台不能证明其余格合格。",
+        "旧修复已有X16000后玻璃及墙/板，不能简单重复同一平移或覆加构件。",
+        "审查提及低翼和邻楼问题，超出本次局部请求，保持。"
+      ]
+    },
+    "model_verification": {
+      "identity_verified": true,
+      "blank_disposable_verified": true,
+      "geometry_written": true,
+      "notes": [
+        "这些布尔值只记录既有r1–r6历史读回：blank-disposable-20261022-173456、terraced_apartment、PID19。",
+        "本轮未连接实时模型、未写几何；下一次执行须复核相同模型根及revision。保存重开未确认。"
+      ]
+    },
+    "plan_turn": {
+      "geometry_written_this_turn": false,
+      "scope_approval": "pending",
+      "native_readback_this_turn": false
+    },
+    "module_verification": {
+      "status": "historical_native_readback_only; local_balcony_verification_pending",
+      "coordinate_system": "mm；X沿主立面向右，Y向建筑后部，Z向上；塔楼前左角(0,0,0)",
+      "bounds": {
+        "x_min": 14400,
+        "x_max": 18000,
+        "y_min": 0,
+        "y_max": 3600,
+        "z_min": 4200,
+        "z_max": 7300
+      },
+      "wall_planes": {
+        "front_y": 0,
+        "right_x": 18000,
+        "rear_y": 14400
+      },
+      "wall_thickness_mm": 200,
+      "wall_solid_ranges": {
+        "front_y": [
+          0,
+          200
+        ],
+        "right_x": [
+          17800,
+          18000
+        ]
+      },
+      "slab_thickness_mm": 220,
+      "slab_edges": {
+        "front_y": 50,
+        "right_x": 17950,
+        "rear_y": 14350
+      },
+      "slab_edge_inset_mm": 50,
+      "frame_outer_planes": {
+        "front_y": -300,
+        "right_x": 18300
+      },
+      "glazing_planes": {
+        "front_y": 100,
+        "right_x": 17900
+      },
+      "actual_native_bounds_mm": {
+        "sample_slab": {
+          "min": [
+            50,
+            50,
+            3980
+          ],
+          "max": [
+            17950,
+            14350,
+            4200
+          ]
+        },
+        "upper_slab": {
+          "min": [
+            50,
+            50,
+            53580
+          ],
+          "max": [
+            17950,
+            14350,
+            53800
+          ]
+        },
+        "sample_wall": {
+          "min": [
+            14400,
+            0,
+            4200
+          ],
+          "max": [
+            18000,
+            200,
+            7300
+          ]
+        }
+      },
+      "provenance": "observed",
+      "source_refs": [
+        "notes/execution_log.md",
+        "notes/facade_schedule.json (prior r4 record)",
+        "scripts/module.rb"
+      ],
+      "notes": [
+        "以上是旧版原生读回记录，不是本轮测量，也不是原图实测。普通楼板侧后角均内收50mm；执行时重测实际边线。",
+        "墙厚200mm只在既有代表墙得到旧记录支持；不可声称整栋幕墙均为200mm实体墙。",
+        "r5脚本侧阳台背玻璃移至X16000；另有旧栏杆X17970或新栏杆X17930，不能只新增重复构件。",
+        "本轮需在一格内同时检查后玻璃、原浅色填板、梁底、侧墙和栏杆遮挡，尚未通过。"
+      ]
+    },
+    "environment_scope": {
+      "previously_authorized": [
+        "露台绿化",
+        "画面内街口",
+        "轨道",
+        "接触线",
+        "简化右邻楼"
+      ],
+      "current_action": "全部保留，不新增或修订环境。",
+      "not_authorized_by_this_change": [
+        "车辆",
+        "人群",
+        "额外密植",
+        "背景城市扩展"
+      ]
+    },
+    "execution_turn": null
+  },
+  "reviewer": {
+    "reference_manifest": [
+      {
+        "source": "inputs/reference/4e52d9a057-source-target.png",
+        "role": "target_building",
+        "turn_id": "message:aefd9a3c58334ee0beecb5fd39759342",
+        "model_revisions": {},
+        "sha256": "ddca0a6a1ca0876f1e46f4d70d9bd3ed5a1a8339fdac6055776f1032cdaf425b"
+      },
+      {
+        "source": "inputs/reference/3b597b9df4-06-round1-orbit-balcony-defects.png",
+        "role": "defect_location",
+        "turn_id": "message:c4faa8bfe672492eaabd0d1cfa609726",
+        "model_revisions": {
+          "terraced_apartment": 6
+        },
+        "sha256": "b33b9de6d47c4b092e360e6b2b2505600926420755e45955bbfca3db8ccafc9f"
+      }
+    ],
+    "reference_manifest_fingerprint": "c53dcf49f63aecf00d4b8a0e0ddd1feb93c8fb9d738044c804ce1a67ff61e5b9",
+    "review_requirements": [
+      {
+        "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+        "relation": "unchanged",
+        "prior_requirement_id": "386b562e762f37a4c3c7be93",
+        "desired_state": "Articulate the source-visible tower and stepped-wing elevations with a pale projecting structural grid, recessed glazing, aligned floor and bay divisions, transparent street-level frontage and the darker lower facade zone.",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "model_revisions": {
+          "terraced_apartment": 8
+        },
+        "evidence": "SOURCE最高塔段主立面约6跨、右端面约5跨，CURRENT 9分别为5跨和4跨，整体分跨要求仍未解决。CURRENT 10、11已显示L11 j4和L09 j3的后退玻璃、侧返、顶面和玻璃栏杆，不能再认定这两格只是横缝；应保留已完成构件。两格与SOURCE的精确格位对应及隐藏连接仍不确定。批准范围仅为既有问题阳台的局部补齐，保留现有楼层、米色格架及其余几何，因此分跨修正不在本轮执行，整体旧要求不能据此退休。",
+        "status": "active",
+        "design_scope_version": 0,
+        "requirement_id": "b3f11bcbcd4058f78f9fd403"
+      },
+      {
+        "feature_id": "terraced_apartment/stepped_wing/terrace_assemblies",
+        "relation": "unchanged",
+        "prior_requirement_id": "205206da1fa0ad671a2613c2",
+        "desired_state": "Form the source-visible setback terraces with connected surfaces, perimeter edges, recessed outdoor bays and planting zones, including those above the low wing; keep terrace slabs clear of adjoining enclosure walls.",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "model_revisions": {
+          "terraced_apartment": 8
+        },
+        "evidence": "SOURCE低翼上方具有交错种植退台和嵌入体量的户外空间；CURRENT 9仍以外挑托盘、连续玻璃边和规则植物排列表达，空间与边缘组合尚不一致。CURRENT 7仅提供模型屋面布局，不能证明隐藏区域的源图保真；未能从截图确认隐藏板墙接缝。要求继续未解决，超出本轮塔楼右侧阳台批准范围。",
+        "status": "active",
+        "design_scope_version": 0,
+        "requirement_id": "4f64fe5894dbfc43ca5f1b87"
+      },
+      {
+        "feature_id": "terraced_apartment/right_neighbor/visible_envelope",
+        "relation": "unchanged",
+        "prior_requirement_id": "9e369f82e2abc11fb1caedd7",
+        "desired_state": "Add the source-visible neighboring building's repeated punched window rows, darker ground-floor openings and distinct vegetated far-right end-wall zone while preserving its position beside the tower.",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "model_revisions": {
+          "terraced_apartment": 8
+        },
+        "evidence": "CURRENT 9保留顶部小窗和深色底层开口，CURRENT 6、8证明最右端绿化墙存在，应保留。SOURCE可见窗组的高低变化和内部竖向细分，在CURRENT 9的重复长矩形洞口中仍未体现。要求继续未解决，邻楼不属于本轮批准修改范围。",
+        "status": "active",
+        "design_scope_version": 0,
+        "requirement_id": "4e67a503f526e058850b2fcc"
+      }
+    ],
+    "requirement_resolutions": [],
+    "approved_design_scope": {
+      "version": 1,
+      "approval_message_id": "message:fd13dc1a5a234f659bcb76bb6be849bf",
+      "plan_sha256": "177f8deb6e47a5a1b868b6f7437e11ad9b2e94696785a320c590e824b5246618",
+      "plan_text": "# 塔楼右侧凹阳台｜局部修正计划\n更新：2026-10-22；阶段：计划待确认。本轮仅更新记录，未修改模型或建模脚本。\n\n## 修改目标与范围\n用户目标：把塔楼右侧仍像横缝的几个阳台改为有明显进深的凹阳台，补齐侧墙、顶板和玻璃栏杆；保留现有层数、米色格架和其他部分，完成后停给用户检查。\n<design_scope>\n[\n  {\n    \"feature_id\": \"terraced_apartment/visible_facades/grid_and_glazing\",\n    \"requested_state\": \"仅将塔楼右侧仍呈横缝的既有阳台改为完整凹阳台：后退门窗，补齐两侧墙、相接底板和顶板、玻璃栏杆及扶手；保留现有楼层、米色格架和其余几何。\"\n  }\n]\n</design_scope>\n此数组仅列变化项；沿用既有 feature_id，不撤销原要求。此次局部范围待确认，先前首版批准不代替本次范围确认。\n\n## 图像核对与整体锚点\n- 已直接检查两张附件，各为单幅图：原建筑图是唯一 SOURCE TARGET；SketchUp 截图是 revision 6 历史问题定位，不能作为目标形体。另看了保存的 r6 原角度整体及斜俯视图。\n- 保真等级：single_view_inference。虽然有两份附件，只有一个原始建筑视角。可见部分按原图高保真还原；不可见侧后面属于协调推测，不称为源图复原。\n- 轮廓/屋顶：右端高塔向左多级退台，连接高低两段低楼；平屋顶、分级屋面与种植边缘。无已确认贯通中庭或巨洞。全部保持现状。\n- 围护/空隙：浅米色凸出格架内是玻璃、实墙和局部户外凹格。原图塔楼右端面约图像 x666..774、y294..746，局部凹格见侧壁、顶面遮阴或种植；不应把每个浅色板格都改为阳台。\n- 层数/交通：原先约18层、标准层3100mm、首层4200mm是估算后建模值，本次锁定既有层高、层数及标高。原图无可辨识外楼梯或平台连接；保持室内不细分和现有通行关系。\n- 历史截图与原图角度不同，不能逐像素套位置。r6局部仍呈短横缝，旧记录中“约2m深”不足以证明所有凹格外观正确。已完成的深阳台保留。\n\n## 事实、估算及定位\n- 用户确认：仅修塔楼右侧问题阳台；层数、米色格架及其余部分不动；改完先停。\n- 源图观察：部分阳台为格架内完整凹空间，有立体侧返和上部遮阴。玻璃栏杆的完整节点不清，由用户要求补齐。\n- 暂定估算：以现有3600mm网格和3100mm层高为约束，进深约1800–2000mm，侧墙约200mm，玻璃栏杆约1100mm高；均非源图实测，最终服从不移动格架及清晰凹入的视觉关系。\n- 现有侧阳台候选按脚本 k/j 为 (4,1),(7,3),(8,0),(11,2),(15,1),(5,3),(8,3),(11,3),(14,3)；k为零起始楼层索引，不是新增楼层。逐处核对后只修仍有缺陷者，不承诺九处全改。\n- 截图“右侧”也可能包括主立面靠右的转角格：TOWER_L09/FRONT_GLAZING_3、TOWER_L11/FRONT_GLAZING_4只作复核候选，须在现模及原图确认同一开口后才纳入；不扩大到左楼、退台翼或整片立面。\n\n## 先验证一格，再处理同类\n统一坐标：X沿主立面向右，Y向后，Z向上，mm；塔楼X0..18000、Y0..14400。\n- 沿用旧代表模块的共同基准：前墙Y0..200、右墙X17800..18000，墙厚200；普通板厚220，实测旧板边前Y50、右X17950、后Y14350，均较外墙面内收50。旧原生记录有样板Z3980..4200和高层板Z53580..53800；本轮未新测。\n- 局部代表格选 TOWER_L08/LOGGIA_0_DEPTH（Z25900..29000）。旧脚本背玻璃X16000，侧墙/顶板X16000..17900，地面X16000..17950。先核查旧构件，逐叶修改；不得再覆盖一套阳台。\n- 复核目标：后玻璃位于X约16000..16200；侧返连续接后围护与顶板；临空玻璃栏杆贴合地面并与扶手/端柱连接。普通楼板不穿外饰面；阳台开放边只保留源图支持的板边。\n- 若核定为前立面开口，使用相同局部法线转换为Y向内退，不能误把右端面坐标套到前立面。格架梁柱、层高与原板基准不移动。\n- 执行时先读回代表格和实际侧/后角板边，再用正侧近景及斜视验证完整凹深、开口净高、栏杆与顶板接缝；通过后仅处理确认同类。现有植物保持独立组，检查与新墙、顶板、栏杆及门口净空，发现需移动植物则另记范围，不擅自挪动。\n\n## 方法、保留与验收\n- 构造采用 schema 已列的 custom_owned_ruby，局部利用既有命名组；saie.wall_with_openings只适合连续实体墙开洞，不能直接修复本例既有格架内的异形叶构件；ADAI已禁用。不虚构提供方方法号，具体执行绑定须由执行阶段核验。\n- 既有根 terraced_apartment、PID19、同一 blank-disposable-20261022-173456；身份及r6记录来自历史读回，本轮没有实时模型接口，执行前重新核对，不新开模型、不全楼重建。\n- 按叶节点保护未改几何，不能把整个TOWER列为不可变同时修改其子件。保留米色柱梁、非目标玻璃、深色下部立面、楼板主体、屋顶、退台翼、左楼、邻楼及环境；其他审查问题不并入本次修正。\n- 环境独立：街口、轨道、接触线和露台绿化已获首版授权，本次全部保留；不新增车辆、人群或密植。\n- 后续脚本只访问所供自有根，先建空命名父组再在其entities内建子件；兄弟语义ID唯一。不得访问文件、进程、网络、反射、其他模型或全模型编辑/保存接口。\n- 每次提交后先完成原图对照与前/后/左/右/屋顶/斜视复核及独立审查，再决定是否继续写入。验收需既有格架不变、完整凹深清晰、侧墙/顶板接齐、玻璃栏杆不悬空或重叠；不能以已有深度参数代替视觉验收。\n- 完成本次阳台修正后即停，提供原角度与局部斜视给用户检查，不继续修邻楼或低翼。视觉未确定项：具体缺陷格的精确对应、隐藏后墙、真实凹深及栏杆固定节点。\n",
+      "features": [
+        {
+          "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+          "requested_state": "仅将塔楼右侧仍呈横缝的既有阳台改为完整凹阳台：后退门窗，补齐两侧墙、相接底板和顶板、玻璃栏杆及扶手；保留现有楼层、米色格架和其余几何。"
+        }
+      ],
+      "reference_manifest_fingerprint": "c53dcf49f63aecf00d4b8a0e0ddd1feb93c8fb9d738044c804ce1a67ff61e5b9",
+      "valid": true
+    },
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "latency_ms": 93859,
+    "input_tokens": 39978,
+    "output_tokens": 3016,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE仅有一个街角仰视视角：可见右侧高塔、向左递降并连接低翼的体量、浅米色凸出格架、后退玻璃及局部凹阳台、下部深色立面、种植退台，以及右邻楼的窗组和绿化端墙。CURRENT 9保留了这些主要构成；CURRENT 10、11已证明L11 j4和L09 j3具有后退玻璃、可见侧返、顶面及玻璃栏杆，不能继续沿用历史截图认定这两格仍是横缝。但整体仍存在以下源图保真差异。背面、隐藏板墙接缝、栏杆固定节点及两格与源图的精确对应均未获充分证明；截图中未见明确的新穿墙或悬空缺陷。",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "front",
+      "problem": "SOURCE塔楼最高段沿主立面可数约6跨、右端面约5跨；CURRENT 9分别为5跨和4跨，窗格明显更宽，改变了主要立面的节奏。两处凹阳台补齐并未解决这一既有差异。",
+      "action": "将可见两面的分跨差异保留为待修事项，目标为源图的6跨／5跨及相应窗组分段。本轮批准范围要求保留米色格架，不执行该项扩改；保留两处已补齐的凹阳台构件。"
+    },
+    {
+      "priority": 2,
+      "view": "source-matched",
+      "problem": "SOURCE低翼上方可见交错的种植退台、实体边缘及嵌入体量的户外空间；CURRENT 9仍主要呈现外挑托盘、连续玻璃边和整齐成排植物，退台与围护的关系过于简化。",
+      "action": "后续仅调整源图可见的退台边缘、凹入空间和种植区连接，保留正确的连接体量；隐藏接缝继续列为未核实。该项超出本轮阳台批准范围。"
+    },
+    {
+      "priority": 3,
+      "view": "front",
+      "problem": "SOURCE右邻楼的窗组具有高低变化和竖向细分；CURRENT 9的小顶窗以下仍是重复的单一长矩形洞口，缺少源图可辨识的窗组层次。",
+      "action": "后续局部修正邻楼可见窗组的高度组合及内部竖向分隔，保留顶部小窗、深色底层开口和最右端绿化墙。该项超出本轮批准范围。"
+    }
+  ],
+  "keep": [
+    "浅米色格架的凸出层次与下部深色立面分区。",
+    "L11 j4、L09 j3已形成的后退玻璃、侧返、遮阴顶面及临空玻璃栏杆。",
+    "右邻楼顶部小窗、深色底层开口和最右端绿化墙的位置。"
+  ],
+  "model_revisions": {
+    "terraced_apartment": 8
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-44e029f0d3.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 8
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -3.0,
+          -355.4,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-1891a701df.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 8
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -3.0,
+          326.9,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-d0a9a80552.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 8
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -368.4,
+          -14.25,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-03d13bc1a3.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 8
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          362.4,
+          -14.25,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-51445717bd.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 8
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -3.0,
+          -14.25,
+          362.604
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          29.852
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-034f419baf.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 8
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          295.87199999999996,
+          -288.87199999999996,
+          205.356
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-2d814f2898.png",
+      "label": "r8原图方向全景：两处靠右问题格已补齐，其他部分保持",
+      "model_revisions": {
+        "terraced_apartment": 8
+      }
+    },
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-528d8e2d9e.png",
+      "label": "r8原样板阳台L11 j4当前近景",
+      "model_revisions": {
+        "terraced_apartment": 8
+      }
+    },
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-97da2d777e.png",
+      "label": "r8两处目标凹阳台同框近景：上L11 j4、下L09 j3",
+      "model_revisions": {
+        "terraced_apartment": 8
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": false,
+    "mode": "single_view_inference",
+    "observed_sources": [],
+    "paired_sources": []
+  },
+  "writer_verifications": {
+    "terraced_apartment": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 8,
+          "actual": 8
+        },
+        {
+          "check": "objects_total",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -66000.0,
+              -53000.0,
+              -500.0
+            ],
+            "max": [
+              60000.0,
+              24500.0,
+              60204.0
+            ],
+            "size": [
+              126000.0,
+              77500.0,
+              60704.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -66000,
+              -53000,
+              -500
+            ],
+            "max": [
+              60000,
+              24500,
+              60204
+            ],
+            "size": [
+              126000,
+              77500,
+              60704
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/3b597b9df4-06-round1-orbit-balcony-defects.png",
+    "inputs/reference/4e52d9a057-source-target.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/3b597b9df4-06-round1-orbit-balcony-defects.png": "b33b9de6d47c4b092e360e6b2b2505600926420755e45955bbfca3db8ccafc9f",
+    "inputs/reference/4e52d9a057-source-target.png": "ddca0a6a1ca0876f1e46f4d70d9bd3ed5a1a8339fdac6055776f1032cdaf425b",
+    "outputs/renders/agent-view-2d814f2898.evidence.json": "4ec87743797f9ef0b6f84fb3263b0c3f934a5600f60ad7da8f093627372317be",
+    "outputs/renders/agent-view-2d814f2898.png": "3c6fbb35fa67415a185e6b793af5897b6635391ffbbc172367616a77344d4765",
+    "outputs/renders/agent-view-528d8e2d9e.evidence.json": "23d32c7439845fb971d52635070c717a1b1dff2f97c8cce82f14835662678608",
+    "outputs/renders/agent-view-528d8e2d9e.png": "3407924e4e146024b9f18c9c670815bdd1e8c8d6469526b96015dd737bc4e410",
+    "outputs/renders/agent-view-97da2d777e.evidence.json": "16a981759de3f25a5fe98f3f64aa44270a64ae827289ce521b76b84bdcd4a6dc",
+    "outputs/renders/agent-view-97da2d777e.png": "cec9c7a6d0071fad7ffef2c54c7ca2a9a63a9f5e33033a86f013aa67d7e42d7b",
+    "outputs/renders/agent-view-front-44e029f0d3.evidence.json": "0c4ea777e65fa433cf3634873d8bf44f93ea7f138a4098bf2232c9b88c2f70c0",
+    "outputs/renders/agent-view-front-44e029f0d3.png": "48af179cc2261ae48a971424a436d966a4b18e66a4d4ffc6e9ae84f64464c3b3",
+    "outputs/renders/agent-view-left-d0a9a80552.evidence.json": "b1de4908b460f1acf7fe7802c79507cfd5c8c63fc1bfac8039654e8adec6f931",
+    "outputs/renders/agent-view-left-d0a9a80552.png": "4cee8537d84b38ae87d99d95d59247548158528791c26c1ef7935bd5969aebba",
+    "outputs/renders/agent-view-oblique-034f419baf.evidence.json": "aaa167efd6c1c76b6eb66c8bf441baae88c238807528c7189542d555a0761096",
+    "outputs/renders/agent-view-oblique-034f419baf.png": "486b2c24ebf9afe0caccdedea78b297358fae7787a76a7941d88802793ee5a64",
+    "outputs/renders/agent-view-rear-1891a701df.evidence.json": "0269a4d29e9e40dbed4280c3c2622b4571d403812c3c59882e835976630e345a",
+    "outputs/renders/agent-view-rear-1891a701df.png": "f2a4a844fe9141bf6202214842abed672bb9163e7d69e3659f837efd9c194d0b",
+    "outputs/renders/agent-view-right-03d13bc1a3.evidence.json": "cee88f1105ef222789685ad30dc463f9720a744e0e04dd5c8112829d86f70f1e",
+    "outputs/renders/agent-view-right-03d13bc1a3.png": "9f92fd477c0972d7ce0acfafccc6b6fa56376e0ff407968a9ea00b40727ef69e",
+    "outputs/renders/agent-view-roof-51445717bd.evidence.json": "a32619b81ef76d75cceb46bef682476382937cb45892030313db96b533ea18ec",
+    "outputs/renders/agent-view-roof-51445717bd.png": "9257fb7d234e4839bc0b158cc4a0b70d9ca7ef14b25a272fa2c76df1e72d33e1",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "3063f4ea2bc7df8f9dd4bfbd098a3b8b463100af1a0322ed87e19bed0f8bcee3"
+  }
+}
