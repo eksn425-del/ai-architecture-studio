@@ -203,7 +203,11 @@ class AgentToolSurface:
         # One primary build plus two corrections; an existing model gets two
         # corrections. A committed write consumes budget even if capture fails.
         stage, write_limit = geometry_stage_limit(bool(executor and executor.ruby_state))
-        progress = ReviewProgress()
+        from .review_progress import current_progress_context_fingerprint
+        progress = ReviewProgress(
+            resolved_project_dir / "runtime" / "review_progress.json",
+            context_fingerprint=current_progress_context_fingerprint(resolved_project_dir),
+        )
         existing_review = (
             load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
             if executor and tool_profile == "reconstruction_coding" and executor.ruby_state else None
@@ -217,9 +221,13 @@ class AgentToolSurface:
             "review_reused": existing_review is not None,
             "preservation": None,
             "repair_memory": None,
+            "no_progress": progress.blocked,
+            "advisory_stagnation": progress.advisory_stagnation,
         }
 
         progress.observe(existing_review)
+        quality_state["no_progress"] = progress.blocked
+        quality_state["advisory_stagnation"] = progress.advisory_stagnation
 
         def preserve_snapshot(script_id: str, paths: Any) -> dict[str, dict[str, Any]]:
             if executor is None:
@@ -263,7 +271,7 @@ class AgentToolSurface:
             return snapshots
 
         def dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
-            nonlocal writes
+            nonlocal writes, progress
             if research_dispatch and name in RESEARCH_TOOL_NAMES:
                 return research_dispatch(name, arguments)
             if workspace_tools_enabled and name in {"workspace_read", "workspace_write", "workspace_search", "workspace_update_strategy"}:
@@ -278,12 +286,24 @@ class AgentToolSurface:
                     raise MCPCallError("Visual review requires a verified disposable model and committed writer state.")
                 receipt = submit_visual_review(resolved_project_dir, executor.ruby_state, arguments)
                 finalized_repair = finalize_latest_repair_attempt(resolved_project_dir, receipt)
+                live_progress_context = current_progress_context_fingerprint(resolved_project_dir)
+                if live_progress_context != progress.context:
+                    progress = ReviewProgress(
+                        resolved_project_dir / "runtime" / "review_progress.json",
+                        context_fingerprint=live_progress_context,
+                    )
                 progress.observe(receipt)
                 quality_state["no_progress"] = progress.blocked
+                quality_state["advisory_stagnation"] = progress.advisory_stagnation
                 quality_state["review"] = receipt
                 quality_state["review_reused"] = False
                 quality_state["repair_memory"] = finalized_repair
-                payload = {"visual_review": receipt}
+                payload = {"visual_review": receipt, "review_progress": {
+                    "blocked": progress.blocked,
+                    "advisory_stagnation": progress.advisory_stagnation,
+                    "reason": progress.reason,
+                    "note": "Repeated requirements alone do not prove unchanged geometry. Compare current host readback before another repair; do not infer progress from changed wording or unvalidated measurements.",
+                }}
                 if finalized_repair is not None:
                     payload["repair_memory"] = finalized_repair
                 return {
@@ -299,14 +319,30 @@ class AgentToolSurface:
             bounded = executor is not None and tool_profile == "reconstruction_coding" and name in {
                 "sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}
             # Never let a source/viewport mutation after prepare bypass review. This
-            # is revalidated only for inherited receipts; fresh reviews use the
-            # existing current-revision write fence below.
+            # is revalidated for inherited evidence; intent is revalidated for
+            # both inherited and freshly submitted independent reviews.
+            if bounded and quality_state.get("review"):
+                from .review_context import current_review_context_fingerprint
+                stored_context = (quality_state["review"].get("reviewer") or {}).get("review_context_fingerprint")
+                if stored_context and stored_context != current_review_context_fingerprint(resolved_project_dir):
+                    quality_state["review"] = None
+                    quality_state["review_reused"] = False
+                    raise MCPCallError("User intent or source scope changed after review; obtain a current review before writing.")
             if bounded and quality_state.get("review_reused"):
                 live_review = load_current_independent_visual_review(resolved_project_dir, executor.ruby_state)
                 if live_review != quality_state.get("review"):
                     quality_state["review"] = None
                     quality_state["review_reused"] = False
             before = {key: state.get("revision", 0) for key, state in executor.ruby_state.items()} if bounded else {}
+            if bounded:
+                live_progress_context = current_progress_context_fingerprint(resolved_project_dir)
+                if live_progress_context != progress.context:
+                    progress = ReviewProgress(
+                        resolved_project_dir / "runtime" / "review_progress.json",
+                        context_fingerprint=live_progress_context,
+                    )
+                    quality_state["no_progress"] = progress.blocked
+                    quality_state["advisory_stagnation"] = progress.advisory_stagnation
             if bounded and ((write_limit and writes >= write_limit) or progress.blocked):
                 reason = "no_progress" if progress.blocked else "budget_exhausted"
                 quality_state["stop_reason"] = reason

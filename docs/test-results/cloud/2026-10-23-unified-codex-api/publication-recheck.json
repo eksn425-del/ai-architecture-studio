@@ -1,0 +1,107 @@
+{
+  "date_utc": "2026-10-23",
+  "base_sha": "a85c62c0f664ad2effc32a49ff4eda885afab4a5",
+  "archive_sha256": "b1ec191d953e02eceddf52dc1840c66fe0ba707ca1b47d17e1808bd5142b8ecd",
+  "archive_manifest_entries_verified": 142,
+  "candidate_source_files_byte_verified_after_patch": 71,
+  "publication_scope": "Independent branch code/setup/handoff only; no main merge/deploy/paid inference or historical geometry restart.",
+  "historical_results": {
+    "python_passed": 1375,
+    "python_skipped": 9,
+    "node_passed": 118,
+    "fresh": false
+  },
+  "initial_setup_attempt": {
+    "status": "INTERRUPTED",
+    "reason": "Only base requirements installed; missing optional LiteLLM caused HTTP configuration 409. Installed declared provider requirements and restarted. Not a completed full run."
+  },
+  "fresh_full_run": {
+    "command": "python -m pytest -q",
+    "passed": 1351,
+    "failed": 18,
+    "skipped": 15,
+    "duration_seconds": 564.26,
+    "exit_code": 1,
+    "failed_test_ids": [
+      "tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[deepseek/deepseek-flash-https://api.deepseek.com-api.deepseek.com-low]",
+      "tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[zai/glm-5.3-flash-https://open.bigmodel.cn/api/paas/v4-open.bigmodel.cn-low]",
+      "tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[zai/glm-5.3-flash-https://api.z.ai/api/paas/v4-api.z.ai-low]",
+      "tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[zai/glm-5.3-flash-https://open.bigmodel.cn/api/paas/v4-open.bigmodel.cn-high]",
+      "tests/test_deepseek_wire.py::test_api_wire_keeps_images_low_effort_and_reasoning[zai/glm-5.3-flash-https://open.bigmodel.cn/api/paas/v4-open.bigmodel.cn-max]",
+      "tests/test_demo.py::test_model_identity_is_independent_of_checkpoint_root_guard",
+      "tests/test_demo.py::test_unsaved_model_identity_reports_connection_separately_from_binding",
+      "tests/test_demo.py::test_unsaved_model_is_saved_to_recovery_before_open_and_async_errors_surface",
+      "tests/test_demo.py::test_checkpoint_guard_checks_owned_root_before_save",
+      "tests/test_quality_lift.py::test_committed_revision_survives_interrupted_capture",
+      "tests/test_quality_lift.py::test_source_archive_failure_preserves_committed_revision_and_stops_readback",
+      "tests/test_quality_lift.py::test_capture_guid_refresh_keeps_next_owned_inspection_working",
+      "tests/test_quality_lift.py::test_capture_refresh_still_rejects_a_different_document",
+      "tests/test_simulated_api_usage.py::test_actual_http_tool_pipeline_and_compaction",
+      "tests/test_simulated_api_usage.py::test_actual_http_error_does_not_retry",
+      "tests/test_simulated_api_usage.py::test_failed_tool_then_explicit_scripted_repair",
+      "tests/test_simulated_api_usage.py::test_changed_instruction_and_source_dedup_on_wire",
+      "tests/test_simulated_api_usage.py::test_real_sse_transport_parses_tool_and_usage"
+    ],
+    "causes": [
+      "Missing socksio needed by configured cloud SOCKS proxy.",
+      "Current LiteLLM import path needed optional mcp dependency.",
+      "Eight tests used default generated-script directory under read-only home instead of supported writable ARCHFLOW_GENERATED_SCRIPT_DIR."
+    ],
+    "raw_logs_published": false
+  },
+  "fixes": {
+    "application_code_changes_after_archive_restore": false,
+    "requirements_model_providers": [
+      "litellm[mcp]>=1.80,<2",
+      "httpx[socks]>=0.28,<1"
+    ],
+    "test_environment": {
+      "ARCHFLOW_GENERATED_SCRIPT_DIR": "<writable task-scoped generated-scripts directory>",
+      "LITELLM_LOCAL_MODEL_COST_MAP": "True"
+    },
+    "sandbox_or_proxy_protections_disabled": false
+  },
+  "failed_test_recheck": {
+    "command": "python -m pytest -q <all 18 failed node IDs> tests/test_deepseek_wire.py",
+    "passed": 29,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 27.14,
+    "exit_code": 0,
+    "note": "Includes all prior failures and full wire tests, including previous optional-import skips. This is not a new full-suite run."
+  },
+  "fresh_node": {
+    "command": "node --test tests/test_*.js",
+    "passed": 118,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0
+  },
+  "pip_check": "PASS: No broken requirements found.",
+  "compileall": "PASS: python -m compileall -q app scripts tests",
+  "git_diff_check": "PASS",
+  "dependency_versions": {
+    "litellm": "1.106.2",
+    "mcp": "2.3.0",
+    "httpx": "0.28.1",
+    "socksio": "1.0.0",
+    "pytest": "8.4.2",
+    "fastapi": "0.161.1",
+    "pydantic": "2.14.1"
+  },
+  "upstream_real_model_calls": "NOT_RUN: no new upstream real or paid model calls; controlled Blender fixtures are not real inference.",
+  "fresh_full_all_green_claim": false,
+  "verified_unchanged_frozen_files": 63,
+  "postfix_changed_files": [
+    "requirements-model-providers.txt",
+    "docs/KSTUDIO_CODEX_RETEST_HANDOFF_2026-10-23.md"
+  ],
+  "final_provider_security_recheck": {
+    "command": "python -m pytest -q tests/test_codex_provider.py tests/test_unified_provider_security_review.py tests/test_codex_responses_selection.py",
+    "passed": 57,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 5.36,
+    "exit_code": 0
+  }
+}

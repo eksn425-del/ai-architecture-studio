@@ -1,0 +1,17 @@
+{
+  "simulation": true,
+  "model_quality_test": false,
+  "paid_inference": false,
+  "usage_is_fixture_not_billing": true,
+  "endpoint": "http://127.0.0.1:39937/v1",
+  "boundary": "real CodexAppServerRuntime._run_turn, not public respond()",
+  "public_respond_limitation": "_prepare_home requires auth.json and discards custom model_provider/model_providers config",
+  "official_config_reference": "https://developers.openai.com/codex/config-reference/",
+  "version": "codex-cli 0.163.0",
+  "passed": false,
+  "error": "NativeAgentUnavailable: Codex thread/start failed: error creating thread: failed to load AGENTS.md instructions for environment `local`: fs sandbox helper failed with status exit status: 1: error building bubblewrap command: app-server socket directory must be a user-owned directory with mode 0700",
+  "request_count": 0,
+  "total_request_body_bytes": 0,
+  "tool_dispatch_count": 0,
+  "endpoint_verified_before_turn": true
+}

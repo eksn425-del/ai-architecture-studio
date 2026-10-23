@@ -1,0 +1,60 @@
+{
+  "base_commit": "a85c62c0f664ad2effc32a49ff4eda885afab4a5",
+  "candidate_branch": "fix/cloud-agent-contracts-20261023",
+  "scope": "cloud-only; no desktop; no paid inference; no main merge/deployment",
+  "provider_calls": 0,
+  "full_suite": {
+    "baseline": {
+      "passed": 1200,
+      "failed": 0,
+      "skipped": 9,
+      "skip_reasons": [
+        "Native Ruby optional; offline Ruby WASM contract may be run separately",
+        "System Ruby optional; real SketchUp smoke is a separate Windows gate",
+        "Windows PowerShell 5.1 parser regression",
+        "Windows drive-path spelling needs a real Windows filesystem.",
+        "could not import 'ddgs': No module named 'ddgs'",
+        "real Windows DPAPI required"
+      ]
+    },
+    "candidate": {
+      "passed": 1253,
+      "failed": 0,
+      "skipped": 9,
+      "skip_reasons": [
+        "Native Ruby optional; offline Ruby WASM contract may be run separately",
+        "System Ruby optional; real SketchUp smoke is a separate Windows gate",
+        "Windows PowerShell 5.1 parser regression",
+        "Windows drive-path spelling needs a real Windows filesystem.",
+        "could not import 'ddgs': No module named 'ddgs'",
+        "real Windows DPAPI required"
+      ]
+    }
+  },
+  "new_failing_test_ids": [],
+  "focused_new_contracts": {
+    "passed": 50,
+    "failed": 0
+  },
+  "javascript": {
+    "passed": 114,
+    "failed": 0,
+    "files": 9
+  },
+  "native_blender": {
+    "version": "4.3.2",
+    "passed": true,
+    "fixture_objects": 74,
+    "modified_objects": 6,
+    "preserved_objects": 68,
+    "independent_reopen": true,
+    "scripted_review": true
+  },
+  "unverified": [
+    "real_provider_quality",
+    "real_provider_cost",
+    "SketchUp",
+    "source_photo_fidelity",
+    "automatic_SU_geometry_grounded_convergence"
+  ]
+}

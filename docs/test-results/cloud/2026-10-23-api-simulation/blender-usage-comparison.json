@@ -1,0 +1,38 @@
+{
+  "final_summary": {
+    "http_requests": 13,
+    "wire_body_bytes": 3785029,
+    "text_json_bytes": 1512939,
+    "estimated_text_tokens": 378241,
+    "repeated_exact_message_text_bytes": 1209904,
+    "image_attachment_count": 11,
+    "image_decoded_bytes": 1703509,
+    "peak_wire_body_bytes": 960169
+  },
+  "payload_component_bytes": {
+    "messages_text_json_bytes": 1429137,
+    "full_tool_schema_json_bytes": 82570
+  },
+  "correct_full_receipt_r4": {
+    "http_requests": 13,
+    "wire_body_bytes": 4579352,
+    "text_json_bytes": 2307262,
+    "estimated_text_tokens": 576821,
+    "repeated_exact_message_text_bytes": 1869038,
+    "image_attachment_count": 11,
+    "image_decoded_bytes": 1703509,
+    "peak_wire_body_bytes": 1093289
+  },
+  "delta_from_r4": {
+    "http_requests": 0,
+    "wire_body_bytes": -794323,
+    "text_json_bytes": -794323,
+    "estimated_text_tokens": -198580,
+    "repeated_exact_message_text_bytes": -659134,
+    "image_attachment_count": 0,
+    "image_decoded_bytes": 0,
+    "peak_wire_body_bytes": -133120
+  },
+  "text_json_reduction_percent": 34.427,
+  "wire_reduction_percent": 17.346
+}

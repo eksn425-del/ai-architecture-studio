@@ -493,6 +493,11 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
     reference.parent.mkdir(parents=True)
     Image.new("RGB", (32, 24), "white").save(reference)
 
+    # Source roles are host-owned; the API Critic no longer guesses legacy roles.
+    (tmp_path / "state").mkdir(exist_ok=True)
+    (tmp_path / "state/project_context.json").write_text(json.dumps({"references": [{
+        "type": "image", "source": "inputs/reference/source.png", "evidence_role": "target_building"}]}))
+
     revisions = {"villa": 1}
     view_paths = {}
     render_dir = tmp_path / "outputs" / "renders"
@@ -631,6 +636,8 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
                         "<issue priority=\"1\" view=\"front\">problem: visible wall seam\n"
                         "action: patch shell only</issue>\n"
                         "<keep>balcony</keep>"
+                        '<review_requirements>[{"feature_id":"wall.seam","desired_state":"continuous shell",'
+                        '"source_ref":"inputs/reference/source.png","model_revisions":{"villa":1}}]</review_requirements>'
                     ),
                     "tool_calls": None,
                 })],

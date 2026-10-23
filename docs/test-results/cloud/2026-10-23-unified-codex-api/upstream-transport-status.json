@@ -1,0 +1,24 @@
+{
+  "codex": "/opt/codex/bin/codex",
+  "run": "/workspace/shared/kstudio-unification-transport/runs/20261023T084623Z",
+  "status": "config_characterized_only",
+  "base_url": "http://127.0.0.1:46395/v1",
+  "child_environment_keys": [
+    "CODEX_HOME",
+    "HOME",
+    "KSTUDIO_CODEX_API_KEY",
+    "LANG",
+    "PATH",
+    "TMPDIR"
+  ],
+  "initialize": {
+    "userAgent": "kstudio_transport_probe/0.163.0 (Debian 13.0.0; x86_64) unknown (kstudio_transport_probe; 1.0)",
+    "codexHome": "/workspace/shared/kstudio-unification-transport/runs/20261023T084623Z/home/.codex",
+    "platformFamily": "unix",
+    "platformOs": "linux"
+  },
+  "config_verified_before_thread": true,
+  "http_request_count": 0,
+  "responses_post_count": 0,
+  "safe_tool_call_count": 0
+}

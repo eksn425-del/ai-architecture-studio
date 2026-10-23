@@ -202,6 +202,7 @@ def _is_internal_user_message(message: dict[str, Any]) -> bool:
     text = _content_text(message.get("content")).lstrip()
     return (
         text.startswith("Visual readback from SketchUp tool ")
+        or text.startswith("Visual readback from tool ")
         or text.startswith("HOST QUALITY GATE:")
         or text.startswith("ACTIVE RECONSTRUCTION CHECKPOINT")
     )

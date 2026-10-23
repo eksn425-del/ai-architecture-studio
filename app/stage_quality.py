@@ -1,6 +1,7 @@
 """Optional execution counts and independent geometry convergence checks."""
-import json
 import os
+
+from .review_progress import ReviewProgress
 
 
 def execution_limits_enabled() -> bool:
@@ -29,27 +30,6 @@ def continuation_message(stage, writes, limit, reason='budget_exhausted'):
     return (f'{why}（{stage}: {writes}/{limit}）。当前候选模型已保留，质量尚未通过验收。'
             '停止几何写入，继续只读检查并列出剩余问题；下一步须明确修复范围并确认计划后再继续。'
             '不要换对象编号、项目或重建来绕过限制。')
-
-
-class ReviewProgress:
-    """Exact repeated issue sets across distinct revisions, not a similarity score."""
-    def __init__(self):
-        self.previous = None
-        self.revision = None
-        self.unchanged = 0
-        self.blocked = False
-
-    def observe(self, receipt):
-        if not isinstance(receipt, dict):
-            return
-        revision = json.dumps(receipt.get('model_revisions', {}), sort_keys=True)
-        if revision == self.revision:
-            return  # Re-reading one revision is not a failed correction.
-        issues = receipt.get('issues') or []
-        signature = sorted((str(i.get('view','')), ' '.join(str(i.get('problem','')).split())) for i in issues)
-        self.unchanged = self.unchanged + 1 if receipt.get('needs_fix') is True and signature and signature == self.previous else 0
-        self.previous, self.revision = signature, revision
-        self.blocked = self.unchanged >= 2
 
 
 def geometry_diagnostics(objects):

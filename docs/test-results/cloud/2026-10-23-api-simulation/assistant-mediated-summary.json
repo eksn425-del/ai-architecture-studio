@@ -1,0 +1,23 @@
+{
+  "mode": "assistant-mediated API; not autonomous LLM",
+  "paid_calls": 0,
+  "requests": {
+    "http_requests": 4,
+    "wire_body_bytes": 1232320,
+    "text_json_bytes": 454014,
+    "estimated_text_tokens": 113505,
+    "repeated_exact_message_text_bytes": 255280,
+    "image_attachment_count": 5,
+    "image_decoded_bytes": 583478,
+    "peak_wire_body_bytes": 915309
+  },
+  "before_revision": 2,
+  "after_revision": 3,
+  "untargeted_native_equal": true,
+  "changed_ids": [
+    "bay_0_0_rail",
+    "bay_0_1_rail"
+  ],
+  "source_photo_quality": "NOT_RUN",
+  "usage_is_mock_proxy": true
+}

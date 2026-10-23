@@ -121,3 +121,5 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 /* Keep dictation beside Send without adding another composer row. */
 #conversation-voice{margin-left:auto;flex-shrink:0;width:34px;height:34px;padding:0;font-size:18px;line-height:1}
 #conversation-voice + .send-button{margin-left:0}
+
+#model-settings-dialog{max-height:calc(100dvh - 32px);overflow-y:auto}#responses-acknowledgement{font-size:12px;line-height:1.65}#responses-compatible{width:16px;height:16px;margin:0 6px 0 0;padding:0;vertical-align:middle;accent-color:var(--accent)}

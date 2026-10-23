@@ -1,0 +1,346 @@
+{
+  "test_kind": "controlled scripted App Server subprocess + public Codex Responses router/runtime + actual Blender",
+  "route": {
+    "tier": "economy",
+    "provider": "codex-responses",
+    "model": "kstudio-controlled-fixture",
+    "reasoning_effort": "low",
+    "region": "user-configured (unverified)",
+    "agent_engine": "codex-app-server"
+  },
+  "checks": {
+    "public_router_selects_same_codex_runtime": true,
+    "explicit_api_config_without_login_auth": true,
+    "no_geometry_before_host_execution": true,
+    "all_seven_guard_attempts_denied": true,
+    "same_render_pixels_returned_to_scripted_app_server": true,
+    "native_receipts_and_hashed_topology_returned_to_scripted_app_server": true,
+    "full_raw_native_geometry_retained_in_runtime_events": true,
+    "target_height_and_color": true,
+    "six_lower_edges_preserved": true,
+    "all_68_keep_geometry_material_topology_preserved": true,
+    "native_save_reopen_and_independent_fresh_reopens": true,
+    "original_blend_immutable": true,
+    "source_reference_reaches_turn_input": true,
+    "provider_bound_thread_resume": true,
+    "synthetic_usage_turn_delta_not_historical_total": true,
+    "inspect_only_round_does_not_mutate_model": true
+  },
+  "turns": [
+    {
+      "label": "PLAN",
+      "host_execution_granted": false,
+      "thread_id": "controlled-thread-6fd490668dec45d0bc6d16548a7b266e",
+      "reply": "CONTROLLED_PLAN: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 100,
+      "output_tokens": 20,
+      "latency_ms": 617,
+      "tool_call_count": 0,
+      "failed_tool_calls": 0,
+      "turn_id": "controlled-turn-0eafd8cd0fad4b3ebeb6c785b4f5a74f",
+      "cancellation_requested": false
+    },
+    {
+      "label": "UNAPPROVED",
+      "host_execution_granted": false,
+      "thread_id": "controlled-thread-6fd490668dec45d0bc6d16548a7b266e",
+      "reply": "CONTROLLED_UNAPPROVED: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_apply_objects"
+        }
+      ],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 110,
+      "output_tokens": 20,
+      "latency_ms": 579,
+      "tool_call_count": 1,
+      "failed_tool_calls": 1,
+      "turn_id": "controlled-turn-60176f1c6c3348c981c3b6b530d940b2",
+      "cancellation_requested": false
+    },
+    {
+      "label": "BUILD",
+      "host_execution_granted": true,
+      "thread_id": "controlled-thread-a4e22439cb0e42c698b821de384425f9",
+      "reply": "CONTROLLED_BUILD: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_apply_objects"
+        },
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_inspect_scene"
+        }
+      ],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 120,
+      "output_tokens": 20,
+      "latency_ms": 10379,
+      "tool_call_count": 2,
+      "failed_tool_calls": 0,
+      "turn_id": "controlled-turn-b1e18845dce245f58c70c0c8c0163d32",
+      "cancellation_requested": false
+    },
+    {
+      "label": "EDIT",
+      "host_execution_granted": true,
+      "thread_id": "controlled-thread-a4e22439cb0e42c698b821de384425f9",
+      "reply": "CONTROLLED_EDIT: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_apply_objects"
+        },
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_inspect_scene"
+        },
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_render_scene"
+        }
+      ],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 180,
+      "output_tokens": 20,
+      "latency_ms": 53869,
+      "tool_call_count": 7,
+      "failed_tool_calls": 3,
+      "turn_id": "controlled-turn-397807e23ca84a93aba59c37b927fff1",
+      "cancellation_requested": false
+    },
+    {
+      "label": "STALE",
+      "host_execution_granted": true,
+      "thread_id": "controlled-thread-a4e22439cb0e42c698b821de384425f9",
+      "reply": "CONTROLLED_STALE: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_apply_objects"
+        }
+      ],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 110,
+      "output_tokens": 20,
+      "latency_ms": 150,
+      "tool_call_count": 1,
+      "failed_tool_calls": 1,
+      "turn_id": "controlled-turn-c92b9538639b425a89094e47ca9dd417",
+      "cancellation_requested": false
+    },
+    {
+      "label": "UNKNOWN",
+      "host_execution_granted": true,
+      "thread_id": "controlled-thread-a4e22439cb0e42c698b821de384425f9",
+      "reply": "CONTROLLED_UNKNOWN: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "execute_python"
+        }
+      ],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 110,
+      "output_tokens": 20,
+      "latency_ms": 172,
+      "tool_call_count": 1,
+      "failed_tool_calls": 1,
+      "turn_id": "controlled-turn-4a49852038064d0c8df914ea7bda5261",
+      "cancellation_requested": false
+    },
+    {
+      "label": "READ_ONLY",
+      "host_execution_granted": true,
+      "thread_id": "controlled-thread-a4e22439cb0e42c698b821de384425f9",
+      "reply": "CONTROLLED_READ_ONLY: scripted fixture; independent visual quality NOT_RUN.",
+      "status": "completed",
+      "tool_calls": [
+        {
+          "server": "sketchup_tool_surface",
+          "tool": "blender_inspect_scene"
+        }
+      ],
+      "model_name": "kstudio-controlled-fixture",
+      "reasoning_effort": "low",
+      "provider_name": "codex-responses",
+      "region": "user-configured (unverified)",
+      "input_tokens": 110,
+      "output_tokens": 20,
+      "latency_ms": 155,
+      "tool_call_count": 1,
+      "failed_tool_calls": 0,
+      "turn_id": "controlled-turn-3488274e347946e9a65bd9a323255883",
+      "cancellation_requested": false
+    }
+  ],
+  "native_wire_receipts": {
+    "build": {
+      "revision": 1,
+      "native_reopen": "PASS",
+      "geometry_objects": 74,
+      "raw_geometry_matches_native": true,
+      "wire_topology_omissions_sha_match_native": true
+    },
+    "read-build": {
+      "revision": 1,
+      "native_reopen": "PASS",
+      "geometry_objects": 74,
+      "raw_geometry_matches_native": true,
+      "wire_topology_omissions_sha_match_native": true
+    },
+    "edit-six": {
+      "revision": 2,
+      "native_reopen": "PASS",
+      "geometry_objects": 74,
+      "raw_geometry_matches_native": true,
+      "wire_topology_omissions_sha_match_native": true
+    },
+    "read-edit": {
+      "revision": 2,
+      "native_reopen": "PASS",
+      "geometry_objects": 74,
+      "raw_geometry_matches_native": true,
+      "wire_topology_omissions_sha_match_native": true
+    },
+    "final-inspect": {
+      "revision": 2,
+      "native_reopen": "PASS",
+      "geometry_objects": 74,
+      "raw_geometry_matches_native": true,
+      "wire_topology_omissions_sha_match_native": true
+    }
+  },
+  "raw_journal_receipt_count": 7,
+  "guard_denials": {
+    "foreign-turn-delete": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "Tool request does not belong to the active native turn."
+        }
+      ]
+    },
+    "hostile-add": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "Blender write outside host-approved edit scope / KEEP"
+        }
+      ]
+    },
+    "hostile-delete": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "Blender write outside host-approved edit scope / KEEP"
+        }
+      ]
+    },
+    "hostile-update": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "Blender write outside host-approved edit scope / KEEP"
+        }
+      ]
+    },
+    "stale-instruction": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "Blender edit contract is stale; host must rebind current intent and revision"
+        }
+      ]
+    },
+    "unapproved-build": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist."
+        }
+      ]
+    },
+    "unknown-tool": {
+      "success": false,
+      "contentItems": [
+        {
+          "type": "inputText",
+          "text": "The agent requested a tool that is not in this turn's active composed SketchUp tool allowlist."
+        }
+      ]
+    }
+  },
+  "native_render_path": "project/runtime/blender/0eef75ec86e2466bb820b28c2e51b781/view-front-b732d5a21e08.png",
+  "native_render_sha256": "ac06ff7e752f109399f63b237e2aafd2a6a92497aab9247fbb2f0fddcc4e2ae7",
+  "returned_image_sha256": [
+    "ac06ff7e752f109399f63b237e2aafd2a6a92497aab9247fbb2f0fddcc4e2ae7"
+  ],
+  "native_render_attachment_count": 1,
+  "operations": {
+    "native_revisions": [
+      1,
+      2
+    ],
+    "objects": 74,
+    "edited": 6,
+    "preserved": 68,
+    "tool_requests_at_transport": 14,
+    "runtime_tool_calls": 13,
+    "failed_runtime_tool_calls": 6,
+    "scripted_turns": 7
+  },
+  "usage": {
+    "input_tokens": 840,
+    "output_tokens": 140,
+    "basis": "DETERMINISTIC_FIXTURE_NUMBERS_NOT_TOKENIZER_OR_BILLING"
+  },
+  "upstream_codex_app_server": "NOT_RUN_BY_THIS_SCRIPT",
+  "responses_http_sse": "NOT_TESTED_BY_THIS_SCRIPT",
+  "paid_cost": "NOT_INCURRED",
+  "blender_version": "Blender 4.3.2",
+  "runtime_seconds": 70.27120292899781,
+  "limitations": [
+    "Only the App Server peer is scripted; production runtime and Blender are real. This is not actual Codex internal reasoning.",
+    "The fixture never contacts the configured .invalid URL and makes no HTTP inference request.",
+    "No autonomous planning, visual understanding, provider fidelity, provider billing or monetary savings demonstrated.",
+    "Host explicitly grants execution and exact allowed/KEEP IDs; natural-language authorization inference is not tested.",
+    "No independent LLM Critic, owner source reconstruction, SketchUp, browser GUI or user computer acceptance.",
+    "Independent fresh native reopens are host read-only checks, not Agent operations."
+  ]
+}

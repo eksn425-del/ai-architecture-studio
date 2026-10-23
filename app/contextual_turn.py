@@ -161,7 +161,7 @@ def interpret_turn(runtime, *, project: Path, session, request, context, model: 
     receipt={k:v for k,v in snap.items() if k not in {'plan_text','history'}}
     provider = ('explicit_button' if getattr(request,'approval_gesture','') else
                 'api_readonly_intent' if callable(getattr(runtime, 'read_only_intent', None)) else 'native_readonly_intent')
-    receipt.update({'attachment_role_interpretation':roles,'attachment_roles_changed':attachment_changed,'confirmation_required':raw['action']=='execute' and action!='execute','action':action,'interpretation':raw,'provider':provider,'execution_granted':action=='execute'})
+    receipt.update({'runtime_provider':getattr(runtime,'provider_name',''),'agent_engine':('codex-app-server' if hasattr(runtime,'_run_turn') else 'kstudio-api-loop'),'attachment_role_interpretation':roles,'attachment_roles_changed':attachment_changed,'confirmation_required':raw['action']=='execute' and action!='execute','action':action,'interpretation':raw,'provider':provider,'execution_granted':action=='execute'})
     if provider == 'api_readonly_intent':
         receipt['usage']={'input_tokens':result.input_tokens, 'output_tokens':result.output_tokens,
                           'model':result.model_name}
@@ -174,7 +174,9 @@ def resolve_host_action(router, *, project, session, request, context):
     """Interpret on the selected provider; the approval button needs no inference."""
     from .native_agent import CodexAppServerRuntime
     route=router.route(request.tier)
-    runtime=router.codex_runtime
+    runtime=getattr(router, "providers", {}).get(route.provider)
+    if route.provider == "codex-responses":
+        router.assert_codex_responses_budget_supported()
     # With no plan or model, there is nothing the host can authorize. Let the
     # selected Builder understand the original text/images once, in read-only
     # mode. This is a permission ceiling, not a semantic intent classification.
@@ -192,7 +194,7 @@ def resolve_host_action(router, *, project, session, request, context):
     has_pending=any(x['editable'] for x in attachment_snapshot(project,context))
     if request.agent_action in {'clarify','plan'} and not request.approval_gesture and not has_pending:
         return None
-    if request.approval_gesture or (route.provider=='codex-app-server' and isinstance(runtime,CodexAppServerRuntime)):
+    if request.approval_gesture or (route.provider in {'codex-app-server','codex-responses'} and isinstance(runtime,CodexAppServerRuntime)):
         return interpret_turn(runtime,project=project,session=session,request=request,context=context,
                               model=route.model,reasoning_effort=route.reasoning_effort)
     provider = getattr(router, 'providers', {}).get(route.provider)

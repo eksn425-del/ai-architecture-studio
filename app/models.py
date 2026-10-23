@@ -192,6 +192,7 @@ class AgentSession(Model):
     reasoning_effort: Literal["low", "medium", "high", "xhigh", "max", "provider-default"] = "low"
     routing_tier: Literal["economy", "premium"] = "economy"
     provider: str = "codex-app-server"
+    runtime_identity: str = ""
     region: str = "codex-managed (not exposed)"
     workflow_mode: Literal["architecture_design", "image_reconstruction"] = "architecture_design"
     reconstruction_state: Literal["idle", "clarifying", "planned", "building"] = "idle"

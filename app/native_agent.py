@@ -14,14 +14,13 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .agent_tools import AgentToolSurface
+from .codex_provider import (CodexResponsesProvider, API_KEY_ENV, api_environment,
+                             fingerprint, redact, selected_native_provider, provider_environment)
 from .reference_assets import discover_project_reference_images, reference_image_label
-from .reference_roles import (reference_manifest, role_labels, manifest_fingerprint,
-                              validate_review_requirements, load_review_history, active_requirements, requirement_states,
-                              validate_review_resolutions, load_approved_design_scope)
+from .reference_roles import reference_manifest, manifest_fingerprint
 from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, _toml_load
 from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_categories
-from .modeling_quality import (build_visual_critic_prompt, parse_visual_critique_response,
-                              validate_visual_review_views, validate_source_matched_pairs,
+from .modeling_quality import (validate_visual_review_views, validate_source_matched_pairs,
                               require_observed_source_view_pairs)
 from .reconstruction_evidence import load_reconstruction_evidence
 from .project_turn_budget import read_project_builder_usage
@@ -220,6 +219,26 @@ def dynamic_tool_response(output):
     return {'success':success,'contentItems':items}
 
 
+def native_tool_response(project_dir: Path, name: str, output: dict[str, Any]) -> dict[str, Any]:
+    """Same native receipts/images for either Codex login or explicit API transport."""
+    response = dynamic_tool_response(output)
+    if name.startswith("blender_"):
+        from .blender_wire_context import project_blender_tool_text
+        for item in response["contentItems"]:
+            if item.get("type") == "inputText":
+                item["text"] = project_blender_tool_text(name, item["text"])
+        if name == "blender_render_scene" and response["success"]:
+            from .blender_api_readback import blender_render_data_url
+            try:
+                pixels = blender_render_data_url(project_dir, output)
+            except (ValueError, OSError) as error:
+                return dynamic_tool_response({"success": False, "readback_error": str(error), "native_result": output})
+            response["contentItems"].append({"type": "inputText", "text":
+                f"CURRENT Blender render, scene revision {output['revision']}. Earlier-revision images are stale after a write; recapture before assessing changes."})
+            response["contentItems"].append({"type": "inputImage", "imageUrl": pixels})
+    return response
+
+
 class CodexAppServerRuntime:
     """Runs Codex app-server with project-local tools and an isolated writable workspace."""
 
@@ -227,7 +246,8 @@ class CodexAppServerRuntime:
                  model: str | None = None, timeout_seconds: int | None = None,
                  sketchup_mcp: ConfiguredSketchUpMCP | None = None,
                  home_root: Path | None = None,
-                 reasoning_effort: str | None = None):
+                 reasoning_effort: str | None = None,
+                 api_provider: CodexResponsesProvider | None = None):
         self.runtime_root = runtime_root.resolve()
         self.codex_executable = codex_executable or os.environ.get("CODEX_CLI_PATH") or shutil.which("codex")
         self.model = model or os.environ.get("ARCH_STUDIO_ECONOMY_MODEL", "gpt-6.1-sol")
@@ -266,7 +286,15 @@ class CodexAppServerRuntime:
         if configured_home is None:
             user_data = Path(os.environ.get("LOCALAPPDATA", Path.home() / ".local" / "share"))
             configured_home = user_data / "AI Architecture Studio" / "CodexHome"
-        self.home = configured_home.expanduser().resolve()
+        self._base_home = configured_home.expanduser().resolve()
+        self.api_provider = api_provider
+        self.provider_name = "codex-responses" if api_provider else "codex-app-server"
+        self.region = "user-configured (unverified)" if api_provider else "codex-managed (not exposed)"
+        self.session_identity = api_provider.identity(self.model) if api_provider else ""
+        self.home = (self._base_home / "api-providers" / self.session_identity) if api_provider else self._base_home
+        self._selected_provider = api_provider.provider_id if api_provider else None
+        self._provider_config = api_provider.config() if api_provider else None
+        self._secrets = (api_provider.api_key,) if api_provider else ()
         self.sketchup_mcp = sketchup_mcp or ConfiguredSketchUpMCP(timeout_seconds=180)
         self.tool_surface = AgentToolSurface(self.runtime_root, self.sketchup_mcp)
         self._lock = threading.RLock()
@@ -295,6 +323,9 @@ class CodexAppServerRuntime:
             raise NativeAgentUnavailable("Codex CLI is unavailable; install/sign in to Codex CLI to start the native agent.")
         with self._lock:
             selected_model = model or self.model
+            if self.api_provider and selected_model != self.model:
+                raise NativeAgentUnavailable("API model differs from the explicitly configured provider session; select a new connection first.")
+            self._check_api_budget()
             selected_effort = reasoning_effort or self.reasoning_effort
             if selected_effort not in {"low", "medium", "high", "xhigh", "max"}:
                 raise ValueError("reasoning_effort must be one of low, medium, high, xhigh, or max.")
@@ -356,72 +387,9 @@ class CodexAppServerRuntime:
         revisions, views, captures = validate_visual_review_views(project_dir, state, arguments.get("views"))
         pairs = validate_source_matched_pairs(project_dir, revisions, arguments.get("evidence_pairs"))
         require_observed_source_view_pairs(project_dir, load_reconstruction_evidence(project_dir, strict=True), pairs)
-        sources = discover_project_reference_images(project_dir, categories=("reference",))
-        manifest = reference_manifest(project_dir, sources)
-        fingerprint = manifest_fingerprint(manifest)
-        targets = {item['source'] for item in manifest if item['role'] == 'target_building'}
-        if sources and not targets:
-            raise ValueError("Reference roles are unresolved: confirm target_building versus defect_location before visual review.")
-        if any(pair.get('source_ref') not in targets for pair in pairs):
-            raise ValueError("Source-matched fidelity pairs may cite only target_building images, not defect screenshots.")
-        labels = role_labels(manifest)
-        target_fingerprint = manifest_fingerprint([item for item in manifest if item["role"] == "target_building"])
-        history = load_review_history(project_dir, target_fingerprint)
-        images = list(sources)
-        for name, path in captures.items():
-            labels.append("CURRENT canonical " + name)
-            images.append(path)
-        for pair in pairs:
-            path = (project_dir / pair["current_view"]).resolve()
-            label = "CURRENT source-matched " + pair["label"]
-            # Multiple source pairs can reference the same current screenshot.
-            # Keep every association in its caption, attach the actual image once.
-            existing = next((i for i, image in enumerate(images) if image.resolve() == path), None)
-            if existing is None:
-                labels.append(label)
-                images.append(path)
-            elif label not in labels[existing].split("; "):
-                labels[existing] += "; " + label
-        from .design_scope_approval import invalidate_stale_design_scope, current_execution_instruction
-        invalidate_stale_design_scope(project_dir)
-        approved_scope = load_approved_design_scope(project_dir)
-        current_instruction = current_execution_instruction(project_dir)
-        image_hashes = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in images}
-        prompt = build_visual_critic_prompt([label for label, item in zip(labels, manifest) if item["role"] == "target_building"], labels[len(sources):])
-        prompt += "\nImages below follow this exact order:\n" + "\n".join(
-            f"{index + 1}. {label}" for index, label in enumerate(labels))
-        prompt += ("\nInventory only elements actually shown by this project's SOURCE before judging CURRENT. "
-                   "If a source contact sheet has multiple views, use their shared landmarks to infer one consistent "
-                   "building; do not borrow a roof, canopy, annex, plants or other element from a previous test case. "
-                   "Prioritize source-backed silhouette, openings, roof/wall/window assembly, clearances and joints; "
-                   "unobserved hidden regions are inferred, not proof of mismatch. Do not trust Builder claims. "
-                   "KEEP only geometry whose source-backed proportions are correct; use named paths only when known. "
-                   "Do not protect an entire roof or volume unless all its visible source-backed parts are correct. "
-                   "Do not run commands or edit files; answer the review envelope directly from images.")
-        prompt += ("\nISSUE LOCATION images are historical defect evidence, never a restoration target. "
-                   "UNKNOWN ROLE and SUPPORTING images cannot prove source fidelity. Their absence of an element is not evidence to remove it. "
-                   "Use stable feature_id values and explicit desired_state for each correction. "
-                   "Return <review_requirements>JSON array</review_requirements>, one entry per issue, or [] for no issues. "
-                   "Each entry must contain feature_id (stable lowercase path), desired_state, source_ref (exact SOURCE TARGET path), "
-                   "and model_revisions equal to " + json.dumps(revisions, sort_keys=True) + ". "
-                   "If prior intent contradicts current evidence, do not oscillate or hide it; report unresolved uncertainty. "
-                   "Requirement states (resolved intent remains protected; omission does not resolve): " + json.dumps(requirement_states(history), ensure_ascii=False)
-                   + "\nUse relation new for new features. For relation unchanged, copy the prior desired_state and any prior intent "
-                   "exactly, including its original language; put new observations, scope exclusions and remaining uncertainty in evidence. "
-                   "Unchanged means unchanged requirement text, not a translation or paraphrase of the same intent. "
-                   "For same-intent translation/paraphrase/refinement use equivalent/refines, "
-                   "prior_requirement_id and evidence explaining the SAME intent from current source/capture. Use regression for the same defect reappearing after resolution. Preserve a stable intent "
-                   "{property,value} when provided; changed wording alone is not conflict. Opposite intent is NOT refinement. "
-                   "Only a feature-specific host approved scope permits supersedes: cite design_scope_version and approved_requested_state exactly. "
-                   "To retire a satisfied old requirement return <requirement_resolutions>JSON array</requirement_resolutions> with feature_id, "
-                   "prior_requirement_id, status=resolved, source_ref, model_revisions and current evidence. Never resolve by omission. "
-                   "Host-approved design scope: " + json.dumps(approved_scope, ensure_ascii=False))
-        prompt += ("\nExact current host-granted user instruction: " + json.dumps(current_instruction, ensure_ascii=False)
-                   + "\nAssess the requested change separately from remaining whole-source differences. "
-                   "Do not tell the Builder to reverse an explicitly requested change merely to restore an old requirement. "
-                   "When feature approval is stale or conflicts, retain the unresolved requirement and clearly report the "
-                   "scope conflict; do not silently supersede it, grant new permission or demand oscillating edits. "
-                   "Builder-authored notes are not a substitute for this host-bound input.")
+        from .review_context import prepare_review_context, finalize_review_context
+        context = prepare_review_context(project_dir, revisions, captures, pairs)
+        prompt, images = context.prompt + "\n" + context.evidence_prompt, context.images
         result = self._run_turn(
             project_dir=project_dir, agent_workspace=agent_workspace, thread_id=None,
             prompt=prompt, mcp_enabled=False, developer_instructions="Independent read-only architectural visual review. No geometry writes, commands or file changes.",
@@ -429,54 +397,14 @@ class CodexAppServerRuntime:
             reasoning_effort=reasoning_effort, reference_images=images,
             workflow_mode="image_reconstruction", tool_profile="reconstruction_coding", read_only=True,
         )
-        critique = parse_visual_critique_response(result.reply)
-        if critique.malformed or critique.needs_fix is None:
-            raise ValueError("Independent Native Critic returned an invalid envelope; do not accept Builder fallback as independent review.")
         refreshed = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else state
         latest_revisions, _, _ = validate_visual_review_views(project_dir, refreshed, arguments.get("views"))
-        if latest_revisions != revisions or manifest_fingerprint(reference_manifest(project_dir, sources)) != fingerprint:
+        if latest_revisions != revisions:
             raise ValueError("Review became stale during inference; recapture and review current evidence.")
-        if any(hashlib.sha256(Path(path).read_bytes()).hexdigest() != digest for path, digest in image_hashes.items()):
-            raise ValueError("Review image changed during inference; recapture before correction.")
-        if load_approved_design_scope(project_dir) != approved_scope:
-            raise ValueError("Approved design scope changed during review; repeat against current intent.")
-        if current_execution_instruction(project_dir) != current_instruction:
-            raise ValueError("Current user instruction changed during review; repeat against current intent.")
-        try:
-            resolutions = validate_review_resolutions(result.reply, manifest=manifest, revisions=revisions, history=history)
-            requirements = validate_review_requirements(result.reply, manifest=manifest, revisions=revisions,
-                                                       issue_count=len(critique.issues), history=history, approved_scope=approved_scope)
-        except ValueError as error:
-            # Preserve rejected independent evidence without promoting it to an
-            # accepted review or changing any identity/scope/KEEP requirement.
-            rejected_dir = project_dir / "runtime" / "rejected_visual_reviews"
-            if rejected_dir.is_symlink():
-                raise ValueError("Unsafe rejected review evidence directory.") from error
-            rejected_dir.mkdir(parents=True, exist_ok=True)
-            rejection_id = uuid.uuid4().hex
-            rejection = {"schema_version": 1, "status": "rejected_not_accepted", "error": str(error),
-                         "model_revisions": revisions, "reference_manifest_fingerprint": fingerprint,
-                         "target_manifest_fingerprint": target_fingerprint, "image_sha256": image_hashes,
-                         "prior_requirements": requirement_states(history), "approved_design_scope": approved_scope,
-                         "critique": result.reply, "model": result.model_name, "reasoning_effort": result.reasoning_effort}
-            with (rejected_dir / (rejection_id + ".json")).open("x", encoding="utf-8") as stream:
-                json.dump(rejection, stream, ensure_ascii=False, indent=2)
-            raise ValueError(f"{error} Rejected independent review evidence: {rejection_id}.") from error
-        if {item['feature_id'] for item in resolutions} & {item['feature_id'] for item in requirements}:
-            raise ValueError("A feature cannot be resolved and still require correction in one review.")
-        record = {"manifest_fingerprint": target_fingerprint, "model_revisions": revisions, "requirements": requirements, "resolutions": resolutions, "approved_design_scope": approved_scope, "current_user_instruction": current_instruction}
-        history_path = project_dir / "runtime/reference_role_review_history.jsonl"
-        history_path.parent.mkdir(parents=True, exist_ok=True)
-        if history_path.is_symlink():
-            raise ValueError("Unsafe role review history.")
-        with history_path.open("a", encoding="utf-8") as stream:
-            stream.write(json.dumps(record, ensure_ascii=False) + "\n")
+        metadata = finalize_review_context(context, result.reply)
         return {**arguments, "critique": result.reply, "_reviewer": {
-            "reference_manifest": manifest, "reference_manifest_fingerprint": fingerprint,
-            "review_requirements": requirements, "requirement_resolutions": resolutions,
-            "approved_design_scope": approved_scope,
-            "current_user_instruction": current_instruction,
-            "mode": "dedicated_read_only", "runtime": "codex-native", "model": result.model_name,
+            **metadata,
+            "mode": "dedicated_read_only", "runtime": self.provider_name if self.api_provider else "codex-native", "model": result.model_name,
             "reasoning_effort": result.reasoning_effort, "latency_ms": result.latency_ms,
             "input_tokens": result.input_tokens, "output_tokens": result.output_tokens,
             "tool_call_count": result.tool_call_count, "failed_tool_calls": result.failed_tool_calls,
@@ -496,31 +424,56 @@ class CodexAppServerRuntime:
     def _prepare_home(self, *, mcp_enabled: bool, model: str | None = None,
                       reasoning_effort: str | None = None,
                       agent_workspace: Path | None = None) -> None:
-        source_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser()
-        source_config = source_home / "config.toml"
-        if not source_config.is_file():
-            raise NativeAgentUnavailable("Codex config.toml was not found; the local native agent is not configured.")
-        try:
-            user_config = _toml_load(source_config)
-        except Exception as error:
-            raise NativeAgentUnavailable(f"Could not read Codex configuration: {error}") from error
-        self.home.mkdir(parents=True, exist_ok=True)
-        source_auth = source_home / "auth.json"
-        target_auth = self.home / "auth.json"
-        if source_auth.is_file() and not target_auth.exists():
+        self._check_api_budget()
+        user_config: dict[str, Any] = {}
+        source_home = None
+        if self.api_provider is None:
+            source_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser()
+            source_config = source_home / "config.toml"
+            if not source_config.is_file():
+                raise NativeAgentUnavailable("Codex config.toml was not found; the local native agent is not configured.")
             try:
-                os.link(source_auth, target_auth)
-            except OSError:
-                shutil.copy2(source_auth, target_auth)
-        elif source_auth.is_file() and target_auth.is_file() and not os.path.samefile(source_auth, target_auth):
-            # Desktop/CLI sign-in replaces auth.json atomically. An isolated
-            # home can otherwise keep a revoked refresh token indefinitely.
-            # Preserve a newer runtime token; never expose credential contents.
-            if source_auth.stat().st_mtime_ns > target_auth.stat().st_mtime_ns:
-                shutil.copy2(source_auth, target_auth)
-        if not target_auth.is_file():
-            raise NativeAgentUnavailable("Codex login cache is unavailable. Sign in to Codex CLI on this computer first.")
-
+                user_config = _toml_load(source_config)
+                self._selected_provider, self._provider_config = selected_native_provider(user_config)
+            except Exception as error:
+                raise NativeAgentUnavailable("Could not safely load the selected Codex provider configuration.") from error
+            provider = self._provider_config or {}
+            credential_names = [provider.get("env_key"), *(provider.get("env_http_headers") or {}).values()]
+            self._secrets = tuple(os.environ[name] for name in credential_names if name and os.environ.get(name))
+            self.session_identity = fingerprint({"provider": self._selected_provider, "config": provider,
+                                                 "model": model or self.model,
+                                                 "credentials": [fingerprint(secret) for secret in self._secrets]})
+            self.home = self._base_home if not provider else self._base_home / "providers" / self.session_identity
+        self._check_api_budget()
+        self.home.mkdir(parents=True, exist_ok=True, mode=0o700)
+        provider = self._provider_config or {}
+        needs_login = self.api_provider is None and (not provider or provider.get("requires_openai_auth", False))
+        if needs_login:
+            assert source_home is not None
+            source_auth = source_home / "auth.json"
+            target_auth = self.home / "auth.json"
+            if source_auth.is_file() and not target_auth.exists():
+                try:
+                    os.link(source_auth, target_auth)
+                except OSError:
+                    shutil.copy2(source_auth, target_auth)
+            elif source_auth.is_file() and target_auth.is_file() and not os.path.samefile(source_auth, target_auth):
+                if source_auth.stat().st_mtime_ns > target_auth.stat().st_mtime_ns:
+                    shutil.copy2(source_auth, target_auth)
+            if not target_auth.is_file():
+                raise NativeAgentUnavailable("Codex login cache is unavailable. Sign in to Codex CLI on this computer first.")
+            # Never inspect token contents. An atomic sign-in/cache change still
+            # invalidates prior thread binding (a refresh may conservatively
+            # start fresh too), so a new login cannot inherit another account.
+            stat = target_auth.stat()
+            self.session_identity = fingerprint({"transport": self.session_identity,
+                                                 "login_cache_mtime_ns": stat.st_mtime_ns,
+                                                 "login_cache_size": stat.st_size})
+        elif self.api_provider is None:
+            required_env = [provider.get("env_key"), *(provider.get("env_http_headers") or {}).values()]
+            if any(name and not os.environ.get(name) for name in required_env):
+                raise NativeAgentUnavailable("Selected Codex API provider credential environment variable is not configured; no login fallback.")
+        # API auth is NEVER copied from or checked against the user's Codex login.
         workspace = agent_workspace.resolve() if agent_workspace is not None else self.runtime_root
         lines = [
             f"model = {json.dumps(model or self.model)}",
@@ -537,6 +490,18 @@ class CodexAppServerRuntime:
             # Model tasks must not inherit the developer repository's stacked
             # historical AGENTS.md and start unrelated Git/CURRENT chores.
             lines.insert(4, 'project_root_markers = [".kstudio-agent-root"]')
+        if self._provider_config is not None:
+            lines[2:2] = [f"model_provider = {json.dumps(self._selected_provider)}"]
+            lines.extend(["", f"[model_providers.{self._selected_provider}]"])
+            lines.extend(f"{key} = {_toml_literal(value)}" for key, value in self._provider_config.items())
+            # No API key reaches built-in shell tools. Only the model transport
+            # process receives it; dynamic host tools retain their existing gates.
+            secret_names = [self._provider_config.get("env_key"), *(self._provider_config.get("env_http_headers") or {}).values()]
+            lines.extend(["", "[shell_environment_policy]", 'inherit = "core"', "ignore_default_excludes = false",
+                          f"exclude = {_toml_literal([name for name in secret_names if name])}"])
+        if self.api_provider:
+            lines.extend(["", "[features]", "apps = false", "plugins = false", "remote_plugin = false",
+                          "", "[analytics]", "enabled = false"])
         # Preserve the user's supported Windows sandbox implementation selection.
         # The project still uses workspace-write, never full access.
         windows = user_config.get("windows", {})
@@ -546,6 +511,15 @@ class CodexAppServerRuntime:
         config_path = self.home / "config.toml"
         temp_config.write_text("\n".join(lines) + "\n", encoding="utf-8")
         temp_config.replace(config_path)
+
+    def _check_api_budget(self) -> None:
+        api_auth = self.api_provider or (self._provider_config and not self._provider_config.get("requires_openai_auth", False))
+        if api_auth and any(os.environ.get(name, "").strip() for name in (
+                "K_STUDIO_LOCAL_API_TEST_BUDGET", "K_STUDIO_OPERATOR_MAX_USD")):
+            raise NativeAgentUnavailable("Codex Responses cannot enforce the configured monetary reservation ledger yet; no API request or fallback was started. Preserve the ledger and use its existing budgeted route.")
+
+    def _redact(self, value: Any) -> Any:
+        return redact(value, self._secrets) if self._secrets else value
 
     def _run_turn(self, *, project_dir: Path, agent_workspace: Path,
                   thread_id: str | None, prompt: str,
@@ -557,6 +531,7 @@ class CodexAppServerRuntime:
                   tool_profile: ToolProfile = "full", read_only: bool = False,
                   compact_project_context: bool = False, readonly_role: str = "visual_critic",
                   progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
+        self._check_api_budget()
         started = time.monotonic()
         deadline: float | None = None
         if readonly_role not in {"visual_critic", "conversation_intent"}:
@@ -573,7 +548,11 @@ class CodexAppServerRuntime:
             if prior_usage.input_tokens + self.project_delivery_reserve >= self.max_project_input_tokens:
                 raise NativeAgentUnavailable("Project input-token budget is exhausted. Preserve verified work; do not reset the ledger or repeat the build.")
         prior_input = prior_usage.input_tokens if prior_usage else 0
-        environment = _app_server_environment(dict(os.environ))
+        environment = (api_environment(dict(os.environ), self.api_provider) if self.api_provider
+                       else _app_server_environment(dict(os.environ)))
+        if self.api_provider is None and self._provider_config and not self._provider_config.get("requires_openai_auth", False):
+            environment = provider_environment(dict(os.environ), [self._provider_config.get("env_key"),
+                *(self._provider_config.get("env_http_headers") or {}).values()])
         environment["CODEX_HOME"] = str(self.home)
         command = [str(self.codex_executable), "app-server"]
         log_path = self.runtime_root / "logs" / "codex-app-server.log"
@@ -584,7 +563,7 @@ class CodexAppServerRuntime:
                 command,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
-                stderr=log_handle,
+                stderr=subprocess.PIPE if self._secrets else log_handle,
                 cwd=agent_workspace,
                 env=environment,
                 bufsize=0,
@@ -592,12 +571,20 @@ class CodexAppServerRuntime:
         except OSError as error:
             log_handle.close()
             raise NativeAgentUnavailable(f"Could not start Codex app-server: {error}") from error
+        stderr_reader = None
+        if self._secrets and getattr(process, "stderr", None) is not None:
+            def read_stderr() -> None:
+                for raw in iter(process.stderr.readline, b""):
+                    log_handle.write(self._redact(raw.decode("utf-8", errors="replace")))
+                    log_handle.flush()
+            stderr_reader = threading.Thread(target=read_stderr, name="codex-redacted-stderr", daemon=True)
+            stderr_reader.start()
         events: queue.Queue[str | None] = queue.Queue()
 
         def read_stdout() -> None:
             assert process.stdout is not None
             for raw in iter(process.stdout.readline, b""):
-                events.put(raw.decode("utf-8", errors="replace").strip())
+                events.put(self._redact(raw.decode("utf-8", errors="replace").strip()))
             events.put(None)
 
         reader = threading.Thread(target=read_stdout, name="codex-app-server-reader", daemon=True)
@@ -616,10 +603,12 @@ class CodexAppServerRuntime:
         record_lock = threading.RLock()
 
         def record(event: dict[str, Any]) -> None:
+            event = self._redact(event)
             with record_lock, evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
 
         def emit(event: dict[str, Any]) -> None:
+            event = self._redact(event)
             record(event)
             if progress_callback:
                 try:
@@ -635,6 +624,7 @@ class CodexAppServerRuntime:
         record({"event": "project_budget_started", "is_builder": is_builder, "prior_input_tokens": prior_input})
 
         def interrupted(error: NativeAgentUnavailable) -> NativeAgentUnavailable:
+            error.args = (self._redact(str(error)),)
             # Only an upstream terminal notification proves interrupted. A local
             # timeout/transport/budget failure is not a turn/interrupt receipt.
             status = control.terminal_status or ("cancelled_before_start" if control.cancel_requested and not control.turn_id else "failed")
@@ -657,7 +647,7 @@ class CodexAppServerRuntime:
                 thread_id=resolved_thread_id, turn_id=control.turn_id, reply="", status=status,
                 cancellation_requested=control.cancel_requested,
                 tool_calls=_dedupe_calls(tool_calls), model_name=model,
-                reasoning_effort=reasoning_effort, input_tokens=input_tokens,
+                reasoning_effort=reasoning_effort, provider_name=self.provider_name, region=self.region, input_tokens=input_tokens,
                 output_tokens=output_tokens, latency_ms=round((time.monotonic() - started) * 1000),
                 tool_call_count=tool_call_count, failed_tool_calls=failed_tool_calls)
             return error
@@ -696,6 +686,8 @@ class CodexAppServerRuntime:
                     "report that conflict and stop editing; do not alternate between opposite designs."
                 ),
             }
+            if self._selected_provider:
+                thread_params["modelProvider"] = self._selected_provider
             from .research_tool_context import RESEARCH_TOOL_NAMES
             registered_tools = canonical_dynamic_tools(dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES])
             thread_params["dynamicTools"] = registered_tools
@@ -707,6 +699,10 @@ class CodexAppServerRuntime:
             instruction_registry = json.loads(instruction_registry_path.read_text(encoding="utf-8")) if instruction_registry_path.exists() else {}
             instruction_fingerprint = hashlib.sha256(developer_instructions.encode("utf-8")).hexdigest()
             instructions_match = instruction_registry.get(str(thread_id)) == instruction_fingerprint
+            provider_registry_path = project_dir / "runtime" / "native_thread_providers.json"
+            provider_registry = json.loads(provider_registry_path.read_text(encoding="utf-8")) if provider_registry_path.exists() else {}
+            binding = self.session_identity or fingerprint({"provider": self._selected_provider or "openai", "model": model})
+            provider_matches = provider_registry.get(str(thread_id)) == binding
             # Dedicated read-only Critic includes trusted OUTPUT screenshots, not just inputs.
             # Its thread is always fresh; image continuity applies only to Builder/Planner.
             image_fingerprint = _reference_images_fingerprint(project_dir, reference_images) if not read_only else ""
@@ -720,26 +716,37 @@ class CodexAppServerRuntime:
             resumed = _native_thread_can_resume(
                 thread_id, registrations, image_registry, registered_tools, image_fingerprint,
                 compact_restart=compact_model_turn, native_mode=native_mode,
-                instructions_match=instructions_match,
+                instructions_match=instructions_match and provider_matches,
             )
             if resumed:
-                thread_params = {"threadId": thread_id, "developerInstructions": developer_instructions}
+                thread_params = {"threadId": thread_id, "developerInstructions": thread_params["developerInstructions"],
+                                 "model": model, "cwd": str(agent_workspace),
+                                 "sandbox": "read-only" if read_only else "workspace-write", "approvalPolicy": "never"}
+                if self._selected_provider:
+                    thread_params["modelProvider"] = self._selected_provider
                 thread = self._request(process, events, request_id, "thread/resume", thread_params, buffered)
             else:
                 thread = self._request(process, events, request_id, "thread/start", thread_params, buffered)
             request_id += 1
             reported_model = thread.get("model") or (thread.get("thread") or {}).get("model")
+            reported_provider = thread.get("modelProvider") or (thread.get("thread") or {}).get("modelProvider")
             reported_effort = thread.get("reasoningEffort") or (thread.get("thread") or {}).get("reasoningEffort")
             record({"event": "thread_model_identity", "requested_model": model,
                     "requested_effort": reasoning_effort, "reported_model": reported_model,
+                    "requested_provider": self._selected_provider, "reported_provider": reported_provider,
+                    "engine": "codex-app-server", "route_provider": self.provider_name,
                     "reported_default_effort": reported_effort,
                     "source": "actual app-server thread/start or resume response"})
+            if self._provider_config is not None and (reported_model != model or reported_provider != self._selected_provider):
+                raise NativeAgentUnavailable("App-server did not confirm the selected API provider and model; no inference or tool dispatch started.")
             if reported_model and reported_model != model:
                 raise NativeAgentUnavailable("App-server returned a different model; no tools or inference started.")
             resolved_thread_id = str((thread.get("thread") or {}).get("id") or "")
             if not resolved_thread_id:
                 raise NativeAgentUnavailable("Codex app-server returned no thread id.")
             control.bind_thread(resolved_thread_id)
+            provider_registry[resolved_thread_id] = binding
+            provider_registry_path.write_text(json.dumps(provider_registry, indent=2), encoding="utf-8")
             registrations[resolved_thread_id] = _thread_tool_fingerprint(registered_tools)
             instruction_registry[resolved_thread_id] = instruction_fingerprint
             instruction_registry_path.write_text(json.dumps(instruction_registry, indent=2), encoding="utf-8")
@@ -919,12 +926,18 @@ class CodexAppServerRuntime:
                         # start marker but before crossing the tool boundary.
                         if control.cancel_requested:
                             raise MCPCallError("Cancellation requested; this tool effect was not started.")
-                        output = dynamic_tool_response(tool_handler(call["tool"], params.get("arguments") or {}))
+                        raw_output = tool_handler(call["tool"], params.get("arguments") or {})
+                        if call["tool"].startswith("blender_"):
+                            # Complete raw receipt before wire projection; image bytes
+                            # remain at the certified project path, not in UI events.
+                            record({"event": "tool_receipt", "tool": call["tool"],
+                                    "call_id": params.get("callId"), "output": raw_output})
+                        output = self._redact(native_tool_response(project_dir, call["tool"], raw_output))
                         if output.get("success") is False or output.get("isError") is True:
                             failed_tool_calls += 1
                     except (ConnectorUnavailable, MCPCallError, OSError, RuntimeError, ValueError) as error:
                         failed_tool_calls += 1
-                        output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
+                        output = {"success": False, "contentItems": [{"type": "inputText", "text": self._redact(str(error))}]}
                     finally:
                         control.end_tool()
                     self._send(process, {"id": message["id"], "result": output})
@@ -974,11 +987,11 @@ class CodexAppServerRuntime:
             return AgentTurnResult(
                 thread_id=resolved_thread_id, turn_id=control.turn_id,
                 cancellation_requested=control.cancel_requested,
-                reply=reply or ("这轮已停止。已经执行的操作不会自动撤销。" if turn_status == "interrupted" else "已完成这轮推演；模型操作记录已保存。"),
+                reply=self._redact(reply) or ("这轮已停止。已经执行的操作不会自动撤销。" if turn_status == "interrupted" else "已完成这轮推演；模型操作记录已保存。"),
                 status=turn_status,
                 tool_calls=_dedupe_calls(tool_calls),
                 model_name=model,
-                reasoning_effort=reasoning_effort,
+                reasoning_effort=reasoning_effort, provider_name=self.provider_name, region=self.region,
                 input_tokens=input_tokens,
                 output_tokens=output_tokens,
                 latency_ms=round((time.monotonic() - started) * 1000),
@@ -1011,6 +1024,8 @@ class CodexAppServerRuntime:
                     process.wait(timeout=5)
                 except subprocess.TimeoutExpired:
                     process.kill()
+            if stderr_reader is not None:
+                stderr_reader.join(timeout=2)
             log_handle.close()
 
     def _request(self, process: subprocess.Popen[bytes], events: queue.Queue[str | None],
@@ -1044,8 +1059,7 @@ class CodexAppServerRuntime:
     def _notify(self, process: subprocess.Popen[bytes], method: str, params: dict[str, Any]) -> None:
         self._send(process, {"method": method, "params": params})
 
-    @staticmethod
-    def _next_event(events: queue.Queue[str | None], deadline: float | None) -> dict[str, Any] | None:
+    def _next_event(self, events: queue.Queue[str | None], deadline: float | None) -> dict[str, Any] | None:
         try:
             line = events.get(timeout=None if deadline is None else max(0.01, deadline - time.monotonic()))
         except queue.Empty as error:
@@ -1055,7 +1069,7 @@ class CodexAppServerRuntime:
         if not line:
             return {}
         value = json.loads(line)
-        return value if isinstance(value, dict) else {}
+        return self._redact(value) if isinstance(value, dict) else {}
 
 
 def _toml_literal(value: Any) -> str:
@@ -1066,7 +1080,7 @@ def _toml_literal(value: Any) -> str:
     if isinstance(value, list):
         return "[" + ", ".join(_toml_literal(item) for item in value) + "]"
     if isinstance(value, dict):
-        return "{ " + ", ".join(f"{key} = {_toml_literal(item)}" for key, item in value.items()) + " }"
+        return "{ " + ", ".join(f"{json.dumps(str(key))} = {_toml_literal(item)}" for key, item in value.items()) + " }"
     raise TypeError(f"Unsupported Codex config value: {type(value).__name__}")
 
 

@@ -149,13 +149,13 @@ def test_rejected_native_requirement_is_archived_without_becoming_accepted(tmp_p
     monkeypatch.setattr(subject,'validate_visual_review_views',lambda *_:({'villa':6},{},{'front':current}))
     monkeypatch.setattr(subject,'validate_source_matched_pairs',lambda *_:[])
     old=requirement(desired='absent',revision=5)
-    monkeypatch.setattr(subject,'load_review_history',lambda *_:[{'requirements':[old]}])
+    monkeypatch.setattr('app.review_context.load_review_history',lambda *_:[{'requirements':[old]}])
     item={**requirement(desired='remove lower divider'),'relation':'unchanged',
           'prior_requirement_id':requirement_id(old),'evidence':'Same source requirement, changed wording.'}
     reply='NEEDS_FIX: YES\n<issues><issue>Divider remains.</issue></issues>\n'+envelope([item])
     runtime=subject.CodexAppServerRuntime(tmp_path,codex_executable='fixture')
     monkeypatch.setattr(runtime,'_run_turn',lambda **_:subject.AgentTurnResult('review',reply,model_name='offline-fixture'))
-    monkeypatch.setattr(subject,'parse_visual_critique_response',lambda _:type('Critique',(),{'malformed':False,'needs_fix':True,'issues':['Divider remains.']})())
+    monkeypatch.setattr('app.review_context.parse_visual_critique_response',lambda _:type('Critique',(),{'malformed':False,'needs_fix':True,'issues':['Divider remains.']})())
     work=project/'runtime/agent_workspace';work.mkdir(parents=True)
     with pytest.raises(ValueError,match='Rejected independent review evidence'):
         runtime._native_visual_review(project_dir=project,agent_workspace=work,ruby_state={},arguments={'views':{}},model='fixture',reasoning_effort='medium')

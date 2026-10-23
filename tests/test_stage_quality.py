@@ -19,7 +19,7 @@ def test_review_progress_distinguishes_repeats_from_distinct_revisions():
         return {'model_revisions':{'root':rev},'needs_fix':True,'issues':[{'view':'rear','problem':problem}]}
     p.observe(receipt(1));p.observe(receipt(1));p.observe(receipt(1));assert not p.blocked
     p.observe(receipt(2));assert not p.blocked
-    p.observe(receipt(3));assert p.blocked
+    p.observe(receipt(3));assert p.advisory_stagnation and not p.blocked
     p.observe(receipt(4,'different issue'));assert not p.blocked
     assert '质量尚未通过' in continuation_message('targeted_repair',2,5,'no_progress')
 
@@ -55,7 +55,7 @@ def test_real_blender_budget_identical_no_progress_and_retained_candidate(tmp_pa
     assert (tmp_path/'runtime/blender/scene.json').read_bytes()==before
     assert (tmp_path/result['model_path']).is_file()
 
-def test_su_repeated_review_stops_before_configured_limit_preserves_readonly(tmp_path,monkeypatch):
+def test_su_repeated_review_is_advisory_without_host_outcome_preserves_readonly(tmp_path,monkeypatch):
     from app.sketchup_mcp import MCPCallError
     class Executor:
         def __init__(self,*a,**kw):self.ruby_state=kw['ruby_state']
@@ -77,7 +77,6 @@ def test_su_repeated_review_stops_before_configured_limit_preserves_readonly(tmp
         context.dispatch('sketchup_run_workspace_ruby',{'update_mode':'edit','allowed_mutation_paths':[['WALL']]})
         context.dispatch('sketchup_submit_visual_review',{})
     assert context.quality_state['write_limit']==7 and context.quality_state['writes']==3
-    with pytest.raises(MCPCallError,match='连续复核'):
-        context.dispatch('sketchup_run_workspace_ruby',{'script_id':'new-root'})
-    assert context.quality_state['stop_reason']=='no_progress'
+    assert context.quality_state['advisory_stagnation']
+    assert not context.quality_state['no_progress']
     assert context.dispatch('sketchup_get_model_info',{})['success']

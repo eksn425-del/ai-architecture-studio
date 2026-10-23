@@ -621,6 +621,19 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     raise HTTPException(status_code=409, detail="独立 API 模式请配置自己的 API，不能切换到 Codex。")
                 provider.session_api_key = ""
                 router.economy_route = app.state.preset_route
+            elif data.get("mode") == "codex-responses":
+                # A distinct opt-in route: never reuse the legacy saved key or
+                # overwrite its encrypted container. This connection is memory-only.
+                try:
+                    router.configure_codex_responses(
+                        model=str(data.get("model", "")).strip(),
+                        api_base=str(data.get("api_base", "")).strip().rstrip("/"),
+                        api_key=str(data.get("api_key", "")).strip(),
+                        reasoning_effort=str(data.get("reasoning_effort", "low")),
+                        protocol=str(data.get("protocol", "")),
+                        compatibility_acknowledged=data.get("compatibility_acknowledged") is True)
+                except NativeAgentUnavailable as error:
+                    raise HTTPException(status_code=409, detail=str(error)) from None
             else:
                 model = str(data.get("model", "")).strip()
                 key = str(data.get("api_key", "")).strip()
@@ -648,7 +661,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     model = "deepseek/" + model
                 from .litellm_runtime import requires_responses_tools
                 if requires_responses_tools(model):
-                    raise HTTPException(status_code=409, detail="GPT-6.1 Sol 的 API 工具调用需要 Responses，当前尚未开放这条建模路线。请使用已接入的 GLM/DeepSeek；Codex 登录路线仅用于本机研发。")
+                    raise HTTPException(status_code=409, detail="该模型的工具调用需要 Responses。请显式选择 Codex Agent · Responses API；Chat Completions 不会自动切换运行通道。")
                 # Changing effort for the same connection never requires reading
                 # or returning the existing credential.
                 if not key and model == provider.model and base == provider.api_base:
@@ -676,7 +689,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 provider.region = "user-configured (not verified)"
                 router.economy_route = ModelRoute("economy", "litellm", model, effort, provider.region)
             result = router.status()
-            result["credential_storage"] = "windows-dpapi" if app.state.credentials.supported else "memory-only"
+            result["credential_storage"] = "memory-only" if router.economy_route.provider == "codex-responses" else "windows-dpapi" if app.state.credentials.supported else "memory-only"
             return result
         except (ValueError, AttributeError):
             raise HTTPException(status_code=400, detail="模型设置格式不正确。") from None
@@ -684,10 +697,15 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             app.state.agent_lock.release()
 
     @app.delete("/api/model-settings/credential")
-    def forget_model_credential() -> dict[str, Any]:
+    def forget_model_credential(mode: str = "legacy") -> dict[str, Any]:
         if not app.state.agent_lock.acquire(blocking=False):
             raise HTTPException(status_code=409, detail="请等当前回合结束后再移除连接。")
         try:
+            if mode == "codex-responses":
+                app.state.model_router.clear_codex_responses()
+                return app.state.model_router.status()
+            if mode != "legacy":
+                raise HTTPException(400, "未知的模型连接类型。")
             app.state.credentials.clear()
             app.state.model_router.china_runtime.session_api_key = ""
             app.state.credential_restore_error = False
@@ -1743,13 +1761,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             return {"status":"not_running", "rollback_performed":False}
         if not payload.get("expected_request_id") or payload["expected_request_id"] != active.get("request_id"):
             raise HTTPException(409,"运行回合已变化，请刷新状态后再停止。")
-        runtime = app.state.model_router.codex_runtime
+        runtime = app.state.model_router.providers.get(active.get("provider"))
         if active.get("provider") == "litellm":
             active["cancel_requested"] = True
             return {"status": "requested", "cancel_requested": True, "terminal_confirmed": False,
                     "rollback_performed": False,
                     "detail": "已请求停止；当前 API 请求或模型操作结束后停止，不再开启后续请求，已有用量与模型保留。"}
-        if active.get("provider") != "codex-app-server" or not callable(getattr(runtime,"cancel_turn",None)):
+        if active.get("provider") not in {"codex-app-server", "codex-responses"} or not callable(getattr(runtime,"cancel_turn",None)):
             raise HTTPException(409,"当前运行通道不支持这个停止接口。")
         active["cancel_requested"] = True
         cancel = getattr(runtime, "cancel_turn", None)
@@ -1780,7 +1798,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             return {"running": False, "activities": activity_history(project_dir)}
         started = active["started"]
         native_event = active.get("native_event")
-        cancel_supported = active.get("provider") == "litellm" or (active.get("provider") == "codex-app-server" and callable(getattr(app.state.model_router.codex_runtime,"cancel_turn",None)))
+        cancel_supported = active.get("provider") == "litellm" or (active.get("provider") in {"codex-app-server", "codex-responses"} and callable(getattr(app.state.model_router.providers.get(active.get("provider")),"cancel_turn",None)))
         from .blender_backend import enabled as blender_enabled
         if blender_enabled(project_dir):
             receipt_file=project_dir/'runtime/blender/scene.json'
@@ -1909,7 +1927,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         requested_tier = request.tier
         effective_tier = requested_tier
         route = app.state.model_router.route(effective_tier)
-        runtime_thread = session.thread_id if session.provider == route.provider and session.model == route.model else None
+        runtime_thread = app.state.model_router.resumable_thread(session, effective_tier)
         route_reason = (
             "用户本轮显式选择精修" if requested_tier == "premium" else
             "默认 Economy"
@@ -2099,7 +2117,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 workflow_mode=request.workflow_mode,
                 tool_profile=workflow_tool_profile(request.workflow_mode),
                 developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled, action=action),
-                **({"progress_callback": native_progress_callback(project_id)} if isinstance(app.state.model_router.codex_runtime, CodexAppServerRuntime) and route.provider == "codex-app-server" else {}),
+                **({"progress_callback": native_progress_callback(project_id)} if isinstance(app.state.model_router.providers.get(route.provider), CodexAppServerRuntime) and route.provider in {"codex-app-server", "codex-responses"} else {}),
                 **({"cancel_requested": lambda: bool(app.state.active_turns.get(project_id, {}).get("cancel_requested"))} if route.provider == "litellm" else {}),
             )
         except (NativeAgentUnavailable, ConnectorUnavailable) as error:
@@ -2115,6 +2133,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     pass  # Changed/missing evidence must keep the consumed approval locked.
             if partial and partial.thread_id:
                 session.thread_id = partial.thread_id
+                session.runtime_identity = app.state.model_router.runtime_identity(effective_tier)
                 session.provider = partial.provider_name or route.provider
                 session.model = partial.model_name or route.model
                 session.reasoning_effort = partial.reasoning_effort or route.reasoning_effort
@@ -2152,6 +2171,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         geometry_committed = any(value > before_turn_revisions.get(key, 0) for key, value in after_turn_revisions.items())
         checkpoint_saved = False
         session.thread_id = result.thread_id
+        session.runtime_identity = app.state.model_router.runtime_identity(effective_tier)
         # Persist runtime identity even if the host rejects an incomplete plan or
         # uncommitted execution below. Retry must resume its actual tool history.
         session.provider = result.provider_name or route.provider
@@ -2250,6 +2270,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "execution_status": "committed" if geometry_committed else "no_geometry_committed" if mcp_enabled else "read_only",
             "tier": effective_tier,
             "provider": session.provider,
+            "agent_engine": route.as_dict()["agent_engine"],
             "model": session.model,
             "reasoning_effort": session.reasoning_effort,
             "region": session.region,
@@ -2282,6 +2303,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 "reasoning_effort": session.reasoning_effort,
                 "tier": effective_tier,
                 "provider": session.provider,
+                "agent_engine": route.as_dict()["agent_engine"],
                 "region": session.region,
                 "input_tokens": session.input_tokens,
                 "output_tokens": session.output_tokens,

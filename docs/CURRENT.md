@@ -1,3 +1,27 @@
+## 2026-10-23 — Authorized code publication and local Codex retest handoff
+
+The owner now authorizes publication of this verified candidate on an independent GitHub branch so local Codex can update and retest. This supersedes only the historical publication-pending wording below, not the recorded test limitations. No main merge, deployment, paid inference, or restart of historical geometry is authorized. Preserve existing worktrees, native originals, protected geometry and failure evidence. Read [the retest handoff](KSTUDIO_CODEX_RETEST_HANDOFF_2026-10-23.md) before updating or testing. Historical results are not a fresh local or real-provider acceptance run.
+
+---
+
+## 2026-10-23 — Unified Codex Responses API candidate (private cloud only)
+
+Owner requested implementation, not further diagnosis. The explicit `codex-responses` setting now selects the same Codex App Server runtime as Native; it is not universal Chat Completions compatibility and does not migrate existing routes/credentials. Provider/account/model-bound sessions, strict identity, selected-runtime cancel/intent/Blender dispatch, certified Blender images and raw/projection receipt parity are implemented. Both API entry paths fail closed when an unsupported monetary reservation cap is configured. Controlled scripted App Server + real product runtime + real Blender passes; actual upstream Codex thread startup is blocked by host isolation before any model request. Do not disable sandbox protections. Real-provider quality/cost and commercial acceptance remain NOT_RUN. No owner-PC operation, paid inference, GitHub push, main merge or deployment. See [evidence and limits](test-results/cloud/2026-10-23-unified-codex-api/README.md); historical modeling cases stay closed. Publication is still separate.
+
+---
+
+## 2026-10-23 — Cloud simulated API, Blender readback and usage repair
+
+Private candidate `test/cloud-api-simulation-20261023` extends c0cefe3. Owner requested cloud-only simulated API testing; no owner-PC access or paid inference. Actual localhost HTTP/SSE drives the product LiteLLM route and real Blender. Fixed missing native render pixels, stale-image boundaries, complete raw receipts, neutral-feedback compaction classification, and active-wire mesh projection with explicit selected-object detail retrieval. Same 13 scripted responses: text JSON -34.427%, wire -17.346%; not billed tokens or money. Final Python regression: 1315 passed, 9 skipped. Upstream Codex transport comparison blocked before model requests, so NOT_RUN. Blender independent Critic, real-provider fidelity and cost remain unverified. No push, main merge or deployment; publication confirmation remains separate. See [full evidence](test-results/cloud/2026-10-23-api-simulation/README.md). Historical cases remain closed.
+
+---
+
+## 2026-10-23 — Cloud-only Agent contract repair candidate
+
+Owner requested cloud repairs and actual Blender testing, explicitly excluding the owner's computer. Isolated candidate `fix/cloud-agent-contracts-20261023` starts at a85c62c. See [repair scope, evidence and limits](test-results/cloud/2026-10-23-agent-contract-repair/README.md). Shared Native/API review context, intent-aware reuse/write validation, durable feature-progress advisories and optional host-bound Blender edit scope are implemented. Blender fixture uses real save/reopen but scripted review responses; real-provider visual quality/cost and native SketchUp acceptance remain NOT_RUN. No main merge, deployment, paid inference or local-PC changes. GitHub publication awaits separate confirmation. Historical case verdicts are preserved; do not resume old cases.
+
+---
+
 ## 2026-10-23 — Owner requests full sanitized failure publication
 
 [Chinese failure handoff](test-results/windows/2026-10-23-failure-publication/README.md) and [complete content-addressed bundle](test-assets/2026-10-23-agent-failure-bundle/README.md). Owner now authorizes current-case originals/images/SKP/scripts/logs and associated DeepSeek records for web analysis, superseding previous withholding for these experiments only. Credential material and unrelated backup projects are excluded with an index. Archive only: no new geometry, inference, video, main merge or deployment. Original local failures and qualified/unverified verdicts remain unchanged.

@@ -720,6 +720,10 @@ def load_current_independent_visual_review(
         current_manifest = reference_manifest(project_dir,
             discover_project_reference_images(project_dir, categories=("reference",)))
         reviewer = receipt.get("reviewer", {})
+        from .review_context import review_intent_context
+        current_intent = review_intent_context(project_dir)
+        if any(reviewer.get(key, {}) != value for key, value in current_intent.items()):
+            return None  # Same geometry is not authority for a changed owner goal/scope.
         role_fingerprint = manifest_fingerprint(current_manifest)
         previous_manifest = reviewer.get("reference_manifest")
         appended_defects = (isinstance(previous_manifest, list)

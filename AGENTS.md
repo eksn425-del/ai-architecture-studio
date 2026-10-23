@@ -1,3 +1,27 @@
+## 2026-10-23 — Authorized code publication and local Codex retest handoff
+
+The owner now authorizes publication of this verified candidate on an independent GitHub branch so local Codex can update and retest. This supersedes only the historical publication-pending wording below, not the recorded test limitations. No main merge, deployment, paid inference, or restart of historical geometry is authorized. Preserve existing worktrees, native originals, protected geometry and failure evidence. Read [the retest handoff](docs/KSTUDIO_CODEX_RETEST_HANDOFF_2026-10-23.md) before updating or testing. Historical results are not a fresh local or real-provider acceptance run.
+
+---
+
+## 2026-10-23 — Unified Codex Responses API candidate (private cloud only)
+
+Owner requested implementation, not further diagnosis. The explicit `codex-responses` setting now selects the same Codex App Server runtime as Native; it is not universal Chat Completions compatibility and does not migrate existing routes/credentials. Provider/account/model-bound sessions, strict identity, selected-runtime cancel/intent/Blender dispatch, certified Blender images and raw/projection receipt parity are implemented. Both API entry paths fail closed when an unsupported monetary reservation cap is configured. Controlled scripted App Server + real product runtime + real Blender passes; actual upstream Codex thread startup is blocked by host isolation before any model request. Do not disable sandbox protections. Real-provider quality/cost and commercial acceptance remain NOT_RUN. No owner-PC operation, paid inference, GitHub push, main merge or deployment. See [evidence and limits](docs/test-results/cloud/2026-10-23-unified-codex-api/README.md); historical modeling cases stay closed. Publication is still separate.
+
+---
+
+## 2026-10-23 — Cloud simulated API, Blender readback and usage repair
+
+Private candidate `test/cloud-api-simulation-20261023` extends c0cefe3. Owner requested cloud-only simulated API testing; no owner-PC access or paid inference. Actual localhost HTTP/SSE drives the product LiteLLM route and real Blender. Fixed missing native render pixels, stale-image boundaries, complete raw receipts, neutral-feedback compaction classification, and active-wire mesh projection with explicit selected-object detail retrieval. Same 13 scripted responses: text JSON -34.427%, wire -17.346%; not billed tokens or money. Final Python regression: 1315 passed, 9 skipped. Upstream Codex transport comparison blocked before model requests, so NOT_RUN. Blender independent Critic, real-provider fidelity and cost remain unverified. No push, main merge or deployment; publication confirmation remains separate. See [full evidence](docs/test-results/cloud/2026-10-23-api-simulation/README.md). Historical cases remain closed.
+
+---
+
+## 2026-10-23 — Cloud-only repair candidate
+
+The owner requests this isolated cloud Agent-contract repair and real Blender regression, with no operation on their computer. Read docs/CURRENT.md and docs/test-results/cloud/2026-10-23-agent-contract-repair/README.md first. This overrides older archive-only instructions only for this bounded candidate. No paid inference, original-case modeling, main merge or deployment is authorized. Publication confirmation remains separate. Do not upgrade historical source-quality/cost verdicts from these deterministic tests.
+
+---
+
 ## OWNER PUBLICATION 2026-10-23 — current failure investigation
 
 Owner explicitly requests all records of the current three-round stepped-apartment and its r11–r22 follow-up, plus related DeepSeek failure/cost evidence, on GitHub for web-side analysis. Publish complete sanitized test files/images/native models/scripts/tool and usage histories on the existing isolated release-prep branch. This supersedes earlier withholding for these current experiments only. Preserve original local records unchanged. Never publish API keys, passwords, tokens, cookies, credential containers or unrelated projects accidentally present in upgrade backups. No new modeling, paid inference, main merge or deployment is authorized by this archival request. Entry: docs/test-results/windows/2026-10-23-failure-publication/README.md.

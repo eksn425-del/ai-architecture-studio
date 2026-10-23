@@ -410,9 +410,9 @@ function refreshTierLabels() {
     : `${economyRoute.model} · ${(economyRoute.reasoning_effort || "provider-default").toUpperCase()}`;
   economy.textContent = economyRoute.provider === "managed-responses"
     ? `K Studio · ${economyRoute.model} · ${routeReadinessLabel("economy")} · 内部测试中`
-    : `${economyLabel} · ${routeReadinessLabel("economy")}`;
+    : `${economyRoute.provider === "codex-responses" ? "Codex Agent · Responses API · " : ""}${economyLabel} · ${routeReadinessLabel("economy")}`;
   premium.textContent = `精修 · ${premiumRoute.model}（仅本轮 · ${routeReadinessLabel("premium")}）`;
-  $("brain-status").textContent = `建筑 Agent · ${economyLabel} · ${routeReadinessLabel("economy")}`;
+  $("brain-status").textContent = `建筑 Agent · ${economyRoute.provider === "codex-responses" ? "Codex / Responses API · " : ""}${economyLabel} · ${routeReadinessLabel("economy")}`;
 }
 
 const modelStatusLabels = {
@@ -883,7 +883,7 @@ async function boot() {
     const economyRoute = routeInfo("economy");
     const premiumRoute = routeInfo("premium");
     const routeStatus = routeAvailable("economy")
-      ? `${economyRoute.model} · ${(economyRoute.reasoning_effort || "模型默认").toUpperCase()} · ${routeReadinessLabel("economy")}`
+      ? `${economyRoute.provider === "codex-responses" ? "Codex / Responses API · " : ""}${economyRoute.model} · ${(economyRoute.reasoning_effort || "模型默认").toUpperCase()} · ${routeReadinessLabel("economy")}`
       : routeReadinessLabel("economy");
     $("brain-status").textContent = `建筑 Agent · ${routeStatus}`;
     document.querySelector(".signal-dot").classList.toggle("ready", state.nativeAgentAvailable);
@@ -1647,6 +1647,7 @@ function startLiveProgress() {
 }
 
 function sameSavedApiConnection() {
+  if ($("provider-mode").value === "codex-responses") return false; // Fresh key only; never migrate a saved credential.
   const saved = state.modelRouter?.providers?.litellm;
   const wire = $("api-model").value.trim();
   const model = $("provider-mode").value !== "deepseek" ? "openai/" + wire.replace(/^openai\//, "") : "deepseek/deepseek-flash";
@@ -1654,36 +1655,46 @@ function sameSavedApiConnection() {
 }
 function applyApiProvider() {
   const bai = $("provider-mode").value === "bai";
-  const compatible = $("provider-mode").value === "compatible";
+  const responses = $("provider-mode").value === "codex-responses";
+  const compatible = $("provider-mode").value === "compatible" || responses;
   $("api-model").value = compatible ? "" : bai ? "deepseek-v4.1-flash" : "deepseek-flash";
   $("api-model").readOnly = !bai && !compatible;
   $("api-base").value = compatible ? "" : bai ? "https://api.b.ai/v1" : "https://api.deepseek.com";
   $("api-base").readOnly = !compatible;
   $("api-base").placeholder = "https://服务商地址/v1";
-  $("api-effort").value = "provider-default";
+  $("api-effort").value = responses ? "low" : "provider-default";
+  $("responses-acknowledgement").hidden = !responses;
+  $("responses-compatible").checked = false;
+  $("provider-protocol-note").textContent = responses ? "同一个 Codex App Server Agent 循环，通过你指定的 Responses API 调用模型；不是 Codex 账户登录，也不会静默降级到 LiteLLM。需要本机安装 Codex。仅 Chat Completions 兼容的接口不能使用。" : "支持 OpenAI Chat Completions 兼容接口，图片理解和工具调用能力取决于所选模型。已保存的连接保留原模型设置。";
+  $("provider-storage-note").textContent = responses ? "本次连接仅保存在当前 K Studio 进程内存中，重启需重新填写；不会读取、迁移或覆盖原来保存的 Key。已有 API 金额预算的测试配置会被阻止，不会绕过预算。" : "Key 使用当前 Windows 用户的系统加密保存在本机，不显示在对话或报告中。切换服务商需要重新填写对应的 Key。";
+  $("model-settings-submit").textContent = responses ? "启用本次 API 连接" : "保存并设为默认";
+  $("forget-api-key").textContent = responses ? "移除本次 API 连接" : "移除已保存的 Key";
+  $("forget-api-key").disabled = !state.modelRouter?.providers?.[responses ? "codex-responses" : "litellm"]?.credential_configured;
   $("api-key").value = "";
   $("api-key").placeholder = compatible ? "粘贴该服务商的 API Key" : bai ? "粘贴 B.AI API Key" : "粘贴 DeepSeek 官方 API Key";
-  $("provider-address-note").textContent = compatible ? "填写服务商提供的 HTTPS Base URL（通常以 /v1 结尾，不要包含 /chat/completions）。此入口需要兼容 Chat Completions、支持图片和工具调用的模型；保存配置后仍需实际建模验证。" : bai ? "模型请求将发送到 B.AI。模型名称请使用 B.AI 模型列表中的标识。" : "模型请求将发送到 DeepSeek 官方。B.AI 等第三方平台的 Key 不能用于此地址。";
+  $("provider-address-note").textContent = responses ? "填写 HTTPS Base URL 和供应商原始模型标识；不要添加 LiteLLM 的 openai/ 前缀，不要填写 /responses 完整地址。实际供应商兼容性、质量和费用仍未验证。" : compatible ? "填写服务商提供的 HTTPS Base URL（通常以 /v1 结尾，不要包含 /chat/completions）。此入口需要兼容 Chat Completions、支持图片和工具调用的模型；保存配置后仍需实际建模验证。" : bai ? "模型请求将发送到 B.AI。模型名称请使用 B.AI 模型列表中的标识。" : "模型请求将发送到 DeepSeek 官方。B.AI 等第三方平台的 Key 不能用于此地址。";
   $("provider-key-link").hidden = compatible;
   $("provider-key-link").href = bai ? "https://chat.b.ai/key" : "https://platform.deepseek.com/api_keys";
-  $("saved-key-status").textContent = sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
+  $("saved-key-status").textContent = $("provider-mode").value === "codex-responses" ? "仅本次进程内存连接；每次配置及重启后均需填写 Key，不复用原保存连接。" : sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
 }
 function openModelSettings() {
   if (routeInfo("economy").provider === "managed-responses") {
     showToast("模型由 K Studio 服务端配置。当前为托管 Agent 内部测试，供应商质量尚未验收；普通用户无需填写 API Key。");
     return;
   }
-  const saved = state.modelRouter?.providers?.litellm;
-  $("provider-mode").value = saved?.api_base === "https://api.b.ai/v1" ? "bai" : saved?.api_base && saved.api_base !== "https://api.deepseek.com" ? "compatible" : "deepseek";
+  const responses = routeInfo("economy").provider === "codex-responses";
+  const saved = state.modelRouter?.providers?.[responses ? "codex-responses" : "litellm"];
+  $("provider-mode").value = responses ? "codex-responses" : saved?.api_base === "https://api.b.ai/v1" ? "bai" : saved?.api_base && saved.api_base !== "https://api.deepseek.com" ? "compatible" : "deepseek";
+
   applyApiProvider();
   if (saved?.api_base === "https://api.b.ai/v1" && saved.model?.startsWith("openai/")) $("api-model").value = saved.model.slice(7);
-  if ($("provider-mode").value === "compatible") {
-    $("api-base").value = saved.api_base;
-    $("api-model").value = (saved.model || "").replace(/^openai\//, "");
+  if ($("provider-mode").value === "compatible" || responses) {
+    $("api-base").value = saved?.api_base || "";
+    $("api-model").value = responses ? (saved?.model || routeInfo("economy").model || "") : (saved.model || "").replace(/^openai\//, "");
   }
   $("forget-api-key").disabled = !saved?.credential_configured;
-  $("api-effort").value = sameSavedApiConnection() ? routeInfo("economy").reasoning_effort : "provider-default";
-  $("saved-key-status").textContent = sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
+  $("api-effort").value = responses ? (routeInfo("economy").reasoning_effort || "low") : sameSavedApiConnection() ? routeInfo("economy").reasoning_effort : "provider-default";
+  $("saved-key-status").textContent = $("provider-mode").value === "codex-responses" ? "仅本次进程内存连接；每次配置及重启后均需填写 Key，不复用原保存连接。" : sameSavedApiConnection() ? "已保存此连接；保持原模型和地址可留空 Key。" : "请填写所选服务商的 Key；不会把其他连接的 Key 自动发往此地址。";
   $("model-settings-status").textContent = "";
   $("model-settings-dialog").showModal();
 }
@@ -1691,30 +1702,36 @@ $("provider-mode").addEventListener("change", applyApiProvider);
 $("model-settings-toggle").addEventListener("click", openModelSettings);
 $("forget-api-key").addEventListener("click", async () => {
   try {
-    state.modelRouter = await api("/api/model-settings/credential", {method:"DELETE"});
+    state.modelRouter = await api("/api/model-settings/credential" + ($("provider-mode").value === "codex-responses" ? "?mode=codex-responses" : ""), {method:"DELETE"});
     $("api-key").value = ""; refreshTierLabels(); updateHeader();
-    $("saved-key-status").textContent = "本机已移除保存的 Key。";
+    $("saved-key-status").textContent = $("provider-mode").value === "codex-responses" ? "本次 API 连接已移除，原保存连接未改动。" : "本机已移除保存的 Key。";
     $("api-key").placeholder = "粘贴所选服务商的 API Key";
     $("forget-api-key").disabled = true;
-    $("model-settings-status").textContent = "已移除本机保存的 Key；再次使用需重新填写。";
+    $("model-settings-status").textContent = $("provider-mode").value === "codex-responses" ? "本次 API 连接已移除；未切换到其他供应商，原保存的 Key 不变。" : "已移除本机保存的 Key；再次使用需重新填写。";
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
 });
-$("model-settings-close").addEventListener("click", () => { $("api-key").value = ""; $("model-settings-dialog").close(); });
+$("model-settings-close").addEventListener("click", () => { $("api-key").value = ""; $("responses-compatible").checked = false; $("model-settings-dialog").close(); });
+$("model-settings-dialog").addEventListener("cancel", () => { $("api-key").value = ""; $("responses-compatible").checked = false; });
+$("model-settings-dialog").addEventListener("close", () => { $("api-key").value = ""; $("responses-compatible").checked = false; });
 $("model-settings-form").addEventListener("submit", async event => {
   event.preventDefault();
   const button = $("model-settings-form").querySelector('button[type="submit"]');
   if (button.disabled) return;
+  if ($("provider-mode").value === "codex-responses" && !$("responses-compatible").checked) {
+    $("model-settings-status").textContent = "请先确认 Responses、SSE、工具、图片和用量能力；不会自动改用 Chat Completions。";
+    return;
+  }
   if (!$("api-key").value.trim() && !sameSavedApiConnection()) {
-    $("model-settings-status").textContent = "请先填写所选服务商的 API Key，再保存为默认。";
+    $("model-settings-status").textContent = $("provider-mode").value === "codex-responses" ? "请填写所选服务商的 API Key，以启用本次内存连接；重启后需重新填写。" : "请先填写所选服务商的 API Key，再保存为默认。";
     $("api-key").focus();
     return;
   }
   button.disabled = true;
   $("model-settings-status").textContent = "正在设置连接…";
   try {
-    state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value})});
-    refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").model} · ${routeReadinessLabel("economy")}`; $("model-settings-dialog").close();
-    showToast(state.modelRouter.credential_storage === "windows-dpapi" ? "模型连接已加密保存在本机；重启自动恢复。尚未发送测试请求。" : "模型连接已设置；本机仅支持内存保存，重启需重新填写。");
+    state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value, protocol: $("provider-mode").value === "codex-responses" ? "responses" : "chat-completions", compatibility_acknowledged: $("responses-compatible").checked === true})});
+    refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").provider === "codex-responses" ? "Codex / Responses API · " : ""}${routeInfo("economy").model} · ${routeReadinessLabel("economy")}`; $("model-settings-dialog").close();
+    showToast(routeInfo("economy").provider === "codex-responses" ? "Codex Responses API 已显式启用，仅本次进程有效，重启需重新填写。原保存的连接未改动；尚未发送测试请求。" : state.modelRouter.credential_storage === "windows-dpapi" ? "模型连接已加密保存在本机；重启自动恢复。尚未发送测试请求。" : "模型连接已设置；本机仅支持内存保存，重启需重新填写。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
   finally { $("api-key").value = ""; button.disabled = false; }
 });

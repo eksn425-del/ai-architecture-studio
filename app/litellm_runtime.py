@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .agent_tools import AgentToolSurface
+from .blender_api_readback import blender_render_data_url, committed_blender_result
 from .context_compaction import (
     DEFAULT_COMPACTION_THRESHOLD_CHARS,
     build_reconstruction_checkpoint,
@@ -17,7 +18,6 @@ from .context_compaction import (
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
 from .modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
-    build_visual_critic_prompt,
     load_facade_schedule,
     parse_visual_critique_response,
     validate_visual_review_views,
@@ -254,7 +254,7 @@ class LiteLLMRuntime:
             """Use the same configured transport for Builder and read-only Critic."""
             return self._invoke_provider(request_kwargs, record=record, completion=completion)
 
-        def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None]]:
+        def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None], dict[str, Any]]:
             """Critique trusted current views in a clean context, separate from the Builder."""
             nonlocal input_tokens, output_tokens
             if cancel_requested and cancel_requested():
@@ -262,55 +262,24 @@ class LiteLLMRuntime:
             if not isinstance(ruby_state, dict):
                 raise ValueError("Dedicated visual critic requires current writer state.")
             views = review_arguments.get("views")
-            current_revisions, _, review_paths = validate_visual_review_views(project_dir, ruby_state, views)
+            state_path = project_dir / "runtime/project_ruby_state.json"
+            current_state = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else ruby_state
+            current_revisions, _, review_paths = validate_visual_review_views(project_dir, current_state, views)
             matched_pairs = validate_source_matched_pairs(
                 project_dir, current_revisions, review_arguments.get("evidence_pairs")
             )
-            if not reference_images:
-                raise ValueError("Dedicated visual critic requires at least one source reference image.")
-
-            critic_sources = [
-                path for path in reference_images
-                if path.parent.name == "reference"
-            ] or list(reference_images)
-            system_prompt = build_visual_critic_prompt(
-                [p.name for p in critic_sources],
-                CANONICAL_REVIEW_VIEWS,
-            )
+            from .review_context import prepare_review_context, finalize_review_context
+            from .modeling_quality import require_observed_source_view_pairs
+            require_observed_source_view_pairs(project_dir, load_reconstruction_evidence(project_dir, strict=True), matched_pairs)
+            context = prepare_review_context(project_dir, current_revisions, review_paths, matched_pairs)
+            critic_sources = [path for path in context.images if path.parent.name == "reference"]
+            system_prompt = context.prompt
             schedule = load_facade_schedule(project_dir)
             reconstruction_evidence = load_reconstruction_evidence(project_dir)
-            fidelity_rule = fidelity_contract_summary(reconstruction_evidence)
-            content: list[dict[str, Any]] = [{
-                "type": "text",
-                "text": (
-                    "SOURCE images come first. CURRENT SketchUp review images follow in canonical order. "
-                    "Judge visible source fidelity independently from the Builder. Do not infer success from tool logs, code, receipts or prior prose. "
-                    "The compact facade schedule below is source-facing project evidence: user_confirmed facts outrank observed estimates; inferred facts are advisory and may be wrong.\n"
-                    "Apply the reconstruction fidelity contract strictly. For a single image, judge the source-visible view hardest and do not penalize plausible hidden inference unless it contradicts visible evidence. "
-                    "For full evidence, any supplied CAD/floorplan/exterior/interior fact is a hard constraint; do not return NEEDS_FIX:NO while an evidenced region visibly contradicts it.\n"
-                    "FIDELITY_CONTRACT: " + fidelity_rule + "\n"
-                    + ("RECONSTRUCTION_EVIDENCE:\n" + json.dumps(reconstruction_evidence, ensure_ascii=False)[:12000] + "\n"
-                       if reconstruction_evidence else "RECONSTRUCTION_EVIDENCE: unavailable\n")
-                    + ("FACADE_SCHEDULE:\n" + json.dumps(schedule, ensure_ascii=False)[:12000]
-                       if schedule else "FACADE_SCHEDULE: unavailable")
-                ),
-            }]
-            for index, image_path in enumerate(critic_sources, 1):
-                content.append({"type": "text", "text": f"SOURCE {index}: {image_path.name}"})
+            content: list[dict[str, Any]] = [{"type": "text", "text": context.evidence_prompt}]
+            # Shared prompt names every role/image in the exact attachment order.
+            for image_path in context.images:
                 content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
-            for view_name in CANONICAL_REVIEW_VIEWS:
-                image_path = review_paths[view_name]
-                content.append({"type": "text", "text": f"CURRENT {view_name}: {image_path.name}"})
-                content.append({"type": "image_url", "image_url": {"url": image_data_url(image_path)}})
-            for index, pair in enumerate(matched_pairs, 1):
-                source_path = project_dir / pair["source_ref"]
-                current_path = project_dir / pair["current_view"]
-                content.append({
-                    "type": "text",
-                    "text": f"SOURCE-MATCH PAIR {index} ({pair.get('label') or 'detail'}): compare this SOURCE directly to the following CURRENT camera/detail.",
-                })
-                content.append({"type": "image_url", "image_url": {"url": image_data_url(source_path)}})
-                content.append({"type": "image_url", "image_url": {"url": image_data_url(current_path)}})
 
             critic_kwargs: dict[str, Any] = {
                 "model": selected_model,
@@ -380,7 +349,12 @@ class LiteLLMRuntime:
             })
             if critique.malformed or critique.needs_fix is None:
                 raise ValueError("Dedicated visual critic returned an invalid NEEDS_FIX envelope.")
-            return text, usage
+            refreshed = json.loads(state_path.read_text(encoding="utf-8"))["scripts"] if state_path.exists() else current_state
+            latest_revisions, _, _ = validate_visual_review_views(project_dir, refreshed, views)
+            if latest_revisions != current_revisions:
+                raise ValueError("Review became stale during inference; recapture and review current evidence.")
+            metadata = finalize_review_context(context, text)
+            return text, usage, metadata
         record({"event": "turn_input", "model": selected_model, "tool_profile": tool_profile,
                 "workflow_mode": workflow_mode, "reference_categories": list(workflow_reference_categories(workflow_mode)),
                 "reference_files": [p.relative_to(project_dir).as_posix() for p in reference_images],
@@ -602,10 +576,11 @@ class LiteLLMRuntime:
                         and workflow_mode == "image_reconstruction"
                         and tool_profile == "reconstruction_coding"
                     ):
-                        critic_text, critic_usage = run_dedicated_visual_critic(arguments)
+                        critic_text, critic_usage, critic_metadata = run_dedicated_visual_critic(arguments)
                         arguments = dict(arguments)
                         arguments["critique"] = critic_text
                         arguments["_reviewer"] = {
+                            **critic_metadata,
                             "mode": "host_dedicated_read_only",
                             "provider": self.provider_name,
                             "model": selected_model,
@@ -619,7 +594,16 @@ class LiteLLMRuntime:
                 except (ConnectorUnavailable, MCPCallError, OSError, ValueError, RuntimeError) as error:
                     failed_tool_calls += 1
                     output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
-                text_result, images = _tool_result_parts(output)
+                try:
+                    text_result, images = _tool_result_parts(output, truncate=not name.startswith("blender_"))
+                    if name == "blender_render_scene" and output.get("success") is not False and output.get("isError") is not True:
+                        images = [blender_render_data_url(project_dir, output)]
+                except Exception as error:
+                    # Preserve the native result and exchange ID even if the
+                    # optional visual adapter cannot safely read the capture.
+                    failed_tool_calls += 1
+                    output = {"success": False, "readback_error": str(error), "native_result": output}
+                    text_result, images = _tool_result_parts(output, truncate=not name.startswith("blender_"))
                 succeeded = output.get("success", not output.get("isError", False))
                 event = {"event": "tool_result", "tool": name, "success": succeeded, "image_count": len(images)}
                 if not succeeded:
@@ -636,8 +620,10 @@ class LiteLLMRuntime:
                 # Responses detects unresolved IDs and refuses unsafe replay.
                 save_history()
                 if images:
-                    content: list[dict[str, Any]] = [{"type": "text", "text": f"Visual readback from SketchUp tool {name}."}]
+                    content: list[dict[str, Any]] = [{"type": "text", "text": f"Visual readback from tool {name}."}]
                     content.extend({"type": "image_url", "image_url": {"url": image}} for image in images)
+                    if name == "blender_render_scene":
+                        content[0]["text"] += f" Blender scene revision {output['revision']}."
                     pending_visual_readbacks.append({"role": "user", "content": content})
             # Every tool_call_id in the assistant batch must be answered before
             # any user/image message. DeepSeek can batch calls even when the
@@ -689,26 +675,37 @@ def _image_count(messages: list[dict[str, Any]]) -> int:
 def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: int = 6) -> list[dict[str, Any]]:
     """Deduplicate source images and drop obsolete readbacks on the wire.
 
-    Keep tool exchanges/IDs, reasoning fields, user inputs and source images. Shorten only old oversized tool-result text; keep the six latest tool results intact.
+    Keep tool exchanges/IDs, reasoning fields, user inputs and source images.
+    Blender native arrays use a labeled JSON projection; full raw history remains
+    intact. Legacy non-Blender text shortening applies only beyond six results.
     The full local history remains available for audit/recovery. This is a small
     product-specific filter, not a replacement for provider compaction.
     """
     # Pictures from before the most recent successful geometry execution show
     # an older model. Keep their audit text, but never present them as current QA.
-    geometry_calls: set[str] = set()
+    geometry_calls: dict[str, str] = {}
+    blender_revision = 0
     geometry_boundary = -1
     for index, message in enumerate(messages):
         if message.get("role") == "assistant":
             for call in message.get("tool_calls") or []:
-                if call.get("function", {}).get("name") in {"sketchup_run_workspace_ruby", "sketchup_run_project_ruby"}:
-                    geometry_calls.add(call.get("id", ""))
+                if call.get("function", {}).get("name") in {"sketchup_run_workspace_ruby", "sketchup_run_project_ruby", "blender_apply_objects"}:
+                    geometry_calls[call.get("id", "")] = call["function"]["name"]
         elif message.get("role") == "tool" and message.get("tool_call_id") in geometry_calls:
             try:
                 outcome = json.loads(message.get("content") or "{}")
             except (ValueError, TypeError):
                 continue
-            if isinstance(outcome, dict) and outcome.get("success") is True:
+            if geometry_calls[message["tool_call_id"]] == "blender_apply_objects":
+                if committed_blender_result(outcome):
+                    geometry_boundary = index
+                    blender_revision = outcome['revision']
+            elif isinstance(outcome, dict) and outcome.get("success") is True and outcome.get("isError") is not True:
                 geometry_boundary = index
+    from .blender_wire_context import project_blender_tool_text
+    tool_names = {call.get("id"): call.get("function", {}).get("name", "")
+                  for item in messages if item.get("role") == "assistant"
+                  for call in item.get("tool_calls") or []}
     remaining = readback_images
     recent_tools = 6
     source_urls: set[str] = set()
@@ -718,6 +715,12 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
         content = message.get("content")
         if message.get("role") == "tool":
             recent_tools -= 1
+            tool_name = tool_names.get(message.get("tool_call_id"), "")
+            if tool_name.startswith("blender_") and isinstance(content, str):
+                # Only wire copies change: never truncate Blender JSON, failures,
+                # or explicit selected full-geometry retrievals.
+                result.append({**message, "content": project_blender_tool_text(tool_name, content)})
+                continue
             if recent_tools < 0 and isinstance(content, str) and len(content) > 8000:
                 # Keep exchange IDs and complete on-disk audit history. Old
                 # source/readback dumps can be reread through workspace tools;
@@ -728,7 +731,7 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
                 continue
         is_readback = (message.get("role") == "user" and isinstance(content, list)
                        and bool(content) and content[0].get("type") == "text"
-                       and content[0].get("text", "").startswith("Visual readback from SketchUp tool "))
+                       and content[0].get("text", "").startswith(("Visual readback from SketchUp tool ", "Visual readback from tool ")))
         if not is_readback:
             if message.get("role") == "user" and isinstance(content, list):
                 kept_source = []
@@ -749,11 +752,14 @@ def _current_visual_context(messages: list[dict[str, Any]], *, readback_images: 
                     continue
             result.append(message)
             continue
+        stale_blender = ("blender_render_scene." in content[0].get("text", "")
+                         and blender_revision > 0
+                         and f"Blender scene revision {blender_revision}." not in content[0]["text"])
         kept = []
         omitted = 0
         for block in reversed(content):
             if block.get("type") == "image_url":
-                if remaining <= 0 or index < geometry_boundary:
+                if remaining <= 0 or index < geometry_boundary or stale_blender:
                     omitted += 1
                     continue
                 remaining -= 1
@@ -892,7 +898,7 @@ def _validate_provider_response(response: Any, selected_model: str,
         raise ProviderContractRejected("供应商输出被截断、过滤或未完成；本次输出不会执行工具。")
 
 
-def _tool_result_parts(output: dict[str, Any]) -> tuple[str, list[str]]:
+def _tool_result_parts(output: dict[str, Any], *, truncate: bool = True) -> tuple[str, list[str]]:
     clean = dict(output)
     images: list[str] = []
     content_items = clean.pop("contentItems", [])
@@ -906,7 +912,8 @@ def _tool_result_parts(output: dict[str, Any]) -> tuple[str, list[str]]:
             elif item.get("type") in {"inputText", "text"}:
                 clean.setdefault("text", "")
                 clean["text"] += ("\n" if clean["text"] else "") + str(item.get("text", ""))
-    return json.dumps(clean, ensure_ascii=False, default=str)[:60000], images
+    text = json.dumps(clean, ensure_ascii=False, default=str)
+    return (text[:60000] if truncate else text), images
 
 
 def _usage_from_response(response: Any) -> tuple[int | None, int | None]:

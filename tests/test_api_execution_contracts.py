@@ -174,6 +174,9 @@ def test_critic_model_mismatch_stops_without_paid_recovery_or_review_dispatch(tm
     image = tmp_path / "inputs/reference/source.png"
     image.parent.mkdir(parents=True)
     image.write_bytes(b"fixture-not-real-pixels")
+    (tmp_path / "state").mkdir(exist_ok=True)
+    (tmp_path / "state/project_context.json").write_text(json.dumps({"references": [{
+        "type": "image", "source": "inputs/reference/source.png", "evidence_role": "target_building"}]}))
     r, effects, requests = runtime(tmp_path, monkeypatch,
         [response([call(name="sketchup_submit_visual_review", arguments='{"views":{}}')]),
          response(model="different-critic")])

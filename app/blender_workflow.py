@@ -95,15 +95,23 @@ def converse(app,store,project_id,request):
         from .design_scope_approval import consume_pending_design_plan
         consume_pending_design_plan(project_dir,request.approved_pending_plan_id)
     from .native_agent import CodexAppServerRuntime
+    route = app.state.model_router.route(request.tier)
+    runtime_thread = app.state.model_router.resumable_thread(session, request.tier)
     progress_kwargs = ({'progress_callback':app.state.native_progress_callback(project_id)}
-        if isinstance(app.state.model_router.codex_runtime,CodexAppServerRuntime)
-        and app.state.model_router.route(request.tier).provider=='codex-app-server' else {})
+        if isinstance(app.state.model_router.providers.get(route.provider),CodexAppServerRuntime)
+        and route.provider in {'codex-app-server','codex-responses'} else {})
     try:
-        result=app.state.model_router.respond(**progress_kwargs,tier=request.tier,project_dir=project_dir,thread_id=session.thread_id or None,prompt=prompt,mcp_enabled=execute,model_path=None,model_guid='',ruby_enabled=False,ruby_state={},workflow_mode=request.workflow_mode,tool_profile='full',developer_instructions='Use only Blender tools. No arbitrary code, external APIs or SketchUp. Preserve unrelated named objects. Planning has no modeling tools. When explicitly registered, search_web and fetch_url are read-only public research tools; use actual returned citations and acknowledge retrieval errors. Imported notes are external assistance, not autonomous web search. Only target_building images define target appearance; defect_location images show historical problems, never target truth; unknown roles require clarification. Preserve image turn and revision provenance. Within approved scope, complete coherent unseen sides and interior as explicitly inferred design. Additional true views constrain the same model; preserve satisfied geometry. Prioritize roof-wall-window-corner joins and circulation before decoration. For observed connection defects, use blender_plan_relation_repair to map priorities to exact components and planned edits; use its measured checks after each commit. Do not replace high-priority unresolved connections with decoration, do not claim visual acceptance from relation tests. Use blender_audit_connections for declared intended joints; positive gaps, penetrations and misalignment require interpretation, and mesh-bound hints require native/view verification. Use prepare_component with exact owned component_ids; component replacement/removal must cover its complete saved receipt, including legs, frames and other children, not only the visible top. For legacy geometry verify each owned child before removal; do not guess ownership from prefixes. inspect fitted six views and interior perspectives; clearance checks are not navigation or compliance. Correct deterministic issues inside finite stage budget, stop destructive or no-progress loops. First-turn quality is judged separately; later wishes must not hide first-turn defects. Intentional touching partition faces are not automatically defects. Report actual limitations.')
+        result=app.state.model_router.respond(**progress_kwargs,tier=request.tier,project_dir=project_dir,thread_id=runtime_thread,prompt=prompt,mcp_enabled=execute,model_path=None,model_guid='',ruby_enabled=False,ruby_state={},workflow_mode=request.workflow_mode,tool_profile='full',developer_instructions='Use only Blender tools. No arbitrary code, external APIs or SketchUp. Preserve unrelated named objects. Planning has no modeling tools. When explicitly registered, search_web and fetch_url are read-only public research tools; use actual returned citations and acknowledge retrieval errors. Imported notes are external assistance, not autonomous web search. Only target_building images define target appearance; defect_location images show historical problems, never target truth; unknown roles require clarification. Preserve image turn and revision provenance. Within approved scope, complete coherent unseen sides and interior as explicitly inferred design. Additional true views constrain the same model; preserve satisfied geometry. Prioritize roof-wall-window-corner joins and circulation before decoration. For observed connection defects, use blender_plan_relation_repair to map priorities to exact components and planned edits; use its measured checks after each commit. Do not replace high-priority unresolved connections with decoration, do not claim visual acceptance from relation tests. Use blender_audit_connections for declared intended joints; positive gaps, penetrations and misalignment require interpretation, and mesh-bound hints require native/view verification. Use prepare_component with exact owned component_ids; component replacement/removal must cover its complete saved receipt, including legs, frames and other children, not only the visible top. For legacy geometry verify each owned child before removal; do not guess ownership from prefixes. inspect fitted six views and interior perspectives; clearance checks are not navigation or compliance. Correct deterministic issues inside finite stage budget, stop destructive or no-progress loops. First-turn quality is judged separately; later wishes must not hide first-turn defects. Intentional touching partition faces are not automatically defects. Report actual limitations.')
         receipt=backend.dispatch('blender_inspect_scene',{})
         if execute and result.status=='completed' and receipt.get('revision',0)<=baseline:
             raise ValueError('Agent returned without committing Blender geometry')
     except Exception as e:
+        partial = getattr(e, 'partial_result', None)
+        if partial is not None and partial.thread_id:
+            session.thread_id=partial.thread_id
+            session.runtime_identity=app.state.model_router.runtime_identity(request.tier)
+            session.provider=partial.provider_name or route.provider
+            session.model=partial.model_name or route.model
         recovered=backend.dispatch('blender_inspect_scene',{})
         if recovered.get('revision',0)>baseline:
             checkpoint(store,project_id,session,recovered)
@@ -111,6 +119,10 @@ def converse(app,store,project_id,request):
         session.error=str(e)[:1200]
         store.save_state(project_id,session,'agent_session.json')
         raise HTTPException(502,str(e)) from e
+    session.thread_id=result.thread_id;session.runtime_identity=app.state.model_router.runtime_identity(request.tier)
+    session.provider=result.provider_name or route.provider;session.model=result.model_name or route.model
+    session.reasoning_effort=result.reasoning_effort or route.reasoning_effort
+    session.region=result.region or route.region
     if result.status!='completed':
         committed=receipt.get('revision',0)>baseline
         if committed:
@@ -122,7 +134,7 @@ def converse(app,store,project_id,request):
         metadata={'execution_status':status,'geometry_committed':committed,'checkpoint_saved':committed,'turn_id':getattr(result,'turn_id','')}
         context.conversation.append(ConversationMessage(role='assistant',phase='agent',content=reply,metadata=metadata))
         store.save(context,project_dir/'state/project_context.json');store.save_state(project_id,session,'agent_session.json')
-        return {'phase':'agent','reply':reply,'agent':{**metadata,'backend':'blender','agent_action':action},'project':store.load_project(project_id)}
+        return {'phase':'agent','reply':reply,'agent':{**metadata,'backend':'blender','agent_engine':route.as_dict()['agent_engine'],'provider':session.provider,'model':session.model,'agent_action':action},'project':store.load_project(project_id)}
     if action=='plan':
         card=project_dir/'runtime/agent_workspace/notes/reconstruction_card.md'
         card.parent.mkdir(parents=True,exist_ok=True)
@@ -135,9 +147,9 @@ def converse(app,store,project_id,request):
     session.error=''
     geometry_committed=receipt.get('revision',0)>baseline
     if geometry_committed:checkpoint(store,project_id,session,receipt)
-    context.conversation.append(ConversationMessage(role='assistant',phase='agent',content=result.reply,metadata={'backend':'blender','provider':result.provider_name,'model':result.model_name,'reasoning_effort':result.reasoning_effort,'geometry_committed':geometry_committed,'checkpoint_saved':geometry_committed,'agent_action':action,'native_reopen':receipt.get('native_reopen','NOT_RUN')}))
+    context.conversation.append(ConversationMessage(role='assistant',phase='agent',content=result.reply,metadata={'backend':'blender','agent_engine':route.as_dict()['agent_engine'],'provider':result.provider_name,'model':result.model_name,'reasoning_effort':result.reasoning_effort,'geometry_committed':geometry_committed,'checkpoint_saved':geometry_committed,'agent_action':action,'native_reopen':receipt.get('native_reopen','NOT_RUN')}))
     store.save(context,project_dir/'state/project_context.json');store.save_state(project_id,session,'agent_session.json')
-    return {'phase':'agent','reply':result.reply,'agent':{'agent_action':'execute' if execute else ('plan' if action=='plan' else 'clarify'),'backend':'blender','geometry_committed':geometry_committed,'checkpoint_saved':geometry_committed,'execution_status':'committed' if geometry_committed else 'read_only','session_status':session.status,'reconstruction_state':session.reconstruction_state,'provider':session.provider,'model':session.model,'model_info':receipt},'project':store.load_project(project_id)}
+    return {'phase':'agent','reply':result.reply,'agent':{'agent_action':'execute' if execute else ('plan' if action=='plan' else 'clarify'),'backend':'blender','agent_engine':route.as_dict()['agent_engine'],'geometry_committed':geometry_committed,'checkpoint_saved':geometry_committed,'execution_status':'committed' if geometry_committed else 'read_only','session_status':session.status,'reconstruction_state':session.reconstruction_state,'provider':session.provider,'model':session.model,'model_info':receipt},'project':store.load_project(project_id)}
 
 def checkpoint(store,project_id,session,receipt):
     if receipt.get('model_path'):
