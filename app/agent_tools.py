@@ -127,7 +127,8 @@ class AgentToolSurface:
     def prepare(self, *, project_dir: Path, mcp_enabled: bool, model_path: Path | None,
                 model_guid: str, ruby_enabled: bool,
                 ruby_state: dict[str, dict[str, Any]] | None,
-                tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False) -> AgentToolContext:
+                tool_profile: ToolProfile = "full", workspace_tools_enabled: bool = False,
+                blender_readonly_tools: bool = False) -> AgentToolContext:
         resolved_project_dir = project_dir.resolve()
         from .research_tool_context import prepare_public_research, RESEARCH_TOOL_NAMES
         research_tools, research_dispatch = prepare_public_research(resolved_project_dir)
@@ -140,13 +141,17 @@ class AgentToolSurface:
             from .spatial_clearance import prepare_blender_clearance_tools
             clearance_specs, clearance_dispatch = prepare_blender_clearance_tools(backend)
             clearance_request = None
-            stage, limit = geometry_stage_limit(bool(backend.dispatch("blender_inspect_scene", {}).get("revision")))
+            has_model = bool(backend.dispatch("blender_inspect_scene", {}).get("revision"))
+            stage, limit = geometry_stage_limit(has_model)
+            read_names = {"blender_inspect_scene", "blender_render_scene",
+                          "blender_audit_connections", "blender_audit_clearance"}
+            review_enabled = blender_readonly_tools and has_model
             quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
             def blender_dispatch(name, arguments):
                 nonlocal clearance_request
                 if research_dispatch and name in RESEARCH_TOOL_NAMES:
                     return research_dispatch(name, arguments)
-                if not mcp_enabled:
+                if not mcp_enabled and not (review_enabled and name in read_names):
                     raise ValueError("Blender writes require an approved execution turn")
                 if name == 'blender_audit_spatial_clearance':
                     receipt=clearance_dispatch(name,arguments)
@@ -176,7 +181,9 @@ class AgentToolSurface:
                 finally:
                     if writing and backend.dispatch("blender_inspect_scene", {}).get("revision", 0) > before:
                         quality["writes"] += 1
-            return AgentToolContext(dynamic_tools=((backend.tools()+relation_specs+clearance_specs) if mcp_enabled else []) + research_tools,
+            blender_specs = (backend.tools()+relation_specs+clearance_specs) if mcp_enabled else (
+                [spec for spec in backend.tools() if spec["name"] in read_names] if review_enabled else [])
+            return AgentToolContext(dynamic_tools=blender_specs + research_tools,
                                     dispatch=blender_dispatch, quality_state=quality)
         prepare_codex_parity_workspace(resolved_project_dir / "runtime" / "agent_workspace")
 

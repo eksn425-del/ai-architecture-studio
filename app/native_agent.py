@@ -317,7 +317,7 @@ class CodexAppServerRuntime:
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
-                tool_profile: ToolProfile = "full",
+                tool_profile: ToolProfile = "full", blender_readonly_tools: bool = False,
                 progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
         if not self.codex_executable:
             raise NativeAgentUnavailable("Codex CLI is unavailable; install/sign in to Codex CLI to start the native agent.")
@@ -334,6 +334,7 @@ class CodexAppServerRuntime:
                     project_dir=project_dir, mcp_enabled=mcp_enabled, model_path=model_path,
                     model_guid=model_guid, ruby_enabled=ruby_enabled, ruby_state=ruby_state,
                     tool_profile=tool_profile,
+                    **({"blender_readonly_tools": True} if blender_readonly_tools else {}),
                 )
                 agent_workspace = _agent_workspace(project_dir)
             except (RuntimeError, ValueError) as error:

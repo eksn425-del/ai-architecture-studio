@@ -164,7 +164,8 @@ class LiteLLMRuntime:
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
-                tool_profile: ToolProfile = "full", cancel_requested=None) -> AgentTurnResult:
+                tool_profile: ToolProfile = "full", cancel_requested=None,
+                blender_readonly_tools: bool = False) -> AgentTurnResult:
         if requires_responses_tools(model or self.model) and not self.supports_responses_tools:
             raise NativeAgentUnavailable("当前 API 建模适配器使用 Chat Completions；GPT-6.1 Sol / Astra 的工具调用需要 Responses API。尚未开放此 API 建模路线，没有发送请求或自动切换模型。")
         api_key = self.session_api_key or os.environ.get(self.key_env, "").strip()
@@ -183,6 +184,7 @@ class LiteLLMRuntime:
                 project_dir=project_dir, mcp_enabled=mcp_enabled, model_path=model_path,
                 model_guid=model_guid, ruby_enabled=ruby_enabled, ruby_state=ruby_state,
                 tool_profile=tool_profile, workspace_tools_enabled=workflow_mode == "image_reconstruction",
+                **({"blender_readonly_tools": True} if blender_readonly_tools else {}),
             )
         except RuntimeError as error:
             raise NativeAgentUnavailable(str(error)) from error

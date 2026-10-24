@@ -84,7 +84,9 @@ class BlenderBackend:
                     raise ValueError('Invalid saved model path')
                 key=render_cache_key(options)
                 image=model.parent/('view-'+key+'.png')
-                settings_path=model.parent/('render-settings-'+uuid.uuid4().hex+'.json')
+                # Windows Blender Python may still enforce MAX_PATH. Keep this
+                # unique transient receipt shorter than the rendered PNG name.
+                settings_path=model.parent/('r-'+uuid.uuid4().hex[:16]+'.json')
                 self._run(model.parent,'render',[self.executable,'--background','--disable-autoexec',str(model),'--python-exit-code','1','--python',str(Path(__file__).with_name('blender_worker.py')),'--','render',str(image),options['view'],json.dumps(options),str(settings_path)])
                 settings=json.loads(settings_path.read_text(encoding='utf-8'))
                 result={'image_path':image.relative_to(self.project_dir).as_posix(),'revision':current['revision'],'cutaway':bool(options['hide_ids']),'hidden_ids':options['hide_ids'],'camera':options['camera'],'resolution':settings['resolution'],'denoise':settings['denoise'],'samples':settings['samples'],'denoise_requested':options.get('denoise')}
