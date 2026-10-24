@@ -156,7 +156,8 @@ function chatText(content) {
   md.renderer.rules.image = (tokens, i) => {
     const src = tokens[i].attrGet("src") || "";
     const alt = escapeHtml(tokens[i].content || "项目草图");
-    if (/^(notes|outputs)\/[a-zA-Z0-9_./-]+\.(png|jpe?g|webp)$/i.test(src) && !src.includes("..")) {
+    const nativeBlenderView = /^runtime\/blender\/[a-f0-9]{32}\/view-[a-z_]+\.png$/.test(src);
+    if (nativeBlenderView || (/^(notes|outputs)\/[a-zA-Z0-9_./-]+\.(png|jpe?g|webp)$/i.test(src) && !src.includes(".."))) {
       const path = src.startsWith("notes/") ? "runtime/agent_workspace/" + src : src;
       const url = escapeHtml(projectFileUrl(path));
       return `<a href="${url}" target="_blank" rel="noopener noreferrer"><img src="${url}" alt="${alt}" style="max-width:100%;height:auto" loading="lazy"></a>`;
