@@ -164,3 +164,98 @@ def test_fresh_run_records_code_identity_and_end_status(tmp_path, monkeypatch):
     assert audit["usage"]["input_tokens"] == 100
     assert audit["status"] == "completed"
     assert "synthetic-never-sent" not in trace.read_text()
+
+
+def finished(attempt_id="a", **changes):
+    return {"event": "provider_dispatch_finished", "attempt_id": attempt_id, "status": "returned",
+            "response_model": "fixture-model", "input_tokens": 100, "output_tokens": 20, **changes}
+
+
+def ledger_row(attempt_id="a", **changes):
+    return {"id": attempt_id, "status": "settled_upper_bound", "liability_usd": "0.1", **changes}
+
+
+def test_duplicate_a_rows_cannot_cover_a_and_b_attempts():
+    audit = audit_run([finished("a"), finished("b")], {"requests": [ledger_row("a"), ledger_row("a")]})
+    assert audit["cost"]["ledger_linked_attempts"] == 1
+    assert audit["cost"]["ledger_missing_attempt_ids"] == ["b"]
+    assert audit["cost"]["ledger_coverage_complete"] is False
+    assert audit["cost"]["settled_upper_bound_usd"] is None
+    assert audit["cost"]["ledger_anomalies"][0]["attempt_id"] == "a"
+
+
+def test_identical_ledger_duplicates_are_explicit_unknown_not_double_counted():
+    ledger = {"requests": [ledger_row(), ledger_row()]}
+    before = json.dumps(ledger, sort_keys=True)
+    audit = audit_run([finished()], ledger)
+    assert json.dumps(ledger, sort_keys=True) == before
+    assert audit["cost"]["ledger_coverage_complete"] is False
+    assert audit["cost"]["settled_upper_bound_usd"] is None
+    assert audit["cost"]["ledger_rows"] == [{"id": "a", "status": "ambiguous_duplicate",
+                                              "liability_usd": None, "row_count": 2}]
+    assert audit["cost"]["ledger_anomalies"] == [{"attempt_id": "a", "kind": "duplicate_ledger_id",
+                                                   "row_count": 2, "conflict_fields": []}]
+
+
+@pytest.mark.parametrize("changes,fields", [
+    ({"liability_usd": "0.9"}, ["liability_usd"]),
+    ({"status": "unresolved"}, ["status"]),
+    ({"status": "reserved", "liability_usd": "0.9"}, ["status", "liability_usd"]),
+])
+def test_conflicting_duplicate_ledger_amount_or_status_is_unknown(changes, fields):
+    audit = audit_run([finished()], {"requests": [ledger_row(), ledger_row(**changes)]})
+    assert audit["cost"]["ledger_coverage_complete"] is False
+    assert audit["cost"]["settled_upper_bound_usd"] is None
+    assert audit["cost"]["unresolved_reserved_usd"] is None
+    assert audit["cost"]["ledger_anomalies"][0]["conflict_fields"] == fields
+
+
+def test_distinct_attempt_ids_with_equal_amounts_are_each_counted_once():
+    audit = audit_run([finished("a"), finished("b")], {"requests": [ledger_row("a"), ledger_row("b")]})
+    assert audit["cost"]["ledger_coverage_complete"] is True
+    assert audit["cost"]["ledger_linked_attempts"] == 2
+    assert audit["cost"]["settled_upper_bound_usd"] == "0.2"
+    assert audit["cost"]["ledger_anomalies"] == []
+
+
+@pytest.mark.parametrize("change,field", [
+    ({"status": "unresolved"}, "status"),
+    ({"response_model": "different-model"}, "response_model"),
+    ({"response_model": None}, "response_model"),
+    ({"runtime": "different-runtime"}, "runtime"),
+    ({"provider": "different-provider"}, "provider"),
+    ({"input_tokens": None}, "input_tokens"),
+    ({"status": None}, "status"),
+])
+@pytest.mark.parametrize("reverse", [False, True])
+def test_finished_identity_or_status_conflicts_are_sticky(change, field, reverse):
+    first, other = finished(), finished(**change)
+    if reverse:
+        first, other = other, first
+    # Both old and new repeats after the conflict must leave it unresolved.
+    for suffix in ([first], [other], [first, other], [other, first]):
+        audit = audit_run([first, other, *suffix])
+        assert audit["usage"]["input_tokens"] is None
+        assert audit["usage"]["complete"] is False
+        assert audit["counts"]["unresolved_attempts"] == 1
+        assert field in audit["attempt_anomalies"][0]["conflict_fields"]
+        assert audit["actual_identity"][0]["model"] is None
+
+
+def test_normal_started_to_finished_and_late_duplicate_start_are_not_conflicts():
+    start = {"event": "provider_dispatch_started", "attempt_id": "a", "status": "started",
+             "requested_model": "fixture-model", "runtime": "fixture-runtime"}
+    end = finished(requested_model="fixture-model", runtime="fixture-runtime")
+    audit = audit_run([start, end, dict(start), dict(end)])
+    assert audit["usage"]["input_tokens"] == 100
+    assert audit["usage"]["complete"] is True
+    assert audit["counts"]["unresolved_attempts"] == 0
+    assert audit["attempt_anomalies"] == []
+
+
+@pytest.mark.parametrize("status", [None, "unresolved"])
+def test_incomplete_finished_status_does_not_prove_complete_usage(status):
+    audit = audit_run([finished(status=status)])
+    assert audit["usage"]["input_tokens"] is None
+    assert audit["usage"]["complete"] is False
+    assert audit["counts"]["unresolved_attempts"] == 1

@@ -1,5 +1,11 @@
 # K Studio 最小用量审计修复与离线复核（2026-10-24）
 
+## 独立审阅后的补充修复
+
+在证据提交 `ba77193a89786835807e4d0536c0f3a029f6ed12` 之后，修复审阅发现的两处可信度缺口：账本覆盖按唯一attempt ID配对，重复ID（包括完全相同的重复行）显式标异常、金额未知，不再用行数相等误判A/A覆盖A/B，也不重复累计负债；finished回执对status、model和关键身份及usage的冲突稳定保留为未知，后续相同回执不能抹掉冲突，正常started→finished和延迟重复started仍有效。
+
+本次仅相关离线回归：聚焦48 PASS，相关178 PASS / 1 SKIP；未重跑全量或原生栏杆，以下原始25/155/1353等结果及原生16/16均保留为前版事实。`test-summary.json` 新增 `review_followup` 区分新回归，并纳入实际38项基线失败的逐项配对状态、安全摘要和原始证据哈希（`paired_baseline_failures` / `baseline_comparison`），不是整套全绿声明。预算fail-closed没有改动，无真实请求。
+
 本轮仅在隔离分支 `codex/run-usage-audit-20261024` 工作，基线 `41fee1ba1c13f8d737a99d3733edef276a0a02fd`，实现提交 `43993e1f9ade1b198a98b648399265011f022694`。未推送、合并、部署或启动用户服务；未读 API 密钥，未使用真实 LLM、付费 API/GPU、用户模型或录像。原仓库已有未提交改动，候选 worktree 起始干净。仓库与用户级 `.agents/skills` 未发现适用此代码审计的技能；已读 AGENTS、CURRENT、CURRENT_TASK、执行守则和最新交接，按本轮明确范围覆盖旧推送/建模指令。
 
 ## 实际修复

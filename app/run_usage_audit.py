@@ -81,16 +81,35 @@ def audit_run(events, ledger=None):
     """Legacy traces remain readable, with explicit missing provenance/coverage."""
     start = next((e for e in events if e.get("event") == "run_audit_started"), {})
     attempts = {}
+    first_finished = {}
+    attempt_anomalies = {}
+    finished_fields = ("status", "response_model", "requested_model", "runtime", "provider",
+                       "response_id", "request_id", "actual_model", "reported_provider",
+                       "input_tokens", "output_tokens", "cached_input_tokens", "uncached_input_tokens")
     for e in events:
         if e.get("event") in {"provider_dispatch_started", "provider_dispatch_finished"}:
-            previous = attempts.setdefault(e["attempt_id"], {})
-            conflict = previous.get("conflicting_usage", False) or any(
-                k in previous and k in e and previous[k] != e[k]
-                for k in ("input_tokens", "output_tokens", "cached_input_tokens"))
-            previous.update(e)
-            if conflict:
-                previous.update(conflicting_usage=True, input_tokens=None, output_tokens=None,
-                                cached_input_tokens=None)
+            attempt_id = e["attempt_id"]
+            previous = attempts.setdefault(attempt_id, {})
+            conflicts = attempt_anomalies.setdefault(attempt_id, set())
+            # A start is lifecycle context, not a competing terminal receipt.
+            # A late duplicate start must never overwrite an observed finish.
+            for key in ("requested_model", "runtime", "provider"):
+                if key in previous and key in e and previous[key] != e[key]:
+                    conflicts.add(key)
+            if e["event"] == "provider_dispatch_finished":
+                if attempt_id in first_finished:
+                    first = first_finished[attempt_id]
+                    conflicts.update(k for k in finished_fields if first.get(k) != e.get(k))
+                else:
+                    first_finished[attempt_id] = dict(e)
+                    previous.update(e)
+            else:
+                for key, value in e.items():
+                    previous.setdefault(key, value)
+            if conflicts:
+                previous.update(conflicting_receipts=True, status="conflicting_receipts",
+                                response_model=None, input_tokens=None, output_tokens=None,
+                                cached_input_tokens=None, uncached_input_tokens=None)
     modern = bool(attempts)
     samples = list(attempts.values()) if modern else [e for e in events if e.get("event") in {
         "provider_response", "visual_critic_response", "visual_critic_contract_rejected"}]
@@ -106,6 +125,8 @@ def audit_run(events, ledger=None):
         if not modern and not native:
             # Unkeyed historical response events cannot prove deduplication.
             return None
+        if modern and any(s.get("status") != "returned" for s in samples):
+            return None
         values = [count(s.get(key)) for s in samples]
         return sum(values) if values and all(v is not None for v in values) else None
     inp, cache = total("input_tokens"), total("cached_input_tokens")
@@ -118,11 +139,28 @@ def audit_run(events, ledger=None):
                    "model": e.get("response_model"), "source": "provider_response.model"}
                   for e in samples if "response_model" in e)
     rows = (ledger or {}).get("requests", [])
-    linked = [r for r in rows if r.get("id") in attempts]
+    groups = {}
+    for row in rows:
+        if isinstance(row, dict) and isinstance(row.get("id"), str) and row["id"] in attempts:
+            groups.setdefault(row["id"], []).append(row)
+    missing_ids = sorted(set(attempts) - set(groups))
+    linked = [group[0] for group in groups.values() if len(group) == 1]
     # Liability is a conservative reservation/upper bound, never a provider bill.
-    ledger_view = [{k: row[k] for k in ("id", "status", "liability_usd", "input_tokens", "output_tokens") if k in row}
+    ledger_fields = ("id", "status", "liability_usd", "input_tokens", "output_tokens")
+    ledger_view = [{k: row[k] for k in ledger_fields if k in row}
                    for row in linked]
+    ledger_anomalies = []
+    for attempt_id, group in groups.items():
+        if len(group) > 1:
+            conflicts = [k for k in ledger_fields if any(row.get(k) != group[0].get(k) for row in group[1:])]
+            ledger_anomalies.append({"attempt_id": attempt_id, "kind": "duplicate_ledger_id",
+                "row_count": len(group), "conflict_fields": conflicts})
+            ledger_view.append({"id": attempt_id, "status": "ambiguous_duplicate",
+                                "liability_usd": None, "row_count": len(group)})
+    coverage_complete = bool(modern and not missing_ids and not ledger_anomalies)
     def liability(status):
+        if not coverage_complete:
+            return None
         subset = [r for r in linked if r.get("status") in status]
         if not subset:
             return None
@@ -148,6 +186,9 @@ def audit_run(events, ledger=None):
         "counts": {"host_dispatch_attempts": len(attempts) if modern else None,
                    "model_response_events": sum(e.get("event") in {"provider_response", "visual_critic_response"} for e in events),
                    "http_requests": None, "internal_retries": None, "unresolved_attempts": unknown},
+        "attempt_anomalies": [{"attempt_id": key, "kind": "conflicting_dispatch_receipts",
+                               "conflict_fields": sorted(value)}
+                              for key, value in attempt_anomalies.items() if value],
         "usage": {"input_tokens": inp, "cached_input_tokens": cache,
                   "uncached_input_tokens": inp - cache if inp is not None and cache is not None else None,
                   "output_tokens": total("output_tokens"),
@@ -156,8 +197,9 @@ def audit_run(events, ledger=None):
                       and (not native or terminal.get("status") == "completed"),
                   "cache_is_subset_of_input": True, "reasoning_is_subset_of_output": True},
         "cost": {"billed_usd": None, "billing_status": "unknown_no_invoice",
-                 "ledger_linked_attempts": len(linked), "ledger_rows": ledger_view,
-                 "ledger_coverage_complete": bool(modern and len(linked) == len(attempts)),
+                 "ledger_linked_attempts": len(groups), "ledger_rows": ledger_view,
+                 "ledger_missing_attempt_ids": missing_ids, "ledger_anomalies": ledger_anomalies,
+                 "ledger_coverage_complete": coverage_complete,
                  "settled_upper_bound_usd": liability({"settled_upper_bound"}),
                  "unresolved_reserved_usd": liability({"reserved", "unresolved"}),
                  "liability_is_not_invoice": True},

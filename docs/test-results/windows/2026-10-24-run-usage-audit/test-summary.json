@@ -195,5 +195,463 @@
   "real_LLM": "NOT_RUN",
   "paid_API_GPU": "NOT_RUN",
   "windows_security_settings": "UNCHANGED",
-  "codex_responses_money_cap": "FAIL_CLOSED_UNCHANGED"
+  "codex_responses_money_cap": "FAIL_CLOSED_UNCHANGED",
+  "baseline_sha": "41fee1ba1c13f8d737a99d3733edef276a0a02fd",
+  "baseline_comparison": {
+    "same_38_failure_node_ids": true,
+    "candidate_junit_relative_path": ".test-runtime/full-offline.xml",
+    "candidate_junit_sha256": "decdee6ee0bb55d4b4d4418a19f66dbd40bfb288ceb428589aac492c7596966b",
+    "baseline_junit_relative_path": ".test-runtime/baseline-failures.xml",
+    "baseline_junit_sha256": "007dcd6d216be98c753b876dd3603139c7bb9ad7abe3eea0d210fb5a86a1d96e",
+    "raw_xml_uploaded": false
+  },
+  "paired_baseline_failures": [
+    {
+      "node_id": "tests.test_blender_api_readback.test_rejects_symlinks[directory]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "5726d8f1f7d9d51fad4af7d442d4bffdda7933a4f37da6bbb93b6034a5c52cf3",
+      "baseline_failure_text_sha256": "cf40c7e5ce0f9e9fb324e995967599c239b5393bb306e743249deae6f8e27425"
+    },
+    {
+      "node_id": "tests.test_blender_api_readback.test_rejects_symlinks[image]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "7815f18313d1101b5e5fe348b9e3006f4befd51f92ccd4706632fb5459e2ed2d",
+      "baseline_failure_text_sha256": "f4d09aad97f1178d3cad94c91c9fd3d36d39c7f82306e08e53bdfc73c2223584"
+    },
+    {
+      "node_id": "tests.test_blender_api_readback.test_rejects_symlinks[scene]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "cd097252dfa2f90201494f9349c3cfca0be135c06c54ddd2a69c5e9bcc65794f",
+      "baseline_failure_text_sha256": "092a79373d1bc84987d9ddb5af8c08b66f37f0f734dcafe8db6d87ce68d96c21"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_blender_progress_reports_committed_geometry_without_claiming_quality",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Session binding returns 409",
+      "safe_error_summary": "AssertionError: assert 409 == 200",
+      "baseline_category": "Session binding returns 409",
+      "baseline_safe_error_summary": "AssertionError: assert 409 == 200",
+      "candidate_failure_text_sha256": "01dd28b5adf7716b55b6a2cec2d1577ae81a4a432c021ca58a11475fc0ab131d",
+      "baseline_failure_text_sha256": "15aba5d2a86e7a91fce06955d02d15e540fcd77c9b4449ea4e6579f173138f67"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_failed_provider_after_commit_recovers_native_artifact",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "52b3125c930cd1a3c8dd8989c7eff7b8af512b57f6b7a9c5811e54c2e1903df1",
+      "baseline_failure_text_sha256": "a7a676ac60bcd20e458edc1b4bdf952bcd6bdd1a070ad1f8629befdc0ffd1fa9"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_plan_failure_invalidates_old_plan_and_reconnect_is_idempotent",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Session binding returns 409",
+      "safe_error_summary": "AssertionError: assert 409 == 200",
+      "baseline_category": "Session binding returns 409",
+      "baseline_safe_error_summary": "AssertionError: assert 409 == 200",
+      "candidate_failure_text_sha256": "72ccff1786e0fc97c223d915970921359f14b06271db1a42fc6aa2af2dbe98ac",
+      "baseline_failure_text_sha256": "6177c0c1a1f120333bb29e20cc66f7fb07017b1e780615b066003dc6328d03cd"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_readonly_turn_cannot_dispatch_blender_write",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "438383272a337cd81b2e37bac7f64e086cef54beb8b286107dec60b7559fc8d0",
+      "baseline_failure_text_sha256": "61049b9487a4b19efe0092cfd99b42bb4a8ce8e5a1585210df917ae549a625ee"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_real_mesh_material_edit_preserves_roof",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "208018b66dcf040d1cb340140a93afc66dc7715b6444888ffb8eb33ec5067826",
+      "baseline_failure_text_sha256": "7211785600852f74f7b2ad6ce4065640a9c20e8095a17a69ed39f72d66600bde"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_safe_named_delete_preserves_other_objects_and_history",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "0d1a6374d136bac76ace636ea36f2a7848d8cb4e6dd3a59438528f50a35705f4",
+      "baseline_failure_text_sha256": "64353c57a4a8580c08545defbce8d4a1d67a236a4f6735f25b9a614bc4f1da65"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_symlink_workspace_rejected",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "47deb5a95df9ef3fb0fdf1cde72911e3dd8e7bdfca3886786fc41ebddae9f799",
+      "baseline_failure_text_sha256": "f3d3e9f43052d471739cf22d861fe7768a2d1c44c2e4e7fceead313afef9cd34"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_timeout_preserves_last_committed_state",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "e8d8f7455a23aa7c1dcd1cecfa010612678b8e71d11d7d31452ab324b058bea7",
+      "baseline_failure_text_sha256": "f2dd5f5feb10671a35666fec34b90acfa9fefbda96a84cc99b0756be7f61bb76"
+    },
+    {
+      "node_id": "tests.test_blender_backend.test_ui_blender_is_explicit_and_does_not_open_su_dialog",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "1a41b8bad1ec91ed90cd2a75ffe336a5bf5a6fb53db2029c3cafc4b1b86abbc4",
+      "baseline_failure_text_sha256": "66903ae82c5b4bcb702727e983b211880536e1556ac4f2741b3354b437f1ac27"
+    },
+    {
+      "node_id": "tests.test_blender_component_integration.test_tool_signature_and_policy_expose_inference_limits",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "fe3f5047fa3a2b4999869f4520c52417df97c38e058953232e9af5a5d347c106",
+      "baseline_failure_text_sha256": "5ccb70f13f1480c49be2fd1e4c488db085cf8cf2e0750156cffd84ef49619305"
+    },
+    {
+      "node_id": "tests.test_blender_edit_contract.test_bad_revision_and_symlink_rejected",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "2f027d38801772c9dac61272cb2ad6cd38421fd65abd9fc229c55ea9ce35a833",
+      "baseline_failure_text_sha256": "9cb35502108c26cebdbadc6dd92ee4bc6e0338e79f157e1daa9e4ce19a102d59"
+    },
+    {
+      "node_id": "tests.test_blender_wire_context.test_backend_default_detailed_and_symlink",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "eec74c242edbfe1e84b61d00fa8f64c2f1187fe9c53e30e7d1b79fff3ad28ca8",
+      "baseline_failure_text_sha256": "78572dc48e1f818b3ea71eba0c352ac1aaeaa3ad8d14b21cea268f5aff2bf3db"
+    },
+    {
+      "node_id": "tests.test_contextual_turn.test_external_plan_symlink_rejected_before_interpreter[False]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "84a83582aa23ba8875d7293e467d502125cb41a9cb84d40d0962ef12ed32db2f",
+      "baseline_failure_text_sha256": "94384b77e50ddc3c349c42d99300b6f1534aaee93dcf43207fd70f0770e67ab2"
+    },
+    {
+      "node_id": "tests.test_contextual_turn.test_external_plan_symlink_rejected_before_interpreter[True]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "4fac631d1cc6fa646f0403e1c321a43cf835c8e42968ef6a79a979c99d58dcbc",
+      "baseline_failure_text_sha256": "27eb84da780a308cd1ad4df4d184a19647b7358d4363babdc624251a857ade1d"
+    },
+    {
+      "node_id": "tests.test_conversation_receipts.test_api_duplicate_replay_does_not_corrupt_receipt",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "085961f26558ce0c30a8d52cf29300b5e5a205f71fbc30922538b209a6bfbe0c",
+      "baseline_failure_text_sha256": "d4e23c7144fdba60c0c0971d3898b31e37076a3e8854d959db165364f84cb7d0"
+    },
+    {
+      "node_id": "tests.test_imported_research.test_bad_note_blocks_provider_and_unknown_image_role_still_blocks",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Session binding returns 409",
+      "safe_error_summary": "AssertionError: assert 409 == 200",
+      "baseline_category": "Session binding returns 409",
+      "baseline_safe_error_summary": "AssertionError: assert 409 == 200",
+      "candidate_failure_text_sha256": "02cae77cb118366fbb936cdb69a18c3230e00bc99c00cfbd010fa294cad89bd5",
+      "baseline_failure_text_sha256": "99dc4ca8ed3c18b5851b1e0a52e27fce6f1296e3894c1da601c794234c72cf8c"
+    },
+    {
+      "node_id": "tests.test_imported_research.test_reject_link",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "7a63c4a4355a56cc391625412b5c557902c5783519627fd509642dabdf648238",
+      "baseline_failure_text_sha256": "a762eb5cecd223e7120061641043a35e81ccfc176e746c097c45bb5ebf033fda"
+    },
+    {
+      "node_id": "tests.test_imported_research.test_upload_reaches_actual_conversation_provider_without_write_tools",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Session binding returns 409",
+      "safe_error_summary": "AssertionError: assert 409 == 200",
+      "baseline_category": "Session binding returns 409",
+      "baseline_safe_error_summary": "AssertionError: assert 409 == 200",
+      "candidate_failure_text_sha256": "58f04c43c130871a9470d1b1b7805e67ffbc47fc1ce4380c53fe6e513d1d722e",
+      "baseline_failure_text_sha256": "1a7b1bce64a2ea4c05e18327b4180131b8afb4e5db1b27324978fe42a16f5102"
+    },
+    {
+      "node_id": "tests.test_native_terminal_host.test_blender_host_interrupted_preserves_real_revision_truth[False]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Session binding returns 409",
+      "safe_error_summary": "AssertionError: assert 409 == 200",
+      "baseline_category": "Session binding returns 409",
+      "baseline_safe_error_summary": "AssertionError: assert 409 == 200",
+      "candidate_failure_text_sha256": "272eca13571a2fbf36a32c9f61ae6f50a2ceb472fdf0ebface11cf75bbb942bb",
+      "baseline_failure_text_sha256": "fdb89954b610de991498ecea56a8e959fce12a3ffd11f783e844f9805f0a19f8"
+    },
+    {
+      "node_id": "tests.test_native_terminal_host.test_blender_host_interrupted_preserves_real_revision_truth[True]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Session binding returns 409",
+      "safe_error_summary": "AssertionError: assert 409 == 200",
+      "baseline_category": "Session binding returns 409",
+      "baseline_safe_error_summary": "AssertionError: assert 409 == 200",
+      "candidate_failure_text_sha256": "7731ba8f750d02f0ffa7d7f69d1d0e254ff0bd8f9ef96e4f4843d36d174f46c7",
+      "baseline_failure_text_sha256": "de8c9f715d097356a76a1caefc63b42552d6455fcad34c58b894502bf966e26d"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_explicit_policy_exposes_only_research_and_untrusted_output_cannot_grant_write",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "8b92be0be6792f2126af9514d9ad44697958e51d8b2be251c0ff28473ebe408a",
+      "baseline_failure_text_sha256": "13c7637a10ec68f5941fa7f3b205eb337332025c10fe7dd5847fa80aad07c6c4"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[False-False]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "1613b78e312c21381c37ab501386e83837c88a80a2f497894190f33bf200be27",
+      "baseline_failure_text_sha256": "aa7addd6b0b4550efd29ab332a49378d7887ac5c9aa6cef7b1ac9fcd5baed649"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[False-True]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "f496601aec935a1fd8afcaf57cb904e239b64b9dcff40206d8bb4764ee8df6b8",
+      "baseline_failure_text_sha256": "6b58377124382d74f6dfe33bac416e2bd568a95b549344a48f7408ab5641a583"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[True-False]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "c8e9f2d69fa4c2b9c5840146a7071e32ebec83fb7352839728decc944eb42d8e",
+      "baseline_failure_text_sha256": "9ce531f8dda75c04c968cb7685110be72bbc9c1b28188c997d4160834beac582"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[True-True]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "d913aa3e38df5647d4b709cd88ef9e8672d42ae67ff23960507b999aed32a968",
+      "baseline_failure_text_sha256": "4bd3aebdbae0fbaaaea4ecc3305a804e2e485cf2c8d75eda675abd8b4b6b369b"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_no_policy_preserves_toolless_planning",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "dad766e546a8b159f104ea002d85a1000228fc2f4b1f846ce73fa75e33c36f39",
+      "baseline_failure_text_sha256": "8a13fe66eb9749fa07629c3f002021409ce02fc6956636831e3d61229c187dac"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[policy]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "8114cb127bd7dab3824c06b5db807d347d2107b5da69fef338729c949fe0c299",
+      "baseline_failure_text_sha256": "f996544095f53b48f5008daa8db7dfaac9da4eb4b31f9753236a04dfc5909e4c"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[receipt]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "23403839f1327d3a795345996d255b187ab1e009cd30b876dee7b23115100371",
+      "baseline_failure_text_sha256": "0d3efa21c920ab4105e29714dca28f12f4663bcc60e13a6b32eaf55e4581b082"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[runtime]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "c5dafc9c0ccbfaa1999c2ef68a9060d107e2de205dd4700343036898b95ea289",
+      "baseline_failure_text_sha256": "7eadbe0b56f56ec153a4fa78ef8a0498ddfbadb1bcba3144c8d66a32b98a5f62"
+    },
+    {
+      "node_id": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[state]",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Windows symlink privilege",
+      "safe_error_summary": "WinError1314",
+      "baseline_category": "Windows symlink privilege",
+      "baseline_safe_error_summary": "WinError1314",
+      "candidate_failure_text_sha256": "6307fc496b24fc82b3a03a7af4e8f3a2115c249b89dd29481f6589c38bfdbb87",
+      "baseline_failure_text_sha256": "53e36a1737c6349d9943e209460490a160ae24d9506ee9ad68301776c911ef88"
+    },
+    {
+      "node_id": "tests.test_shared_review_contract.test_invalid_scope_never_leaks_stale_plan_text_into_review_prompt",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Default encoding mismatch",
+      "safe_error_summary": "UnicodeDecodeError",
+      "baseline_category": "Default encoding mismatch",
+      "baseline_safe_error_summary": "UnicodeDecodeError",
+      "candidate_failure_text_sha256": "82a1534183473a42982d8997e23d6fd2b516294409aa43ebe21554d91af39464",
+      "baseline_failure_text_sha256": "bf26e7941c0aa061c7d364807fb7b33e35868338a6aaa8b34737f7b88fe27a45"
+    },
+    {
+      "node_id": "tests.test_stage_quality.test_real_blender_budget_identical_no_progress_and_retained_candidate",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Blender not visible on test process PATH",
+      "safe_error_summary": "ValueError: Blender executable unavailable",
+      "baseline_category": "Blender not visible on test process PATH",
+      "baseline_safe_error_summary": "ValueError: Blender executable unavailable",
+      "candidate_failure_text_sha256": "4af78c8269b56a1e7d75e256b7d7570bf2ecfc69460309adac359b36edd41905",
+      "baseline_failure_text_sha256": "78bf7a3c82c06794f41f575c412b67afa950863242a4f4c5b5a4c9baa2a02971"
+    },
+    {
+      "node_id": "tests.test_ui_contextual_composer.test_contextual_composer_ui_contracts",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Node child-process spawn restriction",
+      "safe_error_summary": "EPERM",
+      "baseline_category": "Node child-process spawn restriction",
+      "baseline_safe_error_summary": "EPERM",
+      "candidate_failure_text_sha256": "53b8137bb09f6ba9e520a5988ad4e6e4c4da0568e85f47a0f539621b49be7983",
+      "baseline_failure_text_sha256": "dde32230a39c11487254faaf873a81698fc3a519525e6774340ead82bc1b935d"
+    },
+    {
+      "node_id": "tests.test_ui_reference_defaults.test_reference_default_ui_contracts",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Node child-process spawn restriction",
+      "safe_error_summary": "EPERM",
+      "baseline_category": "Node child-process spawn restriction",
+      "baseline_safe_error_summary": "EPERM",
+      "candidate_failure_text_sha256": "cfb336aa8314fba9bf94e221a63a99a439e8e84aa05d1c148bed16e65f03f864",
+      "baseline_failure_text_sha256": "b526d0ff1c7f75c52fe3366c184de3f282c1976571abc23650dfd86828e409e9"
+    },
+    {
+      "node_id": "tests.test_ui_three_round.test_three_round_ui_contracts",
+      "candidate": "FAIL",
+      "baseline": "FAIL",
+      "category": "Node child-process spawn restriction",
+      "safe_error_summary": "EPERM",
+      "baseline_category": "Node child-process spawn restriction",
+      "baseline_safe_error_summary": "EPERM",
+      "candidate_failure_text_sha256": "4a1ade42c87b104d90755a740c9ef75d91613efa4c3b438ae154482c26eb5e26",
+      "baseline_failure_text_sha256": "6060c3217c82d06be379c65ff84ed80880ba77955b49b37be17499013a03296f"
+    }
+  ],
+  "refined_failure_counts": {
+    "Windows symlink privilege": 13,
+    "Session binding returns 409": 6,
+    "Blender not visible on test process PATH": 8,
+    "Default encoding mismatch": 8,
+    "Node child-process spawn restriction": 3
+  },
+  "review_followup": {
+    "source_parent_sha": "ba77193a89786835807e4d0536c0f3a029f6ed12",
+    "scope": [
+      "unique attempt ID ledger alignment; explicit duplicate/conflicting rows without duplicate liability",
+      "sticky finished status/model/runtime conflicts; lifecycle start/finish remains valid",
+      "publish actual 38-item baseline reproduction pairs and safe hashes"
+    ],
+    "focused_tests": {
+      "passed": 48,
+      "failed": 0
+    },
+    "related_tests": {
+      "passed": 178,
+      "failed": 0,
+      "skipped": 1
+    },
+    "full_suite_rerun": "NOT_RUN; prior full result and 38 baseline reproductions above remain historical facts",
+    "junit_relative_paths": [
+      ".test-runtime/review-fix-unit.xml",
+      ".test-runtime/review-fix-related.xml"
+    ]
+  }
 }
