@@ -77,8 +77,10 @@ def scenarios(objects):
 
 
 def fixture_server(root: Path):
+    sys.stdin.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding='utf-8')
     """Deterministic transport peer only; it cannot call Blender or any API."""
-    config = tomllib.loads((Path(os.environ['CODEX_HOME']) / 'config.toml').read_text())
+    config = tomllib.loads((Path(os.environ['CODEX_HOME']) / 'config.toml').read_text(encoding='utf-8'))
     provider_id = config['model_provider']
     provider = config['model_providers'][provider_id]
     assert provider['base_url'] == API_BASE
@@ -86,7 +88,7 @@ def fixture_server(root: Path):
     assert config['sandbox_workspace_write']['network_access'] is False
     assert os.environ.get(provider['env_key']) == SYNTHETIC_KEY
     assert not (Path(os.environ['CODEX_HOME']) / 'auth.json').exists()
-    script = json.loads((root / 'scenarios.json').read_text())
+    script = json.loads((root / 'scenarios.json').read_text(encoding='utf-8'))
     log = root / ('transport-' + uuid.uuid4().hex + '.jsonl')
     def record(direction, message):
         with log.open('a', encoding='utf-8') as stream:
@@ -107,7 +109,7 @@ def fixture_server(root: Path):
         return message
     thread_id = ''
     thread_state = root / 'thread-usage.json'
-    usage_state = json.loads(thread_state.read_text()) if thread_state.exists() else {}
+    usage_state = json.loads(thread_state.read_text(encoding='utf-8')) if thread_state.exists() else {}
     while (request := receive()) is not None:
         method, params = request.get('method'), request.get('params', {})
         if method == 'initialize':
@@ -172,7 +174,7 @@ def make_fixture_executable(root: Path, script):
 
 def collect_transport(root: Path):
     records = [json.loads(line) for path in sorted(root.glob('transport-*.jsonl'))
-               for line in path.read_text().splitlines()]
+               for line in path.read_text(encoding='utf-8').splitlines()]
     replies = {row['message']['id']: row['message']['result'] for row in records
                if row['direction'] == 'runtime_to_fixture' and 'result' in row['message']}
     return records, replies
@@ -189,7 +191,7 @@ def fresh_reopen(project: Path, scene, output: Path, executable: str):
         '--python-exit-code', '1', '--python', str(ROOT / 'app/blender_worker.py'), '--', 'inspect', str(target)]
     result = subprocess.run(command, check=True, capture_output=True, text=True, timeout=240)
     (output / f"fresh-reopen-r{scene['revision']}.log").write_text(result.stdout + result.stderr)
-    return json.loads(target.read_text())
+    return json.loads(target.read_text(encoding='utf-8'))
 
 
 def run(output: Path):
@@ -263,7 +265,7 @@ def run(output: Path):
         assert unknown.failed_tool_calls == 1 and file_hashes(backend.root) == before
         inspected = turn('READ_ONLY', False, unknown.thread_id, readonly=True)
         assert inspected.failed_tool_calls == 0 and file_hashes(backend.root) == before
-        config_text = (runtime.home / 'config.toml').read_text()
+        config_text = (runtime.home / 'config.toml').read_text(encoding='utf-8')
         config = tomllib.loads(config_text)
         route = router.route('economy').as_dict()
         assert not (runtime.home / 'auth.json').exists()
@@ -272,7 +274,7 @@ def run(output: Path):
     expected_denials = {'unapproved-build', 'foreign-turn-delete', 'hostile-delete',
         'hostile-update', 'hostile-add', 'stale-instruction', 'unknown-tool'}
     assert all(replies[key]['success'] is False for key in expected_denials)
-    events = [json.loads(line) for path in (project / 'runtime/agent_events').glob('*.jsonl') for line in path.read_text().splitlines()]
+    events = [json.loads(line) for path in (project / 'runtime/agent_events').glob('*.jsonl') for line in path.read_text(encoding='utf-8').splitlines()]
     raw_receipts = {event['call_id']: event['output'] for event in events if event['event'] == 'tool_receipt'}
     native_receipts = {}
     for key, revision in [('build', 1), ('read-build', 1), ('edit-six', 2), ('read-edit', 2), ('final-inspect', 2)]:

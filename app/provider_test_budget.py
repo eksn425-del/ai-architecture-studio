@@ -11,7 +11,7 @@ from pathlib import Path
 _LOCK = threading.RLock()
 
 
-def invoke_with_test_budget(model: str, api_base: str, kwargs: dict, invoke):
+def invoke_with_test_budget(model: str, api_base: str, kwargs: dict, invoke, *, attempt_id: str | None = None):
     location = os.environ.get("K_STUDIO_LOCAL_API_TEST_BUDGET", "").strip()
     if not location:
         return invoke()
@@ -32,7 +32,7 @@ def invoke_with_test_budget(model: str, api_base: str, kwargs: dict, invoke):
         if used + reserve > ceiling:
             raise ValueError("本轮 API 小额测试预算已到安全边界；已有项目和用量保留，未继续请求。")
         kwargs["max_tokens"] = min(kwargs.get("max_tokens", output_max), output_max)
-        row = {"id": uuid.uuid4().hex, "status": "reserved", "liability_usd": str(reserve)}
+        row = {"id": attempt_id or uuid.uuid4().hex, "status": "reserved", "liability_usd": str(reserve)}
         rows.append(row)
 
         def save():
@@ -58,7 +58,9 @@ def invoke_with_test_budget(model: str, api_base: str, kwargs: dict, invoke):
             row.update(status="settled_upper_bound", input_tokens=counts[0], output_tokens=counts[1], liability_usd=str(amount))
             save()
             return response
-        except Exception:
+        except BaseException:
+            # Cancellation (including asyncio.CancelledError/KeyboardInterrupt)
+            # cannot erase a request's unknown billing liability.
             row["status"] = "unresolved"
             save()
             raise

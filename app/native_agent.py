@@ -24,6 +24,7 @@ from .modeling_quality import (validate_visual_review_views, validate_source_mat
                               require_observed_source_view_pairs)
 from .reconstruction_evidence import load_reconstruction_evidence
 from .project_turn_budget import read_project_builder_usage
+from .run_usage_audit import run_started
 from .native_turn_control import NativeTurnControl, NativeTurnRegistry, native_progress_event
 
 
@@ -613,6 +614,9 @@ class CodexAppServerRuntime:
             event = self._redact(event)
             with record_lock, evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+        record(run_started(evidence_path.stem, self.provider_name, self._selected_provider,
+                           model, readonly_role if read_only else "builder"))
 
         def emit(event: dict[str, Any]) -> None:
             event = self._redact(event)

@@ -7,6 +7,7 @@ import uuid
 import importlib.util
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 from .agent_tools import AgentToolSurface
 from .blender_api_readback import blender_render_data_url, committed_blender_result
@@ -16,6 +17,7 @@ from .context_compaction import (
     compact_active_reconstruction_context,
 )
 from .native_agent import AgentTurnResult, NativeAgentUnavailable
+from .run_usage_audit import run_started, usage_fields
 from .modeling_quality import (
     CANONICAL_REVIEW_VIEWS,
     load_facade_schedule,
@@ -108,7 +110,23 @@ class LiteLLMRuntime:
                 with httpx.Client(trust_env=trust, timeout=240) as client:
                     return complete(**kwargs, client=HTTPHandler(client=client))
             return complete(**kwargs)
-        return invoke_with_test_budget(kwargs["model"], self.api_base, kwargs, invoke)
+        attempt_id = uuid.uuid4().hex
+        def audited_invoke():
+            # The ledger has already persisted its reservation at this boundary.
+            # This is a host dispatch, not proof of an SDK's HTTP/retry count.
+            record({"event": "provider_dispatch_started", "attempt_id": attempt_id,
+                    "requested_model": kwargs["model"], "runtime": self.provider_name})
+            try:
+                response = invoke()
+            except BaseException as error:
+                record({"event": "provider_dispatch_finished", "attempt_id": attempt_id,
+                        "status": "unresolved", "error_type": type(error).__name__})
+                raise
+            record({"event": "provider_dispatch_finished", "attempt_id": attempt_id,
+                    "status": "returned", **usage_fields(response)})
+            return response
+        return invoke_with_test_budget(kwargs["model"], self.api_base, kwargs, audited_invoke,
+                                       attempt_id=attempt_id)
 
     def read_only_intent(self, *, project: Path, snapshot: dict, instructions: str,
                          reference_images: list[Path], model: str, reasoning_effort: str):
@@ -139,6 +157,8 @@ class LiteLLMRuntime:
         def record(event):
             with trace.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps({"role": "conversation_intent", **event}, ensure_ascii=False) + "\n")
+        record(run_started(trace.stem, self.provider_name, urlsplit(self.api_base).hostname,
+                           model, "conversation_intent"))
         started = time.monotonic()
         record({"event": "provider_started", "requested_model": model, "tools_enabled": False})
         try:
@@ -151,11 +171,13 @@ class LiteLLMRuntime:
             message = _response_message(response)
             if message.get("tool_calls"):
                 raise ValueError("Read-only intent returned tools; no execution permission was issued.")
+            record({"event": "run_audit_finished", "status": "completed"})
             return AgentTurnResult(thread_id="", reply=_message_content(message), status="completed",
                 tool_calls=[], model_name=model, provider_name=self.provider_name,
                 reasoning_effort=reasoning_effort, input_tokens=usage[0], output_tokens=usage[1])
         except Exception as error:
             record({"event": "provider_failed", "error_type": type(error).__name__})
+            record({"event": "run_audit_finished", "status": "failed"})
             raise NativeAgentUnavailable("API 意图理解未完成，未授权建模：" + str(error).replace(key, "[credential hidden]")[:600]) from None
 
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
@@ -251,6 +273,10 @@ class LiteLLMRuntime:
         def record(event: dict[str, Any]) -> None:
             with evidence_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+        record(run_started(evidence_path.stem, self.provider_name,
+                           urlsplit(self.api_base).hostname,
+                           selected_model, "builder"))
 
         def invoke_completion(request_kwargs: dict[str, Any]):
             """Use the same configured transport for Builder and read-only Critic."""
@@ -377,6 +403,7 @@ class LiteLLMRuntime:
         def interrupted(detail: str) -> NativeAgentUnavailable:
             # Preserve real usage/checkpoint state even when a bounded turn stops.
             save_history()
+            record({"event": "run_audit_finished", "status": "interrupted"})
             error = NativeAgentUnavailable(detail)
             error.partial_result = AgentTurnResult(
                 thread_id=resolved_thread, reply="本轮中断；已有工作与记录已保留。",
@@ -652,6 +679,7 @@ class LiteLLMRuntime:
             final_message["reasoning_content"] = message["reasoning_content"]
         messages.append(final_message)
         save_history()
+        record({"event": "run_audit_finished", "status": "completed"})
         return AgentTurnResult(
             thread_id=resolved_thread,
             reply=last_reply or "已完成这轮推演；模型操作记录已保存。",
