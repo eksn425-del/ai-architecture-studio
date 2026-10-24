@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
-from .agent_tools import AgentToolSurface
+from .agent_tools import AgentToolSurface, BLENDER_REVIEW_TOOLS
 from .codex_provider import (CodexResponsesProvider, API_KEY_ENV, api_environment,
                              fingerprint, redact, selected_native_provider, provider_environment)
 from .reference_assets import discover_project_reference_images, reference_image_label
@@ -376,6 +376,7 @@ class CodexAppServerRuntime:
                 reference_images=reference_images,
                 workflow_mode=workflow_mode, tool_profile=tool_profile,
                 compact_project_context=bool(ruby_state), progress_callback=progress_callback,
+                blender_readonly_tools=blender_readonly_tools,
             )
 
     def _native_visual_review(self, *, project_dir: Path, agent_workspace: Path,
@@ -535,7 +536,8 @@ class CodexAppServerRuntime:
                   reference_images: list[Path], workflow_mode: WorkflowMode = "architecture_design",
                   tool_profile: ToolProfile = "full", read_only: bool = False,
                   compact_project_context: bool = False, readonly_role: str = "visual_critic",
-                  progress_callback: Callable[[dict[str, Any]], None] | None = None) -> AgentTurnResult:
+                  progress_callback: Callable[[dict[str, Any]], None] | None = None,
+                  blender_readonly_tools: bool = False) -> AgentTurnResult:
         self._check_api_budget()
         started = time.monotonic()
         deadline: float | None = None
@@ -694,7 +696,8 @@ class CodexAppServerRuntime:
             if self._selected_provider:
                 thread_params["modelProvider"] = self._selected_provider
             from .research_tool_context import RESEARCH_TOOL_NAMES
-            registered_tools = canonical_dynamic_tools(dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in RESEARCH_TOOL_NAMES])
+            readonly_names = RESEARCH_TOOL_NAMES | (BLENDER_REVIEW_TOOLS if blender_readonly_tools and not read_only else set())
+            registered_tools = canonical_dynamic_tools(dynamic_tools if mcp_enabled else [tool for tool in dynamic_tools if tool.get("name") in readonly_names])
             thread_params["dynamicTools"] = registered_tools
             registry_path = project_dir / "runtime" / "native_thread_tools.json"
             registrations = json.loads(registry_path.read_text(encoding="utf-8")) if registry_path.exists() else {}

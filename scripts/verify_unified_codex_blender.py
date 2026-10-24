@@ -225,12 +225,13 @@ def run(output: Path):
         assert type(runtime) is CodexAppServerRuntime
         assert runtime is router.providers['codex-responses']
         backend = BlenderBackend(project)
-        def turn(label, approved, thread=None):
+        def turn(label, approved, thread=None, readonly=False):
             result = router.respond(tier='economy', project_dir=project, thread_id=thread,
                 prompt='FIXTURE:' + label + ' Controlled synthetic contract test only.',
                 mcp_enabled=approved, ruby_enabled=False,
                 developer_instructions='Synthetic 74-object test. Host execution permission and exact edit scope are authoritative. KEEP all other objects.',
-                workflow_mode='architecture_design', tool_profile='full')
+                workflow_mode='architecture_design', tool_profile='full',
+                blender_readonly_tools=readonly)
             turns.append({'label': label, 'host_execution_granted': approved, **asdict(result)})
             assert result.status == 'completed'
             assert result.provider_name == 'codex-responses' and result.model_name == MODEL
@@ -260,7 +261,7 @@ def run(output: Path):
         assert stale.failed_tool_calls == 1 and file_hashes(backend.root) == before
         unknown = turn('UNKNOWN', True, stale.thread_id)
         assert unknown.failed_tool_calls == 1 and file_hashes(backend.root) == before
-        inspected = turn('READ_ONLY', True, unknown.thread_id)
+        inspected = turn('READ_ONLY', False, unknown.thread_id, readonly=True)
         assert inspected.failed_tool_calls == 0 and file_hashes(backend.root) == before
         config_text = (runtime.home / 'config.toml').read_text()
         config = tomllib.loads(config_text)

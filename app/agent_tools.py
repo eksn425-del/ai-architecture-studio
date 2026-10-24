@@ -9,6 +9,9 @@ from typing import Any, Callable, Literal
 
 from PIL import Image
 
+BLENDER_REVIEW_TOOLS = frozenset({"blender_inspect_scene", "blender_render_scene",
+                                 "blender_audit_connections", "blender_audit_clearance"})
+
 from .codex_parity import prepare_codex_parity_workspace
 from .oss_backends import discover_oss_backends
 from .project_ruby import ProjectRubyExecutor
@@ -143,8 +146,7 @@ class AgentToolSurface:
             clearance_request = None
             has_model = bool(backend.dispatch("blender_inspect_scene", {}).get("revision"))
             stage, limit = geometry_stage_limit(has_model)
-            read_names = {"blender_inspect_scene", "blender_render_scene",
-                          "blender_audit_connections", "blender_audit_clearance"}
+            read_names = BLENDER_REVIEW_TOOLS
             review_enabled = blender_readonly_tools and has_model
             quality = {"backend":"blender", "stage":stage, "write_limit":limit, "writes":0, "quality_status":"unverified"}
             def blender_dispatch(name, arguments):

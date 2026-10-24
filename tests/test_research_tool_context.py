@@ -112,7 +112,9 @@ def test_policy_and_receipt_symlinks_are_rejected(tmp_path, service, kind):
     assert not (outside/'stolen.jsonl').exists()
 
 
-def test_native_readonly_registration_filters_every_nonresearch_tool():
+@pytest.mark.parametrize('blender_readonly_tools,read_only', [(False, False), (True, False), (False, True), (True, True)])
+def test_native_readonly_registration_filters_every_nonresearch_tool(blender_readonly_tools, read_only):
+    from app.agent_tools import BLENDER_REVIEW_TOOLS
     from app.native_agent import canonical_dynamic_tools
     # Evaluate the actual native registration expression without starting App Server.
     source = Path(__file__).resolve().parents[1]/'app/native_agent.py'
@@ -121,9 +123,22 @@ def test_native_readonly_registration_filters_every_nonresearch_tool():
                    and any(isinstance(t, ast.Name) and t.id == 'registered_tools' for t in n.targets)]
     assert len(assignments) == 1
     expression = compile(ast.Expression(assignments[0].value), str(source), 'eval')
-    candidates = [{'name':name, 'inputSchema':{'type':'object'}} for name in ['search_web','fetch_url','blender_apply_objects','workspace_write','execute_ruby_code','other']]
+    reader_assignments = [n for n in ast.walk(tree) if isinstance(n, ast.Assign)
+                          and any(isinstance(t, ast.Name) and t.id == 'readonly_names' for t in n.targets)]
+    assert len(reader_assignments) == 1
+    reader_expression = compile(ast.Expression(reader_assignments[0].value), str(source), 'eval')
+    candidates = [{'name':name, 'inputSchema':{'type':'object'}} for name in
+                  ['search_web','fetch_url','blender_apply_objects','workspace_write','execute_ruby_code','other',
+                   *sorted(BLENDER_REVIEW_TOOLS)]]
     env = {'dynamic_tools':candidates, 'mcp_enabled':False, 'RESEARCH_TOOL_NAMES':RESEARCH_TOOL_NAMES,
-           'canonical_dynamic_tools':canonical_dynamic_tools}
-    assert {t['name'] for t in eval(expression, env)} == RESEARCH_TOOL_NAMES
+           'canonical_dynamic_tools':canonical_dynamic_tools, 'BLENDER_REVIEW_TOOLS':BLENDER_REVIEW_TOOLS,
+           'blender_readonly_tools':blender_readonly_tools, 'read_only':read_only}
+    env['readonly_names'] = eval(reader_expression, env)
+    actual = {t['name'] for t in eval(expression, env)}
+    if blender_readonly_tools and not read_only:
+        assert actual == RESEARCH_TOOL_NAMES | BLENDER_REVIEW_TOOLS
+    else:
+        assert actual == RESEARCH_TOOL_NAMES
+    assert not actual & {'blender_apply_objects', 'workspace_write', 'execute_ruby_code', 'other'}
     env['mcp_enabled'] = True
     assert eval(expression, env) == canonical_dynamic_tools(candidates)
