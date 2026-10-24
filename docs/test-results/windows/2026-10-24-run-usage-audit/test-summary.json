@@ -1,0 +1,199 @@
+{
+  "implementation_sha": "43993e1f9ade1b198a98b648399265011f022694",
+  "test_kind": "offline/synthetic only",
+  "python": "3.12.2 existing venv",
+  "pytest": "8.4.2",
+  "node": "24.19.0",
+  "full_offline_before_final_two_audit_tests": {
+    "passed": 1353,
+    "failed": 38,
+    "skipped": 19
+  },
+  "baseline_failed_subset": {
+    "passed": 0,
+    "failed": 38,
+    "skipped": 0
+  },
+  "same_38_failures_on_untouched_baseline": true,
+  "final_related_tests": {
+    "passed": 155,
+    "failed": 0,
+    "skipped": 1
+  },
+  "committed_unit_tests": {
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0
+  },
+  "node_ui": {
+    "passed": 126,
+    "failed": 0
+  },
+  "failures": [
+    {
+      "test": "tests.test_blender_api_readback.test_rejects_symlinks[image]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_blender_api_readback.test_rejects_symlinks[scene]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_blender_api_readback.test_rejects_symlinks[directory]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_blender_backend.test_timeout_preserves_last_committed_state",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_backend.test_symlink_workspace_rejected",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_blender_backend.test_plan_failure_invalidates_old_plan_and_reconnect_is_idempotent",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_backend.test_ui_blender_is_explicit_and_does_not_open_su_dialog",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_blender_backend.test_readonly_turn_cannot_dispatch_blender_write",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_backend.test_failed_provider_after_commit_recovers_native_artifact",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_backend.test_real_mesh_material_edit_preserves_roof",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_backend.test_blender_progress_reports_committed_geometry_without_claiming_quality",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_backend.test_safe_named_delete_preserves_other_objects_and_history",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_blender_component_integration.test_tool_signature_and_policy_expose_inference_limits",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_blender_edit_contract.test_bad_revision_and_symlink_rejected",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_blender_wire_context.test_backend_default_detailed_and_symlink",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_contextual_turn.test_external_plan_symlink_rejected_before_interpreter[False]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_contextual_turn.test_external_plan_symlink_rejected_before_interpreter[True]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_conversation_receipts.test_api_duplicate_replay_does_not_corrupt_receipt",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_imported_research.test_upload_reaches_actual_conversation_provider_without_write_tools",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_imported_research.test_reject_link",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_imported_research.test_bad_note_blocks_provider_and_unknown_image_role_still_blocks",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_native_terminal_host.test_blender_host_interrupted_preserves_real_revision_truth[False]",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_native_terminal_host.test_blender_host_interrupted_preserves_real_revision_truth[True]",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_no_policy_preserves_toolless_planning",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_explicit_policy_exposes_only_research_and_untrusted_output_cannot_grant_write",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[policy]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[state]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[receipt]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_policy_and_receipt_symlinks_are_rejected[runtime]",
+      "category": "Windows symlink privilege"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[False-False]",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[True-False]",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[False-True]",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_research_tool_context.test_native_readonly_registration_filters_every_nonresearch_tool[True-True]",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_shared_review_contract.test_invalid_scope_never_leaks_stale_plan_text_into_review_prompt",
+      "category": "Unicode/default encoding"
+    },
+    {
+      "test": "tests.test_stage_quality.test_real_blender_budget_identical_no_progress_and_retained_candidate",
+      "category": "Other baseline failure"
+    },
+    {
+      "test": "tests.test_ui_contextual_composer.test_contextual_composer_ui_contracts",
+      "category": "Node spawn EPERM"
+    },
+    {
+      "test": "tests.test_ui_reference_defaults.test_reference_default_ui_contracts",
+      "category": "Node spawn EPERM"
+    },
+    {
+      "test": "tests.test_ui_three_round.test_three_round_ui_contracts",
+      "category": "Node spawn EPERM"
+    }
+  ],
+  "commands": [
+    "python -m pytest -q -p no:cacheprovider --basetemp=.test-runtime/full-offline --junitxml=.test-runtime/full-offline.xml",
+    "python -m pytest <same 38 nodeids> -q -p no:cacheprovider (untouched baseline; scratch/JUnit in task workspace; PYTHONDONTWRITEBYTECODE=1)",
+    "python -m pytest -q tests/test_run_usage_audit.py tests/test_provider_test_budget.py tests/test_native_usage_breakdown.py tests/test_model_router.py tests/test_bai_transport.py tests/test_native_turn_control.py tests/test_project_turn_budget.py tests/test_codex_provider.py tests/test_unified_provider_security_review.py tests/test_responses_runtime.py tests/test_simulated_api_usage.py tests/test_unified_codex_blender.py -p no:cacheprovider --basetemp=.test-runtime/audit-final --junitxml=.test-runtime/audit-final.xml",
+    "node --test --test-isolation=none tests/test_ui_*.js",
+    "python scripts/replay_run_usage_audit.py --output .test-runtime/committed-replay",
+    "PYTHONUTF8=1 python scripts/verify_unified_codex_blender.py --output .test-runtime/rail-committed"
+  ],
+  "raw_local_evidence": ".test-runtime/",
+  "real_LLM": "NOT_RUN",
+  "paid_API_GPU": "NOT_RUN",
+  "windows_security_settings": "UNCHANGED",
+  "codex_responses_money_cap": "FAIL_CLOSED_UNCHANGED"
+}

@@ -1,3 +1,9 @@
+## 2026-10-24 — Isolated offline run-usage audit
+
+Owner delegated a minimum local API quality/cost diagnosis, with no paid inference, original-worktree edits, service start, push, merge or deployment. Independent `codex/run-usage-audit-20261024` extends41fee1b. Existing budget ledger now links host dispatch attempts and retains cancellation liabilities; Native/API traces record code/runtime identity and a read-only usage projection distinguishes cached subsets, cumulative/duplicate events, HTTP unknowns, reservations and unknown invoices. Codex Responses monetary caps remain fail-closed. [Chinese handoff and evidence](test-results/windows/2026-10-24-run-usage-audit/README.md). Real-provider quality/cost remains NOT_RUN; synthetic rail native acceptance is separately labeled. Do not revive historical cases or spend old budgets.
+
+---
+
 ## 2026-10-23 — Authorized code publication and local Codex retest handoff
 
 The owner now authorizes publication of this verified candidate on an independent GitHub branch so local Codex can update and retest. This supersedes only the historical publication-pending wording below, not the recorded test limitations. No main merge, deployment, paid inference, or restart of historical geometry is authorized. Preserve existing worktrees, native originals, protected geometry and failure evidence. Read [the retest handoff](KSTUDIO_CODEX_RETEST_HANDOFF_2026-10-23.md) before updating or testing. Historical results are not a fresh local or real-provider acceptance run.

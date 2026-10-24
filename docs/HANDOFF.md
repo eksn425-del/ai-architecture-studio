@@ -1,3 +1,9 @@
+# 2026-10-24 — Local-only minimum usage audit handoff
+
+Implementation commit43993e1 on isolated `codex/run-usage-audit-20261024` from41fee1b. [Chinese report, test evidence, limitations and next-run specification](test-results/windows/2026-10-24-run-usage-audit/README.md); [fixed synthetic rail acceptance](test-results/windows/2026-10-24-run-usage-audit/RAIL_ACCEPTANCE.md). Original dirty repository, candidate checkout, installed Studio, user services/models/recordings and credentials untouched. No paid API/GPU calls, push, merge or deployment. Existing Codex Responses cap rejection is preserved. Offline PASS is not real-provider quality, savings or commercial acceptance. Review the final evidence JSON for baseline failures and explicitly unknown charges before any future approved spend.
+
+---
+
 ## 2026-10-18 — Conversation scroll, natural image understanding, local owner recording
 
 Owner requested execution status inside the scrollable dialogue and removal of image-purpose forms. Isolated `codex/chatflow-recording-20261018` based on actual local987a30b implements one chat scroll surface, preserves reading position, removes selectors, sends fresh image pixels to the existing native read-only interpreter and turns ambiguity into no-write conversation. [Evidence and boundaries](test-results/windows/2026-10-18-chatflow-and-capture/README.md).89NodePASS;67contextualPythonPASS/2Windows-symlink-environmentFAIL;107approval/reference/progressPASS;43finalfocusedPASS. Actual browser desktop/mobile layout verified with controlled progress, no inference/native quality claim.

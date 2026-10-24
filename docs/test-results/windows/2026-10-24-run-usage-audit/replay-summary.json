@@ -1,0 +1,375 @@
+{
+  "test_kind": "synthetic zero-paid replay",
+  "real_provider_calls": "NOT_RUN",
+  "invoice": "unknown_not_zero",
+  "cases": {
+    "cache": {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "cache",
+        "started_at_utc": "2026-10-24T13:36:05.860156+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "litellm",
+        "selected_provider": "fixture.invalid",
+        "selected_model": "openai/fixture-model",
+        "role": "synthetic_replay"
+      },
+      "actual_identity": [
+        {
+          "runtime": "litellm",
+          "provider": null,
+          "model": "fixture-model",
+          "source": "provider_response.model"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": 1,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": 0
+      },
+      "usage": {
+        "input_tokens": 100,
+        "cached_input_tokens": 80,
+        "uncached_input_tokens": 20,
+        "output_tokens": 20,
+        "source": "provider dispatch receipts",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 1,
+        "ledger_rows": [
+          {
+            "id": "3d3f4927b4ac4c5f9c3b66a0cb625238",
+            "status": "settled_upper_bound",
+            "liability_usd": "0.00012",
+            "input_tokens": 100,
+            "output_tokens": 20
+          }
+        ],
+        "ledger_coverage_complete": true,
+        "settled_upper_bound_usd": "0.00012",
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    "missing_usage": {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "missing_usage",
+        "started_at_utc": "2026-10-24T13:36:05.948401+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "litellm",
+        "selected_provider": "fixture.invalid",
+        "selected_model": "openai/fixture-model",
+        "role": "synthetic_replay"
+      },
+      "actual_identity": [
+        {
+          "runtime": "litellm",
+          "provider": null,
+          "model": "fixture-model",
+          "source": "provider_response.model"
+        }
+      ],
+      "status": "failed_or_cancelled",
+      "counts": {
+        "host_dispatch_attempts": 1,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": null,
+        "source": "provider dispatch receipts",
+        "complete": false,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 1,
+        "ledger_rows": [
+          {
+            "id": "56dda6c484c646eca4f3f758019dc75e",
+            "status": "unresolved",
+            "liability_usd": "0.002"
+          }
+        ],
+        "ledger_coverage_complete": true,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": "0.002",
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    "timeout": {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "timeout",
+        "started_at_utc": "2026-10-24T13:36:06.012778+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "litellm",
+        "selected_provider": "fixture.invalid",
+        "selected_model": "openai/fixture-model",
+        "role": "synthetic_replay"
+      },
+      "actual_identity": [],
+      "status": "failed_or_cancelled",
+      "counts": {
+        "host_dispatch_attempts": 1,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": null,
+        "source": "provider dispatch receipts",
+        "complete": false,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 1,
+        "ledger_rows": [
+          {
+            "id": "c48161089ed74d4e93e296f89bc8db3f",
+            "status": "unresolved",
+            "liability_usd": "0.002"
+          }
+        ],
+        "ledger_coverage_complete": true,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": "0.002",
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    "cancelled": {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "cancelled",
+        "started_at_utc": "2026-10-24T13:36:06.078429+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "litellm",
+        "selected_provider": "fixture.invalid",
+        "selected_model": "openai/fixture-model",
+        "role": "synthetic_replay"
+      },
+      "actual_identity": [],
+      "status": "failed_or_cancelled",
+      "counts": {
+        "host_dispatch_attempts": 1,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": null,
+        "source": "provider dispatch receipts",
+        "complete": false,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 1,
+        "ledger_rows": [
+          {
+            "id": "5ddb1835432c429ca3616087afa49dfa",
+            "status": "unresolved",
+            "liability_usd": "0.002"
+          }
+        ],
+        "ledger_coverage_complete": true,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": "0.002",
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    }
+  },
+  "duplicate_cumulative": {
+    "schema_version": 1,
+    "provenance": {
+      "code_sha": null,
+      "reason": "legacy trace has no run stamp"
+    },
+    "actual_identity": [],
+    "status": "unknown_or_unfinished",
+    "counts": {
+      "host_dispatch_attempts": null,
+      "model_response_events": 0,
+      "http_requests": null,
+      "internal_retries": null,
+      "unresolved_attempts": null
+    },
+    "usage": {
+      "input_tokens": 150,
+      "cached_input_tokens": 80,
+      "uncached_input_tokens": 70,
+      "output_tokens": 20,
+      "source": "latest turn_delta telemetry",
+      "complete": false,
+      "cache_is_subset_of_input": true,
+      "reasoning_is_subset_of_output": true
+    },
+    "cost": {
+      "billed_usd": null,
+      "billing_status": "unknown_no_invoice",
+      "ledger_linked_attempts": 0,
+      "ledger_rows": [],
+      "ledger_coverage_complete": false,
+      "settled_upper_bound_usd": null,
+      "unresolved_reserved_usd": null,
+      "liability_is_not_invoice": true
+    },
+    "delivery": {
+      "geometry": "NOT_VERIFIED",
+      "keep": "NOT_VERIFIED",
+      "save_reopen": "NOT_VERIFIED",
+      "editable": "NOT_VERIFIED"
+    },
+    "native_delivery_receipts": [],
+    "limitations": [
+      "Host dispatches/model events do not prove HTTP request or retry counts.",
+      "Missing usage and bills are null; no inferred token or monetary savings.",
+      "Interrupted/timeout requests may be billable even with partial known usage."
+    ]
+  },
+  "13_legacy_events": {
+    "schema_version": 1,
+    "provenance": {
+      "code_sha": null,
+      "reason": "legacy trace has no run stamp"
+    },
+    "actual_identity": [],
+    "status": "unknown_or_unfinished",
+    "counts": {
+      "host_dispatch_attempts": null,
+      "model_response_events": 13,
+      "http_requests": null,
+      "internal_retries": null,
+      "unresolved_attempts": null
+    },
+    "usage": {
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "uncached_input_tokens": null,
+      "output_tokens": null,
+      "source": "legacy response events",
+      "complete": false,
+      "cache_is_subset_of_input": true,
+      "reasoning_is_subset_of_output": true
+    },
+    "cost": {
+      "billed_usd": null,
+      "billing_status": "unknown_no_invoice",
+      "ledger_linked_attempts": 0,
+      "ledger_rows": [],
+      "ledger_coverage_complete": false,
+      "settled_upper_bound_usd": null,
+      "unresolved_reserved_usd": null,
+      "liability_is_not_invoice": true
+    },
+    "delivery": {
+      "geometry": "NOT_VERIFIED",
+      "keep": "NOT_VERIFIED",
+      "save_reopen": "NOT_VERIFIED",
+      "editable": "NOT_VERIFIED"
+    },
+    "native_delivery_receipts": [],
+    "limitations": [
+      "Host dispatches/model events do not prove HTTP request or retry counts.",
+      "Missing usage and bills are null; no inferred token or monetary savings.",
+      "Interrupted/timeout requests may be billable even with partial known usage."
+    ]
+  }
+}

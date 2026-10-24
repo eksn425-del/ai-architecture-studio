@@ -1,0 +1,577 @@
+{
+  "test_kind": "controlled scripted App Server subprocess + public Codex Responses router/runtime + actual Blender",
+  "checks": {
+    "public_router_selects_same_codex_runtime": true,
+    "explicit_api_config_without_login_auth": true,
+    "no_geometry_before_host_execution": true,
+    "all_seven_guard_attempts_denied": true,
+    "same_render_pixels_returned_to_scripted_app_server": true,
+    "native_receipts_and_hashed_topology_returned_to_scripted_app_server": true,
+    "full_raw_native_geometry_retained_in_runtime_events": true,
+    "target_height_and_color": true,
+    "six_lower_edges_preserved": true,
+    "all_68_keep_geometry_material_topology_preserved": true,
+    "native_save_reopen_and_independent_fresh_reopens": true,
+    "original_blend_immutable": true,
+    "source_reference_reaches_turn_input": true,
+    "provider_bound_thread_resume": true,
+    "synthetic_usage_turn_delta_not_historical_total": true,
+    "inspect_only_round_does_not_mutate_model": true
+  },
+  "operations": {
+    "native_revisions": [
+      1,
+      2
+    ],
+    "objects": 74,
+    "edited": 6,
+    "preserved": 68,
+    "tool_requests_at_transport": 14,
+    "runtime_tool_calls": 13,
+    "failed_runtime_tool_calls": 6,
+    "scripted_turns": 7
+  },
+  "usage": {
+    "input_tokens": 840,
+    "output_tokens": 140,
+    "basis": "DETERMINISTIC_FIXTURE_NUMBERS_NOT_TOKENIZER_OR_BILLING"
+  },
+  "paid_cost": "NOT_INCURRED",
+  "runtime_seconds": 29.78099999999995,
+  "implementation_sha": "43993e1f9ade1b198a98b648399265011f022694",
+  "raw_local_evidence": ".test-runtime/rail-committed/",
+  "blender": "5.0.0-alpha+main.dad8bddd78e0; pre-existing installation",
+  "scope": "SYNTHETIC_FIXTURE_ONLY; no actual model inference",
+  "prior_failed_attempts": [
+    {
+      "output": ".test-runtime/rail-acceptance/",
+      "exit_code": 1,
+      "reason": "fixture peer UTF-8 input decoded with GBK; no geometry"
+    },
+    {
+      "output": ".test-runtime/rail-acceptance-v2/",
+      "exit_code": 1,
+      "reason": "backend subprocess text log decoded with GBK; synthetic native build may exist; retained"
+    }
+  ],
+  "run_audits": [
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "37c8e89f293d44ada1c3256801f3155e",
+        "started_at_utc": "2026-10-24T13:36:29.096575+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 110,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "7ab9002a934945b3ae9e91af72f24567",
+        "started_at_utc": "2026-10-24T13:36:10.721752+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 120,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [
+        {
+          "tool": "blender_apply_objects",
+          "call_id": "build",
+          "revision": 1,
+          "model_sha256": "79db9d2011c8e0476b307b15e07b8b675398ce66ef5b3daad8baa4e05636a691",
+          "geometry_objects": 74,
+          "native_reopen": "PASS",
+          "quality_status": "unverified",
+          "source": "existing host tool_receipt"
+        },
+        {
+          "tool": "blender_inspect_scene",
+          "call_id": "read-build",
+          "revision": 1,
+          "model_sha256": "79db9d2011c8e0476b307b15e07b8b675398ce66ef5b3daad8baa4e05636a691",
+          "geometry_objects": 74,
+          "native_reopen": "PASS",
+          "quality_status": "unverified",
+          "source": "existing host tool_receipt"
+        }
+      ],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "7dec085110bb4000aa680d041ed741fe",
+        "started_at_utc": "2026-10-24T13:36:26.643241+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 110,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "b7a1cea1e6ed4f3c9a3e58302a515c4e",
+        "started_at_utc": "2026-10-24T13:36:14.768949+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 180,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [
+        {
+          "tool": "blender_apply_objects",
+          "call_id": "edit-six",
+          "revision": 2,
+          "model_sha256": "2bc5d966977e33ed865f85cf9f9cc8d7a406a5e254ac422577d6217d6b7802dc",
+          "geometry_objects": 74,
+          "native_reopen": "PASS",
+          "quality_status": "unverified",
+          "source": "existing host tool_receipt"
+        },
+        {
+          "tool": "blender_inspect_scene",
+          "call_id": "read-edit",
+          "revision": 2,
+          "model_sha256": "2bc5d966977e33ed865f85cf9f9cc8d7a406a5e254ac422577d6217d6b7802dc",
+          "geometry_objects": 74,
+          "native_reopen": "PASS",
+          "quality_status": "unverified",
+          "source": "existing host tool_receipt"
+        },
+        {
+          "tool": "blender_inspect_scene",
+          "call_id": "exact-detail",
+          "revision": 2,
+          "model_sha256": "2bc5d966977e33ed865f85cf9f9cc8d7a406a5e254ac422577d6217d6b7802dc",
+          "geometry_objects": 1,
+          "native_reopen": "PASS",
+          "quality_status": "unverified",
+          "source": "existing host tool_receipt"
+        }
+      ],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "c4f3fd2f37a04ecdadc7484c8cbdf8ed",
+        "started_at_utc": "2026-10-24T13:36:05.799172+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 100,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "c94ff5695cfe42e1bddbbd22d9bbefad",
+        "started_at_utc": "2026-10-24T13:36:08.316918+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 110,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "provenance": {
+        "event": "run_audit_started",
+        "schema_version": 1,
+        "run_id": "ebd4920135d548608065c871ca485dc5",
+        "started_at_utc": "2026-10-24T13:36:31.526824+00:00",
+        "code_sha": "43993e1f9ade1b198a98b648399265011f022694",
+        "runtime_python_source_sha256": "457bad98f7065ed8ada6bd6a35c8fb4899b4f002605d51a0b92f495e5b1bf7b0",
+        "working_tree_dirty": null,
+        "source_note": "HEAD is provenance; runtime Python digest identifies actual source bytes. Dirty state is not inferred.",
+        "selected_runtime": "codex-responses",
+        "selected_provider": "kstudio_api",
+        "selected_model": "kstudio-controlled-fixture",
+        "role": "builder"
+      },
+      "actual_identity": [
+        {
+          "runtime": "codex-app-server",
+          "provider": "kstudio_api",
+          "model": "kstudio-controlled-fixture",
+          "source": "actual app-server thread/start or resume response"
+        }
+      ],
+      "status": "completed",
+      "counts": {
+        "host_dispatch_attempts": null,
+        "model_response_events": 0,
+        "http_requests": null,
+        "internal_retries": null,
+        "unresolved_attempts": null
+      },
+      "usage": {
+        "input_tokens": 110,
+        "cached_input_tokens": null,
+        "uncached_input_tokens": null,
+        "output_tokens": 20,
+        "source": "latest turn_delta telemetry",
+        "complete": true,
+        "cache_is_subset_of_input": true,
+        "reasoning_is_subset_of_output": true
+      },
+      "cost": {
+        "billed_usd": null,
+        "billing_status": "unknown_no_invoice",
+        "ledger_linked_attempts": 0,
+        "ledger_rows": [],
+        "ledger_coverage_complete": false,
+        "settled_upper_bound_usd": null,
+        "unresolved_reserved_usd": null,
+        "liability_is_not_invoice": true
+      },
+      "delivery": {
+        "geometry": "NOT_VERIFIED",
+        "keep": "NOT_VERIFIED",
+        "save_reopen": "NOT_VERIFIED",
+        "editable": "NOT_VERIFIED"
+      },
+      "native_delivery_receipts": [
+        {
+          "tool": "blender_inspect_scene",
+          "call_id": "final-inspect",
+          "revision": 2,
+          "model_sha256": "2bc5d966977e33ed865f85cf9f9cc8d7a406a5e254ac422577d6217d6b7802dc",
+          "geometry_objects": 74,
+          "native_reopen": "PASS",
+          "quality_status": "unverified",
+          "source": "existing host tool_receipt"
+        }
+      ],
+      "limitations": [
+        "Host dispatches/model events do not prove HTTP request or retry counts.",
+        "Missing usage and bills are null; no inferred token or monetary savings.",
+        "Interrupted/timeout requests may be billable even with partial known usage."
+      ]
+    }
+  ]
+}
