@@ -1,3 +1,9 @@
+## 2026-10-24 — Review branch publication authorized
+
+Independent review of the version-1 patch accepted the two audit fixes and their targeted tests; this is not production certification or an independently rerun suite. The owner-authorized next step is publication of `codex/run-usage-audit-20261024` only. [Review handoff](KSTUDIO_RUN_USAGE_AUDIT_REVIEW_HANDOFF_2026-10-24.md) records baseline41fee1b, fix6b5287b, historical versus latest test evidence and the retained monetary fail-closed boundary. This entry is committed before push; actual publication must be confirmed by remote SHA readback. No main merge, desktop update, deployment, service start or paid inference.
+
+---
+
 ## 2026-10-24 — Isolated offline run-usage audit
 
 Owner delegated a minimum local API quality/cost diagnosis, with no paid inference, original-worktree edits, service start, push, merge or deployment. Independent `codex/run-usage-audit-20261024` extends41fee1b. Existing budget ledger now links host dispatch attempts and retains cancellation liabilities; Native/API traces record code/runtime identity and a read-only usage projection distinguishes cached subsets, cumulative/duplicate events, HTTP unknowns, reservations and unknown invoices. Codex Responses monetary caps remain fail-closed. [Chinese handoff and evidence](test-results/windows/2026-10-24-run-usage-audit/README.md). Real-provider quality/cost remains NOT_RUN; synthetic rail native acceptance is separately labeled. Do not revive historical cases or spend old budgets.
