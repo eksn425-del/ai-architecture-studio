@@ -46,7 +46,7 @@ def test_second_builder_turn_respects_cumulative_cap(tmp_path, monkeypatch):
             "total": {"inputTokens": 180, "outputTokens": 8},
             "last": {"inputTokens": 180, "outputTokens": 8},
         }}},
-        {"method": "turn/completed", "params": {"turn": {"status": "completed"}}},
+        {"method": "turn/completed", "params": {"turn": {"id": "fixture-turn", "status": "completed"}}},
     ]
     runtime, project, workspace = _fixture(tmp_path, monkeypatch, first)
     assert _run(runtime, project, workspace).input_tokens == 180
@@ -70,3 +70,24 @@ def test_legacy_usage_blocks_metered_continuation(tmp_path, monkeypatch):
     _log(project / "runtime" / "agent_events", "old.jsonl", [{"event": "tool_started"}])
     with pytest.raises(subject.NativeAgentUnavailable, match="cannot be verified"):
         _run(runtime, project, workspace)
+
+
+def test_failed_host_run_retains_real_usage_without_claiming_interrupt(tmp_path):
+    import json
+    events = tmp_path / "events"
+    events.mkdir()
+    (events / "failed.jsonl").write_text("\n".join(json.dumps(event) for event in [
+        {"event": "project_budget_started", "is_builder": True},
+        {"event": "project_budget_finished", "is_builder": True, "status": "failed",
+         "input_tokens": 150, "output_tokens": 5},
+        {"event": "turn_failed", "interrupted_confirmed": False},
+    ]))
+    usage = read_project_builder_usage(events)
+    assert (usage.input_tokens, usage.output_tokens, usage.uncertain_files) == (150, 5, ())
+    (events / "unknown.jsonl").write_text("\n".join(json.dumps(event) for event in [
+        {"event": "project_budget_started", "is_builder": True},
+        {"event": "project_budget_finished", "is_builder": True, "status": "failed",
+         "input_tokens": None, "output_tokens": None},
+    ]))
+    usage = read_project_builder_usage(events)
+    assert usage.input_tokens == 150 and usage.uncertain_files == ("unknown.jsonl",)

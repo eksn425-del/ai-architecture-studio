@@ -69,7 +69,11 @@ module KStudioProfessionalHelpers
       if i > 0
         entities = current.is_a?(Sketchup::Group) ? current.entities : current.definition.entities
         matches = entities.select { |e| (e.is_a?(Sketchup::Group) || e.is_a?(Sketchup::ComponentInstance)) && e.name == part }
-        raise 'Owned child name must match exactly one group or component' unless matches.length == 1
+        unless matches.length == 1
+          # Keep the exact failing prefix; a generic error caused repeated blind
+          # KEEP retries on a nonexistent leaf in the real apartment trial.
+          raise "Owned child name must match exactly one group or component: path=#{JSON.generate(path.first(i))}, matches=#{matches.length}; inspect this parent before retrying"
+        end
         current = matches.first
       end
       if mutation

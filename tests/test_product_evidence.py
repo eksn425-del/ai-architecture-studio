@@ -58,7 +58,7 @@ def test_three_input_modes_reach_approval_without_geometry(tmp_path, views):
         Image.new("RGB", (12, 12), (i * 20, 10, 50)).save(image, "PNG")
         assert client.post(f"/api/projects/{project}/inputs/reference?filename=view-{i}.png", content=image.getvalue()).status_code == 200
     endpoint = f"/api/projects/{project}/conversation"
-    first = client.post(endpoint, json={"message": "建一个三层别墅，含阳台和坡屋顶", "workflow_mode": "image_reconstruction"})
+    first = client.post(endpoint, json={"message": ("这几张是同一栋建筑的参考图。" if views > 1 else "") + "建一个三层别墅，含阳台和坡屋顶", "workflow_mode": "image_reconstruction"})
     assert first.status_code == 200 and first.json()["agent"]["agent_action"] == "clarify"
     plan = client.post(endpoint, json={"message": "完整可编辑，尺寸估算，允许推断背面", "workflow_mode": "image_reconstruction"})
     assert plan.status_code == 200 and plan.json()["agent"]["agent_action"] == "plan"

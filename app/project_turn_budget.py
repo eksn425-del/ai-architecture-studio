@@ -1,6 +1,6 @@
 """Append-only cumulative Native Builder usage; not API billing.
 
-Only real terminal telemetry counts. Unknown, interrupted-without-usage or legacy
+Only recorded integer telemetry in a finished host run counts. Unknown, interrupted-without-usage or legacy
 Builder logs are explicitly uncertain, never reset or estimated as zero.
 """
 from __future__ import annotations
@@ -42,7 +42,7 @@ def read_project_builder_usage(events_dir: Path) -> ProjectBuilderUsage:
             continue
         receipt = next((e for e in reversed(events) if isinstance(e, dict) and e.get("event") == "project_budget_finished"), None)
         if (receipt is None or receipt.get("is_builder") is not True
-                or receipt.get("status") not in {"completed", "interrupted"}
+                or receipt.get("status") not in {"completed", "interrupted", "failed"}
                 or type(receipt.get("input_tokens")) is not int
                 or type(receipt.get("output_tokens")) is not int
                 or min(receipt["input_tokens"], receipt["output_tokens"]) < 0):

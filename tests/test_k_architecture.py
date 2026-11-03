@@ -1,0 +1,105 @@
+import json
+from pathlib import Path
+from types import SimpleNamespace
+import pytest
+from app.k_architecture import ArchitectureContext, validate_graph, specs, catalog
+from app.su_harness_tools import SUHarnessTools
+from app.deepseek_studio import DeepSeekStudioRuntime
+
+def graph():
+    return {'summary':'建筑主体、开放露台、独立屋顶与围护系统',
+      'facts':[{'text':'开放露台','basis':'observed','source':'source_1'}],
+      'levels':[{'name':'ground','z_mm':0,'role':'ground'},{'name':'terrace','z_mm':3300,'role':'open'}],
+      'parts':['Roof','Slabs','Glazing'],'relationships':['露台空间不得填满，玻璃后退'],'edit_parts':['Roof']}
+
+def context(tmp_path, stage='plan', state=None):
+    image=tmp_path/'ref.png';image.write_bytes(b'ref')
+    return ArchitectureContext(tmp_path,stage,[image],[{'role':'user','content':'只改屋顶'},
+        {'role':'assistant','content':'建议修改全楼'}],state)
+
+def bind(c):
+    c.save_graph(graph()); c.card.parent.mkdir(parents=True,exist_ok=True)
+    c.card.write_text('只改屋顶，其余保持不变。',encoding='utf-8');c.bind_plan()
+
+def test_real_pack_and_read_receipts_no_paths(tmp_path):
+    c=context(tmp_path)
+    assert len(catalog())==6
+    for entry in catalog():assert c.read_skill({'id':entry['id']})['sha256']==entry['sha256']
+    assert len((c.base/'skill-usage.jsonl').read_text().splitlines())==6
+    with pytest.raises(ValueError):c.read_skill({'id':'../../secret'})
+
+@pytest.mark.parametrize('mutation',['scope','levels','nan','source','duplicate'])
+def test_bad_graph_never_reaches_model(mutation):
+    g=graph()
+    if mutation=='scope':g['edit_parts']=['Everything']
+    if mutation=='levels':g['levels'][1]['z_mm']=-1
+    if mutation=='nan':g['levels'][1]['z_mm']=float('nan')
+    if mutation=='source':g['facts'][0]['source']='imaginary'
+    if mutation=='duplicate':g['parts'].append('Roof')
+    with pytest.raises(ValueError):validate_graph(g,{'source_1'})
+
+@pytest.mark.parametrize('changed',['graph','card','image'])
+def test_scope_binding_survives_restart_and_rejects_changes(tmp_path,changed):
+    c=context(tmp_path);bind(c)
+    resumed=ArchitectureContext(tmp_path,'execute',[tmp_path/'ref.png'],[],{})
+    assert resumed.execution_parts()=={'Roof'}
+    if changed=='graph':
+        g=graph();g['edit_parts']=['Glazing'];c.graph_path.write_text(json.dumps(g))
+    if changed=='card':c.card.write_text('changed')
+    if changed=='image':
+        (tmp_path/'ref.png').write_bytes(b'changed')
+        resumed=ArchitectureContext(tmp_path,'execute',[tmp_path/'ref.png'],[],{})
+    with pytest.raises(ValueError):resumed.execution_parts()
+
+def test_actual_shared_revision_invalidates_stale_views(tmp_path):
+    state={};c=context(tmp_path,'execute',state)
+    state['harness_building']={'revision':4}
+    q={'views':{v:{'revision':4} for v in ('front','oblique','roof')}}
+    assert c.review(q)['evidence_current']
+    state['harness_building']['revision']=5
+    assert c.review(q)['missing_current_views']==['front','oblique','roof']
+    assert c.review(q)['native_reopen']=='NOT_RUN'
+    with pytest.raises(ValueError):c.save_graph(graph())
+
+def test_discussion_and_plan_expose_no_denied_native_tools(tmp_path):
+    surface=SUHarnessTools(tmp_path,None)
+    assert surface.prepare(project_dir=tmp_path,mcp_enabled=False,stage_scoped=True).dynamic_tools==[]
+    plan=surface.prepare(project_dir=tmp_path,mcp_enabled=False,allow_plan=True,stage_scoped=True)
+    assert [s['name'] for s in plan.dynamic_tools]==['sketchup_save_plan']
+    assert {s['name'] for s in specs('clarify')}=={'kstudio_read_skill'}
+
+def test_project_memory_does_not_promote_assistant_to_user(tmp_path):
+    c=context(tmp_path)
+    memory=c.memory()
+    assert [m['content'] for m in memory['conversation'] if m['role']=='user']==['只改屋顶']
+    assert memory['design_graph_proposal'] is None
+    c.conversation.extend([{'role':'user','content':'确认'}, {'role':'assistant','content':'已执行'}])
+    assert [m['role'] for m in c.memory()['conversation']]==['user','assistant','user','assistant']
+
+def test_failed_reasoning_usage_and_same_step_retry_are_both_preserved():
+    from app.dsh_runtime import reported_usage
+    attempt={'type':'assistant/attempt','data':{'turn':1,'step':1,'stream':[
+        {'type':'chunk','chunk':{'type':'usage','usage':{'inputTokens':12394,'outputTokens':32768,'totalTokens':45162}}}]}}
+    assert reported_usage([attempt])==(12394,32768)
+    message={'type':'assistant/message','data':{'turn':1,'step':1,'usage':{'inputTokens':12394,'outputTokens':32768,'totalTokens':45162}}}
+    assert reported_usage([attempt,message])==(24788,65536)
+    unknown={'type':'assistant/attempt','data':{'turn':1,'step':1,'stream':[]}}
+    assert reported_usage([unknown,message])==(None,None)
+
+def test_product_plan_requires_graph_and_records_binding(tmp_path,monkeypatch):
+    c=context(tmp_path);(tmp_path/'state').mkdir()
+    (tmp_path/'state/project_context.json').write_text(json.dumps({'conversation':c.conversation}))
+    monkeypatch.setattr('app.deepseek_studio.discover_project_reference_images',lambda _: [tmp_path/'ref.png'])
+    runtime=DeepSeekStudioRuntime(tmp_path,connection={'model':'deepseek-v4.1-flash','api_base':'https://example.invalid/v1',
+        'api_key':'fake','mode':'codex-responses'},mcp=None)
+    def turn(**kw):
+        names={s['name'] for s in kw['specs']}
+        assert 'sketchup_apply_parts' not in names
+        assert 'kstudio_save_design_graph' in names
+        with pytest.raises(ValueError):kw['dispatch']('sketchup_save_plan',{'text':'方案内容'*20})
+        kw['dispatch']('kstudio_save_design_graph',graph())
+        kw['dispatch']('sketchup_save_plan',{'text':'只修改屋顶，保护其他建筑内容。'*10})
+        return SimpleNamespace(reply='计划已准备')
+    monkeypatch.setattr(runtime,'_official_turn',turn)
+    runtime.respond(project_dir=tmp_path,thread_id=None,prompt='',mcp_enabled=False,agent_action='plan')
+    assert c.execution_parts()=={'Roof'}

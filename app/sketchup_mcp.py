@@ -35,6 +35,14 @@ def _toml_load(path: Path) -> dict[str, Any]:
 
 def _resolve_server() -> tuple[list[str], dict[str, str], str | None]:
     standalone = os.environ.get("ARCH_STUDIO_MCP_CONFIG", "")
+    if not standalone:
+        from .connector_setup import managed_config_path
+        try:
+            managed = managed_config_path()
+            if managed.is_file() or managed.is_symlink():
+                standalone = str(managed)
+        except ValueError:
+            pass
     if standalone:
         try:
             server = json.loads(Path(standalone).read_text(encoding="utf-8"))
@@ -72,10 +80,48 @@ def _generated_script_dir() -> Path:
     configured = os.environ.get("ARCHFLOW_GENERATED_SCRIPT_DIR")
     if configured:
         return Path(configured).expanduser()
+    try:
+        _, connector_env, _ = _resolve_server()
+        if connector_env.get("ARCHFLOW_GENERATED_SCRIPT_DIR"):
+            return Path(connector_env["ARCHFLOW_GENERATED_SCRIPT_DIR"]).expanduser()
+    except ConnectorUnavailable:
+        pass
     program_data = os.environ.get("PROGRAMDATA")
     if program_data:
         return Path(program_data) / "archflow-mcp" / "generated_scripts"
     return Path.home() / ".local" / "share" / "archflow-mcp" / "generated_scripts"
+
+
+def _bridge_script_arguments(tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
+    """Use an explicitly verified compatibility alias for the same physical root.
+
+    Legacy plugins whitelist a logical C path while project scripts live on E.
+    This preserves their whitelist; it never copies scripts or expands scope.
+    """
+    if tool_name != "sketchup_eval_project_file":
+        return arguments
+    alias = os.environ.get("ARCHFLOW_BRIDGE_SCRIPT_ROOT")
+    if not alias:
+        try:
+            _, configured_env, _ = _resolve_server()
+            alias = configured_env.get("ARCHFLOW_BRIDGE_SCRIPT_ROOT")
+        except ConnectorUnavailable:
+            pass
+    if not alias:
+        return arguments
+    try:
+        root = _generated_script_dir().resolve(strict=True)
+        logical = Path(alias)
+        script = Path(arguments["script_path"]).resolve(strict=True)
+        if not logical.is_absolute() or logical.resolve(strict=True) != root:
+            raise ValueError("alias target mismatch")
+        relative = script.relative_to(root)
+        bridge_path = logical / relative
+        if bridge_path.resolve(strict=True) != script:
+            raise ValueError("script identity mismatch")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        raise ConnectorUnavailable("SketchUp script-directory compatibility alias is invalid; no script was dispatched.") from error
+    return {**arguments, "script_path": str(bridge_path.absolute())}
 
 
 def _frame(message: dict[str, Any]) -> bytes:
@@ -173,11 +219,12 @@ class ConfiguredSketchUpMCP:
         return [tool for tool in tools if isinstance(tool, dict) and isinstance(tool.get("name"), str)]
 
     def call_raw(self, tool_name: str, arguments: dict[str, Any] | None = None) -> dict[str, Any]:
+        arguments = _bridge_script_arguments(tool_name, arguments or {})
         requests = self._initialize_requests() + [
             {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
             {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {
                 "name": tool_name,
-                "arguments": arguments or {},
+                "arguments": arguments,
             }},
         ]
         return self._request(requests, 3)

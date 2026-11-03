@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import os
+import sys
+import hashlib
+import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Literal
 from urllib.parse import urlsplit, urlunsplit
 
 from .litellm_runtime import LiteLLMRuntime
-from .native_agent import NativeAgentUnavailable
+from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
 from .responses_runtime import ResponsesRuntime, ResponsesProfile, PilotBudget
 from .modeling_test_profile import assess_sol_low_surrogate
 from decimal import Decimal
@@ -26,7 +29,7 @@ class ModelRoute:
     region: str
 
     def as_dict(self) -> dict[str, str]:
-        return asdict(self)
+        return {**asdict(self), "agent_engine": ("deepseek-harness" if self.provider == "deepseek-harness" else "codex-app-server" if self.provider in {"codex-app-server", "codex-responses"} else "kstudio-api-loop")}
 
 
 def _reasoning_effort(env_name: str, default: str) -> str:
@@ -43,6 +46,8 @@ class DeterministicModelRouter:
     def __init__(self, codex_runtime: Any, china_runtime: LiteLLMRuntime | None = None,
                  runtime_root: Path | None = None):
         self.codex_runtime = codex_runtime
+        self.codex_responses_runtime = None
+        self.runtime_root = getattr(codex_runtime, "runtime_root", None) or runtime_root or Path.cwd() / "runtime"
         self.china_runtime = china_runtime or LiteLLMRuntime(
             getattr(codex_runtime, "runtime_root", None) or runtime_root or Path.cwd() / "runtime",
             sketchup_mcp=getattr(codex_runtime, "sketchup_mcp", None),
@@ -93,12 +98,69 @@ class DeterministicModelRouter:
             "codex-app-server": codex_runtime,
             "litellm": self.china_runtime,
             "managed-responses": self.responses_runtime,
+            "codex-responses": None,
         }
+
+    def configure_codex_responses(self, *, model: str, api_base: str, api_key: str,
+                                  reasoning_effort: str, protocol: str,
+                                  compatibility_acknowledged: bool) -> None:
+        """Explicit session-only opt-in. Never borrow or migrate saved credentials."""
+        self.assert_codex_responses_budget_supported()
+        if (not model or len(model) > 160 or any(c.isspace() for c in model)
+                or "astra" in model.casefold()):
+            raise ValueError("Use the provider's exact Economy model ID; Astra is not supported here.")
+        if reasoning_effort not in _ALLOWED_REASONING:
+            raise ValueError("Select an explicit Codex reasoning effort.")
+        from .codex_provider import CodexResponsesProvider
+        config = CodexResponsesProvider(api_base=api_base, api_key=api_key, protocol=protocol,
+            compatibility_acknowledged=compatibility_acknowledged)
+        runtime = CodexAppServerRuntime(self.runtime_root,
+            codex_executable=getattr(self.codex_runtime, "codex_executable", None),
+            sketchup_mcp=getattr(self.codex_runtime, "sketchup_mcp", None),
+            model=model, reasoning_effort=reasoning_effort, api_provider=config,
+            execution_mode="host_tools" if sys.platform == "win32" else "native_local")
+        if not runtime.available:
+            if runtime.binary_available:
+                runtime._assert_execution_ready()
+            raise NativeAgentUnavailable("Codex App Server is required for this Responses API route. No LiteLLM or account-login fallback.")
+        self.codex_responses_runtime = runtime
+        self.providers["codex-responses"] = runtime
+        self.economy_route = ModelRoute("economy", "codex-responses", model, reasoning_effort, runtime.region)
+
+    @staticmethod
+    def assert_codex_responses_budget_supported() -> None:
+        # The Codex subprocess may make multiple autonomous requests. Host-only
+        # count/token ceilings do not enforce a monetary reservation ledger.
+        if any(os.environ.get(name, "").strip() for name in (
+                "K_STUDIO_LOCAL_API_TEST_BUDGET", "K_STUDIO_OPERATOR_MAX_USD")):
+            raise NativeAgentUnavailable("Codex Responses cannot enforce the configured API monetary budget; route blocked before dispatch. Preserve the ledger and use the capped route; do not remove the cap to bypass it.")
+
+    def clear_codex_responses(self) -> None:
+        self.codex_responses_runtime = None
+        self.providers["codex-responses"] = None
+        # Keep the selected route unavailable: forgetting a key never switches
+        # the next request to an account login or another paid provider.
+
+    def runtime_identity(self, tier: RoutingTier) -> str:
+        route = self.route(tier)
+        runtime = self.providers.get(route.provider)
+        identity = getattr(runtime, "session_identity", "")
+        payload = [route.provider, route.model, identity,
+                   getattr(runtime, "api_base", ""),
+                   hashlib.sha256(getattr(runtime, "session_api_key", "").encode()).hexdigest()]
+        return hashlib.sha256(json.dumps(payload, ensure_ascii=True).encode()).hexdigest()
+
+    def resumable_thread(self, session: Any, tier: RoutingTier) -> str | None:
+        route = self.route(tier)
+        if (session.provider == route.provider and session.model == route.model
+                and getattr(session, "runtime_identity", "") == self.runtime_identity(tier)):
+            return session.thread_id or None
+        return None
 
     @property
     def available(self) -> bool:
         if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":
-            return self.economy_route.provider != "codex-app-server" and bool(self.providers[self.economy_route.provider].available)
+            return self.economy_route.provider != "codex-app-server" and bool(getattr(self.providers.get(self.economy_route.provider), "available", False))
         return any(bool(getattr(provider, "available", False)) for provider in self.providers.values())
 
     def route(self, tier: RoutingTier) -> ModelRoute:
@@ -114,14 +176,26 @@ class DeterministicModelRouter:
 
     def respond(self, *, tier: RoutingTier, **kwargs: Any):
         selection = self.route(tier)
-        provider = self.providers[selection.provider]
+        if selection.provider == "codex-responses":
+            self.assert_codex_responses_budget_supported()
+        provider = self.providers.get(selection.provider)
         if not bool(getattr(provider, "available", False)):
+            if selection.provider in {"codex-app-server", "codex-responses", "deepseek-harness"}:
+                readiness_method = getattr(provider, "execution_readiness", None)
+                if callable(readiness_method):
+                    readiness = readiness_method()
+                    if not readiness["execution_allowed"]:
+                        raise NativeAgentUnavailable(readiness["message"])
+            if selection.provider == "codex-responses":
+                raise NativeAgentUnavailable("The selected Codex Responses API route is unavailable. Reconnect this route; no provider fallback was made.")
             if selection.provider == "litellm":
                 raise NativeAgentUnavailable(
                     "The configured Economy provider is unavailable. Check its credential/dependency or switch Economy to the local Codex provider."
                 )
             if selection.provider == "managed-responses":
                 raise NativeAgentUnavailable("Managed Responses is not ready: operator consent, approved profile, credential and priced finite budget are required. No Codex fallback.")
+            if selection.provider == "deepseek-harness":
+                raise NativeAgentUnavailable("The selected DeepSeek Harness route is unavailable. No provider fallback was made.")
             raise NativeAgentUnavailable("The local Codex App Server is unavailable.")
         return provider.respond(
             **kwargs,
@@ -132,6 +206,7 @@ class DeterministicModelRouter:
     def status(self) -> dict[str, Any]:
         base = urlsplit(self.china_runtime.api_base)
         safe_base = urlunsplit((base.scheme, base.netloc, base.path, "", "")) if not base.username and not base.password else ""
+        deepseek = self.providers.get("deepseek-harness")
         return {
             "default_tier": "economy",
             # Metadata only; this never changes the selected Website or Codex model.
@@ -149,7 +224,20 @@ class DeterministicModelRouter:
             "economy": self.economy_route.as_dict(),
             "premium": self.premium_route.as_dict(),
             "providers": {
-                "codex-app-server": {"available": os.environ.get("ARCH_STUDIO_STANDALONE") != "1" and bool(getattr(self.codex_runtime, "available", False))},
+                "deepseek-harness": {
+                    "available": bool(getattr(deepseek, "available", False)),
+                    "credential_configured": deepseek is not None,
+                    "dependency_installed": bool(getattr(deepseek, "binary_available", False)),
+                    "execution_safety": deepseek.execution_readiness() if callable(getattr(deepseek, "execution_readiness", None)) else {"status":"not_configured"},
+                    "model": getattr(deepseek, "model", ""),
+                    "agent_engine": "deepseek-harness",
+                    "protocol": "responses",
+                    "live_quality_status": "NOT_RUN",
+                    "fallback": "none",
+                },
+                "codex-app-server": {"available": os.environ.get("ARCH_STUDIO_STANDALONE") != "1" and bool(getattr(self.codex_runtime, "available", False)),
+                    "binary_installed": bool(getattr(self.codex_runtime, "binary_available", getattr(self.codex_runtime, "available", False))),
+                    "execution_safety": self.codex_runtime.execution_readiness() if callable(getattr(self.codex_runtime, "execution_readiness", None)) else {"status":"unknown"}},
                 "litellm": {
                     "available": self.china_runtime.available,
                     "credential_configured": self.china_runtime.credential_configured,
@@ -157,6 +245,23 @@ class DeterministicModelRouter:
                     "region": self.china_runtime.region,
                     "model": self.china_runtime.model,
                     "api_base": safe_base,
+                },
+                "codex-responses": {
+                    "available": bool(getattr(self.codex_responses_runtime, "available", False)) and not any(
+                        os.environ.get(name, "").strip() for name in ("K_STUDIO_LOCAL_API_TEST_BUDGET", "K_STUDIO_OPERATOR_MAX_USD")),
+                    "credential_configured": self.codex_responses_runtime is not None,
+                    "dependency_installed": bool(getattr(self.codex_runtime, "binary_available", getattr(self.codex_runtime, "available", False))),
+                    "execution_safety": self.codex_responses_runtime.execution_readiness() if callable(getattr(self.codex_responses_runtime, "execution_readiness", None)) else {"status":"not_configured"},
+                    "model": getattr(self.codex_responses_runtime, "model", ""),
+                    "api_base": getattr(getattr(self.codex_responses_runtime, "api_provider", None), "api_base", ""),
+                    "agent_engine": "codex-app-server",
+                    "credential_storage": "windows-dpapi" if os.environ.get("KSTUDIO_PERSONAL_DESKTOP") == "1" else "memory-only",
+                    "protocol": "responses",
+                    "required_capabilities": ["responses_sse", "function_tools", "image_inputs", "exact_model_identity", "token_usage"],
+                    "capability_status": "user_acknowledged_not_provider_verified",
+                    "live_quality_status": "NOT_RUN",
+                    "monetary_budget_support": "unsupported_fail_closed",
+                    "fallback": "none",
                 },
                 "managed-responses": {
                     "available": self.responses_runtime.available,

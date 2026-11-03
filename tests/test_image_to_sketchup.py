@@ -169,7 +169,8 @@ def test_conversation_integration_contract_is_clarification_first(tmp_path: Path
     assert response.status_code == 200
     call = native.calls[-1]
     assert "CLARIFICATION turn" in call["prompt"]
-    assert "requirements agent" in call["developer_instructions"]
+    assert "no scripts or geometry writes" in call["developer_instructions"]
+    assert "writer tools are withheld" in call["developer_instructions"]
     assert response.json()["agent"]["reconstruction_state"] == "clarifying"
 
 

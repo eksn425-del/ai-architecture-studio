@@ -81,5 +81,6 @@ def test_export_persists_capture_revision_even_after_later_model_edit(tmp_path):
     metadata = result['visual_evidence']
     project.ruby_state['villa']['revision'] = 6
     assert metadata['model_revisions'] == {'villa': 5}
+    assert metadata['camera_verified_during_capture'] is False
     saved = (tmp_path / metadata['path']).with_suffix('.evidence.json')
     assert json.loads(saved.read_text())['model_revisions'] == {'villa': 5}

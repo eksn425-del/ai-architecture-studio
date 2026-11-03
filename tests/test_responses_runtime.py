@@ -141,7 +141,11 @@ def test_opaque_output_survives_history_roundtrip():
 def test_dedicated_critic_has_images_and_no_writer_tools(tmp_path,monkeypatch):
     import app.litellm_runtime as harness
     from PIL import Image
-    img=tmp_path/'source.png';Image.new('RGB',(8,8)).save(img)
+    img=tmp_path/'inputs/reference/source.png';img.parent.mkdir(parents=True)
+    Image.new('RGB',(8,8)).save(img)
+    (tmp_path/'state').mkdir(exist_ok=True)
+    (tmp_path/'state/project_context.json').write_text(json.dumps({'references': [{
+        'type': 'image', 'source': 'inputs/reference/source.png', 'evidence_role': 'target_building'}]}))
     monkeypatch.setattr(harness,'discover_project_reference_images',lambda *_,**kw:[img])
     monkeypatch.setattr(harness,'validate_visual_review_views',lambda *_:({'scene':1},None,{v:img for v in harness.CANONICAL_REVIEW_VIEWS}))
     monkeypatch.setattr(harness,'validate_source_matched_pairs',lambda *_:[])
@@ -151,7 +155,7 @@ def test_dedicated_critic_has_images_and_no_writer_tools(tmp_path,monkeypatch):
         if len(requests)==1:
             return reply([{'type':'function_call','call_id':'review1','name':'sketchup_submit_visual_review','arguments':'{"views":{}}'}])
         if len(requests)==2:
-            return reply([{'type':'message','content':[{'type':'output_text','text':'NEEDS_FIX: NO\n<assessment>Mock view match</assessment>\n<keep>roof</keep>'}]}])
+            return reply([{'type':'message','content':[{'type':'output_text','text':'NEEDS_FIX: NO\n<assessment>Mock view match</assessment>\n<keep>roof</keep><review_requirements>[]</review_requirements>'}]}])
         return reply()
     r=runtime(tmp_path,transport)
     def dispatch(name,args):dispatches.append(args);return {'success':True}

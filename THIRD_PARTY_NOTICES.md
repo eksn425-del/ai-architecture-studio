@@ -19,7 +19,8 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 - pywebview 6.2.1 (`r0x0r/pywebview`): BSD license; adopted as a thin native WebView shell around the existing FastAPI/frontend, without copying competitor UI source.
 - PyInstaller 6.x: GPL with its distribution exception; build tooling for the local executable, not a new Agent runtime. Upstream license/exception must accompany redistributed build tooling where applicable.
-- The generated local package does not include SketchUp, proprietary competitor assets, private project inputs, Codex credentials or the machine's Kongxing installation. Connector/plugin distribution and clean-machine acceptance remain separate release gates.
+- Default desktop builds do not include SketchUp, private project inputs, credentials or the machine's Kongxing installation. An explicit `-IncludeLocalConnectorTrial` build may include the separately prepared **private local trial** connector bundle. That bundle is not committed here; legacy connector source redistribution provenance and clean-machine/native compatibility remain unresolved public-release gates. No public redistribution license is inferred from an installed local copy.
+- The private connector bundle includes a Node.js runtime and its complete version-matched license/third-party notices, retrieved from the official Node.js source tag (`https://github.com/nodejs/node/blob/v24.19.0/LICENSE` for the current local trial). It does not copy Codex binaries, authentication, account data or API credentials.
 
 ## SketchUp Architect Skill
 
@@ -93,3 +94,7 @@ VBO SkAgent and SketchUp Agent Control are retained as fallback/reference candid
 MIT licensed upstream `markdown-it/markdown-it`, npm distribution 14.1.0 (package shasum `3c3c5992883c633db4714ccb4d7b5935d98b7d45`). Only upstream browser minified bundle and LICENSE are vendored in `app/static/vendor/markdown-it/`. Used for safe chat/parameter Markdown rendering with HTML disabled and restricted links/images.
 
 The full pywebview BSD license is retained at `app/vendor/pywebview/LICENSE`. Desktop packaging excludes private runtime project data and locally installed proprietary connector/plugin files.
+
+## K Harness desktop candidate — 2026-11-03
+
+The source adapter uses official DeepSeek Harness (DSH 0.2.1-rc.5) and the Python SDK (0.2.1rc2) as separately supplied dependencies. Their dependency trees are not vendored in this source snapshot. Builders must preserve upstream licenses. A copied SDK can receive only the Windows child-console suppression patch recorded by scripts/prepare_desktop_sdk.py, with SHA receipts; the official agent loop is unchanged. Optional ADAI Skill packaging requires the original LICENSE and NOTICE. This source update does not newly vendor ADAI Covered Code or certify redistribution of private SketchUp connectors.

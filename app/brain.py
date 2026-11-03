@@ -66,9 +66,13 @@ class CodexBrainAdapter:
 
     @property
     def available(self) -> bool:
+        if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":
+            return False
         return bool(self.codex_executable)
 
     def _run(self, prompt: str, schema: dict[str, Any], images: list[Path] | None = None) -> dict[str, Any]:
+        if os.environ.get("ARCH_STUDIO_STANDALONE") == "1":
+            raise BrainUnavailable("本机 API 版不调用 Codex 账号；请在建模对话中选择自己的 API。")
         if not self.codex_executable:
             raise BrainUnavailable("Codex CLI is not available. The job package is ready for Codex Job Mode.")
         schema_path = self.repo_root / "runtime" / "brain-schema" / f"{uuid.uuid4().hex}.json"

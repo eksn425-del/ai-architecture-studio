@@ -12,9 +12,30 @@ AgentAction = Literal["auto", "clarify", "plan", "execute"]
 ToolProfile = Literal["full", "reconstruction_coding"]
 
 
+_RECONSTRUCTION_COMPLETION_POLICY = (
+    "Complete approved systems and requested correction, then report a coherent result with CURRENT QA and remaining issues. "
+    "First-version/draft requests are review milestones: do not spend the user's later feedback rounds polishing every Critic suggestion. "
+    "NEEDS_FIX:YES allows necessary scoped fixes, not endless cosmetics. Once a local request is complete, list unrelated suggestions for user choice; do not execute them. "
+    "NEEDS_FIX:NO ends this turn's writes. "
+)
+
+_SUBJECT_SCOPE_POLICY = (
+    "Default: connected building, wings, terraces, roof planting. "
+    "Neighbors and off-site roads/tracks/traffic/greenery need a human request; image visibility or Agent suggestions cannot grant it. "
+    "Don't propose extras; honor scene requests. "
+)
+
+_SOURCE_FORM_POLICY = (
+    "Before facade replication, record source-visible front/side bay counts, storeys, setback direction and connected-volume ratios with confidence. "
+    "Compare these against the proposed axes and a source-matched current view; a convenient fixed module must not override visible counts. "
+    "Prioritize a wrong silhouette, setback or facade rhythm over plants and street polish. "
+    "Changing source/design evidence invalidates an old review; obtain fresh independent QA before writing. "
+    "Readable files, successful tools, editable groups and completed local edits do not make the whole building source-correct."
+)
+
+
 _HARNESS_FIRST_RECONSTRUCTION_CONTEXT = """
-You are an autonomous architectural modeling agent inside K Studio, powered by
-the real Codex App Server. Preserve the student’s short Chinese request as the
+You are an architectural modeling agent inside K Studio. Preserve the student’s short Chinese request as the
 actual user goal; never substitute the developer checklist for what they typed.
 
 Directly inspect every attached original image. Before writing geometry, anchor
@@ -26,7 +47,7 @@ repeated modules, decorating or adding plants. If a user asks a local correction
 edit ONLY its source-supported named elements in the SAME model, preserving
 other genuinely correct geometry through the host scope/KEEP transaction.
 
-Act with the autonomy of native Codex: read the actual source and project files,
+Read the actual source and project files,
 decide the next useful tool call, run the single guarded SketchUp writer, inspect
 the real returned geometry/view and adjust based on evidence. Work in existing
 agent_workspace/scripts and notes; its AGENTS.md, README.md, reconstruction
@@ -54,13 +75,28 @@ large template patches. Keep planning notes compact and verify they were saved
 before returning the approval plan.
 """.strip()
 
-def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool) -> str:
+def _reconstruction_prompt_profile(native_harness: bool) -> str:
+    # Explicit compatibility selection wins; native providers get the concise
+    # task context instead of a second host-authored imitation of the runtime.
+    return os.environ.get("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE",
+                          "harness" if native_harness else "full").lower()
+
+
+def load_workflow_skill_context(mode: WorkflowMode, *, mcp_enabled: bool,
+                                native_harness: bool = False) -> str:
     # Clarification/planning turns still need the reconstruction Skill even when
     # SketchUp tools are withheld. Architecture-design keeps its historical behavior.
     if mode == "image_reconstruction":
-        return (_HARNESS_FIRST_RECONSTRUCTION_CONTEXT
-                if os.environ.get("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE", "full").lower() == "harness"
+        context = (_HARNESS_FIRST_RECONSTRUCTION_CONTEXT
+                if _reconstruction_prompt_profile(native_harness) == "harness"
                 else load_image_to_sketchup_skill_context())
+        # Prompt length/profile cannot establish a runtime identity. This fact
+        # comes from the selected provider route at the call site.
+        identity = ("Runtime engine: Codex App Server, selected by the host. "
+                    if native_harness else
+                    "Runtime engine: the host-selected API tool loop. Do not claim "
+                    "to be the native Codex or official DeepSeek Harness runtime. ")
+        return identity + "\n\n" + context + "\n\n" + _SOURCE_FORM_POLICY
     if not mcp_enabled:
         return ""
     return load_architecture_skill_context()
@@ -99,13 +135,17 @@ def workflow_prompt_note(mode: WorkflowMode, action: AgentAction = "auto") -> st
 
 
 def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
-                                    action: AgentAction = "auto") -> str:
+                                    action: AgentAction = "auto", native_harness: bool = False) -> str:
     safety = (
+        _SUBJECT_SCOPE_POLICY +
+        "First verify one repeated slab/wall/window module: record exterior wall planes, slab edge offsets and wall thickness in common coordinates. Measure actual slab edges at side/rear corners; unless source shows exposed bands, floors must not pierce exterior finish. "
+        "Inspect stair/landing/handrail joints and plant clearance against actual building after placement. Keep reusable vegetation separate and outside occupied building volume. Unseen facades are inferred coherent design, not source restoration. "
+
         "When using project Ruby, modify only the supplied owned root and create unique semantic IDs for sibling elements. "
         "Never use project Ruby to access files, processes, network, reflection, other models, or whole-model edit/save APIs. "
         "The static source guard is not a sandbox. Work only on the verified blank-disposable model."
     )
-    if mode == "image_reconstruction" and os.environ.get("ARCH_STUDIO_RECONSTRUCTION_PROMPT_PROFILE", "full").lower() == "harness":
+    if mode == "image_reconstruction" and _reconstruction_prompt_profile(native_harness) == "harness":
         # Use native Codex reasoning/tool feedback instead of repeatedly injecting
         # a second extensive imitation harness. Host-owned guards remain active.
         if action == "clarify":
@@ -113,17 +153,25 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                      "ask only one or two material unanswered questions with reasonable defaults; "
                      "no scripts or geometry writes. A user question is discussion, not approval.")
         elif action == "plan":
-            stage = ("Compare all original source angles, separate observed/user-confirmed facts from estimates, "
-                     "and write notes/reconstruction_card.md, notes/reconstruction_evidence.json, "
-                     "notes/facade_schedule.json and notes/construction_strategy.json in this turn. "
+            stage = ("Compare all original source angles and separate observed/user-confirmed facts from estimates. "
+                     "Inspect the current notes/reconstruction_card.md, notes/reconstruction_evidence.json, "
+                     "notes/facade_schedule.json and notes/construction_strategy.json; update each structured note "
+                     "when source evidence, user requirements or its contents require a change. "
+                     "When several files need reading, use workspace_read_many for up to four paths in one call; "
+                     "continue any incomplete file using workspace_read with next_offset and expected_sha256. "
+                     "Do not rewrite an unchanged structured note merely to complete this turn. "
+                     "Avoid repeating a workspace read within this turn when its complete result remains in the "
+                     "current context and the file is unchanged; reread after a write, changed source or user "
+                     "requirement, error, missing detail or truncated result. "
                      "Identify overall silhouette, roof/voids, enclosure, levels and circulation first. "
                      "The host requires this planning turn to save the card before approval. "
                      "Reading or checking previously saved notes alone does not complete a plan retry; "
                      "save the verified compact card even when the requested scope is unchanged. "
+                     "Use only exact method IDs from notes/construction_strategy_schema.md or the supplied method catalog, never guessed method names; target_paths are arrays of 1..8 exact group-name segments. "
                      "Provide ONE concise Chinese plan for approval; no geometry writes.")
         else:
             stage = ("User approved execution or requested an edit to the existing model. Read the current "
-                     "project notes and original images, use the real native Codex tool loop, and execute "
+                     "project notes and original images, use the configured runtime and tools, and execute "
                      "persistent workspace Ruby in the SAME verified model. First-pass primary form and "
                      "source-matched camera fidelity before small facade repeats. For a local request edit "
                      "only source-supported target named groups, preserving unrelated geometry with host "
@@ -133,6 +181,8 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                      "NEEDS_FIX review was restored, it is adequate before the FIRST local correction; "
                      "AFTER a write it is stale and new review is mandatory. Check actual native readback "
                      "on tool timeout or GUID drift before attempting another writer; no blind replace. "
+                     "Prefer sketchup_capture_review_views once per revision for the six canonical views; use individual capture only to repair a missing or failed view. "
+                     + _RECONSTRUCTION_COMPLETION_POLICY +
                      "Report genuine remaining visual mismatch and save/reopen only if host confirms.")
         return (stage + " " + safety + " " +
                 ("Only supplied verified SketchUp tools may write this disposable model. " if mcp_enabled
@@ -160,6 +210,7 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "repeated components, roof/canopy, materials and persistent-script plan. Clearly label inferred values as estimates. "
                 "Update notes/reconstruction_card.md, notes/reconstruction_evidence.json, notes/facade_schedule.json and notes/construction_strategy.json in THIS turn, then return the compact plan for approval. "
                 "The construction strategy is compact method memory, not geometry truth: define shared parameters once, then assign each major visible system a stage, method, dependent parameters, target paths when known and verification views. Use the internal order primary_form → representative_module → replication → variants → finish. "
+                "If workspace_update_strategy is available, prefer its typed parameter/system updates with the SHA from workspace_read; do not repeatedly rewrite the whole strategy JSON. Unspecified entries are retained. Read its schema and use exact units, roles and provenance, never convert numeric dimensions to strings to bypass validation. "
                 "Choose continuous_wall_with_openings for ordinary rectangular facade hosts with real openings; profile_extrusion for constant-section parts; loft_or_mesh/custom_owned_ruby for shape-changing roofs or curved/section-varying geometry; prototype_instance for true repeated modules only after one representative module is correct. "
                 "Select single_view_inference when only one exterior view is evidenced; multi_view_reconstruction when multiple exterior views constrain one building; select full_evidence_reconstruction only when front/rear/left/right/roof plus CAD, floorplan and interior evidence are actually present in the validated ledger. "
                 "The evidence ledger must identify the primary source, each source kind, observed exterior-view coverage, CAD/floorplan/interior coverage, hard constraints and inference policy. The schedule must keep front/rear/left/right opening counts/features and roof/parapet/division facts compact, "
@@ -182,7 +233,8 @@ def workflow_developer_instructions(mode: WorkflowMode, *, mcp_enabled: bool,
                 "In multi_view_reconstruction, every observed facade is a hard constraint on one coherent model. The independent reviewer now REQUIRES one actual source-matched current camera for every DISTINCT observed original reference image before accepting a multi-view review; one collage file may contain several panels. Do not invent back/roof views that were not photographed. On an EXISTING committed building, first inspect both original images against CURRENT geometry, repair the largest visible massing/enclosure/folded roof/stair-platform issue by a local edit and retain the rest. " 
                 "In full_evidence_reconstruction, CAD/floorplan dimensions and every supplied exterior/interior image are hard constraints; do not redesign evidenced regions and only infer genuinely unseen gaps. "
                 "user_confirmed schedule facts are hard constraints, observed facts are source evidence, inferred facts remain revisable. "
-                "For reconstruction geometry, persistent workspace Ruby is the single writer; optional SAIE/Kongxing tools in this profile are read-only evidence helpers. After EACH committed writer pass, do not write again until you call sketchup_capture_canonical_view for front/rear/left/right/roof/oblique using the current persistent script_id, then call sketchup_submit_visual_review with those six host-certified paths. Do not hand-label arbitrary camera screenshots as canonical views. Add evidence_pairs for the primary source perspective when canonical views do not match it, and for supplied interior/detail reference images; full-evidence quality cannot be judged from exterior six views alone. NEEDS_FIX:YES permits one targeted correction; NEEDS_FIX:NO ends geometry writes for this turn. "
+                "For reconstruction geometry, persistent workspace Ruby is the single writer; optional SAIE/Kongxing tools in this profile are read-only evidence helpers. After EACH committed writer pass, do not write again until you call sketchup_capture_review_views ONCE for all front/rear/left/right/roof/oblique views using the current persistent script_id, then call sketchup_submit_visual_review with those six host-certified paths. Use individual sketchup_capture_canonical_view only for a specific missing/failed view. Do not hand-label arbitrary camera screenshots as canonical views. Add evidence_pairs for the primary source perspective when canonical views do not match it, and for supplied interior/detail reference images; full-evidence quality cannot be judged from exterior six views alone. "
+                + _RECONSTRUCTION_COMPLETION_POLICY +
                 "Use saie_wall_with_openings inside persistent Ruby for rectangular facade walls when it is suitable; it is preferable to visible stacks of separate sill/jamb/head wall groups, but any boolean failure must be reported rather than hidden. "
                 "Execute, inspect actual screenshots/model state, state concrete mismatches, revise the same scripts/model, and do not stop at rough white-box massing. "
                 "Saving the bound document and downloadable SKP is host-owned and runs after your final response. Do not claim saving is unavailable merely because no save tool is exposed; report geometry/QA honestly and let the host confirm persistence."
