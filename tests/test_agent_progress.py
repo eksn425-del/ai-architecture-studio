@@ -1,7 +1,7 @@
 import json
 import os
 
-from app.agent_progress import select_turn_progress_log
+from app.agent_progress import ProgressLogReader, select_turn_progress_log
 
 
 def test_nested_critic_does_not_hide_builder_progress(tmp_path):
@@ -19,3 +19,37 @@ def test_non_native_log_and_partial_line_fallback(tmp_path):
     log = tmp_path / "provider.jsonl"
     log.write_text('{"event":"provider_started"}\n{"partial":', encoding="utf8")
     assert select_turn_progress_log([log], 0) == log
+
+
+def test_official_sdk_file_and_skill_progress_is_not_geometry(tmp_path):
+    log = tmp_path / 'dsh.jsonl'
+    log.write_text(json.dumps({'event':'tool_result','tool':'write','success':True})+'\n', encoding='utf8')
+    reader = ProgressLogReader()
+    first = reader.read(log)
+    assert first['script_written'] and first['calls'] == 1
+    assert first['stage'] == '正在编写或检查项目文件'
+    with log.open('a', encoding='utf8') as stream:
+        stream.write(json.dumps({'event':'tool_result','tool':'skill','success':True})+'\n')
+    assert reader.read(log)['stage'] == '正在读取建筑建模方法'
+    with log.open('a', encoding='utf8') as stream:
+        stream.write(json.dumps({'type':'step/start','data':{'step':2}})+'\n')
+    assert reader.read(log)['stage'] == '正在分析下一步建模操作'
+
+
+def test_large_log_counts_early_failures_once_and_completes_partial_tail(tmp_path):
+    log = tmp_path / "builder.jsonl"
+    log.write_text(json.dumps({"event": "tool_result", "tool": "workspace_write", "success": False}) + "\n"
+                   + json.dumps({"event": "opaque", "text": "private" * 60000}) + "\n"
+                   + '{"event":"tool_result","tool":"codex_fileChange",', encoding="utf8")
+    reader = ProgressLogReader()
+    first = reader.read(log)
+    assert first["calls"] == first["failures"] == 1
+    assert reader.read(log) == first
+    assert "private" not in json.dumps(vars(reader), default=str)
+    with log.open("a", encoding="utf8") as stream:
+        stream.write('"success":true}\n')
+    final = reader.read(log)
+    assert final["calls"] == 2 and final["failures"] == 1 and final["script_written"]
+    assert reader.read(log) == final
+    log.write_text('{"event":"provider_started"}\n', encoding="utf8")
+    assert reader.read(log)["calls"] == 0

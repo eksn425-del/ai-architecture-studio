@@ -1,3 +1,5 @@
+> **Latest source candidate — 2026-11-03:** K Studio + K Harness (official DeepSeek Harness with architectural guidance). Local Windows / SketchUp 2024 workflow verified; source fidelity PARTIAL, public installer and cross-machine compatibility pending. **[Release notes / AI continuation entry](docs/releases/KSTUDIO_LOCAL_CANDIDATE_20261103.md)**. Personal API keys, private models and reference images are excluded.
+
 # K AI Studio（AI Architecture Studio）
 
 > **唯一主产品 / Single product mainline:** [K AI Studio](https://github.com/eksn425-del/ai-architecture-studio) 将后续适配的开源 Skill、MCP、几何模块和专业软件自动化能力，持续整合进同一个网站与 GitHub 主仓库。新开源项目是 K AI Studio 的候选能力组件，不再另做一套相似的网站。完整原则见 [One Product / Open Source Policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md)。

@@ -22,6 +22,7 @@ from .construction_strategy import load_construction_strategy
 from .strategy_progress import persist_verified_strategy_progress
 from .component_assembly import native_component_diagnostics
 from .oss_method_catalog import assess_method_adoption
+from .native_commit_checkpoint import persist_committed_revision
 
 
 SCRIPT_ID_RE = re.compile(r"^[a-z][a-z0-9_-]{0,47}$")
@@ -57,7 +58,8 @@ def validate_project_ruby_source(script_id: str, ruby_source: str) -> str:
     match = _FORBIDDEN_SOURCE.search(ruby_source)
     if match:
         raise ValueError(
-            f"Ruby source contains a blocked host, reflection, whole-model, or process operation: {match.group(0)!r}. "
+            f"Ruby source contains a blocked host, reflection, whole-model, or process operation: {match.group(0)!r} "
+            f"at line {ruby_source.count(chr(10), 0, match.start()) + 1}. No geometry was attempted. "
             "The host already injects model and root (Sketchup::Group) and owns the transaction/save. "
             "Remove all active_model and start/commit/abort_operation calls, including conditional ones. "
             "Use root.entities for geometry; keep the injected root. Helpers must receive model/root explicitly "
@@ -117,7 +119,12 @@ class ProjectRubyExecutor:
             saved = json.loads(self.state_path.read_text(encoding="utf-8"))
             if saved.get("model_path") == str(self.expected_model_path):
                 for script_id, state in saved.get("scripts", {}).items():
-                    if int(state.get("revision", 0)) > int(self.ruby_state.get(script_id, {}).get("revision", 0)):
+                    saved_revision = int(state.get("revision", 0))
+                    current_revision = int(self.ruby_state.get(script_id, {}).get("revision", 0))
+                    # A session revision is not evidence that a disk checkpoint succeeded.
+                    # Preserve an unresolved durable intent even if memory claims a newer
+                    # revision; only explicit native recovery may clear this quarantine.
+                    if (state.get("durability_status") == "unconfirmed" or saved_revision > current_revision):
                         self.ruby_state[script_id] = state
 
     def _assert_active_model(self) -> dict[str, Any]:
@@ -159,6 +166,15 @@ class ProjectRubyExecutor:
         if identity.get("active_context"):
             raise MCPCallError("Exit the active SketchUp group/component edit context before running project Ruby.")
         return identity
+
+    def verify_active_model(self) -> dict[str, Any]:
+        """Establish the owned identity before a read-only audit's race fence.
+
+        Unlike a blind GUID refresh this verifies native path, project, root and
+        revision when an autosave changed the token. Audits still reject changes
+        occurring after this baseline was established.
+        """
+        return self._assert_active_model()
 
     def refresh_active_model_snapshot(self) -> dict[str, Any]:
         """Refresh the per-turn GUID token after an existing MCP tool edits the model."""
@@ -394,6 +410,8 @@ class ProjectRubyExecutor:
         return snapshots
 
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
+        if any(state.get("durability_status") == "unconfirmed" for state in self.ruby_state.values()):
+            raise MCPCallError("A previous native revision committed but its disk checkpoint is unconfirmed. Keep SketchUp open and recover before further writes; do not automatically repeat the previous write.")
         script_id = str(arguments.get("script_id") or "")
         ruby_source = validate_project_ruby_source(script_id, arguments.get("ruby_source"))
         update_mode = str(arguments.get("update_mode") or "replace")
@@ -416,7 +434,8 @@ class ProjectRubyExecutor:
             raise MCPCallError("A project script cannot replace a symbolic link.")
         if not script_path.resolve().is_relative_to(scripts_dir):
             raise MCPCallError("Project Ruby path resolved outside this project's runtime scripts directory.")
-        old = self.ruby_state.get(script_id, {})
+        previous_state_present = script_id in self.ruby_state
+        old = dict(self.ruby_state.get(script_id, {}))
         revision = int(old.get("revision", 0))
         root_pid = old.get("root_pid")
         if update_mode == "edit" and root_pid is None:
@@ -473,7 +492,13 @@ class ProjectRubyExecutor:
         allowed_mutation_names: list[str] = []
         if mutation_paths is not None:
             if update_mode != "edit" or not isinstance(mutation_paths, list) or not 1 <= len(mutation_paths) <= 48:
-                raise ValueError("allowed_mutation_paths requires targeted edit mode and 1..48 explicit owned group paths.")
+                count = len(mutation_paths) if isinstance(mutation_paths, list) else "not a list"
+                raise ValueError(
+                    "allowed_mutation_paths requires targeted edit mode and 1..48 explicit owned group paths; "
+                    f"received mode={update_mode!r}, count={count}. No geometry was attempted. "
+                    "Use verified coherent scopes and preserve all unrelated geometry; do not broaden the "
+                    "scope or discard protected paths simply to fit the list."
+                )
             for index, parts in enumerate(mutation_paths):
                 if (not isinstance(parts, list) or not 1 <= len(parts) <= 8 or
                         any(not isinstance(part, str) or not part.strip() or len(part) > 200 for part in parts)):
@@ -521,23 +546,64 @@ class ProjectRubyExecutor:
                 # must not mask the original SketchUp transaction failure.
                 pass
 
+        def persist_guard_state() -> None:
+            self.state_path.parent.mkdir(parents=True, exist_ok=True)
+            pending_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
+            pending_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
+            pending_state.replace(self.state_path)
+
+        def restore_known_rollback() -> None:
+            restore_failed_candidate()
+            if previous_state_present:
+                self.ruby_state[script_id] = old
+            else:
+                self.ruby_state.pop(script_id, None)
+            persist_guard_state()
+
+        def read_write_report() -> dict[str, Any]:
+            try:
+                value = json.loads(report_path.read_text(encoding="utf-8"))
+                return value if isinstance(value, dict) else {}
+            except (OSError, json.JSONDecodeError):
+                return {}
+
+        def record_uncertain_outcome(report: dict[str, Any]) -> None:
+            pending = dict(self.ruby_state[script_id])
+            if (report.get("status") in {"committed", "post_commit_error"} and
+                    report.get("project_id") == self.project_id and
+                    report.get("revision") == new_revision and
+                    type(report.get("root_pid")) is int and report["root_pid"] > 0):
+                pending.update(revision=new_revision, root_pid=report["root_pid"])
+            pending.update(durability_status="unconfirmed", write_in_flight=True,
+                           attempted_revision=new_revision, source_sha256=source_hash,
+                           last_report=report_path.relative_to(self.project_dir).as_posix(),
+                           outcome=report.get("status", "unknown"))
+            self.ruby_state[script_id] = pending
+            persist_guard_state()
+
+        # Durable intent precedes native dispatch. If the process itself dies or
+        # the RPC times out, a later turn cannot replay an unknown geometry write.
+        self.ruby_state[script_id] = {**old, "durability_status": "unconfirmed", "write_in_flight": True,
+                                     "attempted_revision": new_revision, "source_sha256": source_hash,
+                                     "last_report": report_path.relative_to(self.project_dir).as_posix()}
+        persist_guard_state()
+        preserve_transport = False
         try:
             result = self.mcp.call("sketchup_eval_project_file", {
                 "script_path": str(transport_path.resolve()),
                 "operation_name": f"AI Architecture Studio project Ruby {script_id} r{new_revision}",
             })
-        except Exception:
-            committed_during_error = False
-            if report_path.is_file():
-                try:
-                    committed_during_error = json.loads(report_path.read_text(encoding="utf-8")).get("status") == "committed"
-                except (OSError, json.JSONDecodeError):
-                    committed_during_error = False
-            if not committed_during_error:
-                restore_failed_candidate()
-            raise
+        except Exception as error:
+            report = read_write_report()
+            if report.get("status") in {"aborted", "not_started"}:
+                restore_known_rollback()
+                raise
+            preserve_transport = True
+            record_uncertain_outcome(report)
+            raise MCPCallError("The native write may have committed, but its outcome or disk checkpoint is unconfirmed. Keep SketchUp open and inspect recovery; do not repeat the write.") from error
         finally:
-            transport_path.unlink(missing_ok=True)
+            if not preserve_transport:
+                transport_path.unlink(missing_ok=True)
 
         report: dict[str, Any] = {}
         if report_path.is_file():
@@ -546,8 +612,12 @@ class ProjectRubyExecutor:
             except (OSError, json.JSONDecodeError):
                 report = {"status": "unreadable", "report_path": str(report_path)}
         if report.get("status") != "committed":
-            restore_failed_candidate()
             detail = report.get("error") or (result.get("text") if isinstance(result, dict) else None) or "The transaction did not report a committed revision."
+            if report.get("status") in {"aborted", "not_started"}:
+                restore_known_rollback()
+            else:
+                record_uncertain_outcome(report)
+                detail = "Native write outcome or disk checkpoint is unconfirmed; keep SketchUp open and do not repeat the write. " + str(detail)
             raise MCPCallError(str(detail))
 
         root_pid = report.get("root_pid")
@@ -570,6 +640,7 @@ class ProjectRubyExecutor:
             "source_sha256": source_hash,
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
+            "durability_status": "unconfirmed",
         }
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -594,6 +665,23 @@ class ProjectRubyExecutor:
                 stream.write(json.dumps(source_record, ensure_ascii=False) + "\n")
         except OSError as error:
             raise MCPCallError("Native geometry committed, but source archiving failed; stop further edits and recover the recorded revision.") from error
+
+        # The native transaction is already committed; do not wait for the
+        # model's next reply, review screenshots, or the end of the turn to
+        # make it durable. If this fails, never retry the geometry silently.
+        self._assert_active_model()
+        durable_checkpoint = persist_committed_revision(
+            project_dir=self.project_dir, project_id=self.project_id,
+            model_path=self.expected_model_path, model_guid=self.expected_model_guid,
+            script_id=script_id, revision=new_revision, root_pid=root_pid, mcp=self.mcp,
+        )
+        identity_after = self.refresh_active_model_snapshot()
+        self.ruby_state[script_id]["model_guid"] = self.expected_model_guid
+        self.ruby_state[script_id]["durable_checkpoint"] = durable_checkpoint
+        self.ruby_state[script_id]["durability_status"] = "saved_unverified_reopen"
+        checkpoint_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
+        checkpoint_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
+        checkpoint_state.replace(self.state_path)
 
         verification_result = self.inspect_owned({
             "script_id": script_id,
@@ -733,6 +821,8 @@ class ProjectRubyExecutor:
             "last_edit_scope_receipt": edit_scope_receipt,
             "last_strategy_progress": strategy_progress,
             "last_oss_method_adoption": method_adoption,
+            "durable_checkpoint": durable_checkpoint,
+            "durability_status": "saved_unverified_reopen",
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -748,6 +838,7 @@ class ProjectRubyExecutor:
             },
             "model_readback": _safe_model_readback(model_info),
             "write_verification": write_verification,
+            "durable_checkpoint": durable_checkpoint,
             "precommit_keep_guard": precommit_keep_guard,
             "oss_method_ledger": method_ledger,
             "edit_scope_receipt": edit_scope_receipt,

@@ -158,7 +158,7 @@ def test_nested_app_server_does_not_inherit_parent_thread_permissions_or_tool_pi
         "CODEX_THREAD_ID",
         "CODEX_CI",
     } & child.keys())
-    assert child["CODEX_PERMISSION_PROFILE"] == ":danger-full-access"
+    assert "CODEX_PERMISSION_PROFILE" not in child
     assert child["CODEX_MCP_NODE_PATH"] == "node-runtime"
     assert child["PATH"] == "system-path"
 

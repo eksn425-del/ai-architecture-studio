@@ -1,0 +1,16 @@
+#connections-dialog { width:min(690px, calc(100vw - 32px)); max-height:90vh; overflow:auto; padding:30px; }
+#connections-dialog h2 { margin:7px 0 10px; }
+#connections-dialog .connection-intro { margin:0 0 22px; color:#66786e; line-height:1.65; }
+#connections-dialog label { display:block; margin:15px 0 7px; font-weight:600; }
+#connections-dialog input:not([type=checkbox]), #connections-dialog select { width:100%; box-sizing:border-box; padding:11px 12px; border:1px solid #d9dfd5; border-radius:9px; background:#fffefa; color:#203e34; font:inherit; }
+#connections-dialog input:focus, #connections-dialog select:focus { outline:2px solid #718b78; outline-offset:2px; }
+#connections-dialog .connection-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
+#connections-dialog .connection-toolbar { display:flex; gap:8px; margin:10px 0 20px; flex-wrap:wrap; }
+#connections-dialog .connection-divider { border-top:1px solid #e1e5db; padding-top:3px; }
+#connections-dialog small, #connections-dialog #connection-protocol-note { color:#66786e; line-height:1.6; }
+#connection-summary { padding:10px 14px; border-left:3px solid #66826e; background:#edf0e6; font-size:13px; }
+#connections-dialog #connection-ack-label { font-weight:400; line-height:1.7; }
+#connections-dialog [hidden] { display:none!important; }
+#connection-status { min-height:24px; font-size:14px; line-height:1.6; }
+#connections-dialog .dialog-actions { position:sticky; bottom:-30px; background:#faf9f3; padding:14px 0; margin:12px 0 -8px; }
+@media(max-width:600px) { #connections-dialog { padding:20px; } #connections-dialog .connection-grid { grid-template-columns:1fr; } }

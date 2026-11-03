@@ -1,6 +1,21 @@
 from app import project_ruby
 from app.project_ruby import ProjectRubyExecutor, validate_project_ruby_source
 import pytest
+import os
+from pathlib import Path
+import shutil
+import subprocess
+
+
+@pytest.mark.parametrize("name", ["path_scope_guard_test.rb", "absent_path_creation_test.rb"])
+def test_ruby_scope_contracts_when_ruby_is_available(name):
+    ruby = os.environ.get("ARCH_STUDIO_TEST_RUBY") or shutil.which("ruby")
+    if not ruby:
+        pytest.skip("Native Ruby optional; offline Ruby WASM contract may be run separately")
+    root = Path(__file__).resolve().parents[1]
+    result = subprocess.run([ruby, "--disable=gems", str(root / "tests/ruby" / name)],
+                            cwd=root, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr + result.stdout
 
 
 def test_exact_nested_paths_reach_precommit_host_guard(monkeypatch, tmp_path):
@@ -42,6 +57,7 @@ def test_agent_cannot_call_host_guard_or_collector(source):
 @pytest.mark.parametrize("paths", [None, []])
 def test_edit_cannot_omit_scope_even_without_critic_context(paths):
     ex = object.__new__(ProjectRubyExecutor)
+    ex.ruby_state = {}
     with pytest.raises(ValueError, match="explicit allowed_mutation_paths"):
         ex.run({"script_id": "building", "ruby_source": "length = 1", "update_mode": "edit", "allowed_mutation_paths": paths})
 
