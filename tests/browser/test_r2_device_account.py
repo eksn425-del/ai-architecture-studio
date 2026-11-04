@@ -20,6 +20,7 @@ pytest.importorskip('sqlalchemy')
 pw = pytest.importorskip('playwright.sync_api')
 import httpx
 import uvicorn
+from authlib.integrations.httpx_client._compat import httpx2 as oidc_http
 from authlib.jose import JsonWebKey, jwt
 from cloud.config import Settings
 from cloud.db import migrate
@@ -78,20 +79,20 @@ def test_desktop_website_device_oidc_persistence_and_modes(tmp_path, monkeypatch
     authorization = {}
     def idp(request):
         if request.url.path == '/.well-known/openid-configuration':
-            return httpx.Response(200,json={'issuer':'https://id.fixture','authorization_endpoint':'https://id.fixture/authorize',
+            return oidc_http.Response(200,json={'issuer':'https://id.fixture','authorization_endpoint':'https://id.fixture/authorize',
                 'token_endpoint':'https://id.fixture/token','jwks_uri':'https://id.fixture/jwks',
                 'response_types_supported':['code'],'subject_types_supported':['public'],'id_token_signing_alg_values_supported':['RS256']})
         if request.url.path == '/jwks':
-            return httpx.Response(200,json={'keys':[rsa.as_dict(is_private=False)]})
+            return oidc_http.Response(200,json={'keys':[rsa.as_dict(is_private=False)]})
         if request.url.path == '/token':
             data = parse_qs(request.content.decode())
             assert challenge(data['code_verifier'][0]) == authorization['code_challenge'][0]
             token = jwt.encode({'alg':'RS256','kid':'browser-fixture'},
                 {'iss':'https://id.fixture','sub':'browser-user','aud':'browser-fixture','exp':int(time.time())+600,
                  'iat':int(time.time()),'nonce':authorization['nonce'][0],'name':'真实 OIDC 流程 fixture'},rsa).decode()
-            return httpx.Response(200,json={'access_token':'fixture-idp-token','token_type':'Bearer','expires_in':600,'id_token':token})
+            return oidc_http.Response(200,json={'access_token':'fixture-idp-token','token_type':'Bearer','expires_in':600,'id_token':token})
         raise AssertionError(str(request.url))
-    cloud.state.oauth.identity.client_kwargs['transport'] = httpx.MockTransport(idp)
+    cloud.state.oauth.identity.client_kwargs['transport'] = oidc_http.MockTransport(idp)
     cloud_server, cloud_thread, cloud_base = serve(cloud)
     client_server = None
     try:

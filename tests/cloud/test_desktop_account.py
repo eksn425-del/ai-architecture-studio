@@ -4,6 +4,7 @@ from urllib.parse import urlparse,parse_qs
 import httpx,pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import select,update
+from authlib.integrations.httpx_client._compat import httpx2 as oidc_http
 from authlib.jose import JsonWebKey,jwt
 from cloud.config import Settings
 from cloud.main import create_app
@@ -80,14 +81,14 @@ def pair(tmp_path):
     cloud=create_app(settings);migrate(cloud.state.engine)
     rsa=JsonWebKey.generate_key('RSA',2048,is_private=True,options={'kid':'fixture'});authorization={}
     def idp(req):
-        if req.url.path=='/.well-known/openid-configuration':return httpx.Response(200,json={'issuer':'https://id.fixture','authorization_endpoint':'https://id.fixture/authorize','token_endpoint':'https://id.fixture/token','jwks_uri':'https://id.fixture/jwks','response_types_supported':['code'],'subject_types_supported':['public'],'id_token_signing_alg_values_supported':['RS256']})
-        if req.url.path=='/jwks':return httpx.Response(200,json={'keys':[rsa.as_dict(is_private=False)]})
+        if req.url.path=='/.well-known/openid-configuration':return oidc_http.Response(200,json={'issuer':'https://id.fixture','authorization_endpoint':'https://id.fixture/authorize','token_endpoint':'https://id.fixture/token','jwks_uri':'https://id.fixture/jwks','response_types_supported':['code'],'subject_types_supported':['public'],'id_token_signing_alg_values_supported':['RS256']})
+        if req.url.path=='/jwks':return oidc_http.Response(200,json={'keys':[rsa.as_dict(is_private=False)]})
         if req.url.path=='/token':
             data=parse_qs(req.content.decode());assert device_auth.challenge(data['code_verifier'][0])==authorization['code_challenge'][0]
             token=jwt.encode({'alg':'RS256','kid':'fixture'},{'iss':'https://id.fixture','sub':'fixture-user','aud':'desktop-fixture','exp':int(time.time())+600,'iat':int(time.time()),'nonce':authorization['nonce'][0],'name':'本地身份服务测试账户'},rsa).decode()
-            return httpx.Response(200,json={'access_token':'idp-fixture-only','token_type':'Bearer','expires_in':600,'id_token':token})
+            return oidc_http.Response(200,json={'access_token':'idp-fixture-only','token_type':'Bearer','expires_in':600,'id_token':token})
         raise AssertionError(req.url)
-    cloud.state.oauth.identity.client_kwargs['transport']=httpx.MockTransport(idp)
+    cloud.state.oauth.identity.client_kwargs['transport']=oidc_http.MockTransport(idp)
     browser=TestClient(cloud,base_url=settings.public_url)
     response=browser.get('/api/auth/login?return_to=/account/device',follow_redirects=False)
     authorization.update(parse_qs(urlparse(response.headers['location']).query))
