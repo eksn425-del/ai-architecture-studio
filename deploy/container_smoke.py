@@ -141,7 +141,14 @@ def run(root: Path, require_container: bool) -> dict:
                               feedback_rows_persisted=1, account_billing_table_counts=counts,
                               no_fake_identity=True, server_transport='real uvicorn HTTP on loopback')
         finally:
-            server.terminate()
+            # Windows venv python.exe can be a launcher with a child interpreter.
+            # Stop this owned process tree before removing its temporary database.
+            if os.name == 'nt' and server.poll() is None:
+                stopped = subprocess.run(['taskkill.exe', '/PID', str(server.pid), '/T', '/F'],
+                                         capture_output=True, timeout=10)
+                assert stopped.returncode == 0, 'Could not stop owned smoke server process tree'
+            else:
+                server.terminate()
             try:
                 server.wait(timeout=5)
             except subprocess.TimeoutExpired:

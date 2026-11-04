@@ -126,3 +126,36 @@ enabled flag are explicitly confirmed. A paid policy must specify the task-lease
 one-hour validity and failure/cancellation terms before publication. The platform
 test price table charges its service component per metered provider request; this is
 not yet an owner-approved commercial pricing model or a promised per-building quote.
+
+## Offline container engineering check
+
+`.github/workflows/r2-cloud-container.yml` runs on relevant pull requests or manual
+dispatch. It builds this Dockerfile on an ephemeral Ubuntu 24.04 runner, without a
+registry login, image push, production credentials or deployment. The build downloads
+the Python base image and declared dependencies; only the **running smoke container**
+has network access disabled. Direct dependencies are exactly pinned in
+`requirements-cloud.txt`; the result records all actually installed transitive
+versions and the actual image ID/architecture. The mutable Python base tag and
+transitive dependency resolution are not a reproducible image digest lock.
+
+The container uses UID/GID 10001, a read-only root filesystem, restricted `/tmp`
+tmpfs, dropped Linux capabilities and `no-new-privileges`. No ports are published.
+`deploy/container_smoke.py --require-container` verifies those runtime conditions,
+runs the real CLI schema migration twice, ledger audit and stale-task recovery,
+then starts real Uvicorn and makes loopback HTTP requests. It checks health,
+website routes and exact JS asset contents, writes one synthetic feedback row to
+temporary SQLite and verifies it was persisted. Authentication, payment, public
+download, pricing and platform model configuration must remain unavailable; account
+and billing tables remain empty. No IdP, merchant, model provider or native connector
+is mocked into a successful result. The generated temporary session secret stays
+inside the smoke subprocess environment and is never included in the report.
+
+Each CI run retains seven days of engineering artifacts: Docker build logs,
+image/container metadata, actual versions, isolation checks and the final result.
+Only a completed green run with `result.json.status=PASS` and
+`isolation.status=PASS` proves this container check. Local script execution without
+`--require-container` explicitly records isolation as `NOT_CHECKED_LOCAL_SCRIPT_ONLY`.
+Neither outcome proves public deployment, TLS/DNS, real OIDC/payment/provider use,
+production PostgreSQL operation or cross-machine SketchUp compatibility. Those
+require their separate acceptance evidence. No Docker installation on the owner's
+Windows PC is needed for this CI check.
