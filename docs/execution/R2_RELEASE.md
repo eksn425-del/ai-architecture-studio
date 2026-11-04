@@ -123,3 +123,56 @@ texts and bundled-version list. The build-source file map and full build-environ
 snapshot remain private in the external evidence directory. Public notices were
 scanned for personal Windows user paths/name and Codex storage paths with no matches.
 Missing license texts remain `REVIEW_REQUIRED`; this is not complete license clearance.
+
+The real build-03 ZIP (425,651,232 bytes; SHA256
+`d6eaeb044ee034b8958fbfeb9497d485dcd64005b5b7e33733b02e5d7c085e6c`)
+then passed the actual frozen updater drill in `actual-updater-drill-03`: busy lock
+refusal, two immutable installations of that same archive, safe repeated installs,
+rollback, retained versions/profile and installed launcher. A separately copied,
+same-size, one-byte-corrupted archive was rejected with current/versions/profile
+unchanged (`actual-updater-corrupt-03`). The failed archive is retained privately.
+This used explicit local test signing and is not a production signing/clean-PC claim.
+
+Build-04 dependency evidence was regenerated from its actual bundle and TOC in
+`desktop-sbom-04`. It has 656 components, 93 observed Python pins and 865 license-term
+texts. Four of the previous 14 missing entries now have precise upstream or parent
+package evidence; ten upstream originals remain absent and have **explicitly labeled
+official standard terms** for the declared license. Zero absent text bytes must not
+be reported as zero missing upstream originals or license clearance. Declaration,
+copyright/scope evidence and original-gap flags remain in the public notices.
+
+`binary-license-map.json` maps all 183 native files: 25 CPython, 75 Python distribution,
+one Node and 24 npm files to collected notices; 52 Microsoft runtime/WebView files to
+specific redistribution-terms review; four LGPL/MPL files to corresponding-source/
+obligation review; and two first-party executables to publisher signing. There are no
+unmapped binary engineering placeholders, but these mappings do not grant distribution
+rights. Exact operational release gates are in `PUBLIC_BETA_BLOCKERS.md`.
+
+## Real build-03 to build-04 upgrade, rollback and signed reissue
+
+`actual-updater-upgrade-04/receipt.json` records the frozen updater operating on the
+same installation/profile after real UI preparation of six pending projects, uploaded
+references and an encrypted dummy API connection (no inference). All 37 protected
+data files / 5,025,613 bytes retained exactly the same SHA256 at every stage. Browser
+cache and OS lease files are excluded; project/settings/credential data are included.
+The before-file manifest stays private, not in the public source or release archive.
+
+Build-04 ZIP: 426,650,213 bytes, SHA256
+`2024a64e10356e3661c628e9922b513a94e33e26ede88e262d27d8f4ec522927`.
+Sequence 3 installed actual different code, then explicit rollback restored build-03
+slot 1 while preserving highest sequence 3. The same build-04 ZIP was newly signed
+with sequence 4 and a new immutable version name, then installed as final. This is
+an explicit new test release number, not bypassing anti-replay or editing a pointer.
+All four version directories remain. Every command returned success; no timeout or
+weakened verification was used. Serial verification of ~70,000 files is slow: the
+first actual upgrade took 325.797 seconds and rollback 507.265 seconds on this host.
+This is a real installation-performance limitation, not a native modeling failure.
+
+The executable changed from build-03
+`3499df806444401a420d172882fc2b6caf876c5175fc300ea717c6d34db94268`
+to build-04
+`59e5ba64951f812806c79923429b1014c8e7b5a1d36055623ada84038b5c0647`.
+Final installed version is `r2-internal-04-seq4`, highest sequence 4. The separate
+desktop UI launch/restore check is performed after this updater receipt; the script
+does not claim that GUI/native acceptance itself. Signing is still LOCAL_TEST_ONLY
+and Authenticode unsigned, with no clean-machine or public-distribution claim.

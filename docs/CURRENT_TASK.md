@@ -1,6 +1,6 @@
-# 2026-11-04 — R2 public beta engineering execution
+# 2026-11-05 — R2 internal candidate and prepared live-test boundary
 
-Follow [CURRENT](CURRENT.md) and [R2 execution](execution/PUBLIC_BETA_EXECUTION.md). The latest owner task expands work to R2 client/website, public connector, API configuration, recovery, account/billing and install/deployment. Do not resume any closed building below. Current work is still in progress; native engineering fixtures and offline provider tests are distinct from live image-quality acceptance.
+Follow [CURRENT](CURRENT.md), [candidate/artifacts](releases/KSTUDIO_R2_INTERNAL_CANDIDATE_20261104.md) and [R2 execution](execution/PUBLIC_BETA_EXECUTION.md). R2 internal build04 is installed and verified; isolated container CI also passed. The six live image-modeling projects are prepared, not executed. Await concrete finite-batch authorization, then continue those same projects with the actual client and preserve failures. Public-beta/production gates remain unmet. Do not resume any closed building below or equate native engineering fixtures with source-quality acceptance.
 
 ---
 

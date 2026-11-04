@@ -47,3 +47,12 @@ Only SU2024 has the above native evidence. Installation on a clean different
 computer and other SketchUp versions remains NOT_RUN. Initial plugin installation
 requires SketchUp Extension Manager/restart; opening a model alone does not
 install a missing extension. Existing plugins/settings are preserved.
+
+本轮实际运行限定一个活动 SketchUp 2024 实例。相机/截图消息有显式文档路由；生成 Ruby 的内置文档守卫遇到不符实例会拒绝写入。多个 SU 进程同时消费同一配对队列的端到端自动选择没有验收，不宣传已支持无感多实例切换。
+
+补充实际证据：`packaged-connector-paired.json` 是构建 EXE 的真实界面配对；`packaged-connector-check.json` 是更新程序版本后仍读取原配置的真实只读检查。冻结程序会为明确第一方配对解析当前安装槽旁的连接器 EXE，不改写原配对/凭据。`native-browser-download-reopen-02/receipt.json` 验证真实浏览器下载字节重开一致，并在导入的 owned copy 上继续 scoped edit，KEEP 保持一致。直接编辑下载目录的首次请求被正确拒绝，失败记录保留。
+## Actual RBZ installation and restart, 2026-11-04
+
+The controller installed the build04 RBZ through SketchUp 2024's actual Extension Manager, verified both installed Ruby files byte-for-byte against the RBZ, closed SketchUp normally and reopened the owned engineering fixture. The newly started SketchUp process answered the packaged connector's health request automatically, without a Ruby console reload. Receipt: local R2 job `native-rbz-manager-install.json`; RBZ SHA256 `abab443b198cb89da39eee78a4c7dd1aba43bf3cd02c4a57cc025c7e6c22ef5a`.
+
+This is an existing-install update on the owner's machine, not clean-machine acceptance. Existing unrelated TT_Lib2/InstantRoadPro/SketchUcation startup warnings were dismissed without changing their configuration. SketchUp 2024 is the only version with this native evidence.

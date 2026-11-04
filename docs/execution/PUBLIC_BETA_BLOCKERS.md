@@ -21,7 +21,7 @@
 
 ## 云端与账户：准确操作和通过条件
 
-仅部署 `cloud.main:create_app`，不要公开本机 `app.main` 或 SketchUp 连接器端口。参数逐项填写 [deploy/ENVIRONMENT.md](../../deploy/ENVIRONMENT.md)；私有 `.env`、账户/商户/供应商秘密不入源码包。以下命令在批准的隔离主机、解压源码根执行；本机没有Docker，容器构建和部署仍为NOT_RUN。
+仅部署 `cloud.main:create_app`，不要公开本机 `app.main` 或 SketchUp 连接器端口。参数逐项填写 [deploy/ENVIRONMENT.md](../../deploy/ENVIRONMENT.md)；私有 `.env`、账户/商户/供应商秘密不入源码包。以下命令在批准的隔离主机、解压源码根执行。本机没有安装Docker，但已利用GitHub隔离runner完成真实镜像构建和非root/只读/无外网容器HTTP验收：[run41871824820](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/41871824820)。没有推送镜像、使用真实凭据或部署公网；生产部署仍为NOT_RUN。
 
 1. 配置真实域名和 `KSTUDIO_CLOUD_ENV=staging`、私网 PostgreSQL、至少32字符随机session secret。开始保持价格未确认、空模型表、充值关闭。只开放80/443，不开放5432或本地建模端口。
 2. IdP注册精确回调 `https://实际域名/auth/callback`，支持authorization code、PKCE S256、签名ID token、state/nonce与openid/profile。注册/找回密码使用IdP实际流程，不加测试登录后门。
