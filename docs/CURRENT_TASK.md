@@ -1,3 +1,9 @@
+# 2026-11-04 — R2 public beta engineering execution
+
+Follow [CURRENT](CURRENT.md) and [R2 execution](execution/PUBLIC_BETA_EXECUTION.md). The latest owner task expands work to R2 client/website, public connector, API configuration, recovery, account/billing and install/deployment. Do not resume any closed building below. Current work is still in progress; native engineering fixtures and offline provider tests are distinct from live image-quality acceptance.
+
+---
+
 # 2026-10-16 — READ CURRENT.md TOP: continuous same-case exterior completion
 
 Latest owner correction authorizes completing visible exterior and coherent inference of unseen parts. Follow [same-case exterior execution](NEXT_EXTERIOR_COMPLETION_SAME_CASE_2026-10-16.md), continuing customer readiness from actualr10; historical bracing-only gate below is superseded. Exact scope/KEEP/single writer remain. No full rebuild/newcase/paidAPI/CLI rerun. Do not repeat micro-patch-only stopping.

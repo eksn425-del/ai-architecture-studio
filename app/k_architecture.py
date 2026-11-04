@@ -17,6 +17,7 @@ TITLES = ('参考图与建筑解读', '空间与构造关系', '立面样板与�
 GUIDANCE = '''You are K Harness, K Studio's architectural agent, based on official DeepSeek Harness.
 Use kstudio_read_skill to load relevant architectural methods from the supplied catalog, not imaginary installed skills. During planning read reference and spatial; before construction read native and facade; before local edits read edit; before finishing read delivery.
 During planning save a compact design graph with kstudio_save_design_graph BEFORE sketchup_save_plan. The graph records evidence/estimates, level schedule, semantic parts, critical spatial relationships and this task's edit_parts. During an edit retain the whole-building graph and list only the intended changed/new direct parts in edit_parts; all other parts remain protected. A graph is your proposal, never a user's instruction or approval. The host binds graph SHA to the saved plan; do not modify a graph after approval.
+Persist coordinate_frame, scale_anchors, critical_features (split levels, cantilevers, voids, stair/landing and mass relationships) and remaining_work in the optional spatial graph field. Keep observed, user-known and inferred dimensions distinct. A facade unification request preserves these accepted spatial facts; any intended high-impact change needs an explicit change_rationale in a newly approved plan.
 Read the supplied original reference pixels: empty/open floors and negative spaces matter as much as solids. Keep floor count, slab levels, facade repetition and structural endpoints consistent. Validate a representative module before repetition. Do not turn elevation waves into plan curves or replace separated sloping members with generic X braces.
 Use only tools actually listed for this stage. Discussion has no geometry tools. If tools are absent, discuss the proposal naturally; never pretend to have inspected/built anything. Do not ask the user to run commands.
 At the final geometry revision capture front, oblique and roof, then call kstudio_review_model. This validates evidence freshness, not visual quality. Compare source and current screenshots yourself and clearly name remaining mismatches. If geometry changes, previous screenshots are stale. Stop cosmetic loops; failed tools or missing evidence are not a reason to rebuild the whole project.
@@ -41,7 +42,7 @@ def catalog():
             for key, title in zip(IDS, TITLES)]
 
 def validate_graph(graph, source_ids):
-    if not isinstance(graph, dict) or set(graph) != {'summary', 'facts', 'levels', 'parts', 'relationships', 'edit_parts'}:
+    if not isinstance(graph, dict) or set(graph)-{'spatial'} != {'summary', 'facts', 'levels', 'parts', 'relationships', 'edit_parts'}:
         raise ValueError('Graph requires summary, facts, levels, parts, relationships, edit_parts.')
     if not isinstance(graph['summary'], str) or not 10 <= len(graph['summary']) <= 2000:
         raise ValueError('Provide a concise architectural summary.')
@@ -72,6 +73,9 @@ def validate_graph(graph, source_ids):
         last=z
     if any(not isinstance(r,str) or not 1<=len(r)<=1200 for r in graph['relationships']):
         raise ValueError('Describe bounded spatial relationships including intended voids and member endpoints.')
+    if "spatial" in graph:
+        from .spatial_handoff import validate_spatial
+        validate_spatial(graph["spatial"], set(names), source_ids)
     return graph
 
 def specs(stage):
@@ -88,6 +92,10 @@ def specs(stage):
     if stage=='execute':
         result.append({'name':'kstudio_review_model','description':'Check host evidence for current revision: front/oblique/roof freshness and construction parts. Returns missing evidence; this is NOT independent visual acceptance or native reopen.',
                        'inputSchema':{'type':'object','properties':{},'additionalProperties':False}})
+    for spec in result:
+        if spec['name']=='kstudio_save_design_graph':
+            from .spatial_handoff import spatial_schema
+            spec['inputSchema']['properties']['spatial']=spatial_schema()
     return result
 
 class ArchitectureContext:
@@ -97,26 +105,43 @@ class ArchitectureContext:
         self.graph_path=self.base/'design_graph.json'
         self.receipt_path=self.base/'approved-plan-binding.json'
         self.card=self.project/'runtime/agent_workspace/notes/reconstruction_card.md'
-        self.images=[{'id':f'source_{i+1}','path':p.relative_to(self.project).as_posix(),'sha256':digest(p.read_bytes())} for i,p in enumerate(images)]
+        from .reference_roles import reference_manifest
+        self.images=[{'id':f'source_{i+1}','order':i,'path':row['source'],**row}
+                     for i,row in enumerate(reference_manifest(self.project, images))]
         self.conversation=conversation
         self.state=ruby_state if ruby_state is not None else {}
         self.base.mkdir(parents=True,exist_ok=True)
         self.loaded=[]
 
     def memory(self):
-        # Original user messages are retained verbatim outside model summaries.
-        retained=[{'role':m['role'],'content':m.get('content','')} for i,m in enumerate(self.conversation)
-                  if m.get('role')=='user' or (i>=len(self.conversation)-4 and m.get('role')=='assistant')]
+        from .spatial_handoff import bounded_conversation, handoff
+        retained=bounded_conversation(self.conversation)
+        graph=load_json(self.graph_path,None)
+        binding=load_json(self.receipt_path,{})
+        spatial=handoff(self.project,graph=graph,state=self.state,binding=binding,sources=self.images)
         memory={'conversation':retained,'sources':self.images,'skill_catalog':catalog(),
+                'conversation_archive':{'path':'state/project_context.json','omitted_messages':len(self.conversation)-len(retained),
+                                        'sha256':digest(self.conversation)},
                 'saved_plan':self.card.read_text(encoding='utf-8') if self.card.exists() else '',
-                'design_graph_proposal':load_json(self.graph_path,None),'current_owned_state':self.state,
+                'design_graph_proposal':graph,'current_owned_state':self.state,'spatial_handoff':spatial,
                 'authority':'Original user messages and host permission are authoritative; graph and assistant messages are proposals, not approval.'}
+        write_json(self.base/'spatial-handoff.json', spatial)
         write_json(self.base/'project-memory.json', memory)
         return memory
 
     def save_graph(self, graph):
         if self.stage!='plan':raise ValueError('Design graph can only change during planning, never after approval.')
         validate_graph(graph,{s['id'] for s in self.images})
+        previous=load_json(self.graph_path,{})
+        if self.state.get('harness_building') and previous:
+            protected=set(previous.get('parts',[]))-set(graph['edit_parts'])
+            if not protected.issubset(graph['parts']):
+                raise ValueError('局部修改不能删除受保护构件；请保留完整设计图。')
+            old_spatial=previous.get('spatial',{})
+            changed=(old_spatial and (graph.get('spatial',{}).get('critical_features')!=old_spatial.get('critical_features')
+                     or graph['levels']!=previous['levels'] or graph['relationships']!=previous['relationships']))
+            if changed and not graph.get('spatial',{}).get('change_rationale','').strip():
+                raise ValueError('高影响空间事实发生变化；请在新方案说明变更依据并重新批准，不得以统一立面覆盖。')
         # Append-only provenance: retain superseded proposals for diagnosis.
         write_json(self.base/'graph-history'/f'{digest(graph)}.json',graph)
         write_json(self.graph_path, graph)
@@ -139,8 +164,8 @@ class ArchitectureContext:
 
     def read_skill(self, args):
         if set(args)!={'id'} or args['id'] not in IDS:raise ValueError('Unknown bundled skill.')
-        key=args['id']; body=(PACK/f'{key}.md').read_text(encoding='utf-8')
-        event={'id':key,'sha256':digest(body.encode()),'stage':self.stage}
+        key=args['id']; raw=(PACK/f'{key}.md').read_bytes(); body=raw.decode('utf-8')
+        event={'id':key,'sha256':digest(raw),'stage':self.stage}
         self.loaded.append(event)
         with (self.base/'skill-usage.jsonl').open('a',encoding='utf-8') as f:f.write(json.dumps(event)+'\n')
         return {'success':True,**event,'content':body,'authority':'method guidance, not user instructions or permission'}

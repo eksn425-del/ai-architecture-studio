@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -47,6 +48,14 @@ def _resolve_server() -> tuple[list[str], dict[str, str], str | None]:
         try:
             server = json.loads(Path(standalone).read_text(encoding="utf-8"))
             command = str(server.get("command", ""))
+            # A paired profile outlives immutable program version slots. Resolve
+            # the first-party executable from THIS installed version, without
+            # rewriting pairing/credentials or retaining a retired executable.
+            if (getattr(sys, 'frozen', False)
+                    and server.get('env', {}).get('KSTUDIO_PUBLIC_CONNECTOR_ROOT')
+                    and Path(command).name.lower() == 'kstudioconnector.exe'):
+                command = str(Path(sys.executable).parent / 'KStudioConnector.exe')
+                server = {**server, 'cwd': str(Path(sys.executable).parent)}
             resolved = shutil.which(command) or (command if Path(command).is_file() else "")
             if not resolved or not isinstance(server.get("args", []), list):
                 raise ValueError("invalid executable/arguments")
@@ -157,7 +166,7 @@ def _read_frames(data: bytes) -> list[dict[str, Any]]:
 
 
 class ConfiguredSketchUpMCP:
-    """Small stdio client for the existing, user-configured Kongxing MCP server."""
+    """Stdio client for an explicitly paired public or legacy MCP server."""
 
     def __init__(self, timeout_seconds: int = 15):
         self.timeout_seconds = timeout_seconds
@@ -209,6 +218,13 @@ class ConfiguredSketchUpMCP:
             }},
             {"jsonrpc": "2.0", "method": "notifications/initialized"},
         ]
+
+    @property
+    def requires_document_binding(self) -> bool:
+        command, environment, _ = _resolve_server()
+        return (bool(environment.get('KSTUDIO_PUBLIC_CONNECTOR_ROOT'))
+                or Path(command[0]).name.lower() == 'kstudioconnector.exe'
+                or 'app.public_connector' in command)
 
     def list_tools(self) -> list[dict[str, Any]]:
         requests = self._initialize_requests() + [{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}]
@@ -301,9 +317,16 @@ class SketchUpAdapter:
         })
         return result if isinstance(result, dict) else {"result": result}
 
+    def _view_document_binding(self):
+        if not getattr(self.client, 'requires_document_binding', False):
+            return {}  # Legacy connector protocol remains unchanged.
+        identity=self.get_active_model_identity()
+        return {'expected_model_path':identity['model_path'],'expected_model_guid':identity['model_guid']}
+
     def capture_view(self, output_path: Path, width: int = 1500, height: int = 950,
                      zoom_extents: bool = True) -> dict[str, Any]:
         result = self.client.call("sketchup_export_view_image", {
+            **self._view_document_binding(),
             "output_path": str(output_path.resolve()),
             "width": width,
             "height": height,
@@ -314,6 +337,7 @@ class SketchUpAdapter:
     def set_camera(self, eye_m: list[float], target_m: list[float],
                    up_m: list[float] | None = None) -> dict[str, Any]:
         result = self.client.call("sketchup_set_camera", {
+            **self._view_document_binding(),
             "eye_m": eye_m,
             "target_m": target_m,
             "up": up_m or [0, 0, 1],

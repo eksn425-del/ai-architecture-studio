@@ -846,7 +846,9 @@ class ProjectRubyExecutor:
             "oss_method_adoption": method_adoption,
             "component_assembly_diagnostics": native_component_diagnostics(report.get("owned_after") or {}),
             "screenshot": image_path.relative_to(self.project_dir).as_posix(),
-            "transport": "existing Kongxing sketchup_eval_project_file",
+            "transport": ("K Studio public paired sketchup_eval_project_file"
+                          if getattr(self.mcp, 'requires_document_binding', False)
+                          else "configured sketchup_eval_project_file"),
         }
         return {
             "success": True,

@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import uuid
+import sys
 from pathlib import Path
 
 from fastapi import HTTPException
@@ -47,10 +48,11 @@ def _package(verify: bool = False) -> tuple[Path, dict]:
         raise ValueError("连接器安装包目录无效。")
     root = root.resolve()
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
-    if manifest.get("schema") != 1 or not re.fullmatch(r"[A-Za-z0-9.-]{1,64}", manifest.get("version", "")):
+    if manifest.get("schema") not in {1, 2} or not re.fullmatch(r"[A-Za-z0-9.-]{1,64}", manifest.get("version", "")):
         raise ValueError("连接器安装包清单无效。")
     entries = manifest.get("files", {})
-    if set(entries) != PAYLOADS:
+    expected = {PLUGIN_FILE} if manifest.get('schema') == 2 and manifest.get('kind') == 'kstudio-public' else PAYLOADS
+    if set(entries) != expected:
         raise ValueError("连接器安装包缺少必要文件，或包含未声明文件。")
     for name, entry in entries.items():
         path = root / name
@@ -85,10 +87,12 @@ def detect_installations() -> list[dict]:
                                 continue
                             year = int(match[1])
                             plugin = Path(os.environ.get("APPDATA", "")) / f"SketchUp/SketchUp {year}/SketchUp/Plugins/kongxing_ai_sketchup/main.rb"
-                            present = plugin.is_file()
-                            managed = present and "0.1.0-kstudio-local1" in plugin.read_text(encoding="utf-8", errors="replace")
+                            public_plugin = plugin.parent.parent / 'kstudio_connector.rb'
+                            public_present = public_plugin.is_file() and (plugin.parent.parent / 'kstudio_connector/main.rb').is_file()
+                            present = plugin.is_file() or public_present
+                            managed = plugin.is_file() and "0.1.0-kstudio-local1" in plugin.read_text(encoding="utf-8", errors="replace")
                             found[(year, str(location.resolve()).casefold())] = {"year": year, "name": name, "executable": str(location / 'SketchUp.exe'), "plugin_present": present,
-                                           "plugin_kind": "managed_trial" if managed else "existing" if present else "missing", "compatibility": "not_verified"}
+                                           "plugin_kind": "kstudio-public" if public_present else "managed_trial" if managed else "existing" if present else "missing", "compatibility": "not_verified"}
                     except OSError:
                         continue
         except OSError:
@@ -107,11 +111,15 @@ def _configured() -> bool:
 
 def setup_status() -> dict:
     package_available, version, publication = False, None, "unavailable"
+    package_schema, connector_kind, verified_years = None, 'unavailable', []
     try:
         _, manifest = _package()
         package_available = True
         version = manifest["version"]
         publication = manifest.get("publication", "unverified")
+        package_schema = manifest.get('schema')
+        connector_kind = manifest.get('kind', 'legacy_local')
+        verified_years = manifest.get('native_verified_years', [])
     except (OSError, ValueError, TypeError):
         pass
     configured = _configured()
@@ -123,9 +131,10 @@ def setup_status() -> dict:
         pass
     return {"platform_supported": platform_supported(), "package_available": package_available,
             "package_version": version, "publication": publication,
+            "package_schema": package_schema, "connector_kind": connector_kind,
             "configured": configured, "configuration_kind": "managed" if configured and managed else "existing" if configured else "missing",
             "installations": detect_installations(),
-            "compatibility_policy": {"candidate_years": list(CANDIDATE_YEARS), "native_trial_years": [2024], "all_versions_verified": False},
+            "compatibility_policy": {"candidate_years": list(CANDIDATE_YEARS), "native_trial_years": verified_years, "all_versions_verified": False},
             "native_reachability": "not_checked", "clean_machine_acceptance": "not_run"}
 
 
@@ -153,6 +162,8 @@ def install_runtime(year: int, *, manual_version: bool = False) -> dict:
         return {"status": "existing_configuration_preserved", "configured": True,
                 "native_reachability": "not_checked", "plugin_installed_by_setup": False}
     source, manifest = _package(verify=True)
+    if manifest.get('schema') == 2 and manifest.get('kind') == 'kstudio-public':
+        return install_public_runtime(source, manifest, year)
     root = managed_root()
     if root.is_symlink() or (root / "versions").is_symlink():
         raise ValueError("用户连接器目录不能指向其他安装位置。")
@@ -191,6 +202,39 @@ def install_runtime(year: int, *, manual_version: bool = False) -> dict:
     return {"status": "runtime_installed", "configured": True, "selected_year": year,
             "package_version": manifest["version"], "native_reachability": "not_checked",
             "plugin_installed_by_setup": False, "geometry_modified": False}
+
+
+def install_public_runtime(source, manifest, year):
+    from .public_connector import initialize_pairing, authorize_workspace
+    config = target_config()
+    if config.exists() or config.is_symlink():
+        raise ValueError('已有连接配置保留；请先在设置中核对，安装器不会覆盖。')
+    root = initialize_pairing()
+    workspace = os.environ.get('ARCH_STUDIO_RUNTIME_DIR')
+    if not workspace:
+        raise ValueError('当前项目运行目录未准备好，请重新打开 K Studio 后配对。')
+    authorize_workspace(root, workspace)
+    executable = Path(sys.executable).parent / 'KStudioConnector.exe'
+    if getattr(sys, 'frozen', False):
+        if not executable.is_file():
+            raise ValueError('安装包缺少公开连接器程序，请修复安装。')
+        command, args = str(executable), []
+    else:
+        command, args = sys.executable, ['-m', 'app.public_connector']
+    settings = {'command': command, 'args': args, 'cwd': str(ROOT),
+        'env': {'KSTUDIO_PUBLIC_CONNECTOR_ROOT': str(root),
+                'ARCHFLOW_GENERATED_SCRIPT_DIR': str(root / 'generated_scripts')}}
+    config.parent.mkdir(parents=True, exist_ok=True)
+    with config.open('x', encoding='utf-8') as handle:
+        json.dump(settings, handle, ensure_ascii=False, indent=2)
+    # The running desktop initially has a private profile path. Switch only its
+    # generated-file transport directory to the explicit newly paired location.
+    os.environ['ARCHFLOW_GENERATED_SCRIPT_DIR'] = str(root / 'generated_scripts')
+    os.environ['ARCH_STUDIO_GENERATED_SCRIPT_DIR'] = str(root / 'generated_scripts')
+    return {'status': 'runtime_installed', 'configured': True, 'selected_year': year,
+            'package_version': manifest['version'], 'native_reachability': 'not_checked',
+            'plugin_installed_by_setup': False, 'geometry_modified': False,
+            'connector_kind': 'kstudio-public', 'restart_sketchup_required': True}
 
 
 def register_routes(app, lock) -> None:

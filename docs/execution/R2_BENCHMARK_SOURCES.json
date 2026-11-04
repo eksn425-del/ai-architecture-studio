@@ -1,0 +1,533 @@
+{
+  "source_criteria_sha256": "3ef8c509d5b69d4cce70b172d17f5aeb47acab1f614fec6bc82fb78393094025",
+  "specification": {
+    "schema_version": 1,
+    "status": "SOURCE_CRITERIA_FROZEN_NOT_RUN",
+    "common": {
+      "provider_configuration": {
+        "requested": {
+          "model": "deepseek-v4.1-flash",
+          "protocol": "openai-completions",
+          "reasoning_effort": "high"
+        },
+        "effective": {
+          "endpoint": "https://api.b.ai/v1",
+          "model": "deepseek-v4.1-flash",
+          "protocol": "openai-completions",
+          "requested_effort": "high",
+          "context_window": 131072,
+          "max_output_tokens": 32768,
+          "vision": true,
+          "tools": true,
+          "streaming": true,
+          "capability_source": "historical_local_configuration",
+          "verification_status": "HISTORICAL_LOCAL_MODELING_ONLY",
+          "request_retries": 2,
+          "sdk_reasoning_effort": "high",
+          "wire_reasoning_effort": "high"
+        },
+        "reported": {
+          "model": null,
+          "reasoning_effort": null,
+          "context_window": null
+        },
+        "supported_efforts": [
+          "provider-default",
+          "low",
+          "high"
+        ],
+        "provider": "bai",
+        "accepted_runtime_version": "0.2.1-rc.5 (offline wire only)",
+        "capability_evidence": {
+          "provider_declaration": null,
+          "user_declaration": false,
+          "offline_contract": "DSH serializer; not this endpoint",
+          "live_request": null,
+          "live_modeling": null,
+          "image_formats": [
+            "PNG",
+            "JPEG",
+            "WEBP",
+            "GIF frame 0 converted to PNG"
+          ],
+          "max_image_bytes": 26214400,
+          "max_decoded_pixels": 40000000,
+          "provider_image_limits": null,
+          "parallel_tools": null,
+          "streamed_tool_arguments": null,
+          "usage_semantics": null,
+          "retry_after": "official SDK policy; provider behavior unverified"
+        }
+      },
+      "dsh_version": "Node 0.2.1-rc.5 / Python SDK 0.2.1rc2",
+      "tools_sha256": null,
+      "memory_strategy": "r2-spatial-handoff",
+      "single_writer": true,
+      "repetitions_per_arm": 2,
+      "budget": {
+        "currency": "CNY",
+        "maximum": null,
+        "authorization": null,
+        "status": "NOT_BOUND_NO_CALLS"
+      },
+      "max_corrections_per_part": 2,
+      "stop_on": [
+        "budget_exhausted",
+        "unknown_native_commit",
+        "cancelled",
+        "auth_or_quota_failure"
+      ],
+      "review": {
+        "deterministic": true,
+        "source_matched_human": true,
+        "independent_ai": "NOT_RUN"
+      },
+      "no_model_substitution": true,
+      "execution_policy": "production-file-proxy",
+      "provider_configuration_status": "PROPOSED_NOT_LIVE_VERIFIED",
+      "run_binding_status": "AWAIT_EXACT_LIVE_CATALOG_AND_SPEND_BINDING",
+      "fairness": "Identical tools, permissions, source order, config, memory and max corrections across all three arms; only guidance/skills differ. Baseline still uses host ownership safety and is not unmodified unrestricted official CLI.",
+      "outcome_status": "NOT_RUN"
+    },
+    "arms": [
+      "official_dsh_baseline",
+      "kstudio_minimal",
+      "kstudio_architecture"
+    ],
+    "cases": [
+      {
+        "id": "facade_layers",
+        "classification": "facade_layers",
+        "source_manifest": [
+          {
+            "order": 0,
+            "id": "source-01",
+            "role": "target_building",
+            "filename": "codex-clipboard-316714e0-6971-43b0-8be7-73bbcb15ef57.png",
+            "sha256": "d7913a7c9f0f473c359aebebac5dafb2bb4e3c660f83a3368ea60412b7eda52d"
+          }
+        ],
+        "source_status": "SELECTED_HASH_VERIFIED",
+        "natural_task": "请按这张照片建一个可编辑的SU建筑模型，重点还原阳台层次、两组大斜撑和首层入口。看不到的背面合理推测并说明。先讨论方案，我确认后再建模。",
+        "scale_anchors": [
+          {
+            "name": "image-proportion-only",
+            "value_mm": null,
+            "basis": "no_verified_dimension; agree a scale before geometry"
+          }
+        ],
+        "critical_features": [
+          {
+            "id": "terrace_layers",
+            "description": "重复阳台水平板、栏杆和后退玻璃为不同深度层次。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "diagonal_frames",
+            "description": "中央上、下两组白色跨层斜撑位于阳台之前；不得用贴图或普通竖柱替代。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "entrance",
+            "description": "首层入口有开敞门洞/车行空口，不能被整块墙封堵。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          }
+        ],
+        "occluded_inference_rule": "Coherent bounded estimates, explicitly labeled inferred; no invented measurement.",
+        "success_criteria": [
+          "source-visible critical geometry preserved",
+          "KEEP unchanged",
+          "saved/downloaded native reopen matches",
+          "editable semantic groups"
+        ],
+        "failure_criteria": [
+          "missing or changed critical spatial feature",
+          "protected geometry changed",
+          "unknown commit repeated",
+          "native reopen mismatch"
+        ],
+        "tolerances": {
+          "native_declared_mm": 0.1,
+          "keep_transform_material_topology": "no_semantic_change",
+          "source_silhouette_ratio_error_max": 0.05,
+          "source_critical_features": "all present, independent human source-matched review; numeric score alone cannot pass",
+          "stair_landing_joint_max_mm": 5,
+          "occluded": "explicit inferred, not source-certified"
+        },
+        "result": "NOT_RUN",
+        "correction_limit": 2,
+        "results": {
+          "official_dsh_baseline": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          },
+          "kstudio_minimal": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          },
+          "kstudio_architecture": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "split_level_cantilever_stairs",
+        "classification": "split_level_cantilever_stairs",
+        "source_manifest": [
+          {
+            "order": 0,
+            "id": "source-01",
+            "role": "target_building",
+            "filename": "codex-clipboard-33a08989-5a43-4fbb-a7f5-1fb4f9d33941.png",
+            "sha256": "06a01984f83ae6bfe063cc57182b2dab9c31ba88d8c33a1c7d234d3a4cb611d5"
+          }
+        ],
+        "source_status": "SELECTED_HASH_VERIFIED",
+        "natural_task": "请按这张照片建一个可编辑的SU建筑模型，重点还原错落悬挑盒体、中间外露楼梯和平台的连接、玻璃与木色底面。看不到的部分合理推测并说明。先讨论方案，我确认后再建模。",
+        "scale_anchors": [
+          {
+            "name": "image-proportion-only",
+            "value_mm": null,
+            "basis": "no_verified_dimension; agree a scale before geometry"
+          }
+        ],
+        "critical_features": [
+          {
+            "id": "cantilever_boxes",
+            "description": "左右玻璃盒体沿高度交错悬挑，盒体下方可见木色底面及空隙。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "stair_landing_chain",
+            "description": "外露折返楼梯位于盒体间开口，多个斜梯段必须在水平平台处相接；不能成为无踏步的斜面。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "void_and_rail",
+            "description": "楼梯及平台周围的开口保持通透；栏杆和玻璃盒体分组，楼梯不穿越盒体。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "terrace_setbacks",
+            "description": "种植露台在不同层形成退让边缘，不把整栋压平为重复单层。",
+            "source_orders": [
+              0
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          }
+        ],
+        "occluded_inference_rule": "Coherent bounded estimates, explicitly labeled inferred; no invented measurement.",
+        "success_criteria": [
+          "source-visible critical geometry preserved",
+          "KEEP unchanged",
+          "saved/downloaded native reopen matches",
+          "editable semantic groups"
+        ],
+        "failure_criteria": [
+          "missing or changed critical spatial feature",
+          "protected geometry changed",
+          "unknown commit repeated",
+          "native reopen mismatch"
+        ],
+        "tolerances": {
+          "native_declared_mm": 0.1,
+          "keep_transform_material_topology": "no_semantic_change",
+          "source_silhouette_ratio_error_max": 0.05,
+          "source_critical_features": "all present, independent human source-matched review; numeric score alone cannot pass",
+          "stair_landing_joint_max_mm": 5,
+          "occluded": "explicit inferred, not source-certified"
+        },
+        "result": "NOT_RUN",
+        "correction_limit": 2,
+        "results": {
+          "official_dsh_baseline": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          },
+          "kstudio_minimal": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          },
+          "kstudio_architecture": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "multi_view_spatial",
+        "classification": "multi_view_spatial",
+        "source_manifest": [
+          {
+            "order": 0,
+            "id": "source-01",
+            "role": "target_building",
+            "filename": "01-9d05f4a6ae-codex-clipboard-1b4276a9-93d4-4833-95cb-c3b193c9c96d.png",
+            "sha256": "241ef6d992daca53dbf3a0e7858aae8019324abc14e60cbc6ca7703603e4ea9d"
+          },
+          {
+            "order": 1,
+            "id": "source-02",
+            "role": "target_building",
+            "filename": "02-ade9a9063c-codex-clipboard-273f5c39-ee57-4cd8-a0c0-d1113b742a27.png",
+            "sha256": "dc9e475954ce972f109c7099c4615a6231c58a571216eb348c245f62cc1e6088"
+          },
+          {
+            "order": 2,
+            "id": "source-03",
+            "role": "target_building",
+            "filename": "03-8e8a3625d5-codex-clipboard-a04d023f-1044-423f-89db-4a0b51e92505.png",
+            "sha256": "8d1ea1d26866d7f9f1d29da4575878ea7c73952f99cad1aad7abdd8c99874cbe"
+          },
+          {
+            "order": 3,
+            "id": "source-04",
+            "role": "target_building",
+            "filename": "04-c55a28860e-codex-clipboard-fdf7fe7c-e5f1-47d4-b800-d4f5eaf99b52.png",
+            "sha256": "f341c11421bf3009c1b4ea71aceded026827881486184b77708a276c0eed5080"
+          },
+          {
+            "order": 4,
+            "id": "source-05",
+            "role": "target_building",
+            "filename": "05-da5324e1c5-codex-clipboard-1ed05c14-1674-4910-bc05-ccb2c03aec93.png",
+            "sha256": "d66b0eed9546e8e1447c7a46d6669b2ea64e7b5f31298a7fda231ca8128e9095"
+          },
+          {
+            "order": 5,
+            "id": "source-06",
+            "role": "target_building",
+            "filename": "06-4fdbe428b1-codex-clipboard-8856a1fd-12c2-44d9-a5af-868c4c8d4c2a.png",
+            "sha256": "f2f3d60f8b711e50a05fef9f574e495d23c67d6e1de7cd4bd3d5c98f017ad331"
+          },
+          {
+            "order": 6,
+            "id": "source-07",
+            "role": "target_building",
+            "filename": "07-8328ae9aa4-codex-clipboard-538fb3e3-5783-461e-8458-b231bd90bd57.png",
+            "sha256": "883b837c5ec3c999d7066195a4df501d28e03e036f9417982f1cc9c1c15a7c13"
+          },
+          {
+            "order": 7,
+            "id": "source-08",
+            "role": "target_building",
+            "filename": "08-92fc9f3b50-codex-clipboard-10ea73cd-a751-4576-b174-295e6446a725.png",
+            "sha256": "7d651d9eb1bd3d6cd3a5d1d227b1cdf7875d33d5eb73f2d9ae2a35919c586096"
+          }
+        ],
+        "source_status": "SELECTED_HASH_VERIFIED",
+        "natural_task": "请结合这八张图建一个可编辑的SU模型，统一外观、平面和剖面，重点保留弧形屋顶、外部坡道平台、室内挑空和轻质围护。先讨论方案，我确认后再建模。",
+        "scale_anchors": [
+          {
+            "name": "image-proportion-only",
+            "value_mm": null,
+            "basis": "no_verified_dimension; agree a scale before geometry"
+          }
+        ],
+        "critical_features": [
+          {
+            "id": "roof_elevation_curve",
+            "description": "屋顶在横向立面/剖面呈下凹曲线，平面长方体方向有连续纵向延伸；不能混为平面波浪。",
+            "source_orders": [
+              0,
+              1,
+              4,
+              5,
+              7
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "ramp_landing_connections",
+            "description": "外部坡道沿立面逐段上升并连接水平平台；与地面起点、各层端点连续。",
+            "source_orders": [
+              0,
+              1,
+              2
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "interior_void",
+            "description": "剖面与平面显示局部双层挑空与环绕圆形/螺旋梯开口，不能全层填满楼板。",
+            "source_orders": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "enclosure_frame",
+            "description": "轻质透明外皮与原有内框架分离，外缘支撑/拉索保持其空间倾斜与连接关系。",
+            "source_orders": [
+              0,
+              1,
+              5
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          },
+          {
+            "id": "cross_view_consistency",
+            "description": "八图作为同一目标建筑不同证据视角，不把示意图文字当用户指令，不混用旧模型数据。",
+            "source_orders": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "basis": "observed_visual",
+            "exact_dimensions": "not_provided"
+          }
+        ],
+        "occluded_inference_rule": "Coherent bounded estimates, explicitly labeled inferred; no invented measurement.",
+        "success_criteria": [
+          "source-visible critical geometry preserved",
+          "KEEP unchanged",
+          "saved/downloaded native reopen matches",
+          "editable semantic groups"
+        ],
+        "failure_criteria": [
+          "missing or changed critical spatial feature",
+          "protected geometry changed",
+          "unknown commit repeated",
+          "native reopen mismatch"
+        ],
+        "tolerances": {
+          "native_declared_mm": 0.1,
+          "keep_transform_material_topology": "no_semantic_change",
+          "source_silhouette_ratio_error_max": 0.05,
+          "source_critical_features": "all present, independent human source-matched review; numeric score alone cannot pass",
+          "stair_landing_joint_max_mm": 5,
+          "occluded": "explicit inferred, not source-certified"
+        },
+        "result": "NOT_RUN",
+        "correction_limit": 2,
+        "results": {
+          "official_dsh_baseline": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          },
+          "kstudio_minimal": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          },
+          "kstudio_architecture": {
+            "runs": [
+              {
+                "index": 1,
+                "status": "NOT_RUN"
+              },
+              {
+                "index": 2,
+                "status": "NOT_RUN"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "old_results_reused": false,
+    "fresh_projects_required": true,
+    "source_selection_basis": "Owner-provided images; existing eight-source publication authorized in AGENTS.md. No old model edited."
+  }
+}

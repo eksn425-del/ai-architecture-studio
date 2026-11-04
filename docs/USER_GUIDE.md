@@ -1,5 +1,7 @@
 # 第一次使用 K Studio 建模
 
+> **R2 当前入口：** 请优先阅读 [R2 候选版使用说明](USER_GUIDE_R2.md)。以下为历史版本记录，其中单模型、旧插件、未有账户和开发启动路径不适用于 R2 当前候选；保留用于追溯。
+
 ## 从 GitHub 启动最新版本
 
 Windows 安装 Python 3.11+（勾选 Add Python to PATH），下载并完整解压 GitHub main 的 ZIP，双击根目录 **Start K Studio.cmd**。首次会安装依赖并打开浏览器；启动窗口需保持打开。Windows 首次填写 API Key 后使用当前用户的 DPAPI 加密保存，重启自动恢复。其他系统暂仅支持内存保存。也可在 Linux/macOS 执行 `python3 scripts/start.py`，完成聊天与计划；自动启动 SketchUp 的现有路径需要 Windows。

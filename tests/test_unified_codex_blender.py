@@ -26,6 +26,7 @@ def test_controlled_unified_scenario_is_exact_and_does_not_mutate_source():
 
 @pytest.mark.skipif(not shutil.which('blender'),
                     reason='Actual Blender executable required')
+@pytest.mark.skipif(os.name == 'nt', reason='POSIX scripted App Server launcher/protocol fixture not ported to Windows; NOT_RUN, not a product PASS')
 def test_public_codex_responses_route_drives_real_blender(tmp_path):
     pytest.importorskip('litellm')
     evidence = run(tmp_path / 'unified-blender')

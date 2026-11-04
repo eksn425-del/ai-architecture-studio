@@ -5,7 +5,7 @@ from app.desktop_bootstrap import configure
 
 
 def bundle(root):
-    for name in ('harness/node.exe', 'harness/dsh.cmd', 'harness/node_modules/@deepseek-ai/dsh/lib/bin.js', 'app/dsh_host_tools.mjs'):
+    for name in ('harness/node.exe', 'harness/dsh.cmd', 'harness/node_modules/@deepseek-ai/dsh/lib/bin.js', 'app/dsh_host_tools.mjs', 'app/dsh_tool_policy.mjs'):
         p = root / name
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text('fixture')

@@ -124,6 +124,16 @@ class FakeRubyMCP:
         assert name == "sketchup_eval_project_file"
         transport_path = Path(arguments["script_path"])
         transport = transport_path.read_text(encoding="utf-8")
+        if arguments.get("operation_name") == "Persist verified project commit":
+            # The writer now saves a native checkpoint before capturing a view.
+            # Simulate that separate transport contract; do not bypass the save
+            # gate merely to reach the screenshot failure these tests exercise.
+            line = next(row for row in transport.splitlines() if row.startswith("target = "))
+            target = Path(json.loads(line[len("target = "):]))
+            target.write_bytes(b"fixture committed SKP")
+            target.with_suffix(".status.json").write_text(
+                json.dumps({"finished": True, "ok": True}), encoding="utf-8")
+            return {"result": {"checkpoint_scheduled": True}}
         if "inspect_named_owned_group" in transport:
             self.inspection_sources.append(transport)
             root_pid = int(re.search(r"find_entity_by_persistent_id\((\d+)\)", transport).group(1))
@@ -306,7 +316,9 @@ def test_same_project_script_revisions_reuse_model_root_and_return_screenshots(t
     assert state["main"]["root_pid"] == 701
     assert state["main"]["model_guid"] == "guid-live"
     assert Path(mcp.calls[0][1]["script_path"]).parent == transport_dir.resolve()
-    assert len(mcp.calls) == 4
+    assert len(mcp.calls) == 6
+    assert sum(args.get("operation_name") == "Persist verified project commit"
+               for _, args in mcp.calls) == 2
     assert len(mcp.inspection_sources) == 2
     assert "expected_revision: 0" in mcp.transport_sources[0]
     assert "expected_revision: 1" in mcp.transport_sources[1]

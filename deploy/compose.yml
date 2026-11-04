@@ -1,0 +1,65 @@
+name: kstudio-cloud
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kstudio
+      POSTGRES_USER: kstudio
+      POSTGRES_PASSWORD: ${KSTUDIO_DATABASE_PASSWORD:?set private database password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kstudio -d kstudio"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      private: {ipv4_address: 172.31.91.4}
+  migrate:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    env_file: .env
+    command: ["python", "-m", "cloud.cli", "migrate"]
+    depends_on: {db: {condition: service_healthy}}
+    networks: [private]
+    profiles: [maintenance]
+  app:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    restart: unless-stopped
+    env_file: .env
+    depends_on: {db: {condition: service_healthy}}
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks:
+      private: {ipv4_address: 172.31.91.2}
+      outbound: {}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,urllib.request; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8920/health/ready',headers={'Host':__import__('urllib.parse',fromlist=['urlparse']).urlparse(os.environ['KSTUDIO_CLOUD_PUBLIC_URL']).netloc}))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    environment: {KSTUDIO_DOMAIN: "${KSTUDIO_DOMAIN:?set public domain}"}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [app]
+    networks:
+      private: {ipv4_address: 172.31.91.3}
+      outbound: {}
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:
+networks:
+  private:
+    internal: true
+    ipam:
+      config: [{subnet: 172.31.91.0/24}]
+  outbound: {}

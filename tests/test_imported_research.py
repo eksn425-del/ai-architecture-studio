@@ -64,6 +64,7 @@ def test_reject_malformed_or_oversized(tmp_path, data):
         imported_research_context(tmp_path, context)
 
 
+@pytest.mark.usefixtures("require_symlink")
 def test_reject_link(tmp_path):
     target = tmp_path/'secret.md'; target.write_text('private')
     folder = tmp_path/'inputs/reference'; folder.mkdir(parents=True)

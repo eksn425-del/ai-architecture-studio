@@ -120,6 +120,7 @@ def test_consumed_plan_cannot_grant_again(tmp_path):
     s,r,snap=setup(tmp_path);consume_pending_design_plan(tmp_path,r.approved_pending_plan_id)
     with pytest.raises(ValueError):validate_decision(decision(snap),snap,project=tmp_path,session=s,request=r)
 
+@pytest.mark.usefixtures("require_symlink")
 @pytest.mark.parametrize('parent_link',[False,True])
 def test_external_plan_symlink_rejected_before_interpreter(tmp_path,parent_link):
     s,r,snap=setup(tmp_path)

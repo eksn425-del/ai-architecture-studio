@@ -12,7 +12,7 @@ from .native_agent import NativeAgentUnavailable
 from .k_architecture import ArchitectureContext, GUIDANCE, specs as architecture_specs, validate_graph
 
 BASE = '''Answer in natural Chinese. You operate K Studio through the provided tools.
-HOST_STAGE and native_execution_granted are authoritative. Save plans with sketchup_save_plan during planning; a saved plan is not approval.
+HOST_STAGE and native_execution_granted are authoritative. Save a design graph with kstudio_save_design_graph before sketchup_save_plan during planning; a saved plan is not approval. Preserve the supplied spatial handoff and stable parts, and name only this task's edit_parts.
 Use only the provided tools and preserve existing user work. Units are millimetres, X right, front -Y, Z up. Keep the top roof as a separate Roof part.
 Write concise Chinese replies for architects: describe building parts in everyday language. Keep tool IDs, SDK/session details and internal receipt fields out of the normal reply; they remain available in diagnostics. Report actual tool failures and remaining limitations. Saving is not native reopen or visual acceptance. Stop after the user's current task.'''
 
@@ -35,14 +35,17 @@ class DeepSeekStudioRuntime(ComparisonRuntime):
         from .dsh_full_profile import enabled
         if enabled():
             self.instructions = BASE + '\n' + (GUIDANCE+'\n'+ARCHITECTURE if self.guidance=='architecture' else '') + '''
-Full native DeepSeek SDK capabilities are available: project instructions, filesystem, shell, skills, planning, web, subagents, compaction, hooks and configured MCP. Preserve the upstream behavior and use these when useful. Architectural guidance is an additive extension.
-For SketchUp this project uses the K Studio owned-model writer. Use native write/edit/read for persistent Ruby scripts in scripts/, then sketchup_run_workspace_ruby with script_id=harness_building. This supports arbitrary source-specific geometry, repeated components, actual stair treads, landings, railings, soffits and openings. The simpler typed geometry tool is optional. Use injected root/model and millimetres converted with .mm. Never access the SU bridge via shell or a second MCP writer; that would bypass project ownership and the native save chain. ADAI reference/skill/toolkit knowledge is available; call appropriate injected ADAI helpers and report their real ledger, not assumed usage.
+The official DeepSeek SDK owns the agent loop, planning, web, subagents, compaction, hooks and curated skills. Production file access uses the reviewed project workspace proxy; arbitrary shell and unreviewed external MCP are unavailable without an independently configured trusted development profile. This tool policy is not an OS sandbox. Architectural guidance is an additive extension.
+For SketchUp this project uses the K Studio owned-model writer. Use workspace_write/workspace_read/workspace_search for persistent Ruby scripts in scripts/, then sketchup_run_workspace_ruby with script_id=harness_building. This supports arbitrary source-specific geometry, repeated components, actual stair treads, landings, railings, soffits and openings. The simpler typed geometry tool is optional. Use injected root/model and millimetres converted with .mm. Never access the SU bridge via shell or a second MCP writer; that would bypass project ownership and the native save chain. ADAI reference/skill/toolkit knowledge is available; call appropriate injected ADAI helpers and report their real ledger, not assumed usage.
 Subagents may analyze sources or review scripts but never concurrently write the shared model. Keep model-provider selection on the configured user provider. Do not install packages or change provider/configuration merely because native tools permit it. Tools outside the host writer do not grant native modeling approval.
 For continued construction or local changes use edit with exact allowed_mutation_paths within the approved design graph. Existing named containers remain stable. Do not replace the entire root. Inspect actual returned geometry and capture front/oblique/roof after the last write. Do not claim code execution is visual acceptance or building-code certification.
 '''
 
     def _dsh_paths(self):
-        return Path(os.environ['KSTUDIO_DSH_SDK_SITE']), Path(os.environ['KSTUDIO_DSH_BIN'])
+        # Configuration/status pages must remain usable before dependency setup.
+        missing=self.runtime_root/'.dsh-not-configured'
+        return (Path(os.environ['KSTUDIO_DSH_SDK_SITE']) if os.environ.get('KSTUDIO_DSH_SDK_SITE') else missing/'sdk',
+                Path(os.environ['KSTUDIO_DSH_BIN']) if os.environ.get('KSTUDIO_DSH_BIN') else missing/'dsh')
 
     def respond(self, *, project_dir, thread_id, prompt, mcp_enabled, agent_action='clarify',
                 model_path=None, model_guid='', ruby_state=None, progress_callback=None, **_):
@@ -51,9 +54,10 @@ For continued construction or local changes use edit with exact allowed_mutation
             if ruby_state and 'harness_building' not in ruby_state and mcp_enabled:
                 raise NativeAgentUnavailable('此历史模型由旧建模工具生成。请保留原项目，新建会话使用 DeepSeek；未覆盖旧模型。')
             context=json.loads((project/'state/project_context.json').read_text(encoding='utf-8'))
-            images=discover_project_reference_images(project)
-            architecture=(ArchitectureContext(project,agent_action,images,context.get('conversation',[]),ruby_state)
-                          if self.guidance=='architecture' else None)
+            from .dsh_images import attachment_order
+            images=attachment_order(project,discover_project_reference_images(project))
+            # Product memory, approval and tools are invariant in guidance ablations.
+            architecture=ArchitectureContext(project,agent_action,images,context.get('conversation',[]),ruby_state)
             try:
                 allowed=architecture.execution_parts() if architecture and mcp_enabled else None
             except ValueError as error:
@@ -65,6 +69,7 @@ For continued construction or local changes use edit with exact allowed_mutation
             if enabled():
                 workspace=project/'runtime/agent_workspace'
                 workspace.mkdir(parents=True,exist_ok=True)
+                for folder in ('scripts','notes','qa'):(workspace/folder).mkdir(exist_ok=True)
                 (workspace/'.kstudio-project').mkdir(exist_ok=True)
                 guide=workspace/'AGENTS.md'
                 if not guide.exists():guide.write_text('''# K Studio project
@@ -75,6 +80,9 @@ This directory belongs to this single architectural project. Preserve the user's
                 surface=extend_surface(surface,runtime_root=self.tool_surface.runtime_root,mcp=self.tool_surface.mcp,
                     project_dir=project,model_path=model_path,model_guid=model_guid,ruby_state=ruby_state,
                     allowed_parts=allowed or set())
+            if enabled():
+                from .dsh_architecture_surface import add_workspace_proxy
+                surface=add_workspace_proxy(surface,project/'runtime/agent_workspace')
             card=project/'runtime/agent_workspace/notes/reconstruction_card.md'
             turn_context=architecture.memory() if architecture else {'conversation':context.get('conversation',[]),
                 'saved_plan':card.read_text(encoding='utf-8') if card.exists() else '',
@@ -92,20 +100,33 @@ This directory belongs to this single architectural project. Preserve the user's
                 result=surface.dispatch(name,args)
                 if architecture and name=='sketchup_save_plan' and result.get('success'):
                     architecture.bind_plan()
+                architecture.memory()
                 return result
             instructions=self.instructions
-            effort='high'
-            if architecture and mcp_enabled:
-                effort=os.environ.get('KSTUDIO_DSH_EXECUTION_EFFORT','low')
+            effort=self.effective_configuration.requested_effort
+            if self.guidance=='architecture' and mcp_enabled:
                 instructions+='\nEXECUTION CADENCE: Your FIRST response must call kstudio_read_skill(native), kstudio_read_skill(facade) and sketchup_model_state. Do not precompute the entire building before this first call. Thereafter calculate and construct only the NEXT coherent system, read its result, then proceed. Planning is already approved. Never spend a response deriving all geometry without tools. Use repeated instances and concise payloads.'
-            result=self._official_turn(project=project,thread_id=thread_id,
-                prompt=json.dumps(turn_context,ensure_ascii=False)+f'\nHOST_STAGE={agent_action}; native_execution_granted={mcp_enabled}.',
-                specs=surface.dynamic_tools+(architecture_specs(agent_action) if architecture else []),dispatch=dispatch,instructions=instructions,
-                images=images,progress=progress_callback,new_session_on_binding_change=True,reasoning_effort=effort)
+            try:
+                result=self._official_turn(project=project,thread_id=thread_id,
+                    prompt=json.dumps(turn_context,ensure_ascii=False)+f'\nHOST_STAGE={agent_action}; native_execution_granted={mcp_enabled}.',
+                    specs=surface.dynamic_tools+(architecture_specs(agent_action) if architecture else []),dispatch=dispatch,instructions=instructions,
+                    images=images,progress=progress_callback,new_session_on_binding_change=True,reasoning_effort=effort)
+            except NativeAgentUnavailable as error:
+                from .k_architecture import write_json
+                architecture.review(surface.quality_state)
+                partial=getattr(error,'partial_result',None)
+                write_json(architecture.base/'last-interruption.json',{'status':'interrupted_or_failed',
+                    'error_type':type(error).__name__,'session_id':getattr(partial,'thread_id',None),
+                    'tool_calls':getattr(partial,'tool_call_count',None),
+                    'next_step':'Inspect current native identity/revision and commit journal before continuing; never replay the whole turn.',
+                    'original_work_preserved':True})
+                architecture.memory()
+                raise
             if architecture and mcp_enabled:
                 review=architecture.review(surface.quality_state)
                 if not review['evidence_current']:
                     # No additional inference or silent geometry retry. Candor is
                     # enforced even when the model omits its final review tool.
                     result.reply+='\n\n验收记录：当前模型的最终视图尚不齐全（'+ '、'.join(review['missing_current_views'])+'），本轮不能标为完整验收。已完成的模型工作保留。'
+            architecture.memory()
             return result

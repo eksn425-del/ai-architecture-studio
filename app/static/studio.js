@@ -534,7 +534,7 @@ function friendlyError(error) {
   if (/SCRIPT_PATH_NOT_ALLOWED|Script path must be under generated_scripts/i.test(message)) return "网站与 SU 插件的脚本目录不一致，尚未绑定模型。请修复本机连接配置后重试。";
   if (/dynamic tools must use either canonical or legacy format consistently/i.test(message)) return "建模未启动：本机 Agent 的工具注册格式不一致。项目、图片和计划已保留，需要更新 K Studio 后重新检查并批准计划。";
   if (/pending plan was already consumed or replaced/i.test(message)) return "这份计划的批准记录已使用或已更新，本次未开始建模。请重新检查当前计划；若上一轮启动失败，请先恢复批准记录。";
-  if (/Connection file not found:/i.test(message)) return "本机连接程序已就绪，但还没收到 SketchUp 插件的连接信息。请完成插件安装，在所选 SketchUp 的「扩展程序 → Kongxing AI → Start Local Bridge」启动桥接，再检查 MCP。";
+  if (/Connection file not found:/i.test(message)) return "本机连接程序已就绪，但还没收到 SketchUp 插件的连接信息。请先在连接器向导完成本机配对，再安装或启用插件。新连接器可在 SketchUp 的「扩展程序 → K Studio Connector → Start paired local connector」重新启动；已有其他插件配置请按原说明启动。";
   if (/existing SketchUp MCP.*not configured|standalone SketchUp connector configuration is unavailable|kongxing_sketchup MCP server is not enabled/i.test(message)) return "SketchUp 连接器尚未配置。请在连接窗口打开「安装 K Studio 连接器」，完成插件和本机连接程序安装，再检查 MCP。";
   if (/Codex config\.toml was not found|local native agent is not configured/i.test(message)) return "本机 Codex 尚未配置。请先在运行 K Studio 的电脑上完成 Codex 配置，再回到本会话重试。已上传的图片和对话仍在，无需新建项目；这不是 DeepSeek Key 错误。";
   if (/Codex CLI is unavailable|local Codex App Server is unavailable/i.test(message)) return "未找到可用的本机 Codex 程序。请检查 K Studio 所在电脑的程序安装和启动路径，再回到本会话重试；图片和对话仍保留。";
@@ -562,7 +562,7 @@ function friendlyError(error) {
   }
   if (!message || /^[\u0000-\u00ff]*$/.test(message)) {
     if (/has not opened the recovery copy/i.test(message)) return "请切换到 SketchUp，处理恢复副本时的保存提示，再点击恢复按钮完成同步；原生成模型已保留。";
-    if (/ECONNREFUSED|bridge connection failed/i.test(message)) return "SketchUp 本地桥接未响应，请检查 SketchUp 是否已打开并启动 Kongxing Local Bridge。";
+    if (/ECONNREFUSED|bridge connection failed/i.test(message)) return "SketchUp 本地桥接未响应，请检查所选 SketchUp 已打开、插件已启用且本机配对完成，再使用连接器向导检查。";
     if (/not the disposable|blank-disposable/i.test(message)) return "当前 SketchUp 模型不是空白演示模型，请先打开本地生成的空白副本。";
     if (/already has a live|new project/i.test(message)) return "该项目已绑定 SketchUp 模型，请新建项目后再开始新的建模。";
     if (/Codex output failed|deterministic validation/i.test(message)) return "Codex 返回的方案未通过校验，请调整要求后重试。";
@@ -661,7 +661,7 @@ function updateHeader() {
   const built = (model.objects || []).length > 0 || agentReady || model.status === "agentic";
   const status = $("project-status");
   status.classList.toggle("built", built);
-  status.innerHTML = `<i></i> ${agentReady ? "已有项目模型" : built ? "模型已建立" : prepared ? "方案已生成" : "输入已就绪"}`;
+  status.innerHTML = `<i></i> ${agentReady ? "已有项目模型" : built ? "模型已建立" : prepared ? "方案已生成" : "可输入需求 · 尚未绑定模型"}`;
   $("build-model").disabled = !prepared || !$("disposable-confirm").checked || state.busy || built;
   $("edit-height").disabled = !built || state.busy || !project.design_ir?.objects.some((item) => item.type === "building_mass");
   const masses = (model.objects || []).filter((item) => item.object_type === "building_mass");
@@ -1241,7 +1241,7 @@ async function sendConversation(event, agentAction = "auto") {
     if (state.projectId !== submittedProjectId) return;
     // A failed approval is an action, not a new draft: restoring it into the
     // composer disables clean plan approval and hides the recovery path.
-    if (!$("conversation-input").value.trim() && !approvedPlanSha256) $("conversation-input").value = message;
+    if (!$("conversation-input").value.trim() && !approvalGesture) $("conversation-input").value = message;
     saveDraft();
     connectionNeeded = error.code === "SKETCHUP_CONNECTION_REQUIRED";
     setStatus(friendlyError(error), connectionNeeded ? "pending" : "error");
@@ -1517,9 +1517,9 @@ async function checkConnectDialog() {
   try {
     const result = await api(`/api/projects/${encodeURIComponent(projectId)}/connector`);
     if (!isCurrentConnectDialog(generation, projectId)) return;
-    $("connect-status").textContent = result.project_bound ? "MCP 桥接已响应，当前活动模型已匹配本会话。"
+    $("connect-status").textContent = result.reachable && result.project_bound ? "MCP 桥接已响应，当前活动模型已匹配本会话。"
       : result.reachable ? "MCP 桥接已响应，但尚未绑定本会话模型。请点击自动打开并连接；仅打开 SKP 或只检查 MCP 不会完成绑定。"
-      : friendlyError(new Error(result.detail || "可点击自动打开并连接；若需手动启动，请在 SU 扩展菜单启动 Kongxing Local Bridge。"));
+      : friendlyError(new Error(result.detail || "可点击自动打开并连接；插件未响应时，请在连接器向导检查配对、安装与启动步骤。"));
   } catch (_) {
     if (isCurrentConnectDialog(generation, projectId)) $("connect-status").textContent = "连接未就绪，请检查 SketchUp 与插件是否已启动。";
   } finally { if (isCurrentConnectDialog(generation, projectId)) $("connect-check").disabled = false; }
@@ -1611,15 +1611,25 @@ function renderConnectorSetup() {
   const selected = (info.installations || []).find(item => item.year === year) || ((info.compatibility_policy?.candidate_years || []).includes(year) ? {year, name: `SketchUp ${year}`, manual:true} : null);
   const existing = info.configuration_kind === "existing";
   const legacyPlugin = selected?.plugin_kind === "existing";
-  const available = info.platform_supported && info.package_available && !!selected && selected.year >= 2019 && selected.year <= 2026;
+  const publicConnector = info.connector_kind === "kstudio-public";
+  const candidates = info.compatibility_policy?.candidate_years || [];
+  const available = !!(info.platform_supported && info.package_available && selected && candidates.includes(selected.year));
   const download = $("connector-plugin-download");
   if (available) download.href = "/api/connectors/sketchup/plugin";
   else download.removeAttribute("href");
   download.setAttribute("aria-disabled", String(!available));
   $("connector-runtime-install").disabled = !available || info.configured || connectorSetupBusy;
-  $("connector-runtime-install").textContent = info.configured ? "已有连接配置 · 已保留" : "安装本机连接程序";
+  $("connector-runtime-install").textContent = info.configured ? "已有连接配置 · 已保留" : "配置本机配对";
   $("connector-setup-check").disabled = connectorSetupBusy;
   download.textContent = existing || legacyPlugin ? "重新下载插件 (.rbz) · 不自动覆盖" : "下载 SketchUp 插件 (.rbz) ↓";
+  const trials = info.compatibility_policy?.native_trial_years || [];
+  $("connector-compatibility-note").textContent = `候选适配版本：${candidates.length ? candidates.join("、") : "尚未提供"}。${trials.length ? `本版原生试用记录：${trials.join("、")}。` : "本版尚未提供逐版本原生验收记录。"}检测到软件、插件文件、桥接响应、项目绑定与完成建模验收是不同状态；候选范围不代表全部支持。`;
+  $("connector-plugin-instructions").textContent = publicConnector
+    ? "先完成本机配对，再下载 .rbz。在所选 SketchUp 的扩展程序管理器选择“安装扩展程序”，安装后重启 SketchUp；K Studio Connector 会尝试自动启动。下载不等于安装，插件文件存在也不等于已连接。"
+    : "下载 .rbz 后，在所选 SketchUp 的扩展程序管理器安装并按插件说明启用。已有可用插件或配置时先检查连接，不自动覆盖。下载不等于安装或连接。";
+  $("connector-start-instructions").textContent = publicConnector
+    ? "完成配对并安装插件后，打开 SketchUp；插件会尝试自动启动。若未响应，在“扩展程序 → K Studio Connector → Start paired local connector”启动，再只读检查。桥接响应后仍须绑定当前项目副本。"
+    : "打开已配置的 SketchUp 及插件，按该插件原说明启动桥接后只读检查。已有配置保留，不自动改用其他连接器。桥接响应后仍须绑定当前项目副本。";
   $("connector-version-note").textContent = selected?.manual ? "手动选择：本机未检测到此版本。仅配置通用桥接，插件须在你自己的 SketchUp 中安装并检查连接。" : selected
     ? `${selected.name}（本机检测结果，不代表仅支持此版本） · ${selected.plugin_present ? "检测到插件文件；仍需检查实际连接" : "尚未检测到插件"} · 兼容性尚未验证`
     : info.installations?.length ? "请选择你要连接的 SketchUp 版本，不会自动替换。" : "没有识别到 SketchUp。请先安装或注册你已有的软件，本窗口不会替你安装其他版本。";
@@ -1647,7 +1657,7 @@ async function openConnectorSetup() {
     $("connector-sketchup-version").innerHTML = '<option value="">请选择你使用的版本</option>' + (info.installations || []).map(item => `<option value="${item.year}">${escapeHtml(item.name)} · 已检测</option>`).join("") + (info.compatibility_policy?.candidate_years || []).filter(year => !(info.installations || []).some(item => item.year === year)).map(year => `<option value="${year}">SketchUp ${year} · 手动选择 / 待验证</option>`).join("");
     if (info.installations?.length === 1) $("connector-sketchup-version").value = String(info.installations[0].year);
     renderConnectorSetup();
-    $("connector-setup-status").textContent = info.configured ? "已发现连接配置；尚未检查实际 MCP 连通性。" : "请选择软件版本，按顺序完成插件和本机连接程序安装。";
+    $("connector-setup-status").textContent = info.configured ? "已发现连接配置；尚未检查实际 MCP 连通性。" : "请选择软件版本，按顺序完成本机配对、插件安装和只读检查。";
   } catch (error) {
     if (generation === connectorSetupGeneration) $("connector-setup-status").textContent = friendlyError(error);
   }
@@ -1660,8 +1670,10 @@ async function installConnectorRuntime() {
   try {
     const result = await api("/api/connectors/sketchup/install", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({confirm_install:true, year:Number($("connector-sketchup-version").value), manual_version:!(connectorSetupInfo?.installations || []).some(item => item.year === Number($("connector-sketchup-version").value))})});
     if (generation !== connectorSetupGeneration) return;
-    connectorSetupInfo = await api("/api/connectors/sketchup/setup");
-    $("connector-setup-status").textContent = result.status === "runtime_installed" ? "本机连接程序已安装并通过启动自检。请在 SketchUp 启动插件，然后检查 MCP；尚未验证原生连接。" : "已有连接配置已保留，未覆盖文件。请继续检查 MCP。";
+    const refreshedInfo = await api("/api/connectors/sketchup/setup");
+    if (generation !== connectorSetupGeneration || !$("connector-setup-dialog").open) return;
+    connectorSetupInfo = refreshedInfo;
+    $("connector-setup-status").textContent = result.status === "runtime_installed" && result.connector_kind === "kstudio-public" ? "本机配对已配置。请在 SketchUp 安装/启用 K Studio Connector 后重启，或从插件菜单启动；插件尚未由此向导安装，原生连接尚未验证。" : result.status === "runtime_installed" ? "本机连接配置已写入；这不表示插件已安装或原生连接已通过。请按向导安装/启用插件后检查 MCP；尚未验证原生连接。" : "已有连接配置已保留，未覆盖文件。请继续检查 MCP。";
   } catch (error) {
     if (generation === connectorSetupGeneration) $("connector-setup-status").textContent = friendlyError(error);
   } finally {
@@ -1677,7 +1689,7 @@ async function checkConnectorSetup() {
   try {
     const result = await api(`/api/projects/${encodeURIComponent(projectId)}/connector`);
     if (generation !== connectorSetupGeneration || projectId !== state.projectId) return;
-    $("connector-setup-status").textContent = result.reachable ? "MCP 桥接已响应。尚未打开或绑定项目模型，也未修改几何。" : friendlyError(new Error(result.detail || "插件尚未响应，请在 SketchUp 启动 Local Bridge 后重试。"));
+    $("connector-setup-status").textContent = result.project_bound && result.reachable ? "桥接已响应，当前活动文档与本会话已匹配。本次只读检查未修改几何，也不是建模质量验收。" : result.reachable ? "MCP 桥接已响应，尚未绑定本会话模型。本次只读检查不会打开或修改文档；请返回连接项目副本。" : friendlyError(new Error(result.detail || "插件尚未响应，请按上方启动步骤核对配对和插件，再重试只读检查。"));
   } catch (error) {
     if (generation === connectorSetupGeneration) $("connector-setup-status").textContent = friendlyError(error);
   } finally {

@@ -31,7 +31,7 @@ def test_transport_reason_is_retained_without_guessing_cause():
 
 
 def test_compaction_fits_declared_window_and_keeps_recent_context(tmp_path):
-    p=tmp_path/'profile.json';write_profile(p,api_base='https://example.invalid',model='test')
+    p=tmp_path/'profile.json';write_profile(p,api_base='https://api.b.ai/v1',model='deepseek-v4.1-flash')
     rows=json.loads(p.read_text());policy=next(r['config'] for r in rows if r.get('id')=='compaction-basic')
     threshold=min(131072*.8,131072-32768-policy['headroomTokens'])
     assert threshold == 90112

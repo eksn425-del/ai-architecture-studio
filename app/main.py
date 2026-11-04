@@ -581,6 +581,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     def current_release_readiness() -> dict[str, Any]:
         return release_readiness()
 
+    from .cloud_account import register_routes as register_cloud_account_routes
+    register_cloud_account_routes(app,store.root)
+
     @app.get("/api/provider-readiness")
     def provider_readiness() -> dict[str, Any]:
         """Public, credential-free capability statements for THIS product.
@@ -1712,7 +1715,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     def converse(project_id: str, request: ConversationRequest) -> dict[str, Any]:
         if not app.state.agent_lock.acquire(blocking=False):
             raise HTTPException(status_code=409, detail="另一个 Agent 回合正在运行，请等待完成后继续。")
-        from .conversation_receipts import begin, finish
+        from .conversation_receipts import begin, finish,abort_before_dispatch
         request_receipt = None
         try:
             try:
@@ -1727,6 +1730,14 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 "request_id":uuid.uuid4().hex,
                 "baseline": store.load_state(project_id, "agent_session.json", AgentSession).ruby_state,
                 "message_index": len(store.load_context(project_id).conversation)}
+            from .cloud_account import CloudAccountError
+            try:
+                app.state.active_turns[project_id]['billing_authorization']=app.state.cloud_account.authorize_turn(
+                    app,request.client_request_id or app.state.active_turns[project_id]['request_id'],project_id,
+                    app.state.model_router.route(request.tier))
+            except CloudAccountError as error:
+                abort_before_dispatch(request_receipt,str(error));request_receipt=None
+                raise HTTPException(409,detail={'code':'CLOUD_AUTHORIZATION_REQUIRED','message':str(error),'model_preserved':True,'provider_dispatched':False}) from None
             result = converse_turn(project_id, request)
             finish(request_receipt,result)
             request_receipt = None
@@ -2013,6 +2024,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             session.premium_rescue_pending = False
             session.economy_tool_failure_streak = 0
         evidence_turn_id = contextual[1]["user_message_id"] if contextual else "message:" + uuid.uuid4().hex
+        billing_authorization=app.state.active_turns.get(project_id,{}).get('billing_authorization',{})
+        route=app.state.model_router.route(effective_tier)
+        runtime_thread=app.state.model_router.resumable_thread(session,effective_tier)
         _append_conversation(context, "user", phase, request.message.strip(), {
             "evidence_turn_id": evidence_turn_id,
             "activity_id": app.state.active_turns.get(project_id, {}).get("request_id", ""),
@@ -2021,6 +2035,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             "requested_tier": requested_tier,
             "effective_tier": effective_tier,
             "routing_reason": route_reason,
+            "billing_authorization":billing_authorization,
             "attachments": _reference_attachments(context, project_dir, submit=True, turn_id=evidence_turn_id),
         })
         project_dir = store.ensure_layout(project_id)

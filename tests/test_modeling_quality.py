@@ -592,7 +592,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
         if call_index == 1:
             return SimpleNamespace(
                 model=kwargs["model"].split("/", 1)[-1],
-                choices=[SimpleNamespace(message={"content": "我完成了。", "tool_calls": None})],
+                choices=[SimpleNamespace(finish_reason="stop", message={"content": "我完成了。", "tool_calls": None})],
                 usage={"prompt_tokens": 0, "completion_tokens": 0},
             )
         if call_index == 2:
@@ -602,7 +602,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
             )
             return SimpleNamespace(
                 model=kwargs["model"].split("/", 1)[-1],
-                choices=[SimpleNamespace(message={
+                choices=[SimpleNamespace(finish_reason="stop", message={
                     "content": None,
                     "tool_calls": [{
                         "id": "review-1",
@@ -629,7 +629,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
             assert '"opening_count": 4' in critic_payload
             return SimpleNamespace(
                 model=kwargs["model"].split("/", 1)[-1],
-                choices=[SimpleNamespace(message={
+                choices=[SimpleNamespace(finish_reason="stop", message={
                     "content": (
                         "NEEDS_FIX: YES\n"
                         "<assessment>Wall seams remain visible.</assessment>\n"
@@ -645,7 +645,7 @@ def test_litellm_host_requires_visual_review_before_final_reply(tmp_path, monkey
             )
         return SimpleNamespace(
             model=kwargs["model"].split("/", 1)[-1],
-            choices=[SimpleNamespace(message={"content": "仍有问题。", "tool_calls": None})],
+            choices=[SimpleNamespace(finish_reason="stop", message={"content": "仍有问题。", "tool_calls": None})],
             usage={"prompt_tokens": 0, "completion_tokens": 0},
         )
 

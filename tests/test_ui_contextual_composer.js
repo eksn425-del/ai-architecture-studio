@@ -30,7 +30,7 @@ function composer({ text = '', stage = 'planned', ready = true, refs = [], histo
     localStorage: { setItem() {} }, saveDraft() {}, routeInfo: () => ({ model: 'stub-only' }), setBusy() {},
     showResults() {}, beginProgress() {}, setStatus() {}, startLiveProgress() {}, loadParameterPlan: async () => {},
     updateHeader() {}, showToast: text => notices.push(text), setTab() {}, friendlyError: e => e.message,
-    endProgress() {}, observeRunningTurn: async () => {}, loadProject: async () => {},
+    refreshHarnessInteractions() {}, endProgress() {}, observeRunningTurn: async () => {}, loadProject: async () => {},
     openConnectDialog: () => notices.push('connection requested'),
     isBuildApproval() { throw Error('Legacy keyword routing must never run'); },
     projectFileUrl: value => '/files/' + value.split('/').map(encodeURIComponent).join('/'),
@@ -285,4 +285,13 @@ test('late running-project response cannot overwrite a different project or its 
   finish({project:{},reply:'a finished',agent:{}});await pending;
   assert.equal(f.state.project,other);assert.equal(f.$('conversation-input').value,'q的草稿');
   assert.equal(f.state.runningProjectId,null);assert.equal(f.state.busy,false);
+});
+
+
+test('failed clean approval does not manufacture a composer draft', async () => {
+  const f = composer({text: ''});
+  f.context.api = async () => {throw Error('fixture offline');};
+  await f.context.sendConversation(null, 'execute');
+  assert.equal(f.$('conversation-input').value, '');
+  assert.equal(f.state.busy, false);
 });

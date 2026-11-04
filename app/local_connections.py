@@ -15,6 +15,14 @@ from .model_router import DeterministicModelRouter, ModelRoute
 from .native_agent import NativeAgentUnavailable
 
 
+def connection_evidence(item):
+    from .dsh_configuration import resolve_configuration
+    try:
+        return resolve_configuration(item).evidence()
+    except ValueError as error:
+        return {"status":"unsupported", "reason":str(error), "reported":None}
+
+
 class ConnectionVault:
     def __init__(self, root: Path):
         self.storage = LocalCredentialStore(root)
@@ -48,7 +56,8 @@ class ConnectionVault:
     def public(data: dict) -> dict:
         fields = ("id", "name", "mode", "model", "api_base", "reasoning_effort")
         return {"active_id": data["active_id"], "connections": [
-            {**{key: item[key] for key in fields}, "credential_configured": True}
+            {**{key: item[key] for key in fields}, "credential_configured": True, "capabilities_json": item.get("capabilities_json", ""),
+             "effective_configuration": connection_evidence(item)}
             for item in data["connections"]], "credential_storage": "windows-dpapi",
             "account_scope": "current_windows_user", "cloud_sync": False}
 
@@ -78,7 +87,7 @@ def normalized_connection(data: dict, old: dict | None = None) -> dict:
             or base.endswith(("/chat/completions", "/responses", "/messages"))):
         raise ValueError("请填写不含凭据的 HTTPS API Base，通常以 /v1 结尾。")
     if mode == "codex-responses":
-        if data.get("compatibility_acknowledged") is not True or effort not in {"low", "medium", "high", "xhigh", "max"}:
+        if data.get("compatibility_acknowledged") is not True or effort not in {"low", "medium", "high", "xhigh", "max", "provider-default"}:
             raise ValueError("Responses 连接需确认协议能力并选择推理档位。")
     else:
         from .litellm_runtime import requires_responses_tools
@@ -91,9 +100,18 @@ def normalized_connection(data: dict, old: dict | None = None) -> dict:
         key = old["api_key"]
     if not key or len(key) > 4096 or any(ord(c) < 32 for c in key):
         raise ValueError("请填写此连接的 API Key；更换地址或模型后需重新填写。")
-    return {"id": old["id"] if old else uuid.uuid4().hex, "name": name, "mode": mode,
+    capabilities=data.get("capabilities_json", old.get("capabilities_json", "") if old else "")
+    if old and (mode,model,base)!=(old["mode"],old["model"],old["api_base"]) and capabilities==old.get("capabilities_json", ""):
+        capabilities=""  # A declaration is scoped to its original endpoint/model/protocol.
+    if not isinstance(capabilities, str):
+        raise ValueError("模型能力参数必须是 JSON 字符串。")
+    item={"id": old["id"] if old else uuid.uuid4().hex, "name": name, "mode": mode,
             "model": model, "api_base": base, "api_key": key, "reasoning_effort": effort,
-            "compatibility_acknowledged": mode == "codex-responses"}
+            "compatibility_acknowledged": mode == "codex-responses", "capabilities_json": capabilities}
+    if os.environ.get("KSTUDIO_AGENT_ENGINE")=="deepseek-harness":
+        from .dsh_configuration import resolve_configuration
+        resolve_configuration(item)
+    return item
 
 
 def connection_router(app, item: dict | None):
@@ -109,7 +127,7 @@ def connection_router(app, item: dict | None):
         provider = DeepSeekStudioRuntime(app.state.store.root, connection=item,
             mcp=getattr(app.state.native_agent, 'sketchup_mcp', None))
         router.providers['deepseek-harness'] = provider
-        router.economy_route = ModelRoute('economy','deepseek-harness',provider.model,'high','user-configured (not verified)')
+        router.economy_route = ModelRoute('economy','deepseek-harness',provider.model,provider.effective_configuration.requested_effort,'user-configured (not verified)')
     elif item["mode"] == "codex-responses":
         router.configure_codex_responses(model=item["model"], api_base=item["api_base"],
             api_key=item["api_key"], reasoning_effort=item["reasoning_effort"],

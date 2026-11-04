@@ -282,7 +282,7 @@ class ResponsesRuntime(LiteLLMRuntime):
                     raise ValueError("Unsupported Responses output type")
             if len({c['id'] for c in calls}) != len(calls):
                 raise ValueError("Duplicate function call ID")
-            return SimpleNamespace(model=data['model'], usage=usage, choices=[SimpleNamespace(message={
+            return SimpleNamespace(model=data['model'], usage=usage, choices=[SimpleNamespace(finish_reason='tool_calls' if calls else 'stop', message={
                 "content": "\n".join(texts), "tool_calls": calls, "responses_output": data['output']})])
         except Exception as error:
             self.unknown_usage = receipt.get("usage") is None

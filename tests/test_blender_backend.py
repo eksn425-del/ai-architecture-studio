@@ -70,6 +70,7 @@ def test_timeout_preserves_last_committed_state(tmp_path,monkeypatch):
         backend.dispatch('blender_apply_objects',{'objects':[{'id':'wall','location':[0,0,1],'dimensions':[1,1,2]}]})
     assert json.loads(backend.state.read_text())==prior
 
+@pytest.mark.usefixtures("require_symlink")
 def test_symlink_workspace_rejected(tmp_path):
     (tmp_path/'runtime').mkdir()
     target=tmp_path/'outside';target.mkdir()

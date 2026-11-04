@@ -37,3 +37,11 @@ def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_gu
         return original.dispatch(name, args)
     return AgentToolContext(dynamic_tools=base.dynamic_tools+specs, dispatch=dispatch,
                             quality_state=base.quality_state)
+
+
+def add_workspace_proxy(base, workspace):
+    from .workspace_files import workspace_file_tools, workspace_file_call
+    tools=workspace_file_tools();names={t['name'] for t in tools}
+    return AgentToolContext(dynamic_tools=base.dynamic_tools+tools,
+        dispatch=lambda name,args:workspace_file_call(workspace,name,args) if name in names else base.dispatch(name,args),
+        quality_state=base.quality_state)
