@@ -1,3 +1,5 @@
 # Public continuation
 
+**Owner update 2026-11-05:** keep the installed internal candidate and defer paid testing. Six prepared projects remain NOT_RUN; no paid request is authorized. Do not automatically resume the batch or repeatedly request permission. Earlier pending-authorization text below is historical.
+
 Start with [CURRENT](CURRENT.md), [R2 candidate/artifacts](releases/KSTUDIO_R2_INTERNAL_CANDIDATE_20261104.md) and [execution](execution/PUBLIC_BETA_EXECUTION.md). The isolated branch now provides installed internal build04, real updater/data-preservation receipts, deployable cloud source, restricted-container CI and clean-Windows kit. Final public-beta acceptance is not established. Six same-source live-test projects await finite-batch authorization; no new paid inference occurred. Exact external actions are in [blockers](execution/PUBLIC_BETA_BLOCKERS.md). [2026-11-03 release notes](releases/KSTUDIO_LOCAL_CANDIDATE_20261103.md) remain the historical baseline. Preserve prior failures and do not transfer old model success to this revision. Private images/models/credentials/raw logs remain local.

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-05-candidate-api-and-session-diagnosis",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "base_commit": "3e953b0384ab4e6779d20803aaa827cee25a9760",
+  "source_case": "Existing internal candidate configuration and user session; no source-based modeling performed",
+  "model": {"requested": "deepseek-v4.1-flash", "actual": "NOT_RUN_NO_INFERENCE", "reasoning_effort": "high (configured only)", "runtime": "installed build04 DeepSeek Harness, openai-responses configuration"},
+  "environment": {"windows": "owner Windows desktop", "sketchup": "2024", "connector": "kstudio-public"},
+  "qa": {"configuration_restored": "PASS", "native_readonly_connection": "PASS_DIFFERENT_PROJECT_IDENTIFIED", "live_provider": "NOT_RUN", "multiwindow_selector": "NOT_IMPLEMENTED", "source_quality": "NOT_RUN", "screenshots": "private UI contains owner reference image; no geometry or certified views"}
+}
