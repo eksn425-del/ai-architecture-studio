@@ -28,7 +28,7 @@ jobs:
       - name: Run no-network component tests
         run: python -m pytest -q tests/test_adai_components.py
       - name: Install K Studio runtime test dependencies
-        run: python -m pip install -r requirements.txt -r requirements-model-providers.txt
+        run: python -m pip install -r requirements.txt -r requirements-model-providers.txt -r requirements-cloud.txt
       - name: Run K Studio regression suites (PR branch)
         continue-on-error: true
         run: python -m pytest -q --junitxml=branch-pytest.xml

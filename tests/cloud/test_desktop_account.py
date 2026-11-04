@@ -27,7 +27,21 @@ def test_unused_or_absent_account_vault_is_never_decrypted(tmp_path,monkeypatch,
     def forbidden(_):raise AssertionError('Unused account storage must not be decrypted')
     monkeypatch.setattr(LocalCredentialStore,'load',forbidden)
     account=CloudAccount(tmp_path,'https://cloud.example.test' if configured else '')
-    assert account.state['source_mode']=='byok' and not account.state['token']
+    assert account.state['source_mode']==('unavailable' if existing and not configured else 'byok') and not account.state['token']
+
+@pytest.mark.parametrize('base',['','http://cloud.example.test','https://[','https://cloud.example.test:invalid'])
+def test_missing_or_invalid_endpoint_with_existing_vault_never_implies_free_byok(tmp_path,monkeypatch,base):
+    from app.local_credentials import LocalCredentialStore
+    path=tmp_path/'local-settings'/'cloud-account.dpapi';path.parent.mkdir();original=b'preserved-unread-old-cloud-account';path.write_bytes(original)
+    def forbidden(_):raise AssertionError('Missing endpoint must not decrypt account')
+    monkeypatch.setattr(LocalCredentialStore,'load',forbidden)
+    account=CloudAccount(tmp_path,base)
+    assert account.state['source_mode']=='unavailable' and account.status()['account_restore_required']
+    assert '运营地址' in account.status()['error']
+    app=types.SimpleNamespace(state=types.SimpleNamespace(model_router=types.SimpleNamespace()))
+    with pytest.raises(CloudAccountError,match='运营地址'):account.authorize_turn(app,'turn','project',None)
+    with pytest.raises(CloudAccountError,match='运营地址'):account.select(app,{'mode':'byok'})
+    assert path.read_bytes()==original
 
 @pytest.mark.parametrize('payload', ['not-json','[]',json.dumps({'base':'https://old.example.test','source_mode':'byok'}),json.dumps({'base':'https://cloud.example.test','source_mode':'made-up'}),json.dumps({'base':'https://cloud.example.test','source_mode':'platform','model_id':'one','platform_model':{}})])
 def test_corrupt_or_mismatched_saved_account_blocks_all_inference(tmp_path,payload):

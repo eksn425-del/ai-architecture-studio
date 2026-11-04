@@ -15,7 +15,8 @@ from app.dsh_runtime import DSHHostSession
 
 
 @pytest.mark.parametrize('protocol',['openai-completions','openai-responses'])
-def test_official_loop_retries_request_not_tool_and_resumes(tmp_path,protocol):
+@pytest.mark.parametrize('budgeted',[False,True])
+def test_official_loop_retries_request_not_tool_and_resumes(tmp_path,protocol,budgeted,monkeypatch):
     sdk=os.environ.get('KSTUDIO_TEST_DSH_SDK_SITE');binary=os.environ.get('KSTUDIO_TEST_DSH_BIN')
     if not sdk or not binary:pytest.skip('Requires explicit installed official DSH SDK and binary paths; no provider credentials required')
     requests=[];tools=[]
@@ -24,7 +25,7 @@ def test_official_loop_retries_request_not_tool_and_resumes(tmp_path,protocol):
         def do_POST(self):
             body=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
             requests.append(body);n=len(requests)
-            if n==2:
+            if n==2 and not budgeted:
                 self.send_response(503);self.send_header('Content-Type','application/json');self.end_headers()
                 self.wfile.write(b'{"error":{"message":"fixture temporary server error"}}');return
             self.send_response(200);self.send_header('Content-Type','text/event-stream');self.end_headers()
@@ -57,6 +58,7 @@ def test_official_loop_retries_request_not_tool_and_resumes(tmp_path,protocol):
     cfg=resolve_configuration({'api_base':f'http://127.0.0.1:{server.server_port}/v1','model':'fixture-model',
         'mode':'codex-responses' if protocol=='openai-responses' else 'compatible','reasoning_effort':'provider-default',
         'capabilities_json':json.dumps({'context_window':65536,'max_output_tokens':4096,'tools':True,'streaming':True})})
+    if budgeted:enable_budget(monkeypatch,tmp_path,cfg,3)
     def transport(index):
         return DSHHostSession(home=tmp_path/'home',workspace=tmp_path,api_base=cfg.endpoint,api_key='local-only-no-real-key',model=cfg.model,
             specs=[{'name':'readonly_probe','description':'Local read probe','inputSchema':{'type':'object','properties':{},'additionalProperties':False}}],
@@ -68,20 +70,30 @@ def test_official_loop_retries_request_not_tool_and_resumes(tmp_path,protocol):
         try:result=first.run(prompt='检查一次然后回复。',images=[])
         finally:first.close()
         assert result.status=='completed' and tools==['readonly_probe']
-        assert len(requests)==3  # one committed tool, one failed request, one retry
+        assert len(requests)==(2 if budgeted else 3)  # bounded batch clean path or original retry path
         text=json.dumps(requests[-1],ensure_ascii=False)
         assert 'durable-readback' in text and 'readonly_probe' in text
         second=transport(2)
         try:resumed=second.run(prompt='保留刚才结果，继续对话。',images=[],session_id=result.thread_id)
         finally:second.close()
-        assert resumed.thread_id==result.thread_id and len(tools)==1 and len(requests)==4
+        assert resumed.thread_id==result.thread_id and len(tools)==1 and len(requests)==(3 if budgeted else 4)
         assert 'durable-readback' in json.dumps(requests[-1],ensure_ascii=False)
-        assert any(json.loads(row).get('type')=='llm/retry' for row in (tmp_path/'trace-1.jsonl').read_text(encoding='utf-8').splitlines())
+        if not budgeted:
+            assert any(json.loads(row).get('type')=='llm/retry' for row in (tmp_path/'trace-1.jsonl').read_text(encoding='utf-8').splitlines())
+        else:
+            from app.native_agent import NativeAgentUnavailable
+            third=transport(3)
+            try:
+                with pytest.raises(NativeAgentUnavailable):third.run(prompt='继续',images=[],session_id=result.thread_id)
+            finally:third.close()
+            assert len(requests)==3 and tools==['readonly_probe']
+            assert ledger_rows(tmp_path)==[('settled',3)]
     finally:server.shutdown();server.server_close()
 
 
 @pytest.mark.parametrize('protocol',['openai-completions','openai-responses'])
-def test_official_stream_drop_preserves_completed_tool_and_rejects_partial(tmp_path,protocol):
+@pytest.mark.parametrize('budgeted',[False,True])
+def test_official_stream_drop_preserves_completed_tool_and_rejects_partial(tmp_path,protocol,budgeted,monkeypatch):
     sdk=os.environ.get('KSTUDIO_TEST_DSH_SDK_SITE');binary=os.environ.get('KSTUDIO_TEST_DSH_BIN')
     if not sdk or not binary:pytest.skip('Requires explicit installed official DSH SDK and binary paths; no provider credentials required')
     requests=[];tools=[]
@@ -133,6 +145,7 @@ def test_official_stream_drop_preserves_completed_tool_and_rejects_partial(tmp_p
     cfg=resolve_configuration({'api_base':f'http://127.0.0.1:{server.server_port}/v1','model':'fixture-model',
         'mode':'codex-responses' if protocol=='openai-responses' else 'compatible','reasoning_effort':'provider-default','request_retries':0,
         'capabilities_json':json.dumps({'context_window':65536,'max_output_tokens':4096,'tools':True,'streaming':True})})
+    if budgeted:enable_budget(monkeypatch,tmp_path,cfg,8)
     def transport(index):
         return DSHHostSession(home=tmp_path/'home',workspace=tmp_path,api_base=cfg.endpoint,api_key='local-only-no-real-key',model=cfg.model,
             specs=[{'name':'readonly_probe','description':'Local read probe','inputSchema':{'type':'object','properties':{},'additionalProperties':False}}],
@@ -147,6 +160,13 @@ def test_official_stream_drop_preserves_completed_tool_and_rejects_partial(tmp_p
                 first.run(prompt='检查一次然后回复。',images=[])
         finally:first.close()
         partial=failure.value.partial_result
+        if budgeted:
+            assert ledger_rows(tmp_path)==[('settled',1),('unknown',1)]
+            follow=transport(2)
+            try:
+                with pytest.raises(NativeAgentUnavailable):follow.run(prompt='继续',images=[],session_id=partial.thread_id)
+            finally:follow.close()
+            assert len(requests)==2
         assert partial.status=='failed'
         assert partial.tool_call_count==1 and tools==['readonly_probe']
         assert len(requests)==2
@@ -157,3 +177,17 @@ def test_official_stream_drop_preserves_completed_tool_and_rejects_partial(tmp_p
         assert not any(row.get('type')=='llm/retry' for row in events)
         (tmp_path/'streamdrop-receipt.json').write_text(json.dumps({'protocol':protocol,'paid_calls':0,'http_requests':len(requests),'completed_tools':tools,'partial_status':partial.status,'partial_tool_executed':False},indent=2),encoding='utf-8')
     finally:server.shutdown();server.server_close()
+
+
+def enable_budget(monkeypatch,tmp_path,cfg,requests):
+    path=tmp_path/'batch.json'
+    path.write_text(json.dumps({'schema_version':1,'authorization':{'status':'local_fixture'},'batch_id':'sdk-fixture','api_base':cfg.endpoint,'model':cfg.model,'protocol':cfg.protocol,
+        'max_requests':requests,'max_output_tokens':cfg.max_output_tokens,'reserved_tokens_per_request':cfg.context_window+cfg.max_output_tokens,
+        'max_reserved_tokens':requests*(cfg.context_window+cfg.max_output_tokens),'billing_guarantee':False}),encoding='utf-8')
+    monkeypatch.setenv('KSTUDIO_TEST_BATCH_CONFIG',str(path))
+
+
+def ledger_rows(tmp_path):
+    import sqlite3
+    with sqlite3.connect(tmp_path/'dsh-test-batches.sqlite3') as db:
+        return db.execute('SELECT status,COUNT(*) FROM attempts GROUP BY status ORDER BY status').fetchall()

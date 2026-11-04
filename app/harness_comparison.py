@@ -51,7 +51,9 @@ class ComparisonRuntime(CodexAppServerRuntime):
         self.comparison_root=Path(comparison_root)
         config=CodexResponsesProvider(api_base=connection['api_base'],api_key=connection['api_key'],compatibility_acknowledged=True)
         super().__init__(root,api_provider=config,execution_mode='host_tools',
-            codex_executable=str(Path(os.environ['LOCALAPPDATA'])/'OpenAI/Codex/bin/codex.exe'),
+            # Resolve an optional Codex installation in the base class. DSH does
+            # not require Codex or Windows-specific environment variables.
+            codex_executable=None,
             model=connection['model'].removeprefix('openai/'),# Base class validates only Codex vocabulary; this initializer makes no request.
             # DSH immediately restores its own effective effort below.
             reasoning_effort=('high' if self.effective_configuration.requested_effort=='provider-default' else self.effective_configuration.requested_effort),

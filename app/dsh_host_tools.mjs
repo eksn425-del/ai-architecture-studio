@@ -1,3 +1,4 @@
+import {installTestBudget} from './dsh_test_budget.mjs';
 import {toolDenial} from './dsh_tool_policy.mjs';
 // Thin official DSH plugin: forward the host's fixed tool catalog, never run code.
 export const name = 'kstudio-host-tools';
@@ -13,6 +14,7 @@ export async function apply(ctx) {
   }
   const specs = await call('/tools');
   const task = await call('/task');
+  if(task.test_budget_enabled) installTestBudget(ctx,call);
   if (task.instructions) ctx.systemPrompt.section({
     name:'kstudio:architecture', order:10200, text:task.instructions, interpolate:false,
   });

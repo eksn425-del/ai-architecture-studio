@@ -15,7 +15,10 @@ from .local_credentials import LocalCredentialStore
 class CloudAccountError(RuntimeError):pass
 
 def valid_base(value):
-    p=urlsplit(value)
+    try:
+        p=urlsplit(value)
+        _=p.port # Reject malformed port syntax before any credential restoration.
+    except ValueError:return False
     return bool(p.scheme=='https' and p.hostname and not p.username and not p.password and p.path in ('','/') and not p.query and not p.fragment)
 
 class CloudAccount:
@@ -28,7 +31,12 @@ class CloudAccount:
         # An unconfigured standalone/BYOK installation must never touch account
         # credentials. Even a configured fresh install has nothing to decrypt.
         # Explicit injected stores support controlled tests without filesystem IO.
-        if not self.base or (storage is None and not self.storage.path.is_file()):return
+        if not self.base:
+            if storage is None and self.storage.path.is_file():
+                self._restore_failed()
+                self.restore_error='原云账户配置仍存在，但运营地址未配置或无效；请先恢复运营地址，再明确选择模型方式。旧账户文件未解密，未改用自带API或假定旧服务费免费。'
+            return
+        if storage is None and not self.storage.path.is_file():return
         try:
             saved=self.storage.load()
             if saved:
@@ -95,6 +103,7 @@ class CloudAccount:
         result={'configured':bool(self.base),'available':bool(self.base),'url':self.base or None,'authenticated':False,
                 'source_mode':self.state['source_mode'],'selected_model':self.state.get('model_id'),'models':[],
                 'byok':{'service_enabled':False,'service_units':0,'data_path':'local-direct-provider'},'credential_storage':'windows-dpapi','platform_key_on_desktop':False}
+        if self.restore_error:result.update(error=self.restore_error,account_restore_required=True)
         if not self.base:return result
         try:
             config=self.public_config();result['models']=config.get('models',[]);result['byok']=config.get('byok',result['byok'])
@@ -156,6 +165,7 @@ class CloudAccount:
             raise
 
     def _select(self,app,payload):
+        if self.restore_error and not self.base:raise CloudAccountError(self.restore_error)
         mode=payload.get('mode')
         if mode not in ('byok','platform'):raise CloudAccountError('请选择自带API或平台模型。')
         try:config=self.public_config() if self.base else {'byok':{'service_enabled':False,'service_units':0}}

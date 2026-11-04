@@ -81,3 +81,13 @@ python -m pytest tests/test_r2_runtime.py tests/test_official_dsh_local.py --bas
 `tests/test_official_dsh_local.py::test_official_stream_drop_preserves_completed_tool_and_rejects_partial` 在两种协议实际运行官方 SDK：第1个本机HTTP给出完整 `readonly_probe` 调用并真实执行，回执进入第2个请求；第2个SSE返回未完成的工具JSON参数后直接socket FIN，不给finish/response.completed。`request_retries=0`。
 
 结果 **2 PASS**（12.27秒）：运行抛 `NativeAgentUnavailable`，partial状态为failed；唯一已完成只读工具记录保留且执行总数1，半截工具未执行，HTTP总数2，无重试事件，也没有错误completed。仅使用127.0.0.1合成provider与dummy key，付费调用0，SketchUp操作0。原始trace及streamdrop-receipt.json在E-drive R2 job `pytest-streamdrop`，XML `runtime-streamdrop.xml`。未发现需要变更产品源码的问题，候选源码freeze保持。
+
+## 有限测试执行预算最终补齐（2026-11-04，build04源码候选）
+
+此前状态的纠正：旧 `provider_test_budget` 仅在 LiteLLM 路径，DSH 的 benchmark登记不是预算执行。这次新增 `app/dsh_test_budget.py` + `app/dsh_test_budget.mjs`，在官方 `llm/stream` 入口前预留；不改官方loop，也不改变未启用测试配置的生产BYOK。
+
+独立 `KSTUDIO_TEST_BATCH_CONFIG`（桌面bootstrap保留）选择固定batchID/hash/有效配置绑定、总dispatch次数、每run次数、预登记项目ID与保守token额度；SQLite原子事务+OS owner lease持久跨进程/会话/重启。崩溃、取消、断流、未知usage保留unknown并阻止同batch后续。无有效授权记录不启用；仅字面loopback允许local_fixture零付费授权。没有Key写入配置/账本/日志。
+
+最终回归：**47 Python PASS** (`runtime-budget-release.xml`，含七个真实进程争抢三额度、崩溃不重置、未知锁定、配置hash/项目/每run上限、bootstrap保留配置路径、默认BYOK无账本)；**8实际SDK本机HTTP PASS** (`runtime-budget-sdk-freeze.xml`，两协议主请求/工具/跨session恢复上限/断流，以及官方子agent共享额度、真实BasicCompactionEngine摘要入口、503retry再次dispatch被拒、流中取消unknown)；**5 Node hook PASS**。全部0付费/0SU几何，测试集计数存在交集不能当新增独立用例总数。
+
+请求上限精确限制dispatch，固定token是保守预留，不声称上游真实账单硬保证。`R2_FINITE_TEST_BATCH.md` 与 `R2_FINITE_TEST_BATCH_PROPOSAL.json`给出待授权首批：同一复杂楼梯样本、3arms×2独立项目、各30/总180请求，131072输入+32768输出保守预留；按官方峰值价格参考$14.155776，不等于人民币账单或充值授权。六实际项目ID/catalog与授权尚未绑定，proposal不可执行；不自动扩大三类全矩阵。

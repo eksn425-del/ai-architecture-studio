@@ -59,6 +59,7 @@ try {
         --add-data "$sdkStage/KSTUDIO-SDK-PATCH.json;." `
         --add-data "$repoPath/app/dsh_host_tools.mjs;app" `
         --add-data "$repoPath/app/dsh_tool_policy.mjs;app" `
+        --add-data "$repoPath/app/dsh_test_budget.mjs;app" `
         --add-data "$repoPath/app/architecture_skills;app/architecture_skills" `
         --add-data "$repoPath/app/static;app/static" --add-data "$repoPath/app/vendor;app/vendor" --add-data "$repoPath/scripts;scripts" `
         --add-data "$repoPath/THIRD_PARTY_NOTICES.md;." --add-data "$repoPath/app/adopted_sketchup_helpers.rb;app" --collect-all webview --collect-all litellm `

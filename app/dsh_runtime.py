@@ -74,6 +74,8 @@ class DSHHostSession:
             raise ValueError('Reasoning effort differs from effective connection configuration')
         if max_tokens is not None and max_tokens!=effective_configuration.max_output_tokens:
             raise ValueError('Output limit differs from effective connection configuration')
+        from .dsh_test_budget import TestBatchBudget
+        self.test_budget=TestBatchBudget.configured(effective_configuration,workspace)
         self.source_manifest=source_manifest or []
         self.effective_configuration=effective_configuration
         max_tokens=effective_configuration.max_output_tokens
@@ -109,7 +111,7 @@ class DSHHostSession:
                 if self.path.startswith('/interaction/'):
                     try:return self.reply(parent.interactions.get(self.path.rsplit('/',1)[-1]))
                     except ValueError:return self.reply({},404)
-                if self.path=='/task': return self.reply({'text':parent.task_anchor,'instructions':parent.architecture_instructions})
+                if self.path=='/task': return self.reply({'text':parent.task_anchor,'instructions':parent.architecture_instructions,'test_budget_enabled':parent.test_budget is not None})
                 if self.path!='/tools': return self.reply({},404)
                 self.reply(parent.specs)
             def do_POST(self):
@@ -118,6 +120,11 @@ class DSHHostSession:
                 if not 0<size<=2_000_000:return self.reply({},413)
                 try:
                     data=json.loads(self.rfile.read(size))
+                    if self.path.startswith('/test-budget/'):
+                        if parent.test_budget is None:raise ValueError('Finite test budget not enabled')
+                        if self.path=='/test-budget/reserve':return self.reply(parent.test_budget.reserve(data))
+                        if self.path=='/test-budget/settle':return self.reply(parent.test_budget.settle(data))
+                        return self.reply({},404)
                     if self.path=='/interaction':
                         if parent.cancelled:raise ValueError('Turn cancelled')
                         row=parent.interactions.create(data)
@@ -262,4 +269,6 @@ class DSHHostSession:
     def close(self):
         self.interactions.cancel()
         try:self.harness.close()
-        finally:self.server.shutdown();self.server.server_close();self.worker.join(3)
+        finally:
+            self.server.shutdown();self.server.server_close();self.worker.join(3)
+            if self.test_budget is not None:self.test_budget.close()

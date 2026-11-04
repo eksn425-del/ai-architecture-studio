@@ -11,7 +11,7 @@ def configure(bundle: Path, data: Path) -> dict:
     node = bundle / 'harness/node.exe'
     entry = bundle / 'harness/node_modules/@deepseek-ai/dsh/lib/bin.js'
     launcher = bundle / 'harness/dsh.cmd'
-    required = [node, entry, launcher, bundle / 'app/dsh_host_tools.mjs', bundle / 'app/dsh_tool_policy.mjs',
+    required = [node, entry, launcher, bundle / 'app/dsh_host_tools.mjs', bundle / 'app/dsh_tool_policy.mjs', bundle / 'app/dsh_test_budget.mjs',
                 bundle / 'app/architecture_skills']
     missing = [str(p.relative_to(bundle)) for p in required if not p.exists()]
     if missing:

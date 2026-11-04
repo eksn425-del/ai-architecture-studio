@@ -100,3 +100,14 @@ retains its original encrypted file and requests an explicit account/source choi
 it cannot silently become BYOK or assume an unknown old fee policy was free. A failed
 source save restores the previous active router and mode. Receipts:
 `launcher-boundary-final.xml` and `cloud-restore-final.xml` in the R2 job directory.
+
+An additional startup edge case was then corrected for build 04: when an old account
+vault exists but the configured cloud URL is missing/invalid, startup detects only its
+existence (no decryption), blocks inference and requests restoration of the operator
+address. It cannot interpret unknown prior platform/fee settings as free BYOK, even
+through an explicit source request without restoring that address. Fresh installations
+without a vault retain offline free BYOK. Empty URL, HTTP URL, malformed IPv6 and invalid
+port syntax are covered. The focused desktop-account suite passes 18 tests and launcher
+security still passes 36 (`cloud-endpoint-final.xml`, `launcher-boundary-final.xml`).
+No PostgreSQL code changed; the fixture was gracefully stopped with its database retained
+after the earlier full real-PostgreSQL run (`postgres-fixture-shutdown.json`).
