@@ -1,0 +1,85 @@
+name: R2 cloud container engineering check
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['cloud/**', 'website/**', 'deploy/**', 'requirements-cloud.txt', '.github/workflows/r2-cloud-container.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  offline-container:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      IMAGE: kstudio-cloud-ci:${{ github.sha }}
+      CONTAINER: kstudio-cloud-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build current Dockerfile locally, without registry push
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p container-evidence
+          docker version > container-evidence/docker-version.txt
+          docker build --pull --progress=plain --file deploy/Dockerfile --tag "$IMAGE" . 2>&1 | tee container-evidence/build.log
+          docker image inspect "$IMAGE" --format '{{json .}}' > container-evidence/image-inspect.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          image=json.loads(Path('container-evidence/image-inspect.json').read_text())
+          assert image['Os']=='linux' and image['Architecture']=='amd64'
+          assert image['Config']['User']=='10001:10001'
+          Path('container-evidence/image-summary.json').write_text(json.dumps({
+              'image_id':image['Id'],'os':image['Os'],'architecture':image['Architecture'],
+              'configured_user':image['Config']['User'],'image_built':True,
+              'pushed':False,'public_deployment':'NOT_RUN'},indent=2))
+          PY
+      - name: Run real service with network none and restricted filesystem
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker create --name "$CONTAINER" --network none --read-only \
+            --user 10001:10001 --cap-drop ALL --security-opt no-new-privileges:true \
+            --tmpfs /tmp:rw,noexec,nosuid,nodev,size=128m \
+            --memory 512m --cpus 2 --pids-limit 64 \
+            --mount "type=bind,source=$GITHUB_WORKSPACE/deploy/container_smoke.py,target=/opt/container_smoke.py,readonly" \
+            --entrypoint python "$IMAGE" /opt/container_smoke.py --require-container
+          docker inspect "$CONTAINER" > container-evidence/container-inspect.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('container-evidence/container-inspect.json').read_text())[0]
+          h=c['HostConfig']
+          assert h['NetworkMode']=='none' and h['ReadonlyRootfs'] is True
+          assert h['CapDrop']==['ALL'] and 'no-new-privileges:true' in h['SecurityOpt']
+          assert c['Config']['User']=='10001:10001'
+          assert h['PortBindings']=={} or h['PortBindings'] is None
+          PY
+          docker start --attach "$CONTAINER" 2>&1 | tee container-evidence/smoke.log
+          test "$(docker inspect "$CONTAINER" --format '{{.State.ExitCode}}')" = 0
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          lines=Path('container-evidence/smoke.log').read_text().splitlines()
+          rows=[json.loads(line.removeprefix('KSTUDIO_CONTAINER_RESULT=')) for line in lines if line.startswith('KSTUDIO_CONTAINER_RESULT=')]
+          assert len(rows)==1 and rows[0]['status']=='PASS' and rows[0]['isolation']['status']=='PASS'
+          Path('container-evidence/result.json').write_text(json.dumps(rows[0],ensure_ascii=False,indent=2))
+          PY
+      - name: Always record actual container exit and remove this test container
+        if: always()
+        shell: bash
+        run: |
+          docker inspect "$CONTAINER" --format '{{json .State}}' > container-evidence/container-final-state.json 2>/dev/null || true
+          docker rm --force "$CONTAINER" >/dev/null 2>&1 || true
+      - name: Upload engineering evidence, never an image or credential bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r2-cloud-container-${{ github.run_id }}-${{ github.run_attempt }}
+          path: container-evidence/
+          retention-days: 7
+          if-no-files-found: warn
