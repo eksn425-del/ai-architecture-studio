@@ -24,7 +24,7 @@ def export(evidence:Path,destination:Path):
             if hashlib.sha256(raw).hexdigest()!=text['sha256']:raise ValueError('License evidence bytes changed')
             target=destination/text['path'];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
             row['license_texts'].append({k:text[k] for k in ('path','sha256','bytes')})
-        row['official_source_evidence']=[{k:entry[k] for k in ('source_url','sha256','version_binding','git_commit','verified_package_url') if entry.get(k)}
+        row['official_source_evidence']=[{k:entry[k] for k in ('source_url','sha256','version_binding','git_commit','verified_package_url','declaration_evidence','parent_package','scope_note','registry_attestation_url','attestation_signature_independently_verified') if k in entry and entry[k] is not None}
             for entry in c['evidence'] if entry['kind']=='official_source_license_supplement']
         rows.append(row)
     public={'schema':1,'generated_at':inventory['generated_at'],'scope':'Observed bundled dependencies and license text evidence; not legal clearance.',
@@ -54,16 +54,20 @@ The private build-source map and complete build-environment snapshot are exclude
 The bundled Python version list records observed versions; it is not a source hash lock.
 Public upstream license supplements identify their exact commit or verified release tag.
 
-License clearance: REVIEW_REQUIRED. Missing texts are explicitly listed below and are
-not replaced with generic license templates. Nested example manifests describe source
+License clearance: REVIEW_REQUIRED. Original-text gaps remain explicitly flagged even
+when official standard terms for the declared license are supplied. Nested example manifests describe source
 files redistributed inside upstream packages, not separately activated applications.
 
 ## Components without a collected license text
 
 '''
     notice+='\n'.join(f"- {c['ecosystem']} `{c['name']}@{c['version']}` — declared: {c['declared_license']}" for c in missing)+'\n'
+    canonical=[c for c in rows if 'UPSTREAM_ORIGINAL_LICENSE_TEXT_ABSENT' in c['review_flags']]
+    notice+='\n## Upstream omitted original text; canonical declared terms supplied\n\n'
+    notice+='These are official standard license terms matched to the exact package declaration, not recovered upstream original copyright notices. Original package metadata and code remain preserved. Attribution/scope review remains explicit; this does not turn a missing original into legal clearance.\n\n'
+    notice+='\n'.join(f"- `{c['name']}@{c['version']}`: {c['declared_license']}" for c in canonical)+'\n'
     (destination/'README.md').write_text(notice,encoding='utf-8')
-    return {'components':len(rows),'missing_text_components':len(missing),'license_clearance':'REVIEW_REQUIRED'}
+    return {'components':len(rows),'missing_text_components':len(missing),'upstream_original_text_absent_standard_terms_supplied':len(canonical),'license_clearance':'REVIEW_REQUIRED'}
 
 
 if __name__=='__main__':

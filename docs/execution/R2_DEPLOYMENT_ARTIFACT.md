@@ -21,3 +21,5 @@
 ## 原 K 图标
 
 新增 `scripts/make_desktop_icon.py`，用已安装 Edge/Playwright 将未改动的 `app/static/k-monogram.svg` 渲染在暖白 `#f5f3e9` 背景，Pillow 生成 16/24/32/48/64/128/256 多尺寸 `app/static/kstudio.ico`。只用于构建，不新增产品运行依赖。原 SVG SHA `db77f269e82e123be854311ef3a0838366e11e5e336c77e5c089cd4856443102`；ICO SHA `30120f570386b263155eb2ca2571528d4152391fe41b291904ece603149edecb`；256px 中间图在 `web-evidence/kstudio-icon-256.png`，已视觉核对保持原 K 设计。EXE/快捷方式/任务栏实际图标安装及最终包 SHA 由负责人验证。
+
+Final build04 source refresh: deployment-artifact-04/KStudio-R2-cloud-website-source.zip, 77545 bytes, SHA256 5079dcd0c1fc29bee6192e01209d38412a8d53866730f09478e792fc465b072a. Based on debe2a8 with exact per-file manifest. Independent extraction/hash/migrate-twice/audit/recover/API/website/feedback checks passed again; IMAGE NOT_BUILT and production NOT_RUN remain. Earlier source artifact is retained as history.

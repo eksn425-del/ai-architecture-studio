@@ -21,7 +21,7 @@
 - 当前官方 B.AI 峰值公开价格参考：input/cache-write $0.30/M，output $1.20/M；按180次全部用尽上述输入/输出计算，参考值 **$14.155776**。来源：[B.AI定价与用量](https://docs.b.ai/zh-Hans/llmservice/pricing-and-usage/)，2026-11-04核查。不是人民币金额、实付保证或充值授权；账单按真实上游计量核实。
 - 达到任一总量/单run上限、未知费用、认证/余额错误、原生UNKNOWN提交、取消或KEEP异常就停止。不得自动加额、充值、订阅、换模型或重放整次建模。未完成 run 如实PARTIAL/NOT_RUN，不提高额度凑结果。
 
-`R2_FINITE_TEST_BATCH_PROPOSAL.json` 为不可执行的提案：authorization=awaiting_owner_confirmation，项目 ID 为待绑定占位符。先完成六个新项目及统一catalog/config绑定，取得对此具体批次的明确授权，再生成真正配置并持久冻结。配置变更不应覆盖已经启动的 batch 账本。当前付费请求仍为0。
+`R2_FINITE_TEST_BATCH_PROPOSAL.json` 为不可执行的提案：authorization=awaiting_owner_confirmation，六个项目 ID 已通过 build04 实际界面创建并绑定。六个新项目和整图上传已完成；继续在首次运行前核对统一catalog/config绑定，取得对此具体批次的明确授权，再生成真正配置并持久冻结。配置变更不应覆盖已经启动的 batch 账本。当前付费请求仍为0。
 
 ## 零费用验收
 

@@ -174,7 +174,7 @@ def collect(bundle, output, analysis_toc=None, sdk_sites=(), node_license=None,
         entries=json.loads(supplements.read_text(encoding="utf-8"))
         for row in entries.get("components",[]):
             key=(row.get("ecosystem"),canonical(row.get("name","")),str(row.get("version","")))
-            if key not in components or row.get("status") not in {"FETCHED_EXACT_REGISTRY_COMMIT","FETCHED_OFFICIAL_VERSION_TAG"}:
+            if key not in components or row.get("status") not in {"FETCHED_EXACT_REGISTRY_COMMIT","FETCHED_OFFICIAL_VERSION_TAG","FETCHED_REGISTRY_ATTESTATION_COMMIT","SAME_VERSION_PARENT_PACKAGE_LICENSE","BUNDLED_PARENT_EXAMPLE_LICENSE","CANONICAL_TERMS_FOR_EXPLICIT_DECLARATION"}:
                 continue
             source=(supplement_root/row["path"]).resolve()
             if not source.is_relative_to(supplement_root) or digest(source)!=row["sha256"]:
@@ -183,7 +183,12 @@ def collect(bundle, output, analysis_toc=None, sdk_sites=(), node_license=None,
             preserve(c,source,row["path"],"verified_license_supplement")
             c["evidence"].append({"kind":"official_source_license_supplement","source_url":row["source_url"],
                 "sha256":row["sha256"],"version_binding":row["status"],"git_commit":row.get("git_commit"),
-                "verified_package_url":row.get("verified_package_url")})
+                "verified_package_url":row.get("verified_package_url"),
+                **{k:row[k] for k in ("declaration_evidence","parent_package","scope_note","registry_attestation_url","attestation_signature_independently_verified") if k in row}})
+            if row.get("upstream_original_license_text_absent"):
+                c["review_flags"].extend(["UPSTREAM_ORIGINAL_LICENSE_TEXT_ABSENT","STANDARD_LICENSE_TERMS_SUPPLIED_NOT_UPSTREAM_ORIGINAL"])
+            if row.get("status")=="FETCHED_REGISTRY_ATTESTATION_COMMIT":c["review_flags"].append("ATTESTATION_SIGNATURE_NOT_INDEPENDENTLY_VERIFIED")
+            if c["name"]=="benchmark" and row.get("status")=="CANONICAL_TERMS_FOR_EXPLICIT_DECLARATION":c["review_flags"].append("EMBEDDED_EXAMPLE_LICENSE_SCOPE_REVIEW")
 
     for c in components.values():
         if not c["license_texts"]:
@@ -219,6 +224,7 @@ def collect(bundle, output, analysis_toc=None, sdk_sites=(), node_license=None,
     (output / "sbom.cdx.json").write_text(json.dumps(bom, ensure_ascii=False, indent=2), encoding="utf-8")
     summary = {"components": len(rows), "license_texts": sum(len(c["license_texts"]) for c in rows),
                "missing_text_components": sum(not c["license_texts"] for c in rows), "native_binaries": len(binary_paths),
+               "upstream_original_text_absent_standard_terms_supplied": sum("UPSTREAM_ORIGINAL_LICENSE_TEXT_ABSENT" in c["review_flags"] for c in rows),
                "bundled_python_pins": len(pins), "clearance": "REVIEW_REQUIRED"}
     (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary

@@ -12,12 +12,12 @@
   "max_requests": 180,
   "per_run_max_requests": 30,
   "allowed_run_ids": [
-    "PENDING_PROJECT_OFFICIAL_1",
-    "PENDING_PROJECT_OFFICIAL_2",
-    "PENDING_PROJECT_MINIMAL_1",
-    "PENDING_PROJECT_MINIMAL_2",
-    "PENDING_PROJECT_ARCHITECTURE_1",
-    "PENDING_PROJECT_ARCHITECTURE_2"
+    "r2-1",
+    "r2-2",
+    "r2-1-7b744",
+    "r2-2-6d413",
+    "r2-1-6f958",
+    "r2-2-338b9"
   ],
   "max_output_tokens": 32768,
   "reserved_tokens_per_request": 163840,
@@ -25,5 +25,6 @@
   "billing_guarantee": false,
   "reference_usd": "14.155776",
   "reference_price_source": "https://docs.b.ai/zh-Hans/llmservice/pricing-and-usage/",
-  "status": "PROPOSAL_NOT_AUTHORIZED_NOT_RUN"
+  "status": "PROPOSAL_NOT_AUTHORIZED_NOT_RUN",
+  "project_preparation": "Actual build04 UI project creation and identical whole-image upload; no conversations sent"
 }
