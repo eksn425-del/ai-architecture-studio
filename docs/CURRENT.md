@@ -1,3 +1,15 @@
+# R3 launch task accepted — 2026-11-05
+
+**Current task:** turn the R2 internal candidate into a real website + desktop commercial Beta. Read the [R3 execution book](execution/KSTUDIO_R3_LAUNCH_EXECUTION_20261105.md), [owner inputs](execution/KSTUDIO_R3_OPERATOR_INPUTS_20261105.md), and [Codex start](execution/KSTUDIO_R3_CODEX_START_20261105.md).
+
+The owner now explicitly authorizes deployment, phone/WeChat login, account-owned encrypted API settings, BAI platform service, domestic payments, packaging and a complete first-use acceptance. Reuse the existing Harness, UI style and cloud/OIDC foundation. This supersedes older stage restrictions against cloud/auth/payment work and research-only next steps; original-model, credential and evidence protections remain. Do not revive closed private building cases or perform endless quality experiments.
+
+**This handoff is documentation only.** R2 PR25 source baseline is `7376f40f678e81618cbd9b470e2f5ba39debeaac`; installed build05c source remains `9c0ef028d127da44389296c4de913c16b5372dfe`. No R3 deployment, live identity/payment acceptance, new installer or native first-use test is claimed by this commit. Public release remains unproven until the execution gates actually pass. Handoff branch: `codex/kstudio-r3-launch-handoff-20261105`; implement on an isolated R3 branch, not main by default.
+
+Everything below is preserved historical evidence and authorization context. The R3 execution book controls the new task; applicable existing test authorization is retained and is not expanded into cloud purchases, automatic recharge or charging third parties.
+
+---
+
 # R2 installed build05c and real BAI continuation — 2026-11-05
 
 **Current final checkpoint:** [installed candidate and exact artifacts](releases/KSTUDIO_R2_INSTALLED_20261105.md). Desktop **K Studio R2（内部候选）** now launches installed `r2-internal-05c-seq5`, source `9c0ef028d127da44389296c4de913c16b5372dfe`. Actual BAI same-image first model reached r5, protected wood-soffit edit reached r8; browser download/native deep equality and 14 protected parts passed. Actual two SU2024 windows were selected independently in the UI, foreground changes did not reroute, and closing one did not fall back to the other. New empty API profile and existing encrypted owner BAI persistence passed. Public release remains **PARTIAL / NOT READY**: visual fidelity, clean second PC/more SU versions, signing/licensing and actual production services are not fully accepted. No automatic paid continuation is left running.
@@ -31,3 +43,4 @@ Read [release notes and continuation entry](releases/KSTUDIO_LOCAL_CANDIDATE_202
 Local Windows / SketchUp 2024 workflow passed: BYOK persistence, real UI modeling, interruption continuation, scoped edit, SKP download/native reopen and desktop restart. Source fidelity remains PARTIAL; clean-machine/multi-SU/multi-provider/public-installer acceptance is NOT complete.
 
 The release notes deliberately omit personal connection settings, credentials, private source images, native models and raw session logs. Older case documents retain their historical scope and verdicts.
+
