@@ -1,5 +1,7 @@
 # K Studio R2 internal engineering candidate
 
+**Historical build04 checkpoint.** Superseded by [installed build05c and real BAI results](KSTUDIO_R2_INSTALLED_20261105.md). The no-paid/in-progress statements below describe the earlier checkpoint only.
+
 Updated 2026-11-05. **Internal candidate, not an accepted public beta.** No new paid inference, public deployment, real charging or main merge occurred. Historical architectural source fidelity remains PARTIAL; this revision has no new paid image-modeling quality verdict.
 
 Source review: [draft PR25](https://github.com/eksn425-del/ai-architecture-studio/pull/25), based on PR24. Packaged desktop code is `3e953b0384ab4e6779d20803aaa827cee25a9760`; `debe2a89f04616ebe4a98e719d1432e9d1239455` adds CI dependency/fixture corrections only. Official DSH Node0.2.1-rc.5, Python SDK0.2.1rc2 and Node24.22.1 are retained. The original K mark, green/warm white/gold palette, serif brand and client layout remain.

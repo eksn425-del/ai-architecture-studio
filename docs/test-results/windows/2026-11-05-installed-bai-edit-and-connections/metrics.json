@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": 44,
+  "failed_tool_calls": 6,
+  "committed_writes": 3,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 3,
+  "input_tokens": null,
+  "output_tokens": null,
+  "known_input_tokens": 1743705,
+  "known_output_tokens": 53040,
+  "model_request_events": 42,
+  "unknown_usage_attempts": 6,
+  "provider_billed_amount": null,
+  "context_prune_events": 5,
+  "scope": "Phases 07/08 failed network requests and 10/11/12 successful continuation; first model reported separately",
+  "turns": {
+    "dsh-builder-044ac1e48f514c878c81bc5a9ba58ab4": {
+      "requests_with_events": 5,
+      "unknown_usage_attempts": 0,
+      "input_tokens": 112710,
+      "output_tokens": 5473,
+      "host_calls": 8,
+      "host_failures": 0,
+      "tools": [
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_read_skill",
+          "success": true,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_read_skill",
+          "success": true,
+          "elapsed_ms": 15
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_search",
+          "success": true,
+          "elapsed_ms": 32
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_read",
+          "success": true,
+          "elapsed_ms": 15
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_read",
+          "success": true,
+          "elapsed_ms": 31
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_read",
+          "success": true,
+          "elapsed_ms": 15
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_read",
+          "success": true,
+          "elapsed_ms": 16
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_read",
+          "success": true,
+          "elapsed_ms": 16
+        }
+      ],
+      "context_prune_events": 0
+    },
+    "dsh-builder-1af9aed522da42caa1a5ad7dd39ab0a0": {
+      "requests_with_events": 21,
+      "unknown_usage_attempts": 0,
+      "input_tokens": 1380387,
+      "output_tokens": 29637,
+      "host_calls": 28,
+      "host_failures": 2,
+      "tools": [
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_read_skill",
+          "success": true,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_read_skill",
+          "success": true,
+          "elapsed_ms": 16
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_model_state",
+          "success": true,
+          "elapsed_ms": 1156
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_read_skill",
+          "success": true,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4703
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4437
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": false,
+          "elapsed_ms": 1016
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_model_state",
+          "success": true,
+          "elapsed_ms": 1141
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4516
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4547
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4407
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4562
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_write",
+          "success": true,
+          "elapsed_ms": 31
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_run_workspace_ruby",
+          "success": true,
+          "elapsed_ms": 19516
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_view",
+          "success": true,
+          "elapsed_ms": 12969
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_write",
+          "success": true,
+          "elapsed_ms": 32
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_run_workspace_ruby",
+          "success": false,
+          "elapsed_ms": 9859
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_model_state",
+          "success": true,
+          "elapsed_ms": 2359
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4468
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_view",
+          "success": true,
+          "elapsed_ms": 11625
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_view",
+          "success": true,
+          "elapsed_ms": 11547
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_write",
+          "success": true,
+          "elapsed_ms": 125
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_run_workspace_ruby",
+          "success": true,
+          "elapsed_ms": 19469
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_view",
+          "success": true,
+          "elapsed_ms": 12610
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_view",
+          "success": true,
+          "elapsed_ms": 11828
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_view",
+          "success": true,
+          "elapsed_ms": 11547
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_inspect_part",
+          "success": true,
+          "elapsed_ms": 4406
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_review_model",
+          "success": true,
+          "elapsed_ms": 0
+        }
+      ],
+      "context_prune_events": 5
+    },
+    "dsh-builder-811a793147c64a408b5a4e2dd8632881": {
+      "requests_with_events": 8,
+      "unknown_usage_attempts": 0,
+      "input_tokens": 241361,
+      "output_tokens": 17173,
+      "host_calls": 8,
+      "host_failures": 4,
+      "tools": [
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_read_skill",
+          "success": true,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "workspace_read",
+          "success": true,
+          "elapsed_ms": 16
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_save_design_graph",
+          "success": false,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_save_design_graph",
+          "success": false,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_save_design_graph",
+          "success": false,
+          "elapsed_ms": 16
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_save_design_graph",
+          "success": false,
+          "elapsed_ms": 0
+        },
+        {
+          "event": "host_tool_result",
+          "name": "kstudio_save_design_graph",
+          "success": true,
+          "elapsed_ms": 16
+        },
+        {
+          "event": "host_tool_result",
+          "name": "sketchup_save_plan",
+          "success": true,
+          "elapsed_ms": 32
+        }
+      ],
+      "context_prune_events": 0
+    },
+    "dsh-intent-0ee0e7394148421692fcf0d3615f330d": {
+      "requests_with_events": 1,
+      "unknown_usage_attempts": 0,
+      "input_tokens": 4220,
+      "output_tokens": 298,
+      "host_calls": 0,
+      "host_failures": 0,
+      "tools": [],
+      "context_prune_events": 0
+    },
+    "dsh-intent-3d9941db25b446c5835d7b68a881a293": {
+      "requests_with_events": 3,
+      "unknown_usage_attempts": 3,
+      "input_tokens": null,
+      "output_tokens": null,
+      "host_calls": 0,
+      "host_failures": 0,
+      "tools": [],
+      "context_prune_events": 0
+    },
+    "dsh-intent-4724f8b126cc4b02ba036d0eb69a6161": {
+      "requests_with_events": 3,
+      "unknown_usage_attempts": 3,
+      "input_tokens": null,
+      "output_tokens": null,
+      "host_calls": 0,
+      "host_failures": 0,
+      "tools": [],
+      "context_prune_events": 0
+    },
+    "dsh-intent-f2f9031bd7144efebc9d6a60b1dfbdff": {
+      "requests_with_events": 1,
+      "unknown_usage_attempts": 0,
+      "input_tokens": 5027,
+      "output_tokens": 459,
+      "host_calls": 0,
+      "host_failures": 0,
+      "tools": [],
+      "context_prune_events": 0
+    }
+  },
+  "token_source": "Official SDK assistant/message and assistant/attempt events, without duplicated activity rows. Six all-zero failed-attempt records represent unavailable usage, not free requests. Provider invoice unavailable."
+}

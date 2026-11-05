@@ -1,5 +1,22 @@
 # R2 acceptance ledger — 2026-11-04
 
+## 2026-11-05 installed continuation
+
+Current source `9c0ef028d127da44389296c4de913c16b5372dfe`, installed build05c. [Exact artifacts and current limits](../releases/KSTUDIO_R2_INSTALLED_20261105.md); [real evidence](../test-results/windows/2026-11-05-installed-bai-edit-and-connections/README.md).
+
+| Updated gate | Actual result |
+|---|---|
+| BAI real source/model/edit | Executed, PARTIAL fidelity; same official DSH/BAI model, Low; r5 then r8 |
+| Local edit protection | PASS independent native deep hashes: only wood group changed, 14 others unchanged |
+| Actual browser download / native reopen | PASS r5 and r8 deep geometry/material equality; host reopen distinctly labeled |
+| Two actual SU2024 windows | PASS explicit UI selection, separate project pins, foreground independence and closed-window no-fallback |
+| API persistence / new user | PASS existing encrypted BAI retained; separate fresh profile has no key |
+| Actual update | PASS build04→05c, 207 protected files unchanged; external legacy bridge path repaired explicitly after backup |
+| Network reliability | Proxy startup cause fixed and real calls succeeded; two later transient SU heartbeat failures retained |
+| Quality / broad compatibility / public release | PARTIAL; no arbitrary-provider or other-SU certification, no clean second Windows, no formal signing/legal clearance/production account-payment deployment |
+
+The following table remains the historical build04 evidence, not the current paid-test status.
+
 Packaged desktop source: `3e953b0384ab4e6779d20803aaa827cee25a9760`; CI fixture follow-up: `debe2a89f04616ebe4a98e719d1432e9d1239455`.
 Level: **internal engineering candidate; public beta gates NOT all passed**.
 R2 job receipts below remain private on the owning project drive. Historical source fidelity PARTIAL is unchanged. No new paid inference was performed.

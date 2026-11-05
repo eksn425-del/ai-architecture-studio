@@ -1,0 +1,146 @@
+{
+  "model_guid": "845ca05c-4a0c-45fb-b886-53717e2816ec",
+  "revision": 8,
+  "root_pid": 21,
+  "source_sha256": "13a824af385a7201c6e9bae19981494d9521b2443d1540b12252ff724e4f619c",
+  "last_report": "runtime/scripts/reports/harness_building-r8-8623cbb4.json",
+  "last_screenshot": "outputs/renders/ruby-harness_building-r8.png",
+  "last_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 21,
+        "actual": 21
+      },
+      {
+        "check": "revision",
+        "expected": 8,
+        "actual": 8
+      },
+      {
+        "check": "objects_total",
+        "expected": 15,
+        "actual": 15
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -300.0,
+            -350.0,
+            -300.0
+          ],
+          "max": [
+            13800.0,
+            15000.0,
+            27700.0
+          ],
+          "size": [
+            14100.0,
+            15350.0,
+            28000.0
+          ]
+        },
+        "actual": {
+          "min": [
+            -300.0,
+            -350.0,
+            -300.0
+          ],
+          "max": [
+            13800.0,
+            15000.0,
+            27700.0
+          ],
+          "size": [
+            14100.0,
+            15350.0,
+            28000.0
+          ]
+        }
+      }
+    ]
+  },
+  "last_verification_report": "runtime/scripts/reports/harness_building-r8-8623cbb4.verification.json",
+  "last_precommit_keep_guard": {
+    "armed": false,
+    "passed": null,
+    "paths": []
+  },
+  "last_oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "13a824af385a7201c6e9bae19981494d9521b2443d1540b12252ff724e4f619c",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "harness_building",
+    "revision": 8,
+    "root_pid": 21
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "wood_soffits_canopies"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "wood_soffits_canopies"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "last_strategy_progress": {
+    "schema_version": 1,
+    "source": "committed_owned_root_named_path_readback",
+    "script_id": "harness_building",
+    "revision": 8,
+    "root_pid": 21,
+    "full_readback": true,
+    "current_stage": "pending",
+    "systems": [],
+    "visual_verification": "NOT_RUN"
+  },
+  "last_oss_method_adoption": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {},
+    "any_oss_product_use": false,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": []
+  },
+  "durable_checkpoint": {
+    "status": "saved_unverified_reopen",
+    "path": "outputs/model/committed-revisions/harness_building-r8-24cb17fe5ec54246a3acd05b86614269.skp",
+    "connector_transition": {
+      "operation_id": "harness_building-r8-24cb17fe5ec54246a3acd05b86614269",
+      "instance_id": "4856-b617336e14afdd8155ecc08e",
+      "identity_before": {
+        "model_path": "<private-local-path>/blank-disposable-20261105-014009.skp",
+        "model_guid": "25f2eb20-ce82-4f25-b82e-afa08c5a96fb"
+      },
+      "identity_after": {
+        "model_path": "<private-local-path>/blank-disposable-20261105-014009.skp",
+        "model_guid": "845ca05c-4a0c-45fb-b886-53717e2816ec"
+      },
+      "completed": true,
+      "project_id": "architecture-project",
+      "root_pid": 21,
+      "revision": 8,
+      "at": 1793858666.1339796
+    },
+    "sha256": "c8a1f8f94f23d93ff7e509258bfd956ba1f0fdb83e205d115ea35857427d86d2",
+    "revision": 8,
+    "root_pid": 21
+  },
+  "durability_status": "saved_unverified_reopen"
+}
