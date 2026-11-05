@@ -1,0 +1,22 @@
+{
+  "precommit_keep": {
+    "armed": false,
+    "passed": null,
+    "paths": []
+  },
+  "edit_scope": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "wood_soffits_canopies"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "wood_soffits_canopies"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "scope": "Last initial-build self-correction only; not the later requested edit"
+}
