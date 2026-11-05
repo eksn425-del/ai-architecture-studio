@@ -82,3 +82,22 @@ interpreter was found on PATH during this work.
 
 Private XML evidence: owning E-drive job `kstudio-r2-live-20261105`,
 `instance-pytest-final3.xml`. Historical failures and installed build04 were left intact.
+
+## Immutable-slot connector upgrade follow-up
+
+The desktop bootstrap now backs up the exact previous `bridge.json` bytes under
+the profile's `bridge-backups/` before atomically relocating a known first-party
+connector to the current version slot. Eligibility requires the old and current
+executables to be immediate children of version directories under the same
+installation's `versions/`, empty arguments and matching public-pairing/generated
+script environment. Only command and a cwd matching the previous slot or its
+`_internal` directory change. Custom connectors, other installations, arguments,
+working directories, pairing roots and settings are preserved. The frozen runtime
+resolver uses the same strict eligibility rule, replacing its older filename-only
+fallback. Invalid JSON/schema/duplicate fields fail clearly without replacement.
+
+Program, extension, health and RBZ manifest now agree on `2026.11.05-r2`.
+66 focused upgrade/bootstrap/connector tests passed; private evidence is
+`connector-upgrade-tests.xml` in the same E-drive job. These use isolated fixture
+installations and generated RBZ files, not the owner's live installation. Actual
+installed-slot upgrade acceptance remains with the root controller.

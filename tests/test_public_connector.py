@@ -50,13 +50,14 @@ def test_pairing_adds_explicit_profile_without_rotating_secret_or_erasing_old_ro
 
 def test_frozen_update_resolves_current_connector_without_rewriting_pairing(tmp_path, monkeypatch):
     from app import sketchup_mcp
-    current = tmp_path / 'current'
-    current.mkdir()
+    current = tmp_path / 'installed/versions/current'
+    current.mkdir(parents=True)
     (current / 'KStudioConnector.exe').touch()
     config = tmp_path / 'bridge.json'
-    payload = json.dumps({'command': str(tmp_path / 'retired' / 'KStudioConnector.exe'),
-        'args': [], 'cwd': str(tmp_path / 'retired'),
-        'env': {'KSTUDIO_PUBLIC_CONNECTOR_ROOT': str(tmp_path / 'pairing')}})
+    payload = json.dumps({'command': str(current.parent / 'retired' / 'KStudioConnector.exe'),
+        'args': [], 'cwd': str(current.parent / 'retired'),
+        'env': {'KSTUDIO_PUBLIC_CONNECTOR_ROOT': str(tmp_path / 'pairing'),
+                'ARCHFLOW_GENERATED_SCRIPT_DIR': str(tmp_path / 'pairing/generated_scripts')}})
     config.write_text(payload)
     monkeypatch.setenv('ARCH_STUDIO_MCP_CONFIG', str(config))
     monkeypatch.setattr(sketchup_mcp.sys, 'frozen', True, raising=False)

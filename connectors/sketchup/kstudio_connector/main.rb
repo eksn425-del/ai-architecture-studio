@@ -106,7 +106,7 @@ module KStudioPublicConnector
       model = Sketchup.active_model
       case name
       when 'sketchup_health', 'sketchup_get_model_context'
-        { connected: true, connector: 'kstudio-public', version: '2026.11.04',
+        { connected: true, connector: 'kstudio-public', version: '2026.11.05-r2',
           instance_id: @instance_id, pid: Process.pid,
           sketchup_version: Sketchup.version, ruby_version: RUBY_VERSION,
           model_path: model.path, model_guid: model.guid, model_name: model.title,

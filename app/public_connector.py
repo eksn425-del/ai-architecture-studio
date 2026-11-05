@@ -16,7 +16,7 @@ import time
 import uuid
 from pathlib import Path
 
-VERSION = '2026.11.04-r2'
+VERSION = '2026.11.05-r2'
 TOOL_NAMES = ('sketchup_health', 'sketchup_get_model_context', 'sketchup_eval_project_file',
               'sketchup_set_camera', 'sketchup_export_view_image')
 DOCUMENT_BINDING = {'expected_model_path':{'type':'string'}, 'expected_model_guid':{'type':'string'}}
