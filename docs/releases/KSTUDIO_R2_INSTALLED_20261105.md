@@ -31,6 +31,8 @@
 
 完整真实证据：[首次建模](../test-results/windows/2026-11-05-bai-stair-building-first-pass/README.md)、[已安装版局部编辑与连接](../test-results/windows/2026-11-05-installed-bai-edit-and-connections/README.md)、[网络修复](../execution/R2_PROVIDER_NETWORK_20261105.md)。
 
+证据发布的第一次 Linux CI 失败源于 Git 将 Windows 文本换行转换，导致文件清单校验不符；已按既有证据规范固定这两个目录的原始字节。没有修改模型截图或放宽校验规则，原失败保留在 Actions 历史。
+
 ## 不能省略的限制
 
 外观仍为 **PARTIAL**：楼梯过宽、玻璃盒体错落不足、木面平直且缺板缝；建筑规范/结构安全没有独立认证。规划仍有四次失败修正，编辑有两次暂时过期心跳拒绝后恢复；一次完整链路不能证明任意 API 或无限规模稳定。
