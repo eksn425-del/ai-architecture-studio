@@ -45,6 +45,20 @@ def test_unbound_start_returns_connection_action_without_launching_or_inference(
     assert (root / 'state/agent_session.json').read_bytes() == before
 
 
+def test_intent_failure_survives_refresh_without_forging_conversation(connection, monkeypatch):
+    from app.native_agent import NativeAgentUnavailable
+    app, client, pid, root, model = connection
+    before = (root / 'state/project_context.json').read_bytes()
+    def fail(*args, **kwargs):
+        raise NativeAgentUnavailable('TIMEOUT: Request timed out.')
+    monkeypatch.setattr('app.contextual_turn.resolve_host_action', fail)
+    result = client.post(f'/api/projects/{pid}/conversation', json={
+        'message':'请调整木饰面，其他不变', 'workflow_mode':'image_reconstruction'})
+    assert result.status_code == 409
+    assert 'TIMEOUT' in client.get(f'/api/projects/{pid}').json()['agent_session']['error']
+    assert (root / 'state/project_context.json').read_bytes() == before
+
+
 def test_offline_bridge_does_not_consume_approval(connection):
     app, client, pid, root, model = connection
     from app.design_scope_approval import capture_pending_design_plan

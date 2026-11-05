@@ -27,7 +27,12 @@ def reported_usage(events):
         if event.get('type')!='assistant/attempt':continue
         chunks=[s.get('chunk',{}) for s in data.get('stream',[]) if isinstance(s,dict)]
         usage=[c.get('usage') for c in chunks if c.get('type')=='usage']
-        rows.append(usage[-1] if usage else None)
+        last = usage[-1] if usage else None
+        # SDK emits synthetic zero usage on connection failures. It is not a
+        # provider billing receipt; preserve unknown rather than report free.
+        if last and not any(last.get(k, 0) for k in ('inputTokens', 'outputTokens', 'totalTokens')):
+            last = None
+        rows.append(last)
     if not rows or any(not isinstance(r,dict) for r in rows):return None,None
     inputs=outputs=0
     for row in rows:
@@ -175,9 +180,11 @@ class DSHHostSession:
             patch.write_text(json.dumps(rows,ensure_ascii=False),encoding='utf-8')
         if str(sdk_site) not in sys.path:sys.path.insert(0,str(sdk_site))
         from deepseek_harness import DeepSeekHarness
+        from .dsh_network import node_network_environment
+        network_environment = node_network_environment()
         self.harness=DeepSeekHarness(provider='kstudio-bai',model=model,reasoning_effort=self.effective_configuration.sdk_effort,max_tokens=max_tokens,
             profile='sdk',patches=(str(patch),),dsh_home=str(self.home),cwd=str(self.workspace),dsh_bin=str(dsh_bin),
-            env={'KSTUDIO_DSH_CAPABILITIES':'full' if self.full_capabilities else 'protected','KSTUDIO_DSH_EXECUTION_POLICY':__import__('app.dsh_security',fromlist=['execution_policy']).execution_policy(),'KSTUDIO_DSH_API_KEY':api_key,'KSTUDIO_TOOLS_TOKEN':self.token,'KSTUDIO_TOOLS_URL':f'http://127.0.0.1:{self.server.server_port}',
+            env={**network_environment,'KSTUDIO_DSH_CAPABILITIES':'full' if self.full_capabilities else 'protected','KSTUDIO_DSH_EXECUTION_POLICY':__import__('app.dsh_security',fromlist=['execution_policy']).execution_policy(),'KSTUDIO_DSH_API_KEY':api_key,'KSTUDIO_TOOLS_TOKEN':self.token,'KSTUDIO_TOOLS_URL':f'http://127.0.0.1:{self.server.server_port}',
                  'DEEPSEEK_API_KEY':'','OPENAI_API_KEY':'','BAI_API_KEY':'','DSH_TELEMETRY_MODE':'DISABLED','DSH_MAX_TOKENS_AS_SUCCESS':'false'},
             initialize_timeout_seconds=40,request_timeout_seconds=90)
 

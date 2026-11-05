@@ -1993,6 +1993,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 contextual = resolve_host_action(app.state.model_router, project=project_dir,
                     session=session, request=request, context=context)
             except (ValueError, NativeAgentUnavailable) as error:
+                # Intent failures precede the normal Builder persistence path.
+                # Keep the failure visible after refresh without inserting an
+                # unexecuted request into the accepted conversation/history.
+                session.error = str(error)[:1200]
+                store.save_state(project_id, session, "agent_session.json")
                 raise HTTPException(409, str(error)) from error
         if contextual and contextual[1].get("attachment_roles_changed"):
             store.save(context, project_dir / "state/project_context.json")
