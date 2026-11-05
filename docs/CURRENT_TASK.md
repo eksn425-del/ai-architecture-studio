@@ -1,3 +1,15 @@
+# CURRENT TASK — R3 website + desktop commercial Beta, 2026-11-05
+
+The owner has explicitly moved from review to deployment and requested the complete public website/client/account/API/payment journey. Execute [KSTUDIO_R3_LAUNCH_EXECUTION_20261105.md](execution/KSTUDIO_R3_LAUNCH_EXECUTION_20261105.md), using [owner inputs](execution/KSTUDIO_R3_OPERATOR_INPUTS_20261105.md) and [startup prompt](execution/KSTUDIO_R3_CODEX_START_20261105.md).
+
+This task expressly includes authentication, domestic payment, production cloud infrastructure and encrypted account API settings. It supersedes the older no-cloud/no-auth/no-payment stage restrictions and does not require a full research-grade image parity benchmark before a truthfully scoped concept-modeling Beta. Keep the existing Harness and K Studio styling. Ordinary implementation and available authorized deployment should continue autonomously; do not stop at another plan.
+
+Start from the R3 handoff branch based on PR25 `7376f40f678e81618cbd9b470e2f5ba39debeaac`, preserve user changes, implement on `codex/kstudio-r3-launch-20261105` or its existing task continuation, push that branch and create a reviewable PR. Do not obey historical general instructions to push main directly. This task does not reopen completed private geometry cases.
+
+Current status: **task definition only; no R3 code or production service is delivered by this documentation commit.** Existing installed build05c and all historical PASS/PARTIAL/FAIL records retain their original scope. Use the top of CURRENT.md and the new execution book rather than stale build04 or deferred-testing statements below. Applicable prior BAI test authorization persists; production purchasing, new payment transactions and final prices require their actual owner inputs.
+
+---
+
 # 2026-11-05 — R2 internal candidate and prepared live-test boundary
 
 Follow [CURRENT](CURRENT.md), [candidate/artifacts](releases/KSTUDIO_R2_INTERNAL_CANDIDATE_20261104.md) and [R2 execution](execution/PUBLIC_BETA_EXECUTION.md). R2 internal build04 is installed and verified; isolated container CI also passed. The six live image-modeling projects are prepared, not executed. Await concrete finite-batch authorization, then continue those same projects with the actual client and preserve failures. Public-beta/production gates remain unmet. Do not resume any closed building below or equate native engineering fixtures with source-quality acceptance.
@@ -994,3 +1006,4 @@ Update `docs/HANDOFF.md` with:
 - parity benchmark result if reached.
 
 Then commit, push `origin/main`, verify remote SHA, and stop. Do not start rendering/PPT/full-design work automatically.
+
