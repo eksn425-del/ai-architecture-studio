@@ -564,6 +564,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
     app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
     from .connector_setup import register_routes as register_connector_setup_routes
     register_connector_setup_routes(app, app.state.agent_lock)
+    from .connector_instances import register_routes as register_instance_routes
+    register_instance_routes(app, store, app.state.agent_lock)
     from .speech_input import register_routes as register_speech_routes
     register_speech_routes(app, store.root)
     from .software_updates import register_routes as register_software_update_routes
@@ -1182,6 +1184,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             project_dir = store.ensure_layout(project_id)
             session: AgentSession = store.load_state(project_id, "agent_session.json", AgentSession)
             model_state: ModelState = store.load_state(project_id, "model_state.json", ModelState)
+            from .connector_instances import lifecycle_pin, bind_verified_lifecycle, unresolved
+            selected_before = lifecycle_pin(project_dir)
+            if unresolved(project_dir, session):
+                raise HTTPException(status_code=409, detail="上次原生写入尚未确认，重新连接不能清除恢复保护。")
             if model_state.objects:
                 raise HTTPException(status_code=409, detail="This project already contains a legacy live model. Create a new project for a separate Fast Assembly session.")
             if session.status == "ready" and session.model_path:
@@ -1273,6 +1279,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if not isinstance(live_identity.get("model_guid"), str) or not live_identity.get("model_guid"):
                 raise HTTPException(status_code=502, detail="SketchUp 没有返回活动模型 GUID，无法安全绑定本次 Agent 会话。")
             model_info = adapter.get_model_info()
+            bind_verified_lifecycle(project_dir, live_identity, selected_before, Path(live_path))
             relative_model_path = _relative(project_dir, Path(live_path))
             economy_route = app.state.model_router.economy_route
             session.status = "ready"
@@ -1344,6 +1351,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     def recover_checkpoint(project_id: str) -> dict[str, Any]:
         project_dir = store.ensure_layout(project_id)
+        from .connector_instances import lifecycle_pin, bind_verified_lifecycle
+        selected_before = lifecycle_pin(project_dir)
         session = store.load_state(project_id, "agent_session.json", AgentSession)
         current = _disposable_model_path(str(project_dir / session.model_path), project_dir)
         # A legacy pre-turn snapshot is not proof of which uncertain write ran.
@@ -1385,6 +1394,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 time.sleep(0.5)
             else:
                 raise MCPCallError("SketchUp has not opened the recovery copy.")
+            bind_verified_lifecycle(project_dir, identity, selected_before, target)
             session.model_path = _relative(project_dir, target)
             session.model_guid = str(identity.get("model_guid") or "")
             snapshot_state = project_dir / "runtime/previous-agent-ruby-state.json"
@@ -1439,6 +1449,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             expected = _disposable_model_path(session.model_path, project_dir) if Path(session.model_path).is_absolute() else (
                 _disposable_model_path(str(project_dir / session.model_path), project_dir) if session.model_path else None)
             bound = bool(session.status == "ready" and active and active == expected and identity.get("model_guid")
+                         and identity.get("model_guid") == session.model_guid
                          and not identity.get("active_context") and identity.get("main_thread") is True)
             return {"configured": True, "reachable": True, "project_bound": bound,
                     "project_copy_open": active is not None, "binding_status": "bound" if bound else "project_copy_unbound" if active else "different_model",

@@ -168,11 +168,12 @@ const nodes={};const $=id=>nodes[id]||(nodes[id]={value:id==='conversation-input
 let pendingMessage=null,pendingExecutionProject=null,resolve,reject,calls=0;
 const localStorage={setItem:()=>{}};
 const saveDraft=()=>{},executionUserMessage=x=>x,isBuildApproval=()=>false,sourceImages=()=>[],routeInfo=()=>({model:'simulation'});
+const refreshModelConfiguration=async()=>{},routeAvailable=()=>true;
 const setBusy=()=>{},showResults=()=>{},beginProgress=()=>{},setStatus=()=>{},startLiveProgress=()=>{},loadParameterPlan=async()=>{},updateHeader=()=>{},showToast=()=>{},setTab=()=>{},friendlyError=e=>e.message,endProgress=()=>{},observeRunningTurn=async()=>{},loadProject=async()=>{};
 const api=()=>{calls++;return new Promise((r,j)=>{resolve=r;reject=j})};
 '''
     result=run(stub + function('sendConversation').split('\ndocument.querySelectorAll')[0] + '''
-(async()=>{const p=sendConversation(null);const cleared=$('conversation-input').value==='';
+(async()=>{const p=sendConversation(null);await new Promise(setImmediate);const cleared=$('conversation-input').value==='';
 $('conversation-input').value='next request';await sendConversation(null);
 ''' + ("reject(Error('offline'));" if failure else "resolve({project:state.project,agent:{},reply:'ok'});") + '''
 await p;console.log(JSON.stringify({cleared,calls,draft:$('conversation-input').value,busy:state.busy}));})();

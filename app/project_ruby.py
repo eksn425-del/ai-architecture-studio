@@ -176,7 +176,7 @@ class ProjectRubyExecutor:
         """
         return self._assert_active_model()
 
-    def refresh_active_model_snapshot(self) -> dict[str, Any]:
+    def refresh_active_model_snapshot(self, *, connector_checkpoint=None) -> dict[str, Any]:
         """Refresh the per-turn GUID token after an existing MCP tool edits the model."""
         identity = self.adapter.get_active_model_identity()
         if Path(str(identity.get("model_path") or "")).resolve() != self.expected_model_path:
@@ -186,6 +186,8 @@ class ProjectRubyExecutor:
         guid = identity.get("model_guid")
         if not isinstance(guid, str) or not guid:
             raise MCPCallError("SketchUp did not return a fresh model GUID after the previous tool call.")
+        from .connector_instances import advance_document_pin
+        advance_document_pin(self.project_dir, self.expected_model_path, self.expected_model_guid, guid, checkpoint=connector_checkpoint)
         self.expected_model_guid = guid
         return identity
 
@@ -630,6 +632,9 @@ class ProjectRubyExecutor:
             raise MCPCallError("SketchUp did not return the post-transaction model GUID.")
         # SketchUp can refresh a document GUID after a successful edit/save; the path
         # and upstream-owned root/revision are the persistent project identity.
+        from .connector_instances import advance_document_pin
+        advance_document_pin(self.project_dir, self.expected_model_path,
+                             self.expected_model_guid, str(identity_after["model_guid"]))
         self.expected_model_guid = str(identity_after["model_guid"])
         # Persist at the transaction boundary, before screenshot/model readback
         # or the model's next inference can fail or the web request is interrupted.
@@ -675,7 +680,8 @@ class ProjectRubyExecutor:
             model_path=self.expected_model_path, model_guid=self.expected_model_guid,
             script_id=script_id, revision=new_revision, root_pid=root_pid, mcp=self.mcp,
         )
-        identity_after = self.refresh_active_model_snapshot()
+        transition = durable_checkpoint.get('connector_transition')
+        identity_after = self.refresh_active_model_snapshot(**({'connector_checkpoint': transition} if transition else {}))
         self.ruby_state[script_id]["model_guid"] = self.expected_model_guid
         self.ruby_state[script_id]["durable_checkpoint"] = durable_checkpoint
         self.ruby_state[script_id]["durability_status"] = "saved_unverified_reopen"

@@ -67,12 +67,17 @@ def test_offline_bridge_does_not_consume_approval(connection):
     assert not json.loads((root / 'runtime/pending_design_scope.json').read_text())['consumed']
 
 
-@pytest.mark.parametrize('ready,own_model,bound', [(False, True, False), (True, True, True), (True, False, False)])
-def test_probe_distinguishes_bridge_from_project_binding(connection, ready, own_model, bound):
+@pytest.mark.parametrize('ready,own_model,guid,bound', [
+    (False, True, 'fixture-guid', False), (True, True, 'fixture-guid', True),
+    (True, False, 'fixture-guid', False), (True, True, 'changed-guid', False),
+    (True, True, '', False),
+])
+def test_probe_distinguishes_bridge_from_project_binding(connection, ready, own_model, guid, bound):
     app, client, pid, root, model = connection
     session = app.state.store.load_state(pid, 'agent_session.json', AgentSession)
     session.status = 'ready' if ready else 'conversation'
     session.model_path = model.relative_to(root).as_posix() if ready else ''
+    session.model_guid = guid
     app.state.store.save_state(pid, session, 'agent_session.json')
     class Adapter:
         def ping(self): return {'success': True}

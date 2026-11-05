@@ -88,6 +88,7 @@ const KStudioConnections = (() => {
       if (sourceMode === 'unavailable') throw new Error('云账户配置需要恢复。请先在侧栏“账户与额度”重新登录或明确选择自带 API；未更改连接或模型。');
       if (sourceMode === 'platform') throw new Error('当前选择平台模型。请先关闭此面板，在侧栏“账户与额度”明确选择自带 API；未更改连接或模型。');
       const next = await operation(); render(next); edit(done?.(next) || editingId);
+      notifyModelConfigurationChanged();
     }
     catch (error) { node("status").textContent = friendlyError(error); }
     finally { node("key").value = ""; setWorking(false); }

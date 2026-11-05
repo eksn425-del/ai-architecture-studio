@@ -223,6 +223,9 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 .plan-in-chat{padding:0;width:100%}
 .plan-in-chat .parameter-plan{border:0;border-radius:0;background:transparent;padding:6px 0;margin:10px 0 18px}
 #parameter-plan-content,.plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;width:100%;max-height:none;height:auto;overflow:visible;box-shadow:none;padding:8px 0;border:0}
+.plan-recovery-notice{padding:10px 12px;margin-bottom:10px;border:1px solid var(--line);border-left:3px solid #b69150;border-radius:7px;background:#f8f2e5;color:var(--ink);font-size:12px;line-height:1.6}
+.plan-recovery-notice p{margin:0 0 6px}
+.plan-recovery-notice button{border:1px solid var(--line);background:var(--panel)}
 .inline-plan{margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
 .inline-plan pre,#parameter-plan-content pre{max-height:none;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere}
 .inline-plan table,#parameter-plan-content table{display:table;max-width:100%;table-layout:fixed;overflow-wrap:anywhere}

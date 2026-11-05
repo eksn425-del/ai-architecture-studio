@@ -78,11 +78,8 @@
   }
   async function refreshModelRoute() {
     if (typeof api !== 'function' || typeof state === 'undefined') return;
-    const runtime = await api('/api/status');
-    state.modelRouter = runtime.model_router || null;
-    state.nativeAgentAvailable = routeAvailable('economy');
-    refreshTierLabels(); updateHeader();
-    document.querySelector('.signal-dot')?.classList.toggle('ready', state.nativeAgentAvailable);
+    await notifyModelConfigurationChanged();
+    updateHeader();
   }
   async function run(operation) {
     if (working || taskRunning()) { el('status').textContent = '请先等待当前建模回合结束，再变更账户或模型方式。'; return; }

@@ -3,6 +3,7 @@ require 'json'
 require 'digest'
 require 'openssl'
 require 'fileutils'
+require 'securerandom'
 
 module KStudioPublicConnector
   ROOT = File.join(ENV.fetch('LOCALAPPDATA'), 'KStudio', 'connectors', 'public').tr('\\', '/').freeze
@@ -38,12 +39,75 @@ module KStudioPublicConnector
       File.rename(path, File.join(folder, File.basename(path) + ".#{Process.pid}.#{Time.now.to_f}.invalid"))
     end
 
+    def identity
+      model = Sketchup.active_model
+      { 'model_path' => model.path, 'model_guid' => model.guid }
+    end
+
+    def instance_id
+      @instance_id
+    end
+
+    def record_document_transition(before, expected_instance, operation_id, project_id, root_pid, revision)
+      raise 'Connector instance changed during native save' unless expected_instance == @instance_id
+      after = identity
+      raise 'Document path changed during native save' unless before['model_path'] == after['model_path']
+      root = Sketchup.active_model.find_entity_by_persistent_id(root_pid)
+      raise 'Owned root changed during native save' unless root.is_a?(Sketchup::Group) && root.valid? &&
+        root.get_attribute('sketchup_architect', 'project_id') == project_id &&
+        root.get_attribute('sketchup_architect', 'revision') == revision
+      config = JSON.parse(File.read(File.join(ROOT, 'pairing.json'), encoding: 'UTF-8'))
+      raise 'Connector pairing disabled during save' unless config['enabled']
+      proof = { 'operation_id' => operation_id, 'instance_id' => @instance_id,
+        'identity_before' => before, 'identity_after' => after, 'completed' => true,
+        'project_id' => project_id, 'root_pid' => root_pid, 'revision' => revision, 'at' => Time.now.to_f }
+      folder = File.join(ROOT, 'instance-receipts')
+      FileUtils.mkdir_p(folder)
+      atomic_json(File.join(folder, @instance_id + '.json'), envelope(proof, config.fetch('token')))
+      heartbeat('running', true)
+      proof
+    end
+
+    def heartbeat(state = 'running', force = false)
+      return if !force && state == 'running' && @heartbeat_at && Time.now.to_f - @heartbeat_at < 1.0
+      config_path = File.join(ROOT, 'pairing.json')
+      return unless @instance_id && File.file?(config_path)
+      config = JSON.parse(File.read(config_path, encoding: 'UTF-8'))
+      return unless config['enabled']
+      folder = File.join(ROOT, 'instances')
+      FileUtils.mkdir_p(folder)
+      model = Sketchup.active_model
+      data = identity.merge('instance_id' => @instance_id, 'pid' => Process.pid,
+        'title' => model.title, 'model_name' => model.title, 'sketchup_version' => Sketchup.version,
+        'last_seen' => Time.now.to_f, 'state' => state,
+        'active_context' => !model.active_path.nil?, 'main_thread' => Thread.current == Thread.main)
+      atomic_json(File.join(folder, @instance_id + '.json'), envelope(data, config.fetch('token')))
+      @heartbeat_at = Time.now.to_f
+    end
+
+    def sole_live_instance?(config)
+      ids = Dir.glob(File.join(ROOT, 'instances', '*.json')).map do |file|
+        begin
+          item = JSON.parse(File.read(file, encoding: 'UTF-8'))
+          expected = OpenSSL::HMAC.hexdigest('SHA256', config.fetch('token'), item.fetch('body'))
+          next unless equal_mac?(expected, item['mac'])
+          value = JSON.parse(item['body'])
+          age = Time.now.to_f - Float(value.fetch('last_seen'))
+          value['instance_id'] if value['state'] == 'running' && age >= 0 && age <= 8
+        rescue StandardError
+          nil
+        end
+      end.compact
+      ids == [@instance_id]
+    end
+
     def dispatch(name, args, config)
       raise 'Not on SketchUp main thread' unless Thread.current == Thread.main
       model = Sketchup.active_model
       case name
       when 'sketchup_health', 'sketchup_get_model_context'
         { connected: true, connector: 'kstudio-public', version: '2026.11.04',
+          instance_id: @instance_id, pid: Process.pid,
           sketchup_version: Sketchup.version, ruby_version: RUBY_VERSION,
           model_path: model.path, model_guid: model.guid, model_name: model.title,
           active_context: !model.active_path.nil?, main_thread: true,
@@ -91,6 +155,9 @@ module KStudioPublicConnector
       @busy = true
       lock = nil
       begin
+        # Advertise independently of the shared writer lock. A busy different
+        # process must not make this window appear dead or steal its requests.
+        heartbeat
         lock = File.open(File.join(ROOT, 'writer.lock'), 'a')
         return unless lock.flock(File::LOCK_EX | File::LOCK_NB)
         process_tick
@@ -110,7 +177,9 @@ module KStudioPublicConnector
       # Validate before counting the two completed items. Invalid requests cannot
       # permanently occupy the head of the queue and starve health/model checks.
       processed = 0
-      Dir.glob(File.join(ROOT, 'requests', '*.json')).sort.first(128).each do |path|
+      own_queue = Dir.glob(File.join(ROOT, 'instance-requests', @instance_id, '*.json'))
+      legacy_queue = Dir.glob(File.join(ROOT, 'requests', '*.json'))
+      (own_queue.sort + legacy_queue.sort).first(128).each do |path|
         break if processed >= 2
         begin
           if File.size(path) > 1024 * 1024
@@ -132,6 +201,14 @@ module KStudioPublicConnector
             quarantine(path)
             next
           end
+          target = request['target']
+          # Filter BEFORE expiry, journal or cached-response handling. Even an
+          # expired request belongs exclusively to its selected boot nonce.
+          if target
+            next unless target.is_a?(Hash) && target['instance_id'] == @instance_id
+          else
+            next unless sole_live_instance?(config)
+          end
           id = request.fetch('operation_id')
           unless id.is_a?(String) && id.match?(/\A[a-zA-Z0-9]{1,80}\z/) && File.basename(path) == id + '.json'
             quarantine(path)
@@ -141,7 +218,7 @@ module KStudioPublicConnector
           expired = Time.now.to_f > request.fetch('expires_at')
           # Let the instance/document selected by the host consume its request.
           # Other SU instances must not turn it into a cached mismatch failure.
-          if !expired && ['sketchup_set_camera', 'sketchup_export_view_image'].include?(request['name']) && !document_matches?(args)
+          if !target && !expired && ['sketchup_set_camera', 'sketchup_export_view_image'].include?(request['name']) && !document_matches?(args)
             next
           end
           journal = File.join(ROOT, 'journal', id + '.json')
@@ -155,6 +232,7 @@ module KStudioPublicConnector
           # Preserve initial identity and request hash through every terminal
           # transport state. RETURNED does not certify native commit or save.
           evidence = previous || { operation_id: id, state: 'STARTED', at: Time.now.to_f,
+            instance_id: @instance_id,
             model_path: Sketchup.active_model.path, model_guid: Sketchup.active_model.guid,
             script_sha256: args['script_sha256'], request_digest: request['request_digest'], tool: request['name'] }
           if previous
@@ -163,13 +241,30 @@ module KStudioPublicConnector
             result = { operation_id: id, error: 'Request expired before native execution; no operation started.' }
           else
             atomic_json(journal, evidence)
+            before = identity
             begin
+              readonly_identity = ['sketchup_health', 'sketchup_get_model_context'].include?(request['name'])
+              if target && !readonly_identity
+                expected_doc = { 'expected_model_path' => target['model_path'], 'expected_model_guid' => target['model_guid'] }
+                # Unsaved single-window bootstrap is still protected by its GUID.
+                valid = target['model_path'].to_s.empty? ? (Sketchup.active_model.path.empty? && Sketchup.active_model.guid == target['model_guid']) : document_matches?(expected_doc)
+                raise 'Selected document identity changed; request not executed' unless valid
+              end
               value = dispatch(request.fetch('name'), args, config)
               result = { operation_id: id, result: value }
             rescue StandardError, SyntaxError => error
               result = { operation_id: id, error: error.message }
             end
+            unless ['sketchup_health', 'sketchup_get_model_context'].include?(request['name'])
+              folder = File.join(ROOT, 'instance-receipts')
+              FileUtils.mkdir_p(folder)
+              proof = { operation_id: id, request_digest: request['request_digest'], instance_id: @instance_id,
+                identity_before: before, identity_after: identity, completed: !result[:error], error: result[:error], at: Time.now.to_f }
+              atomic_json(File.join(folder, @instance_id + '.json'), envelope(proof, config.fetch('token')))
+            end
+            heartbeat('running', true)
           end
+          result[:instance_id] = @instance_id
           result[:request_digest] = request['request_digest']
           atomic_json(response, envelope(result, config.fetch('token')))
           final_state = expired && !previous ? 'NOT_STARTED' : result[:error] ? 'ERROR_OR_UNKNOWN' : 'RETURNED'
@@ -190,10 +285,13 @@ module KStudioPublicConnector
 
     def start
       return if @timer
+      @instance_id = "#{Process.pid}-#{SecureRandom.hex(12)}"
+      @heartbeat_at = nil
       @timer = UI.start_timer(0.15, true) { tick }
     end
 
     def stop
+      heartbeat('stopped') if @timer
       UI.stop_timer(@timer) if @timer
       @timer = nil
     end

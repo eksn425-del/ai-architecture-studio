@@ -92,6 +92,13 @@ class ComparisonRuntime(CodexAppServerRuntime):
                 'message':('DeepSeek SDK 依赖已就绪；启动时仍须验证实际工具清单。' if not missing else 'DeepSeek SDK 缺少依赖：'+', '.join(missing))}
 
     def _official_turn(self, *, project, thread_id, prompt, specs, dispatch, instructions, images, progress=None, read_only=False, new_session_on_binding_change=False, reasoning_effort=None):
+        from .connector_instances import project_scope
+        original_dispatch = dispatch
+        def dispatch(name, arguments):
+            # SDK host tools execute in HTTP worker threads: ContextVars from
+            # the web request are not inherited by ThreadingHTTPServer.
+            with project_scope(project):
+                return original_dispatch(name, arguments)
         from .dsh_images import attachment_order
         images=attachment_order(project,images)
         requested=self.effective_configuration.requested_effort

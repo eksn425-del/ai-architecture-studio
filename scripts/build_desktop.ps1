@@ -21,6 +21,8 @@ Copy-Item -LiteralPath $NodeLicense -Destination (Join-Path $harnessStage 'LICEN
 # Only dependency code is included, never the owner's runtime, projects or keys.
 & robocopy (Join-Path $HarnessNodeRoot 'node_modules') (Join-Path $harnessStage 'node_modules') /E /COPY:DAT /DCOPY:DAT /R:1 /W:1 /MT:8 /NFL /NDL /NJH /NJS /NP | Out-Null
 if ($LASTEXITCODE -ge 8) {throw 'Harness dependency copy failed.'}
+& $pythonPath (Join-Path $PSScriptRoot 'prepare_release_dependency_stage.py') $harnessStage
+if ($LASTEXITCODE -ne 0) {throw 'Reviewed dependency staging failed.'}
 $sdkStage = Join-Path $OutputRoot 'python-sdk'
 New-Item -ItemType Directory -Path $sdkStage | Out-Null
 Copy-Item -LiteralPath (Join-Path $HarnessSdkSite 'deepseek_harness') -Destination $sdkStage -Recurse

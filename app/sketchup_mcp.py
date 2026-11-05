@@ -236,6 +236,10 @@ class ConfiguredSketchUpMCP:
 
     def call_raw(self, tool_name: str, arguments: dict[str, Any] | None = None) -> dict[str, Any]:
         arguments = _bridge_script_arguments(tool_name, arguments or {})
+        from .connector_instances import current_project
+        project = current_project()
+        if project and self.requires_document_binding:
+            arguments = {**arguments, '_kstudio_project': project}
         requests = self._initialize_requests() + [
             {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
             {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {
@@ -345,6 +349,16 @@ class SketchUpAdapter:
         return result if isinstance(result, dict) else {"result": result}
 
     def get_active_model_identity(self, *, include_camera: bool = False) -> dict[str, Any]:
+        # Fixed read-only context is allowed through the selected process even
+        # after a GUID change. Reading it never advances the document pin.
+        if not include_camera and getattr(self.client, 'requires_document_binding', False):
+            value = self.client.call('sketchup_get_model_context', {})
+            if isinstance(value, dict) and value.get('model_guid'):
+                if value.get('model_path') == '':
+                    raise UnsavedModelError(value)
+                if value.get('model_path') and value.get('main_thread') is True:
+                    return value
+            raise MCPCallError('The public connector did not return a native model identity.')
         generated_dir = _generated_script_dir()
         generated_dir.mkdir(parents=True, exist_ok=True)
         script_path = generated_dir / f"studio-model-path-{os.urandom(6).hex()}.rb"

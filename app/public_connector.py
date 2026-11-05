@@ -115,6 +115,10 @@ def call(name, arguments=None, *, root=None, timeout=12):
     if not config.get('enabled'):
         raise ValueError('Connector pairing is disabled')
     args = dict(arguments or {})
+    from .connector_instances import target_for_request
+    project = args.pop('_kstudio_project', '')
+    target = target_for_request(root, project,
+        identity_only=name in {'sketchup_health', 'sketchup_get_model_context'})
     if name in {'sketchup_set_camera','sketchup_export_view_image'}:
         if any(not isinstance(args.get(key),str) or not args[key].strip() for key in DOCUMENT_BINDING):
             raise ValueError('Camera and image capture require an explicit document path and GUID')
@@ -130,16 +134,23 @@ def call(name, arguments=None, *, root=None, timeout=12):
     # here is not a native commit/save receipt; that separate host gate remains.
     # Same generated script/contents cannot be replayed after an uncertain reply.
     explicit_id = args.pop('operation_id', None)
-    request_digest = hashlib.sha256(json.dumps([name, args], sort_keys=True).encode()).hexdigest()
-    op = explicit_id or (request_digest
+    request_digest = hashlib.sha256(json.dumps([name, args, target] if target else [name, args], sort_keys=True).encode()).hexdigest()
+    # A changed document token must not create a new write operation for the
+    # same script after an unknown reply. Return a digest conflict, never replay.
+    write_identity = hashlib.sha256(json.dumps([name, args, project, target['instance_id']], sort_keys=True).encode()).hexdigest() if target else request_digest
+    op = explicit_id or (write_identity
                         if name == 'sketchup_eval_project_file' else uuid.uuid4().hex)
     if not isinstance(op, str) or not op.isalnum() or len(op) > 80:
         raise ValueError('Invalid operation ID')
     receipt = root / 'responses' / (op + '.json')
-    request = root / 'requests' / (op + '.json')
+    # Modern traffic never enters the legacy shared queue: an older installed
+    # plugin cannot understand a target field and would otherwise steal it.
+    request_dir = root / 'instance-requests' / target['instance_id'] if target else root / 'requests'
+    request_dir.mkdir(parents=True, exist_ok=True)
+    request = request_dir / (op + '.json')
     if not receipt.exists() and not request.exists() and not (root / 'journal' / (op + '.json')).exists():
         atomic_write(request, signed({'operation_id': op, 'name': name, 'arguments': args,
-            'request_digest': request_digest, 'expires_at': time.time() + timeout}, config['token']))
+            'request_digest': request_digest, 'target': target, 'expires_at': time.time() + timeout}, config['token']))
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if receipt.exists():
@@ -148,6 +159,8 @@ def call(name, arguments=None, *, root=None, timeout=12):
                 raise ValueError('Connector operation identity changed')
             if result.get('request_digest') != request_digest:
                 raise ValueError('Operation ID was reused with different arguments')
+            if target and result.get('instance_id') != target['instance_id']:
+                raise ValueError('Connector replied from a different SketchUp instance')
             if result.get('error'):
                 raise RuntimeError(result['error'])
             return result['result']

@@ -41,7 +41,7 @@ def test_frontend_approval_keeps_human_words_separate_from_developer_policy():
 def test_actual_send_handler_builds_natural_message_without_reference_error():
     source = (Path(__file__).parents[1] / "app/static/studio.js").read_text(encoding="utf8")
     start = source.index('async function sendConversation(')
-    end = source.index('  saveDraft();', start)
+    end = source.index('  $("conversation-input").value = "";', start)
     # Execute the real entry path, not just a detached approval helper. The
     # previous patch commented out const message with literal backslash-n.
     node = shutil.which('node')
@@ -51,10 +51,37 @@ def test_actual_send_handler_builds_natural_message_without_reference_error():
     helper_end = source.index('\nfunction ', helper_start + 1)
     probe = "const state={busy:false,project:{agent_session:{status:'ready',reconstruction_state:'idle'}}};\n"
     probe += "let typed='这三张图是同一栋建筑，请先分析不同视角。'; const $=()=>({value:typed}); const sourceImages=()=>[1,2,3]; const isBuildApproval=()=>true;\n"
+    probe += "const refreshModelConfiguration=async()=>{};const routeAvailable=()=>true;\n"
     probe += source[helper_start:helper_end] + '\n' + source[start:end] + 'return message; }\n'
     probe += "(async()=>{const first=await sendConversation(null);typed='可以，按这个方案开始建模。';const approved=await sendConversation(null,'execute');console.log(JSON.stringify([first,approved]));})().catch(e=>{console.error(e);process.exit(1)});"
     result = subprocess.run([node,'-e',probe],capture_output=True,text=True,encoding='utf8',check=True)
     assert json.loads(result.stdout)==['这三张图是同一栋建筑，请先分析不同视角。','可以，按这个方案开始建模。']
+
+
+def test_missing_api_entry_preserves_draft_and_reference_without_dispatch():
+    source = (Path(__file__).parents[1] / "app/static/studio.js").read_text(encoding="utf8")
+    start = source.index('async function sendConversation(')
+    end = source.index('\ndocument.querySelectorAll', start)
+    node = shutil.which('node')
+    if node is None:
+        pytest.skip('Node is needed for actual send entry regression')
+    probe = '''const input={value:'  请分析图片\\n'};
+const state={projectId:'p',busy:false,project:{context:{references:[{source:'inputs/reference/original.png'}]}}};
+const $=()=>input;let checks=0,saved=0,dispatches=0;const notices=[];
+const refreshModelConfiguration=async()=>{checks++};const routeAvailable=()=>false;
+const modelUnavailableMessage=()=>"请先配置 API，图片和草稿保留";
+const saveDraft=()=>{saved++},setStatus=()=>{},renderJourney=()=>{},showToast=m=>notices.push(m);
+const api=()=>{dispatches++;throw Error('must not dispatch')};
+'''
+    probe += source[start:end]
+    probe += '''\n(async()=>{await sendConversation(null);console.log(JSON.stringify({
+draft:input.value,references:state.project.context.references,checks,saved,dispatches,notices,
+checking:state.checkingModelConfiguration}));})().catch(e=>{console.error(e);process.exit(1)});'''
+    result = subprocess.run([node, '-e', probe], capture_output=True, text=True, encoding='utf8', check=True)
+    observed = json.loads(result.stdout)
+    assert observed == {'draft': '  请分析图片\n', 'references': [{'source':'inputs/reference/original.png'}],
+                        'checks':1, 'saved':1, 'dispatches':0,
+                        'notices':['请先配置 API，图片和草稿保留'], 'checking':False}
 
 @pytest.mark.parametrize("utterance", [
     "把顶部玻璃房降低一点，其他部分别动。",

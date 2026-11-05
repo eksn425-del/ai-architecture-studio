@@ -43,7 +43,7 @@ def catalog():
 
 def validate_graph(graph, source_ids):
     if not isinstance(graph, dict) or set(graph)-{'spatial'} != {'summary', 'facts', 'levels', 'parts', 'relationships', 'edit_parts'}:
-        raise ValueError('Graph requires summary, facts, levels, parts, relationships, edit_parts.')
+        raise ValueError('Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; only spatial is optional. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames.')
     if not isinstance(graph['summary'], str) or not 10 <= len(graph['summary']) <= 2000:
         raise ValueError('Provide a concise architectural summary.')
     for key, maximum in [('facts', 40), ('levels', 100), ('parts', 64), ('relationships', 40), ('edit_parts', 32)]:
@@ -82,12 +82,12 @@ def specs(stage):
     result=[{'name':'kstudio_read_skill','description':'Read a bundled K Harness architectural skill and its worked examples. IDs: reference, spatial, facade, native, edit, delivery. Read only relevant skills. No arbitrary path or code.',
              'inputSchema':{'type':'object','properties':{'id':{'type':'string','enum':list(IDS)}},'required':['id'],'additionalProperties':False}}]
     if stage=='plan':
-        result.append({'name':'kstudio_save_design_graph','description':'Save this project architectural fact/level/part proposal before saving the readable plan. Preserve full parts on an edit; edit_parts lists only intended modified/new direct parts. Does not approve work.',
+        result.append({'name':'kstudio_save_design_graph','description':'Save this project architectural fact/level/part proposal before saving the readable plan. Supply fields directly, without a graph wrapper. parts/edit_parts contain ASCII name strings, not objects. Observed sources must use supplied IDs such as source_1, never filenames. Preserve full parts on an edit; edit_parts lists only intended modified/new direct parts. Does not approve work.',
           'inputSchema':{'type':'object','properties':{
             'summary':{'type':'string'},
             'facts':{'type':'array','items':{'type':'object','properties':{'text':{'type':'string'},'basis':{'type':'string','enum':['observed','inferred','user']},'source':{'type':'string'}},'required':['text','basis','source'],'additionalProperties':False}},
             'levels':{'type':'array','items':{'type':'object','properties':{'name':{'type':'string'},'z_mm':{'type':'number'},'role':{'type':'string','enum':['ground','occupied','open','roof']}},'required':['name','z_mm','role'],'additionalProperties':False}},
-            'parts':{'type':'array','items':{'type':'string'}},'relationships':{'type':'array','items':{'type':'string'}},'edit_parts':{'type':'array','items':{'type':'string'}}},
+            'parts':{'type':'array','items':{'type':'string','pattern':'^[A-Za-z][A-Za-z0-9_-]{0,63}$'}},'relationships':{'type':'array','items':{'type':'string'}},'edit_parts':{'type':'array','items':{'type':'string','pattern':'^[A-Za-z][A-Za-z0-9_-]{0,63}$'}}},
             'required':['summary','facts','levels','parts','relationships','edit_parts'],'additionalProperties':False}})
     if stage=='execute':
         result.append({'name':'kstudio_review_model','description':'Check host evidence for current revision: front/oblique/roof freshness and construction parts. Returns missing evidence; this is NOT independent visual acceptance or native reopen.',

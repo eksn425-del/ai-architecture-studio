@@ -68,15 +68,20 @@ def persist_committed_revision(*, project_dir: Path, project_id: str, model_path
     code = "\n".join([
         "# ARCHFLOW_GENERATED_SCRIPT",
         *guards,
+        "connector_instance = defined?(KStudioPublicConnector) && KStudioPublicConnector.respond_to?(:instance_id) ? KStudioPublicConnector.instance_id : nil",
         "UI.start_timer(0.1, false) do",
         "begin",
         f"raise 'Checkpoint cancelled before save' if File.exist?({_ruby_string(str(cancel))})",
         *guards,
+        "raise 'Connector instance changed before native save' if connector_instance && KStudioPublicConnector.instance_id != connector_instance",
+        "connector_before = {'model_path' => model.path, 'model_guid' => model.guid}",
         f"target = {_ruby_string(str(target))}",
         "raise 'Checkpoint already exists' if File.exist?(target)",
         "raise 'Recovery copy save failed' unless model.save_copy(target)",
         "raise 'Bound model save failed; recovery copy may exist' unless model.save",
-        f"File.write({_ruby_string(str(status))}, JSON.generate({{finished: true, ok: true}}))",
+        "connector_transition = nil",
+        f"connector_transition = KStudioPublicConnector.record_document_transition(connector_before, connector_instance, {_ruby_string(target.stem)}, {_ruby_string(project_id)}, {root_pid}, {revision}) if connector_instance",
+        f"File.write({_ruby_string(str(status))}, JSON.generate({{finished: true, ok: true, connector_transition: connector_transition}}))",
         "rescue StandardError => error",
         f"File.write({_ruby_string(str(status))}, JSON.generate({{finished: true, ok: false, error: error.message}}))",
         "end",
@@ -117,4 +122,5 @@ def persist_committed_revision(*, project_dir: Path, project_id: str, model_path
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return {"status": "saved_unverified_reopen", "path": target.relative_to(project_dir).as_posix(),
+            "connector_transition": outcome.get('connector_transition'),
             "sha256": digest.hexdigest(), "revision": revision, "root_pid": root_pid}

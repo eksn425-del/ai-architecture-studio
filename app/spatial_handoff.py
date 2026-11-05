@@ -97,6 +97,8 @@ def spatial_schema():
     strings={'type':'array','items':text}
     coordinate={'type':'object','properties':{key:text for key in ('units','x','front','up','origin')},
                 'required':['units','x','front','up','origin'],'additionalProperties':False}
+    for key, value in {'units':'mm','x':'right','front':'-Y','up':'+Z'}.items():
+        coordinate['properties'][key]={'type':'string','enum':[value]}
     feature={'type':'object','properties':{'id':text,'kind':{'type':'string','enum':[
         'split_level','cantilever','setback','void','stair_landing','ramp','mass_relation','uncertain_back']},
         'parts':strings,'description':text,'basis':{'type':'string','enum':['observed','user','inferred']},'source':text},

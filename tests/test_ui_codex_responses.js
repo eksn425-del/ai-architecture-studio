@@ -16,7 +16,7 @@ function fixture() {
   }}};
   let responder=async () => state.modelRouter;
   const context=vm.createContext({$, state, routeInfo:()=>state.modelRouter.economy,
-    refreshTierLabels(){}, updateHeader(){}, friendlyError:error=>error.message, showToast(){},
+    refreshTierLabels(){}, updateHeader(){}, friendlyError:error=>error.message, showToast(){}, notifyModelConfigurationChanged(){},
     api:async (url, opts)=>{calls.push({url,opts}); return responder(url,opts);}});
   const start=source.indexOf('function sameSavedApiConnection(');
   const end=source.indexOf('\nasync function deleteProject(',start);

@@ -13,6 +13,8 @@ let pendingConnectionPlanId = null;
 let connectDialogGeneration = 0;
 let observingTurn = false;
 let observedRunningTurn = false;
+let modelConfigurationRequest = null;
+let modelConfigurationGeneration = 0;
 
 function saveDraft() {
   if (!state.projectId) return;
@@ -51,9 +53,7 @@ function renderJourney() {
   $("model-connection-notice").hidden = available;
   $("setup-model").hidden = available;
   $("setup-model").disabled = state.busy;
-  $("model-connection-hint").textContent = routeInfo("economy").provider === "codex-app-server"
-    ? "当前选择的本机 Codex 不可用。请先检查本机安装和配置，或在「模型 / 自带 API」主动选择其他连接。图片和草稿会保留。"
-    : "请在「模型 / 自带 API」检查所选供应商的连接。图片和草稿会保留，分析阶段无需 SketchUp。";
+  $("model-connection-hint").textContent = modelUnavailableMessage("economy");
   $("clarification-shortcuts").hidden = state.busy || stage !== "clarifying";
   $("use-estimates").disabled = state.busy;
 }
@@ -370,6 +370,8 @@ async function loadParameterPlan() {
   const requestId = ++planRequestId;
   const projectId = state.projectId;
   state.displayedPlan = null;
+  state.planRecovery = null;
+  renderPlanRecovery();
   $("download-plan").href = projectFileUrl("runtime/agent_workspace/notes/reconstruction_card.md");
   const visible = ["planned", "building"].includes(state.project?.agent_session?.reconstruction_state);
   $("parameter-plan").hidden = !visible;
@@ -396,19 +398,24 @@ async function loadParameterPlan() {
       return;
     }
     if (pendingPlan?.consumed && pendingPlan.plan_sha256 === sha256 && state.project?.agent_session?.reconstruction_state === "planned") {
+      state.planRecovery = {projectId, pendingPlanId: pendingPlan.pending_plan_id};
+      renderPlanRecovery();
       $("parameter-plan").hidden = false;
       // Keep recovery beside approval; repeating the full card pushes it off screen.
-      $("parameter-plan-content").innerHTML = '<p class="plan-review-note">上次建模中断。上方方案和已有记录已保留。<button type="button" id="retry-empty-plan">检查空白副本并恢复批准</button></p>' + '<details><summary>查看当前方案</summary>' + parameterPlanMarkup(card) + '</details>';
+      $("parameter-plan-content").innerHTML = '<p class="plan-review-note">上次批准记录已使用，不能直接再次开工。先检查空白副本并恢复批准，再单独批准建模；方案和已有记录保留。<button type="button" id="retry-empty-plan">检查空白副本并恢复批准</button></p>' + '<details><summary>查看当前方案</summary>' + parameterPlanMarkup(card) + '</details>';
       $("retry-empty-plan")?.addEventListener("click", async event => {
-        if (state.busy || projectId !== state.projectId) return;
+        if (state.busy || projectId !== state.projectId || state.planRecovery?.pendingPlanId !== pendingPlan.pending_plan_id) return;
         const control = event.currentTarget;
+        if (control.disabled) return;
         control.disabled = true;
+        state.busy = true; updateHeader();
         try {
           await api(`/api/projects/${encodeURIComponent(projectId)}/agent/retry-plan`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({pending_plan_id:pendingPlan.pending_plan_id})});
           if (projectId !== state.projectId) return;
           await loadParameterPlan(); updateHeader();
           showToast("已核对空白副本，请重新批准当前方案。尚未开始建模。", false);
-        } catch (error) { showToast(error.message, true); control.disabled = false; }
+        } catch (error) { showToast(friendlyError(error), true); control.disabled = false; }
+        finally { state.busy = false; updateHeader(); }
       });
       return;
     }
@@ -434,6 +441,12 @@ async function loadParameterPlan() {
   }
 }
 
+function renderPlanRecovery() {
+  const required = state.planRecovery?.projectId === state.projectId && state.project?.agent_session?.reconstruction_state === "planned";
+  $("plan-recovery-notice").hidden = !required;
+  $("recover-plan-before-send").disabled = state.busy || !required;
+}
+
 function routeInfo(tier) {
   const fallback = tier === "premium"
     ? { model: "gpt-6-astra", provider: "codex-app-server" }
@@ -445,6 +458,44 @@ function routeAvailable(tier) {
   const route = routeInfo(tier);
   if (!state.modelRouter) return state.nativeAgentAvailable;
   return !!state.modelRouter.providers?.[route.provider]?.available;
+}
+
+function modelUnavailableMessage(tier) {
+  const route = routeInfo(tier);
+  const provider = state.modelRouter?.providers?.[route.provider];
+  if (route.provider === "codex-app-server") return "当前选择的本机 Codex 不可用。请检查本机配置，或在「模型 / 自带 API」主动选择其他连接。图片和草稿仍保留。";
+  if (provider?.credential_configured === false || !route.model) return "尚未配置或启用模型 API。请打开「API 连接」，填写服务商、地址、模型和 Key 并启用连接，再发送。图片和草稿仍保留；无需重连 SketchUp。";
+  if (provider?.dependency_installed === false) return "API 配置已保存，但本机 Agent 运行组件不可用。请检查安装或修复 K Studio 后重试。图片和草稿仍保留；这不是 SketchUp 连接问题。";
+  return "当前模型 API 尚不可用。请打开「API 连接」检查并启用所需配置；若使用平台模型，请检查「账户与额度」。图片和草稿仍保留，分析阶段无需 SketchUp。";
+}
+
+async function refreshModelConfiguration() {
+  if (modelConfigurationRequest) return modelConfigurationRequest;
+  const generation = modelConfigurationGeneration;
+  modelConfigurationRequest = (async () => {
+    try {
+      const runtime = await api("/api/status", {signal: AbortSignal.timeout(8000)});
+      if (generation === modelConfigurationGeneration) {
+        const changed = JSON.stringify(state.modelRouter) !== JSON.stringify(runtime.model_router || null);
+        state.modelRouter = runtime.model_router || null;
+        state.nativeAgentAvailable = !!runtime.native_agent_available;
+        state.personalDesktop = runtime.personal_desktop === true;
+        refreshTierLabels();
+        if (changed && state.project) updateHeader();
+        else renderJourney();
+        document.querySelector(".signal-dot")?.classList.toggle("ready", routeAvailable("economy"));
+      }
+    } finally { modelConfigurationRequest = null; }
+    if (generation !== modelConfigurationGeneration) return refreshModelConfiguration();
+  })();
+  return modelConfigurationRequest;
+}
+
+function notifyModelConfigurationChanged() {
+  modelConfigurationGeneration++;
+  // Only an opaque invalidation token is shared; never a Key, model or endpoint.
+  try { localStorage.setItem("kstudio-model-configuration-changed", `${Date.now()}:${Math.random()}`); } catch (_) {}
+  return refreshModelConfiguration().catch(() => {});
 }
 
 function routeReadinessLabel(tier) {
@@ -529,11 +580,12 @@ function friendlyError(error) {
   if (/Official DeepSeek Harness ended with aborted/i.test(String(error?.message || error || ""))) return "本轮已中断，已保存的模型和草稿仍保留。可以先查看当前模型，再继续未完成的修改。";
   const message = String(error?.message || "");
   if (error?.code === "SKETCHUP_CONNECTION_REQUIRED") return message;
+  if (error?.code === "MODEL_API_NOT_CONFIGURED" || /(?:Economy|Premium) provider unavailable|model API (?:is )?not configured|API key (?:is )?(?:missing|not configured)/i.test(message)) return "模型 API 尚未配置、未启用或当前不可用。请打开「API 连接」检查服务商、地址、模型和 Key，再发送。图片和草稿仍保留；这不是 SketchUp 连接失败。";
+  if (/pending plan (?:was|has been|is) already consumed(?: or replaced)?|pending[_ -]plan.*(?:consumed|replaced)/i.test(message)) return "这份计划的批准记录已使用或已更新，本次未开始建模。若下方显示「检查空白副本并恢复批准」，请先点击完成核验，再单独批准建模；不要重复发送“开始建模”。普通问题仍可继续交流，资料与草稿保留。";
   if (/Official DeepSeek Harness.*TRANSPORT:/i.test(message)) return "模型 API 连接中断，本轮未完成。图片、计划和已提交模型已保留；请先查看当前成果，再在原会话恢复。这条错误本身不能说明 Key 无效，也不代表 SU 连接失败。";
-  if (/Response incomplete: length|output.*token.*limit/i.test(message)) return "模型回复达到单次长度限制，本轮未完成；这不是 SU 连接失败。已有模型和记录保留。若尚未建模，可检查空白副本后重新批准同一计划；已有修改则先检查当前成果，不要重复整栋建模。";
+  if (/Response incomplete:\s*length|output.*token.*limit/i.test(message)) return "模型单次输出达到上限，本轮未完成；这不是 SU 连接失败。计划和已保存模型仍保留。可在「API 连接」调整推理档位或输出设置，核对当前成果后在原会话继续；系统不会自动重试或重建。";
   if (/SCRIPT_PATH_NOT_ALLOWED|Script path must be under generated_scripts/i.test(message)) return "网站与 SU 插件的脚本目录不一致，尚未绑定模型。请修复本机连接配置后重试。";
   if (/dynamic tools must use either canonical or legacy format consistently/i.test(message)) return "建模未启动：本机 Agent 的工具注册格式不一致。项目、图片和计划已保留，需要更新 K Studio 后重新检查并批准计划。";
-  if (/pending plan was already consumed or replaced/i.test(message)) return "这份计划的批准记录已使用或已更新，本次未开始建模。请重新检查当前计划；若上一轮启动失败，请先恢复批准记录。";
   if (/Connection file not found:/i.test(message)) return "本机连接程序已就绪，但还没收到 SketchUp 插件的连接信息。请先在连接器向导完成本机配对，再安装或启用插件。新连接器可在 SketchUp 的「扩展程序 → K Studio Connector → Start paired local connector」重新启动；已有其他插件配置请按原说明启动。";
   if (/existing SketchUp MCP.*not configured|standalone SketchUp connector configuration is unavailable|kongxing_sketchup MCP server is not enabled/i.test(message)) return "SketchUp 连接器尚未配置。请在连接窗口打开「安装 K Studio 连接器」，完成插件和本机连接程序安装，再检查 MCP。";
   if (/Codex config\.toml was not found|local native agent is not configured/i.test(message)) return "本机 Codex 尚未配置。请先在运行 K Studio 的电脑上完成 Codex 配置，再回到本会话重试。已上传的图片和对话仍在，无需新建项目；这不是 DeepSeek Key 错误。";
@@ -612,6 +664,7 @@ function allArtifacts() {
 
 function updateHeader() {
   refreshTierLabels();
+  renderPlanRecovery();
   const project = state.project;
   if (!project) return;
   const context = project.context;
@@ -685,7 +738,7 @@ function updateHeader() {
   $("conversation-input").placeholder = $("workflow-mode").value === "image_reconstruction"
     ? sourceImages().length ? "根据这些图片还原建筑，或继续描述修改要求" : "描述你想建的建筑，也可粘贴一张或多个视角图片"
     : agentReady ? "描述设计修改；Agent 会自行调用工具、查看结果并继续修正…" : "先讨论设计方向；启动空白模型后，Agent 可直接建模并继续修改…";
-  $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || !$("conversation-input").value.trim();
+  $("conversation-send").disabled = state.busy || !state.projectId || !$("conversation-input").value.trim();
   const reconstruction = $("workflow-mode").value === "image_reconstruction";
   const reconstructionState = agent.reconstruction_state || "idle";
   $("reconstruction-state").hidden = !reconstruction;
@@ -701,7 +754,7 @@ function updateHeader() {
   $("prepare-plan").disabled = state.busy;
   $("model-settings-toggle").disabled = state.busy;
   renderAttachments();
-  $("conversation-send").disabled = state.busy || !routeAvailable($("conversation-tier").value) || (!$("conversation-input").value.trim() && !(reconstruction && reconstructionState === "idle" && hasImages));
+  $("conversation-send").disabled = state.busy || !state.projectId || (!$("conversation-input").value.trim() && !(reconstruction && reconstructionState === "idle" && hasImages));
   $("next-step").textContent = {idle: hasImages ? "下一步：描述目标或直接点击「分析图片」。" : "下一步：描述建筑，或上传一张/多个视角参考图。", clarifying: "下一步：回答关键问题；信息齐全后整理计划。", planned: agentReady ? "下一步：查看估算，批准并开始建模。" : "下一步：查看计划，连接 SketchUp 后批准建模。", building: "下一步：查看截图或下载 SKP；继续输入修改要求。"}[reconstructionState];
   $("revise-reconstruction-plan").hidden = !reconstruction || !["planned", "building"].includes(reconstructionState);
   $("revise-reconstruction-plan").disabled = state.busy;
@@ -943,7 +996,8 @@ async function loadProject(projectId) {
   state.tab = artifactByType("viewport") ? "model" : "design";
   setTab(state.tab);
   updateHeader();
-  setStatus(state.project.agent_session?.reconstruction_state === "building" ? "已有模型。可查看可用预览、下载模型或发送修改要求。" : state.project.design_ir ? "方案和场地图纸已准备完成。" : "工作区已就绪。上传参考图片并分析，确认计划后再开始建模。");
+  if (state.project.agent_session?.error) setStatus(friendlyError(new Error(state.project.agent_session.error)), "error");
+  else setStatus(state.project.agent_session?.reconstruction_state === "building" ? "已有模型。可查看可用预览、下载模型或发送修改要求。" : state.project.design_ir ? "方案和场地图纸已准备完成。" : "工作区已就绪。上传参考图片并分析，确认计划后再开始建模。");
   if (typeof KStudioActivity !== "undefined") {
     try {
       const progress = await api(`/api/projects/${encodeURIComponent(projectId)}/agent/progress`);
@@ -1147,7 +1201,25 @@ async function applyEdit(instruction) {
 
 async function sendConversation(event, agentAction = "auto") {
   event?.preventDefault();
-  if (state.busy) return;
+  if (state.busy || state.checkingModelConfiguration) return;
+  const checkedProjectId = state.projectId;
+  const checkedDraft = $("conversation-input").value;
+  state.checkingModelConfiguration = true;
+  try { await refreshModelConfiguration(); }
+  catch (_) {
+    showToast("暂时无法核对模型 API 配置。草稿和图片未发送，请确认工作台已连接后再试。", true);
+    return;
+  } finally { state.checkingModelConfiguration = false; }
+  if (state.busy || state.projectId !== checkedProjectId) return;
+  if ($("conversation-input").value !== checkedDraft) {
+    saveDraft(); showToast("输入已更新，草稿已保留。请确认后再次发送。"); return;
+  }
+  if (!routeAvailable($("conversation-tier").value)) {
+    saveDraft();
+    const message = modelUnavailableMessage($("conversation-tier").value);
+    setStatus(message, "pending"); showToast(message, true); renderJourney();
+    return;
+  }
   // The composer never classifies natural language as approval, denial or plan editing.
   // Only a clean explicit button gesture is sent separately; the host validates context.
   const typed = $("conversation-input").value;
@@ -1155,6 +1227,12 @@ async function sendConversation(event, agentAction = "auto") {
   const approvalButton = agentAction === "execute";
   if (approvalButton && typed.trim()) agentAction = "auto";
   const approvalGesture = approvalButton && !typed.trim() ? "plan_button" : undefined;
+  if (approvalGesture && state.planRecovery?.projectId === state.projectId) {
+    showToast("上次批准记录已使用。请先点击输入框上方的「检查空白副本并恢复批准」，核验成功后再批准建模。", true);
+    renderPlanRecovery();
+    $("recover-plan-before-send").focus();
+    return;
+  }
   if (approvalGesture && (state.planEditing || pendingAttachmentSources().length)) {
     showToast("还有未提交的参数或资料，请先发送并检查更新后的计划，再批准建模。");
     return;
@@ -1218,6 +1296,12 @@ async function sendConversation(event, agentAction = "auto") {
     });
     if (state.projectId !== submittedProjectId) return;
     state.project = result.project;
+    // HTTP 200 can carry a failed turn and a retained previous last_reply.
+    // Never present that old plan as a new successful assistant result.
+    const responseError = result.agent?.error || result.project?.agent_session?.error;
+    if (responseError || ["failed", "error", "interrupted"].includes(result.agent?.status)) {
+      throw new Error(typeof responseError === "string" ? responseError : "本轮未完成，服务端未返回成功回执。上次方案和已有模型仍保留，不是本轮的新建模结果。");
+    }
     pendingMessage = null;
     state.planEditing = false;
     await loadParameterPlan();
@@ -1264,6 +1348,10 @@ async function sendConversation(event, agentAction = "auto") {
 
 document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
 $("conversation-form").addEventListener("submit", sendConversation);
+$("recover-plan-before-send").addEventListener("click", () => {
+  if (state.busy || state.planRecovery?.projectId !== state.projectId) return;
+  $("retry-empty-plan")?.click();
+});
 $("cancel-agent-turn").addEventListener("click", cancelConversationTurn);
 $("conversation-input").addEventListener("focus", () => {
   if (window.innerWidth <= 1050) showResults(false);
@@ -1394,6 +1482,19 @@ $("create-project-form").addEventListener("submit", async (event) => {
 });
 
 boot();
+// Returning to a desktop window or another tab must not keep an obsolete route.
+const synchronizeModelConfiguration = () => {
+  if (document.visibilityState !== "hidden" && !state.busy) void refreshModelConfiguration().catch(() => {});
+};
+window.addEventListener("focus", synchronizeModelConfiguration);
+document.addEventListener("visibilitychange", synchronizeModelConfiguration);
+window.addEventListener("storage", event => {
+  if (event.key === "kstudio-model-configuration-changed") {
+    modelConfigurationGeneration++;
+    synchronizeModelConfiguration();
+  }
+});
+setInterval(synchronizeModelConfiguration, 30000);
 
 $("recover-agent-checkpoint").addEventListener("click", async () => {
   if (state.busy) return;
@@ -1851,6 +1952,7 @@ $("forget-api-key").addEventListener("click", async () => {
   try {
     state.modelRouter = await api("/api/model-settings/credential" + ($("provider-mode").value === "codex-responses" ? "?mode=codex-responses" : ""), {method:"DELETE"});
     $("api-key").value = ""; refreshTierLabels(); updateHeader();
+    notifyModelConfigurationChanged();
     $("saved-key-status").textContent = $("provider-mode").value === "codex-responses" ? "本次 API 连接已移除，原保存连接未改动。" : "本机已移除保存的 Key。";
     $("api-key").placeholder = "粘贴所选服务商的 API Key";
     $("forget-api-key").disabled = true;
@@ -1877,6 +1979,7 @@ $("model-settings-form").addEventListener("submit", async event => {
   $("model-settings-status").textContent = "正在设置连接…";
   try {
     state.modelRouter = await api("/api/model-settings", {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({mode: $("provider-mode").value, model: $("api-model").value, api_base: $("api-base").value, api_key: $("api-key").value, reasoning_effort: $("api-effort").value, protocol: $("provider-mode").value === "codex-responses" ? "responses" : "chat-completions", compatibility_acknowledged: $("responses-compatible").checked === true})});
+    notifyModelConfigurationChanged();
     refreshTierLabels(); updateHeader(); $("brain-status").textContent = `建筑 Agent · ${routeInfo("economy").provider === "codex-responses" ? "Codex / Responses API · " : ""}${routeInfo("economy").model} · ${routeReadinessLabel("economy")}`; $("model-settings-dialog").close();
     showToast(routeInfo("economy").provider === "codex-responses" ? "Codex Responses API 已显式启用，仅本次进程有效，重启需重新填写。原保存的连接未改动；尚未发送测试请求。" : state.modelRouter.credential_storage === "windows-dpapi" ? "模型连接已加密保存在本机；重启自动恢复。尚未发送测试请求。" : "模型连接已设置；本机仅支持内存保存，重启需重新填写。");
   } catch (error) { $("model-settings-status").textContent = friendlyError(error); }
