@@ -1,3 +1,9 @@
+# Latest 2026-11-07 handoff
+
+Read [CURRENT](CURRENT.md) and [build07 evidence](test-results/windows/2026-11-07-progressive-building-and-recovery/README.md) first. One-time progressive-building batch complete; preserve root19/r7 and earlier r8. No paid loop. Internal candidate, not public-release acceptance. Historical handoff follows unchanged.
+
+---
+
 # Public continuation
 
 **Owner update 2026-11-05:** keep the installed internal candidate and defer paid testing. Six prepared projects remain NOT_RUN; no paid request is authorized. Do not automatically resume the batch or repeatedly request permission. Earlier pending-authorization text below is historical.

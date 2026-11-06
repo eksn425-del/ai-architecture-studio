@@ -1,3 +1,11 @@
+# Latest checkpoint — progressive construction, installed build07 — 2026-11-07
+
+Desktop K Studio R2（内部候选）now uses installed build07 seq7, source `6f3fbf273c32dd9993daa0dbf413d8f0236ae01d`. [Candidate/artifacts](releases/KSTUDIO_R2_INSTALLED_20261107.md), [actual evidence](test-results/windows/2026-11-07-progressive-building-and-recovery/README.md). New independent project `architecture-project-7d1b1`, root19/r7: six actual construction stages, same-root stop/resume, one natural scoped correction, actual browser download and host native deep equality PASS; six protected parts unchanged. Existing earlier r8 project preserved. 78 focused tests pass. 20 raw videos indexed on E. Architectural fidelity remains PARTIAL, public release NOT READY. BAI configuration persisted. No unattended paid run remains; this one-time batch is complete.
+
+Below is preserved history; earlier build05c is no longer the newest installed version.
+
+---
+
 # R2 installed build05c and real BAI continuation — 2026-11-05
 
 **Current final checkpoint:** [installed candidate and exact artifacts](releases/KSTUDIO_R2_INSTALLED_20261105.md). Desktop **K Studio R2（内部候选）** now launches installed `r2-internal-05c-seq5`, source `9c0ef028d127da44389296c4de913c16b5372dfe`. Actual BAI same-image first model reached r5, protected wood-soffit edit reached r8; browser download/native deep equality and 14 protected parts passed. Actual two SU2024 windows were selected independently in the UI, foreground changes did not reroute, and closing one did not fall back to the other. New empty API profile and existing encrypted owner BAI persistence passed. Public release remains **PARTIAL / NOT READY**: visual fidelity, clean second PC/more SU versions, signing/licensing and actual production services are not fully accepted. No automatic paid continuation is left running.
