@@ -5,6 +5,21 @@ from typing import Any
 
 import pytest
 
+
+@pytest.fixture
+def require_symlink(tmp_path):
+    """Platform prerequisite, never label an unexecuted security test PASS."""
+    probe = tmp_path / 'symlink-privilege-probe'
+    target = tmp_path / 'symlink-target'
+    target.write_text('test', encoding='utf-8')
+    try:
+        probe.symlink_to(target)
+    except OSError as error:
+        if getattr(error, 'winerror', None) == 1314:
+            pytest.skip('Windows account lacks SeCreateSymbolicLinkPrivilege; security case NOT_RUN')
+        raise
+    probe.unlink()
+
 from app.models import BuildPlan, BuildOperation, DesignIR, DesignObject, EditPlan, PlanValidation, ProjectContext
 
 

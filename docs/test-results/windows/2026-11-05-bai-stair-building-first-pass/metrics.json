@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": 41,
+  "failed_tool_calls": 9,
+  "committed_writes": 5,
+  "full_root_rebuilds": null,
+  "targeted_corrections": null,
+  "input_tokens": 2034525,
+  "output_tokens": 128985,
+  "token_source": "Official SDK assistant/message and assistant/attempt usage; input includes cache, output includes reasoning; provider invoice unavailable",
+  "model_requests": 41,
+  "billed_amount": null,
+  "turns": [
+    {
+      "trace": "dsh-builder-5104d39c919b42be8c4c2a787beb0b60.jsonl",
+      "requested": {
+        "model": "deepseek-v4.1-flash",
+        "protocol": "openai-responses",
+        "reasoning_effort": "high"
+      },
+      "requests_with_events": 8,
+      "input_tokens_including_cache": 142888,
+      "output_tokens_including_reasoning": 20317,
+      "host_calls": 8,
+      "failed_host_calls": 4,
+      "tools": {
+        "kstudio_read_skill": 2,
+        "kstudio_save_design_graph": 5,
+        "sketchup_save_plan": 1
+      },
+      "terminal_errors": [],
+      "billed_amount": null,
+      "provider_invoice": "not_retrieved"
+    },
+    {
+      "trace": "dsh-builder-7a9c17cee08b4eda91e64e64f83f098e.jsonl",
+      "requested": {
+        "model": "deepseek-v4.1-flash",
+        "protocol": "openai-responses",
+        "reasoning_effort": "high"
+      },
+      "requests_with_events": 2,
+      "input_tokens_including_cache": 39928,
+      "output_tokens_including_reasoning": 32874,
+      "host_calls": 3,
+      "failed_host_calls": 0,
+      "tools": {
+        "kstudio_read_skill": 2,
+        "sketchup_model_state": 1
+      },
+      "terminal_errors": [
+        "Official DeepSeek Harness ended with error; PI_AI_ERROR: Response incomplete: length; committed model work is preserved."
+      ],
+      "billed_amount": null,
+      "provider_invoice": "not_retrieved"
+    },
+    {
+      "trace": "dsh-builder-9961dba8845348769ee2ac183aa63375.jsonl",
+      "requested": {
+        "model": "deepseek-v4.1-flash",
+        "protocol": "openai-responses",
+        "reasoning_effort": "low"
+      },
+      "requests_with_events": 29,
+      "input_tokens_including_cache": 1846591,
+      "output_tokens_including_reasoning": 74843,
+      "host_calls": 30,
+      "failed_host_calls": 5,
+      "tools": {
+        "kstudio_read_skill": 2,
+        "sketchup_model_state": 1,
+        "workspace_write": 10,
+        "sketchup_run_workspace_ruby": 10,
+        "sketchup_view": 6,
+        "kstudio_review_model": 1
+      },
+      "terminal_errors": [],
+      "billed_amount": null,
+      "provider_invoice": "not_retrieved"
+    },
+    {
+      "trace": "dsh-intent-8810e646dda843ed8836928b17ed8669.jsonl",
+      "requested": {
+        "model": "deepseek-v4.1-flash",
+        "protocol": "openai-responses",
+        "reasoning_effort": "high"
+      },
+      "requests_with_events": 1,
+      "input_tokens_including_cache": 1825,
+      "output_tokens_including_reasoning": 503,
+      "host_calls": 0,
+      "failed_host_calls": 0,
+      "tools": {},
+      "terminal_errors": [],
+      "billed_amount": null,
+      "provider_invoice": "not_retrieved"
+    },
+    {
+      "trace": "dsh-intent-e562c59b362d4247ad8b047bbbba51ba.jsonl",
+      "requested": {
+        "model": "deepseek-v4.1-flash",
+        "protocol": "openai-responses",
+        "reasoning_effort": "low"
+      },
+      "requests_with_events": 1,
+      "input_tokens_including_cache": 3293,
+      "output_tokens_including_reasoning": 448,
+      "host_calls": 0,
+      "failed_host_calls": 0,
+      "tools": {},
+      "terminal_errors": [],
+      "billed_amount": null,
+      "provider_invoice": "not_retrieved"
+    }
+  ]
+}

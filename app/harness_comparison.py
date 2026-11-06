@@ -45,13 +45,22 @@ class ComparisonRuntime(CodexAppServerRuntime):
     comparison_mode = True
 
     def __init__(self, root, *, arm, connection, comparison_root, mcp):
+        from .dsh_configuration import resolve_configuration
+        self.effective_configuration=resolve_configuration(connection)
         self.arm=arm
         self.comparison_root=Path(comparison_root)
         config=CodexResponsesProvider(api_base=connection['api_base'],api_key=connection['api_key'],compatibility_acknowledged=True)
         super().__init__(root,api_provider=config,execution_mode='host_tools',
-            codex_executable=str(Path(os.environ['LOCALAPPDATA'])/'OpenAI/Codex/bin/codex.exe'),
-            model=connection['model'].removeprefix('openai/'),reasoning_effort='high',
+            # Resolve an optional Codex installation in the base class. DSH does
+            # not require Codex or Windows-specific environment variables.
+            codex_executable=None,
+            model=connection['model'].removeprefix('openai/'),# Base class validates only Codex vocabulary; this initializer makes no request.
+            # DSH immediately restores its own effective effort below.
+            reasoning_effort=('high' if self.effective_configuration.requested_effort=='provider-default' else self.effective_configuration.requested_effort),
             home_root=self.comparison_root/arm/'product-home',sketchup_mcp=mcp)
+        self.reasoning_effort=self.effective_configuration.requested_effort
+        if arm=='A' and self.reasoning_effort=='provider-default':
+            raise ValueError('Codex comparison requires an explicitly supported reasoning effort.')
         self.provider_name='codex-responses' if arm=='A' else 'deepseek-harness'
         self.tool_surface=SUHarnessTools(root,mcp)
         self._dsh_active={}
@@ -82,20 +91,33 @@ class ComparisonRuntime(CodexAppServerRuntime):
                 'os_boundary_verified':False,'runtime_initialization_verified':False,
                 'message':('DeepSeek SDK 依赖已就绪；启动时仍须验证实际工具清单。' if not missing else 'DeepSeek SDK 缺少依赖：'+', '.join(missing))}
 
-    def _official_turn(self, *, project, thread_id, prompt, specs, dispatch, instructions, images, progress=None, read_only=False, new_session_on_binding_change=False, reasoning_effort='high'):
+    def _official_turn(self, *, project, thread_id, prompt, specs, dispatch, instructions, images, progress=None, read_only=False, new_session_on_binding_change=False, reasoning_effort=None):
+        from .connector_instances import project_scope
+        original_dispatch = dispatch
+        def dispatch(name, arguments):
+            # SDK host tools execute in HTTP worker threads: ContextVars from
+            # the web request are not inherited by ThreadingHTTPServer.
+            with project_scope(project):
+                return original_dispatch(name, arguments)
+        from .dsh_images import attachment_order
+        images=attachment_order(project,images)
+        requested=self.effective_configuration.requested_effort
+        if reasoning_effort is not None and reasoning_effort!=requested:
+            raise NativeAgentUnavailable('推理档位与当前连接不一致；未静默替换。')
+        reasoning_effort=requested
         workspace=_agent_workspace(project)
         if self.arm=='A':
-            self._prepare_home(mcp_enabled=True,model=self.model,reasoning_effort='high',agent_workspace=workspace)
+            self._prepare_home(mcp_enabled=True,model=self.model,reasoning_effort=reasoning_effort,agent_workspace=workspace)
             # mcp_enabled registers the stable catalog; dispatch below enforces the
             # actual host stage, including denial of every native tool pre-approval.
             return super()._run_turn(project_dir=project,agent_workspace=workspace,thread_id=thread_id,
                 prompt=prompt,mcp_enabled=True,developer_instructions=instructions,dynamic_tools=specs,
-                tool_handler=dispatch,model=self.model,reasoning_effort='high',reference_images=images,
+                tool_handler=dispatch,model=self.model,reasoning_effort=reasoning_effort,reference_images=images,
                 workflow_mode='architecture_design',progress_callback=progress,read_only=read_only)
         self._assert_execution_ready()
         sdk_site,dsh_bin=self._dsh_paths()
         role='intent' if read_only else 'builder'
-        binding=hashlib.sha256(json.dumps({'tools':specs,'instructions':instructions,'identity':self.session_identity,'reasoning_effort':reasoning_effort,
+        binding=hashlib.sha256(json.dumps({'tools':specs,'instructions':instructions,'identity':self.session_identity,'effective_configuration':self.effective_configuration.binding(),'execution_policy':__import__('app.dsh_security',fromlist=['execution_policy']).execution_policy(),'reasoning_effort':reasoning_effort,
             'images':[(p.relative_to(project).as_posix(),hashlib.sha256(p.read_bytes()).hexdigest()) for p in images]},sort_keys=True).encode()).hexdigest()
         registry=project/'runtime/dsh-binding.json'
         saved=json.loads(registry.read_text(encoding='utf-8')) if registry.exists() else {}
@@ -109,12 +131,14 @@ class ComparisonRuntime(CodexAppServerRuntime):
                 log.write(json.dumps({'previous_session':thread_id,'previous_binding':saved.get('binding'),
                     'new_binding':binding,'action':'start_new_from_host_project_memory'})+'\n')
             thread_id=None
+        from .reference_roles import reference_manifest
         transport=DSHHostSession(home=self.home/project.name/role,workspace=workspace,
             api_base=self.api_provider.api_base,api_key=self.api_provider.api_key,model=self.model,
             specs=specs,dispatch=dispatch,trace_path=project/'runtime/agent_events'/f'dsh-{role}-{uuid.uuid4().hex}.jsonl',
             sdk_site=sdk_site,dsh_bin=dsh_bin,progress=progress,instructions=instructions,
-            max_tokens=int(os.environ.get('KSTUDIO_DSH_MAX_OUTPUT_TOKENS','32768')),
-            protocol=getattr(self,'protocol','openai-responses'),reasoning_effort=reasoning_effort,
+            max_tokens=self.effective_configuration.max_output_tokens,
+            protocol=self.effective_configuration.protocol,reasoning_effort=reasoning_effort,
+            effective_configuration=self.effective_configuration,source_manifest=reference_manifest(project,images),
             full_capabilities=False if read_only else None)
         self._dsh_active[str(project)]=transport
         try:

@@ -8,6 +8,14 @@ from .construction_strategy import validate_construction_strategy_payload, const
 from .modeling_quality import validate_facade_schedule_payload
 from .reconstruction_evidence import validate_reconstruction_evidence_payload, validate_reconstruction_evidence_sources
 
+def _linked(path):
+    import stat
+    try:
+        return path.is_symlink() or bool(getattr(path.lstat(), 'st_file_attributes', 0) & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0x400))
+    except FileNotFoundError:
+        return False
+
+
 MAX_TEXT_BYTES = 120000
 MAX_READ_CHARS = 12000
 MAX_BATCH_RESULT_CHARS = 50000
@@ -38,7 +46,7 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
     root = workspace.resolve()
     if name not in {"workspace_read", "workspace_read_many", "workspace_write", "workspace_search", "workspace_update_strategy"}:
         raise ValueError("Unknown workspace tool.")
-    if workspace.is_symlink():
+    if _linked(workspace):
         raise ValueError("Workspace may not be a link.")
     if name == "workspace_update_strategy":
         from .strategy_tools import PATH, update_strategy
@@ -76,16 +84,16 @@ def workspace_file_call(workspace: Path, name: str, arguments: dict) -> dict:
             if path not in {"", "."} and path.rstrip("/") != directory:
                 continue
             parent = root / directory
-            if parent.is_symlink() or not parent.resolve().is_relative_to(root):
+            if _linked(parent) or not parent.resolve().is_relative_to(root):
                 continue
             for suffix in suffixes:
                 files.extend(p.relative_to(root).as_posix() for p in parent.glob("*" + suffix)
-                             if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root))
+                             if p.is_file() and not _linked(p) and p.resolve().is_relative_to(root))
         return {"success": True, "files": sorted(files)}
     if not re.fullmatch(r"notes/[A-Za-z0-9_.-]+\.(?:md|json)|qa/[A-Za-z0-9_.-]+\.(?:md|json)|scripts/[A-Za-z0-9_.-]+\.rb", path):
         raise ValueError("Only workspace notes Markdown/JSON, qa Markdown/read-only JSON and scripts Ruby are allowed.")
     target = root.joinpath(*PurePosixPath(path).parts)
-    if workspace.is_symlink() or any(p.is_symlink() for p in (target, target.parent)) or not target.resolve().is_relative_to(root):
+    if _linked(workspace) or any(_linked(p) for p in (target, target.parent)) or not target.resolve().is_relative_to(root):
         raise ValueError("Workspace files may not escape through links.")
     if name == "workspace_write":
         if path.startswith("qa/") and target.suffix.lower() == ".json":
@@ -161,7 +169,7 @@ def _workspace_search(root: Path, arguments: dict) -> dict:
     candidates = []
     for directory in ("notes", "qa"):
         parent = root / directory
-        if parent.is_symlink() or not parent.resolve().is_relative_to(root):
+        if _linked(parent) or not parent.resolve().is_relative_to(root):
             continue
         candidates.extend(p for p in parent.glob("*")
                           if re.fullmatch(r"[A-Za-z0-9_.-]+\.(?:md|json)", p.name))
@@ -172,7 +180,7 @@ def _workspace_search(root: Path, arguments: dict) -> dict:
         if scanned + skipped >= 64:
             budget_exhausted = True
             break
-        if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root):
+        if _linked(path) or not path.is_file() or not path.resolve().is_relative_to(root):
             skipped += 1
             continue
         try:

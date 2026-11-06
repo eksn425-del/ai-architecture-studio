@@ -1,3 +1,5 @@
+import {installTestBudget} from './dsh_test_budget.mjs';
+import {toolDenial} from './dsh_tool_policy.mjs';
 // Thin official DSH plugin: forward the host's fixed tool catalog, never run code.
 export const name = 'kstudio-host-tools';
 export const inject = ['tools', 'attachments', 'systemPrompt'];
@@ -12,6 +14,7 @@ export async function apply(ctx) {
   }
   const specs = await call('/tools');
   const task = await call('/task');
+  if(task.test_budget_enabled) installTestBudget(ctx,call);
   if (task.instructions) ctx.systemPrompt.section({
     name:'kstudio:architecture', order:10200, text:task.instructions, interpolate:false,
   });
@@ -65,18 +68,8 @@ export async function apply(ctx) {
     ctx.on('tools/pre-execute',async(exec,next)=>{
       const control=await call('/control');
       if(control.cancelled) return {kind:'cancel'};
-      if(exec.agent && rootAgentId && exec.agent.id!==rootAgentId &&
-         /^(sketchup_apply_parts|sketchup_run_|sketchup_save_plan|kstudio_save_design_graph)/.test(exec.name))
-        return {kind:'deny',reason:'Subagents may analyze or prepare scripts; only the root agent may commit the approved model or plan.'};
-      // Keep a single native document writer. Full MCP registration remains
-      // available; this project profile uses ADAI's reference and helper code.
-      if(exec.name.startsWith('mcp__adai__')) {
-        const method=exec.name.slice('mcp__adai__'.length);
-        const reads=new Set(['sketchup_ref','sketchup_toolkit','sketchup_attribution','get_capabilities',
-          'validate_evidence_manifest','validate_trace_manifest']);
-        const startup=method==='sketchup_runtime' && exec.arguments?.action==='startup';
-        if(!reads.has(method)&&!startup) return {kind:'deny',reason:'This K Studio project uses its owned-model writer. Use the host SketchUp tools; a second MCP writer may not access a different active document.'};
-      }
+      const denial=toolDenial(exec,{rootAgentId,hostNames:new Set(specs.map(s=>s.name)),policy:process.env.KSTUDIO_DSH_EXECUTION_POLICY});
+      if(denial) return {kind:'deny',reason:denial};
       return next();
     });
     ctx.on('tools/execute',async(exec,next)=>{

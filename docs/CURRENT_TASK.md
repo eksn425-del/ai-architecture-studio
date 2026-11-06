@@ -1,3 +1,9 @@
+# 2026-11-05 — R2 internal candidate and prepared live-test boundary
+
+Follow [CURRENT](CURRENT.md), [candidate/artifacts](releases/KSTUDIO_R2_INTERNAL_CANDIDATE_20261104.md) and [R2 execution](execution/PUBLIC_BETA_EXECUTION.md). R2 internal build04 is installed and verified; isolated container CI also passed. The six live image-modeling projects are prepared, not executed. Await concrete finite-batch authorization, then continue those same projects with the actual client and preserve failures. Public-beta/production gates remain unmet. Do not resume any closed building below or equate native engineering fixtures with source-quality acceptance.
+
+---
+
 # 2026-10-16 — READ CURRENT.md TOP: continuous same-case exterior completion
 
 Latest owner correction authorizes completing visible exterior and coherent inference of unseen parts. Follow [same-case exterior execution](NEXT_EXTERIOR_COMPLETION_SAME_CASE_2026-10-16.md), continuing customer readiness from actualr10; historical bracing-only gate below is superseded. Exact scope/KEEP/single writer remain. No full rebuild/newcase/paidAPI/CLI rerun. Do not repeat micro-patch-only stopping.

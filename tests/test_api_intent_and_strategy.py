@@ -89,7 +89,7 @@ def test_api_intent_honors_same_durable_budget_without_dispatch(tmp_path, monkey
         max_output_tokens=32768, requests=[dict(id="old", status="unresolved", liability_usd="0.01")])
     budget.write_text(json.dumps(original), encoding="utf-8")
     monkeypatch.setenv("K_STUDIO_LOCAL_API_TEST_BUDGET", str(budget))
-    with pytest.raises(NativeAgentUnavailable, match="安全边界"):
+    with pytest.raises(NativeAgentUnavailable, match="前次请求费用尚未核实"):
         resolve_host_action(router, project=tmp_path, session=AgentSession(project_id="test"),
             request=ConversationRequest(message="补齐方案，暂不建模。"), context=ProjectContext())
     assert requests == [] and json.loads(budget.read_text()) == original
@@ -203,7 +203,7 @@ def test_real_sse_adapter_workspace_journal_and_typed_plan_loop_offline(tmp_path
     assert len([m for m in saved["messages"] if m["role"] == "tool"]) == 2
 
 
-@pytest.mark.parametrize("failure,phase", [(httpx.ConnectTimeout("fixture"), "connecting"),
+@pytest.mark.parametrize("failure,phase", [(httpx.ConnectTimeout("fixture"), "awaiting_headers"),
                                         (httpx.ReadTimeout("fixture"), "streaming")])
 def test_transport_diagnostics_distinguish_connection_and_stream_stall(failure, phase):
     from app.bai_transport import complete_bai
@@ -213,7 +213,7 @@ def test_transport_diagnostics_distinguish_connection_and_stream_stall(failure, 
             raise failure
             yield b""
     def server(_):
-        if phase == "connecting":
+        if phase == "awaiting_headers":
             raise failure
         return httpx.Response(200, headers={"content-type": "text/event-stream", "x-request-id": "safe-id"}, stream=Stall())
     with pytest.raises(type(failure)):

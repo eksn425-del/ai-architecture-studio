@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "batch_id": "r2-complex-three-arms-two-runs-20261104",
+  "authorization": {
+    "status": "deferred_by_owner",
+    "reference": "2026-11-05: owner chooses to preserve the candidate and defer paid testing"
+  },
+  "api_base": "https://api.b.ai/v1",
+  "model": "deepseek-v4.1-flash",
+  "protocol": "openai-completions",
+  "effective_configuration_sha256": "4d0cf99730c440b40eb7d8b71a8bc2f003c449dc21810583c816308e4e042e1a",
+  "max_requests": 180,
+  "per_run_max_requests": 30,
+  "allowed_run_ids": [
+    "r2-1",
+    "r2-2",
+    "r2-1-7b744",
+    "r2-2-6d413",
+    "r2-1-6f958",
+    "r2-2-338b9"
+  ],
+  "max_output_tokens": 32768,
+  "reserved_tokens_per_request": 163840,
+  "max_reserved_tokens": 29491200,
+  "billing_guarantee": false,
+  "reference_usd": "14.155776",
+  "reference_price_source": "https://docs.b.ai/zh-Hans/llmservice/pricing-and-usage/",
+  "status": "DEFERRED_BY_OWNER_NOT_AUTHORIZED_NOT_RUN",
+  "project_preparation": "Actual build04 UI project creation and identical whole-image upload; no conversations sent",
+  "source_image": {
+    "original_file_sha256": "06a01984f83ae6bfe063cc57182b2dab9c31ba88d8c33a1c7d234d3a4cb611d5",
+    "pixel_sha256": "86a76f3d6a9fbb190ece89aea2de96bad45929a1062691ccf7910968a3122b51",
+    "size": [
+      768,
+      1024
+    ],
+    "uploaded_sha256": "1c817cc63e9f37c3286dec50332240a766a56eea6279c7f6bc7d3c75550d9fc6",
+    "normalization": "Lossless PNG re-encoding; whole pixels verified identical"
+  }
+}

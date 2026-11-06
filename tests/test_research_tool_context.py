@@ -93,6 +93,7 @@ def test_oversized_or_invalid_json_policy_is_rejected(tmp_path, service):
         with pytest.raises(ValueError): prepare_public_research(tmp_path)
 
 
+@pytest.mark.usefixtures("require_symlink")
 @pytest.mark.parametrize('kind', ['policy', 'state', 'receipt', 'runtime'])
 def test_policy_and_receipt_symlinks_are_rejected(tmp_path, service, kind):
     root = tmp_path/'project'; root.mkdir(); setup_project(root)

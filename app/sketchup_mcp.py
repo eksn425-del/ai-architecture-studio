@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -47,11 +48,19 @@ def _resolve_server() -> tuple[list[str], dict[str, str], str | None]:
         try:
             server = json.loads(Path(standalone).read_text(encoding="utf-8"))
             command = str(server.get("command", ""))
+            # The desktop normally persists this migration with a backup at
+            # startup. A resolver fallback uses exactly the same narrow rule.
+            if getattr(sys, 'frozen', False):
+                from .desktop_bootstrap import relocated_public_connector
+                relocated = relocated_public_connector(server, Path(sys.executable).parent / '_internal')
+                if relocated:
+                    server = relocated
+                    command = server['command']
             resolved = shutil.which(command) or (command if Path(command).is_file() else "")
             if not resolved or not isinstance(server.get("args", []), list):
                 raise ValueError("invalid executable/arguments")
             return [resolved, *map(str, server.get("args", []))], {str(k):str(v) for k,v in server.get("env", {}).items()}, server.get("cwd")
-        except (OSError, ValueError, AttributeError, TypeError) as error:
+        except (OSError, ValueError, AttributeError, TypeError, RuntimeError) as error:
             raise ConnectorUnavailable("The standalone SketchUp connector configuration is unavailable or invalid.") from error
     codex_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
     config_path = codex_home / "config.toml"
@@ -157,7 +166,7 @@ def _read_frames(data: bytes) -> list[dict[str, Any]]:
 
 
 class ConfiguredSketchUpMCP:
-    """Small stdio client for the existing, user-configured Kongxing MCP server."""
+    """Stdio client for an explicitly paired public or legacy MCP server."""
 
     def __init__(self, timeout_seconds: int = 15):
         self.timeout_seconds = timeout_seconds
@@ -210,6 +219,13 @@ class ConfiguredSketchUpMCP:
             {"jsonrpc": "2.0", "method": "notifications/initialized"},
         ]
 
+    @property
+    def requires_document_binding(self) -> bool:
+        command, environment, _ = _resolve_server()
+        return (bool(environment.get('KSTUDIO_PUBLIC_CONNECTOR_ROOT'))
+                or Path(command[0]).name.lower() == 'kstudioconnector.exe'
+                or 'app.public_connector' in command)
+
     def list_tools(self) -> list[dict[str, Any]]:
         requests = self._initialize_requests() + [{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}]
         result = self._request(requests, 2)
@@ -220,6 +236,10 @@ class ConfiguredSketchUpMCP:
 
     def call_raw(self, tool_name: str, arguments: dict[str, Any] | None = None) -> dict[str, Any]:
         arguments = _bridge_script_arguments(tool_name, arguments or {})
+        from .connector_instances import current_project
+        project = current_project()
+        if project and self.requires_document_binding:
+            arguments = {**arguments, '_kstudio_project': project}
         requests = self._initialize_requests() + [
             {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
             {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {
@@ -301,9 +321,16 @@ class SketchUpAdapter:
         })
         return result if isinstance(result, dict) else {"result": result}
 
+    def _view_document_binding(self):
+        if not getattr(self.client, 'requires_document_binding', False):
+            return {}  # Legacy connector protocol remains unchanged.
+        identity=self.get_active_model_identity()
+        return {'expected_model_path':identity['model_path'],'expected_model_guid':identity['model_guid']}
+
     def capture_view(self, output_path: Path, width: int = 1500, height: int = 950,
                      zoom_extents: bool = True) -> dict[str, Any]:
         result = self.client.call("sketchup_export_view_image", {
+            **self._view_document_binding(),
             "output_path": str(output_path.resolve()),
             "width": width,
             "height": height,
@@ -314,6 +341,7 @@ class SketchUpAdapter:
     def set_camera(self, eye_m: list[float], target_m: list[float],
                    up_m: list[float] | None = None) -> dict[str, Any]:
         result = self.client.call("sketchup_set_camera", {
+            **self._view_document_binding(),
             "eye_m": eye_m,
             "target_m": target_m,
             "up": up_m or [0, 0, 1],
@@ -321,6 +349,16 @@ class SketchUpAdapter:
         return result if isinstance(result, dict) else {"result": result}
 
     def get_active_model_identity(self, *, include_camera: bool = False) -> dict[str, Any]:
+        # Fixed read-only context is allowed through the selected process even
+        # after a GUID change. Reading it never advances the document pin.
+        if not include_camera and getattr(self.client, 'requires_document_binding', False):
+            value = self.client.call('sketchup_get_model_context', {})
+            if isinstance(value, dict) and value.get('model_guid'):
+                if value.get('model_path') == '':
+                    raise UnsavedModelError(value)
+                if value.get('model_path') and value.get('main_thread') is True:
+                    return value
+            raise MCPCallError('The public connector did not return a native model identity.')
         generated_dir = _generated_script_dir()
         generated_dir.mkdir(parents=True, exist_ok=True)
         script_path = generated_dir / f"studio-model-path-{os.urandom(6).hex()}.rb"

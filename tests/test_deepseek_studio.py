@@ -5,6 +5,7 @@ from app.deepseek_studio import DeepSeekStudioRuntime, BASE, ARCHITECTURE
 from app.local_connections import connection_router
 
 def test_desktop_routes_saved_key_to_official_dsh_without_codex(tmp_path,monkeypatch):
+    monkeypatch.delenv('LOCALAPPDATA', raising=False)
     monkeypatch.setenv('KSTUDIO_AGENT_ENGINE','deepseek-harness')
     monkeypatch.setenv('KSTUDIO_DSH_SDK_SITE',str(tmp_path/'sdk'))
     monkeypatch.setenv('KSTUDIO_DSH_BIN',str(tmp_path/'dsh.cmd'))

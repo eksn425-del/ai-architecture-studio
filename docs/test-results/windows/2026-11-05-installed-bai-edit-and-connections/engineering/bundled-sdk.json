@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "node_version": "v24.22.1",
+  "sdk_import": true,
+  "engine": "deepseek-harness",
+  "capabilities": "full",
+  "inference_called": false,
+  "native_tools": [
+    "web_search",
+    "web_fetch",
+    "todo_write",
+    "exit_plan_mode",
+    "get_goal",
+    "create_goal",
+    "update_goal",
+    "skill",
+    "send_message",
+    "interrupt_agent",
+    "list_agents",
+    "subagent",
+    "subagent_fork"
+  ]
+}

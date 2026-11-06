@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-05-installed-bai-edit-and-connections",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "9c0ef028d127da44389296c4de913c16b5372dfe",
+  "source_case": "Same owner-private stair/cantilever building image as preceding first-pass report; raw photograph and SKP withheld",
+  "model": {
+    "requested": "BAI deepseek-v4.1-flash",
+    "actual": "deepseek-v4.1-flash SDK route label; no independent upstream identity attestation",
+    "reasoning_effort": "low",
+    "runtime": "Installed build05c / official DeepSeek Harness / openai-responses"
+  },
+  "environment": {
+    "windows": "Owner Windows desktop, existing installation",
+    "sketchup": "2024 24.0.484 / Ruby 3.2.2",
+    "connector": "kstudio-public 2026.11.05-r2",
+    "adai": "No wrapped geometry invocation in this edit"
+  },
+  "qa": {
+    "reviewer_mode": "agent_supplied",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "independent_critic": "NOT_RUN",
+    "native_delivery": "PASS host native deep equality after actual browser download",
+    "protected_geometry": "PASS 14 direct parts unchanged",
+    "multi_window": "PASS two actual SU2024 processes; selected stale process does not fall back"
+  },
+  "release_status": "INTERNAL_CANDIDATE; not accepted public beta"
+}

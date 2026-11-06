@@ -1,0 +1,5 @@
+[
+  {"stage":"user_conversation_before_diagnosis","error":"Configured Economy provider unavailable","cause":"Candidate API list empty","resolution":"Restored existing owner BAI configuration through actual client UI; no live provider request"},
+  {"stage":"connector_readonly","state":"different_model","cause":"Selected Studio session differs from the session owning the open SU model","resolution":"Identified correct session and documented current reconnection entry; no model switch or mutation"},
+  {"stage":"multiwindow_selection","state":"NOT_IMPLEMENTED","cause":"No explicit SU process/window picker; shared health requests are not PID-targeted"}
+]

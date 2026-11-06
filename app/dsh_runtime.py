@@ -1,6 +1,5 @@
 """Official full SDK transport plus a loopback host-tool plugin, no custom agent loop."""
 from __future__ import annotations
-import base64
 import hmac
 import json
 import os
@@ -28,7 +27,12 @@ def reported_usage(events):
         if event.get('type')!='assistant/attempt':continue
         chunks=[s.get('chunk',{}) for s in data.get('stream',[]) if isinstance(s,dict)]
         usage=[c.get('usage') for c in chunks if c.get('type')=='usage']
-        rows.append(usage[-1] if usage else None)
+        last = usage[-1] if usage else None
+        # SDK emits synthetic zero usage on connection failures. It is not a
+        # provider billing receipt; preserve unknown rather than report free.
+        if last and not any(last.get(k, 0) for k in ('inputTokens', 'outputTokens', 'totalTokens')):
+            last = None
+        rows.append(last)
     if not rows or any(not isinstance(r,dict) for r in rows):return None,None
     inputs=outputs=0
     for row in rows:
@@ -42,20 +46,23 @@ def reported_usage(events):
 DISABLED = "tool-plugin-manager plugin-manager config-editor settings remote-access typert-gateway deepseek-account llm-deepseek-account session-title-llm session-telemetry-otel tool-working-directory tool-bash tool-pwsh tool-jobs tool-fs tool-fs-search agent-instructions skill-filesystem tool-skill tool-subagent-control tool-subagent-list-agents tool-subagent tool-subagent-fork tool-workflow tool-goal tool-web tool-todo plan-mode workspace-dependencies skill-office".split()
 
 
-def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=32768, full_capabilities=None):
+def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None):
     from .dsh_full_profile import enabled, full_rows, provider_retry_policy
+    if effective_configuration is None:
+        from .dsh_configuration import resolve_configuration
+        effective_configuration = resolve_configuration({'api_base':api_base, 'model':model, 'mode':'codex-responses' if protocol=='openai-responses' else 'compatible', 'reasoning_effort':'provider-default'})
     if enabled() if full_capabilities is None else full_capabilities:
         rows=full_rows(api_base=api_base, model=model, protocol=protocol, max_tokens=max_tokens,
-                       host_plugin=Path(__file__).parent/'dsh_host_tools.mjs')
+                       host_plugin=Path(__file__).parent/'dsh_host_tools.mjs', effective_configuration=effective_configuration)
         path.parent.mkdir(parents=True,exist_ok=True)
         path.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
         return
     rows=[{"id":name,"disabled":True} for name in DISABLED]
     rows += [
         {"id":"llm-pi-ai","config":{"providers":{"kstudio-bai":{"apiKeyEnv":"KSTUDIO_DSH_API_KEY","api":protocol,"baseURL":api_base,
-            "models":[{"id":model,"name":model,"contextWindow":131072,"maxTokens":max_tokens,"input":["text","image"],"reasoningEfforts":{"low":"low","high":"high"}}],"retryPolicy":provider_retry_policy()}}}},
+            "models":[effective_configuration.model_descriptor()],"retryPolicy":provider_retry_policy(effective_configuration.request_retries)}}}},
         {"id":"system-prompt","config":{"personaPrefix":"You are K Studio's architectural modeling assistant. Use only the provided protected SketchUp tools. Do not execute code or claim an unverified model is complete."}},
-        {"id":"compaction-basic","config":{"headroomTokens":8192,"maxTokens":4096,"retainTokens":16384}},
+        {"id":"compaction-basic","config":effective_configuration.compaction()},
         {"insert":[{"id":"kstudio-host-tools","name":(Path(__file__).parent/"dsh_host_tools.mjs").as_posix()}]},
     ]
     path.parent.mkdir(parents=True,exist_ok=True)
@@ -64,10 +71,19 @@ def write_profile(path, *, api_base, model, protocol="openai-responses", max_tok
 
 class DSHHostSession:
     def __init__(self, *, home, workspace, api_base, api_key, model, specs, dispatch, trace_path,
-                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=32768, reasoning_effort='high', full_capabilities=None):
-        if type(max_tokens) is not int or not 1<=max_tokens<=32768:
-            raise ValueError('DeepSeek output limit must be an integer from 1 to 32768')
-        if reasoning_effort not in {'low','high'}:raise ValueError('Supported DeepSeek reasoning efforts: low, high')
+                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None):
+        if effective_configuration is None:
+            from .dsh_configuration import resolve_configuration
+            effective_configuration=resolve_configuration({'api_base':api_base,'model':model,'mode':'codex-responses' if protocol=='openai-responses' else 'compatible','reasoning_effort':reasoning_effort})
+        if reasoning_effort != effective_configuration.requested_effort:
+            raise ValueError('Reasoning effort differs from effective connection configuration')
+        if max_tokens is not None and max_tokens!=effective_configuration.max_output_tokens:
+            raise ValueError('Output limit differs from effective connection configuration')
+        from .dsh_test_budget import TestBatchBudget
+        self.test_budget=TestBatchBudget.configured(effective_configuration,workspace)
+        self.source_manifest=source_manifest or []
+        self.effective_configuration=effective_configuration
+        max_tokens=effective_configuration.max_output_tokens
         self.reasoning_effort=reasoning_effort
         self.home,self.workspace=Path(home),Path(workspace)
         self.specs,self.dispatch,self.progress=specs,dispatch,progress
@@ -100,7 +116,7 @@ class DSHHostSession:
                 if self.path.startswith('/interaction/'):
                     try:return self.reply(parent.interactions.get(self.path.rsplit('/',1)[-1]))
                     except ValueError:return self.reply({},404)
-                if self.path=='/task': return self.reply({'text':parent.task_anchor,'instructions':parent.architecture_instructions})
+                if self.path=='/task': return self.reply({'text':parent.task_anchor,'instructions':parent.architecture_instructions,'test_budget_enabled':parent.test_budget is not None})
                 if self.path!='/tools': return self.reply({},404)
                 self.reply(parent.specs)
             def do_POST(self):
@@ -109,6 +125,11 @@ class DSHHostSession:
                 if not 0<size<=2_000_000:return self.reply({},413)
                 try:
                     data=json.loads(self.rfile.read(size))
+                    if self.path.startswith('/test-budget/'):
+                        if parent.test_budget is None:raise ValueError('Finite test budget not enabled')
+                        if self.path=='/test-budget/reserve':return self.reply(parent.test_budget.reserve(data))
+                        if self.path=='/test-budget/settle':return self.reply(parent.test_budget.settle(data))
+                        return self.reply({},404)
                     if self.path=='/interaction':
                         if parent.cancelled:raise ValueError('Turn cancelled')
                         row=parent.interactions.create(data)
@@ -146,22 +167,26 @@ class DSHHostSession:
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
+                    if event['success'] and isinstance(result.get('construction_step'), dict):
+                        parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
                 except (ValueError,KeyError,TypeError) as error:
                     self.reply({'error':str(error)},400)
         self.server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         self.worker=threading.Thread(target=self.server.serve_forever,daemon=True);self.worker.start()
         patch=self.home/'kstudio.patch.yml'
-        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities)
+        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration)
         if instructions and not self.full_capabilities:
             rows=json.loads(patch.read_text(encoding='utf-8'))
             next(r for r in rows if r.get('id')=='system-prompt')['config']['personaPrefix']=instructions
             patch.write_text(json.dumps(rows,ensure_ascii=False),encoding='utf-8')
         if str(sdk_site) not in sys.path:sys.path.insert(0,str(sdk_site))
         from deepseek_harness import DeepSeekHarness
-        self.harness=DeepSeekHarness(provider='kstudio-bai',model=model,reasoning_effort=reasoning_effort,max_tokens=max_tokens,
+        from .dsh_network import node_network_environment
+        network_environment = node_network_environment()
+        self.harness=DeepSeekHarness(provider='kstudio-bai',model=model,reasoning_effort=self.effective_configuration.sdk_effort,max_tokens=max_tokens,
             profile='sdk',patches=(str(patch),),dsh_home=str(self.home),cwd=str(self.workspace),dsh_bin=str(dsh_bin),
-            env={'KSTUDIO_DSH_CAPABILITIES':'full' if self.full_capabilities else 'protected','KSTUDIO_DSH_API_KEY':api_key,'KSTUDIO_TOOLS_TOKEN':self.token,'KSTUDIO_TOOLS_URL':f'http://127.0.0.1:{self.server.server_port}',
+            env={**network_environment,'KSTUDIO_DSH_CAPABILITIES':'full' if self.full_capabilities else 'protected','KSTUDIO_DSH_EXECUTION_POLICY':__import__('app.dsh_security',fromlist=['execution_policy']).execution_policy(),'KSTUDIO_DSH_API_KEY':api_key,'KSTUDIO_TOOLS_TOKEN':self.token,'KSTUDIO_TOOLS_URL':f'http://127.0.0.1:{self.server.server_port}',
                  'DEEPSEEK_API_KEY':'','OPENAI_API_KEY':'','BAI_API_KEY':'','DSH_TELEMETRY_MODE':'DISABLED','DSH_MAX_TOKENS_AS_SUCCESS':'false'},
             initialize_timeout_seconds=40,request_timeout_seconds=90)
 
@@ -190,24 +215,34 @@ class DSHHostSession:
         except BaseException:
             self.close()
             raise
-        self.record({'event':'runtime_initialized','engine':'deepseek-harness-sdk','profile':'sdk','tools':self.inventory})
+        from .dsh_security import evidence
+        self.record({'event':'runtime_initialized','engine':'deepseek-harness-sdk','profile':'sdk','tools':self.inventory,'execution_security':evidence()})
 
     def run(self, *, prompt, images, session_id=None):
         self.task_anchor = task_anchor(prompt)
+        from .dsh_images import image_block
+        if images and not self.effective_configuration.vision:
+            raise NativeAgentUnavailable('当前连接尚未声明图像能力；请先在连接设置确认供应商能力，未发送图片。')
+        if (self.specs or self.full_capabilities) and not self.effective_configuration.tools:
+            raise NativeAgentUnavailable('当前连接尚未声明工具调用能力；未启动建模。')
+        if not self.effective_configuration.streaming:
+            raise NativeAgentUnavailable('当前连接尚未声明流式响应能力；DeepSeek Harness 需要供应商支持流式响应。')
+        blocks=[{'type':'text','text':prompt}]
+        for index,path in enumerate(images):
+            block,receipt=image_block(path)
+            blocks.append(block)
+            self.record({'event':'source_image_prepared','order':index,'source_id':f'source_{index+1}',
+                         'source_role':self.source_manifest[index].get('role','unknown') if index<len(self.source_manifest) else 'unknown',**receipt})
+        self.record({'event':'effective_configuration',**self.effective_configuration.evidence()})
         self.start()
         session=self.harness.resume_session(session_id) if session_id else self.harness.start_session()
-        blocks=[{'type':'text','text':prompt}]
-        for path in images:
-            path=Path(path)
-            mime='image/png' if path.suffix.lower()=='.png' else 'image/jpeg'
-            blocks.append({'type':'image','data':base64.b64encode(path.read_bytes()).decode(),'mimeType':mime})
         def notify(note):
             if note.method=='session.event':
                 event=note.payload.get('event',{})
                 self.events.append(event);self.record(event)
                 if event.get('type')=='assistant/message':
                     self.emit_progress({'event':'provider_response'})
-                if self.progress:self.progress({'event':'dsh_activity','type':event.get('type')})
+                if self.progress:self.emit_progress({'event':'dsh_activity','type':event.get('type')})
         start=time.monotonic()
         self.record({'event':'session_bound','session_id':session.id,'resumed':bool(session_id)})
         self.emit_progress({'event':'provider_started'})
@@ -230,6 +265,13 @@ class DSHHostSession:
             input_tokens=incoming,output_tokens=outgoing,tool_calls=[{'tool':c['name'],'status':'completed' if c['success'] else 'failed'} for c in self.calls],
             status='interrupted' if self.cancelled else 'completed',cancellation_requested=self.cancelled,
             failed_tool_calls=sum(not c['success'] for c in self.calls))
+        if result.finish_reason == 'aborted' and self.cancelled:
+            # A user stop acknowledged by the SDK is an interrupted turn, not
+            # provider unavailability. The caller checkpoints committed geometry.
+            self.record({'event':'turn_interrupted','reason':'user_cancelled',
+                'elapsed_ms':turn.latency_ms,'tool_call_count':len(self.calls),
+                'input_tokens':incoming,'output_tokens':outgoing})
+            return turn
         if result.finish_reason not in {'completed'}:
             turn.status='interrupted' if self.cancelled else 'failed'
             detail=redact(runtime_failure_detail(result.events),(self.api_key,self.token))
@@ -243,4 +285,6 @@ class DSHHostSession:
     def close(self):
         self.interactions.cancel()
         try:self.harness.close()
-        finally:self.server.shutdown();self.server.server_close();self.worker.join(3)
+        finally:
+            self.server.shutdown();self.server.server_close();self.worker.join(3)
+            if self.test_budget is not None:self.test_budget.close()

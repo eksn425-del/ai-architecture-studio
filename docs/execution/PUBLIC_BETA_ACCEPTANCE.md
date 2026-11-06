@@ -1,0 +1,45 @@
+# R2 acceptance ledger — 2026-11-04
+
+## 2026-11-05 installed continuation
+
+Current source `9c0ef028d127da44389296c4de913c16b5372dfe`, installed build05c. [Exact artifacts and current limits](../releases/KSTUDIO_R2_INSTALLED_20261105.md); [real evidence](../test-results/windows/2026-11-05-installed-bai-edit-and-connections/README.md).
+
+| Updated gate | Actual result |
+|---|---|
+| BAI real source/model/edit | Executed, PARTIAL fidelity; same official DSH/BAI model, Low; r5 then r8 |
+| Local edit protection | PASS independent native deep hashes: only wood group changed, 14 others unchanged |
+| Actual browser download / native reopen | PASS r5 and r8 deep geometry/material equality; host reopen distinctly labeled |
+| Two actual SU2024 windows | PASS explicit UI selection, separate project pins, foreground independence and closed-window no-fallback |
+| API persistence / new user | PASS existing encrypted BAI retained; separate fresh profile has no key |
+| Actual update | PASS build04→05c, 207 protected files unchanged; external legacy bridge path repaired explicitly after backup |
+| Network reliability | Proxy startup cause fixed and real calls succeeded; two later transient SU heartbeat failures retained |
+| Quality / broad compatibility / public release | PARTIAL; no arbitrary-provider or other-SU certification, no clean second Windows, no formal signing/legal clearance/production account-payment deployment |
+
+The following table remains the historical build04 evidence, not the current paid-test status.
+
+Packaged desktop source: `3e953b0384ab4e6779d20803aaa827cee25a9760`; CI fixture follow-up: `debe2a89f04616ebe4a98e719d1432e9d1239455`.
+Level: **internal engineering candidate; public beta gates NOT all passed**.
+R2 job receipts below remain private on the owning project drive. Historical source fidelity PARTIAL is unchanged. No new paid inference was performed.
+
+| Gate | Actual status | Evidence and remaining boundary |
+|---|---|---|
+| R2 input identity / isolation | PASS | Standalone/ZIP MD equal; 30 asset hashes; PR24 ef52a76 baseline; isolated codex/kstudio-r2-public-beta-20261104; old dirty workspaces preserved |
+| Protocol / model / effort / images | PASS offline; live provider NOT_RUN | Effective config, image derivation and SDK serializer tests; two real local HTTP protocol loops, resume, bounded retry and stream interruption. This is not live BAI identity/vision/tool/price acceptance. R2_RUNTIME.md |
+| Spatial handoff / architectural guidance | PASS engineering; quality NOT_RUN | Approved spatial facts and source order/hash retained; fair three-arm tools/config checks. Three classes (1+1+8 sources) preregistered, three arms × two repeats NOT_RUN. No weight training or new quality PASS claimed |
+| Public connector / original preservation | PASS SU2024 engineering; installation PARTIAL | First-party local paired RBZ/stdio EXE, signed operations, document identity and one writer. Real SU24.0.484/Ruby3.2.2. Paired through real packaged UI and read-only checked after program-version change; build04 RBZ subsequently installed through actual SU Extension Manager, file hashes matched, normal SU restart automatically answered health without Ruby reload. This is an existing-install update, not a clean-machine wizard acceptance |
+| Native fault recovery | PASS engineering | native-faults-02: before dispatch, native transaction abort, lost commit reply, capture failure, disconnect after save, normal edit/reopen. Unknown result blocks a new operation. Actual desktop busy-close refusal/release and both SDK partial-stream failures also passed |
+| Native download/reopen/edit | PASS engineering fixture | Actual client file-panel download, byte SHA equality, native reopen deep geometry/material equality, scoped edit on imported owned copy r2→r3, KEEP unchanged. native-browser-download-reopen-02/receipt.json. Download outside project was correctly rejected for direct edit; first failed attempt preserved. Not model-driven end-user building quality |
+| Tool execution boundary | PARTIAL, explicit limitation | Production file proxy, read-only subagents, second MCP denial, actual subprocess canary and junction tests. Host/SU arbitrary Ruby is NOT OS-sandboxed. Trusted-development is explicitly unconfined. R2_EXECUTION_BOUNDARY.md |
+| Original client / new website | PASS local UI | Original K/green/warm white/gold/serif/layout preserved; welcome clipping, erroneous connection-button submit and lost draft fixed. Website route/width and real account UI tests; actual Windows before/after. Figma NOT_SYNCED; DPR simulation not physical Windows DPI acceptance |
+| Accounts / tenant isolation / BYOK | PASS local fixtures; external IdP NOT_RUN | Real Authlib signed IdP fixture + PKCE/device grant, Windows DPAPI, refresh/revoke, platform whitelist and BYOK separation. Corrupt account blocks dispatch; no silent fallback. cloud-restore-final.xml 54 PASS; browser final07 PASS |
+| Ledger / payment | PASS PostgreSQL + signed fixtures; merchant sandbox NOT_RUN | Atomic integer reservation, concurrency/idempotency, usage unknown reconciliation, signed webhook fixture/refund operations. Real customer charging disabled; platform keys remain server-side |
+| Desktop standalone / persistence | PASS this computer | Final installed build04 seq4 opened through its new separate desktop shortcut; repeated activation leaves one process. Actual UI restores encrypted dummy API/capacities without exposing its key, then removes it. Six source projects persist, no inference submitted. Final UI read-only connector health passes after install/version change. Old shortcuts/profile preserved. Clean Windows/more SU versions NOT_RUN |
+| Release / update / licensing | PASS internal updater; public release PARTIAL | Real different build03→04→rollback03→04 with frozen updater and signed test manifests; all 37 protected profile files retain exact hashes. Four version slots retained. Serial verification is slow (rollback 507.265s). Final ZIP/SHA in release notes. 656 components/865 texts/183 classified binaries; ten upstream original license texts absent and explicitly labeled standard terms supplied. Microsoft/LGPL/MPL/first-party rights/signing remain REVIEW_REQUIRED |
+| Deployment / backup | PASS local/source artifact and isolated CI image; production NOT_RUN | Real PostgreSQL encrypted backup to separate restored DB with matching rows; source ZIP independently unpacked/migrated/audited/served. GitHub run41871824820 on007511c8 builds actual Dockerfile and runs non-root/read-only/network-none container with real HTTP/SQLite migration and feedback persistence. No image push, public deployment, real IdP/merchant or PostgreSQL inside that container check |
+| Regression | PASS core; skips explicit | Final core 1653 passed, 20 skipped, 2 deprecation warnings, core-r2-final-04.xml. Remote debe2a8 passed all three Actions workflows, including Ubuntu full regression comparison and Windows/Linux candidate contracts. Separate 54 cloud, real browser and Node hook checks recorded in topic reports; overlapping counts are not summed |
+
+Skipped cases retain their actual limitations: Windows symlink privilege, Linux-only/POSIX launcher fixtures, optional system Ruby and DDGS dependencies. Actual SketchUp Ruby, Windows junction and installed official SDK tests provide separate evidence; they do not relabel those skips PASS.
+
+Failed baselines, missing-SDK UI failure, fixture project-ID failure, post-commit transport-label TypeError, out-of-project downloaded-file guard, and the cloud credential regressions are retained locally with their post-fix results. No previous FAIL/PARTIAL was erased or transferred into this revision's quality verdict.
+
+Remote initial failures are retained: missing cloud dependencies, Windows-only initializer assumption, missing CI Blender, old Ruby test double and Authlib transport-double mismatch. Runtime initializer and CI/fixtures were corrected; the later green workflows do not erase those first failures.

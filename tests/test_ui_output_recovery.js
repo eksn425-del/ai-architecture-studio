@@ -10,15 +10,23 @@ test('SDK transport error gives recovery guidance without blaming key or SketchU
  assert.match(result,/API 连接中断/);assert.match(result,/原会话恢复/);
  assert.match(result,/不能说明 Key 无效/);assert.match(result,/不代表 SU 连接失败/);
 });
-test('provider truncation is distinguished from SU and preserves recovery guidance',()=>{
+test('actual SDK length failure names output settings and never auto-retries or rebuilds',()=>{
  const ctx=vm.createContext({});vm.runInContext(fn,ctx);
- const result=ctx.friendlyError(new Error('Response incomplete: length'));
- assert.match(result,/长度限制/);assert.match(result,/不是 SU 连接失败/);assert.match(result,/重新批准/);
+ const result=ctx.friendlyError(new Error('Official DeepSeek Harness ended with error; PI_AI_ERROR: Response incomplete: length'));
+ assert.match(result,/单次输出达到上限/);assert.match(result,/不是 SU 连接失败/);
+ assert.match(result,/计划和已保存模型仍保留/);assert.match(result,/推理档位或输出设置/);
+ assert.match(result,/不会自动重试或重建/);assert.doesNotMatch(result,/无几何写入|已建成|已完成模型/);
 });
 test('failed approval is not reinserted as a draft that blocks approval',()=>{
- const guard=src.match(/if \(!\$\("conversation-input"\)\.value\.trim\(\) && !approvedPlanSha256\) \$\("conversation-input"\)\.value = message;/);
+ const guard=src.match(/if \(!\$\("conversation-input"\)\.value\.trim\(\) && !approvalGesture\) \$\("conversation-input"\)\.value = message;/);
  assert.ok(guard);
- const input={value:''};const ctx=vm.createContext({$:()=>input,message:'确认',approvedPlanSha256:'approved'});
+ const input={value:''};const ctx=vm.createContext({$:()=>input,message:'确认',approvalGesture:'plan_button'});
  vm.runInContext(guard[0],ctx);assert.equal(input.value,'');
- ctx.approvedPlanSha256=undefined;vm.runInContext(guard[0],ctx);assert.equal(input.value,'确认');
+ ctx.approvalGesture=undefined;vm.runInContext(guard[0],ctx);assert.equal(input.value,'确认');
+});
+test('specific consumed-plan cause survives a generic SDK transport wrapper',()=>{
+ const ctx=vm.createContext({});vm.runInContext(fn,ctx);
+ const result=ctx.friendlyError(new Error('Official DeepSeek Harness TRANSPORT: This pending plan was already consumed or replaced.'));
+ assert.match(result,/批准记录已使用或已更新/);assert.match(result,/检查空白副本并恢复批准/);
+ assert.match(result,/普通问题仍可继续交流/);assert.doesNotMatch(result,/本地运行状态|API 连接中断/);
 });

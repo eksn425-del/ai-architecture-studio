@@ -83,6 +83,7 @@ def test_active_wire_keeps_raw_history_and_old_failures():
     assert 'wire_geometry_omission' in wire[-1]['content']
 
 
+@pytest.mark.usefixtures("require_symlink")
 def test_backend_default_detailed_and_symlink(tmp_path, monkeypatch):
     monkeypatch.setattr('app.blender_backend.shutil.which', lambda _: '/fixture/blender')
     backend = BlenderBackend(tmp_path)

@@ -54,6 +54,7 @@ def test_rejects_paths_even_with_forged_receipt(render, path):
     with pytest.raises(ValueError): blender_render_data_url(project, output)
 
 
+@pytest.mark.usefixtures("require_symlink")
 @pytest.mark.parametrize('target', ['image', 'scene', 'directory'])
 def test_rejects_symlinks(render, tmp_path, target):
     project, run, output, _, state = render

@@ -45,6 +45,7 @@ def test_protected_spec_drift_rejects_preflight(tmp_path):
 def test_invalid_host_scope_rejected(tmp_path,allowed,keep):
     with pytest.raises(ValueError):install(tmp_path,scene(),allowed_ids=allowed,keep_ids=keep,expected_revision=1)
 
+@pytest.mark.usefixtures("require_symlink")
 def test_bad_revision_and_symlink_rejected(tmp_path):
     with pytest.raises(ValueError,match='revision'):install(tmp_path,scene(),allowed_ids=['wall'],keep_ids=['tree'],expected_revision=0)
     bind(tmp_path)

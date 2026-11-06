@@ -1,0 +1,125 @@
+name: R2 cloud container engineering check
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['cloud/**', 'website/**', 'deploy/**', 'tests/cloud/**', 'requirements-cloud.txt', '.github/workflows/r2-cloud-container.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-ledger:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: kstudio_ci
+          POSTGRES_USER: kstudio_ci
+          POSTGRES_PASSWORD: disposable-ci-fixture-only
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U kstudio_ci -d kstudio_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install control-plane test dependencies
+        run: python -m pip install -r requirements-cloud.txt pytest
+      - name: Real PostgreSQL concurrency, tenant, idempotency and reconciliation tests
+        env:
+          KSTUDIO_TEST_POSTGRES_URL: postgresql+psycopg://kstudio_ci:disposable-ci-fixture-only@127.0.0.1:5432/kstudio_ci
+        run: python -m pytest tests/cloud/test_control_plane.py tests/cloud/test_gateway_recovery.py tests/cloud/test_account_receipts.py -q --junitxml=postgres-ledger.xml
+      - name: Require PostgreSQL parameter cases to actually execute
+        run: |
+          python - <<'PY'
+          from xml.etree import ElementTree as ET
+          rows=[r for r in ET.parse('postgres-ledger.xml').iter('testcase') if '[postgresql]' in r.attrib.get('name','')]
+          assert rows, 'No PostgreSQL test cases discovered'
+          assert all(r.find('skipped') is None and r.find('failure') is None and r.find('error') is None for r in rows), 'PostgreSQL cases must pass without skips'
+          print(f'{len(rows)} real PostgreSQL cases passed; no live payment or upstream model calls')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r2-cloud-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          path: postgres-ledger.xml
+          retention-days: 7
+  offline-container:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      IMAGE: kstudio-cloud-ci:${{ github.sha }}
+      CONTAINER: kstudio-cloud-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build current Dockerfile locally, without registry push
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p container-evidence
+          docker version > container-evidence/docker-version.txt
+          docker build --pull --progress=plain --file deploy/Dockerfile --tag "$IMAGE" . 2>&1 | tee container-evidence/build.log
+          docker image inspect "$IMAGE" --format '{{json .}}' > container-evidence/image-inspect.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          image=json.loads(Path('container-evidence/image-inspect.json').read_text())
+          assert image['Os']=='linux' and image['Architecture']=='amd64'
+          assert image['Config']['User']=='10001:10001'
+          Path('container-evidence/image-summary.json').write_text(json.dumps({
+              'image_id':image['Id'],'os':image['Os'],'architecture':image['Architecture'],
+              'configured_user':image['Config']['User'],'image_built':True,
+              'pushed':False,'public_deployment':'NOT_RUN'},indent=2))
+          PY
+      - name: Run real service with network none and restricted filesystem
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker create --name "$CONTAINER" --network none --read-only \
+            --user 10001:10001 --cap-drop ALL --security-opt no-new-privileges:true \
+            --tmpfs /tmp:rw,noexec,nosuid,nodev,size=128m \
+            --memory 512m --cpus 2 --pids-limit 64 \
+            --mount "type=bind,source=$GITHUB_WORKSPACE/deploy/container_smoke.py,target=/opt/container_smoke.py,readonly" \
+            --entrypoint python "$IMAGE" /opt/container_smoke.py --require-container
+          docker inspect "$CONTAINER" > container-evidence/container-inspect.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('container-evidence/container-inspect.json').read_text())[0]
+          h=c['HostConfig']
+          assert h['NetworkMode']=='none' and h['ReadonlyRootfs'] is True
+          assert h['CapDrop']==['ALL'] and 'no-new-privileges:true' in h['SecurityOpt']
+          assert c['Config']['User']=='10001:10001'
+          assert h['PortBindings']=={} or h['PortBindings'] is None
+          PY
+          docker start --attach "$CONTAINER" 2>&1 | tee container-evidence/smoke.log
+          test "$(docker inspect "$CONTAINER" --format '{{.State.ExitCode}}')" = 0
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          lines=Path('container-evidence/smoke.log').read_text().splitlines()
+          rows=[json.loads(line.removeprefix('KSTUDIO_CONTAINER_RESULT=')) for line in lines if line.startswith('KSTUDIO_CONTAINER_RESULT=')]
+          assert len(rows)==1 and rows[0]['status']=='PASS' and rows[0]['isolation']['status']=='PASS'
+          Path('container-evidence/result.json').write_text(json.dumps(rows[0],ensure_ascii=False,indent=2))
+          PY
+      - name: Always record actual container exit and remove this test container
+        if: always()
+        shell: bash
+        run: |
+          docker inspect "$CONTAINER" --format '{{json .State}}' > container-evidence/container-final-state.json 2>/dev/null || true
+          docker rm --force "$CONTAINER" >/dev/null 2>&1 || true
+      - name: Upload engineering evidence, never an image or credential bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r2-cloud-container-${{ github.run_id }}-${{ github.run_attempt }}
+          path: container-evidence/
+          retention-days: 7
+          if-no-files-found: warn

@@ -15,7 +15,7 @@ on:
 jobs:
   verified-components:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,7 +28,9 @@ jobs:
       - name: Run no-network component tests
         run: python -m pytest -q tests/test_adai_components.py
       - name: Install K Studio runtime test dependencies
-        run: python -m pip install -r requirements.txt -r requirements-model-providers.txt
+        run: python -m pip install -r requirements.txt -r requirements-model-providers.txt -r requirements-cloud.txt
+      - name: Install Blender for native backend regression cases
+        run: sudo apt-get update -qq && sudo apt-get install -y blender
       - name: Run K Studio regression suites (PR branch)
         continue-on-error: true
         run: python -m pytest -q --junitxml=branch-pytest.xml

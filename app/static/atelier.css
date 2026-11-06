@@ -223,6 +223,9 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 .plan-in-chat{padding:0;width:100%}
 .plan-in-chat .parameter-plan{border:0;border-radius:0;background:transparent;padding:6px 0;margin:10px 0 18px}
 #parameter-plan-content,.plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;width:100%;max-height:none;height:auto;overflow:visible;box-shadow:none;padding:8px 0;border:0}
+.plan-recovery-notice{padding:10px 12px;margin-bottom:10px;border:1px solid var(--line);border-left:3px solid #b69150;border-radius:7px;background:#f8f2e5;color:var(--ink);font-size:12px;line-height:1.6}
+.plan-recovery-notice p{margin:0 0 6px}
+.plan-recovery-notice button{border:1px solid var(--line);background:var(--panel)}
 .inline-plan{margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
 .inline-plan pre,#parameter-plan-content pre{max-height:none;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere}
 .inline-plan table,#parameter-plan-content table{display:table;max-width:100%;table-layout:fixed;overflow-wrap:anywhere}
@@ -233,3 +236,30 @@ dialog { box-shadow: 0 24px 90px #162e3024; border-color: #d9ddce; }
 @media(max-width:650px){.conversation-history{padding:12px 14px}.composer-area{padding:4px 10px 8px}.composer-toolbar .skill-tag{display:none}.workspace-heading{padding:10px 12px}}
 
 #model-settings-dialog{max-height:calc(100dvh - 32px);overflow-y:auto}#model-settings-dialog select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:6px;background:#fff}#model-settings-dialog input[readonly]{color:var(--muted);background:#f4f5ef}
+
+/* R2 focused corrections: preserve sidebar, welcome and composer hierarchy. */
+.conversation-history:has(.welcome){display:flex;flex-direction:column;gap:12px}
+#conversation-messages:has(.welcome){flex:1;min-height:min-content;display:flex;flex-direction:column}
+#conversation-messages>.welcome{flex:1;min-height:auto}
+#model-connection-notice{flex-shrink:0;margin:0 0 12px;overflow-wrap:anywhere}
+#model-connection-hint{font-size:13px;line-height:1.7}
+.chat-workflow-actions .turn-state{white-space:normal;overflow:visible;font-size:12px}
+.chat-workflow-actions .agent-error{max-height:none;overflow:visible;font-size:13px;line-height:1.7}
+.composer-toolbar{flex-wrap:wrap;row-gap:8px}
+.composer-toolbar .file-pick,.composer-toolbar .model-controls>summary{min-height:36px;display:inline-flex;align-items:center}
+#conversation-send,#conversation-voice{min-width:38px;min-height:38px}
+.workspace-heading>div{min-width:0}.status-pill{white-space:normal;text-align:right;max-width:190px;line-height:1.5}
+.history-item{min-height:38px}.file-chip,.attachment-list a{overflow-wrap:anywhere}
+.sidebar-account{display:block;text-align:left;color:#dce5d5;font-size:12px;padding:8px 0;min-height:36px}
+#cloud-account-dialog{width:min(560px,calc(100vw - 28px));max-height:calc(100dvh - 32px);overflow:auto}
+#cloud-account-dialog p{margin:14px 0;font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+#cloud-account-dialog a{display:inline-flex;margin:6px 10px 6px 0;text-decoration:none}
+.connection-capabilities{margin:20px 0;border-top:1px solid var(--line);padding-top:12px}
+.connection-capabilities summary{font-size:13px}.connection-capabilities p{font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+.connection-capabilities input[type=checkbox]{width:17px;height:17px;vertical-align:middle}
+@media(max-width:650px){.status-pill{display:none}.composer-toolbar .modeling-plugins{margin-left:auto}.composer-toolbar{gap:8px}.conversation-history:has(.welcome){gap:8px}.welcome{padding-block:20px}#connections-dialog .connection-grid{grid-template-columns:1fr}.sidebar-account{min-height:44px}}
+
+#cloud-account-details select{width:100%;min-height:40px;padding:8px 10px;margin:6px 0 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}#cloud-account-details label{display:block;font-size:13px}#cloud-account-device{border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}#cloud-account-user-code{font:600 20px/1.5 Consolas,monospace;letter-spacing:2px}
+#cloud-account-dialog [hidden]{display:none!important}
+#cloud-account-details #cloud-account-fee-label{display:flex;align-items:flex-start;gap:9px;line-height:1.7;margin:12px 0}
+#cloud-account-fee-ack{width:17px;height:17px;flex:0 0 17px;margin:3px 0 0}

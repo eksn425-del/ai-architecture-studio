@@ -149,6 +149,7 @@ function conversationContext() {
   const sandbox = context('let pendingMessage=null,pendingExecutionProject=null;\n' + production('sendConversation'), {
     $, state, localStorage: { setItem() {} }, saveDraft() {}, executionUserMessage: x => x || "确认，按当前计划开始建模。", isBuildApproval: () => false,
     sourceImages: () => [], pendingAttachmentSources: () => [], routeInfo: () => route, setBusy() {}, showResults: value => calls.results.push(value),
+    refreshModelConfiguration: async () => {}, routeAvailable: () => true,
     beginProgress() {}, setStatus() {}, startLiveProgress() {}, loadParameterPlan: async () => {}, updateHeader() {},
     showToast() {}, setTab: value => calls.tabs.push(value), friendlyError: e => e.message, endProgress() {},
     observeRunningTurn: async () => {}, loadProject: async () => {},
@@ -166,6 +167,7 @@ for (const [name, flags, opens] of [
   test(`result panel: ${name}`, async () => {
     const { sandbox, state, calls, respond } = conversationContext();
     const pending = sandbox.sendConversation(null);
+    await new Promise(setImmediate);
     respond({ project: state.project, reply: 'ok', agent: { agent_action: 'execute', ...flags } });
     await pending;
     assert.equal(calls.results.includes(true), opens);
@@ -175,6 +177,7 @@ for (const [name, flags, opens] of [
 test('serial sending and next draft survive the result gating change', async () => {
   const { sandbox, state, $, calls, respond } = conversationContext();
   const pending = sandbox.sendConversation(null);
+  await new Promise(setImmediate);
   assert.equal($('conversation-input').value, '');
   $('conversation-input').value = '下一条要求'; await sandbox.sendConversation(null);
   respond({ project: state.project, reply: 'ok', agent: { agent_action: 'execute', geometry_committed: false, checkpoint_saved: false } });
@@ -186,7 +189,7 @@ const { createHash, webcrypto } = require('node:crypto');
 function planContext(api, crypto = webcrypto, pending = undefined) {
   const nodes = {}, state = { projectId: 'p', project: { agent_session: { reconstruction_state: 'planned' } }, displayedPlan: { projectId: 'p', sha256: 'old' } };
   const $ = id => nodes[id] ||= { addEventListener() {}, insertAdjacentHTML(position, content) { this.innerHTML = content + (this.innerHTML || ""); } };
-  const sandbox = context('let planRequestId=0;\n' + production('escapeHtml', 'parameterPlanMarkup', 'loadParameterPlan'), {
+  const sandbox = context('let planRequestId=0;\n' + production('escapeHtml', 'parameterPlanMarkup', 'renderPlanRecovery', 'loadParameterPlan'), {
     $, state, api: async target => {
       if (target.endsWith('/agent/pending-plan') && pending !== undefined) {
         if (pending instanceof Error) throw pending;

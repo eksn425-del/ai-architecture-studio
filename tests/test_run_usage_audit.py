@@ -152,7 +152,7 @@ def test_fresh_run_records_code_identity_and_end_status(tmp_path, monkeypatch):
     rt.session_api_key = "synthetic-never-sent"
     rt.completion_callable = lambda: lambda **_: SimpleNamespace(model="deepseek-v4.1-flash",
         usage={"prompt_tokens": 100, "completion_tokens": 20},
-        choices=[SimpleNamespace(message={"content": "fixture response"})])
+        choices=[SimpleNamespace(finish_reason="stop", message={"content": "fixture response"})])
     result = rt.respond(project_dir=tmp_path, thread_id=None, prompt="read only fixture", mcp_enabled=False,
                         developer_instructions="fixture", ruby_enabled=False)
     assert result.status == "completed"

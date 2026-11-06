@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-05-bai-stair-building-first-pass",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "3e953b0384ab4e6779d20803aaa827cee25a9760",
+  "source_case": "Owner private cantilever/stair building image, inputs/d89dce566b-image.png; original pixels withheld from public repository",
+  "model": {
+    "requested": "BAI deepseek-v4.1-flash",
+    "actual": "deepseek-v4.1-flash (SDK route label; upstream identity not independently attested)",
+    "reasoning_effort": "high discussion and failed build; low successful build, explicit UI configuration change",
+    "runtime": "Installed build04 official DeepSeek Harness SDK / openai-responses"
+  },
+  "environment": {
+    "windows": "Owner Windows desktop",
+    "sketchup": "2024 24.0.484",
+    "connector": "kstudio-public; r5 review also checked after extension upgrade",
+    "adai": "No wrapped geometry calls observed"
+  },
+  "qa": {
+    "reviewer_mode": "agent_supplied",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "native_download_reopen": "PASS deep geometry/material equality",
+    "strict_blank_replay": "NOT_RUN",
+    "local_user_edit": "not part of this report; subsequent work recorded separately"
+  },
+  "scope": "Initial image discussion, approval failure, explicit recovery and completed first model, r5 download/reopen. Later network failures and edits are not counted here."
+}

@@ -72,6 +72,8 @@ def main() -> None:
             result = {"ok": False, "traceback": traceback.format_exc()}
         args.diagnose_provider.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         return
+    from app.desktop_prerequisites import require_desktop_prerequisites
+    require_desktop_prerequisites()
     import webview
     webview.settings["ALLOW_DOWNLOADS"] = True
     server = None
@@ -123,6 +125,19 @@ def main() -> None:
         if args.generated_dir:
             os.environ['ARCHFLOW_GENERATED_SCRIPT_DIR'] = str(args.generated_dir.resolve())
             os.environ['ARCH_STUDIO_GENERATED_SCRIPT_DIR'] = str(args.generated_dir.resolve())
+        else:
+            # Restore only explicit public pairing. Never borrow a developer's
+            # Codex configuration or copy another profile's credentials.
+            import json
+            connector_config = Path(os.environ.get('ARCH_STUDIO_MCP_CONFIG', bridge))
+            if connector_config.is_file():
+                paired = json.loads(connector_config.read_text(encoding='utf-8'))
+                connector_env = paired.get('env', {})
+                if connector_env.get('KSTUDIO_PUBLIC_CONNECTOR_ROOT'):
+                    generated = connector_env.get('ARCHFLOW_GENERATED_SCRIPT_DIR')
+                    if generated:
+                        os.environ['ARCHFLOW_GENERATED_SCRIPT_DIR'] = generated
+                        os.environ['ARCH_STUDIO_GENERATED_SCRIPT_DIR'] = generated
         from app.main import create_app
         with socket.socket() as probe:
             probe.bind(("127.0.0.1", 0))

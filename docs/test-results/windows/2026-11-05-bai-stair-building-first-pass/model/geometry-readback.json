@@ -1,0 +1,129 @@
+{
+  "model_guid": "f0248513-63ba-4f74-ac95-5dcb8dc54d62",
+  "revision": 5,
+  "root_pid": 21,
+  "source_sha256": "a4ece6d341a57c3c699fde6d34a9764f6db0c6cd00a5b99ace4b254c4bf387bb",
+  "last_report": "runtime/scripts/reports/harness_building-r5-c1fd36be.json",
+  "last_screenshot": "outputs/renders/ruby-harness_building-r5.png",
+  "last_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 21,
+        "actual": 21
+      },
+      {
+        "check": "revision",
+        "expected": 5,
+        "actual": 5
+      },
+      {
+        "check": "objects_total",
+        "expected": 15,
+        "actual": 15
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -300.0,
+            -350.0,
+            -300.0
+          ],
+          "max": [
+            13800.0,
+            15000.0,
+            27700.0
+          ],
+          "size": [
+            14100.0,
+            15350.0,
+            28000.0
+          ]
+        },
+        "actual": {
+          "min": [
+            -300.0,
+            -350.0,
+            -300.0
+          ],
+          "max": [
+            13800.0,
+            15000.0,
+            27700.0
+          ],
+          "size": [
+            14100.0,
+            15350.0,
+            28000.0
+          ]
+        }
+      }
+    ]
+  },
+  "last_verification_report": "runtime/scripts/reports/harness_building-r5-c1fd36be.verification.json",
+  "last_precommit_keep_guard": {
+    "armed": false,
+    "passed": null,
+    "paths": []
+  },
+  "last_oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "a4ece6d341a57c3c699fde6d34a9764f6db0c6cd00a5b99ace4b254c4bf387bb",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "harness_building",
+    "revision": 5,
+    "root_pid": 21
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "wood_soffits_canopies"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "wood_soffits_canopies"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "last_strategy_progress": {
+    "schema_version": 1,
+    "source": "committed_owned_root_named_path_readback",
+    "script_id": "harness_building",
+    "revision": 5,
+    "root_pid": 21,
+    "full_readback": true,
+    "current_stage": "pending",
+    "systems": [],
+    "visual_verification": "NOT_RUN"
+  },
+  "last_oss_method_adoption": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {},
+    "any_oss_product_use": false,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": []
+  },
+  "durable_checkpoint": {
+    "status": "saved_unverified_reopen",
+    "path": "outputs/model/committed-revisions/harness_building-r5-d2551056ff8d4b26ab86edafc41c8fa8.skp",
+    "sha256": "f57bd9ee6558cd5c42a333270338a76b8dc184cbfd63e62b791fd79b63c8c168",
+    "revision": 5,
+    "root_pid": 21
+  },
+  "durability_status": "saved_unverified_reopen"
+}

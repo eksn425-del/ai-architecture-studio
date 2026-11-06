@@ -49,6 +49,7 @@ module Sketchup
       @entities=Entities.new;@name='';@bounds=Bounds.new(nil,nil)
     end
     def persistent_id; object_id; end
+    def definition; Struct.new(:instances, :name).new([self], @name); end
     def locked?; false; end
     def transform!(value); @translation=value; end
   end

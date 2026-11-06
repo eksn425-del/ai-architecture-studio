@@ -8,9 +8,10 @@ def test_full_profile_keeps_official_capabilities_and_compaction(tmp_path, monke
     monkeypatch.delenv('KSTUDIO_DSH_MCP_CONFIG', raising=False)
     monkeypatch.delenv('KSTUDIO_DSH_SKILL_DIRS', raising=False)
     path=tmp_path/'profile.json'
-    write_profile(path,api_base='https://example.invalid/v1',model='fixture-model')
+    write_profile(path,api_base='https://api.b.ai/v1',model='deepseek-v4.1-flash')
     rows=json.loads(path.read_text(encoding='utf-8'))
-    assert {r['id'] for r in rows if r.get('disabled')} == {'session-telemetry-otel'}
+    from app.dsh_security import RESTRICTED_PLUGINS
+    assert {r['id'] for r in rows if r.get('disabled')} == {'session-telemetry-otel',*RESTRICTED_PLUGINS}
     compaction=next(r for r in rows if r.get('id')=='compaction-basic')['config']
     model=next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']['models'][0]
     remaining=model['contextWindow']-model['maxTokens']-compaction['headroomTokens']
@@ -23,6 +24,7 @@ def test_full_profile_keeps_official_capabilities_and_compaction(tmp_path, monke
 
 def test_mcp_and_skill_are_added_without_replacing_native_tools(tmp_path,monkeypatch):
     monkeypatch.setenv('KSTUDIO_DSH_CAPABILITIES','full')
+    monkeypatch.setenv('KSTUDIO_DSH_EXECUTION_POLICY','trusted-development')
     monkeypatch.setenv('KSTUDIO_DSH_SKILL_DIRS',json.dumps([str(tmp_path)]))
     config=tmp_path/'mcp.json'
     config.write_text(json.dumps({'su':{'transport':'stdio','command':'node','args':['server.js']}}))

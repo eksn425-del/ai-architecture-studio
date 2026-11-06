@@ -3,7 +3,7 @@ const KStudioConnections = (() => {
   const dialog = document.getElementById("connections-dialog");
   const form = document.getElementById("connection-form");
   const node = id => document.getElementById(`connection-${id}`);
-  let snapshot = {connections: [], active_id: null}, editingId = null, working = false;
+  let snapshot = {connections: [], active_id: null}, editingId = null, working = false, capabilitiesChanged = false, sourceMode = 'byok';
   const selected = () => snapshot.connections.find(item => item.id === editingId);
   function setWorking(value) {
     working = value;
@@ -12,14 +12,20 @@ const KStudioConnections = (() => {
       node("use").disabled = !editingId || editingId === snapshot.active_id;
       node("remove").disabled = !editingId;
       node("disconnect").disabled = !snapshot.active_id;
+      effortOptions();
     }
+  }
+  function effortOptions() {
+    const config = selected()?.effective_configuration;
+    const supported = config?.supported_efforts || ["provider-default", "low", "high"];
+    for (const option of node("effort").options) option.disabled = !supported.includes(option.value);
   }
   function protocol() {
     const mode = node("mode").value;
     const responses = mode === "codex-responses";
     node("ack-label").hidden = !responses;
-    node("effort").value = responses ? "low" : "provider-default";
-    for (const option of node("effort").options) option.disabled = responses ? option.value === "provider-default" : ["medium", "xhigh"].includes(option.value);
+    node("effort").value = "provider-default";
+    effortOptions();
     node("base").readOnly = mode === "deepseek" || mode === "bai";
     node("model").readOnly = mode === "deepseek";
     node("base").value = mode === "deepseek" ? "https://api.deepseek.com" : mode === "bai" ? "https://api.b.ai/v1" : "";
@@ -50,7 +56,14 @@ const KStudioConnections = (() => {
       node("effort").value = item.reasoning_effort;
       node("ack").checked = item.mode === "codex-responses";
     }
-    node("status").textContent = item ? (item.id === snapshot.active_id ? "当前使用此连接；Key 不会回显。" : "此连接已保存，可直接启用。") : "新连接默认没有 Key，请自行填写。";
+    let capability = {}; try { capability = JSON.parse(item?.capabilities_json || "{}"); } catch (_) {}
+    node("context").value = capability.context_window || "";
+    node("output").value = capability.max_output_tokens || "";
+    for (const field of ["vision", "tools", "streaming"]) node(field).checked = (capability[field] ?? item?.effective_configuration?.effective?.[field]) === true;
+    capabilitiesChanged = false;
+    const effective = item?.effective_configuration;
+    node("effective").textContent = effective?.status === "unsupported" ? `当前配置不支持：${effective.reason}` : effective?.effective ? `实际协议：${effective.effective.protocol} · 推理：${effective.effective.requested_effort} · 上下文：${effective.effective.context_window} · 能力来源：${effective.effective.capability_source} · 验证：${effective.effective.verification_status || "NOT_RUN"}。供应商回报模型：${effective.reported?.model || "unknown"}` : "保存后读取实际配置；尚未调用供应商。";
+    node("status").textContent = sourceMode === 'unavailable' ? '云账户配置需要恢复。请先在侧栏“账户与额度”重新登录或明确选择自带 API；未替换连接。' : sourceMode === 'platform' ? '当前选择平台模型。请先在侧栏“账户与额度”明确切换为自带 API，再变更本机连接；已有 Key 保留。' : item ? (item.id === snapshot.active_id ? "当前使用此配置；建模能力仍需验证，Key 不会回显。" : "此连接已保存；能力仍需验证。") : "新连接默认没有 Key，请自行填写。";
     keyHint(); setWorking(false);
   }
   function render(next) {
@@ -62,32 +75,44 @@ const KStudioConnections = (() => {
       document.querySelector(".signal-dot").classList.toggle("ready", state.nativeAgentAvailable);
     }
     node("saved").replaceChildren(new Option("＋ 添加 API 连接", ""));
-    for (const item of snapshot.connections) node("saved").add(new Option(`${item.id === snapshot.active_id ? "当前 · " : ""}${item.name}`, item.id));
-    node("summary").textContent = snapshot.active_id
+    for (const item of snapshot.connections) node("saved").add(new Option(`${sourceMode === 'byok' && item.id === snapshot.active_id ? "当前 · " : ""}${item.name}`, item.id));
+    node("summary").textContent = sourceMode === 'unavailable' ? '账户配置未恢复 · 尚未启用模型方式' : sourceMode === 'platform' ? '当前使用平台模型 · 下面是本机保存的自带 API 配置' : snapshot.active_id
       ? `已保存 ${snapshot.connections.length} 个连接 · 重启自动恢复当前连接`
       : "尚未启用 API · 可以打开项目和连接建模软件";
   }
   async function run(operation, done) {
     if (working || state.busy) return;
     setWorking(true); node("status").textContent = "正在保存本机设置…";
-    try { const next = await operation(); render(next); edit(done?.(next) || editingId); }
+    try {
+      sourceMode = (await api('/api/cloud-account-config')).source_mode || 'byok';
+      if (sourceMode === 'unavailable') throw new Error('云账户配置需要恢复。请先在侧栏“账户与额度”重新登录或明确选择自带 API；未更改连接或模型。');
+      if (sourceMode === 'platform') throw new Error('当前选择平台模型。请先关闭此面板，在侧栏“账户与额度”明确选择自带 API；未更改连接或模型。');
+      const next = await operation(); render(next); edit(done?.(next) || editingId);
+      notifyModelConfigurationChanged();
+    }
     catch (error) { node("status").textContent = friendlyError(error); }
     finally { node("key").value = ""; setWorking(false); }
   }
   async function open() {
     if (state.busy) { showToast("请等当前回合结束后再更换 API。"); return; }
     try {
+      sourceMode = (await api('/api/cloud-account-config')).source_mode || 'byok';
       render(await api("/api/model-connections")); edit(snapshot.active_id);
       dialog.showModal();
     } catch (error) { showToast(friendlyError(error), true); }
   }
   form.addEventListener("submit", event => {
     event.preventDefault();
-    const body = {id: editingId, name: node("name").value, mode: node("mode").value,
+    const capabilities = {};
+    if (node("context").value) capabilities.context_window = Number(node("context").value);
+    if (node("output").value) capabilities.max_output_tokens = Number(node("output").value);
+    for (const field of ["vision", "tools", "streaming"]) capabilities[field] = node(field).checked;
+    const body = {capabilities_json: capabilitiesChanged ? JSON.stringify(capabilities) : selected()?.capabilities_json || "{}", id: editingId, name: node("name").value, mode: node("mode").value,
       model: node("model").value, api_base: node("base").value, api_key: node("key").value,
       reasoning_effort: node("effort").value, compatibility_acknowledged: node("ack").checked};
     run(() => api("/api/model-connections", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)}), next => next.active_id);
   });
+  for (const field of ["context", "output", "vision", "tools", "streaming"]) node(field).addEventListener("input", () => { capabilitiesChanged = true; });
   node("saved").addEventListener("change", () => edit(node("saved").value));
   node("mode").addEventListener("change", protocol);
   for (const field of ["base", "model"]) node(field).addEventListener("input", keyHint);

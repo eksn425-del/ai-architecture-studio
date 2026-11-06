@@ -4,6 +4,14 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname, '../app/static/studio.js'), 'utf8');
+test('connector entry buttons cannot implicitly submit the conversation form', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../app/static/index.html'), 'utf8');
+  for (const id of ['start-agent-session', 'start-blender-session']) {
+    const button = html.match(new RegExp(`<button[^>]*id="${id}"[^>]*>`));
+    assert.ok(button, id);
+    assert.match(button[0], /type="button"/);
+  }
+});
 function production(...names) {
   return names.map(name => {
     const start = source.search(new RegExp(`^(?:async )?function ${name}\\(`, 'm'));
@@ -11,7 +19,7 @@ function production(...names) {
     return source.slice(start, source.indexOf('\n}', start) + 2);
   }).join('\n');
 }
-const ready = {platform_supported:true, package_available:true, configured:false, configuration_kind:'missing', publication:'private_local_trial', installations:[{year:2022,name:'SketchUp 2022',plugin_present:false,plugin_kind:'missing'}]};
+const ready = {platform_supported:true, package_available:true, configured:false, configuration_kind:'missing', publication:'private_local_trial', compatibility_policy:{candidate_years:[2019,2022,2024,2027],native_trial_years:[]}, installations:[{year:2022,name:'SketchUp 2022',plugin_present:false,plugin_kind:'missing'}]};
 function fixture(info=ready, api=async()=>({})) {
   const nodes={};
   const $=id=>nodes[id]||=( {value:id==='connector-sketchup-version'?'2022':'',open:true,disabled:false,
@@ -56,10 +64,58 @@ test('closed wizard does not render a late installer success',async()=>{
 });
 test('failed MCP check is actionable and never suggests manual credential copying',async()=>{
   const {sandbox,$}=fixture(ready,async()=>({reachable:false,detail:'Connection file not found: private-path\nRun tools/save_kongxing_connection.ps1'}));
-  await sandbox.checkConnectorSetup();assert.match($('connector-setup-status').textContent,/Start Local Bridge/);
+  await sandbox.checkConnectorSetup();assert.match($('connector-setup-status').textContent,/Start paired local connector/);
   assert.doesNotMatch($('connector-setup-status').textContent,/private-path|save_kongxing|已响应/);
 });
 test('fresh MCP configuration error directs users to installer, not to Codex installation',()=>{
   const {sandbox}=fixture();const text=sandbox.friendlyError(new Error('Codex config.toml was not found; the existing SketchUp MCP is not configured.'));
   assert.match(text,/安装 K Studio 连接器/);assert.doesNotMatch(text,/完成 Codex 配置/);
+});
+
+
+test('public schema uses backend candidate years including 2027 without claiming compatibility', () => {
+  const {sandbox,$}=fixture({...ready,package_schema:2,connector_kind:'kstudio-public',publication:'candidate',installations:[]});
+  $('connector-sketchup-version').value='2027';sandbox.renderConnectorSetup();
+  assert.equal($('connector-runtime-install').disabled,false);
+  assert.equal($('connector-plugin-download').href,'/api/connectors/sketchup/plugin');
+  assert.match($('connector-compatibility-note').textContent,/尚未提供逐版本原生验收/);
+  assert.match($('connector-start-instructions').textContent,/K Studio Connector/);
+  $('connector-sketchup-version').value='2028';sandbox.renderConnectorSetup();
+  assert.equal($('connector-runtime-install').disabled,true);
+  assert.equal($('connector-plugin-download').href,undefined);
+});
+
+test('a detected unsupported year is not silently offered a public plugin', () => {
+  const {sandbox,$}=fixture({...ready,installations:[{year:2028,name:'SketchUp 2028'}]});
+  $('connector-sketchup-version').value='2028';sandbox.renderConnectorSetup();
+  assert.equal($('connector-runtime-install').disabled,true);
+  assert.equal($('connector-plugin-download').href,undefined);
+});
+
+test('public runtime pairing cannot claim plugin installation or native self-test',async()=>{
+  const info={...ready,package_schema:2,connector_kind:'kstudio-public',publication:'candidate'};
+  const {sandbox,$}=fixture(info,async(url,options)=>options ? {status:'runtime_installed',connector_kind:'kstudio-public',plugin_installed_by_setup:false,native_reachability:'not_checked'} : {...info,configured:true});
+  await sandbox.installConnectorRuntime();
+  assert.match($('connector-setup-status').textContent,/配对已配置/);
+  assert.match($('connector-setup-status').textContent,/插件尚未由此向导安装/);
+  assert.match($('connector-setup-status').textContent,/原生连接尚未验证/);
+  assert.doesNotMatch($('connector-setup-status').textContent,/通过启动自检|已连接成功/);
+});
+
+test('closing while setup refresh is in-flight prevents late success rendering',async()=>{
+  let respond, stage=0;
+  const {sandbox,$}=fixture(ready,async()=>++stage===1?{status:'runtime_installed'}:new Promise(resolve=>respond=resolve));
+  const pending=sandbox.installConnectorRuntime();await new Promise(resolve=>setImmediate(resolve));
+  sandbox.closeConnectorSetup();respond({...ready,configured:true});await pending;
+  assert.doesNotMatch($('connector-setup-status').textContent,/已写入|已配对/);
+});
+
+for (const [name,result,expected] of [
+  ['reachable only',{reachable:true,project_bound:false},/尚未绑定本会话模型/],
+  ['bound and reachable',{reachable:true,project_bound:true},/当前活动文档与本会话已匹配/],
+  ['configuration is not reachability',{configured:true,reachable:false,project_bound:false},/插件尚未响应/],
+]) test(name,async()=>{
+  const {sandbox,$}=fixture(ready,async()=>result);
+  await sandbox.checkConnectorSetup();assert.match($('connector-setup-status').textContent,expected);
+  assert.doesNotMatch($('connector-setup-status').textContent,/建模验收通过/);
 });

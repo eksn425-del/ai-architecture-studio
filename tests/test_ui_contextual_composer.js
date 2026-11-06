@@ -16,21 +16,23 @@ function production(...names) {
 function composer({ text = '', stage = 'planned', ready = true, refs = [], history = [] } = {}) {
   const requests = [], notices = [], nodes = {};
   const state = {
-    projectId: 'p', busy: false, planEditing: false,
+    projectId: 'p', busy: false, planEditing: false, checkingModelConfiguration: false,
     displayedPlan: { projectId: 'p', sha256: 'a'.repeat(64), pendingPlanId: 'pending-p' },
     project: { agent_session: { reconstruction_state: stage, status: ready ? 'ready' : 'conversation' },
       context: { references: refs, conversation: history, brief: { source_files: [] }, site: { source_files: [] } } },
   };
   const $ = id => nodes[id] ||= {
     value: id === 'conversation-input' ? text : id === 'workflow-mode' ? 'image_reconstruction' : 'economy',
-    open: false, hidden: false, setAttribute(k,v) { this[k]=v; },
+    open: false, hidden: false, focus(){}, setAttribute(k,v) { this[k]=v; },
   };
   const context = vm.createContext({
     $, state, TextEncoder, setTimeout, clearTimeout, crypto: require('node:crypto').webcrypto,
     localStorage: { setItem() {} }, saveDraft() {}, routeInfo: () => ({ model: 'stub-only' }), setBusy() {},
+    refreshModelConfiguration: async () => {}, routeAvailable: () => true, renderJourney() {}, renderPlanRecovery() {},
+    modelUnavailableMessage: () => '请先配置 API，图片和草稿保留',
     showResults() {}, beginProgress() {}, setStatus() {}, startLiveProgress() {}, loadParameterPlan: async () => {},
     updateHeader() {}, showToast: text => notices.push(text), setTab() {}, friendlyError: e => e.message,
-    endProgress() {}, observeRunningTurn: async () => {}, loadProject: async () => {},
+    refreshHarnessInteractions() {}, endProgress() {}, observeRunningTurn: async () => {}, loadProject: async () => {},
     openConnectDialog: () => notices.push('connection requested'),
     isBuildApproval() { throw Error('Legacy keyword routing must never run'); },
     projectFileUrl: value => '/files/' + value.split('/').map(encodeURIComponent).join('/'),
@@ -128,6 +130,7 @@ test('repeat clicks are ignored and a next-turn draft survives the pending respo
   let resolve, calls = 0;
   context.api = async () => { calls++; return new Promise(r => resolve = r); };
   const first = context.sendConversation(null);
+  await new Promise(setImmediate); // Real send now checks current configuration first.
   $('conversation-input').value = '  下一条草稿\n';
   await context.sendConversation(null, 'execute');
   resolve({ project: state.project, reply: 'controlled response', agent: {} });
@@ -279,10 +282,72 @@ test('late running-project response cannot overwrite a different project or its 
   const f=composer({text:'开始建模'});let finish;
   f.context.api=()=>new Promise(resolve=>finish=resolve);
   const pending=f.context.sendConversation(null);
+  await new Promise(setImmediate);
   assert.equal(f.state.runningProjectId,'p');
   const other={agent_session:{},context:{conversation:[{role:'user',content:'历史q'}]}};
   f.state.projectId='q';f.state.project=other;f.$('conversation-input').value='q的草稿';
   finish({project:{},reply:'a finished',agent:{}});await pending;
   assert.equal(f.state.project,other);assert.equal(f.$('conversation-input').value,'q的草稿');
   assert.equal(f.state.runningProjectId,null);assert.equal(f.state.busy,false);
+});
+
+
+test('failed clean approval does not manufacture a composer draft', async () => {
+  const f = composer({text: ''});
+  f.context.api = async () => {throw Error('fixture offline');};
+  await f.context.sendConversation(null, 'execute');
+  assert.equal(f.$('conversation-input').value, '');
+  assert.equal(f.state.busy, false);
+});
+
+test('missing API stops before POST and preserves exact draft and attached sources', async () => {
+  const f = composer({text:'  请分析这张图\n', refs:[image('original.png')]});
+  f.context.routeAvailable = () => false;
+  const original = JSON.stringify(f.state.project);
+  await f.context.sendConversation(null);
+  assert.equal(f.requests.length, 0);
+  assert.equal(f.$('conversation-input').value, '  请分析这张图\n');
+  assert.equal(JSON.stringify(f.state.project), original);
+  assert.match(f.notices[0], /API/);
+});
+test('a changed draft during configuration check is not silently sent', async () => {
+  const f=composer({text:'原草稿'});let checked;
+  f.context.refreshModelConfiguration=()=>new Promise(resolve=>checked=resolve);
+  const pending=f.context.sendConversation(null);
+  f.$('conversation-input').value='重新考虑后的草稿';
+  await f.context.sendConversation(null);
+  checked();await pending;
+  assert.equal(f.requests.length,0);assert.equal(f.$('conversation-input').value,'重新考虑后的草稿');
+});
+test('configuration check failure cannot send with an obsolete route', async () => {
+  const f=composer({text:'分析图片',refs:[image('original.png')]});
+  f.context.refreshModelConfiguration=async()=>{throw Error('offline');};
+  await f.context.sendConversation(null);
+  assert.equal(f.requests.length,0);assert.equal(f.$('conversation-input').value,'分析图片');
+  assert.equal(f.state.checkingModelConfiguration,false);
+  assert.match(f.notices[0],/配置/);
+});
+
+test('known consumed approval stops an explicit clean approval before dispatch', async()=>{
+  const f=composer({text:''});f.state.planRecovery={projectId:'p',pendingPlanId:'used'};
+  await f.context.sendConversation(null,'execute');
+  assert.equal(f.requests.length,0);assert.match(f.notices[0],/检查空白副本并恢复批准/);
+});
+test('known consumed plan does not classify or block an ordinary natural question', async()=>{
+  const f=composer({text:'为什么上次没有建模？先解释一下。'});f.state.planRecovery={projectId:'p',pendingPlanId:'used'};
+  await f.context.sendConversation(null);
+  assert.equal(f.requests.length,1);assert.equal(f.requests[0].body.message,'为什么上次没有建模？先解释一下。');
+  assert.equal(f.requests[0].body.agent_action,'auto');
+  assert.equal(f.requests.some(r=>r.url.endsWith('/retry-plan')),false);
+});
+
+for (const status of ['failed','error','interrupted',undefined]) test(`HTTP 200 ${status} cannot promote previous last_reply to a new result`, async()=>{
+  const f=composer({text:'请继续建模'});const statuses=[],results=[];let calls=0;
+  f.context.setStatus=text=>statuses.push(text);f.context.showResults=open=>results.push(open);
+  f.context.api=async()=>{calls++;return {project:{...f.state.project,agent_session:{...f.state.project.agent_session,last_reply:'上一轮计划',error:'PI_AI_ERROR: Response incomplete: length'}},reply:'上一轮计划',agent:{status}};};
+  await f.context.sendConversation(null);
+  assert.equal(calls,1);assert.equal(f.$('conversation-input').value,'请继续建模');
+  assert.ok(statuses.some(text=>text.includes('Response incomplete')));
+  assert.ok(!statuses.includes('上一轮计划'));assert.ok(!f.notices.some(text=>text.includes('已处理')));
+  assert.ok(!results.includes(true));
 });

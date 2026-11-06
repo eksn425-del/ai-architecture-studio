@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "status": "NOT_REGISTERED",
+  "common": {
+    "provider_configuration": null,
+    "dsh_version": null,
+    "tools_sha256": null,
+    "memory_strategy": "r2-spatial-handoff",
+    "single_writer": true,
+    "repetitions_per_arm": null,
+    "budget": {
+      "currency": "CNY",
+      "maximum": null,
+      "authorization": null
+    },
+    "max_corrections_per_part": 2,
+    "stop_on": [
+      "budget_exhausted",
+      "unknown_native_commit",
+      "cancelled",
+      "auth_or_quota_failure"
+    ],
+    "review": {
+      "deterministic": true,
+      "source_matched_human": true,
+      "independent_ai": "NOT_RUN"
+    },
+    "no_model_substitution": true
+  },
+  "arms": [
+    "official_dsh_baseline",
+    "kstudio_minimal",
+    "kstudio_architecture"
+  ],
+  "cases": [
+    {
+      "id": "facade_layers",
+      "classification": "facade_layers",
+      "source_manifest": [],
+      "source_status": "NOT_SELECTED",
+      "natural_task": "",
+      "scale_anchors": [],
+      "critical_features": [],
+      "occluded_inference_rule": "Coherent bounded estimates, explicitly labeled inferred; no invented measurement.",
+      "success_criteria": [
+        "source-visible critical geometry preserved",
+        "KEEP unchanged",
+        "saved/downloaded native reopen matches",
+        "editable semantic groups"
+      ],
+      "failure_criteria": [
+        "missing or changed critical spatial feature",
+        "protected geometry changed",
+        "unknown commit repeated",
+        "native reopen mismatch"
+      ],
+      "tolerances": {},
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "split_level_cantilever_stairs",
+      "classification": "split_level_cantilever_stairs",
+      "source_manifest": [],
+      "source_status": "NOT_SELECTED",
+      "natural_task": "",
+      "scale_anchors": [],
+      "critical_features": [],
+      "occluded_inference_rule": "Coherent bounded estimates, explicitly labeled inferred; no invented measurement.",
+      "success_criteria": [
+        "source-visible critical geometry preserved",
+        "KEEP unchanged",
+        "saved/downloaded native reopen matches",
+        "editable semantic groups"
+      ],
+      "failure_criteria": [
+        "missing or changed critical spatial feature",
+        "protected geometry changed",
+        "unknown commit repeated",
+        "native reopen mismatch"
+      ],
+      "tolerances": {},
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "multi_view_spatial",
+      "classification": "multi_view_spatial",
+      "source_manifest": [],
+      "source_status": "NOT_SELECTED",
+      "natural_task": "",
+      "scale_anchors": [],
+      "critical_features": [],
+      "occluded_inference_rule": "Coherent bounded estimates, explicitly labeled inferred; no invented measurement.",
+      "success_criteria": [
+        "source-visible critical geometry preserved",
+        "KEEP unchanged",
+        "saved/downloaded native reopen matches",
+        "editable semantic groups"
+      ],
+      "failure_criteria": [
+        "missing or changed critical spatial feature",
+        "protected geometry changed",
+        "unknown commit repeated",
+        "native reopen mismatch"
+      ],
+      "tolerances": {},
+      "result": "NOT_RUN"
+    }
+  ]
+}

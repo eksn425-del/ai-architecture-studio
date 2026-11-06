@@ -38,6 +38,21 @@ def test_bad_graph_never_reaches_model(mutation):
     if mutation=='duplicate':g['parts'].append('Roof')
     with pytest.raises(ValueError):validate_graph(g,{'source_1'})
 
+
+def test_tool_contract_explains_and_rejects_observed_graph_shape_failures():
+    from jsonschema import Draft202012Validator
+    schema=next(s['inputSchema'] for s in specs('plan') if s['name']=='kstudio_save_design_graph')
+    validator=Draft202012Validator(schema)
+    valid=graph()
+    valid['spatial']={'coordinate_frame':{'units':'mm','x':'right','front':'-Y','up':'+Z','origin':'front left corner'}}
+    validator.validate(valid)
+    validate_graph(valid,{'source_1'})
+    bad=json.loads(json.dumps(valid));bad['spatial']['coordinate_frame']['front']='Y negative'
+    assert list(validator.iter_errors(bad))
+    bad=json.loads(json.dumps(valid));bad['parts']=[{'name':'Roof'}]
+    assert list(validator.iter_errors(bad))
+    assert list(validator.iter_errors({'graph':valid}))
+
 @pytest.mark.parametrize('changed',['graph','card','image'])
 def test_scope_binding_survives_restart_and_rejects_changes(tmp_path,changed):
     c=context(tmp_path);bind(c)
