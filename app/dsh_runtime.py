@@ -167,6 +167,8 @@ class DSHHostSession:
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
+                    if event['success'] and isinstance(result.get('construction_step'), dict):
+                        parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
                 except (ValueError,KeyError,TypeError) as error:
                     self.reply({'error':str(error)},400)
