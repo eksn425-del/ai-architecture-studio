@@ -126,8 +126,11 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
         'sha256':{name:hashlib.sha256((REPO/name).read_bytes()).hexdigest() for name in installer_inputs},
         'note':'source_sha identifies frozen application core; installer input hashes identify later packaging fixes'}
     if compile_installer:
+        compiler_temp=output/'temp';compiler_temp.mkdir()
+        compiler_env=dict(os.environ,TEMP=str(compiler_temp),TMP=str(compiler_temp))
+        receipt['compiler_temp_scope']='output/temp; process environment only'
         with (output/'compile.log').open('wb') as log:
-            result=subprocess.run([str(makensis),'/V2',str(entry)],stdout=log,stderr=subprocess.STDOUT,timeout=1800,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            result=subprocess.run([str(makensis),'/V2',str(entry)],stdout=log,stderr=subprocess.STDOUT,timeout=1800,env=compiler_env,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
         receipt['compile_exit_code']=result.returncode
         receipt['compile_status']='PASS' if result.returncode==0 else 'FAIL'
         if result.returncode==0:
