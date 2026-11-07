@@ -19,6 +19,8 @@ def test_safe_nsis_strings_and_no_broad_uninstall(tmp_path):
     assert 'file $$name.txt' in output
     assert 'RMDir /r' not in output and 'Delete "$INSTDIR\\*' not in output
     assert 'Call un.CheckPathAncestors' in output
+    assert 'SetOutPath "\\\\?\\$INSTDIR' in output
+    assert 'Delete "\\\\?\\$INSTDIR' in output
     assert all('versions\\r3-test' in line for line in output.splitlines() if line.strip().startswith('Delete '))
     with pytest.raises(ValueError):nsis_string('invalid\n!system injected')
 
@@ -133,3 +135,21 @@ def test_real_windows_installer_locks_and_atomic_failure():
              'same_version_overwrite_refused_exit':6,'original_and_partial_slots_unchanged':True,'profile_junction_real_lock_verified':True,
              'same_version_repair_crash_atomic':False,'fixture_only':True}
     (fixture/'lock-atomic-junction-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+
+
+@pytest.mark.skipif(os.name != 'nt' or not os.environ.get('KSTUDIO_INSTALLER_FIXTURE'), reason='Explicit compiled engineering fixture only')
+def test_real_deep_path_install_and_uninstall():
+    import subprocess
+    fixture=Path(os.environ['KSTUDIO_INSTALLER_FIXTURE']).resolve()
+    assert fixture.name=='installer-fixture' and fixture.drive.upper()=='E:'
+    source=max((p for p in (fixture/'deep-bundle').rglob('*') if p.is_file()),key=lambda p:len(str(p)))
+    relative=source.relative_to(fixture/'deep-bundle')
+    root=fixture/'installed-deep/program'
+    target=root/'versions/r3-deep-16'/relative
+    assert len(str(source))>260 and len(str(target))>260
+    startup=subprocess.STARTUPINFO();startup.dwFlags=subprocess.STARTF_USESHOWWINDOW;startup.wShowWindow=0
+    exe=fixture/'compile16/KStudio-r3-deep-16-win-x64-setup.exe'
+    assert subprocess.run([str(exe),'/S'],startupinfo=startup,timeout=30).returncode==0
+    assert target.read_bytes()==source.read_bytes()
+    assert subprocess.run('"'+str(root/'Uninstall.exe')+'" /S _?='+str(root),startupinfo=startup,timeout=30).returncode==0
+    assert not target.exists() and (root/'unknown.txt').is_file() and (root.parent/'profile/keep.txt').is_file()

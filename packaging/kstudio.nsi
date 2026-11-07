@@ -50,7 +50,7 @@ Function ${Prefix}CheckFixedRoot
 FunctionEnd
 Function ${Prefix}CheckPathAncestors
   check_parent_${Prefix}:
-    System::Call 'kernel32::GetFileAttributesW(w "$CheckPath") i.r0'
+    System::Call 'kernel32::GetFileAttributesW(w "\\?\$CheckPath") i.r0'
     IntCmp $0 -1 check_next_${Prefix}
     IntOp $1 $0 & 0x400
     IntCmp $1 0 check_next_${Prefix}

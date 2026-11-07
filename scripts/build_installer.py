@@ -65,17 +65,17 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
     lines=['!macro InstallPayload','  SetOverwrite on']
     for directory in ordered:
         target=destination(directory)
-        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',f'  SetOutPath "{target}"'])
+        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',f'  SetOutPath "\\\\?\\{target}"'])
         for file in sorted(by_directory[directory],key=lambda p:p.as_posix()):
-            lines.append(f'  File "/oname={nsis_string(file.name)}" "{nsis_string(str(bundle/file))}"')
+            lines.append(f'  File "/oname={nsis_string(file.name)}" "\\\\?\\{nsis_string(str(bundle/file))}"')
     lines+=['!macroend','!macro UninstallPayload']
     # Check all ancestors first; never follow a modified subtree junction while
     # deleting payload files or a changed installer-selected location.
     for directory in ordered:
         lines.extend([f'  StrCpy $CheckPath "{destination(directory)}"','  Call un.CheckPathAncestors'])
-    for relative in relative_files:lines.append(f'  Delete "{destination(relative)}"')
+    for relative in relative_files:lines.append(f'  Delete "\\\\?\\{destination(relative)}"')
     for directory in reversed(ordered):
-        if directory!=Path('.'):lines.append(f'  RMDir "{destination(directory)}"')
+        if directory!=Path('.'):lines.append(f'  RMDir "\\\\?\\{destination(directory)}"')
     lines.append('!macroend')
     return '\n'.join(lines)+'\n'
 
@@ -118,6 +118,7 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
              'running_instance_refused':True,'atomic_current_pointer':True,
              'same_version_repair_crash_atomic':False,
              'same_version_overwrite':'REFUSED_EXIT_6',
+             'extended_length_payload_paths':True,
              'nsis_license':'https://nsis.sourceforge.io/License','compile_status':'NOT_RUN'}
     installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
     receipt['installer_source']={
