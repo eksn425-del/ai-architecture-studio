@@ -1,72 +1,78 @@
-# R2 部署参数清单（此文件无凭据）
+# R3 部署与恢复参数（无凭据，2026-11-07）
 
-云服务/官网与本机 SU 工作台分离。仅部署 `cloud.main:create_app`；不要将 `app.main` 或连接器端口暴露公网。源码工件不包含任何 `.env`，包括示例文件。运营者通过受保护的主机配置或 secret store 提供下列值；Compose 使用本机私有 `deploy/.env`，不得回传聊天或提交 Git。
+当前是工程候选，不代表商业 Beta 已上线。只部署 `cloud.main:create_app` 和官网；本机 `app.main`、SketchUp 写入器及连接器不得暴露公网。模板为 `environment.template`，源码工件排除全部 `.env`。复制模板到运营主机受限私有路径，仅通过 `--env-file` 传入；不要提交或发回密钥。
 
-| 参数 | 必须提供的实际值 / 默认行为 |
+## 核心配置
+
+| 参数 | 实际值与约束 |
 | --- | --- |
-| `KSTUDIO_DOMAIN` | 实际 DNS 主机名，不含协议；仅代理使用 |
-| `KSTUDIO_CLOUD_PUBLIC_URL` | 与域名匹配的 HTTPS origin，无路径；桌面运营配置也使用同一 origin |
-| `KSTUDIO_CLOUD_ENV` | 先 `staging`，验收及明确批准后才 `production` |
-| `KSTUDIO_DATABASE_PASSWORD` | PostgreSQL 唯一随机密码；Compose 创建数据库使用 |
-| `KSTUDIO_CLOUD_DATABASE_URL` | `postgresql+psycopg://kstudio:<URL编码密码>@db:5432/kstudio`；原生部署填写实际私网主机 |
-| `KSTUDIO_CLOUD_SESSION_SECRET` | 至少32字符随机服务端密钥；备份且受控保存，轮换会影响浏览器会话 |
-| `KSTUDIO_OIDC_METADATA_URL` | 成熟身份服务实际 discovery URL，如其 `/.well-known/openid-configuration`，不能用示例域名 |
-| `KSTUDIO_OIDC_CLIENT_ID` / `KSTUDIO_OIDC_CLIENT_SECRET` | 正式注册的机密 Web 客户端；精确回调 `https://实际域名/auth/callback`；支持 code + PKCE S256、签名 ID token、nonce/state、`openid profile` |
-| `KSTUDIO_ADMIN_SUBJECTS` | JSON 数组；实际身份 `issuer|sub` 格式按数据库 identity 记录核验后配置，不按昵称授权；默认 `[]` 无人工对账管理权限 |
-| `KSTUDIO_PRICES_CONFIRMED` | 默认 `0`；正式单位、兑换率、价格版本、服务费方式、取消/失败/退款规则由运营者确认后才为 `1` |
-| `KSTUDIO_CLOUD_PRICES` | 默认 `{}`；版本、套餐金额（最小货币单位）、币种、整数 credits、BYOK 服务费开关/金额。结构见 README；示例数值不是售价 |
-| `KSTUDIO_STRIPE_KEY` | 有资格的商户测试密钥；非 production 仅允许 `sk_test_…`。缺失则充值关闭 |
-| `KSTUDIO_STRIPE_WEBHOOK_SECRET` | 同一商户/模式/端点的签名密钥。端点 `/api/payments/stripe/webhook`；事件 `checkout.session.completed`、`checkout.session.async_payment_succeeded`、`charge.refunded` |
-| `KSTUDIO_CLOUD_MODELS` | 默认 `{}`；模型公开 ID → 已确认服务端 endpoint、真实 upstream_model、协议、Key 的环境变量名、能力、输出/预占/日限与价格。模型 Key 只放服务端；不打包入桌面 |
-| 每个模型的 `key_env` 所指变量 | 对应运营者自己的供应商密钥及使用条款；缺失不能宣布平台模型可用 |
-| `KSTUDIO_CLOUD_RELEASE` | 默认 `{}`；公开下载需 version、url、size_bytes、sha256、verified=true、public_distribution_authorized=true，同时公布兼容/签名/发布者/日期/限制。不得填工程夹具或私人链接 |
-| `KSTUDIO_WEBSITE_DIR` | 原生部署时官网绝对目录；容器默认为工作目录下 `website` |
+| `KSTUDIO_DOMAIN` / `KSTUDIO_CLOUD_PUBLIC_URL` | 实际 DNS 名及匹配 HTTPS origin；不能用占位域名 |
+| `KSTUDIO_CLOUD_ENV` | 先 staging；真实验收后才 production |
+| `KSTUDIO_IMAGE` / `KSTUDIO_RELEASE_SHA` | 验证的镜像标签或 digest、对应完整40位源码 SHA；ops 拒绝脏工作区或不匹配源码 |
+| `KSTUDIO_DATABASE_PASSWORD` | 独立随机数据库密码 |
+| `KSTUDIO_CLOUD_DATABASE_URL` | `postgresql+psycopg://kstudio:<URL编码密码>@db:5432/kstudio`；Compose 不发布数据库端口 |
+| `KSTUDIO_CLOUD_SESSION_SECRET` | 至少32字符随机服务端密钥，私有备份 |
+| `KSTUDIO_SECRET_DIR` | 主机受保护目录，只读挂载到 `/run/secrets/kstudio`；容器 UID10001 需可读指定文件 |
+| `KSTUDIO_REGISTRATION_ENABLED` / `KSTUDIO_PLATFORM_ENABLED` / `KSTUDIO_PAYMENT_ENABLED` / `KSTUDIO_DOWNLOAD_ENABLED` | 默认0，各真实验收通过后独立开启 |
+| `KSTUDIO_GLOBAL_MAX_CONCURRENCY` | 默认4；单 Uvicorn worker，尚未认证跨进程限流 |
 
-**仍需外部完成：** 实际运营主体/支持邮箱/隐私与保留期/退款条款、域名 DNS、合资格主机地域与相关手续、OIDC 客户端注册及其短信/微信/QQ 等渠道配置、合资格商户沙箱、确认价格与 API 合同、可信桌面签名及获准公开的安装包。当前只有通用 OIDC 和 Stripe 适配；不能宣称手机号、微信、QQ、微信支付或支付宝已直接接入。
+## 登录、个人 API 和平台 API
 
-## 加密备份参数
+- `KSTUDIO_OIDC_METADATA_URL`、`KSTUDIO_OIDC_CLIENT_ID`、`KSTUDIO_OIDC_CLIENT_SECRET`：成熟 IdP（执行方案为 Authing）真实机密 Web 客户端，回调精确为 `https://域名/auth/callback`。`KSTUDIO_OIDC_TOKEN_ENDPOINT_AUTH_METHOD=client_secret_post`，scope 默认 `openid profile phone email`。手机短信和微信渠道须在 IdP 完成真实配置与验收，代码适配不等于渠道开通。
+- `KSTUDIO_ADMIN_SUBJECTS`：已核对数据库身份的 `issuer|sub` JSON数组，不按昵称授权。
+- `KSTUDIO_VAULT_ACTIVE_KEY_VERSION`：例如 `v1`；`KSTUDIO_VAULT_KEYS_FILE=/run/secrets/kstudio/vault-keys.json`。文件结构 `{"v1":"<随机32字节密钥的Base64>"}`；保留每个历史密钥版本直到记录全部轮换。AES-256-GCM AAD绑定用户、记录、版本。数据库只有密文，列表不返回Key。
+- 同步个人 Key 必须最近10分钟重新登录，在网页明确选择本人有效设备；120秒一次性凭据绑定用户、设备、连接版本，桌面确认后写入 DPAPI，不自动选择该Key。退出/切换账号隔离工作区与缓存，不删除原模型。
+- `KSTUDIO_CLOUD_MODELS`：公开模型ID到已验收上游配置；`enabled` 和 `verified` 都通过才可用。`key_env` 指向私有 `KSTUDIO_BAI_PLATFORM_KEY`。真实地址/model、能力、最大输出、价格版本、预占、日限、`turn_budget_units`、`max_turn_requests` 由服务器配置，客户端不得指定预算或获得平台Key。示例见 README。
+- `KSTUDIO_PRICES_CONFIRMED=0`、`KSTUDIO_CLOUD_PRICES={}` 默认关闭。正式整数积分、货币最小单位、服务费、失败/取消/退款规则由运营者确认；未知用量不当0、不自动重复扣费。
 
-生产备份/恢复使用主机 PostgreSQL 客户端和 `age`：`PGHOST`、`PGPORT`、`PGUSER`、`PGDATABASE`、受限 `PGPASSFILE`；备份设置 `KSTUDIO_BACKUP_RECIPIENT` 为 age 公钥，恢复设置 `KSTUDIO_BACKUP_IDENTITY` 为隔离受控私钥文件路径。不要把私钥与加密备份存在同一公开工件。SQLite 只用于显式本机验证，`KSTUDIO_BACKUP_KEY` 为独立 Fernet 密钥；它不替代生产 PostgreSQL 运维。
+## 微信支付与公开信息
 
-## 初次启动、迁移和回滚
+R3 已实现微信 Native 支付、签名验真、回调解密、持久已验证事件收件箱、事件幂等、退款核对和维护恢复；真实商户未验收不能宣布收款可用。
 
-在部署前确认 TCP 80/443、DNS、证书签发、出站 IdP/供应商/支付网络；数据库端口不得公网开放。先备份，再执行迁移；当前 schema2 对 schema1 会话表增列，不删除旧数据。源码包不包含容器镜像；本轮 Docker 不存在，镜像状态 `NOT_BUILT`。
+| 参数 | 配置 |
+| --- | --- |
+| `KSTUDIO_PAYMENT_PROVIDER` | 默认 disabled；真实验收后 `wechat_native` |
+| `KSTUDIO_WECHATPAY_MCHID` / `KSTUDIO_WECHATPAY_APPID` | 合资格真实商户和关联应用 |
+| `KSTUDIO_WECHATPAY_API_V3_KEY_FILE` | 容器内 APIv3 密钥文件路径 |
+| `KSTUDIO_WECHATPAY_MERCHANT_PRIVATE_KEY_FILE` / `KSTUDIO_WECHATPAY_MERCHANT_SERIAL` | 商户私钥文件及序列号 |
+| `KSTUDIO_WECHATPAY_VERIFY_MATERIAL_FILE` | 容器内可信微信验签材料，按适配器结构配置和轮换 |
+| `KSTUDIO_OPERATOR` | JSON字段 `name`、`support_email` 或 `support_url`、`icp`、`privacy_contact`、`data_retention`、`refund_policy`；真实主体及适用备案，不得编造 |
+| `KSTUDIO_CLOUD_RELEASE` | version、url、size_bytes、sha256、兼容信息；放开需 verified、public_distribution_authorized、signing_verified、clean_windows_verified 均为 true，license_clearance 必须是字符串 `CLEARED`，`REVIEW_REQUIRED` 不通过 |
 
-从解压目录根执行（所有凭据已通过私有配置注入；不要把以下命令理解为生产授权）：
+原 Stripe 适配仍在，其 Key/签名参数只对另行验收的 Stripe 路线有效。
 
-```sh
-cd deploy
-docker compose config --quiet
-docker compose build app migrate
-docker compose up -d db
-docker compose --profile maintenance run --rm migrate
-docker compose up -d app proxy
-docker compose --profile maintenance run --rm migrate python -m cloud.cli audit
-```
+## 部署、维护与回退
 
-验证实际 `https://域名/health/ready`、`/api/public/config`、官网、OIDC 完整登录/设备授权和未授权拒绝。上述 Docker 命令本轮 `NOT_RUN`。上线前锁定实际 Python/PostgreSQL/Caddy 镜像 digest 并记录镜像 SBOM/漏洞扫描；当前 Dockerfile 的版本标签不是不可变 digest。
-
-已有 Python 3.12 与受控 PostgreSQL 的主机也可按下述方式启动，不要求在用户电脑安装 Docker：
+当前 schema **3**：保留 schema1/2 数据，新增认证时间、个人凭据/审计/同步、微信事件与退款、任务预算等能力。先备份再迁移。固定镜像和源码，设置 DNS/TLS/出站限制。命令从仓库根执行：
 
 ```sh
-python3.12 -m venv /srv/kstudio/venv
-/srv/kstudio/venv/bin/python -m pip install -r requirements-cloud.txt
-/srv/kstudio/venv/bin/python -m cloud.cli migrate
-/srv/kstudio/venv/bin/python -m cloud.cli audit
-/srv/kstudio/venv/bin/python -m uvicorn cloud.main:create_app --factory --host 127.0.0.1 --port 8920 --workers 1 --no-access-log
+python3 deploy/ops.py check --env-file /srv/kstudio-private/runtime.env --commercial
+python3 deploy/ops.py deploy --env-file /srv/kstudio-private/runtime.env --commercial
+python3 deploy/ops.py health --env-file /srv/kstudio-private/runtime.env
+python3 deploy/ops.py audit --env-file /srv/kstudio-private/runtime.env
 ```
 
-进程工作目录为解压根，环境由服务管理器私有注入；原生部署需将 Caddy 上游从 Compose 的 `app:8920` 明确改为 `127.0.0.1:8920`。不要将 `deploy/Caddyfile` 原样误用于非 Compose 主机。代理信任仅放行实际代理地址，不使用 `*`。单 worker 是当前进程内限流的部署约束。
+`deploy` 启动私网数据库、迁移，再启动 app/proxy/maintenance。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
 
-每分钟调度 `python -m cloud.cli recover-stale`，每天 `python -m cloud.cli audit`；日志应记录退出码和脱敏摘要。未知已派发状态进入待对账，不重发付费请求。出现 DB 不可达、余额审计不一致、长时间待对账、回调失败、磁盘不足、备份失败时通知运营者；候选不附带已开通的告警服务。
+回退：`python3 deploy/ops.py rollback --env-file ... --previous-image 已验证旧镜像`。只切 app/maintenance 镜像，不删卷或订单；先确认旧程序与 schema3 兼容，再验健康与账本。数据库切换另行安排，restore-drill 不自动切生产。
+
+## 加密备份与隔离恢复
+
+主机需要 Python3 与官方 age CLI；pg_dump/pg_restore **在 Compose 的 db 容器内部运行**，不依赖主机 PGHOST、PGPASSFILE 或开放5432。
+
+| 参数 | 配置 |
+| --- | --- |
+| `KSTUDIO_BACKUP_RECIPIENT` | age 公钥收件人；备份只需公钥 |
+| `KSTUDIO_BACKUP_IDENTITY` | 恢复时主机独立受保护的 age 私钥文件绝对路径，不是容器内路径 |
+| `KSTUDIO_AGE_EXECUTABLE` | 可选主机 age 路径；默认 age |
 
 ```sh
-# 所需 PG* 与 age 参数已私有注入；目标文件必须不存在
-sh deploy/backup.sh /approved-backup/kstudio-YYYYMMDD.age
-# 先创建隔离、空的 kstudio_restore_YYYYMMDD 数据库，再将 PGDATABASE 指向它
-sh deploy/restore.sh /approved-backup/kstudio-YYYYMMDD.age
-# KSTUDIO_CLOUD_DATABASE_URL 也指向隔离恢复库
-python -m cloud.cli audit
+python3 deploy/ops.py backup --env-file /srv/kstudio-private/runtime.env --output /private-backups/new-snapshot.age
+python3 deploy/ops.py restore-drill --env-file /srv/kstudio-private/runtime.env --archive /private-backups/new-snapshot.age --target-db kstudio_restore_20261107
 ```
 
-比较实际行数、订单/任务/账本样本、登录及设备撤销，并记录恢复耗时与备份时间点。恢复演练不能覆盖生产库。程序回退先恢复上版程序/镜像，保留数据与备份；若 schema 不兼容，停止并使用审核后的迁移/切换方案，不能靠还原旧快照静默丢弃新订单。正式 RPO/RTO、保留期、异地备份及恢复联系人须运营者确定。
+目标文件与恢复数据库必须不存在。恢复先完整验证 age 密文认证，再创建 `kstudio_restore_*` 新数据库，单事务恢复；不会 DROP、清空或接管原库。随后在应用镜像中只读校验 schema、全部表数量/指纹、每个账本及每条 vault 解密，包括已验真支付收件箱。失败的独立数据库保留供核查，不自动删除。临时明文位于0700私有目录，结束后删除；主机需可信磁盘和访问控制。
+
+**完整恢复还依赖独立密钥保存：** age私钥、vault全部历史主密钥、session及商户/IdP等运营配置须分离受控备份。它们不在数据库快照内；丢失vault主密钥就无法恢复个人API。逻辑数据库快照不包含SKP、录像或WAL/PITR。异地备份、周期、RPO/RTO、保留与恢复联系人须另行配置，目前不自动清理旧备份。
+
+本轮本机 Postgres/age 演练和 Docker/生产分开记录，见 [R3运维证据](../docs/execution/KSTUDIO_R3_BACKUP_RESTORE_20261107.md)。当前本机 Docker 不存在，不能把本机 Postgres PASS 写成 Compose 或生产上线 PASS。CI 的实际结果应以对应提交的工件为准。

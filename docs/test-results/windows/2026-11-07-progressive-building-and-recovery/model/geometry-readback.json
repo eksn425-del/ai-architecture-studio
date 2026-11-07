@@ -1,0 +1,162 @@
+{
+  "model_guid": "4e88cfc6-972c-41e8-be0c-b9951e4910a4",
+  "revision": 7,
+  "root_pid": 19,
+  "source_sha256": "ce0a6e74017cf8498668d11c7e51c9e11b0a8ce03c22937a45a353ebd761859d",
+  "last_report": "runtime/scripts/reports/harness_building-r7-c94de992.json",
+  "last_screenshot": "outputs/renders/ruby-harness_building-r7.png",
+  "last_verification": {
+    "schema_version": 1,
+    "verified": true,
+    "source": "post_commit_owned_root_readback",
+    "checks": [
+      {
+        "check": "transaction_status",
+        "expected": "committed",
+        "actual": "committed"
+      },
+      {
+        "check": "root_persistent_id",
+        "expected": 19,
+        "actual": 19
+      },
+      {
+        "check": "revision",
+        "expected": 7,
+        "actual": 7
+      },
+      {
+        "check": "objects_total",
+        "expected": 11,
+        "actual": 11
+      },
+      {
+        "check": "bounds_mm",
+        "expected": {
+          "min": [
+            -900.0,
+            -5700.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            15100.0,
+            4650.0
+          ]
+        },
+        "actual": {
+          "min": [
+            -900.0,
+            -5700.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            15100.0,
+            4650.0
+          ]
+        }
+      }
+    ]
+  },
+  "last_verification_report": "runtime/scripts/reports/harness_building-r7-c94de992.verification.json",
+  "last_precommit_keep_guard": {
+    "armed": false,
+    "passed": null,
+    "paths": []
+  },
+  "last_oss_method_ledger": {
+    "schema_version": 1,
+    "source_sha256": "ce0a6e74017cf8498668d11c7e51c9e11b0a8ce03c22937a45a353ebd761859d",
+    "events": [],
+    "status": "committed_readback",
+    "script_id": "harness_building",
+    "revision": 7,
+    "root_pid": 19
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "Glass_Wall"
+      ],
+      [
+        "Mullions"
+      ],
+      [
+        "Terrace_Main"
+      ],
+      [
+        "Terrace_Lower"
+      ],
+      [
+        "Stair_Steps"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "Glass_Wall",
+      "Mullions",
+      "Terrace_Main",
+      "Terrace_Lower",
+      "Stair_Steps"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "last_strategy_progress": {
+    "schema_version": 1,
+    "source": "committed_owned_root_named_path_readback",
+    "script_id": "harness_building",
+    "revision": 7,
+    "root_pid": 19,
+    "full_readback": true,
+    "current_stage": "pending",
+    "systems": [],
+    "visual_verification": "NOT_RUN"
+  },
+  "last_oss_method_adoption": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {},
+    "any_oss_product_use": false,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": []
+  },
+  "durable_checkpoint": {
+    "status": "saved_unverified_reopen",
+    "path": "outputs/model/committed-revisions/harness_building-r7-4f863d5d732d46bc86405dee137c288a.skp",
+    "connector_transition": {
+      "operation_id": "harness_building-r7-4f863d5d732d46bc86405dee137c288a",
+      "instance_id": "33172-f5fd562d66f79076f0653d93",
+      "identity_before": {
+        "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+        "model_guid": "2e65c4ed-a64e-4110-8aba-8909028cf31f"
+      },
+      "identity_after": {
+        "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+        "model_guid": "4e88cfc6-972c-41e8-be0c-b9951e4910a4"
+      },
+      "completed": true,
+      "project_id": "architecture-project-7d1b1",
+      "root_pid": 19,
+      "revision": 7,
+      "at": 1794002389.678244
+    },
+    "sha256": "ac21e173d9b8189d3f7bd8ce8b6317ec60fa4d3f6f84835bf661c422b5ba60e1",
+    "revision": 7,
+    "root_pid": 19
+  },
+  "durability_status": "saved_unverified_reopen"
+}

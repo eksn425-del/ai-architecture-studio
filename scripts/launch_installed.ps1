@@ -13,7 +13,14 @@ $versionPath=[IO.Path]::GetFullPath((Join-Path $resolvedRoot ('versions\'+$curre
 if (-not $versionPath.StartsWith($resolvedRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid release destination' }
 $exe=Join-Path $versionPath 'KStudio.exe'
 if (-not (Test-Path -LiteralPath $exe -PathType Leaf)) { throw 'Installed K Studio executable missing' }
-$process=Start-Process -FilePath $exe -ArgumentList @('--data-dir',('"'+[IO.Path]::GetFullPath($DataDir)+'"')) -WorkingDirectory $versionPath -WindowStyle Hidden -PassThru
+$resolvedDataDir=[IO.Path]::GetFullPath($DataDir)
+$runtimeTemp=Join-Path $resolvedDataDir 'temp'
+[IO.Directory]::CreateDirectory($runtimeTemp) | Out-Null
+# Current launcher process and its children only: never change account/global
+# environment settings. One-file connector extraction therefore follows data.
+$env:TEMP=$runtimeTemp
+$env:TMP=$runtimeTemp
+$process=Start-Process -FilePath $exe -ArgumentList @('--data-dir',('"'+$resolvedDataDir+'"')) -WorkingDirectory $versionPath -WindowStyle Hidden -PassThru
 $deadline=[DateTime]::UtcNow.AddSeconds(30)
 while ([DateTime]::UtcNow -lt $deadline) {
     if ($process.HasExited) { break }

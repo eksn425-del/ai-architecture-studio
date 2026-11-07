@@ -1,161 +1,127 @@
-# K Studio cloud control plane — candidate deployment
+# K Studio R3 cloud control plane — candidate deployment
 
-Current R2 operator input table and exact source/Compose startup, migration and
-restore commands: [ENVIRONMENT.md](ENVIRONMENT.md). The sanitized source ZIP omits
-all `.env` files (including examples); create the private environment from that
-table. Container images remain **NOT_BUILT** until the target host builds and tests
-them. Source packaging is not public deployment.
+The current operator contract is [ENVIRONMENT.md](ENVIRONMENT.md); sanitized values
+are in [environment.template](environment.template). Copy the template into a private
+host file, protect it, then use `deploy/ops.py --env-file ...`. Source packages exclude
+all `.env` files. This is implemented candidate engineering, not a live commercial launch.
 
-This is a separate service from the local SketchUp writer. Do not expose `app.main`
-or the connector on a public address. Only the cloud service and website sit behind
-the TLS reverse proxy. The PostgreSQL port is never published by Compose.
+Only `cloud.main:create_app` and `website` belong behind the HTTPS proxy. Never expose
+local `app.main` or the SketchUp connector. Compose does not publish PostgreSQL's port.
+Schema **3** migrates earlier data without dropping account/order history.
 
-1. Provision an approved server/domain, PostgreSQL storage and secret store. Review
-   hosting eligibility and merchant eligibility before production. Copy `.env.example`
-   into private `.env`, use unique secrets and URL-encode the DB password. Never commit it.
-2. Configure a mature OIDC provider's discovery URL/client. Register exactly
-   `https://YOUR_DOMAIN/auth/callback`; authorize only the intended redirect. Authlib
-   performs state/nonce/ID-token validation and PKCE S256. Registration/password recovery
-   remain at that provider. No local password table or fake public login exists.
-3. Keep `KSTUDIO_PRICES_CONFIRMED=0`, empty platform models and no payment credentials
-   until prices, upstream terms and payment account are actually approved. OIDC can
-   operate independently. Confirmed integer credit rules use a versioned JSON price table.
-4. In this directory: `docker compose --profile maintenance run --rm migrate`, then
-   `docker compose up -d app proxy`. Verify `/health/ready` and `/api/public/config`.
-   This environment did not have Docker; these container commands are **NOT_RUN**.
-5. Configure outbound firewall restrictions, alerting and a scheduled
-   `python -m cloud.cli recover-stale` (every minute, stale age 15 minutes). A crash
-   before dispatch releases its reservation. A possibly dispatched call stays pending
-   reconciliation; there is no automatic billed request replay. Run `cloud.cli audit`
-   daily and alert on inconsistent balances, pending jobs older than 15 minutes,
-   webhook non-2xx, unavailable DB and disk/backup failures.
-6. Test official merchant **test mode** checkout and signed callbacks with that
-   merchant's own sandbox. Unit fixtures using the official SDK do not satisfy this.
-   Stripe is an adapter candidate, not a claim that the operator is eligible for a
-   Stripe account. WeChat/Alipay domestic merchant adapters are not delivered here.
-7. Only after staging gates pass, prepare an explicit production change with DNS/TLS,
-   operator IdP/admin subject, published terms/privacy/refund/support/contact, confirmed
-   prices and signed/reopen-verified desktop artifact. Production promotion was not run.
+## Deployment gates
 
-## Backup and restore
+1. Configure the approved server/domain, DNS/TLS, private secret mount, database password,
+   session secret and exact source SHA/image. Database and credentials stay private.
+2. Configure the real Authing OIDC client and its phone/WeChat channels. The callback is
+   exactly `https://DOMAIN/auth/callback`. Authlib checks signatures/state/nonce and PKCE;
+   recent authentication uses signed IdP auth_time. Device login uses outbound HTTPS.
+   There is no local password table or fabricated SMS/WeChat success.
+3. Keep registration/platform/payment/download switches closed until their actual gates
+   pass. Confirm real pricing, provider terms, public operator/privacy/refund/support
+   information and release/signing/license/clean-Windows evidence.
+4. Run `python3 deploy/ops.py check --env-file PRIVATE --commercial`, then `deploy` with
+   the same arguments, followed by `health` and `audit`. Deploy refuses a dirty/mismatched
+   checkout. It builds app/migrate/maintenance, migrates, and starts app/proxy/maintenance.
+5. The maintenance worker runs every minute with a PostgreSQL advisory lock: recover
+   unstarted stale reservations, reconcile already verified payment inbox events and audit
+   balances. Unknown dispatched calls are held for reconciliation, never automatically
+   replayed. Connect actual alerting for audit failure, old pending work, webhook failure,
+   disk exhaustion and failed backups. No external alert service is claimed configured.
+6. R3 implements WeChat Native checkout/callback/refund routes and durable verified-event
+   recovery. Real eligible merchant verification is still required. Synthetic signed SDK
+   tests are not real payment acceptance. Stripe remains a separate existing adapter.
+7. Validate real first login, BYOK consent/sync/revocation, platform metering, merchant
+   callbacks, signed installer, first SU model and native download/reopen before opening Beta.
 
-`backup.sh NEW_ARCHIVE.age` uses pg_dump custom format and age encryption. Supply DB
-credentials via protected PGPASSFILE, and the backup public recipient via
-KSTUDIO_BACKUP_RECIPIENT. Keep the private identity offline/separately controlled.
-Store encrypted backups on a second approved storage location; test retention before
-adding automated pruning. The candidate does not delete old backups.
+This Windows host has no Docker; local Compose execution is **NOT_RUN**. CI builds and
+isolated container smoke may be run independently; use the actual run artifacts for
+that commit. Neither source packaging nor container smoke means production was deployed.
 
-For a drill, create an empty `kstudio_restore_*` database, set PGDATABASE to that
-isolated target, set KSTUDIO_BACKUP_IDENTITY to the private identity path and run
-`restore.sh ARCHIVE.age`. The script refuses other DB names or nonempty targets.
-Then use its database URL with `python -m cloud.cli audit`, compare counts and actual
-sample account/task/order records, and exercise login + pending-task reconciliation.
-Never overwrite production to test restore. A rollback restores the prior app image;
-schema 2 adds session refresh columns/indexes without deleting existing data. Do not
-roll back data by silently restoring an old snapshot.
+## Backup, restore and rollback
 
-The local Windows PostgreSQL 17.11 encrypted restore drill is implemented in
-`python -m deploy.restore_drill --bin PG_BIN --output NEW_PRIVATE_DIRECTORY`.
-Its test-only trust-auth server is loopback:55439 and MUST NOT become a deployed
-database. It generated synthetic identities/payments only. Measured local snapshot
-restore time is not a production RTO guarantee. Production RPO depends on the chosen
-backup/WAL schedule, and is currently unconfigured.
+```sh
+python3 deploy/ops.py backup --env-file PRIVATE --output /private-backups/new.age
+python3 deploy/ops.py restore-drill --env-file PRIVATE --archive /private-backups/new.age --target-db kstudio_restore_20261107
+python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_PREVIOUS_IMAGE
+```
 
-## Configuration examples — synthetic values only
+Backup uses **pg_dump inside the private Compose db container**, piped into official age.
+Only Python and age are needed on the operator host, not a published DB port or host PG
+password file. `KSTUDIO_BACKUP_RECIPIENT` is the age public recipient. Restore uses a
+separately controlled `KSTUDIO_BACKUP_IDENTITY` host file. Optional
+`KSTUDIO_AGE_EXECUTABLE` names the host age executable.
+
+Archive publication is exclusive; no old archive is overwritten. Restore fully verifies
+the age ciphertext before SQL, creates a NEW explicit `kstudio_restore_*` database,
+restores in one transaction and verifies all tables, balances and every vault credential.
+An existing target is refused, never dropped. Failure preserves the independent database
+for investigation. Temporary plaintext is removed after restore, in a private directory.
+No restored database is automatically switched into production.
+
+Vault master keys and age identities are NOT in the database archive. Keep every required
+vault version, backup identity and operator configuration in separately protected recovery
+storage. Without those keys, encrypted records cannot be recovered. Snapshot backups do
+not include native SKP, footage or WAL/PITR. Configure actual offsite retention, schedule,
+RPO/RTO and recovery contacts; this candidate never prunes earlier backups automatically.
+
+Rollback changes app/maintenance images, preserving volumes. Confirm schema compatibility
+before rollback. Do not restore an older database over new orders to revert application code.
+
+The real local PostgreSQL17.11/age/vault/payment-inbox drill and its preserved failures are
+recorded in [R3 backup/restore evidence](../docs/execution/KSTUDIO_R3_BACKUP_RESTORE_20261107.md).
+The test-only server is loopback and uses synthetic identities/payments. It must never be
+used as production; local timing is not a production RTO guarantee.
+
+## Configuration examples — synthetic, disabled values
 
 Prices (not a sales offer):
 
 ```json
-{"version":"owner-confirmed-price-id","byok_service_enabled":false,"byok_task_units":5,"packages":{"example":{"label":"Example","amount":100,"currency":"usd","credits":100}}}
+{"version":"owner-confirmed-price-id","byok_service_enabled":false,"byok_task_units":5,"packages":{"example":{"label":"Example","amount":100,"currency":"cny","credits":100}}}
 ```
 
-Models (enabled only after actual provider acceptance):
+Models (enable only after actual provider acceptance and price confirmation):
 
 ```json
-{"deepseek":{"enabled":false,"verified":false,"protocol":"chat-completions","base_url":"https://provider.example.invalid/v1","upstream_model":"provider-model-id","key_env":"KSTUDIO_PLATFORM_PROVIDER_KEY","max_output_tokens":8192,"reservation_units":100,"daily_units":1000,"price":{"version":"owner-confirmed-price-id","service_units":5,"input_units_per_million":100,"output_units_per_million":200}}}
+{"deepseek":{"enabled":false,"verified":false,"protocol":"chat-completions","base_url":"https://provider.example.invalid/v1","upstream_model":"provider-model-id","key_env":"KSTUDIO_BAI_PLATFORM_KEY","max_output_tokens":8192,"reservation_units":100,"daily_units":1000,"turn_budget_units":300,"max_turn_requests":30,"price":{"version":"owner-confirmed-price-id","service_units":5,"input_units_per_million":100,"output_units_per_million":200}}}
 ```
 
-Only the server supplies endpoint/model/key env. The browser cannot supply an upstream
-URL or obtain its key. No redirects or environment HTTP proxies are followed. DNS
-private-address denial is defense in depth; deploy outbound firewall/DNS controls.
-One platform task per account runs at a time. Per-request reservation and output caps,
-daily integer-credit cap, timeout, and per-process request rate limiting apply. Run
-one worker until a distributed rate limiter is introduced. No auto retry after a
-possibly billed dispatch, including ambiguous 429/5xx/timeouts; usage stays unknown,
-never fabricated as zero. Admin reconciliation requires an allowlisted OIDC subject
-and a traceable provider invoice reason. Full refunds with unspent credits reconcile;
-partial/spent-credit refunds require operator handling and are not a complete refund UI.
+Only the server supplies endpoint/model/key environment. The browser cannot obtain the
+platform key. Stable `X-KStudio-Turn-ID` carries one visible turn across model calls and
+subagents; budget ceilings are enforced server-side across session restarts. There is no
+silent provider fallback. Unknown usage stays unknown. A provider error after possible
+dispatch is not automatically retried. Server DNS/private-address checks complement, but
+do not replace, deployment outbound firewall/DNS controls. Use one worker pending actual
+multi-worker rate-limit qualification.
 
-## Hosting eligibility evidence (checked 2026-11-04)
+## Desktop and personal keys
 
-Alibaba Cloud documents that public mainland-China hosting requires ICP filing through
-the service provider; Hong Kong/overseas nodes do not use that filing route. This is not
-a conclusion that a particular K Studio operator/business is approved. Determine the
-operator's legal entity, commercial-service requirements, domain registration and data
-handling with the selected provider before publishing. Do not display a made-up filing
-number, merchant identity, payment success or production status.
+Configured fresh cloud desktops start with platform mode and an explicit login/model
+selection path; standalone existing owner installs retain BYOK. Cloud login never exposes
+local modeling tools to the website. Each account receives isolated project and DPAPI key
+storage. Switching while modeling or an unknown native write is active is refused.
 
-- https://help.aliyun.com/en/icp-filing/basic-icp-service/user-guide/icp-filing-application-overview
-- https://www.alibabacloud.com/help/en/icp-filing/basic-icp-service/product-overview/icp-filing-requirements-for-a-regular-website
-- https://docs.stripe.com/webhooks
-- https://docs.stripe.com/api/checkout/sessions/create
-- https://www.postgresql.org/download/windows/
+Personal cloud Key storage requires explicit consent. AES-256-GCM AAD binds user, record
+and key version. Lists/metadata exports contain no Key. Recent browser authentication and
+an explicit selected device issue a one-use 120-second restore grant; the device must
+confirm local restore and is not automatically switched to that Key. Deleted/replaced
+cloud records revoke stale local synced copies on next validation. Ordinary login does
+not silently download all credentials. Private-data deletion revokes sessions/vault data
+while explicitly retaining financial/audit records; it is not a complete legal account erasure.
 
-## Remaining external inputs
+## Container engineering check and remaining external inputs
 
-Server/domain and approved region; real operator identity/filing/contact; an OIDC client;
-eligible payment merchant test credentials and signed webhook secret; approved final
-prices and operator platform API credentials/terms; production code-signing identity;
-an independent clean Windows/SU machine. These are not bypassed with local fixtures.
+`.github/workflows/r2-cloud-container.yml` is the retained CI workflow name. It builds the
+current Dockerfile in an ephemeral Ubuntu runner, without registry push or production
+credentials. Build downloads dependencies; the running smoke has network disabled. UID10001,
+read-only filesystem, restricted tmpfs, dropped capabilities and no-new-privileges are
+checked. Actual image IDs and installed versions are recorded; mutable base tags are not
+immutable supply-chain locks. Smoke covers schema migration, ledger and recovery plus
+HTTP website routes; it does not assert real OIDC, merchant, model API or SU success.
 
-## Desktop connection
-
-Set the desktop's operator-owned `KSTUDIO_CLOUD_PUBLIC_URL` to the same approved HTTPS
-origin. Its existing account panel starts device authorization, opens the normal
-website and polls outbound HTTPS. No desktop inbound port or callback is exposed.
-The existing BYOK key vault is independent from cloud DPAPI credentials. Selecting a
-platform model does not overwrite any saved BYOK key. Normal cloud login never grants
-the website access to native modeling tools.
-
-Schema 2 migrates schema 1 sessions by adding nullable refresh-hash/expiry columns and
-indexes without removing data. Device refresh uses a single-use rotating secret with
-a 30-day absolute term and stable device revoke ID. Access tokens last one hour.
-If refresh delivery is uncertain, reauthenticate rather than reuse a consumed proof.
-BYOK service charging remains disabled unless both prices and the separate service
-enabled flag are explicitly confirmed. A paid policy must specify the task-lease fee,
-one-hour validity and failure/cancellation terms before publication. The platform
-test price table charges its service component per metered provider request; this is
-not yet an owner-approved commercial pricing model or a promised per-building quote.
-
-## Offline container engineering check
-
-`.github/workflows/r2-cloud-container.yml` runs on relevant pull requests or manual
-dispatch. It builds this Dockerfile on an ephemeral Ubuntu 24.04 runner, without a
-registry login, image push, production credentials or deployment. The build downloads
-the Python base image and declared dependencies; only the **running smoke container**
-has network access disabled. Direct dependencies are exactly pinned in
-`requirements-cloud.txt`; the result records all actually installed transitive
-versions and the actual image ID/architecture. The mutable Python base tag and
-transitive dependency resolution are not a reproducible image digest lock.
-
-The container uses UID/GID 10001, a read-only root filesystem, restricted `/tmp`
-tmpfs, dropped Linux capabilities and `no-new-privileges`. No ports are published.
-`deploy/container_smoke.py --require-container` verifies those runtime conditions,
-runs the real CLI schema migration twice, ledger audit and stale-task recovery,
-then starts real Uvicorn and makes loopback HTTP requests. It checks health,
-website routes and exact JS asset contents, writes one synthetic feedback row to
-temporary SQLite and verifies it was persisted. Authentication, payment, public
-download, pricing and platform model configuration must remain unavailable; account
-and billing tables remain empty. No IdP, merchant, model provider or native connector
-is mocked into a successful result. The generated temporary session secret stays
-inside the smoke subprocess environment and is never included in the report.
-
-Each CI run retains seven days of engineering artifacts: Docker build logs,
-image/container metadata, actual versions, isolation checks and the final result.
-Only a completed green run with `result.json.status=PASS` and
-`isolation.status=PASS` proves this container check. Local script execution without
-`--require-container` explicitly records isolation as `NOT_CHECKED_LOCAL_SCRIPT_ONLY`.
-Neither outcome proves public deployment, TLS/DNS, real OIDC/payment/provider use,
-production PostgreSQL operation or cross-machine SketchUp compatibility. Those
-require their separate acceptance evidence. No Docker installation on the owner's
-Windows PC is needed for this CI check.
+Remaining external gates include approved hosting/domain and entity details, IdP channels,
+eligible merchant credentials, approved pricing/provider terms, signing identity,
+license/distribution clearance and independent clean Windows/SketchUp acceptance. Mainland
+public hosting eligibility and applicable filing must be confirmed with the chosen provider;
+never display a fabricated filing number or production status.

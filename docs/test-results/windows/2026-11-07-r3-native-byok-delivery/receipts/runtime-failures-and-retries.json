@@ -1,0 +1,88 @@
+[
+  {
+    "source": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "seq": 37,
+    "type": "assistant/attempt",
+    "step": 4,
+    "chunks": [
+      {
+        "type": "usage",
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "totalTokens": 0
+        }
+      },
+      {
+        "type": "finish",
+        "reason": {
+          "kind": "error",
+          "failure": {
+            "message": "Connection error.",
+            "code": "TRANSPORT"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "seq": 38,
+    "type": "llm/retry",
+    "data": {
+      "turn": 1,
+      "step": 4,
+      "mode": "normal",
+      "policyKey": "[\"normal\",2,[\"RATE_LIMIT\",\"SERVER\",\"TIMEOUT\",\"TRANSPORT\"],1000,10000,0.1]",
+      "retry": 1,
+      "maxRetries": 2,
+      "delayMs": 1074.6170187532819,
+      "failure": {
+        "message": "Connection error.",
+        "code": "TRANSPORT"
+      }
+    },
+    "message": null
+  },
+  {
+    "source": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "seq": 39,
+    "type": "llm/retry-started",
+    "data": {
+      "turn": 1,
+      "step": 4,
+      "retry": 1
+    },
+    "message": null
+  },
+  {
+    "source": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "seq": 40,
+    "type": "assistant/attempt",
+    "step": 4,
+    "chunks": []
+  },
+  {
+    "source": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "seq": 42,
+    "type": "turn/end",
+    "data": {
+      "turn": 1,
+      "reason": {
+        "kind": "error",
+        "error": {
+          "message": "Host tool refused: 400",
+          "code": "UNKNOWN"
+        }
+      }
+    },
+    "message": null
+  },
+  {
+    "source": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "seq": null,
+    "type": "turn_failed",
+    "data": {},
+    "message": "Official DeepSeek Harness ended with error; UNKNOWN: Host tool refused: 400; committed model work is preserved."
+  }
+]

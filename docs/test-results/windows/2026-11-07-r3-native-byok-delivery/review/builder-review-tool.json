@@ -1,0 +1,147 @@
+[
+  {
+    "source": "dsh-builder-584234d658584b87b7389e213226708c.jsonl",
+    "seq": 158,
+    "tool": "kstudio_review_model",
+    "sdk_is_error": false,
+    "result": {
+      "success": true,
+      "revision": 8,
+      "evidence_current": true,
+      "missing_current_views": [],
+      "views": {
+        "front": {
+          "success": true,
+          "revision": 8,
+          "view": "front",
+          "path": "[PROJECT]\\outputs\\renders\\harness-front-bbc37744fda049ee96445196108049cf.png",
+          "sha256": "931555f6c0feb47807b59f3d9fdf260c737f6ed47500e3ad6757c36a69678806"
+        },
+        "oblique": {
+          "success": true,
+          "revision": 8,
+          "view": "oblique",
+          "path": "[PROJECT]\\outputs\\renders\\harness-oblique-0eb0f6db5e9a410ca00568960c0c59f3.png",
+          "sha256": "0063ff5d419f71dd6c30a5ac9a0e3cc60245ca4392aea3bc7fe86b0af228c1da"
+        },
+        "roof": {
+          "success": true,
+          "revision": 8,
+          "view": "roof",
+          "path": "[PROJECT]\\outputs\\renders\\harness-roof-2ef07e9693674d59955d6c6b7c9c087a.png",
+          "sha256": "c9898e1b38dd0563cedb176033645cf508dcb57fc79ef2170f79bde886a53ec1"
+        }
+      },
+      "loaded_skills": [
+        {
+          "id": "native",
+          "sha256": "961b2c5e12816e901023173155feb08b220007a33c51f4cb0fc4ba7adfb4837a",
+          "stage": "execute"
+        },
+        {
+          "id": "facade",
+          "sha256": "f93f644371e0deaaca7710db31ea9f1b0fe987116241588b3aaedfbbbe94a839",
+          "stage": "execute"
+        },
+        {
+          "id": "delivery",
+          "sha256": "81f0ba78f5c84ad192a44adbceb74e9ab61bf5cd849c78f9e41be5104559fe99",
+          "stage": "execute"
+        }
+      ],
+      "visual_acceptance": "NOT_INDEPENDENTLY_VERIFIED",
+      "native_reopen": "NOT_RUN",
+      "writes": [
+        {
+          "method": "workspace_ruby",
+          "revision": 1
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 2
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 3
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 4
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 5
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 6
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 7
+        },
+        {
+          "method": "workspace_ruby",
+          "revision": 8
+        }
+      ]
+    },
+    "reviewer_mode": "builder_tool_readback_not_independent_critic"
+  },
+  {
+    "source": "dsh-builder-c0417cc7c38642e59305513a40fe2e5a.jsonl",
+    "seq": 70,
+    "tool": "kstudio_review_model",
+    "sdk_is_error": false,
+    "result": {
+      "success": true,
+      "revision": 9,
+      "evidence_current": true,
+      "missing_current_views": [],
+      "views": {
+        "front": {
+          "success": true,
+          "revision": 9,
+          "view": "front",
+          "path": "[PROJECT]\\outputs\\renders\\harness-front-776d35ee3a14416c8dbdd4e3dffb34b2.png",
+          "sha256": "198119557664f12376db6ebb2268ce0a1af34fdff4d6107da85adeffa1bb8cca"
+        },
+        "oblique": {
+          "success": true,
+          "revision": 9,
+          "view": "oblique",
+          "path": "[PROJECT]\\outputs\\renders\\harness-oblique-3bb69a44598f4235a94b8a05862fe810.png",
+          "sha256": "1088d7d2e1cf3aab295c93373f0ac91ca4d3b7b176f68670900d376ca80a1764"
+        },
+        "roof": {
+          "success": true,
+          "revision": 9,
+          "view": "roof",
+          "path": "[PROJECT]\\outputs\\renders\\harness-roof-c74d2ad801294c2c81450eed924e948e.png",
+          "sha256": "0d5abd6503e68e81c6fdb9fb012347919bd45c158ddd4263d9fb1194416fa25e"
+        }
+      },
+      "loaded_skills": [
+        {
+          "id": "native",
+          "sha256": "9bd0e6e0c7315036f9450a0470c650235e0ae7576eab4024c0007c0ba2bcc2b5",
+          "stage": "execute"
+        },
+        {
+          "id": "edit",
+          "sha256": "1927d926d76a5959557397269bff066dd4d8b40cd29ebb2c6c84b6930cc2a636",
+          "stage": "execute"
+        }
+      ],
+      "visual_acceptance": "NOT_INDEPENDENTLY_VERIFIED",
+      "native_reopen": "NOT_RUN",
+      "writes": [
+        {
+          "method": "workspace_ruby",
+          "revision": 9
+        }
+      ]
+    },
+    "reviewer_mode": "builder_tool_readback_not_independent_critic"
+  }
+]

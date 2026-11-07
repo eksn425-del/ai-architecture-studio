@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "status": "CANDIDATE_ONLY",
+  "compile_status": "PASS",
+  "actual_install_status": "PASS",
+  "first_use_status": "PASS_SCOPED_INITIAL_UI",
+  "native_modeling_status": "NOT_RUN_BY_INSTALLER_AGENT",
+  "artifact": {
+    "installer": "KStudio-2026.11.07-R3-beta01-win-x64-setup.exe",
+    "version": "2026.11.07-R3-beta01",
+    "sequence": 8,
+    "bytes": 311375016,
+    "sha256": "e4a3391c378d05b8cf4c4b5099ac4c5614032b257f11d74f3f5a78e9e56c5ce2",
+    "file_count": 70451,
+    "source_sha": "834a47c9b4529e663680aeb5461c8127219ce85f",
+    "compression": "zlib"
+  },
+  "installer_source": {
+    "head": "74d9dc008b9c28ad5936e704451d859cd154eeeb",
+    "dirty": true,
+    "sha256": {
+      "packaging/kstudio.nsi": "52f32b195e133b714520d216bb1897c75d27f0ca74305d343f688e957ad63574",
+      "scripts/build_installer.py": "b04781be0bfa2da1dc3da214fc31bbb66f6e253e8bcd5d19ecd8f11b03652297",
+      "scripts/launch_installed.ps1": "2a0d67c113c21b5c0a65dd424921304d3ae8dcbf0e1593d92d227f67ea9a6463"
+    },
+    "note": "Final extended-path template; frozen application core unchanged.",
+    "subsequently_committed_as": "82f2b4c4d69be91f1f422c8ebc282b5d274cf031",
+    "inputs_match_committed_files": true
+  },
+  "verification": {
+    "compiler_exit_code": 0,
+    "independent_windows_sha256_match": true,
+    "authenticode_status": "NotSigned",
+    "embedded_product_name": "K Studio R3",
+    "embedded_file_version": "2026.11.07-R3-beta01",
+    "compiler_process_temp_on_project_drive": true,
+    "compiler_temp_files_after_exit": 0
+  },
+  "public_release_ready": false,
+  "production_signed": false,
+  "license_clearance": "SEPARATE_REVIEW_REQUIRED",
+  "clean_machine_acceptance": "NOT_RUN",
+  "installed_protections": {
+    "per_user_no_admin": true,
+    "separate_r3_profile": true,
+    "original_r2_preserved": true,
+    "program_root_reparse_rejected": true,
+    "profile_directory_junction_supported": true,
+    "exact_file_uninstall_only": true,
+    "profile_unknown_files_prior_slots_preserved": true,
+    "runtime_and_installer_exclusion": true,
+    "busy_exit_code": 5,
+    "atomic_current_pointer": true,
+    "failed_pointer_replace_exit_code": 4,
+    "downgrade_rejected_exit_code": 3,
+    "same_version_overwrite_rejected_exit_code": 6,
+    "same_version_transactional_repair_implemented": false,
+    "extended_length_payload_paths": true
+  },
+  "real_engineering_fixture_results": {
+    "runtime_concurrency_atomic_and_junction": {
+      "running_install_exit": 5,
+      "running_uninstall_exit": 5,
+      "parallel_install_exit": 5,
+      "atomic_replace_failure_exit": 4,
+      "failure_preserved_current_and_highwater": true,
+      "current_sequence_prevents_downgrade": true,
+      "fresh_slot_upgrade": true,
+      "same_version_overwrite_refused_exit": 6,
+      "original_and_partial_slots_unchanged": true,
+      "profile_junction_real_lock_verified": true,
+      "same_version_repair_crash_atomic": false,
+      "fixture_only": true
+    },
+    "deep_source_install_uninstall": {
+      "fixture_only": true,
+      "compile": "PASS",
+      "install": "PASS",
+      "uninstall": "PASS",
+      "source_path_length": 291,
+      "target_path_length": 322,
+      "target_sha256": "958a73430f87f169a8d543acb503d46ee4d9a226078e5e0c3654545166db7b4f",
+      "unknown_and_profile_preserved": true,
+      "system_long_paths_setting_changed": false,
+      "extended_paths": true
+    },
+    "additional_long_path_probe": {
+      "manifest_long_path_aware": false,
+      "target_path_characters": 392,
+      "real_extraction_pass": true
+    },
+    "fixture_is_real_product": false
+  },
+  "failure_history": [
+    {
+      "stage": "silent_downgrade_initial_fixture",
+      "result": "FAIL",
+      "cause": "Silent mode displayed a blocking modal",
+      "resolution": "Explicit silent defaults; downgrade later returned 3"
+    },
+    {
+      "stage": "uninstaller_exit_test_harness",
+      "result": "FAIL",
+      "cause": "Quoted NSIS trailing _?= argument measured detached parent stub zero instead of worker exit",
+      "resolution": "Correct unquoted trailing command, registered quiet uninstall uses it; real busy refusal returned 5 and files remained unchanged"
+    },
+    {
+      "stage": "first_full_compile",
+      "result": "CANCELLED_SUPERSEDED",
+      "cause": "Profile ancestry check rejected supported data-drive junction",
+      "resolution": "Profile directory junction allowed; final lock-file reparse remains rejected; actual shared byte lock verified"
+    },
+    {
+      "stage": "second_full_compile",
+      "result": "FAIL",
+      "cause": "NSIS compiler could not open an SDK source path exceeding MAX_PATH",
+      "resolution": "Unicode extended-length source/extraction/deletion/attribute paths; 291-character source and 322-character installed file verified; final full compile passed"
+    },
+    {
+      "stage": "compiler_temp_storage",
+      "result": "CORRECTED",
+      "cause": "Earlier compiler inherited tool C-drive temp",
+      "resolution": "Identified owned temporary file automatically removed on compiler exit; final build and future builder use process-only project-drive temp without changing global environment"
+    }
+  ],
+  "remaining_limits": [
+    "Unsigned internal candidate; public signing and license gates remain closed.",
+    "Existing version slots are never overwritten; retry of an incomplete or existing slot requires a newer build/slot.",
+    "Independent beta01 GUI installation passed; first-use acceptance is limited to initial UI inspection on NEW_APP_PROFILE. Native modeling and clean Windows acceptance were not run by this agent.",
+    "No public URL or download publication is established by this receipt."
+  ],
+  "provider_calls_by_installer_test": 0,
+  "paid_model_inference_by_installer_test": false,
+  "inventory_reuse": {
+    "sha256": "0457f61461f09af57b146d4483788fa9d188bf3f64e90c84b2f37ca7805438a3",
+    "path_set_size_reparse_and_modified_time_checked": true,
+    "file_count": 70451,
+    "content_hashes_reused_from_unchanged_frozen_bundle": true
+  },
+  "independent_gui_acceptance": {
+    "agent_type": "AGENT_SIMULATED",
+    "environment": "NEW_APP_PROFILE",
+    "clean_windows": false,
+    "date": "2026-11-07",
+    "timezone": "Asia/Shanghai",
+    "approximately_observed": {
+      "install_started": "11:07",
+      "install_completed": "11:15",
+      "first_launch": "11:17",
+      "opened_window_closed_and_desktop_returned": "11:19"
+    },
+    "source_sha": "834a47c9b4529e663680aeb5461c8127219ce85f",
+    "package_sha256": "e4a3391c378d05b8cf4c4b5099ac4c5614032b257f11d74f3f5a78e9e56c5ce2",
+    "package_sha256_independently_recomputed": true,
+    "package_source": "LOCAL_INTERNAL_PACKAGE_SUPPLIED_BY_PARENT_NOT_WEBSITE_DOWNLOAD",
+    "desktop_shortcut_selected": false,
+    "launch_method": "Start menu > All apps > K > K Studio R3 Beta > K Studio",
+    "observed": {
+      "installation_completed": true,
+      "first_window_rendered": true,
+      "only_initial_default_session_visible": true,
+      "no_saved_api_connection": true,
+      "api_key_field_empty": true,
+      "cloud_account_service_not_configured": true,
+      "local_bridge_not_responding": true,
+      "api_help_account_and_sketchup_connection_dialogs_opened": true,
+      "no_missing_runtime_error_observed_on_existing_os": true,
+      "own_new_window_closed": true
+    },
+    "actions_not_performed": [
+      "API configuration or credential entry",
+      "Model/provider request",
+      "Connector pairing or installation",
+      "SketchUp operation",
+      "Native modeling, local geometry edit, save, download, or reopen",
+      "Clean Windows installation",
+      "Upgrade or uninstall"
+    ],
+    "native_status": "nativeNOT_RUN_BY_FIRST_USER",
+    "public_website_download_status": "BLOCKED",
+    "report": "../review/first-user-desktop.md",
+    "public_screenshots": [
+      "../desktop/first-user-beta01-04-install-complete.png",
+      "../desktop/first-user-beta01-07-first-launch-no-api.png",
+      "../desktop/first-user-beta01-09-api-empty-key.png"
+    ],
+    "observations": [
+      "Start-menu search for K Studio R3 initially returned no result; browsing the installed R3 folder succeeded. Root cause was not diagnosed.",
+      "Installation took approximately eight minutes on this existing Windows environment; not a performance benchmark.",
+      "UI-tree capture timed out; fast screenshots showed continued extraction and eventual completion. Only the capture script was stopped, not the installer."
+    ],
+    "acceptance_scope": "Real beta01 local GUI installation and initial empty-configuration UI only; not full first-user workflow, clean-machine acceptance, native quality, public distribution, or commercial service acceptance.",
+    "subsequent_beta02_status": "NOT_TESTED_BY_FIRST_USER_AT_THIS_UPDATE"
+  }
+}

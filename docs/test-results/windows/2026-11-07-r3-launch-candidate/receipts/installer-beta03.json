@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "version": "2026.11.07-R3-beta03",
+  "sequence": 10,
+  "source_sha": "790d7f099939228b9828a6524eeccf94f374f7be",
+  "file_count": 70451,
+  "fixture_only": false,
+  "candidate_only": true,
+  "production_signed": false,
+  "public_release_ready": false,
+  "profile_preserved_on_uninstall": true,
+  "prior_slots_retained": true,
+  "compression": "zlib",
+  "running_instance_refused": true,
+  "atomic_current_pointer": true,
+  "same_version_repair_crash_atomic": false,
+  "same_version_overwrite": "REFUSED_EXIT_6",
+  "extended_length_payload_paths": true,
+  "root_selection": "selected-local-fixed-root",
+  "nsis_license": "https://nsis.sourceforge.io/License",
+  "compile_status": "PASS",
+  "installer_source": {
+    "head": "99c3465f8599db7b9811a48eb48df3137a0da335",
+    "dirty": false,
+    "root_selection": "selected-local-fixed-root",
+    "sha256": {
+      "packaging/kstudio.nsi": "52f32b195e133b714520d216bb1897c75d27f0ca74305d343f688e957ad63574",
+      "scripts/build_installer.py": "3369255bde9970caef4985e1d5c30dacd876106c85b488119977f909edeaae79",
+      "scripts/launch_installed.ps1": "27a5c47120690851ad7a1d8468c4a41e3d8aa1969e7bc198bf4b79cbd78d1d22"
+    },
+    "note": "source_sha identifies frozen application core; installer input hashes identify later packaging fixes"
+  },
+  "compiler_temp_scope": "output/temp; process environment only",
+  "compile_exit_code": 0,
+  "installer": "KStudio-2026.11.07-R3-beta03-win-x64-setup.exe",
+  "bytes": 311380733,
+  "sha256": "35af0a8861c842a7773655797ed31a66fb8854ee62986d02fc387ce9354ed3b7",
+  "actual_install": "PASS_ACTUAL_GUI",
+  "runtime_probe": {
+    "ok": true,
+    "node_version": "v24.22.1",
+    "sdk_import": true,
+    "engine": "deepseek-harness",
+    "capabilities": "full",
+    "inference_called": false,
+    "native_tools": [
+      "web_search",
+      "web_fetch",
+      "todo_write",
+      "exit_plan_mode",
+      "get_goal",
+      "create_goal",
+      "update_goal",
+      "skill",
+      "send_message",
+      "interrupt_agent",
+      "list_agents",
+      "subagent",
+      "subagent_fork"
+    ]
+  },
+  "license_summary": {
+    "components": 656,
+    "license_texts": 1028,
+    "missing_text_components": 1,
+    "native_binaries": 183,
+    "upstream_original_text_absent_standard_terms_supplied": 9,
+    "bundled_python_pins": 93,
+    "clearance": "REVIEW_REQUIRED"
+  },
+  "inventory": {
+    "file_count": 70451,
+    "inventory_pass": true,
+    "rejected_paths": []
+  },
+  "independent_hash_verification": "PASS",
+  "authenticode": "NotSigned",
+  "compiler_temp_remaining": 0,
+  "public_artifact_published": false,
+  "desktop_build_history": {
+    "original_wrapper_exit": 1,
+    "actual_cause": "Final successful robocopy copy return code 1 was inherited as the outer wrapper status; both PyInstaller stages and assembly completed. Original log retained.",
+    "assembly_readonly_robocopy_exit": 0,
+    "assembly_files": 63708,
+    "assembly_dirs": 5210,
+    "copied": 0,
+    "mismatch": 0,
+    "failed": 0,
+    "extras": 0,
+    "future_wrapper_status_fix_commit": "99c3465f8599db7b9811a48eb48df3137a0da335",
+    "no_runtime_rebuild_for_exit_status_fix": true
+  },
+  "source_state_note": "Installer input dirty flag covers only the three explicitly hashed packaging files. Repository documentation/evidence may be dirty; this is not a claim that the whole checkout was clean.",
+  "evidence_sha256": {
+    "build-r3-beta03.log": "053f31220ea027d5def675e20a5cca76c36e6a6ab6165b9ca7ec90d4a351bd81",
+    "beta03-harness-copy-readonly-check.log": "3e7d135b91c82faa830f23c0614a703e2faa509092e52aaa404ef2eff06b0e3e",
+    "prepare-bundle03.log": "4d0232f6e70001053a2a34a82715f2d0404e6b6da8e1d10671c25280c532fa71",
+    "bundle-runtime-probe-beta03.json": "92ae9146c5339f824322580f3186e7b2a36cb086e86ab0748f51f592ae596b51",
+    "bundle-audit-r3-beta03.json": "09df5468436cc6232e597154eeee374475d0734ca3b6d38d1290e8aacb7bfead",
+    "install-roots-regression-e-temp.xml": "3e007bdcd044997da4b668e6158222db85b19e6c1e9348e472004352191709b3",
+    "install-roots-regression-e-temp.log": "01ef024edf55ca36d7bcda6621ce29fe615684583ec02dfc361b8947e6dcc378"
+  },
+  "storage": {
+    "root_selection": "selected-local-fixed-root",
+    "program_and_profile_drive": "E",
+    "temporary_scope": "Compiler, diagnostic, application-launcher and inherited child process environments on project data drive; no global environment changes",
+    "private_selected_paths_omitted": true
+  },
+  "first_use": "PASS_SCOPED_START_MENU_EMPTY_API_ACCOUNT_NOT_CONFIGURED",
+  "first_use_receipt": "first-user-beta03.json",
+  "runtime_paths_receipt": "runtime-on-e.json",
+  "migration_receipt": "program-migration-final.json"
+}

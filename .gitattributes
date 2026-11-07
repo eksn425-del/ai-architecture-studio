@@ -1,4 +1,5 @@
 patches/saie/*.patch whitespace=-blank-at-eol
+docs/test-results/windows/2026-11-07-r3-launch-candidate/** -text whitespace=cr-at-eol
 # Evidence manifests hash exact bytes; preserve Windows receipt line endings.
 docs/test-results/windows/2026-10-09-cafe-two-view-luna-max/** -text whitespace=cr-at-eol
 docs/test-results/windows/2026-10-09-kai-integrated-v1/** -text whitespace=cr-at-eol
@@ -70,3 +71,5 @@ docs/test-results/windows/2026-10-17-final-basic-building-and-site/** -text whit
 # Preserve native evidence receipt bytes on Windows and Linux alike.
 docs/test-results/windows/2026-11-05-bai-stair-building-first-pass/** -text whitespace=cr-at-eol
 docs/test-results/windows/2026-11-05-installed-bai-edit-and-connections/** -text whitespace=cr-at-eol
+
+docs/test-results/windows/2026-11-07-progressive-building-and-recovery/** -text whitespace=cr-at-eol

@@ -1,0 +1,31 @@
+{
+  "status": "PASS_E_INSTALL_AND_ROUTING; C_CLEANUP_BLOCKED_BY_POLICY",
+  "files": 140911,
+  "bytes": 2190840011,
+  "source_unchanged": true,
+  "complete_file_set_match": true,
+  "all_sha256_match": true,
+  "source_drive": "C",
+  "target_drive": "E",
+  "source_deleted": false,
+  "original_r2_untouched": true,
+  "c_copy_retained": true,
+  "installed_version": "2026.11.07-R3-beta03",
+  "installed_sequence": 10,
+  "actual_e_launch_verified": true,
+  "actual_TEMP_TMP_and_webview_on_e": true,
+  "registry_and_start_menu_point_to_e": true,
+  "original_control_files_preserved": true,
+  "old_versions_preserved_on_e": true,
+  "profile_compatibility_junction_retained": true,
+  "source_unchanged_until_final_pre_removal_check": true,
+  "verified_manifest_sha256": "f2751590203fb7922ddee03b5804d7291368bdca2fd8120070740a508cf2e3ee",
+  "cleanup": {
+    "action": "Remove verified original C-drive KStudioR3 program directory after complete SHA validation and E launch",
+    "tool_result": "Rejected: blocked by policy",
+    "action_executed": false,
+    "more_specific_reason_provided": false,
+    "alternate_deletion_route_attempted": false,
+    "remaining_manual_step": "Remove only the verified old KStudioR3 program folder; keep AppData profile compatibility junction and original R2 untouched."
+  }
+}

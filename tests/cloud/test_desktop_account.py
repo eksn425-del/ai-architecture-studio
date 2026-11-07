@@ -28,7 +28,8 @@ def test_unused_or_absent_account_vault_is_never_decrypted(tmp_path,monkeypatch,
     def forbidden(_):raise AssertionError('Unused account storage must not be decrypted')
     monkeypatch.setattr(LocalCredentialStore,'load',forbidden)
     account=CloudAccount(tmp_path,'https://cloud.example.test' if configured else '')
-    assert account.state['source_mode']==('unavailable' if existing and not configured else 'byok') and not account.state['token']
+    expected='unavailable' if existing and not configured else 'platform' if configured else 'byok'
+    assert account.state['source_mode']==expected and not account.state['token']
 
 @pytest.mark.parametrize('base',['','http://cloud.example.test','https://[','https://cloud.example.test:invalid'])
 def test_missing_or_invalid_endpoint_with_existing_vault_never_implies_free_byok(tmp_path,monkeypatch,base):
@@ -131,6 +132,8 @@ def test_real_authlib_oidc_device_pkce_persistence_revoke(pair,tmp_path):
 def test_byok_free_and_paid_server_authority(pair):
     config,cloud,browser,desktop,user=pair;authorize(browser,desktop)
     app=types.SimpleNamespace(state=types.SimpleNamespace(model_router=types.SimpleNamespace()))
+    # R3 fresh cloud installs default to platform; BYOK is an explicit choice.
+    desktop.select(app,{'mode':'byok'})
     result=desktop.authorize_turn(app,'turn-free','project',None)
     assert result['service_units']==0 and result['data_path']=='local-direct-provider'
     with cloud.state.engine.connect() as c:assert len(c.execute(select(tasks)).all())==0
@@ -155,7 +158,8 @@ def test_device_rotation_invalidates_old_token_and_no_identity_substitution(pair
 
 def test_gateway_compatible_route_uses_server_model_and_ledger(pair,monkeypatch):
     config,cloud,browser,desktop,user=pair;authorize(browser,desktop);credit(cloud.state.engine,user['id'])
-    config.models['public-model']={'enabled':True,'protocol':'chat-completions','upstream_model':'real-server-model','base_url':'https://provider.fixture/v1','key_env':'FIXTURE_PLATFORM_SECRET','max_output_tokens':4096,'reservation_units':50,'daily_units':100,'price':PRICE}
+    config.models['public-model']={'enabled':True,'verified':True,'protocol':'chat-completions','upstream_model':'real-server-model','base_url':'https://provider.fixture/v1','key_env':'FIXTURE_PLATFORM_SECRET','max_output_tokens':4096,'reservation_units':50,'daily_units':100,'price':PRICE}
+    desktop.state['cloud_turn_id']='fixture-first-visible-turn'
     monkeypatch.setenv('FIXTURE_PLATFORM_SECRET','server-only-fixture')
     monkeypatch.setattr(gateway,'validate_upstream',lambda url:url);original=httpx.AsyncClient
     def provider(req):

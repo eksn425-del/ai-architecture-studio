@@ -1,0 +1,89 @@
+{
+  "scope": "LOCAL_POSTGRESQL_FIXTURE_NOT_PRODUCTION",
+  "postgresql": "psql (PostgreSQL) 17.11",
+  "records_equal": true,
+  "ledger_consistent": true,
+  "vault_credentials_decrypted": 1,
+  "pending_payment_inbox_recovered_once": true,
+  "maintenance_cycles": 2,
+  "backup_seconds": 0.828,
+  "restore_seconds": 1.359,
+  "encrypted_sha256": "897234b9e9056f42856c2663079a9c1c143083077aab311d0eb910c650cf2f5e",
+  "tables": {
+    "connection_sync_grants": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "credential_audit": {
+      "rows": 1,
+      "sha256": "316e349a251ff1db236d0dcc912ae8477ab2d0b19a23c5f0e05fc4384edd1478"
+    },
+    "device_authorizations": {
+      "rows": 1,
+      "sha256": "32f034bd428613287f476ff1dc1791b0ce1c59ae96193828981150cb8011ec59"
+    },
+    "feedback": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ledger_events": {
+      "rows": 3,
+      "sha256": "c66fb55403481f47dc93ee3e9cda692f170e0164390f2fb5c1a5008852c07f32"
+    },
+    "orders": {
+      "rows": 2,
+      "sha256": "9b1424bcf95635f714bc6a495a70a8b108bf9678ac2c6695d0f9ce6a28b7047c"
+    },
+    "outbox": {
+      "rows": 2,
+      "sha256": "ef11c4f2737ede5884d5029222287dbba43ae5882e0646f40571219dc720e3e8"
+    },
+    "payment_events": {
+      "rows": 1,
+      "sha256": "25f13080e8ba9784f83b2bab18d555a01be7629dfbcfff3f85979b5f95acec63"
+    },
+    "payment_reconciliation": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "provider_connections": {
+      "rows": 1,
+      "sha256": "04ba8b8794e8cb3817ff978cd5e33c95abe3297472c1fd26c790b71826b83d0c"
+    },
+    "schema_version": {
+      "rows": 1,
+      "sha256": "cf736f09e4de4b838308e2f6fdc48e9e493501ce6a3069519099f7904dfe383a"
+    },
+    "sessions": {
+      "rows": 1,
+      "sha256": "4c02d79305e580802f2217134aedd0069c3345248db55a843af4e59deecced79"
+    },
+    "tasks": {
+      "rows": 1,
+      "sha256": "e52cfbd936b2e8d4a972574ee41a596c1d53746c9e98f02182afe618cc6f8a06"
+    },
+    "users": {
+      "rows": 1,
+      "sha256": "fc2315e3854456f30628a48b3f75d0b8f0bcc1ef73b572af9474b549f6b708d7"
+    },
+    "verified_payment_inbox": {
+      "rows": 1,
+      "sha256": "d5f20f214955af5185e46403d159ed35a1047e2a51751acf1be090a9b5c50c35"
+    },
+    "wallets": {
+      "rows": 1,
+      "sha256": "22f80476452f72f4a33c95a623cf6522b0d7f591f87f6e99065d9d3a755c90c6"
+    },
+    "wechat_refunds": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "no_real_payments": true,
+  "no_real_provider_calls": true,
+  "docker_execution": "NOT_RUN",
+  "encryption": "official age CLI, separate backup identity and vault master key",
+  "plaintext_dump_retained": false,
+  "cluster_left_running_for_other_disposable_tests": true,
+  "privacy_note": "Database names and private dump/key paths omitted; no database contents included."
+}

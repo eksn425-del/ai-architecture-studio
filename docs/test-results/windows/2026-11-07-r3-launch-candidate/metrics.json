@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": null,
+  "failed_tool_calls": null,
+  "committed_writes": 0,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "critic_input_tokens": null,
+  "critic_output_tokens": null,
+  "human_geometry_edits": 0,
+  "token_source": "No model inference in this engineering fixture scope. Real BYOK supplement separately has 56 settled + 1 unknown; never interpret this file's 0 fixture calls as whole R3 task 0.",
+  "paid_provider_requests": 0,
+  "real_payment_requests": 0,
+  "paid_provider_cost": 0,
+  "cost_currency": "CNY",
+  "infrastructure_cost": "UNKNOWN; CI/resource accounting not provided",
+  "tests": {
+    "local_final_postgres": {
+      "tests": 203,
+      "passed": 203,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 45.563
+    },
+    "github_postgres": {
+      "tests": 203,
+      "passed": 202,
+      "failed": 0,
+      "skipped": 1,
+      "seconds": 25.68
+    },
+    "desktop_regression_initial": {
+      "tests": 16,
+      "passed": 15,
+      "failed": 1
+    },
+    "desktop_regression_fixed": {
+      "tests": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    "wechat_adapter": {
+      "passed": 27
+    },
+    "wechat_routes": {
+      "passed": 4
+    },
+    "wechat_browser_fixture": {
+      "passed": 1
+    },
+    "capture_postwrite_regression": {
+      "passed": 60,
+      "skipped": 1,
+      "failed": 0,
+      "skip_reason": "Windows symlink creation privilege unavailable; not counted as PASS"
+    },
+    "host_refusal_diagnostics_python": {
+      "passed": 26,
+      "skipped": 0,
+      "paid_calls": 0
+    },
+    "host_refusal_diagnostics_node": {
+      "passed": 7,
+      "skipped": 0,
+      "paid_calls": 0
+    },
+    "install_roots_regression": {
+      "passed": 35,
+      "skipped": 2,
+      "skip_reason": "Explicit opt-in NSIS full fixtures; not counted as PASS",
+      "actual_install": "NOT_RUN_BY_THIS_TEST"
+    }
+  },
+  "counting_note": "Suites overlap; do not add numbers as distinct coverage. Detailed identities/results in tests/junit-summary.json",
+  "scope": "Cloud engineering and installer acceptance; actual BAI/native run is separately recorded in ../2026-11-07-r3-native-byok-delivery",
+  "native_supplement_summary": {
+    "status": "PARTIAL",
+    "settled": 56,
+    "unknown": 1,
+    "provider_requests_reserved": 57,
+    "retry_without_provider_dispatch": 1,
+    "known_input_tokens_including_cache": 1957920,
+    "known_output_tokens": 72581,
+    "total_input_tokens": null,
+    "total_output_tokens": null,
+    "actual_cost": null,
+    "new_paid_calls_after_stop": 0
+  },
+  "program_copy_checkpoint": {
+    "files": 140911,
+    "bytes": 2190840011,
+    "all_sha256_match": true,
+    "source_deleted": false
+  },
+  "program_migration_final": {
+    "e_install_and_startup": "PASS",
+    "runtime_paths_on_e": true,
+    "profile_files_preserved": 207,
+    "profile_small_hashes_unchanged": 201,
+    "c_source_deleted": false,
+    "c_cleanup": "BLOCKED_BY_POLICY"
+  }
+}

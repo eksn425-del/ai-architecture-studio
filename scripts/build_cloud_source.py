@@ -42,11 +42,11 @@ def main():
     parser.add_argument('--output',type=Path,required=True,help='New project-drive artifact directory')
     args=parser.parse_args();root=Path(__file__).resolve().parents[1]
     args.output.mkdir(parents=True,exist_ok=True)
-    archive=args.output/'KStudio-R2-cloud-website-source.zip'
+    archive=args.output/'KStudio-R3-cloud-website-source.zip'
     if archive.exists():raise ValueError('Refuse to overwrite an existing archive; choose a new output directory')
     paths=list((root/'cloud').glob('*.py'))
     paths.extend(p for p in (root/'website').rglob('*') if p.is_file() and p.suffix in {'.html','.css','.js','.svg'})
-    paths.extend(root/'deploy'/n for n in ['Dockerfile','Dockerfile.dockerignore','compose.yml','Caddyfile','backup.sh','restore.sh','README.md','ENVIRONMENT.md'])
+    paths.extend(root/'deploy'/n for n in ['Dockerfile','Dockerfile.dockerignore','compose.yml','Caddyfile','backup.sh','restore.sh','ops.py','verify_restore.py','environment.template','README.md','ENVIRONMENT.md'])
     paths.extend(root/n for n in ['requirements-cloud.txt','THIRD_PARTY_NOTICES.md','docs/USER_GUIDE_R2.md'])
     if (root/'LICENSE').is_file():paths.append(root/'LICENSE')
     files={p.relative_to(root).as_posix():p.read_bytes() for p in paths}
@@ -54,15 +54,15 @@ def main():
     snapshot=dependency_snapshot(files['requirements-cloud.txt'].decode('utf-8-sig'))
     files['DEPENDENCIES.tested-host.json']=(json.dumps(snapshot,ensure_ascii=False,indent=2)+'\n').encode()
     files['requirements-cloud.tested-windows.lock.txt']=('# Tested Windows runtime closure only. Do not use this as a Linux lock.\n'+''.join(p['name']+'=='+p['version']+'\n' for p in snapshot['packages'])).encode()
-    files['SOURCE_ARTIFACT_README.md']=('''# K Studio R2 cloud + website SOURCE candidate
+    files['SOURCE_ARTIFACT_README.md']=('''# K Studio R3 cloud + website SOURCE candidate
 
-Start with deploy/ENVIRONMENT.md and deploy/README.md. This archive contains the
+Start with deploy/ENVIRONMENT.md, deploy/environment.template and deploy/README.md. This archive contains the
 independent cloud service, public website, pinned direct requirements and deployment
 configuration. It does not contain the local SketchUp writer, desktop installation,
 runtime data, private tests, .env files, credentials, or prebuilt containers.
 
-IMAGE_STATUS=NOT_BUILT; PUBLIC_DEPLOYMENT=NOT_RUN. Docker was unavailable in the
-acceptance environment. Python/PostgreSQL/Caddy image tags are not immutable image
+IMAGE_STATUS=NO_PREBUILT_IMAGE_INCLUDED; PUBLIC_DEPLOYMENT=NOT_RUN. Consult the
+repository CI evidence for container build tests. Python/PostgreSQL/Caddy tags are not immutable image
 digests. Resolve and freeze target Linux dependencies/images on the staging builder,
 record SBOM/digests, and run the actual staging gates before production promotion.
 requirements-cloud.txt pins direct dependencies. The tested Windows dependency
@@ -83,7 +83,7 @@ THIRD_PARTY_NOTICES is attribution, not a substitute for those permissions.
     rows=[{'path':n,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()} for n,data in sorted(files.items())]
     head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
     manifest={'schema':1,'artifact_type':'cloud-website-source','base_git_head':head,'working_tree_changes_included':True,
-              'image_status':'NOT_BUILT','public_deployment':'NOT_RUN','credentials_included':False,
+              'image_status':'NO_PREBUILT_IMAGE_INCLUDED','public_deployment':'NOT_RUN','credentials_included':False,
               'file_count':len(rows),'files':rows}
     files['MANIFEST.json']=(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n').encode()
     files['SHA256SUMS']=(''.join(r['sha256']+'  '+r['path']+'\n' for r in rows)).encode()
@@ -98,7 +98,7 @@ THIRD_PARTY_NOTICES is attribution, not a substitute for those permissions.
         assert not any('.env' in Path(n).name or '__pycache__' in n for n in zipped.namelist())
     receipt={'archive':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),
              'payload_files':len(rows),'archive_files':len(files),'all_member_hashes_verified':True,
-             'image_status':'NOT_BUILT','public_deployment':'NOT_RUN'}
+             'image_status':'NO_PREBUILT_IMAGE_INCLUDED','public_deployment':'NOT_RUN'}
     (args.output/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
     (args.output/'SHA256SUMS').write_text(receipt['sha256']+'  '+archive.name+'\n',encoding='utf-8')
     print(json.dumps(receipt))

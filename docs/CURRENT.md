@@ -1,3 +1,18 @@
+# R3 implementation checkpoint — 2026-11-07
+
+Implementation continues on codex/kstudio-r3-launch-20261105, [PR27](https://github.com/eksn425-del/ai-architecture-studio/pull/27), preserving the R2 baseline, original installations/configurations/models and failed tests. Cloud account encryption/device restore, recent-auth, WeChat Native signing/ledger recovery, gateway budgets, website gates and deployment/backup operations are implemented. [Engineering evidence](test-results/windows/2026-11-07-r3-launch-candidate/README.md): local PostgreSQL 203 passed / 0 skipped; CI PostgreSQL 202 passed / 1 skipped and actual restricted Docker service passed. These are engineering results, not live Authing/customer payment/public deployment.
+
+**Real local BYOK modeling is now PARTIAL, not NOT_RUN.** [Native evidence](test-results/windows/2026-11-07-r3-native-byok-delivery/README.md): actual K Studio UI and BAI DeepSeek Responses/Low built the text-only 12×8m two-storey pavilion to r8; beta01 failed its final host screenshot destination check after preserving geometry. beta02 core 802c4b2fe98de8bcd966f6c6cf7e99162f566fe7 fixed capture, resumed the pending plan with unchanged encrypted API settings, and completed the porch-only r9 edit. Ten protected groups retained identical deep geometry/material hashes. Actual UI download and SketchUp 2024 reopen passed byte/deep-hash equality. Railing detail and rear-wall/stair visual defects remain; no building-quality or regulatory PASS.
+
+The paid test is stopped with **56 settled + 1 unknown provider attempts**. A provider stream first returned TRANSPORT Connection error with synthetic zero usage; the official SDK retry was refused by the host unknown-liability guard before another reservation. There was **no 58th provider dispatch**. Total usage/cost remain unknown, not zero; do not reset/replay the batch or continue paid work automatically. The subsequent diagnostics fix retains refusal details and the stop guard; offline regressions 26 Python + 7 Node passed without new paid/native calls. This fix is not a successful rail rerun.
+
+beta03 core `790d7f099939228b9828a6524eeccf94f374f7be`, version **2026.11.07-R3-beta03 / sequence10**, is installed on E. Actual GUI installation, Start-menu startup and initial empty-API/account-state checks passed; all207 existing profile files remained present and201 small-file hashes were unchanged before startup. Host readback confirmed executable/data-dir/TEMP/TMP and six WebView profile paths on E. Program copy C→E verified140,911 files /2,190,840,011 bytes with complete SHA equality; old version slots and original R2 remain preserved. **Deleting the verified C program copy was rejected by automatic tool policy (`blocked by policy`); no deletion ran, and the C copy remains.** See [installer](test-results/windows/2026-11-07-r3-launch-candidate/receipts/installer-beta03.json), [runtime paths](test-results/windows/2026-11-07-r3-launch-candidate/receipts/runtime-on-e.json), and [migration result](test-results/windows/2026-11-07-r3-launch-candidate/receipts/program-migration-final.json). This is existing-PC acceptance, not clean-Windows certification.
+
+**Public commercial Beta remains BLOCKED_EXTERNAL.** [Exact external inputs/resumption](execution/KSTUDIO_R3_EXTERNAL_INPUTS_STATUS_20261107.md). No real public URL/download, production identity/SMS/payment or customer charge is claimed. Local installation/verification is complete; C-copy removal is blocked by policy and production needs the listed external inputs; do not revive closed private building cases or promote local/fixture acceptance to production.
+
+Historical material below retains its original scope.
+
+---
 # R3 launch task accepted — 2026-11-05
 
 **Current task:** turn the R2 internal candidate into a real website + desktop commercial Beta. Read the [R3 execution book](execution/KSTUDIO_R3_LAUNCH_EXECUTION_20261105.md), [owner inputs](execution/KSTUDIO_R3_OPERATOR_INPUTS_20261105.md), and [Codex start](execution/KSTUDIO_R3_CODEX_START_20261105.md).
@@ -7,6 +22,17 @@ The owner now explicitly authorizes deployment, phone/WeChat login, account-owne
 **This handoff is documentation only.** R2 PR25 source baseline is `7376f40f678e81618cbd9b470e2f5ba39debeaac`; installed build05c source remains `9c0ef028d127da44389296c4de913c16b5372dfe`. No R3 deployment, live identity/payment acceptance, new installer or native first-use test is claimed by this commit. Public release remains unproven until the execution gates actually pass. Handoff branch: `codex/kstudio-r3-launch-handoff-20261105`; implement on an isolated R3 branch, not main by default.
 
 Everything below is preserved historical evidence and authorization context. The R3 execution book controls the new task; applicable existing test authorization is retained and is not expanded into cloud purchases, automatic recharge or charging third parties.
+
+
+**Implementation started 2026-11-07:** preserving the latest R2 build07 fixes and evidence below; R3 production remains NOT_DEPLOYED pending implementation and verified external inputs. Raw videos from the Nov7 simple-house test were subsequently deleted at the owner's request; historical hashes/screenshots/models remain, and that geometry case is closed.
+
+---
+
+# Latest checkpoint — progressive construction, installed build07 — 2026-11-07
+
+Desktop K Studio R2（内部候选）now uses installed build07 seq7, source `6f3fbf273c32dd9993daa0dbf413d8f0236ae01d`. [Candidate/artifacts](releases/KSTUDIO_R2_INSTALLED_20261107.md), [actual evidence](test-results/windows/2026-11-07-progressive-building-and-recovery/README.md). New independent project `architecture-project-7d1b1`, root19/r7: six actual construction stages, same-root stop/resume, one natural scoped correction, actual browser download and host native deep equality PASS; six protected parts unchanged. Existing earlier r8 project preserved. 78 focused tests pass. 20 raw videos indexed on E. Architectural fidelity remains PARTIAL, public release NOT READY. BAI configuration persisted. No unattended paid run remains; this one-time batch is complete.
+
+Below is preserved history; earlier build05c is no longer the newest installed version.
 
 ---
 
@@ -43,4 +69,3 @@ Read [release notes and continuation entry](releases/KSTUDIO_LOCAL_CANDIDATE_202
 Local Windows / SketchUp 2024 workflow passed: BYOK persistence, real UI modeling, interruption continuation, scoped edit, SKP download/native reopen and desktop restart. Source fidelity remains PARTIAL; clean-machine/multi-SU/multi-provider/public-installer acceptance is NOT complete.
 
 The release notes deliberately omit personal connection settings, credentials, private source images, native models and raw session logs. Older case documents retain their historical scope and verdicts.
-

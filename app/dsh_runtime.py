@@ -15,6 +15,31 @@ from .native_agent import AgentTurnResult, NativeAgentUnavailable
 from .codex_provider import redact
 from .harness_task_anchor import task_anchor, runtime_failure_detail
 
+
+def host_refusal(error, path):
+    """Allowlisted diagnostics only: never serialize arbitrary request/error text."""
+    reason = str(error)
+    code = 'INVALID_HOST_REQUEST'
+    message = '工具请求不符合当前协议，已停止；请联系维护者检查项目记录。'
+    if reason == 'Test batch has unknown provider liability; no new request dispatched':
+        code = 'USAGE_RECONCILIATION_REQUIRED'
+        message = '模型服务连接中断或返回不完整，本次用量待核对。已阻止自动再次发送付费请求；已有模型和项目记录已保留。请核对服务商记录后继续。'
+    elif reason in {'Finite test batch ceiling reached; no new request dispatched', 'Finite test run ceiling reached; no new request dispatched'}:
+        code = 'TEST_BUDGET_EXHAUSTED'
+        message = '本次测试已到已登记的请求边界，未继续发送模型请求；已有模型和项目记录已保留。'
+    elif reason in {'Attempt already reserved; do not replay', 'Test reservation already finalized; no replay'}:
+        code = 'TEST_REQUEST_REPLAY_BLOCKED'
+        message = '重复的模型请求或结算已被拦截；请检查原请求记录，不要重复执行。'
+    elif reason in {'Test batch provider/model substitution denied', 'Test batch output limit exceeded'}:
+        code = 'TEST_REQUEST_CONFIGURATION_MISMATCH'
+        message = '模型请求与本次登记配置不一致，未发送；请检查连接与测试配置。'
+    elif reason == 'Turn cancelled; no new tool started' or reason == 'Turn cancelled':
+        code = 'TURN_CANCELLED'
+        message = '当前操作已取消，未启动新的工具操作；已有项目记录已保留。'
+    operation = {'/test-budget/reserve':'provider_reservation', '/test-budget/settle':'provider_settlement',
+                 '/call':'host_tool_dispatch', '/interaction':'interaction'}.get(path, 'host_request')
+    return {'error': message, 'code': code, 'retryable': False, 'operation': operation}
+
 def reported_usage(events):
     messages=[e.get('data',{}) for e in events if e.get('type')=='assistant/message']
     rows=[m.get('usage') for m in messages]
@@ -46,14 +71,19 @@ def reported_usage(events):
 DISABLED = "tool-plugin-manager plugin-manager config-editor settings remote-access typert-gateway deepseek-account llm-deepseek-account session-title-llm session-telemetry-otel tool-working-directory tool-bash tool-pwsh tool-jobs tool-fs tool-fs-search agent-instructions skill-filesystem tool-skill tool-subagent-control tool-subagent-list-agents tool-subagent tool-subagent-fork tool-workflow tool-goal tool-web tool-todo plan-mode workspace-dependencies skill-office".split()
 
 
-def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None):
+def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None, request_headers=None):
     from .dsh_full_profile import enabled, full_rows, provider_retry_policy
+    import re
+    if request_headers and (set(request_headers)!={'X-KStudio-Turn-ID'} or not re.fullmatch(r'[A-Za-z0-9_-]{8,128}',request_headers['X-KStudio-Turn-ID'])):
+        raise ValueError('Invalid platform turn correlation header')
     if effective_configuration is None:
         from .dsh_configuration import resolve_configuration
         effective_configuration = resolve_configuration({'api_base':api_base, 'model':model, 'mode':'codex-responses' if protocol=='openai-responses' else 'compatible', 'reasoning_effort':'provider-default'})
     if enabled() if full_capabilities is None else full_capabilities:
         rows=full_rows(api_base=api_base, model=model, protocol=protocol, max_tokens=max_tokens,
                        host_plugin=Path(__file__).parent/'dsh_host_tools.mjs', effective_configuration=effective_configuration)
+        if request_headers:
+            next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']['headers']=dict(request_headers)
         path.parent.mkdir(parents=True,exist_ok=True)
         path.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
         return
@@ -65,13 +95,15 @@ def write_profile(path, *, api_base, model, protocol="openai-responses", max_tok
         {"id":"compaction-basic","config":effective_configuration.compaction()},
         {"insert":[{"id":"kstudio-host-tools","name":(Path(__file__).parent/"dsh_host_tools.mjs").as_posix()}]},
     ]
+    if request_headers:
+        next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']['headers']=dict(request_headers)
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding="utf-8")
 
 
 class DSHHostSession:
     def __init__(self, *, home, workspace, api_base, api_key, model, specs, dispatch, trace_path,
-                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None):
+                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None, request_headers=None):
         if effective_configuration is None:
             from .dsh_configuration import resolve_configuration
             effective_configuration=resolve_configuration({'api_base':api_base,'model':model,'mode':'codex-responses' if protocol=='openai-responses' else 'compatible','reasoning_effort':reasoning_effort})
@@ -167,13 +199,17 @@ class DSHHostSession:
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
+                    if event['success'] and isinstance(result.get('construction_step'), dict):
+                        parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
                 except (ValueError,KeyError,TypeError) as error:
-                    self.reply({'error':str(error)},400)
+                    refusal = host_refusal(error, self.path)
+                    parent.record({'event':'host_request_refused', **refusal})
+                    self.reply(refusal,400)
         self.server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         self.worker=threading.Thread(target=self.server.serve_forever,daemon=True);self.worker.start()
         patch=self.home/'kstudio.patch.yml'
-        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration)
+        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration,request_headers=request_headers)
         if instructions and not self.full_capabilities:
             rows=json.loads(patch.read_text(encoding='utf-8'))
             next(r for r in rows if r.get('id')=='system-prompt')['config']['personaPrefix']=instructions
@@ -263,6 +299,13 @@ class DSHHostSession:
             input_tokens=incoming,output_tokens=outgoing,tool_calls=[{'tool':c['name'],'status':'completed' if c['success'] else 'failed'} for c in self.calls],
             status='interrupted' if self.cancelled else 'completed',cancellation_requested=self.cancelled,
             failed_tool_calls=sum(not c['success'] for c in self.calls))
+        if result.finish_reason == 'aborted' and self.cancelled:
+            # A user stop acknowledged by the SDK is an interrupted turn, not
+            # provider unavailability. The caller checkpoints committed geometry.
+            self.record({'event':'turn_interrupted','reason':'user_cancelled',
+                'elapsed_ms':turn.latency_ms,'tool_call_count':len(self.calls),
+                'input_tokens':incoming,'output_tokens':outgoing})
+            return turn
         if result.finish_reason not in {'completed'}:
             turn.status='interrupted' if self.cancelled else 'failed'
             detail=redact(runtime_failure_detail(result.events),(self.api_key,self.token))

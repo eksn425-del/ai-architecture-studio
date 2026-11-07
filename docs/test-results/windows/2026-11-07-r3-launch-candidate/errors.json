@@ -1,0 +1,47 @@
+[
+  {
+    "phase": "github_initial",
+    "status": "FAIL",
+    "run_id": 42329089916,
+    "reason": "Control-plane dependency/module environment failure",
+    "resolution": "Dependency/import fixes included before final CI; initial failure retained",
+    "evidence": "receipts/ci-summary.json"
+  },
+  {
+    "phase": "github_postgres_restart",
+    "status": "FAIL",
+    "run_id": 42329449289,
+    "reason": "Restart fixture passed SQLAlchemy masked-password URL into new engine; one PostgreSQL test failed",
+    "resolution": "Explicitly render test database connection URL with original fixture password for private execution; final CI passed. No secret is included in this report",
+    "docker_job": "PASS",
+    "evidence": "receipts/ci-summary.json"
+  },
+  {
+    "phase": "desktop_regression",
+    "status": "FAIL",
+    "test": "test_deepseek_host_tools_feed_real_product_progress",
+    "reason": "Windows default GBK decoding failed reading UTF-8 source",
+    "resolution": "Explicit UTF-8 read; rerun16 passed",
+    "evidence": "tests/junit-summary.json"
+  },
+  {
+    "phase": "independent_first_use",
+    "status": "BLOCKED",
+    "reason": "Website public download disabled; identity/model/payment not configured",
+    "resolution": "Truthful gate retained; public product journey incomplete",
+    "evidence": "review/first-user-web.md"
+  },
+  {
+    "phase": "guide_screenshot",
+    "status": "FAIL",
+    "reason": "Browser full-page capture exceeded5sec; not a product functionality failure",
+    "resolution": "Actual viewport capture succeeded; no fabricated full-page capture",
+    "evidence": "review/first-user-web.md"
+  },
+  {
+    "phase": "real_modeling",
+    "status": "NOT_RUN",
+    "reason": "No new native modeling, local edit, save/download/reopen in current engineering evidence",
+    "resolution": "Await explicit actual R3 native acceptance evidence; no older model reused"
+  }
+]

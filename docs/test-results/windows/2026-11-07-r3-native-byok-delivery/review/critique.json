@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "reviewer_mode": "dedicated_read_only",
+  "revision": 9,
+  "root_pid": 19,
+  "status": "PARTIAL",
+  "needs_fix": true,
+  "evidence": [
+    "views/front.png",
+    "views/rear.png",
+    "views/left.png",
+    "views/right.png",
+    "views/roof.png",
+    "views/oblique.png",
+    "interior/lower-stair.png",
+    "interior/upper-stair.png"
+  ],
+  "source_calibrated": false,
+  "issues": [
+    {
+      "id": "railing_support",
+      "status": "NEEDS_FIX",
+      "evidence": "interior/lower-stair.png",
+      "observation": "Several post ends stop beside steps without visible base or side bracket; handrail landing junction unresolved"
+    },
+    {
+      "id": "rear_wall_stair_interference",
+      "status": "NEEDS_FIX_OR_TARGETED_PROOF",
+      "evidence": "views/rear.png",
+      "observation": "Stair-step contour visible on rear exterior wall; stair/rear-wall bounds overlap200mm, exact topology not certified"
+    }
+  ],
+  "resolved": [
+    {
+      "id": "porch_platform",
+      "status": "PASS_basic_continuity",
+      "evidence": [
+        "views/oblique.png",
+        "model/dimensions-r9.json"
+      ],
+      "observation": "Platform now spansY-2500..0 atZ0, steps meet atY-2500 with topZ-150, visible path reaches entrance"
+    }
+  ],
+  "basic_stair_connection": "VISUALLY_SUPPORTED_midlanding_and_upper_exit; bottom start/net clearance not fully measured",
+  "KEEP": "10 independent protected-group geometry/material hashes unchanged",
+  "native_delivery": "downloaded file byteSHA and reopened native geometry/material SHA match",
+  "not_regulatory_certification": true
+}
