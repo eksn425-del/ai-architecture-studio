@@ -6,7 +6,7 @@
   "base_commit": "3f6c5c454cd140ce4ca735d1b2234e80a9ea0078",
   "source_case": "NOT_RUN — R3 launch engineering and first-use review, no architectural reference/model in this batch",
   "model": {
-    "requested": "Existing BAI DeepSeek route retained; no inference scheduled in this engineering batch",
+    "requested": "No inference in this engineering fixture scope; real BAI run recorded separately",
     "actual": "NOT_RUN",
     "reasoning_effort": null,
     "runtime": "K Studio control-plane/desktop offline and database fixtures; no modeling runtime invocation"
@@ -30,11 +30,36 @@
   "blockers": [
     "Production cloud/domain/DNS/HTTPS, identity/SMS/WeChat and merchant configuration not established",
     "Confirmed public pricing, operator details and production signing/update trust not established",
-    "Native modeling/edit/download/reopen has not run on this R3 build",
-    "Final installer security rebuild and GUI first-use receipts pending integration"
+    "Verified old C program copy removal rejected by automatic tool policy; copy remains"
   ],
-  "screenshots_status": "Actual website screenshots only; canonical native geometry screenshots NOT_RUN",
+  "screenshots_status": "Actual website and installed-desktop screenshots; canonical native geometry evidence in separate linked native folder",
   "paid_provider_calls": 0,
   "real_payments": 0,
-  "production_deployment": "NOT_RUN"
+  "production_deployment": "NOT_RUN",
+  "scope": "Cloud engineering and installer acceptance; actual BAI/native run is separately recorded in ../2026-11-07-r3-native-byok-delivery",
+  "native_supplement": "../2026-11-07-r3-native-byok-delivery/README.md",
+  "native_supplement_status": {
+    "status": "PARTIAL",
+    "revision": 9,
+    "initial_beta01_capture": "FAIL_AFTER_GEOMETRY_COMMIT",
+    "beta02_capture_and_porch_edit": "PASS",
+    "protected_groups_unchanged": 10,
+    "download_native_reopen": "PASS",
+    "railing_edit": "FAIL_NO_NEW_COMMIT",
+    "provider_attempts": {
+      "settled": 56,
+      "unknown": 1,
+      "additional_retry_dispatch": 0
+    },
+    "actual_cost": null
+  },
+  "desktop_checkpoints": {
+    "beta01": "Actual GUI installation/start and empty API new profile observed; not clean OS",
+    "beta02": "Actual UI resumed pending plan/configuration and native porch edit; see native supplement",
+    "beta03_core": "790d7f099939228b9828a6524eeccf94f374f7be",
+    "beta03_e_install": "PASS_ACTUAL_GUI_START_MENU_AND_RUNTIME_E_PATHS",
+    "program_copy": "PASS_COPY_AND_HASH_140911_FILES_2190840011_BYTES",
+    "c_source_deleted": false,
+    "c_cleanup": "BLOCKED_BY_POLICY_ACTION_NOT_EXECUTED"
+  }
 }

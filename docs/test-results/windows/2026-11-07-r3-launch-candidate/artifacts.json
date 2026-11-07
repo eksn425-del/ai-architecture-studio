@@ -2,24 +2,59 @@
   "schema_version": 1,
   "files": [
     {
+      "path": "desktop/first-user-beta01-04-install-complete.png",
+      "bytes": 38947,
+      "sha256": "d2bfe46723f5f52d3ffe5601f3d6eb3ae598b8e6cd62520045f8a05c68239e34"
+    },
+    {
+      "path": "desktop/first-user-beta01-07-first-launch-no-api.png",
+      "bytes": 972312,
+      "sha256": "29107b9a2664c81f7af248ba5a5a468e36fdab26c7c42842e99c4521759807ed"
+    },
+    {
+      "path": "desktop/first-user-beta01-09-api-empty-key.png",
+      "bytes": 373491,
+      "sha256": "5e3c6d1c63117ea58cc2b1c41fa6a4b2a78440eda78a5710c43d6e515d275f7c"
+    },
+    {
+      "path": "desktop/first-user-beta03-04-install-complete.png",
+      "bytes": 40694,
+      "sha256": "7f879be0f0eb10e801f669630ee53459ff0173f7356d6c1ab941772f0e487e31"
+    },
+    {
+      "path": "desktop/first-user-beta03-05-first-launch-no-api.png",
+      "bytes": 808693,
+      "sha256": "c5ea4371c17e68bcf547d306e23b471ab0242e6183cfeef1ee7c65e0e47b571e"
+    },
+    {
+      "path": "desktop/first-user-beta03-06-api-empty-key.png",
+      "bytes": 197586,
+      "sha256": "5b08991baa4d73941c2cf670bbf54fe5ba8671d85b0ecdbbf3d7ae67cf390a4a"
+    },
+    {
+      "path": "desktop/first-user-beta03-07-account-not-configured.png",
+      "bytes": 72803,
+      "sha256": "f4b635928c98b71adf30ef09e6b97c99a5e9af3f03fffee5c4c6a08af32ddcc4"
+    },
+    {
       "path": "errors.json",
       "bytes": 1901,
       "sha256": "426dc03ddf88e9802c6cf370e2a6799d9847c9d9ed2f2b45147d7ceb33966bc6"
     },
     {
       "path": "metrics.json",
-      "bytes": 1433,
-      "sha256": "678339366e201ae82c80e6e9f98f91e911d5c350cfc90a363c81dbb9bb8bd59f"
+      "bytes": 3165,
+      "sha256": "b92d0c310a19170d46d8f39e16ccab7b3d48ab38470cf65d67a6f7911741c218"
     },
     {
       "path": "pending-evidence.json",
-      "bytes": 901,
-      "sha256": "3828c917158cd0ad1973832dc4c12b48bca31b99f53d60a2febb0f0ad1df7110"
+      "bytes": 2246,
+      "sha256": "be3d3126eeeafdcff46d3099dff44c8dbadd68ccf98f0c26ee0e9415ec3de3b2"
     },
     {
       "path": "README.md",
-      "bytes": 4903,
-      "sha256": "f865487ff10c250c5e19c6ecd1f243f18fb2a3696ca9a2eb89d6929dd37636f3"
+      "bytes": 8047,
+      "sha256": "94b7752a6f8b2112b2a7adfbbad317984f41d7e2446fdc5c4d6fecb01a8734f7"
     },
     {
       "path": "receipts/bundle-inventory-summary.json",
@@ -32,6 +67,21 @@
       "sha256": "5706e48019e49dc09ceddc00a0b3aa666b27467512089b49ba97e2df8f56fd6b"
     },
     {
+      "path": "receipts/capture-postwrite-regression.json",
+      "bytes": 1058,
+      "sha256": "1a82d20add77ee416c23cd5dbcdc93e5b72ebd6842423e6f10bede1f8313e434"
+    },
+    {
+      "path": "receipts/ci-beta02.json",
+      "bytes": 1151,
+      "sha256": "e64122c467067d85c1f7f87a6afc523bdfc5d7bf4750a4736078d1b7370843eb"
+    },
+    {
+      "path": "receipts/ci-runtime-and-build-fix.json",
+      "bytes": 1151,
+      "sha256": "643ea1aad26f429018ca7ae06468265769700b7750fa67b810989e4b6cf23e1a"
+    },
+    {
       "path": "receipts/ci-summary.json",
       "bytes": 5390,
       "sha256": "bfabdf7d50710648ff93ba6e0c3641ec10350a1bedf1b609f402219f8018ba3e"
@@ -42,9 +92,69 @@
       "sha256": "335e16edd57dafb5232ba115dec5e85ea373f3e997bf052ba2efc0d5fc000a79"
     },
     {
+      "path": "receipts/first-user-beta03.json",
+      "bytes": 5012,
+      "sha256": "b996b4cf82cd376a1fb76a67d86823e89ac2b80bd410536a0e07a712a38b478a"
+    },
+    {
+      "path": "receipts/host-refusal-diagnostics-fix.json",
+      "bytes": 2464,
+      "sha256": "6ac59fbcf681033cbac36542a6a6a895a16696d4dfaf049bce0141151fea28ab"
+    },
+    {
+      "path": "receipts/install-roots-regression.json",
+      "bytes": 1622,
+      "sha256": "7e5d6e7ba199831f0a6ff86b004ec9fc8e75e6a42762ee29eee8fc14b0619ccb"
+    },
+    {
+      "path": "receipts/installer-beta02.json",
+      "bytes": 4370,
+      "sha256": "1251fe6c5179b30527e48a3bce9a88bd47137404f26a133180b240845a99ea37"
+    },
+    {
+      "path": "receipts/installer-beta03.json",
+      "bytes": 4787,
+      "sha256": "7f5d74097b03ed6ca6c4267089b32d6b4ca0c1fc4278b21517627575255570a7"
+    },
+    {
+      "path": "receipts/installer.json",
+      "bytes": 8803,
+      "sha256": "a3bb87e02e1d81150056264a7a9c60cbef72b87b899aabbc0fa82c57d0bdb32b"
+    },
+    {
       "path": "receipts/postgres-restore.json",
       "bytes": 3105,
       "sha256": "42b933272f2b8da55cb7b12a638d9956a449389953f75900f4c65b4a25519c15"
+    },
+    {
+      "path": "receipts/program-copy-to-e-checkpoint.json",
+      "bytes": 288,
+      "sha256": "178bfed60c04984d488e234ceae8b9d0fc3a3d2388282105265e53538566469f"
+    },
+    {
+      "path": "receipts/program-migration-final.json",
+      "bytes": 1333,
+      "sha256": "23f1397b7aaab945896178477416ed7ef6ac2f0f2f38fc72f7c70d6c05a4dcf6"
+    },
+    {
+      "path": "receipts/runtime-on-e.json",
+      "bytes": 438,
+      "sha256": "280f9ff3de30dff2cb90431503def3fb7b47979a4a6a9e48ebb2d4f09a226e6c"
+    },
+    {
+      "path": "review/first-user-beta02.md",
+      "bytes": 5302,
+      "sha256": "d9c00ea977771078b7c59da1ee232bc83e669c6a2c651933461d51da71ce0a12"
+    },
+    {
+      "path": "review/first-user-beta03.md",
+      "bytes": 3690,
+      "sha256": "4f5d91a0a9c13ea94d468601ee7d0c0948edb66cc550825b7650fa3c3f9b232d"
+    },
+    {
+      "path": "review/first-user-desktop.md",
+      "bytes": 9823,
+      "sha256": "21da81996dc2c135f3800440c708370784843733b5e0c5b17d6bde6622b6decd"
     },
     {
       "path": "review/first-user-web.md",
@@ -53,13 +163,13 @@
     },
     {
       "path": "review/review.md",
-      "bytes": 912,
-      "sha256": "6bdea678176800d6276e9761b383e679f869eaa106f82927fdb3c4c400de85b3"
+      "bytes": 2344,
+      "sha256": "2f7fecafece7342cdfd2942a1dd3a104e69d945b2fc8dc268afbb774b5999298"
     },
     {
       "path": "run.json",
-      "bytes": 1861,
-      "sha256": "0638b7b69aacf891f52c1865473080a98a1f6fadeba6c25df1bc700be17d7579"
+      "bytes": 3080,
+      "sha256": "78c3f0f865bb3460fb9b87c53183d37d8680be3fb76c98cb96cc5455aa304550"
     },
     {
       "path": "tests/junit-summary.json",
