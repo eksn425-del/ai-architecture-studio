@@ -89,4 +89,7 @@ try {
     }
     Write-Host "Local desktop build: $OutputRoot/dist/KStudio/KStudio.exe"
     Write-Host 'This build excludes SketchUp, user data, pairing tokens and API credentials. Public first-party connector included; a private-trial override is never a public release.'
+    # Robocopy uses 1-7 for successful copy outcomes. Do not leak that status
+    # as a failed packaging command after all build and assembly checks pass.
+    $global:LASTEXITCODE = 0
 } finally { Pop-Location }
