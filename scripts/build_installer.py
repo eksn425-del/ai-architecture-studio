@@ -115,7 +115,16 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
     receipt={'schema':1,'version':version,'sequence':sequence,'source_sha':source_sha,'file_count':len(data['files']),
              'fixture_only':fixture_root is not None,'candidate_only':True,'production_signed':False,'public_release_ready':False,
              'profile_preserved_on_uninstall':True,'prior_slots_retained':True,'compression':'zlib',
+             'running_instance_refused':True,'atomic_current_pointer':True,
+             'same_version_repair_crash_atomic':False,
+             'same_version_overwrite':'REFUSED_EXIT_6',
              'nsis_license':'https://nsis.sourceforge.io/License','compile_status':'NOT_RUN'}
+    installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
+    receipt['installer_source']={
+        'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
+        'dirty':bool(subprocess.check_output(['git','status','--porcelain','--',*installer_inputs],cwd=REPO,text=True).strip()),
+        'sha256':{name:hashlib.sha256((REPO/name).read_bytes()).hexdigest() for name in installer_inputs},
+        'note':'source_sha identifies frozen application core; installer input hashes identify later packaging fixes'}
     if compile_installer:
         with (output/'compile.log').open('wb') as log:
             result=subprocess.run([str(makensis),'/V2',str(entry)],stdout=log,stderr=subprocess.STDOUT,timeout=1800,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
