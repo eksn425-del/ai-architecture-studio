@@ -54,7 +54,7 @@ def test_concurrent_idempotency_and_daily_cap(system):
     assert audit_wallet(e,a['id'])['reserved']==0
 
 def test_schema_one_to_two_keeps_existing_session_and_balance(system):
-    from cloud.db import schema_version
+    from cloud.db import schema_version,SCHEMA_VERSION
     _,e,a,_,c=system;credit(e,a['id'])
     with e.begin() as conn:
         conn.execute(text('DROP INDEX ix_sessions_refresh'))
@@ -64,7 +64,7 @@ def test_schema_one_to_two_keeps_existing_session_and_balance(system):
     migrate(e)
     assert c.get('/api/auth/me').json()['user']['id']==a['id']
     assert c.get('/api/account/usage').json()['balance']['balance']==100
-    with e.connect() as conn:assert conn.execute(select(schema_version.c.version)).scalar()==2
+    with e.connect() as conn:assert conn.execute(select(schema_version.c.version)).scalar()==SCHEMA_VERSION
 def test_task_idempotency_claim_unknown_and_reconcile(system):
     _,e,a,_,_=system;credit(e,a['id'])
     t=reserve(e,a['id'],'one','platform','model',60,PRICE)

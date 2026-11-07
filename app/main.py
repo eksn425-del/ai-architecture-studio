@@ -515,7 +515,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     @asynccontextmanager
     async def local_lifespan(app):
-        with LocalRuntimeLease(store.root):
+        with LocalRuntimeLease(runtime):
             yield
 
     app = FastAPI(title="AI Architecture Studio Model Router", version="1.1.0", lifespan=local_lifespan)

@@ -46,14 +46,19 @@ def reported_usage(events):
 DISABLED = "tool-plugin-manager plugin-manager config-editor settings remote-access typert-gateway deepseek-account llm-deepseek-account session-title-llm session-telemetry-otel tool-working-directory tool-bash tool-pwsh tool-jobs tool-fs tool-fs-search agent-instructions skill-filesystem tool-skill tool-subagent-control tool-subagent-list-agents tool-subagent tool-subagent-fork tool-workflow tool-goal tool-web tool-todo plan-mode workspace-dependencies skill-office".split()
 
 
-def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None):
+def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None, request_headers=None):
     from .dsh_full_profile import enabled, full_rows, provider_retry_policy
+    import re
+    if request_headers and (set(request_headers)!={'X-KStudio-Turn-ID'} or not re.fullmatch(r'[A-Za-z0-9_-]{8,128}',request_headers['X-KStudio-Turn-ID'])):
+        raise ValueError('Invalid platform turn correlation header')
     if effective_configuration is None:
         from .dsh_configuration import resolve_configuration
         effective_configuration = resolve_configuration({'api_base':api_base, 'model':model, 'mode':'codex-responses' if protocol=='openai-responses' else 'compatible', 'reasoning_effort':'provider-default'})
     if enabled() if full_capabilities is None else full_capabilities:
         rows=full_rows(api_base=api_base, model=model, protocol=protocol, max_tokens=max_tokens,
                        host_plugin=Path(__file__).parent/'dsh_host_tools.mjs', effective_configuration=effective_configuration)
+        if request_headers:
+            next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']['headers']=dict(request_headers)
         path.parent.mkdir(parents=True,exist_ok=True)
         path.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
         return
@@ -65,13 +70,15 @@ def write_profile(path, *, api_base, model, protocol="openai-responses", max_tok
         {"id":"compaction-basic","config":effective_configuration.compaction()},
         {"insert":[{"id":"kstudio-host-tools","name":(Path(__file__).parent/"dsh_host_tools.mjs").as_posix()}]},
     ]
+    if request_headers:
+        next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']['headers']=dict(request_headers)
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding="utf-8")
 
 
 class DSHHostSession:
     def __init__(self, *, home, workspace, api_base, api_key, model, specs, dispatch, trace_path,
-                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None):
+                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None, request_headers=None):
         if effective_configuration is None:
             from .dsh_configuration import resolve_configuration
             effective_configuration=resolve_configuration({'api_base':api_base,'model':model,'mode':'codex-responses' if protocol=='openai-responses' else 'compatible','reasoning_effort':reasoning_effort})
@@ -175,7 +182,7 @@ class DSHHostSession:
         self.server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         self.worker=threading.Thread(target=self.server.serve_forever,daemon=True);self.worker.start()
         patch=self.home/'kstudio.patch.yml'
-        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration)
+        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration,request_headers=request_headers)
         if instructions and not self.full_capabilities:
             rows=json.loads(patch.read_text(encoding='utf-8'))
             next(r for r in rows if r.get('id')=='system-prompt')['config']['personaPrefix']=instructions

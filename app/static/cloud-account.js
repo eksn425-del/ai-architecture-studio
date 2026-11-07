@@ -17,7 +17,7 @@
     return data;
   }
   function controls() {
-    for (const id of ['device-start','logout','apply']) el(id).disabled = working || taskRunning();
+    for (const id of ['device-start','logout','apply','restore-button']) el(id).disabled = working || taskRunning();
     el('refresh').disabled = working;
     el('mode').disabled = working || taskRunning();
     el('model').disabled = working || taskRunning();
@@ -39,6 +39,8 @@
   }
   function render(next) {
     account = next;
+    el('restore').hidden = !next.authenticated;
+    if(next.authenticated && next.url){ el('connections').href=new URL('/account/connections',secureUrl(next.url)).href;el('device-id').textContent='本机设备标识：'+(next.device_id||next.session_id||'请刷新同步'); }
     el('auth').hidden = !next.configured;
     el('details').hidden = !next.authenticated && !next.account_restore_required;
     el('device-start').hidden = !!next.authenticated;
@@ -53,7 +55,7 @@
     el('status').textContent = next.error || (!next.configured
       ? '云端账户服务尚未配置。本机项目和自带 API 仍可使用；当前没有可显示的云端余额。'
       : next.authenticated ? '本机账户已授权。余额来自云端；退出会撤销本机令牌，已完成模型不会被删除。'
-      : '尚未授权这台电脑。点击登录后，在安全的账户网站核对设备验证码；本站登录本身不会自动授权桌面。');
+      : '尚未授权这台电脑。点击登录后，在安全的账户网站核对设备授权码；网站登录本身不会自动授权桌面。');
     if (next.authenticated || next.account_restore_required) {
       el('user').textContent = next.user?.display_name || next.user?.id || (next.authenticated ? '已授权账户' : '账户需要恢复 · 尚未重新授权');
       const b = next.balance;
@@ -97,7 +99,7 @@
       if (current !== generation || !dialog.open) return;
       if (result.status === 'authorized') {
         el('device').hidden = true;
-        await refresh(); await refreshModelRoute();
+        location.reload();
         return;
       }
       if (result.status === 'expired_token' || result.status === 'access_denied') {
@@ -135,7 +137,7 @@
     timer = setTimeout(() => pollDevice(current, interval), interval);
   }));
   el('logout').addEventListener('click', () => run(async () => {
-    await request('/logout', {}); await refresh(); await refreshModelRoute();
+    await request('/logout', {}); location.reload();
   }));
   el('apply').addEventListener('click', () => run(async () => {
     const current = generation;
@@ -146,6 +148,13 @@
     await refresh(); await refreshModelRoute();
     if(current!==generation || !dialog.open)return;
     el('status').textContent = '模型方式已保存并同步。账户授权不代表供应商或建模软件已通过能力验收。';
+  }));
+  el('restore-button').addEventListener('click', () => run(async () => {
+    const code=el('sync-code').value.trim();
+    if(!code)throw new Error('请填写账户网站给出的一次性恢复码。');
+    await request('/connections/restore',{sync_token:code,confirm_local_restore:true});
+    el('sync-code').value='';await refreshModelRoute();
+    el('status').textContent='API 已加密保存到当前本机账户；请到模型设置明确选择该连接，未自动调用或切换模型。';
   }));
   el('refresh').addEventListener('click', async () => { if (working) return; const current=generation;working=true;controls();try{await refresh();}catch(error){if(current===generation && dialog.open)el('status').textContent=error.message;}finally{working=false;controls();} });
   el('mode').addEventListener('change', () => {el('fee-ack').checked=false;showSource();});

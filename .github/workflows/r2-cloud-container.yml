@@ -1,4 +1,4 @@
-name: R2 cloud container engineering check
+name: R3 cloud container engineering check
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
       - name: Real PostgreSQL concurrency, tenant, idempotency and reconciliation tests
         env:
           KSTUDIO_TEST_POSTGRES_URL: postgresql+psycopg://kstudio_ci:disposable-ci-fixture-only@127.0.0.1:5432/kstudio_ci
-        run: python -m pytest tests/cloud/test_control_plane.py tests/cloud/test_gateway_recovery.py tests/cloud/test_account_receipts.py -q --junitxml=postgres-ledger.xml
+        run: python -m pytest tests/cloud -q --junitxml=postgres-ledger.xml
       - name: Require PostgreSQL parameter cases to actually execute
         run: |
           python - <<'PY'

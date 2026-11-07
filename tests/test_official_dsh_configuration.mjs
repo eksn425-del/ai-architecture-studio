@@ -33,7 +33,7 @@ for(const protocol of ['openai-completions','openai-responses']){
    const seen=[];
    const server=createServer(async(req,res)=>{
     let raw='';for await(const chunk of req)raw+=chunk;
-    seen.push({url:req.url,body:JSON.parse(raw)});
+    seen.push({url:req.url,body:JSON.parse(raw),headers:req.headers});
     res.writeHead(200,{'content-type':'text/event-stream'});
     const send=(value)=>res.write(`data: ${JSON.stringify(value)}\n\n`);
     if(protocol==='openai-completions'){
@@ -53,7 +53,7 @@ for(const protocol of ['openai-completions','openai-responses']){
    });
    await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
    try{
-    const provider={api:protocol,baseURL:`http://127.0.0.1:${server.address().port}/v1`,apiKeyEnv:'TEST_ONLY',models:[fixture.models[effort]]};
+    const provider={api:protocol,baseURL:`http://127.0.0.1:${server.address().port}/v1`,apiKeyEnv:'TEST_ONLY',headers:{'X-KStudio-Turn-ID':'test-platform-turn-001'},models:[fixture.models[effort]]};
     const adapter=adapterFor(provider);
     const content=[{type:'text',text:'use original image order'},...fixture.images.map(image=>({type:'image',attachment:{attachmentId:image.id,width:12,height:8,mediaType:image.mimeType,bytes:Buffer.from(image.data,'base64').length}}))];
     const chunks=[];
@@ -61,6 +61,7 @@ for(const protocol of ['openai-completions','openai-responses']){
       reasoningEffort:effort==='provider-default'?undefined:effort,maxTokens:4096,
       messages:[{role:'user',content}],tools:[{name:'readonly_probe',description:'test read',parameters:{type:'object',properties:{},additionalProperties:false}}]}))chunks.push(chunk);
     assert.equal(seen.length,1);
+    assert.equal(seen[0].headers['x-kstudio-turn-id'],'test-platform-turn-001');
     const body=seen[0].body;assert.equal(body.model,'fixture-model');assert.equal(body.stream,true);
     if(protocol==='openai-completions'){
      assert.equal(seen[0].url,'/v1/chat/completions');

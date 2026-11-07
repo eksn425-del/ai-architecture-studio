@@ -13,14 +13,14 @@ def create_identity(engine,subject,name):
             c.execute(users.insert().values(**row));c.execute(wallets.insert().values(user_id=row['id'],balance=0,reserved=0));return row
     except IntegrityError:
         with engine.connect() as c:return dict(c.execute(select(users).where(users.c.subject==subject)).mappings().one())
-def new_session(engine,user,device_name,seconds):
+def new_session(engine,user,device_name,seconds,authenticated_at=None):
     with engine.begin() as c:
-        token,csrf=issue_session(c,user,device_name,seconds)
+        token,csrf=issue_session(c,user,device_name,seconds,authenticated_at=authenticated_at)
     return token,csrf
 
-def issue_session(c,user,device_name,seconds):
+def issue_session(c,user,device_name,seconds,authenticated_at=None):
     token=secrets.token_urlsafe(48);csrf=secrets.token_urlsafe(32)
-    c.execute(sessions.insert().values(id=uid(),user_id=user,token_hash=digest(token),csrf=csrf,device_name=device_name[:128],expires=now()+seconds,revoked=0))
+    c.execute(sessions.insert().values(id=uid(),user_id=user,token_hash=digest(token),csrf=csrf,device_name=device_name[:128],expires=now()+seconds,revoked=0,authenticated_at=now() if authenticated_at is None else authenticated_at))
     return token,csrf
 def lookup(engine,token):
     if not token:return None

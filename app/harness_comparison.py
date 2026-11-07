@@ -48,6 +48,7 @@ class ComparisonRuntime(CodexAppServerRuntime):
         from .dsh_configuration import resolve_configuration
         self.effective_configuration=resolve_configuration(connection)
         self.arm=arm
+        self.platform_turn_id=connection.get('cloud_turn_id')
         self.comparison_root=Path(comparison_root)
         config=CodexResponsesProvider(api_base=connection['api_base'],api_key=connection['api_key'],compatibility_acknowledged=True)
         super().__init__(root,api_provider=config,execution_mode='host_tools',
@@ -139,7 +140,8 @@ class ComparisonRuntime(CodexAppServerRuntime):
             max_tokens=self.effective_configuration.max_output_tokens,
             protocol=self.effective_configuration.protocol,reasoning_effort=reasoning_effort,
             effective_configuration=self.effective_configuration,source_manifest=reference_manifest(project,images),
-            full_capabilities=False if read_only else None)
+            full_capabilities=False if read_only else None,
+            request_headers={'X-KStudio-Turn-ID':self.platform_turn_id} if self.platform_turn_id else None)
         self._dsh_active[str(project)]=transport
         try:
             result=transport.run(prompt=prompt,images=images,session_id=thread_id)
