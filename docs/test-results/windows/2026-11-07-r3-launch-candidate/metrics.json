@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": null,
+  "failed_tool_calls": null,
+  "committed_writes": 0,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "critic_input_tokens": null,
+  "critic_output_tokens": null,
+  "human_geometry_edits": 0,
+  "token_source": "No product modeling inference executed; controller session usage not available and not substituted",
+  "paid_provider_requests": 0,
+  "real_payment_requests": 0,
+  "paid_provider_cost": 0,
+  "cost_currency": "CNY",
+  "infrastructure_cost": "UNKNOWN; CI/resource accounting not provided",
+  "tests": {
+    "local_final_postgres": {
+      "tests": 203,
+      "passed": 203,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 45.563
+    },
+    "github_postgres": {
+      "tests": 203,
+      "passed": 202,
+      "failed": 0,
+      "skipped": 1,
+      "seconds": 25.68
+    },
+    "desktop_regression_initial": {
+      "tests": 16,
+      "passed": 15,
+      "failed": 1
+    },
+    "desktop_regression_fixed": {
+      "tests": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    "wechat_adapter": {
+      "passed": 27
+    },
+    "wechat_routes": {
+      "passed": 4
+    },
+    "wechat_browser_fixture": {
+      "passed": 1
+    }
+  },
+  "counting_note": "Suites overlap; do not add numbers as distinct coverage. Detailed identities/results in tests/junit-summary.json"
+}

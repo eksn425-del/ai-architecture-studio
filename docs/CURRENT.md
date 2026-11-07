@@ -1,3 +1,16 @@
+# R3 implementation checkpoint — 2026-11-07
+
+Implementation is active on `codex/kstudio-r3-launch-20261105`, [PR27](https://github.com/eksn425-del/ai-architecture-studio/pull/27), preserving R2 build07 and the PR25/PR26 baseline. This is no longer a documentation-only handoff. Cloud account API encryption/device restore, browser recent-auth boundaries, WeChat Native adapter, durable payment recovery, gateway turn budgets, honest website gates and runnable deployment/backup/restore operations are implemented.
+
+Core `3f6c5c454cd140ce4ca735d1b2234e80a9ea0078`: Windows PostgreSQL regression 203 passed / 0 skipped; Linux CI PostgreSQL 202 passed / 1 skip (not counted as PASS) and real restricted Docker service passed. These are engineering/fixture results, not real Authing, customer payment or public deployment. See [evidence](test-results/windows/2026-11-07-r3-launch-candidate/README.md).
+
+Full frozen desktop core `834a47c9b4529e663680aeb5461c8127219ce85f` (70,451 files) and bundled Harness probe passed. Final NSIS installer includes running-instance and parallel-installer locks, atomic version pointer, same-slot overwrite refusal and E-drive profile junction support; full-package GUI installation/first-use acceptance is still IN_PROGRESS at this checkpoint. Original R2 remains preserved. No new paid model request or customer charge has occurred in this R3 batch yet.
+
+**Public commercial Beta remains BLOCKED_EXTERNAL.** [Exact external inputs and resumption](execution/KSTUDIO_R3_EXTERNAL_INPUTS_STATUS_20261107.md). No real public URL/download is assigned. Do not reopen the rejected/closed simple-house case; its 20 requested videos were removed while historical evidence/models remain. Continue installer/real local first-use verification, then update this checkpoint with actual results and artifact hashes. Never promote local/mocked acceptance to production.
+
+Historical material below retains its original scope.
+
+---
 # R3 launch task accepted — 2026-11-05
 
 **Current task:** turn the R2 internal candidate into a real website + desktop commercial Beta. Read the [R3 execution book](execution/KSTUDIO_R3_LAUNCH_EXECUTION_20261105.md), [owner inputs](execution/KSTUDIO_R3_OPERATOR_INPUTS_20261105.md), and [Codex start](execution/KSTUDIO_R3_CODEX_START_20261105.md).

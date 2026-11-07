@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-07-r3-launch-candidate",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "base_commit": "3f6c5c454cd140ce4ca735d1b2234e80a9ea0078",
+  "source_case": "NOT_RUN — R3 launch engineering and first-use review, no architectural reference/model in this batch",
+  "model": {
+    "requested": "Existing BAI DeepSeek route retained; no inference scheduled in this engineering batch",
+    "actual": "NOT_RUN",
+    "reasoning_effort": null,
+    "runtime": "K Studio control-plane/desktop offline and database fixtures; no modeling runtime invocation"
+  },
+  "environment": {
+    "windows": "Existing Windows owner workstation; not a clean OS",
+    "sketchup": "2024 route retained; this batch native test NOT_RUN",
+    "bridge": "NOT_RUN",
+    "adai": "NOT_RUN",
+    "postgresql": "17.11 local disposable fixture; independent GitHub PostgreSQL17 service",
+    "browser": "Installed Microsoft Edge; agent-simulated first-use page review and separate synthetic-payment browser fixture"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only_first_use_agent",
+    "fidelity_status": "NOT_RUN",
+    "needs_fix": true,
+    "engineering_status": "PARTIAL",
+    "public_beta": "BLOCKED",
+    "first_use_website": "BLOCKED_AT_DOWNLOAD"
+  },
+  "blockers": [
+    "Production cloud/domain/DNS/HTTPS, identity/SMS/WeChat and merchant configuration not established",
+    "Confirmed public pricing, operator details and production signing/update trust not established",
+    "Native modeling/edit/download/reopen has not run on this R3 build",
+    "Final installer security rebuild and GUI first-use receipts pending integration"
+  ],
+  "screenshots_status": "Actual website screenshots only; canonical native geometry screenshots NOT_RUN",
+  "paid_provider_calls": 0,
+  "real_payments": 0,
+  "production_deployment": "NOT_RUN"
+}
