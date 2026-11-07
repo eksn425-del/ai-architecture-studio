@@ -42,11 +42,11 @@ def main():
     parser.add_argument('--output',type=Path,required=True,help='New project-drive artifact directory')
     args=parser.parse_args();root=Path(__file__).resolve().parents[1]
     args.output.mkdir(parents=True,exist_ok=True)
-    archive=args.output/'KStudio-R2-cloud-website-source.zip'
+    archive=args.output/'KStudio-R3-cloud-website-source.zip'
     if archive.exists():raise ValueError('Refuse to overwrite an existing archive; choose a new output directory')
     paths=list((root/'cloud').glob('*.py'))
     paths.extend(p for p in (root/'website').rglob('*') if p.is_file() and p.suffix in {'.html','.css','.js','.svg'})
-    paths.extend(root/'deploy'/n for n in ['Dockerfile','Dockerfile.dockerignore','compose.yml','Caddyfile','backup.sh','restore.sh','README.md','ENVIRONMENT.md'])
+    paths.extend(root/'deploy'/n for n in ['Dockerfile','Dockerfile.dockerignore','compose.yml','Caddyfile','backup.sh','restore.sh','ops.py','verify_restore.py','environment.template','README.md','ENVIRONMENT.md'])
     paths.extend(root/n for n in ['requirements-cloud.txt','THIRD_PARTY_NOTICES.md','docs/USER_GUIDE_R2.md'])
     if (root/'LICENSE').is_file():paths.append(root/'LICENSE')
     files={p.relative_to(root).as_posix():p.read_bytes() for p in paths}
@@ -54,9 +54,9 @@ def main():
     snapshot=dependency_snapshot(files['requirements-cloud.txt'].decode('utf-8-sig'))
     files['DEPENDENCIES.tested-host.json']=(json.dumps(snapshot,ensure_ascii=False,indent=2)+'\n').encode()
     files['requirements-cloud.tested-windows.lock.txt']=('# Tested Windows runtime closure only. Do not use this as a Linux lock.\n'+''.join(p['name']+'=='+p['version']+'\n' for p in snapshot['packages'])).encode()
-    files['SOURCE_ARTIFACT_README.md']=('''# K Studio R2 cloud + website SOURCE candidate
+    files['SOURCE_ARTIFACT_README.md']=('''# K Studio R3 cloud + website SOURCE candidate
 
-Start with deploy/ENVIRONMENT.md and deploy/README.md. This archive contains the
+Start with deploy/ENVIRONMENT.md, deploy/environment.template and deploy/README.md. This archive contains the
 independent cloud service, public website, pinned direct requirements and deployment
 configuration. It does not contain the local SketchUp writer, desktop installation,
 runtime data, private tests, .env files, credentials, or prebuilt containers.
