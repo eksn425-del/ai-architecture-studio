@@ -312,6 +312,9 @@ function renderNativeTurnEvent(event) {
       text = "Agent 最新消息：" + event.text;
     } else if (typeof event.tool === "string" && ["tool_started", "tool_completed", "tool_cancelled"].includes(name)) {
       text = ({tool_started: "正在调用工具：", tool_completed: event.success === false ? "工具报告失败：" : "工具已返回：", tool_cancelled: "未启动的工具已取消："})[name] + event.tool;
+    } else if (name === "construction_step" && Number.isInteger(event.revision)) {
+      const stages = {structure: "结构骨架", enclosure: "围护与开口", sample: "构件样板", repetition: "构件复用", circulation: "楼梯与栏杆", finish: "材质与收尾", correction: "局部修正"};
+      text = `${stages[event.stage] || "建模阶段"}已提交 · 模型版本 ${event.revision} · 继续检查与搭建`;
     } else if (name === "turn/completed") {
       text = event.interrupted_confirmed === true ? "本轮已确认中断。已提交的修改不会自动回滚。"
         : event.status === "failed" ? "本轮失败，请查看记录与当前模型。" : "本轮已结束，正在同步结果。";

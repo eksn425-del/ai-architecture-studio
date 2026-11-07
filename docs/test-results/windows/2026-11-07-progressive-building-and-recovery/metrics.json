@@ -1,0 +1,150 @@
+{
+  "turns": [
+    {
+      "trace": "dsh-builder-0a66848fada8406a8c78a59c068c1130",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 1,
+      "known_input_tokens": 0,
+      "known_output_tokens": 0,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-builder-61b4a6f5025e4cb6892831eace308aeb",
+      "requests_with_terminal_events": 4,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 54135,
+      "known_output_tokens": 7955,
+      "host_calls": 4,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-builder-8ef42d402f764bd2b3d6ac9500eb714d",
+      "requests_with_terminal_events": 9,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 533600,
+      "known_output_tokens": 20031,
+      "host_calls": 8,
+      "host_failures": 4,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-builder-bc0f3c4d983248b79669f9ff9b4bac00",
+      "requests_with_terminal_events": 7,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 283417,
+      "known_output_tokens": 11147,
+      "host_calls": 11,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-builder-cf601dbf61dd414da598b53bfe167327",
+      "requests_with_terminal_events": 18,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 1274464,
+      "known_output_tokens": 21142,
+      "host_calls": 18,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-builder-da1cd64ecdec46f2b14bccc338a5b013",
+      "requests_with_terminal_events": 5,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 144587,
+      "known_output_tokens": 8641,
+      "host_calls": 6,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-builder-e799b8e5fbaf42a7a578d829c447a6c9",
+      "requests_with_terminal_events": 10,
+      "unknown_usage_attempts": 2,
+      "known_input_tokens": 193935,
+      "known_output_tokens": 4836,
+      "host_calls": 10,
+      "host_failures": 1,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-intent-1bd8003b4f8a4202b17f93b7d6838635",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 3540,
+      "known_output_tokens": 307,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-intent-458e7cbcadc84f7dbe42322d3cf2d071",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 3442,
+      "known_output_tokens": 226,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-intent-7dec944c8c564231b1d6170677a29a22",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 2363,
+      "known_output_tokens": 505,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-intent-9a79fa4dd39c4f328ec0f878df98cdad",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 4285,
+      "known_output_tokens": 308,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-intent-df2f9c5d2fde41579308ab29c7564de9",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 3440,
+      "known_output_tokens": 185,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    },
+    {
+      "trace": "dsh-intent-eb5dd61c88ff466d9ffd1500ccf8a485",
+      "requests_with_terminal_events": 1,
+      "unknown_usage_attempts": 0,
+      "known_input_tokens": 2815,
+      "known_output_tokens": 235,
+      "host_calls": 0,
+      "host_failures": 0,
+      "context_prunes": 0
+    }
+  ],
+  "model_request_events": 60,
+  "known_input_tokens": 2504023,
+  "known_output_tokens": 75518,
+  "unknown_usage_attempts": 3,
+  "tool_call_count": 57,
+  "failed_tool_calls": 5,
+  "provider_billed_amount": null,
+  "scope": "SDK settled message/attempt events; stopped in-flight requests may not have a terminal usage receipt; token totals are lower bounds, not an invoice",
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "committed_writes": 7,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 1,
+  "input_tokens": null,
+  "output_tokens": null,
+  "token_source": "Actual SDK terminal usage events; 3 unknown attempts and interrupted in-flight requests prevent a complete billed total. Known reported counts are lower bounds."
+}

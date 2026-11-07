@@ -8,6 +8,17 @@ The owner now explicitly authorizes deployment, phone/WeChat login, account-owne
 
 Everything below is preserved historical evidence and authorization context. The R3 execution book controls the new task; applicable existing test authorization is retained and is not expanded into cloud purchases, automatic recharge or charging third parties.
 
+
+**Implementation started 2026-11-07:** preserving the latest R2 build07 fixes and evidence below; R3 production remains NOT_DEPLOYED pending implementation and verified external inputs. Raw videos from the Nov7 simple-house test were subsequently deleted at the owner's request; historical hashes/screenshots/models remain, and that geometry case is closed.
+
+---
+
+# Latest checkpoint — progressive construction, installed build07 — 2026-11-07
+
+Desktop K Studio R2（内部候选）now uses installed build07 seq7, source `6f3fbf273c32dd9993daa0dbf413d8f0236ae01d`. [Candidate/artifacts](releases/KSTUDIO_R2_INSTALLED_20261107.md), [actual evidence](test-results/windows/2026-11-07-progressive-building-and-recovery/README.md). New independent project `architecture-project-7d1b1`, root19/r7: six actual construction stages, same-root stop/resume, one natural scoped correction, actual browser download and host native deep equality PASS; six protected parts unchanged. Existing earlier r8 project preserved. 78 focused tests pass. 20 raw videos indexed on E. Architectural fidelity remains PARTIAL, public release NOT READY. BAI configuration persisted. No unattended paid run remains; this one-time batch is complete.
+
+Below is preserved history; earlier build05c is no longer the newest installed version.
+
 ---
 
 # R2 installed build05c and real BAI continuation — 2026-11-05
@@ -43,4 +54,3 @@ Read [release notes and continuation entry](releases/KSTUDIO_LOCAL_CANDIDATE_202
 Local Windows / SketchUp 2024 workflow passed: BYOK persistence, real UI modeling, interruption continuation, scoped edit, SKP download/native reopen and desktop restart. Source fidelity remains PARTIAL; clean-machine/multi-SU/multi-provider/public-installer acceptance is NOT complete.
 
 The release notes deliberately omit personal connection settings, credentials, private source images, native models and raw session logs. Older case documents retain their historical scope and verdicts.
-

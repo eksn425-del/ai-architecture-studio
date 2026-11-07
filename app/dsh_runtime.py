@@ -167,6 +167,8 @@ class DSHHostSession:
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
+                    if event['success'] and isinstance(result.get('construction_step'), dict):
+                        parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
                 except (ValueError,KeyError,TypeError) as error:
                     self.reply({'error':str(error)},400)
@@ -263,6 +265,13 @@ class DSHHostSession:
             input_tokens=incoming,output_tokens=outgoing,tool_calls=[{'tool':c['name'],'status':'completed' if c['success'] else 'failed'} for c in self.calls],
             status='interrupted' if self.cancelled else 'completed',cancellation_requested=self.cancelled,
             failed_tool_calls=sum(not c['success'] for c in self.calls))
+        if result.finish_reason == 'aborted' and self.cancelled:
+            # A user stop acknowledged by the SDK is an interrupted turn, not
+            # provider unavailability. The caller checkpoints committed geometry.
+            self.record({'event':'turn_interrupted','reason':'user_cancelled',
+                'elapsed_ms':turn.latency_ms,'tool_call_count':len(self.calls),
+                'input_tokens':incoming,'output_tokens':outgoing})
+            return turn
         if result.finish_reason not in {'completed'}:
             turn.status='interrupted' if self.cancelled else 'failed'
             detail=redact(runtime_failure_detail(result.events),(self.api_key,self.token))

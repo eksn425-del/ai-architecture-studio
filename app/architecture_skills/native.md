@@ -1,4 +1,5 @@
 # 原生语义建模
+新建筑必须采用真实分段搭建：先只提交楼板、柱和必要核心的骨架，读回层高和整体比例，再做围护/开口、一个立面样板、验证后的重复、楼梯栏杆与收尾。按该建筑实际逻辑调整次序，不能第一笔就把所有系统做完。每个阶段独立提交保存、观察原生变化，主要阶段取一张斜视图；不靠整楼显隐、不插入假进度或人为等待。写入工具 construction_stage 使用 structure/enclosure/sample/repetition/circulation/finish/correction；它只是阶段标签，不证明系统完工。用户已批准整体计划时连续完成各阶段，不每阶段反复要求批准。继续时先核对当前原生 revision 和 runtime/construction_steps.jsonl 的成功记录，已提交阶段不得重新执行；未知提交先恢复核对。
 原生文件工具的当前工作目录已经是本项目 runtime/agent_workspace；脚本路径写 scripts/文件名.rb，笔记写 notes/文件名.md，不要再加 agent_workspace/ 前缀。读取失败先列出实际目录并复用已存在文件，不凭猜测反复换路径。
 只通过当前宿主列出的 SketchUp 写入工具提交模型。命名组/组件可选择、可编辑；stable ASCII 直接部件，如 Slabs、Walls、Glazing、Frames、Balconies、Braces、Entrance、Roof。Roof 保留独立顶层部件。
 完整原生模式提供文件、脚本和受保护的 sketchup_run_workspace_ruby 时，可在项目 scripts/ 中编写可复现的 Ruby，表达真实踏步、曲线、构件定义与实例；使用宿主注入的 root/model、script_id=harness_building 和 .mm 单位。简化 typed 工具只是适合简单几何的选项，不能用斜盒代替要求明确的楼梯踏步。没有列出脚本写入工具的模式才只使用现有 typed 工具。终端可准备与检查项目脚本，不得绕过宿主直接连接 SU、操作其他文档或另启第二个模型写入器。
