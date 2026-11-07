@@ -25,6 +25,8 @@ def register_routes(app, engine, settings, identity, json_object, rate):
 
     def administrator(request):
         user = identity(request)
+        if request.headers.get('authorization','').startswith('Bearer ') or user.get('refresh_hash') or user.get('device_name')!='browser':
+            raise HTTPException(403, '请在官网重新登录后进行支付管理。')
         if user['subject'] not in settings.admin_subjects:
             raise HTTPException(403, '需要支付管理权限。')
         if not 0 <= now()-int(user.get('authenticated_at', 0)) <= 300:

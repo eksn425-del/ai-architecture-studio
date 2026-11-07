@@ -10,6 +10,7 @@ def release_client(tmp_path):
     settings=Settings(database_url='sqlite:///'+str(tmp_path/'release.sqlite'),
         session_secret='release-test-secret-not-a-production-credential',environment='test')
     settings.release={'version':'fixture-only','verified':True,'public_distribution_authorized':True,
+        'signing_verified':True,'clean_windows_verified':True,'license_clearance':'CLEARED',
         'sha256':'a'*64,'url':'https://downloads.example.invalid/KStudio-fixture.exe'}
     app=create_app(settings)
     with TestClient(app) as client:
@@ -24,7 +25,8 @@ def release_client(tmp_path):
     ('sha256',None),('url','http://downloads.example.invalid/setup.exe'),
     ('url','https://user:secret@downloads.example.invalid/setup.exe'),
     ('url','https://downloads.example.invalid/setup.exe#fragment'),('url','file:///C:/setup.exe'),
-    ('url','https:///setup.exe')])
+    ('url','https:///setup.exe'),('signing_verified',False),('signing_verified','true'),
+    ('clean_windows_verified',False),('clean_windows_verified',1),('license_clearance','REVIEW_REQUIRED'),('license_clearance',True)])
 def test_invalid_or_truthy_release_fields_keep_download_closed(release_client,key,value):
     settings,client=release_client;settings.release[key]=value
     result=client.get('/api/public/config')

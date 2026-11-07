@@ -38,7 +38,7 @@ def test_shared_turn_budget_survives_new_request_ids_and_restart(system):
         assert {json.loads(r['price_json'])['_turn']['id'] for r in rows}=={'visible-turn-001'}
     # Reconstructing the engine/process cannot lose a budget kept in the ledger.
     from cloud.db import engine_for
-    second_engine=engine_for(str(engine.url))
+    second_engine=engine_for(engine.url.render_as_string(hide_password=False))
     try:
         with pytest.raises(BillingError,match='turn budget'):turn_reserve(second_engine,uid,'after-restart')
     finally:second_engine.dispose()

@@ -199,7 +199,7 @@ def register_routes(app,engine,settings,identity,json_object,rate):
         if recent and not 0 <= now()-int(row.get('authenticated_at') or 0) <= 600:
             raise HTTPException(403,'此操作需要最近10分钟内重新登录，请先重新验证身份。')
         bearer=request.headers.get('authorization','').startswith('Bearer ')
-        if browser and (bearer or row.get('refresh_hash')): raise HTTPException(403,'请在官网登录后授权指定设备恢复。')
+        if browser and (bearer or row.get('refresh_hash') or row.get('device_name')!='browser'): raise HTTPException(403,'请在官网重新登录后管理账户API和授权设备恢复。')
         if device and (not bearer or not row.get('refresh_hash')): raise HTTPException(403,'此接口仅允许已授权桌面设备。')
         rate('credential:'+row['user_id'],30)
         return row
@@ -208,7 +208,7 @@ def register_routes(app,engine,settings,identity,json_object,rate):
         row=current(request);return service.list(row['user_id'])
     @app.get('/api/account/export')
     async def export_metadata(request:Request):
-        row=current(request,recent=True);return service.export_metadata(row['user_id'])
+        row=current(request,recent=True,browser=True);return service.export_metadata(row['user_id'])
     @app.delete('/api/account/private-data')
     async def delete_private_data(request:Request):
         row=current(request,recent=True,browser=True);body=await json_object(request)
@@ -216,13 +216,13 @@ def register_routes(app,engine,settings,identity,json_object,rate):
         return service.delete_private_data(row['user_id'])
     @app.post('/api/account/connections')
     async def create_connection(request:Request):
-        row=current(request,recent=True);return service.save(row['user_id'],await json_object(request))
+        row=current(request,recent=True,browser=True);return service.save(row['user_id'],await json_object(request))
     @app.patch('/api/account/connections/{connection_id}')
     async def update_connection(connection_id:str,request:Request):
-        row=current(request,recent=True);return service.save(row['user_id'],await json_object(request),connection_id)
+        row=current(request,recent=True,browser=True);return service.save(row['user_id'],await json_object(request),connection_id)
     @app.delete('/api/account/connections/{connection_id}')
     async def delete_connection(connection_id:str,request:Request):
-        row=current(request,recent=True);return service.remove(row['user_id'],connection_id)
+        row=current(request,recent=True,browser=True);return service.remove(row['user_id'],connection_id)
     @app.post('/api/account/connections/{connection_id}/sync-grants')
     async def authorize_sync(connection_id:str,request:Request):
         row=current(request,recent=True,browser=True);body=await json_object(request)

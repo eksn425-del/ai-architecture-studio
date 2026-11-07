@@ -42,16 +42,25 @@ def poll(engine,device_code,verifier,seconds):
             return {'status':'authorization_pending','interval':5}
         changed=c.execute(update(devices).where(devices.c.id==row['id'],devices.c.state=='approved').values(state='consumed',last_poll=now())).rowcount
         if changed!=1:return {'status':'expired_token'}
-        token,_=issue_session(c,row['user_id'],row['device_name'],seconds)
+        # Device approval is not a fresh IdP authentication. The token must not
+        # acquire recent-browser privileges merely because it was issued now.
+        token,_=issue_session(c,row['user_id'],row['device_name'],seconds,authenticated_at=0)
         refresh=secrets.token_urlsafe(48)
         c.execute(update(sessions).where(sessions.c.token_hash==digest(token)).values(refresh_hash=digest(refresh),refresh_expires=now()+30*86400))
         return {'status':'authorized','access_token':token,'refresh_token':refresh,'token_type':'Bearer','expires':now()+seconds}
 
 def rotate(engine,row,seconds):
+    if not row.get('refresh_hash') or int(row.get('refresh_expires') or 0)<=now():
+        raise BillingError('此刷新接口仅允许有效桌面设备，浏览器需要重新登录。')
     with engine.begin() as c:
-        changed=c.execute(update(sessions).where(sessions.c.id==row['id'],sessions.c.revoked==0,sessions.c.expires>now()).values(revoked=1)).rowcount
+        token=secrets.token_urlsafe(48)
+        changed=c.execute(update(sessions).where(sessions.c.id==row['id'],sessions.c.revoked==0,
+            sessions.c.expires>now(),sessions.c.token_hash==row['token_hash'],
+            sessions.c.refresh_hash==row['refresh_hash'],sessions.c.refresh_expires>now())
+            .values(token_hash=digest(token),expires=now()+seconds)).rowcount
         if changed!=1:raise BillingError('设备会话已撤销或过期，请重新登录。')
-        token,_=issue_session(c,row['user_id'],row['device_name'],seconds)
+        # Keep device identity, refresh proof and original authenticated_at.
+        # A second rotation of the same access proof fails the old-hash guard.
         return {'access_token':token,'token_type':'Bearer','expires':now()+seconds}
 
 def refresh_device(engine,refresh_token,seconds):

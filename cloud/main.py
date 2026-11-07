@@ -88,6 +88,7 @@ def create_app(settings=None):
         release=settings.release
         destination=urlparse(str(release.get('url','')))
         downloadable=bool(settings.download_enabled and release.get('verified') is True and release.get('public_distribution_authorized') is True
+            and release.get('signing_verified') is True and release.get('clean_windows_verified') is True and release.get('license_clearance')=='CLEARED'
             and re.fullmatch(r'[0-9a-fA-F]{64}',str(release.get('sha256',''))) and destination.scheme=='https'
             and destination.hostname and not destination.username and not destination.password and not destination.fragment)
         return {'environment':settings.environment,'auth':{'available':oidc_ready,'login_url':'/api/auth/login' if oidc_ready else None},
@@ -155,7 +156,7 @@ def create_app(settings=None):
     @app.post('/api/auth/refresh')
     async def refresh_session(request:Request):
         row=identity(request)
-        if not request.headers.get('authorization','').startswith('Bearer '):raise HTTPException(400,'设备会话刷新需要设备授权。')
+        if not request.headers.get('authorization','').startswith('Bearer ') or not row.get('refresh_hash'):raise HTTPException(400,'设备会话刷新需要实际设备授权；浏览器请重新登录。')
         return device_auth.rotate(engine,row,settings.session_seconds)
     @app.post('/api/auth/device/refresh')
     async def device_refresh(request:Request):
