@@ -44,6 +44,8 @@ def isolation(required: bool) -> dict:
 
 
 def run(root: Path, require_container: bool) -> dict:
+    # This verifier is mounted at /opt while the real service lives at root.
+    sys.path.insert(0, str(root))
     result = {'scope': ('BUILT_IMAGE_REAL_OFFLINE_HTTP_SQLITE_ENGINEERING_SMOKE' if require_container
                         else 'LOCAL_SCRIPT_REAL_HTTP_SQLITE_ENGINEERING_SMOKE'),
               'status': 'RUNNING', 'python': platform.python_version(),
