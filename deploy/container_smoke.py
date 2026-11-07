@@ -131,7 +131,8 @@ def run(root: Path, require_container: bool) -> dict:
                 submitted = client.post('/api/feedback', json={'message': feedback})
                 assert submitted.status_code == 200 and submitted.json()['received'] is True
                 with closing(sqlite3.connect(db)) as connection:
-                    assert connection.execute('SELECT version FROM schema_version').fetchone()[0] == 2
+                    from cloud.db import SCHEMA_VERSION
+                    assert connection.execute('SELECT version FROM schema_version').fetchone()[0] == SCHEMA_VERSION
                     assert connection.execute('SELECT message FROM feedback').fetchall() == [(feedback,)]
                     counts = {table: connection.execute('SELECT count(*) FROM ' + table).fetchone()[0]
                               for table in ('users', 'sessions', 'wallets', 'tasks', 'orders', 'ledger_events', 'payment_events')}
