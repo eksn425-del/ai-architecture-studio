@@ -15,6 +15,31 @@ from .native_agent import AgentTurnResult, NativeAgentUnavailable
 from .codex_provider import redact
 from .harness_task_anchor import task_anchor, runtime_failure_detail
 
+
+def host_refusal(error, path):
+    """Allowlisted diagnostics only: never serialize arbitrary request/error text."""
+    reason = str(error)
+    code = 'INVALID_HOST_REQUEST'
+    message = '工具请求不符合当前协议，已停止；请联系维护者检查项目记录。'
+    if reason == 'Test batch has unknown provider liability; no new request dispatched':
+        code = 'USAGE_RECONCILIATION_REQUIRED'
+        message = '模型服务连接中断或返回不完整，本次用量待核对。已阻止自动再次发送付费请求；已有模型和项目记录已保留。请核对服务商记录后继续。'
+    elif reason in {'Finite test batch ceiling reached; no new request dispatched', 'Finite test run ceiling reached; no new request dispatched'}:
+        code = 'TEST_BUDGET_EXHAUSTED'
+        message = '本次测试已到已登记的请求边界，未继续发送模型请求；已有模型和项目记录已保留。'
+    elif reason in {'Attempt already reserved; do not replay', 'Test reservation already finalized; no replay'}:
+        code = 'TEST_REQUEST_REPLAY_BLOCKED'
+        message = '重复的模型请求或结算已被拦截；请检查原请求记录，不要重复执行。'
+    elif reason in {'Test batch provider/model substitution denied', 'Test batch output limit exceeded'}:
+        code = 'TEST_REQUEST_CONFIGURATION_MISMATCH'
+        message = '模型请求与本次登记配置不一致，未发送；请检查连接与测试配置。'
+    elif reason == 'Turn cancelled; no new tool started' or reason == 'Turn cancelled':
+        code = 'TURN_CANCELLED'
+        message = '当前操作已取消，未启动新的工具操作；已有项目记录已保留。'
+    operation = {'/test-budget/reserve':'provider_reservation', '/test-budget/settle':'provider_settlement',
+                 '/call':'host_tool_dispatch', '/interaction':'interaction'}.get(path, 'host_request')
+    return {'error': message, 'code': code, 'retryable': False, 'operation': operation}
+
 def reported_usage(events):
     messages=[e.get('data',{}) for e in events if e.get('type')=='assistant/message']
     rows=[m.get('usage') for m in messages]
@@ -178,7 +203,9 @@ class DSHHostSession:
                         parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
                 except (ValueError,KeyError,TypeError) as error:
-                    self.reply({'error':str(error)},400)
+                    refusal = host_refusal(error, self.path)
+                    parent.record({'event':'host_request_refused', **refusal})
+                    self.reply(refusal,400)
         self.server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         self.worker=threading.Thread(target=self.server.serve_forever,daemon=True);self.worker.start()
         patch=self.home/'kstudio.patch.yml'

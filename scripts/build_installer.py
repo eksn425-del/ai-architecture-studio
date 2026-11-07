@@ -14,7 +14,7 @@ import shutil
 import stat
 import subprocess
 from collections import defaultdict
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 try:
     from scripts.audit_desktop_bundle import audit
@@ -33,6 +33,46 @@ def nsis_string(value: str) -> str:
 def reparse(path: Path) -> bool:
     info=path.lstat()
     return path.is_symlink() or bool(getattr(info,'st_file_attributes',0) & getattr(stat,'FILE_ATTRIBUTE_REPARSE_POINT',0x400))
+
+
+def fixed_windows_root(value: str) -> PureWindowsPath:
+    """A literal local drive path, never an NSIS/environment expression."""
+    if (not isinstance(value,str) or not re.match(r'^[A-Za-z]:[\\/]',value)
+            or any(ord(c)<32 for c in value) or any(c in value for c in '$%"<>|?*\'`')):
+        raise ValueError('Selected root must be a static drive-qualified Windows absolute path')
+    normalized=value.replace('/','\\').rstrip('\\')
+    components=normalized[3:].split('\\')
+    if (not normalized[3:] or any(not part or part in ('.','..') or ':' in part
+            or part.endswith((' ','.')) or PureWindowsPath(part).is_reserved() for part in components)):
+        raise ValueError('Selected root cannot be a drive root, traversal or ambiguous Windows path')
+    # Root control files and lease paths use ordinary Win32 APIs; payload files
+    # separately use extended-length paths. Keep these fixed control paths safe.
+    if len(normalized)>200:
+        raise ValueError('Selected root exceeds the safe control-path length of 200 characters')
+    return PureWindowsPath(normalized)
+
+
+def selected_roots(install_root: str | None, profile_root: str | None,
+                   bundle: Path, output: Path, fixture_root: Path | None):
+    if (install_root is None)!=(profile_root is None):
+        raise ValueError('Both --install-root and --profile-root are required together')
+    if install_root is None:return None
+    if fixture_root is not None:
+        raise ValueError('Selected production roots cannot be combined with engineering fixture mode')
+    roots=[fixed_windows_root(install_root),fixed_windows_root(profile_root)]
+    def overlaps(left,right):
+        return bool(left.drive and right.drive) and (left.is_relative_to(right) or right.is_relative_to(left))
+    protected=[PureWindowsPath(str(p)) for p in (bundle,output)]
+    if overlaps(*roots) or any(overlaps(root,path) for root in roots for path in protected):
+        raise ValueError('Selected installation/profile roots overlap each other, bundle or build output')
+    if os.name=='nt':
+        # Resolve existing directory aliases as well as lexical paths. This does
+        # not relax the installer's stricter program-directory reparse guard.
+        resolved=[PureWindowsPath(str(Path(str(root)).resolve())) for root in roots]
+        targets=[PureWindowsPath(str(path.resolve())) for path in (bundle,output)]
+        if overlaps(*resolved) or any(overlaps(root,path) for root in resolved for path in targets):
+            raise ValueError('Resolved selected roots overlap each other, bundle or build output')
+    return roots
 
 
 def inventory(bundle: Path, fixture: bool=False) -> dict:
@@ -81,13 +121,15 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
 
 
 def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, source_sha: str,
-          fixture_root: Path | None=None, compile_installer: bool=True) -> dict:
+          fixture_root: Path | None=None, compile_installer: bool=True, *,
+          install_root: str | None=None, profile_root: str | None=None) -> dict:
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9.-]{0,79}',version):raise ValueError('Invalid version')
     if type(sequence) is not int or not 1<=sequence<=65535:raise ValueError('Sequence must fit the Windows product version')
     if not re.fullmatch('[0-9a-f]{40}',source_sha):raise ValueError('Source SHA must be a full Git SHA')
     bundle=bundle.absolute();output=output.absolute();nsis=nsis.absolute()
     if output.is_relative_to(bundle):raise ValueError('Build output must be outside bundle')
     if output.exists():raise ValueError('Use a new output directory to preserve previous packages')
+    selected=selected_roots(install_root,profile_root,bundle,output,fixture_root)
     data=inventory(bundle,fixture_root is not None)
     product_id='KStudioR3InstallerFixture' if fixture_root is not None else 'KStudioR3'
     product_name='K Studio R3 Installer Fixture' if fixture_root is not None else 'K Studio R3 Beta'
@@ -96,9 +138,14 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
         if not fixture_root.is_relative_to(output.parent) or fixture_root==output.parent or fixture_root.is_relative_to(bundle):raise ValueError('Fixture install root must be a dedicated sibling under this build job')
         install_root=nsis_string(str(fixture_root/'program'))
         profile_root=nsis_string(str(fixture_root/'profile'))
+        root_selection='engineering-fixture'
+    elif selected is not None:
+        install_root,profile_root=(nsis_string(str(path)) for path in selected)
+        root_selection='selected-local-fixed-root'
     else:
         install_root='$LOCALAPPDATA\\Programs\\KStudioR3'
         profile_root='$LOCALAPPDATA\\KStudioR3'
+        root_selection='per-user-default'
     makensis=nsis/'makensis.exe'
     if not makensis.is_file() or not (nsis/'COPYING').is_file():raise ValueError('Explicit NSIS compiler and license required')
     output.mkdir(parents=True)
@@ -119,11 +166,13 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
              'same_version_repair_crash_atomic':False,
              'same_version_overwrite':'REFUSED_EXIT_6',
              'extended_length_payload_paths':True,
+             'root_selection':root_selection,
              'nsis_license':'https://nsis.sourceforge.io/License','compile_status':'NOT_RUN'}
     installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
     receipt['installer_source']={
         'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
         'dirty':bool(subprocess.check_output(['git','status','--porcelain','--',*installer_inputs],cwd=REPO,text=True).strip()),
+        'root_selection':root_selection,
         'sha256':{name:hashlib.sha256((REPO/name).read_bytes()).hexdigest() for name in installer_inputs},
         'note':'source_sha identifies frozen application core; installer input hashes identify later packaging fixes'}
     if compile_installer:
@@ -150,5 +199,8 @@ if __name__=='__main__':
     parser.add_argument('--sequence',required=True,type=int)
     parser.add_argument('--source-sha',required=True)
     parser.add_argument('--engineering-fixture-root',type=Path)
+    parser.add_argument('--install-root',help='Optional literal fixed Windows program directory; requires --profile-root')
+    parser.add_argument('--profile-root',help='Optional literal fixed Windows data directory; requires --install-root')
     args=parser.parse_args()
-    print(json.dumps(build(args.bundle,args.output,args.nsis,args.version,args.sequence,args.source_sha,args.engineering_fixture_root),ensure_ascii=False))
+    print(json.dumps(build(args.bundle,args.output,args.nsis,args.version,args.sequence,args.source_sha,args.engineering_fixture_root,
+        install_root=args.install_root,profile_root=args.profile_root),ensure_ascii=False))
