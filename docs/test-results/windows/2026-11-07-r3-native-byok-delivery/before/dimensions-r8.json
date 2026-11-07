@@ -1,0 +1,959 @@
+{
+  "result": {
+    "read_only": true,
+    "geometry_writes": 0,
+    "root_pid": 19,
+    "parts": [
+      {
+        "path": [
+          "GroundSlab"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          -200.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          0.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Slab"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          2850.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "GroundWalls"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "GroundWalls",
+          "GroundWall_Front"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_mm": [
+          12000.0,
+          200.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "GroundWalls",
+          "GroundWall_Rear"
+        ],
+        "min_mm": [
+          0.0,
+          7800.0,
+          0.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "GroundWalls",
+          "GroundWall_Left"
+        ],
+        "min_mm": [
+          0.0,
+          200.0,
+          0.0
+        ],
+        "max_mm": [
+          200.0,
+          7800.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "GroundWalls",
+          "GroundWall_Right"
+        ],
+        "min_mm": [
+          11800.0,
+          200.0,
+          0.0
+        ],
+        "max_mm": [
+          12000.0,
+          7800.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Walls"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          3000.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          5800.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Walls",
+          "Level2Wall_Front"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          3000.0
+        ],
+        "max_mm": [
+          12000.0,
+          200.0,
+          5800.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Walls",
+          "Level2Wall_Rear"
+        ],
+        "min_mm": [
+          0.0,
+          7800.0,
+          3000.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          5800.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Walls",
+          "Level2Wall_Left"
+        ],
+        "min_mm": [
+          0.0,
+          200.0,
+          3000.0
+        ],
+        "max_mm": [
+          200.0,
+          7800.0,
+          5800.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Walls",
+          "Level2Wall_Right"
+        ],
+        "min_mm": [
+          11800.0,
+          200.0,
+          3000.0
+        ],
+        "max_mm": [
+          12000.0,
+          7800.0,
+          5800.0
+        ]
+      },
+      {
+        "path": [
+          "GroundOpenings"
+        ],
+        "min_mm": [
+          1400.0,
+          60.0,
+          0.0
+        ],
+        "max_mm": [
+          11940.0,
+          7940.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "GroundOpenings",
+          "G_Win_Front_1"
+        ],
+        "min_mm": [
+          1400.0,
+          60.0,
+          0.0
+        ],
+        "max_mm": [
+          2900.0,
+          140.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "GroundOpenings",
+          "G_Win_Front_2"
+        ],
+        "min_mm": [
+          9100.0,
+          60.0,
+          0.0
+        ],
+        "max_mm": [
+          10600.0,
+          140.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "GroundOpenings",
+          "G_Door_Front"
+        ],
+        "min_mm": [
+          5100.0,
+          60.0,
+          0.0
+        ],
+        "max_mm": [
+          6900.0,
+          140.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "GroundOpenings",
+          "G_Door_Rear"
+        ],
+        "min_mm": [
+          7000.0,
+          7860.0,
+          0.0
+        ],
+        "max_mm": [
+          8200.0,
+          7940.0,
+          2100.0
+        ]
+      },
+      {
+        "path": [
+          "GroundOpenings",
+          "G_Win_Right"
+        ],
+        "min_mm": [
+          11860.0,
+          2000.0,
+          900.0
+        ],
+        "max_mm": [
+          11940.0,
+          3800.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Openings"
+        ],
+        "min_mm": [
+          1200.0,
+          60.0,
+          3900.0
+        ],
+        "max_mm": [
+          10800.0,
+          7940.0,
+          5400.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Openings",
+          "L2_Win_Front"
+        ],
+        "min_mm": [
+          1200.0,
+          60.0,
+          3900.0
+        ],
+        "max_mm": [
+          10800.0,
+          140.0,
+          5400.0
+        ]
+      },
+      {
+        "path": [
+          "Level2Openings",
+          "L2_Win_Rear"
+        ],
+        "min_mm": [
+          1200.0,
+          7860.0,
+          3900.0
+        ],
+        "max_mm": [
+          10800.0,
+          7940.0,
+          5400.0
+        ]
+      },
+      {
+        "path": [
+          "InteriorStair"
+        ],
+        "min_mm": [
+          200.0,
+          5400.0,
+          0.0
+        ],
+        "max_mm": [
+          4000.0,
+          8000.0,
+          2850.0
+        ]
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "min_mm": [
+          1660.0,
+          5400.0,
+          0.0
+        ],
+        "max_mm": [
+          4000.0,
+          6600.0,
+          1350.0
+        ]
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Landing"
+        ],
+        "min_mm": [
+          200.0,
+          5400.0,
+          1350.0
+        ],
+        "max_mm": [
+          1660.0,
+          8000.0,
+          1500.0
+        ]
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "min_mm": [
+          1660.0,
+          6800.0,
+          1500.0
+        ],
+        "max_mm": [
+          4000.0,
+          8000.0,
+          2850.0
+        ]
+      },
+      {
+        "path": [
+          "StairRailing"
+        ],
+        "min_mm": [
+          200.0,
+          5340.0,
+          300.0
+        ],
+        "max_mm": [
+          4060.0,
+          6860.0,
+          4100.0
+        ]
+      },
+      {
+        "path": [
+          "StairRailing",
+          "Guard_Level2_South"
+        ],
+        "min_mm": [
+          200.0,
+          5340.0,
+          3000.0
+        ],
+        "max_mm": [
+          4000.0,
+          5400.0,
+          4100.0
+        ]
+      },
+      {
+        "path": [
+          "StairRailing",
+          "Guard_Level2_East"
+        ],
+        "min_mm": [
+          4000.0,
+          5400.0,
+          3000.0
+        ],
+        "max_mm": [
+          4060.0,
+          6800.0,
+          4100.0
+        ]
+      },
+      {
+        "path": [
+          "StairRailing",
+          "Guard_Landing"
+        ],
+        "min_mm": [
+          200.0,
+          5400.0,
+          1500.0
+        ],
+        "max_mm": [
+          1660.0,
+          5460.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "StairRailing",
+          "Rail_Flight_Lower"
+        ],
+        "min_mm": [
+          1660.0,
+          6540.0,
+          300.0
+        ],
+        "max_mm": [
+          4000.0,
+          6600.0,
+          2400.0
+        ]
+      },
+      {
+        "path": [
+          "StairRailing",
+          "Rail_Flight_Upper"
+        ],
+        "min_mm": [
+          1660.0,
+          6800.0,
+          1800.0
+        ],
+        "max_mm": [
+          4000.0,
+          6860.0,
+          3900.0
+        ]
+      },
+      {
+        "path": [
+          "EntrancePorch"
+        ],
+        "min_mm": [
+          4000.0,
+          -2000.0,
+          -450.0
+        ],
+        "max_mm": [
+          8000.0,
+          0.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "EntrancePorch",
+          "Porch_Canopy"
+        ],
+        "min_mm": [
+          4000.0,
+          -2000.0,
+          2800.0
+        ],
+        "max_mm": [
+          8000.0,
+          0.0,
+          3000.0
+        ]
+      },
+      {
+        "path": [
+          "EntrancePorch",
+          "Porch_Column_Left"
+        ],
+        "min_mm": [
+          4150.0,
+          -2000.0,
+          -450.0
+        ],
+        "max_mm": [
+          4450.0,
+          -1700.0,
+          2800.0
+        ]
+      },
+      {
+        "path": [
+          "EntrancePorch",
+          "Porch_Column_Right"
+        ],
+        "min_mm": [
+          7550.0,
+          -2000.0,
+          -450.0
+        ],
+        "max_mm": [
+          7850.0,
+          -1700.0,
+          2800.0
+        ]
+      },
+      {
+        "path": [
+          "EntranceSteps"
+        ],
+        "min_mm": [
+          3800.0,
+          -2900.0,
+          -700.0
+        ],
+        "max_mm": [
+          8200.0,
+          -2000.0,
+          -150.0
+        ]
+      },
+      {
+        "path": [
+          "EntranceSteps",
+          "Step_1"
+        ],
+        "min_mm": [
+          3800.0,
+          -2300.0,
+          -700.0
+        ],
+        "max_mm": [
+          8200.0,
+          -2000.0,
+          -150.0
+        ]
+      },
+      {
+        "path": [
+          "EntranceSteps",
+          "Step_2"
+        ],
+        "min_mm": [
+          3800.0,
+          -2600.0,
+          -700.0
+        ],
+        "max_mm": [
+          8200.0,
+          -2300.0,
+          -300.0
+        ]
+      },
+      {
+        "path": [
+          "EntranceSteps",
+          "Step_3"
+        ],
+        "min_mm": [
+          3800.0,
+          -2900.0,
+          -700.0
+        ],
+        "max_mm": [
+          8200.0,
+          -2600.0,
+          -450.0
+        ]
+      },
+      {
+        "path": [
+          "Roof"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          5800.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          6000.0
+        ]
+      },
+      {
+        "path": [
+          "Parapet"
+        ],
+        "min_mm": [
+          0.0,
+          0.0,
+          6000.0
+        ],
+        "max_mm": [
+          12000.0,
+          8000.0,
+          6600.0
+        ]
+      }
+    ],
+    "horizontal_stair_faces": [
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 0.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 150.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 150.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 300.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 300.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 450.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 450.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 600.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 600.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 750.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 750.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 900.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 900.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 1050.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 1050.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 1200.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 1200.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Lower"
+        ],
+        "z_mm": 1350.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Landing"
+        ],
+        "z_mm": 1350.0,
+        "area_mm2": 3796000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Landing"
+        ],
+        "z_mm": 1500.0,
+        "area_mm2": 3796000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1500.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1650.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1650.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1800.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1800.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1950.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 1950.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2100.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2100.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2250.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2250.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2400.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2400.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2550.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2550.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2700.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2700.0,
+        "area_mm2": 312000.0
+      },
+      {
+        "path": [
+          "InteriorStair",
+          "Stair_Flight_Upper"
+        ],
+        "z_mm": 2850.0,
+        "area_mm2": 312000.0
+      }
+    ]
+  }
+}

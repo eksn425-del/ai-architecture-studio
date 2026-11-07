@@ -1,0 +1,72 @@
+[
+  {
+    "source": "dsh-builder-6b47531ef4fe4558a510ea8011342fb8.jsonl",
+    "seq": 23,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "status": "FAIL",
+    "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; only spatial is optional. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames.",
+    "result": {
+      "success": false,
+      "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; only spatial is optional. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+    }
+  },
+  {
+    "source": "dsh-builder-584234d658584b87b7389e213226708c.jsonl",
+    "seq": 40,
+    "tool": "sketchup_run_workspace_ruby",
+    "sdk_is_error": false,
+    "status": "FAIL",
+    "error": "SketchUp nested regrouping with add_group(existing_entities) can create a model-level container and change child coordinates on SketchUp 2024. Create an empty named assembly first with add_group(), then build its children directly in assembly.entities. This script was not executed; no geometry was changed.",
+    "result": {
+      "success": false,
+      "error": "SketchUp nested regrouping with add_group(existing_entities) can create a model-level container and change child coordinates on SketchUp 2024. Create an empty named assembly first with add_group(), then build its children directly in assembly.entities. This script was not executed; no geometry was changed."
+    }
+  },
+  {
+    "source": "dsh-builder-584234d658584b87b7389e213226708c.jsonl",
+    "seq": 50,
+    "tool": "sketchup_run_workspace_ruby",
+    "sdk_is_error": false,
+    "status": "FAIL",
+    "error": "undefined method `size' for #<Geom::BoundingBox:0x000002a0bf4e22c8>",
+    "result": {
+      "success": false,
+      "error": "undefined method `size' for #<Geom::BoundingBox:0x000002a0bf4e22c8>"
+    }
+  },
+  {
+    "source": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+    "seq": 25,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "status": "FAIL",
+    "error": "Observed facts must reference a supplied source ID. Allowed IDs: . Use the ID, not a filename or path.",
+    "result": {
+      "success": false,
+      "error": "Observed facts must reference a supplied source ID. Allowed IDs: . Use the ID, not a filename or path."
+    }
+  },
+  {
+    "source": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+    "seq": 40,
+    "tool": "exit_plan_mode",
+    "sdk_is_error": true,
+    "status": "FAIL",
+    "error": "Error: exit_plan_mode is only available in plan mode"
+  },
+  {
+    "phase": "initial_r8_postcapture",
+    "status": "FAIL",
+    "cause": "Host automatic postcapture destination outside paired project workspace after committed geometry",
+    "resolution": "beta02 core802c4b2 fixes capture into project outputs/renders; actual UI r9 subsequently returned preview/download",
+    "geometry_preserved": true
+  },
+  {
+    "phase": "rail_edit_r9",
+    "status": "FAIL",
+    "receipt": "receipts/rail-error-diagnosis.json",
+    "unknown_usage_preserved": true,
+    "new_geometry_committed": false
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-07-r3-native-byok-delivery",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "802c4b2fe98de8bcd966f6c6cf7e99162f566fe7",
+  "source_case": "planning/acceptance-scope.md — fixed text-only12x8m two-storey pavilion; no photograph",
+  "model": {
+    "requested": "deepseek-v4.1-flash",
+    "actual": "deepseek-v4.1-flash (configured BAI route; independent served-model identity not reported)",
+    "provider_served_identity": null,
+    "reasoning_effort": "low",
+    "runtime": "official DeepSeek Harness through actual frozen K Studio BYOK UI, BAI Responses"
+  },
+  "environment": {
+    "windows": "Existing owner Windows computer; separate native-test-profile, not clean OS",
+    "sketchup": "SketchUp2024 actual native model",
+    "bridge": "K Studio public paired connector",
+    "adai": "Actual adoption receipt attached; not inferred from installation"
+  },
+  "qa": {
+    "reviewer_mode": "dedicated_read_only",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "delivery_status": "PASS_native_download_reopen_hash_equality",
+    "railing_status": "NEEDS_FIX",
+    "source_photo_fidelity": "NOT_APPLICABLE_text_only"
+  },
+  "revisions": {
+    "initial_beta01": 8,
+    "final_beta02": 9,
+    "rail_edit": "NO_COMMIT"
+  },
+  "blockers": [
+    "Rail editing stopped on provider transport error followed by host unknown-liability retry refusal",
+    "Rail support/junction geometry remains incomplete",
+    "Rear-wall staircase contour/overlap remains a native quality concern",
+    "Public commercial release separate and BLOCKED"
+  ],
+  "publication": "No SKP, credentials, private prompts or raw traces included"
+}

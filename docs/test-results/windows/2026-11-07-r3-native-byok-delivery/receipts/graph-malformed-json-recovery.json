@@ -1,0 +1,287 @@
+{
+  "argument_parse": [
+    {
+      "file": "dsh-builder-6b47531ef4fe4558a510ea8011342fb8.jsonl",
+      "assistant_seq": 21,
+      "stream_argument_bytes_utf8": 3996,
+      "stream_argument_chars": 2787,
+      "stream_argument_sha256": "c8064f15e3a39e76ccfe1d3e4104d588923cfe59dbf4b5afeef1f9ee98996e38",
+      "valid_json": false,
+      "json_error": {
+        "message": "Expecting ',' delimiter",
+        "line": 1,
+        "column": 2788,
+        "position": 2787
+      },
+      "single_missing_final_brace_confirmed_readonly": true,
+      "normalized_tool_arguments_empty_object": true,
+      "no_repair_or_replay_performed": true
+    },
+    {
+      "file": "dsh-builder-6b47531ef4fe4558a510ea8011342fb8.jsonl",
+      "assistant_seq": 26,
+      "stream_argument_bytes_utf8": 4441,
+      "stream_argument_chars": 2981,
+      "stream_argument_sha256": "495f8f60177ff0876dca78f7b56bfc0dc8b4c569ea263ea66e217ada58e792a3",
+      "valid_json": true,
+      "normalized_tool_arguments_empty_object": false,
+      "no_repair_or_replay_performed": true
+    },
+    {
+      "file": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+      "assistant_seq": 23,
+      "stream_argument_bytes_utf8": 6193,
+      "stream_argument_chars": 4009,
+      "stream_argument_sha256": "8f4cd89345a7b23c9b6a8465f7b56e3b15a497fc049b9ccd6bd7bdc619a7f872",
+      "valid_json": true,
+      "normalized_tool_arguments_empty_object": false,
+      "no_repair_or_replay_performed": true
+    },
+    {
+      "file": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+      "assistant_seq": 28,
+      "stream_argument_bytes_utf8": 6232,
+      "stream_argument_chars": 4038,
+      "stream_argument_sha256": "bc36ad30cba58b66f69f25bca3aed6a012f616ef960604b6574b3a33f3730d14",
+      "valid_json": true,
+      "normalized_tool_arguments_empty_object": false,
+      "no_repair_or_replay_performed": true
+    },
+    {
+      "file": "dsh-builder-a110e0beb0874abbb66fcb37b66a1505.jsonl",
+      "assistant_seq": 25,
+      "stream_argument_bytes_utf8": 6931,
+      "stream_argument_chars": 4411,
+      "stream_argument_sha256": "34634e5cd9836e5c72426b6b8bc4561d440214f11d85def9a377a9f6966fce83",
+      "valid_json": true,
+      "normalized_tool_arguments_empty_object": false,
+      "no_repair_or_replay_performed": true
+    }
+  ],
+  "recovery": [
+    {
+      "file": "dsh-builder-6b47531ef4fe4558a510ea8011342fb8.jsonl",
+      "attempts": [
+        {
+          "name": "kstudio_save_design_graph",
+          "seq": 22,
+          "step": 2,
+          "time_ms": 1794020650876,
+          "argument_shape": {
+            "keys": [],
+            "graph_wrapper": false,
+            "parts_types": []
+          },
+          "result": {
+            "seq": 23,
+            "step": 2,
+            "time_ms": 1794020650896,
+            "transport_is_error": false,
+            "success": false,
+            "result_keys": [
+              "success",
+              "error"
+            ],
+            "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; only spatial is optional. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+          }
+        },
+        {
+          "name": "kstudio_save_design_graph",
+          "seq": 27,
+          "step": 3,
+          "time_ms": 1794020664833,
+          "argument_shape": {
+            "keys": [
+              "summary",
+              "facts",
+              "levels",
+              "parts",
+              "relationships",
+              "edit_parts",
+              "spatial"
+            ],
+            "graph_wrapper": false,
+            "parts_types": [
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str"
+            ]
+          },
+          "result": {
+            "seq": 28,
+            "step": 3,
+            "time_ms": 1794020664854,
+            "transport_is_error": false,
+            "success": true,
+            "result_keys": [
+              "success",
+              "sha256",
+              "approval_granted"
+            ],
+            "sha256": "01ba723e9c030fdc3ca0c63374240971691feea8c0b0ebd822e4db2972d944a1",
+            "approval_granted": false
+          }
+        }
+      ],
+      "same_turn_recovery": true
+    },
+    {
+      "file": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+      "attempts": [
+        {
+          "name": "kstudio_save_design_graph",
+          "seq": 24,
+          "step": 2,
+          "time_ms": 1794021723255,
+          "argument_shape": {
+            "keys": [
+              "summary",
+              "facts",
+              "levels",
+              "parts",
+              "relationships",
+              "edit_parts",
+              "spatial"
+            ],
+            "graph_wrapper": false,
+            "parts_types": [
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str"
+            ]
+          },
+          "result": {
+            "seq": 25,
+            "step": 2,
+            "time_ms": 1794021723280,
+            "transport_is_error": false,
+            "success": false,
+            "result_keys": [
+              "success",
+              "error"
+            ],
+            "error": "Observed facts must reference a supplied source ID. Allowed IDs: . Use the ID, not a filename or path."
+          }
+        },
+        {
+          "name": "kstudio_save_design_graph",
+          "seq": 29,
+          "step": 3,
+          "time_ms": 1794021738343,
+          "argument_shape": {
+            "keys": [
+              "edit_parts",
+              "facts",
+              "levels",
+              "parts",
+              "relationships",
+              "spatial",
+              "summary"
+            ],
+            "graph_wrapper": false,
+            "parts_types": [
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str"
+            ]
+          },
+          "result": {
+            "seq": 30,
+            "step": 3,
+            "time_ms": 1794021738367,
+            "transport_is_error": false,
+            "success": true,
+            "result_keys": [
+              "success",
+              "sha256",
+              "approval_granted"
+            ],
+            "sha256": "bc36ad30cba58b66f69f25bca3aed6a012f616ef960604b6574b3a33f3730d14",
+            "approval_granted": false
+          }
+        }
+      ],
+      "same_turn_recovery": true
+    },
+    {
+      "file": "dsh-builder-a110e0beb0874abbb66fcb37b66a1505.jsonl",
+      "attempts": [
+        {
+          "name": "kstudio_save_design_graph",
+          "seq": 26,
+          "step": 2,
+          "time_ms": 1794022802216,
+          "argument_shape": {
+            "keys": [
+              "summary",
+              "facts",
+              "levels",
+              "parts",
+              "relationships",
+              "edit_parts",
+              "spatial"
+            ],
+            "graph_wrapper": false,
+            "parts_types": [
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str",
+              "str"
+            ]
+          },
+          "result": {
+            "seq": 27,
+            "step": 2,
+            "time_ms": 1794022802248,
+            "transport_is_error": false,
+            "success": true,
+            "result_keys": [
+              "success",
+              "sha256",
+              "approval_granted"
+            ],
+            "sha256": "19a01d94404ad9889faff3cb7d71e3fcbb913334c878c1eb9064ff8349880a85",
+            "approval_granted": false
+          }
+        }
+      ],
+      "same_turn_recovery": false
+    }
+  ],
+  "diagnosis": "Initial model stream omitted one final JSON right brace. SDK final tool-call arguments and actual dispatch became '{}'; host rejected missing fields. Same turn's next model request generated valid fields and saved successfully. No reader repair/replay; exact SDK implementation path not yet inspected."
+}

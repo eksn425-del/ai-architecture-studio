@@ -1,0 +1,762 @@
+[
+  {
+    "source": "dsh-builder-6b47531ef4fe4558a510ea8011342fb8.jsonl",
+    "seq": 23,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "arguments": {},
+    "result": {
+      "success": false,
+      "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; only spatial is optional. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+    }
+  },
+  {
+    "source": "dsh-builder-6b47531ef4fe4558a510ea8011342fb8.jsonl",
+    "seq": 28,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "arguments": {
+      "summary": "新建两层小展亭：12m×8m 矩形主体，每层3m，平屋顶；一层门厅/展厅，二层展厅；入口门廊位于正面中央；室内U型双跑楼梯靠后部左侧连通两层；按可独立修改的语义组划分墙、板、门窗、楼梯、屋顶、门廊。",
+      "facts": [
+        {
+          "text": "主体平面尺寸 12000mm（长）×8000mm（宽），每层高 3000mm，共两层",
+          "basis": "user",
+          "source": "user_brief"
+        },
+        {
+          "text": "屋顶为平屋顶，需设置女儿墙",
+          "basis": "user",
+          "source": "user_brief"
+        },
+        {
+          "text": "需有门窗、连接两层的室内楼梯、入口门廊",
+          "basis": "user",
+          "source": "user_brief"
+        },
+        {
+          "text": "构件需按语义分组，便于后续局部修改",
+          "basis": "user",
+          "source": "user_brief"
+        },
+        {
+          "text": "入口门廊位于正面（-Y）中央，面宽 4000mm、出挑 2000mm，单层雨篷顶标高 3000mm",
+          "basis": "inferred",
+          "source": "inferred_layout"
+        },
+        {
+          "text": "室内楼梯采用 U 型双跑，靠后部左侧布置，梯段净宽 1200mm，半平台 1200mm 深，二层楼板留 2600×4000mm 洞口",
+          "basis": "inferred",
+          "source": "inferred_layout"
+        },
+        {
+          "text": "二层正立面采用横向带状窗，一层入口为 1800×2400mm 玻璃双开门，侧墙设窗",
+          "basis": "inferred",
+          "source": "inferred_layout"
+        },
+        {
+          "text": "女儿墙高 600mm，板厚取 150mm（楼板）与 200mm（屋面板）",
+          "basis": "inferred",
+          "source": "inferred_layout"
+        }
+      ],
+      "levels": [
+        {
+          "name": "一层地面",
+          "z_mm": 0,
+          "role": "ground"
+        },
+        {
+          "name": "二层楼面",
+          "z_mm": 3000,
+          "role": "occupied"
+        },
+        {
+          "name": "屋面",
+          "z_mm": 6000,
+          "role": "roof"
+        }
+      ],
+      "parts": [
+        "GroundSlab",
+        "GroundWalls",
+        "GroundOpenings",
+        "Level2Slab",
+        "Level2Walls",
+        "Level2Openings",
+        "InteriorStair",
+        "StairRailing",
+        "EntrancePorch",
+        "EntranceSteps",
+        "Parapet",
+        "Roof"
+      ],
+      "relationships": [
+        "一层墙体外轮廓落在 12000×8000 基座上，二层楼板顶标高 3000，屋面板底标高 6000",
+        "楼梯位于后部左侧，梯段自一层地面升至二层楼面，二层楼板对应位置留洞，洞口周边设栏杆",
+        "入口门廊贴附正面 -Y 中央，雨篷独立于主体墙体，与二层楼板脱开，仅由门廊柱支承",
+        "平屋顶整块覆盖主体，女儿墙沿屋面周边，屋顶作为独立部件与墙体分开",
+        "门窗洞口在墙体内开洞，窗框与玻璃归入对应楼层洞口组"
+      ],
+      "edit_parts": [
+        "GroundSlab",
+        "GroundWalls",
+        "GroundOpenings",
+        "Level2Slab",
+        "Level2Walls",
+        "Level2Openings",
+        "InteriorStair",
+        "StairRailing",
+        "EntrancePorch",
+        "EntranceSteps",
+        "Parapet",
+        "Roof"
+      ],
+      "spatial": {
+        "coordinate_frame": {
+          "units": "mm",
+          "x": "right",
+          "front": "-Y",
+          "up": "+Z",
+          "origin": "主体正面左角地面：X=0 在西端，Y=0 为正面外墙外皮，Z=0 为一层完成面"
+        },
+        "scale_anchors": [
+          "主体外轮廓 X 0–12000，Y 0–8000",
+          "一层完成面 Z=0，二层楼面 Z=3000，屋面结构顶 Z=6000",
+          "门廊出挑自 Y=0 至 Y=-2000，X 4000–8000",
+          "楼梯洞口 X 0–4000，Y 5400–8000（后部左角）"
+        ],
+        "critical_features": [
+          {
+            "id": "stair_void",
+            "kind": "void",
+            "parts": [
+              "Level2Slab",
+              "InteriorStair"
+            ],
+            "description": "二层楼板在后部左角留 4000×2600mm 楼梯洞口，洞口不被楼板或墙填充，梯段与半平台从洞中升起",
+            "basis": "inferred",
+            "source": "inferred_layout"
+          },
+          {
+            "id": "stair_landing",
+            "kind": "stair_landing",
+            "parts": [
+              "InteriorStair",
+              "StairRailing"
+            ],
+            "description": "U 型双跑：一段自一层上至 Z=1500 半平台，转身第二段上至 Z=3000；两跑净宽各 1200mm，半平台位于后墙一侧",
+            "basis": "inferred",
+            "source": "inferred_layout"
+          },
+          {
+            "id": "porch_mass",
+            "kind": "mass_relation",
+            "parts": [
+              "EntrancePorch",
+              "EntranceSteps",
+              "GroundWalls"
+            ],
+            "description": "门廊为单层有顶无围护体量，雨篷顶 Z=3000 与二层楼板同高但结构脱开，两根 300×300 柱落地，前缘设三级台阶",
+            "basis": "inferred",
+            "source": "inferred_layout"
+          },
+          {
+            "id": "roof_separation",
+            "kind": "mass_relation",
+            "parts": [
+              "Roof",
+              "Parapet",
+              "Level2Walls"
+            ],
+            "description": "平屋顶为独立部件覆盖 12000×8000，女儿墙 600mm 高沿四周，与二层墙体分开建模便于替换",
+            "basis": "inferred",
+            "source": "inferred_layout"
+          }
+        ],
+        "remaining_work": [
+          "确定二层带状窗与侧窗的具体分格模数并做样板窗验证复用",
+          "细化门廊台阶踏步与柱础",
+          "补充楼梯栏杆及洞口防护栏杆的构造",
+          "材料与面层表达（待用户确认风格后）"
+        ],
+        "change_rationale": ""
+      }
+    },
+    "result": {
+      "success": true,
+      "sha256": "01ba723e9c030fdc3ca0c63374240971691feea8c0b0ebd822e4db2972d944a1",
+      "approval_granted": false
+    }
+  },
+  {
+    "source": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+    "seq": 25,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "arguments": {
+      "summary": "两层小展亭（12×8m，两层，平屋顶，r8 已建成）的局部修改方案：仅把入口门廊雨篷向外（-Y）加深 500mm，并把台阶外移、新增与室内地坪齐平的入口平台，使台阶—平台—门口连续。主体、门窗、屋顶、室内楼梯均保持不动。",
+      "facts": [
+        {
+          "text": "用户要求把入口门廊向外加深 0.5m，并补齐从入口台阶到门口的平台，使台阶与平台衔接",
+          "basis": "user",
+          "source": "user_message_3"
+        },
+        {
+          "text": "用户限定只改门廊和入口台阶；主体、门窗、屋顶、室内楼梯保持不动",
+          "basis": "user",
+          "source": "user_message_3"
+        },
+        {
+          "text": "当前 r8 门廊雨篷为 X 4000–8000、出挑 Y -2000..0、顶 Z=3000、板厚 200（2800–3000），与二层楼板结构脱开",
+          "basis": "observed",
+          "source": "native_readback_r8"
+        },
+        {
+          "text": "当前两根 300×300 方柱位于雨篷前缘内侧 Y -2000..-1700，柱底 -450、柱顶 2800",
+          "basis": "observed",
+          "source": "native_readback_r8"
+        },
+        {
+          "text": "当前三级台阶 X 3800–8200、踏面 300、踢面 150，位于 Y -2000..-2900，顶面 -150/-300/-450，基底 -700",
+          "basis": "observed",
+          "source": "native_readback_r8"
+        },
+        {
+          "text": "当前门廊范围 Y -2000..0 内没有地坪平台，顶步（-150）与门口 ±0 之间缺过渡，这正是要补齐的部分",
+          "basis": "observed",
+          "source": "native_readback_r8"
+        },
+        {
+          "text": "室外地面沿用 -450 假定，三级 150 踢面正好由 -450 升至 ±0",
+          "basis": "inferred",
+          "source": "inferred_layout"
+        },
+        {
+          "text": "新门廊雨篷保持 X 4000–8000、Z 2800–3000 不变，仅前缘由 Y=-2000 外移至 Y=-2500（加深 500）",
+          "basis": "inferred",
+          "source": "porch_edit_proposal"
+        },
+        {
+          "text": "新增入口平台：X 3800–8200、Y -2500..0、顶面 Z=0（与室内地坪齐平），台体做至 -700 与踏步基底一致",
+          "basis": "inferred",
+          "source": "porch_edit_proposal"
+        },
+        {
+          "text": "台阶随门廊外移：自 Y=-2500 起向外三级，踢面 150/踏面 300，Y -2500..-3400，顶面 -150/-300/-450，宽度 X 3800–8200 不变",
+          "basis": "inferred",
+          "source": "porch_edit_proposal"
+        },
+        {
+          "text": "方柱随前缘外移至 Y -2500..-2200，柱顶 2800 不变，柱底落于平台顶 Z=0",
+          "basis": "inferred",
+          "source": "porch_edit_proposal"
+        },
+        {
+          "text": "模型 Y 向包围盒将由 -2900 变为 -3400，其余方向尺寸不变",
+          "basis": "inferred",
+          "source": "porch_edit_proposal"
+        }
+      ],
+      "levels": [
+        {
+          "name": "一层地面",
+          "z_mm": 0,
+          "role": "ground"
+        },
+        {
+          "name": "二层楼面",
+          "z_mm": 3000,
+          "role": "occupied"
+        },
+        {
+          "name": "屋面",
+          "z_mm": 6000,
+          "role": "roof"
+        }
+      ],
+      "parts": [
+        "GroundSlab",
+        "GroundWalls",
+        "GroundOpenings",
+        "Level2Slab",
+        "Level2Walls",
+        "Level2Openings",
+        "InteriorStair",
+        "StairRailing",
+        "EntrancePorch",
+        "EntranceSteps",
+        "Parapet",
+        "Roof"
+      ],
+      "relationships": [
+        "入口平台顶面 Z=0 与室内一层地坪齐平，门口无门槛高差；平台内缘贴 Y=0 外墙，外缘 Y=-2500 与新雨篷前缘齐平",
+        "三级台阶外缘起于平台前缘 Y=-2500，逐级下降 150，末级踏面顶 -450 与室外地面齐平，台阶与平台同宽 X 3800–8200",
+        "雨篷仍由两根 300 方柱支承，柱立于平台顶，雨篷与二层楼板脱开，二层楼板与墙体不受影响",
+        "其余部件（基座板、一层墙体与门窗、二层楼板/墙体/门窗、楼梯、栏杆、女儿墙、屋顶）尺寸与标高全部保持不变"
+      ],
+      "edit_parts": [
+        "EntrancePorch",
+        "EntranceSteps"
+      ],
+      "spatial": {
+        "coordinate_frame": {
+          "units": "mm",
+          "x": "right",
+          "front": "-Y",
+          "up": "+Z",
+          "origin": "主体正面左角地面：X=0 在西端，Y=0 为正面外墙外皮，Z=0 为一层完成面"
+        },
+        "scale_anchors": [
+          "主体外轮廓 X 0–12000，Y 0–8000（不变）",
+          "一层完成面 Z=0，二层楼面 Z=3000，屋面结构顶 Z=6000（不变）",
+          "新门廊出挑自 Y=0 至 Y=-2500，X 4000–8000，雨篷顶 Z=3000、板底 2800",
+          "入口平台 X 3800–8200，Y -2500..0，顶 Z=0，基底 -700",
+          "三级台阶 X 3800–8200，Y -2500..-3400，顶面 -150/-300/-450，基底 -700",
+          "两根 300 方柱 Y -2500..-2200，X 4150–4450 与 7550–7850，Z 0–2800",
+          "楼梯洞口 X 0–4000，Y 5400–8000（不变）"
+        ],
+        "critical_features": [
+          {
+            "id": "porch_mass",
+            "kind": "mass_relation",
+            "parts": [
+              "EntrancePorch",
+              "EntranceSteps",
+              "GroundWalls"
+            ],
+            "description": "门廊为单层有顶无围护体量，雨篷顶 Z=3000 与二层楼板同高但结构脱开，由两根 300 方柱支承；本次仅把前缘由 Y=-2000 外移至 -2500，宽度、标高、板厚不变",
+            "basis": "user",
+            "source": "user_message_3"
+          },
+          {
+            "id": "entrance_platform",
+            "kind": "mass_relation",
+            "parts": [
+              "EntrancePorch",
+              "EntranceSteps",
+              "GroundSlab"
+            ],
+            "description": "新增入口平台顶 Z=0，与室内地坪齐平并贴外墙 Y=0，向外出挑至 Y=-2500；平台外缘即台阶起步线，三级台阶自此降至 -450 室外地坪，形成台阶—平台—门口连续通行面",
+            "basis": "user",
+            "source": "user_message_3"
+          },
+          {
+            "id": "stair_void",
+            "kind": "void",
+            "parts": [
+              "Level2Slab",
+              "InteriorStair"
+            ],
+            "description": "二层楼板后部左角洞口保持原状，不被本次修改填充或移动",
+            "basis": "observed",
+            "source": "native_readback_r8"
+          },
+          {
+            "id": "roof_separation",
+            "kind": "mass_relation",
+            "parts": [
+              "Roof",
+              "Parapet",
+              "Level2Walls"
+            ],
+            "description": "平屋顶与女儿墙为独立部件，本次不动",
+            "basis": "observed",
+            "source": "native_readback_r8"
+          }
+        ],
+        "change_rationale": "用户明确要求门廊向外加深 0.5m 并补齐台阶到门口的平台。因此门廊前缘质量关系由 Y=-2000 变为 Y=-2500（外移 500mm），台阶随之前移并新增 Z=0 平台；这是经用户指定的局部外观/通行关系变更，不涉及二层楼板、屋面、楼梯或主体轮廓，因此上述间距、标高与开洞事实保持有效。",
+        "remaining_work": [
+          "执行后回读 EntrancePorch / EntranceSteps 实际几何与包围盒，确认 Y 向仅由 -2900 变为 -3400",
+          "核对平台顶与室内地坪齐平、顶步与平台踢面衔接无缝隙、柱底落在平台上",
+          "台阶防滑条、排水坡度与柱础细部尚未绘制（可后续单独处理）",
+          "材料/面层与场地标高仍为推定，待用户确认"
+        ]
+      }
+    },
+    "result": {
+      "success": false,
+      "error": "Observed facts must reference a supplied source ID. Allowed IDs: . Use the ID, not a filename or path."
+    }
+  },
+  {
+    "source": "dsh-builder-bfb7a02dce954992bf77a5d35a483a76.jsonl",
+    "seq": 30,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "arguments": {
+      "edit_parts": [
+        "EntrancePorch",
+        "EntranceSteps"
+      ],
+      "facts": [
+        {
+          "basis": "user",
+          "source": "user_message_3",
+          "text": "用户要求把入口门廊向外加深 0.5m，并补齐从入口台阶到门口的平台，使台阶与平台衔接"
+        },
+        {
+          "basis": "user",
+          "source": "user_message_3",
+          "text": "用户限定只改门廊和入口台阶；主体、门窗、屋顶、室内楼梯保持不动"
+        },
+        {
+          "basis": "inferred",
+          "source": "current_owned_model_r8",
+          "text": "当前 r8 门廊雨篷为 X 4000–8000、出挑 Y -2000..0、顶 Z=3000、板厚 200（2800–3000），与二层楼板结构脱开"
+        },
+        {
+          "basis": "inferred",
+          "source": "current_owned_model_r8",
+          "text": "当前两根 300×300 方柱位于雨篷前缘内侧 Y -2000..-1700，柱底 -450、柱顶 2800"
+        },
+        {
+          "basis": "inferred",
+          "source": "current_owned_model_r8",
+          "text": "当前三级台阶 X 3800–8200、踏面 300、踢面 150，位于 Y -2000..-2900，顶面 -150/-300/-450，基底 -700"
+        },
+        {
+          "basis": "inferred",
+          "source": "current_owned_model_r8",
+          "text": "当前门廊范围 Y -2000..0 内没有地坪平台，顶步（-150）与门口 ±0 之间缺过渡，这正是要补齐的部分"
+        },
+        {
+          "basis": "inferred",
+          "source": "inferred_layout",
+          "text": "室外地面沿用 -450 假定，三级 150 踢面正好由 -450 升至 ±0"
+        },
+        {
+          "basis": "inferred",
+          "source": "porch_edit_proposal",
+          "text": "新门廊雨篷保持 X 4000–8000、Z 2800–3000 不变，仅前缘由 Y=-2000 外移至 Y=-2500（加深 500）"
+        },
+        {
+          "basis": "inferred",
+          "source": "porch_edit_proposal",
+          "text": "新增入口平台：X 3800–8200、Y -2500..0、顶面 Z=0（与室内地坪齐平），台体做至 -700 与踏步基底一致"
+        },
+        {
+          "basis": "inferred",
+          "source": "porch_edit_proposal",
+          "text": "台阶随门廊外移：自 Y=-2500 起向外三级，踢面 150/踏面 300，Y -2500..-3400，顶面 -150/-300/-450，宽度 X 3800–8200 不变"
+        },
+        {
+          "basis": "inferred",
+          "source": "porch_edit_proposal",
+          "text": "方柱随前缘外移至 Y -2500..-2200，柱顶 2800 不变，柱底落于平台顶 Z=0"
+        },
+        {
+          "basis": "inferred",
+          "source": "porch_edit_proposal",
+          "text": "模型 Y 向包围盒将由 -2900 变为 -3400，其余方向尺寸不变"
+        }
+      ],
+      "levels": [
+        {
+          "name": "一层地面",
+          "role": "ground",
+          "z_mm": 0
+        },
+        {
+          "name": "二层楼面",
+          "role": "occupied",
+          "z_mm": 3000
+        },
+        {
+          "name": "屋面",
+          "role": "roof",
+          "z_mm": 6000
+        }
+      ],
+      "parts": [
+        "GroundSlab",
+        "GroundWalls",
+        "GroundOpenings",
+        "Level2Slab",
+        "Level2Walls",
+        "Level2Openings",
+        "InteriorStair",
+        "StairRailing",
+        "EntrancePorch",
+        "EntranceSteps",
+        "Parapet",
+        "Roof"
+      ],
+      "relationships": [
+        "入口平台顶面 Z=0 与室内一层地坪齐平，门口无门槛高差；平台内缘贴 Y=0 外墙，外缘 Y=-2500 与新雨篷前缘齐平",
+        "三级台阶外缘起于平台前缘 Y=-2500，逐级下降 150，末级踏面顶 -450 与室外地面齐平，台阶与平台同宽 X 3800–8200",
+        "雨篷仍由两根 300 方柱支承，柱立于平台顶，雨篷与二层楼板脱开，二层楼板与墙体不受影响",
+        "其余部件（基座板、一层墙体与门窗、二层楼板/墙体/门窗、楼梯、栏杆、女儿墙、屋顶）尺寸与标高全部保持不变"
+      ],
+      "spatial": {
+        "change_rationale": "用户明确要求门廊向外加深 0.5m 并补齐台阶到门口的平台。因此门廊前缘质量关系由 Y=-2000 变为 Y=-2500（外移 500mm），台阶随之前移并新增 Z=0 平台；这是用户指定的局部外观/通行关系变更，不涉及二层楼板、屋面、楼梯或主体轮廓，因此层高、楼梯洞口、屋顶分件等既有空间事实保持有效。",
+        "coordinate_frame": {
+          "front": "-Y",
+          "origin": "主体正面左角地面：X=0 在西端，Y=0 为正面外墙外皮，Z=0 为一层完成面",
+          "units": "mm",
+          "up": "+Z",
+          "x": "right"
+        },
+        "critical_features": [
+          {
+            "basis": "user",
+            "description": "门廊为单层有顶无围护体量，雨篷顶 Z=3000 与二层楼板同高但结构脱开，由两根 300 方柱支承；本次仅把前缘由 Y=-2000 外移至 -2500，宽度、标高、板厚不变",
+            "id": "porch_mass",
+            "kind": "mass_relation",
+            "parts": [
+              "EntrancePorch",
+              "EntranceSteps",
+              "GroundWalls"
+            ],
+            "source": "user_message_3"
+          },
+          {
+            "basis": "user",
+            "description": "新增入口平台顶 Z=0，与室内地坪齐平并贴外墙 Y=0，向外出挑至 Y=-2500；平台外缘即台阶起步线，三级台阶自此降至 -450 室外地坪，形成台阶—平台—门口连续通行面",
+            "id": "entrance_platform",
+            "kind": "mass_relation",
+            "parts": [
+              "EntrancePorch",
+              "EntranceSteps",
+              "GroundSlab"
+            ],
+            "source": "user_message_3"
+          },
+          {
+            "basis": "inferred",
+            "description": "二层楼板后部左角洞口保持原状，不被本次修改填充或移动",
+            "id": "stair_void",
+            "kind": "void",
+            "parts": [
+              "Level2Slab",
+              "InteriorStair"
+            ],
+            "source": "current_owned_model_r8"
+          },
+          {
+            "basis": "inferred",
+            "description": "平屋顶与女儿墙为独立部件，本次不动",
+            "id": "roof_separation",
+            "kind": "mass_relation",
+            "parts": [
+              "Roof",
+              "Parapet",
+              "Level2Walls"
+            ],
+            "source": "current_owned_model_r8"
+          }
+        ],
+        "remaining_work": [
+          "执行后回读 EntrancePorch / EntranceSteps 实际几何与包围盒，确认 Y 向仅由 -2900 变为 -3400",
+          "核对平台顶与室内地坪齐平、顶步踢面与平台衔接无缝、柱底落在平台上",
+          "台阶防滑条、排水坡度与柱础细部尚未绘制（可后续单独处理）",
+          "材料/面层与场地标高仍为推定，待用户确认"
+        ],
+        "scale_anchors": [
+          "主体外轮廓 X 0–12000，Y 0–8000（不变）",
+          "一层完成面 Z=0，二层楼面 Z=3000，屋面结构顶 Z=6000（不变）",
+          "新门廊出挑自 Y=0 至 Y=-2500，X 4000–8000，雨篷顶 Z=3000、板底 2800",
+          "入口平台 X 3800–8200，Y -2500..0，顶 Z=0，基底 -700",
+          "三级台阶 X 3800–8200，Y -2500..-3400，顶面 -150/-300/-450，基底 -700",
+          "两根 300 方柱 Y -2500..-2200，X 4150–4450 与 7550–7850，Z 0–2800",
+          "楼梯洞口 X 0–4000，Y 5400–8000（不变）"
+        ]
+      },
+      "summary": "两层小展亭（12×8m，两层，平屋顶，r8 已建成）的局部修改方案：仅把入口门廊雨篷向外（-Y）加深 500mm，台阶随之前移，并新增与室内地坪齐平的入口平台，使台阶—平台—门口连续。主体、门窗、屋顶、室内楼梯保持不动。"
+    },
+    "result": {
+      "success": true,
+      "sha256": "bc36ad30cba58b66f69f25bca3aed6a012f616ef960604b6574b3a33f3730d14",
+      "approval_granted": false
+    }
+  },
+  {
+    "source": "dsh-builder-a110e0beb0874abbb66fcb37b66a1505.jsonl",
+    "seq": 27,
+    "tool": "kstudio_save_design_graph",
+    "sdk_is_error": false,
+    "arguments": {
+      "summary": "两层小展亭（12×8m，r9 已建成，入口已改好）的局部修正方案：只修 StairRailing 一个组——把悬空的栏杆立柱按所在踏面/平台的实际顶面落底，柱顶贴住斜扶手底面，两端补端柱。楼梯本体、二层楼板洞口、门窗、屋顶女儿墙与刚改好的入口一律不动。",
+      "facts": [
+        {
+          "text": "用户要求只修楼梯栏杆，让立柱真正落在对应踏步或平台上、扶手接顺；楼梯本身、楼板洞口及所有其他构件不动，并保留刚改好的入口",
+          "basis": "user",
+          "source": "user_message_6"
+        },
+        {
+          "text": "当前栏杆脚本中，下跑立柱 X 取 4000-260*(i-1)+130，比该级踏面中心偏出 260（落在前一级踏面范围），柱底却按 150*i 取值，柱底高出实际踏面 150，形成悬空",
+          "basis": "inferred",
+          "source": "scripts_pavilion_railing_rb"
+        },
+        {
+          "text": "上跑立柱 X 取 1660+260*(j-1)-130，同样偏向低一级踏面，柱底按 1500+150*j 取值，同样高出实际踏面 150",
+          "basis": "inferred",
+          "source": "scripts_pavilion_railing_rb"
+        },
+        {
+          "text": "下跑踏面 i 的范围为 X 4000-260i..4000-260(i-1)、顶面 150i；上跑踏面 j 为 X 1660+260(j-1)..1660+260j、顶面 1500+150j；半平台顶 1500，二层楼面 3000",
+          "basis": "inferred",
+          "source": "scripts_pavilion_stair_rb"
+        },
+        {
+          "text": "现斜扶手为连续直线：下跑顶 900@X4000 → 2400@X1660，上跑 2400@X1660 → 3900@X4000，两跑在半平台处同高 2400 接顺，且两端各为楼面以上 900，与水平护栏顶栏 3900 / 2400 齐平",
+          "basis": "inferred",
+          "source": "scripts_pavilion_railing_rb"
+        },
+        {
+          "text": "二层梯洞南/东两侧防护与半平台防护的立柱柱底分别取 3000 与 1500，落在楼面与平台顶面上，未见悬空",
+          "basis": "inferred",
+          "source": "scripts_pavilion_railing_rb"
+        },
+        {
+          "text": "扶手为直线弦线（连接两层楼面以上 900），首级踏面处净高约 750，低于其余位置，这是既有做法，本轮不改坡度",
+          "basis": "inferred",
+          "source": "scripts_pavilion_railing_rb"
+        },
+        {
+          "text": "楼梯本体（InteriorStair 四子组）、梯洞 X 200–4000 / Y 5400–8000、入口平台顶 Z=0、台阶 -150/-300/-450 均为已验收现状",
+          "basis": "inferred",
+          "source": "current_owned_model_r9"
+        }
+      ],
+      "levels": [
+        {
+          "name": "一层地面",
+          "role": "ground",
+          "z_mm": 0
+        },
+        {
+          "name": "半平台",
+          "role": "occupied",
+          "z_mm": 1500
+        },
+        {
+          "name": "二层楼面",
+          "role": "occupied",
+          "z_mm": 3000
+        },
+        {
+          "name": "屋面",
+          "role": "roof",
+          "z_mm": 6000
+        }
+      ],
+      "parts": [
+        "GroundSlab",
+        "GroundWalls",
+        "GroundOpenings",
+        "Level2Slab",
+        "Level2Walls",
+        "Level2Openings",
+        "InteriorStair",
+        "StairRailing",
+        "EntrancePorch",
+        "EntranceSteps",
+        "Parapet",
+        "Roof"
+      ],
+      "relationships": [
+        "下跑立柱放在第 1/3/5/7/9 级踏面中心 X 3870/3350/2830/2310/1790，柱底标高 150/450/750/1050/1350，与该级踏面顶面重合（埋入 2mm 防共面）",
+        "上跑立柱放在第 1/3/5/7/9 级踏面中心 X 1790/2310/2830/3350/3870，柱底标高 1650/1950/2250/2550/2850",
+        "柱顶按同一 X 处斜扶手底面（顶线减 80）取值，做到贴合、不顶穿、不留缝；柱身 40×40，Y 向仍在下跑 6550–6590、上跑 6810–6850",
+        "每跑两端各加一根端柱：下跑低端落一层地面 Z=0、高端落半平台 1500；上跑低端落半平台 1500、高端落二层楼面 3000，使扶手不再悬臂",
+        "斜扶手线型与坡度保持不变：下跑 900→2400、上跑 2400→3900，半平台处 2400 接顺，顶端与二层洞口护栏 3900 齐平",
+        "二层梯洞南/东与半平台三组水平护栏保持原样，柱底已落在楼面 3000 / 平台 1500",
+        "其余 11 个顶层组（含刚改好的 EntrancePorch、EntranceSteps）尺寸、标高与包围盒全部不变"
+      ],
+      "edit_parts": [
+        "StairRailing"
+      ],
+      "spatial": {
+        "coordinate_frame": {
+          "units": "mm",
+          "x": "right",
+          "front": "-Y",
+          "up": "+Z",
+          "origin": "主体正面左角地面：X=0 在西端，Y=0 为正面外墙外皮，Z=0 为一层完成面"
+        },
+        "scale_anchors": [
+          "主体外轮廓 X 0–12000，Y 0–8000；门廊出挑至 Y=-2500，台阶至 -3400（不变）",
+          "一层完成面 Z=0，半平台顶 1500，二层楼面 3000，屋面结构顶 6000，女儿墙 6600（不变）",
+          "梯洞 X 200–4000、Y 5400–8000（不变）",
+          "下跑 Y 5400–6600，上跑 Y 6800–8000，半平台 X 200–1660（不变）",
+          "下跑踏面顶 150/300/450/600/750/900/1050/1200/1350，上跑 1650…2850（不变）",
+          "斜扶手顶线：下跑 (4000,900)→(1660,2400)，上跑 (1660,2400)→(4000,3900)（不变）",
+          "新增端柱 X 4000 与 X 1660 各两处，Z 0–820 / 1500–2320 / 1500–2320 / 3000–3820"
+        ],
+        "critical_features": [
+          {
+            "id": "stair_void",
+            "kind": "void",
+            "parts": [
+              "Level2Slab",
+              "InteriorStair",
+              "StairRailing"
+            ],
+            "description": "二层楼板后部左角梯洞 X 200–4000、Y 5400–8000 保持开敞，不被填充、不缩小；洞口南、东边缘护栏继续立于楼面 3000",
+            "basis": "inferred",
+            "source": "current_owned_model_r9"
+          },
+          {
+            "id": "stair_landing",
+            "kind": "stair_landing",
+            "parts": [
+              "InteriorStair",
+              "StairRailing"
+            ],
+            "description": "U 型双跑在半平台（X 200–1660，顶 1500）转折；两跑斜扶手在半平台边 X=1660 处同为 2400，接顺；本轮只在此处补落柱脚，不移动平台",
+            "basis": "inferred",
+            "source": "scripts_pavilion_stair_rb"
+          },
+          {
+            "id": "railing_support",
+            "kind": "mass_relation",
+            "parts": [
+              "StairRailing",
+              "InteriorStair",
+              "Level2Slab"
+            ],
+            "description": "所有栏杆立柱须与其下方实体真实接触：踏面立柱落该级踏面顶，端柱落一层地面/半平台/二层楼面；不得以视角遮掩悬空",
+            "basis": "user",
+            "source": "user_message_6"
+          },
+          {
+            "id": "entrance_platform",
+            "kind": "mass_relation",
+            "parts": [
+              "EntrancePorch",
+              "EntranceSteps",
+              "GroundSlab"
+            ],
+            "description": "已改好的入口：雨篷前缘 Y=-2500、平台顶 Z=0 与室内齐平、三级台阶 -150/-300/-450 至室外地坪；本轮完全不动",
+            "basis": "user",
+            "source": "user_message_5"
+          },
+          {
+            "id": "roof_separation",
+            "kind": "mass_relation",
+            "parts": [
+              "Roof",
+              "Parapet",
+              "Level2Walls"
+            ],
+            "description": "平屋顶与女儿墙为独立部件，本轮不动",
+            "basis": "inferred",
+            "source": "current_owned_model_r9"
+          }
+        ],
+        "remaining_work": [
+          "执行后逐柱回读 StairRailing 各子组柱底/柱顶 Z，与所在踏面顶标高比对，确认无悬空、无顶穿",
+          "三视图（正、斜、俯）复核梯井内的立柱与扶手，与脚本坐标对照",
+          "扶手为弦线做法，首级踏面处净高约 750 而非 900；若需统一净高需另立方案（会改变与水平护栏的接头）",
+          "玻璃栏板、柱础、防滑条等细部仍未绘制"
+        ],
+        "change_rationale": "用户指出栏杆立柱底部悬空并要求只修栏杆。此处仅修正 StairRailing 内部立柱落点与端柱，楼梯踏步、半平台、梯洞、扶手线型及所有其他部件（含刚改好的入口）保持已验收状态，层高、洞口与体量关系不变。"
+      }
+    },
+    "result": {
+      "success": true,
+      "sha256": "19a01d94404ad9889faff3cb7d71e3fcbb913334c878c1eb9064ff8349880a85",
+      "approval_granted": false
+    }
+  }
+]

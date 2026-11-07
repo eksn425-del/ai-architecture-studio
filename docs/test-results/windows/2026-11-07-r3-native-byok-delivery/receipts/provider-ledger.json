@@ -1,0 +1,800 @@
+{
+  "schema_version": 1,
+  "attempts": [
+    {
+      "ordinal": 1,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:03:20.459730+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 696,
+        "outputTokens": 224,
+        "totalTokens": 920
+      },
+      "input_tokens_including_cache": 696
+    },
+    {
+      "ordinal": 2,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:03:30.934002+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 7868,
+        "outputTokens": 177,
+        "totalTokens": 8045
+      },
+      "input_tokens_including_cache": 7868
+    },
+    {
+      "ordinal": 3,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:03:43.964652+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1209,
+        "outputTokens": 3144,
+        "totalTokens": 12161,
+        "cacheReadTokens": 7808
+      },
+      "input_tokens_including_cache": 9017
+    },
+    {
+      "ordinal": 4,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:04:10.909831+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1842,
+        "outputTokens": 1516,
+        "totalTokens": 12318,
+        "cacheReadTokens": 8960
+      },
+      "input_tokens_including_cache": 10802
+    },
+    {
+      "ordinal": 5,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:04:24.867701+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1631,
+        "outputTokens": 723,
+        "totalTokens": 13106,
+        "cacheReadTokens": 10752
+      },
+      "input_tokens_including_cache": 12383
+    },
+    {
+      "ordinal": 6,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:04:32.087118+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 895,
+        "outputTokens": 654,
+        "totalTokens": 13837,
+        "cacheReadTokens": 12288
+      },
+      "input_tokens_including_cache": 13183
+    },
+    {
+      "ordinal": 7,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:05:17.784241+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 14435,
+        "outputTokens": 173,
+        "totalTokens": 14608
+      },
+      "input_tokens_including_cache": 14435
+    },
+    {
+      "ordinal": 8,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:05:23.504484+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2126,
+        "outputTokens": 2955,
+        "totalTokens": 19417,
+        "cacheReadTokens": 14336
+      },
+      "input_tokens_including_cache": 16462
+    },
+    {
+      "ordinal": 9,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:05:44.179717+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 3105,
+        "outputTokens": 107,
+        "totalTokens": 19596,
+        "cacheReadTokens": 16384
+      },
+      "input_tokens_including_cache": 19489
+    },
+    {
+      "ordinal": 10,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:06:08.483330+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 4111,
+        "outputTokens": 2912,
+        "totalTokens": 26479,
+        "cacheReadTokens": 19456
+      },
+      "input_tokens_including_cache": 23567
+    },
+    {
+      "ordinal": 11,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:06:31.190039+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 3008,
+        "outputTokens": 136,
+        "totalTokens": 26696,
+        "cacheReadTokens": 23552
+      },
+      "input_tokens_including_cache": 26560
+    },
+    {
+      "ordinal": 12,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:06:34.676313+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 280,
+        "outputTokens": 2081,
+        "totalTokens": 28857,
+        "cacheReadTokens": 26496
+      },
+      "input_tokens_including_cache": 26776
+    },
+    {
+      "ordinal": 13,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:06:49.649702+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2181,
+        "outputTokens": 136,
+        "totalTokens": 29069,
+        "cacheReadTokens": 26752
+      },
+      "input_tokens_including_cache": 28933
+    },
+    {
+      "ordinal": 14,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:06:56.121043+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 188,
+        "outputTokens": 1094,
+        "totalTokens": 30210,
+        "cacheReadTokens": 28928
+      },
+      "input_tokens_including_cache": 29116
+    },
+    {
+      "ordinal": 15,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:07:03.353908+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1229,
+        "outputTokens": 136,
+        "totalTokens": 30421,
+        "cacheReadTokens": 29056
+      },
+      "input_tokens_including_cache": 30285
+    },
+    {
+      "ordinal": 16,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:07:28.587352+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 4844,
+        "outputTokens": 1590,
+        "totalTokens": 36642,
+        "cacheReadTokens": 30208
+      },
+      "input_tokens_including_cache": 35052
+    },
+    {
+      "ordinal": 17,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:07:39.776381+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1774,
+        "outputTokens": 137,
+        "totalTokens": 36855,
+        "cacheReadTokens": 34944
+      },
+      "input_tokens_including_cache": 36718
+    },
+    {
+      "ordinal": 18,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:08:05.084673+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 5344,
+        "outputTokens": 2762,
+        "totalTokens": 44714,
+        "cacheReadTokens": 36608
+      },
+      "input_tokens_including_cache": 41952
+    },
+    {
+      "ordinal": 19,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:08:33.848323+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2934,
+        "outputTokens": 1980,
+        "totalTokens": 46770,
+        "cacheReadTokens": 41856
+      },
+      "input_tokens_including_cache": 44790
+    },
+    {
+      "ordinal": 20,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:08:51.763010+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2177,
+        "outputTokens": 140,
+        "totalTokens": 46989,
+        "cacheReadTokens": 44672
+      },
+      "input_tokens_including_cache": 46849
+    },
+    {
+      "ordinal": 21,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:09:17.181458+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 6063,
+        "outputTokens": 7309,
+        "totalTokens": 60220,
+        "cacheReadTokens": 46848
+      },
+      "input_tokens_including_cache": 52911
+    },
+    {
+      "ordinal": 22,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:10:06.757554+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 7431,
+        "outputTokens": 135,
+        "totalTokens": 60430,
+        "cacheReadTokens": 52864
+      },
+      "input_tokens_including_cache": 60295
+    },
+    {
+      "ordinal": 23,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:10:32.231794+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 6597,
+        "outputTokens": 2531,
+        "totalTokens": 69416,
+        "cacheReadTokens": 60288
+      },
+      "input_tokens_including_cache": 66885
+    },
+    {
+      "ordinal": 24,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:10:49.865315+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2671,
+        "outputTokens": 136,
+        "totalTokens": 69623,
+        "cacheReadTokens": 66816
+      },
+      "input_tokens_including_cache": 69487
+    },
+    {
+      "ordinal": 25,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:11:15.691513+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 7156,
+        "outputTokens": 2820,
+        "totalTokens": 79352,
+        "cacheReadTokens": 69376
+      },
+      "input_tokens_including_cache": 76532
+    },
+    {
+      "ordinal": 26,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:11:37.343928+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 3015,
+        "outputTokens": 141,
+        "totalTokens": 79572,
+        "cacheReadTokens": 76416
+      },
+      "input_tokens_including_cache": 79431
+    },
+    {
+      "ordinal": 27,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:12:04.683433+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 7946,
+        "outputTokens": 805,
+        "totalTokens": 88111,
+        "cacheReadTokens": 79360
+      },
+      "input_tokens_including_cache": 87306
+    },
+    {
+      "ordinal": 28,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:12:12.993693+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 892,
+        "outputTokens": 139,
+        "totalTokens": 88327,
+        "cacheReadTokens": 87296
+      },
+      "input_tokens_including_cache": 88188
+    },
+    {
+      "ordinal": 29,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:12:39.072163+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 47278,
+        "outputTokens": 227,
+        "totalTokens": 68241,
+        "cacheReadTokens": 20736
+      },
+      "input_tokens_including_cache": 68014
+    },
+    {
+      "ordinal": 30,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:13:26.525539+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 4031,
+        "outputTokens": 743,
+        "totalTokens": 72742,
+        "cacheReadTokens": 67968
+      },
+      "input_tokens_including_cache": 71999
+    },
+    {
+      "ordinal": 31,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:13:37.143974+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 1517,
+        "outputTokens": 879,
+        "totalTokens": 74332,
+        "cacheReadTokens": 71936
+      },
+      "input_tokens_including_cache": 73453
+    },
+    {
+      "ordinal": 32,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:20:58.772723+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 2696,
+        "outputTokens": 286,
+        "totalTokens": 2982
+      },
+      "input_tokens_including_cache": 2696
+    },
+    {
+      "ordinal": 33,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:21:08.854160+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 16857,
+        "outputTokens": 325,
+        "totalTokens": 17182
+      },
+      "input_tokens_including_cache": 16857
+    },
+    {
+      "ordinal": 34,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:21:14.534336+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2822,
+        "outputTokens": 6335,
+        "totalTokens": 25925,
+        "cacheReadTokens": 16768
+      },
+      "input_tokens_including_cache": 19590
+    },
+    {
+      "ordinal": 35,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:22:03.295269+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 6383,
+        "outputTokens": 2450,
+        "totalTokens": 28417,
+        "cacheReadTokens": 19584
+      },
+      "input_tokens_including_cache": 25967
+    },
+    {
+      "ordinal": 36,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:22:18.380147+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2627,
+        "outputTokens": 797,
+        "totalTokens": 29280,
+        "cacheReadTokens": 25856
+      },
+      "input_tokens_including_cache": 28483
+    },
+    {
+      "ordinal": 37,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:22:28.241293+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 931,
+        "outputTokens": 762,
+        "totalTokens": 30109,
+        "cacheReadTokens": 28416
+      },
+      "input_tokens_including_cache": 29347
+    },
+    {
+      "ordinal": 38,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:22:35.272043+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 821,
+        "outputTokens": 617,
+        "totalTokens": 30750,
+        "cacheReadTokens": 29312
+      },
+      "input_tokens_including_cache": 30133
+    },
+    {
+      "ordinal": 39,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:33:34.028176+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 20833,
+        "outputTokens": 103,
+        "totalTokens": 20936
+      },
+      "input_tokens_including_cache": 20833
+    },
+    {
+      "ordinal": 40,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:33:49.056999+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2481,
+        "outputTokens": 197,
+        "totalTokens": 23414,
+        "cacheReadTokens": 20736
+      },
+      "input_tokens_including_cache": 23217
+    },
+    {
+      "ordinal": 41,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:34:06.739607+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2355,
+        "outputTokens": 703,
+        "totalTokens": 26226,
+        "cacheReadTokens": 23168
+      },
+      "input_tokens_including_cache": 25523
+    },
+    {
+      "ordinal": 42,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:34:20.837713+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2364,
+        "outputTokens": 1721,
+        "totalTokens": 29557,
+        "cacheReadTokens": 25472
+      },
+      "input_tokens_including_cache": 27836
+    },
+    {
+      "ordinal": 43,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:34:39.846496+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1856,
+        "outputTokens": 143,
+        "totalTokens": 29775,
+        "cacheReadTokens": 27776
+      },
+      "input_tokens_including_cache": 29632
+    },
+    {
+      "ordinal": 44,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:35:04.518664+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 8992,
+        "outputTokens": 250,
+        "totalTokens": 38810,
+        "cacheReadTokens": 29568
+      },
+      "input_tokens_including_cache": 38560
+    },
+    {
+      "ordinal": 45,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:35:14.482253+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1123,
+        "outputTokens": 183,
+        "totalTokens": 39834,
+        "cacheReadTokens": 38528
+      },
+      "input_tokens_including_cache": 39651
+    },
+    {
+      "ordinal": 46,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:35:25.891938+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 1414,
+        "outputTokens": 505,
+        "totalTokens": 41471,
+        "cacheReadTokens": 39552
+      },
+      "input_tokens_including_cache": 40966
+    },
+    {
+      "ordinal": 47,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:36:17.046600+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 3951,
+        "outputTokens": 182,
+        "totalTokens": 45093,
+        "cacheReadTokens": 40960
+      },
+      "input_tokens_including_cache": 44911
+    },
+    {
+      "ordinal": 48,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:36:23.886373+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 872,
+        "outputTokens": 723,
+        "totalTokens": 46395,
+        "cacheReadTokens": 44800
+      },
+      "input_tokens_including_cache": 45672
+    },
+    {
+      "ordinal": 49,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:37:50.644995+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 4164,
+        "outputTokens": 234,
+        "totalTokens": 4398
+      },
+      "input_tokens_including_cache": 4164
+    },
+    {
+      "ordinal": 50,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:38:32.289744+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 19705,
+        "outputTokens": 427,
+        "totalTokens": 20132
+      },
+      "input_tokens_including_cache": 19705
+    },
+    {
+      "ordinal": 51,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:38:41.183736+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 4416,
+        "outputTokens": 11659,
+        "totalTokens": 35659,
+        "cacheReadTokens": 19584
+      },
+      "input_tokens_including_cache": 24000
+    },
+    {
+      "ordinal": 52,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:40:02.263218+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 11786,
+        "outputTokens": 948,
+        "totalTokens": 36670,
+        "cacheReadTokens": 23936
+      },
+      "input_tokens_including_cache": 35722
+    },
+    {
+      "ordinal": 53,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:40:11.198704+00:00",
+      "finish_reason": "stop",
+      "reported_usage": {
+        "inputTokens": 1031,
+        "outputTokens": 764,
+        "totalTokens": 37507,
+        "cacheReadTokens": 35712
+      },
+      "input_tokens_including_cache": 36743
+    },
+    {
+      "ordinal": 54,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:40:52.681462+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 23342,
+        "outputTokens": 101,
+        "totalTokens": 23443
+      },
+      "input_tokens_including_cache": 23342
+    },
+    {
+      "ordinal": 55,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:40:57.710851+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 2667,
+        "outputTokens": 110,
+        "totalTokens": 26073,
+        "cacheReadTokens": 23296
+      },
+      "input_tokens_including_cache": 25963
+    },
+    {
+      "ordinal": 56,
+      "status": "settled",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:41:01.231987+00:00",
+      "finish_reason": "tool-calls",
+      "reported_usage": {
+        "inputTokens": 3117,
+        "outputTokens": 3414,
+        "totalTokens": 32387,
+        "cacheReadTokens": 25856
+      },
+      "input_tokens_including_cache": 28973
+    },
+    {
+      "ordinal": 57,
+      "status": "unknown",
+      "reservation_tokens": 163840,
+      "created_utc": "2026-11-07T03:41:32.290064+00:00",
+      "finish_reason": "error",
+      "usage": null,
+      "synthetic_zero_usage_discarded": true,
+      "provider_failure": "TRANSPORT Connection error.; exact network cause not known"
+    }
+  ],
+  "count": 57,
+  "settled": 56,
+  "unknown": 1,
+  "known_input_including_cache": 1957920,
+  "known_output": 72581,
+  "known_cache_read": 1651840,
+  "actual_total_usage": null,
+  "actual_cost": null,
+  "new_requests_after_unknown": 0,
+  "not_a_billing_statement": true
+}
