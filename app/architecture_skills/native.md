@@ -10,3 +10,5 @@ Ruby 样板先核对面法线与有符号高度：SketchUp 在地面上新建的
 Ruby 的 `def` 不会捕获宿主局部变量。`root`、`model`、`clear_owned_contents` 是注入的局部变量，并非全局方法；不能在 `def helper` 内直接引用它们。优先使用捕获当前绑定的 lambda；若用 def，必须把需要的对象作为参数传入。不要使用 class/module 包装、反射或重新获取 active_model。例：`find_part = lambda { |name| root.entities.grep(Sketchup::Group).find { |g| g.name == name } }`，随后 `part = find_part.call('Frames')`。清理授权内容应在顶层调用 `clear_owned_contents.call(['Frames'])` 后复用 part，而不是隐藏在不能访问该局部变量的方法内。
 所有阶段均使用同一个 `script_id=harness_building`。第一阶段成功返回 root/revision 后，后续阶段必须 `update_mode=edit` 并列出精确 `allowed_mutation_paths`；不设置 `allow_full_rebuild`，也不重新执行第一阶段。斜梁/扶手先在自身局部坐标建模，组合变换为“局部旋转后平移到端点”；用实际两个端点回读检查，不把已经在世界坐标的点再次整体平移。示例和计划不是实测结果，仍需检查原生工具回执。
 保持既有模型文件、视图风格、材质和用户几何。宿主事务/模型身份/KEEP 校验是必需条件，不允许绕过。
+
+入口与楼梯按连续可站立的路径核对：室外地面 → 踏步 → 门廊平台 → 门洞内地坪，以及下层地坪 → 下跑 → 半平台 → 上跑 → 上层楼板。雨篷和柱不能替代门廊平台；台阶顶部与入口之间不能只留空地。分别记录相接边的 XY 范围和顶面 Z，不能只看总包围盒或正面照片。楼板边缘可以形成最后一个正常踢面，不要仅因最高踏面低于楼面一个踏步就重复加台阶；必须检查出口确实接到楼板、洞口没有挡住路径、梯段与后墙不穿插。局部加深门廊时，在方案里明确是否需要同步调整平台或相邻台阶；未授权的相邻构件先保持，不能借衔接之名扩大全楼修改。

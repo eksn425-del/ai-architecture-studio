@@ -325,18 +325,22 @@ def _agent_prompt(context: ProjectContext, message: str, *, mcp_enabled: bool,
     )
 
 
-def _capture_agent_view(adapter: SketchUpAdapter, store: ProjectStore, project_id: str) -> Path | None:
-    project_dir = store.project_dir(project_id)
-    filename = f"agent-{uuid.uuid4().hex[:10]}.png"
-    connector_capture = ROOT / "artifacts" / "fast-assembly" / project_id / filename
+def _capture_project_view(adapter: SketchUpAdapter, project_dir: Path, filename: str) -> tuple[Path, dict[str, Any]]:
+    # The installed public connector pairs the data/runtime workspace, not the
+    # immutable program directory. Legacy adapters accept the same absolute path.
+    if Path(filename).name != filename or PureWindowsPath(filename).name != filename or Path(filename).suffix.lower() != ".png":
+        raise MCPCallError("A project screenshot must use a local PNG filename.")
     capture_path = project_dir / "outputs" / "renders" / filename
-    connector_capture.parent.mkdir(parents=True, exist_ok=True)
-    adapter.capture_view(connector_capture)
-    if not connector_capture.is_file():
-        return None
+    if capture_path.is_symlink() or not capture_path.parent.resolve().is_relative_to(project_dir.resolve()):
+        raise MCPCallError("A project screenshot cannot escape its project directory.")
     capture_path.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(connector_capture, capture_path)
-    return capture_path
+    result = adapter.capture_view(capture_path)
+    return capture_path, result
+
+
+def _capture_agent_view(adapter: SketchUpAdapter, store: ProjectStore, project_id: str) -> Path | None:
+    capture_path, _ = _capture_project_view(adapter, store.project_dir(project_id), f"agent-{uuid.uuid4().hex[:10]}.png")
+    return capture_path if capture_path.is_file() else None
 
 
 def _mcp_image_paths(store: ProjectStore, project_id: str) -> list[Path]:
@@ -1539,12 +1543,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             model_path = project_dir / "outputs" / "model" / f"{project_id}.skp"
             save_result = adapter.save_model(model_path, "AI Architecture Studio initial build")
             model_state.model_path = _relative(project_dir, model_path)
-            capture_path = project_dir / "outputs" / "renders" / "model-initial.png"
-            connector_capture = ROOT / "artifacts" / project_id / "model-initial.png"
-            connector_capture.parent.mkdir(parents=True, exist_ok=True)
-            capture_result = adapter.capture_view(connector_capture)
-            if connector_capture.exists():
-                shutil.copy2(connector_capture, capture_path)
+            capture_path, capture_result = _capture_project_view(adapter, project_dir, "model-initial.png")
             capture_exists = capture_path.exists()
             if capture_exists:
                 model_state.last_capture = _relative(project_dir, capture_path)
@@ -1687,12 +1686,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             model_state.last_operation = {"action": "modify_object", "stable_id": target.stable_id, "instruction": request.instruction, "readback": model_state.connector_readback}
             model_state.status = "edited"
             project_dir = store.project_dir(project_id)
-            capture_path = project_dir / "outputs" / "renders" / f"edit-{uuid.uuid4().hex[:8]}.png"
-            connector_capture = ROOT / "artifacts" / project_id / capture_path.name
-            connector_capture.parent.mkdir(parents=True, exist_ok=True)
-            adapter.capture_view(connector_capture)
-            if connector_capture.exists():
-                shutil.copy2(connector_capture, capture_path)
+            capture_path, _ = _capture_project_view(adapter, project_dir, f"edit-{uuid.uuid4().hex[:8]}.png")
             model_state.last_capture = _relative(project_dir, capture_path) if capture_path.exists() else model_state.last_capture
             model_path = project_dir / "outputs" / "model" / f"{project_id}.skp"
             save_result = adapter.save_model(model_path, "AI Architecture Studio edit checkpoint")
