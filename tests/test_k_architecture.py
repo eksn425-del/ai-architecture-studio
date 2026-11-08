@@ -118,3 +118,24 @@ def test_product_plan_requires_graph_and_records_binding(tmp_path,monkeypatch):
     monkeypatch.setattr(runtime,'_official_turn',turn)
     runtime.respond(project_dir=tmp_path,thread_id=None,prompt='',mcp_enabled=False,agent_action='plan')
     assert c.execution_parts()=={'Roof'}
+
+
+def test_execution_receives_current_core_skills_even_when_model_skips_read_tool(tmp_path,monkeypatch):
+    monkeypatch.delenv('KSTUDIO_DSH_CAPABILITIES',raising=False)
+    state={'harness_building':{'revision':1,'root_pid':19}}
+    c=context(tmp_path,stage='plan',state=state);bind(c)
+    (tmp_path/'state').mkdir();(tmp_path/'state/project_context.json').write_text(json.dumps({'conversation':c.conversation}))
+    monkeypatch.setattr('app.deepseek_studio.discover_project_reference_images',lambda _:[tmp_path/'ref.png'])
+    runtime=DeepSeekStudioRuntime(tmp_path,connection={'model':'deepseek-v4.1-flash','api_base':'https://example.invalid/v1','api_key':'fixture','mode':'codex-responses'},mcp=None)
+    monkeypatch.setattr(runtime.tool_surface,'prepare',lambda **_:
+        SimpleNamespace(dynamic_tools=[],quality_state={'views':{}},dispatch=lambda *_:None))
+    observed=[]
+    def turn(**kwargs):
+        observed.append(kwargs['instructions'])
+        return SimpleNamespace(reply='Fixture; no provider or native call.')
+    monkeypatch.setattr(runtime,'_official_turn',turn)
+    runtime.respond(project_dir=tmp_path,thread_id='old-fixture',prompt='继续',mcp_enabled=True,ruby_state=state,agent_action='execute')
+    assert len(observed)==1
+    for key in ('native','facade','spatial','edit'):
+        assert 'HOST-LOADED ARCHITECTURE SKILL '+key+' sha256=' in observed[0]
+    assert 'Face.pushpull' in observed[0]

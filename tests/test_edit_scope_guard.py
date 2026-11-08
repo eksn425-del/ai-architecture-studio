@@ -5,6 +5,18 @@ from app import project_ruby
 from app.project_ruby import ProjectRubyExecutor, validate_project_ruby_source
 
 
+def test_quarantined_source_is_rejected_before_any_native_call(tmp_path):
+    import hashlib
+    import pytest
+    from app.sketchup_mcp import MCPCallError
+    source='root.entities.add_group\n'
+    executor=_executor(tmp_path)
+    executor.ruby_state={'building':{'quarantined_source_sha256':[hashlib.sha256(source.encode()).hexdigest()]}}
+    executor._assert_active_model=lambda:pytest.fail('Quarantined source must not reach native inspection')
+    with pytest.raises(MCPCallError,match='exact source.*quarantined'):
+        executor.run({'script_id':'building','ruby_source':source})
+
+
 def _executor(tmp_path: Path):
     value = object.__new__(ProjectRubyExecutor)
     value.project_id = "test-edit-scope"

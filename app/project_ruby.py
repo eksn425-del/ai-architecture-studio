@@ -416,6 +416,9 @@ class ProjectRubyExecutor:
             raise MCPCallError("A previous native revision committed but its disk checkpoint is unconfirmed. Keep SketchUp open and recover before further writes; do not automatically repeat the previous write.")
         script_id = str(arguments.get("script_id") or "")
         ruby_source = validate_project_ruby_source(script_id, arguments.get("ruby_source"))
+        source_digest = hashlib.sha256(ruby_source.encode('utf-8')).hexdigest()
+        if source_digest in self.ruby_state.get(script_id,{}).get('quarantined_source_sha256',[]):
+            raise MCPCallError('This exact source previously left an uncertain native write and is quarantined. Read the current architecture skills and prepare a revised bounded script; no native operation was attempted.')
         update_mode = str(arguments.get("update_mode") or "replace")
         if update_mode not in {"replace", "edit"}:
             raise ValueError("update_mode must be replace or edit.")
@@ -646,6 +649,7 @@ class ProjectRubyExecutor:
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
             "durability_status": "unconfirmed",
+            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
         }
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")

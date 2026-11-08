@@ -74,6 +74,8 @@ def test_recovery_retains_original_unknown_and_uses_a_new_verified_copy(recovery
     assert json.loads(f.state.read_text())['scripts']['harness_building']['durability_status']=='recovered_verified_checkpoint'
     assert (f.runtime/'scripts/harness_building.rb').read_bytes()==f.source.read_bytes()
     assert f.session.status=='ready' and len(f.launched)==1
+    blocked=f.session.ruby_state['harness_building']['quarantined_source_sha256']
+    assert hashlib.sha256(b'failed candidate fixture source').hexdigest() in blocked
 
 
 @pytest.mark.parametrize('fault',['alive','checkpoint_hash','revision','source','report_owner'])

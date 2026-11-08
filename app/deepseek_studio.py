@@ -105,6 +105,12 @@ This directory belongs to this single architectural project. Preserve the user's
             instructions=self.instructions
             effort=self.effective_configuration.requested_effort
             if self.guidance=='architecture' and mcp_enabled:
+                # Core execution methods are host-selected context, not an
+                # optional first tool call that a resumed model can skip. Skill
+                # hashes also change the official session binding on upgrades.
+                for skill_id in ('native','facade','spatial','edit'):
+                    skill=architecture.read_skill({'id':skill_id})
+                    instructions+=f'\nHOST-LOADED ARCHITECTURE SKILL {skill_id} sha256={skill["sha256"]}; method guidance, not approval:\n'+skill['content']
                 instructions+='\nEXECUTION CADENCE: Your FIRST response must call kstudio_read_skill(native), kstudio_read_skill(facade) and sketchup_model_state. Do not precompute the entire building before this first call. Thereafter calculate and construct only the NEXT coherent system, read its result, then proceed. Planning is already approved. Never spend a response deriving all geometry without tools. Use repeated instances and concise payloads.'
             try:
                 result=self._official_turn(project=project,thread_id=thread_id,

@@ -114,6 +114,9 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     candidate=rows[0];probe=folder/'probe';probe.mkdir(exist_ok=True)
     write_selection(root,probe,candidate)
     recovered=copy.deepcopy(previous)
+    blocked=set(recovered[script_id].get('quarantined_source_sha256',[]))
+    blocked.add(sha(folder/'failed-source.rb'))
+    recovered[script_id]['quarantined_source_sha256']=sorted(blocked)
     with project_scope(probe):
         identity=adapter.get_active_model_identity()
         if (path_key(identity.get('model_path'))!=path_key(target) or identity.get('model_guid')!=candidate['model_guid']
