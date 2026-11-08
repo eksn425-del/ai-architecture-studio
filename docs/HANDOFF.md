@@ -1,3 +1,13 @@
+# 最新网页审查交接 — 2026-11-08
+
+用户现在要求将最新 Agent 全部代码与测试现状交给网页端审查。[本轮报告、六视图、失败及回归证据](test-results/windows/2026-11-08-wenchang-agent-review/README.md) 为最新入口，优先于下方历史快照。分支 `codex/kstudio-r3-launch-20261105` / PR27，实际测试代码 `9972d3ed8b9640335c0721213930a5dae784246f`。
+
+文昌灯塔六张私人参考原图，真实 K Studio 页面 + 官方 DeepSeek Harness + BAI Flash Responses / High，1017 未核实。模型已续建到 r11/root19，状态 PARTIAL：样板/玻璃/外罩/楼梯/场地已提交；外罩源图保真与楼梯局部质量尚未通过，r11 下载和原生重开 NOT_RUN。两次原生卡死/崩溃、未知提交、误判澄清和旧进程复用均保留。已核验的 r1 恢复不能冒充 r11 交付通过。
+
+本轮结束：88 settled + 2 unknown，无 reserved，总费用未知，不留下自动付费循环。先供网页审代码和实际视图，再续同一案例；不重建、不丢弃原模型与失败。安装桌面仍 beta03 seq10；最新源码未重新打包安装，商业 Beta 未上线。原图/SKP/密钥/原始对话保留在 E 盘私有目录。
+
+---
+
 # R3 implementation checkpoint — 2026-11-07
 
 Implementation continues on codex/kstudio-r3-launch-20261105, [PR27](https://github.com/eksn425-del/ai-architecture-studio/pull/27), preserving the R2 baseline, original installations/configurations/models and failed tests. Cloud account encryption/device restore, recent-auth, WeChat Native signing/ledger recovery, gateway budgets, website gates and deployment/backup operations are implemented. [Engineering evidence](test-results/windows/2026-11-07-r3-launch-candidate/README.md): local PostgreSQL 203 passed / 0 skipped; CI PostgreSQL 202 passed / 1 skipped and actual restricted Docker service passed. These are engineering results, not live Authing/customer payment/public deployment.

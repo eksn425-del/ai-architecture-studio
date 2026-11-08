@@ -1,0 +1,1 @@
+r11 宿主视觉检查：见 README 尚未通过。重点对照 views/front.png、views/right.png、views/oblique.png。外罩密网与透明度不能视为乳白面板已还原；原图私有，不在公共包内。
