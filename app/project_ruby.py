@@ -833,6 +833,7 @@ class ProjectRubyExecutor:
             "last_oss_method_adoption": method_adoption,
             "durable_checkpoint": durable_checkpoint,
             "durability_status": "saved_unverified_reopen",
+            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")

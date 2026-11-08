@@ -59,6 +59,19 @@ def test_continuation_keep_clause_is_not_execution_denial(tmp_path,message,expec
     assert request.message==message  # The actual user utterance is never rewritten.
 
 
+@pytest.mark.parametrize('message,expected', [
+    ('从恢复的骨架继续，保留已有部分。先做一扇窗的样板，检查后再展开整片后退玻璃。', 'execute'),
+    ('先做一扇窗的样板，等我确认后再展开整片玻璃。', 'no_execution'),
+    ('先做一扇窗的样板，如果我满意再展开整片玻璃。', 'no_execution'),
+])
+def test_internal_quality_sequence_never_erases_human_checkpoint(tmp_path,message,expected):
+    session,request,snap=setup(tmp_path,message)
+    session.reconstruction_state='building'
+    # Even a mistaken optimistic interpreter cannot override the explicit owner gate.
+    actual=validate_decision(decision(snap),snap,project=tmp_path,session=session,request=request)
+    assert actual in ({'execute'} if expected=='execute' else {'clarify','plan'})
+
+
 def test_no_rebuild_exception_cannot_grant_first_build_or_plan_change(tmp_path):
     session,request,snap=setup(tmp_path,'批准开始建模，不要重建。')
     assert validate_decision(decision(snap),snap,project=tmp_path,session=session,request=request)=='clarify'
