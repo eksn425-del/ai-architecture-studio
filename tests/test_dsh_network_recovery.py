@@ -100,6 +100,24 @@ def test_recovery_decision_cannot_be_silently_rewritten(tmp_path):
     with pytest.raises(ValueError,match='authorization changed'):TestBatchBudget(path,cfg)
 
 
+def test_additive_specific_operator_acknowledgement_keeps_originals_and_retry_limit(tmp_path):
+    path,cfg=setup_batch(tmp_path,10);policy_path=authorize(path);policy_before=policy_path.read_bytes()
+    budget=TestBatchBudget(path,cfg);data=request();budget.reserve(data);fail(budget,data,code=None);budget.close()
+    policy=json.loads(policy_before);record={'schema_version':1,'batch_id':policy['batch_id'],
+        'configuration_sha256':policy['configuration_sha256'],'attempt_id':data['attempt_id'],
+        'authorization':{'status':'granted','reference':'Fixture operator authorizes a new turn; unknown cancellation retained'}}
+    folder=path.with_name(path.stem+'.recovery-acknowledgements');folder.mkdir();target=folder/'decision.json';target.write_text(json.dumps(record))
+    budget=TestBatchBudget(path,cfg)
+    try:
+        for _ in range(2):new=request();budget.reserve(new);fail(budget,new)
+        with pytest.raises(ValueError,match='network retry limit'):budget.reserve(request())
+        with budget.connect() as db:assert db.execute('SELECT COUNT(*) FROM attempts WHERE status="unknown"').fetchone()==(3,)
+    finally:budget.close()
+    assert policy_path.read_bytes()==policy_before
+    record['authorization']['reference']='rewritten';target.write_text(json.dumps(record))
+    with pytest.raises(ValueError,match='acknowledgement changed'):TestBatchBudget(path,cfg)
+
+
 @pytest.mark.parametrize('protocol',['openai-completions','openai-responses'])
 @pytest.mark.parametrize('failures',[1,3])
 def test_actual_official_sdk_recovers_or_stops_after_two_retries(tmp_path,monkeypatch,protocol,failures):

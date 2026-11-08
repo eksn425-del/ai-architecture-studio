@@ -168,27 +168,32 @@ def _read_frames(data: bytes) -> list[dict[str, Any]]:
 class ConfiguredSketchUpMCP:
     """Stdio client for an explicitly paired public or legacy MCP server."""
 
-    def __init__(self, timeout_seconds: int = 15):
-        self.timeout_seconds = timeout_seconds
+    def __init__(self, timeout_seconds: int | None = None):
+        self.timeout_seconds = timeout_seconds if timeout_seconds is not None else 15
+        self.automatic_deadlines = timeout_seconds is None
 
     def _request(self, requests: list[dict[str, Any]], response_id: int) -> dict[str, Any]:
         command, configured_env, configured_cwd = _resolve_server()
         environment = os.environ.copy()
         environment.update(configured_env)
         payload = b"".join(_frame(message) for message in requests)
+        from .connector_deadlines import native_response_timeout
+        response_window=max((native_response_timeout(r.get('params',{}).get('name'))
+            for r in requests if r.get('method')=='tools/call'),default=12)
+        timeout=max(self.timeout_seconds,response_window+3) if self.automatic_deadlines else self.timeout_seconds
         try:
             completed = subprocess.run(
                 command,
                 input=payload,
                 capture_output=True,
-                timeout=self.timeout_seconds,
+                timeout=timeout,
                 cwd=configured_cwd or str(Path(__file__).resolve().parents[1]),
                 env=environment,
                 check=False,
                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except subprocess.TimeoutExpired as error:
-            raise MCPCallError(f"The existing SketchUp MCP did not respond within {self.timeout_seconds} seconds.") from error
+            raise MCPCallError(f"The existing SketchUp MCP did not respond within {timeout} seconds.") from error
         except OSError as error:
             raise ConnectorUnavailable(f"The existing SketchUp MCP could not be started: {error}") from error
 

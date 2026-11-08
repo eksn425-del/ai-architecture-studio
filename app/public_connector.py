@@ -107,7 +107,9 @@ def verified(envelope, token):
     return json.loads(envelope['body'])
 
 
-def call(name, arguments=None, *, root=None, timeout=12):
+def call(name, arguments=None, *, root=None, timeout=None):
+    from .connector_deadlines import native_response_timeout
+    if timeout is None:timeout=native_response_timeout(name)
     if name not in TOOL_NAMES:
         raise ValueError('Unsupported public connector tool')
     root = Path(root or root_dir())

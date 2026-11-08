@@ -1370,7 +1370,27 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if any(not isinstance(state, dict) or state.get("durability_status") == "unconfirmed" for state in scripts):
                 raise ValueError("uncertain native commit")
         except (OSError, ValueError, AttributeError, TypeError):
-            raise HTTPException(status_code=409, detail="原生提交的保存状态尚未核实，自动恢复已禁用。请保留当前 SketchUp 模型、committed-revisions 和失败记录；不能通过旧检查点清除隔离状态。") from None
+            from .native_checkpoint_recovery import recover_saved_checkpoint
+            try:
+                target, recovery = recover_saved_checkpoint(project_dir, session, app.state.sketchup,
+                    app.state.disposable_model_launcher)
+            except (OSError, ValueError, RuntimeError, MCPCallError) as error:
+                raise HTTPException(status_code=409, detail="原生提交的保存状态尚未核实，自动恢复已禁用。原窗口仍运行时不能恢复；退出后可核验已保存版本。原模型、committed-revisions 和失败记录保持隔离。 " + str(error)) from None
+            session.updated_at = utc_now()
+            store.save_state(project_id, session, "agent_session.json")
+            model_state = store.load_state(project_id, "model_state.json", ModelState)
+            model_state.model_path = _relative(project_dir, target)
+            model_state.last_operation = {"action":"recover_durable_checkpoint", "status":"recovered",
+                "restored_revision":recovery["restored_revision"], "uncertain_operation_replayed":False}
+            store.save_state(project_id, model_state, "model_state.json")
+            manifest = store.load_state(project_id, "output_manifest.json", OutputManifest)
+            manifest.model_captures.append(_artifact(project_id, project_dir, target, "skp"))
+            store.save_state(project_id, manifest, "output_manifest.json")
+            context = store.load_context(project_id)
+            _append_conversation(context, "assistant", "agent", session.last_reply,
+                {"agent_action":"recovery", "workflow_mode":session.workflow_mode})
+            store.save_state(project_id, context, "project_context.json")
+            return {"project":store.load_project(project_id), "reply":session.last_reply}
         snapshot = project_dir / "outputs/model/previous-agent-checkpoint.skp"
         if current is None or not current.is_file() or not snapshot.is_file() or snapshot.is_symlink():
             raise HTTPException(status_code=409, detail="没有可恢复的项目检查点；请保持当前 SketchUp 打开。")

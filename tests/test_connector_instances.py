@@ -300,6 +300,7 @@ def test_official_turn_dispatch_enters_project_scope_inside_real_http_worker(tmp
     runtime.model = 'deepseek-v4.1-flash'
     runtime.home = tmp_path/'home'
     runtime.session_identity = 'local-fixture'
+    runtime.platform_turn_id = None
     runtime._dsh_active = {}
     runtime.api_provider = SimpleNamespace(api_base='https://fixture.invalid/v1', api_key='test-only')
     runtime.effective_configuration = resolve_configuration({'model':runtime.model, 'api_base':runtime.api_provider.api_base, 'reasoning_effort':'high'})

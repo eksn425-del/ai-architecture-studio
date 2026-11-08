@@ -52,6 +52,7 @@ class TestBatchBudget:
         self.digest=hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':')).encode()).hexdigest()
         self.database=self.path.parent/'dsh-test-batches.sqlite3'
         self.recovery=self._recovery_policy(configuration.request_retries)
+        self.additional_acknowledgements=set()
         self.lease_root=self.path.parent/'.dsh-test-owners'
         self.lease=LocalRuntimeLease(self.lease_root/self.owner).acquire()
         try:
@@ -70,7 +71,9 @@ class TestBatchBudget:
                     for attempt in self.recovery['acknowledged_unknown_attempts']:
                         row=db.execute('SELECT status FROM attempts WHERE batch=? AND id=?',(self.batch,attempt)).fetchone()
                         if row!=('unknown',):raise ValueError('Recovery acknowledgement must name an existing unknown attempt in this batch')
-                    db.execute('INSERT OR IGNORE INTO recovery_authorizations VALUES (?,?,?,?)',(self.batch,policy_hash,json.dumps(self.recovery),time.time()));db.commit()
+                    db.execute('INSERT OR IGNORE INTO recovery_authorizations VALUES (?,?,?,?)',(self.batch,policy_hash,json.dumps(self.recovery),time.time()))
+                    self._record_acknowledgements(db)
+                    db.commit()
         except BaseException:self.lease.release();raise
 
     def _recovery_policy(self,configured_retries):
@@ -101,6 +104,37 @@ class TestBatchBudget:
             raise ValueError('Invalid test recovery acknowledgement')
         return policy
 
+    def _record_acknowledgements(self,db):
+        """Append an operator decision without rewriting the original policy.
+
+        These explicit, attempt-specific records are not usage reconciliation,
+        a paid replay or native-write authorization. Original unknowns remain.
+        """
+        db.execute('CREATE TABLE IF NOT EXISTS recovery_acknowledgements(batch TEXT,attempt TEXT,record_hash TEXT NOT NULL,authorization_json TEXT NOT NULL,created REAL NOT NULL,PRIMARY KEY(batch,attempt))')
+        folder=self.path.with_name(self.path.stem+'.recovery-acknowledgements')
+        if folder.is_symlink():raise ValueError('Invalid test recovery acknowledgement directory')
+        paths=list(folder.glob('*.json'))
+        if len(paths)>self.config['max_requests']:raise ValueError('Too many recovery acknowledgement records')
+        for path in paths:
+            if path.is_symlink() or path.stat().st_size>16384:raise ValueError('Invalid test recovery acknowledgement record')
+            record=json.loads(path.read_text(encoding='utf-8-sig'))
+            if not isinstance(record,dict):raise ValueError('Invalid test recovery acknowledgement record')
+            auth=record.get('authorization',{})
+            attempt=record.get('attempt_id')
+            if (record.get('schema_version')!=1 or record.get('batch_id')!=self.batch
+                or record.get('configuration_sha256')!=self.digest
+                or not isinstance(attempt,str) or not re.fullmatch(r'[a-f0-9-]{36}',attempt)
+                or not isinstance(auth,dict) or auth.get('status')!='granted'
+                or not isinstance(auth.get('reference'),str) or not auth['reference'].strip()):
+                raise ValueError('Invalid test recovery acknowledgement record')
+            if db.execute('SELECT status FROM attempts WHERE batch=? AND id=?',(self.batch,attempt)).fetchone()!=('unknown',):
+                raise ValueError('Recovery acknowledgement must name an existing unknown attempt in this batch')
+            digest=hashlib.sha256(json.dumps(record,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+            old=db.execute('SELECT record_hash FROM recovery_acknowledgements WHERE batch=? AND attempt=?',(self.batch,attempt)).fetchone()
+            if old and old[0]!=digest:raise ValueError('Test recovery acknowledgement changed; existing ledger preserved')
+            db.execute('INSERT OR IGNORE INTO recovery_acknowledgements VALUES (?,?,?,?,?)',(self.batch,attempt,digest,json.dumps(record),time.time()))
+        self.additional_acknowledgements={r[0] for r in db.execute('SELECT attempt FROM recovery_acknowledgements WHERE batch=?',(self.batch,))}
+
     @contextmanager
     def connect(self):
         db=sqlite3.connect(self.database,timeout=20)
@@ -129,7 +163,7 @@ class TestBatchBudget:
             unknown=db.execute("SELECT id,usage_json FROM attempts WHERE batch=? AND status='unknown'",(self.batch,)).fetchall()
             if unknown:
                 policy=self.recovery
-                acknowledged=set(policy['acknowledged_unknown_attempts']) if policy else set()
+                acknowledged=set(policy['acknowledged_unknown_attempts'])|self.additional_acknowledgements if policy else set()
                 if not policy or any(a not in acknowledged and json.loads(raw or '{}').get('error_code') not in ('TRANSPORT','TIMEOUT') for a,raw in unknown):
                     db.commit();raise ValueError('Test batch has unknown provider liability; no new request dispatched')
                 # Success starts a new network-recovery sequence. A maximum of

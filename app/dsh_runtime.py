@@ -21,7 +21,10 @@ def host_refusal(error, path):
     reason = str(error)
     code = 'INVALID_HOST_REQUEST'
     message = '工具请求不符合当前协议，已停止；请联系维护者检查项目记录。'
-    if reason == 'Test batch has unknown provider liability; no new request dispatched':
+    if reason == 'Native recovery required; no new provider request':
+        code = 'NATIVE_RECOVERY_REQUIRED'
+        message = '模型写入结果尚未确认，已停止后续模型请求。已有模型和失败记录已保留，请先核验恢复。'
+    elif reason == 'Test batch has unknown provider liability; no new request dispatched':
         code = 'USAGE_RECONCILIATION_REQUIRED'
         message = '模型服务连接中断或返回不完整，本次用量待核对。已阻止自动再次发送付费请求；已有模型和项目记录已保留。请核对服务商记录后继续。'
     elif reason == 'Test network retry limit reached; unknown usage preserved; no new request dispatched':
@@ -107,6 +110,7 @@ def write_profile(path, *, api_base, model, protocol="openai-responses", max_tok
 class DSHHostSession:
     def __init__(self, *, home, workspace, api_base, api_key, model, specs, dispatch, trace_path,
                  sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None, request_headers=None):
+        self.native_recovery_required = False
         if effective_configuration is None:
             from .dsh_configuration import resolve_configuration
             effective_configuration=resolve_configuration({'api_base':api_base,'model':model,'mode':'codex-responses' if protocol=='openai-responses' else 'compatible','reasoning_effort':reasoning_effort})
@@ -145,6 +149,12 @@ class DSHHostSession:
                 return hmac.compare_digest(self.headers.get('Authorization',''),'Bearer '+parent.token)
             def do_GET(self):
                 if not self.authorized(): return self.reply({},403)
+                if self.path=='/provider-ready':
+                    if parent.native_recovery_required:
+                        return self.reply(host_refusal(ValueError('Native recovery required; no new provider request'),self.path),409)
+                    if parent.cancelled:
+                        return self.reply(host_refusal(ValueError('Turn cancelled'),self.path),409)
+                    return self.reply({'ok':True})
                 if self.path=='/control':
                     if parent.cancelled:parent.interactions.cancel()
                     return self.reply({'cancelled':parent.cancelled})
@@ -162,7 +172,10 @@ class DSHHostSession:
                     data=json.loads(self.rfile.read(size))
                     if self.path.startswith('/test-budget/'):
                         if parent.test_budget is None:raise ValueError('Finite test budget not enabled')
-                        if self.path=='/test-budget/reserve':return self.reply(parent.test_budget.reserve(data))
+                        if self.path=='/test-budget/reserve':
+                            if parent.native_recovery_required:raise ValueError('Native recovery required; no new provider request')
+                            if parent.cancelled:raise ValueError('Turn cancelled')
+                            return self.reply(parent.test_budget.reserve(data))
                         if self.path=='/test-budget/settle':return self.reply(parent.test_budget.settle(data))
                         return self.reply({},404)
                     if self.path=='/interaction':
@@ -202,6 +215,12 @@ class DSHHostSession:
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
+                    if (name=='sketchup_run_workspace_ruby' and result.get('success') is False
+                        and any(marker in str(result.get('error','')) for marker in (
+                            'The native write may have committed', 'Native write outcome or disk checkpoint is unconfirmed'))):
+                        parent.native_recovery_required=True
+                        parent.cancelled=True
+                        parent.record({'event':'native_recovery_required','further_provider_requests':'BLOCKED'})
                     if event['success'] and isinstance(result.get('construction_step'), dict):
                         parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
@@ -302,6 +321,10 @@ class DSHHostSession:
             input_tokens=incoming,output_tokens=outgoing,tool_calls=[{'tool':c['name'],'status':'completed' if c['success'] else 'failed'} for c in self.calls],
             status='interrupted' if self.cancelled else 'completed',cancellation_requested=self.cancelled,
             failed_tool_calls=sum(not c['success'] for c in self.calls))
+        if self.native_recovery_required:
+            failure=NativeAgentUnavailable('[NATIVE_RECOVERY_REQUIRED] 模型写入结果尚未确认，已停止后续模型请求。已有模型和失败记录已保留，请先核验恢复。')
+            failure.partial_result=turn
+            raise failure
         if result.finish_reason == 'aborted' and self.cancelled:
             # A user stop acknowledged by the SDK is an interrupted turn, not
             # provider unavailability. The caller checkpoints committed geometry.
