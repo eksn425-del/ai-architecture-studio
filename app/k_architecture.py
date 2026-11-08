@@ -17,6 +17,7 @@ TITLES = ('参考图与建筑解读', '空间与构造关系', '立面样板与�
 GUIDANCE = '''You are K Harness, K Studio's architectural agent, based on official DeepSeek Harness.
 Use kstudio_read_skill to load relevant architectural methods from the supplied catalog, not imaginary installed skills. During planning read reference and spatial; before construction read native and facade; before local edits read edit; before finishing read delivery.
 During planning save a compact design graph with kstudio_save_design_graph BEFORE sketchup_save_plan. The graph records evidence/estimates, level schedule, semantic parts, critical spatial relationships and this task's edit_parts. During an edit retain the whole-building graph and list only the intended changed/new direct parts in edit_parts; all other parts remain protected. A graph is your proposal, never a user's instruction or approval. The host binds graph SHA to the saved plan; do not modify a graph after approval.
+For multiple references, source_coverage must classify EVERY supplied source exactly once with role, use and evidence. Reconcile overall views, closeups and the site/roof plan using shared corners, landings and openings. A site plan without dimensions is not a measured scale or floor plan. Mark context-only or unresolved views honestly; coverage is not visual acceptance. Do not invent a separate building for each image or silently ignore less convenient views.
 Persist coordinate_frame, scale_anchors, critical_features (split levels, cantilevers, voids, stair/landing and mass relationships) and remaining_work in the optional spatial graph field. Keep observed, user-known and inferred dimensions distinct. A facade unification request preserves these accepted spatial facts; any intended high-impact change needs an explicit change_rationale in a newly approved plan.
 Read the supplied original reference pixels: empty/open floors and negative spaces matter as much as solids. Keep floor count, slab levels, facade repetition and structural endpoints consistent. Validate a representative module before repetition. Do not turn elevation waves into plan curves or replace separated sloping members with generic X braces.
 Use only tools actually listed for this stage. Discussion has no geometry tools. If tools are absent, discuss the proposal naturally; never pretend to have inspected/built anything. Do not ask the user to run commands.
@@ -42,9 +43,9 @@ def catalog():
     return [{'id': key, 'title': title, 'sha256': digest((PACK / f'{key}.md').read_bytes())}
             for key, title in zip(IDS, TITLES)]
 
-def validate_graph(graph, source_ids):
-    if not isinstance(graph, dict) or set(graph)-{'spatial'} != {'summary', 'facts', 'levels', 'parts', 'relationships', 'edit_parts'}:
-        raise ValueError('Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; only spatial is optional. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames.')
+def validate_graph(graph, source_ids, *, require_source_coverage=False):
+    if not isinstance(graph, dict) or set(graph)-{'spatial', 'source_coverage'} != {'summary', 'facts', 'levels', 'parts', 'relationships', 'edit_parts'}:
+        raise ValueError('Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; spatial and source_coverage are optional legacy extensions. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames.')
     if not isinstance(graph['summary'], str) or not 10 <= len(graph['summary']) <= 2000:
         raise ValueError('Provide a concise architectural summary.')
     for key, maximum in [('facts', 40), ('levels', 100), ('parts', 64), ('relationships', 40), ('edit_parts', 32)]:
@@ -74,6 +75,24 @@ def validate_graph(graph, source_ids):
         last=z
     if any(not isinstance(r,str) or not 1<=len(r)<=1200 for r in graph['relationships']):
         raise ValueError('Describe bounded spatial relationships including intended voids and member endpoints.')
+    coverage = graph.get('source_coverage')
+    if require_source_coverage and len(source_ids) > 1 and coverage is None:
+        raise ValueError('多视图方案需提供 source_coverage，逐一说明每张参考图的作用、观察或未解决内容；不能漏图。')
+    if coverage is not None:
+        if not isinstance(coverage, list) or len(coverage) != len(source_ids):
+            raise ValueError('source_coverage must classify every supplied source exactly once.')
+        seen = set()
+        for row in coverage:
+            if not isinstance(row, dict) or set(row) != {'source', 'role', 'use', 'evidence'}:
+                raise ValueError('Source coverage needs source, role, use and evidence.')
+            source = row['source']
+            if not isinstance(source, str) or source not in source_ids or source in seen:
+                raise ValueError('Source coverage contains a missing, duplicate or unknown source ID.')
+            seen.add(source)
+            if (not isinstance(row['role'], str) or row['role'] not in {'overall', 'plan', 'detail', 'context', 'style', 'uncertain'}
+                    or not isinstance(row['use'], str) or row['use'] not in {'used', 'context_only', 'unresolved'}
+                    or not isinstance(row['evidence'], str) or not 10 <= len(row['evidence'].strip()) <= 1200):
+                raise ValueError('Classify source role/use and describe bounded observations or the unresolved reason.')
     if "spatial" in graph:
         from .spatial_handoff import validate_spatial
         validate_spatial(graph["spatial"], set(names), source_ids)
@@ -95,6 +114,15 @@ def specs(stage):
                        'inputSchema':{'type':'object','properties':{},'additionalProperties':False}})
     for spec in result:
         if spec['name']=='kstudio_save_design_graph':
+            spec['description'] += ' New multi-view plans require source_coverage for every supplied image; this records use, not visual acceptance.'
+            spec['inputSchema']['properties']['source_coverage'] = {
+                'type': 'array', 'maxItems': 8,
+                'items': {'type': 'object', 'properties': {
+                    'source': {'type': 'string'},
+                    'role': {'type': 'string', 'enum': ['overall', 'plan', 'detail', 'context', 'style', 'uncertain']},
+                    'use': {'type': 'string', 'enum': ['used', 'context_only', 'unresolved']},
+                    'evidence': {'type': 'string', 'minLength': 10, 'maxLength': 1200}},
+                    'required': ['source', 'role', 'use', 'evidence'], 'additionalProperties': False}}
             from .spatial_handoff import spatial_schema
             spec['inputSchema']['properties']['spatial']=spatial_schema()
     return result
@@ -132,7 +160,7 @@ class ArchitectureContext:
 
     def save_graph(self, graph):
         if self.stage!='plan':raise ValueError('Design graph can only change during planning, never after approval.')
-        validate_graph(graph,{s['id'] for s in self.images})
+        validate_graph(graph,{s['id'] for s in self.images}, require_source_coverage=True)
         previous=load_json(self.graph_path,{})
         if self.state.get('harness_building') and previous:
             protected=set(previous.get('parts',[]))-set(graph['edit_parts'])
@@ -150,7 +178,7 @@ class ArchitectureContext:
 
     def bind_plan(self):
         graph=load_json(self.graph_path,None)
-        validate_graph(graph,{s['id'] for s in self.images})
+        validate_graph(graph,{s['id'] for s in self.images}, require_source_coverage=True)
         binding={'graph_sha256':digest(graph),'plan_sha256':digest(self.card.read_bytes()),'sources':self.images,
                  'edit_parts':graph['edit_parts'], 'approval_granted':False}
         write_json(self.receipt_path,binding)
