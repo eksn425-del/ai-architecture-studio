@@ -27,6 +27,10 @@ def authorization_veto(message: str, *, existing_model: bool = False) -> str | N
     text=re.sub(r"不要修改(?:其他|其余|未涉及|未选中)[^，。；\n]*", "", message)
     text=re.sub(r"不要执行旧(?:整栋)?(?:基线|脚本|计划)", "", text)
     if existing_model:
+        # A KEEP restriction on an already-approved continuation is not a stop.
+        # Remove only this standalone clause, not an arbitrary negative phrase.
+        # Intent/provenance/plan checks still decide whether execution is allowed.
+        text=re.sub(r"不要重建(?=[，。；\n]|$)", "", text)
         # A requested correction to an existing enclosure is not a global stop.
         # This removes only the observed design restriction from the veto scan;
         # the actual message, read-only intent decision, scope and KEEP stay intact.

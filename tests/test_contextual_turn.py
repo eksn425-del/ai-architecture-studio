@@ -41,6 +41,31 @@ def test_existing_model_design_restriction_cannot_hide_a_real_stop(tmp_path, mes
     assert validate_decision(decision(snap),snap,project=tmp_path,session=s,request=r)==expected
 
 
+@pytest.mark.parametrize('message,expected', [
+    ('继续刚才已批准的方案，从现有骨架接着搭建，不要重建。先完成后退玻璃和折面外罩，再完成连通的外楼梯。', 'execute'),
+    ('不要重建，继续建模。', 'execute'),
+    ('不要重建。', 'clarify'),
+    ('不要重建，先暂停施工。', 'clarify'),
+    ('不要重建，先别修改。', 'clarify'),
+    ('不要重建，不要执行。', 'clarify'),
+    ('如果继续，不要重建。', 'clarify'),
+    ('能不能继续，不要重建？', 'clarify'),
+    ('继续刚才的方案，不要重建后开始建模。', 'clarify'),
+])
+def test_continuation_keep_clause_is_not_execution_denial(tmp_path,message,expected):
+    session,request,snap=setup(tmp_path,message)
+    session.reconstruction_state='building'
+    assert validate_decision(decision(snap),snap,project=tmp_path,session=session,request=request)==expected
+    assert request.message==message  # The actual user utterance is never rewritten.
+
+
+def test_no_rebuild_exception_cannot_grant_first_build_or_plan_change(tmp_path):
+    session,request,snap=setup(tmp_path,'批准开始建模，不要重建。')
+    assert validate_decision(decision(snap),snap,project=tmp_path,session=session,request=request)=='clarify'
+    session.reconstruction_state='building'
+    assert validate_decision(decision(snap,changes_plan=True),snap,project=tmp_path,session=session,request=request)=='plan'
+
+
 @pytest.mark.parametrize('message,changes,expected',[
  ('我批准，但三层改四层',{'changes_plan':True},'plan'),
  ('我没有批准',{'action':'clarify'},'clarify'),
