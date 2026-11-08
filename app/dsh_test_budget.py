@@ -51,6 +51,7 @@ class TestBatchBudget:
         self.batch=c['batch_id'];self.owner=uuid.uuid4().hex
         self.digest=hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':')).encode()).hexdigest()
         self.database=self.path.parent/'dsh-test-batches.sqlite3'
+        self.recovery=self._recovery_policy(configuration.request_retries)
         self.lease_root=self.path.parent/'.dsh-test-owners'
         self.lease=LocalRuntimeLease(self.lease_root/self.owner).acquire()
         try:
@@ -60,7 +61,45 @@ class TestBatchBudget:
                 old=db.execute('SELECT config_hash FROM batches WHERE id=?',(self.batch,)).fetchone()
                 if old and old[0]!=self.digest:raise ValueError('Test batch configuration changed; existing ledger preserved')
                 db.execute('INSERT OR IGNORE INTO batches VALUES (?,?)',(self.batch,self.digest));db.commit()
+                if self.recovery is not None:
+                    db.execute('BEGIN IMMEDIATE')
+                    db.execute('CREATE TABLE IF NOT EXISTS recovery_authorizations(batch TEXT PRIMARY KEY,policy_hash TEXT NOT NULL,policy_json TEXT NOT NULL,created REAL NOT NULL)')
+                    policy_hash=hashlib.sha256(json.dumps(self.recovery,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+                    previous=db.execute('SELECT policy_hash FROM recovery_authorizations WHERE batch=?',(self.batch,)).fetchone()
+                    if previous and previous[0]!=policy_hash:raise ValueError('Test recovery authorization changed; existing ledger preserved')
+                    for attempt in self.recovery['acknowledged_unknown_attempts']:
+                        row=db.execute('SELECT status FROM attempts WHERE batch=? AND id=?',(self.batch,attempt)).fetchone()
+                        if row!=('unknown',):raise ValueError('Recovery acknowledgement must name an existing unknown attempt in this batch')
+                    db.execute('INSERT OR IGNORE INTO recovery_authorizations VALUES (?,?,?,?)',(self.batch,policy_hash,json.dumps(self.recovery),time.time()));db.commit()
         except BaseException:self.lease.release();raise
+
+    def _recovery_policy(self,configured_retries):
+        """An additive owner decision, never a rewritten budget or usage receipt.
+
+        Only transport/timeouts can continue. Cancellation, crashed owners and
+        other unknowns still require investigation. The SDK owns actual retry
+        execution; this ledger counts every dispatch, including failed retries.
+        """
+        path=self.path.with_name(self.path.stem+'.recovery.json')
+        if not path.exists():return None
+        if path.is_symlink() or path.stat().st_size>16384:raise ValueError('Invalid test recovery authorization')
+        policy=json.loads(path.read_text(encoding='utf-8-sig'))
+        if not isinstance(policy,dict):raise ValueError('Invalid test recovery authorization')
+        auth=policy.get('authorization',{})
+        if (policy.get('schema_version')!=1 or policy.get('batch_id')!=self.batch
+            or policy.get('configuration_sha256')!=self.digest
+            or policy.get('mode')!='bounded-network-retry'
+            or not isinstance(auth,dict) or auth.get('status')!='granted'
+            or not isinstance(auth.get('reference'),str) or not auth['reference'].strip()
+            or type(policy.get('max_consecutive_retries')) is not int
+            or not 1<=policy['max_consecutive_retries']<=min(2,configured_retries)):
+            raise ValueError('Invalid test recovery authorization')
+        acknowledged=policy.get('acknowledged_unknown_attempts')
+        if (not isinstance(acknowledged,list) or len(acknowledged)>self.config['max_requests']
+            or any(not isinstance(a,str) or not re.fullmatch(r'[a-f0-9-]{36}',a) for a in acknowledged)
+            or len(set(acknowledged))!=len(acknowledged)):
+            raise ValueError('Invalid test recovery acknowledgement')
+        return policy
 
     @contextmanager
     def connect(self):
@@ -87,8 +126,19 @@ class TestBatchBudget:
                 except RuntimeError:continue
                 else:
                     probe.release();db.execute("UPDATE attempts SET status='unknown' WHERE batch=? AND owner=? AND status='reserved'",(self.batch,owner))
-            if db.execute("SELECT 1 FROM attempts WHERE batch=? AND status='unknown'",(self.batch,)).fetchone():
-                db.commit();raise ValueError('Test batch has unknown provider liability; no new request dispatched')
+            unknown=db.execute("SELECT id,usage_json FROM attempts WHERE batch=? AND status='unknown'",(self.batch,)).fetchall()
+            if unknown:
+                policy=self.recovery
+                acknowledged=set(policy['acknowledged_unknown_attempts']) if policy else set()
+                if not policy or any(a not in acknowledged and json.loads(raw or '{}').get('error_code') not in ('TRANSPORT','TIMEOUT') for a,raw in unknown):
+                    db.commit();raise ValueError('Test batch has unknown provider liability; no new request dispatched')
+                # Success starts a new network-recovery sequence. A maximum of
+                # two further dispatches can follow its first failure, across
+                # process restarts AND concurrent subagents. Unknowns remain.
+                last_success=db.execute("SELECT COALESCE(MAX(created),0) FROM attempts WHERE batch=? AND status='settled'",(self.batch,)).fetchone()[0]
+                outstanding=db.execute("SELECT COUNT(*) FROM attempts WHERE batch=? AND status IN ('unknown','reserved') AND created>?",(self.batch,last_success)).fetchone()[0]
+                if outstanding>policy['max_consecutive_retries']:
+                    db.commit();raise ValueError('Test network retry limit reached; unknown usage preserved; no new request dispatched')
             if db.execute('SELECT 1 FROM attempts WHERE id=?',(attempt,)).fetchone():raise ValueError('Attempt already reserved; do not replay')
             count,total=db.execute('SELECT COUNT(*),COALESCE(SUM(reservation),0) FROM attempts WHERE batch=?',(self.batch,)).fetchone()
             if count>=c['max_requests'] or total+c['reserved_tokens_per_request']>c['max_reserved_tokens']:
@@ -104,6 +154,7 @@ class TestBatchBudget:
 
     def settle(self,data):
         attempt=data.get('attempt_id');usage=data.get('usage');reason=data.get('finish_reason')
+        error_code=data.get('error_code') if data.get('error_code') in ('TRANSPORT','TIMEOUT','RATE_LIMIT','SERVER','AUTHENTICATION','QUOTA') else None
         known=(reason in ('stop','tool-calls','max-tokens') and isinstance(usage,dict)
                and all(type(usage.get(k)) is int and usage[k]>=0 for k in ('inputTokens','outputTokens')))
         if known and type(usage.get('totalTokens')) is int and usage['totalTokens']>self.config['reserved_tokens_per_request']:known=False
@@ -114,7 +165,7 @@ class TestBatchBudget:
             row=db.execute('SELECT status,usage_json FROM attempts WHERE id=? AND batch=? AND owner=?',(attempt,self.batch,self.owner)).fetchone()
             if not row:raise ValueError('Unknown test reservation')
             if row[0]!='reserved':raise ValueError('Test reservation already finalized; no replay')
-            db.execute('UPDATE attempts SET status=?,usage_json=? WHERE id=?',(state,json.dumps({**json.loads(row[1] or '{}'),'usage':usage,'finish_reason':reason}),attempt));db.commit()
+            db.execute('UPDATE attempts SET status=?,usage_json=? WHERE id=?',(state,json.dumps({**json.loads(row[1] or '{}'),'usage':usage,'finish_reason':reason,'error_code':error_code}),attempt));db.commit()
         return {'status':state}
 
     def close(self):

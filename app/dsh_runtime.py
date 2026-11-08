@@ -24,6 +24,9 @@ def host_refusal(error, path):
     if reason == 'Test batch has unknown provider liability; no new request dispatched':
         code = 'USAGE_RECONCILIATION_REQUIRED'
         message = '模型服务连接中断或返回不完整，本次用量待核对。已阻止自动再次发送付费请求；已有模型和项目记录已保留。请核对服务商记录后继续。'
+    elif reason == 'Test network retry limit reached; unknown usage preserved; no new request dispatched':
+        code = 'NETWORK_RETRIES_EXHAUSTED'
+        message = '模型服务连续连接失败，已到两次重试的边界。未知用量和已有模型已保留；请稍后检查网络再继续。'
     elif reason in {'Finite test batch ceiling reached; no new request dispatched', 'Finite test run ceiling reached; no new request dispatched'}:
         code = 'TEST_BUDGET_EXHAUSTED'
         message = '本次测试已到已登记的请求边界，未继续发送模型请求；已有模型和项目记录已保留。'
