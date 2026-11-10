@@ -40,11 +40,119 @@ def regular(path,root):
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _atomic_bytes(path, data):
+    temporary=path.with_name(path.name+'.'+uuid.uuid4().hex+'.tmp')
+    with temporary.open('xb') as stream:
+        stream.write(data);stream.flush();os.fsync(stream.fileno())
+    os.replace(temporary,path)
+
+
+def _finish_activation(project,session,adapter,root,pending_file,attempt,launcher):
+    """Resume a journaled multi-file activation; never execute model source.
+
+    All destinations must still contain either the journal's old or new bytes.
+    A writer is blocked while this journal exists. Native identity/deep evidence
+    is checked again on every continuation, including after a host restart.
+    """
+    from .connector_instances import instances,path_key,read_selection,write_selection,project_scope
+    from .public_connector import atomic_write
+    folder=(project/attempt['folder']).resolve()
+    journal=json.loads(regular(folder/'activation.private.json',project/'runtime').read_text(encoding='utf8'))
+    target=regular(project/attempt['target'],project/'outputs/model')
+    checkpoint=regular(project/journal['checkpoint'],project/'outputs/model/committed-revisions')
+    if sha(target)!=attempt['checkpoint_sha256'] or sha(checkpoint)!=attempt['checkpoint_sha256']:
+        raise ValueError('Recovery activation model/checkpoint bytes changed')
+    old=journal['old_selection'];candidate=journal['candidate']
+    if not process_exited(int(old['instance_id'].split('-')[0])):
+        raise ValueError('Original uncertain process has not exited')
+    selected=read_selection(root,project)
+    def same_pin(left,right):
+        return (isinstance(left,dict) and left.get('instance_id')==right.get('instance_id')
+            and left.get('model_guid')==right.get('model_guid')
+            and path_key(left.get('model_path'))==path_key(right.get('model_path')))
+    if selected!=old and not any(same_pin(selected,row) for row in [candidate,*journal.get('prior_candidates',[])]):
+        raise ValueError('Recovery activation selection changed')
+    rows=[r for r in instances(root) if r['status']=='live' and r['instance_id']==candidate['instance_id']
+          and path_key(r.get('model_path'))==path_key(target) and r.get('model_guid')==candidate['model_guid']]
+    # Signed heartbeats can remain within their TTL after a process exits.
+    # Do not send an audit to a dead process solely because discovery is fresh.
+    if process_exited(int(candidate['instance_id'].split('-')[0])):rows=[]
+    if len(rows)>1:raise ValueError('Ambiguous recovery native instance')
+    replacement=None
+    if not rows:
+        if not process_exited(int(candidate['instance_id'].split('-')[0])):
+            raise ValueError('Recovery native process is alive but unavailable; no second writer')
+        def matching():return [r for r in instances(root) if r['status']=='live' and path_key(r.get('model_path'))==path_key(target)
+            and not process_exited(int(r['instance_id'].split('-')[0]))]
+        rows=matching()
+        if not rows:
+            launcher(project.name,project.parent.parent,target)
+            deadline=time.monotonic()+50
+            while time.monotonic()<deadline:
+                rows=matching()
+                if rows:break
+                time.sleep(.25)
+        if len(rows)!=1 or rows[0]['model_guid']!=candidate['model_guid']:
+            raise ValueError('Restarted recovery needs one unchanged checkpoint document')
+        replacement=rows[0]
+    active_candidate=replacement or candidate
+    staged=[]
+    for item in journal['files']:
+        destination=regular(project/item['destination'],project)
+        new=regular(folder/item['new_file'],folder).read_bytes()
+        if hashlib.sha256(new).hexdigest()!=item['new_sha256']:
+            raise ValueError('Recovery activation staged bytes changed')
+        if sha(destination) not in (item['old_sha256'],item['new_sha256']):
+            raise ValueError('Recovery activation destination changed outside the journal')
+        staged.append((destination,new))
+    probe=folder/'probe';write_selection(root,probe,active_candidate)
+    with project_scope(probe):
+        identity=adapter.get_active_model_identity()
+        if (path_key(identity.get('model_path'))!=path_key(target) or identity.get('model_guid')!=active_candidate['model_guid']
+            or identity.get('instance_id')!=active_candidate['instance_id'] or identity.get('active_context')
+            or identity.get('main_thread') is not True):raise ValueError('Recovery activation native identity changed')
+        deep=adapter.capture_native_deep_fingerprint(expected_model_path=target,expected_guid=identity['model_guid'],
+            root_pid=journal['receipt']['native_readback']['persistent_id'],
+            output_path=folder/('activation-deep-'+uuid.uuid4().hex+'.private.json'))
+        if deep['root_geometry_material_sha256']!=journal['receipt']['root_geometry_material_sha256']:
+            raise ValueError('Recovery activation native geometry changed')
+        expected_document=journal['receipt'].get('document_geometry_material_sha256')
+        if not expected_document or deep.get('document_geometry_material_sha256')!=expected_document:
+            raise ValueError('Recovery activation complete document changed or is unverified')
+        if adapter.get_active_model_identity()!=identity:raise ValueError('Native identity changed during activation audit')
+    if (sha(target)!=attempt['checkpoint_sha256'] or sha(checkpoint)!=attempt['checkpoint_sha256']
+        or read_selection(root,project)!=selected or not process_exited(int(old['instance_id'].split('-')[0]))):
+        raise ValueError('Recovery activation evidence changed before persistence')
+    for item,(destination,_) in zip(journal['files'],staged):
+        if sha(destination) not in (item['old_sha256'],item['new_sha256']):
+            raise ValueError('Recovery activation destination changed during native verification')
+    if replacement:
+        journal.setdefault('prior_candidates',[]).append(candidate)
+        journal['candidate']=replacement
+        journal['receipt']['new_instance_id']=replacement['instance_id']
+        atomic_write(folder/'activation.private.json',journal)
+        candidate=replacement
+    for destination,new in staged:_atomic_bytes(destination,new)
+    write_selection(root,project,candidate)
+    for key,value in journal['session_patch'].items():setattr(session,key,value)
+    atomic_write(folder/'activation-completed.private.json',{'status':'complete','at':time.time()})
+    pending_file.rename(folder/'completed-request.private.json')
+    return target,journal['receipt']
+
+
 def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     from .connector_instances import lifecycle_pin,instances,path_key,write_selection,read_selection,project_scope
     from .public_connector import root_dir,atomic_write
     from .project_ruby import ProjectRubyExecutor
     project=Path(project).resolve();root=Path(root or root_dir())
+    pending_file=project/'runtime/native-recovery/pending.json'
+    if pending_file.exists():
+        attempt=json.loads(regular(pending_file,project/'runtime').read_text(encoding='utf8'))
+        folder=(project/attempt['folder']).resolve()
+        if not folder.is_relative_to((project/'runtime/native-recovery').resolve()):
+            raise ValueError('Invalid recovery journal folder')
+        if (folder/'activation.private.json').exists():
+            return _finish_activation(project,session,adapter,root,pending_file,attempt,launcher)
     old=lifecycle_pin(project,root=root)
     if not old:raise ValueError('Recovery requires the original signed instance selection')
     old_pid=int(old['instance_id'].split('-')[0])
@@ -140,14 +248,36 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     recovered[script_id].update(model_guid=identity['model_guid'],durability_status='recovered_verified_checkpoint')
     receipt={**attempt,'status':'recovered_from_verified_durable_bytes','restored_revision':saved['revision'],
         'new_instance_id':candidate['instance_id'],'root_geometry_material_sha256':deep['root_geometry_material_sha256'],
+        'document_geometry_material_sha256':deep.get('document_geometry_material_sha256'),
         'uncertain_operation_replayed':False,'original_uncertain_outcome':'PRESERVED_UNKNOWN',
         'native_readback':actual,'at':time.time()}
     atomic_write(folder/'recovery-receipt.private.json',receipt)
-    shutil.copyfile(source,project/'runtime/scripts'/f'{script_id}.rb')
-    atomic_write(state_path,{'model_path':str(target),'scripts':recovered})
-    write_selection(root,project,candidate)  # Explicit crash recovery, not ordinary window switching.
-    session.model_path=target.relative_to(project).as_posix();session.model_guid=identity['model_guid']
-    session.ruby_state=recovered;session.status='ready';session.error=''
-    session.last_reply=f'已核验并恢复已保存的第 {saved["revision"]} 版。未确认的操作及失败记录已保留，没有重跑。'
-    pending_file.rename(folder/'completed-request.private.json')
-    return target,receipt
+    patch={'model_path':target.relative_to(project).as_posix(),'model_guid':identity['model_guid'],
+        'ruby_state':recovered,'status':'ready','error':'',
+        'last_reply':f'已核验并恢复已保存的第 {saved["revision"]} 版。未确认的操作及失败记录已保留，没有重跑。'}
+    files=[]
+    def stage(destination,data):
+        destination=regular(destination,project)
+        name='activation-file-'+str(len(files))+'.private'
+        _atomic_bytes(folder/name,data)
+        files.append({'destination':destination.relative_to(project).as_posix(),'new_file':name,
+                      'old_sha256':sha(destination),'new_sha256':hashlib.sha256(data).hexdigest()})
+    def encoded(value):return json.dumps(value,ensure_ascii=False,separators=(',',':')).encode('utf8')
+    stage(project/'runtime/scripts'/f'{script_id}.rb',source.read_bytes())
+    stage(state_path,encoded({'model_path':str(target),'scripts':recovered}))
+    # Persist the user-facing model identity within the same restartable journal.
+    # Legacy diagnostic fixtures may not have UI state; the application does.
+    for name in ('agent_session.json','model_state.json'):
+        destination=project/'state'/name
+        if destination.exists():
+            value=json.loads(regular(destination,project/'state').read_text(encoding='utf8'))
+            if name=='agent_session.json':value.update(patch)
+            else:
+                value['model_path']=patch['model_path']
+                value['last_operation']={'action':'recover_durable_checkpoint','status':'recovered',
+                    'restored_revision':saved['revision'],'uncertain_operation_replayed':False}
+            stage(destination,encoded(value))
+    atomic_write(folder/'activation.private.json',{'schema_version':1,'files':files,
+        'old_selection':old,'candidate':candidate,'checkpoint':saved['path'],
+        'session_patch':patch,'receipt':receipt})
+    return _finish_activation(project,session,adapter,root,pending_file,attempt,launcher)

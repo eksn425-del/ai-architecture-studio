@@ -1,0 +1,36 @@
+{
+  "native_result": {
+    "result": {
+      "fixture_only": true,
+      "old_failure_replayed": false,
+      "pushpull": {
+        "faces": 6,
+        "solid": true,
+        "volume_mm3": 2000000.0
+      },
+      "noncoplanar": {
+        "rejected": true,
+        "error_class": "ArgumentError",
+        "error": "Points are not planar"
+      },
+      "transaction_aborted": true
+    }
+  },
+  "root_unchanged": true,
+  "document_unchanged": true,
+  "revision_before": {
+    "project_id": "demo-cultural-center",
+    "script_id": null,
+    "revision": 11,
+    "role": "project_root"
+  },
+  "revision_after": {
+    "project_id": "demo-cultural-center",
+    "script_id": null,
+    "revision": 11,
+    "role": "project_root"
+  },
+  "copy_sha256": "1721ed3df0d76cda9b63b96222d5bc68915cc9a5e94e5e47b0807025e0cc3d43",
+  "original_model_written": false,
+  "note": "Engineering fixture, not K Studio website modeling success or old crash reproduction"
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "stage": "native restart test",
+    "error": "Stale live heartbeat remained briefly after confirmed process exit, so read-only identity request timed out with unknown outcome",
+    "fix": "Check actual process exit before accepting a live discovery row; never dispatch or replay a write based on stale heartbeat",
+    "rerun": "PASS with newly verified instance and deep document equality; failed read request retained separately from provider unknown usage"
+  },
+  {
+    "stage": "fixture setup",
+    "error": "Test AgentSession initially used invalid status error; validator rejected it before recovery",
+    "fix": "Fixture corrected to supported failed state; no production model changed"
+  },
+  {
+    "stage": "read-only probe",
+    "error": "Initial restart probe attempted to reuse an existing evidence filename",
+    "fix": "Fresh output name; original evidence preserved"
+  }
+]

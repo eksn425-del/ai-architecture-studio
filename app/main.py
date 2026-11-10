@@ -1365,6 +1365,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         persisted = project_dir / "runtime/project_ruby_state.json"
         try:
             disk_state = json.loads(persisted.read_text(encoding="utf-8")) if persisted.is_file() else {}
+            if (project_dir / 'runtime/native-recovery/pending.json').exists():
+                raise ValueError('unfinished checkpoint recovery journal')
             disk_scripts = disk_state.get("scripts", {})
             scripts = [*session.ruby_state.values(), *disk_scripts.values()]
             if any(not isinstance(state, dict) or state.get("durability_status") == "unconfirmed" for state in scripts):

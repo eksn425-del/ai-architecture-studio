@@ -1,0 +1,694 @@
+{
+  "schema_version": 1,
+  "folder": "runtime/native-recovery/feadd3a99bf54840b4c8c6ed8541057d",
+  "target": "outputs/model/blank-disposable-recovery-feadd3a99bf54840b4c8c6ed8541057d.skp",
+  "uncertain_state_sha256": "191a22186ae84b1cee7f0a718512b7cf82d60ee713e5a7db2db04f20c9de25d7",
+  "checkpoint_sha256": "abcb88bcf73854003bcd828d6ca1fd66e123a43cf38a0ee2bda17a5766a5e977",
+  "old_process_exited": true,
+  "status": "recovered_from_verified_durable_bytes",
+  "restored_revision": 11,
+  "root_geometry_material_sha256": "e1534e4e4bbd7f048f10d3ad3894387c182139777ff9f89fca47025786672dd4",
+  "document_geometry_material_sha256": "918468edfa1eedf34daa36216133d3cf2e64356eb8a34a6dd184c83029e24589",
+  "uncertain_operation_replayed": false,
+  "original_uncertain_outcome": "PRESERVED_UNKNOWN",
+  "native_readback": {
+    "script_id": "harness_building",
+    "revision": 11,
+    "read_only": true,
+    "path": [],
+    "persistent_id": 19,
+    "locked": false,
+    "definition_instances": 1,
+    "definition_name": "组“0”#1",
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "bounds_mm": {
+      "min": [
+        -22000.0,
+        -9000.0,
+        0.0
+      ],
+      "max": [
+        22000.0,
+        38000.0,
+        19110.0
+      ],
+      "size": [
+        44000.0,
+        47000.0,
+        19110.0
+      ]
+    },
+    "object_bounds_frame": "selected-group-local",
+    "objects_total": 28,
+    "offset": 0,
+    "next_offset": null,
+    "truncated": false,
+    "objects": [
+      {
+        "name": "Base_Podium",
+        "persistent_id": 23,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2250.0,
+            2500.0,
+            0.0
+          ],
+          "max": [
+            14750.0,
+            17500.0,
+            4200.0
+          ],
+          "size": [
+            12500.0,
+            15000.0,
+            4200.0
+          ]
+        }
+      },
+      {
+        "name": "Canopy_Soffit",
+        "persistent_id": 115,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            900.0,
+            300.0,
+            3900.0
+          ],
+          "max": [
+            16100.0,
+            18700.0,
+            4200.0
+          ],
+          "size": [
+            15200.0,
+            18400.0,
+            300.0
+          ]
+        }
+      },
+      {
+        "name": "Slab_L2",
+        "persistent_id": 147,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500.0,
+            1500.0,
+            8100.0
+          ],
+          "max": [
+            14500.0,
+            18500.0,
+            8400.0
+          ],
+          "size": [
+            13000.0,
+            17000.0,
+            300.0
+          ]
+        }
+      },
+      {
+        "name": "Slab_L3",
+        "persistent_id": 179,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500.0,
+            1500.0,
+            12300.0
+          ],
+          "max": [
+            14500.0,
+            18500.0,
+            12600.0
+          ],
+          "size": [
+            13000.0,
+            17000.0,
+            300.0
+          ]
+        }
+      },
+      {
+        "name": "Slab_Roof",
+        "persistent_id": 211,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500.0,
+            1500.0,
+            15800.0
+          ],
+          "max": [
+            14500.0,
+            18500.0,
+            16200.0
+          ],
+          "size": [
+            13000.0,
+            17000.0,
+            400.0
+          ]
+        }
+      },
+      {
+        "name": "Ring_Beam",
+        "persistent_id": 243,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500.0,
+            1500.0,
+            7200.0
+          ],
+          "max": [
+            14500.0,
+            18500.0,
+            15800.0
+          ],
+          "size": [
+            13000.0,
+            17000.0,
+            8600.0
+          ]
+        }
+      },
+      {
+        "name": "Structure_Columns",
+        "persistent_id": 575,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1550.0,
+            1550.0,
+            4200.0
+          ],
+          "max": [
+            14450.0,
+            18450.0,
+            15900.0
+          ],
+          "size": [
+            12900.0,
+            16900.0,
+            11700.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Core_Wall",
+        "persistent_id": 757,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            14500.0,
+            3000.0,
+            0.0
+          ],
+          "max": [
+            14650.0,
+            16200.0,
+            15900.0
+          ],
+          "size": [
+            150.0,
+            13200.0,
+            15900.0
+          ]
+        }
+      },
+      {
+        "name": "Curtain_Glass_L2",
+        "persistent_id": 791,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2200.0,
+            2200.0,
+            4300.0
+          ],
+          "max": [
+            13860.0,
+            17800.0,
+            7100.0
+          ],
+          "size": [
+            11660.0,
+            15600.0,
+            2800.0
+          ]
+        }
+      },
+      {
+        "name": "Curtain_Glass_L3",
+        "persistent_id": 4165,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            2200.0,
+            2200.0,
+            8500.0
+          ],
+          "max": [
+            13860.0,
+            17800.0,
+            11300.0
+          ],
+          "size": [
+            11660.0,
+            15600.0,
+            2800.0
+          ]
+        }
+      },
+      {
+        "name": "Shell_Folded",
+        "persistent_id": 7760,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -700.0,
+            -700.0,
+            3600.0
+          ],
+          "max": [
+            17700.0,
+            20700.0,
+            19110.0
+          ],
+          "size": [
+            18400.0,
+            21400.0,
+            15510.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Flight_01",
+        "persistent_id": 10194,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            14680.0,
+            4350.0,
+            0.0
+          ],
+          "max": [
+            15780.0,
+            10590.0,
+            4200.0
+          ],
+          "size": [
+            1100.0,
+            6240.0,
+            4200.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Flight_02",
+        "persistent_id": 10751,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            15880.0,
+            4350.0,
+            4200.0
+          ],
+          "max": [
+            16980.0,
+            10590.0,
+            8400.0
+          ],
+          "size": [
+            1100.0,
+            6240.0,
+            4200.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Flight_03",
+        "persistent_id": 11308,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            14680.0,
+            4350.0,
+            8400.0
+          ],
+          "max": [
+            15780.0,
+            10590.0,
+            12600.0
+          ],
+          "size": [
+            1100.0,
+            6240.0,
+            4200.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Flight_04",
+        "persistent_id": 11865,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            15880.0,
+            4350.0,
+            12600.0
+          ],
+          "max": [
+            16980.0,
+            10590.0,
+            16800.0
+          ],
+          "size": [
+            1100.0,
+            6240.0,
+            4200.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Landing",
+        "persistent_id": 12422,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            14680.0,
+            3150.0,
+            3950.0
+          ],
+          "max": [
+            16980.0,
+            11790.0,
+            16200.0
+          ],
+          "size": [
+            2300.0,
+            8640.0,
+            12250.0
+          ]
+        }
+      },
+      {
+        "name": "Stair_Parapet",
+        "persistent_id": 12528,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            14680.0,
+            2950.0,
+            0.0
+          ],
+          "max": [
+            17180.0,
+            11990.0,
+            17300.0
+          ],
+          "size": [
+            2500.0,
+            9040.0,
+            17300.0
+          ]
+        }
+      },
+      {
+        "name": "Roof",
+        "persistent_id": 12815,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500.0,
+            1500.0,
+            16200.0
+          ],
+          "max": [
+            14680.0,
+            18500.0,
+            16260.0
+          ],
+          "size": [
+            13180.0,
+            17000.0,
+            60.0
+          ]
+        }
+      },
+      {
+        "name": "Roof_Parapet",
+        "persistent_id": 12869,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1500.0,
+            1500.0,
+            16260.0
+          ],
+          "max": [
+            14500.0,
+            18500.0,
+            17200.0
+          ],
+          "size": [
+            13000.0,
+            17000.0,
+            940.0
+          ]
+        }
+      },
+      {
+        "name": "Roof_Louver",
+        "persistent_id": 12989,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            1780.0,
+            5000.0,
+            16260.0
+          ],
+          "max": [
+            2080.0,
+            13060.0,
+            17200.0
+          ],
+          "size": [
+            300.0,
+            8060.0,
+            940.0
+          ]
+        }
+      },
+      {
+        "name": "Roof_Penthouse",
+        "persistent_id": 14057,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            9400.0,
+            12900.0,
+            16260.0
+          ],
+          "max": [
+            12600.0,
+            16100.0,
+            18050.0
+          ],
+          "size": [
+            3200.0,
+            3200.0,
+            1790.0
+          ]
+        }
+      },
+      {
+        "name": "Entry_Recess",
+        "persistent_id": 14487,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            6800.0,
+            2500.0,
+            0.0
+          ],
+          "max": [
+            9400.0,
+            4650.0,
+            3600.0
+          ],
+          "size": [
+            2600.0,
+            2150.0,
+            3600.0
+          ]
+        }
+      },
+      {
+        "name": "Site_Paving",
+        "persistent_id": 14686,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5000.0,
+            -5000.0,
+            0.0
+          ],
+          "max": [
+            22000.0,
+            24000.0,
+            30.0
+          ],
+          "size": [
+            27000.0,
+            29000.0,
+            30.0
+          ]
+        }
+      },
+      {
+        "name": "Planting_Strip",
+        "persistent_id": 14714,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5000.0,
+            -5000.0,
+            0.0
+          ],
+          "max": [
+            22000.0,
+            24000.0,
+            260.0
+          ],
+          "size": [
+            27000.0,
+            29000.0,
+            260.0
+          ]
+        }
+      },
+      {
+        "name": "Courtyard_Wall",
+        "persistent_id": 14791,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -5000.0,
+            -3800.0,
+            0.0
+          ],
+          "max": [
+            22000.0,
+            -3600.0,
+            2100.0
+          ],
+          "size": [
+            27000.0,
+            200.0,
+            2100.0
+          ]
+        }
+      },
+      {
+        "name": "Neighbor_Block_North",
+        "persistent_id": 14868,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -4000.0,
+            28000.0,
+            0.0
+          ],
+          "max": [
+            20000.0,
+            38000.0,
+            15000.0
+          ],
+          "size": [
+            24000.0,
+            10000.0,
+            15000.0
+          ]
+        }
+      },
+      {
+        "name": "Neighbor_Block_West",
+        "persistent_id": 14896,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -22000.0,
+            -1000.0,
+            0.0
+          ],
+          "max": [
+            -13000.0,
+            21000.0,
+            13500.0
+          ],
+          "size": [
+            9000.0,
+            22000.0,
+            13500.0
+          ]
+        }
+      },
+      {
+        "name": "Neighbor_House_South",
+        "persistent_id": 14924,
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            12000.0,
+            -9000.0,
+            0.0
+          ],
+          "max": [
+            18500.0,
+            -4200.0,
+            4400.0
+          ],
+          "size": [
+            6500.0,
+            4800.0,
+            4400.0
+          ]
+        }
+      }
+    ],
+    "oss_method_ledger": {
+      "schema_version": 1,
+      "source_sha256": "1edc89b91055db8534b2eaa11f1bdeffffb35e6af681c645f8c30126d037b99a",
+      "events": []
+    },
+    "edit_scope_receipt": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "Courtyard_Wall"
+        ],
+        [
+          "Neighbor_Block_North"
+        ],
+        [
+          "Neighbor_Block_West"
+        ]
+      ],
+      "required_deep_keep_paths": [],
+      "allowed_top_level": [
+        "Courtyard_Wall",
+        "Neighbor_Block_North",
+        "Neighbor_Block_West"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  "at": 1794290137.2008345
+}

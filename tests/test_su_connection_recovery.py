@@ -45,6 +45,24 @@ def test_unbound_start_returns_connection_action_without_launching_or_inference(
     assert (root / 'state/agent_session.json').read_bytes() == before
 
 
+def test_recover_route_resumes_journal_even_if_ruby_state_was_already_persisted(connection,monkeypatch):
+    app,client,pid,root,model=connection
+    session=app.state.store.load_state(pid,'agent_session.json',AgentSession)
+    session.model_path=model.relative_to(root).as_posix()
+    app.state.store.save_state(pid,session,'agent_session.json')
+    pending=root/'runtime/native-recovery/pending.json';pending.parent.mkdir(parents=True)
+    pending.write_text('{}')
+    state=root/'runtime/project_ruby_state.json'
+    state.write_text(json.dumps({'model_path':str(model),'scripts':{'harness_building':{'durability_status':'recovered_verified_checkpoint'}}}))
+    before=state.read_bytes();called=[]
+    def resume(*args,**kwargs):
+        called.append(True);raise ValueError('activation-resume-selected')
+    monkeypatch.setattr('app.native_checkpoint_recovery.recover_saved_checkpoint',resume)
+    response=client.post(f'/api/projects/{pid}/agent/recover')
+    assert response.status_code==409 and 'activation-resume-selected' in response.json()['detail']
+    assert called==[True] and state.read_bytes()==before and pending.exists()
+
+
 def test_intent_failure_survives_refresh_without_forging_conversation(connection, monkeypatch):
     from app.native_agent import NativeAgentUnavailable
     app, client, pid, root, model = connection

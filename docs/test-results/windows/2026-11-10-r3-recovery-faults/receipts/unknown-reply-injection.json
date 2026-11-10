@@ -1,0 +1,12 @@
+{
+  "fault": "simulated lost response after native commit",
+  "real_native_transport_result": {
+    "result": {
+      "fixture_committed_unsaved": true,
+      "revision": 12,
+      "reply_will_be_dropped_by_fault_injector": true
+    }
+  },
+  "fixture_only": true,
+  "original_r11_written": false
+}

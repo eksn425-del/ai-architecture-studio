@@ -412,6 +412,8 @@ class ProjectRubyExecutor:
         return snapshots
 
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
+        if (self.project_dir / 'runtime/native-recovery/pending.json').exists():
+            raise MCPCallError('Checkpoint recovery is unfinished. Complete recovery before any geometry write; no source was executed.')
         if any(state.get("durability_status") == "unconfirmed" for state in self.ruby_state.values()):
             raise MCPCallError("A previous native revision committed but its disk checkpoint is unconfirmed. Keep SketchUp open and recover before further writes; do not automatically repeat the previous write.")
         script_id = str(arguments.get("script_id") or "")

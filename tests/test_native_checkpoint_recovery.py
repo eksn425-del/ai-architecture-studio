@@ -33,10 +33,15 @@ def recovery(tmp_path,monkeypatch):
     state=runtime/'project_ruby_state.json';state.write_text(json.dumps({'model_path':str(original),'scripts':{'harness_building':pending}}))
     old={'instance_id':'1234-aaaaaaaaaaaaaaaaaaaaaaaa','model_path':str(original),'model_guid':'old-guid'}
     selections={str(project.resolve()):old};roster=[];launched=[]
-    monkeypatch.setattr(recovery_module,'process_exited',lambda pid:True)
+    monkeypatch.setattr(recovery_module,'process_exited',lambda pid:pid==1234)
     monkeypatch.setattr(pins,'lifecycle_pin',lambda *a,**kw:old)
     monkeypatch.setattr(pins,'read_selection',lambda root,p:selections.get(str(Path(p).resolve())))
-    monkeypatch.setattr(pins,'write_selection',lambda root,p,row:selections.update({str(Path(p).resolve()):row}))
+    def bind(root,p,row):
+        value={'schema':1,'project':str(Path(p).resolve()),'selected_at':1,
+               **{key:row[key] for key in ('instance_id','model_path','model_guid')}}
+        selections[str(Path(p).resolve())]=value
+        return value
+    monkeypatch.setattr(pins,'write_selection',bind)
     monkeypatch.setattr(pins,'instances',lambda root:roster)
     def launch(*args):
         target=args[-1];launched.append(target)
@@ -52,11 +57,12 @@ def recovery(tmp_path,monkeypatch):
         def get_active_model_identity(self):return identity()
         def capture_native_deep_fingerprint(self,**kwargs):
             kwargs['output_path'].write_text('{"fixture_only":true}')
-            return {'root_geometry_material_sha256':'fixture-only-deep-hash'}
+            return {'root_geometry_material_sha256':'fixture-only-deep-hash',
+                    'document_geometry_material_sha256':'fixture-only-document-hash'}
     session=SimpleNamespace(model_path=original.relative_to(project).as_posix())
     return SimpleNamespace(project=project,runtime=runtime,source=source,state=state,old=old,
         session=session,adapter=Adapter(),launch=launch,launched=launched,selections=selections,
-        checkpoint=checkpoint,actual=actual,module=recovery_module,root=tmp_path/'connector')
+        checkpoint=checkpoint,actual=actual,module=recovery_module,root=tmp_path/'connector',roster=roster)
 
 
 def perform(f):return recover_saved_checkpoint(f.project,f.session,f.adapter,f.launch,root=f.root)
@@ -105,3 +111,87 @@ def test_old_process_reappearing_before_activation_keeps_original_guard(recovery
     monkeypatch.setattr(f.module,'process_exited',lambda pid:next(checks))
     with pytest.raises(ValueError,match='changed'):perform(f)
     assert f.state.read_bytes()==before
+
+
+@pytest.mark.parametrize('after_file',[0,1,2,3,4])
+def test_process_loss_during_activation_resumes_without_replay(recovery,monkeypatch,after_file):
+    """Injected host termination, not a claim of physical power-loss testing."""
+    f=recovery;(f.project/'state').mkdir()
+    (f.project/'state/agent_session.json').write_text(json.dumps({'model_path':f.session.model_path,'status':'error'}))
+    (f.project/'state/model_state.json').write_text(json.dumps({'model_path':f.session.model_path}))
+    original=f.state.read_bytes();real=f.module._atomic_bytes;count=[0]
+    class PowerLoss(BaseException):pass
+    def interrupt(path,data):
+        # Staging happens before the journal; inject only into real destinations.
+        if (f.runtime/'native-recovery/pending.json').exists() and list((f.runtime/'native-recovery').glob('*/activation.private.json')):
+            if count[0]==after_file:raise PowerLoss()
+            count[0]+=1
+        real(path,data)
+    monkeypatch.setattr(f.module,'_atomic_bytes',interrupt)
+    if after_file<4:
+        with pytest.raises(PowerLoss):perform(f)
+    else:
+        import app.connector_instances as pins
+        real_pin=pins.write_selection
+        def interrupted_pin(root,project,row):
+            real_pin(root,project,row)
+            if Path(project)==f.project:raise PowerLoss()
+        monkeypatch.setattr(pins,'write_selection',interrupted_pin)
+        with pytest.raises(PowerLoss):perform(f)
+        monkeypatch.setattr(pins,'write_selection',real_pin)
+    monkeypatch.setattr(f.module,'_atomic_bytes',real)
+    # Simulate reloading stale session state after a process restart.
+    fresh=SimpleNamespace(**json.loads((f.project/'state/agent_session.json').read_text()))
+    f.session=fresh
+    target,receipt=perform(f)
+    assert len(f.launched)==1 and receipt['uncertain_operation_replayed'] is False
+    assert json.loads((f.project/'state/agent_session.json').read_text())['model_path']==fresh.model_path
+    assert json.loads((f.project/'state/model_state.json').read_text())['model_path']==fresh.model_path
+    assert target.read_bytes()==f.checkpoint.read_bytes()
+    assert not (f.runtime/'native-recovery/pending.json').exists()
+    assert list((f.runtime/'native-recovery').glob('*/uncertain-state.private.json'))[0].read_bytes()==original
+
+
+def test_activation_refuses_unrelated_state_change_after_interruption(recovery,monkeypatch):
+    f=recovery;real=f.module._finish_activation
+    monkeypatch.setattr(f.module,'_finish_activation',lambda *a: (_ for _ in ()).throw(RuntimeError('injected interruption')))
+    with pytest.raises(RuntimeError):perform(f)
+    monkeypatch.setattr(f.module,'_finish_activation',real)
+    f.state.write_text('{"unrelated_user_change":true}')
+    with pytest.raises(ValueError,match='outside the journal'):perform(f)
+    assert json.loads(f.state.read_text())=={'unrelated_user_change':True}
+
+
+def test_unfinished_recovery_blocks_geometry_before_source_validation(tmp_path):
+    from app.project_ruby import ProjectRubyExecutor
+    from app.sketchup_mcp import MCPCallError
+    project=tmp_path/'project';journal=project/'runtime/native-recovery/pending.json'
+    journal.parent.mkdir(parents=True);journal.write_text('{}')
+    executor=object.__new__(ProjectRubyExecutor);executor.project_dir=project
+    with pytest.raises(MCPCallError,match='recovery is unfinished'):
+        executor.run({'ruby_source':'MUST NEVER BE VALIDATED OR SENT'})
+
+
+def test_native_process_also_exited_during_activation_revalidates_new_instance(recovery,monkeypatch):
+    f=recovery;real=f.module._finish_activation
+    monkeypatch.setattr(f.module,'_finish_activation',lambda *a: (_ for _ in ()).throw(RuntimeError('interrupt')))
+    with pytest.raises(RuntimeError):perform(f)
+    monkeypatch.setattr(f.module,'_finish_activation',real)
+    f.roster[0]={**f.roster[0],'instance_id':'9012-cccccccccccccccccccccccc'}
+    monkeypatch.setattr(f.module,'process_exited',lambda pid:pid in (1234,5678))
+    target,receipt=perform(f)
+    assert receipt['new_instance_id']=='9012-cccccccccccccccccccccccc'
+    assert f.selections[str(f.project.resolve())]['instance_id']==receipt['new_instance_id']
+    assert target.read_bytes()==f.checkpoint.read_bytes() and len(f.launched)==1
+
+
+def test_stale_live_heartbeat_of_exited_native_process_is_not_a_valid_target(recovery,monkeypatch):
+    f=recovery;real=f.module._finish_activation
+    monkeypatch.setattr(f.module,'_finish_activation',lambda *a: (_ for _ in ()).throw(RuntimeError('interrupt')))
+    with pytest.raises(RuntimeError):perform(f)
+    monkeypatch.setattr(f.module,'_finish_activation',real)
+    monkeypatch.setattr(f.module,'process_exited',lambda pid:True)
+    def blocked_launcher(*a):raise RuntimeError('fresh native open required')
+    f.launch=blocked_launcher
+    with pytest.raises(RuntimeError,match='fresh native open required'):perform(f)
+    assert (f.runtime/'native-recovery/pending.json').exists()
