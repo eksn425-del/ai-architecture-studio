@@ -8,6 +8,8 @@
 
 [P0恢复故障证据](test-results/windows/2026-11-10-r3-recovery-faults/README.md)：受控副本拉伸/非共面拒绝/回滚、未知回执后SU退出、恢复状态写入中途终止、完成标记丢失后SU重启均已实测；保留TTL心跳误判FAIL与修复后PASS。恢复改为持久化激活日志并阻止未完成期间写入。原复杂pushpull崩溃根因、真实页面恢复按钮与打包版仍PARTIAL/NOT_RUN；不宣称物理断电认证。定向46项+路由12项通过不替代建筑验收。
 
+**本轮收尾**：[发布边界、冻结对照输入、成本与最少外部动作](test-results/windows/2026-11-10-r3-candidate-boundaries/README.md)。新增源码真实页面恢复按钮已在无API独立副本PASS，打包版仍NOT_RUN。58项定向工程回归；视觉仍FAIL，不能用数量替代验收。88 settled＋2 unknown逐行未变，0新增推理。桌面旧R2指针已备份并纠正到E盘现有R3 beta03 seq10；本轮源码未安装。P1对照等待明确预算/授权，P2等待质量与干净机，P3等待既有外部资源，无main合并/生产收费。
+
 ---
 
 # 最新网页审查交接 — 2026-11-08
