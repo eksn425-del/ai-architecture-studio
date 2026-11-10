@@ -430,6 +430,7 @@ class SketchUpAdapter:
         representations = {
             "expanded": ("native_deep_fingerprint.rb", "KStudioNativeDeepFingerprint", "KStudioNativeDeepFingerprint/1"),
             "definition_graph": ("native_definition_graph.rb", "KStudioNativeDefinitionGraph", "KStudioNativeDefinitionGraph/1"),
+            "architecture_features": ("native_architecture_features.rb", "KStudioNativeArchitectureFeatures", "KStudioNativeArchitectureFeatures/1"),
         }
         if representation not in representations:
             raise ValueError("Unsupported native fingerprint representation.")

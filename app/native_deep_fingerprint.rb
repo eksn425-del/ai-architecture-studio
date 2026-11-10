@@ -160,6 +160,11 @@ module KStudioNativeDeepFingerprint
       schema_version: 2, collector: 'KStudioNativeDeepFingerprint/1',
       model_path: model.path, model_guid: model.guid, root_pid: root_pid,
       root_name: root.name, counts: groups[:counts],
+      native_version: Sketchup.version,
+      model_modified: model.modified?,
+      owned_identity: %w[project_id script_id revision role].to_h { |key|
+        [key, root.get_attribute('sketchup_architect', key)]
+      },
       root_geometry_material_sha256: groups[:geometry_material_sha256],
       groups: nodes, presentation: visible, presentation_sha256: sha(visible),
       document_geometry_material_sha256: document_hash,

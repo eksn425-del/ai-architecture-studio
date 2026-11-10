@@ -1,0 +1,17 @@
+[
+  {
+    "stage": "host audit",
+    "error": "ProjectRuby correctly refused writer access to download outside project",
+    "resolution": "Use existing fixed read-only collector for downloaded copy, no writer guard relaxed"
+  },
+  {
+    "stage": "host audit",
+    "error": "Stale original instance coexisted with live discovery; initial selection failed; one startup interval had no live heartbeat",
+    "resolution": "Select unique live signed instance after startup; original project pin unchanged"
+  },
+  {
+    "stage": "SketchUp startup",
+    "error": "Existing TT_Lib missing and InstantRoadPro/SketchUcation extension load warnings",
+    "resolution": "Dismissed dialogs only; third-party plugins untouched; no BugSplat during this reopen"
+  }
+]

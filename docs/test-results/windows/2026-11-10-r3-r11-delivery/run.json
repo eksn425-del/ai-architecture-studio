@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-10-r3-r11-delivery",
+  "status": "PASS",
+  "geometry_committed": false,
+  "base_commit": "b1855e205304e843fb757757e293ee0ac8bf7b1e",
+  "source_case": "Same Wenchang six private originals, r11/root19; no new source or rebuild",
+  "model": {
+    "actual": "No inference this run; historical BAI deepseek-v4.1-flash alias",
+    "runtime": "Host read-only audit of actual K Studio source desktop download and SketchUp 2024 reopen",
+    "reasoning_effort": "historical high; no new inference"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "windows": "Existing owner PC, not clean Windows"
+  },
+  "qa": {
+    "native_delivery": "PASS for this r11 only",
+    "visual_quality": "FAIL",
+    "reviewer_mode": "host_read_only"
+  },
+  "revision": 11,
+  "root_pid": 19,
+  "missing_image_reason": "No new geometry committed. Original six r11 views retained in 2026-11-08-wenchang-agent-review; actual reopened view included."
+}
