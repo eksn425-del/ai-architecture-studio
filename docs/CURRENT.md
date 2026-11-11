@@ -1,3 +1,7 @@
+# 最新实机预检 — 2026-11-11
+
+用户新给退台高塔参考图，要求打开最新K Studio用BAI测试。[启动、上传与SU连接预检](test-results/windows/2026-11-11-stepped-tower-preflight/README.md)：源码de0ea81独立E盘profile，BAI Flash/HIGH配置已恢复，真实界面上传图片、自动打开SU2024并核验本会话空白副本成功。没有发出模型请求，图像建模/修改/交付NOT_RUN；按上一轮用户要求等待本次明确预算。旧文昌r11/失败/账本保持原样，旧安装beta03未替换。继续使用同一新会话，不重复创建；私有续跑记录在E盘jobs/kstudio-stepped-tower-20261111/resume.json。
+
 # 当前目标：模型质量与真实交付优先的可发布候选 — 2026-11-10
 
 最新用户指令优先：PR27 / codex/kstudio-r3-launch-20261105，不合并 main，不开放生产收费。核对起点 b1855e205304e843fb757757e293ee0ac8bf7b1e。保留文昌 r11/root19、六张私有图、所有原始失败/检查点与 88 settled + 2 unknown。新增付费调用必须先有明确预算和授权；旧无限额度授权不用于本轮。
