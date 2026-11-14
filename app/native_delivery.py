@@ -88,3 +88,28 @@ def record_delivery_checkpoint(
     temporary.write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
     temporary.replace(target)
     return receipt
+
+
+def verified_saved_delivery(project: Path, document: Path, *, roots: list[int],
+                            revisions: dict[str, int]) -> Path:
+    """Recover a known candidate after preview failure, with no native save."""
+    receipt_path = project / "runtime/native_delivery_checkpoint.json"
+    if not receipt_path.resolve().is_relative_to(project.resolve()) or receipt_path.is_symlink():
+        raise ValueError("交付凭据不在当前项目内。")
+    if not receipt_path.is_file():
+        raise ValueError("没有与当前模型对应的交付保存凭据。")
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    if (not isinstance(receipt, dict) or receipt.get("schema_version") != 1 or receipt.get("roots") != roots
+            or receipt.get("script_revisions") != revisions
+            or receipt.get("bound_document") != _artifact_identity(project, document)):
+        raise ValueError("交付凭据与当前保存的模型版本不一致。")
+    expected = receipt.get("download_candidate")
+    if not isinstance(expected, dict) or not isinstance(expected.get("path"), str):
+        raise ValueError("缺少有效的下载文件凭据。")
+    relative = Path(expected["path"])
+    if relative.is_absolute() or ".." in relative.parts or relative.parts[:2] != ("outputs", "model"):
+        raise ValueError("下载文件不在本会话的模型目录内。")
+    candidate = project / relative
+    if expected != _artifact_identity(project, candidate):
+        raise ValueError("下载文件与保存凭据不一致。")
+    return candidate

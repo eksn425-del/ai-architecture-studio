@@ -65,7 +65,7 @@ try {
         --add-data "$repoPath/app/architecture_skills;app/architecture_skills" `
         --add-data "$repoPath/app/static;app/static" --add-data "$repoPath/app/vendor;app/vendor" --add-data "$repoPath/scripts;scripts" `
         --add-data "$repoPath/THIRD_PARTY_NOTICES.md;." --add-data "$repoPath/app/adopted_sketchup_helpers.rb;app" --collect-all webview --collect-all litellm `
-        --add-data "$repoPath/app/native_deep_fingerprint.rb;app" --add-data "$repoPath/app/native_definition_graph.rb;app" `
+        --add-data "$repoPath/app/native_deep_fingerprint.rb;app" --add-data "$repoPath/app/native_definition_graph.rb;app" --add-data "$repoPath/app/native_architecture_features.rb;app" `
         --add-data "$repoPath/app/path_scope_guard.rb;app" --add-data "$repoPath/app/path_scope_graph_guard.rb;app" --add-data "$repoPath/app/edit_scope_guard.rb;app" --add-data "$repoPath/app/oss_method_runtime.rb;app" `
         --add-data "$env:TIKTOKEN_CACHE_DIR;tokenizer-cache" --hidden-import tiktoken_ext.openai_public `
         --collect-submodules uvicorn --hidden-import tomli --exclude-module pytest @nativeDataArgs @connectorDataArgs scripts/desktop.py

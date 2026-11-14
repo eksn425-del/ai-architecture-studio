@@ -188,6 +188,47 @@ class CheckpointTests(unittest.TestCase):
         self.assertNotIn("building", state)
         self.assertFalse(list(self.transport.glob("*.rb")))
 
+    def test_lost_preview_preserves_verified_commit_and_returns_no_image(self):
+        bounds = {"min": [0, 0, 0], "max": [100, 100, 100], "size": [100, 100, 100]}
+        owned = {"persistent_id": 321, "objects_total": 1, "bounds_mm": bounds}
+        identity = {"model_path": str(self.model), "model_guid": "guid", "active_context": False}
+
+        class Adapter:
+            def get_active_model_identity(inner):
+                return identity
+
+            def get_model_info(inner):
+                return {"entity_count": 1}
+
+            def capture_view(inner, path):
+                raise MCPCallError("Image destination is outside paired workspaces")
+
+        class Commit:
+            def call(inner, name, args):
+                code = Path(args["script_path"]).read_text(encoding="utf-8")
+                match = re.search(r'report_path: ("(?:\\.|[^"\\])*")', code)
+                report = {"status": "committed", "project_id": "case", "revision": 1,
+                          "root_pid": 321, "owned_after": owned}
+                Path(json.loads(match.group(1))).write_text(json.dumps(report), encoding="utf-8")
+                return {}
+
+        executor = ProjectRubyExecutor(self.root / "runtime", "case", expected_model_path=self.model,
+                                      expected_model_guid="guid", mcp=Commit(), adapter=Adapter())
+        readback = {"contentItems": [{"text": json.dumps({**owned, "revision": 1})}]}
+        with (patch("app.project_ruby._generated_script_dir", return_value=self.transport),
+              patch("app.project_ruby.persist_committed_revision", return_value={"status": "saved_unverified_reopen"}),
+              patch.object(executor, "inspect_owned", return_value=readback)):
+            result = executor.run({"script_id": "building", "ruby_source": "root.entities.add_group"})
+
+        self.assertTrue(result["success"])
+        self.assertEqual(len(result["contentItems"]), 1)
+        summary = json.loads(result["contentItems"][0]["text"])
+        self.assertTrue(summary["write_verification"]["verified"])
+        self.assertEqual(summary["capture_status"], "PENDING")
+        self.assertIsNone(summary["screenshot"])
+        saved = json.loads(executor.state_path.read_text(encoding="utf-8"))["scripts"]["building"]
+        self.assertEqual((saved["revision"], saved["durability_status"]), (1, "saved_unverified_reopen"))
+
 
 if __name__ == "__main__":
     unittest.main()

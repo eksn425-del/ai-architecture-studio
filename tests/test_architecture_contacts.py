@@ -1,6 +1,7 @@
 import pytest
 from scripts.audit_architecture_contacts import triangle_distance,measure
 from scripts.audit_architecture_contacts import stair_terminals
+from app.level_joint import measure_joint
 
 
 def test_interior_crossing_is_detected_even_without_shared_vertices():
@@ -33,3 +34,18 @@ def test_contact_at_bottom_does_not_hide_disconnected_top():
     assert measure(data['faces'],['flight'],['landing'])['minimum_surface_distance_mm']==0
     result=stair_terminals(data,[(['flight'],['landing'])])
     assert result['contacts'][0]['minimum_surface_distance_mm']==600
+
+
+@pytest.mark.parametrize("tread, status, width", [
+    ([[0, 0, 3600], [100, 0, 3600], [0, 1, 3600]], "FULL_WIDTH", 100),
+    ([[0, 0, 3600], [30, 0, 3600], [0, 1, 3600]], "PARTIAL_WIDTH", 30),
+    ([[0, 0, 4200], [100, 0, 4200], [0, 1, 4200]], "NO_SEAM", 0),
+    ([[0, -2, 3600], [0, 2, 3600], [200, 2, 3600]], "NO_SEAM", 0),
+])
+def test_join_checks_continuous_width_correct_level_and_side(tread, status, width):
+    landing = [[[0, 0, 3600], [100, 0, 3600], [0, -1, 3600]]]
+    result = measure_joint(landing, [tread], axis="y", position_mm=0,
+                           elevation_mm=3600, span_mm=[0, 100])
+    assert result["status"] == status
+    assert result["covered_width_mm"] == width
+    assert result["positive_levels_at_plane_mm"] == [tread[0][2]]

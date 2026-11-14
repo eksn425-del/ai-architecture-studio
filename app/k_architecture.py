@@ -203,9 +203,11 @@ class ArchitectureContext:
         revision=self.state.get('harness_building',{}).get('revision',0)
         views=quality.get('views',{})
         missing=[v for v in ('front','oblique','roof') if views.get(v,{}).get('revision')!=revision]
+        joints = [item for item in quality.get('level_joints', []) if item['revision'] == revision]
         result={'success':True,'revision':revision,'evidence_current':bool(revision) and not missing,
                 'missing_current_views':missing,'views':views,'loaded_skills':self.loaded,
                 'visual_acceptance':'NOT_INDEPENDENTLY_VERIFIED','native_reopen':'NOT_RUN',
+                'level_joints':joints[-12:],
                 'writes':quality.get('writes',[])}
         write_json(self.base/'latest-review.json',result)
         return result

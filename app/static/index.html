@@ -53,7 +53,8 @@
       <aside id="result-panel" class="result-panel" aria-label="模型与文件" hidden>
         <div class="result-heading"><h2>模型与文件</h2><button id="result-close" class="icon-button" aria-label="关闭模型与文件">×</button></div>
         <div class="tab-strip" role="tablist" aria-label="结果视图"><button class="tab-button active" data-tab="design" role="tab">参考图 <span></span></button><button class="tab-button" data-tab="model" role="tab">模型 <span></span></button></div>
-        <h3 id="preview-title">参考图片</h3><div id="preview-canvas" class="preview-canvas"></div><div class="preview-caption"><span id="preview-caption"></span><span id="preview-meta"></span></div><div id="artifact-links" class="artifact-links"></div><button id="recover-agent-checkpoint" class="button-quiet" hidden>恢复上轮修改前的模型</button><div class="artifact-head"><span>项目文件</span><span id="artifact-total">0 个文件</span></div><div id="artifact-list" class="artifact-list"></div>
+        <h3 id="preview-title">参考图片</h3><div id="preview-canvas" class="preview-canvas"></div><div class="preview-caption"><span id="preview-caption"></span><span id="preview-meta"></span></div><div id="artifact-links" class="artifact-links"></div>
+        <button id="refresh-agent-delivery" class="button-quiet" hidden>更新预览和下载</button><button id="recover-agent-checkpoint" class="button-quiet" hidden>恢复上轮修改前的模型</button><div class="artifact-head"><span>项目文件</span><span id="artifact-total">0 个文件</span></div><div id="artifact-list" class="artifact-list"></div>
         <details class="connection-details"><summary>连接状态</summary><p id="agent-session-state"></p><div><span id="connector-state">尚未检查</span><button id="check-connector" class="button-quiet">检查连接</button></div><p>启动前请先保存并关闭其他 SketchUp 文档。网站只编辑当前项目的独立模型。切换会话后需重新连接其模型。</p></details>
         <div id="status-line" class="status-line"><span></span><span>工作区就绪。</span><span>本机</span></div>
       </aside>

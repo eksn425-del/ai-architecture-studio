@@ -231,6 +231,19 @@ class ConfiguredSketchUpMCP:
                 or Path(command[0]).name.lower() == 'kstudioconnector.exe'
                 or 'app.public_connector' in command)
 
+    def pair_project_outputs(self, runtime_root: Path, project_dir: Path) -> None:
+        """Register only the render directory of a verified bound desktop project."""
+        if not self.requires_document_binding:
+            return
+        from .public_connector import authorize_workspace, root_dir
+        _, environment, _ = _resolve_server()
+        if project_dir.parent != runtime_root / "projects" or project_dir.resolve() != project_dir:
+            raise ValueError("截图目录必须属于当前工作台的项目。")
+        root = Path(environment["KSTUDIO_PUBLIC_CONNECTOR_ROOT"]) if environment.get("KSTUDIO_PUBLIC_CONNECTOR_ROOT") else root_dir()
+        # Pair the render directory, not its runtime, parent, or the whole drive.
+        renders = project_dir / "outputs" / "renders"
+        authorize_workspace(root, renders)
+
     def list_tools(self) -> list[dict[str, Any]]:
         requests = self._initialize_requests() + [{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}]
         result = self._request(requests, 2)
@@ -408,7 +421,7 @@ class SketchUpAdapter:
                         "model_guid": guid,
                         "active_context": bool(candidate.get("active_context", False)),
                         "main_thread": bool(candidate.get("main_thread", True)),
-                        **({"camera": candidate.get("camera")} if include_camera else {}),
+                        **({"camera": candidate.get("camera"), "modified": candidate.get("modified")} if include_camera else {}),
                     }
         raise MCPCallError("The SketchUp MCP did not return the active model path and GUID, so the disposable-model safety check cannot pass.")
 

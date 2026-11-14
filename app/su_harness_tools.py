@@ -16,9 +16,10 @@ import uuid
 from pathlib import Path
 
 from .agent_tools import AgentToolContext, canonical_camera_from_bounds_mm
+from .level_joint import SPEC as LEVEL_JOINT_SPEC, TOOL as LEVEL_JOINT_TOOL
 from .project_ruby import ProjectRubyExecutor
 
-NAMES = frozenset({"sketchup_model_state", "sketchup_apply_parts", "sketchup_inspect_part", "sketchup_view", "sketchup_save_plan"})
+NAMES = frozenset({"sketchup_model_state", "sketchup_apply_parts", "sketchup_inspect_part", "sketchup_view", "sketchup_save_plan", LEVEL_JOINT_TOOL})
 SCRIPT_ID = "harness_building"
 
 
@@ -199,6 +200,7 @@ def tool_specs(writing=True, planning=False):
         {"name":"sketchup_view","description":"Capture a real native viewport and return its image pixels for visual review; preserves display style. Views front/oblique/roof.","inputSchema":{"type":"object","properties":{"view":{"type":"string","enum":["front","oblique","roof"]}},"required":["view"],"additionalProperties":False}},
     ]
     if writing:
+        specs.append(LEVEL_JOINT_SPEC)
         specs.append({"name":"sketchup_apply_parts","description":"Create/update only named direct architectural parts, retaining all others. Millimetres. Part: name (stable ASCII ID), pieces. Piece kind: box(origin[3],size[3]>0); polygon(vertices[3..48][3],extrude signed along normal); cylinder(origin[3],radius,height); profile(segments: closed ordered cubic Bezier segments, each four XYZ control points [start,control1,control2,end], extrude, samples optional default8). Profile joins must match, all controls coplanar, 2..32 segments and max256 sampled vertices. Use profile for rounded balcony outlines, curved bands and arches; repeat for layers/ribs. All pieces optionally color[RGB],alpha[0..1],smooth boolean,rotation_deg about origin Z,repeat[1..100],step[3]. Do not fill open terraces; keep roof/slabs/walls/frames/glass/terraces/entrance separate. Maximum three successful writes per part in a task (initial plus two corrections); then report remaining mismatches. Repeated pieces share native definitions. Returns actual commit, KEEP and checkpoint evidence. No code accepted.","inputSchema":{"type":"object","properties":{"parts":{"type":"array","minItems":1,"maxItems":32,"items":{"type":"object","properties":{"name":{"type":"string"},"pieces":{"type":"array","items":{"type":"object"}}},"required":["name","pieces"],"additionalProperties":False}}},"required":["parts"],"additionalProperties":False}})
     return specs if planning else [s for s in specs if s['name']!='sketchup_save_plan']
 
@@ -230,6 +232,10 @@ class SUHarnessTools:
                 card.write_text(arguments['text'],encoding='utf-8')
                 return {'success':True,'saved_plan':True,'approval_granted':False,'sha256':hashlib.sha256(arguments['text'].encode()).hexdigest()}
             if executor is None:raise ValueError("This is discussion/planning; native model tools require host-confirmed execution.")
+            if name == LEVEL_JOINT_TOOL:
+                result = executor.measure_level_joint(SCRIPT_ID, arguments)
+                quality.setdefault("level_joints", []).append(result)
+                return result
             identity = executor.verify_active_model()
             state = executor.ruby_state.get(SCRIPT_ID, {})
             if name == "sketchup_model_state":

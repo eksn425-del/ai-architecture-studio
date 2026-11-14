@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 
 from app import main
 from app.sketchup_mcp import MCPCallError, SketchUpAdapter
+from app.models import ModelState
 from tests.conftest import FakeBrain, FakeSketchUp
 
 
@@ -117,3 +118,29 @@ def test_missing_native_image_is_not_an_artifact(tmp_path):
     adapter = SimpleNamespace(capture_view=lambda path: {'saved': False})
     store = SimpleNamespace(project_dir=lambda project_id: tmp_path / project_id)
     assert main._capture_agent_view(adapter, store, 'case') is None
+
+
+def test_saved_model_remains_downloadable_when_preview_fails(tmp_path, monkeypatch):
+    from app.store import ProjectStore
+    from app.models import OutputManifest
+
+    store = ProjectStore(tmp_path)
+    project = store.ensure_layout("case")
+    checkpoint = project / "outputs/model/verified-r8.skp"
+    checkpoint.write_bytes(b"saved SKP fixture")
+    state = ModelState(project_id="case", last_capture="outputs/renders/old-r7.png",
+                       last_operation={"delivery_status": "UNVERIFIED_NATIVE_REOPEN"})
+    store.save_state("case", OutputManifest(project_id="case"), "output_manifest.json")
+
+    def refused_preview(*args):
+        # Verify the published state at the moment native capture is attempted.
+        published = store.load_state("case", "model_state.json", ModelState)
+        assert published.model_path == "outputs/model/verified-r8.skp"
+        assert published.last_capture is None
+        raise MCPCallError("Image destination is outside paired workspaces")
+
+    monkeypatch.setattr(main, "_capture_agent_view", refused_preview)
+    assert not main._publish_agent_delivery(store, "case", object(), state, checkpoint)
+    manifest = store.load_state("case", "output_manifest.json", OutputManifest)
+    assert [item.path for item in manifest.model_captures] == ["outputs/model/verified-r8.skp"]
+    assert store.load_state("case", "model_state.json", ModelState).last_operation["capture_status"] == "PENDING"

@@ -654,6 +654,10 @@ function artifactByType(type) {
   // Recovery can make an older checkpoint current. Manifest insertion order
   // is not the identity of the model the user is looking at.
   const modelPath = state.project?.model_state?.model_path;
+  if (type === "viewport" && state.project?.model_state?.last_operation?.capture_status) {
+    const currentCapture = state.project.model_state.last_capture;
+    return all.find(item => item.type === type && item.path === currentCapture) || null;
+  }
   return all.filter((item) => item.type === type &&
     (type !== "viewport" || state.project?.agent_session?.modeling_backend !== "blender" || !modelPath || item.path.startsWith(modelPath.slice(0, modelPath.lastIndexOf("/") + 1))) &&
     (!["skp", "blend"].includes(type) || !modelPath || item.path === modelPath)).at(-1) || null;
@@ -685,6 +689,9 @@ function updateHeader() {
   $("conversation-input").setAttribute("aria-description", state.busy ? "可以记录下一条要求；本轮结束前不会发送。" : "输入建模要求");
   $("recover-agent-checkpoint").hidden = state.project?.agent_session?.reconstruction_state !== "building" || agent.modeling_backend === "blender";
   $("recover-agent-checkpoint").disabled = state.busy;
+  $("refresh-agent-delivery").hidden = agent.modeling_backend === "blender"
+    || !Object.values(agent.ruby_state || {}).some(item => item.revision > 0);
+  $("refresh-agent-delivery").disabled = state.busy;
   renderProjectHistory();
   renderTurnControls();
   for (const id of ["workflow-mode", "conversation-tier", "reference-file", "brief-file", "site-file", "project-name"]) $(id).disabled = state.busy;
@@ -1510,6 +1517,26 @@ $("recover-agent-checkpoint").addEventListener("click", async () => {
     showToast(friendlyError(error), true);
   }
   finally { state.busy = false; updateHeader(); }
+});
+
+$("refresh-agent-delivery").addEventListener("click", async () => {
+  if (state.busy || !state.projectId) return;
+  const projectId = state.projectId;
+  state.busy = true;
+  updateHeader();
+  try {
+    const result = await api("/api/projects/" + encodeURIComponent(projectId) + "/agent/delivery/refresh", {method: "POST"});
+    if (projectId !== state.projectId) return;
+    state.project = result.project;
+    setTab("model");
+    setStatus(result.reply);
+    showToast(result.reply);
+  } catch (error) {
+    showToast(friendlyError(error), true);
+  } finally {
+    state.busy = false;
+    updateHeader();
+  }
 });
 
 function renderAttachments() {
