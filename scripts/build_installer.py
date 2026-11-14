@@ -107,9 +107,7 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
     lines=['!macro InstallPayload','  SetOverwrite on']
     for directory in ordered:
         target=destination(directory)
-        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',
-                      '  ClearErrors',f'  SetOutPath "\\\\?\\{target}"',
-                      '  IfErrors install_payload_failed'])
+        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call PreparePayloadDirectory','  IfErrors install_payload_failed'])
         for file in sorted(by_directory[directory],key=lambda p:p.as_posix()):
             lines.append(f'  File "/oname={nsis_string(file.name)}" "\\\\?\\{nsis_string(str(bundle/file))}"')
         lines.append('  IfErrors install_payload_failed')

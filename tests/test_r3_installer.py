@@ -19,8 +19,8 @@ def test_safe_nsis_strings_and_no_broad_uninstall(tmp_path):
     assert 'file $$name.txt' in output
     assert 'RMDir /r' not in output and 'Delete "$INSTDIR\\*' not in output
     assert 'Call un.CheckPathAncestors' in output
-    assert 'SetOutPath "\\\\?\\$INSTDIR' in output
-    assert 'Call CheckPathAncestors\n  ClearErrors\n  SetOutPath ' in output
+    assert 'Call PreparePayloadDirectory' in output
+    assert 'SetOutPath' not in output
     assert '  IfErrors install_payload_failed\n' in output
     assert 'Delete "\\\\?\\$INSTDIR' in output
     assert all('versions\\r3-test' in line for line in output.splitlines() if line.strip().startswith('Delete '))
@@ -49,6 +49,8 @@ def test_template_never_recursive_deletes_profiles_or_unknown_folders():
     assert not any(line.startswith('RMDir /r') for line in commands)
     assert not any('PROFILE_ROOT' in line for line in commands if line.startswith(('Delete ','RMDir ')))
     assert 'RequestExecutionLevel user' in commands
+    assert 'Function PreparePayloadDirectory' in commands
+    assert 'StrCpy $OUTDIR "\\\\?\\$CheckPath"' in commands
     assert 'SetCompressor /SOLID zlib' in commands
     assert commands.count('!insertmacro MUI_PAGE_DIRECTORY')==2
     assert '!ifdef SELECTABLE_PATHS' in commands

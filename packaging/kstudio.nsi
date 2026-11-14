@@ -431,6 +431,23 @@ Function PrepareTarget
     Call AcquireProfileLease
 FunctionEnd
 
+Function PreparePayloadDirectory
+  ; SetOutPath also changes the process current directory. On Windows that
+  ; fails for deep paths even when absolute Unicode I/O is supported.
+  ; The generated parent-first list creates one directory at a time.
+  Call CheckPathAncestors
+  StrCpy $OUTDIR "\\?\$CheckPath"
+  ClearErrors
+  System::Call 'kernel32::CreateDirectoryW(w "$OUTDIR", p 0) i.r0'
+  System::Call 'kernel32::GetFileAttributesW(w "$OUTDIR") i.r0'
+  IntCmp $0 -1 payload_directory_invalid
+  IntOp $1 $0 & 0x410
+  IntCmp $1 0x10 payload_directory_ready
+  payload_directory_invalid:
+    SetErrors
+  payload_directory_ready:
+FunctionEnd
+
 !include "${PAYLOAD_INCLUDE}"
 Section "K Studio R3（必选）" Main
   SectionIn RO
