@@ -4,6 +4,24 @@ x-app-build: &app-build
   dockerfile: deploy/Dockerfile
   args:
     KSTUDIO_BUILD_RELEASE_SHA: ${KSTUDIO_RELEASE_SHA:?set the pinned source SHA}
+x-operative-env: &operative-env
+  KSTUDIO_REGISTRATION_ENABLED: "${KSTUDIO_REGISTRATION_ENABLED:-0}"
+  KSTUDIO_PLATFORM_ENABLED: "${KSTUDIO_PLATFORM_ENABLED:-0}"
+  KSTUDIO_DOWNLOAD_ENABLED: "${KSTUDIO_DOWNLOAD_ENABLED:-0}"
+  KSTUDIO_PAYMENT_ENABLED: "${KSTUDIO_PAYMENT_ENABLED:-0}"
+  KSTUDIO_PRICES_CONFIRMED: "${KSTUDIO_PRICES_CONFIRMED:-0}"
+  KSTUDIO_CLOUD_PRICES: "${KSTUDIO_CLOUD_PRICES}"
+  KSTUDIO_CLOUD_MODELS: "${KSTUDIO_CLOUD_MODELS}"
+  KSTUDIO_CLOUD_RELEASE: "${KSTUDIO_CLOUD_RELEASE}"
+  KSTUDIO_OPERATOR: "${KSTUDIO_OPERATOR}"
+  KSTUDIO_GLOBAL_MAX_CONCURRENCY: "${KSTUDIO_GLOBAL_MAX_CONCURRENCY:-4}"
+  KSTUDIO_PAYMENT_PROVIDER: "${KSTUDIO_PAYMENT_PROVIDER:-disabled}"
+  KSTUDIO_OIDC_METADATA_URL: "${KSTUDIO_OIDC_METADATA_URL}"
+  KSTUDIO_OIDC_CLIENT_ID: "${KSTUDIO_OIDC_CLIENT_ID}"
+  KSTUDIO_OIDC_TOKEN_ENDPOINT_AUTH_METHOD: "${KSTUDIO_OIDC_TOKEN_ENDPOINT_AUTH_METHOD:-client_secret_post}"
+  KSTUDIO_OIDC_SCOPE: "${KSTUDIO_OIDC_SCOPE:-openid profile phone email}"
+  KSTUDIO_WECHATPAY_MCHID: "${KSTUDIO_WECHATPAY_MCHID}"
+  KSTUDIO_WECHATPAY_APPID: "${KSTUDIO_WECHATPAY_APPID}"
 services:
   db:
     image: postgres:17
@@ -39,11 +57,7 @@ services:
       - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
     depends_on: {db: {condition: service_healthy}}
     command: ["uvicorn", "cloud.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "8920", "--workers", "1", "--proxy-headers", "--forwarded-allow-ips", "${KSTUDIO_PROXY_IP:?set via deploy/ops.py}", "--no-access-log"]
-    environment:
-      KSTUDIO_REGISTRATION_ENABLED: ${KSTUDIO_REGISTRATION_ENABLED:-0}
-      KSTUDIO_PLATFORM_ENABLED: ${KSTUDIO_PLATFORM_ENABLED:-0}
-      KSTUDIO_DOWNLOAD_ENABLED: ${KSTUDIO_DOWNLOAD_ENABLED:-0}
-      KSTUDIO_PAYMENT_ENABLED: ${KSTUDIO_PAYMENT_ENABLED:-0}
+    environment: *operative-env
     read_only: true
     tmpfs: [/tmp]
     cap_drop: [ALL]
@@ -64,6 +78,7 @@ services:
     volumes:
       - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
     command: ["python", "-m", "cloud.maintenance"]
+    environment: *operative-env
     depends_on: {app: {condition: service_healthy}}
     read_only: true
     tmpfs: [/tmp]

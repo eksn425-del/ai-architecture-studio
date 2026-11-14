@@ -8,8 +8,26 @@ ROOT=Path(__file__).resolve().parent
 RELEASE_SHA = re.compile(r'[a-f0-9]{40}')
 SHA256 = re.compile(r'[a-f0-9]{64}')
 IMMUTABLE_IMAGE = re.compile(r'(?:[A-Za-z0-9._/:\-]+@)?sha256:[a-f0-9]{64}')
+AUDIT_BASE_SHA = '6a8001c5369c323666efa099472ea62f4fbf1c51'
+PLATFORM_KEY_ENV = 'KSTUDIO_BAI_PLATFORM_KEY'
 LAUNCH_SWITCHES = ('KSTUDIO_REGISTRATION_ENABLED', 'KSTUDIO_PLATFORM_ENABLED',
                    'KSTUDIO_DOWNLOAD_ENABLED', 'KSTUDIO_PAYMENT_ENABLED')
+OPERATIVE_ENV_DEFAULTS = {
+    **dict.fromkeys(LAUNCH_SWITCHES, '0'),
+    'KSTUDIO_PRICES_CONFIRMED': '0',
+    'KSTUDIO_CLOUD_PRICES': '{}',
+    'KSTUDIO_CLOUD_MODELS': '{}',
+    'KSTUDIO_CLOUD_RELEASE': '{}',
+    'KSTUDIO_OPERATOR': '{}',
+    'KSTUDIO_GLOBAL_MAX_CONCURRENCY': '4',
+    'KSTUDIO_PAYMENT_PROVIDER': 'disabled',
+    'KSTUDIO_OIDC_METADATA_URL': '',
+    'KSTUDIO_OIDC_CLIENT_ID': '',
+    'KSTUDIO_OIDC_TOKEN_ENDPOINT_AUTH_METHOD': 'client_secret_post',
+    'KSTUDIO_OIDC_SCOPE': 'openid profile phone email',
+    'KSTUDIO_WECHATPAY_MCHID': '',
+    'KSTUDIO_WECHATPAY_APPID': '',
+}
 NETWORKS = {
     'staging': ('172.31.91.0/24', '172.31.91.3'),
     'production': ('172.31.92.0/24', '172.31.92.3'),
@@ -66,20 +84,163 @@ def _validate_gate_evidence(rows, candidate, evidence_root):
             seen.add(relative)
 
 
+def _commercial_config(values, key):
+    config = json.loads(values.get(key, '{}'))
+    if not isinstance(config, dict):
+        raise ValueError('Invalid commercial configuration object')
+    return config
+
+
+def _nonempty_label(value):
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _bounded_int(value, lower, upper):
+    return type(value) is int and lower <= value <= upper
+
+
+def _public_https(url):
+    if not isinstance(url, str) or not url or any(character.isspace() for character in url):
+        return False
+    parsed = urlsplit(url)
+    return (parsed.scheme == 'https' and bool(parsed.hostname) and parsed.port in (None, 443)
+            and parsed.username is None and parsed.password is None and not parsed.query and not parsed.fragment)
+
+
+def commercial_open(values):
+    """BYOK software fees require the same approval as other paid traffic."""
+    prices = _commercial_config(values, 'KSTUDIO_CLOUD_PRICES')
+    return (any(values.get(name) == '1' for name in LAUNCH_SWITCHES)
+            or (values.get('KSTUDIO_PRICES_CONFIRMED') == '1' and bool(prices.get('byok_service_enabled'))))
+
+
+def commercial_policy_sha256(values, gates):
+    """Hash the operative launch policy without any key or secret material."""
+    release = gates.get('release', {})
+    policy = release.get('commercial_policy') if isinstance(release, dict) else None
+    if not isinstance(policy, dict) or set(policy) != {'trial', 'rollout'}:
+        raise ValueError('Explicit trial and rollout policies are required')
+    # R3 creates new wallets with zero credits and has no promotional grant lane.
+    if policy['trial'] != {'mode': 'none'}:
+        raise ValueError('Approved trial must match the zero-grant implementation')
+    rollout = policy['rollout']
+    if (not isinstance(rollout, dict) or set(rollout) != {'mode', 'max_users', 'control_reference'}
+            or rollout['mode'] != 'operator_managed' or not _bounded_int(rollout['max_users'], 1, 10**9)
+            or not _nonempty_label(rollout['control_reference'])):
+        raise ValueError('Verified operator-managed rollout scope is required')
+    if 'production' != values.get('KSTUDIO_CLOUD_ENV') or values.get('KSTUDIO_PRICES_CONFIRMED') != '1':
+        raise ValueError('Confirmed production policy is required')
+    if values.get('KSTUDIO_PAYMENT_PROVIDER') != 'wechat_native':
+        raise ValueError('Only the selected WeChat Native route can be approved')
+    # Merchant/App identifiers and the IdP authority define who receives money
+    # and who can join. These identifiers are distinct from rotating secrets.
+    merchant = values.get('KSTUDIO_WECHATPAY_MCHID', '')
+    payment_app = values.get('KSTUDIO_WECHATPAY_APPID', '')
+    identity_origin = values.get('KSTUDIO_OIDC_METADATA_URL')
+    identity_client = values.get('KSTUDIO_OIDC_CLIENT_ID')
+    identity_method = values.get('KSTUDIO_OIDC_TOKEN_ENDPOINT_AUTH_METHOD', 'client_secret_post')
+    scopes = values.get('KSTUDIO_OIDC_SCOPE', 'openid profile phone email').split()
+    if (not re.fullmatch(r'[0-9]{1,32}', merchant) or not re.fullmatch(r'[A-Za-z0-9_-]{1,32}', payment_app)
+            or not _public_https(identity_origin) or not re.fullmatch(r'[A-Za-z0-9._-]{1,128}', identity_client or '')
+            or identity_method not in ('client_secret_post', 'client_secret_basic')
+            or not {'openid', 'profile'}.issubset(scopes)):
+        raise ValueError('Approved WeChat merchant and identity authority are required')
+
+    prices = _commercial_config(values, 'KSTUDIO_CLOUD_PRICES')
+    if (not _nonempty_label(prices.get('version')) or not isinstance(prices.get('packages'), dict) or not prices['packages']
+            or type(prices.get('byok_service_enabled', False)) is not bool):
+        raise ValueError('Production packages and software fee settings are required')
+    # These fields participate in billing. Separate display metadata remains
+    # outside the contract and must never contain confidential values.
+    packages = {}
+    for package_id, row in prices['packages'].items():
+        if (not _nonempty_label(package_id) or not isinstance(row, dict)
+                or not _bounded_int(row.get('amount'), 1, 10**12)
+                or not _bounded_int(row.get('credits'), 1, 10**12)
+                or row.get('currency') not in ('CNY', 'cny')
+                or ('amount_minor' in row and (type(row['amount_minor']) is not int or row['amount_minor']!=row['amount']))):
+            raise ValueError('Invalid approved WeChat package or inconsistent display pricing')
+        packages[package_id] = {key: row[key] for key in ('amount', 'credits', 'currency')}
+    byok_enabled = prices.get('byok_service_enabled', False)
+    byok_units = prices.get('byok_task_units', 0)
+    if not _bounded_int(byok_units, 0, 10**12):
+        raise ValueError('Invalid BYOK software fee')
+
+    routes = _commercial_config(values, 'KSTUDIO_CLOUD_MODELS')
+    if any(not isinstance(item, dict) for item in routes.values()):
+        raise ValueError('Invalid model route')
+    active = [(model_id, item) for model_id, item in routes.items() if item.get('enabled') is True]
+    if len(active) != 1:
+        raise ValueError('Approve exactly one platform model for the initial release')
+    model_id, model = active[0]
+    if (not _nonempty_label(model_id) or model.get('verified') is not True
+            or model.get('protocol') not in ('responses', 'chat-completions')
+            or not _nonempty_label(model.get('upstream_model')) or not _public_https(model.get('base_url'))
+            or model.get('key_env') != PLATFORM_KEY_ENV):
+        raise ValueError('The intended platform model requires explicit route verification')
+    tariff = model.get('price')
+    price_fields = ('version', 'service_units', 'input_units_per_million', 'output_units_per_million')
+    if (not isinstance(tariff, dict) or not _nonempty_label(tariff.get('version'))
+            or any(not _bounded_int(tariff.get(key), 0, 10**12) for key in price_fields[1:])):
+        raise ValueError('Invalid platform tariff')
+    limits = {key: model.get(key) for key in ('max_output_tokens', 'reservation_units', 'daily_units',
+                                              'turn_budget_units', 'max_turn_requests', 'turn_timeout_seconds')}
+    if (any(not _bounded_int(limits[key], 1, 10**12) for key in
+            ('max_output_tokens', 'reservation_units', 'daily_units', 'turn_budget_units'))
+            or not _bounded_int(limits['max_turn_requests'], 1, 1000)
+            or not _bounded_int(limits['turn_timeout_seconds'], 60, 86400)
+            or not tariff['service_units'] <= limits['reservation_units'] <= min(limits['daily_units'], limits['turn_budget_units'])):
+        raise ValueError('Explicit server-enforced platform limits are invalid')
+    connection_timeout = model.get('timeouts', {})
+    if (not isinstance(connection_timeout, dict) or set(connection_timeout) - {'connect', 'read', 'total'}):
+        raise ValueError('Invalid platform timeout settings')
+    deadlines = {'connect': 10, 'read': 120, 'total': 900, **connection_timeout}
+    if (any(type(deadlines[key]) not in (int, float) or not 1 <= deadlines[key] <= limit
+            for key, limit in (('connect', 30), ('read', 600), ('total', 1800))) or deadlines['total'] < deadlines['read']):
+        raise ValueError('Invalid platform deadlines')
+    effort = model.get('reasoning_effort', 'provider-default')
+    if effort not in ('provider-default', 'none', 'minimal', 'low', 'medium', 'high', 'xhigh'):
+        raise ValueError('Invalid platform reasoning policy')
+    global_limit = int(values.get('KSTUDIO_GLOBAL_MAX_CONCURRENCY', '4'))
+    refund = _commercial_config(values, 'KSTUDIO_OPERATOR').get('refund_policy')
+    if not _bounded_int(global_limit, 1, 64) or not _nonempty_label(refund):
+        raise ValueError('Approved concurrency and public refund policy are required')
+    description = {
+        'schema_version': 1,
+        'prices': {'version': prices['version'], 'packages': packages,
+                   'byok_service_enabled': byok_enabled, 'byok_task_units': byok_units},
+        'platform': {'id': model_id, 'protocol': model['protocol'], 'endpoint': model['base_url'].rstrip('/'),
+                     'upstream_model': model['upstream_model'], 'reasoning_effort': effort,
+                     'limits': limits, 'timeouts': deadlines, 'price': {key: tariff[key] for key in price_fields}},
+        'global_max_concurrency': global_limit,
+        'payment': {'provider': values['KSTUDIO_PAYMENT_PROVIDER'], 'merchant': merchant, 'app_id': payment_app},
+        'identity': {'metadata_url': identity_origin, 'client_id': identity_client,
+                     'token_auth_method': identity_method, 'scopes': scopes},
+        'refund_policy': refund,
+        'trial': policy['trial'],
+        'rollout': rollout,
+    }
+    return hashlib.sha256(canonical_json(description)).hexdigest()
+
+
 def validate_launch(values, gates, approval, *, commercial, evidence_root):
-    """Bind approval to a trusted release receipt and the exact switches it covers."""
+    """Bind the owner approval to independently reviewed release and policy evidence."""
+    if not commercial or not isinstance(gates, dict) or not isinstance(approval, dict):
+        raise ValueError('Independent READY release and matching owner launch approval are required')
     expected_gates = {f'G{i:02d}' for i in range(11)}
-    rows = gates.get('gates', [])
-    statuses = {row.get('id'): row for row in rows if isinstance(row, dict)}
+    rows = gates.get('gates')
+    if not isinstance(rows, list) or any(not isinstance(row, dict) or not isinstance(row.get('id'), str) for row in rows):
+        raise ValueError('Invalid release gates')
+    statuses = {row['id']: row for row in rows}
     candidate = values['KSTUDIO_RELEASE_SHA']
-    release = json.loads(values['KSTUDIO_CLOUD_RELEASE'])
+    release = _commercial_config(values, 'KSTUDIO_CLOUD_RELEASE')
+    prices = _commercial_config(values, 'KSTUDIO_CLOUD_PRICES')
     requested = {name for name in LAUNCH_SWITCHES if values.get(name) == '1'}
     approved_switches = approval.get('switches', [])
     gate_hash = hashlib.sha256(canonical_json(gates)).hexdigest()
     artifact = gates.get('release', {})
-    download = urlsplit(str(release.get('url', '')))
-    if (not commercial or type(gates.get('schema_version')) is not int or gates['schema_version'] != 1
-            or not RELEASE_SHA.fullmatch(str(gates.get('audit_base_sha', '')))
+    if (type(gates.get('schema_version')) is not int or gates['schema_version'] != 1
+            or gates.get('audit_base_sha') != AUDIT_BASE_SHA
             or gates.get('implementation_sha') != candidate
             or gates.get('status') != 'READY_FOR_OWNER_LAUNCH_APPROVAL'
             or not expected_gates.issubset(statuses) or len(statuses) != len(rows)
@@ -89,20 +250,27 @@ def validate_launch(values, gates, approval, *, commercial, evidence_root):
             or artifact.get('version') != release.get('version') or not str(artifact.get('version') or '').strip()
             or type(release.get('size_bytes')) is not int or release['size_bytes'] <= 0
             or artifact.get('installer_size_bytes') != release['size_bytes']
-            or artifact.get('download_url') != release.get('url') or download.scheme != 'https'
-            or not download.hostname or download.username or download.password or download.fragment
+            or artifact.get('download_url') != release.get('url') or not _public_https(release.get('url'))
             or approval.get('release_sha') != candidate or approval.get('gate_sha256') != gate_hash
             or approval.get('signed_installer_sha256') != release.get('sha256')
             or approval.get('origin') != values['KSTUDIO_CLOUD_PUBLIC_URL']
-            or approval.get('approved') is not True or not approval.get('owner_reference')
-            or not isinstance(approved_switches,list) or not set(approved_switches).issubset(LAUNCH_SWITCHES)
-            or not requested.issubset(approved_switches)):
+            or approval.get('approved') is not True or not _nonempty_label(approval.get('owner_reference'))
+            or not isinstance(approved_switches, list) or any(name not in LAUNCH_SWITCHES for name in approved_switches)
+            or not requested.issubset(approved_switches)
+            or (prices.get('byok_service_enabled') is True and approval.get('byok_service_approved') is not True)
+            or not all(release.get(key) is True for key in (
+                'verified', 'public_distribution_authorized', 'signing_verified', 'clean_windows_verified'))
+            or release.get('license_clearance') != 'CLEARED'):
         raise ValueError('Independent READY release and matching owner launch approval are required')
+    policy_digest = commercial_policy_sha256(values, gates)
+    if (artifact.get('commercial_policy_sha256') != policy_digest
+            or approval.get('commercial_policy_sha256') != policy_digest):
+        raise ValueError('Effective commercial policy differs from accepted and approved policy')
     _validate_gate_evidence([statuses[gate] for gate in sorted(expected_gates)], candidate, evidence_root)
 
 
 def canonical_json(value):
-    return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
+    return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False).encode('utf-8')
 
 
 def rollback_image(compose, env, previous_image, expected_sha):
@@ -114,7 +282,12 @@ def rollback_image(compose, env, previous_image, expected_sha):
         '{{index .Config.Labels "org.opencontainers.image.revision"}}', previous_image], text=True).strip()
     if image_label != expected_sha:
         raise ValueError('Rollback image revision does not match verified release')
-    rollback_env = {**env, 'KSTUDIO_IMAGE': previous_image}
+    rollback_env = {**env, 'KSTUDIO_IMAGE': previous_image, 'KSTUDIO_RELEASE_SHA': expected_sha}
+    if env.get('KSTUDIO_CLOUD_ENV') == 'production':
+        rollback_env.update(dict.fromkeys(LAUNCH_SWITCHES, '0'))
+        # Prevent new BYOK software fees as well. Merchant settings remain
+        # available for existing orders, callbacks, refunds and reconciliation.
+        rollback_env['KSTUDIO_PRICES_CONFIRMED'] = '0'
     # Run the old code with the existing mounted environment and read-only
     # audit before changing a service. No db migration or volume operation.
     probe = subprocess.run([*compose, 'run', '--no-deps', '--rm', '-T', 'app',
@@ -249,14 +422,23 @@ def check(values, *, commercial=False):
     return {'status':'READY_FOR_OPERATOR_EXECUTION' if not missing and not errors else 'BLOCKED_CONFIGURATION','missing_names':missing,'errors':errors,'production_acceptance':'NOT_PROVEN_BY_PREFLIGHT'}
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('action',choices=['check','deploy','health','audit','recover-stale','backup','restore-drill','rollback']);p.add_argument('--env-file',required=True);p.add_argument('--commercial',action='store_true');p.add_argument('--output');p.add_argument('--archive');p.add_argument('--target-db');p.add_argument('--previous-image');p.add_argument('--previous-release-sha');p.add_argument('--permit-closed-production',action='store_true');p.add_argument('--gate-state',type=Path);p.add_argument('--launch-approval',type=Path);a=p.parse_args()
-    envfile=Path(a.env_file).resolve();values=load_env(envfile);result=check(values,commercial=a.commercial)
+    p=argparse.ArgumentParser();p.add_argument('action',choices=['check','commercial-policy','deploy','health','audit','recover-stale','backup','restore-drill','rollback']);p.add_argument('--env-file',required=True);p.add_argument('--commercial',action='store_true');p.add_argument('--output');p.add_argument('--archive');p.add_argument('--target-db');p.add_argument('--previous-image');p.add_argument('--previous-release-sha');p.add_argument('--permit-closed-production',action='store_true');p.add_argument('--gate-state',type=Path);p.add_argument('--launch-approval',type=Path);a=p.parse_args()
+    envfile=Path(a.env_file).resolve();values=load_env(envfile)
+    if a.action=='commercial-policy':
+        if not a.gate_state:raise ValueError('A gate state with rollout and trial policies is required')
+        gates=json.loads(a.gate_state.read_bytes())
+        print(json.dumps({'commercial_policy_sha256':commercial_policy_sha256(values,gates)}))
+        return 0
+    # Recovery remains available even when new commercial credentials or
+    # pricing have been withdrawn. The immutable old image performs its probe.
+    result=check(values,commercial=a.commercial and a.action!='rollback')
     if a.action=='check':print(json.dumps(result));return 0 if result['status']=='READY_FOR_OPERATOR_EXECUTION' else 2
     if result['status']!='READY_FOR_OPERATOR_EXECUTION':print(json.dumps(result));return 2
     environment=values['KSTUDIO_CLOUD_ENV']
     env={**os.environ,**values,'KSTUDIO_ENV_FILE':str(envfile),**selected_private_network(environment)}
-    # Do not let existing shell environment enable a missing config switch.
-    env.update({name:values.get(name,'0') for name in LAUNCH_SWITCHES})
+    # Give Compose exactly the operative values validated above. The shell
+    # cannot inject a switch or a policy absent from the private dotenv.
+    env.update({name:values.get(name,default) for name,default in OPERATIVE_ENV_DEFAULTS.items()})
     compose=['docker','compose','--project-name','kstudio-cloud-'+environment,
         '--env-file',str(envfile),'-f',str(ROOT/'compose.yml')]
     def docker(*args):subprocess.run([*compose,*args],env=env,cwd=ROOT,check=True)
@@ -264,7 +446,7 @@ def main():
         raise ValueError('Use the local authorized Docker context on the deployment host')
     if a.action=='deploy':
         if environment=='production':
-            if any(env[name]=='1' for name in LAUNCH_SWITCHES):
+            if commercial_open(values):
                 if not a.gate_state or not a.launch_approval:
                     raise ValueError('Opening production requires verified release and private owner approval receipts')
                 validate_launch(values,json.loads(a.gate_state.read_bytes()),json.loads(a.launch_approval.read_bytes()),
@@ -290,7 +472,10 @@ def main():
     elif a.action in ('audit','recover-stale'):docker('exec','-T','app','python','-m','cloud.cli',a.action)
     elif a.action=='rollback':
         rollback_image(compose,env,a.previous_image,a.previous_release_sha)
-        print('Application image changed without migrations or volume operations. Verify HTTPS readiness against the previous release and audit.')
+        if environment=='production':
+            print('Production admission and new charges are closed. Verify HTTPS, existing order access and ledger before restoring traffic.')
+        else:
+            print('Application image changed. Verify HTTPS readiness against the previous release and audit.')
     elif a.action=='backup':
         if not a.output:raise ValueError('New private encrypted backup output required')
         print(json.dumps(encrypted_backup(compose,env,a.output)))

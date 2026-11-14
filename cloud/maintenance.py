@@ -29,7 +29,9 @@ def main():
     try:
         while not stop.is_set():
             try:
-                report=cycle(engine,max([900]+[int(m.get('timeouts',{}).get('total',900)) for m in settings.models.values()])+60)
+                # recover_stale applies the gateway's maximum supported live
+                # lifetime plus its grace period to running platform requests.
+                report=cycle(engine)
                 # Recovery contains only task counts; no prompt, account secret or source data.
                 print(json.dumps(report),flush=True)
             except Exception as exc:logging.error('Maintenance failed: %s',type(exc).__name__)

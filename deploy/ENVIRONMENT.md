@@ -54,9 +54,12 @@ python3 deploy/ops.py audit --env-file /srv/kstudio-private/runtime.env
 
 `deploy` 启动私网数据库并迁移，随后启动 app/proxy/maintenance，再审计当前账本。旧 `kstudio-cloud` 项目不会自动归入新的环境项目；如发现旧数据，先独立核实卷和备份，再制定迁移。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
 
-生产空后台首次部署依赖明确的运营授权，并需手动传入 `--permit-closed-production`；注册、平台模型、下载和支付均须保持 0。启用任一生产开关时由 `--commercial --gate-state 已验证发布关卡JSON --launch-approval 私有负责人批准JSON` 核对相同源码、安装包与批准范围。负责人批准含实际授权记录引用、SHA 与获准开关，保存在私有运维目录。运维人员核验批准来源，脚本的一致性检查无法替代运营者授权。
+首次部署关闭开放功能的生产后台，需要经营者确认授权并传入 `--permit-closed-production`。将注册、平台模型、下载和支付开关设为 0，并关闭 BYOK 软件收费。任何生产开放操作，包括只启用 BYOK 软件收费，都需要 `--commercial --gate-state 已验证发布关卡JSON --launch-approval 私有负责人批准JSON`。
 
-回退：`python3 deploy/ops.py rollback --env-file ... --previous-image 已验证镜像digest --previous-release-sha 已验证旧源码SHA`。用旧镜像只读核对现有 schema、账本与 Vault，再只切 app/maintenance。回退后使用旧 SHA/digest 对应的私有配置复核 HTTPS 和账本，并同步运维配置。尽快补齐实际告警与回退演练；源码测试无法证明生产端可回退。数据库切换另行安排，restore-drill 不自动切生产。
+- G00–G10 须在固定审计基线 `6a8001c5369c323666efa099472ea62f4fbf1c51` 后通过同一实施 SHA 的独立验收。
+- 私有发布关卡记录的 `release.commercial_policy` 使用 `trial.mode=none` 与 `rollout.mode=operator_managed`。在 `rollout.max_users` 记录已核准规模，在 `rollout.control_reference` 记录受控 IdP 或入口限量验收的私有凭证引用。新钱包初始额度为零。运营者须在入口验证实际限量措施。
+- 使用 `python3 deploy/ops.py commercial-policy --env-file PRIVATE --gate-state PRIVATE_GATE_STATE` 计算商业配置摘要。命令只输出摘要。由独立验收将该值写到 `release.commercial_policy_sha256`，负责人确认同一摘要和获准开关后写入批准记录的 `commercial_policy_sha256`。若允许 BYOK 软件收费，批准记录还须包含 `byok_service_approved=true`。不记录服务端密钥值。金额、积分、限额、付款与身份渠道、退款规则或灰度范围发生变更时，按新政策重新验收和批准。
+- 生产回退使用 `python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_DIGEST --previous-release-sha VERIFIED_SHA`。旧镜像先只读审查当前 schema、账本和 Vault，再切换 app 和 maintenance。回退会关闭新注册、平台派发、下载、新支付和 BYOK 软件收费，已有账户及退款、通知和对账继续使用原有配置。用旧版 SHA 和镜像 digest 复查 HTTPS 与账本后同步私有配置，重新开放另走批准流程。数据库独立恢复使用 restore-drill。
 
 ## 加密备份与隔离恢复
 

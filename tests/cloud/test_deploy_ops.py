@@ -1,4 +1,5 @@
 import json
+import re
 import subprocess
 from types import SimpleNamespace
 
@@ -138,14 +139,18 @@ def test_health_requires_server_release_and_schema(monkeypatch):
         observed[key]=original
 
 
-def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt(tmp_path):
+@pytest.fixture
+def commercial_receipts(tmp_path):
     import hashlib
     source='a'*40
     installer='b'*64
     url='https://downloads.operator.test/KStudio.exe'
-    gates={'schema_version':1,'audit_base_sha':'c'*40,'implementation_sha':source,
+    gates={'schema_version':1,'audit_base_sha':ops.AUDIT_BASE_SHA,'implementation_sha':source,
         'status':'READY_FOR_OWNER_LAUNCH_APPROVAL','gates':[],
-        'release':{'signed_installer_sha256':installer,'download_url':url,'version':'fixture','installer_size_bytes':42}}
+        'release':{'signed_installer_sha256':installer,'download_url':url,'version':'fixture','installer_size_bytes':42,
+                   'commercial_policy':{
+                       'trial':{'mode':'none'},
+                       'rollout':{'mode':'operator_managed','max_users':3,'control_reference':'private cohort evidence reference'}}}}
     for i in range(11):
         gate=f'G{i:02d}'
         evidence=tmp_path/gate/'receipt.json'
@@ -154,21 +159,50 @@ def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt(tmp_
         gates['gates'].append({'id':gate,'status':'PASS','code_sha':source,'independent_reviewer':'fixture review',
             'blockers':[],'evidence_files':[{'path':str(evidence.relative_to(tmp_path)),
                                              'sha256':hashlib.sha256(evidence.read_bytes()).hexdigest()}]})
-    values={'KSTUDIO_RELEASE_SHA':source,'KSTUDIO_CLOUD_PUBLIC_URL':'https://operator.test',
-        'KSTUDIO_CLOUD_RELEASE':json.dumps({'sha256':installer,'url':url,'version':'fixture','size_bytes':42}),
-        'KSTUDIO_DOWNLOAD_ENABLED':'1'}
+    values={'KSTUDIO_RELEASE_SHA':source,'KSTUDIO_CLOUD_PUBLIC_URL':'https://operator.test','KSTUDIO_CLOUD_ENV':'production',
+        'KSTUDIO_CLOUD_RELEASE':json.dumps({'sha256':installer,'url':url,'version':'fixture','size_bytes':42,
+            'verified':True,'public_distribution_authorized':True,'signing_verified':True,'clean_windows_verified':True,
+            'license_clearance':'CLEARED'}),
+        'KSTUDIO_DOWNLOAD_ENABLED':'1','KSTUDIO_PRICES_CONFIRMED':'1','KSTUDIO_PAYMENT_PROVIDER':'wechat_native',
+        'KSTUDIO_CLOUD_PRICES':json.dumps({'version':'fixture-pricing','byok_service_enabled':False,'byok_task_units':0,
+            'packages':{'intro':{'amount':99,'currency':'CNY','credits':100,'name':'Fixture'}}}),
+        'KSTUDIO_CLOUD_MODELS':json.dumps({'deepseek':{'enabled':True,'verified':True,'protocol':'responses',
+            'upstream_model':'fixture-model','base_url':'https://model.operator.test/v1','key_env':'KSTUDIO_BAI_PLATFORM_KEY',
+            'max_output_tokens':8192,'reservation_units':20,'daily_units':500,'turn_budget_units':80,'max_turn_requests':12,
+            'turn_timeout_seconds':3600,'reasoning_effort':'high',
+            'price':{'version':'platform-fixture','service_units':1,'input_units_per_million':10,'output_units_per_million':20}}}),
+        'KSTUDIO_GLOBAL_MAX_CONCURRENCY':'4','KSTUDIO_OPERATOR':json.dumps({'refund_policy':'fixture verified refund policy'}),
+        'KSTUDIO_WECHATPAY_MCHID':'12345678','KSTUDIO_WECHATPAY_APPID':'wx_fixture',
+        'KSTUDIO_OIDC_METADATA_URL':'https://id.operator.test/.well-known/openid-configuration',
+        'KSTUDIO_OIDC_CLIENT_ID':'fixture-public-client'}
+    policy_digest=ops.commercial_policy_sha256(values,gates)
+    gates['release']['commercial_policy_sha256']=policy_digest
     approval={'release_sha':source,'signed_installer_sha256':installer,
-        'gate_sha256':hashlib.sha256(ops.canonical_json(gates)).hexdigest(),
+        'gate_sha256':hashlib.sha256(ops.canonical_json(gates)).hexdigest(),'commercial_policy_sha256':policy_digest,
         'origin':'https://operator.test','approved':True,'owner_reference':'fixture reference',
         'switches':['KSTUDIO_DOWNLOAD_ENABLED']}
+    return values,gates,approval
+
+
+def gate_file_sha(gates):
+    import hashlib
+    return hashlib.sha256(ops.canonical_json(gates)).hexdigest()
+
+
+def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt(tmp_path,commercial_receipts):
+    values,gates,approval=commercial_receipts
     def validate(settings=values, commercial=True):
         ops.validate_launch(settings,gates,approval,commercial=commercial,evidence_root=tmp_path)
     def rehash():
-        approval['gate_sha256']=hashlib.sha256(ops.canonical_json(gates)).hexdigest()
+        approval['gate_sha256']=gate_file_sha(gates)
     validate()
     with pytest.raises(ValueError):validate(commercial=False)
     with pytest.raises(ValueError):validate({**values,'KSTUDIO_PAYMENT_ENABLED':'1'})
     validate({**values,'KSTUDIO_PAYMENT_ENABLED':'0'})
+    gates['audit_base_sha']='c'*40
+    rehash()
+    with pytest.raises(ValueError):validate()
+    gates['audit_base_sha']=ops.AUDIT_BASE_SHA
     row=gates['gates'][4]
     for key,value in [('status','BLOCKED_EXTERNAL'),('code_sha','d'*40),('evidence_files',[])]:
         previous=row[key]
@@ -176,12 +210,100 @@ def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt(tmp_
         rehash()
         with pytest.raises(ValueError):validate()
         row[key]=previous
+    rehash()
     receipt=tmp_path/'G04/receipt.json'
     receipt.write_text('changed after owner approval',encoding='utf8')
-    rehash()
     with pytest.raises(ValueError,match='evidence changed'):validate()
     receipt.write_text('G04',encoding='utf8')
     validate()
+
+
+@pytest.mark.parametrize('key, path, change',[
+    ('KSTUDIO_CLOUD_PRICES', ('packages','intro','amount'), 100),
+    ('KSTUDIO_CLOUD_PRICES', ('packages','intro','credits'), 101),
+    ('KSTUDIO_CLOUD_PRICES', ('version',), 'new-price'),
+    ('KSTUDIO_CLOUD_PRICES', ('byok_task_units',), 1),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','daily_units'), 550),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','turn_budget_units'), 81),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','max_turn_requests'), 13),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','turn_timeout_seconds'), 3601),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','max_output_tokens'), 8193),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','reasoning_effort'), 'low'),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','upstream_model'), 'another-model'),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','base_url'), 'https://another.operator.test/v1'),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','price','output_units_per_million'), 21),
+    ('KSTUDIO_OPERATOR', ('refund_policy',), 'changed refunds'),
+    ('KSTUDIO_GLOBAL_MAX_CONCURRENCY', (), '5'),
+    ('KSTUDIO_WECHATPAY_MCHID', (), '23456789'),
+    ('KSTUDIO_WECHATPAY_APPID', (), 'another_fixture'),
+    ('KSTUDIO_OIDC_METADATA_URL', (), 'https://new-id.operator.test/.well-known/openid-configuration'),
+    ('KSTUDIO_OIDC_SCOPE', (), 'openid profile'),
+    ('KSTUDIO_CLOUD_MODELS', ('deepseek','timeouts'), {'total': 960}),
+])
+def test_approved_operating_policy_refuses_environment_drift(tmp_path,commercial_receipts,key,path,change):
+    values,gates,approval=commercial_receipts
+    if path:
+        document=json.loads(values[key])
+        target=document
+        for part in path[:-1]:target=target[part]
+        target[path[-1]]=change
+        change=json.dumps(document)
+    with pytest.raises(ValueError,match='Effective commercial policy'):
+        ops.validate_launch({**values,key:change},gates,approval,commercial=True,evidence_root=tmp_path)
+
+
+@pytest.mark.parametrize('part,value,expected',[
+    ('trial',{'mode':'credit_grant','credits':25},'trial must match'),
+    ('rollout',{'mode':'operator_managed','max_users':4,'control_reference':'private cohort evidence reference'},'Effective commercial policy'),
+    ('rollout',{'mode':'operator_managed','max_users':3,'control_reference':''},'rollout scope'),
+])
+def test_trial_and_rollout_are_explicit_and_hash_bound(tmp_path,commercial_receipts,part,value,expected):
+    values,gates,approval=commercial_receipts
+    gates['release']['commercial_policy'][part]=value
+    approval['gate_sha256']=gate_file_sha(gates)
+    with pytest.raises(ValueError,match=expected):
+        ops.validate_launch(values,gates,approval,commercial=True,evidence_root=tmp_path)
+
+
+def test_canonical_approval_ignores_json_format_and_secret_rotation(tmp_path,commercial_receipts):
+    values,gates,approval=commercial_receipts
+    values={**values,'KSTUDIO_BAI_PLATFORM_KEY':'fixture-rotated',
+            'KSTUDIO_OIDC_CLIENT_SECRET':'fixture-rotated','KSTUDIO_CLOUD_SESSION_SECRET':'fixture-rotated',
+            'KSTUDIO_WECHATPAY_API_V3_KEY_FILE':'/run/secrets/kstudio/new-fixture.key'}
+    for name in ('KSTUDIO_CLOUD_PRICES','KSTUDIO_OPERATOR','KSTUDIO_CLOUD_MODELS'):
+        values[name]=json.dumps(json.loads(values[name]),sort_keys=True,indent=2)
+    ops.validate_launch(values,gates,approval,commercial=True,evidence_root=tmp_path)
+
+
+def test_byok_fee_requires_separate_approval_even_when_other_switches_are_off(tmp_path,commercial_receipts):
+    values,gates,approval=commercial_receipts
+    price=json.loads(values['KSTUDIO_CLOUD_PRICES'])
+    price.update(byok_service_enabled=True,byok_task_units=2)
+    values={**values,'KSTUDIO_CLOUD_PRICES':json.dumps(price),**dict.fromkeys(ops.LAUNCH_SWITCHES,'0')}
+    assert ops.commercial_open(values)
+    policy_digest=ops.commercial_policy_sha256(values,gates)
+    gates['release']['commercial_policy_sha256']=policy_digest
+    approval.update(gate_sha256=gate_file_sha(gates),commercial_policy_sha256=policy_digest,switches=[])
+    with pytest.raises(ValueError,match='matching owner launch approval'):
+        ops.validate_launch(values,gates,approval,commercial=True,evidence_root=tmp_path)
+    approval['byok_service_approved']=True
+    ops.validate_launch(values,gates,approval,commercial=True,evidence_root=tmp_path)
+    assert not ops.commercial_open({**values,'KSTUDIO_PRICES_CONFIRMED':'0'})
+
+
+def test_policy_digest_cli_prints_digest_only(tmp_path,commercial_receipts,monkeypatch,capsys):
+    import sys
+    values,gates,_=commercial_receipts
+    values['KSTUDIO_BAI_PLATFORM_KEY']='fixture-private-secret'
+    dotenv=tmp_path/'runtime.env'
+    dotenv.write_text('\n'.join(key+'='+value for key,value in values.items()),encoding='utf8')
+    state=tmp_path/'release.json'
+    state.write_text(json.dumps(gates),encoding='utf8')
+    monkeypatch.setattr(sys,'argv',['ops.py','commercial-policy','--env-file',str(dotenv),'--gate-state',str(state)])
+    assert ops.main()==0
+    output=capsys.readouterr().out
+    assert 'fixture-private-secret' not in output
+    assert json.loads(output)=={'commercial_policy_sha256':gates['release']['commercial_policy_sha256']}
 
 
 def test_rollback_refuses_old_image_until_read_only_compatible_audit_passes(monkeypatch):
@@ -199,3 +321,66 @@ def test_rollback_refuses_old_image_until_read_only_compatible_audit_passes(monk
     assert len(calls)==2 and calls[0][-1]=='rollback-check'
     assert calls[1][-2:]==['app','maintenance']
     assert '--no-deps' in calls[0] and '--no-deps' in calls[1]
+
+
+def test_rollback_closes_production_admission_and_new_fees_without_breaking_auth_and_refunds(monkeypatch):
+    calls=[]
+    monkeypatch.setattr(ops.subprocess,'check_output',lambda *a,**k:'a'*40)
+    def run(command,**kwargs):
+        calls.append((command,kwargs['env']))
+        return SimpleNamespace(stdout=b'{"consistent":true,"rollback_read_only":true,"schema_version":3}')
+    monkeypatch.setattr(ops.subprocess,'run',run)
+    digest='kstudio@sha256:'+'b'*64
+    live={**dict.fromkeys(ops.LAUNCH_SWITCHES,'1'),'KSTUDIO_PRICES_CONFIRMED':'1','KSTUDIO_CLOUD_ENV':'production',
+          'KSTUDIO_CLOUD_PRICES':'{"byok_service_enabled":true}',
+          'KSTUDIO_OIDC_CLIENT_ID':'fixture-oidc','KSTUDIO_PAYMENT_PROVIDER':'wechat_native',
+          'KSTUDIO_WECHATPAY_API_V3_KEY_FILE':'/run/secrets/kstudio/wx-fixture.key'}
+    ops.rollback_image(['docker','compose'],live,digest,'a'*40)
+    for _,env in calls:
+        assert all(env[key]=='0' for key in (*ops.LAUNCH_SWITCHES,'KSTUDIO_PRICES_CONFIRMED'))
+        assert env['KSTUDIO_IMAGE']==digest and env['KSTUDIO_RELEASE_SHA']=='a'*40
+        for key in ('KSTUDIO_OIDC_CLIENT_ID','KSTUDIO_PAYMENT_PROVIDER','KSTUDIO_WECHATPAY_API_V3_KEY_FILE'):
+            assert env[key]==live[key]
+    assert all(live[key]=='1' for key in ops.LAUNCH_SWITCHES)
+    ops.rollback_image(['docker','compose'],{**live,'KSTUDIO_CLOUD_ENV':'staging'},digest,'a'*40)
+    assert all(calls[-1][1][key]=='1' for key in ops.LAUNCH_SWITCHES)
+
+
+def test_compose_forwards_validated_operative_env_to_app_and_maintenance():
+    compose=(ops.ROOT/'compose.yml').read_text(encoding='utf8')
+    header,services=compose.split('services:\n',1)
+    for key in ops.OPERATIVE_ENV_DEFAULTS:
+        setting=re.search(rf'^  {key}: "([^"]+)"$',header,re.MULTILINE)
+        assert setting
+        assert setting[1].startswith('$'+'{'+key) and setting[1].endswith('}')
+    for service,next_service in (('app','maintenance'),('maintenance','proxy')):
+        body=services.split(f'\n  {service}:\n',1)[1].split(f'\n  {next_service}:\n',1)[0]
+        assert '    environment: *operative-env' in body
+    assert 'KSTUDIO_BAI_PLATFORM_KEY:' not in header
+    assert 'KSTUDIO_OIDC_CLIENT_SECRET:' not in header
+
+
+def test_maintenance_horizon_is_independent_of_disabled_route_values(monkeypatch):
+    from cloud import maintenance
+    calls=[]
+    class StopAfterOne:
+        def __init__(self):
+            self.stopped=False
+        def is_set(self):
+            return self.stopped
+        def wait(self,seconds):
+            assert seconds==60
+            self.stopped=True
+    engine=SimpleNamespace(dispose=lambda:calls.append('disposed'))
+    settings=SimpleNamespace(database_url='fixture',models={'disabled':{'enabled':False,'timeouts':None}})
+    monkeypatch.setattr(maintenance.Settings,'from_env',lambda:settings)
+    monkeypatch.setattr(maintenance.threading,'Event',StopAfterOne)
+    monkeypatch.setattr(maintenance.signal,'signal',lambda *args:None)
+    monkeypatch.setattr(maintenance,'engine_for',lambda _:engine)
+    def cycle_default(target):
+        assert target is engine
+        calls.append('normal recovery horizon')
+        return {'status':'ok'}
+    monkeypatch.setattr(maintenance,'cycle',cycle_default)
+    maintenance.main()
+    assert calls==['normal recovery horizon','disposed']
