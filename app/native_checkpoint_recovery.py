@@ -9,10 +9,10 @@ import copy
 import hashlib
 import json
 import os
-from pathlib import Path
 import shutil
 import time
 import uuid
+from pathlib import Path
 
 
 def process_exited(pid):
@@ -143,7 +143,7 @@ def _finish_activation(project,session,adapter,root,pending_file,attempt,launche
 def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     from .connector_instances import lifecycle_pin,instances,path_key,write_selection,read_selection,project_scope
     from .public_connector import root_dir,atomic_write
-    from .project_ruby import ProjectRubyExecutor
+    from .project_ruby import SCRIPT_ID_RE, ProjectRubyExecutor
     project=Path(project).resolve();root=Path(root or root_dir())
     pending_file=project/'runtime/native-recovery/pending.json'
     if pending_file.exists():
@@ -165,6 +165,8 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     scripts=uncertain.get('scripts',{})
     if len(scripts)!=1:raise ValueError('Recovery currently requires one owned building root')
     script_id,pending=next(iter(scripts.items()))
+    if not isinstance(script_id, str) or not SCRIPT_ID_RE.fullmatch(script_id):
+        raise ValueError('Uncertain script identity is invalid')
     if pending.get('durability_status')!='unconfirmed':raise ValueError('No uncertain native write to recover')
     saved=pending.get('durable_checkpoint',{})
     if saved.get('status')!='saved_unverified_reopen' or not isinstance(saved.get('sha256'),str):
@@ -188,6 +190,15 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     source_candidates=list((project/'runtime/scripts/reports').glob('*.committed.rb'))
     source=next((f for f in source_candidates if not f.is_symlink() and sha(f)==accepted.get('source_sha256')),None)
     if source is None:raise ValueError('Accepted checkpoint source is unavailable')
+    # The host persists intent before SketchUp creates its report. Validate
+    # the path first so a failure leaves the previous state and no orphan copy.
+    report_path = project / str(pending.get('last_report') or '')
+    report_root = project / 'runtime/scripts/reports'
+    if (report_path.is_symlink() or not report_path.resolve().is_relative_to(report_root.resolve())
+            or not report_root.resolve().is_relative_to(project)
+            or report_path == report_root or report_path.suffix != '.json'):
+        raise ValueError('Uncertain report path is outside the owned reports')
+    failed_source = regular(project/'runtime/scripts'/f'{script_id}.rb', project/'runtime/scripts')
     pending_file=project/'runtime/native-recovery/pending.json'
     if pending_file.exists():
         attempt=json.loads(regular(pending_file,project/'runtime').read_text(encoding='utf8'))
@@ -204,8 +215,13 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
             'target':target.relative_to(project).as_posix(),'uncertain_state_sha256':state_sha,
             'checkpoint_sha256':saved['sha256'],'old_instance_id':old['instance_id'],'old_process_exited':True}
         shutil.copyfile(state_path,folder/'uncertain-state.private.json')
-        shutil.copyfile(project/str(pending['last_report']),folder/'uncertain-report.private.json')
-        shutil.copyfile(project/'runtime/scripts'/f'{script_id}.rb',folder/'failed-source.rb')
+        if report_path.exists():
+            shutil.copyfile(regular(report_path, report_root), folder/'uncertain-report.private.json')
+        else:
+            atomic_write(folder/'uncertain-report.private.json', {
+                'status': 'not_recorded', 'outcome': 'PRESERVED_UNKNOWN',
+            })
+        shutil.copyfile(failed_source,folder/'failed-source.rb')
         atomic_write(pending_file,attempt)
     if sha(target)!=saved['sha256'] or sha(checkpoint)!=saved['sha256']:
         raise ValueError('Recovery copy no longer matches the durable checkpoint')

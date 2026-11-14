@@ -98,6 +98,32 @@ def test_invalid_recovery_fails_before_launch_and_preserves_quarantine(recovery,
     assert not f.launched and f.state.read_bytes()==before
 
 
+def test_process_exit_before_native_report_can_recover_saved_checkpoint(recovery):
+    f = recovery
+    (f.runtime/'scripts/reports/r2.json').unlink()
+    previous = f.state.read_bytes()
+    target, receipt = perform(f)
+    archive = next((f.runtime/'native-recovery').glob('*/uncertain-report.private.json'))
+    assert json.loads(archive.read_text(encoding='utf-8')) == {
+        'status': 'not_recorded', 'outcome': 'PRESERVED_UNKNOWN',
+    }
+    assert archive.with_name('uncertain-state.private.json').read_bytes() == previous
+    assert receipt['uncertain_operation_replayed'] is False
+    assert target.read_bytes() == f.checkpoint.read_bytes()
+
+
+def test_recovery_refuses_an_uncertain_report_outside_its_project_reports(recovery):
+    f = recovery
+    pending = json.loads(f.state.read_bytes())
+    pending['scripts']['harness_building']['last_report'] = 'runtime/previous-agent-ruby-state.json'
+    f.state.write_text(json.dumps(pending), encoding='utf-8')
+    before = f.state.read_bytes()
+    with pytest.raises(ValueError, match='outside the owned reports'):
+        perform(f)
+    assert not f.launched and f.state.read_bytes() == before
+    assert not (f.runtime/'native-recovery').exists()
+
+
 def test_failed_native_readback_preserves_guard_then_reuses_same_pending_copy(recovery):
     f=recovery;before=f.state.read_bytes();f.actual['revision']=2
     with pytest.raises(ValueError,match='readback'):perform(f)
