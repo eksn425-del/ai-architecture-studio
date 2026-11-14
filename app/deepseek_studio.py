@@ -12,7 +12,7 @@ from .native_agent import NativeAgentUnavailable
 from .k_architecture import ArchitectureContext, GUIDANCE, specs as architecture_specs, validate_graph
 
 BASE = '''Answer in natural Chinese. You operate K Studio through the provided tools.
-HOST_STAGE and native_execution_granted are authoritative. Save a design graph with kstudio_save_design_graph before sketchup_save_plan during planning; a saved plan is not approval. Preserve the supplied spatial handoff and stable parts, and name only this task's edit_parts.
+HOST_STAGE and native_execution_granted are authoritative. During planning record the design graph or scoped edit before sketchup_save_plan. A saved plan is not approval. Preserve the supplied spatial handoff and stable parts, and name only this task's edit_parts.
 Use only the provided tools and preserve existing user work. Units are millimetres, X right, front -Y, Z up. Keep the top roof as a separate Roof part.
 Write concise Chinese replies for architects: describe building parts in everyday language. Keep tool IDs, SDK/session details and internal receipt fields out of the normal reply; they remain available in diagnostics. Report actual tool failures and remaining limitations. Saving is not native reopen or visual acceptance. Stop after the user's current task.'''
 
@@ -58,6 +58,8 @@ For continued construction or local changes use edit with exact allowed_mutation
             images=attachment_order(project,discover_project_reference_images(project))
             # Product memory, approval and tools are invariant in guidance ablations.
             architecture=ArchitectureContext(project,agent_action,images,context.get('conversation',[]),ruby_state)
+            reusable_graph = architecture.reusable_edit_graph()
+            reusable_parts = reusable_graph['parts'] if reusable_graph else []
             try:
                 allowed=architecture.execution_parts() if architecture and mcp_enabled else None
             except ValueError as error:
@@ -91,6 +93,7 @@ This directory belongs to this single architectural project. Preserve the user's
                 if architecture:
                     if name=='kstudio_read_skill':return architecture.read_skill(args)
                     if name=='kstudio_save_design_graph':return architecture.save_graph(args)
+                    if name=='kstudio_scope_existing_parts':return architecture.scope_existing_parts(args)
                     if name=='kstudio_review_model':
                         if args:raise ValueError('No review arguments accepted.')
                         return architecture.review(surface.quality_state)
@@ -104,6 +107,11 @@ This directory belongs to this single architectural project. Preserve the user's
                 return result
             instructions=self.instructions
             effort=self.effective_configuration.requested_effort
+            if reusable_parts:
+                instructions += ('\nFor a precise repair of existing parts without changing the design facts, first call '
+                                 'kstudio_scope_existing_parts with only the parts to repair, then save a short plan. '
+                                 'Use the part names in the tool schema. Do not regenerate the existing graph for this repair. '
+                                 'A change to layout, system membership or spatial facts requires the full graph.')
             if self.guidance=='architecture' and mcp_enabled:
                 # Core execution methods are host-selected context, not an
                 # optional first tool call that a resumed model can skip. Skill
@@ -117,7 +125,7 @@ This directory belongs to this single architectural project. Preserve the user's
             try:
                 result=self._official_turn(project=project,thread_id=thread_id,
                     prompt=json.dumps(turn_context,ensure_ascii=False)+f'\nHOST_STAGE={agent_action}; native_execution_granted={mcp_enabled}.',
-                    specs=surface.dynamic_tools+(architecture_specs(agent_action) if architecture else []),dispatch=dispatch,instructions=instructions,
+                    specs=surface.dynamic_tools+(architecture_specs(agent_action, reusable_parts) if architecture else []),dispatch=dispatch,instructions=instructions,
                     images=images,progress=progress_callback,new_session_on_binding_change=True,reasoning_effort=effort)
             except NativeAgentUnavailable as error:
                 from .k_architecture import write_json
