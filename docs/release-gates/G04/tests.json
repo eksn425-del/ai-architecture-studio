@@ -125,5 +125,70 @@
       "name": "独立干净 Win x64 + SU2024、公开签名和升级 URL",
       "status": "NOT_RUN"
     }
-  ]
+  ],
+  "additional_receipts": {
+    "beta10_exact_local_install_lifecycle": {
+      "status": "PASS",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "generic": {
+        "scope": "generic",
+        "sha256": "f36be32722c6234d560bab20389f0f936a892e2dc48620908dc88b3d866e96b2",
+        "bytes": 315733774,
+        "authenticode": "NotSigned",
+        "installer_source_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+        "sequence": 17,
+        "payload_file_count": 34428,
+        "inventory_sha256": "a3e60d2edb1208b44c17eca35c9cbbddbe645d24e0ab2ca7fddb60a8a5e2f37f"
+      },
+      "local_qa": {
+        "scope": "isolated_qa",
+        "sha256": "785a82d3863d901cae94fcb6fb8b62299010a80cc46538ae85cbe36da60dfa4d",
+        "bytes": 315733952,
+        "authenticode": "NotSigned",
+        "installer_source_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+        "sequence": 17,
+        "payload_file_count": 34428,
+        "inventory_sha256": "a3e60d2edb1208b44c17eca35c9cbbddbe645d24e0ab2ca7fddb60a8a5e2f37f"
+      },
+      "hashes": {
+        "scope": "exact frozen application bytes installed by beta10 local QA NSIS",
+        "sha256_confirmed": 34428,
+        "expected": 34428,
+        "mismatched": [],
+        "public_release": false,
+        "actual_installer_sha256": "785a82d3863d901cae94fcb6fb8b62299010a80cc46538ae85cbe36da60dfa4d"
+      },
+      "guards": {
+        "runtime_profile_lock_exit": 5,
+        "invalid_root_exit": 2,
+        "pointer_unchanged": true,
+        "pass": true,
+        "fixture_profile_only": true
+      },
+      "lifecycle": {
+        "scope": "Existing Windows dedicated E-drive full payload",
+        "provider_calls": 0,
+        "app_launch": "Headless diagnostic",
+        "status": "PASS",
+        "installed_probe_exit": 0,
+        "installed_harness_ready": true,
+        "uninstall_exit": 0,
+        "program_payload_removed": true,
+        "isolated_registration_removed": true,
+        "dpapi_cipher_sha_unchanged": true,
+        "dpapi_decrypted_in_a_new_process": true,
+        "fixture_project_sha_unchanged": true,
+        "six_original_install_hashes_unchanged": true
+      },
+      "all_receipt_hashes": {
+        "install-guards-receipt.json": "143f7c4e197778a6192761e731f2537c985b5da403155cc522684922f125e1d6",
+        "installation-receipt.json": "e90b3b6f929c89f7bfbbf7d143253828ea641bab3a1dd2e8b424b6ab05983ef3",
+        "installed-harness.json": "b8a57057fd3dbaa8b197b85c51602ff59853fc46ae00ee59a9b1912b1bcac31f",
+        "lifecycle-receipt.json": "cac773d06acfa6a1b4c547c6617d2b4c2e378e69f355e3633eb5845b08f523ea",
+        "payload-hash-receipt.json": "08fcfd254f73f92dab97cec6052d3313a4f942421bd3a58467453a3319a5adb5"
+      },
+      "publisher_signed": false,
+      "clean_machine": false
+    }
+  }
 }

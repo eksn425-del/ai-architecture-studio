@@ -1,6 +1,6 @@
 # 最新 R3 商业化内部候选 — 2026-11-14
 
-[发布关卡索引](release-gates/index.md) 固定 PR27 审计基线 `6a8001c`，商业候选在 `codex/kstudio-r3-commercial-candidate-20261114`。桌面 **beta09 / sequence16**，原常用桌面 **beta03**。本机实际安装、更新回滚、未知写入恢复、SKP 下载重开已取得独立技术证据。受控样件之外的图片建模和商业服务仍需实际验收。 [裁决](release-gates/FINAL_RELEASE_VERDICT.md) · [恢复交付](test-results/windows/2026-11-14-r3-beta09-recovery/README.md)
+[发布关卡索引](release-gates/index.md) 固定 PR27 审计基线 `6a8001c`，商业候选在 `codex/kstudio-r3-commercial-candidate-20261114`。桌面 **beta10 / sequence17**，原常用桌面 **beta03**。本机实际安装、更新回滚、未知写入恢复、SKP 下载重开已取得独立技术证据。受控样件之外的图片建模和商业服务仍需实际验收。 [裁决](release-gates/FINAL_RELEASE_VERDICT.md) · [恢复交付](test-results/windows/2026-11-14-r3-beta10-pre-report/README.md)
 
 # 最新本机候选：窗开间学习、单窗口和真实交付 — 2026-11-14
 

@@ -5,12 +5,12 @@
 | 清单 | 判定 | 证据或剩余条件 |
 | --- | --- | --- |
 | Repo | PASS | PR27 锁定 `6a8001c`。商业候选在独立分支。原工作树 18 项、4 份历史 SKP、9 份已索引源图或文字、原快捷方式及版本指针哈希复核一致。见 [G00](G00/evidence.md)。 |
-| 核心 Agent | PARTIAL | 冻结 beta09 启动官方 DeepSeek Harness 工具目录并载入建筑增强，真实供应商自然对话建模和对照待验。见 [G02](G02/evidence.md)。 |
+| 核心 Agent | PARTIAL | 冻结 beta10 启动官方 DeepSeek Harness 工具目录并载入建筑增强，真实供应商自然对话建模和对照待验。见 [G02](G02/evidence.md)。 |
 | 质量 | PARTIAL | 简单展亭通过独立原生核查。工坊楼梯走向、平台和门槛，文昌折面和楼梯，退台种植和体量依据历史源图仍待修验。见 [G02](G02/evidence.md)。 |
 | 局部修改 | PASS | 工程样件只改门廊。底座、框架和屋面全子树一致，续改版为 1,050 毫米。见 [恢复续改](../test-results/windows/2026-11-14-r3-beta09-recovery/model/write-verifications.json)。 |
 | 连接 | PARTIAL | Windows 11、SU 24.0.484 单窗口和原生进程恢复通过。多实例、未保存文档、选择变更有源码合同覆盖，完整新包实机组合仍待补。见 [G03](G03/evidence.md)。 |
-| 交付 | PARTIAL | 真实 beta09 工作台下载 SKP，在 SU 2024 原生重开，层级、几何、材质和显示一致。下载件上的独立用户再次编辑未验收。见 [交付](../test-results/windows/2026-11-14-r3-beta09-recovery/model/native-reopen.json)。 |
-| 失败恢复 | PARTIAL | 故意丢失一个真实原生回执后重启恢复，旧命令阻止重放。阶段中断保护有测试，复杂原生崩溃、物理断电和全部组合未验。见 [G03](G03/evidence.md)。 |
+| 交付 | PARTIAL | 真实 beta10 工作台下载 SKP，在 SU 2024 原生重开，层级、几何、材质和显示一致。下载件上的独立用户再次编辑未验收。见 [交付](../test-results/windows/2026-11-14-r3-beta09-recovery/model/native-reopen.json)。 |
+| 失败恢复 | PARTIAL | 故意丢失一个真实原生回执后重启恢复，旧命令阻止重放。beta10 复验报告缺失时恢复同回合最后已验证版本。阶段中断保护有测试，复杂原生崩溃、物理断电和全部组合未验。见 [G03](G03/evidence.md)。 |
 | 安装 | BLOCKED_EXTERNAL | E 盘真实隔离安装 34,428 文件哈希与冻结清单一致。同版本阻止覆盖。离线实际完整载荷更新和回退通过。仍需真实签名、干净机、迁移及线上升级。见 [G04](G04/evidence.md)。 |
 | 官网 | BLOCKED_EXTERNAL | 本地真实 Edge，18 个页面、4 种宽度和焦点、反馈验证通过。公网 HTTPS 和真实下载未验。见 [G05](G05/evidence.md)。 |
 | 账户 | BLOCKED_EXTERNAL | 本机 OIDC 协议、已存在账号复登、跨账户、DPAPI 与本地 Vault 合同已复验，真实手机号/微信及设备未验。见 [G05](G05/evidence.md)。 |
@@ -24,8 +24,8 @@
 
 ## 核验版本
 
-- Windows x64 内部候选为 **2026.11.14-R3-beta09，序号 16**。通用安装文件 315,733,922 字节，SHA-256 `8c52a0f53532ef4de29aeb9b5c0fcffa79fc67c04900a0f13a83cebee62fe5a5`，Authenticode `NotSigned`。原常用桌面安装为 beta03。
-- 云端和官网的源码工件为 123,922 字节，SHA-256 `3bf99dc4b3f9ad97715dfddbc69828be4326ddc7962b07d0ec3091631d34759f`，40 个内容文件逐一验证。部署使用实施提交的干净 Git checkout。云镜像和公网运行状态仍待真实验收。
+- Windows x64 内部候选为 **2026.11.14-R3-beta10，序号 17**。通用安装文件 315,733,774 字节，SHA-256 `f36be32722c6234d560bab20389f0f936a892e2dc48620908dc88b3d866e96b2`，Authenticode `NotSigned`。原常用桌面安装为 beta03。
+- 云端和官网的源码工件为 123,921 字节，SHA-256 `7af5139cb36d2d24131e12dba93f7c0b1c516723a6d5346e7c27e72c43a54124`，40 个内容文件逐一验证。部署使用实施提交的干净 Git checkout。GitHub 临时测试容器已构建并运行。实际云镜像和公网运行状态仍待验收。
 - 本轮实际付费模型请求/支付/退款均为 0。历史供应商扣费未核验，原用量和未知数据已保留。生产开关和生产数据在本轮没有操作。
 
 [关卡索引](index.md) · [最少人工步骤](OWNER_ACTIONS.md) · [安装和原生工件版本说明](RELEASE_NOTES.md)

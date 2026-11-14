@@ -1,0 +1,24 @@
+[
+  {
+    "stage": "first_setup",
+    "status": "FAIL",
+    "observed": "First disposable native test committed r1, but the transport lost a fresh signed SketchUp heartbeat before checkpoint save. Its uncertain state was preserved. Separate r1-r2 replay used a fresh test copy and the source-side fixture transport.",
+    "log_sha256": "f8861d58eaf1036c00537104eb48ab58fef1d09274f5ae878a77f9d2c7c36acc"
+  },
+  {
+    "stage": "same_scene_activation",
+    "status": "FAIL",
+    "observed": "Initial navigation had the old unsaved test model open; identity guard refused all writes before its dialog was dismissed. New target reopened in same instance.",
+    "log_sha256": "c36c654cd9d05f55dd575f8c5ad2989ddc04bf761f7961bae6c03821e6c7f315"
+  },
+  {
+    "stage": "r3_report_never_created",
+    "status": "FAIL",
+    "observed": "Injected failure before the native r3 write reached SketchUp. The test then closed the isolated SU process. Real packaged recovery restored latest r2."
+  },
+  {
+    "stage": "sketchup_existing_addons",
+    "status": "PARTIAL",
+    "observed": "Existing third-party extension alert blocked a keyboard shortcut; dismissed dialog without changing extensions; resumed native reopen."
+  }
+]

@@ -1,13 +1,14 @@
 {
   "id": "G04",
   "status": "BLOCKED_EXTERNAL",
-  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
   "installer_source_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
   "depends_on": "../G03/verdict.json",
   "evidence_files": [
     "evidence.md",
     "tests.json",
-    "../SECURITY_AND_LICENSE_AUDIT.md"
+    "../SECURITY_AND_LICENSE_AUDIT.md",
+    "BETA10.md"
   ],
   "independent_reviewer": "quality_qa: verified real beta09 artifact runtime and license inventory. Clean host not yet provided.",
   "blockers": [
@@ -21,11 +22,15 @@
   "candidate_installed_payload_sha256_matches": 34428,
   "candidate_installed_sdk_and_uninstall_data_preservation": "PASS_EXISTING_WINDOWS_HEADLESS",
   "candidate_complete_payload_offline_updater_rollback": "PASS_LOCAL_TEST_TRUST",
-  "candidate_installer_sha256": "8c52a0f53532ef4de29aeb9b5c0fcffa79fc67c04900a0f13a83cebee62fe5a5",
+  "candidate_installer_sha256": "f36be32722c6234d560bab20389f0f936a892e2dc48620908dc88b3d866e96b2",
   "production_signed": false,
   "public_distribution_authorized": false,
   "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
   "hard_blockers": 3,
   "previous_verdict": "../G03/verdict.json",
-  "gate": "G04"
+  "gate": "G04",
+  "beta09_code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "latest_commercial_candidate_version": "2026.11.14-R3-beta10",
+  "historical_full_payload_offline_updater_version": "2026.11.14-R3-beta09",
+  "checked_at": "2026-11-14T23:56:07+08:00"
 }

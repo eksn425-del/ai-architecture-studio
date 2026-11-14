@@ -1,8 +1,8 @@
 {
   "gate": "G09",
   "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
-  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
-  "checked_at": "2026-11-14T20:06:29+08:00",
+  "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "checked_at": "2026-11-14T23:56:07+08:00",
   "title": "安全、隐私、许可证与经营合规",
   "status": "PARTIAL",
   "previous_verdict": "../G08/verdict.json",
@@ -53,5 +53,9 @@
     "shipped_beta09_long_path_recompiled_setup_identities": "PASS",
     "shipped_beta09_final_setup_identities": "PASS"
   },
-  "beta08_code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+  "beta08_code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "beta09_code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "shipped_beta10_dependency_inventory_recheck": "PASS",
+  "shipped_beta10_signature": "NOT_SIGNED",
+  "shipped_beta10_license": "REVIEW_REQUIRED"
 }

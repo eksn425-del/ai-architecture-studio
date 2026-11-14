@@ -1,7 +1,7 @@
 {
   "id": "G08",
   "status": "BLOCKED_EXTERNAL",
-  "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
   "depends_on": "../G07/verdict.json",
   "evidence_files": [
     "tests.json",
@@ -22,5 +22,8 @@
   "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
   "hard_blockers": 4,
   "previous_verdict": "../G07/verdict.json",
-  "gate": "G08"
+  "gate": "G08",
+  "previous_cloud_only_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "hosted_ephemeral_docker_engineering_checks": "PASS",
+  "checked_at": "2026-11-14T23:56:07+08:00"
 }

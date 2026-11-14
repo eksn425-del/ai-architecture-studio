@@ -147,6 +147,25 @@
       "real_payments": 0,
       "docker_runtime": "NOT_RUN",
       "receipt_sha256": "4de2090c0370cc34bc5fe211a9cf97ce5a77a9c94b0972a3af63b435e0252b3f"
+    },
+    "beta10_same_commit_deployment_source_and_CI": {
+      "archive": "KStudio-R3-cloud-website-source.zip",
+      "bytes": 123921,
+      "sha256": "7af5139cb36d2d24131e12dba93f7c0b1c516723a6d5346e7c27e72c43a54124",
+      "payload_files": 40,
+      "archive_files": 42,
+      "all_member_hashes_verified": true,
+      "source_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "working_tree_changes_included": false,
+      "image_status": "NO_PREBUILT_IMAGE_INCLUDED",
+      "public_deployment": "NOT_RUN",
+      "previous_cloud_unchanged_from": "e470797bd888c871eaac1ce89276395213f493b8",
+      "unpacked_loopback_http": "PASS",
+      "unpacked_http_receipt_sha256": "cdaedbb510e51454911813e1d70a8acb372a2b570c71a7ddd0bf74eccecd9563",
+      "git_actions_target_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "hosted_ephemeral_docker_engineering_checks": "PASS",
+      "actual_public_docker_host": "NOT_RUN",
+      "public_ci": "https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43610610668"
     }
   }
 }

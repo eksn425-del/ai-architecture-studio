@@ -94,6 +94,53 @@
       "independent_recovery_sha256": "866410ea749d504ceefabc22e0534555faffb577c7ea1c13b356b5a54631ba80",
       "independent_download_sha256": "6a6c38a2f3bb585ae5819869c265c1803037ecfe501e95d7b93a2baa1e7eed79",
       "evidence_manifest_sha256": "ac3f8b2761a462fb0bea1646ccce081a1b4b0ba3a1a23c24841e082b56a0a945"
+    },
+    "beta10_pre_report_and_same_turn_recovery": {
+      "status": "PASS",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "recovery": {
+        "status": "PASS",
+        "scope": "frozen beta10 WebView2 workbench and connector, actual SU process restart, pre-dispatch transport fixture",
+        "native_version": "24.0.484",
+        "new_native_pid": true,
+        "pre_turn_revision": 1,
+        "recovered_revision": 2,
+        "unconfirmed_attempt": 3,
+        "report_absence_archived": true,
+        "attempted_source_quarantined": true,
+        "exact_hashes_equal": {
+          "root_geometry_material_sha256": true,
+          "document_geometry_material_sha256": true,
+          "presentation_sha256": true
+        },
+        "owned_subtrees_identical": true,
+        "checkpoint_sha256": "a73fe97a56ed8d629b956684c5ff50d640d2d8052ca7aee6a011baadea8f795b",
+        "paid_calls": 0
+      },
+      "download": {
+        "status": "PASS",
+        "real_packaged_workbench_download": true,
+        "native_version": "24.0.484",
+        "final_revision": 2,
+        "bytes": 130533,
+        "sha256": "a73fe97a56ed8d629b956684c5ff50d640d2d8052ca7aee6a011baadea8f795b",
+        "all_fingerprints_equal": {
+          "root_geometry_material_sha256": true,
+          "document_geometry_material_sha256": true,
+          "presentation_sha256": true
+        },
+        "full_native_groups_equal": true,
+        "paid_calls": 0
+      },
+      "independent_source_passed": 73,
+      "independent_native_receipt_sha256": "e20bd55ea7d1cf62b5e90fa0a3b8a09112d28fd079f49320c3623c0369e6b1e1",
+      "final_source_passed": 120,
+      "final_source_subtests": 7,
+      "junit_sha256": "ae93bba1fda5d83caa5568af0f7e450ba9aa1f2c4e056291fffd4741682f588e",
+      "test_resolved_failures": [
+        "original machine first fixture lost heartbeat",
+        "previous active work copy identity blocked the attempted rerun"
+      ]
     }
   }
 }

@@ -17,3 +17,8 @@ beta08 冻结 SHA 的复验另在 55462 端口全新集群执行，再次匹配 
 现行部署源包在本轮 E 盘作业 `downloads/cloud-commercial-e470797`，源码提交 `e470797bd888c871eaac1ce89276395213f493b8`，外层 ZIP SHA256 `3bf99dc4b3f9ad97715dfddbc69828be4326ddc7962b07d0ec3091631d34759f`，123,922 字节。独立复核包内 40 项文件哈希与清单，解包后实际本机 HTTP 10 路由通过。此前 beta08/beta09 云包保留。
 
 最终云端 SHA 的 PostgreSQL 17.11／age 独立复验通过，17 表指纹一致，Vault 凭据解密 1 条，已验真通知夹具只入账一次。空库恢复媒体 SHA256 `85198dd3029e93dd45ca873d021d99da4f0d33a9d1385547a58832b4b9293311`。直接使用含中文的现有 PostgreSQL 工具目录时，initdb 以 0xb2 编码错误退出。切换到已存在、指向同一可执行文件的 E 盘兼容路径后复验通过，失败日志保留。云端全量 275 项通过，其中 PostgreSQL 双跑用例 37 项，独立测试服务已退出。实际公网、镜像构建与回滚、试用和告警收件仍需独立环境。
+
+
+## 统一到 beta10 源码身份
+
+最终交付 ZIP 转到 `downloads/cloud-commercial-d097b1a`，123,921 字节，SHA256 `7af5139cb36d2d24131e12dba93f7c0b1c516723a6d5346e7c27e72c43a54124`。在 `d097b1a5a1e1a45dfc0b5fe5a9301490f164b536` 的干净 checkout 打包，40 个内容成员逐一校验并实际解包 HTTP 通过。与经过本机 PostgreSQL 恢复的 `e470797` 的 cloud、deploy、website 和依赖文件逐字节相同。本机无可运行 Docker，GitHub Actions 执行了现代码 Dockerfile 构建、无外网受限容器运行以及 PostgreSQL 合同，均通过。实际公网 staging、镜像回滚与告警仍未执行。[CI 临时容器和 PostgreSQL 回执](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43610610668)。

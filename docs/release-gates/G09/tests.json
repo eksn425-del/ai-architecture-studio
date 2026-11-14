@@ -489,5 +489,23 @@
     }
   ],
   "final_signed_desktop_and_actual_staging": "NOT_RUN",
-  "beta08_code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+  "beta08_code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "additional_receipts": {
+    "beta10_same_dependency_bytes_and_independent_qa": {
+      "status": "PASS",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "base_bundle_code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "files": 34428,
+      "payload_count_change": 0,
+      "changed_files": 5,
+      "runtime_dependency_content_equal": true,
+      "bundled_node_files_byte_equal": 27795,
+      "license_notice_files_byte_equal": 818,
+      "dll_pyd_files_byte_equal": 154,
+      "official_sdk_files_byte_equal": 12,
+      "normalized_pyi_base_zip_entries_equal": 155,
+      "independent_installer_receipt_sha256": "728413780b759f68e9237e8ed09cece52c414cf198d4abcb72b6d2e40f400c95",
+      "public_license_clearance": "REVIEW_REQUIRED"
+    }
+  }
 }

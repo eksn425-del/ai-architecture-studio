@@ -3,18 +3,18 @@
   "project": "K Studio R3",
   "status": "BLOCKED_EXTERNAL",
   "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
-  "implementation_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "implementation_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
   "branch": "codex/kstudio-r3-commercial-candidate-20261114",
   "baseline_pr": 27,
-  "desktop_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "desktop_source_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
   "installer_source_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
   "release": {
-    "version": "2026.11.14-R3-beta09",
-    "sequence": 16,
+    "version": "2026.11.14-R3-beta10",
+    "sequence": 17,
     "final_status": "BLOCKED_EXTERNAL",
-    "internal_installer": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
-    "installer_size_bytes": 315733922,
-    "unsigned_installer_sha256": "8c52a0f53532ef4de29aeb9b5c0fcffa79fc67c04900a0f13a83cebee62fe5a5",
+    "internal_installer": "KStudio-2026.11.14-R3-beta10-win-x64-setup.exe",
+    "installer_size_bytes": 315733774,
+    "unsigned_installer_sha256": "f36be32722c6234d560bab20389f0f936a892e2dc48620908dc88b3d866e96b2",
     "signed_installer_sha256": null,
     "authenticode": "NotSigned",
     "installed_original_version": "2026.11.07-R3-beta03",
@@ -24,7 +24,8 @@
     "license_clearance": "REVIEW_REQUIRED",
     "public_distribution": false,
     "owner_go_live_approval": false,
-    "cloud_source_sha256": "3bf99dc4b3f9ad97715dfddbc69828be4326ddc7962b07d0ec3091631d34759f"
+    "cloud_source_sha256": "7af5139cb36d2d24131e12dba93f7c0b1c516723a6d5346e7c27e72c43a54124",
+    "deployment_source_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536"
   },
   "paid_operations": {
     "real_BAI_requests": 0,
@@ -138,7 +139,7 @@
     {
       "id": "G03",
       "status": "PARTIAL",
-      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
       "independent_reviewer": "quality_qa",
       "blockers": [
         "完整新包多窗口、未保存文档和停机状态的实机组合尚未全验。",
@@ -151,11 +152,11 @@
         },
         {
           "path": "G03/changes.md",
-          "sha256": "3dbb9a573669de9f503e9d31bf8fbb4769e39e09b194ffd9bf5e5ab5243602ef"
+          "sha256": "3ba6889e1be52e0e79c66103ff3f025e725fc3a7f85f8b134960873d895bca5f"
         },
         {
           "path": "G03/evidence.md",
-          "sha256": "c718589ebb4ff5302d5232dbb77b20d2278d6cbbff373a80e41b24d7cd6dc8bd"
+          "sha256": "fa2b79bf21767f473f5b5854d88ffb8e2a0d2641966036be1d6b4810dbba3e64"
         },
         {
           "path": "G03/risks.md",
@@ -163,18 +164,18 @@
         },
         {
           "path": "G03/tests.json",
-          "sha256": "9fbc76bab3140497920bfb6156e6e67578f485cbeb2b6fef50630c86ba0f8f45"
+          "sha256": "7889991f492b685994df7fd3421015773a333dd3ce3c44a4f583bb75f2a71a8e"
         },
         {
           "path": "G03/verdict.json",
-          "sha256": "270bb5b3a356940a811f3e8b70c8152dfc0c9b08b60fee2793b950c0134cad8e"
+          "sha256": "20384730684ca0f3eb7441a597f1f309efa64c5e0458379410560d302cef9a1e"
         }
       ]
     },
     {
       "id": "G04",
       "status": "BLOCKED_EXTERNAL",
-      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
       "independent_reviewer": "quality_qa: verified real beta09 artifact runtime and license inventory. Clean host not yet provided.",
       "blockers": [
         "independent_clean_windows_x64_and_legal_su2024",
@@ -182,6 +183,10 @@
         "signed_public_update_path_and_independent_install_upgrade_modeling"
       ],
       "evidence_files": [
+        {
+          "path": "G04/BETA10.md",
+          "sha256": "4cf894777e606750ed11189d34ae2ae2ff5348576cdefb324fd6ea2d09b0eb91"
+        },
         {
           "path": "G04/PLAN.md",
           "sha256": "d489653b5ec5fdc941b7b1e30e01625d9dbc863c50bd521daba4eca29d19f44f"
@@ -192,7 +197,7 @@
         },
         {
           "path": "G04/evidence.md",
-          "sha256": "a163edc7c8048331ea70d4a77f7e632eb82d99ae366b5a2bd79e9a0ac664fcd6"
+          "sha256": "b9cbf468e0ae4f4510ec54ea265ed1d00a9ad803bb503a59312d806a6a53a948"
         },
         {
           "path": "G04/risks.md",
@@ -200,11 +205,11 @@
         },
         {
           "path": "G04/tests.json",
-          "sha256": "90f837ce66651fc16256cebe543e629623a74ef588502f9b971250a50081a6d7"
+          "sha256": "7fba13f2d13cdaa11b143aaa8d6b2caf8acea6aa1db666dd465a62f6db990093"
         },
         {
           "path": "G04/verdict.json",
-          "sha256": "97aac7e5d10fa1d33a3291f1d9e507a297ba66fcc2df14f86e22c8d9f789de33"
+          "sha256": "4190f12403d0ceb8d87f416f7294359a71c3ab5cc6474c29a836e462634dc8b2"
         }
       ]
     },
@@ -321,7 +326,7 @@
     {
       "id": "G08",
       "status": "BLOCKED_EXTERNAL",
-      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
       "independent_reviewer": "finance_engineering (independent exact source local restore and regression); quality_qa (deployment artifact)",
       "blockers": [
         "approved_staging_host_domain_dns_tls_and_private_db",
@@ -340,7 +345,7 @@
         },
         {
           "path": "G08/evidence.md",
-          "sha256": "a26909598ca69526b2f7a60ddbc220bb78b967dc1c6fead5eb5d391b7802cca3"
+          "sha256": "aa45bf0e2484f1221f7fd9a488b5805b1c771ff763166233c07ea05c5bdc7633"
         },
         {
           "path": "G08/risks.md",
@@ -348,18 +353,18 @@
         },
         {
           "path": "G08/tests.json",
-          "sha256": "18c1dfd2d7496b1ba855fa6c430f141a9f2ba5e5bfe93f5b7ea36b5fe387c27f"
+          "sha256": "953dfdf2e669d7b8e6e56d5e0341eef83828346205e0a09d0059ca41409ecdc3"
         },
         {
           "path": "G08/verdict.json",
-          "sha256": "b598615d471dbfaa9bc6c6a73a2dda49515b12db9c43b3482cacbfc815b3091b"
+          "sha256": "b27ac0254f62f23e4db87f001a8e28602431e0b523b63fc1da2dbd7313bdc01f"
         }
       ]
     },
     {
       "id": "G09",
       "status": "PARTIAL",
-      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
       "independent_reviewer": "quality_qa",
       "blockers": [
         "需评估已冻版 cryptography 静态 OpenSSL 及新版 CPython 的低危后续上游公告，确认下一期更新与风险签核。",
@@ -379,7 +384,7 @@
         },
         {
           "path": "G09/evidence.md",
-          "sha256": "f281a98b281959e6bac327a22b7e03d75065259a7ab0174bcaecd0de3ca8b17a"
+          "sha256": "fe968e3309afde42a05cd76ff04ca4099697a14ccd7d69b5bfff9ccc90e60535"
         },
         {
           "path": "G09/risks.md",
@@ -387,18 +392,18 @@
         },
         {
           "path": "G09/tests.json",
-          "sha256": "57b20c94d4e942947d6f23f33f19882dcb93e99462777867d2e647ef57129449"
+          "sha256": "429103a7d7d2c74afbb90adece985a50e05ed0ec1091c7e0578e9a38177e9a57"
         },
         {
           "path": "G09/verdict.json",
-          "sha256": "21febcc2be1b4ea67e914962e173eca1d33feca0c657cf5b91f50ee48368a201"
+          "sha256": "5c50a79dcca39ceeb122a9cad8b585317cc63e92d79138ebac746f6754b6dad3"
         }
       ]
     },
     {
       "id": "G10",
       "status": "BLOCKED_EXTERNAL",
-      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
       "independent_reviewer": "quality_qa",
       "blockers": [
         "G02、G03、G04、G05–G09 尚未全部 PASS。",
@@ -423,11 +428,11 @@
         },
         {
           "path": "G10/tests.json",
-          "sha256": "388fd05677d69a9a2ec89d6e6b7f9183b4e5fa3882db1227d9bedb93e25c6f14"
+          "sha256": "cf3e2c0c87bd428341ffdfa77773f552566dfcd49c415b720ec235afad7a8414"
         },
         {
           "path": "G10/verdict.json",
-          "sha256": "b286f21e5605fc7808da6527ffbce09523153a86d47b24827799c2a73d74e685"
+          "sha256": "106d546ca80caa204a9243acf1deacbcdd72d3f76d114ed1eae6bb5d52324229"
         }
       ]
     },
@@ -463,9 +468,13 @@
         },
         {
           "path": "G11/verdict.json",
-          "sha256": "d712bff712c715962f52bf087e0f2dc2b4bac048f4e134fb6010dacc0615156b"
+          "sha256": "05710afdb505d80d952a94b55741323fe33685421b212e8145fbf5d10dc30409"
         }
       ]
     }
-  ]
+  ],
+  "packaging_build_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "cloud_equivalent_tested_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "review_pr": 28,
+  "review_url": "https://github.com/eksn425-del/ai-architecture-studio/pull/28"
 }

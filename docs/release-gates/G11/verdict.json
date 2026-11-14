@@ -5,7 +5,7 @@
   "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
   "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
   "previous_verdict": "../G10/verdict.json",
-  "checked_at": "2026-11-14T11:18:02Z",
+  "checked_at": "2026-11-14T23:56:07+08:00",
   "hard_blockers": 2,
   "blockers": [
     "G00–G10 尚未全部 PASS，无法形成 READY 审批。",
@@ -20,5 +20,7 @@
     "risks.md"
   ],
   "earlier_exercised_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0",
-  "production_launch_guard_local_regression": "PASS"
+  "production_launch_guard_local_regression": "PASS",
+  "operation_code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "independent_cloud_review_sha": "e470797bd888c871eaac1ce89276395213f493b8"
 }

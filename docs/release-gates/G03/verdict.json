@@ -3,9 +3,9 @@
   "title": "单窗口、原生事务与恢复",
   "status": "PARTIAL",
   "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
-  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
   "previous_verdict": "../G02/verdict.json",
-  "checked_at": "2026-11-14T11:18:02Z",
+  "checked_at": "2026-11-14T23:56:07+08:00",
   "hard_blockers": 2,
   "blockers": [
     "完整新包多窗口、未保存文档和停机状态的实机组合尚未全验。",
@@ -20,5 +20,7 @@
     "risks.md"
   ],
   "earlier_exercised_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0",
-  "actual_packaged_controlled_unknown_recovery_and_delivery": "PASS"
+  "actual_packaged_controlled_unknown_recovery_and_delivery": "PASS",
+  "beta09_code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "beta10_pre_report_and_same_turn_restore": "PASS"
 }
