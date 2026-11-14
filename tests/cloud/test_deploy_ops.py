@@ -138,26 +138,50 @@ def test_health_requires_server_release_and_schema(monkeypatch):
         observed[key]=original
 
 
-def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt():
+def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt(tmp_path):
     import hashlib
     source='a'*40
     installer='b'*64
-    gates={'implementation_sha':source,'status':'READY_FOR_OWNER_LAUNCH_APPROVAL',
-        'gates':[{'id':f'G{i:02d}','status':'PASS','independent_reviewer':'fixture review'}
-                 for i in range(11)],
-        'release':{'signed_installer_sha256':installer}}
+    url='https://downloads.operator.test/KStudio.exe'
+    gates={'schema_version':1,'audit_base_sha':'c'*40,'implementation_sha':source,
+        'status':'READY_FOR_OWNER_LAUNCH_APPROVAL','gates':[],
+        'release':{'signed_installer_sha256':installer,'download_url':url,'version':'fixture','installer_size_bytes':42}}
+    for i in range(11):
+        gate=f'G{i:02d}'
+        evidence=tmp_path/gate/'receipt.json'
+        evidence.parent.mkdir()
+        evidence.write_text(gate,encoding='utf8')
+        gates['gates'].append({'id':gate,'status':'PASS','code_sha':source,'independent_reviewer':'fixture review',
+            'blockers':[],'evidence_files':[{'path':str(evidence.relative_to(tmp_path)),
+                                             'sha256':hashlib.sha256(evidence.read_bytes()).hexdigest()}]})
     values={'KSTUDIO_RELEASE_SHA':source,'KSTUDIO_CLOUD_PUBLIC_URL':'https://operator.test',
-        'KSTUDIO_CLOUD_RELEASE':json.dumps({'sha256':installer}),'KSTUDIO_DOWNLOAD_ENABLED':'1'}
+        'KSTUDIO_CLOUD_RELEASE':json.dumps({'sha256':installer,'url':url,'version':'fixture','size_bytes':42}),
+        'KSTUDIO_DOWNLOAD_ENABLED':'1'}
     approval={'release_sha':source,'signed_installer_sha256':installer,
         'gate_sha256':hashlib.sha256(ops.canonical_json(gates)).hexdigest(),
         'origin':'https://operator.test','approved':True,'owner_reference':'fixture reference',
         'switches':['KSTUDIO_DOWNLOAD_ENABLED']}
-    ops.validate_launch(values,gates,approval,commercial=True)
-    with pytest.raises(ValueError):ops.validate_launch(values,gates,approval,commercial=False)
-    with pytest.raises(ValueError):ops.validate_launch({**values,'KSTUDIO_PAYMENT_ENABLED':'1'},gates,approval,commercial=True)
-    gates['gates'][4]['status']='BLOCKED_EXTERNAL'
-    approval['gate_sha256']=hashlib.sha256(ops.canonical_json(gates)).hexdigest()
-    with pytest.raises(ValueError):ops.validate_launch(values,gates,approval,commercial=True)
+    def validate(settings=values, commercial=True):
+        ops.validate_launch(settings,gates,approval,commercial=commercial,evidence_root=tmp_path)
+    def rehash():
+        approval['gate_sha256']=hashlib.sha256(ops.canonical_json(gates)).hexdigest()
+    validate()
+    with pytest.raises(ValueError):validate(commercial=False)
+    with pytest.raises(ValueError):validate({**values,'KSTUDIO_PAYMENT_ENABLED':'1'})
+    validate({**values,'KSTUDIO_PAYMENT_ENABLED':'0'})
+    row=gates['gates'][4]
+    for key,value in [('status','BLOCKED_EXTERNAL'),('code_sha','d'*40),('evidence_files',[])]:
+        previous=row[key]
+        row[key]=value
+        rehash()
+        with pytest.raises(ValueError):validate()
+        row[key]=previous
+    receipt=tmp_path/'G04/receipt.json'
+    receipt.write_text('changed after owner approval',encoding='utf8')
+    rehash()
+    with pytest.raises(ValueError,match='evidence changed'):validate()
+    receipt.write_text('G04',encoding='utf8')
+    validate()
 
 
 def test_rollback_refuses_old_image_until_read_only_compatible_audit_passes(monkeypatch):

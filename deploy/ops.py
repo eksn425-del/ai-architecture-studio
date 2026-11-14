@@ -6,6 +6,7 @@ from urllib.parse import urlsplit
 
 ROOT=Path(__file__).resolve().parent
 RELEASE_SHA = re.compile(r'[a-f0-9]{40}')
+SHA256 = re.compile(r'[a-f0-9]{64}')
 IMMUTABLE_IMAGE = re.compile(r'(?:[A-Za-z0-9._/:\-]+@)?sha256:[a-f0-9]{64}')
 LAUNCH_SWITCHES = ('KSTUDIO_REGISTRATION_ENABLED', 'KSTUDIO_PLATFORM_ENABLED',
                    'KSTUDIO_DOWNLOAD_ENABLED', 'KSTUDIO_PAYMENT_ENABLED')
@@ -40,7 +41,32 @@ def check_health(values, *, release_sha=None):
             'environment': observed['environment'], 'schema_version': observed['schema_version']}
 
 
-def validate_launch(values, gates, approval, *, commercial):
+def _validate_gate_evidence(rows, candidate, evidence_root):
+    root = evidence_root.resolve(strict=True)
+    for row in rows:
+        files = row.get('evidence_files')
+        reviewer = row.get('independent_reviewer')
+        if (row.get('status') != 'PASS' or row.get('code_sha') != candidate
+                or not isinstance(reviewer, str) or not reviewer.strip()
+                or row.get('blockers') != [] or not isinstance(files, list) or not files):
+            raise ValueError(f"Missing independent acceptance for {row['id']}")
+        seen = set()
+        for item in files:
+            relative = Path(str(item.get('path', ''))) if isinstance(item, dict) else Path()
+            expected = item.get('sha256') if isinstance(item, dict) else None
+            file = root / relative
+            if (relative.is_absolute() or '..' in relative.parts or relative in seen
+                    or not SHA256.fullmatch(str(expected)) or file.is_symlink()
+                    or not file.resolve().is_relative_to(root) or not file.is_file()):
+                raise ValueError(f"Invalid acceptance evidence for {row['id']}")
+            with file.open('rb') as stream:
+                measured = hashlib.file_digest(stream, 'sha256').hexdigest()
+            if measured != expected:
+                raise ValueError(f"Acceptance evidence changed for {row['id']}")
+            seen.add(relative)
+
+
+def validate_launch(values, gates, approval, *, commercial, evidence_root):
     """Bind approval to a trusted release receipt and the exact switches it covers."""
     expected_gates = {f'G{i:02d}' for i in range(11)}
     rows = gates.get('gates', [])
@@ -50,12 +76,21 @@ def validate_launch(values, gates, approval, *, commercial):
     requested = {name for name in LAUNCH_SWITCHES if values.get(name) == '1'}
     approved_switches = approval.get('switches', [])
     gate_hash = hashlib.sha256(canonical_json(gates)).hexdigest()
-    if (not commercial or gates.get('implementation_sha') != candidate
+    artifact = gates.get('release', {})
+    download = urlsplit(str(release.get('url', '')))
+    if (not commercial or type(gates.get('schema_version')) is not int or gates['schema_version'] != 1
+            or not RELEASE_SHA.fullmatch(str(gates.get('audit_base_sha', '')))
+            or gates.get('implementation_sha') != candidate
             or gates.get('status') != 'READY_FOR_OWNER_LAUNCH_APPROVAL'
             or not expected_gates.issubset(statuses) or len(statuses) != len(rows)
-            or any(statuses[gate].get('status') != 'PASS' or not statuses[gate].get('independent_reviewer')
-                   or statuses[gate].get('blockers') for gate in expected_gates)
-            or gates.get('release', {}).get('signed_installer_sha256') != release.get('sha256')
+            or not set(statuses).issubset(expected_gates | {'G11'})
+            or not isinstance(artifact, dict) or not SHA256.fullmatch(str(release.get('sha256', '')))
+            or artifact.get('signed_installer_sha256') != release['sha256']
+            or artifact.get('version') != release.get('version') or not str(artifact.get('version') or '').strip()
+            or type(release.get('size_bytes')) is not int or release['size_bytes'] <= 0
+            or artifact.get('installer_size_bytes') != release['size_bytes']
+            or artifact.get('download_url') != release.get('url') or download.scheme != 'https'
+            or not download.hostname or download.username or download.password or download.fragment
             or approval.get('release_sha') != candidate or approval.get('gate_sha256') != gate_hash
             or approval.get('signed_installer_sha256') != release.get('sha256')
             or approval.get('origin') != values['KSTUDIO_CLOUD_PUBLIC_URL']
@@ -63,6 +98,7 @@ def validate_launch(values, gates, approval, *, commercial):
             or not isinstance(approved_switches,list) or not set(approved_switches).issubset(LAUNCH_SWITCHES)
             or not requested.issubset(approved_switches)):
         raise ValueError('Independent READY release and matching owner launch approval are required')
+    _validate_gate_evidence([statuses[gate] for gate in sorted(expected_gates)], candidate, evidence_root)
 
 
 def canonical_json(value):
@@ -231,7 +267,8 @@ def main():
             if any(env[name]=='1' for name in LAUNCH_SWITCHES):
                 if not a.gate_state or not a.launch_approval:
                     raise ValueError('Opening production requires verified release and private owner approval receipts')
-                validate_launch(values,json.loads(a.gate_state.read_bytes()),json.loads(a.launch_approval.read_bytes()),commercial=a.commercial)
+                validate_launch(values,json.loads(a.gate_state.read_bytes()),json.loads(a.launch_approval.read_bytes()),
+                    commercial=a.commercial,evidence_root=a.gate_state.resolve().parent)
             elif not a.permit_closed_production:
                 raise ValueError('Explicit closed production deployment authorization is required')
         actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT.parent,text=True).strip()
