@@ -1,0 +1,14 @@
+[
+  {
+    "stage": "plan",
+    "reason": "Two initial graph submissions rejected and corrected."
+  },
+  {
+    "stage": "r12-r13",
+    "reason": "Restored project render scope was unpaired. Geometry committed twice, but writer returned capture errors."
+  },
+  {
+    "stage": "refresh",
+    "reason": "Verified bound scope paired and preview/download recovered without another geometry write."
+  }
+]

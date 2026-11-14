@@ -1,0 +1,184 @@
+{
+  "parts": [
+    "Site_Paving",
+    "Neighbor_Block_North",
+    "Neighbor_Block_West",
+    "Neighbor_House_South",
+    "Courtyard_Wall",
+    "Planting_Strip",
+    "Base_Podium",
+    "Entry_Recess",
+    "Slab_L2",
+    "Slab_L3",
+    "Slab_Roof",
+    "Ring_Beam",
+    "Canopy_Soffit",
+    "Structure_Columns",
+    "Stair_Core_Wall",
+    "Curtain_Glass_L2",
+    "Curtain_Glass_L3",
+    "Shell_Folded",
+    "Shell_Module",
+    "Stair_Flight_01",
+    "Stair_Flight_02",
+    "Stair_Flight_03",
+    "Stair_Flight_04",
+    "Stair_Landing",
+    "Stair_Parapet",
+    "Roof",
+    "Roof_Parapet",
+    "Roof_Louver",
+    "Roof_Penthouse"
+  ],
+  "edit_parts": [
+    "Stair_Flight_04",
+    "Stair_Parapet",
+    "Shell_Folded"
+  ],
+  "spatial": {
+    "change_rationale": "正面外罩原来是一整片连续半透明罩面，没有开口；参考图正面中段是一大片露出的后退玻璃，上下各留一道罩带。本次把正面 +5400～+12600、X3444～13556 的罩面板去掉，露出内玻璃、层间梁与中柱，上罩自 +12600 起单独成立、下罩 +3600～+5400 保留。这改变了立面虚实关系与上罩的支承读法，属高层级变更，故在此说明：不改变任何楼层标高、板顶尺寸、外罩折角、顶脊高度与楼梯平台位置。另把第四段楼梯由 24×175 抬到 +16800（高 600 错台）改为 20×180 抬到 +16200、栏板由北高南低改为北低南高，属纠正错误与执行用户给定标高，不改层表。",
+    "coordinate_frame": {
+      "front": "-Y",
+      "origin": "沿用既有临时原点：外罩外包矩形前左角（-Y/-X）落于场地 ±0.00；本次不做整体平移，所有新几何用既有模型坐标",
+      "units": "mm",
+      "up": "+Z",
+      "x": "right"
+    },
+    "critical_features": [
+      {
+        "basis": "observed",
+        "description": "正面中央开口 X3444～13556、Z+5400～+12600 内不设罩面板，露出退在罩后的两层玻璃、层间梁与中柱；上罩自 +12600 起、下罩 +3600～+5400 保留",
+        "id": "cf_front_opening",
+        "kind": "void",
+        "parts": [
+          "Shell_Folded",
+          "Curtain_Glass_L2",
+          "Curtain_Glass_L3",
+          "Ring_Beam"
+        ],
+        "source": "source_2"
+      },
+      {
+        "basis": "user",
+        "description": "第四段连接北端 +12600 平台（Y10590～11790）与南端 +16200 平台（Y3150～4350），20 级 180/312 共 3600 抬升、6240 行程，顶踏面与南平台同面；外侧白栏板北低南高",
+        "id": "cf_stair4_chain",
+        "kind": "stair_landing",
+        "parts": [
+          "Stair_Flight_04",
+          "Stair_Landing",
+          "Stair_Parapet"
+        ],
+        "source": "user_request"
+      },
+      {
+        "basis": "observed",
+        "description": "外罩四角切角、四面折线、向上外挑，顶部向 +X 后角收坡至 +19.2 m；本次不改折角与顶脊",
+        "id": "cf_shell_fold",
+        "kind": "setback",
+        "parts": [
+          "Shell_Folded"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "玻璃盒整体退入外罩内，层间深梁外露，玻璃与外罩之间为空气层，不得合并",
+        "id": "cf_glass_setback",
+        "kind": "setback",
+        "parts": [
+          "Curtain_Glass_L2",
+          "Curtain_Glass_L3",
+          "Ring_Beam"
+        ],
+        "source": "source_4"
+      },
+      {
+        "basis": "observed",
+        "description": "首层基座内退、上方深挑檐，外罩底缘 +3600～+5400 一圈外翻收边带；本次不动",
+        "id": "cf_base_recess",
+        "kind": "setback",
+        "parts": [
+          "Base_Podium",
+          "Entry_Recess",
+          "Canopy_Soffit"
+        ],
+        "source": "source_2"
+      },
+      {
+        "basis": "observed",
+        "description": "前三段直跑与平台串起 0 / 4200 / 8400 / 12600，栏板逐段随梯段倾斜；本次一律不动",
+        "id": "cf_stair_chain",
+        "kind": "stair_landing",
+        "parts": [
+          "Stair_Flight_01",
+          "Stair_Flight_02",
+          "Stair_Flight_03",
+          "Stair_Landing",
+          "Stair_Parapet"
+        ],
+        "source": "source_3"
+      },
+      {
+        "basis": "observed",
+        "description": "屋面 +16200 为露台负空间，女儿墙 +17200，东侧留楼梯入口；本次不动",
+        "id": "cf_roof_terrace",
+        "kind": "void",
+        "parts": [
+          "Roof",
+          "Roof_Parapet",
+          "Roof_Louver",
+          "Roof_Penthouse"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "屋面止于露台标高，外罩在其上方继续收到一角；本次不动",
+        "id": "cf_shell_ridge",
+        "kind": "mass_relation",
+        "parts": [
+          "Shell_Folded",
+          "Roof"
+        ],
+        "source": "source_5"
+      },
+      {
+        "basis": "observed",
+        "description": "楼梯槽在 +X 侧外凸、净宽约 2350，外罩在槽口处让开；第四段仍全程在该槽内",
+        "id": "cf_stair_slot",
+        "kind": "mass_relation",
+        "parts": [
+          "Stair_Flight_04",
+          "Shell_Folded"
+        ],
+        "source": "source_6"
+      },
+      {
+        "basis": "inferred",
+        "description": "北侧背面与屋面设备仅有局部依据，按同一折面语言推断，本次不涉及",
+        "id": "cf_back_unknown",
+        "kind": "uncertain_back",
+        "parts": [
+          "Shell_Folded",
+          "Roof_Penthouse"
+        ],
+        "source": "source_1"
+      }
+    ],
+    "remaining_work": [
+      "第四段级数 20（180/312）为估算，可改为 24 级 150/260，行程同样闭合",
+      "正面开口左右各留一格 1444 为推断，可放宽到整面 13 m",
+      "开口四边 200 深折边尚未加入，等正视图确认后再定",
+      "全楼仍缺实测基准（面板或层高任一项），未做整体校准",
+      "南端 +16200 平台与屋面之间的过渡板只有 200 长、60 高差，可另行加宽"
+    ],
+    "scale_anchors": [
+      "外罩面板模数 1.5 m（推断，唯一显式模数）",
+      "层高 4.2 m（推断）",
+      "第四段高差 3600 / 行程 6240（用户给定两平台标高 + 既有平台 Y 位置）",
+      "正面 13.0 m 分 9 格、每格 1444（既有脚本分格）",
+      "外罩外包 17.0×20.0 m、切角 2.0 m（推断）",
+      "总平面无比例尺，不提供米制锚点（观察）"
+    ]
+  }
+}

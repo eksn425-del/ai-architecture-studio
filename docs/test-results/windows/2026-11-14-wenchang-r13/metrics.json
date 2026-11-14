@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 713224,
+  "tool_call_count": 37,
+  "failed_tool_calls": 9,
+  "committed_writes": 2,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 2,
+  "token_source": "Same-run BAI usage receipts, with cached input where reported. Unknown monetary amount.",
+  "attempt_statuses": {
+    "settled": 29
+  },
+  "input_tokens": 1631004,
+  "output_tokens": 68699,
+  "cache_read_tokens": 1288448,
+  "money_charged": null,
+  "settled_with_missing_usage": 0,
+  "trace_turns": [
+    {
+      "kind": "intent",
+      "elapsed_ms": 10172,
+      "tool_call_count": 0,
+      "failed_tools": {},
+      "terminal": true
+    },
+    {
+      "kind": "builder",
+      "elapsed_ms": 387897,
+      "tool_call_count": 12,
+      "failed_tools": {
+        "kstudio_save_design_graph": 2
+      },
+      "terminal": true
+    },
+    {
+      "kind": "builder",
+      "elapsed_ms": 315155,
+      "tool_call_count": 25,
+      "failed_tools": {
+        "sketchup_inspect_part": 1,
+        "sketchup_run_workspace_ruby": 2,
+        "sketchup_view": 3,
+        "sketchup_inspect_owned": 1
+      },
+      "terminal": true
+    }
+  ]
+}

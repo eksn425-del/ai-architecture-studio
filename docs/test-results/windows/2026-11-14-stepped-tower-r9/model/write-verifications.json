@@ -1,0 +1,90 @@
+{
+  "writes": [
+    {
+      "revision": 9,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 9,
+            "actual": 9
+          },
+          {
+            "check": "objects_total",
+            "expected": 9,
+            "actual": 9
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -52000.0,
+                -18000.0,
+                -400.0
+              ],
+              "max": [
+                36000.0,
+                32000.0,
+                54100.0
+              ],
+              "size": [
+                88000.0,
+                50000.0,
+                54500.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -52000.0,
+                -18000.0,
+                -400.0
+              ],
+              "max": [
+                36000.0,
+                32000.0,
+                54100.0
+              ],
+              "size": [
+                88000.0,
+                50000.0,
+                54500.0
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "last_exact_scope": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "Stepped_Wing",
+        "Slab_14700"
+      ],
+      [
+        "Stepped_Wing",
+        "Slab_18000"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "Stepped_Wing"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  }
+}
