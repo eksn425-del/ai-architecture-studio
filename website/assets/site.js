@@ -115,7 +115,15 @@
     if(location.hash)document.getElementById(location.hash.slice(1))?.scrollIntoView();
   }
   document.getElementById('menu-toggle').addEventListener('click', e=>{const b=e.currentTarget, open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(open));document.getElementById('main-nav').classList.toggle('mobile-open',open);});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('main-nav').classList.remove('mobile-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false');}});
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    const nav=document.getElementById('main-nav'), toggle=document.getElementById('menu-toggle');
+    if(toggle.getAttribute('aria-expanded')!=='true')return;
+    const focusInside=nav.contains(document.activeElement);
+    nav.classList.remove('mobile-open');
+    toggle.setAttribute('aria-expanded','false');
+    if(focusInside)toggle.focus();
+  });
   main.addEventListener('submit', async e=>{if(e.target.id!=='feedback-form')return;e.preventDefault();const b=e.target.querySelector('button'),s=document.getElementById('form-status');b.disabled=true;s.textContent='正在提交…';try{const d=await api('/api/feedback',{method:'POST',body:JSON.stringify({message:document.getElementById('feedback-message').value,email:document.getElementById('feedback-email').value||undefined})});s.textContent=`反馈已接收${d.receipt_id?'，编号 '+d.receipt_id:''}。`;e.target.reset();}catch(error){s.textContent=error.message;}finally{b.disabled=false;}});
   main.addEventListener('error',e=>{if(e.target.matches?.('img[data-payment-qr]')){e.target.hidden=true;const note=e.target.closest('section')?.querySelector('[data-payment-code-error]');if(note)note.hidden=false;}},true);
   main.addEventListener('click',async e=>{

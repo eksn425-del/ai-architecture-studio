@@ -55,6 +55,7 @@ Var HighestTemp
 Var RegisteredRoot
 Var RegisteredProfile
 Var LegacyProfile
+Var CommandRoot
 !endif
 
 !macro CheckFixedRoot Prefix
@@ -174,9 +175,25 @@ Function .onInit
   Call AcquireMutex
   StrCpy $ProfileDir "${PROFILE_ROOT}"
   !ifdef SELECTABLE_PATHS
+  ; NSIS strips /D= from $CMDLINE before onInit. Win32 retains the raw line.
+  System::Call 'kernel32::GetCommandLineW() w.r0'
+  ClearErrors
+  ${GetOptions} $0 "/D=" $CommandRoot
+  IfErrors init_registered
+  ; NSIS can normalize an invalid silent /D to the default path. Check the
+  ; original argument before reading registry defaults or creating anything.
+  StrCpy $CheckPath $CommandRoot
+  Call CheckLocalPath
+  StrCmp $INSTDIR $CommandRoot init_registered
+  Call RejectInstallDirectory
+  init_registered:
   ReadRegStr $RegisteredRoot HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_ID}" "InstallLocation"
   ReadRegStr $RegisteredProfile HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_ID}" "ProfileLocation"
   StrCmp $RegisteredRoot "" init_unregistered
+  StrCmp $CommandRoot "" init_registered_root_ok
+  StrCmp $CommandRoot $RegisteredRoot init_registered_root_ok
+  Call RejectInstallDirectory
+  init_registered_root_ok:
   StrCpy $INSTDIR $RegisteredRoot
   StrCmp $RegisteredProfile "" init_legacy
   StrCpy $ProfileDir $RegisteredProfile

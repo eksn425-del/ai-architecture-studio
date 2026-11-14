@@ -208,7 +208,8 @@ class ArchitectureContext:
         revision = (state.get('root_pid'), state.get('revision'))
         if (not all(type(value) is int and value > 0 for value in revision)
                 or revision != (receipt.get('root_pid'), receipt.get('revision'))
-                or state.get('write_in_flight') or state.get('durability_status') != 'saved_unverified_reopen'
+                or state.get('write_in_flight')
+                or state.get('durability_status') not in ('saved_unverified_reopen','recovered_verified_checkpoint')
                 or receipt.get('status') != 'saved_unverified_reopen'
                 or not isinstance(receipt.get('sha256'), str)
                 or not re.fullmatch(r'[0-9a-f]{64}', receipt['sha256'])

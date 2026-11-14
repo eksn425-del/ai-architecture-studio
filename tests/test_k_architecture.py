@@ -95,6 +95,8 @@ def test_local_repair_reuses_bound_facts_and_only_changes_approved_part_proposal
     c.record_application(None, accepted['pending_plan_id'], None)
     scope = c.reusable_edit_graph()['parts']
     assert scope == graph()['parts']
+    state['harness_building']['durability_status'] = 'recovered_verified_checkpoint'
+    assert c.reusable_edit_graph() == graph()
     tool = next(s for s in specs('plan', scope) if s['name'] == 'kstudio_scope_existing_parts')
     assert tool['inputSchema']['properties']['edit_parts']['items']['enum'] == scope
     with pytest.raises(ValueError):
