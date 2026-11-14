@@ -1,0 +1,42 @@
+[
+  {
+    "phase": "offline regressions",
+    "status": "FAIL",
+    "detail": "Five existing recovery fixtures opened UTF-8 receipts in the Windows locale when PYTHONUTF8 was omitted. The CI setting PYTHONUTF8=1 made all five pass."
+  },
+  {
+    "phase": "fixture preflight",
+    "status": "FAIL",
+    "detail": "The independent fixture had not created its exact render directory before pairing. Create it in the fixture project and repeat the preflight. No native write had run."
+  },
+  {
+    "phase": "r1",
+    "status": "FAIL",
+    "detail": "The first fixture collector reused a local name for aperture coordinates and displayed an incorrect wall/frame bounding box. Corrected the read-only collector and re-read r1 without repeating the write."
+  },
+  {
+    "phase": "r1 invalid input",
+    "status": "PASS",
+    "detail": "Ground-touching opening was rejected before native execution; current revision was still r1."
+  },
+  {
+    "phase": "r2",
+    "status": "FAIL",
+    "detail": "Five placed window bays yielded five distinct native group definitions. Recorded geometry and closed volumes were valid, but linked component editing was not verified."
+  },
+  {
+    "phase": "r3 attempt 1",
+    "status": "ABORTED",
+    "detail": "Converting the parent group with to_component and duplicating did not retain a common definition in the native check. The model remained r2."
+  },
+  {
+    "phase": "r3 attempt 2",
+    "status": "ABORTED",
+    "detail": "The same SU process had retained the previous helper signature under require_relative. The guarded transport now explicitly loads the small reviewed helper. The model remained r2."
+  },
+  {
+    "phase": "r3 checkpoint capture",
+    "status": "FAIL",
+    "detail": "The first test compared the working file against the separately saved checkpoint hash. Continued read-only using the actual manifest checkpoint path and reopened a copy. No further model write was performed."
+  }
+]

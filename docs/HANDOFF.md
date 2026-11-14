@@ -1,3 +1,7 @@
+# 开源能力采纳交接 — 2026-11-14
+
+PR27 源码 `a532096ce0d95d1f00d8d9cb789a8f9134b4da16`。[参数化窗开间记录与六视图](test-results/windows/2026-11-14-oss-window-bay/README.md)。现有 `sketchup_apply_parts` 增加 `window_bay`，安装器清单校验几何实现及 Apache-2.0 许可文件。E 盘独立样板 `kstudio-oss-window-bay-20261114` 保存 r1–r3、已中止事务、回执和原始模型。最终 r3 节点原生重开通过；没有端到端客户端或 BAI 选用证据。桌面安装版仍为 R3 beta03。以实际新案例测 Agent 何时选用该构造，保留旧模型与账本。
+
 # 当前候选：模型质量、原生交付与持续建模 — 2026-11-14
 
 PR27 继续使用 `codex/kstudio-r3-launch-20261105`。起点为 `1ca90f4815a550b4ac1f03d2d5ccf196f5240105`。已有两个原项目和历史账本逐项核对保留；所有测试工程、原图、SKP、原始检查点和详细日志在项目 E 盘 `outputs/video-storage/jobs/kstudio-quality-training-20261114`。

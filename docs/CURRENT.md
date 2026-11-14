@@ -1,3 +1,9 @@
+# 最新开源采纳：参数化窗开间 — 2026-11-14
+
+PR27 源码 `a532096ce0d95d1f00d8d9cb789a8f9134b4da16`。将 Local MCP for SketchUp 的带孔边界构造方法接进 K Harness，参考 ADAI 参数化开间与 agentcad 的规格验收。默认建筑 Skills 指导使用 `window_bay` 先做一个直墙矩形窗样板，再阵列原生组件。继续用已有 ProjectRuby、批准范围、接边和深层保护。未知提交时，受控参数化写入与工作区 Ruby 写入都停止继续调用供应商。
+
+[实机样板、失败及源码出处](test-results/windows/2026-11-14-oss-window-bay/README.md)。SketchUp 2024 将五个开间读回为两个共享定义，保留墙、框、玻璃闭合实体，保存检查点在另一实例重开一致。原生工具 PARTIAL 验收已完成，真实客户端看图选用、浏览器下载和整栋效果待测。本轮零外部模型请求。原始素材与 SKP 置于 E 盘 `outputs/video-storage/jobs/kstudio-oss-window-bay-20261114`。桌面仍为 R3 beta03。
+
 # 当前候选：模型质量、原生交付与持续建模 — 2026-11-14
 
 PR27 继续使用 `codex/kstudio-r3-launch-20261105`。起点为 `1ca90f4815a550b4ac1f03d2d5ccf196f5240105`。已有两个原项目和历史账本逐项核对保留；所有测试工程、原图、SKP、原始检查点和详细日志在项目 E 盘 `outputs/video-storage/jobs/kstudio-quality-training-20261114`。

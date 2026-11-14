@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-14-oss-window-bay",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "a532096ce0d95d1f00d8d9cb789a8f9134b4da16",
+  "source_case": "planning/window-bay-parameters.json (synthetic local specification)",
+  "model": {
+    "requested": null,
+    "actual": "not_called",
+    "reasoning_effort": null,
+    "runtime": "K Studio typed host dispatch over signed public SketchUp connector; no provider or client UI"
+  },
+  "environment": {
+    "windows": "Windows 11 build 22000",
+    "sketchup": "24.0.484",
+    "bridge": "K Studio public paired SketchUp connector",
+    "adai": "upstream reviewed; runtime not invoked"
+  },
+  "qa": {
+    "reviewer_mode": "host_read_only_geometry_and_manual_native_view_review",
+    "fidelity_status": "NOT_RUN",
+    "component_contract": "PASS",
+    "checkpoint_native_reopen": "PASS",
+    "browser_download": "NOT_RUN",
+    "needs_fix": true
+  },
+  "blockers": [],
+  "remaining": [
+    "model-selected tool use through the real K Studio UI",
+    "whole-building source comparison"
+  ]
+}

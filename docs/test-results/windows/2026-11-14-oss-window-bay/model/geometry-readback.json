@@ -1,0 +1,549 @@
+{
+  "native_version": "24.0.484",
+  "revision": 3,
+  "root_pid": 19,
+  "parts": [
+    {
+      "name": "FrontWall",
+      "pid": 21,
+      "bays": [
+        {
+          "name": "piece_0",
+          "pid": 751,
+          "definition_pid": 618,
+          "components": [
+            {
+              "name": "Wall",
+              "manifold": true,
+              "volume_mm3": 1732500000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ],
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  200.0,
+                  3400.0
+                ],
+                [
+                  100.0,
+                  350.0
+                ],
+                [
+                  300.0,
+                  3600.0
+                ]
+              ],
+              "material": "KStudioBay_179_126_98_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Frame",
+              "manifold": true,
+              "volume_mm3": 42522000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ],
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  700.0,
+                  2900.0
+                ],
+                [
+                  190.0,
+                  285.0
+                ],
+                [
+                  1100.0,
+                  2750.0
+                ]
+              ],
+              "material": "KStudioBay_52_57_61_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Glass",
+              "manifold": true,
+              "volume_mm3": 38188800.0,
+              "faces": 6,
+              "aperture_dimensions_mm": [],
+              "bounds_mm": [
+                [
+                  760.0,
+                  2840.0
+                ],
+                [
+                  231.5,
+                  243.5
+                ],
+                [
+                  1160.0,
+                  2690.0
+                ]
+              ],
+              "material": "KStudioBay_146_182_195_0.45",
+              "alpha": 0.45
+            }
+          ]
+        },
+        {
+          "name": "piece_0_1",
+          "pid": 752,
+          "definition_pid": 618,
+          "components": [
+            {
+              "name": "Wall",
+              "manifold": true,
+              "volume_mm3": 1732500000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ],
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  3400.0,
+                  6600.0
+                ],
+                [
+                  100.0,
+                  350.0
+                ],
+                [
+                  300.0,
+                  3600.0
+                ]
+              ],
+              "material": "KStudioBay_179_126_98_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Frame",
+              "manifold": true,
+              "volume_mm3": 42522000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ],
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  3900.0,
+                  6100.0
+                ],
+                [
+                  190.0,
+                  285.0
+                ],
+                [
+                  1100.0,
+                  2750.0
+                ]
+              ],
+              "material": "KStudioBay_52_57_61_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Glass",
+              "manifold": true,
+              "volume_mm3": 38188800.0,
+              "faces": 6,
+              "aperture_dimensions_mm": [],
+              "bounds_mm": [
+                [
+                  3960.0,
+                  6040.0
+                ],
+                [
+                  231.5,
+                  243.5
+                ],
+                [
+                  1160.0,
+                  2690.0
+                ]
+              ],
+              "material": "KStudioBay_146_182_195_0.45",
+              "alpha": 0.45
+            }
+          ]
+        },
+        {
+          "name": "piece_0_2",
+          "pid": 753,
+          "definition_pid": 618,
+          "components": [
+            {
+              "name": "Wall",
+              "manifold": true,
+              "volume_mm3": 1732500000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ],
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  6600.0,
+                  9800.0
+                ],
+                [
+                  100.0,
+                  350.0
+                ],
+                [
+                  300.0,
+                  3600.0
+                ]
+              ],
+              "material": "KStudioBay_179_126_98_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Frame",
+              "manifold": true,
+              "volume_mm3": 42522000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ],
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  7100.0,
+                  9300.0
+                ],
+                [
+                  190.0,
+                  285.0
+                ],
+                [
+                  1100.0,
+                  2750.0
+                ]
+              ],
+              "material": "KStudioBay_52_57_61_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Glass",
+              "manifold": true,
+              "volume_mm3": 38188800.0,
+              "faces": 6,
+              "aperture_dimensions_mm": [],
+              "bounds_mm": [
+                [
+                  7160.0,
+                  9240.0
+                ],
+                [
+                  231.5,
+                  243.5
+                ],
+                [
+                  1160.0,
+                  2690.0
+                ]
+              ],
+              "material": "KStudioBay_146_182_195_0.45",
+              "alpha": 0.45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WingWall",
+      "pid": 339,
+      "bays": [
+        {
+          "name": "piece_0",
+          "pid": 887,
+          "definition_pid": 754,
+          "components": [
+            {
+              "name": "Wall",
+              "manifold": true,
+              "volume_mm3": 1732500000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ],
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  9550.0,
+                  9800.0
+                ],
+                [
+                  100.0,
+                  3300.0
+                ],
+                [
+                  300.0,
+                  3600.0
+                ]
+              ],
+              "material": "KStudioBay_179_126_98_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Frame",
+              "manifold": true,
+              "volume_mm3": 42522000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ],
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  9630.0,
+                  9725.0
+                ],
+                [
+                  600.0,
+                  2800.0
+                ],
+                [
+                  1100.0,
+                  2750.0
+                ]
+              ],
+              "material": "KStudioBay_52_57_61_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Glass",
+              "manifold": true,
+              "volume_mm3": 38188800.0,
+              "faces": 6,
+              "aperture_dimensions_mm": [],
+              "bounds_mm": [
+                [
+                  9671.5,
+                  9683.5
+                ],
+                [
+                  660.0,
+                  2740.0
+                ],
+                [
+                  1160.0,
+                  2690.0
+                ]
+              ],
+              "material": "KStudioBay_146_182_195_0.45",
+              "alpha": 0.45
+            }
+          ]
+        },
+        {
+          "name": "piece_0_1",
+          "pid": 888,
+          "definition_pid": 754,
+          "components": [
+            {
+              "name": "Wall",
+              "manifold": true,
+              "volume_mm3": 1732500000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ],
+                [
+                  [
+                    2200.0,
+                    0.0,
+                    1650.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  9550.0,
+                  9800.0
+                ],
+                [
+                  3300.0,
+                  6500.0
+                ],
+                [
+                  300.0,
+                  3600.0
+                ]
+              ],
+              "material": "KStudioBay_179_126_98_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Frame",
+              "manifold": true,
+              "volume_mm3": 42522000.0,
+              "faces": 10,
+              "aperture_dimensions_mm": [
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ],
+                [
+                  [
+                    2080.0,
+                    0.0,
+                    1530.0
+                  ]
+                ]
+              ],
+              "bounds_mm": [
+                [
+                  9630.0,
+                  9725.0
+                ],
+                [
+                  3800.0,
+                  6000.0
+                ],
+                [
+                  1100.0,
+                  2750.0
+                ]
+              ],
+              "material": "KStudioBay_52_57_61_1",
+              "alpha": 1.0
+            },
+            {
+              "name": "Glass",
+              "manifold": true,
+              "volume_mm3": 38188800.0,
+              "faces": 6,
+              "aperture_dimensions_mm": [],
+              "bounds_mm": [
+                [
+                  9671.5,
+                  9683.5
+                ],
+                [
+                  3860.0,
+                  5940.0
+                ],
+                [
+                  1160.0,
+                  2690.0
+                ]
+              ],
+              "material": "KStudioBay_146_182_195_0.45",
+              "alpha": 0.45
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "purpose": "synthetic fixture with no reference image",
+  "sample": {
+    "parts": [
+      {
+        "name": "FrontWall",
+        "pieces": [
+          {
+            "kind": "window_bay",
+            "origin": [
+              200,
+              100,
+              300
+            ],
+            "size": [
+              3200,
+              250,
+              3300
+            ],
+            "opening": [
+              500,
+              800,
+              2200,
+              1650
+            ],
+            "frame_width_mm": 60,
+            "frame_depth_mm": 95,
+            "recess_mm": 75,
+            "glass_thickness_mm": 12,
+            "color": [
+              179,
+              126,
+              98
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Landing",
+        "pieces": [
+          {
+            "kind": "box",
+            "origin": [
+              200,
+              100,
+              0
+            ],
+            "size": [
+              10000,
+              1300,
+              300
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "array": {
+    "parts": [
+      {
+        "name": "FrontWall",
+        "pieces": [
+          {
+            "kind": "window_bay",
+            "origin": [
+              200,
+              100,
+              300
+            ],
+            "size": [
+              3200,
+              250,
+              3300
+            ],
+            "opening": [
+              500,
+              800,
+              2200,
+              1650
+            ],
+            "frame_width_mm": 60,
+            "frame_depth_mm": 95,
+            "recess_mm": 90,
+            "glass_thickness_mm": 12,
+            "color": [
+              179,
+              126,
+              98
+            ],
+            "repeat": 3,
+            "step": [
+              3200,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "name": "WingWall",
+        "pieces": [
+          {
+            "kind": "window_bay",
+            "origin": [
+              9800,
+              100,
+              300
+            ],
+            "size": [
+              3200,
+              250,
+              3300
+            ],
+            "opening": [
+              500,
+              800,
+              2200,
+              1650
+            ],
+            "frame_width_mm": 60,
+            "frame_depth_mm": 95,
+            "recess_mm": 75,
+            "glass_thickness_mm": 12,
+            "color": [
+              179,
+              126,
+              98
+            ],
+            "repeat": 2,
+            "rotation_deg": 90,
+            "step": [
+              0,
+              3200,
+              0
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
