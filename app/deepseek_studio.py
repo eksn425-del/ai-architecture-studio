@@ -111,7 +111,9 @@ This directory belongs to this single architectural project. Preserve the user's
                 for skill_id in ('native','facade','spatial','edit'):
                     skill=architecture.read_skill({'id':skill_id})
                     instructions+=f'\nHOST-LOADED ARCHITECTURE SKILL {skill_id} sha256={skill["sha256"]}; method guidance, not approval:\n'+skill['content']
-                instructions+='\nEXECUTION CADENCE: Your FIRST response must call kstudio_read_skill(native), kstudio_read_skill(facade) and sketchup_model_state. Do not precompute the entire building before this first call. Thereafter calculate and construct only the NEXT coherent system, read its result, then proceed. Planning is already approved. Never spend a response deriving all geometry without tools. Use repeated instances and concise payloads.'
+                instructions+='\nEXECUTION CADENCE: The plan is already approved and the relevant skills are loaded above. Start with sketchup_model_state. Batch the exact native reads needed for the next operation. After the reads, write only the NEXT coherent system promptly and inspect its result before continuing. Use repeat/step or a short loop for repeated parts. Do not enumerate repeated geometry, re-read the plan or draft an entire turn of geometry before calling the next tool.'
+                if ruby_state:
+                    instructions+='\nFor a scoped edit use the approved plan and live measurements. After measuring the receiving geometry, commit the simplest receiving part first when it can be built independently. Do not spend the output computing tread, landing and railing details together. Verify the exact connection and KEEP once the related parts are committed.'
             try:
                 result=self._official_turn(project=project,thread_id=thread_id,
                     prompt=json.dumps(turn_context,ensure_ascii=False)+f'\nHOST_STAGE={agent_action}; native_execution_granted={mcp_enabled}.',

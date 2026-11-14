@@ -140,3 +140,5 @@ def test_execution_receives_current_core_skills_even_when_model_skips_read_tool(
         assert 'HOST-LOADED ARCHITECTURE SKILL '+key+' sha256=' in observed[0]
     assert 'Face.pushpull' in observed[0]
     assert '`window_bay`' in observed[0]
+    assert 'commit the simplest receiving part first' in observed[0]
+    assert '用俯视核对梯段是否挡住主立面开口' in observed[0]

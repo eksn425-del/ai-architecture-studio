@@ -6,14 +6,14 @@ const start=source.indexOf('async function loadParameterPlan(');
 const fn=source.slice(start,source.indexOf('\n}',start)+2);
 const recoveryStart=source.indexOf('function renderPlanRecovery(');
 const recovery=source.slice(recoveryStart,source.indexOf('\n}',recoveryStart)+2);
-function fixture(staleCache=false){
+function fixture(staleCache=false, modelRevisions={}){
  const nodes={},calls=[],notices=[];let consumed=true;
  const state={projectId:'p',busy:false,project:{agent_session:{reconstruction_state:'planned'},context:{conversation:[]}}};
  const $=id=>nodes[id]||=( {hidden:false,disabled:false,textContent:'',innerHTML:'',insertAdjacentHTML(_,html){this.innerHTML+=html;},addEventListener(_,fn){this.click=fn;}} );
  const card='same plan';
  const hash=require('node:crypto').createHash('sha256').update(card).digest('hex');
  if(staleCache)consumed=false;
- const context=vm.createContext({$,state,TextEncoder,crypto:require('node:crypto').webcrypto,parameterPlanMarkup:x=>x,projectFileUrl:()=>'/card',showToast:t=>notices.push(t),updateHeader:()=>calls.push({url:'header'}),api:async(url,options)=>{calls.push({url,options});if(url==='/card')return staleCache&&options?.cache!=='no-store'?'previous building plan':card;if(url.endsWith('/retry-plan')){consumed=false;return {execution_started:false};}return {pending_plan_id:consumed?'old':'fresh',plan_sha256:hash,consumed};}});
+ const context=vm.createContext({$,state,TextEncoder,crypto:require('node:crypto').webcrypto,parameterPlanMarkup:x=>x,projectFileUrl:()=>'/card',showToast:t=>notices.push(t),updateHeader:()=>calls.push({url:'header'}),api:async(url,options)=>{calls.push({url,options});if(url==='/card')return staleCache&&options?.cache!=='no-store'?'previous building plan':card;if(url.endsWith('/retry-plan')){consumed=false;return {execution_started:false};}return {pending_plan_id:consumed?'old':'fresh',plan_sha256:hash,consumed,model_revisions:modelRevisions};}});
  vm.runInContext('let planRequestId=0;'+recovery+fn,context);
  return {context,state,$,calls,notices};
 }
@@ -33,6 +33,15 @@ test('failed initial plan requires explicit empty-model check then NEW approval'
 test('stale project cannot renew a different project plan',async()=>{
  const f=fixture();await f.context.loadParameterPlan();f.state.projectId='other';
  await f.$('retry-empty-plan').click({currentTarget:f.$('retry-empty-plan')});
+ assert.equal(f.calls.some(c=>c.options?.method==='POST'),false);
+});
+test('a consumed edit plan with existing geometry offers replanning',async()=>{
+ const f=fixture(false,{harness_building:8});await f.context.loadParameterPlan();
+ assert.equal(f.state.displayedPlan,null);
+ assert.equal(f.$('plan-recovery-notice').hidden,false);
+ assert.equal(f.$('recover-plan-before-send').textContent,'更新修改方案');
+ assert.match(f.$('parameter-plan-content').innerHTML,/上次修改的批准已使用/);
+ assert.doesNotMatch(f.$('parameter-plan-content').innerHTML,/空白副本|retry-empty-plan/);
  assert.equal(f.calls.some(c=>c.options?.method==='POST'),false);
 });
 test('updated local edit plan bypasses a cached previous building card',async()=>{

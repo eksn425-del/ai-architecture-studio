@@ -41,7 +41,7 @@
           <p id="native-turn-event" class="native-turn-event" role="status" hidden></p><p id="agent-error" class="agent-error" role="status" hidden></p><div id="operation-progress" class="operation-progress" role="status" hidden></div>
           </section></section><details id="submitted-reference-history" class="submitted-reference-history" hidden><summary id="submitted-reference-summary">已发送图片 · 查看原图</summary><div id="submitted-reference-roles"></div></details></div><div class="composer-area">
           <form id="conversation-form" class="conversation-form">
-          <section id="plan-recovery-notice" class="plan-recovery-notice" aria-label="恢复建模批准" hidden><p>上次批准已使用。再次建模前先恢复批准；普通问题仍可直接发送。检查只核验空白副本，不调用模型，也不会自动开工。</p><button id="recover-plan-before-send" type="button" class="button-quiet">检查空白副本并恢复批准</button></section>
+          <section id="plan-recovery-notice" class="plan-recovery-notice" aria-label="恢复建模批准" hidden><p id="plan-recovery-message"></p><button id="recover-plan-before-send" type="button" class="button-quiet"></button></section>
           <div id="reference-gallery" class="reference-gallery" aria-label="待发送参考图片"></div>
             <label class="sr-only" for="conversation-input">输入建模要求或修改指令</label><textarea id="conversation-input" rows="2" maxlength="1200" placeholder="上传建筑图片，描述你想建的模型…"></textarea>
             <div id="attachment-list" class="attachment-list" aria-label="待发送资料"></div>
@@ -104,7 +104,7 @@
 <div hidden aria-hidden="true"><select id="project-select" aria-label="切换项目"></select><span id="sidebar-project-name"></span><span id="sidebar-project-status"></span><span id="project-subtitle"></span><span id="model-tier-status"></span><input id="project-name"><section id="reconstruction-guide"><p id="next-step"></p></section><select id="workflow-mode"><option value="image_reconstruction" selected>图片复刻</option></select><p id="workflow-help"></p><div class="input-block"><textarea id="brief"></textarea><input id="brief-file" type="file"><div id="brief-files"></div></div><div class="input-block"><textarea id="site-note"></textarea><input id="site-file" type="file"><div id="site-files"></div></div><div class="input-block"><textarea id="intent"></textarea></div><input id="reference-url"><div id="reference-status"></div><div id="reference-files"></div><button id="prepare-design"></button><span id="prepare-note"></span><input id="disposable-confirm" type="checkbox"><button id="build-model"></button><button id="edit-height"></button><button id="edit-position"></button><span id="edit-count"></span><span id="stage-design"></span><span id="stage-model"></span><span id="stage-drawing"></span><span id="stage-render"></span><span id="stage-present"></span></div>
 <script src="/static/vendor/markdown-it/markdown-it.min.js" defer></script>
 <script src="/static/progress-ui.js?v=owner-acceptance-20261020" defer></script>
-  <script src="/static/studio.js?v=connection-ux-20261105" defer></script>
+  <script src="/static/studio.js?v=plan-recovery-20261114" defer></script>
 <script src="/static/connections.js?v=connection-ux-20261105" defer></script>
 <script src="/static/modeling-plugins.js?v=connection-ux-20261105" defer></script>
 <script src="/static/cloud-account.js?v=connection-ux-20261105" defer></script>
