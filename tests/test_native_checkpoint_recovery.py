@@ -29,7 +29,10 @@ def recovery(tmp_path,monkeypatch):
     (reports/'r1.json').write_text(json.dumps({'status':'committed','project_id':'case','revision':1,'root_pid':19}))
     (reports/'r2.json').write_text(json.dumps({'status':'prepared'}))
     (runtime/'previous-agent-ruby-state.json').write_text(json.dumps({'harness_building':accepted}))
-    pending={**copy.deepcopy(accepted),'durability_status':'unconfirmed','write_in_flight':True,'last_report':'runtime/scripts/reports/r2.json'}
+    attempted_source = runtime/'scripts/harness_building.rb'
+    attempted_hash = hashlib.sha256(attempted_source.read_bytes()).hexdigest()
+    pending={**copy.deepcopy(accepted),'durability_status':'unconfirmed','write_in_flight':True,
+             'last_report':'runtime/scripts/reports/r2.json','source_sha256':attempted_hash}
     state=runtime/'project_ruby_state.json';state.write_text(json.dumps({'model_path':str(original),'scripts':{'harness_building':pending}}))
     old={'instance_id':'1234-aaaaaaaaaaaaaaaaaaaaaaaa','model_path':str(original),'model_guid':'old-guid'}
     selections={str(project.resolve()):old};roster=[];launched=[]
@@ -122,6 +125,34 @@ def test_recovery_refuses_an_uncertain_report_outside_its_project_reports(recove
         perform(f)
     assert not f.launched and f.state.read_bytes() == before
     assert not (f.runtime/'native-recovery').exists()
+
+
+def test_recovery_quarantines_exact_attempt_if_crash_source_bytes_later_change(recovery):
+    f = recovery
+    candidate = f.runtime/'scripts/harness_building.rb'
+    original = hashlib.sha256(candidate.read_bytes()).hexdigest()
+    candidate.write_bytes(b'changed after the original uncertain dispatch')
+    changed = hashlib.sha256(candidate.read_bytes()).hexdigest()
+    perform(f)
+    assert f.session.ruby_state['harness_building']['quarantined_source_sha256'] == sorted([original, changed])
+    assert candidate.read_bytes() == f.source.read_bytes()
+
+
+def test_recovery_uses_the_last_verified_write_inside_the_same_turn(recovery):
+    f = recovery
+    state = json.loads(f.state.read_bytes())
+    entry = state['scripts']['harness_building']
+    previous_path = f.runtime/'previous-agent-ruby-state.json'
+    verified = json.loads(previous_path.read_bytes())['harness_building']
+    entry['recovery_base'] = verified
+    entry.update(revision=2, unverified_candidate_checkpoint={'revision': 2, 'path': 'unused'})
+    f.state.write_text(json.dumps(state), encoding='utf-8')
+    previous_path.write_text('{}', encoding='utf-8')
+    target, receipt = perform(f)
+    assert receipt['restored_revision'] == verified['revision']
+    assert target.read_bytes() == f.checkpoint.read_bytes()
+    assert f.session.ruby_state['harness_building']['revision'] == verified['revision']
+    assert 'recovery_base' not in f.session.ruby_state['harness_building']
 
 
 def test_failed_native_readback_preserves_guard_then_reuses_same_pending_copy(recovery):

@@ -9,6 +9,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 import shutil
 import time
 import uuid
@@ -173,10 +174,16 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
         raise ValueError('No previously confirmed durable checkpoint')
     checkpoint=regular(project/saved.get('path',''),project/'outputs/model/committed-revisions')
     if sha(checkpoint)!=saved['sha256']:raise ValueError('Durable checkpoint hash changed')
-    previous_path=regular(project/'runtime/previous-agent-ruby-state.json',project/'runtime')
-    previous=json.loads(previous_path.read_text(encoding='utf8'))
+    previous_revision = pending.get('recovery_base')
+    if previous_revision is not None:
+        previous = {script_id: previous_revision}
+    else:
+        # Previously installed clients only recorded the pre-turn snapshot.
+        previous_path=regular(project/'runtime/previous-agent-ruby-state.json',project/'runtime')
+        previous=json.loads(previous_path.read_text(encoding='utf8'))
     accepted=previous.get(script_id,{})
-    if (set(previous)!={script_id} or accepted.get('durability_status')=='unconfirmed'
+    if (set(previous)!={script_id} or not isinstance(accepted, dict)
+        or accepted.get('durability_status')=='unconfirmed'
         or accepted.get('write_in_flight') or accepted.get('revision')!=saved.get('revision')
         or accepted.get('root_pid')!=saved.get('root_pid')
         or accepted.get('last_verification',{}).get('verified') is not True
@@ -190,6 +197,9 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     source_candidates=list((project/'runtime/scripts/reports').glob('*.committed.rb'))
     source=next((f for f in source_candidates if not f.is_symlink() and sha(f)==accepted.get('source_sha256')),None)
     if source is None:raise ValueError('Accepted checkpoint source is unavailable')
+    attempted_sha = pending.get('source_sha256')
+    if not isinstance(attempted_sha, str) or not re.fullmatch(r'[a-f0-9]{64}', attempted_sha):
+        raise ValueError('Uncertain source digest is unavailable')
     # The host persists intent before SketchUp creates its report. Validate
     # the path first so a failure leaves the previous state and no orphan copy.
     report_path = project / str(pending.get('last_report') or '')
@@ -239,7 +249,7 @@ def recover_saved_checkpoint(project,session,adapter,launcher,*,root=None):
     write_selection(root,probe,candidate)
     recovered=copy.deepcopy(previous)
     blocked=set(recovered[script_id].get('quarantined_source_sha256',[]))
-    blocked.add(sha(folder/'failed-source.rb'))
+    blocked.update((attempted_sha, sha(regular(folder/'failed-source.rb', folder))))
     recovered[script_id]['quarantined_source_sha256']=sorted(blocked)
     with project_scope(probe):
         identity=adapter.get_active_model_identity()
