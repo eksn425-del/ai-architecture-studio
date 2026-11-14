@@ -1,0 +1,1036 @@
+[
+  {
+    "revision": 1,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "check": "objects_total",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": null
+  },
+  {
+    "revision": 2,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 2,
+          "actual": 2
+        },
+        {
+          "check": "objects_total",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "UpperWindowBay"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "UpperWindowBay"
+        ]
+      ],
+      "allowed_top_level": [
+        "UpperWindowBay"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 3,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 6,
+          "actual": 6
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "UpperWindowBay"
+        ],
+        [
+          "GroundShopfront"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "GroundShopfront"
+        ]
+      ],
+      "allowed_top_level": [
+        "UpperWindowBay",
+        "GroundShopfront"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 4,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 8,
+          "actual": 8
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "EntrancePorch"
+        ],
+        [
+          "EastDoor"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "EntrancePorch"
+        ],
+        [
+          "EastDoor"
+        ]
+      ],
+      "allowed_top_level": [
+        "EntrancePorch",
+        "EastDoor"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 5,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "objects_total",
+          "expected": 10,
+          "actual": 10
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              7200.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              7350.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "StairFlight"
+        ],
+        [
+          "CornerLanding"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "StairFlight"
+        ],
+        [
+          "CornerLanding"
+        ]
+      ],
+      "allowed_top_level": [
+        "StairFlight",
+        "CornerLanding"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 6,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 6,
+          "actual": 6
+        },
+        {
+          "check": "objects_total",
+          "expected": 12,
+          "actual": 12
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              8280.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              8430.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              8280.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              8430.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "StairRail"
+        ],
+        [
+          "TerraceRail"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "StairRail"
+        ],
+        [
+          "TerraceRail"
+        ]
+      ],
+      "allowed_top_level": [
+        "StairRail",
+        "TerraceRail"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 7,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 7,
+          "actual": 7
+        },
+        {
+          "check": "objects_total",
+          "expected": 14,
+          "actual": 14
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10280.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10430.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10280.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10430.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "CubeGlassWall"
+        ],
+        [
+          "CubeWoodWall"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "CubeGlassWall"
+        ],
+        [
+          "CubeWoodWall"
+        ]
+      ],
+      "allowed_top_level": [
+        "CubeGlassWall",
+        "CubeWoodWall"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 8,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 8,
+          "actual": 8
+        },
+        {
+          "check": "objects_total",
+          "expected": 16,
+          "actual": 16
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_graph_v1",
+      "allowed_paths": [
+        [
+          "CubeRafters"
+        ],
+        [
+          "Roof"
+        ]
+      ],
+      "allowed_creation_paths": [
+        [
+          "CubeRafters"
+        ],
+        [
+          "Roof"
+        ]
+      ],
+      "allowed_top_level": [
+        "CubeRafters",
+        "Roof"
+      ],
+      "required_deep_keep_paths": [],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 9,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 9,
+          "actual": 9
+        },
+        {
+          "check": "objects_total",
+          "expected": 16,
+          "actual": 16
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "CornerLanding"
+        ]
+      ],
+      "required_deep_keep_paths": [],
+      "allowed_top_level": [
+        "CornerLanding"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 10,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 10,
+          "actual": 10
+        },
+        {
+          "check": "objects_total",
+          "expected": 16,
+          "actual": 16
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "StairFlight"
+        ]
+      ],
+      "required_deep_keep_paths": [],
+      "allowed_top_level": [
+        "StairFlight"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 11,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 11,
+          "actual": 11
+        },
+        {
+          "check": "objects_total",
+          "expected": 16,
+          "actual": 16
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "StairRail"
+        ]
+      ],
+      "required_deep_keep_paths": [],
+      "allowed_top_level": [
+        "StairRail"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  },
+  {
+    "revision": 12,
+    "verification": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 12,
+          "actual": 12
+        },
+        {
+          "check": "objects_total",
+          "expected": 16,
+          "actual": 16
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -6000.0,
+              -6000.0,
+              -150.0
+            ],
+            "max": [
+              24000.0,
+              20000.0,
+              10600.0
+            ],
+            "size": [
+              30000.0,
+              26000.0,
+              10750.0
+            ]
+          }
+        }
+      ]
+    },
+    "owned_edit_scope": {
+      "status": "passed",
+      "guard": "deep_exact_paths_v2",
+      "allowed_paths": [
+        [
+          "StairFlight",
+          "ThinSlab_120"
+        ]
+      ],
+      "required_deep_keep_paths": [],
+      "allowed_top_level": [
+        "StairFlight"
+      ],
+      "protected_deep_geometry_and_loose_entities": true
+    }
+  }
+]

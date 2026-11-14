@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "version": "2026.11.14-R3-beta07",
+  "sequence": 14,
+  "source_sha": "3b9ecabc3ce1b7e55825b7baecf4cacc5fa797dd",
+  "file_count": 70421,
+  "fixture_only": false,
+  "candidate_only": true,
+  "production_signed": false,
+  "public_release_ready": false,
+  "profile_preserved_on_uninstall": true,
+  "prior_slots_retained": true,
+  "compression": "zlib",
+  "running_instance_refused": true,
+  "atomic_current_pointer": true,
+  "same_version_repair_crash_atomic": false,
+  "same_version_overwrite": "REFUSED_EXIT_6",
+  "extended_length_payload_paths": true,
+  "root_selection": "selected-local-fixed-root",
+  "nsis_license": "http[local path]",
+  "compile_status": "PASS",
+  "installer_source": {
+    "head": "3b9ecabc3ce1b7e55825b7baecf4cacc5fa797dd",
+    "dirty": false,
+    "root_selection": "selected-local-fixed-root",
+    "sha256": {
+      "packaging/kstudio.nsi": "52f32b195e133b714520d216bb1897c75d27f0ca74305d343f688e957ad63574",
+      "scripts/build_installer.py": "dd5d270416f337e9c7837edb2a7cc458ec6f3eab4416d4f69363f2bf8dc1e644",
+      "scripts/launch_installed.ps1": "27a5c47120690851ad7a1d8468c4a41e3d8aa1969e7bc198bf4b79cbd78d1d22"
+    },
+    "note": "source_sha identifies frozen application core; installer input hashes identify later packaging fixes"
+  },
+  "compiler_temp_scope": "output/temp; process environment only",
+  "compile_exit_code": 0,
+  "installer": "KStudio-2026.11.14-R3-beta07-win-x64-setup.exe",
+  "bytes": 311345780,
+  "sha256": "63d6e8c80f0123e71ca7c65bd4a516191e5e8ab983e2e3740032c1eeb8a83d43",
+  "authenticode": "NOT_SIGNED",
+  "installation_status": "NOT_RUN",
+  "installed_desktop_version": "2026.11.07-R3-beta03",
+  "license_review": {
+    "components": 656,
+    "license_texts": 1029,
+    "missing_text_components": 1,
+    "native_binaries": 183,
+    "upstream_original_text_absent_standard_terms_supplied": 9,
+    "bundled_python_pins": 93,
+    "clearance": "REVIEW_REQUIRED"
+  }
+}

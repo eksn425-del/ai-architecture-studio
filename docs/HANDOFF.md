@@ -1,4 +1,10 @@
-# 开源能力采纳交接 — 2026-11-14
+# 发布前实机交接 — 2026-11-14
+
+实施分支 `codex/kstudio-r3-launch-20261105` / PR27。[训练、开源方法与原生交付证据](test-results/windows/2026-11-14-r3-release-training/README.md)。实测启动连接与多次重开保持一个 SketchUp 2024 窗口。窗样板读取实际孔洞和玻璃退深，再复用到四个开间。r11 纠正梯向并保留其他 13 个部件，r12 只修梯身，17 块踏步原位保留，最多 123 毫米穿出消除到 0，锯齿与踏板底最大间隙 0.5 毫米。r12 下载重开后 1,983 条面记录相同。门槛高差、材料和整体保真为 PARTIAL。
+
+原始作业位于项目 E 盘 `outputs/video-storage/jobs/kstudio-launch-training-20261114`。发布审查目录提供脱敏回执、六视图、对照与用量。保留第一个楼梯回合的输出截断及后来方案反复校验、取消留下的 1 条未知用量。新批次合计 93 条已结算用量，无活动付费回合。beta07 本机包固定 E 盘，已构建、SHA 已验证、打包首次空白 Profile 启动通过。现有 beta03 安装继续使用原有程序路径和 Profile。公开部署和客户干净机验收等待[外部资源和发行门槛](execution/KSTUDIO_R3_EXTERNAL_INPUTS_STATUS_20261107.md)。
+
+# 开源样板采纳交接 — 2026-11-14
 
 PR27 源码 `a532096ce0d95d1f00d8d9cb789a8f9134b4da16`。[参数化窗开间记录与六视图](test-results/windows/2026-11-14-oss-window-bay/README.md)。现有 `sketchup_apply_parts` 增加 `window_bay`，安装器清单校验几何实现及 Apache-2.0 许可文件。E 盘独立样板 `kstudio-oss-window-bay-20261114` 保存 r1–r3、已中止事务、回执和原始模型。最终 r3 节点原生重开通过；没有端到端客户端或 BAI 选用证据。桌面安装版仍为 R3 beta03。以实际新案例测 Agent 何时选用该构造，保留旧模型与账本。
 

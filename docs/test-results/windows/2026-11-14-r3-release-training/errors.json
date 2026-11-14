@@ -1,0 +1,112 @@
+[
+  {
+    "turn": 2,
+    "tool": "kstudio_save_design_graph",
+    "error": "Levels must have finite strictly increasing Z in millimetres."
+  },
+  {
+    "turn": 2,
+    "tool": "kstudio_save_design_graph",
+    "error": "Invalid critical spatial feature evidence or part scope."
+  },
+  {
+    "turn": 2,
+    "tool": "exit_plan_mode",
+    "error": "Error: exit_plan_mode is only available in plan mode"
+  },
+  {
+    "turn": 3,
+    "tool": "sketchup_apply_parts",
+    "error": "Piece must use a documented box, polygon, cylinder, profile or window_bay schema."
+  },
+  {
+    "turn": 5,
+    "tool": "exit_plan_mode",
+    "error": "Error: exit_plan_mode is only available in plan mode"
+  },
+  {
+    "turn": 6,
+    "tool": null,
+    "error": "Official DeepSeek Harness ended with max-tokens; ; committed model work is preserved."
+  },
+  {
+    "turn": 8,
+    "tool": "exit_plan_mode",
+    "error": "Error: exit_plan_mode is only available in plan mode"
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; spatial and source_coverage are optional legacy extensions. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; spatial and source_coverage are optional legacy extensions. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; spatial and source_coverage are optional legacy extensions. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "局部修改不能删除受保护构件；请保留完整设计图。"
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "Observed facts must reference a supplied source ID. Allowed IDs: source_1. Use the ID, not a filename or path."
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; spatial and source_coverage are optional legacy extensions. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "Pass graph fields directly (no graph wrapper): summary, facts, levels, parts, relationships, edit_parts; spatial and source_coverage are optional legacy extensions. parts/edit_parts are ASCII name strings such as Roof, not objects. Observed source IDs come from the supplied source catalog, e.g. source_1, not filenames."
+  },
+  {
+    "turn": 11,
+    "tool": "kstudio_save_design_graph",
+    "error": "高影响空间事实发生变化；请在新方案说明变更依据并重新批准，不得以统一立面覆盖。"
+  },
+  {
+    "turn": 11,
+    "tool": null,
+    "error": "user_cancelled"
+  },
+  {
+    "turn": 14,
+    "tool": "sketchup_view",
+    "error": "选中的 SketchUp 实例已退出、过期或重启；请重新选择。"
+  },
+  {
+    "turn": 14,
+    "tool": "sketchup_review_model",
+    "error": "Error: Unconfined native file/process tools are unavailable in this production profile. Use workspace_read/write/search and the approved ProjectRuby writer."
+  },
+  {
+    "phase": "r8-to-r11",
+    "error": "First correction exhausted 32,768 output tokens without a native write. New short plan and bounded execution recovered."
+  },
+  {
+    "phase": "r11-section",
+    "error": "12 tread locations had native support intrusion, maximum about 123 mm."
+  },
+  {
+    "phase": "r11-followup",
+    "error": "Repeated graph validation failures. Stopped a planning request. One BAI usage receipt remains unknown; original row preserved."
+  },
+  {
+    "phase": "r12-readback",
+    "error": "One off-cycle read saw a stale heartbeat around the filesystem download. Advised no new window; retried read-only after signed instance was live."
+  },
+  {
+    "phase": "first-freeze",
+    "error": "Inputs pointed to an already patched SDK; preparation rejected it. Rebuilt with the pinned upstream SDK."
+  }
+]

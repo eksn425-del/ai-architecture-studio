@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-14-r3-release-training",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "9ee8baa9d642ed774803a5fb1a8bb73e969d9b71",
+  "branch_baseline": "a7f2ccd58108881cf494d16768e8a86298403817",
+  "scoped_stair_source": "a0bdecaac2f8cad207401b7302eca389435ccb76",
+  "latest_source": "3b9ecabc3ce1b7e55825b7baecf4cacc5fa797dd",
+  "source_case": "same synthetic workshop reference / proof in planning/source.json",
+  "model": {
+    "actual": "BAI deepseek-v4.1-flash",
+    "reasoning_effort": "high requested",
+    "runtime": "K Studio desktop / official DeepSeek Harness SDK / Responses",
+    "1017_verified": false
+  },
+  "environment": {
+    "windows": "existing owner machine",
+    "sketchup": "24.0.484",
+    "connector": "signed K Studio public connector"
+  },
+  "qa": {
+    "visual_quality": "PARTIAL",
+    "client_download_reopen": "PASS",
+    "clean_windows": "NOT_RUN",
+    "release": "BLOCKED"
+  },
+  "root_pid": 19,
+  "revision": 12
+}

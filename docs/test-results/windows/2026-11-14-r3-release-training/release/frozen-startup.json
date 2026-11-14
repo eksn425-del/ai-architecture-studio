@@ -1,0 +1,34 @@
+{
+  "SDK_diagnostic": {
+    "ok": true,
+    "node_version": "v24.22.1",
+    "sdk_import": true,
+    "engine": "deepseek-harness",
+    "capabilities": "full",
+    "inference_called": false,
+    "native_tools": [
+      "web_search",
+      "web_fetch",
+      "todo_write",
+      "exit_plan_mode",
+      "get_goal",
+      "create_goal",
+      "update_goal",
+      "skill",
+      "send_message",
+      "interrupt_agent",
+      "list_agents",
+      "subagent",
+      "subagent_fork"
+    ]
+  },
+  "desktop_first_use": {
+    "status": "PASS",
+    "kind": "Frozen desktop executable on existing Windows using a fresh E-drive data profile",
+    "new_chat_visible": true,
+    "api_requires_configuration": true,
+    "sketchup_process_count": 1,
+    "inference_called": false,
+    "nsis_installed": false
+  }
+}

@@ -1,4 +1,10 @@
-# 最新开源采纳：参数化窗开间 — 2026-11-14
+# 最新本机候选：窗开间学习、单窗口和真实交付 — 2026-11-14
+
+[PR27 实测证据](test-results/windows/2026-11-14-r3-release-training/README.md) 对应新候选源码 `3b9ecabc3ce1b7e55825b7baecf4cacc5fa797dd`。实际客户端使用 BAI DeepSeek Flash Responses，High 请求，完成砖木工坊 r1–r12。同一个 SketchUp 24.0.484 进程完成连接和下载文件重开。原生四个窗开间共用定义，真实开孔、玻璃深度和分阶段提交均已读回。局部改到右侧外梯，r12 逐级修正梯身，15 个其他直接部件和 17 个踏步均保留。r12 交付 PASS、模型保真 PARTIAL。原照片对应的砖木质感、窗框细分和栏杆语言仍有差距，平台与楼板重叠及 60 毫米门槛框有待处理。
+
+E 盘本机候选 `2026.11.14-R3-beta07` 序号 14 已打包，SHA-256 `63d6e8c80f0123e71ca7c65bd4a516191e5e8ab983e2e3740032c1eeb8a83d43`。打包客户端可在本机空白 Profile 启动，桌面安装仍 beta03。公开商业发布 BLOCKED，需干净 Windows + SU2024 首装验收、发行许可与签名以及生产云资源。工作台关闭后的真实在线账号/收费没有在本轮操作。[外部配置续跑](execution/KSTUDIO_R3_EXTERNAL_INPUTS_STATUS_20261107.md)。
+
+# 开源采纳：参数化窗开间 — 2026-11-14
 
 PR27 源码 `a532096ce0d95d1f00d8d9cb789a8f9134b4da16`。将 Local MCP for SketchUp 的带孔边界构造方法接进 K Harness，参考 ADAI 参数化开间与 agentcad 的规格验收。默认建筑 Skills 指导使用 `window_bay` 先做一个直墙矩形窗样板，再阵列原生组件。继续用已有 ProjectRuby、批准范围、接边和深层保护。未知提交时，受控参数化写入与工作区 Ruby 写入都停止继续调用供应商。
 

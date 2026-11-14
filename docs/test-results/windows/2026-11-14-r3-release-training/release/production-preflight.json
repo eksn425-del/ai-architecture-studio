@@ -1,0 +1,33 @@
+{
+  "status": "BLOCKED_CONFIGURATION",
+  "missing_names": [
+    "KSTUDIO_DOMAIN",
+    "KSTUDIO_DATABASE_PASSWORD",
+    "KSTUDIO_CLOUD_DATABASE_URL",
+    "KSTUDIO_CLOUD_SESSION_SECRET",
+    "KSTUDIO_CLOUD_PUBLIC_URL",
+    "KSTUDIO_IMAGE",
+    "KSTUDIO_RELEASE_SHA",
+    "KSTUDIO_OIDC_METADATA_URL",
+    "KSTUDIO_OIDC_CLIENT_ID",
+    "KSTUDIO_OIDC_CLIENT_SECRET",
+    "KSTUDIO_VAULT_ACTIVE_KEY_VERSION",
+    "KSTUDIO_VAULT_KEYS_FILE",
+    "KSTUDIO_WECHATPAY_MCHID",
+    "KSTUDIO_WECHATPAY_APPID",
+    "KSTUDIO_WECHATPAY_API_V3_KEY_FILE",
+    "KSTUDIO_WECHATPAY_MERCHANT_PRIVATE_KEY_FILE",
+    "KSTUDIO_WECHATPAY_MERCHANT_SERIAL",
+    "KSTUDIO_WECHATPAY_VERIFY_MATERIAL_FILE",
+    "KSTUDIO_BAI_PLATFORM_KEY",
+    "KSTUDIO_BACKUP_RECIPIENT"
+  ],
+  "errors": [
+    "invalid_release_sha",
+    "prices_not_confirmed",
+    "wechat_native_not_selected",
+    "operator_identity_contact_or_icp_missing",
+    "release_acceptance_missing"
+  ],
+  "production_acceptance": "NOT_PROVEN_BY_PREFLIGHT"
+}
