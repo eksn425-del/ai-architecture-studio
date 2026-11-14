@@ -107,9 +107,12 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
     lines=['!macro InstallPayload','  SetOverwrite on']
     for directory in ordered:
         target=destination(directory)
-        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',f'  SetOutPath "\\\\?\\{target}"'])
+        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',
+                      '  ClearErrors',f'  SetOutPath "\\\\?\\{target}"',
+                      '  IfErrors install_failed'])
         for file in sorted(by_directory[directory],key=lambda p:p.as_posix()):
             lines.append(f'  File "/oname={nsis_string(file.name)}" "\\\\?\\{nsis_string(str(bundle/file))}"')
+        lines.append('  IfErrors install_failed')
     lines+=['!macroend','!macro UninstallPayload']
     # Check all ancestors first; never follow a modified subtree junction while
     # deleting payload files or a changed installer-selected location.
@@ -161,14 +164,20 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
     (output/'bundle-inventory.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     include=output/'payload-files.nsh';include.write_text(payload_include(bundle,data['files'],version),encoding='utf-8-sig')
     exe=output/f'KStudio-{version}-win-x64-setup.exe'
+    # NSIS streams its includes throughout the build. Compile from exact snapshots
+    # so an editor saving the checkout cannot alter parsing or packaging identity.
+    installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
+    source_bytes={name:(REPO/name).read_bytes() for name in installer_inputs}
+    template=output/'installer-template.nsi';template.write_bytes(source_bytes['packaging/kstudio.nsi'])
+    launcher=output/'launcher-source.ps1';launcher.write_bytes(source_bytes['scripts/launch_installed.ps1'])
     definitions={'PRODUCT_ID':product_id,'PRODUCT_NAME':product_name,'OUTPUT_EXE':str(exe),'VERSION':version,
-                 'SEQUENCE':str(sequence),'PAYLOAD_INCLUDE':str(include),'LAUNCHER_FILE':str(REPO/'scripts/launch_installed.ps1'),
+                 'SEQUENCE':str(sequence),'PAYLOAD_INCLUDE':str(include),'LAUNCHER_FILE':str(launcher),
                  'NSIS_LICENSE':str(nsis/'COPYING'),'APP_ICON':str(REPO/'app/static/kstudio.ico')}
     script='\n'.join('!define '+name+' "'+nsis_string(value)+'"' for name,value in definitions.items())+'\n'
     script+='!define INSTALL_ROOT "'+install_root+'"\n!define PROFILE_ROOT "'+profile_root+'"\n'
     if selected is None and fixture_root is None:
         script+='!define SELECTABLE_PATHS\n'
-    script+='!include "'+nsis_string(str(REPO/'packaging/kstudio.nsi'))+'"\n'
+    script+='!include "'+nsis_string(str(template))+'"\n'
     entry=output/'installer.nsi';entry.write_text(script,encoding='utf-8-sig')
     receipt={'schema':1,'version':version,'sequence':sequence,'source_sha':source_sha,'file_count':len(data['files']),
              'fixture_only':fixture_root is not None,'acceptance_instance':acceptance_instance is not None,
@@ -180,12 +189,12 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
              'extended_length_payload_paths':True,
              'root_selection':root_selection,
              'nsis_license':'https://nsis.sourceforge.io/License','compile_status':'NOT_RUN'}
-    installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
     receipt['installer_source']={
         'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
         'dirty':bool(subprocess.check_output(['git','status','--porcelain','--',*installer_inputs],cwd=REPO,text=True).strip()),
         'root_selection':root_selection,
-        'sha256':{name:hashlib.sha256((REPO/name).read_bytes()).hexdigest() for name in installer_inputs},
+        'sha256':{name:hashlib.sha256(raw).hexdigest() for name,raw in source_bytes.items()},
+        'immutable_compile_inputs':True,
         'note':'source_sha identifies frozen application core; installer input hashes identify later packaging fixes'}
     if compile_installer:
         compiler_temp=output/'temp';compiler_temp.mkdir()

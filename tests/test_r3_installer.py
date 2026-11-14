@@ -20,6 +20,8 @@ def test_safe_nsis_strings_and_no_broad_uninstall(tmp_path):
     assert 'RMDir /r' not in output and 'Delete "$INSTDIR\\*' not in output
     assert 'Call un.CheckPathAncestors' in output
     assert 'SetOutPath "\\\\?\\$INSTDIR' in output
+    assert 'Call CheckPathAncestors\n  ClearErrors\n  SetOutPath ' in output
+    assert '  IfErrors install_failed\n' in output
     assert 'Delete "\\\\?\\$INSTDIR' in output
     assert all('versions\\r3-test' in line for line in output.splitlines() if line.strip().startswith('Delete '))
     with pytest.raises(ValueError):nsis_string('invalid\n!system injected')
@@ -66,6 +68,9 @@ def test_full_acceptance_build_has_distinct_registration_and_selectable_paths(tm
     entry=(tmp_path/'generic/installer.nsi').read_text(encoding='utf-8-sig')
     assert report['root_selection']=='selectable-per-user'
     assert '!define SELECTABLE_PATHS' in entry and 'PRODUCT_ID "KStudioR3"' in entry
+    assert (tmp_path/'generic/installer-template.nsi').is_file()
+    assert (tmp_path/'generic/launcher-source.ps1').is_file()
+    assert report['installer_source']['immutable_compile_inputs']
     report=build(bundle,tmp_path/'isolated',compiler,'r3-selectable',15,'a'*40,
                  compile_installer=False,acceptance_instance='test-r3')
     entry=(tmp_path/'isolated/installer.nsi').read_text(encoding='utf-8-sig')

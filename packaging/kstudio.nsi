@@ -472,11 +472,11 @@ Section "K Studio R3（必选）" Main
   WriteINIStr "$INSTDIR\versions\${VERSION}\.kstudio-slot.ini" "Owner" "Product" "${PRODUCT_ID}"
   ClearErrors
   !insertmacro InstallPayload
-  IfErrors install_failed
+  IfErrors install_payload_failed
   SetOutPath "$INSTDIR"
   File /oname=launch_installed.ps1 "${LAUNCHER_FILE}"
   File /oname=NSIS-LICENSE.txt "${NSIS_LICENSE}"
-  IfErrors install_failed
+  IfErrors install_support_files_failed
   WriteINIStr "$INSTDIR\versions\${VERSION}\.kstudio-slot.ini" "Owner" "Product" "${PRODUCT_ID}"
   WriteINIStr "$INSTDIR\.kstudio-owner.ini" "Owner" "Product" "${PRODUCT_ID}"
   System::Call 'kernel32::GetCurrentProcessId() i.r1'
@@ -484,15 +484,15 @@ Section "K Studio R3（必选）" Main
   StrCpy $HighestTemp "$INSTDIR\.highest.$1.tmp"
   ClearErrors
   FileOpen $0 "$PointerTemp" w
-  IfErrors install_failed
+  IfErrors install_pointer_failed
   FileWrite $0 '{$\"version$\":$\"${VERSION}$\",$\"sequence$\":${SEQUENCE},$\"data_schema$\":1}'
   IfErrors install_failed_close
   System::Call 'kernel32::FlushFileBuffers(p r0) i.r1'
   FileClose $0
-  StrCmp $1 0 install_failed
+  StrCmp $1 0 install_pointer_failed
   ; Same-volume atomic replacement: failure leaves the old pointer untouched.
   System::Call 'kernel32::MoveFileExW(w "$PointerTemp", w "$INSTDIR\current.json", i 9) i.r1'
-  StrCmp $1 0 install_failed
+  StrCmp $1 0 install_pointer_failed
   ; Publish high-water only after current; startup also checks current.sequence.
   ClearErrors
   FileOpen $0 "$HighestTemp" w
@@ -527,9 +527,17 @@ Section "K Studio R3（必选）" Main
   Goto install_done
   install_failed_close:
     FileClose $0
+  install_pointer_failed:
+    DetailPrint "Current release pointer could not be safely published."
+    Goto install_failed
+  install_payload_failed:
+    DetailPrint "Payload extraction error."
+    Goto install_failed
+  install_support_files_failed:
+    DetailPrint "Launcher or notice installation error."
   install_failed:
     Delete "$PointerTemp"
-    MessageBox MB_ICONSTOP "安装未完成。请正常关闭 K Studio 后重新运行安装包修复；个人模型与旧版本未删除。" /SD IDOK
+    MessageBox MB_ICONSTOP "安装未完成。请保留此安装记录并使用下一候选版本；个人模型与已安装的旧版本已保留。" /SD IDOK
     SetErrorLevel 4
     Abort
   install_done:
