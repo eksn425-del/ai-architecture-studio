@@ -1,3 +1,16 @@
+# 当前候选：模型质量、原生交付与持续建模 — 2026-11-14
+
+PR27 继续使用 `codex/kstudio-r3-launch-20261105`。起点为 `1ca90f4815a550b4ac1f03d2d5ccf196f5240105`。已有两个原项目和历史账本逐项核对保留；所有测试工程、原图、SKP、原始检查点和详细日志在项目 E 盘 `outputs/video-storage/jobs/kstudio-quality-training-20261114`。
+
+- [退台高塔 r8/r9](test-results/windows/2026-11-14-stepped-tower-r9/README.md) 实测确认旧副本渲染目录未配对、截图异常会挡住当前交付件。修复后 r8 更新预览和下载通过。BAI 在同一副本提交 r9，调整两块楼板前缘至 4 / 8 米。下载件在 SU2024 原生重开一致；整体源图保真 PARTIAL。
+- [文昌灯塔 r11→r13](test-results/windows/2026-11-14-wenchang-r13/README.md) 第四梯段的 600 毫米错台消除，实际全宽接边 1,100 毫米。栏板方向纠正，前面罩开口去掉 35 个面，内层玻璃和另 25 个直接系统的深层签名不变。当前 SKP 已下载和原生重开。折面、边线和乳白质感仍 PARTIAL。
+- [新图砖木工坊 r1→r13](test-results/windows/2026-11-14-arts-workshop/README.md) 用同一 BAI DeepSeek Flash 高推理请求走完实际页面计划、原生阶段建模、局部楼梯返工、下载和重开。在 r13 实测踏步与平台板边 1,350 毫米、平台与楼板门宽范围 1,200 毫米。17 个上向踏面位置保留，其余 16 个直接系统通过深层 KEEP 核对。两轮保存的 SKP 都能原生重开。多开窗口后的自动选择仍需一次手动选择。参考图右侧开间读图、砖木材质及首级 250 毫米高差保留为 PARTIAL。
+- 源码修复提交 `d97a2a37a61edbdf6f003b05ab56941160c25dbb`。截图配对只关联验证过的项目渲染目录。写入提交和预览分别出回执。建筑 Skills 更新退台世界坐标复核、折面开口优先、各段楼梯的实际标高和连续接边；本次新图调用了 `sketchup_measure_level_joint`。这些是 Skills 和工程编排改进。
+- 本批 BAI 账本 121 settled、0 新 unknown，实际扣费金额没有回执。文昌历史 88 settled＋2 unknown 与高塔历史 52 settled 原始行不变。新模型继续使用原有提供商，无切换或充值。评审只发布脱敏数据和原生截图。
+- 下一验收继续复核侧立面、楼梯首级和门前几何，按同一输入做 K 增强与原生对照。干净 Windows、安装包、生产登录/支付按现有发布门槛验收。现有桌面已安装版本仍是 R3 beta03 sequence10，源码独立工作台没有替换已安装版本。
+
+---
+
 # 最新实机预检 — 2026-11-11
 
 用户新给退台高塔参考图，要求打开最新K Studio用BAI测试。[启动、上传与SU连接预检](test-results/windows/2026-11-11-stepped-tower-preflight/README.md)：源码de0ea81独立E盘profile，BAI Flash/HIGH配置已恢复，真实界面上传图片、自动打开SU2024并核验本会话空白副本成功。没有发出模型请求，图像建模/修改/交付NOT_RUN；按上一轮用户要求等待本次明确预算。旧文昌r11/失败/账本保持原样，旧安装beta03未替换。继续使用同一新会话，不重复创建；私有续跑记录在E盘jobs/kstudio-stepped-tower-20261111/resume.json。

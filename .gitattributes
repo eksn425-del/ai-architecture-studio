@@ -73,3 +73,6 @@ docs/test-results/windows/2026-11-05-bai-stair-building-first-pass/** -text whit
 docs/test-results/windows/2026-11-05-installed-bai-edit-and-connections/** -text whitespace=cr-at-eol
 
 docs/test-results/windows/2026-11-07-progressive-building-and-recovery/** -text whitespace=cr-at-eol
+
+# Future evidence is generated as LF before hashing. Disable checkout conversion.
+docs/test-results/windows/2026-11-14-*/** -text whitespace=cr-at-eol

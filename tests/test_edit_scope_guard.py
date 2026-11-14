@@ -20,6 +20,7 @@ def test_quarantined_source_is_rejected_before_any_native_call(tmp_path):
 def _executor(tmp_path: Path):
     value = object.__new__(ProjectRubyExecutor)
     value.project_id = "test-edit-scope"
+    value.project_dir = tmp_path
     value.expected_model_path = tmp_path / "blank-disposable-scope.skp"
     value.expected_model_guid = "approved-guid"
     return value

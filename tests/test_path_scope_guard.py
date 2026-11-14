@@ -55,8 +55,9 @@ def test_agent_cannot_call_host_guard_or_collector(source):
 
 
 @pytest.mark.parametrize("paths", [None, []])
-def test_edit_cannot_omit_scope_even_without_critic_context(paths):
+def test_edit_cannot_omit_scope_even_without_critic_context(paths, tmp_path):
     ex = object.__new__(ProjectRubyExecutor)
+    ex.project_dir = tmp_path
     ex.ruby_state = {}
     with pytest.raises(ValueError, match="explicit allowed_mutation_paths"):
         ex.run({"script_id": "building", "ruby_source": "length = 1", "update_mode": "edit", "allowed_mutation_paths": paths})

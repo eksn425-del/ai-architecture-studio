@@ -14,6 +14,7 @@ def test_only_acknowledged_user_abort_is_normal_interruption(requested, finish, 
     host.effective_configuration = SimpleNamespace(vision=True, tools=True, streaming=True, evidence=lambda: {})
     host.specs=[];host.full_capabilities=False;host.calls=[{'name':'writer','success':True}]
     host.events=[];host.cancelled=requested;host.api_key='fixture';host.token='fixture-token'
+    host.native_recovery_required=False
     host.model='fixture-model';host.reasoning_effort='low';host.start=lambda: None
     recorded=[];host.record=recorded.append;host.emit_progress=lambda event: None
     result=SimpleNamespace(session_id='same-session',events=[],final_response='',finish_reason=finish)

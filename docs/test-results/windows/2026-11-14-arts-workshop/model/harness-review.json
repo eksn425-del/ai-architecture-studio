@@ -1,0 +1,118 @@
+{
+  "revision": 13,
+  "loaded_skills": [
+    {
+      "id": "native",
+      "sha256": "9bd0e6e0c7315036f9450a0470c650235e0ae7576eab4024c0007c0ba2bcc2b5",
+      "stage": "execute"
+    },
+    {
+      "id": "facade",
+      "sha256": "01e7841816ee8470df0fd1c3b135cbbef7a4a564d29ad03893af400321c1cc29",
+      "stage": "execute"
+    },
+    {
+      "id": "spatial",
+      "sha256": "7198b6dcd1e2aa9d1f3f95dd627285500ebd32e22c290515ed84b94ddd048f5f",
+      "stage": "execute"
+    },
+    {
+      "id": "edit",
+      "sha256": "ad1e66c7b15b8c1ba5056c91367538fa0f5c8601576e9be89976d3fa3c8cd56f",
+      "stage": "execute"
+    },
+    {
+      "id": "native",
+      "sha256": "9bd0e6e0c7315036f9450a0470c650235e0ae7576eab4024c0007c0ba2bcc2b5",
+      "stage": "execute"
+    },
+    {
+      "id": "facade",
+      "sha256": "01e7841816ee8470df0fd1c3b135cbbef7a4a564d29ad03893af400321c1cc29",
+      "stage": "execute"
+    }
+  ],
+  "level_joints": [
+    {
+      "success": true,
+      "read_only": true,
+      "root_pid": 19,
+      "revision": 13,
+      "negative_path": [
+        "StairRun"
+      ],
+      "positive_path": [
+        "StairLanding"
+      ],
+      "axis": "x",
+      "position_mm": 15000,
+      "elevation_mm": 3400,
+      "span_mm": [
+        -1350,
+        0
+      ],
+      "status": "FULL_WIDTH",
+      "negative_levels_at_plane_mm": [
+        3400.0
+      ],
+      "positive_levels_at_plane_mm": [
+        3400.0,
+        3600.0
+      ],
+      "shared_intervals_mm": [
+        [
+          -1350.0,
+          0.0
+        ]
+      ],
+      "missing_intervals_mm": [],
+      "covered_width_mm": 1350.0,
+      "tolerance_mm": 0.05
+    },
+    {
+      "success": true,
+      "read_only": true,
+      "root_pid": 19,
+      "revision": 13,
+      "negative_path": [
+        "StairLanding"
+      ],
+      "positive_path": [
+        "FloorSlab_L2"
+      ],
+      "axis": "y",
+      "position_mm": 0,
+      "elevation_mm": 3600,
+      "span_mm": [
+        15350,
+        16550
+      ],
+      "status": "FULL_WIDTH",
+      "negative_levels_at_plane_mm": [
+        3400.0,
+        3600.0
+      ],
+      "positive_levels_at_plane_mm": [
+        3350.0,
+        3600.0
+      ],
+      "shared_intervals_mm": [
+        [
+          15350,
+          16550
+        ]
+      ],
+      "missing_intervals_mm": [],
+      "covered_width_mm": 1200,
+      "tolerance_mm": 0.05
+    }
+  ],
+  "writes": [
+    {
+      "method": "workspace_ruby",
+      "revision": 13
+    }
+  ],
+  "evidence_current": true,
+  "missing_current_views": []
+}

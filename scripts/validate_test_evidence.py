@@ -71,12 +71,20 @@ def _inventory(directory: Path) -> list[dict]:
 
 
 def _legacy_windows_newline_equivalent(directory: Path, previous: dict, inventory: list[dict]) -> bool:
-    """Accept only exact CRLF<->LF checkout conversion in pre-2026-10-10 reports.
+    """Accept only exact checkout conversion for legacy Windows text receipts.
 
     Old Codex manifests were hashed on Windows before Git's text conversion.
     Future packages remain byte-exact. Binary evidence can NEVER differ.
     """
-    if directory.name[:10] >= "2026-10-10":
+    affected = {
+        "2026-11-08-wenchang-agent-review",
+        "2026-11-10-r3-candidate-boundaries",
+        "2026-11-10-r3-r11-delivery",
+        "2026-11-10-r3-r11-quality",
+        "2026-11-10-r3-recovery-faults",
+        "2026-11-11-stepped-tower-preflight",
+    }
+    if directory.name[:10] >= "2026-10-10" and directory.name not in affected:
         return False
     if not isinstance(previous, dict) or previous.get("schema_version") != 1:
         return False
@@ -93,12 +101,12 @@ def _legacy_windows_newline_equivalent(directory: Path, previous: dict, inventor
         actual = actual_by_name[name]
         if expected == actual:
             continue
-        if not name.lower().endswith((".json", ".md", ".txt", ".rb", ".csv")):
+        if not name.lower().endswith((".json", ".md", ".txt", ".rb", ".csv", ".xml")):
             return False
         value = (directory / name).read_bytes()
         alternate = (
-            value.replace(b"\\r\\n", b"\\n")
-            if b"\\r\\n" in value else value.replace(b"\\n", b"\\r\\n")
+            value.replace(b"\r\n", b"\n")
+            if b"\r\n" in value else value.replace(b"\n", b"\r\n")
         )
         if alternate == value or len(alternate) != expected.get("bytes"):
             return False
