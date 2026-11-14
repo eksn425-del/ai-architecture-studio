@@ -1,3 +1,7 @@
+# 当前商业发布验收 — 2026-11-14
+
+唯一总执行书为 2026-11-14 R3 商业发布自主推进方案。固定 PR27 `6a8001c`。从 [release-state.json](release-gates/release-state.json) 续跑。优先独立干净 Windows＋SU2024、本版真实任务与 staging 全链路。待接入资源和授权集中在 [OWNER_ACTIONS](release-gates/OWNER_ACTIONS.md)。G00–G10 全部通过后才提交商业放行，原证据和历史费用记录保持原样。
+
 # 当前基线与发布门槛 — 2026-11-14
 
 [真实客户端训练验证](test-results/windows/2026-11-14-r3-release-training/README.md) 已结束。PR27 保持候选分支，结论为单窗口/下载重开/局部修复 PASS、整栋保真 PARTIAL、商业发布 BLOCKED。r8、r11、r12 与各阶段旧文件、失败、检查点均保留。BAI 批次 93 已回传用量、1 未知、0 在途，保留原始账本，实际扣费未核实。

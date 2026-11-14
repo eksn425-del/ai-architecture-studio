@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-14-r3-beta09-recovery",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "source_case": "planning/fixture.json",
+  "base_commit": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "model": {
+    "requested": null,
+    "actual": "NO_LLM_DETERMINISTIC_TYPED_FIXTURE",
+    "reasoning_effort": null,
+    "runtime": "beta09 real WebView2 desktop and packaged SketchUp connector; local guarded native typed fixture"
+  },
+  "environment": {
+    "windows": "Existing Windows 11 x64 engineering workstation",
+    "sketchup": "24.0.484",
+    "bridge": "Frozen public connector",
+    "desktop_version": "2026.11.14-R3-beta09"
+  },
+  "qa": {
+    "reviewer_mode": "independent_read_only",
+    "native_recovery_and_delivery": "PASS",
+    "photo_fidelity": "NOT_RUN"
+  },
+  "blockers": [
+    "Real B.AI UI inference, independent customer and physical crash/power-loss testing are separate gates"
+  ]
+}

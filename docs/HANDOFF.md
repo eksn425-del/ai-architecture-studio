@@ -1,3 +1,7 @@
+# 2026-11-14 R3 商业内部候选交接
+
+[最终发布裁决](release-gates/FINAL_RELEASE_VERDICT.md) 保存 G00–G11、失败和外部条件。桌面与部署源包固定 `d097b1a`，安装器文件沿用 `32c970b` 已验输入。云端逻辑与通过 PostgreSQL 验收的 `e470797` 一致。E 盘隔离试验未覆盖原安装和历史工程。后续本机桌面操作使用已授权的 Windows Computer Use 插件。 [版本与哈希](release-gates/RELEASE_NOTES.md) · [续跑](release-gates/OPERATIONS_RUNBOOK.md)
+
 # 发布前实机交接 — 2026-11-14
 
 实施分支 `codex/kstudio-r3-launch-20261105` / PR27。[训练、开源方法与原生交付证据](test-results/windows/2026-11-14-r3-release-training/README.md)。实测启动连接与多次重开保持一个 SketchUp 2024 窗口。窗样板读取实际孔洞和玻璃退深，再复用到四个开间。r11 纠正梯向并保留其他 13 个部件，r12 只修梯身，17 块踏步原位保留，最多 123 毫米穿出消除到 0，锯齿与踏板底最大间隙 0.5 毫米。r12 下载重开后 1,983 条面记录相同。门槛高差、材料和整体保真为 PARTIAL。

@@ -653,11 +653,19 @@ class ProjectRubyExecutor:
             self.ruby_state[script_id] = pending
             persist_guard_state()
 
+        # Carry the last verified checkpoint for this write, including when a
+        # previous write in the same turn already advanced past the turn's snapshot.
+        if old.get("last_verification", {}).get("verified") is True and old.get("durable_checkpoint"):
+            recovery_base = old
+        else:
+            recovery_base = None
         # Durable intent precedes native dispatch. If the process itself dies or
         # the RPC times out, a later turn cannot replay an unknown geometry write.
         self.ruby_state[script_id] = {**old, "durability_status": "unconfirmed", "write_in_flight": True,
                                      "attempted_revision": new_revision, "source_sha256": source_hash,
                                      "last_report": report_path.relative_to(self.project_dir).as_posix()}
+        if recovery_base is not None:
+            self.ruby_state[script_id]["recovery_base"] = recovery_base
         persist_guard_state()
         preserve_transport = False
         try:
@@ -708,16 +716,8 @@ class ProjectRubyExecutor:
         self.expected_model_guid = str(identity_after["model_guid"])
         # Persist at the transaction boundary, before screenshot/model readback
         # or the model's next inference can fail or the web request is interrupted.
-        self.ruby_state[script_id] = {
-            "model_guid": self.expected_model_guid,
-            "revision": new_revision,
-            "root_pid": root_pid,
-            "source_sha256": source_hash,
-            "last_report": report_path.relative_to(self.project_dir).as_posix(),
-            "last_precommit_keep_guard": precommit_keep_guard,
-            "durability_status": "unconfirmed",
-            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
-        }
+        self.ruby_state[script_id].update(model_guid=self.expected_model_guid, revision=new_revision,
+                                         root_pid=root_pid, last_precommit_keep_guard=precommit_keep_guard)
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         temporary_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -754,8 +754,8 @@ class ProjectRubyExecutor:
         transition = durable_checkpoint.get('connector_transition')
         identity_after = self.refresh_active_model_snapshot(**({'connector_checkpoint': transition} if transition else {}))
         self.ruby_state[script_id]["model_guid"] = self.expected_model_guid
-        self.ruby_state[script_id]["durable_checkpoint"] = durable_checkpoint
-        self.ruby_state[script_id]["durability_status"] = "saved_unverified_reopen"
+        # The file is durable, but its geometry is still awaiting native readback.
+        self.ruby_state[script_id]["unverified_candidate_checkpoint"] = durable_checkpoint
         checkpoint_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         checkpoint_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
         checkpoint_state.replace(self.state_path)
@@ -764,7 +764,7 @@ class ProjectRubyExecutor:
             "script_id": script_id,
             "path": [],
             "offset": 0,
-            "limit": 1,
+            "limit": 64,
         })
         try:
             owned_readback = json.loads(verification_result["contentItems"][0]["text"])
@@ -774,6 +774,10 @@ class ProjectRubyExecutor:
                 expected_root_pid=root_pid,
                 expected_revision=new_revision,
             )
+            write_verification["direct_part_readback"] = [
+                {"name": obj.get("name"), "bounds_mm": obj.get("bounds_mm")}
+                for obj in owned_readback.get("objects", [])
+            ]
         except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
             raise MCPCallError(f"Post-write read-back verification failed: {error}") from error
 
@@ -860,15 +864,26 @@ class ProjectRubyExecutor:
         # The report/receipt pair is immutable evidence for this revision.
         receipt_path = report_path.with_suffix(".verification.json")
         receipt_path.write_text(json.dumps(write_verification, ensure_ascii=False, indent=2), encoding="utf-8")
-        self.ruby_state[script_id]["last_verification"] = write_verification
-        self.ruby_state[script_id]["last_oss_method_ledger"] = method_ledger
-        self.ruby_state[script_id]["last_edit_scope_receipt"] = edit_scope_receipt
-        self.ruby_state[script_id]["last_strategy_progress"] = strategy_progress
-        self.ruby_state[script_id]["last_oss_method_adoption"] = method_adoption
-        self.ruby_state[script_id]["last_verification_report"] = receipt_path.relative_to(self.project_dir).as_posix()
-        verified_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
-        verified_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
-        verified_state.replace(self.state_path)
+        verified = {
+            "model_guid": self.expected_model_guid,
+            "revision": new_revision,
+            "root_pid": root_pid,
+            "source_sha256": source_hash,
+            "last_report": report_path.relative_to(self.project_dir).as_posix(),
+            "last_screenshot": None,
+            "last_verification": write_verification,
+            "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
+            "last_precommit_keep_guard": precommit_keep_guard,
+            "last_oss_method_ledger": method_ledger,
+            "last_edit_scope_receipt": edit_scope_receipt,
+            "last_strategy_progress": strategy_progress,
+            "last_oss_method_adoption": method_adoption,
+            "durable_checkpoint": durable_checkpoint,
+            "durability_status": "saved_unverified_reopen",
+            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
+        }
+        self.ruby_state[script_id] = verified
+        persist_guard_state()
 
         model_info = self.adapter.get_model_info()
         image_path = self.project_dir / "outputs" / "renders" / f"ruby-{script_id}-r{new_revision}.png"
@@ -889,27 +904,8 @@ class ProjectRubyExecutor:
         identity_after = self.refresh_active_model_snapshot()
         screenshot = image_path.relative_to(self.project_dir).as_posix() if image_bytes else None
 
-        self.ruby_state[script_id] = {
-            "model_guid": self.expected_model_guid,
-            "revision": new_revision,
-            "root_pid": root_pid,
-            "source_sha256": source_hash,
-            "last_report": report_path.relative_to(self.project_dir).as_posix(),
-            "last_screenshot": screenshot,
-            "last_verification": write_verification,
-            "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
-            "last_precommit_keep_guard": precommit_keep_guard,
-            "last_oss_method_ledger": method_ledger,
-            "last_edit_scope_receipt": edit_scope_receipt,
-            "last_strategy_progress": strategy_progress,
-            "last_oss_method_adoption": method_adoption,
-            "durable_checkpoint": durable_checkpoint,
-            "durability_status": "saved_unverified_reopen",
-            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
-        }
-        final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
-        final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
-        final_state.replace(self.state_path)
+        verified.update(model_guid=self.expected_model_guid, last_screenshot=screenshot)
+        persist_guard_state()
         summary = {
             "script_id": script_id,
             "script_revision": new_revision,

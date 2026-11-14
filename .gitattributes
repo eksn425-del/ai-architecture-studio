@@ -76,3 +76,6 @@ docs/test-results/windows/2026-11-07-progressive-building-and-recovery/** -text 
 
 # Future evidence is generated as LF before hashing. Disable checkout conversion.
 docs/test-results/windows/2026-11-14-*/** -text whitespace=cr-at-eol
+
+# The commercial gate state names and hashes its exact receipt bytes.
+docs/release-gates/** text eol=lf

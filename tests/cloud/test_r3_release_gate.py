@@ -41,6 +41,15 @@ def test_download_switch_overrides_valid_operator_release_metadata(release_clien
     assert release['download_available'] is False and release['url'] is None
 
 
+def test_public_release_exposes_only_website_fields(release_client):
+    settings, client = release_client
+    settings.release['private_manifest_file'] = 'private-release-manifest.json'
+    settings.release['compatibility'] = [{'name':'SketchUp 2024', 'status':'BETA', 'internal_note':'private'}]
+    release = client.get('/api/public/config').json()['release']
+    assert 'private_manifest_file' not in release
+    assert release['compatibility'] == [{'name':'SketchUp 2024','status':'BETA'}]
+
+
 def test_valid_explicit_release_metadata_is_not_a_real_download_acceptance(release_client):
     _,client=release_client
     release=client.get('/api/public/config').json()['release']

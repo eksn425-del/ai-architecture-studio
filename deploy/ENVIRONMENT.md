@@ -7,8 +7,8 @@
 | 参数 | 实际值与约束 |
 | --- | --- |
 | `KSTUDIO_DOMAIN` / `KSTUDIO_CLOUD_PUBLIC_URL` | 实际 DNS 名及匹配 HTTPS origin；不能用占位域名 |
-| `KSTUDIO_CLOUD_ENV` | 先 staging；真实验收后才 production |
-| `KSTUDIO_IMAGE` / `KSTUDIO_RELEASE_SHA` | 验证的镜像标签或 digest、对应完整40位源码 SHA；ops 拒绝脏工作区或不匹配源码 |
+| `KSTUDIO_CLOUD_ENV` | staging 与 production 使用独立的 Compose 项目、数据库卷和私有网段。公网 DNS、宿主端口和私有凭据使用不同主机或经独立验证的入口。 |
+| `KSTUDIO_IMAGE` / `KSTUDIO_RELEASE_SHA` | 完整40位源码 SHA 与对应的 `kstudio-cloud:<SHA>` 构建标签，或已在本机取得的不可变镜像 digest。启动前核对 checkout／镜像标记，公网健康检查核对服务自身回报的 SHA。 |
 | `KSTUDIO_DATABASE_PASSWORD` | 独立随机数据库密码 |
 | `KSTUDIO_CLOUD_DATABASE_URL` | `postgresql+psycopg://kstudio:<URL编码密码>@db:5432/kstudio`；Compose 不发布数据库端口 |
 | `KSTUDIO_CLOUD_SESSION_SECRET` | 至少32字符随机服务端密钥，私有备份 |
@@ -52,9 +52,14 @@ python3 deploy/ops.py health --env-file /srv/kstudio-private/runtime.env
 python3 deploy/ops.py audit --env-file /srv/kstudio-private/runtime.env
 ```
 
-`deploy` 启动私网数据库、迁移，再启动 app/proxy/maintenance。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
+`deploy` 启动私网数据库并迁移，随后启动 app/proxy/maintenance，再审计当前账本。旧 `kstudio-cloud` 项目不会自动归入新的环境项目；如发现旧数据，先独立核实卷和备份，再制定迁移。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
 
-回退：`python3 deploy/ops.py rollback --env-file ... --previous-image 已验证旧镜像`。只切 app/maintenance 镜像，不删卷或订单；先确认旧程序与 schema3 兼容，再验健康与账本。数据库切换另行安排，restore-drill 不自动切生产。
+首次部署关闭开放功能的生产后台，需要经营者确认授权并传入 `--permit-closed-production`。将注册、平台模型、下载和支付开关设为 0，并关闭 BYOK 软件收费。任何生产开放操作，包括只启用 BYOK 软件收费，都需要 `--commercial --gate-state 已验证发布关卡JSON --launch-approval 私有负责人批准JSON`。
+
+- G00–G10 须在固定审计基线 `6a8001c5369c323666efa099472ea62f4fbf1c51` 后通过同一实施 SHA 的独立验收。
+- 私有发布关卡记录的 `release.commercial_policy` 使用 `trial.mode=none` 与 `rollout.mode=operator_managed`。在 `rollout.max_users` 记录已核准规模，在 `rollout.control_reference` 记录受控 IdP 或入口限量验收的私有凭证引用。新钱包初始额度为零。运营者须在入口验证实际限量措施。
+- 使用 `python3 deploy/ops.py commercial-policy --env-file PRIVATE --gate-state PRIVATE_GATE_STATE` 计算商业配置摘要。命令只输出摘要。由独立验收将该值写到 `release.commercial_policy_sha256`，负责人确认同一摘要和获准开关后写入批准记录的 `commercial_policy_sha256`。若允许 BYOK 软件收费，批准记录还须包含 `byok_service_approved=true`。不记录服务端密钥值。金额、积分、限额、付款与身份渠道、退款规则或灰度范围发生变更时，按新政策重新验收和批准。
+- 生产回退使用 `python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_DIGEST --previous-release-sha VERIFIED_SHA`。旧镜像先只读审查当前 schema、账本和 Vault，再切换 app 和 maintenance。回退会关闭新注册、平台派发、下载、新支付和 BYOK 软件收费，已有账户及退款、通知和对账继续使用原有配置。用旧版 SHA 和镜像 digest 复查 HTTPS 与账本后同步私有配置，重新开放另走批准流程。数据库独立恢复使用 restore-drill。
 
 ## 加密备份与隔离恢复
 

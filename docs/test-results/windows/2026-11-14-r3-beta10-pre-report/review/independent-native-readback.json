@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "scope": "Independent read-only archive checks of actual beta10 SU2024 and workbench fixture after pre-report recovery",
+  "pre_turn_revision": 1,
+  "last_verified_recovered_revision": 2,
+  "unconfirmed_attempt": 3,
+  "native_version": "24.0.484",
+  "owned_root_consistent": true,
+  "all_group_records_exact": true,
+  "document_group_records_exact": true,
+  "verified_full_document_fingerprints": [
+    "document_geometry_material_sha256",
+    "presentation_sha256",
+    "root_geometry_material_sha256"
+  ],
+  "native_counts": {
+    "faces": 24,
+    "edges": 48,
+    "instances": 8
+  },
+  "download_sha256": "a73fe97a56ed8d629b956684c5ff50d640d2d8052ca7aee6a011baadea8f795b",
+  "download_bytes": 130533,
+  "receipt_sha256": {
+    "recovery": "92926048b6e1f09b21fc02cf8e6d08e4ee2df1ae2ad909f4139c0a4fa03d6b9c",
+    "download": "a24e51c895d259046791ed6681096104a7c337febd9a73ab6844a27e601460c2"
+  },
+  "snapshots_sha256": {
+    "accepted-r2-at-boundary": "17d483f799385e7ef83a823f230b2c500fe7a27c36560df3c2ffa3dccdc4436d",
+    "recovered-r2-at-boundary": "c6325bff9f50f218dcf504e917f3d3bb3913b9aeb664254d87981ee74afe4652",
+    "beta10-final-reopened": "dc2d558e0d9a4494d001a5646323b22b111124f114dfc9ca747298abd0c43e9a"
+  },
+  "rendering_or_inference_called_by_this_review": false
+}

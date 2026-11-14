@@ -1,0 +1,171 @@
+{
+  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "measurements": [
+    {
+      "name": "部署与发布预检合同",
+      "command": "python -m pytest tests/cloud/test_deploy_ops.py tests/cloud/test_r3_release_gate.py -q",
+      "status": "PASS",
+      "passed": 40
+    },
+    {
+      "name": "本机真实 HTTP",
+      "command": "python deploy/container_smoke.py --source-root .",
+      "scope": "Uvicorn Windows loopback SQLite",
+      "status": "PASS",
+      "routes": 10,
+      "feedback_rows": 1
+    },
+    {
+      "name": "真实 PostgreSQL/age 隔离恢复",
+      "command": "python -m deploy.restore_drill --bin OWNED_POSTGRES_BIN --age-bin OWNED_AGE_BIN --output NEW_E_JOB --port 55461 --keep-server",
+      "scope": "PostgreSQL17.11 / age1.3.2 / audit baseline",
+      "status": "PASS",
+      "tables_equal": 17,
+      "vault_rows_decrypted": 1,
+      "payment_inbox_applied_once_over_cycles": 2,
+      "encrypted_sha256": "c6def6bf7c321fa4a1957f7af32bdb63219f1981bb9a0732cd986eb0e3f1d0a0",
+      "shutdown_exit_code": 0
+    },
+    {
+      "name": "冻结候选再次实际恢复",
+      "command": "python -m deploy.restore_drill --bin OWNED_POSTGRES_BIN --age-bin OWNED_AGE_BIN --output NEW_E_JOB --port 55462",
+      "scope": "PostgreSQL17.11 / age1.3.2 / beta08 freeze",
+      "status": "PASS",
+      "tables_equal": 17,
+      "vault_rows_decrypted": 1,
+      "payment_inbox_applied_once_over_cycles": 2,
+      "encrypted_sha256": "2e3db1e208864db4feaeb50eee00aabd1efc41d18ce6deac10547847bd183004",
+      "cluster_stopped": true
+    },
+    {
+      "name": "beta09 最终源码真实数据库恢复",
+      "command": "python -m deploy.restore_drill --bin OWNED_POSTGRES_BIN --age-bin OWNED_AGE_BIN --output NEW_E_JOB --port 55463",
+      "scope": "PostgreSQL17.11 / age1.3.2 / beta09 freeze",
+      "status": "PASS",
+      "tables_equal": 17,
+      "vault_rows_decrypted": 1,
+      "payment_inbox_applied_once_over_cycles": 2,
+      "encrypted_sha256": "ae6a9104bfdf78c7aca4d8b88fdbcad1f7d513e85ec25d372caebc0ab6880e29",
+      "cluster_stopped": true
+    },
+    {
+      "name": "商业配置预检",
+      "command": "python deploy/ops.py check --env-file deploy/environment.template --commercial",
+      "status": "BLOCKED_EXTERNAL",
+      "missing_names": 20,
+      "exit_code": 2
+    },
+    {
+      "name": "部署源包",
+      "command": "python scripts/build_cloud_source.py --output NEW_E_JOB",
+      "status": "PASS",
+      "bytes": 119566,
+      "members_verified": 40,
+      "sha256": "3257c79a2556c4604c43b6f6da0f9a3f36a70b982028d705fc8d16e67c1745d5"
+    },
+    {
+      "name": "公网 staging HTTPS、容器镜像回滚、告警接收",
+      "status": "NOT_RUN"
+    }
+  ],
+  "cloud_final_code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "additional_receipts": {
+    "final_source_and_loopback_http": {
+      "archive": "KStudio-R3-cloud-website-source.zip",
+      "bytes": 123922,
+      "sha256": "3bf99dc4b3f9ad97715dfddbc69828be4326ddc7962b07d0ec3091631d34759f",
+      "payload_files": 40,
+      "archive_files": 42,
+      "all_member_hashes_verified": true,
+      "source_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "working_tree_changes_included": false,
+      "image_status": "NO_PREBUILT_IMAGE_INCLUDED",
+      "public_deployment": "NOT_RUN",
+      "windows_real_http_status": "PASS",
+      "routes": [
+        "/health/live",
+        "/health/ready",
+        "/api/status",
+        "/",
+        "/download",
+        "/docs/start",
+        "/docs/connect",
+        "/account/device",
+        "/assets/site.js",
+        "/assets/site.css"
+      ],
+      "loopback_evidence_sha256": "cdaedbb510e51454911813e1d70a8acb372a2b570c71a7ddd0bf74eccecd9563",
+      "independent_package_evidence_sha256": "4a81ce3d90531af2858647383e8242fe5f0bf3775a8314f8a1bff50109b688b5"
+    },
+    "final_postgres_age_and_full_cloud_regression": {
+      "scope": "LOCAL_POSTGRESQL_AGE_AND_CLOUD_REGRESSION",
+      "checked_at": "2026-11-14T20:07:43.9680246+08:00",
+      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "process_scope": "owned Windows isolated loopback PostgreSQL; two fresh database namespaces plus isolated per-case schemas",
+      "postgres_version": "17.11",
+      "age_version": "1.3.2",
+      "previous_failures": {
+        "observed": "initdb.exe UTF-8 bootstrap invalid byte 0xb2 using original Windows tool path",
+        "logs_sha256": {
+          "g08-postgres-e470797.log": "38b74bf9a83fa0c49aa8bd71ff44e1b93e46c3da1ec1ee2ccd36442cf69823f3",
+          "g08-postgres-e470797-rerun.log": "38b74bf9a83fa0c49aa8bd71ff44e1b93e46c3da1ec1ee2ccd36442cf69823f3",
+          "g08-postgres-e470797-absolute.log": "e4e7677794423e5467e62341e757f3799e152d1c83a2f80975e75396410a0883",
+          "g08-postgres-e470797-utc.log": "aac10a166e7a990c7ee0d47888ba86da7a415ab0e6dfb8e9b825f2cd57c00313"
+        },
+        "resolution": "Verified existing ASCII junction to same PostgreSQL tools binary; source and prior failing results preserved"
+      },
+      "backup": {
+        "status": "PASS",
+        "matching_tables": 17,
+        "equal_records": true,
+        "ledger_consistent": true,
+        "vault_rows_decrypted": 1,
+        "inbox_replay_once": true,
+        "maintenance_cycles": 2,
+        "encrypted_sha256": "85198dd3029e93dd45ca873d021d99da4f0d33a9d1385547a58832b4b9293311",
+        "encrypted_bytes": 37013,
+        "backup_seconds": 1.047,
+        "restore_seconds": 1.406,
+        "plaintext_dump_retained": false,
+        "receipt_sha256": "d9d1a4e03bf130786f6d590949d3dcde3eb4123a8dea823ecd143890276200dd"
+      },
+      "cloud": {
+        "status": "PASS",
+        "pytest_suite": "tests/cloud",
+        "passed": 275,
+        "failed": 0,
+        "skipped": 0,
+        "postgres_parameterized": 37,
+        "sqlite_parameterized": 37,
+        "junit_sha256": "705c3d4137652e0d9a153374444208737f01c9dae772655d84f1fb6fbb7d1e04",
+        "log_sha256": "3198a66cc53d592f263b8d3a5e425d9aff72f1578dfbca73584d5183e741feef"
+      },
+      "fixture_stopped": true,
+      "local_owned_test_port_closed": true,
+      "production_executed": false,
+      "real_model_calls": 0,
+      "real_payments": 0,
+      "docker_runtime": "NOT_RUN",
+      "receipt_sha256": "4de2090c0370cc34bc5fe211a9cf97ce5a77a9c94b0972a3af63b435e0252b3f"
+    },
+    "beta10_same_commit_deployment_source_and_CI": {
+      "archive": "KStudio-R3-cloud-website-source.zip",
+      "bytes": 123921,
+      "sha256": "7af5139cb36d2d24131e12dba93f7c0b1c516723a6d5346e7c27e72c43a54124",
+      "payload_files": 40,
+      "archive_files": 42,
+      "all_member_hashes_verified": true,
+      "source_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "working_tree_changes_included": false,
+      "image_status": "NO_PREBUILT_IMAGE_INCLUDED",
+      "public_deployment": "NOT_RUN",
+      "previous_cloud_unchanged_from": "e470797bd888c871eaac1ce89276395213f493b8",
+      "unpacked_loopback_http": "PASS",
+      "unpacked_http_receipt_sha256": "cdaedbb510e51454911813e1d70a8acb372a2b570c71a7ddd0bf74eccecd9563",
+      "git_actions_target_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "hosted_ephemeral_docker_engineering_checks": "PASS",
+      "actual_public_docker_host": "NOT_RUN",
+      "public_ci": "https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43610610668"
+    }
+  }
+}

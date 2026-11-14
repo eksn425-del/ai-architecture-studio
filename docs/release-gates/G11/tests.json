@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "empty template release preflight",
+      "status": "BLOCKED_EXTERNAL",
+      "command": "python deploy/ops.py check --env-file deploy/environment.template --commercial",
+      "process": "local operator CLI",
+      "missing_names": 20,
+      "redacted_evidence_sha256": "904139b0b62dbf330668662df09898dd5775e8d76122ab17c1be75aa20da4ff7"
+    },
+    {
+      "scope": "production acceptance, authorization, and gray launch",
+      "status": "NOT_RUN",
+      "real_charges": 0,
+      "production_switch_updates": 0
+    }
+  ],
+  "cloud_final_code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "additional_receipts": {
+    "final_commercial_guard": {
+      "scope": "OFFLINE_CONTRACT_AND_CONFIG_PARSE",
+      "tested_base_sha": "83c13d42136f7df3e3c9a889945a7dfd44b46b88",
+      "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+      "checked_at": "2026-11-14T19:58:56.4475255+08:00",
+      "checked_files_sha256": {
+        "deploy/ops.py": "fafd8ab2bb0306a398727802db47f463ae1d8f1922eef86ee71453b46f451de0",
+        "deploy/compose.yml": "439f9db8e0e61791854334d66626410dc21652f59d22074b8f07e6c3add640d3",
+        "deploy/ENVIRONMENT.md": "a20a929773bd6456f2154d61f704470c93bbf4b0a3b6e214227410627e1aac92",
+        "cloud/maintenance.py": "1d0c8b47172082366a621c56c692297575e235b00e9f7173409794001162393a",
+        "tests/cloud/test_deploy_ops.py": "fd2ed191df09bf550e07ff1700e1eb8e8904d3e2d663d3dc6f75d7759fa1716b"
+      },
+      "focused_tests": {
+        "status": "PASS",
+        "passed": 93,
+        "skipped": 8,
+        "skip_reason": "Optional isolated PostgreSQL fixture not enabled in this rerun",
+        "elapsed_seconds": 13.61,
+        "junit_sha256": "c6f914d0983714f762ae933204b18611f60c6cebfb65813f71f16e70b7847b82"
+      },
+      "checks": {
+        "exact_baseline": "PASS",
+        "price_route_limits_refund_and_scope_drift_rejected": "PASS",
+        "credential_rotation_is_separate": "PASS",
+        "explicit_byok_fee_approval": "PASS",
+        "rollback_old_digest_read_only_order": "PASS",
+        "production_nonadmission_flags": "PASS",
+        "yaml_environment_key_parity": "PASS",
+        "maintenance_recovery_unchanged_by_disabled_route": "PASS"
+      },
+      "commercial_rollout": "BLOCKED_EXTERNAL",
+      "production_executed": false,
+      "docker_runtime_executed": false,
+      "fee_calls": 0,
+      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "independent_junit_sha256": "3a359219b3b5fc3bdf485998cbe88b67c057bb2686e82768a3c683bc6b29c75f",
+      "independent_local_passed": 81,
+      "production_admission_enabled": false
+    }
+  }
+}

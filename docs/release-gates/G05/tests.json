@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "browser accessibility baseline",
+      "status": "FAIL",
+      "process": "Independent Edge 157, loopback",
+      "cause": "Esc closed mobile navigation and focused BODY",
+      "report_sha256": "17d050ada71b2bf65206a2682fb984b1c16342a88ae870bcdd9948335468fabe"
+    },
+    {
+      "scope": "browser fail-closed, responsive and Escape rerun",
+      "status": "PASS",
+      "process": "Independent Edge 157 installed on current Windows, 18 routes at 320/390/900/1440; keyboard and local feedback",
+      "command": "python -m pytest tests/browser/test_r2_website.py plus independent real Edge loopback fixture",
+      "report_sha256": "b0373a381807bf324f24d97b8b2b98cf64b683daea57a061db188cd206425c50"
+    },
+    {
+      "scope": "account and official Authlib protocol fixture",
+      "status": "PASS",
+      "process": "SQLite, locally signed OIDC fixture, actual DPAPI on Windows",
+      "command": "python -m pytest tests/cloud/test_r3_release_gate.py tests/cloud/test_desktop_account.py tests/cloud/test_provider_connections.py tests/cloud/test_recent_auth_boundaries.py",
+      "passed": 56,
+      "report_sha256": "fb0976117fae3c01458fca675a43edf2a37575ec00a245650b16b95db489ffc9"
+    },
+    {
+      "scope": "real hosted member accounts and verified HTTPS/phone/WeChat",
+      "status": "NOT_RUN"
+    }
+  ],
+  "rerun_source": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "cloud_final_code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "additional_receipts": {
+    "final_cloud_regression_reference": {
+      "scope": "Exact final cloud source, owned local SQLite and PostgreSQL 17.11 with simulated identities and payments",
+      "status": "PASS",
+      "tested_source": "e470797bd888c871eaac1ce89276395213f493b8",
+      "passed": 275,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "../G08/tests.json",
+      "real_provider_calls": 0,
+      "real_payments": 0
+    }
+  }
+}

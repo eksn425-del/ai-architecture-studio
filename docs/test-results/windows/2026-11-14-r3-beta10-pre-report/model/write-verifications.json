@@ -1,0 +1,37 @@
+{
+  "recovery": {
+    "status": "PASS",
+    "scope": "frozen beta10 WebView2 workbench and connector, actual SU process restart, pre-dispatch transport fixture",
+    "native_version": "24.0.484",
+    "new_native_pid": true,
+    "pre_turn_revision": 1,
+    "recovered_revision": 2,
+    "unconfirmed_attempt": 3,
+    "report_absence_archived": true,
+    "attempted_source_quarantined": true,
+    "exact_hashes_equal": {
+      "root_geometry_material_sha256": true,
+      "document_geometry_material_sha256": true,
+      "presentation_sha256": true
+    },
+    "owned_subtrees_identical": true,
+    "checkpoint_sha256": "a73fe97a56ed8d629b956684c5ff50d640d2d8052ca7aee6a011baadea8f795b",
+    "paid_calls": 0
+  },
+  "verified": true,
+  "active_root_pid": 36075,
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "Porch"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "Porch"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  }
+}

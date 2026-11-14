@@ -77,7 +77,7 @@ def reported_usage(events):
 DISABLED = "tool-plugin-manager plugin-manager config-editor settings remote-access typert-gateway deepseek-account llm-deepseek-account session-title-llm session-telemetry-otel tool-working-directory tool-bash tool-pwsh tool-jobs tool-fs tool-fs-search agent-instructions skill-filesystem tool-skill tool-subagent-control tool-subagent-list-agents tool-subagent tool-subagent-fork tool-workflow tool-goal tool-web tool-todo plan-mode workspace-dependencies skill-office".split()
 
 
-def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None, request_headers=None):
+def write_profile(path, *, api_base, model, protocol="openai-responses", max_tokens=None, full_capabilities=None, effective_configuration=None, request_headers=None, host_plan_mode=False):
     from .dsh_full_profile import enabled, full_rows, provider_retry_policy
     import re
     if request_headers and (set(request_headers)!={'X-KStudio-Turn-ID'} or not re.fullmatch(r'[A-Za-z0-9_-]{8,128}',request_headers['X-KStudio-Turn-ID'])):
@@ -87,7 +87,8 @@ def write_profile(path, *, api_base, model, protocol="openai-responses", max_tok
         effective_configuration = resolve_configuration({'api_base':api_base, 'model':model, 'mode':'codex-responses' if protocol=='openai-responses' else 'compatible', 'reasoning_effort':'provider-default'})
     if enabled() if full_capabilities is None else full_capabilities:
         rows=full_rows(api_base=api_base, model=model, protocol=protocol, max_tokens=max_tokens,
-                       host_plugin=Path(__file__).parent/'dsh_host_tools.mjs', effective_configuration=effective_configuration)
+                       host_plugin=Path(__file__).parent/'dsh_host_tools.mjs', effective_configuration=effective_configuration,
+                       host_plan_mode=host_plan_mode)
         if request_headers:
             next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']['headers']=dict(request_headers)
         path.parent.mkdir(parents=True,exist_ok=True)
@@ -109,7 +110,7 @@ def write_profile(path, *, api_base, model, protocol="openai-responses", max_tok
 
 class DSHHostSession:
     def __init__(self, *, home, workspace, api_base, api_key, model, specs, dispatch, trace_path,
-                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None, request_headers=None):
+                 sdk_site, dsh_bin, progress=None, protocol="openai-responses", instructions=None, max_tokens=None, reasoning_effort='high', full_capabilities=None, effective_configuration=None, source_manifest=None, request_headers=None, host_plan_mode=False, native_write_pending=None):
         self.native_recovery_required = False
         if effective_configuration is None:
             from .dsh_configuration import resolve_configuration
@@ -140,6 +141,14 @@ class DSHHostSession:
         self.trace_path=Path(trace_path);self.trace_path.parent.mkdir(parents=True,exist_ok=True)
         self.token=secrets.token_urlsafe(32)
         parent=self
+        def journal_pending():
+            if not native_write_pending:
+                return False
+            try:
+                return native_write_pending()
+            except (ValueError, TypeError, AttributeError, OSError):
+                return True
+
         class Handler(BaseHTTPRequestHandler):
             def log_message(self,*_): pass
             def reply(self,data,status=200):
@@ -150,7 +159,7 @@ class DSHHostSession:
             def do_GET(self):
                 if not self.authorized(): return self.reply({},403)
                 if self.path=='/provider-ready':
-                    if parent.native_recovery_required:
+                    if parent.native_recovery_required or journal_pending():
                         return self.reply(host_refusal(ValueError('Native recovery required; no new provider request'),self.path),409)
                     if parent.cancelled:
                         return self.reply(host_refusal(ValueError('Turn cancelled'),self.path),409)
@@ -173,7 +182,8 @@ class DSHHostSession:
                     if self.path.startswith('/test-budget/'):
                         if parent.test_budget is None:raise ValueError('Finite test budget not enabled')
                         if self.path=='/test-budget/reserve':
-                            if parent.native_recovery_required:raise ValueError('Native recovery required; no new provider request')
+                            if parent.native_recovery_required or journal_pending():
+                                raise ValueError('Native recovery required; no new provider request')
                             if parent.cancelled:raise ValueError('Turn cancelled')
                             return self.reply(parent.test_budget.reserve(data))
                         if self.path=='/test-budget/settle':return self.reply(parent.test_budget.settle(data))
@@ -205,22 +215,24 @@ class DSHHostSession:
                     name=data['name']
                     if name not in {s['name'] for s in parent.specs}:raise ValueError('Unknown tool')
                     start=time.monotonic()
-                    try:
-                        with parent.dispatch_lock:
-                            if parent.cancelled:raise ValueError('Turn cancelled; no new tool started')
+                    with parent.dispatch_lock:
+                        if parent.cancelled:raise ValueError('Turn cancelled; no new tool started')
+                        try:
                             parent.emit_progress({'event':'tool_started','tool':name})
                             result=parent.dispatch(name,data['arguments'])
-                    except Exception as error:
-                        result={'success':False,'error':redact(str(error),(parent.api_key,parent.token))}
+                        except Exception as error:
+                            result={'success':False,'error':redact(str(error),(parent.api_key,parent.token))}
+                        if name in {'sketchup_run_workspace_ruby', 'sketchup_apply_parts'}:
+                            detail = str(result.get('error',''))
+                            pending = any(marker in detail for marker in (
+                                'The native write may have committed', 'Native write outcome or disk checkpoint is unconfirmed'))
+                            if pending or journal_pending():
+                                parent.native_recovery_required=True
+                                parent.cancelled=True
+                                parent.record({'event':'native_recovery_required','further_provider_requests':'BLOCKED'})
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
-                    if (name in {'sketchup_run_workspace_ruby', 'sketchup_apply_parts'} and result.get('success') is False
-                        and any(marker in str(result.get('error','')) for marker in (
-                            'The native write may have committed', 'Native write outcome or disk checkpoint is unconfirmed'))):
-                        parent.native_recovery_required=True
-                        parent.cancelled=True
-                        parent.record({'event':'native_recovery_required','further_provider_requests':'BLOCKED'})
                     if event['success'] and isinstance(result.get('construction_step'), dict):
                         parent.emit_progress({'event':'construction_step', **result['construction_step']})
                     self.reply(result)
@@ -231,7 +243,7 @@ class DSHHostSession:
         self.server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         self.worker=threading.Thread(target=self.server.serve_forever,daemon=True);self.worker.start()
         patch=self.home/'kstudio.patch.yml'
-        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration,request_headers=request_headers)
+        write_profile(patch,api_base=api_base,model=model,protocol=protocol,max_tokens=max_tokens,full_capabilities=self.full_capabilities,effective_configuration=self.effective_configuration,request_headers=request_headers,host_plan_mode=host_plan_mode)
         if instructions and not self.full_capabilities:
             rows=json.loads(patch.read_text(encoding='utf-8'))
             next(r for r in rows if r.get('id')=='system-prompt')['config']['personaPrefix']=instructions

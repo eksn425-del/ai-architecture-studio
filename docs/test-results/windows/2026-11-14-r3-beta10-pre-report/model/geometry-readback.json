@@ -1,0 +1,97 @@
+{
+  "collector": "KStudioNativeDeepFingerprint/1",
+  "root_pid": 36075,
+  "revision": 2,
+  "counts": {
+    "faces": 24,
+    "edges": 48,
+    "instances": 8
+  },
+  "direct_parts": [
+    {
+      "name": "Base",
+      "bounds_mm": {
+        "min": [
+          5000.0,
+          5000.0,
+          0.0
+        ],
+        "max": [
+          11000.0,
+          9000.0,
+          200.0
+        ],
+        "size": [
+          6000.0,
+          4000.0,
+          200.0
+        ]
+      }
+    },
+    {
+      "name": "Frame",
+      "bounds_mm": {
+        "min": [
+          5100.0,
+          5100.0,
+          200.0
+        ],
+        "max": [
+          5350.0,
+          5350.0,
+          3000.0
+        ],
+        "size": [
+          250.0,
+          250.0,
+          2800.0
+        ]
+      }
+    },
+    {
+      "name": "Roof",
+      "bounds_mm": {
+        "min": [
+          4850.0,
+          4850.0,
+          3000.0
+        ],
+        "max": [
+          11150.0,
+          9150.0,
+          3220.0
+        ],
+        "size": [
+          6300.0,
+          4300.0,
+          220.0
+        ]
+      }
+    },
+    {
+      "name": "Porch",
+      "bounds_mm": {
+        "min": [
+          6900.0,
+          3900.0,
+          0.0
+        ],
+        "max": [
+          9100.0,
+          5000.0,
+          200.0
+        ],
+        "size": [
+          2200.0,
+          1100.0,
+          200.0
+        ]
+      }
+    }
+  ],
+  "fingerprints": {
+    "root_geometry_material_sha256": "6adc97bf2b4f10333e9e6018fa72475493301499f389f28940ee83bb8df201c1",
+    "document_geometry_material_sha256": "33fc7d5d8ed30d4709021a43c4950d2116de53b6507ca80eb08d43aa275ddf00",
+    "presentation_sha256": "e13f785fa5ad8de3781caad71345c09c0bb98cb54219201a05617856e7ad6b60"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "gate": "G06",
+  "title": "运营模型、成本与额度账本",
+  "status": "BLOCKED_EXTERNAL",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "previous_verdict": "../G05/verdict.json",
+  "checked_at": "2026-11-14T18:55:37+08:00",
+  "hard_blockers": 3,
+  "blockers": [
+    "运营者确认 B.AI 商用资质、独立 staging 的平台服务账号、限额和有限真实调用授权。",
+    "运营者确认平台模型费用、软件服务费与失败或未知用量的补偿规则。",
+    "真实 staging 两用户试验需要可核验的供应商金额回执、模型路由和上游货币成本边界。"
+  ],
+  "evidence_files": [
+    "PLAN.md",
+    "changes.md",
+    "tests.json",
+    "evidence.md",
+    "risks.md"
+  ],
+  "independent_reviewer": "quality_qa",
+  "checks": {
+    "engineering": "PASS",
+    "provider_commercial_eligibility": "NOT_RUN",
+    "real_platform_staging_inference": "NOT_RUN",
+    "currency_billed_by_supplier": null,
+    "owner_approved_fees_in_this_run": false
+  }
+}

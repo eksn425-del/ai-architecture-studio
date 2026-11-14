@@ -4,19 +4,34 @@ from pathlib import Path
 from cryptography.fernet import Fernet
 from sqlalchemy import select
 from .config import Settings
-from .db import engine_for,migrate,users,SCHEMA_VERSION
+from .db import engine_for,migrate,users,schema_version,SCHEMA_VERSION
 from .ledger import audit_wallet
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('action',choices=['migrate','audit','recover-stale','backup-sqlite','restore-sqlite']);parser.add_argument('--path');parser.add_argument('--target');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('action',choices=['migrate','audit','rollback-check','recover-stale','backup-sqlite','restore-sqlite']);parser.add_argument('--path');parser.add_argument('--target');args=parser.parse_args()
     settings=Settings.from_env();engine=engine_for(settings.database_url)
     if args.action=='migrate':migrate(engine);print(f'schema_version={SCHEMA_VERSION}');return
     if args.action=='recover-stale':
         from .recovery import recover_stale
         print(json.dumps(recover_stale(engine)));return
-    if args.action=='audit':
-        with engine.connect() as c:ids=c.execute(select(users.c.id)).scalars().all()
-        results=[audit_wallet(engine,u) for u in ids];print(json.dumps({'accounts':len(ids),'consistent':all(r['consistent'] for r in results)}));return
+    if args.action in ('audit','rollback-check'):
+        with engine.connect() as c:
+            actual_schema=c.execute(select(schema_version.c.version)).scalar_one()
+            if actual_schema!=SCHEMA_VERSION:raise ValueError('Audit requires the current database schema')
+            ids=c.execute(select(users.c.id)).scalars().all()
+        if args.action=='rollback-check':
+            from .credential_crypto import CredentialCipher
+            from deploy.verify_restore import verify
+            cipher=CredentialCipher.from_file(settings.vault_keys_file,settings.vault_active_key_version) if settings.vault_keys_file else None
+            comparison=verify(engine,cipher)
+            print(json.dumps({'accounts':len(ids),'consistent':comparison['ledger_consistent'],
+                              'schema_version':comparison['schema_version'],'rollback_read_only':True}))
+            return
+        results=[audit_wallet(engine,u) for u in ids]
+        consistent=all(r['consistent'] for r in results)
+        print(json.dumps({'accounts':len(ids),'consistent':consistent,'schema_version':actual_schema}))
+        if not consistent:raise SystemExit(2)
+        return
     if not settings.database_url.startswith('sqlite:///'):raise ValueError('Use deploy/backup.sh with pg_dump for PostgreSQL')
     key=os.environ['KSTUDIO_BACKUP_KEY'].encode();cipher=Fernet(key);destination=Path(args.path)
     if args.action=='backup-sqlite':
