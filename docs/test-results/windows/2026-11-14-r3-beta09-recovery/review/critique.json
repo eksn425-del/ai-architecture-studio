@@ -1,0 +1,52 @@
+{
+  "fixture_only": true,
+  "visual_source_fidelity": "NOT_RUN",
+  "qa_scope": "independent native deep verification",
+  "recovery": {
+    "scope": "Independent archived readback of owner workstation beta09 controlled unknown SketchUp write recovery",
+    "source_receipts_sha256": {
+      "accepted-r1": "d6e48565dcb0ee76e2f7c8ca965664e52e0b93d84cdf0b50667feba90ebf0493",
+      "quarantined-r2": "533ac539effc03d608c7ea801c5cc8d0081dc420f76bc403710295a031ba0fd9",
+      "recovered-r1": "4e3dcac7acc98bb81c7d1a8d2a19e0c49ad668167bcf40451d303b34129f0899",
+      "accepted-r2-after-recovery": "8b40ee1cc2d4e0002d89bd4db71a9ac95ac67eb6e1ba361a26f09299ba1328da"
+    },
+    "native_version": "24.0.484",
+    "persistent_root_pid": 36075,
+    "revisions": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "failed_r2_unsaved": true,
+    "restored_geometry_material_and_presentation_equal_to_r1": true,
+    "protected_group_subtrees_unchanged_all_four_stages": [
+      "Base",
+      "Frame",
+      "Roof"
+    ],
+    "porch_pid_unchanged": 36168,
+    "porch_confirmed_post_recovery_depth_mm": 1050,
+    "post_recovery_geometry_distinct_from_quarantined_edit": true,
+    "native_entities_unchanged": {
+      "faces": 24,
+      "edges": 48,
+      "instances": 8
+    },
+    "changed_process_referenced_by_capture_receipt": true,
+    "paid_provider_calls": 0,
+    "no_live_connection_in_this_independent_review": true
+  },
+  "delivery": {
+    "status": "PASS",
+    "scope": "Independent artifact readback of typed native owner machine fixture after recovery",
+    "child_group_records_exact_match": true,
+    "accepted_before_download_and_reopened_revision": 2,
+    "native_version": "24.0.484",
+    "reopened_native_unchanged": true,
+    "browser_download_receipt_actual_workbench": true,
+    "download_bytes": 130581,
+    "download_sha256": "49e6c6778b9c8d447b2f6e9c849c347ad1ad1ccc21b0d62849bc18bd50208958",
+    "preserved_copy_and_paid_provider_new_call": false
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-14-r3-commercial-native",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "source_case": "planning/fixture.json",
+  "model": {
+    "requested": null,
+    "actual": "NO_LLM_DETERMINISTIC_TYPED_FIXTURE",
+    "reasoning_effort": null,
+    "runtime": "Guarded K Studio native tool and actual local Edge browser download"
+  },
+  "environment": {
+    "windows": "Windows 11 build 22000",
+    "sketchup": "24.0.484",
+    "browser": "157.0.4341.46",
+    "bridge": "K Studio public connector on owner workstation"
+  },
+  "qa": {
+    "reviewer_mode": "technical_native_readback",
+    "fidelity_status": "NOT_RUN",
+    "fixture_geometry_status": "PASS",
+    "concept_design_only": true
+  },
+  "blockers": [
+    "New cloud supplier, human UI modeling and paired photos pending separately",
+    "Clean Windows and packaged native crash recovery pending separately"
+  ]
+}

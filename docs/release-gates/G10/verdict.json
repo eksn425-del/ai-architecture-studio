@@ -1,0 +1,23 @@
+{
+  "gate": "G10",
+  "title": "普通用户真实端到端测试",
+  "status": "BLOCKED_EXTERNAL",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "previous_verdict": "../G09/verdict.json",
+  "checked_at": "2026-11-14T11:18:02Z",
+  "hard_blockers": 2,
+  "blockers": [
+    "G02、G03、G04、G05–G09 尚未全部 PASS。",
+    "缺干净 Windows＋合法 SketchUp 2024 与至少 3 名未参与开发的目标试用者、获准的有限平台用量和真实试用地址。"
+  ],
+  "independent_reviewer": "quality_qa",
+  "evidence_files": [
+    "PLAN.md",
+    "changes.md",
+    "tests.json",
+    "evidence.md",
+    "risks.md"
+  ],
+  "earlier_exercised_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+}

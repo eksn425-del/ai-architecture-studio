@@ -1,0 +1,26 @@
+{
+  "id": "G08",
+  "status": "BLOCKED_EXTERNAL",
+  "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "depends_on": "../G07/verdict.json",
+  "evidence_files": [
+    "tests.json",
+    "evidence.md",
+    "../OPERATIONS_RUNBOOK.md"
+  ],
+  "independent_reviewer": "finance_engineering (independent exact source local restore and regression); quality_qa (deployment artifact)",
+  "blockers": [
+    "approved_staging_host_domain_dns_tls_and_private_db",
+    "independent_backup_storage_and_vault_keys",
+    "real_idp_and_bounded_model_authorization",
+    "real_alert_delivery_and_immutable_rollback"
+  ],
+  "local_postgresql_restore": "PASS",
+  "local_loopback_http": "PASS",
+  "public_deployment": "NOT_RUN",
+  "production_switches_opened": false,
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "hard_blockers": 4,
+  "previous_verdict": "../G07/verdict.json",
+  "gate": "G08"
+}

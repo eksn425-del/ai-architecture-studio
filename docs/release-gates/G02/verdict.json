@@ -1,0 +1,23 @@
+{
+  "gate": "G02",
+  "title": "Agent 质量与执行效率",
+  "status": "PARTIAL",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "previous_verdict": "../G01/verdict.json",
+  "checked_at": "2026-11-14T11:18:02Z",
+  "hard_blockers": 2,
+  "blockers": [
+    "固定简单图从自然中文讨论到新版本下载的付费路径以及 K 增强对照等待具体额度授权。",
+    "文昌、退台与工坊复杂视觉仍 PARTIAL，工坊门槛、平台楼板接边及外立面仍未验收。"
+  ],
+  "independent_reviewer": "quality_qa",
+  "evidence_files": [
+    "PLAN.md",
+    "changes.md",
+    "tests.json",
+    "evidence.md",
+    "risks.md"
+  ],
+  "earlier_exercised_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+}

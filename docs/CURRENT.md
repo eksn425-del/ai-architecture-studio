@@ -1,3 +1,7 @@
+# 最新 R3 商业化内部候选 — 2026-11-14
+
+[发布关卡索引](release-gates/index.md) 固定 PR27 审计基线 `6a8001c`，商业候选在 `codex/kstudio-r3-commercial-candidate-20261114`。桌面 **beta09 / sequence16**，原常用桌面 **beta03**。本机实际安装、更新回滚、未知写入恢复、SKP 下载重开已取得独立技术证据。受控样件之外的图片建模和商业服务仍需实际验收。 [裁决](release-gates/FINAL_RELEASE_VERDICT.md) · [恢复交付](test-results/windows/2026-11-14-r3-beta09-recovery/README.md)
+
 # 最新本机候选：窗开间学习、单窗口和真实交付 — 2026-11-14
 
 [PR27 实测证据](test-results/windows/2026-11-14-r3-release-training/README.md) 对应新候选源码 `3b9ecabc3ce1b7e55825b7baecf4cacc5fa797dd`。实际客户端使用 BAI DeepSeek Flash Responses，High 请求，完成砖木工坊 r1–r12。同一个 SketchUp 24.0.484 进程完成连接和下载文件重开。原生四个窗开间共用定义，真实开孔、玻璃深度和分阶段提交均已读回。局部改到右侧外梯，r12 逐级修正梯身，15 个其他直接部件和 17 个踏步均保留。r12 交付 PASS、模型保真 PARTIAL。原照片对应的砖木质感、窗框细分和栏杆语言仍有差距，平台与楼板重叠及 60 毫米门槛框有待处理。

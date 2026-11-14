@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "published capabilities and gating contract",
+      "status": "PASS",
+      "process": "manual content and independent Edge check",
+      "command": "Review website/assets/home.html and site's download/privacy/terms/pricing; verify configuration flags on isolated account service",
+      "observations": [
+        "Windows x64 and tested SketchUp 2024 ceiling",
+        "concept modeling and visual fidelity labels distinct",
+        "download/auth/payment closed on missing settings"
+      ]
+    },
+    {
+      "scope": "formal prices and terms",
+      "status": "NOT_RUN",
+      "gate_owner": "G06 and G09"
+    }
+  ]
+}

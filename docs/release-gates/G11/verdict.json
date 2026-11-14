@@ -1,0 +1,24 @@
+{
+  "gate": "G11",
+  "title": "限量商用发布、灰度与回滚",
+  "status": "NOT_RUN",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "previous_verdict": "../G10/verdict.json",
+  "checked_at": "2026-11-14T11:18:02Z",
+  "hard_blockers": 2,
+  "blockers": [
+    "G00–G10 尚未全部 PASS，无法形成 READY 审批。",
+    "技术验收完成后仍需经营者对唯一版本、域名、收费与灰度开关明确放行。"
+  ],
+  "independent_reviewer": "quality_qa",
+  "evidence_files": [
+    "PLAN.md",
+    "changes.md",
+    "tests.json",
+    "evidence.md",
+    "risks.md"
+  ],
+  "earlier_exercised_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "production_launch_guard_local_regression": "PASS"
+}

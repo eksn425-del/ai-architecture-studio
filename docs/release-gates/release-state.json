@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "project": "K Studio R3",
+  "status": "BLOCKED_EXTERNAL",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "implementation_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "branch": "codex/kstudio-r3-commercial-candidate-20261114",
+  "baseline_pr": 27,
+  "desktop_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "installer_source_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
+  "release": {
+    "version": "2026.11.14-R3-beta09",
+    "sequence": 16,
+    "final_status": "BLOCKED_EXTERNAL",
+    "internal_installer": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+    "installer_size_bytes": 315733922,
+    "unsigned_installer_sha256": "8c52a0f53532ef4de29aeb9b5c0fcffa79fc67c04900a0f13a83cebee62fe5a5",
+    "signed_installer_sha256": null,
+    "authenticode": "NotSigned",
+    "installed_original_version": "2026.11.07-R3-beta03",
+    "download_url": null,
+    "staging_https_url": null,
+    "production_https_url": null,
+    "license_clearance": "REVIEW_REQUIRED",
+    "public_distribution": false,
+    "owner_go_live_approval": false,
+    "cloud_source_sha256": "3bf99dc4b3f9ad97715dfddbc69828be4326ddc7962b07d0ec3091631d34759f"
+  },
+  "paid_operations": {
+    "real_BAI_requests": 0,
+    "real_payments": 0,
+    "real_refunds": 0,
+    "historical_actual_cost": "UNKNOWN"
+  },
+  "gates": [
+    {
+      "id": "G00",
+      "status": "PASS",
+      "code_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+      "independent_reviewer": "quality_qa",
+      "blockers": [],
+      "evidence_files": [
+        {
+          "path": "G00/PLAN.md",
+          "sha256": "ff3c0a26903ab83dfdff11bfdbb6ca174ce8f44084744f8a07910f6135bccbc6"
+        },
+        {
+          "path": "G00/changes.md",
+          "sha256": "66a568a767dd98048fdc89630044ee1e1ea3109759058ea8ce618878a6fc3f41"
+        },
+        {
+          "path": "G00/evidence.md",
+          "sha256": "b431804a20bb348d8b47eb583f063aadb48c6a6b30e16a524f9c8c0f9ccc37e1"
+        },
+        {
+          "path": "G00/risks.md",
+          "sha256": "f380bd3462a56cb3d53fddf0db9645cc2f9bb39acbcceecac7c46c74c51b2fea"
+        },
+        {
+          "path": "G00/tests.json",
+          "sha256": "ab8ba7e9e7b1bb87d61aab36f02a57a130e4558f75c7521043a65725153eb41b"
+        },
+        {
+          "path": "G00/verdict.json",
+          "sha256": "15471c54267acce319e041e87e24f667d4d20416b3958aede28d21056da55c1f"
+        }
+      ]
+    },
+    {
+      "id": "G01",
+      "status": "PASS",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "quality_qa",
+      "blockers": [],
+      "evidence_files": [
+        {
+          "path": "G01/PLAN.md",
+          "sha256": "1595fafa733e33b84d4ce88f8e98ebed427f6db84b3b95313b19c4f2bc9d73c2"
+        },
+        {
+          "path": "G01/changes.md",
+          "sha256": "1d366f8465193804b72bec22a220b5e35152bc7ea8da6948b030f278d0a7b0c2"
+        },
+        {
+          "path": "G01/evidence.md",
+          "sha256": "a817d38b757c1709af8f32d8c9db411d54cc9a32d18119a742b5caa7a5bbe91c"
+        },
+        {
+          "path": "G01/risks.md",
+          "sha256": "67576863468a3d222a7431fb977d0e121d8a286e53f2e0313a633f50cc9feeb0"
+        },
+        {
+          "path": "G01/tests.json",
+          "sha256": "22f0e5538cb08a217f1f70797422ab4bcb3b0a9647950a71d663837cc0654ff2"
+        },
+        {
+          "path": "G01/verdict.json",
+          "sha256": "8f46cccd3d857c04aecf618189d41eadb611fab27b021070be8335109d8e5584"
+        }
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PARTIAL",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "固定简单图从自然中文讨论到新版本下载的付费路径以及 K 增强对照等待具体额度授权。",
+        "文昌、退台与工坊复杂视觉仍 PARTIAL，工坊门槛、平台楼板接边及外立面仍未验收。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G02/PLAN.md",
+          "sha256": "f63142b5c453d8cce16eda482b550b5fecd5b4b05f574b6e24fec5fa768d55fe"
+        },
+        {
+          "path": "G02/changes.md",
+          "sha256": "8bf066af00303ff63b9771a1a93d2d010ec9bd2f80b464e46647438759396b2b"
+        },
+        {
+          "path": "G02/evidence.md",
+          "sha256": "1423c8f7f13603ee6b405069b29a6b576bd9563e39b21ce5f7eac16db22995e9"
+        },
+        {
+          "path": "G02/risks.md",
+          "sha256": "1f71dd5a6f6ff8ec54c55e8d9e87e0791fc1dc988db72014b7853a4828d7048f"
+        },
+        {
+          "path": "G02/tests.json",
+          "sha256": "89181311121f1124644e5a7c4ec4c39d0493f4348ee721860493cfad31a6df8f"
+        },
+        {
+          "path": "G02/verdict.json",
+          "sha256": "82819de9dbcddcd8cdb2f7b0009649293d48b07931660d075fa51c0cae7b632d"
+        }
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PARTIAL",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "完整新包多窗口、未保存文档和停机状态的实机组合尚未全验。",
+        "复杂 Face.pushpull 历史根因、真实断电与激活持久化中断的新包复验尚未完成。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G03/PLAN.md",
+          "sha256": "6f733d2e0878681df993a336508052e8f958bdc9299560c50399a74539407123"
+        },
+        {
+          "path": "G03/changes.md",
+          "sha256": "3dbb9a573669de9f503e9d31bf8fbb4769e39e09b194ffd9bf5e5ab5243602ef"
+        },
+        {
+          "path": "G03/evidence.md",
+          "sha256": "c718589ebb4ff5302d5232dbb77b20d2278d6cbbff373a80e41b24d7cd6dc8bd"
+        },
+        {
+          "path": "G03/risks.md",
+          "sha256": "9d6b28417a896273d6bc944bcbe15d06963d2a9ab43e1b1cde0d427ee07f9431"
+        },
+        {
+          "path": "G03/tests.json",
+          "sha256": "9fbc76bab3140497920bfb6156e6e67578f485cbeb2b6fef50630c86ba0f8f45"
+        },
+        {
+          "path": "G03/verdict.json",
+          "sha256": "270bb5b3a356940a811f3e8b70c8152dfc0c9b08b60fee2793b950c0134cad8e"
+        }
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "BLOCKED_EXTERNAL",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "quality_qa: verified real beta09 artifact runtime and license inventory. Clean host not yet provided.",
+      "blockers": [
+        "independent_clean_windows_x64_and_legal_su2024",
+        "publisher_authenticode_and_release_license_clearance",
+        "signed_public_update_path_and_independent_install_upgrade_modeling"
+      ],
+      "evidence_files": [
+        {
+          "path": "G04/PLAN.md",
+          "sha256": "d489653b5ec5fdc941b7b1e30e01625d9dbc863c50bd521daba4eca29d19f44f"
+        },
+        {
+          "path": "G04/changes.md",
+          "sha256": "83cf9b7c3306bfa317d6ca35a5b4a2b1dbb9b30b3419542c6e884410135966a7"
+        },
+        {
+          "path": "G04/evidence.md",
+          "sha256": "a163edc7c8048331ea70d4a77f7e632eb82d99ae366b5a2bd79e9a0ac664fcd6"
+        },
+        {
+          "path": "G04/risks.md",
+          "sha256": "9a8ccb8041043fe42cd3bd22eb2122cc7019dde6c77ef176e2fbf1340a815865"
+        },
+        {
+          "path": "G04/tests.json",
+          "sha256": "90f837ce66651fc16256cebe543e629623a74ef588502f9b971250a50081a6d7"
+        },
+        {
+          "path": "G04/verdict.json",
+          "sha256": "97aac7e5d10fa1d33a3291f1d9e507a297ba66fcc2df14f86e22c8d9f789de33"
+        }
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "BLOCKED_EXTERNAL",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "finance_engineering",
+      "blockers": [
+        "缺授权 staging Authing OIDC、手机号验证码和 PC 微信渠道，不能发真实短信或创建账户。",
+        "公网可访问性、真实设备和账户撤销同机及跨账号还需实际服务验收。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G05/PLAN.md",
+          "sha256": "de1951b709bf17ea14c7950fcd47510b92733deda9adcf0aafbe428014915c2c"
+        },
+        {
+          "path": "G05/changes.md",
+          "sha256": "0750c4f4bd6c410f72ced5125b6460d9a464115bd5f9bd6e46a9c4751798007c"
+        },
+        {
+          "path": "G05/evidence.md",
+          "sha256": "0f21f67536f2a7f563cd18d47e3002d6463ac16e06fbc7e3cc9b2d0eb65c09a7"
+        },
+        {
+          "path": "G05/risks.md",
+          "sha256": "9947f29b8b7e1c4c4fc954a4b61b9b20c72339077d8debe53a87ddd4216a8bea"
+        },
+        {
+          "path": "G05/tests.json",
+          "sha256": "962356bcc9af56cc95657987fff332eb4514df1f1c208e39950a054b0f629314"
+        },
+        {
+          "path": "G05/verdict.json",
+          "sha256": "2653bb81f973d4924132d066e33a5e5e2a778b4d5c2a177befe9157ba1d093ae"
+        }
+      ]
+    },
+    {
+      "id": "G06",
+      "status": "BLOCKED_EXTERNAL",
+      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "运营者确认 B.AI 商用资质、独立 staging 的平台服务账号、限额和有限真实调用授权。",
+        "运营者确认平台模型费用、软件服务费与失败或未知用量的补偿规则。",
+        "真实 staging 两用户试验需要可核验的供应商金额回执、模型路由和上游货币成本边界。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G06/PLAN.md",
+          "sha256": "b3f130f03a97591b873c0f78a646bbba2a997710fdf1a3ca1d35e8e6045f86cb"
+        },
+        {
+          "path": "G06/changes.md",
+          "sha256": "348cb027906e56d1e2b46f407be5bde85b8d2d428f028ad878e5d6194e8aff10"
+        },
+        {
+          "path": "G06/evidence.md",
+          "sha256": "ea6b9c510458fa8eb587691de53474300d9764f6d3d9ffbe1ffe3df4d4626220"
+        },
+        {
+          "path": "G06/risks.md",
+          "sha256": "592e909d9803db88b9cb53cca2f247f9f8c5c9d19e049f8d89dc7fcad01ab23a"
+        },
+        {
+          "path": "G06/tests.json",
+          "sha256": "922596598349342211693f07cb9cb651acc54eeb914307b7f320ea4b160d9a23"
+        },
+        {
+          "path": "G06/verdict.json",
+          "sha256": "bf2c08ec8b67e2e6f0f475072f139209642a773aaf42365ce334b62634577d98"
+        }
+      ]
+    },
+    {
+      "id": "G07",
+      "status": "BLOCKED_EXTERNAL",
+      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "运营者开通微信 Native 商户和绑定的支付 AppID，安全挂载 APIv3 材料和验证公钥。",
+        "独立公网 staging HTTPS 及真实微信通知回调。",
+        "运营者确认一次真实小额付款与原路退款及对客补偿条款，提供可脱敏对账的实际回执。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G07/PLAN.md",
+          "sha256": "6613f3ac5e8807066b27af7e8ab36f1a3a91a91abcc35d499fcbb4490b3cfc6d"
+        },
+        {
+          "path": "G07/changes.md",
+          "sha256": "9b531dcd1e4f2f9f063b01617885ad8e0f98146180e70ed65e38d19c2bd9b4d2"
+        },
+        {
+          "path": "G07/evidence.md",
+          "sha256": "098e80f924dcac8d02f423c0df629b6f3f34ce9ef6eab1ee4abbfa1d3c427b27"
+        },
+        {
+          "path": "G07/risks.md",
+          "sha256": "70847a2f3f9fa322a95c1de696fd366fff65a2c836f5859245824658e62e96c3"
+        },
+        {
+          "path": "G07/tests.json",
+          "sha256": "4ea1c01a9e3f06bdb9ca91aaec3a4004c2953dc4f701eea3fe83a93dd6fb0507"
+        },
+        {
+          "path": "G07/verdict.json",
+          "sha256": "2b0b664f5316a40f9dea9c2233b7d0073a4b579a88ea426ba60a2ec4fa23309a"
+        }
+      ]
+    },
+    {
+      "id": "G08",
+      "status": "BLOCKED_EXTERNAL",
+      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "independent_reviewer": "finance_engineering (independent exact source local restore and regression); quality_qa (deployment artifact)",
+      "blockers": [
+        "approved_staging_host_domain_dns_tls_and_private_db",
+        "independent_backup_storage_and_vault_keys",
+        "real_idp_and_bounded_model_authorization",
+        "real_alert_delivery_and_immutable_rollback"
+      ],
+      "evidence_files": [
+        {
+          "path": "G08/PLAN.md",
+          "sha256": "83ec8d6af0af681710ed0e23ef2a455bf07b62b9ac382f9a07492520d123878e"
+        },
+        {
+          "path": "G08/changes.md",
+          "sha256": "319c6545d04411b70ce0672b2d58300d090657db8bc8d42cf8e6a1588d5bdb2c"
+        },
+        {
+          "path": "G08/evidence.md",
+          "sha256": "a26909598ca69526b2f7a60ddbc220bb78b967dc1c6fead5eb5d391b7802cca3"
+        },
+        {
+          "path": "G08/risks.md",
+          "sha256": "22cdada22e3f20d53c4589cc80e26bd17773af4263a0d469079050087cb14ee4"
+        },
+        {
+          "path": "G08/tests.json",
+          "sha256": "18c1dfd2d7496b1ba855fa6c430f141a9f2ba5e5bfe93f5b7ea36b5fe387c27f"
+        },
+        {
+          "path": "G08/verdict.json",
+          "sha256": "b598615d471dbfaa9bc6c6a73a2dda49515b12db9c43b3482cacbfc815b3091b"
+        }
+      ]
+    },
+    {
+      "id": "G09",
+      "status": "PARTIAL",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "需评估已冻版 cryptography 静态 OpenSSL 及新版 CPython 的低危后续上游公告，确认下一期更新与风险签核。",
+        "经营主体须明确 K Studio 和第一方连接器再分发许可及第三方对应源码、可发布资产的签核。",
+        "核对实际主体和监管适用性，确认正式运营条款、生成标识、隐私和适用许可或备案。",
+        "签名客户端和实际 staging 中验证受控工具、传递依赖、账户隔离、网络和备份安全。",
+        "历史已授权示例档案的可能工作站识别字段需由负责人确认处置范围。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G09/PLAN.md",
+          "sha256": "c42e3c09b2baa9f1f80b24e61d05dc7f2307990bd8fb26bc86da75e8ece88463"
+        },
+        {
+          "path": "G09/changes.md",
+          "sha256": "8db7f10edd12abfdd3c9f5c2d9d1b81994d622539f06b376693763d89a1e1a5c"
+        },
+        {
+          "path": "G09/evidence.md",
+          "sha256": "f281a98b281959e6bac327a22b7e03d75065259a7ab0174bcaecd0de3ca8b17a"
+        },
+        {
+          "path": "G09/risks.md",
+          "sha256": "ef6f0734cf361893be5930ae36c0884b82f763557f7d262c06995675f4ce54fa"
+        },
+        {
+          "path": "G09/tests.json",
+          "sha256": "57b20c94d4e942947d6f23f33f19882dcb93e99462777867d2e647ef57129449"
+        },
+        {
+          "path": "G09/verdict.json",
+          "sha256": "21febcc2be1b4ea67e914962e173eca1d33feca0c657cf5b91f50ee48368a201"
+        }
+      ]
+    },
+    {
+      "id": "G10",
+      "status": "BLOCKED_EXTERNAL",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "G02、G03、G04、G05–G09 尚未全部 PASS。",
+        "缺干净 Windows＋合法 SketchUp 2024 与至少 3 名未参与开发的目标试用者、获准的有限平台用量和真实试用地址。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G10/PLAN.md",
+          "sha256": "c8ecf7e682804ab8fca2b6b72340f3c2b89056926624538619214789138b1c96"
+        },
+        {
+          "path": "G10/changes.md",
+          "sha256": "e9b7df1542617cc18719b7a1ab49fdcb3e4bd02932ecd5e83699ee2bce264658"
+        },
+        {
+          "path": "G10/evidence.md",
+          "sha256": "72f2dc62d4619ee19d65c24510ec038ef5585315202a49bc6fe2a85c257b6199"
+        },
+        {
+          "path": "G10/risks.md",
+          "sha256": "81d0dbd49f66616e442c9f161a61c3dd17e2b193207def6821fac2597d08a07d"
+        },
+        {
+          "path": "G10/tests.json",
+          "sha256": "388fd05677d69a9a2ec89d6e6b7f9183b4e5fa3882db1227d9bedb93e25c6f14"
+        },
+        {
+          "path": "G10/verdict.json",
+          "sha256": "b286f21e5605fc7808da6527ffbce09523153a86d47b24827799c2a73d74e685"
+        }
+      ]
+    },
+    {
+      "id": "G11",
+      "status": "NOT_RUN",
+      "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "independent_reviewer": "quality_qa",
+      "blockers": [
+        "G00–G10 尚未全部 PASS，无法形成 READY 审批。",
+        "技术验收完成后仍需经营者对唯一版本、域名、收费与灰度开关明确放行。"
+      ],
+      "evidence_files": [
+        {
+          "path": "G11/PLAN.md",
+          "sha256": "1cbe1ac2b9593d7d6a62905b15537305de9a294dac024e396279a31eb6a8a24e"
+        },
+        {
+          "path": "G11/changes.md",
+          "sha256": "9b65e05c801051a4abde95f72c1a5e0dcb57ce5f9b26fe1d5b37d0317a397a4c"
+        },
+        {
+          "path": "G11/evidence.md",
+          "sha256": "3a3afb534ab67e55dadb2d87712a94dac3d5de9eb5a22dcb96dee06b058558c5"
+        },
+        {
+          "path": "G11/risks.md",
+          "sha256": "ad262999086d8454f6fee48af6fb6bca8bc5c8c314ca6cec717cefac3d0dd31e"
+        },
+        {
+          "path": "G11/tests.json",
+          "sha256": "baf19c05f6b0658b243425ef1f5e5122dfc312bdc083a420062f48ac51f73438"
+        },
+        {
+          "path": "G11/verdict.json",
+          "sha256": "d712bff712c715962f52bf087e0f2dc2b4bac048f4e134fb6010dacc0615156b"
+        }
+      ]
+    }
+  ]
+}

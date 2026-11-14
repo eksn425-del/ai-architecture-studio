@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "historical workshop reopened from preserved copy",
+      "status": "PASS",
+      "command": "SketchUp Open; capture_native_deep_fingerprint",
+      "process": "SketchUp 24.0.484 PID 884",
+      "visual_windows": 1,
+      "revision": 12,
+      "root_pid": 19,
+      "unchanged": true,
+      "output_sha256": "c08d6a475ab87e53f1db555ff90508ca206b11f820075d509a406698aa1164ca",
+      "evidence_sha256": "a2338ed288ed0f8659c241fad8a5016f906d00f3b2fe929889b66114b5a88245"
+    },
+    {
+      "scope": "bounded writer and no-charge unknown readback",
+      "status": "PASS",
+      "command": "native typed pavilion r1/r2; tests/test_connector_instances.py and tests/test_dsh_native_stop.py",
+      "process": "separate real native engineering fixture plus HTTP regression",
+      "pre_native_rejected_nonplanar": true,
+      "write_authorized_scope": [
+        "Porch"
+      ],
+      "subsequent_provider_dispatch_on_quarantine": false
+    },
+    {
+      "scope": "full packaged native crash and restart",
+      "status": "NOT_RUN",
+      "historical_evidence": "../../test-results/windows/2026-11-10-r3-recovery-faults"
+    }
+  ],
+  "additional_receipts": {
+    "actual_packaged_ui_unknown_write_recovery": {
+      "status": "PASS",
+      "test_source": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "app_runtime": "Actual beta09 WebView2 / SU2024 24.0.484",
+      "scope": "Real recovery and download buttons, bounded synthetic typed edit and injected host reply loss",
+      "recovery": {
+        "status": "PASS",
+        "scope": "actual beta09 desktop recovery UI with controlled fixture",
+        "desktop_application_sha256": "6dc68a49b9f330825b325df5f30c0897ad53967a884fdfa27647e0de1c301f97",
+        "native_version": "24.0.484",
+        "real_native_process_changed": true,
+        "before_checkpoint_revision": 1,
+        "quarantined_attempt_revision": 2,
+        "restored_revision": 1,
+        "final_hashes_equal": {
+          "root_geometry_material_sha256": true,
+          "document_geometry_material_sha256": true,
+          "presentation_sha256": true
+        },
+        "uncertain_operation_replayed": false,
+        "old_copy_sha_unchanged": true,
+        "recovered_sha256": "5ed683b11fa67b0f674d19a4545ef9d094787968bd10f6f7661a8f2f04a16995",
+        "paid_calls": 0
+      },
+      "continuation": {
+        "status": "PASS",
+        "method": "controlled typed native tool; no LLM",
+        "same_original_source_rejected_before_native_dispatch": true,
+        "revised_scope": [
+          [
+            "Porch"
+          ]
+        ],
+        "verified_depth_mm": 1050,
+        "continued_revision": 2,
+        "protected": [
+          "Base",
+          "Frame",
+          "Roof"
+        ],
+        "checkpoint_sha256": "49e6c6778b9c8d447b2f6e9c849c347ad1ad1ccc21b0d62849bc18bd50208958",
+        "original_copy_untouched": true,
+        "paid_calls": 0
+      },
+      "download": {
+        "status": "PASS",
+        "actual_packaged_ui_download": true,
+        "final_hashes_equal": {
+          "root_geometry_material_sha256": true,
+          "document_geometry_material_sha256": true,
+          "presentation_sha256": true
+        },
+        "sketchup_version": "24.0.484",
+        "download_bytes": 130581,
+        "download_sha256": "49e6c6778b9c8d447b2f6e9c849c347ad1ad1ccc21b0d62849bc18bd50208958",
+        "owned_revision": 2,
+        "paid_calls": 0
+      },
+      "independent_recovery_sha256": "866410ea749d504ceefabc22e0534555faffb577c7ea1c13b356b5a54631ba80",
+      "independent_download_sha256": "6a6c38a2f3bb585ae5819869c265c1803037ecfe501e95d7b93a2baa1e7eed79",
+      "evidence_manifest_sha256": "ac3f8b2761a462fb0bea1646ccce081a1b4b0ba3a1a23c24841e082b56a0a945"
+    }
+  }
+}

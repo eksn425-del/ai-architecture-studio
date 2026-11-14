@@ -1,0 +1,129 @@
+{
+  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "installer_source_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
+  "measurements": [
+    {
+      "name": "安装、更新、本机安全源代码回归",
+      "command": "python -m pytest tests/test_r3_installer.py tests/test_r3_install_roots.py tests/test_desktop_instance.py tests/test_desktop_lifecycle.py tests/test_desktop_bootstrap.py tests/test_release_channel.py tests/test_personal_connections.py -q",
+      "status": "PASS",
+      "passed": 64,
+      "skipped_opt_in_historical_fixture": 2
+    },
+    {
+      "name": "真实 NSIS 路径与小载荷安装/卸载",
+      "scope": "E-drive isolated engineering fixture",
+      "status": "PASS",
+      "root_refused_exit": 2,
+      "device_alias_refused_exit": 2,
+      "overlap_refused_exit": 2,
+      "valid_exit": 0,
+      "same_version_exit": 6,
+      "uninstall_exit": 0,
+      "profile_preserved": true
+    },
+    {
+      "name": "beta08 完整安装首轮",
+      "status": "FAIL",
+      "exit_code": 4,
+      "payload_files_present_by_size": 34425,
+      "pointer_published": false
+    },
+    {
+      "name": "beta09 冻结官方 SDK",
+      "command": "KStudio.exe --data-dir DISPOSABLE_E_PROFILE --diagnose-bundle OUTPUT --diagnose-harness",
+      "status": "PASS",
+      "node": "24.22.3",
+      "native_tool_count": 12,
+      "inference_called": false
+    },
+    {
+      "name": "beta09 通用 NSIS 和隔离验收版实际编译",
+      "command": "python scripts/build_installer.py --bundle FROZEN_BETA09 --output NEW_E_JOB --nsis NSIS --version 2026.11.14-R3-beta09 --sequence 16 --source-sha FROZEN_SOURCE",
+      "scope": "NSIS 3.13 x64 payload; immutable installer inputs",
+      "status": "PASS",
+      "compile_exit": 0,
+      "payload_files": 34428,
+      "sha256": "8c52a0f53532ef4de29aeb9b5c0fcffa79fc67c04900a0f13a83cebee62fe5a5",
+      "signature": "NotSigned",
+      "bytes": 315733922
+    },
+    {
+      "name": "同载荷隔离安装与完整文件 SHA256",
+      "status": "PASS",
+      "test_setup_sha256": "d4706b37645ec956ed523b3580556d2dea75e477d8942f74f19f3972914b2562",
+      "install_exit": 0,
+      "program_drive": "E:",
+      "selected_profile_verified": true,
+      "pointer_sequence": 16,
+      "payload_sha256_matches": 34428,
+      "same_version_exit": 6,
+      "owner_samples_unchanged": 6
+    },
+    {
+      "name": "实际已安装 SDK 启动、卸载与测试资料保留",
+      "status": "PASS",
+      "scope": "Existing Windows x64 build 22000, E-drive isolation, headless",
+      "installed_sdk_probe_exit": 0,
+      "bundled_node_version": "24.22.3",
+      "uninstall_exit": 0,
+      "isolated_registration_removed": true,
+      "installed_program_payload_removed": true,
+      "fixture_dpapi_cipher_sha256_unchanged": true,
+      "fixture_dpapi_decrypted_in_new_process": true,
+      "fixture_project_sha256_unchanged": true,
+      "owner_installed_items_unchanged": 6,
+      "provider_calls": 0
+    },
+    {
+      "name": "首次 beta09 实际隔离长路径安装",
+      "status": "FAIL",
+      "exit_code": 4,
+      "failure_stage": "extract_payload",
+      "payload_hashes_exact": 24572,
+      "payload_missing": 9856,
+      "pointer_published": false
+    },
+    {
+      "name": "实际 Windows 复现并校验深目录修复",
+      "status": "PASS",
+      "old_exit": 4,
+      "fixed_exit": 0,
+      "directory_characters": 311,
+      "file_characters": 320,
+      "fixed_payload_sha256_exact": true
+    },
+    {
+      "name": "完整安装模板集成复现与复验",
+      "status": "PASS",
+      "prior_integration_exit": 4,
+      "fixed_install_exit": 0,
+      "fixed_file_characters": 361,
+      "fixed_payload_sha256_exact": true,
+      "pointer_published": true,
+      "uninstall_exit": 0,
+      "profile_preserved": true
+    },
+    {
+      "name": "正式更新器的离线回滚",
+      "command": "python -m deploy.updater_drill --updater KStudioUpdate.exe --output NEW_E_JOB",
+      "scope": "Actual frozen updater, synthetic payload and local test signing",
+      "status": "PASS",
+      "sha256": "acb3793307a58ed58d0dbccded0be2e2cc41b55b6272e339e26af56418504b97"
+    },
+    {
+      "name": "实际完整程序更新／回滚",
+      "status": "PASS",
+      "scope": "Actual frozen updater and complete beta09 payload; local test signing",
+      "archive_sha256": "eee53cc30677b3874c2f8fec8767e42200fab8cbade24a393f995b973fa08bf1",
+      "archive_bytes": 346958295,
+      "both_version_slots_retained": true,
+      "rollback_pointer_verified": true,
+      "profile_bytes_unchanged": true,
+      "same_size_corrupt_archive_refused": true
+    },
+    {
+      "name": "独立干净 Win x64 + SU2024、公开签名和升级 URL",
+      "status": "NOT_RUN"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "gate": "G07",
+  "title": "真实支付与退款",
+  "status": "BLOCKED_EXTERNAL",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "previous_verdict": "../G06/verdict.json",
+  "checked_at": "2026-11-14T18:55:37+08:00",
+  "hard_blockers": 3,
+  "blockers": [
+    "运营者开通微信 Native 商户和绑定的支付 AppID，安全挂载 APIv3 材料和验证公钥。",
+    "独立公网 staging HTTPS 及真实微信通知回调。",
+    "运营者确认一次真实小额付款与原路退款及对客补偿条款，提供可脱敏对账的实际回执。"
+  ],
+  "evidence_files": [
+    "PLAN.md",
+    "changes.md",
+    "tests.json",
+    "evidence.md",
+    "risks.md"
+  ],
+  "independent_reviewer": "quality_qa",
+  "checks": {
+    "engineering": "PASS",
+    "signed_merchant_fixture": "PASS",
+    "real_wechat_payment": "NOT_RUN",
+    "real_wechat_refund": "NOT_RUN",
+    "merchant_settlement": "NOT_RUN",
+    "production_payment_enabled": false
+  }
+}
