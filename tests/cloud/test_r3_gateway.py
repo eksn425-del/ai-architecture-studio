@@ -128,7 +128,7 @@ def test_actual_route_groups_sdk_tool_loop_and_bounds_cost(system,monkeypatch):
     original=httpx.AsyncClient;seen=[]
     def response(request):
         seen.append(json.loads(request.content))
-        return httpx.Response(200,text='data: {"type":"response.completed","response":{"model":"fixture","output":[],"usage":{"input_tokens":1000,"output_tokens":1000}}}\n\n')
+        return httpx.Response(200,text='data: {"type":"response.completed","response":{"model":"fixture","status":"completed","output":[],"usage":{"input_tokens":1000,"output_tokens":1000}}}\n\n')
     monkeypatch.setattr(gateway.httpx,'AsyncClient',lambda **kw:original(transport=httpx.MockTransport(response),**kw))
     body={'model':'public-model','input':'test','stream':False,'reasoning':{'effort':'low'}}
     for key in ('one','two'):
@@ -222,3 +222,169 @@ def test_dsh_profile_retains_turn_header_in_both_profiles(tmp_path,full):
     provider=next(r for r in rows if r.get('id')=='llm-pi-ai')['config']['providers']['kstudio-bai']
     assert provider['headers']=={'X-KStudio-Turn-ID':'visible-turn-001'}
     with pytest.raises(ValueError):write_profile(path,api_base='https://gateway.fixture/v1',model='public-model',request_headers={'Authorization':'Bearer injected'})
+
+def test_sdk_retry_without_request_key_is_one_charge_across_app_restart(system,monkeypatch):
+    s,e,u,_,client=system
+    credit(e,u['id'],500)
+    s.models['public-model']=model_config()
+    monkeypatch.setattr(gateway,'validate_upstream',lambda url:url)
+    monkeypatch.setenv('R3_FIXTURE_KEY','fixture-not-secret')
+    original=httpx.AsyncClient
+    calls=[]
+    def response(request):
+        calls.append(json.loads(request.content))
+        return httpx.Response(200,text='data: {"type":"response.completed","response":{"id":"resp_fixture","model":"fixture","status":"completed","output":[],"usage":{"input_tokens":1000,"output_tokens":1000}}}\n\n')
+    monkeypatch.setattr(gateway.httpx,'AsyncClient',lambda **kw:original(transport=httpx.MockTransport(response),**kw))
+    url='/api/platform/v1/responses'
+    headers={'X-KStudio-Turn-ID':'sdk-retry-turn-001'}
+    first=client.post(url,json={'model':'public-model','input':'same prompt','stream':False},headers=headers)
+    assert first.status_code==200 and calls[0]['store'] is False
+
+    from cloud.main import create_app
+    from fastapi.testclient import TestClient
+    s.session_secret='synthetic-key-rotation-for-existing-accounts'
+    restarted=create_app(s)
+    try:
+        with TestClient(restarted,cookies=client.cookies,headers=dict(client.headers)) as next_client:
+            duplicate=next_client.post(url,json={'stream':True,'input':'same prompt','model':'public-model'},headers=headers)
+            assert duplicate.status_code==409
+            assert duplicate.headers['x-kstudio-task']==first.headers['x-kstudio-task']
+            assert len(calls)==1
+            tool_loop=next_client.post(url,json={'model':'public-model','input':'later tool result','stream':False},headers=headers)
+            assert tool_loop.status_code==200
+            assert tool_loop.headers['x-kstudio-task']!=first.headers['x-kstudio-task']
+            assert len(calls)==2
+    finally:
+        restarted.state.engine.dispose()
+    assert audit_wallet(e,u['id'])['balance']==484
+
+
+def test_request_key_cannot_alias_a_different_payload(system,monkeypatch):
+    s,e,u,_,client=system
+    credit(e,u['id'],500)
+    s.models['public-model']=model_config()
+    monkeypatch.setattr(gateway,'validate_upstream',lambda url:url)
+    monkeypatch.setenv('R3_FIXTURE_KEY','fixture-not-secret')
+    original=httpx.AsyncClient
+    seen=[]
+    def response(request):
+        seen.append(request)
+        return httpx.Response(429)
+    monkeypatch.setattr(gateway.httpx,'AsyncClient',lambda **kw:original(transport=httpx.MockTransport(response),**kw))
+    headers={'X-KStudio-Turn-ID':'explicit-key-turn-001','Idempotency-Key':'fixed-key'}
+    url='/api/platform/v1/responses'
+    first=client.post(url,json={'model':'public-model','input':'one','stream':False},headers=headers)
+    assert first.status_code==409
+    duplicate=client.post(url,json={'model':'public-model','input':'one','stream':False},headers=headers)
+    assert duplicate.status_code==409 and duplicate.headers['x-kstudio-task']==first.headers['x-kstudio-task']
+    conflict=client.post(url,json={'model':'public-model','input':'two','stream':False},headers=headers)
+    assert conflict.status_code==409 and 'different or unverified request' in conflict.json()['detail']
+    assert len(seen)==1 and audit_wallet(e,u['id'])['reserved']==50
+
+
+@pytest.mark.parametrize('content',[
+    'data: {"type":"response.created","response":{"model":"fixture","usage":{"input_tokens":1,"output_tokens":1}}}\n\ndata: {"type":"response.completed","response":{"model":"fixture"}}\n\n',
+    'data: {"type":"response.completed","response":{"model":"unexpected","usage":{"input_tokens":1,"output_tokens":1}}}\n\n',
+    'data: {"type":"response.completed","response":{"model":"fixture","status":"completed","usage":{"input_tokens":1,"output_tokens":1}}}\n',
+    'data: [DONE]\n\n',
+    'data: {"type":"response.completed","response":{"model":"fixture","usage":{"input_tokens":1,"output_tokens":1}}}\n\n',
+    'event: error\ndata: {"message":"private diagnostic"}\n\n',
+    'data: {"type":"response.completed","response":{"model":"fixture","status":"completed","usage":{"input_tokens":50000,"output_tokens":50000}}}\n\n',
+    'data: {"type":"response.completed","response":{"model":"fixture","status":"failed","usage":{"input_tokens":1,"output_tokens":1}}}\n\n',
+])
+def test_unverified_terminal_wire_contract_retains_hold_and_reports_error(system,monkeypatch,content):
+    _,e,u,_,_=system
+    uid=u['id'];credit(e,uid)
+    monkeypatch.setattr(gateway,'validate_upstream',lambda url:url)
+    monkeypatch.setenv('R3_FIXTURE_KEY','fixture-not-secret')
+    original=httpx.AsyncClient
+    response=httpx.Response(200,text=content,headers={'x-request-id':'fixture-provider-request'})
+    monkeypatch.setattr(gateway.httpx,'AsyncClient',lambda **kw:original(transport=httpx.MockTransport(lambda _:response),**kw))
+    task=turn_reserve(e,uid,'unverified-terminal')
+    async def run():return ''.join([frame async for frame in gateway.stream(e,uid,task,{},model_config())])
+    result=asyncio.run(run())
+    assert 'event: error' in result and 'private diagnostic' not in result
+    assert 'response.completed' not in result and '[DONE]' not in result
+    with e.connect() as c:
+        row=c.execute(select(tasks).where(tasks.c.id==task['id'])).mappings().one()
+        assert row['state']=='pending_reconciliation' and row['charged'] is None
+        assert json.loads(row['price_json'])['_provider_receipt']['provider_request_id']=='fixture-provider-request'
+    assert audit_wallet(e,uid)['reserved']==50
+
+
+def test_framed_terminal_is_published_only_after_durable_metering(system,monkeypatch):
+    _,e,u,_,_=system
+    uid=u['id'];credit(e,uid)
+    monkeypatch.setattr(gateway,'validate_upstream',lambda url:url)
+    monkeypatch.setenv('R3_FIXTURE_KEY','fixture-not-secret')
+    original=httpx.AsyncClient
+    body=('event: response.completed\n'
+          'data: {"type":"response.completed","response":\n'
+          'data: {"id":"resp_fixture","model":"fixture","status":"completed","output":[],'
+          '"usage":{"input_tokens":1000,"output_tokens":1000,"input_tokens_details":{"cached_tokens":137}}}}\n\n')
+    response=httpx.Response(200,text=body,headers={'x-request-id':'provider-trace-001'})
+    monkeypatch.setattr(gateway.httpx,'AsyncClient',lambda **kw:original(transport=httpx.MockTransport(lambda _:response),**kw))
+    task=turn_reserve(e,uid,'verified-terminal')
+    async def run():
+        generator=gateway.stream(e,uid,task,{},model_config())
+        terminal=await anext(generator)
+        assert 'response.completed' in terminal
+        with e.connect() as c:
+            row=c.execute(select(tasks).where(tasks.c.id==task['id'])).mappings().one()
+            assert row['state']=='settled' and row['charged']==8
+            receipt=json.loads(row['price_json'])['_provider_receipt']
+            assert receipt=={'provider_request_id':'provider-trace-001','provider_response_id':'resp_fixture',
+                             'reported_model':'fixture','input_tokens':1000,'output_tokens':1000,'cached_input_tokens':137}
+        await generator.aclose()
+    asyncio.run(run())
+    assert audit_wallet(e,uid)['reserved']==0
+
+
+def test_reconcile_requires_recent_browser_admin_and_pending_status(system):
+    s,e,u,other,client=system
+    uid=u['id'];credit(e,uid)
+    party=other['id']
+    s.admin_subjects=(u['subject'],)
+    task=turn_reserve(e,uid,'manual-reconcile')
+    claim(e,uid,task['id'])
+    url='/api/admin/tasks/'+task['id']+'/reconcile'
+    payload={'actual_units':8,'reason':'Fixture upstream invoice reference'}
+    assert client.post(url,json=payload).status_code==409  # active work may not be altered
+    detail_url='/api/admin/tasks/'+task['id']+'/reconciliation'
+    from cloud.ledger import remember_provider_receipt
+    remember_provider_receipt(e,uid,task['id'],{'provider_request_id':'fixture-correlation'})
+    settle(e,uid,task['id'],None)
+    details=client.get(detail_url)
+    assert details.status_code==200 and details.headers['cache-control']=='no-store'
+    assert details.json()['provider_receipt']=={'provider_request_id':'fixture-correlation'}
+    assert 'price_json' not in details.json() and 'user_id' not in details.json()
+    from cloud.auth import new_session
+    from cloud.db import now,sessions
+    from fastapi.testclient import TestClient
+    remote,csrf=new_session(e,party,'browser',3600)
+    nonadmin=TestClient(client.app,cookies={'kstudio_session':remote},headers={'X-CSRF-Token':csrf})
+    assert nonadmin.post(url,json=payload).status_code==403
+    assert nonadmin.get(detail_url).status_code==403
+    assert client.get(detail_url,headers={'Authorization':'Bearer '+client.cookies.get('kstudio_session')}).status_code==403
+    assert client.post(url,json=payload,headers={'Authorization':'Bearer '+client.cookies.get('kstudio_session')}).status_code==403
+    assert client.post(url,json={**payload,'actual_units':None}).status_code==400
+    assert client.post(url,json={**payload,'actual_units':51}).status_code==409
+    with e.begin() as c:c.execute(sessions.update().where(sessions.c.user_id==uid).values(authenticated_at=now()-301))
+    assert client.post(url,json=payload).status_code==403
+    token,csrf=new_session(e,uid,'browser',3600)
+    reviewer=TestClient(client.app,cookies={'kstudio_session':token},headers={'X-CSRF-Token':csrf})
+    for _ in range(2):
+        result=reviewer.post(url,json=payload)
+        assert result.status_code==200 and result.json()['charged']==8
+        assert 'price_json' not in result.json()
+    assert audit_wallet(e,uid)['balance']==92
+
+
+def test_upstream_hosted_tools_are_outside_the_metered_route(system):
+    s,e,u,_,client=system
+    credit(e,u['id'])
+    s.models['public-model']=model_config()
+    result=client.post('/api/platform/v1/responses',json={'model':'public-model','input':'test','tools':[{'type':'web_search'}]},
+                       headers={'X-KStudio-Turn-ID':'metered-tools-001'})
+    assert result.status_code==400
+    assert audit_wallet(e,u['id'])['reserved']==0

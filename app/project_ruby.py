@@ -764,7 +764,7 @@ class ProjectRubyExecutor:
             "script_id": script_id,
             "path": [],
             "offset": 0,
-            "limit": 1,
+            "limit": 64,
         })
         try:
             owned_readback = json.loads(verification_result["contentItems"][0]["text"])
@@ -774,6 +774,10 @@ class ProjectRubyExecutor:
                 expected_root_pid=root_pid,
                 expected_revision=new_revision,
             )
+            write_verification["direct_part_readback"] = [
+                {"name": obj.get("name"), "bounds_mm": obj.get("bounds_mm")}
+                for obj in owned_readback.get("objects", [])
+            ]
         except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as error:
             raise MCPCallError(f"Post-write read-back verification failed: {error}") from error
 

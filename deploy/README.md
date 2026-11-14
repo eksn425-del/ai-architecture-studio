@@ -43,7 +43,7 @@ that commit. Neither source packaging nor container smoke means production was d
 ```sh
 python3 deploy/ops.py backup --env-file PRIVATE --output /private-backups/new.age
 python3 deploy/ops.py restore-drill --env-file PRIVATE --archive /private-backups/new.age --target-db kstudio_restore_20261107
-python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_PREVIOUS_IMAGE
+python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_IMAGE_DIGEST --previous-release-sha VERIFIED_PREVIOUS_SOURCE_SHA
 ```
 
 Backup uses **pg_dump inside the private Compose db container**, piped into official age.
@@ -65,8 +65,14 @@ storage. Without those keys, encrypted records cannot be recovered. Snapshot bac
 not include native SKP, footage or WAL/PITR. Configure actual offsite retention, schedule,
 RPO/RTO and recovery contacts; this candidate never prunes earlier backups automatically.
 
-Rollback changes app/maintenance images, preserving volumes. Confirm schema compatibility
-before rollback. Do not restore an older database over new orders to revert application code.
+Rollback verifies the immutable image revision and uses its read-only audit against the current database before changing app/maintenance. It preserves volumes. Validate the actual prior release via HTTPS and audit before restoring traffic. Wildcard tags and earlier images missing this compatibility probe are refused.
+
+Staging and production use separate named projects, volume namespaces and private
+networks. Keep their confidential environment files and HTTPS hosts separate. The
+first production deployment needs all public switches closed and
+`--permit-closed-production`. An operation that sets a production switch requires
+`--commercial` with a matching independently accepted gate state and private owner
+approval record.
 
 The real local PostgreSQL17.11/age/vault/payment-inbox drill and its preserved failures are
 recorded in [R3 backup/restore evidence](../docs/execution/KSTUDIO_R3_BACKUP_RESTORE_20261107.md).

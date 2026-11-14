@@ -41,6 +41,24 @@ def validate_color(color, label):
         raise ValueError(f"{label} is RGB 0..255.")
 
 
+def require_coplanar(points):
+    origin = points[0]
+    previous = [v-o for v,o in zip(points[1], origin)]
+    for point in points[2:]:
+        current = [v-o for v,o in zip(point, origin)]
+        x, y, z = previous
+        u, v, w = current
+        normal = (y*w-z*v, z*u-x*w, x*v-y*u)
+        length = math.hypot(*normal)
+        if length > 1e-6:
+            if any(abs(sum((p-o)*n for p,o,n in zip(vertex,origin,normal))) > 0.001*length
+                   for vertex in points):
+                raise ValueError('Polygon points must be coplanar to within 0.001 mm.')
+            return
+        previous = current
+    raise ValueError('Polygon points are degenerate.')
+
+
 def validate_window_bay(piece, repeat, step, rotation):
     width, thickness, height = vector(piece["size"], "size")
     vector(piece["origin"], "origin")
@@ -149,6 +167,7 @@ def validate_parts(arguments):
                     raise ValueError("Polygon needs bounded coplanar perimeter vertices.")
                 for v in vertices:
                     vector(v, "vertex")
+                require_coplanar(vertices)
                 number(piece["extrude"], "extrude")
             validate_color(piece.get("color", [190, 180, 160]), "color")
             alpha = number(piece.get("alpha", 1), "alpha", 1)
@@ -210,10 +229,14 @@ parts.each do |part|
     when 'box'
       x,y,z = origin.map { |n| n.mm }
       w,d,h = piece['size'].map { |n| n.mm }
-      face = ent.add_face([x,y,z], [x+w,y,z], [x+w,y+d,z], [x,y+d,z])
-      raise 'Degenerate box base' unless face
-      face.reverse! if face.normal.z < 0
-      face.pushpull(h)
+      low = [[x,y,z], [x+w,y,z], [x+w,y+d,z], [x,y+d,z]]
+      high = low.map { |px,py,pz| [px,py,pz+h] }
+      raise 'Degenerate box cap' unless ent.add_face(low.reverse) && ent.add_face(high)
+      4.times do |i|
+        j = (i+1) % 4
+        raise 'Degenerate box side' unless ent.add_face(low[i], low[j], high[j], high[i])
+      end
+      raise 'Box must form a closed native solid' unless child.manifold?
     when 'polygon'
       face = ent.add_face(piece['vertices'].map { |v| v.map { |n| n.mm } })
       raise 'Nonplanar or degenerate polygon' unless face

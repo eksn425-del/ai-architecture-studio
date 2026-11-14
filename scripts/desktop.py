@@ -51,7 +51,8 @@ def main() -> None:
                 session = DSHHostSession(home=profile / 'diagnostic-harness', workspace=workspace,
                     api_base='https://example.invalid/v1', api_key='offline-fixture-no-provider-access', model='fixture-model',
                     specs=[], dispatch=lambda *args: None, trace_path=profile / 'diagnostic-events.jsonl',
-                    sdk_site=Path(os.environ['KSTUDIO_DSH_SDK_SITE']), dsh_bin=configured['launcher'], full_capabilities=True)
+                    sdk_site=Path(os.environ['KSTUDIO_DSH_SDK_SITE']), dsh_bin=configured['launcher'],
+                    full_capabilities=True, host_plan_mode=True)
                 try:
                     session.start()
                     result['native_tools'] = session.inventory

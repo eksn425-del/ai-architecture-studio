@@ -7,8 +7,8 @@
 | 参数 | 实际值与约束 |
 | --- | --- |
 | `KSTUDIO_DOMAIN` / `KSTUDIO_CLOUD_PUBLIC_URL` | 实际 DNS 名及匹配 HTTPS origin；不能用占位域名 |
-| `KSTUDIO_CLOUD_ENV` | 先 staging；真实验收后才 production |
-| `KSTUDIO_IMAGE` / `KSTUDIO_RELEASE_SHA` | 验证的镜像标签或 digest、对应完整40位源码 SHA；ops 拒绝脏工作区或不匹配源码 |
+| `KSTUDIO_CLOUD_ENV` | staging 与 production 使用独立的 Compose 项目、数据库卷和私有网段。公网 DNS、宿主端口和私有凭据使用不同主机或经独立验证的入口。 |
+| `KSTUDIO_IMAGE` / `KSTUDIO_RELEASE_SHA` | 完整40位源码 SHA 与对应的 `kstudio-cloud:<SHA>` 构建标签，或已在本机取得的不可变镜像 digest。启动前核对 checkout／镜像标记，公网健康检查核对服务自身回报的 SHA。 |
 | `KSTUDIO_DATABASE_PASSWORD` | 独立随机数据库密码 |
 | `KSTUDIO_CLOUD_DATABASE_URL` | `postgresql+psycopg://kstudio:<URL编码密码>@db:5432/kstudio`；Compose 不发布数据库端口 |
 | `KSTUDIO_CLOUD_SESSION_SECRET` | 至少32字符随机服务端密钥，私有备份 |
@@ -52,9 +52,11 @@ python3 deploy/ops.py health --env-file /srv/kstudio-private/runtime.env
 python3 deploy/ops.py audit --env-file /srv/kstudio-private/runtime.env
 ```
 
-`deploy` 启动私网数据库、迁移，再启动 app/proxy/maintenance。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
+`deploy` 启动私网数据库并迁移，随后启动 app/proxy/maintenance，再审计当前账本。旧 `kstudio-cloud` 项目不会自动归入新的环境项目；如发现旧数据，先独立核实卷和备份，再制定迁移。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
 
-回退：`python3 deploy/ops.py rollback --env-file ... --previous-image 已验证旧镜像`。只切 app/maintenance 镜像，不删卷或订单；先确认旧程序与 schema3 兼容，再验健康与账本。数据库切换另行安排，restore-drill 不自动切生产。
+生产空后台首次部署依赖明确的运营授权，并需手动传入 `--permit-closed-production`；注册、平台模型、下载和支付均须保持 0。启用任一生产开关时由 `--commercial --gate-state 已验证发布关卡JSON --launch-approval 私有负责人批准JSON` 核对相同源码、安装包与批准范围。负责人批准含实际授权记录引用、SHA 与获准开关，保存在私有运维目录。运维人员核验批准来源，脚本的一致性检查无法替代运营者授权。
+
+回退：`python3 deploy/ops.py rollback --env-file ... --previous-image 已验证镜像digest --previous-release-sha 已验证旧源码SHA`。用旧镜像只读核对现有 schema、账本与 Vault，再只切 app/maintenance。回退后使用旧 SHA/digest 对应的私有配置复核 HTTPS 和账本，并同步运维配置。尽快补齐实际告警与回退演练；源码测试无法证明生产端可回退。数据库切换另行安排，restore-drill 不自动切生产。
 
 ## 加密备份与隔离恢复
 

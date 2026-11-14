@@ -1,4 +1,9 @@
-name: kstudio-cloud
+name: kstudio-cloud-${KSTUDIO_CLOUD_ENV:?set staging or production}
+x-app-build: &app-build
+  context: ..
+  dockerfile: deploy/Dockerfile
+  args:
+    KSTUDIO_BUILD_RELEASE_SHA: ${KSTUDIO_RELEASE_SHA:?set the pinned source SHA}
 services:
   db:
     image: postgres:17
@@ -14,11 +19,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      private: {ipv4_address: 172.31.91.4}
+    networks: [private]
   migrate:
     image: ${KSTUDIO_IMAGE:?set immutable application image tag or digest}
-    build: {context: .., dockerfile: deploy/Dockerfile}
+    build: *app-build
     env_file: ${KSTUDIO_ENV_FILE:-.env}
     volumes:
       - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
@@ -28,18 +32,24 @@ services:
     profiles: [maintenance]
   app:
     image: ${KSTUDIO_IMAGE:?set immutable application image tag or digest}
-    build: {context: .., dockerfile: deploy/Dockerfile}
+    build: *app-build
     restart: unless-stopped
     env_file: ${KSTUDIO_ENV_FILE:-.env}
     volumes:
       - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
     depends_on: {db: {condition: service_healthy}}
+    command: ["uvicorn", "cloud.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "8920", "--workers", "1", "--proxy-headers", "--forwarded-allow-ips", "${KSTUDIO_PROXY_IP:?set via deploy/ops.py}", "--no-access-log"]
+    environment:
+      KSTUDIO_REGISTRATION_ENABLED: ${KSTUDIO_REGISTRATION_ENABLED:-0}
+      KSTUDIO_PLATFORM_ENABLED: ${KSTUDIO_PLATFORM_ENABLED:-0}
+      KSTUDIO_DOWNLOAD_ENABLED: ${KSTUDIO_DOWNLOAD_ENABLED:-0}
+      KSTUDIO_PAYMENT_ENABLED: ${KSTUDIO_PAYMENT_ENABLED:-0}
     read_only: true
     tmpfs: [/tmp]
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     networks:
-      private: {ipv4_address: 172.31.91.2}
+      private: {}
       outbound: {}
     healthcheck:
       test: ["CMD", "python", "-c", "import os,urllib.request; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8920/health/ready',headers={'Host':__import__('urllib.parse',fromlist=['urlparse']).urlparse(os.environ['KSTUDIO_CLOUD_PUBLIC_URL']).netloc}))"]
@@ -48,7 +58,7 @@ services:
       retries: 3
   maintenance:
     image: ${KSTUDIO_IMAGE:?set immutable application image tag or digest}
-    build: {context: .., dockerfile: deploy/Dockerfile}
+    build: *app-build
     restart: unless-stopped
     env_file: ${KSTUDIO_ENV_FILE:-.env}
     volumes:
@@ -71,7 +81,7 @@ services:
       - caddy_config:/config
     depends_on: [app]
     networks:
-      private: {ipv4_address: 172.31.91.3}
+      private: {ipv4_address: "${KSTUDIO_PROXY_IP:?set via deploy/ops.py}"}
       outbound: {}
 volumes:
   postgres_data:
@@ -81,5 +91,5 @@ networks:
   private:
     internal: true
     ipam:
-      config: [{subnet: 172.31.91.0/24}]
+      config: [{subnet: "${KSTUDIO_PRIVATE_SUBNET:?set via deploy/ops.py}"}]
   outbound: {}

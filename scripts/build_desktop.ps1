@@ -55,6 +55,24 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Tokenizer vocabulary preparation failed.' }
     $nativeDataArgs = @()
     Get-ChildItem -LiteralPath (Join-Path $repoPath 'app') -Filter '*.rb' | ForEach-Object { $nativeDataArgs += @('--add-data', "$($_.FullName);app") }
+    # Historical showcase drawings do not have a commercial redistribution receipt.
+    # Exclude them from a new stage without modifying the checked-out source.
+    $staticSource = Join-Path $repoPath 'app/static'
+    $staticStage = Join-Path $OutputRoot 'static-stage'
+    $showcase = Join-Path $staticSource 'showcase'
+    & robocopy $staticSource $staticStage /E /XD $showcase /COPY:DAT /DCOPY:DAT /R:1 /W:1 /MT:8 /NFL /NDL /NJH /NJS /NP | Out-Null
+    if ($LASTEXITCODE -ge 8 -or (Test-Path -LiteralPath (Join-Path $staticStage 'showcase'))) {
+        throw 'Distribution static staging failed.'
+    }
+    $unlicensed = @()
+    if (Test-Path -LiteralPath $showcase) {
+        $unlicensed = @(Get-ChildItem -LiteralPath $showcase -File -Recurse | ForEach-Object {
+            [ordered]@{path='app/static/showcase/'+$_.FullName.Substring($showcase.Length + 1).Replace('\','/');
+                sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
+        })
+    }
+    [ordered]@{exclusion='app/static/showcase'; files=$unlicensed; source_unchanged=$true} |
+        ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputRoot 'static-stage-exclusions.json') -Encoding utf8
     & $pythonPath -m PyInstaller --noconfirm --windowed --name KStudio --icon "$repoPath/app/static/kstudio.ico" `
         --distpath "$OutputRoot/dist" --workpath "$OutputRoot/build" --specpath "$OutputRoot/build" `
         --paths $sdkStage --collect-all deepseek_harness --copy-metadata deepseek-harness-sdk --add-data "$sdkStage/deepseek_harness;deepseek_harness" `
@@ -63,7 +81,7 @@ try {
         --add-data "$repoPath/app/dsh_tool_policy.mjs;app" `
         --add-data "$repoPath/app/dsh_test_budget.mjs;app" `
         --add-data "$repoPath/app/architecture_skills;app/architecture_skills" `
-        --add-data "$repoPath/app/static;app/static" --add-data "$repoPath/app/vendor;app/vendor" --add-data "$repoPath/scripts;scripts" `
+        --add-data "$staticStage;app/static" --add-data "$repoPath/app/vendor;app/vendor" --add-data "$repoPath/scripts;scripts" `
         --add-data "$repoPath/THIRD_PARTY_NOTICES.md;." --add-data "$repoPath/app/adopted_sketchup_helpers.rb;app" --collect-all webview --collect-all litellm `
         --add-data "$repoPath/app/native_deep_fingerprint.rb;app" --add-data "$repoPath/app/native_definition_graph.rb;app" --add-data "$repoPath/app/native_architecture_features.rb;app" `
         --add-data "$repoPath/app/path_scope_guard.rb;app" --add-data "$repoPath/app/path_scope_graph_guard.rb;app" --add-data "$repoPath/app/edit_scope_guard.rb;app" --add-data "$repoPath/app/oss_method_runtime.rb;app" `

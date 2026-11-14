@@ -20,6 +20,10 @@ def test_full_profile_keeps_official_capabilities_and_compaction(tmp_path, monke
     assert remaining >= 65536
     assert compaction['retainTokens']+compaction['maxTokens'] < remaining
     assert next(r for r in rows if r.get('id')=='agent-default-model')['config']['provider']=='kstudio-bai'
+    write_profile(path,api_base='https://api.b.ai/v1',model='deepseek-v4.1-flash',host_plan_mode=True)
+    rows=json.loads(path.read_text(encoding='utf-8'))
+    assert {'id':'plan-mode','disabled':True} in rows
+    assert any(row.get('id')=='tool-subagent' for row in rows)
 
 
 def test_mcp_and_skill_are_added_without_replacing_native_tools(tmp_path,monkeypatch):

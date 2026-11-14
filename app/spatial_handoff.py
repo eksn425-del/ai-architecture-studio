@@ -83,9 +83,9 @@ def validate_spatial(value, parts, source_ids):
         if not isinstance(feature,dict) or set(feature)!={'id','kind','parts','description','basis','source'}:
             raise ValueError('Critical feature requires id/kind/parts/description/basis/source.')
         if (not isinstance(feature['id'],str) or not 1<=len(feature['id'])<=80 or feature['id'] in ids
-            or feature['kind'] not in {'split_level','cantilever','setback','void','stair_landing','ramp','mass_relation','uncertain_back'}
-            or not isinstance(feature['parts'],list) or not feature['parts'] or any(p not in parts for p in feature['parts'])
-            or feature['basis'] not in {'observed','user','inferred'}
+            or feature['kind'] not in ('split_level','cantilever','setback','void','stair_landing','ramp','mass_relation','uncertain_back')
+            or not isinstance(feature['parts'],list) or not feature['parts'] or any(not isinstance(p,str) or p not in parts for p in feature['parts'])
+            or feature['basis'] not in ('observed','user','inferred')
             or not isinstance(feature['source'],str) or (feature['basis']=='observed' and feature['source'] not in source_ids)
             or not isinstance(feature['description'],str) or not 1<=len(feature['description'])<=1200):
             raise ValueError('Invalid critical spatial feature evidence or part scope.')

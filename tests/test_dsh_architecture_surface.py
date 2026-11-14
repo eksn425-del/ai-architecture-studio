@@ -60,7 +60,8 @@ def test_construction_receipt_requires_new_confirmed_native_revision(monkeypatch
 
 def test_typed_construction_uses_the_same_committed_progress_ledger(monkeypatch, tmp_path):
     state = {'harness_building': {'root_pid': 42, 'revision': 1, 'durability_status': 'saved_unverified_reopen'}}
-    original = SimpleNamespace(dynamic_tools=[])
+    original = SimpleNamespace(dynamic_tools=[{'name':'sketchup_run_workspace_ruby'},
+                                              {'name':'sketchup_inspect_owned'}])
     monkeypatch.setattr('app.dsh_architecture_surface.AgentToolSurface', lambda *_: SimpleNamespace(prepare=lambda **_: original))
 
     def dispatch(name, args):
@@ -70,7 +71,11 @@ def test_typed_construction_uses_the_same_committed_progress_ledger(monkeypatch,
 
     base = SimpleNamespace(dynamic_tools=[], quality_state={'writes': []}, dispatch=dispatch)
     surface = extend_surface(base, runtime_root=tmp_path, mcp=None, project_dir=tmp_path,
-                             model_path=tmp_path / 'a.skp', model_guid='g', ruby_state=state, allowed_parts={'FrontWall'})
+                             model_path=tmp_path / 'a.skp', model_guid='g', ruby_state=state, allowed_parts={'FrontWall'},
+                             typed_only=True)
+    assert [s['name'] for s in surface.dynamic_tools] == ['sketchup_inspect_owned']
+    with pytest.raises(ValueError, match='受控几何'):
+        surface.dispatch('sketchup_run_workspace_ruby', {})
     result = surface.dispatch('sketchup_apply_parts', {'construction_stage': 'sample', 'parts': []})
     assert result['construction_step']['stage'] == 'sample'
     assert surface.dispatch('sketchup_model_state', {})['construction_steps'][0]['revision'] == 2

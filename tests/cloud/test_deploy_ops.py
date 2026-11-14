@@ -83,11 +83,15 @@ def test_commercial_check_uses_public_operator_contract_and_explicit_license_cle
         'KSTUDIO_WECHATPAY_APPID','KSTUDIO_WECHATPAY_API_V3_KEY_FILE',
         'KSTUDIO_WECHATPAY_MERCHANT_PRIVATE_KEY_FILE','KSTUDIO_WECHATPAY_MERCHANT_SERIAL',
         'KSTUDIO_WECHATPAY_VERIFY_MATERIAL_FILE','KSTUDIO_BAI_PLATFORM_KEY','KSTUDIO_BACKUP_RECIPIENT')}
-    values.update(KSTUDIO_CLOUD_PUBLIC_URL='https://fixture',KSTUDIO_RELEASE_SHA='a'*40,
+    values.update(KSTUDIO_DOMAIN='fixture.test',KSTUDIO_CLOUD_ENV='staging',
+        KSTUDIO_CLOUD_PUBLIC_URL='https://fixture.test',KSTUDIO_RELEASE_SHA='a'*40,
+        KSTUDIO_IMAGE='kstudio-cloud:'+'a'*40,KSTUDIO_CLOUD_SESSION_SECRET='a'*32,
+        KSTUDIO_CLOUD_DATABASE_URL='postgresql+psycopg://kstudio:disposable-password@db:5432/kstudio',
         KSTUDIO_PRICES_CONFIRMED='1',KSTUDIO_PAYMENT_PROVIDER='wechat_native')
     operator={k:'fixture' for k in ('name','support_email','icp','privacy_contact','data_retention','refund_policy')}
     release={k:True for k in ('verified','public_distribution_authorized','signing_verified','clean_windows_verified')}
     release['license_clearance']='CLEARED'
+    release['sha256']='b'*64
     values.update(KSTUDIO_OPERATOR=json.dumps(operator),KSTUDIO_CLOUD_RELEASE=json.dumps(release))
     assert ops.check(values,commercial=True)['status']=='READY_FOR_OPERATOR_EXECUTION'
     for unapproved in (True,False,'REVIEW_REQUIRED','cleared',''):
@@ -95,3 +99,79 @@ def test_commercial_check_uses_public_operator_contract_and_explicit_license_cle
         assert 'release_acceptance_missing' in ops.check(values,commercial=True)['errors']
     operator.pop('support_email');values['KSTUDIO_OPERATOR']=json.dumps(operator)
     assert 'operator_identity_contact_or_icp_missing' in ops.check(values,commercial=True)['errors']
+
+
+def test_preflight_isolates_compose_environments_and_refuses_non_https_or_wrong_database():
+    values={'KSTUDIO_DOMAIN':'operator.test','KSTUDIO_CLOUD_ENV':'staging',
+        'KSTUDIO_CLOUD_PUBLIC_URL':'https://operator.test','KSTUDIO_RELEASE_SHA':'a'*40,
+        'KSTUDIO_CLOUD_DATABASE_URL':'postgresql+psycopg://kstudio:fixture@db:5432/kstudio',
+        'KSTUDIO_DATABASE_PASSWORD':'fixture','KSTUDIO_CLOUD_SESSION_SECRET':'a'*32,
+        'KSTUDIO_SECRET_DIR':'/private','KSTUDIO_IMAGE':'kstudio-cloud:'+'a'*40}
+    assert ops.check(values)['status']=='READY_FOR_OPERATOR_EXECUTION'
+    assert ops.selected_private_network('staging')!=ops.selected_private_network('production')
+    for url in ('http://operator.test','https://operator.test/path','https://operator.test:444',
+                'https://dev@operator.test','https://[broken'):
+        assert 'invalid_https_origin' in ops.check({**values,'KSTUDIO_CLOUD_PUBLIC_URL':url})['errors']
+    assert 'database_outside_private_compose_contract' in ops.check({
+        **values,'KSTUDIO_CLOUD_DATABASE_URL':'postgresql+psycopg://kstudio:fixture@other-db:5432/kstudio'
+    })['errors']
+    assert 'invalid_deployment_environment' in ops.check({**values,'KSTUDIO_CLOUD_ENV':'test'})['errors']
+
+
+def test_health_requires_server_release_and_schema(monkeypatch):
+    import io
+    observed={'status':'ready','environment':'staging','release_sha':'a'*40,'schema_version':3}
+    calls=[]
+    class Handler:
+        def open(self,request,*,timeout):
+            calls.append(request.full_url)
+            return io.BytesIO(json.dumps(observed).encode())
+    monkeypatch.setattr(ops.urllib.request,'build_opener',lambda *handlers:Handler())
+    values={'KSTUDIO_CLOUD_PUBLIC_URL':'https://operator.test','KSTUDIO_RELEASE_SHA':'a'*40,
+            'KSTUDIO_CLOUD_ENV':'staging'}
+    assert ops.check_health(values)['release_sha']=='a'*40
+    assert calls==['https://operator.test/health/ready']
+    for key,value in [('release_sha','b'*40),('environment','production'),('schema_version',None)]:
+        original=observed[key]
+        observed[key]=value
+        with pytest.raises(ValueError):ops.check_health(values)
+        observed[key]=original
+
+
+def test_live_switch_requires_independent_gates_exact_sha_and_owner_receipt():
+    import hashlib
+    source='a'*40
+    installer='b'*64
+    gates={'implementation_sha':source,'status':'READY_FOR_OWNER_LAUNCH_APPROVAL',
+        'gates':[{'id':f'G{i:02d}','status':'PASS','independent_reviewer':'fixture review'}
+                 for i in range(11)],
+        'release':{'signed_installer_sha256':installer}}
+    values={'KSTUDIO_RELEASE_SHA':source,'KSTUDIO_CLOUD_PUBLIC_URL':'https://operator.test',
+        'KSTUDIO_CLOUD_RELEASE':json.dumps({'sha256':installer}),'KSTUDIO_DOWNLOAD_ENABLED':'1'}
+    approval={'release_sha':source,'signed_installer_sha256':installer,
+        'gate_sha256':hashlib.sha256(ops.canonical_json(gates)).hexdigest(),
+        'origin':'https://operator.test','approved':True,'owner_reference':'fixture reference',
+        'switches':['KSTUDIO_DOWNLOAD_ENABLED']}
+    ops.validate_launch(values,gates,approval,commercial=True)
+    with pytest.raises(ValueError):ops.validate_launch(values,gates,approval,commercial=False)
+    with pytest.raises(ValueError):ops.validate_launch({**values,'KSTUDIO_PAYMENT_ENABLED':'1'},gates,approval,commercial=True)
+    gates['gates'][4]['status']='BLOCKED_EXTERNAL'
+    approval['gate_sha256']=hashlib.sha256(ops.canonical_json(gates)).hexdigest()
+    with pytest.raises(ValueError):ops.validate_launch(values,gates,approval,commercial=True)
+
+
+def test_rollback_refuses_old_image_until_read_only_compatible_audit_passes(monkeypatch):
+    calls=[]
+    monkeypatch.setattr(ops.subprocess,'check_output',lambda *a,**k:'a'*40)
+    def run(command,**kwargs):
+        calls.append(command)
+        return SimpleNamespace(stdout=b'{"consistent":true,"rollback_read_only":true,"schema_version":3}')
+    monkeypatch.setattr(ops.subprocess,'run',run)
+    digest='kstudio@sha256:'+'b'*64
+    with pytest.raises(ValueError):ops.rollback_image(['docker','compose'],{},'mutable:latest','a'*40)
+    with pytest.raises(ValueError):ops.rollback_image(['docker','compose'],{},digest,'f'*40)
+    assert calls==[]
+    ops.rollback_image(['docker','compose'],{},digest,'a'*40)
+    assert len(calls)==2 and calls[0][-1]=='rollback-check'
+    assert calls[1][-2:]==['app','maintenance']
+    assert '--no-deps' in calls[0] and '--no-deps' in calls[1]

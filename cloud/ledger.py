@@ -15,12 +15,15 @@ def wallet(c,user):
     return {'available':row['balance']-row['reserved'],'balance':row['balance'],'reserved':row['reserved']}
 def existing_task(c,user,key):
     return c.execute(select(tasks).where(tasks.c.user_id==user,tasks.c.key==key)).mappings().first()
-def reserve(engine,user,key,mode,model,ceiling,price,daily_limit=None,*,turn_id=None,turn_ceiling=None,max_turn_requests=90,turn_seconds=3600,max_concurrent=None):
+def reserve(engine,user,key,mode,model,ceiling,price,daily_limit=None,*,turn_id=None,turn_ceiling=None,max_turn_requests=90,turn_seconds=3600,max_concurrent=None,request_fingerprint=None):
     amount(ceiling)
     if not isinstance(key,str) or not key or len(key)>128 or mode not in ('platform','byok'):raise BillingError('Invalid task request')
     def check(row):
         if row['mode']!=mode or row['model']!=model or row['reserve']!=ceiling:raise BillingError('Idempotency key reused for different request')
-        if turn_id is not None and json.loads(row['price_json']).get('_turn',{}).get('id')!=turn_id:raise BillingError('Idempotency key belongs to another modeling turn')
+        prior_price=json.loads(row['price_json'])
+        if turn_id is not None and prior_price.get('_turn',{}).get('id')!=turn_id:raise BillingError('Idempotency key belongs to another modeling turn')
+        if request_fingerprint is not None and prior_price.get('_request_fingerprint')!=request_fingerprint:
+            raise BillingError('Idempotency key belongs to a different or unverified request')
         return dict(row)
     if turn_id is not None:
         if mode!='platform' or not isinstance(turn_id,str) or not re.fullmatch(r'[A-Za-z0-9_-]{8,128}',turn_id):raise BillingError('Invalid modeling turn identity')
@@ -46,6 +49,8 @@ def reserve(engine,user,key,mode,model,ceiling,price,daily_limit=None,*,turn_id=
                 active=c.execute(select(func.count()).select_from(tasks).where(tasks.c.mode=='platform',tasks.c.state.in_(['reserved','running']))).scalar()
                 if active>=max_concurrent:raise BillingError('Platform capacity reached; retry only before dispatch')
             stored_price=dict(price)
+            if request_fingerprint is not None:
+                stored_price['_request_fingerprint']=request_fingerprint
             if turn_id is not None:
                 matching=[]
                 for previous in c.execute(select(tasks).where(tasks.c.user_id==user,tasks.c.mode=='platform')).mappings():
@@ -84,9 +89,24 @@ def claim(engine,user,task_id):
     with engine.begin() as c:
         changed=c.execute(update(tasks).where(tasks.c.id==task_id,tasks.c.user_id==user,tasks.c.state=='reserved').values(state='running',updated=now())).rowcount
         if changed!=1:raise BillingError('Task already dispatched; do not replay upstream request')
-def settle(engine,user,task_id,actual=None,reason='provider usage',reconcile=False):
+def remember_provider_receipt(engine, user, task_id, receipt):
+    if not receipt:
+        return
+    with engine.begin() as c:
+        row=c.execute(select(tasks.c.price_json).where(tasks.c.id==task_id,tasks.c.user_id==user,
+                      tasks.c.state=='running').with_for_update()).scalar_one_or_none()
+        if row is None:
+            raise BillingError('Running task disappeared before upstream receipt was saved')
+        changed=c.execute(update(tasks).where(tasks.c.id==task_id,tasks.c.state=='running')
+                          .values(price_json=json.dumps({**json.loads(row),'_provider_receipt':receipt}))).rowcount
+        if changed!=1:
+            raise BillingError('Running task changed before upstream receipt was saved')
+
+
+def settle(engine,user,task_id,actual=None,reason='provider usage',reconcile=False,*,provider_receipt=None):
     if actual is not None:amount(actual)
     with engine.begin() as c:
+        c.execute(update(wallets).where(wallets.c.user_id==user).values(reserved=wallets.c.reserved))
         row=c.execute(select(tasks).where(tasks.c.id==task_id,tasks.c.user_id==user).with_for_update()).mappings().first()
         if row is None:raise BillingError('Task not found')
         if row['state']=='settled':
@@ -95,14 +115,39 @@ def settle(engine,user,task_id,actual=None,reason='provider usage',reconcile=Fal
         if row['state']=='pending_reconciliation' and not reconcile:
             if actual is None:return dict(row)
             raise BillingError('Administrative reconciliation required')
+        if reconcile and row['state']!='pending_reconciliation':
+            raise BillingError('Only requests awaiting reconciliation may be reconciled')
+        fields={'updated':now()}
+        if provider_receipt:
+            fields['price_json']=json.dumps({**json.loads(row['price_json']),'_provider_receipt':provider_receipt})
         if actual is None or actual>row['reserve']:
-            c.execute(update(tasks).where(tasks.c.id==task_id).values(state='pending_reconciliation',updated=now()))
-            return {**row,'state':'pending_reconciliation'}
-        changed=c.execute(update(tasks).where(tasks.c.id==task_id,tasks.c.state==row['state']).values(state='settled',charged=actual,updated=now())).rowcount
+            fields['state']='pending_reconciliation'
+            c.execute(update(tasks).where(tasks.c.id==task_id).values(**fields))
+            return {**row,**fields}
+        fields.update(state='settled',charged=actual)
+        changed=c.execute(update(tasks).where(tasks.c.id==task_id,tasks.c.state==row['state']).values(**fields)).rowcount
         if changed!=1:raise BillingError('Concurrent settlement conflict')
         c.execute(update(wallets).where(wallets.c.user_id==user).values(balance=wallets.c.balance-actual,reserved=wallets.c.reserved-row['reserve']))
         event(c,user,'settle',-actual,-row['reserve'],task_id,'settle:'+task_id,row['price_version'],reason)
-        return {**row,'state':'settled','charged':actual}
+        return {**row,**fields}
+
+
+def release_undispatched(engine, user, task_id, observed_at):
+    with engine.begin() as c:
+        c.execute(update(wallets).where(wallets.c.user_id==user).values(reserved=wallets.c.reserved))
+        condition=(tasks.c.id==task_id,tasks.c.user_id==user,tasks.c.state=='reserved',tasks.c.updated==observed_at)
+        row=c.execute(select(tasks).where(*condition).with_for_update()).mappings().first()
+        if row is None:
+            return False
+        changed=c.execute(update(tasks).where(*condition).values(state='settled',charged=0,updated=now())).rowcount
+        if changed!=1:
+            return False
+        c.execute(update(wallets).where(wallets.c.user_id==user).values(reserved=wallets.c.reserved-row['reserve']))
+        event(c,user,'settle',0,-row['reserve'],task_id,'settle:'+task_id,row['price_version'],
+              'recovery: reserved task was never dispatched')
+        return True
+
+
 def create_order(engine,user,key,package,config):
     amount(config['amount']);amount(config['credits'])
     if config['amount']<=0 or config['credits']<=0:raise BillingError('Invalid package')
@@ -158,6 +203,12 @@ def refund_confirmed(engine,order_id,refund_id,paid_amount):
         return 'refunded'
 def audit_wallet(engine,user):
     with engine.connect() as c:
-        w=wallet(c,user)
-        sums=c.execute(select(func.coalesce(func.sum(ledger.c.amount),0),func.coalesce(func.sum(ledger.c.reservation_delta),0)).where(ledger.c.user_id==user)).one()
-        return {**w,'event_balance':sums[0],'event_reserved':sums[1],'consistent':w['balance']==sums[0] and w['reserved']==sums[1]}
+        balance,reserved,event_balance,event_reserved=c.execute(
+            select(wallets.c.balance,wallets.c.reserved,func.coalesce(func.sum(ledger.c.amount),0),
+                   func.coalesce(func.sum(ledger.c.reservation_delta),0))
+            .select_from(wallets.outerjoin(ledger,wallets.c.user_id==ledger.c.user_id))
+            .where(wallets.c.user_id==user).group_by(wallets.c.balance,wallets.c.reserved)
+        ).one()
+    return {'balance':balance,'reserved':reserved,'available':balance-reserved,
+            'event_balance':event_balance,'event_reserved':event_reserved,
+            'consistent':balance==event_balance and reserved==event_reserved}

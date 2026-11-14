@@ -112,6 +112,54 @@ def test_bad_signature_future_heartbeat_and_stopped_cannot_route(paired, tmp_pat
         ci.target_for_request(paired, directory)
 
 
+def test_recent_stale_selected_heartbeat_can_refresh_read_but_cannot_route_write(paired, tmp_path, monkeypatch):
+    from app import connector_instances as service
+    project = tmp_path / 'project'
+    instance = {'instance_id':'22-'+'a'*24, 'model_path':str(tmp_path/'example.skp'), 'model_guid':'guid'}
+    service.write_selection(paired, project, instance)
+    stale = {**instance, 'status':'stale', 'last_seen':service.time.time()-service.HEARTBEAT_TTL-0.2}
+    fresh = {**instance, 'status':'live'}
+    monkeypatch.setattr(service, 'instances', lambda root: [stale])
+    (paired/'instances').mkdir(exist_ok=True)
+    with pytest.raises(ValueError, match='过期'):
+        service.target_for_request(paired, project)
+    response = iter([[stale], [fresh]])
+    monkeypatch.setattr(service, 'instances', lambda root: next(response))
+    assert service.target_for_request(paired, project, wait_for_read=True)['instance_id'] == instance['instance_id']
+
+
+@pytest.mark.parametrize('journal', ['write-in-flight', 'activation', 'invalid'])
+def test_uncertain_native_state_blocks_new_conversation_before_billing(tmp_path, monkeypatch, journal):
+    from fastapi.testclient import TestClient
+    from app.main import create_app
+
+    def unavailable(*args, **kwargs):
+        pytest.fail('This request must not authorize billing or dispatch to a provider')
+
+    app = create_app(tmp_path / 'runtime')
+    monkeypatch.setattr(type(app.state.cloud_account), 'authorize_turn', unavailable)
+    with TestClient(app) as client:
+        project = client.post('/api/projects', json={'project_name':'Pending recovery'}).json()['project_id']
+        path = tmp_path / 'runtime' / 'projects' / project / 'runtime'
+        if journal == 'activation':
+            path = path / 'native-recovery'
+            path.mkdir(parents=True)
+            (path / 'pending.json').write_text('{}', encoding='utf-8')
+        else:
+            path.mkdir(parents=True)
+            row = '{"scripts":{"harness_building":{"write_in_flight":true}}}' if journal == 'write-in-flight' else '{'
+            (path / 'project_ruby_state.json').write_text(row, encoding='utf-8')
+        request_id = 'b'*32
+        response = client.post(f'/api/projects/{project}/conversation',
+            json={'message':'继续做门廊。','client_request_id':request_id})
+        assert response.status_code == 409
+        assert response.json()['detail']['code'] == 'NATIVE_RECOVERY_REQUIRED'
+        receipt = json.loads((tmp_path / 'runtime' / 'projects' / project /
+            'runtime' / 'conversation_requests' / f'{request_id}.json').read_text(encoding='utf-8'))
+        assert receipt['status'] == 'failed_before_dispatch'
+        assert receipt['preflight_failures'][0]['provider_dispatched'] is False
+
+
 def test_profiles_with_same_project_id_have_distinct_pins(paired, tmp_path):
     _, one, path = project(tmp_path / 'a')
     _, two, path2 = project(tmp_path / 'b')
@@ -136,7 +184,7 @@ def test_parallel_project_requests_are_targeted_and_wrong_reply_refused(paired, 
             for file in (paired / 'instance-requests').glob('*/*.json'):
                 if file.name in seen:
                     continue
-                value = bridge.verified(json.loads(file.read_text()), 'test-only')
+                value = bridge.verified(json.loads(file.read_text(encoding='utf-8')), 'test-only')
                 seen.add(file.name)
                 observed.append(value)
                 target = value['target']
@@ -164,7 +212,7 @@ def test_parallel_project_requests_are_targeted_and_wrong_reply_refused(paired, 
         while True:
             fresh = [f for f in (paired/'instance-requests').glob('*/*.json') if f.stem not in {r['operation_id'] for r in observed}]
             if fresh:
-                v = bridge.verified(json.loads(fresh[0].read_text()), 'test-only')
+                v = bridge.verified(json.loads(fresh[0].read_text(encoding='utf-8')), 'test-only')
                 bridge.atomic_write(paired/'responses'/fresh[0].name, bridge.signed({'operation_id':v['operation_id'],
                     'request_digest':v['request_digest'], 'instance_id':b['instance_id'], 'result':{}}, 'test-only'))
                 return

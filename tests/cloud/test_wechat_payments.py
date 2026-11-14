@@ -307,3 +307,94 @@ def test_official_refund_notification_without_currency_settles_held_refund_once(
     w=audit_wallet(e,alice['id']);assert w['balance']==0 and w['reserved']==0 and w['consistent']
     with e.connect() as c:
         assert c.execute(select(wx.wechat_refunds.c.approved_by)).scalar()==alice['id']
+
+def test_refund_needs_current_paid_state_from_provider(system):
+    pay(system)
+    settings,engine,alice,_,order,*_=system
+    methods=[]
+    def handler(request):
+        methods.append(request.method)
+        return 200,tx(system,trade_state='REFUND')
+    with pytest.raises(wx.PaymentError,match='currently verified paid order'):
+        wx.request_refund(engine,settings,order['id'],client=client_for(system,handler))
+    assert methods==['GET']
+    assert audit_wallet(engine,alice['id'])['reserved']==0
+
+
+def test_expired_new_order_does_not_get_a_provider_binding(system):
+    settings,engine,_,_,order,*_=system
+    from cloud.db import now
+    with engine.begin() as c:c.execute(update(orders).values(created=now()-1801))
+    def unexpected(request):pytest.fail('Expired orders must not reach WeChat')
+    with pytest.raises(wx.PaymentError,match='window expired'):
+        wx.checkout(engine,settings,order,client=client_for(system,unexpected))
+    with engine.connect() as c:
+        item=c.execute(select(orders).where(orders.c.id==order['id'])).mappings().one()
+    assert item['state']=='created' and item['provider_session'] is None
+
+
+def test_irreconcilable_verified_event_does_not_starve_queue(system,monkeypatch):
+    client=prepare(system)
+    settings,engine,alice,*_=system
+    actual=wx.payment_paid
+    def not_persisted(*args):raise RuntimeError('fixture stop before application')
+    monkeypatch.setattr(wx,'payment_paid',not_persisted)
+    for event_id in ('first-pending','later-pending'):
+        raw,headers=notification(system,tx(system),event_id=event_id)
+        with pytest.raises(RuntimeError):
+            wx.receive_notification(engine,settings,raw,headers,client=client)
+    def review_first(engine,event_id,*args):
+        if event_id=='wx:first-pending':raise BillingError('fixture receipt needs reconciliation')
+        return actual(engine,event_id,*args)
+    monkeypatch.setattr(wx,'payment_paid',review_first)
+    output=wx.recover_pending(engine)
+    assert {r['event_id']:r['result'] for r in output}=={'wx:first-pending':'review_required','wx:later-pending':'credited'}
+    assert wx.pending_review_count(engine)=={'verified_inbox':1,'external_refunds':0}
+    assert wx.recover_pending(engine)==[]
+    assert audit_wallet(engine,alice['id'])['balance']==1000
+
+def test_concurrent_checkout_and_timeout_never_resend_same_order(system):
+    from threading import Event
+    settings,engine,_,_,order,*_=system
+    sent=Event()
+    release=Event()
+    methods=[]
+    def handler(request):
+        methods.append(request.method)
+        if request.method=='GET':
+            return 200,tx(system,trade_state='NOTPAY')
+        sent.set()
+        assert release.wait(10), 'fixture thread failed to release'
+        raise httpx.ReadTimeout('fixture lost checkout reply',request=request)
+    client=client_for(system,handler)
+    with ThreadPoolExecutor(2) as pool:
+        first=pool.submit(wx.checkout,engine,settings,order,client=client)
+        try:
+            assert sent.wait(10)
+            second=pool.submit(wx.checkout,engine,settings,order,client=client).result(timeout=10)
+            assert second['order_id']==order['id'] and second['query_required'] and second['code_url'] is None
+        finally:
+            release.set()
+        assert first.result(timeout=10)['query_required']
+    again=wx.checkout(engine,settings,order,client=client)
+    assert again['query_required'] and again['order_id']==order['id']
+    assert wx.query_order(engine,settings,order['id'],client=client)['provider_state']=='NOTPAY'
+    assert methods==['POST','GET']
+
+
+def test_existing_refund_queries_refund_when_order_lookup_unavailable(system):
+    pay(system)
+    settings,engine,_,_,order,*_=system
+    existing={}
+    def first(request):
+        if request.url.path.startswith('/v3/pay/'):return 200,tx(system)
+        if request.method=='POST':
+            existing['id']=json.loads(request.content)['out_refund_no']
+            raise httpx.ReadTimeout('fixture lost refund reply',request=request)
+        pytest.fail('The first lost response should require operator status query')
+    assert wx.request_refund(engine,settings,order['id'],client=client_for(system,first))['state']=='UNKNOWN'
+    def second(request):
+        assert request.method=='GET' and request.url.path=='/v3/refund/domestic/refunds/'+existing['id']
+        return 200,refund_data(system,existing['id'],'PROCESSING')
+    result=wx.request_refund(engine,settings,order['id'],client=client_for(system,second))
+    assert result['refund_id']==existing['id'] and result['provider_state']=='PROCESSING'

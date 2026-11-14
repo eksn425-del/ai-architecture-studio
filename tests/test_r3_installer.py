@@ -48,7 +48,32 @@ def test_template_never_recursive_deletes_profiles_or_unknown_folders():
     assert not any('PROFILE_ROOT' in line for line in commands if line.startswith(('Delete ','RMDir ')))
     assert 'RequestExecutionLevel user' in commands
     assert 'SetCompressor /SOLID zlib' in commands
-    assert not any('MUI_PAGE_DIRECTORY' in line for line in commands)
+    assert commands.count('!insertmacro MUI_PAGE_DIRECTORY')==2
+    assert '!ifdef SELECTABLE_PATHS' in commands
+
+
+def test_full_acceptance_build_has_distinct_registration_and_selectable_paths(tmp_path):
+    bundle=tmp_path/'bundle'
+    for name in ('KStudio.exe','KStudioConnector.exe','_internal/harness/node.exe',
+            '_internal/harness/node_modules/@deepseek-ai/dsh/lib/bin.js','_internal/deepseek_harness/__init__.py',
+            '_internal/app/static/kstudio.ico','_internal/app/native_deep_fingerprint.rb',
+            '_internal/app/window_bay_geometry.rb','_internal/app/vendor/local_mcp_sketchup/LICENSE',
+            '_internal/app/vendor/local_mcp_sketchup/NOTICE','THIRD_PARTY_NOTICES.md'):
+        path=bundle/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('fixture')
+    compiler=tmp_path/'compiler';compiler.mkdir()
+    (compiler/'makensis.exe').write_text('fixture');(compiler/'COPYING').write_text('fixture')
+    report=build(bundle,tmp_path/'generic',compiler,'r3-selectable',15,'a'*40,compile_installer=False)
+    entry=(tmp_path/'generic/installer.nsi').read_text(encoding='utf-8-sig')
+    assert report['root_selection']=='selectable-per-user'
+    assert '!define SELECTABLE_PATHS' in entry and 'PRODUCT_ID "KStudioR3"' in entry
+    report=build(bundle,tmp_path/'isolated',compiler,'r3-selectable',15,'a'*40,
+                 compile_installer=False,acceptance_instance='test-r3')
+    entry=(tmp_path/'isolated/installer.nsi').read_text(encoding='utf-8-sig')
+    assert not report['fixture_only'] and report['acceptance_instance']
+    assert '!define SELECTABLE_PATHS' in entry and 'PRODUCT_ID "KStudioR3QA-test-r3"' in entry
+    with pytest.raises(ValueError,match='Acceptance instance'):
+        build(bundle,tmp_path/'rejected',compiler,'r3-selectable',15,'a'*40,
+              compile_installer=False,acceptance_instance='unsafe/instance')
 
 
 @pytest.mark.skipif(os.name != 'nt' or not os.environ.get('KSTUDIO_INSTALLER_FIXTURE'), reason='Explicit compiled engineering fixture only')

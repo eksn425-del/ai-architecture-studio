@@ -137,7 +137,7 @@ def instances(root, *, now=None):
     return result
 
 
-def target_for_request(root, project, *, identity_only=False):
+def target_for_request(root, project, *, identity_only=False, wait_for_read=False):
     """Legacy only when no modern roster has ever been created. Never downgrade."""
     root = Path(root)
     selected = read_selection(root, project)
@@ -149,6 +149,17 @@ def target_for_request(root, project, *, identity_only=False):
     live = [i for i in roster if i['status'] == 'live']
     if selected:
         current = next((i for i in live if i['instance_id'] == selected['instance_id']), None)
+        stale = next((i for i in roster if i['instance_id'] == selected['instance_id'] and i['status'] == 'stale'), None)
+        if (not current and wait_for_read and stale
+                and 0 < time.time() - float(stale['last_seen']) <= HEARTBEAT_TTL + 2):
+            # A long SketchUp main-thread operation may delay one heartbeat.
+            # Wait for the same signed process; this never retries a native request.
+            deadline = time.monotonic() + 2
+            while not current and time.monotonic() < deadline:
+                time.sleep(.1)
+                current = next((i for i in instances(root) if i['instance_id'] == selected['instance_id'] and i['status'] == 'live'), None)
+            if read_selection(root, project) != selected:
+                raise ValueError('读回前选择的 SketchUp 窗口已变化，请重新核对。')
         if not current:
             raise ValueError('选中的 SketchUp 实例已退出、过期或重启；请重新选择。')
         changed = (path_key(current.get('model_path')) != path_key(selected['model_path']) or
@@ -198,7 +209,10 @@ def advance_document_pin(project, model_path, old_guid, new_guid, *, root=None, 
 
 def unresolved(project, session):
     states = list(session.ruby_state.values())
-    file = Path(project) / 'runtime/project_ruby_state.json'
+    runtime = Path(project) / 'runtime'
+    if (runtime / 'native-recovery/pending.json').exists():
+        return True
+    file = runtime / 'project_ruby_state.json'
     if file.exists():
         states += list(json.loads(file.read_text(encoding='utf-8')).get('scripts', {}).values())
     return any(s.get('write_in_flight') or s.get('durability_status') == 'unconfirmed' for s in states)
