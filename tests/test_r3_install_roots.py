@@ -52,7 +52,9 @@ def test_selected_production_roots_are_fixed_and_receipt_is_sanitized(tmp_path):
     bundle=tmp_path/'bundle';bundle.mkdir()
     required=('KStudio.exe','KStudioConnector.exe','_internal/harness/node.exe',
         '_internal/harness/node_modules/@deepseek-ai/dsh/lib/bin.js','_internal/deepseek_harness/__init__.py',
-        '_internal/app/static/kstudio.ico','_internal/app/native_deep_fingerprint.rb','third-party-notices.txt')
+        '_internal/app/static/kstudio.ico','_internal/app/native_deep_fingerprint.rb',
+        '_internal/app/window_bay_geometry.rb','_internal/app/vendor/local_mcp_sketchup/LICENSE',
+        '_internal/app/vendor/local_mcp_sketchup/NOTICE','third-party-notices.txt')
     for name in required:
         path=bundle/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('packaging unit fixture')
     nsis=tmp_path/'compiler';nsis.mkdir();(nsis/'makensis.exe').write_bytes(b'MZfixture');(nsis/'COPYING').write_text('fixture')

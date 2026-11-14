@@ -38,6 +38,12 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 - Current upstream compatibility note: SketchUp 2025 is the tested target. Upstream `docs/INSTALL.md` explicitly says SketchUp 2024 may work but is untested, and the upstream Windows installer accepts `-Version 2024`. The new root-scoped batch-opening subset therefore requires an actual SketchUp 2024 smoke before it is treated as a passed production path.
 - Local external-backend SketchUp 2024 compatibility uses the same pinned revision plus the small MIT-covered source patch in `patches/saie/saie-2024-compat.patch`. The patch repairs the external opening cutter orientation and SketchUp attribute serialization; `scripts/apply_saie_2024_patch.ps1` checks the upstream SHA before applying it.
 
+## Local MCP for SketchUp
+
+- Upstream: `dtzhlq/local-mcp-for-sketchup`, pinned review revision `434f6fe6cf1582dd7311157c1d9ea7e6490baa79`, Apache-2.0, Copyright 2026 zhanglinqi and contributors.
+- K Studio adapts the two plane faces and explicit boundary-shell method in `sketchup_plugin/alma_sketchup_mcp/profile_operations.rb`. `app/window_bay_geometry.rb` uses SketchUp's EntitiesBuilder, true interior loops, native solid checks and separate frame and glass groups. It runs inside the existing owned-root transaction. No upstream transport, package dependencies or assets are bundled.
+- Upstream `LICENSE` and `NOTICE` are preserved in `app/vendor/local_mcp_sketchup/` and shipped with the desktop bundle.
+
 ## Supex
 
 - Upstream: `darwin/supex`

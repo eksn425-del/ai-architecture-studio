@@ -86,7 +86,9 @@ def inventory(bundle: Path, fixture: bool=False) -> dict:
     if not (bundle/'KStudio.exe').is_file():raise ValueError('Frozen KStudio.exe is required')
     if not fixture:
         required=('KStudioConnector.exe','_internal/harness/node.exe','_internal/harness/node_modules/@deepseek-ai/dsh/lib/bin.js',
-                  '_internal/deepseek_harness/__init__.py','_internal/app/static/kstudio.ico','_internal/app/native_deep_fingerprint.rb')
+                  '_internal/deepseek_harness/__init__.py','_internal/app/static/kstudio.ico','_internal/app/native_deep_fingerprint.rb',
+                  '_internal/app/window_bay_geometry.rb','_internal/app/vendor/local_mcp_sketchup/LICENSE',
+                  '_internal/app/vendor/local_mcp_sketchup/NOTICE')
         if any(not (bundle/name).is_file() for name in required):raise ValueError('Incomplete frozen runtime, connector or native guard')
         if not any(p.name in ('THIRD_PARTY_NOTICES.md','third-party-notices.txt') for p in bundle.rglob('*') if p.is_file()):raise ValueError('Missing redistribution notices')
     return result

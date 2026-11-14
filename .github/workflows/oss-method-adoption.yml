@@ -176,6 +176,7 @@ jobs:
           ruby -v
           ruby -c app/vendor/sketchup_architect/scripts/model_session.rb
           ruby -c app/oss_method_runtime.rb
+          ruby -c app/window_bay_geometry.rb
           ruby -c app/edit_scope_guard.rb
           ruby -c app/native_deep_fingerprint.rb
           ruby -c tests/ruby/oss_method_runtime_test.rb

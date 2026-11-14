@@ -31,6 +31,7 @@ def _strategy(**overrides):
 def test_catalog_distinguishes_availability_from_actual_use():
     assert "adai.profile_with_holes" in BY_ID
     assert "saie.wall_with_openings" in BY_ID
+    assert "local_mcp.window_bay" in {m.method_id for m in candidate_methods("facade")}
     assert "product_used" in STAGES
     assert "effect_verified" in STAGES
     assert "adai.loft_sections" not in {m.method_id for m in candidate_methods("roof")}
@@ -73,6 +74,7 @@ def test_guarded_transport_records_real_wrapped_calls_and_zero_call_ledger(monke
     )
     assert "KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall')" in script
     assert "KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall_with_openings')" in script
+    assert "KStudioOSSMethodRuntime.record(oss_method_events, 'local_mcp.window_bay')" in script
     assert "oss_method_ledger" in script
     assert write_sha in script
     assert "snapshot" not in script
@@ -128,6 +130,7 @@ def test_adoption_report_cannot_upgrade_install_or_selection_to_actual_usage():
 def test_guard_rejects_raw_adai_module_or_host_ledger_forgery():
     for source in (
         "ADAIConstructionGeometry.profile(root.entities, 'test', [], 10)",
+        "KStudioWindowBay.build(model, root, {})",
         "oss_method_events << {'method_id'=>'adai.profile'}",
         "oss_method_ledger = {'events'=>[]}",
     ):

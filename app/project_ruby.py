@@ -36,7 +36,7 @@ _FORBIDDEN_SOURCE = re.compile(
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|\bKStudioOSSMethodRuntime\b"
     r"|\b(?:KStudioEditScopeGuard|KStudioPathScopeGuard|KStudioPathScopeGraphGuard|KStudioSharedDefinitionScope|KStudioSurfaceEditGuard|KStudioNativeDeepFingerprint|KStudioNativeDefinitionGraph|edit_scope_before|edit_scope_receipt)\b"
-    r"|\b(?:ADAIConstructionGeometry|oss_method_events|oss_method_ledger)\b"
+    r"|\b(?:ADAIConstructionGeometry|KStudioWindowBay|oss_method_events|oss_method_ledger)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
     # geometry in the injected owned root. Block root-to-model traversal and
@@ -224,6 +224,7 @@ class ProjectRubyExecutor:
             # loading the transaction methods; always load the small helper file.
             f"load {self._ruby_string(str(helper_path.resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'adopted_sketchup_helpers.rb').resolve()))}",
+            f"load {self._ruby_string(str((Path(__file__).parent / 'window_bay_geometry.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'oss_method_runtime.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'edit_scope_guard.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'path_scope_guard.rb').resolve()))}",
@@ -267,6 +268,10 @@ class ProjectRubyExecutor:
             "  oss_method_events = []",
             "  saie_wall = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall') { KStudioProfessionalHelpers.wall(root, params) } }",
             "  saie_wall_with_openings = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall_with_openings') { KStudioProfessionalHelpers.wall_with_openings(root, params) } }",
+            "  build_window_bay = lambda do |part, piece, name|",
+            "    raise 'Expected an owned direct part group' unless part.is_a?(Sketchup::Group) && root.entities.include?(part)",
+            "    KStudioOSSMethodRuntime.record(oss_method_events, 'local_mcp.window_bay') { KStudioWindowBay.build(model, part, piece, name) }",
+            "  end",
             *(
                 ["  adai_geometry = KStudioOSSMethodRuntime::ADAIProxy.new(ADAIConstructionGeometry, oss_method_events)"]
                 if adai_path is not None else []

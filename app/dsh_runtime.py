@@ -215,7 +215,7 @@ class DSHHostSession:
                     event={'event':'host_tool_result','name':name,'success':result.get('success') is not False,'elapsed_ms':round((time.monotonic()-start)*1000)}
                     parent.calls.append(event);parent.record(event)
                     parent.emit_progress({'event':'tool_result','tool':name,'success':event['success'],'elapsed_ms':event['elapsed_ms']})
-                    if (name=='sketchup_run_workspace_ruby' and result.get('success') is False
+                    if (name in {'sketchup_run_workspace_ruby', 'sketchup_apply_parts'} and result.get('success') is False
                         and any(marker in str(result.get('error','')) for marker in (
                             'The native write may have committed', 'Native write outcome or disk checkpoint is unconfirmed'))):
                         parent.native_recovery_required=True
