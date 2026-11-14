@@ -1,0 +1,442 @@
+{
+  "edit_revisions": [
+    12,
+    13
+  ],
+  "changed_groups": [
+    "StairRailing",
+    "StairRun"
+  ],
+  "protected_groups": 16,
+  "group_ids_preserved": true,
+  "stair_bounds_r12_mm": [
+    [
+      10240.0,
+      15000.0
+    ],
+    [
+      -1350.0,
+      0.0
+    ],
+    [
+      20.0,
+      3400.0
+    ]
+  ],
+  "stair_bounds_r13_mm": [
+    [
+      10240.0,
+      15000.0
+    ],
+    [
+      -1350.0,
+      0.0
+    ],
+    [
+      -50.0,
+      3400.0
+    ]
+  ],
+  "tread_footprints_preserved": true,
+  "tread_levels_mm": [
+    200,
+    400,
+    600,
+    800,
+    1000,
+    1200,
+    1400,
+    1600,
+    1800,
+    2000,
+    2200,
+    2400,
+    2600,
+    2800,
+    3000,
+    3200,
+    3400
+  ],
+  "stair_surface_all_triangle_edges_paired": true,
+  "stair_child_instances_after": 1,
+  "stair_feet_touch_z_minus_50": 4,
+  "window_native_instance_counts": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+  ],
+  "terrace_rail_bounds_xyz_mm": [
+    [
+      0.0,
+      17000.0
+    ],
+    [
+      0.0,
+      11900.0
+    ],
+    [
+      7550.0,
+      8650.0
+    ]
+  ],
+  "terrace_z_mm": 7250.0,
+  "r12_level_joints": [
+    {
+      "success": true,
+      "read_only": true,
+      "root_pid": 19,
+      "revision": 12,
+      "axis": "y",
+      "elevation_mm": 3600,
+      "negative_path": [
+        "StairLanding"
+      ],
+      "position_mm": 0,
+      "positive_path": [
+        "FloorSlab_L2"
+      ],
+      "span_mm": [
+        15000,
+        17000
+      ],
+      "status": "FULL_WIDTH",
+      "negative_levels_at_plane_mm": [
+        3400.0,
+        3600.0
+      ],
+      "positive_levels_at_plane_mm": [
+        3350.0,
+        3600.0
+      ],
+      "shared_intervals_mm": [
+        [
+          15000.0,
+          17000.0
+        ]
+      ],
+      "missing_intervals_mm": [],
+      "covered_width_mm": 2000.0,
+      "tolerance_mm": 0.05
+    }
+  ],
+  "r13_level_joints": [
+    {
+      "success": true,
+      "read_only": true,
+      "root_pid": 19,
+      "revision": 13,
+      "negative_path": [
+        "StairRun"
+      ],
+      "positive_path": [
+        "StairLanding"
+      ],
+      "axis": "x",
+      "position_mm": 15000,
+      "elevation_mm": 3400,
+      "span_mm": [
+        -1350,
+        0
+      ],
+      "status": "FULL_WIDTH",
+      "negative_levels_at_plane_mm": [
+        3400.0
+      ],
+      "positive_levels_at_plane_mm": [
+        3400.0,
+        3600.0
+      ],
+      "shared_intervals_mm": [
+        [
+          -1350.0,
+          0.0
+        ]
+      ],
+      "missing_intervals_mm": [],
+      "covered_width_mm": 1350.0,
+      "tolerance_mm": 0.05
+    },
+    {
+      "success": true,
+      "read_only": true,
+      "root_pid": 19,
+      "revision": 13,
+      "negative_path": [
+        "StairLanding"
+      ],
+      "positive_path": [
+        "FloorSlab_L2"
+      ],
+      "axis": "y",
+      "position_mm": 0,
+      "elevation_mm": 3600,
+      "span_mm": [
+        15350,
+        16550
+      ],
+      "status": "FULL_WIDTH",
+      "negative_levels_at_plane_mm": [
+        3400.0,
+        3600.0
+      ],
+      "positive_levels_at_plane_mm": [
+        3350.0,
+        3600.0
+      ],
+      "shared_intervals_mm": [
+        [
+          15350,
+          16550
+        ]
+      ],
+      "missing_intervals_mm": [],
+      "covered_width_mm": 1200,
+      "tolerance_mm": 0.05
+    }
+  ],
+  "visual_claims": "concept model from a single synthetic exterior view",
+  "upward_tread_bounds_by_height_mm": {
+    "200": [
+      [
+        10240.0,
+        10520.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        200.0,
+        200.0
+      ]
+    ],
+    "400": [
+      [
+        10520.0,
+        10800.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        400.0,
+        400.0
+      ]
+    ],
+    "600": [
+      [
+        10800.0,
+        11080.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        600.0,
+        600.0
+      ]
+    ],
+    "800": [
+      [
+        11080.0,
+        11360.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        800.0,
+        800.0
+      ]
+    ],
+    "1000": [
+      [
+        11360.0,
+        11640.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        1000.0,
+        1000.0
+      ]
+    ],
+    "1200": [
+      [
+        11640.0,
+        11920.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        1200.0,
+        1200.0
+      ]
+    ],
+    "1400": [
+      [
+        11920.0,
+        12200.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        1400.0,
+        1400.0
+      ]
+    ],
+    "1600": [
+      [
+        12200.0,
+        12480.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        1600.0,
+        1600.0
+      ]
+    ],
+    "1800": [
+      [
+        12480.0,
+        12760.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        1800.0,
+        1800.0
+      ]
+    ],
+    "2000": [
+      [
+        12760.0,
+        13040.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        2000.0,
+        2000.0
+      ]
+    ],
+    "2200": [
+      [
+        13040.0,
+        13320.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        2200.0,
+        2200.0
+      ]
+    ],
+    "2400": [
+      [
+        13320.0,
+        13600.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        2400.0,
+        2400.0
+      ]
+    ],
+    "2600": [
+      [
+        13600.0,
+        13880.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        2600.0,
+        2600.0
+      ]
+    ],
+    "2800": [
+      [
+        13880.0,
+        14160.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        2800.0,
+        2800.0
+      ]
+    ],
+    "3000": [
+      [
+        14160.0,
+        14440.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        3000.0,
+        3000.0
+      ]
+    ],
+    "3200": [
+      [
+        14440.0,
+        14720.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        3200.0,
+        3200.0
+      ]
+    ],
+    "3400": [
+      [
+        14720.0,
+        15000.0
+      ],
+      [
+        -1350.0,
+        0.0
+      ],
+      [
+        3400.0,
+        3400.0
+      ]
+    ]
+  }
+}

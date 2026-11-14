@@ -1,7 +1,7 @@
 // Model tool authorization, NOT process isolation. Fail closed for new native
 // capabilities until reviewed. A trusted local process can still bypass this.
 const readonly = new Set(['workspace_read','workspace_read_many','workspace_search',
-  'kstudio_read_skill','sketchup_model_state','sketchup_view','sketchup_inspect_owned_batch','sketchup_inspect_owned','sketchup_get_active_model_identity',
+  'kstudio_read_skill','sketchup_model_state','sketchup_view','sketchup_inspect_part','sketchup_inspect_owned_batch','sketchup_inspect_owned','sketchup_get_active_model_identity',
   'sketchup_get_model_info','sketchup_get_selection','sketchup_get_entities',
   'web_search','web_fetch','get_goal','list_agents','skill']);
 const orchestration = new Set(['web_search','web_fetch','todo_write','exit_plan_mode',

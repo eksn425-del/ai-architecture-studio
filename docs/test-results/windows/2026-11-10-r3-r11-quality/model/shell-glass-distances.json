@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "root_pid": 19,
+  "identity": {
+    "project_id": "demo-cultural-center",
+    "script_id": null,
+    "revision": 11,
+    "role": "project_root"
+  },
+  "geometry_sha256": "e1534e4e4bbd7f048f10d3ad3894387c182139777ff9f89fca47025786672dd4",
+  "contacts": [
+    {
+      "left": [
+        "Shell_Folded"
+      ],
+      "right": [
+        "Curtain_Glass_L2",
+        "L2_Glazing"
+      ],
+      "minimum_surface_distance_mm": 950.0,
+      "nearest_face_pids": [
+        8390,
+        3652
+      ],
+      "status": "GAP",
+      "limitation": "Minimum contact alone does not prove a full-width seam or a traversable stair connection."
+    },
+    {
+      "left": [
+        "Shell_Folded"
+      ],
+      "right": [
+        "Curtain_Glass_L3",
+        "L3_Glazing"
+      ],
+      "minimum_surface_distance_mm": 950.0,
+      "nearest_face_pids": [
+        8402,
+        6882
+      ],
+      "status": "GAP",
+      "limitation": "Minimum contact alone does not prove a full-width seam or a traversable stair connection."
+    }
+  ],
+  "visual_verdict": "NOT_ASSESSED",
+  "regulatory_verdict": "NOT_ASSESSED"
+}

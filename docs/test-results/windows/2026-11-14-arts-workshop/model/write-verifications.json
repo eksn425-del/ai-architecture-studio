@@ -1,0 +1,893 @@
+{
+  "writes": [
+    {
+      "revision": 1,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 1,
+            "actual": 1
+          },
+          {
+            "check": "objects_total",
+            "expected": 6,
+            "actual": 6
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7250.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7450.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7250.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7450.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 2,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 2,
+            "actual": 2
+          },
+          {
+            "check": "objects_total",
+            "expected": 6,
+            "actual": 6
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7250.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7450.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7250.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7450.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 3,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 3,
+            "actual": 3
+          },
+          {
+            "check": "objects_total",
+            "expected": 7,
+            "actual": 7
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7250.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7450.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7250.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7450.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 4,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 4,
+            "actual": 4
+          },
+          {
+            "check": "objects_total",
+            "expected": 8,
+            "actual": 8
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7550.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7750.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                7550.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                7750.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 5,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 5,
+            "actual": 5
+          },
+          {
+            "check": "objects_total",
+            "expected": 11,
+            "actual": 11
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -16850.0,
+                -200.0
+              ],
+              "max": [
+                27075.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                36075.0,
+                37850.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -16850.0,
+                -200.0
+              ],
+              "max": [
+                27075.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                36075.0,
+                37850.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 6,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 6,
+            "actual": 6
+          },
+          {
+            "check": "objects_total",
+            "expected": 11,
+            "actual": 11
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 7,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 7,
+            "actual": 7
+          },
+          {
+            "check": "objects_total",
+            "expected": 13,
+            "actual": 13
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 8,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 8,
+            "actual": 8
+          },
+          {
+            "check": "objects_total",
+            "expected": 16,
+            "actual": 16
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -16960.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                37960.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -16960.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                37960.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 9,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 9,
+            "actual": 9
+          },
+          {
+            "check": "objects_total",
+            "expected": 16,
+            "actual": 16
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 10,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 10,
+            "actual": 10
+          },
+          {
+            "check": "objects_total",
+            "expected": 18,
+            "actual": 18
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 11,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 11,
+            "actual": 11
+          },
+          {
+            "check": "objects_total",
+            "expected": 18,
+            "actual": 18
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9539.6,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30539.6,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9539.6,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30539.6,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 12,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 12,
+            "actual": 12
+          },
+          {
+            "check": "objects_total",
+            "expected": 18,
+            "actual": 18
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "revision": 13,
+      "verification": {
+        "schema_version": 1,
+        "verified": true,
+        "source": "post_commit_owned_root_readback",
+        "checks": [
+          {
+            "check": "transaction_status",
+            "expected": "committed",
+            "actual": "committed"
+          },
+          {
+            "check": "root_persistent_id",
+            "expected": 19,
+            "actual": 19
+          },
+          {
+            "check": "revision",
+            "expected": 13,
+            "actual": 13
+          },
+          {
+            "check": "objects_total",
+            "expected": 18,
+            "actual": 18
+          },
+          {
+            "check": "bounds_mm",
+            "expected": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            },
+            "actual": {
+              "min": [
+                -9000.0,
+                -9000.0,
+                -200.0
+              ],
+              "max": [
+                26000.0,
+                21000.0,
+                11000.0
+              ],
+              "size": [
+                35000.0,
+                30000.0,
+                11200.0
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "last_exact_scope": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "StairRun"
+      ],
+      [
+        "StairRailing"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "StairRun",
+      "StairRailing"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  }
+}

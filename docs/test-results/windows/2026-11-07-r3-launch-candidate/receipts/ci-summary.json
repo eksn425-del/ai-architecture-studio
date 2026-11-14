@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "repository": "eksn425-del/ai-architecture-studio",
+  "tested_commit": "3f6c5c454cd140ce4ca735d1b2234e80a9ea0078",
+  "source": "GitHub Actions API job summaries and decoded logs inspected; raw logs not published",
+  "runs": [
+    {
+      "id": 42329089916,
+      "status": "FAIL",
+      "cause": "Initial control-plane dependency/module setup failed; retained historical failure",
+      "source": "parent coordinator inspected run"
+    },
+    {
+      "id": 42329449289,
+      "status": "FAIL",
+      "cause": "PostgreSQL restart test rendered SQLAlchemy URL with masked password, causing one failure; Docker job succeeded",
+      "source": "parent coordinator inspected run"
+    },
+    {
+      "id": 42330104234,
+      "status": "PASS",
+      "url": "https://github.com/eksn425-del/ai-architecture-studio/actions/runs/42330104234",
+      "jobs": [
+        {
+          "id": 128274428968,
+          "name": "offline-container",
+          "status": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Build current Dockerfile locally, without registry push",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Run real service with network none and restricted filesystem",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Always record actual container exit and remove this test container",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Upload engineering evidence, never an image or credential bundle",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13
+            }
+          ]
+        },
+        {
+          "id": 128274429228,
+          "name": "postgres-ledger",
+          "status": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Install control-plane test dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Real PostgreSQL concurrency, tenant, idempotency and reconciliation tests",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Require PostgreSQL parameter cases to actually execute",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Run actions/upload-artifact@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17
+            }
+          ]
+        }
+      ],
+      "postgres_result": {
+        "passed": 202,
+        "skipped": 1,
+        "errors": 0,
+        "seconds": 25.68,
+        "skip_reason": "Environment-specific test; inspect public CI artifact for exact item, not inferred as PASS"
+      },
+      "docker_scope": "Actual container service with restricted filesystem and network none; no production deployment"
+    }
+  ]
+}

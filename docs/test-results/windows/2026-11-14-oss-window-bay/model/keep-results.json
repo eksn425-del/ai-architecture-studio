@@ -1,0 +1,25 @@
+{
+  "independent_deep_check": {
+    "status": "PASS",
+    "Landing_same_deep_signature": true,
+    "front_pid_preserved": true
+  },
+  "precommit_edit_scope": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "FrontWall"
+      ],
+      [
+        "WingWall"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "FrontWall",
+      "WingWall"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  }
+}

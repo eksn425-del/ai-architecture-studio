@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "root_pid": 19,
+  "identity": {
+    "project_id": "demo-cultural-center",
+    "script_id": null,
+    "revision": 11,
+    "role": "project_root"
+  },
+  "geometry_sha256": "e1534e4e4bbd7f048f10d3ad3894387c182139777ff9f89fca47025786672dd4",
+  "contacts": [
+    {
+      "left": [
+        "Stair_Flight_01",
+        "__highest_horizontal_tread__"
+      ],
+      "right": [
+        "Stair_Landing"
+      ],
+      "minimum_surface_distance_mm": 0.0,
+      "nearest_face_pids": [
+        10741,
+        12440
+      ],
+      "status": "CONTACT_OR_INTERSECTION",
+      "limitation": "Minimum contact alone does not prove a full-width seam or a traversable stair connection."
+    },
+    {
+      "left": [
+        "Stair_Flight_02",
+        "__highest_horizontal_tread__"
+      ],
+      "right": [
+        "Stair_Landing"
+      ],
+      "minimum_surface_distance_mm": 0.0,
+      "nearest_face_pids": [
+        11298,
+        12466
+      ],
+      "status": "CONTACT_OR_INTERSECTION",
+      "limitation": "Minimum contact alone does not prove a full-width seam or a traversable stair connection."
+    },
+    {
+      "left": [
+        "Stair_Flight_03",
+        "__highest_horizontal_tread__"
+      ],
+      "right": [
+        "Stair_Landing"
+      ],
+      "minimum_surface_distance_mm": 0.0,
+      "nearest_face_pids": [
+        11855,
+        12492
+      ],
+      "status": "CONTACT_OR_INTERSECTION",
+      "limitation": "Minimum contact alone does not prove a full-width seam or a traversable stair connection."
+    },
+    {
+      "left": [
+        "Stair_Flight_04",
+        "__highest_horizontal_tread__"
+      ],
+      "right": [
+        "Stair_Landing"
+      ],
+      "minimum_surface_distance_mm": 600.0,
+      "nearest_face_pids": [
+        12412,
+        12518
+      ],
+      "status": "GAP",
+      "limitation": "Minimum contact alone does not prove a full-width seam or a traversable stair connection."
+    }
+  ],
+  "visual_verdict": "NOT_ASSESSED",
+  "regulatory_verdict": "NOT_ASSESSED"
+}

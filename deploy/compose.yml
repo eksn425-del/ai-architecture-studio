@@ -17,16 +17,22 @@ services:
     networks:
       private: {ipv4_address: 172.31.91.4}
   migrate:
+    image: ${KSTUDIO_IMAGE:?set immutable application image tag or digest}
     build: {context: .., dockerfile: deploy/Dockerfile}
-    env_file: .env
+    env_file: ${KSTUDIO_ENV_FILE:-.env}
+    volumes:
+      - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
     command: ["python", "-m", "cloud.cli", "migrate"]
     depends_on: {db: {condition: service_healthy}}
     networks: [private]
     profiles: [maintenance]
   app:
+    image: ${KSTUDIO_IMAGE:?set immutable application image tag or digest}
     build: {context: .., dockerfile: deploy/Dockerfile}
     restart: unless-stopped
-    env_file: .env
+    env_file: ${KSTUDIO_ENV_FILE:-.env}
+    volumes:
+      - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
     depends_on: {db: {condition: service_healthy}}
     read_only: true
     tmpfs: [/tmp]
@@ -40,6 +46,20 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+  maintenance:
+    image: ${KSTUDIO_IMAGE:?set immutable application image tag or digest}
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    restart: unless-stopped
+    env_file: ${KSTUDIO_ENV_FILE:-.env}
+    volumes:
+      - ${KSTUDIO_SECRET_DIR:?set private read-only secret directory}:/run/secrets/kstudio:ro
+    command: ["python", "-m", "cloud.maintenance"]
+    depends_on: {app: {condition: service_healthy}}
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [private, outbound]
   proxy:
     image: caddy:2
     restart: unless-stopped

@@ -3,18 +3,40 @@ import {toolDenial} from './dsh_tool_policy.mjs';
 // Thin official DSH plugin: forward the host's fixed tool catalog, never run code.
 export const name = 'kstudio-host-tools';
 export const inject = ['tools', 'attachments', 'systemPrompt'];
+const refusalMessages = Object.freeze({
+  NATIVE_RECOVERY_REQUIRED:'模型写入结果尚未确认，已停止后续模型请求。已有模型和失败记录已保留，请先核验恢复。',
+  NETWORK_RETRIES_EXHAUSTED:'模型服务连续连接失败，已到两次重试的边界。未知用量和已有模型已保留；请稍后检查网络再继续。',
+  USAGE_RECONCILIATION_REQUIRED:'模型服务连接中断或返回不完整，本次用量待核对。已阻止自动再次发送付费请求；已有模型和项目记录已保留。请核对服务商记录后继续。',
+  TEST_BUDGET_EXHAUSTED:'本次测试已到已登记的请求边界，未继续发送模型请求；已有模型和项目记录已保留。',
+  TEST_REQUEST_REPLAY_BLOCKED:'重复的模型请求或结算已被拦截；请检查原请求记录，不要重复执行。',
+  TEST_REQUEST_CONFIGURATION_MISMATCH:'模型请求与本次登记配置不一致，未发送；请检查连接与测试配置。',
+  TURN_CANCELLED:'当前操作已取消，未启动新的工具操作；已有项目记录已保留。',
+  INVALID_HOST_REQUEST:'工具请求不符合当前协议，已停止；请联系维护者检查项目记录。',
+});
+export function hostRefusalError(status, payload) {
+  // Do not echo response text, arbitrary JSON messages, URLs or credentials.
+  const candidate=payload?.code;
+  const code=typeof candidate==='string' && Object.hasOwn(refusalMessages,candidate) ? candidate : 'INVALID_HOST_REQUEST';
+  const error=new Error(`[${code}] ${refusalMessages[code]} (HTTP ${Number.isInteger(status)?status:0})`);
+  error.name='KStudioHostRefusal';error.code=code;error.retryable=false;
+  return error;
+}
 export async function apply(ctx) {
   const url = process.env.KSTUDIO_TOOLS_URL;
   const token = process.env.KSTUDIO_TOOLS_TOKEN;
   if (!url || !/^http:\/\/127\.0\.0\.1:\d+$/.test(url) || !token) throw new Error('Missing loopback tool binding');
   async function call(path, body) {
     const response = await fetch(url + path, {method: body ? 'POST':'GET',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}, ...(body ? {body:JSON.stringify(body)}:{})});
-    if (!response.ok) throw new Error('Host tool refused: '+response.status);
+    if (!response.ok) {
+      let payload;
+      try {payload=await response.json();} catch {}
+      throw hostRefusalError(response.status,payload);
+    }
     return response.json();
   }
   const specs = await call('/tools');
   const task = await call('/task');
-  if(task.test_budget_enabled) installTestBudget(ctx,call);
+  installTestBudget(ctx,call,{enabled:task.test_budget_enabled===true});
   if (task.instructions) ctx.systemPrompt.section({
     name:'kstudio:architecture', order:10200, text:task.instructions, interpolate:false,
   });

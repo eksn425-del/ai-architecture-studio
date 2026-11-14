@@ -1,0 +1,12 @@
+[
+  {
+    "status": "FAIL",
+    "defect": "Fourth flight exit is 600 mm above its landing",
+    "cause": "Committed r7 source gives every flight 24 rises of 175 mm. Fourth starts at12600 and ends16800; accepted roof and top landing are16200. Native triangle distance independently confirms600."
+  },
+  {
+    "status": "FAIL",
+    "defect": "Folded milky enclosure and main opening do not match reference appearance",
+    "cause": "577 shell faces, alpha0.44, visible mesh/triangulation and inner glazing dominate; numerical separation alone cannot validate the source silhouette."
+  }
+]

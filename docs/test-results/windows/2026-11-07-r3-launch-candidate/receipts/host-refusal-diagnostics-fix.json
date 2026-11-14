@@ -1,0 +1,61 @@
+{
+  "head_before_fix_commit": "802c4b2fe98de8bcd966f6c6cf7e99162f566fe7",
+  "working_tree_fix": true,
+  "source_sha256": {
+    "app/dsh_runtime.py": "b825e0cf4fea68da02d118f688f95c3a89686fc877d1a39cc01fe77650580dff",
+    "app/dsh_host_tools.mjs": "cec15baf902323520a1b03924c1374ac7e4b9b166390a7610306b8e28eee3798",
+    "tests/test_dsh_refusal_diagnostics.py": "6d6b67ef694b5c031ce212c955b7e835611077903e8b868ecfbaf2d17352f75e",
+    "tests/test_dsh_refusal_diagnostics.mjs": "4ae6c1d9421592c61f2395064a0fb06ba23bbd80ca5e5da7bd582c1039464cdf"
+  },
+  "python_result": {
+    "passed": 26,
+    "skipped": 0
+  },
+  "node_result": {
+    "passed": 7,
+    "skipped": 0
+  },
+  "artifacts": {
+    "dsh-refusal-regression.xml": "b06c1be8e70e18db1dd7544037b2de926951dd5367a0fe35ca18e6e9bfb8ba84",
+    "dsh-refusal-regression.log": "a202f5d3964a3a4cf8c31b6d96edecf2761ab9f9d70770c540778e7def40a048",
+    "dsh-refusal-node.log": "16b2e9e4076516a73029e216fa4f035edd76b7b79824ec26ef511de4da6dc7f8"
+  },
+  "official_sdk_offline_receipts": [
+    {
+      "protocol": "openai-completions",
+      "provider_http_requests": 1,
+      "ledger_rows": 1,
+      "ledger_state": "unknown",
+      "error_code": "USAGE_RECONCILIATION_REQUIRED",
+      "paid_calls": 0,
+      "native_operations": 0
+    },
+    {
+      "protocol": "openai-responses",
+      "provider_http_requests": 1,
+      "ledger_rows": 1,
+      "ledger_state": "unknown",
+      "error_code": "USAGE_RECONCILIATION_REQUIRED",
+      "paid_calls": 0,
+      "native_operations": 0
+    }
+  ],
+  "original_trace": {
+    "file": "dsh-builder-29841d6c14f2469d9788b0fbb5be8deb.jsonl",
+    "sha256": "b31d7139f55cbc42210f48d8d5813c3230c19d8706c124e1ba681e8009831430",
+    "inspect_owned_tool_result_seq": 34,
+    "provider_connection_failure_seq": 37,
+    "retry_intent_seq": 38,
+    "retry_started_seq": 39,
+    "host_refusal_turn_end_seq": 42,
+    "original_model_revision": 9
+  },
+  "diagnosis": "Read-only inspect succeeded; next provider attempt had TRANSPORT Connection error and synthetic zero usage. Unknown liability correctly blocked the SDK retry before another reservation. Host HTTP refusal details were previously discarded. Deeper network cause is not evidenced.",
+  "production_files_for_rebuild": [
+    "app/dsh_runtime.py",
+    "app/dsh_host_tools.mjs"
+  ],
+  "original_ledger_modified": false,
+  "original_geometry_modified": false,
+  "paid_api_calls": 0
+}

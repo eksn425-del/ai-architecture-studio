@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source_sha256": "c9df3bad5c412fc3d6ae732c93bc944b61d3a994f79cdb48f79244336b783f64",
+  "events": [
+    {
+      "method_id": "local_mcp.window_bay",
+      "status": "returned",
+      "elapsed_ms": 1,
+      "returned_nil": false,
+      "result_entity_pid": 911,
+      "result_entity_name": "piece_0"
+    },
+    {
+      "method_id": "local_mcp.window_bay",
+      "status": "returned",
+      "elapsed_ms": 1,
+      "returned_nil": false,
+      "result_entity_pid": 1050,
+      "result_entity_name": "piece_0"
+    }
+  ],
+  "status": "committed_readback",
+  "script_id": "harness_building",
+  "revision": 3,
+  "root_pid": 19
+}

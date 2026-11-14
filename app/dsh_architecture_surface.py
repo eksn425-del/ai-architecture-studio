@@ -4,6 +4,31 @@ The SDK writes/reads project scripts; the host remains the single SU writer.
 ADAI methods already injected by ProjectRuby retain their invocation ledger.
 """
 from .agent_tools import AgentToolSurface, AgentToolContext
+from copy import deepcopy
+import json
+from pathlib import Path
+from datetime import datetime, timezone
+from .su_harness_tools import STAGES
+
+
+def with_construction_receipt(result, *, stage, before, native, project_dir):
+    if (not stage or result.get('success') is False or native.get('revision', 0) <= before
+            or native.get('write_in_flight') or native.get('durability_status') == 'unconfirmed'):
+        return result
+    receipt = {'stage': stage, 'revision': native['revision'], 'root_pid': native.get('root_pid'),
+               'at': datetime.now(timezone.utc).isoformat(),
+               'status': 'native_revision_committed', 'system_complete': False}
+    result = {**result, 'construction_step': receipt}
+    try:
+        ledger = Path(project_dir) / 'runtime' / 'construction_steps.jsonl'
+        if ledger.is_symlink() or ledger.parent.is_symlink():
+            raise ValueError('Construction ledger must not redirect')
+        ledger.parent.mkdir(parents=True, exist_ok=True)
+        with ledger.open('a', encoding='utf-8') as stream:
+            stream.write(json.dumps(receipt, ensure_ascii=False) + '\n')
+    except (OSError, ValueError):
+        result['construction_step_recording'] = 'failed_after_commit_do_not_replay'
+    return result
 
 
 def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_guid,
@@ -13,13 +38,35 @@ def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_gu
         model_guid=model_guid, ruby_enabled=True, ruby_state=ruby_state,
         tool_profile='full')
     names = {'sketchup_run_workspace_ruby', 'sketchup_inspect_owned', 'sketchup_inspect_owned_batch'}
-    specs = [s for s in original.dynamic_tools if s['name'] in names]
+    specs = [deepcopy(s) for s in original.dynamic_tools if s['name'] in names]
+    for spec in specs:
+        if spec['name'] == 'sketchup_run_workspace_ruby' and 'inputSchema' in spec:
+            spec['inputSchema']['properties']['construction_stage'] = {
+                'type': 'string', 'enum': list(STAGES),
+                'description': 'Label this bounded architectural construction step. Submit real incremental geometry, not an entire prebuilt building. A label does not certify completion.'}
     def dispatch(name, args):
+        previous_revision = ruby_state.get('harness_building', {}).get('revision', 0)
         if name not in names:
-            return base.dispatch(name, args)
+            result = base.dispatch(name, args)
+            if name == 'sketchup_apply_parts':
+                return with_construction_receipt(result, stage=args.get('construction_stage'), before=previous_revision,
+                    native=ruby_state.get('harness_building', {}), project_dir=project_dir)
+            if name == 'sketchup_model_state' and result.get('success') is not False:
+                ledger = Path(project_dir) / 'runtime' / 'construction_steps.jsonl'
+                if ledger.is_file() and not ledger.is_symlink():
+                    try:
+                        rows = [json.loads(line) for line in ledger.read_text(encoding='utf-8').splitlines()]
+                        result = {**result, 'construction_steps': rows[-32:]}
+                    except (OSError, ValueError):
+                        result = {**result, 'construction_steps_error': 'unreadable; inspect native state before continuation'}
+            return result
         if args.get('script_id') != 'harness_building':
             raise ValueError('Use the existing owned script_id harness_building.')
         if name == 'sketchup_run_workspace_ruby':
+            args = dict(args)
+            stage = args.pop('construction_stage', None)
+            if stage is not None and stage not in STAGES:
+                raise ValueError('Unknown construction stage.')
             if args.get('allow_full_rebuild'):
                 raise ValueError('This task does not authorize replacing an existing building.')
             existing = ruby_state.get('harness_building', {}).get('root_pid')
@@ -33,7 +80,8 @@ def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_gu
             if result.get('success') is not False:
                 base.quality_state['writes'].append({'method':'workspace_ruby',
                     'revision':ruby_state.get('harness_building', {}).get('revision',0)})
-            return result
+            return with_construction_receipt(result, stage=stage, before=previous_revision,
+                native=ruby_state.get('harness_building', {}), project_dir=project_dir)
         return original.dispatch(name, args)
     return AgentToolContext(dynamic_tools=base.dynamic_tools+specs, dispatch=dispatch,
                             quality_state=base.quality_state)

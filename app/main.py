@@ -39,11 +39,11 @@ from .model_router import DeterministicModelRouter, ModelRoute
 from .provider_readiness import readiness_matrix
 from .local_credentials import LocalCredentialStore
 from .native_agent import CodexAppServerRuntime, NativeAgentUnavailable
-from .native_delivery import record_delivery_checkpoint, bind_current_checkpoint_download
+from .native_delivery import record_delivery_checkpoint, bind_current_checkpoint_download, verified_saved_delivery
 from .agent_progress import ProgressLogReader, select_turn_progress_log
 from .progress_activity import activity_history, update_activity
 from .references import ReferenceIngestor
-from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
+from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
 from .store import ProjectStore, safe_project_id, utc_now
 
 
@@ -254,7 +254,7 @@ def _disposable_model_path(path_value: str, project_dir: Path) -> Path | None:
     return candidate
 
 
-def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None, *, prepare_only: bool = False) -> Path:
+def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None, *, prepare_only: bool = False, single_window: bool = False) -> Path:
     if os.name != "nt":
         raise NativeAgentUnavailable(
             "当前环境不能自动启动 SketchUp：此启动器需要 Windows 桌面和已安装的 SketchUp。"
@@ -270,6 +270,13 @@ def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_mo
         command.extend(["-ModelPath", str(existing_model_path.resolve())])
     if prepare_only:
         command.append("-PrepareOnly")
+    if single_window:
+        command.append("-RequireSketchUpClosed")
+    try:
+        if ConfiguredSketchUpMCP().requires_document_binding:
+            command.append("-PublicConnector")
+    except ConnectorUnavailable:
+        pass  # Existing manual/legacy launch path retains its own plugin check.
     model_dir = runtime_root / "projects" / project_id / "outputs" / "model"
     before = {path.resolve() for path in model_dir.glob("blank-disposable-*.skp")}
     completed = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45, check=False,
@@ -325,18 +332,56 @@ def _agent_prompt(context: ProjectContext, message: str, *, mcp_enabled: bool,
     )
 
 
-def _capture_agent_view(adapter: SketchUpAdapter, store: ProjectStore, project_id: str) -> Path | None:
-    project_dir = store.project_dir(project_id)
-    filename = f"agent-{uuid.uuid4().hex[:10]}.png"
-    connector_capture = ROOT / "artifacts" / "fast-assembly" / project_id / filename
+def _capture_project_view(adapter: SketchUpAdapter, project_dir: Path, filename: str) -> tuple[Path, dict[str, Any]]:
+    # The installed public connector pairs the data/runtime workspace, not the
+    # immutable program directory. Legacy adapters accept the same absolute path.
+    if Path(filename).name != filename or PureWindowsPath(filename).name != filename or Path(filename).suffix.lower() != ".png":
+        raise MCPCallError("A project screenshot must use a local PNG filename.")
     capture_path = project_dir / "outputs" / "renders" / filename
-    connector_capture.parent.mkdir(parents=True, exist_ok=True)
-    adapter.capture_view(connector_capture)
-    if not connector_capture.is_file():
-        return None
+    if capture_path.is_symlink() or not capture_path.parent.resolve().is_relative_to(project_dir.resolve()):
+        raise MCPCallError("A project screenshot cannot escape its project directory.")
     capture_path.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(connector_capture, capture_path)
-    return capture_path
+    result = adapter.capture_view(capture_path)
+    return capture_path, result
+
+
+def _capture_agent_view(adapter: SketchUpAdapter, store: ProjectStore, project_id: str) -> Path | None:
+    capture_path, _ = _capture_project_view(adapter, store.project_dir(project_id), f"agent-{uuid.uuid4().hex[:10]}.png")
+    return capture_path if capture_path.is_file() else None
+
+
+def _publish_agent_delivery(store: ProjectStore, project_id: str, adapter: SketchUpAdapter,
+                            state: ModelState, candidate: Path) -> bool:
+    """Publish a saved model before attempting the independent preview."""
+    project_dir = store.project_dir(project_id)
+    state.model_path = _relative(project_dir, candidate)
+    state.last_capture = None
+    state.last_operation["capture_status"] = "PENDING"
+    manifest = store.load_state(project_id, "output_manifest.json", OutputManifest)
+    model_artifact = _artifact(project_id, project_dir, candidate, "skp")
+    manifest.model_captures = [item for item in manifest.model_captures if item.path != model_artifact.path]
+    manifest.model_captures.append(model_artifact)
+    store.save_state(project_id, manifest, "output_manifest.json")
+    store.save_state(project_id, state, "model_state.json")
+
+    for view in sorted((project_dir / "outputs/renders").glob("agent-view-*.png"),
+                       key=lambda path: path.stat().st_mtime)[-12:]:
+        artifact = _artifact(project_id, project_dir, view, "viewport")
+        manifest.render = [item for item in manifest.render if item.path != artifact.path]
+        manifest.render.append(artifact)
+    try:
+        capture_path = _capture_agent_view(adapter, store, project_id)
+    except (ConnectorUnavailable, MCPCallError, OSError, ValueError):
+        capture_path = None
+    if capture_path:
+        state.last_capture = _relative(project_dir, capture_path)
+        image_artifact = _artifact(project_id, project_dir, capture_path, "viewport")
+        manifest.render.append(image_artifact)
+        manifest.model_captures.append(image_artifact)
+    state.last_operation["capture_status"] = "SAVED" if capture_path else "PENDING"
+    store.save_state(project_id, manifest, "output_manifest.json")
+    store.save_state(project_id, state, "model_state.json")
+    return capture_path is not None
 
 
 def _mcp_image_paths(store: ProjectStore, project_id: str) -> list[Path]:
@@ -515,7 +560,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     @asynccontextmanager
     async def local_lifespan(app):
-        with LocalRuntimeLease(store.root):
+        with LocalRuntimeLease(runtime):
             yield
 
     app = FastAPI(title="AI Architecture Studio Model Router", version="1.1.0", lifespan=local_lifespan)
@@ -561,7 +606,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         register_local_connections(app, Path(os.environ["KSTUDIO_CONNECTIONS_DIR"]))
     app.state.sketchup = sketchup or SketchUpAdapter()
     app.state.reference_ingestor = reference_ingestor or ReferenceIngestor()
-    app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
+    if disposable_model_launcher is None:
+        app.state.disposable_model_launcher = _launch_disposable_sketchup
+        app.state.disposable_session_launcher = lambda *args: _launch_disposable_sketchup(*args, single_window=True)
+    else:
+        app.state.disposable_model_launcher = app.state.disposable_session_launcher = disposable_model_launcher
     from .connector_setup import register_routes as register_connector_setup_routes
     register_connector_setup_routes(app, app.state.agent_lock)
     from .connector_instances import register_routes as register_instance_routes
@@ -1202,8 +1251,16 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 adapter.ping()
             except HTTPException:
                 raise
-            except (ConnectorUnavailable, MCPCallError):
-                live_path = ""
+            except (ConnectorUnavailable, MCPCallError) as error:
+                from .connector_instances import instances
+                from .public_connector import root_dir
+                connector_root = root_dir()
+                if getattr(getattr(adapter, 'client', None), 'requires_document_binding', False) and (connector_root / 'pairing.json').is_file():
+                    live_instances = [row for row in instances(connector_root) if row['status'] == 'live']
+                    if selected_before or live_instances:
+                        raise HTTPException(status_code=409, detail=(
+                            "SketchUp 连接需要核对。请在建模工具中选中现有窗口，或关闭窗口里的弹窗后重试。"
+                        )) from error
             else:
                 try:
                     live_identity = adapter.get_active_model_identity()
@@ -1245,7 +1302,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 previous_copy = (project_dir / session.model_path).resolve() if session.model_path else None
                 reuse_copy = previous_copy if previous_copy and previous_copy.is_file() else None
                 try:
-                    opened_copy = Path(app.state.disposable_model_launcher(project_id, store.root, reuse_copy)).resolve()
+                    opened_copy = Path(app.state.disposable_session_launcher(project_id, store.root, reuse_copy)).resolve()
                 except (OSError, subprocess.SubprocessError, NativeAgentUnavailable) as error:
                     raise HTTPException(status_code=502, detail=str(error)) from error
                 if _disposable_model_path(str(opened_copy), project_dir) is None:
@@ -1280,6 +1337,9 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 raise HTTPException(status_code=502, detail="SketchUp 没有返回活动模型 GUID，无法安全绑定本次 Agent 会话。")
             model_info = adapter.get_model_info()
             bind_verified_lifecycle(project_dir, live_identity, selected_before, Path(live_path))
+            pair_outputs = getattr(getattr(adapter, "client", None), "pair_project_outputs", None)
+            if callable(pair_outputs):
+                pair_outputs(store.root, project_dir)
             relative_model_path = _relative(project_dir, Path(live_path))
             economy_route = app.state.model_router.economy_route
             session.status = "ready"
@@ -1349,6 +1409,52 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         finally:
             app.state.agent_lock.release()
 
+    @app.post("/api/projects/{project_id}/agent/delivery/refresh")
+    def refresh_agent_delivery(project_id: str) -> dict[str, Any]:
+        if not app.state.agent_lock.acquire(blocking=False):
+            raise HTTPException(409, "请等当前建模回合结束后再更新预览和下载。")
+        try:
+            from .connector_instances import unresolved
+            from .project_ruby import ProjectRubyExecutor
+            project = store.ensure_layout(project_id)
+            session = store.load_state(project_id, "agent_session.json", AgentSession)
+            if session.modeling_backend != "sketchup" or session.status != "ready" or not session.model_path:
+                raise ValueError("请先连接本会话的已保存 SketchUp 模型。")
+            if unresolved(project, session) or (project / "runtime/native-recovery/pending.json").exists():
+                raise ValueError("上次写入或恢复尚未核验，请先检查已保存版本。")
+            document = _disposable_model_path(str(project / session.model_path), project)
+            if not document or not document.is_file() or not session.ruby_state:
+                raise ValueError("未找到本会话可核验的已保存模型。")
+            adapter = app.state.sketchup
+            identity = adapter.get_active_model_identity(include_camera=True)
+            if (Path(identity["model_path"]).resolve() != document or identity.get("model_guid") != session.model_guid
+                    or identity.get("modified") is not False or identity.get("active_context")):
+                raise ValueError("请重新连接本会话的已保存模型并退出组编辑后重试。")
+            runner = ProjectRubyExecutor(store.root, project_id, expected_model_path=document,
+                expected_model_guid=session.model_guid, mcp=adapter.client, ruby_state=dict(session.ruby_state), adapter=adapter)
+            roots, revisions = [], {}
+            for script_id, entry in runner.ruby_state.items():
+                runner.inspect_owned({"script_id": script_id, "path": [], "limit": 1})
+                roots.append(entry["root_pid"])
+                revisions[script_id] = entry["revision"]
+            candidate = verified_saved_delivery(project, document, roots=roots, revisions=revisions)
+            pair_outputs = getattr(adapter.client, "pair_project_outputs", None)
+            if pair_outputs is not None:
+                pair_outputs(store.root, project)
+            state = store.load_state(project_id, "model_state.json", ModelState)
+            state.last_operation = {"action": "refresh_saved_delivery", "delivery_status": "UNVERIFIED_NATIVE_REOPEN",
+                                    "delivery_receipt": "runtime/native_delivery_checkpoint.json"}
+            preview_saved = _publish_agent_delivery(store, project_id, adapter, state, candidate)
+            session.error = "" if preview_saved else "SKP 可以下载。预览未更新，请重新连接 SketchUp 后再试。"
+            session.updated_at = utc_now()
+            store.save_state(project_id, session, "agent_session.json")
+            reply = "已更新当前版本的预览和下载。" if preview_saved else session.error
+            return {"project": store.load_project(project_id), "reply": reply, "preview_saved": preview_saved}
+        except (ConnectorUnavailable, MCPCallError, OSError, ValueError, KeyError) as error:
+            raise HTTPException(409, str(error)) from error
+        finally:
+            app.state.agent_lock.release()
+
     def recover_checkpoint(project_id: str) -> dict[str, Any]:
         project_dir = store.ensure_layout(project_id)
         from .connector_instances import lifecycle_pin, bind_verified_lifecycle
@@ -1361,12 +1467,34 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         persisted = project_dir / "runtime/project_ruby_state.json"
         try:
             disk_state = json.loads(persisted.read_text(encoding="utf-8")) if persisted.is_file() else {}
+            if (project_dir / 'runtime/native-recovery/pending.json').exists():
+                raise ValueError('unfinished checkpoint recovery journal')
             disk_scripts = disk_state.get("scripts", {})
             scripts = [*session.ruby_state.values(), *disk_scripts.values()]
             if any(not isinstance(state, dict) or state.get("durability_status") == "unconfirmed" for state in scripts):
                 raise ValueError("uncertain native commit")
         except (OSError, ValueError, AttributeError, TypeError):
-            raise HTTPException(status_code=409, detail="原生提交的保存状态尚未核实，自动恢复已禁用。请保留当前 SketchUp 模型、committed-revisions 和失败记录；不能通过旧检查点清除隔离状态。") from None
+            from .native_checkpoint_recovery import recover_saved_checkpoint
+            try:
+                target, recovery = recover_saved_checkpoint(project_dir, session, app.state.sketchup,
+                    app.state.disposable_model_launcher)
+            except (OSError, ValueError, RuntimeError, MCPCallError) as error:
+                raise HTTPException(status_code=409, detail="原生提交的保存状态尚未核实，自动恢复已禁用。原窗口仍运行时不能恢复；退出后可核验已保存版本。原模型、committed-revisions 和失败记录保持隔离。 " + str(error)) from None
+            session.updated_at = utc_now()
+            store.save_state(project_id, session, "agent_session.json")
+            model_state = store.load_state(project_id, "model_state.json", ModelState)
+            model_state.model_path = _relative(project_dir, target)
+            model_state.last_operation = {"action":"recover_durable_checkpoint", "status":"recovered",
+                "restored_revision":recovery["restored_revision"], "uncertain_operation_replayed":False}
+            store.save_state(project_id, model_state, "model_state.json")
+            manifest = store.load_state(project_id, "output_manifest.json", OutputManifest)
+            manifest.model_captures.append(_artifact(project_id, project_dir, target, "skp"))
+            store.save_state(project_id, manifest, "output_manifest.json")
+            context = store.load_context(project_id)
+            _append_conversation(context, "assistant", "agent", session.last_reply,
+                {"agent_action":"recovery", "workflow_mode":session.workflow_mode})
+            store.save_state(project_id, context, "project_context.json")
+            return {"project":store.load_project(project_id), "reply":session.last_reply}
         snapshot = project_dir / "outputs/model/previous-agent-checkpoint.skp"
         if current is None or not current.is_file() or not snapshot.is_file() or snapshot.is_symlink():
             raise HTTPException(status_code=409, detail="没有可恢复的项目检查点；请保持当前 SketchUp 打开。")
@@ -1539,12 +1667,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             model_path = project_dir / "outputs" / "model" / f"{project_id}.skp"
             save_result = adapter.save_model(model_path, "AI Architecture Studio initial build")
             model_state.model_path = _relative(project_dir, model_path)
-            capture_path = project_dir / "outputs" / "renders" / "model-initial.png"
-            connector_capture = ROOT / "artifacts" / project_id / "model-initial.png"
-            connector_capture.parent.mkdir(parents=True, exist_ok=True)
-            capture_result = adapter.capture_view(connector_capture)
-            if connector_capture.exists():
-                shutil.copy2(connector_capture, capture_path)
+            capture_path, capture_result = _capture_project_view(adapter, project_dir, "model-initial.png")
             capture_exists = capture_path.exists()
             if capture_exists:
                 model_state.last_capture = _relative(project_dir, capture_path)
@@ -1687,12 +1810,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             model_state.last_operation = {"action": "modify_object", "stable_id": target.stable_id, "instruction": request.instruction, "readback": model_state.connector_readback}
             model_state.status = "edited"
             project_dir = store.project_dir(project_id)
-            capture_path = project_dir / "outputs" / "renders" / f"edit-{uuid.uuid4().hex[:8]}.png"
-            connector_capture = ROOT / "artifacts" / project_id / capture_path.name
-            connector_capture.parent.mkdir(parents=True, exist_ok=True)
-            adapter.capture_view(connector_capture)
-            if connector_capture.exists():
-                shutil.copy2(connector_capture, capture_path)
+            capture_path, _ = _capture_project_view(adapter, project_dir, f"edit-{uuid.uuid4().hex[:8]}.png")
             model_state.last_capture = _relative(project_dir, capture_path) if capture_path.exists() else model_state.last_capture
             model_path = project_dir / "outputs" / "model" / f"{project_id}.skp"
             save_result = adapter.save_model(model_path, "AI Architecture Studio edit checkpoint")
@@ -2086,6 +2204,16 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                     raise HTTPException(status_code=502, detail="SketchUp 没有返回活动模型 GUID，无法安全开放建模工具。")
                 if live_identity.get("active_context"):
                     raise HTTPException(status_code=409, detail="请退出当前 SketchUp 群组/组件编辑上下文后再建模。")
+                # A saved binding can outlive its capture pairing (for example
+                # after moving an authorized profile). Repair only this verified
+                # project's render directory. A pairing error must not turn
+                # the session's saved geometry into an unavailable download.
+                pair_outputs = getattr(getattr(adapter, "client", None), "pair_project_outputs", None)
+                if pair_outputs is not None:
+                    try:
+                        pair_outputs(store.root, project_dir)
+                    except (OSError, ValueError):
+                        pass  # Preview reports its own error if capture cannot run.
                 # model.guid is a transaction snapshot in SketchUp and can refresh
                 # after geometry edits/checkpoints; the disposable path remains the
                 # persistent session boundary, so take a fresh GUID for this turn.
@@ -2121,7 +2249,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             prompt += "\nHOST AUTHORIZATION STATE: no execution grant exists for this message. Do not claim the user has authorized model writes. Briefly explain that the current plan is ready for the visible confirmation button; if scope changes are requested, revise the plan first."
         if action == "plan" and current_model_revisions(project_dir, session.ruby_state):
             prompt += '\nFor a follow-up design change, include in the saved reconstruction card a <design_scope> JSON array </design_scope>. Each entry has exactly feature_id (stable ID matching prior requirements) and requested_state (the user requested new state). List only changed features, not KEEP features. Display the scope for user approval. Do not infer permission to reverse prior requirements without this approved scope.'
-        def checkpoint_agent_model() -> None:
+        def checkpoint_agent_model() -> bool:
             identity = adapter.get_active_model_identity()
             if Path(str(identity.get("model_path") or "")).resolve() != active_model:
                 raise MCPCallError("The active SketchUp model changed before checkpoint.")
@@ -2164,30 +2292,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 )
                 current_state.last_operation["delivery_status"] = saved_delivery["status"]
                 current_state.last_operation["delivery_receipt"] = "runtime/native_delivery_checkpoint.json"
-            capture_path = _capture_agent_view(adapter, store, project_id)
-            current_state.model_path = _relative(project_dir, model_output)
-            current_state.last_capture = _relative(project_dir, capture_path) if capture_path else current_state.last_capture
-            store.save_state(project_id, current_state, "model_state.json")
-            manifest = store.load_state(project_id, "output_manifest.json", OutputManifest)
-            if model_output.is_file():
-                model_artifact = _artifact(project_id, project_dir, model_output, "skp")
-                manifest.model_captures = [item for item in manifest.model_captures if item.path != model_artifact.path]
-                manifest.model_captures.append(model_artifact)
-            if capture_path:
-                image_artifact = _artifact(project_id, project_dir, capture_path, "viewport")
-                manifest.render.append(image_artifact)
-                manifest.model_captures.append(image_artifact)
-            views = sorted((project_dir / "outputs/renders").glob("agent-view-*.png"),
-                           key=lambda path: path.stat().st_mtime)[-12:]
-            for view in views:
-                artifact = _artifact(project_id, project_dir, view, "viewport")
-                manifest.render = [item for item in manifest.render if item.path != artifact.path]
-                manifest.render.append(artifact)
-            # Keep the host's final checkpoint image as the default preview.
-            if capture_path:
-                manifest.render = [item for item in manifest.render if item.path != image_artifact.path]
-                manifest.render.append(image_artifact)
-            store.save_state(project_id, manifest, "output_manifest.json")
+            return _publish_agent_delivery(store, project_id, adapter, current_state, model_output)
 
         if mcp_enabled and any(int(item.get("revision", 0)) > 0 for item in session.ruby_state.values()):
             try:
@@ -2263,10 +2368,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if mcp_enabled and committed:
                 session.reconstruction_state = "building" if policy else session.reconstruction_state
                 try:
-                    checkpoint_agent_model()
+                    preview_saved = checkpoint_agent_model()
                     current_state.last_operation["status"] = "interrupted"
                     store.save_state(project_id, current_state, "model_state.json")
-                    session.last_reply = "本轮中断，已保存已提交的模型和截图；尚未完成全部自检。请继续修改同一模型。"
+                    session.last_reply = "本轮中断，已保存已提交的模型。尚未完成验收。" + ("预览已更新。" if preview_saved else "预览待更新。")
                 except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as checkpoint_error:
                     session.last_reply = "本轮中断，已有几何修改；检查点保存失败，请保持 SketchUp 打开。"
                     session.error += f"; checkpoint failed: {checkpoint_error}"
@@ -2364,10 +2469,13 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         reply = _sanitize_agent_reply(result.reply.strip()[:12000], project_dir) or "已完成这轮设计推演。"
         if mcp_enabled and geometry_committed:
             try:
-                checkpoint_agent_model()
+                preview_saved = checkpoint_agent_model()
                 checkpoint_saved = True
                 reply = bind_current_checkpoint_download(reply, current_state.model_path)
                 reply += "\n\n软件已保存当前独立模型和可下载 SKP；保存成功不代表外观质量已通过。"
+                if not preview_saved:
+                    session.error = "SKP 可以下载。预览未更新，请在「模型与文件」中更新预览和下载。"
+                    reply += "\n\n" + session.error
             except (ConnectorUnavailable, MCPCallError, OSError, ValueError) as error:
                 session.error = f"Model action completed, but readback/capture/checkpoint failed: {error}"[:1200]
                 reply += "\n\nSketchUp 的模型回读、截图或检查点保存未完成；请检查本机桥接后重试。"

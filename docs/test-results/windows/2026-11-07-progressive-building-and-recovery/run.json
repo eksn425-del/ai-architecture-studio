@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-07-progressive-building-and-recovery",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "6f3fbf273c32dd9993daa0dbf413d8f0236ae01d",
+  "source_case": "Farnsworth House Exterior 1 / Lessismore2020 / CC BY-SA 4.0 / original SHA256 1da2453ccdb40c8f29bdd4c4e4da17eff45fd43a77a3fc60527f29f2068cb006",
+  "model": {
+    "requested": "BAI deepseek-v4.1-flash",
+    "actual": "deepseek-v4.1-flash SDK route label; upstream served identity not independently attested",
+    "reasoning_effort": "low",
+    "runtime": "Installed build06 then build07, official DeepSeek Harness, openai-responses"
+  },
+  "environment": {
+    "sketchup": "2024 24.0.484 / Ruby 3.2.2",
+    "connector": "2026.11.05-r2",
+    "project": "architecture-project-7d1b1",
+    "root_pid": 19,
+    "revision": 7
+  },
+  "qa": {
+    "reviewer_mode": "agent_supplied",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "independent_critic": "NOT_RUN",
+    "native_delivery": "PASS actual browser download + host guarded native deep equality",
+    "protected_geometry": "PASS six protected direct parts unchanged",
+    "staged_construction": "PASS six actual commits plus scoped correction",
+    "stop_resume": "PASS same root r2 to r6; initial abort UX repaired and retested"
+  },
+  "release_status": "INTERNAL_CANDIDATE / NOT_READY_FOR_PUBLIC_RELEASE"
+}

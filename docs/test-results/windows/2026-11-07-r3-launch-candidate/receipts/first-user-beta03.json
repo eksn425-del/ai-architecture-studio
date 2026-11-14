@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "status": "PASS_SCOPED_INSTALL_AND_INITIAL_UI",
+  "agent_type": "AGENT_SIMULATED",
+  "environment": "EXISTING_WINDOWS_NEW_APP_PROFILE_REUSED_FROM_BETA01",
+  "clean_windows": false,
+  "artifact": {
+    "version": "2026.11.07-R3-beta03",
+    "sequence": 10,
+    "installer_sha256": "35af0a8861c842a7773655797ed31a66fb8854ee62986d02fc387ce9354ed3b7",
+    "bytes": 311380733,
+    "core_source_sha_reported_by_packaging": "790d7f099939228b9828a6524eeccf94f374f7be",
+    "installer_source_sha_reported_by_packaging": "99c3465f8599db7b9811a48eb48df3137a0da335",
+    "package_sha256_independently_recomputed": true
+  },
+  "actual_gui_install": "PASS",
+  "start_menu_launch": "PASS",
+  "process_pid": 4700,
+  "executable_path_observed_on_e": true,
+  "api_key_empty": true,
+  "saved_api_connections_observed": 0,
+  "cloud_account_service": "NOT_CONFIGURED",
+  "profile_preservation_before_app_start": {
+    "captured_utc": "2026-11-07T04:32:47.677588+00:00",
+    "phase": "AFTER_INSTALLER_CLOSED_BEFORE_APP_START",
+    "profile_files_checked": 207,
+    "missing_profile_files": 0,
+    "profile_small_hashes_checked": 201,
+    "changed_profile_small_hashes": 0,
+    "changed_profile_sizes": 0,
+    "read_errors": 0,
+    "current": {
+      "version": "2026.11.07-R3-beta03",
+      "sequence": 10,
+      "data_schema": 1
+    },
+    "highwater": 10,
+    "old_slot_directories_preserved": true,
+    "controls": [
+      {
+        "relative_path": "current.json",
+        "exists": true,
+        "bytes": 64,
+        "sha256": "101f7b8ceca8b81b06f596615137d709d8f6654796d22114ff70c3cf8d3b8f5b"
+      },
+      {
+        "relative_path": "highest-sequence.json",
+        "exists": true,
+        "bytes": 2,
+        "sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5"
+      },
+      {
+        "relative_path": "launch_installed.ps1",
+        "exists": true,
+        "bytes": 2347,
+        "sha256": "27a5c47120690851ad7a1d8468c4a41e3d8aa1969e7bc198bf4b79cbd78d1d22"
+      },
+      {
+        "relative_path": "versions/2026.11.07-R3-beta03/KStudio.exe",
+        "exists": true,
+        "bytes": 37057805,
+        "sha256": "982ceadc6dfcced80a7854d789e8dff492f0866f0b0d565a6e22b2fc0a8b37c7"
+      }
+    ],
+    "initial_probe_note": "First read while installer completion window was open hit PermissionError on .kstudio-runtime.lock; retry after installer closed."
+  },
+  "scope": {
+    "model_inference": false,
+    "native_model_write": false,
+    "payment": false,
+    "registry_modified_by_first_user": false,
+    "c_drive_deleted_by_first_user": false,
+    "native_status": "nativeNOT_RUN_BY_FIRST_USER",
+    "website_public_download": "BLOCKED"
+  },
+  "host_intervention": "Process-scoped E TEMP/TMP via project video-workspace.ps1 then Hidden Start-Process. Parent restored only installer PID55284 hidden window; subsequent installation buttons and StartMenu launch were real GUI operations.",
+  "parent_process_environment_check": {
+    "status": "PASS_REPORTED_BY_PARENT",
+    "pid": 4700,
+    "exe_data_dir_temp_tmp_on_e": true,
+    "webview_child_count": 6,
+    "webview_user_data_dirs_on_e": true,
+    "local_evidence": "program-migration/runtime-on-e.json",
+    "independently_repeated_by_first_user": false
+  },
+  "own_app_closed": true,
+  "screenshots": [
+    {
+      "file": "desktop/first-user-beta03-04-install-complete.png",
+      "bytes": 40694,
+      "sha256": "7f879be0f0eb10e801f669630ee53459ff0173f7356d6c1ab941772f0e487e31",
+      "privacy_review": "VISUALLY_REVIEWED_NO_SECRET_PRIVATE_PATH_OR_UNRELATED_WINDOW",
+      "copy_identical": true
+    },
+    {
+      "file": "desktop/first-user-beta03-05-first-launch-no-api.png",
+      "bytes": 808693,
+      "sha256": "c5ea4371c17e68bcf547d306e23b471ab0242e6183cfeef1ee7c65e0e47b571e",
+      "privacy_review": "VISUALLY_REVIEWED_NO_SECRET_PRIVATE_PATH_OR_UNRELATED_WINDOW",
+      "copy_identical": true
+    },
+    {
+      "file": "desktop/first-user-beta03-06-api-empty-key.png",
+      "bytes": 197586,
+      "sha256": "5b08991baa4d73941c2cf670bbf54fe5ba8671d85b0ecdbbf3d7ae67cf390a4a",
+      "privacy_review": "VISUALLY_REVIEWED_NO_SECRET_PRIVATE_PATH_OR_UNRELATED_WINDOW",
+      "copy_identical": true
+    },
+    {
+      "file": "desktop/first-user-beta03-07-account-not-configured.png",
+      "bytes": 72803,
+      "sha256": "f4b635928c98b71adf30ef09e6b97c99a5e9af3f03fffee5c4c6a08af32ddcc4",
+      "privacy_review": "VISUALLY_REVIEWED_NO_SECRET_PRIVATE_PATH_OR_UNRELATED_WINDOW",
+      "copy_identical": true
+    }
+  ],
+  "own_app_close_verification": {
+    "method": "Normal GUI window close, then read-only Get-Process",
+    "pid": 4700,
+    "process_absent": true,
+    "checked_at": "2026-11-07T12:37:55+08:00"
+  },
+  "c_drive_cleanup": {
+    "status": "BLOCKED_BY_POLICY_REPORTED_BY_PARENT",
+    "old_copy_retained": true,
+    "first_user_attempted_cleanup": false
+  },
+  "help_level": {
+    "normal_ui": "H0",
+    "public_help": "H1_PRIOR_BETA01",
+    "host_launch": "H3_PARENT_RESTORED_HIDDEN_INSTALLER"
+  }
+}

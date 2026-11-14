@@ -1,0 +1,12 @@
+[
+  {
+    "status": "FIXED_ENTRY_ONLY",
+    "problem": "Unique desktop shortcut still targeted old R2 seq7 while Start Menu targeted installed R3 beta03",
+    "action": "Backed up old shortcut on E, replaced desktop entry with verified existing R3 shortcut. No program/profile deletion or new source installation."
+  },
+  {
+    "status": "BLOCKED_EXTERNAL",
+    "problem": "No production deploy/.env or production OIDC/WeChat/platform/operator variables present in authorized workspace environment",
+    "action": "Existing external input checklist retained; no unrelated private account search or production deploy"
+  }
+]

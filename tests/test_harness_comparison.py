@@ -86,7 +86,7 @@ def test_deepseek_host_tools_feed_real_product_progress(tmp_path,monkeypatch):
     host=DSHHostSession(home=tmp_path/'home',workspace=tmp_path,api_base='https://api.b.ai/v1',api_key='test-secret',model='deepseek-v4.1-flash',
         specs=[{'name':'sketchup_apply_parts'}],dispatch=dispatch,trace_path=log,sdk_site=tmp_path,dsh_bin='unused',progress=received.append,max_tokens=32768)
     try:
-        profile=json.loads((tmp_path/'home/kstudio.patch.yml').read_text())
+        profile=json.loads((tmp_path/'home/kstudio.patch.yml').read_text(encoding='utf-8'))
         llm=next(row for row in profile if row['id']=='llm-pi-ai')
         assert llm['config']['providers']['kstudio-bai']['models'][0]['maxTokens']==sdk_config['max_tokens']==32768
         for fail in (False,True):

@@ -168,27 +168,32 @@ def _read_frames(data: bytes) -> list[dict[str, Any]]:
 class ConfiguredSketchUpMCP:
     """Stdio client for an explicitly paired public or legacy MCP server."""
 
-    def __init__(self, timeout_seconds: int = 15):
-        self.timeout_seconds = timeout_seconds
+    def __init__(self, timeout_seconds: int | None = None):
+        self.timeout_seconds = timeout_seconds if timeout_seconds is not None else 15
+        self.automatic_deadlines = timeout_seconds is None
 
     def _request(self, requests: list[dict[str, Any]], response_id: int) -> dict[str, Any]:
         command, configured_env, configured_cwd = _resolve_server()
         environment = os.environ.copy()
         environment.update(configured_env)
         payload = b"".join(_frame(message) for message in requests)
+        from .connector_deadlines import native_response_timeout
+        response_window=max((native_response_timeout(r.get('params',{}).get('name'))
+            for r in requests if r.get('method')=='tools/call'),default=12)
+        timeout=max(self.timeout_seconds,response_window+3) if self.automatic_deadlines else self.timeout_seconds
         try:
             completed = subprocess.run(
                 command,
                 input=payload,
                 capture_output=True,
-                timeout=self.timeout_seconds,
+                timeout=timeout,
                 cwd=configured_cwd or str(Path(__file__).resolve().parents[1]),
                 env=environment,
                 check=False,
                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except subprocess.TimeoutExpired as error:
-            raise MCPCallError(f"The existing SketchUp MCP did not respond within {self.timeout_seconds} seconds.") from error
+            raise MCPCallError(f"The existing SketchUp MCP did not respond within {timeout} seconds.") from error
         except OSError as error:
             raise ConnectorUnavailable(f"The existing SketchUp MCP could not be started: {error}") from error
 
@@ -225,6 +230,19 @@ class ConfiguredSketchUpMCP:
         return (bool(environment.get('KSTUDIO_PUBLIC_CONNECTOR_ROOT'))
                 or Path(command[0]).name.lower() == 'kstudioconnector.exe'
                 or 'app.public_connector' in command)
+
+    def pair_project_outputs(self, runtime_root: Path, project_dir: Path) -> None:
+        """Register only the render directory of a verified bound desktop project."""
+        if not self.requires_document_binding:
+            return
+        from .public_connector import authorize_workspace, root_dir
+        _, environment, _ = _resolve_server()
+        if project_dir.parent != runtime_root / "projects" or project_dir.resolve() != project_dir:
+            raise ValueError("截图目录必须属于当前工作台的项目。")
+        root = Path(environment["KSTUDIO_PUBLIC_CONNECTOR_ROOT"]) if environment.get("KSTUDIO_PUBLIC_CONNECTOR_ROOT") else root_dir()
+        # Pair the render directory, not its runtime, parent, or the whole drive.
+        renders = project_dir / "outputs" / "renders"
+        authorize_workspace(root, renders)
 
     def list_tools(self) -> list[dict[str, Any]]:
         requests = self._initialize_requests() + [{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}]
@@ -403,7 +421,7 @@ class SketchUpAdapter:
                         "model_guid": guid,
                         "active_context": bool(candidate.get("active_context", False)),
                         "main_thread": bool(candidate.get("main_thread", True)),
-                        **({"camera": candidate.get("camera")} if include_camera else {}),
+                        **({"camera": candidate.get("camera"), "modified": candidate.get("modified")} if include_camera else {}),
                     }
         raise MCPCallError("The SketchUp MCP did not return the active model path and GUID, so the disposable-model safety check cannot pass.")
 
@@ -425,6 +443,7 @@ class SketchUpAdapter:
         representations = {
             "expanded": ("native_deep_fingerprint.rb", "KStudioNativeDeepFingerprint", "KStudioNativeDeepFingerprint/1"),
             "definition_graph": ("native_definition_graph.rb", "KStudioNativeDefinitionGraph", "KStudioNativeDefinitionGraph/1"),
+            "architecture_features": ("native_architecture_features.rb", "KStudioNativeArchitectureFeatures", "KStudioNativeArchitectureFeatures/1"),
         }
         if representation not in representations:
             raise ValueError("Unsupported native fingerprint representation.")
@@ -502,8 +521,8 @@ class SketchUpAdapter:
     def open_copy_from_unsaved_model(self, target_path: Path, expected_guid: str, *, expected_saved_path: str | None = None) -> None:
         """Host lifecycle only: preserve current work, then open a prepared copy.
 
-        Save to a new recovery path, never overwrite the source. This also clears
-        SketchUp's modified flag so opening the copy cannot hang on a save dialog.
+        Preserve unsaved changes in a new recovery copy. A clean existing SKP
+        can be switched directly in the same SketchUp window.
         """
         if not target_path.is_file() or not target_path.name.startswith("blank-disposable-"):
             raise MCPCallError("Project disposable copy is missing.")
@@ -519,7 +538,9 @@ class SketchUpAdapter:
         status_literal = json.dumps(str(status_path.resolve()), ensure_ascii=False)
         path.write_text("# ARCHFLOW_GENERATED_SCRIPT\n" + guard +
                         "UI.start_timer(0.1, false) do\nbegin\n" + guard +
-                        f"raise 'Could not preserve current work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
+                        "if m.modified? || m.path.empty?\n" +
+                        f"  raise 'Could not preserve current work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
+                        "end\n" +
                         f"raise 'Could not open project copy' unless Sketchup.open_file({json.dumps(str(target_path.resolve()), ensure_ascii=False)})\n" +
                         f"File.write({status_literal}, JSON.generate({{ok: true}}))\nrescue StandardError => error\n" +
                         f"File.write({status_literal}, JSON.generate({{ok: false, error: error.message}}))\nend\nend\n"

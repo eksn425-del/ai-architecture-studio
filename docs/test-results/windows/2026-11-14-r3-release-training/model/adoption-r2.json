@@ -1,0 +1,31 @@
+{
+  "ledger": {
+    "schema_version": 1,
+    "source_sha256": "87aa4f7135ddc590dd5e01a48e02b39921b5c93fd6155cd41eeee3cf6f6052a0",
+    "events": [
+      {
+        "method_id": "local_mcp.window_bay",
+        "status": "returned",
+        "elapsed_ms": 2,
+        "returned_nil": false,
+        "result_entity_pid": 777,
+        "result_entity_name": "piece_0"
+      }
+    ],
+    "status": "committed_readback",
+    "script_id": "harness_building",
+    "revision": 2,
+    "root_pid": 19
+  },
+  "adoption": {
+    "schema_version": 1,
+    "ledger_status": "committed_readback",
+    "actual_wrapped_calls": {
+      "local_mcp.window_bay": 1
+    },
+    "any_oss_product_use": true,
+    "effect_verified": false,
+    "effect_verification_required": "Named component readback and independent source-matched visual review.",
+    "plan_choices": []
+  }
+}

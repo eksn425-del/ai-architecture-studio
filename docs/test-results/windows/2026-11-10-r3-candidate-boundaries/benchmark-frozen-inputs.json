@@ -1,0 +1,160 @@
+{
+  "status": "PREPARED_NOT_RUN_REQUIRES_EXPLICIT_BUDGET_AND_AUTHORIZATION",
+  "source_commit": "a9b8e404ccdccae8e222a7e7eade15b34e99593b",
+  "reference_order": [
+    {
+      "slot": 1,
+      "name": "source_01.png",
+      "sha256": "bc2fd2d1b3686c35a33be3d5e9c206cf568fbb30d676b9099a87f9ba5fc830f8"
+    },
+    {
+      "slot": 2,
+      "name": "source_02.png",
+      "sha256": "77cd31f67e7115dd340fe1afe383a696618ed69d76598a3be47d72753fdbbd8f"
+    },
+    {
+      "slot": 3,
+      "name": "source_03.png",
+      "sha256": "e2933439c71992c64cdb8affa60133513a5105caf5ac1690fa8ab75566622d77"
+    },
+    {
+      "slot": 4,
+      "name": "source_04.png",
+      "sha256": "2abe02d927024dd24c7b0a14f51e9fe6ebd288ad852251d9b44b60b664ce565e"
+    },
+    {
+      "slot": 5,
+      "name": "source_05.png",
+      "sha256": "56be07bcab6936a01a2e0b51e540a3014c9761f716ce15f195df180663aebcdd"
+    },
+    {
+      "slot": 6,
+      "name": "source_06.png",
+      "sha256": "b4ee38e3788c976985ef455e78cce6856a7ac704fa310b8a335056ccc213fc4e"
+    }
+  ],
+  "baseline": {
+    "revision": 11,
+    "root_pid": 19,
+    "download_skp_sha256": "388931e8d7ecb942091492a8c3c611080588908441dad1e36f15465f6ad893fa",
+    "deep_geometry_sha256": "e1534e4e4bbd7f048f10d3ad3894387c182139777ff9f89fca47025786672dd4",
+    "same_project_id_in_separate_profiles": true,
+    "new_blank_rebuild": false
+  },
+  "common_configuration": {
+    "requested": {
+      "model": "deepseek-v4.1-flash",
+      "protocol": "openai-responses",
+      "reasoning_effort": "high"
+    },
+    "effective": {
+      "endpoint": "https://api.b.ai/v1",
+      "model": "deepseek-v4.1-flash",
+      "protocol": "openai-responses",
+      "requested_effort": "high",
+      "context_window": 131072,
+      "max_output_tokens": 32768,
+      "vision": true,
+      "tools": true,
+      "streaming": true,
+      "capability_source": "historical_local_configuration",
+      "verification_status": "HISTORICAL_LOCAL_MODELING_ONLY",
+      "request_retries": 2,
+      "sdk_reasoning_effort": "high",
+      "wire_reasoning_effort": "high"
+    },
+    "reported": {
+      "model": null,
+      "reasoning_effort": null,
+      "context_window": null
+    },
+    "supported_efforts": [
+      "provider-default",
+      "low",
+      "high"
+    ],
+    "provider": "bai",
+    "accepted_runtime_version": "0.2.1-rc.5 (offline wire only)",
+    "capability_evidence": {
+      "provider_declaration": null,
+      "user_declaration": false,
+      "offline_contract": "DSH serializer; not this endpoint",
+      "live_request": null,
+      "live_modeling": null,
+      "image_formats": [
+        "PNG",
+        "JPEG",
+        "WEBP",
+        "GIF frame 0 converted to PNG"
+      ],
+      "max_image_bytes": 26214400,
+      "max_decoded_pixels": 40000000,
+      "provider_image_limits": null,
+      "parallel_tools": null,
+      "streamed_tool_arguments": null,
+      "usage_semantics": null,
+      "retry_after": "official SDK policy; provider behavior unverified"
+    }
+  },
+  "runtime": {
+    "node_dsh": "0.2.1-rc.5",
+    "python_sdk": "0.2.1rc2",
+    "node_package_sha256": "b10673ea6c4e20cc10da6ef20130b6ece3142cba8003b50e0d5ded25fc388b5b",
+    "capabilities": "full reviewed product composition",
+    "single_native_writer": true,
+    "sketchup": "24.0.484"
+  },
+  "variants": {
+    "controlled_native": {
+      "KSTUDIO_DSH_GUIDANCE": "native"
+    },
+    "k_enhanced": {
+      "KSTUDIO_DSH_GUIDANCE": "architecture"
+    }
+  },
+  "invariants": [
+    "same six image hashes/order",
+    "same r11 bytes and complete initial context clone",
+    "same provider/model/High/retry/output/context settings",
+    "same approved exact edit scope and KEEP",
+    "same exposed tool schemas and host safety guards",
+    "fresh agent sessions; no cross-arm answer sharing",
+    "same viewpoints and checks after writes",
+    "raw failures and unknown usage retained"
+  ],
+  "interpretation": "Controlled official SDK baseline retains K Studio project/approval/MCP/architecture tool surfaces. It is NOT an untouched unrestricted upstream CLI. The difference is guidance and host-loaded architectural prompt/skills, not removing safety from one arm.",
+  "planned_repetitions_per_arm": 2,
+  "counterbalanced_order": [
+    "controlled_native",
+    "k_enhanced",
+    "k_enhanced",
+    "controlled_native"
+  ],
+  "proposed_max_requests_per_arm_run_including_retries_compaction_and_subagents": 12,
+  "proposed_total_max_requests": 48,
+  "authorized_new_requests": 0,
+  "spend_budget": null,
+  "user_message": "请结合这六张照片检查并完善当前模型的折面外罩、主开口和楼梯衔接。保留正确部分，不要重新建整栋楼，先给我局部调整方案。",
+  "acceptance": [
+    "source-defined enclosure folds and primary aperture independently reviewed",
+    "four actual stair exits and landings are connected across intended width; legitimate final riser recorded",
+    "no protected group geometry/material changes",
+    "native download/reopen equivalence",
+    "all provider requests and unknown usage recorded",
+    "no winner declared from tool success or a single favored screenshot"
+  ],
+  "tracked_inputs_sha256": {
+    "app/deepseek_studio.py": "d1018134ceb021a2c3e6fbf7fb4ff05ca1c93e487e8453c24b5c2aab0c079494",
+    "app/dsh_full_profile.py": "17140f01c9e407791ca12af167dbfaec36d011bedca3a7641d3570abb04231fd",
+    "app/dsh_configuration.py": "c25e43868a89365ccc69e7cfb0e48c4c85e7527bfe784b7fdc4fa634f7052805",
+    "app/dsh_architecture_surface.py": "e268b618d9f4aea9409bc57f3677aec13f45834843b4d5eadaa132432585042d",
+    "app/dsh_host_tools.mjs": "f50ad525058ae1d144361e8eb12be2177cf8853399339e0e8eee519c8b2c0d1a",
+    "app/project_ruby.py": "16f971cf6a2a19c9bf73007fa14309b86cf3405c7b41f6e3ba85ff3d1c9b53f4",
+    "app/architecture_skills/delivery.md": "81f0ba78f5c84ad192a44adbceb74e9ab61bf5cd849c78f9e41be5104559fe99",
+    "app/architecture_skills/edit.md": "1927d926d76a5959557397269bff066dd4d8b40cd29ebb2c6c84b6930cc2a636",
+    "app/architecture_skills/facade.md": "c44e65d26883bc60803c49b1211f6e36ec7088909c1dd63c0005a1c68d627d12",
+    "app/architecture_skills/native.md": "9bd0e6e0c7315036f9450a0470c650235e0ae7576eab4024c0007c0ba2bcc2b5",
+    "app/architecture_skills/reference.md": "e4cc2dc7742ef72ddc3c3593011963edd148d1cde9656d9d04208f545e0e5bba",
+    "app/architecture_skills/spatial.md": "fbca61e8a0e8941415ea461e24b1aaf0066ac545f1669af5c4696d53dc601c04"
+  }
+}

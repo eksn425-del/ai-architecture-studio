@@ -49,9 +49,10 @@ def test_old_large_tool_dumps_bounded_without_breaking_exchanges_or_audit():
     assert sum(len(m.get('content') or '') for m in active)<170000
 
 
-def test_existing_root_requires_deliberate_rebuild_before_any_model_call():
+def test_existing_root_requires_deliberate_rebuild_before_any_model_call(tmp_path):
     from app.project_ruby import ProjectRubyExecutor
     executor=object.__new__(ProjectRubyExecutor)
+    executor.project_dir=tmp_path
     executor.ruby_state={'villa':{'root_pid':123,'revision':2}}
     with pytest.raises(ValueError,match='unrelated object IDs'):
         executor.run({'script_id':'villa','ruby_source':'root.name = "Villa"'})

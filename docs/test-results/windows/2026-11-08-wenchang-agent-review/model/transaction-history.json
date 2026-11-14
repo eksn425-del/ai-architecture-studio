@@ -1,0 +1,107 @@
+[
+  {
+    "file": "harness_building-r1-1e12263d.json",
+    "status": "committed",
+    "revision": 1,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r10-3fc217e0.json",
+    "status": "committed",
+    "revision": 10,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r11-f2c23e4f.json",
+    "status": "committed",
+    "revision": 11,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r2-591bc008.json",
+    "status": "prepared",
+    "revision": null,
+    "root_pid": null,
+    "error": null
+  },
+  {
+    "file": "harness_building-r2-657790ac.json",
+    "status": "committed",
+    "revision": 2,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r2-9453fb9c.json",
+    "status": "prepared",
+    "revision": null,
+    "root_pid": null,
+    "error": null
+  },
+  {
+    "file": "harness_building-r3-c4e3e11a.json",
+    "status": "committed",
+    "revision": 3,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r4-84ac17bf.json",
+    "status": "committed",
+    "revision": 4,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r5-62bbffe4.json",
+    "status": "committed",
+    "revision": 5,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r5-78dab882.json",
+    "status": "aborted",
+    "revision": null,
+    "root_pid": null,
+    "error": "ArgumentError: Points are not planar"
+  },
+  {
+    "file": "harness_building-r6-33be867f.json",
+    "status": "committed",
+    "revision": 6,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r7-71057045.json",
+    "status": "committed",
+    "revision": 7,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r8-7cbdfc7f.json",
+    "status": "committed",
+    "revision": 8,
+    "root_pid": 19,
+    "error": null
+  },
+  {
+    "file": "harness_building-r9-599bf6e1.json",
+    "status": "aborted",
+    "revision": null,
+    "root_pid": null,
+    "error": "RuntimeError: Protected geometry changed outside approved exact paths: [{\"path\":\"masked_root/children/1/canonical_geometry_json\",\"before\":{\"sha256\":\"7e7a1ae4959d02b10ccea6ccdfa0798d0513942083123788fa0bbacacb23ea73\",\"bytes\":508},\"after\":{\"sha256\":\"6a5072ccf6cfe1abfb1726bacc3a8d960c3b892dbc95efe69b143714ac125dbc\",\"bytes\":508}},{\"path\":\"masked_root/children/1/geometry_material_sha256\",\"before\":\"6ed03bd46f93792d8980d43fef745eb013c0d3c6e467d3ddb218afc06a3b76b5\",\"after\":\"a5a4a46139a4c9a04b1d35057855778e08384f5861c3f3079efa0d662df15be7\"},{\"path\":\"masked_root/children/5/canonical_geometry_json\",\"before\":{\"sha256\":\"9687351a122c5946eb1c809fd105471efbbd7beced2bec865365a0762ab8f798\",\"bytes\":504},\"after\":{\"sha256\":\"a90230ab101be60106da39bf70aa776197998acd931fbea0ca4a8aa0f3088109\",\"bytes\":504}},{\"path\":\"masked_root/children/5/geometry_material_sha256\",\"before\":\"195c2143fe3dc737d8b5368949f60d24f5ddf48bc2015e20f39f6e6ae5ec1b52\",\"after\":\"c14eef967d3fb54ea87870c972ad5b7462c19f57eb3d29148367ef1190078bc3\"},{\"path\":\"masked_root/children/11/canonical_geometry_json\",\"before\":{\"sha256\":\"cfc926c71bce91eaeced2987c662a1365083834f3351c713f2a38d07e1b58362\",\"bytes\":502},\"after\":{\"sha256\":\"b7c529741ef3a2c3f32d1def7abb37c019ea289405228a115a8242648f7e3936\",\"bytes\":502}},{\"path\":\"masked_root/children/11/geometry_material_sha256\",\"before\":\"a90d473eacf791a3758944b8b9bbf08dd4f419e30f5fdfa4838ff66dcc2d9bd3\",\"after\":\"6b891742d2c418bed2330e550ef6bf7b03aace500caee81ed817bb100f3be672\"},{\"path\":\"masked_root/children/12/canonical_geometry_json\",\"before\":{\"sha256\":\"f913318034bb4121937ff9056221b619117cebccb009d3eb1749302c9aa2739a\",\"bytes\":502},\"after\":{\"sha256\":\"9859d0695b8787e8c2d165cd511681e257e932f0ee8ef43ddbaeed81255eb9e5\",\"bytes\":502}},{\"path\":\"masked_root/children/12/geometry_material_sha256\",\"before\":\"52125e93d8033c6849390889c39b096675de662f29bc17960b9e89cd8c155a25\",\"after\":\"8120bfc433bc3b91a814bc52d980700d649b60ed72a258c28bd44c5976910c7c\"},{\"path\":\"masked_root/children/13/canonical_geometry_json\",\"before\":{\"sha256\":\"1d2f6137722e9fa01c81ee3e6a77e49c868532153b3680d9e437622f23f7b9a6\",\"bytes\":504},\"after\":{\"sha256\":\"7b5b89b5de9e6ac6f20a0906feb702f39058a4d73b670067d09055a65937b556\",\"bytes\":504}},{\"path\":\"masked_root/children/13/geometry_material_sha256\",\"before\":\"a67c25c7b3f6e835a4ccdebdf37575bfae2f9a06219cfd08ad133957b054b311\",\"after\":\"d2ab63822d619afb252ed7ad19f6134befdfe689b136579635815bf022b5bc02\"},{\"path\":\"masked_root/children/14/canonical_geometry_json\",\"before\":{\"sha256\":\"867c98a1b2c46f0b93e21ae4d4058fb2cb4a7aac91c4a541dac0195ff98b11a5\",\"bytes\":510},\"after\":{\"sha256\":\"7eade2465c67656e38b58e660ec0372f2193a1ff4dec49bcdb94453b2c4c8e09\",\"bytes\":510}},{\"path\":\"masked_root/children/14/geometry_material_sha256\",\"before\":\"5a35de324d3c60bf9f4a4ead04e649875a49de01dc2ca852a2b60cd365430aed\",\"after\":\"aa8d52150140e6fb02f2532e552905e8395fe98352d9c8f622c996ad24489983\"}]"
+  },
+  {
+    "file": "harness_building-r9-b329793a.json",
+    "status": "committed",
+    "revision": 9,
+    "root_pid": 19,
+    "error": null
+  }
+]

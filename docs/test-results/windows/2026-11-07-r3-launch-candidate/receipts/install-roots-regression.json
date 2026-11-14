@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "tests": {
+    "passed": 35,
+    "skipped": 2,
+    "skip_reason": "Existing opt-in NSIS full fixture tests require explicit isolated fixture environment; previously executed and retained separately."
+  },
+  "source_head": "790d7f099939228b9828a6524eeccf94f374f7be",
+  "source_dirty": true,
+  "source_sha256": {
+    "scripts/build_installer.py": "3369255bde9970caef4985e1d5c30dacd876106c85b488119977f909edeaae79",
+    "scripts/launch_installed.ps1": "27a5c47120690851ad7a1d8468c4a41e3d8aa1969e7bc198bf4b79cbd78d1d22",
+    "tests/test_r3_install_roots.py": "a926815d127fe638afbb03e6a957de10db11c4a808b68aaeae762edf7504633c"
+  },
+  "test_files": [
+    "tests/test_r3_install_roots.py",
+    "tests/test_r3_installer.py"
+  ],
+  "artifacts": {
+    "install-roots-regression-e-temp.xml": {
+      "file": "install-roots-regression-e-temp.xml",
+      "sha256": "3e007bdcd044997da4b668e6158222db85b19e6c1e9348e472004352191709b3"
+    },
+    "install-roots-regression-e-temp.log": {
+      "file": "install-roots-regression-e-temp.log",
+      "sha256": "01ef024edf55ca36d7bcda6621ce29fe615684583ec02dfc361b8947e6dcc378"
+    }
+  },
+  "root_selection": "selected-local-fixed-root",
+  "production_build": "NOT_RUN",
+  "actual_install": "NOT_RUN",
+  "launcher_test": "Real Windows PowerShell launcher; Start-Process replaced by observer; no application process started; TEMP/TMP and held byte lease observed",
+  "storage": "All pytest artifacts and process-local TEMP/TMP on owning project E drive; no global environment change",
+  "public_release_ready": false
+}

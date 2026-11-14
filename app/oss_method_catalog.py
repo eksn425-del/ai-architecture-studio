@@ -34,6 +34,12 @@ METHODS = (
         "Correct for standard rectangular doors/windows, not arbitrary polygon holes.",
     ),
     CapabilityMethod(
+        "local_mcp.window_bay", "Local MCP for SketchUp", "dtzhlq/local-mcp-for-sketchup", "Apache-2.0",
+        ("facade", "opening"), "sketchup_apply_parts(piece.kind='window_bay')",
+        "SketchUp 2022+ API; one fully enclosed rectangular window in a straight solid wall bay.",
+        "Named wall, inset frame and glass. Verify a single bay before instancing it across the facade.",
+    ),
+    CapabilityMethod(
         "adai.profile", "ADAI", "laowang-wy/adai-sketchup-skill-mcp", "CPAL-1.0",
         ("profile", "roof", "trim"), "adai_geometry.profile(root.entities, ...)",
         "Only when ARCH_STUDIO_ENABLE_ADAI_GEOMETRY=1 and pinned helper verified.",

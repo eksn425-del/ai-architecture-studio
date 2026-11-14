@@ -78,13 +78,15 @@ def initialize_pairing(root=None):
 
 
 def authorize_workspace(root, workspace):
-    """Called only by the explicit local pairing wizard, never by model tools."""
+    """Register a host-verified local workspace; never called by model tools."""
     root, workspace = Path(root), Path(workspace).absolute()
     for part in (workspace, *workspace.parents):
         if part.is_symlink() or (hasattr(part, 'is_junction') and part.is_junction()):
             raise ValueError('Connector workspace must not redirect')
     if not workspace.is_dir() or workspace == Path(workspace.anchor):
         raise ValueError('Connector workspace must be an existing project runtime directory')
+    if workspace.resolve() != workspace:
+        raise ValueError('Connector workspace must not redirect')
     config = json.loads((root / 'pairing.json').read_text(encoding='utf-8'))
     if not config.get('enabled'):
         raise ValueError('Connector pairing is disabled; explicitly re-pair before use')
@@ -107,7 +109,9 @@ def verified(envelope, token):
     return json.loads(envelope['body'])
 
 
-def call(name, arguments=None, *, root=None, timeout=12):
+def call(name, arguments=None, *, root=None, timeout=None):
+    from .connector_deadlines import native_response_timeout
+    if timeout is None:timeout=native_response_timeout(name)
     if name not in TOOL_NAMES:
         raise ValueError('Unsupported public connector tool')
     root = Path(root or root_dir())

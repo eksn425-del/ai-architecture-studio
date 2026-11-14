@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "mode": "read_only_recovery_of_existing_saved_r8_and_real_download",
+  "before_save_capture": "NOT_AVAILABLE",
+  "geometry_committed": false,
+  "revision": 8,
+  "root_pid": 19,
+  "download_sha256": "8d3f01a465c53799b2ab92f29682f1bdf09442fb5966bd7252b55511ef41c496",
+  "verified_saved_artifact_sha256": "8d3f01a465c53799b2ab92f29682f1bdf09442fb5966bd7252b55511ef41c496",
+  "byte_match": true,
+  "comparisons": {
+    "bound_before_preview_refresh_vs_download_reopened": {
+      "schema_version": 1,
+      "status": "PASS",
+      "document_geometry_changed": false,
+      "root_geometry_changed": false,
+      "presentation_changed": false,
+      "deep_native_collector_both_stages": true,
+      "fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+      "before_group_count": 9,
+      "replay_group_count": 9,
+      "missing_groups": [],
+      "added_groups": [],
+      "changed_groups": [],
+      "persistent_ids_ignored": true,
+      "equal_group_counts_do_not_prove_geometry_equality": true
+    },
+    "bound_after_preview_refresh_vs_download_reopened": {
+      "schema_version": 1,
+      "status": "PASS",
+      "document_geometry_changed": false,
+      "root_geometry_changed": false,
+      "presentation_changed": false,
+      "deep_native_collector_both_stages": true,
+      "fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+      "before_group_count": 9,
+      "replay_group_count": 9,
+      "missing_groups": [],
+      "added_groups": [],
+      "changed_groups": [],
+      "persistent_ids_ignored": true,
+      "equal_group_counts_do_not_prove_geometry_equality": true
+    }
+  }
+}

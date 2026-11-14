@@ -293,6 +293,9 @@ def register_routes(app, store, agent_lock):
                     identity.get('model_guid') != row['model_guid'] or identity.get('active_context') or
                     identity.get('main_thread') is not True):
                 raise ValueError('原生读回与已选模型不一致，尚未启用建模。')
+            pair_outputs = getattr(getattr(app.state.sketchup, 'client', None), 'pair_project_outputs', None)
+            if callable(pair_outputs):
+                pair_outputs(store.root, store.ensure_layout(project_id))
             session.model_path = Path(row['model_path']).resolve().relative_to(project.resolve()).as_posix()
             session.model_guid = row['model_guid']
             session.status = 'ready'

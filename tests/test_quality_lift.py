@@ -191,8 +191,13 @@ def test_committed_revision_survives_interrupted_capture(tmp_path):
     def failed_capture(path):
         raise OSError("capture interrupted")
     adapter.capture_view = failed_capture
-    with pytest.raises(OSError, match="interrupted"):
-        executor.run({"script_id": "main", "ruby_source": "root.name = 'Restorable'"})
+    result = executor.run({"script_id": "main", "ruby_source": "root.name = 'Restorable'"})
+    assert result["success"] is True
+    assert len(result["contentItems"]) == 1
+    summary = json.loads(result["contentItems"][0]["text"])
+    assert summary["capture_status"] == "PENDING"
+    assert summary["screenshot"] is None
+    assert summary["capture_error"] == "capture interrupted"
     restored = ProjectRubyExecutor(
         executor.runtime_root, executor.project_id, expected_model_path=model_path,
         expected_model_guid="guid-live", mcp=mcp, ruby_state={}, adapter=adapter,

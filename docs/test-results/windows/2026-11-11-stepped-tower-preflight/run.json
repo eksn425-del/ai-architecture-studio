@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-11-stepped-tower-preflight",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "base_commit": "de0ea813488f075872833c6d58661a9c56e1ca08",
+  "source_case": "New private stepped tower reference; SHA in preflight.json. Original kept private.",
+  "model": {
+    "requested": "BAI deepseek-v4.1-flash",
+    "actual": "NOT_RUN",
+    "reasoning_effort": "configured high; not executed",
+    "runtime": "K Studio source desktop / DeepSeek Harness"
+  },
+  "environment": {
+    "windows": "Existing owner PC",
+    "sketchup": "24.0.484"
+  },
+  "qa": {
+    "reviewer_mode": "host_preflight",
+    "fidelity_status": "NOT_RUN"
+  },
+  "missing_image_reason": "No model generated; six geometry views not applicable. Actual connection UI evidence included.",
+  "blockers": [
+    "Explicit new paid budget not yet provided."
+  ]
+}

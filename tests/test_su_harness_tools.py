@@ -69,3 +69,57 @@ def test_curves_reject_invalid_geometry_before_native_execution(bad):
     if bad=='code':piece['source']='File.read'
     if bad=='smooth':piece['smooth']='yes'
     with pytest.raises(ValueError):compile_parts(p)
+
+
+def window_bay(**changes):
+    return {'parts': [{'name': 'FrontWall', 'pieces': [{
+        'kind': 'window_bay', 'origin': [200, 100, 300], 'size': [3200, 250, 3300],
+        'opening': [500, 800, 2200, 1650], 'frame_width_mm': 60,
+        'frame_depth_mm': 95, 'recess_mm': 75, **changes,
+    }]}]}
+
+
+def test_window_bay_routes_one_verified_definition_to_the_guarded_writer():
+    args = window_bay(repeat=3, rotation_deg=90, step=[0, 3200, 0], glass_thickness_mm=12)
+    source = compile_parts(args)
+    assert 'child = build_window_bay.call(group, piece, name)' in source
+    assert 'add_instance(child.definition' in source
+    assert 'instance.definition.persistent_id != child.definition.persistent_id' in source
+    assert 'frame_width_mm' in source
+    assert validate_project_ruby_source('harness_building', source) == source
+    assert 'window_bay' in next(s['description'] for s in tool_specs() if s['name'] == 'sketchup_apply_parts')
+
+
+def test_window_bay_measurement_is_an_optional_owned_inspection(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from app.su_harness_tools import SUHarnessTools
+
+    observed = []
+    executor = SimpleNamespace(verify_active_model=lambda: {}, ruby_state={},
+                               inspect_owned=lambda args: observed.append(args) or {'success': True})
+    monkeypatch.setattr('app.su_harness_tools.ProjectRubyExecutor', lambda *_, **__: executor)
+    surface = SUHarnessTools(tmp_path, None).prepare(project_dir=tmp_path, mcp_enabled=True,
+                                                     model_path=tmp_path / 'copy.skp', model_guid='g', stage_scoped=True)
+    path = ['FrontWall', 'piece_0']
+    assert surface.dispatch('sketchup_inspect_part', {'path': path, 'window_bay': True})['success']
+    assert observed == [{'script_id': 'harness_building', 'path': path, 'limit': 100, 'window_bay': True}]
+
+
+@pytest.mark.parametrize('change', [
+    {'opening': [500, 0, 2200, 1650]}, {'opening': [500, 800, 2700, 1650]},
+    {'opening': [-5, 800, 2200, 1650]}, {'opening': [500, 800, 2200, 0]},
+    {'frame_width_mm': 900}, {'frame_depth_mm': 200}, {'glass_thickness_mm': 100},
+    {'glass_alpha': -0.1}, {'frame_color': [20, 256, 20]}, {'alpha': 0.7},
+    {'repeat': 3, 'rotation_deg': 90, 'step': [0, 3199, 0]},
+    {'repeat': 2}, {'ruby': 'puts 1'},
+])
+def test_window_bay_rejects_bad_construction_before_sketchup(change):
+    with pytest.raises(ValueError):
+        compile_parts(window_bay(**change))
+
+
+def test_window_bay_definition_limit_matches_native_method_ledger():
+    args = window_bay()
+    args['parts'][0]['pieces'] *= 129
+    with pytest.raises(ValueError, match='method ledger'):
+        compile_parts(args)

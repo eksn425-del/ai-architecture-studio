@@ -312,6 +312,9 @@ function renderNativeTurnEvent(event) {
       text = "Agent 最新消息：" + event.text;
     } else if (typeof event.tool === "string" && ["tool_started", "tool_completed", "tool_cancelled"].includes(name)) {
       text = ({tool_started: "正在调用工具：", tool_completed: event.success === false ? "工具报告失败：" : "工具已返回：", tool_cancelled: "未启动的工具已取消："})[name] + event.tool;
+    } else if (name === "construction_step" && Number.isInteger(event.revision)) {
+      const stages = {structure: "结构骨架", enclosure: "围护与开口", sample: "构件样板", repetition: "构件复用", circulation: "楼梯与栏杆", finish: "材质与收尾", correction: "局部修正"};
+      text = `${stages[event.stage] || "建模阶段"}已提交 · 模型版本 ${event.revision} · 继续检查与搭建`;
     } else if (name === "turn/completed") {
       text = event.interrupted_confirmed === true ? "本轮已确认中断。已提交的修改不会自动回滚。"
         : event.status === "failed" ? "本轮失败，请查看记录与当前模型。" : "本轮已结束，正在同步结果。";
@@ -398,9 +401,14 @@ async function loadParameterPlan() {
       return;
     }
     if (pendingPlan?.consumed && pendingPlan.plan_sha256 === sha256 && state.project?.agent_session?.reconstruction_state === "planned") {
-      state.planRecovery = {projectId, pendingPlanId: pendingPlan.pending_plan_id};
+      const existingModel = Object.values(pendingPlan.model_revisions || {}).some(revision => revision > 0);
+      state.planRecovery = {projectId, pendingPlanId: pendingPlan.pending_plan_id, existingModel};
       renderPlanRecovery();
       $("parameter-plan").hidden = false;
+      if (existingModel) {
+        $("parameter-plan-content").innerHTML = '<p class="plan-review-note">上次修改的批准已使用。请按现有模型整理剩下的修改，再批准执行。</p><details><summary>查看上次方案</summary>' + parameterPlanMarkup(card) + '</details>';
+        return;
+      }
       // Keep recovery beside approval; repeating the full card pushes it off screen.
       $("parameter-plan-content").innerHTML = '<p class="plan-review-note">上次批准记录已使用，不能直接再次开工。先检查空白副本并恢复批准，再单独批准建模；方案和已有记录保留。<button type="button" id="retry-empty-plan">检查空白副本并恢复批准</button></p>' + '<details><summary>查看当前方案</summary>' + parameterPlanMarkup(card) + '</details>';
       $("retry-empty-plan")?.addEventListener("click", async event => {
@@ -445,6 +453,12 @@ function renderPlanRecovery() {
   const required = state.planRecovery?.projectId === state.projectId && state.project?.agent_session?.reconstruction_state === "planned";
   $("plan-recovery-notice").hidden = !required;
   $("recover-plan-before-send").disabled = state.busy || !required;
+  if (!required) return;
+  const existingModel = state.planRecovery.existingModel;
+  $("plan-recovery-message").textContent = existingModel
+    ? "已有模型已保留。请按当前成果整理尚未完成的修改，再确认新方案。"
+    : "上次批准已使用。再次建模前先检查空白副本并恢复批准。核对成功后可以重新批准。";
+  $("recover-plan-before-send").textContent = existingModel ? "更新修改方案" : "检查空白副本并恢复批准";
 }
 
 function routeInfo(tier) {
@@ -583,7 +597,7 @@ function friendlyError(error) {
   if (error?.code === "MODEL_API_NOT_CONFIGURED" || /(?:Economy|Premium) provider unavailable|model API (?:is )?not configured|API key (?:is )?(?:missing|not configured)/i.test(message)) return "模型 API 尚未配置、未启用或当前不可用。请打开「API 连接」检查服务商、地址、模型和 Key，再发送。图片和草稿仍保留；这不是 SketchUp 连接失败。";
   if (/pending plan (?:was|has been|is) already consumed(?: or replaced)?|pending[_ -]plan.*(?:consumed|replaced)/i.test(message)) return "这份计划的批准记录已使用或已更新，本次未开始建模。若下方显示「检查空白副本并恢复批准」，请先点击完成核验，再单独批准建模；不要重复发送“开始建模”。普通问题仍可继续交流，资料与草稿保留。";
   if (/Official DeepSeek Harness.*TRANSPORT:/i.test(message)) return "模型 API 连接中断，本轮未完成。图片、计划和已提交模型已保留；请先查看当前成果，再在原会话恢复。这条错误本身不能说明 Key 无效，也不代表 SU 连接失败。";
-  if (/Response incomplete:\s*length|output.*token.*limit/i.test(message)) return "模型单次输出达到上限，本轮未完成；这不是 SU 连接失败。计划和已保存模型仍保留。可在「API 连接」调整推理档位或输出设置，核对当前成果后在原会话继续；系统不会自动重试或重建。";
+  if (/Official DeepSeek Harness ended with max-tokens\b|Response incomplete:\s*length|output.*token.*limit/i.test(message)) return "模型单次输出达到上限。已保存的模型和计划仍在，请核对当前成果，把余下的修改拆成较小的步骤再继续。";
   if (/SCRIPT_PATH_NOT_ALLOWED|Script path must be under generated_scripts/i.test(message)) return "网站与 SU 插件的脚本目录不一致，尚未绑定模型。请修复本机连接配置后重试。";
   if (/dynamic tools must use either canonical or legacy format consistently/i.test(message)) return "建模未启动：本机 Agent 的工具注册格式不一致。项目、图片和计划已保留，需要更新 K Studio 后重新检查并批准计划。";
   if (/Connection file not found:/i.test(message)) return "本机连接程序已就绪，但还没收到 SketchUp 插件的连接信息。请先在连接器向导完成本机配对，再安装或启用插件。新连接器可在 SketchUp 的「扩展程序 → K Studio Connector → Start paired local connector」重新启动；已有其他插件配置请按原说明启动。";
@@ -651,6 +665,10 @@ function artifactByType(type) {
   // Recovery can make an older checkpoint current. Manifest insertion order
   // is not the identity of the model the user is looking at.
   const modelPath = state.project?.model_state?.model_path;
+  if (type === "viewport" && state.project?.model_state?.last_operation?.capture_status) {
+    const currentCapture = state.project.model_state.last_capture;
+    return all.find(item => item.type === type && item.path === currentCapture) || null;
+  }
   return all.filter((item) => item.type === type &&
     (type !== "viewport" || state.project?.agent_session?.modeling_backend !== "blender" || !modelPath || item.path.startsWith(modelPath.slice(0, modelPath.lastIndexOf("/") + 1))) &&
     (!["skp", "blend"].includes(type) || !modelPath || item.path === modelPath)).at(-1) || null;
@@ -682,6 +700,9 @@ function updateHeader() {
   $("conversation-input").setAttribute("aria-description", state.busy ? "可以记录下一条要求；本轮结束前不会发送。" : "输入建模要求");
   $("recover-agent-checkpoint").hidden = state.project?.agent_session?.reconstruction_state !== "building" || agent.modeling_backend === "blender";
   $("recover-agent-checkpoint").disabled = state.busy;
+  $("refresh-agent-delivery").hidden = agent.modeling_backend === "blender"
+    || !Object.values(agent.ruby_state || {}).some(item => item.revision > 0);
+  $("refresh-agent-delivery").disabled = state.busy;
   renderProjectHistory();
   renderTurnControls();
   for (const id of ["workflow-mode", "conversation-tier", "reference-file", "brief-file", "site-file", "project-name"]) $(id).disabled = state.busy;
@@ -1228,7 +1249,7 @@ async function sendConversation(event, agentAction = "auto") {
   if (approvalButton && typed.trim()) agentAction = "auto";
   const approvalGesture = approvalButton && !typed.trim() ? "plan_button" : undefined;
   if (approvalGesture && state.planRecovery?.projectId === state.projectId) {
-    showToast("上次批准记录已使用。请先点击输入框上方的「检查空白副本并恢复批准」，核验成功后再批准建模。", true);
+    showToast(state.planRecovery.existingModel ? "请先更新尚未完成的修改方案，再批准执行。" : "请先检查空白副本并恢复批准，再批准建模。", true);
     renderPlanRecovery();
     $("recover-plan-before-send").focus();
     return;
@@ -1350,6 +1371,10 @@ document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListe
 $("conversation-form").addEventListener("submit", sendConversation);
 $("recover-plan-before-send").addEventListener("click", () => {
   if (state.busy || state.planRecovery?.projectId !== state.projectId) return;
+  if (state.planRecovery.existingModel) {
+    $("revise-reconstruction-plan").click();
+    return;
+  }
   $("retry-empty-plan")?.click();
 });
 $("cancel-agent-turn").addEventListener("click", cancelConversationTurn);
@@ -1507,6 +1532,26 @@ $("recover-agent-checkpoint").addEventListener("click", async () => {
     showToast(friendlyError(error), true);
   }
   finally { state.busy = false; updateHeader(); }
+});
+
+$("refresh-agent-delivery").addEventListener("click", async () => {
+  if (state.busy || !state.projectId) return;
+  const projectId = state.projectId;
+  state.busy = true;
+  updateHeader();
+  try {
+    const result = await api("/api/projects/" + encodeURIComponent(projectId) + "/agent/delivery/refresh", {method: "POST"});
+    if (projectId !== state.projectId) return;
+    state.project = result.project;
+    setTab("model");
+    setStatus(result.reply);
+    showToast(result.reply);
+  } catch (error) {
+    showToast(friendlyError(error), true);
+  } finally {
+    state.busy = false;
+    updateHeader();
+  }
 });
 
 function renderAttachments() {

@@ -1,6 +1,6 @@
 """Atomic financial transitions. Unknown upstream cost stays reserved for reconciliation."""
-import json
-from sqlalchemy import select, update, func
+import json, re
+from sqlalchemy import select, update, func, text
 from sqlalchemy.exc import IntegrityError
 from .db import wallets, ledger, tasks, orders, payment_events, outbox, now, uid
 
@@ -15,21 +15,51 @@ def wallet(c,user):
     return {'available':row['balance']-row['reserved'],'balance':row['balance'],'reserved':row['reserved']}
 def existing_task(c,user,key):
     return c.execute(select(tasks).where(tasks.c.user_id==user,tasks.c.key==key)).mappings().first()
-def reserve(engine,user,key,mode,model,ceiling,price,daily_limit=None):
+def reserve(engine,user,key,mode,model,ceiling,price,daily_limit=None,*,turn_id=None,turn_ceiling=None,max_turn_requests=90,turn_seconds=3600,max_concurrent=None):
     amount(ceiling)
     if not isinstance(key,str) or not key or len(key)>128 or mode not in ('platform','byok'):raise BillingError('Invalid task request')
     def check(row):
         if row['mode']!=mode or row['model']!=model or row['reserve']!=ceiling:raise BillingError('Idempotency key reused for different request')
+        if turn_id is not None and json.loads(row['price_json']).get('_turn',{}).get('id')!=turn_id:raise BillingError('Idempotency key belongs to another modeling turn')
         return dict(row)
+    if turn_id is not None:
+        if mode!='platform' or not isinstance(turn_id,str) or not re.fullmatch(r'[A-Za-z0-9_-]{8,128}',turn_id):raise BillingError('Invalid modeling turn identity')
+        amount(turn_ceiling)
+        if turn_ceiling<ceiling:raise BillingError('Modeling turn budget is below one request reservation')
+        if type(max_turn_requests) is not int or not 1<=max_turn_requests<=1000:raise BillingError('Invalid modeling turn request limit')
+        if type(turn_seconds) is not int or not 60<=turn_seconds<=86400:raise BillingError('Invalid modeling turn time limit')
+    if max_concurrent is not None and (type(max_concurrent) is not int or not 1<=max_concurrent<=100):raise BillingError('Invalid platform capacity')
     try:
         with engine.begin() as c:
             old=existing_task(c,user,key)
             if old:return check(old)
+            # Across accounts PostgreSQL needs a shared admission lock; SQLite's
+            # first wallet write below serializes its writers. No queue grows
+            # while upstream requests are in flight.
+            if max_concurrent is not None and c.dialect.name=='postgresql':c.execute(text('SELECT pg_advisory_xact_lock(724819235)'))
             # Lock before the second idempotency read, including on SQLite.
             # A retry waiting behind its first request must return that request.
             c.execute(update(wallets).where(wallets.c.user_id==user).values(reserved=wallets.c.reserved))
             old=existing_task(c,user,key)
             if old:return check(old)
+            if max_concurrent is not None:
+                active=c.execute(select(func.count()).select_from(tasks).where(tasks.c.mode=='platform',tasks.c.state.in_(['reserved','running']))).scalar()
+                if active>=max_concurrent:raise BillingError('Platform capacity reached; retry only before dispatch')
+            stored_price=dict(price)
+            if turn_id is not None:
+                matching=[]
+                for previous in c.execute(select(tasks).where(tasks.c.user_id==user,tasks.c.mode=='platform')).mappings():
+                    receipt=json.loads(previous['price_json']).get('_turn',{})
+                    if receipt.get('id')==turn_id:matching.append((previous,receipt))
+                limit=turn_ceiling;request_limit=max_turn_requests;expires=now()+turn_seconds
+                for previous,receipt in matching:
+                    if previous['model']!=model or previous['price_version']!=price['version']:raise BillingError('Modeling turn model or price changed; explicit new turn required')
+                    limit=min(limit,receipt['ceiling']);request_limit=min(request_limit,receipt['max_requests']);expires=min(expires,receipt['expires'])
+                if now()>=expires:raise BillingError('Modeling turn authorization expired')
+                if len(matching)>=request_limit:raise BillingError('Modeling turn request limit reached')
+                consumed=sum(previous['charged'] if previous['charged'] is not None else previous['reserve'] for previous,_ in matching)
+                if consumed+ceiling>limit:raise BillingError('Modeling turn budget reached')
+                stored_price['_turn']={'id':turn_id,'ceiling':limit,'max_requests':request_limit,'expires':expires}
             # Atomic conditional debit serializes concurrent reservations on wallet.
             changed=c.execute(update(wallets).where(wallets.c.user_id==user,wallets.c.balance-wallets.c.reserved>=ceiling).values(reserved=wallets.c.reserved+ceiling)).rowcount
             if changed!=1:raise BillingError('Insufficient available credits')
@@ -40,7 +70,7 @@ def reserve(engine,user,key,mode,model,ceiling,price,daily_limit=None):
                 if sum(r.charged if r.charged is not None else r.reserve for r in rows)+ceiling>daily_limit:raise BillingError('Daily service usage limit reached')
             if mode=='platform' and c.execute(select(tasks.c.id).where(tasks.c.user_id==user,tasks.c.mode=='platform',tasks.c.state.in_(['reserved','running','pending_reconciliation']))).first():
                 raise BillingError('Another platform task is active or awaiting reconciliation')
-            row=dict(id=uid(),user_id=user,key=key,mode=mode,model=model,state='reserved',reserve=ceiling,charged=None,price_version=price['version'],price_json=json.dumps(price),created=now(),updated=now())
+            row=dict(id=uid(),user_id=user,key=key,mode=mode,model=model,state='reserved',reserve=ceiling,charged=None,price_version=price['version'],price_json=json.dumps(stored_price),created=now(),updated=now())
             c.execute(tasks.insert().values(**row))
             event(c,user,'reserve',0,ceiling,row['id'],'reserve:'+row['id'],price['version'],'task reservation')
             c.execute(outbox.insert().values(id=uid(),topic='task_reserved',reference=row['id'],state='pending',created=now()))

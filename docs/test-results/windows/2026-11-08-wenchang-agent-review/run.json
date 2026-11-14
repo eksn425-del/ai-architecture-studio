@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-08-wenchang-agent-review",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "9972d3ed8b9640335c0721213930a5dae784246f",
+  "source_case": "Six private Wenchang Lighthouse originals in original order; source SHA manifest supplied, image publication not authorized.",
+  "model": {
+    "requested": "BAI DeepSeek Flash, 1017 unverified",
+    "actual": "deepseek-v4.1-flash (provider route alias)",
+    "reasoning_effort": "high",
+    "runtime": "Official DeepSeek Harness via real K Studio source desktop UI and BAI Responses",
+    "provider_served_checkpoint": null
+  },
+  "environment": {
+    "sketchup": "2024",
+    "windows": "Existing owner Windows installation, not clean machine",
+    "bridge": "K Studio public paired connector; current source transport",
+    "adai": "Optional runtime not used"
+  },
+  "qa": {
+    "reviewer_mode": "host_visual_review",
+    "fidelity_status": "PARTIAL",
+    "needs_fix": true,
+    "native_delivery": "NOT_RUN_r11"
+  },
+  "revision": 11,
+  "root_pid": 19,
+  "paid_run_active": false,
+  "installed_version": "2026.11.07-R3-beta03 sequence10",
+  "tested_version": "source 9972d3ed8b9640335c0721213930a5dae784246f"
+}

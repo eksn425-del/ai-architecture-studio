@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "FAIL_PRESERVED",
+  "initial_failure": {
+    "event_seq": 37,
+    "kind": "TRANSPORT",
+    "message": "Connection error.",
+    "usage": null,
+    "synthetic_zero_not_billing": true,
+    "exact_network_or_provider_cause": "UNKNOWN"
+  },
+  "retry_intent": {
+    "seqs": [
+      38,
+      39
+    ],
+    "official_sdk_retry_started": true
+  },
+  "host_rejection": {
+    "attempt_seq": 40,
+    "turn_end_seq": 42,
+    "message": "Host tool refused: 400",
+    "endpoint": "/test-budget/reserve",
+    "reason_from_code_and_ledger": "Unknown provider liability blocks new reservation",
+    "body_preserved_in_original_trace": false,
+    "derivation": "Initial attempt settled as unknown. Retry middleware calls reserve before next provider stream. Existing unknown row rejects in reserve; 57 total rows prove no next reservation. HTTP handler maps ValueError to400, JS hides body."
+  },
+  "provider_attempts": 57,
+  "settled": 56,
+  "unknown": 1,
+  "additional_provider_dispatch_on_retry": false,
+  "geometry_revision_before_and_after": 9,
+  "source_files": [
+    "app/dsh_host_tools.mjs",
+    "app/dsh_test_budget.mjs",
+    "app/dsh_test_budget.py",
+    "app/dsh_runtime.py"
+  ],
+  "no_request_budget_exhaustion": true,
+  "max_requests": 90,
+  "exact_400_error_body": "Not retained; endpoint diagnosis is code/sequence/ledger correlation, not a fabricated response-body quote"
+}

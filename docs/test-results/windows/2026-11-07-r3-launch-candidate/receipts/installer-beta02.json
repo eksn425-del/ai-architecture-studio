@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "status": "UNSIGNED_INTERNAL_CANDIDATE",
+  "compile_status": "PASS",
+  "actual_install_status": "PASS_PROCESS_EXIT_AND_SEQUENCE_9_POINTER; COMPLETION_GUI_NOT_OBSERVED",
+  "first_use_status": "NOT_RUN_INSTALLED_SLOT; SAME_FROZEN_BUNDLE_NATIVE_TEST_RECORDED_SEPARATELY",
+  "public_release_ready": false,
+  "artifact": {
+    "installer": "KStudio-2026.11.07-R3-beta02-win-x64-setup.exe",
+    "version": "2026.11.07-R3-beta02",
+    "sequence": 9,
+    "bytes": 311386588,
+    "sha256": "b12f33078b298b9796b395c7034064ff52cb680874861c23e3575fd8fac40388",
+    "source_sha": "802c4b2fe98de8bcd966f6c6cf7e99162f566fe7",
+    "file_count": 70451,
+    "compression": "zlib"
+  },
+  "installer_source": {
+    "head": "802c4b2fe98de8bcd966f6c6cf7e99162f566fe7",
+    "dirty": false,
+    "sha256": {
+      "packaging/kstudio.nsi": "52f32b195e133b714520d216bb1897c75d27f0ca74305d343f688e957ad63574",
+      "scripts/build_installer.py": "b04781be0bfa2da1dc3da214fc31bbb66f6e253e8bcd5d19ecd8f11b03652297",
+      "scripts/launch_installed.ps1": "2a0d67c113c21b5c0a65dd424921304d3ae8dcbf0e1593d92d227f67ea9a6463"
+    },
+    "note": "source_sha identifies frozen application core; installer input hashes identify later packaging fixes"
+  },
+  "verification": {
+    "sha256": "b12f33078b298b9796b395c7034064ff52cb680874861c23e3575fd8fac40388",
+    "bytes": 311386588,
+    "signature_status": "NotSigned",
+    "file_version": "2026.11.07-R3-beta02",
+    "temp_files": 0,
+    "actual_install_status": "PASS_PROCESS_EXIT_AND_SEQUENCE_9_POINTER; COMPLETION_GUI_NOT_OBSERVED"
+  },
+  "runtime_probe": {
+    "ok": true,
+    "node_version": "v24.22.1",
+    "sdk_import": true,
+    "engine": "deepseek-harness",
+    "capabilities": "full",
+    "inference_called": false,
+    "native_tools": [
+      "web_search",
+      "web_fetch",
+      "todo_write",
+      "exit_plan_mode",
+      "get_goal",
+      "create_goal",
+      "update_goal",
+      "skill",
+      "send_message",
+      "interrupt_agent",
+      "list_agents",
+      "subagent",
+      "subagent_fork"
+    ]
+  },
+  "bundle_audit_summary": {
+    "inventory_pass": true,
+    "file_count": 70451,
+    "payload_bytes": 1094963146,
+    "rejected_paths": [],
+    "inventory_sha256": "9a25a20ae867df91ec07f16710b81cd87bd9fc908bdd3c4802acd4f606cedbb6",
+    "scope": "File inventory rules only; does not certify licenses, cloud deployment or native modeling"
+  },
+  "license_summary": {
+    "components": 656,
+    "license_texts": 1028,
+    "missing_text_components": 1,
+    "upstream_original_text_absent_standard_terms_supplied": 9,
+    "clearance": "REVIEW_REQUIRED"
+  },
+  "packaging_protections": {
+    "profile_preserved_on_uninstall": true,
+    "prior_slots_retained": true,
+    "running_instance_refused": true,
+    "atomic_current_pointer": true,
+    "same_version_repair_crash_atomic": false,
+    "same_version_overwrite": "REFUSED_EXIT_6",
+    "extended_length_payload_paths": true,
+    "compiler_temp_scope": "output/temp; process environment only"
+  },
+  "change_from_beta01": "Host post-action, initial-build and edit screenshots now write directly to project outputs/renders inside the paired runtime. No widening to the installation directory. Architecture native-entry instructions are included at the pinned core commit.",
+  "previous_evidence_preserved": "beta01 artifact and its installation success remain separate from its actual post-capture native failure; this file does not overwrite or upgrade those verdicts.",
+  "ci_reported_by_parent": {
+    "head": "802c4b2fe98de8bcd966f6c6cf7e99162f566fe7",
+    "status": "PASS",
+    "run_ids": [
+      42333604892,
+      42333604808,
+      42333604810,
+      42333604799
+    ]
+  },
+  "remaining_acceptance": [
+    "Independent installed beta02 first launch not run; owner requested E migration and beta03 instead",
+    "Code-signing and redistribution-license clearance",
+    "External commercial-service configuration and production acceptance"
+  ],
+  "model_inference_by_packaging": false,
+  "native_supplement": "../../2026-11-07-r3-native-byok-delivery/README.md",
+  "storage_continuation": "C beta01/beta02 program copied to E with all 140911 file SHA256 values matched and source unchanged. Deletion waits for E beta03 launch and final preservation check."
+}

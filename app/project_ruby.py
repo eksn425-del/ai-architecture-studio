@@ -36,7 +36,7 @@ _FORBIDDEN_SOURCE = re.compile(
     r"|\b(?:class|require|load|eval|class_eval|module_eval|instance_eval|system|exec|spawn|fork|exit|abort|at_exit|trap|send|public_send|__send__|method_missing|method|const_get|const_set|autoload|define_method|binding|instance_variable_get|instance_variable_set|instance_variables|singleton_class)\b"
     r"|\bKStudioOSSMethodRuntime\b"
     r"|\b(?:KStudioEditScopeGuard|KStudioPathScopeGuard|KStudioPathScopeGraphGuard|KStudioSharedDefinitionScope|KStudioSurfaceEditGuard|KStudioNativeDeepFingerprint|KStudioNativeDefinitionGraph|edit_scope_before|edit_scope_receipt)\b"
-    r"|\b(?:ADAIConstructionGeometry|oss_method_events|oss_method_ledger)\b"
+    r"|\b(?:ADAIConstructionGeometry|KStudioWindowBay|oss_method_events|oss_method_ledger)\b"
     r"|Sketchup\s*\.\s*(?:active_model|open_models|open_file|exit|send)"
     # Scripts receive the full model for materials/camera, but may only mutate
     # geometry in the injected owned root. Block root-to-model traversal and
@@ -224,6 +224,7 @@ class ProjectRubyExecutor:
             # loading the transaction methods; always load the small helper file.
             f"load {self._ruby_string(str(helper_path.resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'adopted_sketchup_helpers.rb').resolve()))}",
+            f"load {self._ruby_string(str((Path(__file__).parent / 'window_bay_geometry.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'oss_method_runtime.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'edit_scope_guard.rb').resolve()))}",
             f"load {self._ruby_string(str((Path(__file__).parent / 'path_scope_guard.rb').resolve()))}",
@@ -267,6 +268,10 @@ class ProjectRubyExecutor:
             "  oss_method_events = []",
             "  saie_wall = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall') { KStudioProfessionalHelpers.wall(root, params) } }",
             "  saie_wall_with_openings = lambda { |params| KStudioOSSMethodRuntime.record(oss_method_events, 'saie.wall_with_openings') { KStudioProfessionalHelpers.wall_with_openings(root, params) } }",
+            "  build_window_bay = lambda do |part, piece, name|",
+            "    raise 'Expected an owned direct part group' unless part.is_a?(Sketchup::Group) && root.entities.include?(part)",
+            "    KStudioOSSMethodRuntime.record(oss_method_events, 'local_mcp.window_bay') { KStudioWindowBay.build(model, part, piece, name) }",
+            "  end",
             *(
                 ["  adai_geometry = KStudioOSSMethodRuntime::ADAIProxy.new(ADAIConstructionGeometry, oss_method_events)"]
                 if adai_path is not None else []
@@ -311,6 +316,9 @@ class ProjectRubyExecutor:
         path = arguments.get("path", [])
         offset, limit = arguments.get("offset", 0), arguments.get("limit", 50)
         batch_paths = arguments.get("_batch_paths")
+        window_bay = arguments.get("window_bay", False)
+        if type(window_bay) is not bool or (window_bay and (not path or batch_paths is not None or "paths" in arguments)):
+            raise ValueError("Window bay inspection needs one exact, nonempty owned path.")
         if "paths" in arguments:
             if batch_paths is not None or "path" in arguments:
                 raise ValueError("Use either path or paths, not both.")
@@ -346,6 +354,7 @@ class ProjectRubyExecutor:
             "# ARCHFLOW_GENERATED_SCRIPT",
             f"load {self._ruby_string(str(lifecycle))}",
             f"load {self._ruby_string(str(helper))}",
+            *([f"load {self._ruby_string(str(helper.with_name('window_bay_geometry.rb')))}"] if window_bay else []),
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
@@ -356,6 +365,13 @@ class ProjectRubyExecutor:
             (f"snapshot = {{snapshots: JSON.parse({self._ruby_string(json.dumps(batch_paths))}).map {{ |p| KStudioProfessionalHelpers.inspect_named_owned_group(root, p, 0, 1, true) }} }}"
              if batch_paths is not None else
              f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})"),
+            *([
+                f"bay_path = JSON.parse({self._ruby_string(json.dumps(path, ensure_ascii=False))})",
+                "world = Geom::Transformation.new",
+                "(0..bay_path.length).each { |depth| world *= KStudioProfessionalHelpers.named_owned_group(root, bay_path.take(depth)).transformation }",
+                "bay = KStudioProfessionalHelpers.named_owned_group(root, bay_path)",
+                "snapshot[:window_bay] = KStudioWindowBay.inspect_bay(bay, world)",
+            ] if window_bay else []),
             "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
             "snapshot[:oss_method_ledger] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'oss_method_ledger') || 'null')",
             "snapshot[:edit_scope_receipt] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt') || 'null')",
@@ -411,11 +427,65 @@ class ProjectRubyExecutor:
             raise MCPCallError("Incomplete KEEP batch inspection.")
         return snapshots
 
+    def measure_level_joint(self, script_id: str, arguments: dict[str, Any]) -> dict[str, Any]:
+        from .level_joint import TOLERANCE_MM, measure_joint, validate_joint
+
+        validate_joint(arguments)
+        state = self.ruby_state.get(script_id, {})
+        root_pid, revision = state.get("root_pid"), state.get("revision")
+        if type(root_pid) is not int or root_pid <= 0 or type(revision) is not int or revision <= 0:
+            raise MCPCallError("Build and verify an owned revision before measuring the joint.")
+        self._assert_active_model()
+        guid = self.expected_model_guid
+        folder = Path(__file__).parent.resolve()
+        transport = _generated_script_dir().expanduser().resolve()
+        transport.mkdir(parents=True, exist_ok=True)
+        script = transport / f"studio-level-joint-{uuid.uuid4().hex}.rb"
+        script.write_text("\n".join([
+            "# ARCHFLOW_GENERATED_SCRIPT",
+            f"load {self._ruby_string(str(folder / 'vendor/sketchup_architect/scripts/model_session.rb'))}",
+            f"load {self._ruby_string(str(folder / 'native_architecture_features.rb'))}",
+            "model = CodexSketchupArchitect.runtime_model",
+            f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
+            f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(guid)}",
+            f"root = model.find_entity_by_persistent_id({root_pid})",
+            "raise 'Owned root missing' unless root.is_a?(Sketchup::Group)",
+            f"raise 'Project identity mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'project_id') == {self._ruby_string(self.project_id)}",
+            f"raise 'Revision mismatch' unless root.get_attribute(CodexSketchupArchitect::DICT, 'revision') == {revision}",
+            f"joint = JSON.parse({self._ruby_string(json.dumps(arguments))})",
+            "axis = joint.fetch('axis') == 'x' ? 0 : 1",
+            f"params = [axis, joint.fetch('position_mm'), joint.fetch('span_mm'), {TOLERANCE_MM}]",
+            "joint_faces = %w[negative_path positive_path].map { |key| KStudioNativeArchitectureFeatures.joint_triangles(root, joint.fetch(key), *params) }",
+            "{joint_faces: joint_faces}",
+        ]) + "\n", encoding="utf-8")
+        try:
+            response = self.mcp.call("sketchup_eval_project_file", {
+                "script_path": str(script), "operation_name": "Measure level joint; read only",
+            })
+        finally:
+            script.unlink(missing_ok=True)
+        if self._assert_active_model()["model_guid"] != guid:
+            raise MCPCallError("Model identity changed during joint measurement; measure the current revision.")
+        payload = response.get("result") if isinstance(response, dict) else None
+        faces = payload.get("joint_faces") if isinstance(payload, dict) else None
+        if not isinstance(faces, list) or len(faces) != 2 or any(not isinstance(side, list) for side in faces):
+            raise MCPCallError("SketchUp returned no usable joint information.")
+        measurement = measure_joint(*faces, **{key: arguments[key] for key in (
+            "axis", "position_mm", "elevation_mm", "span_mm",
+        )})
+        return {"success": True, "read_only": True, "root_pid": root_pid, "revision": revision,
+                **arguments, **measurement}
+
     def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
+        if (self.project_dir / 'runtime/native-recovery/pending.json').exists():
+            raise MCPCallError('Checkpoint recovery is unfinished. Complete recovery before any geometry write; no source was executed.')
         if any(state.get("durability_status") == "unconfirmed" for state in self.ruby_state.values()):
             raise MCPCallError("A previous native revision committed but its disk checkpoint is unconfirmed. Keep SketchUp open and recover before further writes; do not automatically repeat the previous write.")
         script_id = str(arguments.get("script_id") or "")
         ruby_source = validate_project_ruby_source(script_id, arguments.get("ruby_source"))
+        source_digest = hashlib.sha256(ruby_source.encode('utf-8')).hexdigest()
+        if source_digest in self.ruby_state.get(script_id,{}).get('quarantined_source_sha256',[]):
+            raise MCPCallError('This exact source previously left an uncertain native write and is quarantined. Read the current architecture skills and prepare a revised bounded script; no native operation was attempted.')
         update_mode = str(arguments.get("update_mode") or "replace")
         if update_mode not in {"replace", "edit"}:
             raise ValueError("update_mode must be replace or edit.")
@@ -646,6 +716,7 @@ class ProjectRubyExecutor:
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
             "durability_status": "unconfirmed",
+            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
         }
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         temporary_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
@@ -801,17 +872,22 @@ class ProjectRubyExecutor:
 
         model_info = self.adapter.get_model_info()
         image_path = self.project_dir / "outputs" / "renders" / f"ruby-{script_id}-r{new_revision}.png"
-        if image_path.is_symlink():
-            raise MCPCallError("A screenshot output path cannot be a symbolic link.")
-        image_path.parent.mkdir(parents=True, exist_ok=True)
-        self.adapter.capture_view(image_path)
-        # View export/zoom can refresh SketchUp's GUID too. Keep the snapshot
-        # current without relaxing the disposable document path/context checks.
+        image_bytes = None
+        capture_error = None
+        try:
+            if image_path.is_symlink() or not image_path.parent.resolve().is_relative_to(self.project_dir):
+                raise MCPCallError("Screenshot output escaped the project render directory.")
+            image_path.parent.mkdir(parents=True, exist_ok=True)
+            self.adapter.capture_view(image_path)
+            if not image_path.is_file() or not 0 < image_path.stat().st_size <= 8 * 1024 * 1024:
+                raise MCPCallError("SketchUp did not write a usable review screenshot (limit 8 MB).")
+            image_bytes = image_path.read_bytes()
+        except (MCPCallError, OSError) as error:
+            # A failed preview is separate from the already verified native commit.
+            capture_error = str(error)
+        # View export can change the GUID. A lost identity still blocks writes.
         identity_after = self.refresh_active_model_snapshot()
-        if not image_path.is_file() or image_path.stat().st_size <= 0:
-            raise MCPCallError("The project Ruby transaction completed, but SketchUp did not write a review screenshot.")
-        if image_path.stat().st_size > 8 * 1024 * 1024:
-            raise MCPCallError("The SketchUp review screenshot exceeds the 8 MB agent payload limit.")
+        screenshot = image_path.relative_to(self.project_dir).as_posix() if image_bytes else None
 
         self.ruby_state[script_id] = {
             "model_guid": self.expected_model_guid,
@@ -819,7 +895,7 @@ class ProjectRubyExecutor:
             "root_pid": root_pid,
             "source_sha256": source_hash,
             "last_report": report_path.relative_to(self.project_dir).as_posix(),
-            "last_screenshot": image_path.relative_to(self.project_dir).as_posix(),
+            "last_screenshot": screenshot,
             "last_verification": write_verification,
             "last_verification_report": receipt_path.relative_to(self.project_dir).as_posix(),
             "last_precommit_keep_guard": precommit_keep_guard,
@@ -829,6 +905,7 @@ class ProjectRubyExecutor:
             "last_oss_method_adoption": method_adoption,
             "durable_checkpoint": durable_checkpoint,
             "durability_status": "saved_unverified_reopen",
+            "quarantined_source_sha256": old.get('quarantined_source_sha256',[]),
         }
         final_state = self.state_path.with_suffix(f".{uuid.uuid4().hex}.tmp")
         final_state.write_text(json.dumps({"model_path": str(self.expected_model_path), "scripts": self.ruby_state}), encoding="utf-8")
@@ -851,18 +928,18 @@ class ProjectRubyExecutor:
             "strategy_progress": strategy_progress,
             "oss_method_adoption": method_adoption,
             "component_assembly_diagnostics": native_component_diagnostics(report.get("owned_after") or {}),
-            "screenshot": image_path.relative_to(self.project_dir).as_posix(),
+            "screenshot": screenshot,
+            "capture_status": "SAVED" if screenshot else "PENDING",
             "transport": ("K Studio public paired sketchup_eval_project_file"
                           if getattr(self.mcp, 'requires_document_binding', False)
                           else "configured sketchup_eval_project_file"),
         }
-        return {
-            "success": True,
-            "contentItems": [
-                {"type": "inputText", "text": json.dumps(summary, ensure_ascii=False, indent=2)},
-                {"type": "inputImage", "imageUrl": "data:image/png;base64," + base64.b64encode(image_path.read_bytes()).decode("ascii")},
-            ],
-        }
+        if capture_error:
+            summary["capture_error"] = capture_error
+        content = [{"type": "inputText", "text": json.dumps(summary, ensure_ascii=False, indent=2)}]
+        if image_bytes:
+            content.append({"type": "inputImage", "imageUrl": "data:image/png;base64," + base64.b64encode(image_bytes).decode("ascii")})
+        return {"success": True, "contentItems": content}
 
 
 def _safe_model_readback(value: Any) -> dict[str, Any]:

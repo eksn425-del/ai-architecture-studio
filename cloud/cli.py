@@ -4,13 +4,13 @@ from pathlib import Path
 from cryptography.fernet import Fernet
 from sqlalchemy import select
 from .config import Settings
-from .db import engine_for,migrate,users
+from .db import engine_for,migrate,users,SCHEMA_VERSION
 from .ledger import audit_wallet
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('action',choices=['migrate','audit','recover-stale','backup-sqlite','restore-sqlite']);parser.add_argument('--path');parser.add_argument('--target');args=parser.parse_args()
     settings=Settings.from_env();engine=engine_for(settings.database_url)
-    if args.action=='migrate':migrate(engine);print('schema_version=2');return
+    if args.action=='migrate':migrate(engine);print(f'schema_version={SCHEMA_VERSION}');return
     if args.action=='recover-stale':
         from .recovery import recover_stale
         print(json.dumps(recover_stale(engine)));return

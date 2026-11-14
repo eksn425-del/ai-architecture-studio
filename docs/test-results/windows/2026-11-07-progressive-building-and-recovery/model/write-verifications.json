@@ -1,0 +1,4750 @@
+[
+  {
+    "file": "harness_building-r1-175b45c8.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 0,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "396321ea-139f-49bd-a407-b06949e5b628",
+      "status": "committed",
+      "at": "2026-11-06T21:16:26Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "objects_total": 0,
+        "truncated": false,
+        "objects": []
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -900.0,
+            -600.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            10000.0,
+            4650.0
+          ]
+        },
+        "objects_total": 3,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 1,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -900.0,
+            -600.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            10000.0,
+            4650.0
+          ]
+        },
+        "objects_total": 3,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r1-175b45c8.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "check": "objects_total",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -900.0,
+              -600.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              25200.0,
+              10000.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -900.0,
+              -600.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              25200.0,
+              10000.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "harness_building-r2-5cde9847.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 1,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "fa70654c-83f7-4ae2-a02c-27ca9d863a89",
+      "status": "committed",
+      "at": "2026-11-06T21:18:04Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -900.0,
+            -600.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            10000.0,
+            4650.0
+          ]
+        },
+        "objects_total": 3,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 6,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 2,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 6,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r2-5cde9847.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 2,
+          "actual": 2
+        },
+        {
+          "check": "objects_total",
+          "expected": 6,
+          "actual": 6
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "harness_building-r3-5c5d8b83.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 2,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "23f5bf1b-2966-44a6-9f30-55d18524b815",
+      "status": "committed",
+      "at": "2026-11-06T21:22:55Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 6,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 8,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1200.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                8180.0,
+                512.0,
+                4320.0
+              ],
+              "size": [
+                6980.0,
+                12.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1180.0,
+                512.0,
+                1500.0
+              ],
+              "max": [
+                8220.0,
+                620.0,
+                4400.0
+              ],
+              "size": [
+                7040.0,
+                108.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 3,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 8,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1200.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                8180.0,
+                512.0,
+                4320.0
+              ],
+              "size": [
+                6980.0,
+                12.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1180.0,
+                512.0,
+                1500.0
+              ],
+              "max": [
+                8220.0,
+                620.0,
+                4400.0
+              ],
+              "size": [
+                7040.0,
+                108.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r3-5c5d8b83.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 3,
+          "actual": 3
+        },
+        {
+          "check": "objects_total",
+          "expected": 8,
+          "actual": 8
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "harness_building-r4-720f7de9.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 3,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "72bf928e-e503-4d78-8192-302457be75af",
+      "status": "committed",
+      "at": "2026-11-06T21:25:49Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 8,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1200.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                8180.0,
+                512.0,
+                4320.0
+              ],
+              "size": [
+                6980.0,
+                12.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1180.0,
+                512.0,
+                1500.0
+              ],
+              "max": [
+                8220.0,
+                620.0,
+                4400.0
+              ],
+              "size": [
+                7040.0,
+                108.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 8,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 4,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 8,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r4-720f7de9.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 4,
+          "actual": 4
+        },
+        {
+          "check": "objects_total",
+          "expected": 8,
+          "actual": 8
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "harness_building-r5-e84507ff.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 4,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "12ccaf3c-eb49-4b7d-a6ef-f13420b786f0",
+      "status": "committed",
+      "at": "2026-11-06T21:27:04Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 8,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 9,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 5,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 9,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r5-e84507ff.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "objects_total",
+          "expected": 9,
+          "actual": 9
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "harness_building-r6-39371458.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 5,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "77f354c6-4294-480e-9059-c19bb6c42d6a",
+      "status": "committed",
+      "at": "2026-11-06T21:27:58Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 9,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 11,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 968,
+            "name": "Core_Wood",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                12600.0,
+                2800.0,
+                1500.0
+              ],
+              "max": [
+                16800.0,
+                6400.0,
+                4400.0
+              ],
+              "size": [
+                4200.0,
+                3600.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 996,
+            "name": "Core_Screen",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                11300.0,
+                2900.0,
+                1500.0
+              ],
+              "max": [
+                12700.0,
+                2960.0,
+                4400.0
+              ],
+              "size": [
+                1400.0,
+                60.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 6,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 11,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 968,
+            "name": "Core_Wood",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                12600.0,
+                2800.0,
+                1500.0
+              ],
+              "max": [
+                16800.0,
+                6400.0,
+                4400.0
+              ],
+              "size": [
+                4200.0,
+                3600.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 996,
+            "name": "Core_Screen",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                11300.0,
+                2900.0,
+                1500.0
+              ],
+              "max": [
+                12700.0,
+                2960.0,
+                4400.0
+              ],
+              "size": [
+                1400.0,
+                60.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r6-39371458.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 6,
+          "actual": 6
+        },
+        {
+          "check": "objects_total",
+          "expected": 11,
+          "actual": 11
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -8200.0,
+              -900.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              32500.0,
+              10300.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "harness_building-r7-c94de992.json",
+    "report": {
+      "schema_version": 1,
+      "project_id": "architecture-project-7d1b1",
+      "expected_revision": 6,
+      "model_path": "<private-local-path>/blank-disposable-20261107-051056.skp",
+      "guid_before": "2e65c4ed-a64e-4110-8aba-8909028cf31f",
+      "status": "committed",
+      "at": "2026-11-06T21:59:43Z",
+      "scenes_before": {
+        "available": true,
+        "pages": []
+      },
+      "owned_before": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -8200.0,
+            -900.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            32500.0,
+            10300.0,
+            4650.0
+          ]
+        },
+        "objects_total": 11,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -5600.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                0.0,
+                5600.0,
+                1500.0
+              ],
+              "size": [
+                5600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                0.0,
+                550.0
+              ],
+              "max": [
+                -5600.0,
+                5600.0,
+                750.0
+              ],
+              "size": [
+                2600.0,
+                5600.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -8200.0,
+                -900.0,
+                0.0
+              ],
+              "max": [
+                -5600.0,
+                0.0,
+                500.0
+              ],
+              "size": [
+                2600.0,
+                900.0,
+                500.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                23400.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -20.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                23440.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 968,
+            "name": "Core_Wood",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                12600.0,
+                2800.0,
+                1500.0
+              ],
+              "max": [
+                16800.0,
+                6400.0,
+                4400.0
+              ],
+              "size": [
+                4200.0,
+                3600.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 996,
+            "name": "Core_Screen",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                11300.0,
+                2900.0,
+                1500.0
+              ],
+              "max": [
+                12700.0,
+                2960.0,
+                4400.0
+              ],
+              "size": [
+                1400.0,
+                60.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "owned_precommit": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -900.0,
+            -5700.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            15100.0,
+            4650.0
+          ]
+        },
+        "objects_total": 11,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                -1200.0,
+                1300.0
+              ],
+              "max": [
+                8200.0,
+                0.0,
+                1500.0
+              ],
+              "size": [
+                8200.0,
+                1200.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                -4500.0,
+                550.0
+              ],
+              "max": [
+                8200.0,
+                -2700.0,
+                750.0
+              ],
+              "size": [
+                8200.0,
+                1800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                3100.0,
+                -5700.0,
+                0.0
+              ],
+              "max": [
+                5100.0,
+                -1200.0,
+                1350.0
+              ],
+              "size": [
+                2000.0,
+                4500.0,
+                1350.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                8200.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                15200.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                8180.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                15240.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 968,
+            "name": "Core_Wood",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                12600.0,
+                2800.0,
+                1500.0
+              ],
+              "max": [
+                16800.0,
+                6400.0,
+                4400.0
+              ],
+              "size": [
+                4200.0,
+                3600.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 996,
+            "name": "Core_Screen",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                11300.0,
+                2900.0,
+                1500.0
+              ],
+              "max": [
+                12700.0,
+                2960.0,
+                4400.0
+              ],
+              "size": [
+                1400.0,
+                60.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "revision": 7,
+      "root_pid": 19,
+      "owned_after": {
+        "api_units": "inch",
+        "bounds_units": "mm",
+        "axes": [
+          "x",
+          "y",
+          "z"
+        ],
+        "root_bounds_frame": "model",
+        "object_bounds_frame": "owned-root-local",
+        "bounds_mm": {
+          "min": [
+            -900.0,
+            -5700.0,
+            0.0
+          ],
+          "max": [
+            24300.0,
+            9400.0,
+            4650.0
+          ],
+          "size": [
+            25200.0,
+            15100.0,
+            4650.0
+          ]
+        },
+        "objects_total": 11,
+        "truncated": false,
+        "objects": [
+          {
+            "persistent_id": 22,
+            "name": "Floor_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1300.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 50,
+            "name": "Roof_Slab",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                -900.0,
+                -600.0,
+                4400.0
+              ],
+              "max": [
+                24300.0,
+                9400.0,
+                4650.0
+              ],
+              "size": [
+                25200.0,
+                10000.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 78,
+            "name": "Columns_Steel",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                1000.0,
+                100.0,
+                0.0
+              ],
+              "max": [
+                22400.0,
+                8700.0,
+                4400.0
+              ],
+              "size": [
+                21400.0,
+                8600.0,
+                4400.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 142,
+            "name": "Terrace_Main",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                -1200.0,
+                1300.0
+              ],
+              "max": [
+                8200.0,
+                0.0,
+                1500.0
+              ],
+              "size": [
+                8200.0,
+                1200.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 170,
+            "name": "Terrace_Lower",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                -4500.0,
+                550.0
+              ],
+              "max": [
+                8200.0,
+                -2700.0,
+                750.0
+              ],
+              "size": [
+                8200.0,
+                1800.0,
+                200.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 198,
+            "name": "Stair_Steps",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                3100.0,
+                -5700.0,
+                0.0
+              ],
+              "max": [
+                5100.0,
+                -1200.0,
+                1350.0
+              ],
+              "size": [
+                2000.0,
+                4500.0,
+                1350.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 250,
+            "name": "Glass_Wall",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                8200.0,
+                500.0,
+                1560.0
+              ],
+              "max": [
+                23400.0,
+                8300.0,
+                4320.0
+              ],
+              "size": [
+                15200.0,
+                7800.0,
+                2760.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 285,
+            "name": "Mullions",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                8180.0,
+                480.0,
+                1500.0
+              ],
+              "max": [
+                23420.0,
+                8320.0,
+                4400.0
+              ],
+              "size": [
+                15240.0,
+                7840.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 873,
+            "name": "Floor_Edge",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                0.0,
+                0.0,
+                1250.0
+              ],
+              "max": [
+                23400.0,
+                8800.0,
+                1500.0
+              ],
+              "size": [
+                23400.0,
+                8800.0,
+                250.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 968,
+            "name": "Core_Wood",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                12600.0,
+                2800.0,
+                1500.0
+              ],
+              "max": [
+                16800.0,
+                6400.0,
+                4400.0
+              ],
+              "size": [
+                4200.0,
+                3600.0,
+                2900.0
+              ]
+            }
+          },
+          {
+            "persistent_id": 996,
+            "name": "Core_Screen",
+            "locked": false,
+            "bounds_mm": {
+              "min": [
+                11300.0,
+                2900.0,
+                1500.0
+              ],
+              "max": [
+                12700.0,
+                2960.0,
+                4400.0
+              ],
+              "size": [
+                1400.0,
+                60.0,
+                2900.0
+              ]
+            }
+          }
+        ]
+      },
+      "scenes_after": {
+        "available": true,
+        "pages": []
+      }
+    }
+  },
+  {
+    "file": "harness_building-r7-c94de992.verification.json",
+    "report": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 7,
+          "actual": 7
+        },
+        {
+          "check": "objects_total",
+          "expected": 11,
+          "actual": 11
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -900.0,
+              -5700.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              25200.0,
+              15100.0,
+              4650.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -900.0,
+              -5700.0,
+              0.0
+            ],
+            "max": [
+              24300.0,
+              9400.0,
+              4650.0
+            ],
+            "size": [
+              25200.0,
+              15100.0,
+              4650.0
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

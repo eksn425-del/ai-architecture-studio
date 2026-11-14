@@ -76,6 +76,34 @@ def test_actual_shared_revision_invalidates_stale_views(tmp_path):
     assert c.review(q)['native_reopen']=='NOT_RUN'
     with pytest.raises(ValueError):c.save_graph(graph())
 
+
+def test_local_repair_reuses_bound_facts_and_only_changes_approved_part_proposal(tmp_path):
+    state = {'harness_building': {'root_pid': 19, 'revision': 11}}
+    c = context(tmp_path, state=state)
+    bind(c)
+    scope = c.reusable_edit_graph()['parts']
+    assert scope == graph()['parts']
+    tool = next(s for s in specs('plan', scope) if s['name'] == 'kstudio_scope_existing_parts')
+    assert tool['inputSchema']['properties']['edit_parts']['items']['enum'] == scope
+    with pytest.raises(ValueError):
+        c.scope_existing_parts({'edit_parts': ['NewPart']})
+    saved = c.scope_existing_parts({'edit_parts': ['Slabs']})
+    assert saved['approval_granted'] is False
+    assert json.loads(c.graph_path.read_text('utf8')) == {**graph(), 'edit_parts': ['Slabs']}
+    still_unbound = ArchitectureContext(tmp_path, 'execute', [tmp_path/'ref.png'], [], state)
+    with pytest.raises(ValueError):
+        still_unbound.execution_parts()
+    # An interrupted planning turn can leave a new draft while the last
+    # bound graph still supplies the unchanged design facts.
+    assert c.reusable_edit_graph() == graph()
+    c.scope_existing_parts({'edit_parts': ['Slabs']})
+    c.card.write_text('只修楼板原位置的局部接边。', encoding='utf8')
+    c.bind_plan()
+    assert still_unbound.execution_parts() == {'Slabs'}
+    (tmp_path/'ref.png').write_bytes(b'revised evidence')
+    changed = ArchitectureContext(tmp_path, 'plan', [tmp_path/'ref.png'], [], state)
+    assert changed.reusable_edit_graph() is None
+
 def test_discussion_and_plan_expose_no_denied_native_tools(tmp_path):
     surface=SUHarnessTools(tmp_path,None)
     assert surface.prepare(project_dir=tmp_path,mcp_enabled=False,stage_scoped=True).dynamic_tools==[]
@@ -118,3 +146,27 @@ def test_product_plan_requires_graph_and_records_binding(tmp_path,monkeypatch):
     monkeypatch.setattr(runtime,'_official_turn',turn)
     runtime.respond(project_dir=tmp_path,thread_id=None,prompt='',mcp_enabled=False,agent_action='plan')
     assert c.execution_parts()=={'Roof'}
+
+
+def test_execution_receives_current_core_skills_even_when_model_skips_read_tool(tmp_path,monkeypatch):
+    monkeypatch.delenv('KSTUDIO_DSH_CAPABILITIES',raising=False)
+    state={'harness_building':{'revision':1,'root_pid':19}}
+    c=context(tmp_path,stage='plan',state=state);bind(c)
+    (tmp_path/'state').mkdir();(tmp_path/'state/project_context.json').write_text(json.dumps({'conversation':c.conversation}))
+    monkeypatch.setattr('app.deepseek_studio.discover_project_reference_images',lambda _:[tmp_path/'ref.png'])
+    runtime=DeepSeekStudioRuntime(tmp_path,connection={'model':'deepseek-v4.1-flash','api_base':'https://example.invalid/v1','api_key':'fixture','mode':'codex-responses'},mcp=None)
+    monkeypatch.setattr(runtime.tool_surface,'prepare',lambda **_:
+        SimpleNamespace(dynamic_tools=[],quality_state={'views':{}},dispatch=lambda *_:None))
+    observed=[]
+    def turn(**kwargs):
+        observed.append(kwargs['instructions'])
+        return SimpleNamespace(reply='Fixture; no provider or native call.')
+    monkeypatch.setattr(runtime,'_official_turn',turn)
+    runtime.respond(project_dir=tmp_path,thread_id='old-fixture',prompt='继续',mcp_enabled=True,ruby_state=state,agent_action='execute')
+    assert len(observed)==1
+    for key in ('native','facade','spatial','edit'):
+        assert 'HOST-LOADED ARCHITECTURE SKILL '+key+' sha256=' in observed[0]
+    assert 'Face.pushpull' in observed[0]
+    assert '`window_bay`' in observed[0]
+    assert 'commit the simplest receiving part first' in observed[0]
+    assert '用俯视核对梯段是否挡住主立面开口' in observed[0]

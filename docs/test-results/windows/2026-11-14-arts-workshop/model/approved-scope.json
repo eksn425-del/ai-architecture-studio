@@ -1,0 +1,157 @@
+{
+  "parts": [
+    "GroundSlab",
+    "SiteGravel",
+    "SiteTrees",
+    "BrickWalls_L1",
+    "BrickWalls_L2",
+    "FloorSlab_L2",
+    "RoofTerraceSlab",
+    "ConcBands",
+    "WindowModule",
+    "DoorBay_L2",
+    "OpenEntry",
+    "StairRun",
+    "StairLanding",
+    "StairRailing",
+    "StairSupport",
+    "WoodThird_Walls",
+    "WoodThird_Glazing",
+    "TerraceRailing",
+    "Roof",
+    "RoofRafters",
+    "InteriorFixtures"
+  ],
+  "edit_parts": [
+    "StairRun",
+    "StairRailing"
+  ],
+  "spatial": {
+    "change_rationale": "用户本轮只要求细化右侧外楼梯：把分离的悬空踏板连成连续混凝土梯身、补齐两侧扶手与密排细竖杆、梯脚落到场地。依据 source_1 的连续梯身与密排竖杆，本次仅替换 StairRun 与 StairRailing 内部几何：踏步数量、顶面 200–3400、X 10240–15000、梯宽 1350、平台 15000–17000/顶 +3600、门洞 15350–16550/门槛 +3600、露台 +7250、屋面 +11000 等已批准空间事实不变。唯一随之调整的是梯脚：梯身下缘落到场地 -50，最下一级踢面变为 250 高（取消原计划的 50 起步台），不改变任何踏步面标高与楼层表。",
+    "coordinate_frame": {
+      "front": "-Y",
+      "origin": "原点位于砖楼正立面左前角：X=0 左侧外边、Y=0 正立面、Z=0 首层室内地坪",
+      "units": "mm",
+      "up": "+Z",
+      "x": "right"
+    },
+    "critical_features": [
+      {
+        "basis": "user",
+        "description": "第 18 级由平台本身构成：17 块踏步顶面 +200…+3400，平台板底 +3400、板顶 +3600 与前缘形成最后一级踢面；平台面 = 二层楼面 = 门洞门槛 +3600，在门洞 X 15350–16550 全宽满接，进门无高差。连续梯身顶端 +3400 与平台板底 +3400 相接，不改变该接合。",
+        "id": "cf_stair_joint",
+        "kind": "stair_landing",
+        "parts": [
+          "StairRun",
+          "StairLanding",
+          "DoorBay_L2",
+          "FloorSlab_L2",
+          "BrickWalls_L2"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "user",
+        "description": "楼梯为整浇连续混凝土体：踏步与踢面同一实体，梯底为一条通长斜板；剖面下缘自场地 -50 升至 +3200，梯脚最下级 250 高直接落地（替代原 50 起步台），顶端 200 高竖面收在平台板底，不做悬空踏板与独立斜梁。",
+        "id": "cf_stair_body",
+        "kind": "mass_relation",
+        "parts": [
+          "StairRun",
+          "SiteGravel",
+          "StairLanding"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "user",
+        "description": "两侧连续扶手位于踏鼻线以上 900，下接 18×18 密排细竖杆（间距 110），每根竖杆底端落在其所在踏步面、顶端接扶手底；梯脚与顶端设落地端柱。内侧扶手贴墙止于 X=15000，不跨越门洞；平台外沿与右端栏杆沿用原范围与 +4650 顶高，只换成同密度竖杆。",
+        "id": "cf_stair_railing",
+        "kind": "stair_landing",
+        "parts": [
+          "StairRailing",
+          "StairRun",
+          "StairLanding"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "左端第一跨一层前墙缺省，形成 X 0–3400、进深 2000、洞顶 +3350 的敞开入口空腔，内端为玻璃门；空腔保持通透，不填实体、不封玻璃幕。",
+        "id": "cf_open_entry",
+        "kind": "void",
+        "parts": [
+          "OpenEntry",
+          "BrickWalls_L1",
+          "FloorSlab_L2"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "木质三层后退于砖楼屋顶露台之后（前退 4000、左退 2500、右退 2000），正面为整片玻璃；露台位于砖顶 +7250，前缘栏杆连续包裹正立面与左侧转角。",
+        "id": "cf_third_setback",
+        "kind": "setback",
+        "parts": [
+          "WoodThird_Walls",
+          "WoodThird_Glazing",
+          "RoofTerraceSlab",
+          "TerraceRailing"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "独立屋面自木三层前墙外挑 1800（挑至 Y=2200），悬于露台之上，由露明木椽承托；屋面为单独部件。",
+        "id": "cf_roof_overhang",
+        "kind": "cantilever",
+        "parts": [
+          "Roof",
+          "RoofRafters"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "三段体量关系：实心两层红砖基座承托退台木质三层，砖楼屋面兼作三层的露台平台；木三层不得前伸到砖墙前缘，露台必须留出可通行深度。",
+        "id": "cf_mass_relation",
+        "kind": "mass_relation",
+        "parts": [
+          "BrickWalls_L2",
+          "WoodThird_Walls",
+          "RoofTerraceSlab"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "inferred",
+        "description": "背面、左右侧立面与平面均未提供，按两层砖墙、少量窗、平屋面与木三层后墙收头的处理；建成后需用户侧/背照片校正。",
+        "id": "cf_uncertain_back",
+        "kind": "uncertain_back",
+        "parts": [
+          "BrickWalls_L1",
+          "BrickWalls_L2",
+          "Roof"
+        ],
+        "source": "source_1"
+      }
+    ],
+    "remaining_work": [
+      "局部阶段：重建 StairRun 为连续梯身（完整踢面+通长梯底斜板+落地梯脚），重建 StairRailing 为两侧扶手+密排竖杆；只在这两个具名部件内提交。",
+      "完工核对：踏步顶面 +200…+3400 与 X 位置不变；顶端 +3400 与平台板底相接；平台顶 +3600 = 二层楼面 = 门槛；门洞 15350–16550 全宽满接。",
+      "完工核对：两侧扶手高 900（相对踏鼻线）、竖杆间距 110、竖杆底端逐级落在踏步面、梯脚落在 -50 场地、内侧扶手不跨越门洞。",
+      "出正视、斜视、俯视三视图与 source_1 对照，单独放大楼梯段比对连续梯身与细竖杆密度。",
+      "其余部件保持保护：砖墙、窗、二层玻璃门、平台、露台栏杆、木三层、屋面、场地与室内均不改动。",
+      "背面与侧立面、木三层后墙收头仅为推定，待补充照片后局部修正。"
+    ],
+    "scale_anchors": [
+      "砖楼总宽 17000，五开间各 3400（user 采用）",
+      "砖楼进深 12000，木三层前退 4000 后进深 8000（推定）",
+      "层高 3600：首层 0.000、二层 3600（推定）",
+      "砖顶露台面 7250、压顶 7550、屋面顶 11000（推定）",
+      "楼梯：步高 200 × 18 级 = 3600；踏面 280 × 17 = 4760；梯宽 1350；平台 2000 × 1800（推定）",
+      "梯身剖面：踏步线 (10240,+200)→(15000,+3400)；梯底斜线 (10240,-50)→(15000,+3200)",
+      "梯段扶手：踏鼻线以上 900，断面 60×60；细竖杆 18×18、间距 110",
+      "露台栏杆高 1100、立于 +7550 压顶上（推定）"
+    ]
+  }
+}

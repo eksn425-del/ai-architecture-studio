@@ -1,0 +1,122 @@
+{
+  "parts": [
+    "Podium_Retail_Base",
+    "Tower_East_Mass",
+    "Tower_West_Crown",
+    "Stepped_Wing",
+    "Corner_Low_Bar",
+    "Timber_Facade_System",
+    "Terrace_Planters_Railing",
+    "Roof_Green",
+    "Site_Ground"
+  ],
+  "edit_parts": [
+    "Stepped_Wing"
+  ],
+  "spatial": {
+    "change_rationale": "用户报告翼楼 14.7 m 与 18 m 两层露台与下方玻璃脱开。上一轮的退台是用板组在 Y 向做非等比缩放实现的（组身份与层高保留，但板被压扁并与立面线错位）。本轮不改层表、体量、立面与栏杆，只在 Stepped_Wing 内把这两块 300 厚板按真实尺寸重画：14,700 板 X −24,000…0 / Y 4,000…18,000 / Z 14,400…14,700，18,000 板 X −24,000…0 / Y 8,000…18,000 / Z 17,700…18,000，并使这两组不再带残余非等比缩放，板前沿与后退立面严格齐平相接；后沿、厚度、标高与分组名保持不变。",
+    "coordinate_frame": {
+      "front": "-Y",
+      "origin": "新建项目：原点取主塔西端前立面角，X=0、Y=0、Z=0（地面）；前立面线 Y=0，体量向 +Y 进深，街道在 -Y；本轮不移动任何其他几何",
+      "units": "mm",
+      "up": "+Z",
+      "x": "right"
+    },
+    "critical_features": [
+      {
+        "basis": "observed",
+        "description": "东侧满高 16 层（顶板 51,000），西侧冠部低落两整层至 44,400，顶面为可通行种植露台；跌级位置在图中清晰可见，标高为推定。",
+        "id": "cf_crown_step",
+        "kind": "setback",
+        "parts": [
+          "Tower_East_Mass",
+          "Tower_West_Crown",
+          "Roof_Green"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "翼楼 6 层顶 18,000；前立面在 F5、F6 各后退 4,000，形成 11,400 / 14,700 / 18,000 三级开敞种植露台，种植与护栏独立于玻璃，必须保留为空。",
+        "id": "cf_wing_terraces",
+        "kind": "void",
+        "parts": [
+          "Stepped_Wing",
+          "Terrace_Planters_Railing"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "user",
+        "description": "14,700 板前沿必须与 Y=4,000 的后退立面齐平相接，18,000 板前沿必须与 Y=8,000 的后退立面齐平相接；两板后沿 18,000、厚 300、板顶标高不变，只改前沿位置，不得整组缩放。用户本轮指出现状板与下方玻璃脱开。",
+        "id": "cf_wing_slab_join",
+        "kind": "setback",
+        "parts": [
+          "Stepped_Wing",
+          "Timber_Facade_System"
+        ],
+        "source": "用户本轮消息 + 已批准坐标事实"
+      },
+      {
+        "basis": "inferred",
+        "description": "西端最低体量 4 层，顶板 11,400 作种植平台，与翼楼形成连续跌落。",
+        "id": "cf_corner_terrace",
+        "kind": "setback",
+        "parts": [
+          "Corner_Low_Bar",
+          "Roof_Green"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "底层两层通高玻璃商业界面（0→4,800，夹层 2,400 与首层上下通高），雨篷悬出前立面约 2,000、顶标高约 3,400。",
+        "id": "cf_retail_podium",
+        "kind": "cantilever",
+        "parts": [
+          "Podium_Retail_Base"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "observed",
+        "description": "塔楼、冠部、翼楼与转角体共用 4,000×3,300 木格栅模数（16 层 = 基座 2 层 + 标准层 14 层），玻璃退进框内约 400；体量交界处立面连续，但各自标高与退台不被抹平。",
+        "id": "cf_facade_modulus",
+        "kind": "mass_relation",
+        "parts": [
+          "Tower_East_Mass",
+          "Tower_West_Crown",
+          "Stepped_Wing",
+          "Corner_Low_Bar",
+          "Timber_Facade_System"
+        ],
+        "source": "source_1"
+      },
+      {
+        "basis": "inferred",
+        "description": "背面立面、屋顶平面、设备与楼梯电梯位置无图像证据，按正面模数一致延伸，标为 inferred，不作断言。",
+        "id": "cf_back_unresolved",
+        "kind": "uncertain_back",
+        "parts": [
+          "Tower_East_Mass",
+          "Stepped_Wing"
+        ],
+        "source": "source_1"
+      }
+    ],
+    "remaining_work": [
+      "修复后重出正视、斜视、俯视三图，确认两块板前沿贴住 4,000 / 8,000 立面、三级露台仍开敞；截图通道若仍故障需如实报告",
+      "若执行前读回显示两板前沿已在 Y=4,000 / 8,000，则断开原因不在这两块板，应回报用户再定，不擅自改幕墙或栏杆",
+      "若提供正立面照片、总图或平立剖：按实测复核 16±1 层、51,000 总高与平面尺寸，替换当前估算",
+      "背面立面、屋顶设备、女儿墙分仓与顶面种植槽排布仍待确定",
+      "竖向交通（楼梯/电梯/核心筒内部）与主入口、无障碍衔接在图中缺失，需后续补足"
+    ],
+    "scale_anchors": [
+      "逐层计数：地面以上 16 个层带 = 2 层通高玻璃基座 + 14 层木格栅标准层（顶部种植带不另计层；不确定度 ±1 层）",
+      "层高：首层 2,400、夹层 2,400（基座总高 4,800，上下通高），标准层 3,300；顶板 51,000，女儿墙 1,200，总高约 52,200（估算）",
+      "主塔平面 24,000（X）×21,000（Y），正立面 6 跨 @4,000（估算）",
+      "翼楼三级退台：前立面在 11,400 后退 4,000 至 Y=4,000，在 14,700 再后退 4,000 至 Y=8,000；两板后沿同为 Y=18,000，板厚 300",
+      "四段体量顶标高：11,400 / 18,000 / 44,400 / 51,000（估算）"
+    ]
+  }
+}

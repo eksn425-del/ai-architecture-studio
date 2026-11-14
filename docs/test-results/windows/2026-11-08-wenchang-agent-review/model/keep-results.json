@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "guard": "deep_exact_paths_v2",
+  "allowed_paths": [
+    [
+      "Courtyard_Wall"
+    ],
+    [
+      "Neighbor_Block_North"
+    ],
+    [
+      "Neighbor_Block_West"
+    ]
+  ],
+  "required_deep_keep_paths": [],
+  "allowed_top_level": [
+    "Courtyard_Wall",
+    "Neighbor_Block_North",
+    "Neighbor_Block_West"
+  ],
+  "protected_deep_geometry_and_loose_entities": true
+}

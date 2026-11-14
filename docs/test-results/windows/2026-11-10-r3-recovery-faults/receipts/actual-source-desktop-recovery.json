@@ -1,0 +1,22 @@
+{
+  "actual_source_desktop_ui": true,
+  "action": "clicked 模型与文件 → 恢复上轮修改前的模型",
+  "separate_profile_without_api_vault": true,
+  "pending_journal_present": false,
+  "session_status": "ready",
+  "reply": "已核验并恢复已保存的第 11 版。未确认的操作及失败记录已保留，没有重跑。",
+  "revision": 11,
+  "model_state_matches_session": true,
+  "ruby_path_matches_session": true,
+  "last_operation": {
+    "action": "recover_durable_checkpoint",
+    "status": "recovered",
+    "restored_revision": 11,
+    "uncertain_operation_replayed": false
+  },
+  "download_artifact_exposed": true,
+  "new_model_inference_requests": 0,
+  "packaged_installer_retested": false,
+  "fixture_images_and_plan_not_copied": "Missing historical preview assets in fixture are not a normal-product upload test",
+  "tested_source_commit": "a9b8e404ccdccae8e222a7e7eade15b34e99593b"
+}

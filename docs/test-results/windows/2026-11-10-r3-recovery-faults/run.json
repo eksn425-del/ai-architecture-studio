@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-10-r3-recovery-faults",
+  "status": "PARTIAL",
+  "geometry_committed": false,
+  "base_commit": "c9bb5a3a618db948c3e8aa79be090a5bd54d6c43",
+  "source_case": "Same six private Wenchang references and preserved r11/root19. Engineering fault copies are separate and not website modeling success.",
+  "model": {
+    "actual": "No new inference; historical deepseek-v4.1-flash provider alias",
+    "runtime": "K Studio source with fixed read-only SketchUp2024 audit and explicitly isolated recovery fixtures",
+    "reasoning_effort": "historical high, not invoked"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "windows": "Owner existing Windows, not clean machine"
+  },
+  "qa": {
+    "controlled_native_recovery": "PASS",
+    "original_complex_pushpull_root_cause": "UNRESOLVED",
+    "physical_power_loss": "NOT_RUN_SIMULATED_PROCESS_LOSS",
+    "website_recovery_button_e2e": "PASS_CONTROLLED_SOURCE_DESKTOP",
+    "release": "PARTIAL"
+  },
+  "revision": 11,
+  "root_pid": 19,
+  "missing_image_reason": "Original r11 retained. No new user-building geometry; native controlled fixture transaction and rollback/recovery are separately recorded."
+}

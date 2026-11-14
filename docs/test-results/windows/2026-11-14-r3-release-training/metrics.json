@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": 2261747,
+  "tool_call_count": 108,
+  "failed_tool_calls": 12,
+  "committed_writes": 12,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 4,
+  "token_source": "settled BAI SDK-to-host attempt usage; no inference about unknown receipts or money charged",
+  "attempt_statuses": {
+    "settled": 93,
+    "unknown": 1
+  },
+  "finish_reasons": {
+    "tool-calls": 78,
+    "stop": 14,
+    "max-tokens": 1,
+    "aborted-or-unknown": 1
+  },
+  "input_tokens": 827144,
+  "output_tokens": 294534,
+  "cache_read_tokens": null,
+  "actual_charge": null,
+  "trace_turns": [
+    {
+      "turn": 1,
+      "kind": "builder",
+      "recorded_elapsed_ms": 121230,
+      "host_calls": 3,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 2,
+      "kind": "builder",
+      "recorded_elapsed_ms": 159842,
+      "host_calls": 6,
+      "host_failures": 2,
+      "terminal": "completed"
+    },
+    {
+      "turn": 3,
+      "kind": "builder",
+      "recorded_elapsed_ms": 568915,
+      "host_calls": 21,
+      "host_failures": 1,
+      "terminal": "completed"
+    },
+    {
+      "turn": 4,
+      "kind": "intent",
+      "recorded_elapsed_ms": 11069,
+      "host_calls": 0,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 5,
+      "kind": "builder",
+      "recorded_elapsed_ms": 218969,
+      "host_calls": 9,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 6,
+      "kind": "builder",
+      "recorded_elapsed_ms": 156584,
+      "host_calls": 4,
+      "host_failures": 0,
+      "terminal": "max-tokens"
+    },
+    {
+      "turn": 7,
+      "kind": "intent",
+      "recorded_elapsed_ms": 4959,
+      "host_calls": 0,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 8,
+      "kind": "builder",
+      "recorded_elapsed_ms": 79804,
+      "host_calls": 9,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 9,
+      "kind": "builder",
+      "recorded_elapsed_ms": 311326,
+      "host_calls": 20,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 10,
+      "kind": "intent",
+      "recorded_elapsed_ms": 8904,
+      "host_calls": 0,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 11,
+      "kind": "builder",
+      "recorded_elapsed_ms": 299391,
+      "host_calls": 15,
+      "host_failures": 8,
+      "terminal": "aborted"
+    },
+    {
+      "turn": 12,
+      "kind": "intent",
+      "recorded_elapsed_ms": 7562,
+      "host_calls": 0,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 13,
+      "kind": "builder",
+      "recorded_elapsed_ms": 45049,
+      "host_calls": 7,
+      "host_failures": 0,
+      "terminal": "completed"
+    },
+    {
+      "turn": 14,
+      "kind": "builder",
+      "recorded_elapsed_ms": 268143,
+      "host_calls": 14,
+      "host_failures": 1,
+      "terminal": "completed"
+    }
+  ]
+}

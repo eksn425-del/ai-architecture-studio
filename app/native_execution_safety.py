@@ -11,6 +11,8 @@ import shutil
 import sys
 import tomllib
 
+from .level_joint import TOOL as LEVEL_JOINT_TOOL
+
 HOST_TOOLS_REVISION = "codex-no-environment-v1"
 SUPPORTED_CODEX_SHA256 = {
     "dd4adf302b112fdc30fce509a5e261a0a6f1118dc58ac2da636eb84e0a6b3e3e": "0.130.0-alpha.5",
@@ -21,7 +23,7 @@ HOST_TOOL_NAMES = frozenset({
     "blender_plan_relation_repair", "blender_check_relation_repair",
     "blender_audit_spatial_clearance", "search_web", "fetch_url",
     "sketchup_model_state", "sketchup_apply_parts", "sketchup_inspect_part", "sketchup_view",
-    "sketchup_save_plan",
+    "sketchup_save_plan", LEVEL_JOINT_TOOL,
 })
 HOST_TOOLS_DISABLED_FEATURES = (
     "shell_tool", "unified_exec", "shell_zsh_fork", "shell_snapshot",

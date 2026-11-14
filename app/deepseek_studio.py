@@ -12,7 +12,7 @@ from .native_agent import NativeAgentUnavailable
 from .k_architecture import ArchitectureContext, GUIDANCE, specs as architecture_specs, validate_graph
 
 BASE = '''Answer in natural Chinese. You operate K Studio through the provided tools.
-HOST_STAGE and native_execution_granted are authoritative. Save a design graph with kstudio_save_design_graph before sketchup_save_plan during planning; a saved plan is not approval. Preserve the supplied spatial handoff and stable parts, and name only this task's edit_parts.
+HOST_STAGE and native_execution_granted are authoritative. During planning record the design graph or scoped edit before sketchup_save_plan. A saved plan is not approval. Preserve the supplied spatial handoff and stable parts, and name only this task's edit_parts.
 Use only the provided tools and preserve existing user work. Units are millimetres, X right, front -Y, Z up. Keep the top roof as a separate Roof part.
 Write concise Chinese replies for architects: describe building parts in everyday language. Keep tool IDs, SDK/session details and internal receipt fields out of the normal reply; they remain available in diagnostics. Report actual tool failures and remaining limitations. Saving is not native reopen or visual acceptance. Stop after the user's current task.'''
 
@@ -36,7 +36,7 @@ class DeepSeekStudioRuntime(ComparisonRuntime):
         if enabled():
             self.instructions = BASE + '\n' + (GUIDANCE+'\n'+ARCHITECTURE if self.guidance=='architecture' else '') + '''
 The official DeepSeek SDK owns the agent loop, planning, web, subagents, compaction, hooks and curated skills. Production file access uses the reviewed project workspace proxy; arbitrary shell and unreviewed external MCP are unavailable without an independently configured trusted development profile. This tool policy is not an OS sandbox. Architectural guidance is an additive extension.
-For SketchUp this project uses the K Studio owned-model writer. Use workspace_write/workspace_read/workspace_search for persistent Ruby scripts in scripts/, then sketchup_run_workspace_ruby with script_id=harness_building. This supports arbitrary source-specific geometry, repeated components, actual stair treads, landings, railings, soffits and openings. The simpler typed geometry tool is optional. Use injected root/model and millimetres converted with .mm. Never access the SU bridge via shell or a second MCP writer; that would bypass project ownership and the native save chain. ADAI reference/skill/toolkit knowledge is available; call appropriate injected ADAI helpers and report their real ledger, not assumed usage.
+For SketchUp this project uses the K Studio owned-model writer. Use the typed window_bay in sketchup_apply_parts for a straight solid wall with a fully enclosed rectangular window on SketchUp 2022+. Verify one bay before repeating it. For source-specific parts outside the typed geometry, use workspace_write/workspace_read/workspace_search for persistent Ruby scripts in scripts/, then sketchup_run_workspace_ruby with script_id=harness_building. Use injected root/model and millimetres converted with .mm. Never access the SU bridge via shell or a second MCP writer; that would bypass project ownership and the native save chain. ADAI reference/skill/toolkit knowledge is available; call appropriate injected ADAI helpers and report their real ledger, not assumed usage.
 Subagents may analyze sources or review scripts but never concurrently write the shared model. Keep model-provider selection on the configured user provider. Do not install packages or change provider/configuration merely because native tools permit it. Tools outside the host writer do not grant native modeling approval.
 For continued construction or local changes use edit with exact allowed_mutation_paths within the approved design graph. Existing named containers remain stable. Do not replace the entire root. Inspect actual returned geometry and capture front/oblique/roof after the last write. Do not claim code execution is visual acceptance or building-code certification.
 '''
@@ -58,6 +58,8 @@ For continued construction or local changes use edit with exact allowed_mutation
             images=attachment_order(project,discover_project_reference_images(project))
             # Product memory, approval and tools are invariant in guidance ablations.
             architecture=ArchitectureContext(project,agent_action,images,context.get('conversation',[]),ruby_state)
+            reusable_graph = architecture.reusable_edit_graph()
+            reusable_parts = reusable_graph['parts'] if reusable_graph else []
             try:
                 allowed=architecture.execution_parts() if architecture and mcp_enabled else None
             except ValueError as error:
@@ -91,6 +93,7 @@ This directory belongs to this single architectural project. Preserve the user's
                 if architecture:
                     if name=='kstudio_read_skill':return architecture.read_skill(args)
                     if name=='kstudio_save_design_graph':return architecture.save_graph(args)
+                    if name=='kstudio_scope_existing_parts':return architecture.scope_existing_parts(args)
                     if name=='kstudio_review_model':
                         if args:raise ValueError('No review arguments accepted.')
                         return architecture.review(surface.quality_state)
@@ -104,12 +107,25 @@ This directory belongs to this single architectural project. Preserve the user's
                 return result
             instructions=self.instructions
             effort=self.effective_configuration.requested_effort
+            if reusable_parts:
+                instructions += ('\nFor a precise repair of existing parts without changing the design facts, first call '
+                                 'kstudio_scope_existing_parts with only the parts to repair, then save a short plan. '
+                                 'Use the part names in the tool schema. Do not regenerate the existing graph for this repair. '
+                                 'A change to layout, system membership or spatial facts requires the full graph.')
             if self.guidance=='architecture' and mcp_enabled:
-                instructions+='\nEXECUTION CADENCE: Your FIRST response must call kstudio_read_skill(native), kstudio_read_skill(facade) and sketchup_model_state. Do not precompute the entire building before this first call. Thereafter calculate and construct only the NEXT coherent system, read its result, then proceed. Planning is already approved. Never spend a response deriving all geometry without tools. Use repeated instances and concise payloads.'
+                # Core execution methods are host-selected context, not an
+                # optional first tool call that a resumed model can skip. Skill
+                # hashes also change the official session binding on upgrades.
+                for skill_id in ('native','facade','spatial','edit'):
+                    skill=architecture.read_skill({'id':skill_id})
+                    instructions+=f'\nHOST-LOADED ARCHITECTURE SKILL {skill_id} sha256={skill["sha256"]}; method guidance, not approval:\n'+skill['content']
+                instructions+='\nEXECUTION CADENCE: The plan is already approved and the relevant skills are loaded above. Start with sketchup_model_state. Batch the exact native reads needed for the next operation. After the reads, write only the NEXT coherent system promptly and inspect its result before continuing. Use repeat/step or a short loop for repeated parts. Do not enumerate repeated geometry, re-read the plan or draft an entire turn of geometry before calling the next tool.'
+                if ruby_state:
+                    instructions+='\nFor a scoped edit use the approved plan and live measurements. After measuring the receiving geometry, commit the simplest receiving part first when it can be built independently. Do not spend the output computing tread, landing and railing details together. Verify the exact connection and KEEP once the related parts are committed.'
             try:
                 result=self._official_turn(project=project,thread_id=thread_id,
                     prompt=json.dumps(turn_context,ensure_ascii=False)+f'\nHOST_STAGE={agent_action}; native_execution_granted={mcp_enabled}.',
-                    specs=surface.dynamic_tools+(architecture_specs(agent_action) if architecture else []),dispatch=dispatch,instructions=instructions,
+                    specs=surface.dynamic_tools+(architecture_specs(agent_action, reusable_parts) if architecture else []),dispatch=dispatch,instructions=instructions,
                     images=images,progress=progress_callback,new_session_on_binding_change=True,reasoning_effort=effort)
             except NativeAgentUnavailable as error:
                 from .k_architecture import write_json

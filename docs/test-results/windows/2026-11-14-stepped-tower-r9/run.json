@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-14-stepped-tower-r9",
+  "status": "PARTIAL",
+  "base_commit": "1ca90f4815a550b4ac1f03d2d5ccf196f5240105",
+  "geometry_committed": true,
+  "source_case": "同一张私有退台高塔参考图，继续操作复制到 E 盘的 r8。",
+  "model": {
+    "actual": "B.AI deepseek-v4.1-flash (gateway alias)",
+    "runtime": "K Studio desktop / official DeepSeek Harness SDK / Responses",
+    "reasoning_effort": "high configured and requested; upstream internal compute unverified"
+  },
+  "environment": {
+    "sketchup": "24.0.484",
+    "windows": "Existing owner PC, source profile"
+  },
+  "qa": {
+    "local": "PASS",
+    "native_delivery": "PASS",
+    "visual_quality": "PARTIAL",
+    "reviewer_mode": "host read-only native measurements and outer tester visual review"
+  },
+  "root_pid": 19,
+  "revision": 9
+}
