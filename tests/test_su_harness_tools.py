@@ -90,6 +90,21 @@ def test_window_bay_routes_one_verified_definition_to_the_guarded_writer():
     assert 'window_bay' in next(s['description'] for s in tool_specs() if s['name'] == 'sketchup_apply_parts')
 
 
+def test_window_bay_measurement_is_an_optional_owned_inspection(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from app.su_harness_tools import SUHarnessTools
+
+    observed = []
+    executor = SimpleNamespace(verify_active_model=lambda: {}, ruby_state={},
+                               inspect_owned=lambda args: observed.append(args) or {'success': True})
+    monkeypatch.setattr('app.su_harness_tools.ProjectRubyExecutor', lambda *_, **__: executor)
+    surface = SUHarnessTools(tmp_path, None).prepare(project_dir=tmp_path, mcp_enabled=True,
+                                                     model_path=tmp_path / 'copy.skp', model_guid='g', stage_scoped=True)
+    path = ['FrontWall', 'piece_0']
+    assert surface.dispatch('sketchup_inspect_part', {'path': path, 'window_bay': True})['success']
+    assert observed == [{'script_id': 'harness_building', 'path': path, 'limit': 100, 'window_bay': True}]
+
+
 @pytest.mark.parametrize('change', [
     {'opening': [500, 0, 2200, 1650]}, {'opening': [500, 800, 2700, 1650]},
     {'opening': [-5, 800, 2200, 1650]}, {'opening': [500, 800, 2200, 0]},

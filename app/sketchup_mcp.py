@@ -521,8 +521,8 @@ class SketchUpAdapter:
     def open_copy_from_unsaved_model(self, target_path: Path, expected_guid: str, *, expected_saved_path: str | None = None) -> None:
         """Host lifecycle only: preserve current work, then open a prepared copy.
 
-        Save to a new recovery path, never overwrite the source. This also clears
-        SketchUp's modified flag so opening the copy cannot hang on a save dialog.
+        Preserve unsaved changes in a new recovery copy. A clean existing SKP
+        can be switched directly in the same SketchUp window.
         """
         if not target_path.is_file() or not target_path.name.startswith("blank-disposable-"):
             raise MCPCallError("Project disposable copy is missing.")
@@ -538,7 +538,9 @@ class SketchUpAdapter:
         status_literal = json.dumps(str(status_path.resolve()), ensure_ascii=False)
         path.write_text("# ARCHFLOW_GENERATED_SCRIPT\n" + guard +
                         "UI.start_timer(0.1, false) do\nbegin\n" + guard +
-                        f"raise 'Could not preserve current work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
+                        "if m.modified? || m.path.empty?\n" +
+                        f"  raise 'Could not preserve current work' unless m.save({json.dumps(str(backup.resolve()), ensure_ascii=False)})\n" +
+                        "end\n" +
                         f"raise 'Could not open project copy' unless Sketchup.open_file({json.dumps(str(target_path.resolve()), ensure_ascii=False)})\n" +
                         f"File.write({status_literal}, JSON.generate({{ok: true}}))\nrescue StandardError => error\n" +
                         f"File.write({status_literal}, JSON.generate({{ok: false, error: error.message}}))\nend\nend\n"

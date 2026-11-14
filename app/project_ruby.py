@@ -316,6 +316,9 @@ class ProjectRubyExecutor:
         path = arguments.get("path", [])
         offset, limit = arguments.get("offset", 0), arguments.get("limit", 50)
         batch_paths = arguments.get("_batch_paths")
+        window_bay = arguments.get("window_bay", False)
+        if type(window_bay) is not bool or (window_bay and (not path or batch_paths is not None or "paths" in arguments)):
+            raise ValueError("Window bay inspection needs one exact, nonempty owned path.")
         if "paths" in arguments:
             if batch_paths is not None or "path" in arguments:
                 raise ValueError("Use either path or paths, not both.")
@@ -351,6 +354,7 @@ class ProjectRubyExecutor:
             "# ARCHFLOW_GENERATED_SCRIPT",
             f"load {self._ruby_string(str(lifecycle))}",
             f"load {self._ruby_string(str(helper))}",
+            *([f"load {self._ruby_string(str(helper.with_name('window_bay_geometry.rb')))}"] if window_bay else []),
             "model = CodexSketchupArchitect.runtime_model",
             f"raise 'Active model path changed' unless File.expand_path(model.path) == File.expand_path({self._ruby_string(str(self.expected_model_path))})",
             f"raise 'Active model GUID changed' unless model.guid == {self._ruby_string(self.expected_model_guid)}",
@@ -361,6 +365,13 @@ class ProjectRubyExecutor:
             (f"snapshot = {{snapshots: JSON.parse({self._ruby_string(json.dumps(batch_paths))}).map {{ |p| KStudioProfessionalHelpers.inspect_named_owned_group(root, p, 0, 1, true) }} }}"
              if batch_paths is not None else
              f"snapshot = KStudioProfessionalHelpers.inspect_named_owned_group(root, [{', '.join(self._ruby_string(n) for n in path)}], {offset}, {limit})"),
+            *([
+                f"bay_path = JSON.parse({self._ruby_string(json.dumps(path, ensure_ascii=False))})",
+                "world = Geom::Transformation.new",
+                "(0..bay_path.length).each { |depth| world *= KStudioProfessionalHelpers.named_owned_group(root, bay_path.take(depth)).transformation }",
+                "bay = KStudioProfessionalHelpers.named_owned_group(root, bay_path)",
+                "snapshot[:window_bay] = KStudioWindowBay.inspect_bay(bay, world)",
+            ] if window_bay else []),
             "snapshot[:revision] = root.get_attribute(CodexSketchupArchitect::DICT, 'revision')",
             "snapshot[:oss_method_ledger] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'oss_method_ledger') || 'null')",
             "snapshot[:edit_scope_receipt] = JSON.parse(root.get_attribute(CodexSketchupArchitect::DICT, 'edit_scope_receipt') || 'null')",

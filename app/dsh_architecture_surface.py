@@ -8,8 +8,27 @@ from copy import deepcopy
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+from .su_harness_tools import STAGES
 
-STAGES = ('structure', 'enclosure', 'sample', 'repetition', 'circulation', 'finish', 'correction')
+
+def with_construction_receipt(result, *, stage, before, native, project_dir):
+    if (not stage or result.get('success') is False or native.get('revision', 0) <= before
+            or native.get('write_in_flight') or native.get('durability_status') == 'unconfirmed'):
+        return result
+    receipt = {'stage': stage, 'revision': native['revision'], 'root_pid': native.get('root_pid'),
+               'at': datetime.now(timezone.utc).isoformat(),
+               'status': 'native_revision_committed', 'system_complete': False}
+    result = {**result, 'construction_step': receipt}
+    try:
+        ledger = Path(project_dir) / 'runtime' / 'construction_steps.jsonl'
+        if ledger.is_symlink() or ledger.parent.is_symlink():
+            raise ValueError('Construction ledger must not redirect')
+        ledger.parent.mkdir(parents=True, exist_ok=True)
+        with ledger.open('a', encoding='utf-8') as stream:
+            stream.write(json.dumps(receipt, ensure_ascii=False) + '\n')
+    except (OSError, ValueError):
+        result['construction_step_recording'] = 'failed_after_commit_do_not_replay'
+    return result
 
 
 def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_guid,
@@ -26,8 +45,12 @@ def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_gu
                 'type': 'string', 'enum': list(STAGES),
                 'description': 'Label this bounded architectural construction step. Submit real incremental geometry, not an entire prebuilt building. A label does not certify completion.'}
     def dispatch(name, args):
+        previous_revision = ruby_state.get('harness_building', {}).get('revision', 0)
         if name not in names:
             result = base.dispatch(name, args)
+            if name == 'sketchup_apply_parts':
+                return with_construction_receipt(result, stage=args.get('construction_stage'), before=previous_revision,
+                    native=ruby_state.get('harness_building', {}), project_dir=project_dir)
             if name == 'sketchup_model_state' and result.get('success') is not False:
                 ledger = Path(project_dir) / 'runtime' / 'construction_steps.jsonl'
                 if ledger.is_file() and not ledger.is_symlink():
@@ -53,28 +76,12 @@ def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_gu
                 paths = args.get('allowed_mutation_paths')
                 if not paths or any(not p or p[0] not in allowed_parts for p in paths):
                     raise ValueError('Every changed path must belong to an approved architectural part.')
-            previous_revision = ruby_state.get('harness_building', {}).get('revision', 0)
             result = original.dispatch(name, args)
             if result.get('success') is not False:
                 base.quality_state['writes'].append({'method':'workspace_ruby',
                     'revision':ruby_state.get('harness_building', {}).get('revision',0)})
-                native = ruby_state.get('harness_building', {})
-                if stage and native.get('revision', 0) > previous_revision and not native.get('write_in_flight') and native.get('durability_status') != 'unconfirmed':
-                    receipt = {'stage': stage, 'revision': native['revision'],
-                        'root_pid': native.get('root_pid'), 'at': datetime.now(timezone.utc).isoformat(),
-                        'status': 'native_revision_committed', 'system_complete': False}
-                    result = {**result, 'construction_step': receipt}
-                    # Recording failure must never transform a committed write into a retry.
-                    try:
-                        ledger = Path(project_dir) / 'runtime' / 'construction_steps.jsonl'
-                        if ledger.is_symlink() or ledger.parent.is_symlink():
-                            raise ValueError('Construction ledger must not redirect')
-                        ledger.parent.mkdir(parents=True, exist_ok=True)
-                        with ledger.open('a', encoding='utf-8') as stream:
-                            stream.write(json.dumps(receipt, ensure_ascii=False) + '\n')
-                    except (OSError, ValueError):
-                        result['construction_step_recording'] = 'failed_after_commit_do_not_replay'
-            return result
+            return with_construction_receipt(result, stage=stage, before=previous_revision,
+                native=ruby_state.get('harness_building', {}), project_dir=project_dir)
         return original.dispatch(name, args)
     return AgentToolContext(dynamic_tools=base.dynamic_tools+specs, dispatch=dispatch,
                             quality_state=base.quality_state)

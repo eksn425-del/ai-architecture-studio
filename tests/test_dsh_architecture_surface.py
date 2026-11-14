@@ -56,3 +56,21 @@ def test_construction_receipt_requires_new_confirmed_native_revision(monkeypatch
  result=s.dispatch('sketchup_run_workspace_ruby',args)
  assert result['success'] is True
  assert result['construction_step_recording']=='failed_after_commit_do_not_replay'
+
+
+def test_typed_construction_uses_the_same_committed_progress_ledger(monkeypatch, tmp_path):
+    state = {'harness_building': {'root_pid': 42, 'revision': 1, 'durability_status': 'saved_unverified_reopen'}}
+    original = SimpleNamespace(dynamic_tools=[])
+    monkeypatch.setattr('app.dsh_architecture_surface.AgentToolSurface', lambda *_: SimpleNamespace(prepare=lambda **_: original))
+
+    def dispatch(name, args):
+        if name == 'sketchup_apply_parts':
+            state['harness_building']['revision'] += 1
+        return {'success': True}
+
+    base = SimpleNamespace(dynamic_tools=[], quality_state={'writes': []}, dispatch=dispatch)
+    surface = extend_surface(base, runtime_root=tmp_path, mcp=None, project_dir=tmp_path,
+                             model_path=tmp_path / 'a.skp', model_guid='g', ruby_state=state, allowed_parts={'FrontWall'})
+    result = surface.dispatch('sketchup_apply_parts', {'construction_stage': 'sample', 'parts': []})
+    assert result['construction_step']['stage'] == 'sample'
+    assert surface.dispatch('sketchup_model_state', {})['construction_steps'][0]['revision'] == 2

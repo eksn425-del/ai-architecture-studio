@@ -90,4 +90,44 @@ module KStudioWindowBay
     instance.name = instance_name
     instance
   end
+
+  # Inspect current native faces rather than trusting the construction inputs.
+  # Dimensions are in the bay's definition axes. The caller reports the current
+  # revision and accumulated pose separately for rotated or transformed bays.
+  def inspect_bay(bay, world)
+    entries = bay.definition.entities
+    groups = %w[Wall Frame Glass].map do |name|
+      matches = entries.grep(Sketchup::Group).select { |group| group.name == name }
+      raise "Expected one native #{name} group inside the bay" unless matches.length == 1
+      matches.first
+    end
+    values = groups.to_h do |group|
+      faces = group.entities.grep(Sketchup::Face)
+      raise 'Empty or oversized window bay child' unless faces.length.between?(1, 32)
+      frame_pose = group.transformation
+      corners = faces.flat_map { |face| face.vertices.map { |v| frame_pose * v.position } }
+      bounds = Geom::BoundingBox.new
+      bounds.add(corners)
+      inner_loops = faces.flat_map do |face|
+        face.loops.reject(&:outer?).map do |loop|
+          points = loop.vertices.map { |vertex| (frame_pose * vertex.position).to_a.map(&:to_mm) }
+          ranges = (0..2).map { |i| points.map { |point| point[i] }.minmax }
+          {min_mm: ranges.map { |a, _b| a.round(2) }, max_mm: ranges.map { |_a, b| b.round(2) }}
+        end
+      end
+      depths = faces.filter_map do |face|
+        front = face.vertices.map { |vertex| (frame_pose * vertex.position).y.to_mm }
+        front.first.round(2) if front.max - front.min < 0.05
+      end.uniq.sort
+      info = {bounds_mm: KStudioStultusBounds.bounds_mm(bounds), manifold: group.manifold?,
+              inner_loops: inner_loops.sort_by { |loop| loop[:min_mm][1] }, depth_planes_mm: depths}
+      [group.name, info]
+    end
+    origin = world * Geom::Point3d.new
+    {status: 'MEASURED', units: 'mm', reference_frame: 'bay_definition_local',
+     origin_world_mm: KStudioStultusBounds.pt_mm(origin),
+     axes_in_world: [world.xaxis, world.yaxis, world.zaxis].map { |axis| axis.to_a.map { |v| v.round(6) } },
+     definition_pid: bay.definition.persistent_id, definition_instances: bay.definition.instances.length,
+     parts: values}
+  end
 end

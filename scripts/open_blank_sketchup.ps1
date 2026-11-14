@@ -9,7 +9,9 @@ param(
     [Parameter(Mandatory = $false)]
     [ValidateRange(0,2099)]
     [int]$SketchUpYear = 0,
-    [switch]$PrepareOnly
+    [switch]$PrepareOnly,
+    [switch]$RequireSketchUpClosed,
+    [switch]$PublicConnector
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -25,6 +27,9 @@ $runningExecutables = @(Get-Process SketchUp -ErrorAction SilentlyContinue | For
     if (-not $_.Path) { throw 'A running SketchUp process cannot be identified. No version was selected.' }
     $_.Path
 })
+if ($RequireSketchUpClosed -and -not $PrepareOnly -and $runningExecutables.Count) {
+    throw 'SketchUp is already open. Connect to the existing window or resolve its dialog before retrying.'
+}
 $installation = Select-KStudioSketchUpInstallation -Installations $installations -RunningExecutablePaths $runningExecutables -RequestedYear $SketchUpYear -RoamingRoot $env:APPDATA
 
 $installRoot = $installation.InstallLocation.TrimEnd('\')
@@ -93,12 +98,25 @@ $selectedYear = $installation.Year
 if (-not $env:APPDATA) {
     throw 'APPDATA unavailable; cannot check the SketchUp per-version plugin.'
 }
-$pluginMain = Join-Path $env:APPDATA "SketchUp\SketchUp $selectedYear\SketchUp\Plugins\kongxing_ai_sketchup\main.rb"
-if (-not (Test-Path -LiteralPath $pluginMain -PathType Leaf)) {
-    throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install the matching plugin for your selected version. No alternative software version was selected; executable discovery is not functional compatibility."
+if ($PublicConnector) {
+    $plugins = Join-Path $env:APPDATA "SketchUp\SketchUp $selectedYear\SketchUp\Plugins"
+    if (-not (Test-Path -LiteralPath (Join-Path $plugins 'kstudio_connector.rb') -PathType Leaf) -or
+        -not (Test-Path -LiteralPath (Join-Path $plugins 'kstudio_connector\main.rb') -PathType Leaf)) {
+        throw "Install the K Studio connector in SketchUp $selectedYear before opening a project from K Studio."
+    }
+    $arguments = '"' + $modelPath + '"'
+} else {
+    $pluginMain = Join-Path $env:APPDATA "SketchUp\SketchUp $selectedYear\SketchUp\Plugins\kongxing_ai_sketchup\main.rb"
+    if (-not (Test-Path -LiteralPath $pluginMain -PathType Leaf)) {
+        throw "SketchUp $selectedYear is installed, but its Kongxing bridge was not found. Install the matching plugin for your selected version. No alternative software version was selected; executable discovery is not functional compatibility."
+    }
+    $arguments = '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
 }
-$arguments = '-RubyStartup "' + $bridgeStartup + '" "' + $modelPath + '"'
+if ($RequireSketchUpClosed -and (Get-Process SketchUp -ErrorAction SilentlyContinue)) {
+    throw 'SketchUp opened while preparing the copy. Connect to that window before retrying.'
+}
 Start-Process -FilePath $sketchupExe -ArgumentList $arguments | Out-Null
 Write-Host 'Opened a copied SketchUp Simple template in a disposable Demo model.' -ForegroundColor Green
-Write-Host 'Started the already-installed Kongxing AI local Bridge through SketchUp RubyStartup.'
+if ($PublicConnector) { Write-Host 'Waiting for the installed K Studio connector to register the opened document.' }
+else { Write-Host 'Started the already-installed Kongxing AI local Bridge through SketchUp RubyStartup.' }
 Write-Host "Disposable model: $modelPath"

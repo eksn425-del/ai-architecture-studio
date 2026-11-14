@@ -43,7 +43,7 @@ from .native_delivery import record_delivery_checkpoint, bind_current_checkpoint
 from .agent_progress import ProgressLogReader, select_turn_progress_log
 from .progress_activity import activity_history, update_activity
 from .references import ReferenceIngestor
-from .sketchup_mcp import ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
+from .sketchup_mcp import ConfiguredSketchUpMCP, ConnectorUnavailable, MCPCallError, SketchUpAdapter, UnsavedModelError, _resolve_server
 from .store import ProjectStore, safe_project_id, utc_now
 
 
@@ -254,7 +254,7 @@ def _disposable_model_path(path_value: str, project_dir: Path) -> Path | None:
     return candidate
 
 
-def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None, *, prepare_only: bool = False) -> Path:
+def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_model_path: Path | None = None, *, prepare_only: bool = False, single_window: bool = False) -> Path:
     if os.name != "nt":
         raise NativeAgentUnavailable(
             "当前环境不能自动启动 SketchUp：此启动器需要 Windows 桌面和已安装的 SketchUp。"
@@ -270,6 +270,13 @@ def _launch_disposable_sketchup(project_id: str, runtime_root: Path, existing_mo
         command.extend(["-ModelPath", str(existing_model_path.resolve())])
     if prepare_only:
         command.append("-PrepareOnly")
+    if single_window:
+        command.append("-RequireSketchUpClosed")
+    try:
+        if ConfiguredSketchUpMCP().requires_document_binding:
+            command.append("-PublicConnector")
+    except ConnectorUnavailable:
+        pass  # Existing manual/legacy launch path retains its own plugin check.
     model_dir = runtime_root / "projects" / project_id / "outputs" / "model"
     before = {path.resolve() for path in model_dir.glob("blank-disposable-*.skp")}
     completed = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45, check=False,
@@ -599,7 +606,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
         register_local_connections(app, Path(os.environ["KSTUDIO_CONNECTIONS_DIR"]))
     app.state.sketchup = sketchup or SketchUpAdapter()
     app.state.reference_ingestor = reference_ingestor or ReferenceIngestor()
-    app.state.disposable_model_launcher = disposable_model_launcher or _launch_disposable_sketchup
+    if disposable_model_launcher is None:
+        app.state.disposable_model_launcher = _launch_disposable_sketchup
+        app.state.disposable_session_launcher = lambda *args: _launch_disposable_sketchup(*args, single_window=True)
+    else:
+        app.state.disposable_model_launcher = app.state.disposable_session_launcher = disposable_model_launcher
     from .connector_setup import register_routes as register_connector_setup_routes
     register_connector_setup_routes(app, app.state.agent_lock)
     from .connector_instances import register_routes as register_instance_routes
@@ -1240,8 +1251,16 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 adapter.ping()
             except HTTPException:
                 raise
-            except (ConnectorUnavailable, MCPCallError):
-                live_path = ""
+            except (ConnectorUnavailable, MCPCallError) as error:
+                from .connector_instances import instances
+                from .public_connector import root_dir
+                connector_root = root_dir()
+                if getattr(getattr(adapter, 'client', None), 'requires_document_binding', False) and (connector_root / 'pairing.json').is_file():
+                    live_instances = [row for row in instances(connector_root) if row['status'] == 'live']
+                    if selected_before or live_instances:
+                        raise HTTPException(status_code=409, detail=(
+                            "SketchUp 连接需要核对。请在建模工具中选中现有窗口，或关闭窗口里的弹窗后重试。"
+                        )) from error
             else:
                 try:
                     live_identity = adapter.get_active_model_identity()
@@ -1283,7 +1302,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 previous_copy = (project_dir / session.model_path).resolve() if session.model_path else None
                 reuse_copy = previous_copy if previous_copy and previous_copy.is_file() else None
                 try:
-                    opened_copy = Path(app.state.disposable_model_launcher(project_id, store.root, reuse_copy)).resolve()
+                    opened_copy = Path(app.state.disposable_session_launcher(project_id, store.root, reuse_copy)).resolve()
                 except (OSError, subprocess.SubprocessError, NativeAgentUnavailable) as error:
                     raise HTTPException(status_code=502, detail=str(error)) from error
                 if _disposable_model_path(str(opened_copy), project_dir) is None:

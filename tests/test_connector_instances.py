@@ -78,6 +78,28 @@ def test_changed_document_only_fixed_identity_read_allowed(paired, tmp_path):
     assert ci.describe(paired, directory)['selection_status'] == 'document_changed'
 
 
+def test_session_connection_error_with_live_sketchup_does_not_launch_another(paired, tmp_path):
+    from app.main import create_app
+    from app.sketchup_mcp import MCPCallError
+    from tests.conftest import FakeBrain, FakeSketchUp
+    from tests.test_demo import FakeNativeAgent
+
+    class BusySketchUp(FakeSketchUp):
+        client = SimpleNamespace(requires_document_binding=True)
+
+        def ping(self):
+            raise MCPCallError('SketchUp is waiting for the desktop')
+
+    app = create_app(tmp_path / 'runtime', brain=FakeBrain(), sketchup=BusySketchUp(),
+                     native_agent=FakeNativeAgent(), disposable_model_launcher=lambda *_: pytest.fail('duplicate launch'))
+    client = TestClient(app)
+    project_id = client.post('/api/projects', json={'project_name': 'Connection recovery'}).json()['project_id']
+    heartbeat(paired, 1, tmp_path / 'original.skp')
+    result = client.post(f'/api/projects/{project_id}/agent/session', json={'confirm_disposable_model': True})
+    assert result.status_code == 409
+    assert '现有窗口' in result.json()['detail']
+
+
 def test_bad_signature_future_heartbeat_and_stopped_cannot_route(paired, tmp_path):
     _, directory, path = project(tmp_path)
     one = heartbeat(paired, 1, path, last_seen=time.time() + 30)

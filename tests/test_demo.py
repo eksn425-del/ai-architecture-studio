@@ -823,6 +823,7 @@ def test_unsaved_model_is_saved_to_recovery_before_open_and_async_errors_surface
             assert "m.active_path.nil?" in source
             assert "m.save_copy" not in source
             assert source.index("m.save(") < source.index("Sketchup.open_file(")
+            assert "if m.modified? || m.path.empty?" in source
             if self.saved_path:
                 assert f"m.save({json.dumps(self.saved_path, ensure_ascii=False)})" not in source
             status = Path(json.loads(re.search(r'File.write\(("[^\n]+?"), JSON', source).group(1)))

@@ -21,6 +21,7 @@ from .project_ruby import ProjectRubyExecutor
 
 NAMES = frozenset({"sketchup_model_state", "sketchup_apply_parts", "sketchup_inspect_part", "sketchup_view", "sketchup_save_plan", LEVEL_JOINT_TOOL})
 SCRIPT_ID = "harness_building"
+STAGES = ("structure", "enclosure", "sample", "repetition", "circulation", "finish", "correction")
 
 
 def number(value, label, limit=100000):
@@ -266,7 +267,7 @@ def tool_specs(writing=True, planning=False):
     specs = [
         {"name":"sketchup_save_plan","description":"Save the plain-language modeling plan in this project's fixed plan card, for the user's visible approval. Describe observations, estimates, coordinates, semantic parts and KEEP constraints. Does not approve or build anything. No filename or code accepted.","inputSchema":{"type":"object","properties":{"text":{"type":"string","minLength":40,"maxLength":16000}},"required":["text"],"additionalProperties":False}},
         {"name":"sketchup_model_state","description":"Read actual bound SU document identity and current owned root/revision. Always inspect before construction.","inputSchema":{"type":"object","properties":{},"additionalProperties":False}},
-        {"name":"sketchup_inspect_part","description":"Read actual named owned part dimensions and hierarchy. Empty path reads the whole owned root.","inputSchema":{"type":"object","properties":{"path":{"type":"array","items":{"type":"string"},"maxItems":8}},"required":["path"],"additionalProperties":False}},
+        {"name":"sketchup_inspect_part","description":"Read actual named owned part dimensions and hierarchy. Empty path reads the whole owned root. For a window bay, use its exact nested path (for example ['FrontEast','piece_0']) and window_bay:true to read native hole loops, frame/glass depth planes and definition instance count.","inputSchema":{"type":"object","properties":{"path":{"type":"array","items":{"type":"string"},"maxItems":8},"window_bay":{"type":"boolean"}},"required":["path"],"additionalProperties":False}},
         {"name":"sketchup_view","description":"Capture a real native viewport and return its image pixels for visual review; preserves display style. Views front/oblique/roof.","inputSchema":{"type":"object","properties":{"view":{"type":"string","enum":["front","oblique","roof"]}},"required":["view"],"additionalProperties":False}},
     ]
     if writing:
@@ -281,13 +282,15 @@ def tool_specs(writing=True, planning=False):
             "Use for a straight opaque wall with one fully enclosed rectangular window; it creates separate solid Wall, Frame and Glass. "
             "Optional frame_color, glass_color (RGB), glass_alpha and glass_thickness_mm (default 6); only ordinary pieces support alpha and smooth. "
             "All pieces optionally color[RGB], rotation_deg about origin Z, repeat[1..100], step[3] along part axes. "
-            "Check one bay before repeating. Repeats share native definitions and window bays must not overlap. "
+            "Check one bay before repeating. Window bay repeats share native component definitions and must not overlap. "
             "Keep terraces, roof, slabs and entrance separate. Max three successful writes per part per task. "
             "Returns actual commit, KEEP and checkpoint evidence. No code accepted."
         ), "inputSchema": {"type": "object", "properties": {"parts": {"type": "array", "minItems": 1,
             "maxItems": 32, "items": {"type": "object", "properties": {"name": {"type": "string"},
                 "pieces": {"type": "array", "items": {"type": "object"}}}, "required": ["name", "pieces"],
-                "additionalProperties": False}}}, "required": ["parts"], "additionalProperties": False}})
+                "additionalProperties": False}}, "construction_stage": {"type": "string", "enum": list(STAGES),
+                    "description": "Optional label for the current bounded construction stage."}},
+                "required": ["parts"], "additionalProperties": False}})
     return specs if planning else [s for s in specs if s['name']!='sketchup_save_plan']
 
 
@@ -328,16 +331,20 @@ class SUHarnessTools:
                 if arguments: raise ValueError("No arguments accepted.")
                 return {"success":True, "identity":identity, "script_id":SCRIPT_ID, "revision":state.get("revision",0), "root_pid":state.get("root_pid")}
             if name == "sketchup_inspect_part":
-                if set(arguments) != {"path"}: raise ValueError("Only path accepted.")
-                return executor.inspect_owned({"script_id":SCRIPT_ID,"path":arguments["path"],"limit":100})
+                if "path" not in arguments or set(arguments) - {"path", "window_bay"}:
+                    raise ValueError("Provide path and optional window_bay.")
+                return executor.inspect_owned({**arguments, "script_id": SCRIPT_ID, "limit": 100})
             if name == "sketchup_apply_parts":
+                stage = arguments.get('construction_stage')
+                if 'construction_stage' in arguments and stage not in STAGES:
+                    raise ValueError('Unknown construction stage.')
                 parts = arguments.get('parts', [])
                 if allowed_parts is not None and isinstance(parts, list) and any(
                     isinstance(p, dict) and isinstance(p.get('name'), str) and p['name'] not in allowed_parts
                     for p in parts
                 ):
                     raise ValueError("Part is outside the approved scope; use only these direct part names: " + ", ".join(sorted(allowed_parts)) + ". Preserve all other parts; group subordinate elements inside the appropriate approved part.")
-                source = compile_parts(arguments)
+                source = compile_parts({key: value for key, value in arguments.items() if key != 'construction_stage'})
                 if any(writes.get(p['name'],0)>=3 for p in arguments['parts']):
                     raise ValueError('Correction limit reached for this part. Preserve the current model, inspect once and report remaining mismatches; no further cosmetic rewriting this task.')
                 params = {"script_id":SCRIPT_ID,"ruby_source":source,"update_mode":"edit" if state.get("root_pid") else "replace"}
