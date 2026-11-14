@@ -21,7 +21,7 @@ def test_safe_nsis_strings_and_no_broad_uninstall(tmp_path):
     assert 'Call un.CheckPathAncestors' in output
     assert 'SetOutPath "\\\\?\\$INSTDIR' in output
     assert 'Call CheckPathAncestors\n  ClearErrors\n  SetOutPath ' in output
-    assert '  IfErrors install_failed\n' in output
+    assert '  IfErrors install_payload_failed\n' in output
     assert 'Delete "\\\\?\\$INSTDIR' in output
     assert all('versions\\r3-test' in line for line in output.splitlines() if line.strip().startswith('Delete '))
     with pytest.raises(ValueError):nsis_string('invalid\n!system injected')

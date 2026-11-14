@@ -51,6 +51,7 @@ Var RootLease
 Var ProfileLease
 Var PointerTemp
 Var HighestTemp
+Var FailedStep
 !ifdef SELECTABLE_PATHS
 Var RegisteredRoot
 Var RegisteredProfile
@@ -473,6 +474,7 @@ Section "K Studio R3（必选）" Main
   ClearErrors
   !insertmacro InstallPayload
   IfErrors install_payload_failed
+  ClearErrors
   SetOutPath "$INSTDIR"
   File /oname=launch_installed.ps1 "${LAUNCHER_FILE}"
   File /oname=NSIS-LICENSE.txt "${NSIS_LICENSE}"
@@ -528,14 +530,19 @@ Section "K Studio R3（必选）" Main
   install_failed_close:
     FileClose $0
   install_pointer_failed:
+    StrCpy $FailedStep "publish_current"
     DetailPrint "Current release pointer could not be safely published."
     Goto install_failed
   install_payload_failed:
+    StrCpy $FailedStep "extract_payload"
     DetailPrint "Payload extraction error."
     Goto install_failed
   install_support_files_failed:
+    StrCpy $FailedStep "install_launcher_or_license"
     DetailPrint "Launcher or notice installation error."
   install_failed:
+    WriteINIStr "$INSTDIR\.kstudio-owner.ini" "LastFailure" "Step" "$FailedStep"
+    WriteINIStr "$INSTDIR\.kstudio-owner.ini" "LastFailure" "Version" "${VERSION}"
     Delete "$PointerTemp"
     MessageBox MB_ICONSTOP "安装未完成。请保留此安装记录并使用下一候选版本；个人模型与已安装的旧版本已保留。" /SD IDOK
     SetErrorLevel 4

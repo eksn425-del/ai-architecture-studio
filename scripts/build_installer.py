@@ -109,10 +109,10 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
         target=destination(directory)
         lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',
                       '  ClearErrors',f'  SetOutPath "\\\\?\\{target}"',
-                      '  IfErrors install_failed'])
+                      '  IfErrors install_payload_failed'])
         for file in sorted(by_directory[directory],key=lambda p:p.as_posix()):
             lines.append(f'  File "/oname={nsis_string(file.name)}" "\\\\?\\{nsis_string(str(bundle/file))}"')
-        lines.append('  IfErrors install_failed')
+        lines.append('  IfErrors install_payload_failed')
     lines+=['!macroend','!macro UninstallPayload']
     # Check all ancestors first; never follow a modified subtree junction while
     # deleting payload files or a changed installer-selected location.
