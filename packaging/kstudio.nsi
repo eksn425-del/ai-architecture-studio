@@ -435,8 +435,8 @@ Function PreparePayloadDirectory
   ; SetOutPath also changes the process current directory. On Windows that
   ; fails for deep paths even when absolute Unicode I/O is supported.
   ; The generated parent-first list creates one directory at a time.
-  Call CheckPathAncestors
   StrCpy $OUTDIR "\\?\$CheckPath"
+  Call CheckPathAncestors
   ClearErrors
   System::Call 'kernel32::CreateDirectoryW(w "$OUTDIR", p 0) i.r0'
   System::Call 'kernel32::GetFileAttributesW(w "$OUTDIR") i.r0'
