@@ -1,0 +1,2 @@
+import {SCENES,Film,FilmOverlay} from './Film';
+export const WORKBENCH={name:'K Studio · 60秒精剪 starter',fps:30,width:1920,height:1080,total:1800,background:'#091c17',revision:'starter',shots:SCENES.map((s:any,i:number)=>({id:'s'+i,label:['品牌与K学长','完整项目界面','八张参考','案例01','案例02','点赞关注额度'][i],from:Math.round(s.s*30),duration:Math.round((s.e-s.s)*30),component:s.component,props:{}})),overlays:[{id:'captions-audio',label:'字幕与声音',from:0,duration:1800,component:FilmOverlay,props:{bgm:true},schema:[{type:'boolean',key:'bgm',label:'背景音乐',default:true}]}],original:Film};

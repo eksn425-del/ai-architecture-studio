@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-19",
+  "scope": "method package; original media remains local",
+  "skill_validation": "PASS",
+  "python_compile": "PASS",
+  "intake_and_prepare_checks": {
+    "real_v8_intake": true,
+    "missing_asset": true,
+    "duplicate_reference": true,
+    "wrong_case": true,
+    "short_clip": true,
+    "voice_overflow": true,
+    "timed_json_import": true,
+    "srt_import": true,
+    "real_media_prepare_and_two_mixes": true
+  },
+  "publication_guard_tests": {
+    "plain_method_text_accepted": true,
+    "media_rejected": true,
+    "embedded_rejected": true,
+    "private_rejected": true,
+    "secret_rejected": true,
+    "outside_allowlist_rejected": true
+  },
+  "template_validation": {
+    "three_actual_media_keyframes": "rendered and visually inspected",
+    "transition_clip": {
+      "frames": 81,
+      "seconds": 2.7,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30
+    },
+    "full_new_film_rendered": false
+  },
+  "accepted_v8_copy_verification": {
+    "frames": 1800,
+    "video_seconds": 60,
+    "same_video_stream": true,
+    "distinct_audio_streams": true,
+    "measurements": [
+      {
+        "name": "main.mp4",
+        "video_s": 60.0,
+        "container_s": 60.053333,
+        "metrics": {
+          "integrated_lufs": -12.0,
+          "true_peak_dbfs": -1.7,
+          "black_intervals": [],
+          "review_black_intervals": false,
+          "subjective_listening": "NOT_VERIFIED"
+        }
+      },
+      {
+        "name": "noBGM.mp4",
+        "video_s": 60.0,
+        "container_s": 60.053333,
+        "metrics": {
+          "integrated_lufs": -11.5,
+          "true_peak_dbfs": -1.7,
+          "black_intervals": [],
+          "review_black_intervals": false,
+          "subjective_listening": "NOT_VERIFIED"
+        }
+      }
+    ]
+  },
+  "new_voice_inference": false,
+  "new_native_model_writes": 0,
+  "new_subjective_listening": "NOT_RUN",
+  "limitations": [
+    "Technical checks do not certify lip sync, pronunciation, model fidelity or public media rights.",
+    "No full new 60-second render in this package validation.",
+    "Shot cache and Chinese forced alignment remain proposed; not implemented here."
+  ],
+  "source_media_uploaded": false
+}
