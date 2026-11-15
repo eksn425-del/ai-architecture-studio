@@ -1,0 +1,18 @@
+[
+  {
+    "stage": "after_r1_saved_before_stair_write",
+    "operation": "read-only native geometry audit",
+    "message": "Selected SketchUp instance reported exited, expired or restarted; native process remained open.",
+    "outcome": "Retained and verified durable r1, explicitly reselected the same model and process, then continued."
+  },
+  {
+    "stage": "broad_tests_collection",
+    "message": "Cloud fixtures require sqlalchemy and itsdangerous.",
+    "outcome": "No cloud acceptance for this run."
+  },
+  {
+    "stage": "broad_desktop_regression",
+    "message": "26 first-pass failures; 12 resolved by UTF-8 mode.",
+    "outcome": "The other 14 also failed on the unmodified base in the same environment."
+  }
+]

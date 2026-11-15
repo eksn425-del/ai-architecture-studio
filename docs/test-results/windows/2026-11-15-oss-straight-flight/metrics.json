@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "elapsed_ms": null,
+  "tool_call_count": null,
+  "failed_tool_calls": null,
+  "committed_writes": 2,
+  "full_root_rebuilds": 0,
+  "targeted_corrections": 0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "token_source": "no inference request",
+  "provider_requests": 0,
+  "paid_requests": 0,
+  "targeted_offline_passed": 73,
+  "broad_offline_attempt_passed": 1800,
+  "broad_offline_attempt_failed": 26,
+  "broad_offline_attempt_skipped": 61,
+  "utf8_failed_nodes_retest": {
+    "passed": 12,
+    "failed": 14,
+    "same_failures_on_baseline": [
+      "tests/test_blender_backend.py::test_blender_progress_reports_committed_geometry_without_claiming_quality",
+      "tests/test_blender_backend.py::test_failed_provider_after_commit_recovers_native_artifact",
+      "tests/test_blender_backend.py::test_plan_failure_invalidates_old_plan_and_reconnect_is_idempotent",
+      "tests/test_blender_backend.py::test_readonly_turn_cannot_dispatch_blender_write",
+      "tests/test_blender_backend.py::test_real_mesh_material_edit_preserves_roof",
+      "tests/test_blender_backend.py::test_safe_named_delete_preserves_other_objects_and_history",
+      "tests/test_blender_backend.py::test_timeout_preserves_last_committed_state",
+      "tests/test_imported_research.py::test_bad_note_blocks_provider_and_unknown_image_role_still_blocks",
+      "tests/test_imported_research.py::test_upload_reaches_actual_conversation_provider_without_write_tools",
+      "tests/test_native_terminal_host.py::test_blender_host_interrupted_preserves_real_revision_truth[False]",
+      "tests/test_native_terminal_host.py::test_blender_host_interrupted_preserves_real_revision_truth[True]",
+      "tests/test_research_tool_context.py::test_explicit_policy_exposes_only_research_and_untrusted_output_cannot_grant_write",
+      "tests/test_research_tool_context.py::test_no_policy_preserves_toolless_planning",
+      "tests/test_stage_quality.py::test_real_blender_budget_identical_no_progress_and_retained_candidate"
+    ]
+  }
+}

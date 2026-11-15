@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-15-oss-straight-flight",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "cd4b5ec0cfe2d062671e1ee1a67a678fe698ea6a",
+  "implementation_commit": "5c883ca0b5bc88d9c67b2e52f21b7812737571c1",
+  "source_case": "Synthetic stair assembly, planning/parameters.json",
+  "model": {
+    "actual": "not_called",
+    "requested": null,
+    "reasoning_effort": null,
+    "runtime": "K Studio typed host, paired connector, native SketchUp"
+  },
+  "environment": {
+    "windows": "build 22000",
+    "sketchup": "24.0.484",
+    "connector": "K Studio public pairing"
+  },
+  "qa": {
+    "native_stair_geometry": "PASS",
+    "checkpoint_native_reopen": "PASS",
+    "browser_download": "NOT_RUN",
+    "whole_building_visual_fidelity": "NOT_RUN",
+    "floor_opening": "NOT_RUN",
+    "external_critic": "NOT_RUN"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "native_treads": 17,
+  "riser_count_including_landing": 18,
+  "tread_levels_mm": [
+    272.22,
+    444.44,
+    616.67,
+    788.89,
+    961.11,
+    1133.33,
+    1305.56,
+    1477.78,
+    1650.0,
+    1822.22,
+    1994.44,
+    2166.67,
+    2338.89,
+    2511.11,
+    2683.33,
+    2855.56,
+    3027.78
+  ],
+  "upper_landing_bounds_mm": [
+    [
+      5505.0,
+      6905.0
+    ],
+    [
+      2000.0,
+      3350.0
+    ],
+    [
+      2970.0,
+      3200.0
+    ]
+  ],
+  "vertical_join_height_mm": 57.78,
+  "vertical_join_width_mm": 1350,
+  "revision": 2,
+  "part_allowlist_scope": [
+    "EastStair"
+  ],
+  "upper_floor_deep_keep": true,
+  "platform_floor_seam_mm": 1350.0,
+  "checkpoint_sha256": "ed00560677f292efe9c655777351418c4d736d3f686de50142eb181d233c7955",
+  "root_geometry_material_sha256": "fccf6087f492c7a3b66951c916a147a7d5dd40700aa9c9aa203fafd1ce60fdad",
+  "level_joint_measurement": {
+    "success": true,
+    "read_only": true,
+    "root_pid": 36075,
+    "revision": 2,
+    "negative_path": [
+      "EastStair",
+      "piece_0",
+      "UpperLanding"
+    ],
+    "positive_path": [
+      "UpperFloor",
+      "piece_0"
+    ],
+    "axis": "x",
+    "position_mm": 6905,
+    "elevation_mm": 3200,
+    "span_mm": [
+      2000,
+      3350
+    ],
+    "status": "FULL_WIDTH",
+    "negative_levels_at_plane_mm": [
+      2970.0,
+      3200.0
+    ],
+    "positive_levels_at_plane_mm": [
+      2970.0,
+      3200.0
+    ],
+    "shared_intervals_mm": [
+      [
+        2000.0,
+        3350.0
+      ]
+    ],
+    "missing_intervals_mm": [],
+    "covered_width_mm": 1350.0,
+    "tolerance_mm": 0.05
+  }
+}
