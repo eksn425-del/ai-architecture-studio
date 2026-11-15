@@ -22,11 +22,24 @@ Describe a building in natural language. K AI Studio drafts a plan, waits for yo
 
 Natural-language brief → the agent drafts a plan → you approve → a guarded Ruby bridge executes in SketchUp → QA checks the delivered model → the native file is handed back. K Studio builds on an existing agent execution core and adds the product UI, architecture skills, context management across turns, and the SketchUp / Blender connectors.
 
-## Status
+## Status — claims and evidence
 
-Active development; single-user local build. Verified today: end-to-end delivery of a basic building + basic site, and scoped-edit protection. Appearance fidelity and broader building types are still in progress. The development log below keeps test evidence as it accumulates, including failed runs.
+Single-user local build in active development. Each claim below links to the evidence kept in this repository.
+
+| Claim | Evidence | Status |
+| --- | --- | --- |
+| End-to-end native .skp delivery — basic building + basic site (SketchUp 2024) | [Windows test results](docs/test-results/windows) | Verified |
+| Scoped edits change only the requested part; untouched geometry and materials are fingerprint-checked | [Fast Assembly v1 case](docs/FAST_ASSEMBLY_V1.md) · [before](docs/images/fast-assembly-v1-initial.png) / [after](docs/images/fast-assembly-v1-revision.png) | Verified |
+| Appearance fidelity of reconstructed buildings | [Evidence and fidelity notes](docs/EVIDENCE_FIDELITY_V2_4.md) | Partial |
+| Broader building types and full-fidelity reconstruction | [Current task](docs/CURRENT_TASK.md) | In progress |
+
+The full development log — including failed runs — is kept in the fold below.
 
 ---
+
+<details>
+<summary><b>Development log — full history, including failed runs</b></summary>
+
 
 # K AI Studio（AI Architecture Studio）
 
@@ -370,3 +383,6 @@ The later architecture workflow must reuse the same Skill/Agent/bridge foundatio
 7. optional competitor-desktop architecture observation described in `CURRENT_TASK.md`
 
 Raw user reference images, generated SKP/screenshots, private source packages, API keys, private transcripts and machine paths must not be committed.
+
+
+</details>
