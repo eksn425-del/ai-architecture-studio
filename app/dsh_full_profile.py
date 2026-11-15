@@ -20,7 +20,7 @@ def provider_retry_policy(max_retries=2):
             'backoff': {'initialDelayMs': 1000, 'maxDelayMs': 10000, 'jitterRatio': 0.1}}
 
 
-def full_rows(*, api_base, model, protocol, max_tokens, host_plugin, effective_configuration=None):
+def full_rows(*, api_base, model, protocol, max_tokens, host_plugin, effective_configuration=None, host_plan_mode=False):
     if effective_configuration is None:
         from .dsh_configuration import resolve_configuration
         effective_configuration = resolve_configuration({'api_base': api_base, 'model': model, 'mode': 'codex-responses' if protocol == 'openai-responses' else 'compatible', 'reasoning_effort': 'provider-default'})
@@ -39,6 +39,9 @@ def full_rows(*, api_base, model, protocol, max_tokens, host_plugin, effective_c
     ]
     from .dsh_security import production_restrictions
     rows.extend({'id': name, 'disabled': True} for name in production_restrictions())
+    if host_plan_mode:
+        # K Studio already gates planning and approval at the host stage.
+        rows.append({'id':'plan-mode','disabled':True})
     # Preserve upstream implementations for compaction, tools, MD and subagents.
     # Runtime adapters and installed packages own their normal registrations.
     roots = json.loads(os.environ.get('KSTUDIO_DSH_SKILL_DIRS', '[]'))

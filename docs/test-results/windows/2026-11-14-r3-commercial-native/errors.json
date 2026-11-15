@@ -1,0 +1,25 @@
+[
+  {
+    "stage": "pre_write",
+    "status": "PASS",
+    "observed": "Non-coplanar face rejected before native dispatch on purpose"
+  },
+  {
+    "stage": "browser_fixture_setup",
+    "status": "FAIL",
+    "observed": "Initial isolated browser fixture did not show an eligible verified result",
+    "rerun": "Fixture connected to the normal workbench download entry and browser download verified"
+  },
+  {
+    "stage": "six_views_first_capture",
+    "status": "FAIL",
+    "observed": "Local evidence driver used up for an input field named up_m",
+    "rerun": "Corrected adapter argument and read back all six cameras before PNGs"
+  },
+  {
+    "stage": "workshop r12 historical read-only",
+    "status": "FAIL",
+    "observed": "Verification driver queried a nonexistent presentation field",
+    "rerun": "Used the actual presentation_sha256 field; three hashes and file bytes equal"
+  }
+]

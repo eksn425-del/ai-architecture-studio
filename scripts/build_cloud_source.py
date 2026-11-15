@@ -45,11 +45,14 @@ def main():
     archive=args.output/'KStudio-R3-cloud-website-source.zip'
     if archive.exists():raise ValueError('Refuse to overwrite an existing archive; choose a new output directory')
     paths=list((root/'cloud').glob('*.py'))
-    paths.extend(p for p in (root/'website').rglob('*') if p.is_file() and p.suffix in {'.html','.css','.js','.svg'})
+    paths.extend(p for p in (root/'website').rglob('*') if p.is_file() and p.suffix in {'.html','.css','.js','.svg','.txt'})
     paths.extend(root/'deploy'/n for n in ['Dockerfile','Dockerfile.dockerignore','compose.yml','Caddyfile','backup.sh','restore.sh','ops.py','verify_restore.py','environment.template','README.md','ENVIRONMENT.md'])
     paths.extend(root/n for n in ['requirements-cloud.txt','THIRD_PARTY_NOTICES.md','docs/USER_GUIDE_R2.md'])
     if (root/'LICENSE').is_file():paths.append(root/'LICENSE')
     files={p.relative_to(root).as_posix():p.read_bytes() for p in paths}
+    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
+    tracked=subprocess.check_output(['git','status','--porcelain','--',*[p.relative_to(root).as_posix() for p in paths]],
+                                    cwd=root,text=True)
     assert not any('.env' in Path(n).name or any(x in Path(n).parts for x in ('runtime','__pycache__','fixtures','.git')) for n in files)
     snapshot=dependency_snapshot(files['requirements-cloud.txt'].decode('utf-8-sig'))
     files['DEPENDENCIES.tested-host.json']=(json.dumps(snapshot,ensure_ascii=False,indent=2)+'\n').encode()
@@ -81,8 +84,7 @@ source/design rights and publish the operator-approved terms before redistributi
 THIRD_PARTY_NOTICES is attribution, not a substitute for those permissions.
 ''').encode()
     rows=[{'path':n,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()} for n,data in sorted(files.items())]
-    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
-    manifest={'schema':1,'artifact_type':'cloud-website-source','base_git_head':head,'working_tree_changes_included':True,
+    manifest={'schema':1,'artifact_type':'cloud-website-source','base_git_head':head,'working_tree_changes_included':bool(tracked.strip()),
               'image_status':'NO_PREBUILT_IMAGE_INCLUDED','public_deployment':'NOT_RUN','credentials_included':False,
               'file_count':len(rows),'files':rows}
     files['MANIFEST.json']=(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n').encode()
@@ -98,6 +100,7 @@ THIRD_PARTY_NOTICES is attribution, not a substitute for those permissions.
         assert not any('.env' in Path(n).name or '__pycache__' in n for n in zipped.namelist())
     receipt={'archive':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),
              'payload_files':len(rows),'archive_files':len(files),'all_member_hashes_verified':True,
+             'source_sha':head,'working_tree_changes_included':bool(tracked.strip()),
              'image_status':'NO_PREBUILT_IMAGE_INCLUDED','public_deployment':'NOT_RUN'}
     (args.output/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
     (args.output/'SHA256SUMS').write_text(receipt['sha256']+'  '+archive.name+'\n',encoding='utf-8')

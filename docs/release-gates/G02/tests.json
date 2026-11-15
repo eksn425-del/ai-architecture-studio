@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "frozen suite setup failure",
+      "status": "FAIL",
+      "command": "python -m pytest -q --ignore=tests/cloud",
+      "process": "Windows x64, fresh isolated 3.12 staging",
+      "passed": 1798,
+      "failed": 37,
+      "skipped": 38,
+      "cause": "incorrect SDK wrapper and missing Blender locator in scope-wide regressions"
+    },
+    {
+      "scope": "full desktop suite corrected fixture paths, beta08 runtime",
+      "status": "PASS",
+      "command": "python -m pytest -q --ignore=tests/cloud",
+      "process": "Windows 11, isolated local SDK and installed Blender test binary",
+      "passed": 1847,
+      "failed": 0,
+      "skipped": 26
+    },
+    {
+      "scope": "real native typed production path invoked by harness fixture",
+      "status": "PASS",
+      "process": "SketchUp 24.0.484 PID 884 and installed Edge 157 loopback Browser",
+      "scope_note": "engineering fixture, no model request",
+      "native_revisions": [
+        1,
+        2
+      ],
+      "protected_parts": 3,
+      "target": "Porch",
+      "delta_mm": 500,
+      "output_sha256": "4cd11297e42cda8b6f78becc5ebaad80879e3278654ac16359ed8c75174aea47",
+      "evidence_sha256": [
+        "f7a0b9d35f0e22e88ef8c319a84f92f6511593b20305d54d3ad44c1cd685ef43",
+        "b942a046e3d3770cad52cda5506f55d4871e80a22c891a6472c506c66b2a05fb",
+        "3dd4d93e84c73288eda164699bb79d5edcfa1e0fdf66c3815ec647aa0b0e4da4"
+      ]
+    },
+    {
+      "scope": "official SDK with local provider and actual wire/retry",
+      "status": "PASS",
+      "command": "python -m pytest shipping native/SDK cases; node --test five contract files",
+      "process": "pinned official DSH SDK with fixture transport; no actual supplier calls",
+      "python_passed": 102,
+      "node_passed": 15
+    },
+    {
+      "scope": "complex visual comparison",
+      "status": "PARTIAL",
+      "process": "independent project reviewer",
+      "tested_cases": [
+        "workshop",
+        "wenchang",
+        "stepped_tower"
+      ],
+      "notes": "historical fixed-source independent visual review"
+    },
+    {
+      "scope": "new-package paying customer E2E and matched control arm",
+      "status": "NOT_RUN",
+      "paid_requests": 0
+    }
+  ],
+  "additional_receipts": {
+    "final_runtime_full_suite": {
+      "status": "PASS",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "python": "3.14.10",
+      "sdk_node": "24.22.3",
+      "passed": 1847,
+      "skipped": 26,
+      "subtests_passed": 25,
+      "junit_sha256": "69b9e3bf22b40bd597def3f377ed53de5b40c80b6ad0dcb8a308fa83c7a6d5dc",
+      "scope": "Windows actual desktop source, bundled runtime dependencies, provider routes are fixtures only"
+    },
+    "independent_native_current_views": {
+      "status": "PASS",
+      "scope": "SketchUp 2024 archived disposable typed fixture, independent read-only examination",
+      "download_bytes": 134096,
+      "download_sha256": "4cd11297e42cda8b6f78becc5ebaad80879e3278654ac16359ed8c75174aea47",
+      "native_version": "24.0.484",
+      "root_pid": 36075,
+      "checkpoint_revisions": [
+        1,
+        2,
+        2
+      ],
+      "after_edit_geometry_count": {
+        "faces": 54,
+        "edges": 108,
+        "instances": 13
+      },
+      "protected": {
+        "Base": {
+          "native_pid": 36077,
+          "deep_geometry_material_equal_r1_r2_and_reopen": true
+        },
+        "Frame": {
+          "native_pid": 36108,
+          "deep_geometry_material_equal_r1_r2_and_reopen": true
+        },
+        "Roof": {
+          "native_pid": 36279,
+          "deep_geometry_material_equal_r1_r2_and_reopen": true
+        }
+      },
+      "porch": {
+        "same_pid": true,
+        "sole_changed_direct_group": true,
+        "verified_depth_mm": 1300
+      },
+      "document_root_presentation_after_save_reopen": "PASS",
+      "photo_reconstruction": "NOT_RUN",
+      "paid_provider_calls": 0,
+      "views": {
+        "front": {
+          "image_sha256": "689b96b56d936fceca00fbd2a7027397dd7c0559e43b027105c795b2fe3a6b9e",
+          "distinct_readback": true
+        },
+        "rear": {
+          "image_sha256": "583e4b75b0d3e579ea74b119e81b76b843404306f2cd2f5ce98a711a47e0b3a0",
+          "distinct_readback": true
+        },
+        "left": {
+          "image_sha256": "7aff07c3801ffa7ec47362ab739b90816e0114e89e7b1bc7101535075794366d",
+          "distinct_readback": true
+        },
+        "right": {
+          "image_sha256": "f957c09a45590b7cbe0825d2f0ea9b71fee014e796bb2cfa0088370ad02e1ba2",
+          "distinct_readback": true
+        },
+        "roof": {
+          "image_sha256": "3ac890d1da86857bc176f3cf06731f436f0bd32208a52adeee96213f35eb0866",
+          "distinct_readback": true
+        },
+        "oblique": {
+          "image_sha256": "9e5d95e551e2d0bad924706e4024f34998eb5b0a0b7ec18b98e14064a56306fb",
+          "distinct_readback": true
+        }
+      },
+      "receipt_sha256": "552c2782ea93f0aac9f1f6bae30074752d32adc183510a3299ed4243c0fa61b1"
+    }
+  }
+}

@@ -86,7 +86,7 @@ def pair(tmp_path):
         if req.url.path=='/jwks':return oidc_http.Response(200,json={'keys':[rsa.as_dict(is_private=False)]})
         if req.url.path=='/token':
             data=parse_qs(req.content.decode());assert device_auth.challenge(data['code_verifier'][0])==authorization['code_challenge'][0]
-            token=jwt.encode({'alg':'RS256','kid':'fixture'},{'iss':'https://id.fixture','sub':'fixture-user','aud':'desktop-fixture','exp':int(time.time())+600,'iat':int(time.time()),'nonce':authorization['nonce'][0],'name':'本地身份服务测试账户'},rsa).decode()
+            token=jwt.encode({'alg':'RS256','kid':'fixture'},{'iss':'https://id.fixture','sub':data['code'][0] if data['code'][0]=='unknown-user' else 'fixture-user','aud':'desktop-fixture','exp':int(time.time())+600,'iat':int(time.time()),'nonce':authorization['nonce'][0],'name':'本地身份服务测试账户'},rsa).decode()
             return oidc_http.Response(200,json={'access_token':'idp-fixture-only','token_type':'Bearer','expires_in':600,'id_token':token})
         raise AssertionError(req.url)
     cloud.state.oauth.identity.client_kwargs['transport']=oidc_http.MockTransport(idp)
@@ -103,6 +103,7 @@ def pair(tmp_path):
         response=anonymous.request(req.method,req.url.path,params=req.url.query.decode(),content=req.content,headers=dict(req.headers))
         return httpx.Response(response.status_code,content=response.content,headers=dict(response.headers))
     desktop=CloudAccount(tmp_path/'desktop',settings.public_url,transport=httpx.MockTransport(control),storage=None if os.name=='nt' else MemoryEncryptedStore())
+    cloud.state.oidc_fixture_authorization=authorization
     yield settings,cloud,browser,desktop,me['user']
     cloud.state.engine.dispose()
 
@@ -128,6 +129,25 @@ def test_real_authlib_oidc_device_pkce_persistence_revoke(pair,tmp_path):
     assert browser.delete('/api/account/devices/'+row['id']).status_code==200
     assert restored.status()['authenticated'] is False
     assert restored.state['token']==''
+
+
+def test_registration_switch_keeps_existing_customer_login_and_device_access(pair):
+    settings, cloud, _, desktop, user = pair
+    settings.registration_enabled = False
+    browser = TestClient(cloud, base_url=settings.public_url)
+    public = browser.get('/api/public/config').json()['auth']
+    assert public['available'] and not public['registration_available']
+    for code, expected in [('unknown-user',403), ('known-user',303)]:
+        start = browser.get('/api/auth/login', follow_redirects=False)
+        assert start.status_code == 302
+        state = parse_qs(urlparse(start.headers['location']).query)
+        cloud.state.oidc_fixture_authorization.update(state)
+        result = browser.get('/auth/callback', params={'code':code,'state':state['state'][0]}, follow_redirects=False)
+        assert result.status_code == expected
+    session = browser.get('/api/auth/me').json()
+    assert session['user']['id'] == user['id']
+    browser.headers['X-CSRF-Token'] = session['csrf_token']
+    authorize(browser, desktop)
 
 def test_byok_free_and_paid_server_authority(pair):
     config,cloud,browser,desktop,user=pair;authorize(browser,desktop)
@@ -165,7 +185,7 @@ def test_gateway_compatible_route_uses_server_model_and_ledger(pair,monkeypatch)
     def provider(req):
         assert req.headers['Authorization']=='Bearer server-only-fixture'
         assert json.loads(req.content)['model']=='real-server-model'
-        return httpx.Response(200,text='data: {"model":"real-server-model","choices":[{"delta":{"content":"fixture reply"},"finish_reason":"stop"}]}\n\ndata: {"usage":{"prompt_tokens":1000,"completion_tokens":1000}}\n\ndata: [DONE]\n\n')
+        return httpx.Response(200,text='data: {"model":"real-server-model","choices":[{"delta":{"content":"fixture reply"},"finish_reason":"stop"}]}\n\ndata: {"model":"real-server-model","choices":[],"usage":{"prompt_tokens":1000,"completion_tokens":1000}}\n\ndata: [DONE]\n\n')
     monkeypatch.setattr(gateway.httpx,'AsyncClient',lambda **kw:original(transport=httpx.MockTransport(provider),**kw))
     value=desktop.request('/api/platform/v1/chat/completions',method='POST',authenticated=True,payload={'model':'public-model','messages':[{'role':'user','content':'test'}],'stream':False,'max_tokens':100})
     assert value['choices'][0]['message']['content']=='fixture reply'

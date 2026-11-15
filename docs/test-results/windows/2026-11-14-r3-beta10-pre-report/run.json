@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-14-r3-beta10-pre-report",
+  "status": "PARTIAL",
+  "geometry_committed": true,
+  "base_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "source_case": "planning/fixture.json",
+  "model": {
+    "actual": "NO_LLM_DETERMINISTIC_TYPED_FIXTURE",
+    "requested": null,
+    "reasoning_effort": null,
+    "runtime": "Frozen beta10 WebView2 + local SketchUp public connector"
+  },
+  "environment": {
+    "windows": "Existing Windows 11 x64 workstation",
+    "sketchup": "24.0.484",
+    "desktop": "2026.11.14-R3-beta10"
+  },
+  "qa": {
+    "reviewer_mode": "independent_archive_readback",
+    "fixture_recovery_delivery": "PASS",
+    "photo_fidelity": "NOT_RUN"
+  },
+  "blockers": [
+    "Independent production customer and provider tests are still pending"
+  ]
+}

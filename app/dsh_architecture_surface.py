@@ -32,12 +32,14 @@ def with_construction_receipt(result, *, stage, before, native, project_dir):
 
 
 def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_guid,
-                   ruby_state, allowed_parts):
+                   ruby_state, allowed_parts, typed_only=False):
     original = AgentToolSurface(runtime_root, mcp).prepare(
         project_dir=project_dir, mcp_enabled=True, model_path=model_path,
         model_guid=model_guid, ruby_enabled=True, ruby_state=ruby_state,
         tool_profile='full')
-    names = {'sketchup_run_workspace_ruby', 'sketchup_inspect_owned', 'sketchup_inspect_owned_batch'}
+    names = {'sketchup_inspect_owned', 'sketchup_inspect_owned_batch'}
+    if not typed_only:
+        names.add('sketchup_run_workspace_ruby')
     specs = [deepcopy(s) for s in original.dynamic_tools if s['name'] in names]
     for spec in specs:
         if spec['name'] == 'sketchup_run_workspace_ruby' and 'inputSchema' in spec:
@@ -45,6 +47,8 @@ def extend_surface(base, *, runtime_root, mcp, project_dir, model_path, model_gu
                 'type': 'string', 'enum': list(STAGES),
                 'description': 'Label this bounded architectural construction step. Submit real incremental geometry, not an entire prebuilt building. A label does not certify completion.'}
     def dispatch(name, args):
+        if typed_only and name == 'sketchup_run_workspace_ruby':
+            raise ValueError('当前发行配置只执行受控几何操作；可分部位完成方案。')
         previous_revision = ruby_state.get('harness_building', {}).get('revision', 0)
         if name not in names:
             result = base.dispatch(name, args)

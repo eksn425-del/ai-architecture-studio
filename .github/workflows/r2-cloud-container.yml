@@ -65,7 +65,7 @@ jobs:
           set -euo pipefail
           mkdir -p container-evidence
           docker version > container-evidence/docker-version.txt
-          docker build --pull --progress=plain --file deploy/Dockerfile --tag "$IMAGE" . 2>&1 | tee container-evidence/build.log
+          docker build --pull --progress=plain --build-arg "KSTUDIO_BUILD_RELEASE_SHA=$GITHUB_SHA" --file deploy/Dockerfile --tag "$IMAGE" . 2>&1 | tee container-evidence/build.log
           docker image inspect "$IMAGE" --format '{{json .}}' > container-evidence/image-inspect.json
           python3 - <<'PY'
           import json
@@ -73,6 +73,8 @@ jobs:
           image=json.loads(Path('container-evidence/image-inspect.json').read_text())
           assert image['Os']=='linux' and image['Architecture']=='amd64'
           assert image['Config']['User']=='10001:10001'
+          import os
+          assert image['Config']['Labels']['org.opencontainers.image.revision']==os.environ['GITHUB_SHA']
           Path('container-evidence/image-summary.json').write_text(json.dumps({
               'image_id':image['Id'],'os':image['Os'],'architecture':image['Architecture'],
               'configured_user':image['Config']['User'],'image_built':True,

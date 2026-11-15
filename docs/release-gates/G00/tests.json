@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "pinned repo and clean implementation checkout",
+      "status": "PASS",
+      "command": "git diff --binary; git -c core.longpaths=true worktree add; git ls-remote origin",
+      "process": "Git for Windows and GitHub REST",
+      "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+      "pr_draft": true,
+      "pr_merged": false,
+      "source_pending_changes": 18,
+      "binary_snapshot_sha256": "b84d71eacd9fbd4f57e96ce631303506620bef414686a3db53316097c9b2c89a"
+    },
+    {
+      "scope": "historical artifacts",
+      "status": "PASS",
+      "command": "Compare files from four private E cases with fixed native delivery receipts",
+      "process": "independent architecture QA",
+      "case_sha_matches": 4
+    },
+    {
+      "scope": "public evidence data minimization",
+      "status": "PASS",
+      "scope_note": "G09 separately retains review of inherited archive workstation identifier text",
+      "process": "bounded private independent scan",
+      "paths": 7615,
+      "unique_blobs": 4844,
+      "text_artifacts": 4204
+    }
+  ],
+  "additional_receipts": {
+    "end_identity": {
+      "status": "PASS",
+      "original_worktree_unchanged": true,
+      "file_changes_preserved": 18,
+      "all_original_model_bytes_identical": true,
+      "all_install_and_shortcut_hashes_equal": true,
+      "asset_check_count": 13,
+      "install_and_shortcut_check_count": 3
+    }
+  }
+}

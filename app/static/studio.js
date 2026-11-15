@@ -593,7 +593,7 @@ function showToast(message, isError = false) {
 function friendlyError(error) {
   if (/Official DeepSeek Harness ended with aborted/i.test(String(error?.message || error || ""))) return "本轮已中断，已保存的模型和草稿仍保留。可以先查看当前模型，再继续未完成的修改。";
   const message = String(error?.message || "");
-  if (error?.code === "SKETCHUP_CONNECTION_REQUIRED") return message;
+  if (error?.code === "SKETCHUP_CONNECTION_REQUIRED" || error?.code === "NATIVE_RECOVERY_REQUIRED") return message;
   if (error?.code === "MODEL_API_NOT_CONFIGURED" || /(?:Economy|Premium) provider unavailable|model API (?:is )?not configured|API key (?:is )?(?:missing|not configured)/i.test(message)) return "模型 API 尚未配置、未启用或当前不可用。请打开「API 连接」检查服务商、地址、模型和 Key，再发送。图片和草稿仍保留；这不是 SketchUp 连接失败。";
   if (/pending plan (?:was|has been|is) already consumed(?: or replaced)?|pending[_ -]plan.*(?:consumed|replaced)/i.test(message)) return "这份计划的批准记录已使用或已更新，本次未开始建模。若下方显示「检查空白副本并恢复批准」，请先点击完成核验，再单独批准建模；不要重复发送“开始建模”。普通问题仍可继续交流，资料与草稿保留。";
   if (/Official DeepSeek Harness.*TRANSPORT:/i.test(message)) return "模型 API 连接中断，本轮未完成。图片、计划和已提交模型已保留；请先查看当前成果，再在原会话恢复。这条错误本身不能说明 Key 无效，也不代表 SU 连接失败。";
@@ -776,7 +776,7 @@ function updateHeader() {
   $("model-settings-toggle").disabled = state.busy;
   renderAttachments();
   $("conversation-send").disabled = state.busy || !state.projectId || (!$("conversation-input").value.trim() && !(reconstruction && reconstructionState === "idle" && hasImages));
-  $("next-step").textContent = {idle: hasImages ? "下一步：描述目标或直接点击「分析图片」。" : "下一步：描述建筑，或上传一张/多个视角参考图。", clarifying: "下一步：回答关键问题；信息齐全后整理计划。", planned: agentReady ? "下一步：查看估算，批准并开始建模。" : "下一步：查看计划，连接 SketchUp 后批准建模。", building: "下一步：查看截图或下载 SKP；继续输入修改要求。"}[reconstructionState];
+  $("next-step").textContent = {idle: hasImages ? "下一步：描述目标或直接点击「分析图片」。" : "下一步：描述建筑，或上传一张/多个视角参考图。", clarifying: "下一步：回答关键问题；信息齐全后整理计划。", planned: agentReady ? "下一步：查看估算，批准并开始建模。" : "下一步：查看计划，连接 SketchUp 后批准建模。", building: "下一步：查看当前版本。下载 SKP 后请在 SketchUp 重新打开核对。"}[reconstructionState];
   $("revise-reconstruction-plan").hidden = !reconstruction || !["planned", "building"].includes(reconstructionState);
   $("revise-reconstruction-plan").disabled = state.busy;
   $("approve-reconstruction").hidden = !reconstruction || reconstructionState !== "planned";

@@ -1,0 +1,31 @@
+{
+  "kind": "synthetic written fixture; no input photo",
+  "units": "mm",
+  "parts": {
+    "Base": {
+      "width": 6000,
+      "depth": 4000,
+      "thickness": 200
+    },
+    "Frame": {
+      "wood_posts": 6,
+      "post_height": 2800
+    },
+    "Roof": {
+      "width": 6300,
+      "depth": 4300,
+      "thickness": 220
+    },
+    "Porch": {
+      "width": 2200,
+      "depth_initial": 800,
+      "depth_edit": 1300
+    }
+  },
+  "allowed_edit_scope": [
+    [
+      "Porch"
+    ]
+  ],
+  "geometry_feature_acceptance": "owned root, four named assemblies, real rectangular solids and edit boundaries"
+}

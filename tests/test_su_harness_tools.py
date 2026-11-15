@@ -43,6 +43,15 @@ def test_supported_facade_polygon_and_cylinder():
         validate_project_ruby_source("harness_building",source)
 
 
+def test_noncoplanar_polygon_is_blocked_and_box_uses_closed_faces():
+    bad = {"parts":[{"name":"Panel","pieces":[
+        {"kind":"polygon","vertices":[[0,0,0],[100,0,0],[100,100,2],[0,100,0]],"extrude":10}]}]}
+    with pytest.raises(ValueError,match='coplanar'):
+        compile_parts(bad)
+    source = compile_parts(parts())
+    box = source.split("when 'box'",1)[1].split("when 'polygon'",1)[0]
+    assert 'child.manifold?' in box and 'pushpull' not in box
+
 def curved_profile():
     return {'parts':[{'name':'Balcony','pieces':[{'kind':'profile','segments':[
         [[0,0,0],[0,100,0],[100,100,0],[100,0,0]],

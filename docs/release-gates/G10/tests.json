@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "test_source": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "device": "Windows 11 x64 build 22000 developer machine; engineering evidence unless explicitly stated",
+  "runs": [
+    {
+      "scope": "real client with historical and new E engineering fixtures",
+      "status": "PARTIAL",
+      "process": "Windows 11, SketchUp 24.0.484, installed Edge",
+      "evidence": [
+        "../G02/tests.json",
+        "../G03/tests.json",
+        "../G05/tests.json"
+      ]
+    },
+    {
+      "scope": "complete trial users",
+      "status": "NOT_RUN",
+      "count": 0,
+      "minimum": 3
+    },
+    {
+      "scope": "fresh full-route runs",
+      "status": "NOT_RUN",
+      "count": 0,
+      "minimum": 5
+    }
+  ],
+  "additional_receipts": {
+    "beta10_categorical_local_delivery": {
+      "status": "PASS",
+      "scope": "Engineering operation only",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "paid_provider_calls": 0,
+      "real_independent_users": 0,
+      "native_delivery_receipt_sha256": "a24e51c895d259046791ed6681096104a7c337febd9a73ab6844a27e601460c2"
+    }
+  }
+}

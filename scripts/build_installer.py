@@ -107,9 +107,10 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
     lines=['!macro InstallPayload','  SetOverwrite on']
     for directory in ordered:
         target=destination(directory)
-        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call CheckPathAncestors',f'  SetOutPath "\\\\?\\{target}"'])
+        lines.extend([f'  StrCpy $CheckPath "{target}"','  Call PreparePayloadDirectory','  IfErrors install_payload_failed'])
         for file in sorted(by_directory[directory],key=lambda p:p.as_posix()):
             lines.append(f'  File "/oname={nsis_string(file.name)}" "\\\\?\\{nsis_string(str(bundle/file))}"')
+        lines.append('  IfErrors install_payload_failed')
     lines+=['!macroend','!macro UninstallPayload']
     # Check all ancestors first; never follow a modified subtree junction while
     # deleting payload files or a changed installer-selected location.
@@ -124,7 +125,8 @@ def payload_include(bundle: Path, files: list[dict], version: str) -> str:
 
 def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, source_sha: str,
           fixture_root: Path | None=None, compile_installer: bool=True, *,
-          install_root: str | None=None, profile_root: str | None=None) -> dict:
+          install_root: str | None=None, profile_root: str | None=None,
+          acceptance_instance: str | None=None) -> dict:
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9.-]{0,79}',version):raise ValueError('Invalid version')
     if type(sequence) is not int or not 1<=sequence<=65535:raise ValueError('Sequence must fit the Windows product version')
     if not re.fullmatch('[0-9a-f]{40}',source_sha):raise ValueError('Source SHA must be a full Git SHA')
@@ -132,9 +134,15 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
     if output.is_relative_to(bundle):raise ValueError('Build output must be outside bundle')
     if output.exists():raise ValueError('Use a new output directory to preserve previous packages')
     selected=selected_roots(install_root,profile_root,bundle,output,fixture_root)
+    if acceptance_instance is not None and (fixture_root is not None or selected is not None or
+            not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,23}',acceptance_instance)):
+        raise ValueError('Acceptance instance requires a short ID and a selectable full bundle')
     data=inventory(bundle,fixture_root is not None)
     product_id='KStudioR3InstallerFixture' if fixture_root is not None else 'KStudioR3'
     product_name='K Studio R3 Installer Fixture' if fixture_root is not None else 'K Studio R3 Beta'
+    if acceptance_instance is not None:
+        product_id='KStudioR3QA-'+acceptance_instance
+        product_name='K Studio R3 验收 '+acceptance_instance
     if fixture_root is not None:
         fixture_root=fixture_root.absolute()
         if not fixture_root.is_relative_to(output.parent) or fixture_root==output.parent or fixture_root.is_relative_to(bundle):raise ValueError('Fixture install root must be a dedicated sibling under this build job')
@@ -145,24 +153,33 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
         install_root,profile_root=(nsis_string(str(path)) for path in selected)
         root_selection='selected-local-fixed-root'
     else:
-        install_root='$LOCALAPPDATA\\Programs\\KStudioR3'
-        profile_root='$LOCALAPPDATA\\KStudioR3'
-        root_selection='per-user-default'
+        install_root='$LOCALAPPDATA\\Programs\\'+product_id
+        profile_root='$LOCALAPPDATA\\'+product_id
+        root_selection='selectable-per-user'
     makensis=nsis/'makensis.exe'
     if not makensis.is_file() or not (nsis/'COPYING').is_file():raise ValueError('Explicit NSIS compiler and license required')
     output.mkdir(parents=True)
     (output/'bundle-inventory.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     include=output/'payload-files.nsh';include.write_text(payload_include(bundle,data['files'],version),encoding='utf-8-sig')
     exe=output/f'KStudio-{version}-win-x64-setup.exe'
+    # NSIS streams its includes throughout the build. Compile from exact snapshots
+    # so an editor saving the checkout cannot alter parsing or packaging identity.
+    installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
+    source_bytes={name:(REPO/name).read_bytes() for name in installer_inputs}
+    template=output/'installer-template.nsi';template.write_bytes(source_bytes['packaging/kstudio.nsi'])
+    launcher=output/'launcher-source.ps1';launcher.write_bytes(source_bytes['scripts/launch_installed.ps1'])
     definitions={'PRODUCT_ID':product_id,'PRODUCT_NAME':product_name,'OUTPUT_EXE':str(exe),'VERSION':version,
-                 'SEQUENCE':str(sequence),'PAYLOAD_INCLUDE':str(include),'LAUNCHER_FILE':str(REPO/'scripts/launch_installed.ps1'),
+                 'SEQUENCE':str(sequence),'PAYLOAD_INCLUDE':str(include),'LAUNCHER_FILE':str(launcher),
                  'NSIS_LICENSE':str(nsis/'COPYING'),'APP_ICON':str(REPO/'app/static/kstudio.ico')}
     script='\n'.join('!define '+name+' "'+nsis_string(value)+'"' for name,value in definitions.items())+'\n'
     script+='!define INSTALL_ROOT "'+install_root+'"\n!define PROFILE_ROOT "'+profile_root+'"\n'
-    script+='!include "'+nsis_string(str(REPO/'packaging/kstudio.nsi'))+'"\n'
+    if selected is None and fixture_root is None:
+        script+='!define SELECTABLE_PATHS\n'
+    script+='!include "'+nsis_string(str(template))+'"\n'
     entry=output/'installer.nsi';entry.write_text(script,encoding='utf-8-sig')
     receipt={'schema':1,'version':version,'sequence':sequence,'source_sha':source_sha,'file_count':len(data['files']),
-             'fixture_only':fixture_root is not None,'candidate_only':True,'production_signed':False,'public_release_ready':False,
+             'fixture_only':fixture_root is not None,'acceptance_instance':acceptance_instance is not None,
+             'candidate_only':True,'production_signed':False,'public_release_ready':False,
              'profile_preserved_on_uninstall':True,'prior_slots_retained':True,'compression':'zlib',
              'running_instance_refused':True,'atomic_current_pointer':True,
              'same_version_repair_crash_atomic':False,
@@ -170,12 +187,12 @@ def build(bundle: Path, output: Path, nsis: Path, version: str, sequence: int, s
              'extended_length_payload_paths':True,
              'root_selection':root_selection,
              'nsis_license':'https://nsis.sourceforge.io/License','compile_status':'NOT_RUN'}
-    installer_inputs=['packaging/kstudio.nsi','scripts/build_installer.py','scripts/launch_installed.ps1']
     receipt['installer_source']={
         'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
         'dirty':bool(subprocess.check_output(['git','status','--porcelain','--',*installer_inputs],cwd=REPO,text=True).strip()),
         'root_selection':root_selection,
-        'sha256':{name:hashlib.sha256((REPO/name).read_bytes()).hexdigest() for name in installer_inputs},
+        'sha256':{name:hashlib.sha256(raw).hexdigest() for name,raw in source_bytes.items()},
+        'immutable_compile_inputs':True,
         'note':'source_sha identifies frozen application core; installer input hashes identify later packaging fixes'}
     if compile_installer:
         compiler_temp=output/'temp';compiler_temp.mkdir()
@@ -203,6 +220,7 @@ if __name__=='__main__':
     parser.add_argument('--engineering-fixture-root',type=Path)
     parser.add_argument('--install-root',help='Optional literal fixed Windows program directory; requires --profile-root')
     parser.add_argument('--profile-root',help='Optional literal fixed Windows data directory; requires --install-root')
+    parser.add_argument('--acceptance-instance',help='Separate full-payload regression registration; never distribute this installer')
     args=parser.parse_args()
     print(json.dumps(build(args.bundle,args.output,args.nsis,args.version,args.sequence,args.source_sha,args.engineering_fixture_root,
-        install_root=args.install_root,profile_root=args.profile_root),ensure_ascii=False))
+        install_root=args.install_root,profile_root=args.profile_root,acceptance_instance=args.acceptance_instance),ensure_ascii=False))

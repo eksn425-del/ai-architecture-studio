@@ -92,7 +92,7 @@ class ComparisonRuntime(CodexAppServerRuntime):
                 'os_boundary_verified':False,'runtime_initialization_verified':False,
                 'message':('DeepSeek SDK 依赖已就绪；启动时仍须验证实际工具清单。' if not missing else 'DeepSeek SDK 缺少依赖：'+', '.join(missing))}
 
-    def _official_turn(self, *, project, thread_id, prompt, specs, dispatch, instructions, images, progress=None, read_only=False, new_session_on_binding_change=False, reasoning_effort=None):
+    def _official_turn(self, *, project, thread_id, prompt, specs, dispatch, instructions, images, progress=None, read_only=False, new_session_on_binding_change=False, reasoning_effort=None, native_write_pending=None):
         from .connector_instances import project_scope
         original_dispatch = dispatch
         def dispatch(name, arguments):
@@ -118,7 +118,9 @@ class ComparisonRuntime(CodexAppServerRuntime):
         self._assert_execution_ready()
         sdk_site,dsh_bin=self._dsh_paths()
         role='intent' if read_only else 'builder'
+        host_plan_mode = bool(getattr(self, 'host_plan_mode', False))
         binding=hashlib.sha256(json.dumps({'tools':specs,'instructions':instructions,'identity':self.session_identity,'effective_configuration':self.effective_configuration.binding(),'execution_policy':__import__('app.dsh_security',fromlist=['execution_policy']).execution_policy(),'reasoning_effort':reasoning_effort,
+            'host_plan_mode':host_plan_mode,
             'images':[(p.relative_to(project).as_posix(),hashlib.sha256(p.read_bytes()).hexdigest()) for p in images]},sort_keys=True).encode()).hexdigest()
         registry=project/'runtime/dsh-binding.json'
         saved=json.loads(registry.read_text(encoding='utf-8')) if registry.exists() else {}
@@ -141,6 +143,8 @@ class ComparisonRuntime(CodexAppServerRuntime):
             protocol=self.effective_configuration.protocol,reasoning_effort=reasoning_effort,
             effective_configuration=self.effective_configuration,source_manifest=reference_manifest(project,images),
             full_capabilities=False if read_only else None,
+            host_plan_mode=host_plan_mode,
+            native_write_pending=native_write_pending,
             request_headers={'X-KStudio-Turn-ID':self.platform_turn_id} if self.platform_turn_id else None)
         self._dsh_active[str(project)]=transport
         try:

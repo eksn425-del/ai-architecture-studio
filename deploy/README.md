@@ -20,9 +20,10 @@ Schema **3** migrates earlier data without dropping account/order history.
 3. Keep registration/platform/payment/download switches closed until their actual gates
    pass. Confirm real pricing, provider terms, public operator/privacy/refund/support
    information and release/signing/license/clean-Windows evidence.
-4. Run `python3 deploy/ops.py check --env-file PRIVATE --commercial`, then `deploy` with
-   the same arguments, followed by `health` and `audit`. Deploy refuses a dirty/mismatched
-   checkout. It builds app/migrate/maintenance, migrates, and starts app/proxy/maintenance.
+4. For the first closed staging deployment, run `python3 deploy/ops.py check --env-file PRIVATE`,
+   then `deploy`, `health`, and `audit` with the same environment file. Deploy requires a
+   clean checkout at the pinned SHA. It builds the app image, migrates the database, and starts
+   app/proxy/maintenance. Use the separate commercial gate and approval arguments when opening production.
 5. The maintenance worker runs every minute with a PostgreSQL advisory lock: recover
    unstarted stale reservations, reconcile already verified payment inbox events and audit
    balances. Unknown dispatched calls are held for reconciliation, never automatically
@@ -43,7 +44,7 @@ that commit. Neither source packaging nor container smoke means production was d
 ```sh
 python3 deploy/ops.py backup --env-file PRIVATE --output /private-backups/new.age
 python3 deploy/ops.py restore-drill --env-file PRIVATE --archive /private-backups/new.age --target-db kstudio_restore_20261107
-python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_PREVIOUS_IMAGE
+python3 deploy/ops.py rollback --env-file PRIVATE --previous-image VERIFIED_IMAGE_DIGEST --previous-release-sha VERIFIED_PREVIOUS_SOURCE_SHA
 ```
 
 Backup uses **pg_dump inside the private Compose db container**, piped into official age.
@@ -65,8 +66,18 @@ storage. Without those keys, encrypted records cannot be recovered. Snapshot bac
 not include native SKP, footage or WAL/PITR. Configure actual offsite retention, schedule,
 RPO/RTO and recovery contacts; this candidate never prunes earlier backups automatically.
 
-Rollback changes app/maintenance images, preserving volumes. Confirm schema compatibility
-before rollback. Do not restore an older database over new orders to revert application code.
+Rollback verifies the immutable image revision and uses its read-only audit against the current database before changing app/maintenance. It preserves volumes. Validate the actual prior release via HTTPS and audit before restoring traffic. Wildcard tags and earlier images missing this compatibility probe are refused.
+
+Staging and production use separate named projects, volume namespaces and private
+networks. Keep their confidential environment files and HTTPS hosts separate. The
+fixed Caddy address is inside the private subnet and outside the dynamic container
+address pool. When replacing an older staging network, preserve the database volumes.
+After an independently verified backup and authorized staging outage, stop the old
+project without removing volumes, and then deploy with the updated network settings.
+The first production deployment needs all public switches closed and
+`--permit-closed-production`. An operation that sets a production switch requires
+`--commercial` with a matching independently accepted gate state and private owner
+approval record.
 
 The real local PostgreSQL17.11/age/vault/payment-inbox drill and its preserved failures are
 recorded in [R3 backup/restore evidence](../docs/execution/KSTUDIO_R3_BACKUP_RESTORE_20261107.md).

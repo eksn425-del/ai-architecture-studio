@@ -13,8 +13,11 @@ test('official plugin keeps host provenance in system section without adding too
   return {ok:true,json:async()=>data};
  };
  try{
-  await apply({tools:{register:x=>registered.push(x),schemas:()=>registered},attachments:{},systemPrompt:{section:x=>sections.push(x)}});
+  const hooks=new Map();
+  await apply({tools:{register:x=>registered.push(x),schemas:()=>registered},attachments:{},
+    systemPrompt:{section:x=>sections.push(x)},on:(event,handler)=>hooks.set(event,handler)});
   assert.equal(registered.length,1);assert.equal(sections.length,1);
+  assert.equal(typeof hooks.get('llm/stream'),'function');
   assert.equal(sections[0].interpolate,false);
   assert.match(sections[0].text,/Exact user \{\{text\}\}/);
   assert.deepEqual(calls.map(x=>new URL(x).pathname),['/tools','/task','/inventory']);

@@ -626,7 +626,10 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
 
     @app.get("/showcase", response_class=HTMLResponse, include_in_schema=False)
     def showcase() -> FileResponse:
-        return FileResponse(STATIC / "showcase" / "index.html", media_type="text/html; charset=utf-8")
+        index = STATIC / "showcase" / "index.html"
+        if not index.is_file():
+            raise HTTPException(404, "本发行包未包含作品展示。")
+        return FileResponse(index, media_type="text/html; charset=utf-8")
 
     @app.get("/api/release-readiness")
     def current_release_readiness() -> dict[str, Any]:
@@ -1854,10 +1857,22 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             if replay is not None:
                 request_receipt = None
                 return replay
+            session = store.load_state(project_id, "agent_session.json", AgentSession)
+            from .connector_instances import unresolved
+            try:
+                recovery_required = unresolved(store.project_dir(project_id), session)
+            except (ValueError, TypeError, AttributeError, OSError):
+                recovery_required = True  # Unreadable write state cannot authorize a billable turn.
+            if recovery_required:
+                message = "上一次 SketchUp 写入尚未核实。请先在「模型与文件」检查并安全恢复，再发送新消息。"
+                abort_before_dispatch(request_receipt, message)
+                request_receipt = None
+                raise HTTPException(409, detail={"code": "NATIVE_RECOVERY_REQUIRED", "message": message,
+                    "provider_dispatched": False, "native_dispatched": False})
             app.state.active_turns[project_id] = {"started": time.time(), "action": request.agent_action,
                 "provider":app.state.model_router.route(request.tier).provider,
                 "request_id":uuid.uuid4().hex,
-                "baseline": store.load_state(project_id, "agent_session.json", AgentSession).ruby_state,
+                "baseline": session.ruby_state,
                 "message_index": len(store.load_context(project_id).conversation)}
             from .cloud_account import CloudAccountError
             try:
@@ -2229,9 +2244,11 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
             except (ConnectorUnavailable, MCPCallError) as error:
                 raise HTTPException(409, detail={"code": "SKETCHUP_CONNECTION_REQUIRED", "message": "SU 桥接未就绪，尚未通过模型身份校验。请自动打开并重新连接。"}) from error
 
+        approved_native_plan_id = ""
         if contextual and action == "execute" and session.reconstruction_state == "planned":
             from .design_scope_approval import consume_pending_design_plan
             consume_pending_design_plan(project_dir,request.approved_pending_plan_id)
+            approved_native_plan_id = request.approved_pending_plan_id
 
         native_context = _context_with_brief_files(store, project_id, context)
         native_harness = route.provider in {"codex-app-server", "codex-responses", "deepseek-harness"}
@@ -2335,6 +2352,7 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 developer_instructions=workflow_developer_instructions(request.workflow_mode, mcp_enabled=mcp_enabled, action=action, native_harness=native_harness),
                 **({"progress_callback": native_progress_callback(project_id)} if isinstance(app.state.model_router.providers.get(route.provider), CodexAppServerRuntime) and route.provider in {"codex-app-server", "codex-responses", "deepseek-harness"} else {}),
                 **({"agent_action": action} if getattr(app.state.model_router.providers.get(route.provider),'comparison_mode',False) else {}),
+                **({"approved_plan_id": approved_native_plan_id} if route.provider == "deepseek-harness" else {}),
                 **({"cancel_requested": lambda: bool(app.state.active_turns.get(project_id, {}).get("cancel_requested"))} if route.provider == "litellm" else {}),
             )
         except (NativeAgentUnavailable, ConnectorUnavailable) as error:
@@ -2382,6 +2400,8 @@ def create_app(runtime_root: Path | None = None, brain: CodexBrainAdapter | None
                 session.premium_rescue_pending = session.economy_tool_failure_streak >= 2
             session.updated_at = utc_now()
             store.save_state(project_id, session, "agent_session.json")
+            if "[NATIVE_RECOVERY_REQUIRED]" in str(error):
+                raise HTTPException(409, detail={"code": "NATIVE_RECOVERY_REQUIRED", "message": session.error}) from error
             raise HTTPException(status_code=503, detail=str(error)) from error
 
         after_turn_revisions = current_model_revisions(project_dir, session.ruby_state)

@@ -1,0 +1,23 @@
+{
+  "gate": "G05",
+  "title": "正式网站、账户、设备与用户体验",
+  "status": "BLOCKED_EXTERNAL",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "previous_verdict": "../G04/verdict.json",
+  "checked_at": "2026-11-14T11:18:02Z",
+  "hard_blockers": 2,
+  "blockers": [
+    "缺授权 staging Authing OIDC、手机号验证码和 PC 微信渠道，不能发真实短信或创建账户。",
+    "公网可访问性、真实设备和账户撤销同机及跨账号还需实际服务验收。"
+  ],
+  "independent_reviewer": "finance_engineering",
+  "evidence_files": [
+    "PLAN.md",
+    "changes.md",
+    "tests.json",
+    "evidence.md",
+    "risks.md"
+  ],
+  "earlier_exercised_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+}

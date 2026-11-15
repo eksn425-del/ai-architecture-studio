@@ -1,6 +1,6 @@
 # LiteLLM provider adapter for DeepSeek, GLM and custom API connections.
 # The user launcher installs this; developer setup can install it optionally.
 # The MCP extra is required by current LiteLLM provider import paths.
-litellm[mcp]>=1.80,<2
+litellm[mcp]>=1.102.2,<2
 # Honor configured SOCKS proxies; never disable proxy routing to work around imports.
 httpx[socks]>=0.28,<1

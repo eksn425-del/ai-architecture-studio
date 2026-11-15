@@ -22,7 +22,7 @@ def create_app(settings=None):
     app.add_middleware(TrustedHostMiddleware,allowed_hosts=[urlparse(settings.public_url).hostname,'testserver'] if settings.environment=='test' else [urlparse(settings.public_url).hostname])
     oauth=OAuth()
     app.state.oauth=oauth
-    oidc_ready=bool(settings.registration_enabled and settings.oidc_metadata_url and settings.oidc_client_id and settings.oidc_client_secret)
+    oidc_ready=bool(settings.oidc_metadata_url and settings.oidc_client_id and settings.oidc_client_secret)
     if oidc_ready:
         oauth.register(name='identity',client_id=settings.oidc_client_id,client_secret=settings.oidc_client_secret,
             server_metadata_url=settings.oidc_metadata_url,client_kwargs={'scope':settings.oidc_scope,'code_challenge_method':'S256','token_endpoint_auth_method':settings.oidc_token_endpoint_auth_method})
@@ -80,9 +80,15 @@ def create_app(settings=None):
     @app.get('/health/ready')
     async def ready():
         try:
-            with engine.connect() as c:assert c.execute(text('SELECT version FROM schema_version')).scalar()==SCHEMA_VERSION
+            with engine.connect() as c:schema=c.execute(text('SELECT version FROM schema_version')).scalar_one()
+            if schema!=SCHEMA_VERSION:raise ValueError('Unexpected database schema')
         except Exception:return JSONResponse({'status':'database_unavailable_or_unmigrated'},status_code=503)
-        return {'status':'ready','environment':settings.environment}
+        try:
+            revision=(Path(__file__).resolve().parents[1]/'RELEASE_SHA').read_text(encoding='ascii').strip()
+        except (OSError, UnicodeError):
+            revision=''
+        return {'status':'ready','environment':settings.environment,'schema_version':schema,
+                'release_sha':revision if re.fullmatch(r'[a-f0-9]{40}',revision) else None}
     @app.get('/api/public/config')
     async def public_config():
         release=settings.release
@@ -91,11 +97,27 @@ def create_app(settings=None):
             and release.get('signing_verified') is True and release.get('clean_windows_verified') is True and release.get('license_clearance')=='CLEARED'
             and re.fullmatch(r'[0-9a-fA-F]{64}',str(release.get('sha256',''))) and destination.scheme=='https'
             and destination.hostname and not destination.username and not destination.password and not destination.fragment)
-        return {'environment':settings.environment,'auth':{'available':oidc_ready,'login_url':'/api/auth/login' if oidc_ready else None},
+        summary_fields = ('version','channel','size_bytes','published_at','date','publisher','signing_status','sha256',
+                          'verified','signing_verified','clean_windows_verified','license_clearance')
+        public_release = {key:release[key] for key in summary_fields if key in release
+                          and type(release[key]) in (str,int,bool)}
+        if downloadable:
+            for key in ('limitations','system_requirements'):
+                value = release.get(key)
+                if isinstance(value, str) or (isinstance(value,list) and all(isinstance(item,str) for item in value)):
+                    public_release[key] = value
+            for key, fields in (('compatibility', ('name','evidence','status')), ('changelog', ('version','summary'))):
+                value = release.get(key)
+                if isinstance(value, list):
+                    public_release[key] = [{field:item[field] for field in fields if isinstance(item.get(field),str)}
+                                           for item in value if isinstance(item,dict)]
+        return {'environment':settings.environment,'auth':{'available':oidc_ready,
+                    'registration_available':oidc_ready and settings.registration_enabled,
+                    'login_url':'/api/auth/login' if oidc_ready else None},
                 'payment':{'available':bool(settings.payment_enabled and settings.prices_confirmed and (wechat_payments.enabled(settings) if settings.payment_provider=='wechat_native' else settings.payment_provider=='stripe' and settings.stripe_key)),'provider':settings.payment_provider,'sandbox':False if settings.payment_provider=='wechat_native' else settings.environment!='production'},
                 'operator':{k:settings.operator.get(k) for k in ('name','support_email','support_url','icp','privacy_contact','data_retention','refund_policy')},
                 'pricing':{'confirmed':settings.prices_confirmed,'version':settings.prices.get('version'),'packages':settings.prices.get('packages',{}) if settings.prices_confirmed else {},'byok':'API费用由用户直接向供应商支付；软件服务收费默认未启用，启用后按单独确认的任务授权规则收取。'},
-                'release':{**release,'download_available':downloadable,'url':release.get('url') if downloadable else None},
+                'release':{**public_release,'download_available':downloadable,'url':release.get('url') if downloadable else None},
                 'byok':{'service_enabled':bool(settings.prices_confirmed and settings.prices.get('byok_service_enabled')),'service_units':settings.prices.get('byok_task_units',0) if settings.prices_confirmed and settings.prices.get('byok_service_enabled') else 0,'price_version':settings.prices.get('version'),'data_path':'local-direct-provider'},
                 'models':[{'id':k,'name':v.get('name',k),'protocol':v.get('protocol'),'enabled':bool(settings.platform_enabled and v.get('enabled') is True and v.get('verified') is True and settings.prices_confirmed),'verified':v.get('verified',False),'capabilities':v.get('capabilities',{}),'reasoning_effort':v.get('reasoning_effort','provider-default'),'turn_budget_units':v.get('turn_budget_units',v.get('reservation_units')),'turn_limits':{'max_turn_requests':v.get('max_turn_requests',90),'turn_budget_units':v.get('turn_budget_units',v.get('reservation_units')),'turn_timeout_seconds':v.get('turn_timeout_seconds',3600)}} for k,v in settings.models.items()]}
     @app.get('/api/status')
@@ -120,11 +142,16 @@ def create_app(settings=None):
         if not oidc_ready:raise HTTPException(503,'身份服务尚未配置。')
         try:
             token=await oauth.identity.authorize_access_token(request)
-            info=token['userinfo'];subject=str(info['iss'])+'|'+str(info['sub'])
-            user=auth.create_identity(engine,subject,str(info.get('name') or 'K Studio 用户'))
+            info=token['userinfo']
             auth_time=info.get('auth_time',0)
             if type(auth_time) is not int or auth_time>now()+30:raise ValueError('Invalid authentication time')
+            subject=str(info['iss'])+'|'+str(info['sub'])
+            user=auth.create_identity(engine,subject,str(info.get('name') or 'K Studio 用户'),
+                                      allow_new=settings.registration_enabled)
             value,csrf=auth.new_session(engine,user['id'],'browser',settings.session_seconds,authenticated_at=auth_time)
+        except auth.RegistrationClosed:
+            request.session.clear()
+            raise HTTPException(403,'新账户注册暂未开放。已有客户可正常登录、查看订单及售后。') from None
         except Exception:raise HTTPException(401,'登录验证失败或已过期，请重新登录。') from None
         destination=request.session.get('return_to','/account/usage')
         request.session.clear()
@@ -183,8 +210,12 @@ def create_app(settings=None):
         public_jobs=[]
         for job in jobs:
             item={k:v for k,v in job.items() if k not in ('price_json','key')}
-            charged=job['charged'];service=None if charged is None else min(charged,json.loads(job['price_json'])['service_units'])
-            item.update(service_units=service,model_units=None if charged is None else charged-service)
+            price=json.loads(job['price_json'])
+            charged=job['charged'];service=None if charged is None else min(charged,price.get('service_units',0))
+            provider=price.get('_provider_receipt',{})
+            item.update(service_units=service,model_units=None if charged is None else charged-service,
+                        reported_usage={name:provider.get(name) for name in
+                                        ('input_tokens','output_tokens','cached_input_tokens')})
             public_jobs.append(item)
         return {'balance':{**w,'pending':pending,'currency':'credits','price_version':settings.prices.get('version')},'events':[dict(x) for x in events],'tasks':public_jobs}
     @app.get('/api/account/orders')
@@ -248,35 +279,49 @@ def create_app(settings=None):
         if not turn_id:raise HTTPException(400,'缺少本次建模回合授权标识，请更新客户端后重试；未调用供应商。')
         body=await request.body()
         if len(body)>settings.max_request_bytes:raise HTTPException(413,'请求过大')
-        payload=getattr(request.state,'gateway_payload',None) or json.loads(body);key=getattr(request.state,'gateway_key',None) or request.headers.get('idempotency-key','')
+        payload=getattr(request.state,'gateway_payload',None)
+        if payload is None:payload=json.loads(body)
+        key=request.headers.get('idempotency-key','')
         if not isinstance(payload,dict):raise HTTPException(400,'请求必须是JSON对象。')
         client_stream=payload.pop('stream',True);payload.pop('stream_options',None)
         if type(client_stream) is not bool:raise HTTPException(400,'stream参数不正确。')
         allowed={'messages','input','instructions','tools','tool_choice','max_output_tokens','max_tokens','max_completion_tokens','reasoning','reasoning_effort','temperature','top_p','parallel_tool_calls','response_format','stop','presence_penalty','frequency_penalty','thinking','store','include'}
         if set(payload)-allowed:raise HTTPException(400,'请求包含不支持的字段。')
-        if payload.get('store') not in (None,False):raise HTTPException(400,'平台接口不开放供应商持久存储。')
+        if payload.get('store') is not None and payload['store'] is not False:raise HTTPException(400,'平台接口不开放供应商持久存储。')
+        payload.pop('store',None)
+        if model['protocol']=='responses':payload['store']=False
         if 'include' in payload and payload['include']!=['reasoning.encrypted_content']:raise HTTPException(400,'不支持所选返回字段。')
+        tools=payload.get('tools',[])
+        if not isinstance(tools,list) or any(not isinstance(item,dict) or item.get('type')!='function' for item in tools):
+            raise HTTPException(400,'平台模型仅支持本地函数工具。')
         gateway.apply_reasoning_policy(payload,model)
-        with engine.connect() as c:
-            running=c.execute(select(tasks.c.id).where(tasks.c.user_id==row['user_id'],tasks.c.state.in_(['running','pending_reconciliation']))).first()
-        if running:raise HTTPException(409,'已有任务运行或等待对账。')
+        gateway.timeout_policy(model)
         max_tokens=payload.get('max_output_tokens',payload.get('max_completion_tokens',payload.get('max_tokens',model['max_output_tokens'])))
         if type(max_tokens) is not int or not 1<=max_tokens<=model['max_output_tokens']:raise HTTPException(400,'输出上限不支持。')
         for field in ('max_output_tokens','max_completion_tokens','max_tokens'):payload.pop(field,None)
         payload['max_output_tokens' if model['protocol']=='responses' else 'max_tokens']=max_tokens
+        fingerprint=gateway.request_fingerprint(row['user_id'],turn_id,model_id,payload)
+        # The official SDK sends the turn identity but may omit a per-request
+        # key. Its same normalized request maps to one ledger receipt.
+        if not key and getattr(request.state,'gateway_payload',None) is not None:
+            key='sdk:'+fingerprint
         try:
             task=reserve(engine,row['user_id'],key,'platform',model_id,model['reservation_units'],model['price'],daily_limit=model.get('daily_units',10_000),
                 turn_id=turn_id,turn_ceiling=model.get('turn_budget_units',model['reservation_units']),max_turn_requests=model.get('max_turn_requests',90),
-                turn_seconds=model.get('turn_timeout_seconds',3600),max_concurrent=getattr(settings,'global_max_concurrency',4))
+                turn_seconds=model.get('turn_timeout_seconds',3600),max_concurrent=getattr(settings,'global_max_concurrency',4),request_fingerprint=fingerprint)
         except BillingError as exc:
             if str(exc).startswith('Platform capacity reached'):raise HTTPException(429,'平台当前容量已满，尚未发出请求，请稍后再试。',headers={'Retry-After':'10'}) from None
             raise
-        if task['state']!='reserved':raise HTTPException(409,'此请求已经执行，请查看任务状态，勿重放。')
-        claim(engine,row['user_id'],task['id'])
+        receipt_headers={'X-KStudio-Task':task['id'],'X-KStudio-Turn':turn_id,'Cache-Control':'no-store'}
+        if task['state']!='reserved':raise HTTPException(409,'此请求已有记录，请查看任务账单。',headers=receipt_headers)
+        try:claim(engine,row['user_id'],task['id'])
+        except BillingError as exc:raise HTTPException(409,str(exc),headers=receipt_headers) from None
         stream=gateway.stream(engine,row['user_id'],task,payload,model,already_claimed=True)
         if not client_stream:
-            return JSONResponse(await gateway.collect(stream,model['protocol']),headers={'X-KStudio-Task':task['id'],'X-KStudio-Turn':turn_id,'Cache-Control':'no-store'})
-        return StreamingResponse(stream,media_type='text/event-stream',headers={'X-KStudio-Task':task['id'],'X-KStudio-Turn':turn_id,'Cache-Control':'no-store'})
+            try:result=await gateway.collect(stream,model['protocol'])
+            except BillingError as exc:raise HTTPException(409,str(exc),headers=receipt_headers) from None
+            return JSONResponse(result,headers=receipt_headers)
+        return StreamingResponse(stream,media_type='text/event-stream',headers=receipt_headers)
     @app.post('/api/platform/v1/chat/completions')
     @app.post('/api/platform/v1/responses')
     async def platform_compatible(request:Request):
@@ -285,21 +330,34 @@ def create_app(settings=None):
         expected='responses' if request.url.path.endswith('/responses') else 'chat-completions'
         if settings.models[model_id].get('protocol')!=expected:raise HTTPException(409,'此平台模型不支持所选协议。')
         request.state.gateway_payload=payload
-        # Missing request keys get distinct ledger receipts, but the stable
-        # required turn header shares a cumulative budget across SDK tool loops.
-        # Desktop SDK retries remain disabled; no whole request blind replay.
-        if not request.headers.get('idempotency-key'):
-            request.state.gateway_key=uid()
         return await model_request(model_id,request)
-    @app.post('/api/admin/tasks/{task_id}/reconcile')
-    async def reconcile(task_id:str,request:Request):
+    def billing_administrator(request):
         row=identity(request)
         if row['subject'] not in settings.admin_subjects:raise HTTPException(403,'需要对账权限。')
-        body=await json_object(request)
-        if not isinstance(body.get('reason'),str) or len(body['reason'])<10:raise HTTPException(400,'请填写供应商账单来源与原因。')
+        if request.headers.get('authorization','').startswith('Bearer ') or row.get('refresh_hash') or row.get('device_name')!='browser' or not 0<=now()-int(row.get('authenticated_at',0))<=300:
+            raise HTTPException(403,'请在官网重新登录后执行对账。')
+        return row
+    @app.get('/api/admin/tasks/{task_id}/reconciliation')
+    async def reconciliation_details(task_id:str,request:Request):
+        billing_administrator(request)
         with engine.connect() as c:task=c.execute(select(tasks).where(tasks.c.id==task_id)).mappings().first()
         if not task:raise HTTPException(404,'任务不存在。')
-        return settle(engine,task['user_id'],task_id,body.get('actual_units'),body['reason'][:256]+' actor:'+row['user_id'],reconcile=True)
+        provider=json.loads(task['price_json']).get('_provider_receipt',{})
+        return JSONResponse({**{name:task[name] for name in ('id','state','model','reserve','charged','created','updated','price_version')},
+                             'provider_receipt':provider},headers={'Cache-Control':'no-store'})
+    @app.post('/api/admin/tasks/{task_id}/reconcile')
+    async def reconcile(task_id:str,request:Request):
+        row=billing_administrator(request)
+        body=await json_object(request)
+        reason=body.get('reason')
+        actual=body.get('actual_units')
+        if not isinstance(reason,str) or not 10<=len(reason.strip())<=200 or type(actual) is not int:
+            raise HTTPException(400,'请填写供应商账单来源、原因与确切费用。')
+        with engine.connect() as c:task=c.execute(select(tasks).where(tasks.c.id==task_id)).mappings().first()
+        if not task:raise HTTPException(404,'任务不存在。')
+        if not 0<=actual<=task['reserve']:raise HTTPException(409,'金额超出原预占，需人工审查。')
+        record=settle(engine,task['user_id'],task_id,actual,reason.strip()+' actor:'+row['user_id'],reconcile=True)
+        return {name:record[name] for name in ('id','state','reserve','charged','price_version')}
     website=Path(settings.website_dir).resolve()
     @app.get('/{path:path}')
     async def site(path:str):

@@ -1,0 +1,41 @@
+{
+  "recovery": {
+    "status": "PASS",
+    "scope": "actual beta09 desktop recovery UI with controlled fixture",
+    "desktop_application_sha256": "6dc68a49b9f330825b325df5f30c0897ad53967a884fdfa27647e0de1c301f97",
+    "native_version": "24.0.484",
+    "real_native_process_changed": true,
+    "before_checkpoint_revision": 1,
+    "quarantined_attempt_revision": 2,
+    "restored_revision": 1,
+    "final_hashes_equal": {
+      "root_geometry_material_sha256": true,
+      "document_geometry_material_sha256": true,
+      "presentation_sha256": true
+    },
+    "uncertain_operation_replayed": false,
+    "old_copy_sha_unchanged": true,
+    "recovered_sha256": "5ed683b11fa67b0f674d19a4545ef9d094787968bd10f6f7661a8f2f04a16995",
+    "paid_calls": 0
+  },
+  "continued_edit": {
+    "status": "PASS",
+    "method": "controlled typed native tool; no LLM",
+    "same_original_source_rejected_before_native_dispatch": true,
+    "revised_scope": [
+      [
+        "Porch"
+      ]
+    ],
+    "verified_depth_mm": 1050,
+    "continued_revision": 2,
+    "protected": [
+      "Base",
+      "Frame",
+      "Roof"
+    ],
+    "checkpoint_sha256": "49e6c6778b9c8d447b2f6e9c849c347ad1ad1ccc21b0d62849bc18bd50208958",
+    "original_copy_untouched": true,
+    "paid_calls": 0
+  }
+}

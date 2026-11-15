@@ -1,0 +1,215 @@
+name: R3 closed staging rehearsal
+
+on:
+  pull_request:
+    branches: ['codex/kstudio-r3-launch-20261105']
+    paths: ['.github/workflows/r3-staging-rehearsal.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compose-rehearsal:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      RELEASE_SHA: 37a458f7d651564c7d686d8321cff159ec82d9ee
+      PREVIOUS_SHA: 9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.RELEASE_SHA }}
+          path: frozen
+          persist-credentials: false
+          sparse-checkout: |
+            cloud
+            website
+            deploy
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PREVIOUS_SHA }}
+          path: previous
+          persist-credentials: false
+          sparse-checkout: |
+            cloud
+            website
+            deploy
+      - name: Deploy the corrected cloud candidate, verify HTTPS and roll back
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          unset DOCKER_CONTEXT DOCKER_HOST
+          cd "$GITHUB_WORKSPACE/frozen"
+          project=kstudio-cloud-staging
+          label="label=com.docker.compose.project=$project"
+          test -z "$(docker ps -aq --filter "$label")"
+          test -z "$(docker volume ls -q --filter "$label")"
+          test -z "$(docker network ls -q --filter "$label")"
+          docker compose version
+          test "$(git rev-parse HEAD)" = "$RELEASE_SHA"
+          test "$(git -C "$GITHUB_WORKSPACE/previous" rev-parse HEAD)" = "$PREVIOUS_SHA"
+          export FIXTURE_DIR="$(mktemp -d "$RUNNER_TEMP/kstudio-stage.XXXXXXXX")"
+          export STAGING_ORIGIN=https://kstudio-ci.localhost
+          export KSTUDIO_ENV_FILE="$FIXTURE_DIR/staging.env"
+          export SSL_CERT_FILE="$FIXTURE_DIR/caddy-root.crt"
+          # Limit the synthetic domain to the runner itself.
+          printf '127.0.0.1 kstudio-ci.localhost\n' | sudo tee -a /etc/hosts >/dev/null
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          import runpy
+          import secrets
+          from urllib.parse import urlsplit
+
+          work = Path(os.environ["FIXTURE_DIR"])
+          secret_dir = work / "secrets"
+          secret_dir.mkdir()
+          release = os.environ["RELEASE_SHA"]
+          origin = os.environ["STAGING_ORIGIN"]
+          password = secrets.token_hex(24)
+          ops = runpy.run_path("deploy/ops.py")
+          values = {
+              **ops["OPERATIVE_ENV_DEFAULTS"],
+              **ops["selected_private_network"]("staging"),
+              "KSTUDIO_DOMAIN": urlsplit(origin).hostname,
+              "KSTUDIO_CLOUD_PUBLIC_URL": origin,
+              "KSTUDIO_CLOUD_ENV": "staging",
+              "KSTUDIO_DATABASE_PASSWORD": password,
+              "KSTUDIO_CLOUD_DATABASE_URL": f"postgresql+psycopg://kstudio:{password}@db:5432/kstudio",
+              "KSTUDIO_CLOUD_SESSION_SECRET": secrets.token_hex(32),
+              "KSTUDIO_RELEASE_SHA": release,
+              "KSTUDIO_IMAGE": f"kstudio-cloud:{release}",
+              "KSTUDIO_SECRET_DIR": str(secret_dir),
+          }
+          (work / "staging.env").write_text("".join(f"{key}={val}\n" for key, val in values.items()), encoding="utf-8")
+          PY
+          cleanup() {
+            local result=$?
+            if [ "$result" -ne 0 ]; then
+              docker network inspect "${project}_private" --format '{{json .Containers}}' || true
+              ss -ltn '( sport = :80 or sport = :443 )' || true
+            fi
+            docker compose --project-name "$project" --env-file "$KSTUDIO_ENV_FILE" -f deploy/compose.yml down --volumes
+          }
+          trap cleanup EXIT
+          ops() {
+            action="$1"
+            profile="$2"
+            shift 2
+            python3 deploy/ops.py "$action" --env-file "$profile" "$@"
+          }
+          container() {
+            docker ps -q --filter "$label" --filter "label=com.docker.compose.service=$1"
+          }
+          wait_health() {
+            for attempt in $(seq 1 20); do
+              if ops health "$1" >"$FIXTURE_DIR/health.json"; then
+                cat "$FIXTURE_DIR/health.json"
+                return
+              fi
+              sleep 3
+            done
+            cat "$FIXTURE_DIR/health.json"
+            return 1
+          }
+
+          ops check "$KSTUDIO_ENV_FILE"
+          if ops check "$KSTUDIO_ENV_FILE" --commercial; then
+            echo "Synthetic staging unexpectedly passed commercial preflight"
+            exit 1
+          else
+            test "$?" -eq 2
+          fi
+          ops deploy "$KSTUDIO_ENV_FILE"
+          proxy="$(container proxy)"
+          database="$(container db)"
+          app="$(container app)"
+          maintenance="$(container maintenance)"
+          test -n "$proxy" && test -n "$database" && test -n "$app" && test -n "$maintenance"
+          test -z "$(docker port "$database")"
+          test -z "$(docker port "$app")"
+          docker network inspect "${project}_private" --format '{{json .IPAM.Config}}' >"$FIXTURE_DIR/ipam.json"
+          docker inspect "$proxy" "$database" "$app" "$maintenance" \
+            --format '{{json (index .NetworkSettings.Networks "kstudio-cloud-staging_private").IPAddress}}' \
+            >"$FIXTURE_DIR/endpoints.jsonl"
+          python3 - <<'PY'
+          from ipaddress import ip_address, ip_network
+          import json
+          import os
+          from pathlib import Path
+          import runpy
+
+          work = Path(os.environ["FIXTURE_DIR"])
+          network = runpy.run_path("deploy/ops.py")["selected_private_network"]("staging")
+          observed, = json.loads((work / "ipam.json").read_text())
+          assert observed["Subnet"] == network["KSTUDIO_PRIVATE_SUBNET"]
+          assert observed["IPRange"] == network["KSTUDIO_PRIVATE_IP_RANGE"]
+          names = ["caddy", "db", "app", "maintenance"]
+          addresses = dict(zip(names, map(json.loads, (work / "endpoints.jsonl").read_text().splitlines()), strict=True))
+          assert addresses["caddy"] == network["KSTUDIO_PROXY_IP"]
+          assert all(ip_address(addresses[service]) in ip_network(observed["IPRange"]) for service in names[1:])
+          assert len(set(addresses.values())) == 4
+          print("KSTUDIO_IPAM=" + json.dumps({"pool": observed["IPRange"], "addresses": addresses}))
+          PY
+          docker exec "$proxy" cat /data/caddy/pki/authorities/local/root.crt >"$SSL_CERT_FILE"
+          wait_health "$KSTUDIO_ENV_FILE"
+          ops audit "$KSTUDIO_ENV_FILE"
+
+          # Exercise the actual HTTPS website, disabled services, and one synthetic DB write.
+          python3 - <<'PY'
+          import json
+          import os
+          from urllib.request import Request, urlopen
+
+          origin = os.environ["STAGING_ORIGIN"]
+          with urlopen(origin + "/", timeout=10) as page:
+              assert "content-security-policy" in page.headers
+              assert b"K Studio" in page.read(512000)
+          with urlopen(origin + "/api/public/config", timeout=10) as response:
+              config = json.load(response)
+          assert config["environment"] == "staging"
+          assert not config["auth"]["available"] and not config["auth"]["registration_available"]
+          assert not config["models"] and not config["pricing"]["confirmed"]
+          assert not config["release"]["download_available"] and not config["payment"]["available"]
+          assert not config["byok"]["service_enabled"]
+          req = Request(origin + "/api/feedback", data=b'{"message":"Isolated staging rehearsal"}',
+                        headers={"Content-Type": "application/json", "Origin": origin})
+          with urlopen(req, timeout=10) as response:
+              assert json.load(response)["received"] is True
+          print("KSTUDIO_STAGING_CHECK=website_https,closed_services,private_database_write")
+          PY
+          feedback_rows() {
+            docker exec "$database" psql -U kstudio -d kstudio -Atc "SELECT count(*) FROM feedback"
+          }
+          test "$(feedback_rows)" = 1
+
+          previous_source="$GITHUB_WORKSPACE/previous"
+          docker build --file "$previous_source/deploy/Dockerfile" \
+            --build-arg "KSTUDIO_BUILD_RELEASE_SHA=$PREVIOUS_SHA" \
+            --tag "kstudio-cloud:$PREVIOUS_SHA" "$previous_source"
+          previous_image="$(docker image inspect "kstudio-cloud:$PREVIOUS_SHA" --format '{{.Id}}')"
+          printf 'KSTUDIO_REHEARSAL_PREVIOUS_IMAGE=%s\n' "$previous_image"
+          ops rollback "$KSTUDIO_ENV_FILE" --previous-image "$previous_image" --previous-release-sha "$PREVIOUS_SHA"
+          previous_profile="$FIXTURE_DIR/previous.env"
+          sed -e "s/^KSTUDIO_IMAGE=.*/KSTUDIO_IMAGE=$previous_image/" \
+            -e "s/^KSTUDIO_RELEASE_SHA=.*/KSTUDIO_RELEASE_SHA=$PREVIOUS_SHA/" "$KSTUDIO_ENV_FILE" >"$previous_profile"
+          wait_health "$previous_profile"
+          ops audit "$previous_profile"
+          test "$(container db)" = "$database"
+          test "$(container app)" != "$app"
+          test "$(feedback_rows)" = 1
+          printf 'KSTUDIO_STAGING_ROLLBACK=PASS\n'
+
+          ops deploy "$KSTUDIO_ENV_FILE"
+          wait_health "$KSTUDIO_ENV_FILE"
+          ops audit "$KSTUDIO_ENV_FILE"
+          test "$(container db)" = "$database"
+          test "$(feedback_rows)" = 1
+          printf 'KSTUDIO_STAGING_ROLL_FORWARD=PASS\n'
+          cleanup
+          trap - EXIT
+          test -z "$(docker ps -aq --filter "$label")"
+          printf 'KSTUDIO_STAGING_REHEARSAL=PASS;PUBLIC_STAGING=NOT_RUN\n'

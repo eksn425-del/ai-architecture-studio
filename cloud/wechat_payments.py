@@ -21,7 +21,7 @@ from cryptography.exceptions import InvalidSignature, InvalidTag
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from sqlalchemy import Table, Column, String, Text, BigInteger, ForeignKey, select, update
+from sqlalchemy import Table, Column, String, Text, BigInteger, ForeignKey, func, select, update
 from sqlalchemy.exc import IntegrityError
 
 from .db import metadata, orders, wallets, payment_reconciliation, now, uid
@@ -29,6 +29,7 @@ from .ledger import BillingError, payment_paid, event as ledger_event
 
 API_ORIGIN = 'https://api.mch.weixin.qq.com'
 MAX_RESPONSE_BYTES = 1_000_000
+MIN_ORDER_EXPIRY_MARGIN_SECONDS = 65
 verified_payment_inbox = Table(
     'verified_payment_inbox', metadata,
     Column('id', String(160), primary_key=True),
@@ -168,7 +169,7 @@ class Client:
                          self.settings.wechatpay_merchant_serial+'",signature="'+signature+'"')
         try:
             with httpx.Client(transport=self.transport, timeout=httpx.Timeout(20, connect=5),
-                              follow_redirects=False) as client:
+                              follow_redirects=False, trust_env=False) as client:
                 with client.stream(method, API_ORIGIN+path, content=body, headers={
                         'Authorization': authorization, 'Accept': 'application/json',
                         'Content-Type': 'application/json', 'User-Agent': 'KStudio-R3/1',
@@ -236,33 +237,44 @@ def checkout(engine, settings, order, *, client=None):
         return {'order_id': order['id'], 'state': order['state']}
     if order['provider_session'] not in (None, _session(order)):
         raise PaymentError('Order already belongs to another payment provider')
-    # Persist provider identity BEFORE dispatch: an immediate notification is valid,
-    # and a timeout retains a queryable merchant order instead of a new order.
-    with engine.begin() as c:
-        changed = c.execute(update(orders).where(orders.c.id == order['id'],
-            orders.c.state.in_(['created', 'checkout']),
-            (orders.c.provider_session.is_(None)) | (orders.c.provider_session == _session(order)))
-            .values(state='checkout', provider_session=_session(order))).rowcount
-        if changed != 1:
-            raise PaymentError('Order state changed; refresh payment status')
     from datetime import datetime, timezone
     expires = int(order['created'])+1800
     if expires <= now():
         raise PaymentError('Payment window expired; close and create a new order')
-    result = client.request('POST', '/v3/pay/transactions/native', {
-        'appid': settings.wechatpay_appid, 'mchid': settings.wechatpay_mchid,
-        'description': 'K Studio credits '+str(order['package'])[:64],
-        'out_trade_no': order['id'], 'notify_url': settings.public_url.rstrip('/')+'/api/payments/wechat/notify',
-        'time_expire': datetime.fromtimestamp(expires, timezone.utc).isoformat(),
-        'amount': {'total': order['amount'], 'currency': 'CNY'}})
-    code = result.get('code_url', '')
-    if not isinstance(code, str) or not code.startswith('weixin://wxpay/') or len(code) > 2048:
-        raise PaymentError('WeChat did not return a valid Native payment code')
+    if order['provider_session'] == _session(order):
+        return checkout_snapshot(order,expires)
+    if expires-now() < MIN_ORDER_EXPIRY_MARGIN_SECONDS:
+        raise PaymentError('Payment window expired; close and create a new order')
+    # Claim the original merchant order once before dispatch. Concurrent callers
+    # and ambiguous transport outcomes follow the existing order's query path.
     with engine.begin() as c:
-        c.execute(update(orders).where(orders.c.id == order['id'], orders.c.state == 'checkout')
-                  .values(checkout_url=code))
-    return {'order_id': order['id'], 'state': 'checkout', 'provider': 'wechat_native',
-            'code_url': code, 'expires': expires, 'checkout_url': None}
+        changed = c.execute(update(orders).where(orders.c.id == order['id'],
+            orders.c.state=='created',orders.c.provider_session.is_(None))
+            .values(state='checkout', provider_session=_session(order))).rowcount
+    if changed != 1:
+        return checkout_snapshot(_order(engine,order['id']),expires)
+    try:
+        result = client.request('POST', '/v3/pay/transactions/native', {
+            'appid': settings.wechatpay_appid, 'mchid': settings.wechatpay_mchid,
+            'description': 'K Studio credits '+str(order['package'])[:64],
+            'out_trade_no': order['id'], 'notify_url': settings.public_url.rstrip('/')+'/api/payments/wechat/notify',
+            'time_expire': datetime.fromtimestamp(expires, timezone.utc).isoformat(),
+            'amount': {'total': order['amount'], 'currency': 'CNY'}})
+    except PaymentError:
+        return checkout_snapshot(_order(engine,order['id']),expires)
+    code = result.get('code_url', '')
+    if isinstance(code,str) and code.startswith('weixin://wxpay/') and len(code)<=2048:
+        with engine.begin() as c:
+            c.execute(update(orders).where(orders.c.id == order['id'],orders.c.state=='checkout')
+                      .values(checkout_url=code))
+    return checkout_snapshot(_order(engine,order['id']),expires)
+
+
+def checkout_snapshot(order,expires):
+    code=order['checkout_url'] if order['state']=='checkout' else None
+    return {'order_id':order['id'],'state':order['state'],'provider':'wechat_native',
+            'code_url':code,'expires':expires,'checkout_url':None,
+            'query_required':order['state']=='checkout' and not code}
 
 
 def _transaction_payload(settings, order, data):
@@ -448,17 +460,21 @@ def request_refund(engine, settings, order_id, reason='Owner-authorized refund',
     Unknown remote state retains its hold and requires subsequent official query.
     """
     client = client or Client(settings)
-    query_order(engine, settings, order_id, client=client)
-    order = _order(engine, order_id)
+    with engine.connect() as c:
+        existing=c.execute(select(wechat_refunds.c.id).where(wechat_refunds.c.order_id==order_id)).scalar_one_or_none()
+    if existing is not None:
+        return query_refund(engine,settings,existing,client=client)
+    verification = query_order(engine, settings, order_id, client=client)
     with engine.begin() as c:
         c.execute(update(orders).where(orders.c.id == order_id).values(state=orders.c.state))
+        order = c.execute(select(orders).where(orders.c.id == order_id)).mappings().one()
         old = c.execute(select(wechat_refunds).where(wechat_refunds.c.order_id == order_id)).mappings().first()
         if old:
             refund_id = old['id']
             newly_created = False
         else:
-            if order['state'] != 'paid':
-                raise PaymentError('Refund requires a paid order')
+            if order['state'] != 'paid' or verification['provider_state'] != 'SUCCESS':
+                raise PaymentError('Refund requires a currently verified paid order')
             changed = c.execute(update(wallets).where(wallets.c.user_id == order['user_id'],
                 wallets.c.balance-wallets.c.reserved >= order['credits'])
                 .values(reserved=wallets.c.reserved+order['credits'])).rowcount
@@ -513,4 +529,25 @@ def recover_pending(engine, limit=100):
     with engine.connect() as c:
         ids = c.execute(select(verified_payment_inbox.c.id).where(verified_payment_inbox.c.state == 'pending')
                         .order_by(verified_payment_inbox.c.created).limit(min(max(int(limit),1),1000))).scalars().all()
-    return [{'event_id': event_id, 'result': replay_inbox(engine, event_id)} for event_id in ids]
+    results = []
+    for event_id in ids:
+        try:
+            result = replay_inbox(engine, event_id)
+        except BillingError:
+            # Keep an irreconcilable verified receipt separate so it cannot
+            # repeatedly prevent later good receipts from reaching settlement.
+            with engine.begin() as c:
+                c.execute(update(verified_payment_inbox).where(verified_payment_inbox.c.id == event_id,
+                            verified_payment_inbox.c.state == 'pending').values(state='review_required', updated=now()))
+            result = 'review_required'
+        results.append({'event_id': event_id, 'result': result})
+    return results
+
+
+def pending_review_count(engine):
+    with engine.connect() as c:
+        inbox = c.execute(select(func.count()).select_from(verified_payment_inbox).where(
+            verified_payment_inbox.c.state == 'review_required')).scalar_one()
+        external = c.execute(select(func.count()).select_from(payment_reconciliation).where(
+            payment_reconciliation.c.state == 'pending')).scalar_one()
+    return {'verified_inbox': inbox, 'external_refunds': external}

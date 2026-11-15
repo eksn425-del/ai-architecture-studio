@@ -14,6 +14,7 @@ def classify(inventory):
     npm.sort(key=lambda x:len(x[0]),reverse=True)
     python=next(c for c in components if c['ecosystem']=='runtime' and c['name']=='Python')
     node=next(c for c in components if c['ecosystem']=='runtime' and c['name']=='Node.js')
+    python_dll='python'+''.join(python['version'].split('.')[:2])+'.dll'
     rows=[]
     for binary in inventory['native_binaries_requiring_vendor_notice_review']:
         path=binary['path'];local=path.removeprefix('_internal/');base=Path(path).name.lower();owner=None;basis='';extra=[]
@@ -36,7 +37,7 @@ def classify(inventory):
                 owner=next((c for c in matches if c['license_texts']),matches[0] if matches else None)
                 if owner:
                     category='PYTHON_DISTRIBUTION_NOTICES_MAPPED';basis='Exact Analysis TOC source file matched to distribution RECORD ownership'
-                elif '/' not in local and (base.endswith('.pyd') or base in ('python3.dll','python312.dll','libcrypto-3.dll','libssl-3.dll','libffi-8.dll','sqlite3.dll')):
+                elif '/' not in local and (base.endswith('.pyd') or base in ('python3.dll',python_dll,'libcrypto-3.dll','libssl-3.dll','libffi-8.dll','sqlite3.dll')):
                     owner=python;category='CPYTHON_RUNTIME_NOTICES_COLLECTED';basis='Bundled CPython standard-library/runtime dependency; CPython license includes third-party notices'
                 else:category='UNMAPPED_BINARY_ENGINEERING_REVIEW';basis='No reliable source-to-component match found'
         row={**binary,'category':category,'mapping_basis':basis,'additional_notes':extra}

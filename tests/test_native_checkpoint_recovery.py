@@ -29,7 +29,10 @@ def recovery(tmp_path,monkeypatch):
     (reports/'r1.json').write_text(json.dumps({'status':'committed','project_id':'case','revision':1,'root_pid':19}))
     (reports/'r2.json').write_text(json.dumps({'status':'prepared'}))
     (runtime/'previous-agent-ruby-state.json').write_text(json.dumps({'harness_building':accepted}))
-    pending={**copy.deepcopy(accepted),'durability_status':'unconfirmed','write_in_flight':True,'last_report':'runtime/scripts/reports/r2.json'}
+    attempted_source = runtime/'scripts/harness_building.rb'
+    attempted_hash = hashlib.sha256(attempted_source.read_bytes()).hexdigest()
+    pending={**copy.deepcopy(accepted),'durability_status':'unconfirmed','write_in_flight':True,
+             'last_report':'runtime/scripts/reports/r2.json','source_sha256':attempted_hash}
     state=runtime/'project_ruby_state.json';state.write_text(json.dumps({'model_path':str(original),'scripts':{'harness_building':pending}}))
     old={'instance_id':'1234-aaaaaaaaaaaaaaaaaaaaaaaa','model_path':str(original),'model_guid':'old-guid'}
     selections={str(project.resolve()):old};roster=[];launched=[]
@@ -76,8 +79,8 @@ def test_recovery_retains_original_unknown_and_uses_a_new_verified_copy(recovery
     archive=list((f.runtime/'native-recovery').glob('*/uncertain-state.private.json'))
     assert len(archive)==1 and archive[0].read_bytes()==before
     assert (f.project/'outputs/model/blank-disposable-original.skp').read_bytes()==original
-    assert json.loads(f.state.read_text())['scripts']['harness_building']['revision']==1
-    assert json.loads(f.state.read_text())['scripts']['harness_building']['durability_status']=='recovered_verified_checkpoint'
+    assert json.loads(f.state.read_text(encoding='utf-8'))['scripts']['harness_building']['revision']==1
+    assert json.loads(f.state.read_text(encoding='utf-8'))['scripts']['harness_building']['durability_status']=='recovered_verified_checkpoint'
     assert (f.runtime/'scripts/harness_building.rb').read_bytes()==f.source.read_bytes()
     assert f.session.status=='ready' and len(f.launched)==1
     blocked=f.session.ruby_state['harness_building']['quarantined_source_sha256']
@@ -91,11 +94,65 @@ def test_invalid_recovery_fails_before_launch_and_preserves_quarantine(recovery,
     elif fault=='checkpoint_hash':f.checkpoint.write_bytes(b'altered')
     elif fault=='source':f.source.unlink()
     elif fault=='report_owner':
-        p=f.runtime/'scripts/reports/r1.json';r=json.loads(p.read_text());r['project_id']='other';p.write_text(json.dumps(r))
+        p=f.runtime/'scripts/reports/r1.json';r=json.loads(p.read_text(encoding='utf-8'));r['project_id']='other';p.write_text(json.dumps(r))
     else:
-        p=f.runtime/'previous-agent-ruby-state.json';r=json.loads(p.read_text());r['harness_building']['revision']=2;p.write_text(json.dumps(r))
+        p=f.runtime/'previous-agent-ruby-state.json';r=json.loads(p.read_text(encoding='utf-8'));r['harness_building']['revision']=2;p.write_text(json.dumps(r))
     with pytest.raises(ValueError):perform(f)
     assert not f.launched and f.state.read_bytes()==before
+
+
+def test_process_exit_before_native_report_can_recover_saved_checkpoint(recovery):
+    f = recovery
+    (f.runtime/'scripts/reports/r2.json').unlink()
+    previous = f.state.read_bytes()
+    target, receipt = perform(f)
+    archive = next((f.runtime/'native-recovery').glob('*/uncertain-report.private.json'))
+    assert json.loads(archive.read_text(encoding='utf-8')) == {
+        'status': 'not_recorded', 'outcome': 'PRESERVED_UNKNOWN',
+    }
+    assert archive.with_name('uncertain-state.private.json').read_bytes() == previous
+    assert receipt['uncertain_operation_replayed'] is False
+    assert target.read_bytes() == f.checkpoint.read_bytes()
+
+
+def test_recovery_refuses_an_uncertain_report_outside_its_project_reports(recovery):
+    f = recovery
+    pending = json.loads(f.state.read_bytes())
+    pending['scripts']['harness_building']['last_report'] = 'runtime/previous-agent-ruby-state.json'
+    f.state.write_text(json.dumps(pending), encoding='utf-8')
+    before = f.state.read_bytes()
+    with pytest.raises(ValueError, match='outside the owned reports'):
+        perform(f)
+    assert not f.launched and f.state.read_bytes() == before
+    assert not (f.runtime/'native-recovery').exists()
+
+
+def test_recovery_quarantines_exact_attempt_if_crash_source_bytes_later_change(recovery):
+    f = recovery
+    candidate = f.runtime/'scripts/harness_building.rb'
+    original = hashlib.sha256(candidate.read_bytes()).hexdigest()
+    candidate.write_bytes(b'changed after the original uncertain dispatch')
+    changed = hashlib.sha256(candidate.read_bytes()).hexdigest()
+    perform(f)
+    assert f.session.ruby_state['harness_building']['quarantined_source_sha256'] == sorted([original, changed])
+    assert candidate.read_bytes() == f.source.read_bytes()
+
+
+def test_recovery_uses_the_last_verified_write_inside_the_same_turn(recovery):
+    f = recovery
+    state = json.loads(f.state.read_bytes())
+    entry = state['scripts']['harness_building']
+    previous_path = f.runtime/'previous-agent-ruby-state.json'
+    verified = json.loads(previous_path.read_bytes())['harness_building']
+    entry['recovery_base'] = verified
+    entry.update(revision=2, unverified_candidate_checkpoint={'revision': 2, 'path': 'unused'})
+    f.state.write_text(json.dumps(state), encoding='utf-8')
+    previous_path.write_text('{}', encoding='utf-8')
+    target, receipt = perform(f)
+    assert receipt['restored_revision'] == verified['revision']
+    assert target.read_bytes() == f.checkpoint.read_bytes()
+    assert f.session.ruby_state['harness_building']['revision'] == verified['revision']
+    assert 'recovery_base' not in f.session.ruby_state['harness_building']
 
 
 def test_failed_native_readback_preserves_guard_then_reuses_same_pending_copy(recovery):
@@ -141,12 +198,12 @@ def test_process_loss_during_activation_resumes_without_replay(recovery,monkeypa
         monkeypatch.setattr(pins,'write_selection',real_pin)
     monkeypatch.setattr(f.module,'_atomic_bytes',real)
     # Simulate reloading stale session state after a process restart.
-    fresh=SimpleNamespace(**json.loads((f.project/'state/agent_session.json').read_text()))
+    fresh=SimpleNamespace(**json.loads((f.project/'state/agent_session.json').read_text(encoding='utf-8')))
     f.session=fresh
     target,receipt=perform(f)
     assert len(f.launched)==1 and receipt['uncertain_operation_replayed'] is False
-    assert json.loads((f.project/'state/agent_session.json').read_text())['model_path']==fresh.model_path
-    assert json.loads((f.project/'state/model_state.json').read_text())['model_path']==fresh.model_path
+    assert json.loads((f.project/'state/agent_session.json').read_text(encoding='utf-8'))['model_path']==fresh.model_path
+    assert json.loads((f.project/'state/model_state.json').read_text(encoding='utf-8'))['model_path']==fresh.model_path
     assert target.read_bytes()==f.checkpoint.read_bytes()
     assert not (f.runtime/'native-recovery/pending.json').exists()
     assert list((f.runtime/'native-recovery').glob('*/uncertain-state.private.json'))[0].read_bytes()==original
@@ -159,7 +216,7 @@ def test_activation_refuses_unrelated_state_change_after_interruption(recovery,m
     monkeypatch.setattr(f.module,'_finish_activation',real)
     f.state.write_text('{"unrelated_user_change":true}')
     with pytest.raises(ValueError,match='outside the journal'):perform(f)
-    assert json.loads(f.state.read_text())=={'unrelated_user_change':True}
+    assert json.loads(f.state.read_text(encoding='utf-8'))=={'unrelated_user_change':True}
 
 
 def test_unfinished_recovery_blocks_geometry_before_source_validation(tmp_path):

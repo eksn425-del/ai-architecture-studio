@@ -1,0 +1,46 @@
+{
+  "approved_scope": [
+    [
+      "Porch"
+    ]
+  ],
+  "verified": true,
+  "native": {
+    "status": "PASS",
+    "kind": "native typed engineering fixture, owner workstation",
+    "paid_calls": 0,
+    "sketchup_pid": 884,
+    "sketchup_version": "24.0.484",
+    "revision_before": 1,
+    "revision_after": 2,
+    "root_pid": 36075,
+    "p0_nonplanar_blocked_before_write": true,
+    "keep_paths": [
+      [
+        "Porch"
+      ]
+    ],
+    "keep_status": "passed",
+    "keep_guard": "deep_exact_paths_v2",
+    "observed_porch_depth_mm": 1300.0,
+    "protected_part_count": 3,
+    "document_geometry_changes": true,
+    "saved_native_checkpoint_sha256": "4cd11297e42cda8b6f78becc5ebaad80879e3278654ac16359ed8c75174aea47",
+    "new_customer_build": false
+  },
+  "last_edit_scope_receipt": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_paths": [
+      [
+        "Porch"
+      ]
+    ],
+    "required_deep_keep_paths": [],
+    "allowed_top_level": [
+      "Porch"
+    ],
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "readback_source": "post_commit_owned_root_readback"
+}

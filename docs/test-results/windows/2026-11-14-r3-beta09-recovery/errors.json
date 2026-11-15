@@ -1,0 +1,24 @@
+[
+  {
+    "stage": "controlled_native_timeout",
+    "status": "FAIL",
+    "observed": "Actual r2 was left in memory and the returned reply was intentionally lost at the host boundary",
+    "recovery": "UI recovered a new copy of durable r1 after old process exit"
+  },
+  {
+    "stage": "old_source_repeat",
+    "status": "PASS",
+    "observed": "Exact failed code rejected before native call as expected"
+  },
+  {
+    "stage": "render_refresh_on_fixture",
+    "status": "FAIL",
+    "observed": "Typed fixture did not publish the normal agent completion delivery receipt",
+    "recovery": "Verified current native identity and generated the standard host receipt, then the packaged refresh and download succeeded"
+  },
+  {
+    "stage": "sketchup_start",
+    "status": "PARTIAL",
+    "observed": "A third-party TT_Lib extension warning was visible on the existing machine while K Studio guarded readback succeeded"
+  }
+]

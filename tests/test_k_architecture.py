@@ -78,17 +78,34 @@ def test_actual_shared_revision_invalidates_stale_views(tmp_path):
 
 
 def test_local_repair_reuses_bound_facts_and_only_changes_approved_part_proposal(tmp_path):
-    state = {'harness_building': {'root_pid': 19, 'revision': 11}}
+    from app.design_scope_approval import capture_pending_design_plan, consume_pending_design_plan
+    state = {}
     c = context(tmp_path, state=state)
     bind(c)
+    accepted = capture_pending_design_plan(tmp_path, c.card.read_text(encoding='utf-8'), is_followup=False)
+    bounds = {'min':[0,0,0], 'max':[12,8,3], 'size':[12,8,3]}
+    state['harness_building'] = {'root_pid':19, 'revision':11,
+        'durability_status':'saved_unverified_reopen', 'durable_checkpoint':{'root_pid':19,'revision':11,
+            'status':'saved_unverified_reopen','sha256':'a'*64},
+        'last_verification':{'verified':True, 'direct_part_readback':[
+            {'name':name, 'bounds_mm':bounds} for name in ('Roof','Slabs')]}}
+    c.record_application(None, accepted['pending_plan_id'], None)
+    assert c.reusable_edit_graph() is None
+    consume_pending_design_plan(tmp_path, accepted['pending_plan_id'])
+    c.record_application(None, accepted['pending_plan_id'], None)
     scope = c.reusable_edit_graph()['parts']
     assert scope == graph()['parts']
+    state['harness_building']['durability_status'] = 'recovered_verified_checkpoint'
+    assert c.reusable_edit_graph() == graph()
     tool = next(s for s in specs('plan', scope) if s['name'] == 'kstudio_scope_existing_parts')
     assert tool['inputSchema']['properties']['edit_parts']['items']['enum'] == scope
     with pytest.raises(ValueError):
         c.scope_existing_parts({'edit_parts': ['NewPart']})
+    with pytest.raises(ValueError, match='verified native revision'):
+        c.scope_existing_parts({'edit_parts': ['Glazing']})
     saved = c.scope_existing_parts({'edit_parts': ['Slabs']})
     assert saved['approval_granted'] is False
+    assert saved['part_bounds_mm'] == {'Slabs':bounds}
     assert json.loads(c.graph_path.read_text('utf8')) == {**graph(), 'edit_parts': ['Slabs']}
     still_unbound = ArchitectureContext(tmp_path, 'execute', [tmp_path/'ref.png'], [], state)
     with pytest.raises(ValueError):
@@ -100,6 +117,13 @@ def test_local_repair_reuses_bound_facts_and_only_changes_approved_part_proposal
     c.card.write_text('只修楼板原位置的局部接边。', encoding='utf8')
     c.bind_plan()
     assert still_unbound.execution_parts() == {'Slabs'}
+    assert c.reusable_edit_graph() == graph()
+    state['harness_building']['durable_checkpoint']['sha256'] = 'b'*64
+    assert c.reusable_edit_graph() is None
+    state['harness_building']['durable_checkpoint']['sha256'] = 'a'*64
+    state['harness_building']['revision'] = 12
+    assert c.reusable_edit_graph() is None
+    state['harness_building']['revision'] = 11
     (tmp_path/'ref.png').write_bytes(b'revised evidence')
     changed = ArchitectureContext(tmp_path, 'plan', [tmp_path/'ref.png'], [], state)
     assert changed.reusable_edit_graph() is None

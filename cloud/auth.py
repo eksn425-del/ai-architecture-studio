@@ -4,11 +4,18 @@ from sqlalchemy.exc import IntegrityError
 from .db import users, wallets, sessions, now, uid
 
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
-def create_identity(engine,subject,name):
+
+class RegistrationClosed(ValueError):
+    pass
+
+
+def create_identity(engine,subject,name,*,allow_new=True):
     try:
         with engine.begin() as c:
             row=c.execute(select(users).where(users.c.subject==subject)).mappings().first()
             if row:return dict(row)
+            if not allow_new:
+                raise RegistrationClosed('New accounts are not open.')
             row=dict(id=uid(),subject=subject,display_name=name[:128],created=now())
             c.execute(users.insert().values(**row));c.execute(wallets.insert().values(user_id=row['id'],balance=0,reserved=0));return row
     except IntegrityError:

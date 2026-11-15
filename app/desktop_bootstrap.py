@@ -139,6 +139,7 @@ def configure(bundle: Path, data: Path) -> dict:
         'KSTUDIO_AGENT_ENGINE': 'deepseek-harness',
         'KSTUDIO_DSH_CAPABILITIES': 'full',
         'KSTUDIO_DSH_GUIDANCE': 'architecture',
+        'KSTUDIO_DSH_NATIVE_WRITER': 'typed',
         'KSTUDIO_DSH_SDK_SITE': str(bundle),
         'KSTUDIO_DSH_BIN': str(launcher),
         'KSTUDIO_DSH_MAX_OUTPUT_TOKENS': '32768',

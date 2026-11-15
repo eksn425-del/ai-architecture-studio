@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "method": "Windows Computer Use, native SketchUp Move and keyboard save/reopen",
+  "scope": "detached copy of actual beta10 desktop download, manual native edit",
+  "sketchup": "24.0.484",
+  "desktop_source": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "download_sha256": "a73fe97a56ed8d629b956684c5ff50d640d2d8052ca7aee6a011baadea8f795b",
+  "edited_saved_sha256": "06472a6e09072f9bd8861b926b1b3412db56b654216980c1a69905033a1c6d73",
+  "reopen_copy_sha256": "06472a6e09072f9bd8861b926b1b3412db56b654216980c1a69905033a1c6d73",
+  "edited_size_bytes": 128986,
+  "measurements": {
+    "porch_translation_mm": [
+      150.0,
+      0.0,
+      0.0
+    ],
+    "porch_same_persistent_id": true,
+    "protected_native_subtrees_equal": {
+      "Base": true,
+      "Frame": true,
+      "Roof": true
+    },
+    "outside_scale_figure_equal": true,
+    "same_entity_counts": true,
+    "root_changed": true,
+    "presentation_equal": true,
+    "reopened_model_modified": false
+  },
+  "native_counts": {
+    "faces": 24,
+    "edges": 48,
+    "instances": 8
+  },
+  "source_owned_revision": 2,
+  "original_file_verified_unchanged": true,
+  "client_project_writes": 0,
+  "provider_calls": 0,
+  "checks": {
+    "preexisting_extension_alerts_dismissed": true,
+    "initial_rotation_handle_cancelled_without_save": true
+  },
+  "six_reopened_views": "PASS",
+  "camera_restored": true
+}

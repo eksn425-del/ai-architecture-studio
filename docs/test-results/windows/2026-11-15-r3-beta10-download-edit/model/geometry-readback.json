@@ -1,0 +1,38 @@
+{
+  "collector": "KStudioNativeDeepFingerprint/1",
+  "root_pid": 36075,
+  "geometry_revision_metadata": 2,
+  "counts": {
+    "faces": 24,
+    "edges": 48,
+    "instances": 8
+  },
+  "before": {
+    "root_geometry_material_sha256": "6adc97bf2b4f10333e9e6018fa72475493301499f389f28940ee83bb8df201c1",
+    "document_geometry_material_sha256": "33fc7d5d8ed30d4709021a43c4950d2116de53b6507ca80eb08d43aa275ddf00",
+    "presentation_sha256": "e13f785fa5ad8de3781caad71345c09c0bb98cb54219201a05617856e7ad6b60"
+  },
+  "after": {
+    "root_geometry_material_sha256": "c6aa9b55895e0b81afc2862e63ac448f5d822b582092ed89c243297452574720",
+    "document_geometry_material_sha256": "8d0387cc542d6bb1b8e49f381e0ca19b1e57d5489dbbc2ce6939aedba410dfc8",
+    "presentation_sha256": "e13f785fa5ad8de3781caad71345c09c0bb98cb54219201a05617856e7ad6b60"
+  },
+  "scope_checks": {
+    "porch_translation_mm": [
+      150.0,
+      0.0,
+      0.0
+    ],
+    "porch_same_persistent_id": true,
+    "protected_native_subtrees_equal": {
+      "Base": true,
+      "Frame": true,
+      "Roof": true
+    },
+    "outside_scale_figure_equal": true,
+    "same_entity_counts": true,
+    "root_changed": true,
+    "presentation_equal": true,
+    "reopened_model_modified": false
+  }
+}

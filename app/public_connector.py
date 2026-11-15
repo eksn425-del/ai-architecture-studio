@@ -122,7 +122,9 @@ def call(name, arguments=None, *, root=None, timeout=None):
     from .connector_instances import target_for_request
     project = args.pop('_kstudio_project', '')
     target = target_for_request(root, project,
-        identity_only=name in {'sketchup_health', 'sketchup_get_model_context'})
+        identity_only=name in {'sketchup_health', 'sketchup_get_model_context'},
+        wait_for_read=name in {'sketchup_health', 'sketchup_get_model_context', 'sketchup_get_model_info',
+                               'sketchup_get_entities', 'sketchup_export_view_image', 'sketchup_set_camera'})
     if name in {'sketchup_set_camera','sketchup_export_view_image'}:
         if any(not isinstance(args.get(key),str) or not args[key].strip() for key in DOCUMENT_BINDING):
             raise ValueError('Camera and image capture require an explicit document path and GUID')

@@ -1,0 +1,123 @@
+{
+  "scope": "LOCAL_ENGINEERING_ONLY",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "input_manifest": {
+    "owner_handoff_zip_sha256": "1aaec3d63486b3d13f6847a96bae8634d2eb137385cf05b5f16cb8a722bbdd08",
+    "private_model_used": false
+  },
+  "device": {
+    "environment": "existing Windows development host",
+    "python": "3.12.14",
+    "databases": [
+      "disposable SQLite",
+      "owned loopback PostgreSQL 17.11, separate test schemas"
+    ]
+  },
+  "runs": [
+    {
+      "id": "targeted-first",
+      "command": "python -m pytest -q -p no:cacheprovider tests/cloud/test_control_plane.py tests/cloud/test_gateway_recovery.py tests/cloud/test_r3_gateway.py tests/cloud/test_wechat_payments.py tests/cloud/test_payment_routes.py",
+      "process": "local pytest",
+      "status": "FAIL",
+      "passed": 128,
+      "failed": 2,
+      "skipped": 0,
+      "seconds": 29.22,
+      "failure": "Legacy Chat usage fixture lacked its final model and empty choices. Candidate refused settlement.",
+      "private_log_sha256": "276a435adcb59103da48f101bf324cc37328c538626d3bd620a4148e12e082ea"
+    },
+    {
+      "id": "targeted-recheck",
+      "command": "python -m pytest -q -p no:cacheprovider tests/cloud/test_control_plane.py tests/cloud/test_gateway_recovery.py tests/cloud/test_r3_gateway.py tests/cloud/test_wechat_payments.py tests/cloud/test_payment_routes.py",
+      "process": "local pytest",
+      "status": "PASS",
+      "passed": 159,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 35.92,
+      "private_log_sha256": "72a4da0a3ee8bd0c0303bb93eb151c1c3a73e8ab0d6786aec05b228a0180e071"
+    },
+    {
+      "id": "all-cloud-before-desktop-fixture-repair",
+      "command": "python -m pytest -q -p no:cacheprovider --junitxml private-receipt tests/cloud",
+      "process": "local pytest",
+      "status": "FAIL",
+      "passed": 235,
+      "failed": 1,
+      "skipped": 0,
+      "seconds": 48.21,
+      "failure": "Desktop Chat compatibility fixture had the same missing usage frame fields. Added fields required by the wire contract.",
+      "private_junit_sha256": "9eae0e59c020d05c8cca260f44f79fb60fb350a10a6972a117116a59fa97bb9f"
+    },
+    {
+      "id": "all-cloud-before-chat-test-wire-repair",
+      "command": "python -m pytest -q -p no:cacheprovider --junitxml private-receipt tests/cloud",
+      "process": "local pytest",
+      "status": "FAIL",
+      "passed": 240,
+      "failed": 2,
+      "skipped": 0,
+      "seconds": 50.33,
+      "failure": "New negative fixture encoded literal backslash-n rather than event separators. It exercised disconnection. Repaired fixture exercises a real DONE without a finish event.",
+      "private_junit_sha256": "0df6b70d2578fa2438ae6f94dffccced239e0af19f95ba6515efdbaf3dd6ffb"
+    },
+    {
+      "id": "all-cloud-recheck",
+      "command": "python -m pytest -q -p no:cacheprovider --junitxml private-receipt tests/cloud",
+      "process": "local pytest",
+      "status": "PASS",
+      "passed": 242,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 53.03,
+      "warnings": 3,
+      "private_log_sha256": "8e7abb26bbc0be1905304af0eb211268dc9812868ac18282f9391195cd0f4633",
+      "private_junit_sha256": "b9811a5e31e2e3a5e2f4998554efadf4660cb31da2fb3438fd762bcf2f3e4ada"
+    },
+    {
+      "id": "independent-local-sweep",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/cloud/test_r3_gateway.py tests/cloud/test_gateway_recovery.py tests/cloud/test_wechat_payments.py tests/cloud/test_recent_auth_boundaries.py tests/cloud/test_r3_release_gate.py",
+      "process": "independent reviewer",
+      "status": "PASS",
+      "passed": 116,
+      "failed": 0,
+      "skipped": 45,
+      "skip_reason": "No PostgreSQL fixture configured for the independent reviewer. Engineering matrix separately used PostgreSQL.",
+      "private_junit_sha256": "6cd456ebbc3ef923e92c85cb99a1a45e56de47b07db3d2753677ac523e4d1007"
+    },
+    {
+      "id": "independent-final-focused-recheck",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/cloud/test_r3_gateway.py tests/cloud/test_gateway_recovery.py tests/cloud/test_wechat_payments.py -k 'chat_done_without_generation_finish or unverified_terminal_wire_contract or framed_terminal_is_published or concurrent_checkout_and_timeout or existing_refund_queries or crash_during_unstarted_release'",
+      "process": "independent reviewer",
+      "status": "PASS",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 11,
+      "private_junit_sha256": "8165b3d8e8e0fbe080f4aefdf5920a345b67ef4c52c83bed93d8f428fd6042cb"
+    }
+  ],
+  "gate": "G07",
+  "scenarios": [
+    "并发同一订单、丢失响应只发生一次合成出站下单",
+    "错签名、错金额、错商户或跨账户负向校验",
+    "重复和并发成功通知只入账一次",
+    "保持原单状态核对及关闭路径",
+    "退款额度保留、已有退款查原号、签名后只结一次",
+    "中断后重放已验签回执且待审项不阻塞后续"
+  ],
+  "real_upstream_and_merchant": "NOT_RUN",
+  "cloud_final_code_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+  "additional_receipts": {
+    "final_cloud_regression_reference": {
+      "scope": "Exact final cloud source, owned local SQLite and PostgreSQL 17.11 with simulated identities and payments",
+      "status": "PASS",
+      "tested_source": "e470797bd888c871eaac1ce89276395213f493b8",
+      "passed": 275,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "../G08/tests.json",
+      "real_provider_calls": 0,
+      "real_payments": 0
+    }
+  }
+}

@@ -1,0 +1,511 @@
+{
+  "gate": "G09",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+  "checked_at": "2026-11-14T20:06:29+08:00",
+  "device": {
+    "environment": "existing Windows development host",
+    "desktop_python": "3.12.2",
+    "node": "24.22.1",
+    "official_dsh": "0.2.1-rc.5",
+    "python_sdk": "0.2.1rc2",
+    "artifact": "independent frozen beta08 and beta09 payload snapshots",
+    "desktop_python_patched_candidate": "3.14.10",
+    "node_patched_candidate": "24.22.3"
+  },
+  "runs": [
+    {
+      "id": "public-tree-audit",
+      "command": "git ls-tree -rz --full-tree + git cat-file --batch + bounded text/zip/gzip scanning",
+      "status": "PASS",
+      "private_receipt_sha256": "018dee38b1da9c87f712d491dca9716752ba22d4e415c0a3c78589a8c0a96109",
+      "scope": "pinned tree only",
+      "candidate_secret_hits": 0
+    },
+    {
+      "id": "historical-path-triage",
+      "command": "classify profile path hits from fixed tree including known public archives",
+      "status": "PARTIAL",
+      "private_receipt_sha256": "0ba2ce5077a47f1e6379704aa6a4d0422f38dbcbd74c520647108ea5b676f562",
+      "potential_historical_identifiers": 34
+    },
+    {
+      "id": "exact-license-originals-search",
+      "command": "python scripts/fetch_license_supplements.py BETA07_LICENSE_GAPS PRIVATE_E_DIR",
+      "status": "PARTIAL",
+      "private_receipt_sha256": "e1f9ca66ec228e65eae7cbc1181eed015b4b5240c6cac2fe491d508412f7eeee",
+      "packages_checked": 8,
+      "originals_found": 0
+    },
+    {
+      "id": "previous-beta07-osv",
+      "command": "OSV querybatch using exact public npm/PyPI version tuples",
+      "status": "FAIL",
+      "private_receipt_sha256": "c4c9bcb0d3e9636f4908c158bb5ac97ce6cbba4a81430ae8eee34e9cce56bb93",
+      "packages": 660,
+      "affected_package_versions": 12,
+      "unique_ids": 108
+    },
+    {
+      "id": "node-staging-version-audit",
+      "command": "npm ci --ignore-scripts using candidate lock + compare integrity across staged official modules",
+      "status": "PASS",
+      "private_receipt_sha256": "88efea67d9b65fc55a14109ef8f2ab9fd8a4822ede6ff94b6f46ee7675d099ac",
+      "official_packages_unchanged": 314,
+      "upstream_engine_version": "0.2.1-rc.5"
+    },
+    {
+      "id": "node-staging-osv",
+      "command": "OSV querybatch using exact npm lock metadata",
+      "status": "PASS",
+      "private_receipt_sha256": "be9dcca2b12e46b58c4cfd5c030f15ad7a99d5c575a8d4321d84586fb741e4b9",
+      "packages": 628,
+      "known_matches": 0
+    },
+    {
+      "id": "python-lock-before-fix",
+      "command": "OSV querybatch on Python desktop lock and cloud direct pins",
+      "status": "FAIL",
+      "private_receipt_sha256": "735a5c58e91baeba53798c2fdcffac72e819e209f462dca41ceb6f542e391d85",
+      "queries": 109,
+      "known_package_matches": 1,
+      "failure": "Filelock 4.0.4 resolved transitively; replaced with verified 4.2.1"
+    },
+    {
+      "id": "python-lock-after-fix",
+      "command": "OSV querybatch on Python desktop lock and cloud direct pins",
+      "status": "PASS",
+      "private_receipt_sha256": "0c7b5424f5a05597a69c07890d27fad293fc7972820f898607b7b925c64c9571",
+      "queries": 109,
+      "known_package_matches": 0
+    },
+    {
+      "id": "desktop-compat-setup-first",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_dsh_network_recovery.py tests/test_official_dsh_local.py tests/test_dsh_full_profile.py tests/test_desktop_distribution.py tests/test_reference_assets.py tests/test_image_to_sketchup.py tests/test_unified_provider_security_review.py",
+      "status": "FAIL",
+      "private_receipt_sha256": "8d47df742b5229268bce23ef7367c817c096698f43975beaa9a6c7f6ebac0518",
+      "passed": 64,
+      "failed": 12,
+      "failure": "Harness Python SDK fixture path was invalid"
+    },
+    {
+      "id": "desktop-compat-setup-second",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_dsh_network_recovery.py tests/test_official_dsh_local.py tests/test_dsh_full_profile.py tests/test_desktop_distribution.py tests/test_reference_assets.py tests/test_image_to_sketchup.py tests/test_unified_provider_security_review.py",
+      "status": "FAIL",
+      "private_receipt_sha256": "9d39577208098354435686b4a8b04427474ab184b31b02a6962daeec91d1c945",
+      "passed": 64,
+      "failed": 12,
+      "failure": "Harness command shim did not launch properly on Windows"
+    },
+    {
+      "id": "desktop-compat-correct-launch-setup",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_dsh_network_recovery.py tests/test_official_dsh_local.py tests/test_dsh_full_profile.py tests/test_desktop_distribution.py tests/test_reference_assets.py tests/test_image_to_sketchup.py tests/test_unified_provider_security_review.py",
+      "status": "PASS",
+      "private_receipt_sha256": "1651ba121a11666b27d318c225d2a47013cb469477c858cb912dc2590c228124",
+      "passed": 76,
+      "failed": 0,
+      "official_sdk_local_http_cases": 12,
+      "paid_provider_calls": 0,
+      "native_writes": 0
+    },
+    {
+      "id": "local-account-finance-contract",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/cloud/test_r3_gateway.py tests/cloud/test_gateway_recovery.py tests/cloud/test_wechat_payments.py tests/cloud/test_recent_auth_boundaries.py tests/cloud/test_r3_release_gate.py",
+      "status": "PASS",
+      "private_receipt_sha256": "6cd456ebbc3ef923e92c85cb99a1a45e56de47b07db3d2753677ac523e4d1007",
+      "passed": 116,
+      "skipped": 45,
+      "scope": "local SQLite/fixtures"
+    },
+    {
+      "id": "local-account-finance-contract-rerun",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/cloud/test_r3_gateway.py tests/cloud/test_gateway_recovery.py tests/cloud/test_wechat_payments.py -k 'chat_done_without_generation_finish or unverified_terminal_wire_contract or framed_terminal_is_published or concurrent_checkout_and_timeout or existing_refund_queries or crash_during_unstarted_release'",
+      "status": "PASS",
+      "private_receipt_sha256": "8165b3d8e8e0fbe080f4aefdf5920a345b67ef4c52c83bed93d8f428fd6042cb",
+      "passed": 13,
+      "skipped": 11,
+      "scope": "local SQLite/fixtures"
+    },
+    {
+      "id": "typed-desktop-and-native-journal-source-regression",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_connector_instances.py tests/test_desktop_bootstrap.py tests/test_dsh_architecture_surface.py tests/test_dsh_full_profile.py tests/test_dsh_native_stop.py tests/test_k_architecture.py tests/test_native_checkpoint_recovery.py tests/test_public_connector.py tests/test_su_connection_recovery.py tests/test_unified_provider_security_review.py",
+      "status": "PASS",
+      "private_receipt_sha256": "69e7011929f24f62d359434dff010142bdfdc155975e10f677d4e14d140b3f6e",
+      "passed": 113,
+      "skipped": 2,
+      "unverified": "Windows symlink privilege and actual frozen/SU user journey"
+    },
+    {
+      "id": "beta08-shipped-known-advisory-inventory",
+      "command": "OSV querybatch on shipped beta08 package metadata and direct cloud pins; supplemented inventory component tuple equality",
+      "status": "PASS",
+      "private_receipt_sha256": "e2188fb3af013af5e6dc48f309922eef8643bedbe2812ef12a26ce3e86b182bd",
+      "osv_input_inventory_sha256": "e2dbdb1005a217c20e33cd1d6b817f5f79cdd993b24574eb85fecb92bc52e88f",
+      "supplemented_inventory_sha256": "3d0936ab5f232dc969b049f5ec42f0148781051d6889074337ea05a6d54f4a7d",
+      "queries": 659,
+      "known_matches": 0,
+      "excluded_rows": 5,
+      "scope": "shipped npm/PyPI versions and direct cloud pins",
+      "code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+    },
+    {
+      "id": "beta08-shipped-runtime-and-redistribution-review",
+      "command": "Inspect frozen KStudio.exe Authenticode, shipped CPython and OpenSSL DLL product versions, Node executable version and supplementary license inventory",
+      "status": "FAIL",
+      "private_receipt_sha256": "d538c8db6b8222287b4339e82c5cf585fb419dd02a6356e578afc7e23e21d83d",
+      "frozen_exe_sha256": "67d61c5e0f99e74fa577b21267a1a226ff7c7725e690324dc43a2c3105fdb8cc",
+      "frozen_exe_authenticode": "NotSigned",
+      "python": "3.12.2",
+      "openssl": "3.0.13",
+      "node": "v24.22.1",
+      "inventory_summary": {
+        "components": 655,
+        "license_texts": 814,
+        "missing_text_components": 1,
+        "native_binaries": 182,
+        "upstream_original_text_absent_standard_terms_supplied": 9,
+        "bundled_python_pins": 94,
+        "clearance": "REVIEW_REQUIRED"
+      },
+      "excluded_historical_showcase": true,
+      "code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0"
+    },
+    {
+      "id": "candidate-runtime-patches-staged",
+      "command": "Verify official x64 Windows Node and PSF Python distribution files, hashes and signatures; compare NuGet CPython installer-free runtime against verified python.org embedded executable; PyInstaller 6.22.3 onedir runtime smoke",
+      "status": "PASS",
+      "private_receipt_sha256": {
+        "node": "c2c4bdcb74c12133681cdf0dae80baf0709006999be541481c66264e9971ef83",
+        "python": "9d40facab1da4a833436aa8e90be462350bb3e845ef691aa57ec21c1b3833f61",
+        "nuget": "eeb67435de103b1615a2a70f5530a1a3d78e58e4ac5136d60c288043e22de06f",
+        "minimal_pyinstaller_smoke": "80c4c38df6e1b3c0a1daa2728fc5470477a14c4bb7083d869f271b152c853598",
+        "windows_wheel_input_manifest": "184a9a993ee5449b2d850cabcb4e5b795ac5ae09fa551a91f398e55c3cc05c6d"
+      },
+      "versions": {
+        "node": "24.22.3",
+        "python": "3.14.10",
+        "openssl": "3.5.9"
+      },
+      "scope": "new runtime staging in E only"
+    },
+    {
+      "id": "patched-pinned-official-stack-source-compatibility",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_dsh_network_recovery.py tests/test_official_dsh_local.py tests/test_dsh_full_profile.py tests/test_desktop_distribution.py tests/test_reference_assets.py tests/test_image_to_sketchup.py tests/test_unified_provider_security_review.py",
+      "status": "PASS",
+      "stack": {
+        "python": "3.14.10",
+        "node": "24.22.3",
+        "windows_wheel_inputs": 99,
+        "official_registry_wheels": 97,
+        "locally_built_pure_source_wheels": 2
+      },
+      "private_receipt_sha256": "49be1f4e66c1bb1073ed54e745f0e1737f5957180f7c7d661b61d623eebb81cb",
+      "passed": 76,
+      "official_sdk_local_http_cases": 12,
+      "paid_provider_calls": 0,
+      "native_writes": 0
+    },
+    {
+      "id": "patched-typed-desktop-and-journal-source-regression",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_connector_instances.py tests/test_desktop_bootstrap.py tests/test_dsh_architecture_surface.py tests/test_dsh_full_profile.py tests/test_dsh_native_stop.py tests/test_k_architecture.py tests/test_native_checkpoint_recovery.py tests/test_public_connector.py tests/test_su_connection_recovery.py tests/test_unified_provider_security_review.py",
+      "status": "PASS",
+      "private_receipt_sha256": "118ff3e6ab15c4fe426ca6e3213965118ccc4f8848f0fbcd3c1517946018fd88",
+      "passed": 115,
+      "scope": "isolated patched stack before final source pin; zero live provider calls or native writes"
+    },
+    {
+      "id": "candidate-delta-secret-and-asset-heuristics",
+      "command": "git diff fixed audit base to final technical SHA; verify exact changed text blobs via git cat-file and bounded rule scan",
+      "status": "PASS",
+      "private_receipt_sha256": "d54e40ab39e936863474718115f87a2233218f6cb81c61a7d12f4e4ce8983c54",
+      "changed_text_blobs": 59,
+      "candidate_secret_hits": 0,
+      "private_profile_path_hits": 0,
+      "sensitive_file_extensions": 0
+    },
+    {
+      "id": "customer-concept-design-copy",
+      "command": "HTMLParser inspect the existing desktop help dialog plus website home FAQ and terms",
+      "status": "PASS",
+      "desktop_help": true,
+      "website_faq_and_terms": true
+    },
+    {
+      "id": "independent-final-source-mixed-test-environment",
+      "command": "pytest focused cloud and desktop credential/web tests in one cloud-only virtual environment",
+      "status": "FAIL",
+      "private_receipt_sha256": "ea4a63f6159b9aedb0043603d5ad6ca4466ce9dedfa820fa9e5478ecfddfc18b",
+      "cause": "Cloud-only environment has no ezdxf desktop dependency; split environments in subsequent clean runs"
+    },
+    {
+      "id": "independent-final-source-account-payments-and-backup-tests",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/cloud/test_recent_auth_boundaries.py tests/cloud/test_desktop_account.py tests/cloud/test_account_workspace.py tests/cloud/test_provider_connections.py tests/cloud/test_payment_routes.py tests/cloud/test_wechat_payments.py tests/cloud/test_deploy_ops.py",
+      "status": "PASS",
+      "private_receipt_sha256": "822c9a4d541fd9087488d149e98d4b81d636b3c4142e5aba3927d7385dd60117",
+      "passed": 89,
+      "scope": "local cloud fixture environment; no real IdP, credentials or payment"
+    },
+    {
+      "id": "independent-final-source-desktop-data-and-geometry-controls",
+      "command": "python -m pytest -q -p no:cacheprovider --tb=short --basetemp PRIVATE_E_DIR --junitxml PRIVATE_E_RECEIPT tests/test_public_web_research.py tests/test_local_credentials.py tests/test_unified_provider_security_review.py tests/test_k_architecture.py tests/test_desktop_distribution.py tests/test_dsh_native_stop.py",
+      "status": "PASS",
+      "private_receipt_sha256": "6445ef2715bca75ba83d7ae85c7f72eb8297a2173b08c8cb8d5cd351cc3fc914",
+      "passed": 102,
+      "skipped": 2,
+      "scope": "tested controls under patched development runtime; Windows symlink privilege unavailable"
+    },
+    {
+      "id": "cloud-provisional-transitive-package-resolution",
+      "command": "uv pip compile --python-version 3.12 --python-platform x86_64-unknown-linux-gnu plus OSV querybatch",
+      "status": "PASS",
+      "private_receipt_sha256": "f47a4e571a75eb7a804d01d34327810aed95c5644a1d9ce556da49fc80ddb41c",
+      "packages": 38,
+      "known_matches": 0,
+      "scope": "current registry resolution; real image digest and native OS layer remain NOT_RUN"
+    },
+    {
+      "id": "beta09-actual-package-known-advisories",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "command": "OSV querybatch on frozen beta09 npm, PyPI distribution identities and direct cloud pins",
+      "status": "PASS",
+      "private_receipt_sha256": "80553be5d3db7d55128a42e67fa089c20b53d175479ced0011c638e6d2f0c3f5",
+      "license_inventory_sha256": "e02ab9827c81617b6cc2239a18fa7ad146b669632d11cd8591743e235aa3e29a",
+      "cyclonedx_sbom_sha256": "38b49e6b24f5d29be8ad69ae18517c4b81062faf8e3428747a9feab5471421f1",
+      "queries": 659,
+      "known_matches": 0,
+      "excluded_rows": 5,
+      "scope": "npm/PyPI metadata scope; runtime separate"
+    },
+    {
+      "id": "beta09-actual-binary-and-sdk-runtime",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "command": "Check DLL version and SHA, Node process.versions/Authenticode, executable signatures, release contents and frozen --diagnose-bundle --diagnose-harness",
+      "status": "PASS",
+      "private_receipt_sha256": "071dc0a5c3510d47baa5f4cbf0f9aaacf535f5032796b9fafb073316a9e5cbfd",
+      "frozen_harness_diagnostic_sha256": "b8a57057fd3dbaa8b197b85c51602ff59853fc46ae00ee59a9b1912b1bcac31f",
+      "frozen_exe_sha256": "6dc68a49b9f330825b325df5f30c0897ad53967a884fdfa27647e0de1c301f97",
+      "frozen_connector_sha256": "5e9046a5171f07a292ea3eec4fc5fdb985afe28ea758d8c92efcd87a3c5b6660",
+      "frozen_exes_authenticode": "NotSigned",
+      "openssl_stdlib": "3.5.9",
+      "openssl_node": "3.5.9",
+      "python": "3.14.10",
+      "node": "24.22.3",
+      "sqlite_stdlib": "3.50.4",
+      "sqlite_node": "3.54.1",
+      "bundled_windows_cryptography": [
+        {
+          "version": "50.0.1",
+          "ecosystem": "pypi"
+        }
+      ],
+      "frozen_help_notice_present": true,
+      "historical_showcase_or_skp_video_present": false,
+      "commercial_licensing": {
+        "components": 655,
+        "license_texts": 814,
+        "missing_text_components": 1,
+        "native_binaries": 175,
+        "upstream_original_text_absent_standard_terms_supplied": 9,
+        "bundled_python_pins": 94,
+        "clearance": "REVIEW_REQUIRED"
+      },
+      "native_writes": 0,
+      "paid_provider_calls": 0,
+      "scope": "Runtime upgrade and offline tool catalog only. Native vendor audits and production publishing remain open.",
+      "native_binary_map_sha256": "1bcebaf40b922b2ee90c9f8ae7a05db5df8d820e1e35268b8da2c3273ae98dbd",
+      "native_binary_map_categories": {
+        "FIRST_PARTY_PUBLISHER_SIGNING_REQUIRED": 2,
+        "MICROSOFT_RUNTIME_OR_WEBVIEW_REDISTRIBUTION_TERMS_REVIEW": 52,
+        "CPYTHON_RUNTIME_NOTICES_COLLECTED": 26,
+        "PYTHON_DISTRIBUTION_NOTICES_MAPPED": 66,
+        "NODE_RUNTIME_VENDOR_NOTICES_COLLECTED": 1,
+        "NPM_COMPONENT_NOTICES_MAPPED": 24,
+        "RECIPROCAL_BINARY_SOURCE_OBLIGATION_REVIEW": 4
+      }
+    },
+    {
+      "id": "beta09-embedded-native-openssl-advisories",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "command": "Compare actual binary versions and source API inventory against upstream OpenSSL and cryptography notices",
+      "status": "PARTIAL",
+      "relevant_library_findings_not_reproduced": true,
+      "stdlib_ssl_vendor_track": "3.5.9; November 10 low advisory review for 3.5.10",
+      "cryptography_native_vendor_track": "Beta09 50.0.1 wheel embeds OpenSSL 4.0.2; official 50.0.2 updates wheel to 4.0.3",
+      "scope": "No product use found in reviewed source for the listed DTLS/QUIC/CMS/AES-GCM-SIV paths; not a whole-application exploitability proof",
+      "private_receipt_sha256": "acb8cc9be78372152a78120eed43b0e90c99c6f6be87a102d15bcf1d170cb142",
+      "frozen_crypto_binary_sha256": "6a42262974f0e086c1f2defaff4ccd9fb25046cf193422135e2dda5b4b29b2a2",
+      "python_https_backend": "stdlib ssl.SSLContext",
+      "node_https_backend": "Node runtime OpenSSL3.5.9",
+      "direct_desktop_cryptography_usage": "Ed25519 update manifest and separate release CLI",
+      "scoped_advisory_cases": {
+        "CVE-2026-84782": {
+          "severity": "high",
+          "api_surface": "DTLS",
+          "reviewed_product_path": "not found"
+        },
+        "CVE-2026-84783": {
+          "severity": "moderate",
+          "api_surface": "OpenSSL4.0 shared X.509 verification",
+          "reviewed_product_path": "not found"
+        },
+        "2026-11-10-timeline": {
+          "severity": "low",
+          "api_surface": "CMS, QUIC, AES-GCM-SIV",
+          "reviewed_product_path": "not found"
+        }
+      },
+      "api_scope_readback_sha256": "4020e9edd34f44d3f815b1b56da2f5ac82ddb3089d0a8ef3b0faad8f566a8838"
+    },
+    {
+      "id": "beta09-frozen-shipped-text-and-ca-public-key-audit",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "command": "Bounded runtime text and sensitive container extensions scan, connector archive member review, registry wheel exact-byte triage",
+      "status": "PASS",
+      "private_receipt_sha256": {
+        "scan": "76c157fae198b8b67c139500217b8bcff74bd228dbe7cfd5249fd2bf1de1d76d",
+        "triage": "5406db8f3f534cc81477dd348dae37a95f0abffdbf9eb8c41d631402592e56ec"
+      },
+      "files_seen": 34428,
+      "text_artifacts_scanned": 15963,
+      "connector_archive_members": 2,
+      "checked_lookalike_vendor_strings": 8,
+      "project_secret_candidates": 0,
+      "private_key_body_or_risky_named_assets": 0,
+      "scope": "source, visible frozen text and artifact names; excludes PE/PYZ internals"
+    },
+    {
+      "id": "beta09-internal-generic-and-qa-setup-identity-check",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "installer_compile_source_sha": "dad50fde249d19026672c07cb2f76c08a49db499",
+      "command": "Get-FileHash SHA256, Get-AuthenticodeSignature for both complete NSIS installers; compare recorded build receipts and frozen bundle inventory",
+      "status": "PASS",
+      "private_receipt_sha256": "597e243a11726f5b238dbe88fae6264c28a4af8b0d95f2a04836c34ac0bef143",
+      "artifacts": [
+        {
+          "scope": "internal_generic",
+          "file": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+          "size_bytes": 315795198,
+          "sha256": "b438df94e728a58ee1a4a9c447a4a0365bc77d4bdd11f951e7608d4b031919a2",
+          "authenticode": "NotSigned",
+          "version": "2026.11.14-R3-beta09",
+          "candidate_only": true,
+          "app_payload_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+          "installer_compile_inputs_sha": "dad50fde249d19026672c07cb2f76c08a49db499",
+          "installer_build_receipt_sha256": "0c2b64b93b2776ffbcc314796bae754fa51f159c10f80430bc85a31b7a704b4e",
+          "bundled_file_inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0"
+        },
+        {
+          "scope": "isolated_qa",
+          "file": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+          "size_bytes": 315794902,
+          "sha256": "79edba18153eb1d046b2455d2b467cfb8733023b1e2d234c388094e2333816df",
+          "authenticode": "NotSigned",
+          "version": "2026.11.14-R3-beta09",
+          "candidate_only": true,
+          "app_payload_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+          "installer_compile_inputs_sha": "dad50fde249d19026672c07cb2f76c08a49db499",
+          "installer_build_receipt_sha256": "9fe415220ce19a93a61f03d2d3fef45c2741a25828a1912ef5ccf16da2cabcc0",
+          "bundled_file_inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0"
+        }
+      ],
+      "scope": "Same payload inventory, different installer identities; both unsigned local candidates"
+    },
+    {
+      "id": "beta09-superseded-long-path-setup-identities",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "installer_compile_source_sha": "83c13d42136f7df3e3c9a889945a7dfd44b46b88",
+      "command": "Hash and verify Authenticode of both recompiled NSIS launchers; compare receipt identities and frozen payload inventory",
+      "status": "PASS",
+      "private_receipt_sha256": "1931b25b136e4906ffe122d26d51064b564df6facceaf19fe1466d808cb035f4",
+      "artifacts": [
+        {
+          "scope": "intermediate_generic",
+          "file": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+          "size_bytes": 315733911,
+          "sha256": "2accba34392984d2d27aaa36c6c6d932387bf0df27b96c7cde4984c41f3424bc",
+          "authenticode": "NotSigned",
+          "version": "2026.11.14-R3-beta09",
+          "candidate_only": true,
+          "app_payload_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+          "installer_compile_inputs_sha": "83c13d42136f7df3e3c9a889945a7dfd44b46b88",
+          "installer_build_receipt_sha256": "a8093545a1ca23a9ae80fc17df08757fa467b6443688e29723e3c58f53746387",
+          "bundled_file_inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0"
+        },
+        {
+          "scope": "intermediate_isolated_qa",
+          "file": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+          "size_bytes": 315733840,
+          "sha256": "62d201503ffecd14aad2950f7133ef89786ee314d541688b10cb3c717dd8a2eb",
+          "authenticode": "NotSigned",
+          "version": "2026.11.14-R3-beta09",
+          "candidate_only": true,
+          "app_payload_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+          "installer_compile_inputs_sha": "83c13d42136f7df3e3c9a889945a7dfd44b46b88",
+          "installer_build_receipt_sha256": "b6850aeddd47a8ffee3584a131566f8c604fe7ece265de61eb6bf49640bae69e",
+          "bundled_file_inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0"
+        }
+      ],
+      "scope": "Intermediate long-path build payload identity. Full installation failed. Retained for evidence, superseded."
+    },
+    {
+      "id": "beta09-final-internal-installers-verified-identities",
+      "code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "installer_compile_source_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
+      "build_checkout_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+      "command": "Verify latest generic/isolated NSIS SHA-256, length, Authenticode and exact committed compile inputs",
+      "status": "PASS",
+      "private_receipt_sha256": "103dddb15ac9cedf570f57d0abc08b7b4ad4ec3fd6fafc8dd09b0c5712c3ea46",
+      "artifacts": [
+        {
+          "scope": "final_generic_internal",
+          "file": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+          "size_bytes": 315733922,
+          "sha256": "8c52a0f53532ef4de29aeb9b5c0fcffa79fc67c04900a0f13a83cebee62fe5a5",
+          "authenticode": "NotSigned",
+          "version": "2026.11.14-R3-beta09",
+          "candidate_only": true,
+          "app_payload_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+          "build_checkout_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+          "installer_compile_inputs_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
+          "installer_build_receipt_sha256": "681872ae50dbaf50aaa30b812682587a08e632446c9c5fa55bb69f3035f2de20",
+          "bundled_file_inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0"
+        },
+        {
+          "scope": "final_isolated_qa",
+          "file": "KStudio-2026.11.14-R3-beta09-win-x64-setup.exe",
+          "size_bytes": 315733855,
+          "sha256": "d4706b37645ec956ed523b3580556d2dea75e477d8942f74f19f3972914b2562",
+          "authenticode": "NotSigned",
+          "version": "2026.11.14-R3-beta09",
+          "candidate_only": true,
+          "app_payload_source_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+          "build_checkout_sha": "e470797bd888c871eaac1ce89276395213f493b8",
+          "installer_compile_inputs_sha": "32c970bc31b13fc9bc226cf935432dfd6e56ca28",
+          "installer_build_receipt_sha256": "3290a629d03cbf09dc657c04f69d54bc10f0a0bef17e216a9dc6ed9b89f59f72",
+          "bundled_file_inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0"
+        }
+      ],
+      "scope": "Final unsigned internal candidate identities. Installation lifecycle is G04, independent machine and commercial signing remain external."
+    }
+  ],
+  "final_signed_desktop_and_actual_staging": "NOT_RUN",
+  "beta08_code_sha": "098a6641d5ffaa313017a412ff3c88e976549bd0",
+  "additional_receipts": {
+    "beta10_same_dependency_bytes_and_independent_qa": {
+      "status": "PASS",
+      "code_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "base_bundle_code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "files": 34428,
+      "payload_count_change": 0,
+      "changed_files": 5,
+      "runtime_dependency_content_equal": true,
+      "bundled_node_files_byte_equal": 27795,
+      "license_notice_files_byte_equal": 818,
+      "dll_pyd_files_byte_equal": 154,
+      "official_sdk_files_byte_equal": 12,
+      "normalized_pyi_base_zip_entries_equal": 155,
+      "independent_installer_receipt_sha256": "728413780b759f68e9237e8ed09cece52c414cf198d4abcb72b6d2e40f400c95",
+      "public_license_clearance": "REVIEW_REQUIRED"
+    }
+  }
+}
