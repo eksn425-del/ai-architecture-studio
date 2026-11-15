@@ -1,3 +1,33 @@
+# K AI Studio
+
+**An AI agent that turns an architect's words into an editable native 3D model.**
+
+Describe a building in natural language. K AI Studio drafts a plan, waits for your approval, then builds the model inside SketchUp through a guarded software bridge — and revises it in follow-up turns, changing only what you asked to change.
+
+| First build from a brief | After one follow-up revision |
+|---|---|
+| ![First build](docs/images/fast-assembly-v1-initial.png) | ![Revision](docs/images/fast-assembly-v1-revision.png) |
+
+*The revision extends the canopy roof; every other part of the model is unchanged — scoped edits are fingerprint-checked so untouched geometry and materials stay identical.*
+
+
+## What it can do now
+
+- Take a brief and reference images, and return a native `.skp` model you can open, edit, save, and re-open
+- Build a basic building on a basic site end to end (verified on SketchUp 2024)
+- Apply scoped edits: change one part while the rest of the model stays untouched, checked by geometry/material fingerprints
+- Report what it changed and what it is unsure about, instead of silently guessing
+
+## How it works
+
+Natural-language brief → the agent drafts a plan → you approve → a guarded Ruby bridge executes in SketchUp → QA checks the delivered model → the native file is handed back. K Studio builds on an existing agent execution core and adds the product UI, architecture skills, context management across turns, and the SketchUp / Blender connectors.
+
+## Status
+
+Active development; single-user local build. Verified today: end-to-end delivery of a basic building + basic site, and scoped-edit protection. Appearance fidelity and broader building types are still in progress. The development log below keeps test evidence as it accumulates, including failed runs.
+
+---
+
 # K AI Studio（AI Architecture Studio）
 
 > **唯一主产品 / Single product mainline:** [K AI Studio](https://github.com/eksn425-del/ai-architecture-studio) 将后续适配的开源 Skill、MCP、几何模块和专业软件自动化能力，持续整合进同一个网站与 GitHub 主仓库。新开源项目是 K AI Studio 的候选能力组件，不再另做一套相似的网站。完整原则见 [One Product / Open Source Policy](docs/ONE_PRODUCT_OPEN_SOURCE_POLICY.md)。
