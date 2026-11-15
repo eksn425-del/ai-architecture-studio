@@ -46,13 +46,15 @@ R3 已实现微信 Native 支付、签名验真、回调解密、持久已验证
 当前 schema **3**：保留 schema1/2 数据，新增认证时间、个人凭据/审计/同步、微信事件与退款、任务预算等能力。先备份再迁移。固定镜像和源码，设置 DNS/TLS/出站限制。命令从仓库根执行：
 
 ```sh
-python3 deploy/ops.py check --env-file /srv/kstudio-private/runtime.env --commercial
-python3 deploy/ops.py deploy --env-file /srv/kstudio-private/runtime.env --commercial
+python3 deploy/ops.py check --env-file /srv/kstudio-private/runtime.env
+python3 deploy/ops.py deploy --env-file /srv/kstudio-private/runtime.env
 python3 deploy/ops.py health --env-file /srv/kstudio-private/runtime.env
 python3 deploy/ops.py audit --env-file /srv/kstudio-private/runtime.env
 ```
 
 `deploy` 启动私网数据库并迁移，随后启动 app/proxy/maintenance，再审计当前账本。旧 `kstudio-cloud` 项目不会自动归入新的环境项目；如发现旧数据，先独立核实卷和备份，再制定迁移。维护进程每60秒执行过期任务恢复、已验真微信收件箱重放及账本审计；PostgreSQL advisory lock 防维护者重叠。未知已派发付费任务进入对账，不自动重发。运营者还需对接告警：审计不一致、长时间待对账、回调失败、磁盘不足、备份失败。
+
+以上命令用于首次封闭 staging。固定的 Caddy 私网地址由部署命令设在 Docker 动态地址池之外。对已有 staging，先备份并确认停机窗口，再停止旧项目并保留数据库卷，最后使用更新后的网络配置部署。
 
 首次部署关闭开放功能的生产后台，需要经营者确认授权并传入 `--permit-closed-production`。将注册、平台模型、下载和支付开关设为 0，并关闭 BYOK 软件收费。任何生产开放操作，包括只启用 BYOK 软件收费，都需要 `--commercial --gate-state 已验证发布关卡JSON --launch-approval 私有负责人批准JSON`。
 

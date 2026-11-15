@@ -29,15 +29,16 @@ OPERATIVE_ENV_DEFAULTS = {
     'KSTUDIO_WECHATPAY_APPID': '',
 }
 NETWORKS = {
-    'staging': ('172.31.91.0/24', '172.31.91.3'),
-    'production': ('172.31.92.0/24', '172.31.92.3'),
+    'staging': ('172.31.91.0/24', '172.31.91.128/25', '172.31.91.3'),
+    'production': ('172.31.92.0/24', '172.31.92.128/25', '172.31.92.3'),
 }
 
 
 def selected_private_network(environment):
-    """Keep volumes and trusted front proxy disjoint across deployment environments."""
-    subnet, proxy = NETWORKS[environment]
-    return {'KSTUDIO_PRIVATE_SUBNET': subnet, 'KSTUDIO_PROXY_IP': proxy}
+    """Keep the trusted proxy address out of Docker's dynamic address pool."""
+    subnet, dynamic_range, proxy = NETWORKS[environment]
+    return {'KSTUDIO_PRIVATE_SUBNET': subnet, 'KSTUDIO_PRIVATE_IP_RANGE': dynamic_range,
+            'KSTUDIO_PROXY_IP': proxy}
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):

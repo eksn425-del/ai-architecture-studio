@@ -106,5 +106,7 @@ networks:
   private:
     internal: true
     ipam:
-      config: [{subnet: "${KSTUDIO_PRIVATE_SUBNET:?set via deploy/ops.py}"}]
+      config:
+        - subnet: "${KSTUDIO_PRIVATE_SUBNET:?set via deploy/ops.py}"
+          ip_range: "${KSTUDIO_PRIVATE_IP_RANGE:?set via deploy/ops.py}"
   outbound: {}

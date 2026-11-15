@@ -1,3 +1,4 @@
+from ipaddress import ip_address, ip_network
 import json
 import re
 import subprocess
@@ -12,6 +13,20 @@ from cloud.credential_crypto import CredentialCipher
 from cloud.provider_connections import ConnectionService
 from deploy import ops
 from deploy.verify_restore import verify
+
+
+def test_proxy_address_cannot_be_allocated_to_a_dynamic_container():
+    subnets = []
+    for environment in ('staging', 'production'):
+        settings = ops.selected_private_network(environment)
+        subnet = ip_network(settings['KSTUDIO_PRIVATE_SUBNET'])
+        pool = ip_network(settings['KSTUDIO_PRIVATE_IP_RANGE'])
+        proxy = ip_address(settings['KSTUDIO_PROXY_IP'])
+        assert pool.subnet_of(subnet) and proxy in subnet
+        assert proxy not in pool
+        subnets.append(subnet)
+    assert not subnets[0].overlaps(subnets[1])
+    assert 'ip_range: "${KSTUDIO_PRIVATE_IP_RANGE:?set via deploy/ops.py}"' in (ops.ROOT / 'compose.yml').read_text()
 
 
 @pytest.mark.parametrize('target',[None,'kstudio','postgres','kstudio_restore_','kstudio_restore_x;drop','other_db','kstudio_restore_'+'x'*50])

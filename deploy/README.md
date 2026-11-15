@@ -20,9 +20,10 @@ Schema **3** migrates earlier data without dropping account/order history.
 3. Keep registration/platform/payment/download switches closed until their actual gates
    pass. Confirm real pricing, provider terms, public operator/privacy/refund/support
    information and release/signing/license/clean-Windows evidence.
-4. Run `python3 deploy/ops.py check --env-file PRIVATE --commercial`, then `deploy` with
-   the same arguments, followed by `health` and `audit`. Deploy refuses a dirty/mismatched
-   checkout. It builds app/migrate/maintenance, migrates, and starts app/proxy/maintenance.
+4. For the first closed staging deployment, run `python3 deploy/ops.py check --env-file PRIVATE`,
+   then `deploy`, `health`, and `audit` with the same environment file. Deploy requires a
+   clean checkout at the pinned SHA. It builds the app image, migrates the database, and starts
+   app/proxy/maintenance. Use the separate commercial gate and approval arguments when opening production.
 5. The maintenance worker runs every minute with a PostgreSQL advisory lock: recover
    unstarted stale reservations, reconcile already verified payment inbox events and audit
    balances. Unknown dispatched calls are held for reconciliation, never automatically
@@ -69,7 +70,11 @@ Rollback verifies the immutable image revision and uses its read-only audit agai
 
 Staging and production use separate named projects, volume namespaces and private
 networks. Keep their confidential environment files and HTTPS hosts separate. The
-first production deployment needs all public switches closed and
+fixed Caddy address is inside the private subnet and outside the dynamic container
+address pool. When replacing an older staging network, preserve the database volumes.
+After an independently verified backup and authorized staging outage, stop the old
+project without removing volumes, and then deploy with the updated network settings.
+The first production deployment needs all public switches closed and
 `--permit-closed-production`. An operation that sets a production switch requires
 `--commercial` with a matching independently accepted gate state and private owner
 approval record.
