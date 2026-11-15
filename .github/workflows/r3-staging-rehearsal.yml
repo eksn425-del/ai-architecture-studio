@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 18
     env:
-      RELEASE_SHA: d097b1a5a1e1a45dfc0b5fe5a9301490f164b536
+      RELEASE_SHA: 37a458f7d651564c7d686d8321cff159ec82d9ee
       PREVIOUS_SHA: 9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
             cloud
             website
             deploy
-      - name: Deploy frozen beta10, verify HTTPS, then roll back on the same database
+      - name: Deploy the corrected cloud candidate, verify HTTPS and roll back
         shell: bash
         run: |
           set -euo pipefail
@@ -87,6 +87,11 @@ jobs:
           (work / "staging.env").write_text("".join(f"{key}={val}\n" for key, val in values.items()), encoding="utf-8")
           PY
           cleanup() {
+            local result=$?
+            if [ "$result" -ne 0 ]; then
+              docker network inspect "${project}_private" --format '{{json .Containers}}' || true
+              ss -ltn '( sport = :80 or sport = :443 )' || true
+            fi
             docker compose --project-name "$project" --env-file "$KSTUDIO_ENV_FILE" -f deploy/compose.yml down --volumes
           }
           trap cleanup EXIT
@@ -126,6 +131,29 @@ jobs:
           test -n "$proxy" && test -n "$database" && test -n "$app" && test -n "$maintenance"
           test -z "$(docker port "$database")"
           test -z "$(docker port "$app")"
+          docker network inspect "${project}_private" --format '{{json .IPAM.Config}}' >"$FIXTURE_DIR/ipam.json"
+          docker inspect "$proxy" "$database" "$app" "$maintenance" \
+            --format '{{json (index .NetworkSettings.Networks "kstudio-cloud-staging_private").IPAddress}}' \
+            >"$FIXTURE_DIR/endpoints.jsonl"
+          python3 - <<'PY'
+          from ipaddress import ip_address, ip_network
+          import json
+          import os
+          from pathlib import Path
+          import runpy
+
+          work = Path(os.environ["FIXTURE_DIR"])
+          network = runpy.run_path("deploy/ops.py")["selected_private_network"]("staging")
+          observed, = json.loads((work / "ipam.json").read_text())
+          assert observed["Subnet"] == network["KSTUDIO_PRIVATE_SUBNET"]
+          assert observed["IPRange"] == network["KSTUDIO_PRIVATE_IP_RANGE"]
+          names = ["caddy", "db", "app", "maintenance"]
+          addresses = dict(zip(names, map(json.loads, (work / "endpoints.jsonl").read_text().splitlines()), strict=True))
+          assert addresses["caddy"] == network["KSTUDIO_PROXY_IP"]
+          assert all(ip_address(addresses[service]) in ip_network(observed["IPRange"]) for service in names[1:])
+          assert len(set(addresses.values())) == 4
+          print("KSTUDIO_IPAM=" + json.dumps({"pool": observed["IPRange"], "addresses": addresses}))
+          PY
           docker exec "$proxy" cat /data/caddy/pki/authorities/local/root.crt >"$SSL_CERT_FILE"
           wait_health "$KSTUDIO_ENV_FILE"
           ops audit "$KSTUDIO_ENV_FILE"
