@@ -1,5 +1,13 @@
 # G08 · 工件与证据
 
+## 2026-11-15 封闭 staging 预演
+
+首次在 GitHub Linux 临时运行器使用冻结源码 `d097b1a` 启动真实 Compose。数据库迁移成功，后端健康，Caddy 接入 Docker 网络时报地址冲突。旧配置的固定代理地址位于 Docker 动态分配池内。首次日志未记录各容器 IP。 [首次失败](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43695559179/job/132755184919)
+
+部署提交 `37a458f` 将 Caddy 固定地址与动态池分开。复跑读回 Caddy 为 `172.31.91.3`，数据库、后端和维护容器使用 `172.31.91.128/25` 池。通过真实 HTTPS 打开官网，核对注册、平台模型、下载、充值与 BYOK 软件费关闭。实际写入一条合成反馈，然后回滚到 `9e295cf` 并切回 `37a458f`。三个阶段分别核对 HTTPS 运行 SHA 与 schema 3，审计通过。同一 PostgreSQL 容器和一条反馈均保留。临时环境已移除。 [复验](https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43696097992/job/132756842190) · [结构化证据](STAGING_REHEARSAL_20261115.json)
+
+新云端源码包为 124,276 字节，SHA-256 `d58919926c5a9308abe2e9d06eb350375b1a9a3d355b33ffa73a81d76a6dd39c`。独立核对 40 个内容成员。当前 desktop beta10 仍以 `d097b1a` 为冻结源码。隔离 Compose 预演 PASS，公网 staging NOT_RUN，G08 仍为 BLOCKED_EXTERNAL。
+
 最新部署源工件为 E 盘本次作业 `downloads/cloud-beta09/KStudio-R3-cloud-website-source.zip`，119,566 字节。Windows `Get-FileHash` 与构建回执一致，SHA256 为 `3257c79a2556c4604c43b6f6da0f9a3f36a70b982028d705fc8d16e67c1745d5`。含 40 个通过成员哈希验证的业务文件与 2 个清单，匹配冻结源码 `9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa`。上一版 `downloads/cloud-beta08` 的 SHA 为 `d1beaae95e1e0b5f36245217d6d6ea7c252ba4984f76be7b4d951c721d7058fa`，快照与证据继续保留。
 
 Windows 本机 Uvicorn 真实 HTTP 有 10 个路由及 SQLite 持久化反馈。空库审计通过，账户、会话、订单、钱包、任务和账本均为 0，外部登录、模型、支付和下载均关闭。原始记录 `audit/g08-real-loopback-smoke.log`。商业模板预检在 `audit/g08-commercial-preflight.json` 返回 20 项配置缺失。

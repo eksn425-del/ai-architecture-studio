@@ -25,7 +25,15 @@
     "public_distribution": false,
     "owner_go_live_approval": false,
     "cloud_source_sha256": "7af5139cb36d2d24131e12dba93f7c0b1c516723a6d5346e7c27e72c43a54124",
-    "deployment_source_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536"
+    "deployment_source_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+    "staging_candidate": {
+      "source_commit": "37a458f7d651564c7d686d8321cff159ec82d9ee",
+      "cloud_source_sha256": "d58919926c5a9308abe2e9d06eb350375b1a9a3d355b33ffa73a81d76a6dd39c",
+      "cloud_source_bytes": 124276,
+      "closed_compose_rehearsal": "PASS",
+      "public_staging": "NOT_RUN",
+      "receipt": "G08/STAGING_REHEARSAL_20261115.json"
+    }
   },
   "paid_operations": {
     "real_BAI_requests": 0,
@@ -349,7 +357,7 @@
         },
         {
           "path": "G08/evidence.md",
-          "sha256": "aa45bf0e2484f1221f7fd9a488b5805b1c771ff763166233c07ea05c5bdc7633"
+          "sha256": "46e6b3b24a3398d63abc993bde9f3042c5b4c7989b9580d27381e9239f5616c6"
         },
         {
           "path": "G08/risks.md",
@@ -357,11 +365,15 @@
         },
         {
           "path": "G08/tests.json",
-          "sha256": "953dfdf2e669d7b8e6e56d5e0341eef83828346205e0a09d0059ca41409ecdc3"
+          "sha256": "fa33cf24b1f365d8d5bfa4655592d5136f83f880dc154d4e607e5aadc83a1711"
         },
         {
           "path": "G08/verdict.json",
-          "sha256": "b27ac0254f62f23e4db87f001a8e28602431e0b523b63fc1da2dbd7313bdc01f"
+          "sha256": "2a877633d4acf70486f675403db23aa25bdc0b0b7b228bebb815dda7630751b4"
+        },
+        {
+          "path": "G08/STAGING_REHEARSAL_20261115.json",
+          "sha256": "751528af40cc14e290948b5f70ce90ec9bba88a73d70aa4b54bed91f971ca186"
         }
       ]
     },

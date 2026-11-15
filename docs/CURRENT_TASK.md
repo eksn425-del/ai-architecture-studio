@@ -1,3 +1,7 @@
+# 当前部署接续 — 2026-11-15
+
+在获准的独立主机上以 `37a458f` 启动封闭 staging 并验证实际 HTTPS 与运行 SHA。已核验隔离 Compose 预演、数据库和回滚。公网环境与商业放行仍按 [R3 发布关卡](release-gates/index.md) 验收。 [运维步骤](release-gates/OPERATIONS_RUNBOOK.md) · [最少外部输入](release-gates/OWNER_ACTIONS.md#先启动封闭-staging)
+
 # 当前商业发布验收 — 2026-11-14
 
 唯一总执行书为 2026-11-14 R3 商业发布自主推进方案。固定 PR27 `6a8001c`。从 [release-state.json](release-gates/release-state.json) 续跑。当前桌面验收基线为 [beta10 / sequence 17](release-gates/RELEASE_NOTES.md) 的技术提交 d097b1a。优先独立干净 Windows＋SU2024、本版真实任务与 staging 全链路。待接入资源和授权集中在 [OWNER_ACTIONS](release-gates/OWNER_ACTIONS.md)。G00–G10 全部通过后才提交商业放行，原证据和历史费用记录保持原样。

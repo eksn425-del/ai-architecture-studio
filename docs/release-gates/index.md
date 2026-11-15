@@ -14,7 +14,7 @@
 | [G05](G05/verdict.json) 官网和账号 | BLOCKED_EXTERNAL | 本机浏览器及协议边界已验收，需公网和真实 Authing |
 | [G06](G06/verdict.json) 平台 API 和额度 | BLOCKED_EXTERNAL | 本机数据库和发送边界已验，需真实服务授权与成本回执 |
 | [G07](G07/verdict.json) 支付退款 | BLOCKED_EXTERNAL | 验签、幂等与退款协议已验，需真实微信商户小额闭环 |
-| [G08](G08/verdict.json) 部署与恢复 | BLOCKED_EXTERNAL | 源工件和本机 PostgreSQL 恢复已验，需实际 staging 与回退告警 |
+| [G08](G08/verdict.json) 部署与恢复 | BLOCKED_EXTERNAL | Linux 临时环境的闭门 HTTPS、PostgreSQL、镜像回滚通过，需实际 staging、备份及告警复验 |
 | [G09](G09/verdict.json) 安全、许可、经营资质 | PARTIAL | 冻结工件已核对，许可及签名、合规和实际主机仍需确认 |
 | [G10](G10/verdict.json) 首次真实用户 | BLOCKED_EXTERNAL | 真实新用户 0/3，正式完整流程 0/5 |
 | [G11](G11/verdict.json) 放行和灰度 | NOT_RUN | 前置关卡未全部通过 |

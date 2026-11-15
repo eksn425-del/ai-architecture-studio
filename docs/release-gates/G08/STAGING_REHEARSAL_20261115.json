@@ -1,0 +1,75 @@
+{
+  "gate": "G08",
+  "checked_at": "2026-11-15T16:49:33+08:00",
+  "audit_base_sha": "6a8001c5369c323666efa099472ea62f4fbf1c51",
+  "desktop_frozen_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "cloud_staging_source_sha": "37a458f7d651564c7d686d8321cff159ec82d9ee",
+  "workflow_sha": "e4ca74f8cbc67a06d84aca12725193dc7f64f3b1",
+  "first_attempt": {
+    "status": "FAIL",
+    "source_sha": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+    "run_url": "https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43695559179/job/132755184919",
+    "exit_code": 1,
+    "observed": "Docker daemon refused the Caddy network join with Address already in use. PostgreSQL and the application were healthy.",
+    "old_endpoint_snapshot": null
+  },
+  "rerun": {
+    "status": "PASS",
+    "run_url": "https://github.com/eksn425-del/ai-architecture-studio/actions/runs/43696097992/job/132756842190",
+    "environment": "ephemeral GitHub-hosted Linux runner",
+    "runner_os": "Ubuntu 24.04",
+    "compose_version": "2.38.2",
+    "tls_certificate": "Caddy local CA verified from runner",
+    "https_source_order": [
+      "37a458f7d651564c7d686d8321cff159ec82d9ee",
+      "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "37a458f7d651564c7d686d8321cff159ec82d9ee"
+    ],
+    "schema_version": 3,
+    "proxy_ip": "172.31.91.3",
+    "dynamic_pool": "172.31.91.128/25",
+    "private_addresses": {
+      "db": "172.31.91.129",
+      "app": "172.31.91.130",
+      "maintenance": "172.31.91.131"
+    },
+    "upstream_api_configured": false,
+    "public_business_switches_opened": false,
+    "public_postgres_or_app_host_port": false,
+    "ledger_audits_passed": 3,
+    "feedback_rows_before_rollback": 1,
+    "feedback_rows_after_rollback": 1,
+    "feedback_rows_after_roll_forward": 1,
+    "same_db_container": true,
+    "previous_local_image_id": "sha256:f0dbd3ca713e1559d087e81ddf98182468003324bed4e9b4ed3ddd3ea901dfb1",
+    "fixture_removed": true
+  },
+  "independent_reviewers": [
+    "r3_ops_review",
+    "r3_release_qa"
+  ],
+  "focused_local_regression": {
+    "status": "PASS",
+    "tests": 70
+  },
+  "bundle": {
+    "file": "KStudio-R3-cloud-website-source.zip",
+    "sha256": "d58919926c5a9308abe2e9d06eb350375b1a9a3d355b33ffa73a81d76a6dd39c",
+    "size_bytes": 124276,
+    "content_files_verified": 40
+  },
+  "public_staging": {
+    "status": "NOT_RUN",
+    "url": null,
+    "blocker": "approved independent host, scoped access and staging DNS/TLS"
+  },
+  "production": {
+    "status": "NOT_RUN",
+    "url": null
+  },
+  "paid_operations": {
+    "model_requests": 0,
+    "payments": 0,
+    "refunds": 0
+  }
+}

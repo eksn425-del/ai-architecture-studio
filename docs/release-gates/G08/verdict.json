@@ -6,7 +6,8 @@
   "evidence_files": [
     "tests.json",
     "evidence.md",
-    "../OPERATIONS_RUNBOOK.md"
+    "../OPERATIONS_RUNBOOK.md",
+    "STAGING_REHEARSAL_20261115.json"
   ],
   "independent_reviewer": "finance_engineering (independent exact source local restore and regression); quality_qa (deployment artifact)",
   "blockers": [
@@ -25,5 +26,7 @@
   "gate": "G08",
   "previous_cloud_only_sha": "e470797bd888c871eaac1ce89276395213f493b8",
   "hosted_ephemeral_docker_engineering_checks": "PASS",
+  "closed_compose_tls_and_rollback_rehearsal": "PASS",
+  "cloud_staging_candidate_sha": "37a458f7d651564c7d686d8321cff159ec82d9ee",
   "checked_at": "2026-11-14T23:56:07+08:00"
 }

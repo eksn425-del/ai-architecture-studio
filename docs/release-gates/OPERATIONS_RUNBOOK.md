@@ -5,9 +5,11 @@
 ## 部署与验证
 
 1. 核对独立 staging 主机、域名、私网 Docker 及数据库卷。运营凭据写入受限 runtime.env/秘密挂载，不提交源码。禁用 shell 中其他 Docker 上下文。保护当前卷与备份，首次部署保留注册、平台模型、下载和新充值开关为 0。
-2. 从干净 checkout 使用验收记录的完整源码 SHA。以 `kstudio-cloud:<完整源码SHA>` 本机创建镜像，或取得同一源码的已核验镜像 digest。使用 `python3 deploy/ops.py check --env-file PRIVATE` 检查，再依次执行 `deploy`、`health`、`audit`。老 `kstudio-cloud` 项目保留原卷，迁入前独立核对备份和映射。
+2. 从干净 checkout 使用验收记录的完整源码 SHA。当前封闭 staging 使用 `37a458f7d651564c7d686d8321cff159ec82d9ee`。以 `kstudio-cloud:<完整源码SHA>` 本机创建镜像，或取得同一源码的已核验镜像 digest。首次封闭 staging 用 `python3 deploy/ops.py check --env-file PRIVATE`，再用同一配置依次执行 `deploy`、`health`、`audit`。老 `kstudio-cloud` 项目保留原卷，迁入前独立核对备份和映射。 [隔离部署与回滚证据](G08/STAGING_REHEARSAL_20261115.json)
 3. 从获准的外部网络核对 HTTPS、证书、运行版本、静态页、设备登录、长耗时请求、支付回调和身份隔离。先跑关闭开关的真实检查；对外服务逐项独立验收。记录失败现场、来源网络、进程和响应，仅保留脱敏结果。
 4. 设置独立告警接收人与值班人，定期收集 HTTPS 成功率和延迟、证书剩余天数、分路由错误率、模型请求耗时、未知用量/账本异常、支付回调以及 PostgreSQL 与备份磁盘空间。用故障工件触发实际通知，记录接收时间。当前没有确认任何已送达的生产告警。
+
+封闭 staging 保持 OIDC 资料为空，直到需要验收真实登录。Caddy 是唯一宿主入口，PostgreSQL 和应用不映射宿主端口。反馈接口允许匿名提交，测试主机的访问范围由获准的边缘入口或网络控制。TLS 证书签发与续期使用该入口允许的挑战方式。
 
 ## 数据保护与故障处理
 

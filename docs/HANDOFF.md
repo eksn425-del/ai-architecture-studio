@@ -1,3 +1,7 @@
+# 2026-11-15 R3 部署交接
+
+PR28 云端候选 `37a458f7d651564c7d686d8321cff159ec82d9ee` 包含 Docker 动态地址池修复。实际隔离演练保留初次失败和 HTTPS、数据库、回滚通过的回执。桌面 beta10 冻结 `d097b1a`。新云端源码包 SHA-256 为 `d58919926c5a9308abe2e9d06eb350375b1a9a3d355b33ffa73a81d76a6dd39c`，公网地址待获准的 staging 主机和 DNS。 [运行证据](release-gates/G08/STAGING_REHEARSAL_20261115.json) · [运维续跑](release-gates/OPERATIONS_RUNBOOK.md)
+
 # 2026-11-14 R3 商业内部候选交接
 
 [最终发布裁决](release-gates/FINAL_RELEASE_VERDICT.md) 保存 G00–G11、失败和外部条件。桌面与部署源包固定 `d097b1a`，安装器文件沿用 `32c970b` 已验输入。云端逻辑与通过 PostgreSQL 验收的 `e470797` 一致。E 盘隔离试验未覆盖原安装和历史工程。后续本机桌面操作使用已授权的 Windows Computer Use 插件。 [版本与哈希](release-gates/RELEASE_NOTES.md) · [下载副本修改和重开](test-results/windows/2026-11-15-r3-beta10-download-edit/README.md) · [续跑](release-gates/OPERATIONS_RUNBOOK.md)
