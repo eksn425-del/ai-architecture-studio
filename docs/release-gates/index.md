@@ -22,3 +22,5 @@
 [最终裁决](FINAL_RELEASE_VERDICT.md) · [外部输入](OWNER_ACTIONS.md) · [版本说明](RELEASE_NOTES.md) · [机器可读状态](release-state.json) · [普通用户验收](USER_FIRST_USE_REPORT.md)
 
 [原生样件](../test-results/windows/2026-11-14-r3-commercial-native/README.md) · [beta10 报告缺失恢复与下载](../test-results/windows/2026-11-14-r3-beta10-pre-report/README.md) · [beta09 续改恢复](../test-results/windows/2026-11-14-r3-beta09-recovery/README.md) · [成本](COST_AND_BILLING_REPORT.md) · [安全许可](SECURITY_AND_LICENSE_AUDIT.md) · [运维](OPERATIONS_RUNBOOK.md)
+
+[beta10 下载件原生编辑](../test-results/windows/2026-11-15-r3-beta10-download-edit/README.md) · [真实 beta09→beta10 离线更新与回滚](G04/BETA09_TO_BETA10.json)

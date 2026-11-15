@@ -1,0 +1,22 @@
+[
+  {
+    "stage": "SketchUp_startup",
+    "status": "PARTIAL",
+    "observation": "Existing extension load dialogs required dismissal before editing. The extensions were not reconfigured."
+  },
+  {
+    "stage": "manual_move_pick",
+    "status": "FAIL",
+    "observation": "First picked a rotation handle. Cancelled before save, then used a base reference point with the red axis locked."
+  },
+  {
+    "stage": "first_geometry_verification",
+    "status": "FAIL",
+    "observation": "Verifier converted an already millimeter-valued matrix and reported 3810 instead of 150. Independent read and rerun corrected the test without a second model save."
+  },
+  {
+    "stage": "first_view_export_preflight",
+    "status": "FAIL",
+    "observation": "Verifier only accepted descendants of the authorized folder. Fixed the exact authorized directory check without modifying pairing."
+  }
+]

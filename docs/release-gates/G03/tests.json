@@ -141,6 +141,25 @@
         "original machine first fixture lost heartbeat",
         "previous active work copy identity blocked the attempted rerun"
       ]
+    },
+    "beta10_download_detached_native_edit": {
+      "status": "PASS",
+      "scope": "detached copy of actual beta10 desktop download, manual native edit",
+      "edition": "24.0.484",
+      "measured_delta_mm": [
+        150.0,
+        0.0,
+        0.0
+      ],
+      "other_subtrees_equal": {
+        "Base": true,
+        "Frame": true,
+        "Roof": true
+      },
+      "native_reopen_receipt": "../../test-results/windows/2026-11-15-r3-beta10-download-edit/model/native-reopen.json",
+      "native_reopen_receipt_sha256": "75de782cda90d6e00cae8a6129654be2ce2bbae5fedd6450b32eb4da6f015e9b",
+      "independent_reviewer": "continuation_qa",
+      "paid_calls": 0
     }
   }
 }

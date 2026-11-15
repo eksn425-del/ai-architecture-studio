@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "test_id": "2026-11-15-r3-beta10-download-edit",
+  "status": "PASS",
+  "geometry_committed": true,
+  "source_case": "../2026-11-14-r3-beta10-pre-report/model/native-reopen.json",
+  "base_commit": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+  "model": {
+    "actual": "NO_LLM_MANUAL_NATIVE_EDIT",
+    "requested": null,
+    "reasoning_effort": null,
+    "runtime": "Actual beta10 client download, Windows Computer Use, SketchUp native Move/save/open"
+  },
+  "environment": {
+    "windows": "Existing Windows 11 x64 workstation",
+    "desktop": "2026.11.14-R3-beta10",
+    "sketchup": "24.0.484"
+  },
+  "qa": {
+    "reviewer_mode": "independent_read_only_file_and_native_record_comparison",
+    "reviewer": "continuation_qa",
+    "manual_download_edit": "PASS",
+    "independent_customer_journey": "NOT_RUN"
+  },
+  "checked_at": "2026-11-15T11:18:53+08:00"
+}

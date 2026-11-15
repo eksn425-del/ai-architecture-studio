@@ -8,7 +8,8 @@
     "evidence.md",
     "tests.json",
     "../SECURITY_AND_LICENSE_AUDIT.md",
-    "BETA10.md"
+    "BETA10.md",
+    "BETA09_TO_BETA10.json"
   ],
   "independent_reviewer": "quality_qa: verified real beta09 artifact runtime and license inventory. Clean host not yet provided.",
   "blockers": [
@@ -21,7 +22,7 @@
   "candidate_same_payload_existing_windows_install": "PASS",
   "candidate_installed_payload_sha256_matches": 34428,
   "candidate_installed_sdk_and_uninstall_data_preservation": "PASS_EXISTING_WINDOWS_HEADLESS",
-  "candidate_complete_payload_offline_updater_rollback": "PASS_LOCAL_TEST_TRUST",
+  "candidate_complete_payload_offline_updater_rollback": "PASS_DISTINCT_BETA09_BETA10_LOCAL_TEST_TRUST",
   "candidate_installer_sha256": "f36be32722c6234d560bab20389f0f936a892e2dc48620908dc88b3d866e96b2",
   "production_signed": false,
   "public_distribution_authorized": false,
@@ -32,5 +33,5 @@
   "beta09_code_sha": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
   "latest_commercial_candidate_version": "2026.11.14-R3-beta10",
   "historical_full_payload_offline_updater_version": "2026.11.14-R3-beta09",
-  "checked_at": "2026-11-14T23:56:07+08:00"
+  "checked_at": "2026-11-15T11:18:53+08:00"
 }

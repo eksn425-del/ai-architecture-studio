@@ -9,9 +9,9 @@
 | 质量 | PARTIAL | 简单展亭通过独立原生核查。工坊楼梯走向、平台和门槛，文昌折面和楼梯，退台种植和体量依据历史源图仍待修验。见 [G02](G02/evidence.md)。 |
 | 局部修改 | PASS | 工程样件只改门廊。底座、框架和屋面全子树一致，续改版为 1,050 毫米。见 [恢复续改](../test-results/windows/2026-11-14-r3-beta09-recovery/model/write-verifications.json)。 |
 | 连接 | PARTIAL | Windows 11、SU 24.0.484 单窗口和原生进程恢复通过。多实例、未保存文档、选择变更有源码合同覆盖，完整新包实机组合仍待补。见 [G03](G03/evidence.md)。 |
-| 交付 | PARTIAL | 真实 beta10 工作台下载 SKP，在 SU 2024 原生重开，层级、几何、材质和显示一致。下载件上的独立用户再次编辑未验收。见 [交付](../test-results/windows/2026-11-14-r3-beta09-recovery/model/native-reopen.json)。 |
+| 交付 | PARTIAL | 真实 beta10 工作台下载 SKP，在 SU 2024 原生重开，层级、几何、材质和显示一致。下载副本用原生工具编辑后再次重开通过。独立目标用户待验。见 [下载](../test-results/windows/2026-11-14-r3-beta10-pre-report/model/native-reopen.json) 和 [编辑证据](../test-results/windows/2026-11-15-r3-beta10-download-edit/README.md)。 |
 | 失败恢复 | PARTIAL | 故意丢失一个真实原生回执后重启恢复，旧命令阻止重放。beta10 复验报告缺失时恢复同回合最后已验证版本。阶段中断保护有测试，复杂原生崩溃、物理断电和全部组合未验。见 [G03](G03/evidence.md)。 |
-| 安装 | BLOCKED_EXTERNAL | E 盘真实隔离安装 34,428 文件哈希与冻结清单一致。同版本阻止覆盖。离线实际完整载荷更新和回退通过。仍需真实签名、干净机、迁移及线上升级。见 [G04](G04/evidence.md)。 |
+| 安装 | BLOCKED_EXTERNAL | E 盘真实隔离安装 34,428 文件哈希与冻结清单一致。同版本阻止覆盖。两份不同完整载荷 beta09 → beta10 → beta09 的离线更新和回退通过。仍需真实签名、干净机、迁移及线上升级。见 [G04](G04/evidence.md)。 |
 | 官网 | BLOCKED_EXTERNAL | 本地真实 Edge，18 个页面、4 种宽度和焦点、反馈验证通过。公网 HTTPS 和真实下载未验。见 [G05](G05/evidence.md)。 |
 | 账户 | BLOCKED_EXTERNAL | 本机 OIDC 协议、已存在账号复登、跨账户、DPAPI 与本地 Vault 合同已复验，真实手机号/微信及设备未验。见 [G05](G05/evidence.md)。 |
 | API | BLOCKED_EXTERNAL | 服务端密钥读取、协议及额度门槛有数据库证据。本轮 0 个真实供应商请求，费用和实际模型服务须实测。见 [G06](G06/evidence.md)。 |

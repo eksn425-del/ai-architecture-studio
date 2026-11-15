@@ -1,0 +1,85 @@
+{
+  "authenticode": "NotSigned",
+  "final_active_sequence": 16,
+  "operations": [
+    {
+      "reported": {
+        "status": "activated",
+        "user_data_changed": false,
+        "version": "2026.11.14-R3-beta09"
+      },
+      "returncode": 0,
+      "step": "activate beta09"
+    },
+    {
+      "reported": {
+        "reason": "K Studio or another installer is active; close it normally before updating",
+        "status": "refused"
+      },
+      "returncode": 2,
+      "step": "defer beta10 while desktop lease held"
+    },
+    {
+      "reported": {
+        "status": "activated",
+        "user_data_changed": false,
+        "version": "2026.11.14-R3-beta10"
+      },
+      "returncode": 0,
+      "step": "upgrade to beta10"
+    },
+    {
+      "reported": {
+        "status": "already_current",
+        "user_data_changed": false,
+        "version": "2026.11.14-R3-beta10"
+      },
+      "returncode": 0,
+      "step": "repeat beta10 safely"
+    },
+    {
+      "reported": {
+        "status": "rolled_back",
+        "user_data_changed": false,
+        "version": "2026.11.14-R3-beta09"
+      },
+      "returncode": 0,
+      "step": "rollback to beta09"
+    }
+  ],
+  "production_trust": false,
+  "published_channel_not_run": true,
+  "retained_highest_sequence": 17,
+  "scope": "isolated E-drive Windows packaged updater, two distinct audited version bundles",
+  "status": "PASS",
+  "updater_sha256": "acb3793307a58ed58d0dbccded0be2e2cc41b55b6272e339e26af56418504b97",
+  "user_skp_bytes_preserved": true,
+  "versions": [
+    {
+      "archive_bytes": 346958295,
+      "archive_sha256": "eee53cc30677b3874c2f8fec8767e42200fab8cbade24a393f995b973fa08bf1",
+      "executable_sha256": "6dc68a49b9f330825b325df5f30c0897ad53967a884fdfa27647e0de1c301f97",
+      "files": 34428,
+      "inventory_sha256": "f293ece96b5910d7e49fd632d3ab352d483cdf419d56d8093de1ecb8b64d4de0",
+      "sequence": 16,
+      "source": "9e295cf1895a4ae62d6bee81ef089d7d5b3fc0aa",
+      "version": "2026.11.14-R3-beta09"
+    },
+    {
+      "archive_bytes": 355861032,
+      "archive_sha256": "0653c84d1294411fddf404a9567cb79434c907ae9c24d59b209ef32a1e5465a2",
+      "executable_sha256": "f92a585802261ef6e40bcc1ace915bbcb45f8d679e376737b93d3c8f2f411d36",
+      "files": 34428,
+      "inventory_sha256": "a3e60d2edb1208b44c17eca35c9cbbddbe645d24e0ab2ca7fddb60a8a5e2f37f",
+      "sequence": 17,
+      "source": "d097b1a5a1e1a45dfc0b5fe5a9301490f164b536",
+      "version": "2026.11.14-R3-beta10"
+    }
+  ],
+  "independent_qa": {
+    "reviewer": "continuation_qa",
+    "actual_installed_file_hashes_per_slot": 34428,
+    "actual_installed_files_total": 68856,
+    "both_manifests_verified_test_key": true
+  }
+}

@@ -189,6 +189,18 @@
       },
       "publisher_signed": false,
       "clean_machine": false
+    },
+    "beta09_to_beta10_distinct_payload_offline_update": {
+      "status": "PASS",
+      "receipt": "BETA09_TO_BETA10.json",
+      "independent_reviewer": "continuation_qa",
+      "receipt_sha256": "6774bb4ffad26bce65cf42270ca761af4c9f4e4232b8a4aab52f6240ed7d70c7",
+      "sequences": [
+        16,
+        17,
+        16
+      ],
+      "production_trust": false
     }
   }
 }
