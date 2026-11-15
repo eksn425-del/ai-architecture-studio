@@ -91,6 +91,42 @@ def validate_window_bay(piece, repeat, step, rotation):
             raise ValueError("Repeated bays overlap; step is in part axes after rotation and needs at least one full bay dimension.")
 
 
+def stair_flight_profiles(piece):
+    """Return paired prism rings in part axes for one straight flight and landing."""
+    x, y, start_z = vector(piece["origin"], "origin")
+    top_z = number(piece["top_z_mm"], "top_z_mm")
+    width = number(piece["width_mm"], "width_mm")
+    going = number(piece["going_mm"], "going_mm")
+    waist = number(piece["flight_thickness_mm"], "flight_thickness_mm")
+    landing_depth = number(piece["landing_depth_mm"], "landing_depth_mm")
+    landing_thickness = number(piece["landing_thickness_mm"], "landing_thickness_mm")
+    risers = piece["risers"]
+    if type(risers) is not int or not 2 <= risers <= 32:
+        raise ValueError("A straight flight requires 2..32 integer risers.")
+    rise = (top_z - start_z) / risers
+    if min(rise, width, going, waist, landing_depth) < 1:
+        raise ValueError("Rise, width, going, flight thickness and landing depth must each be at least 1 mm.")
+    if landing_thickness - rise < 1:
+        raise ValueError("Landing thickness must exceed the rise by at least 1 mm for this flight's full-width bearing face.")
+
+    end_x = x + (risers - 1) * going
+    end_y = y + width
+    profile = [[x, y, start_z - waist]]
+    for tread in range(1, risers):
+        z = start_z + tread * rise
+        profile.extend([[x + (tread - 1) * going, y, z], [x + tread * going, y, z]])
+    profile.append([end_x, y, profile[-1][2] - waist])
+    flight = [profile, [[px, end_y, pz] for px, _, pz in profile]]
+
+    landing_xy = [[end_x, y], [end_x + landing_depth, y], [end_x + landing_depth, end_y], [end_x, end_y]]
+    landing = [[[px, py, z] for px, py in landing_xy] for z in (top_z - landing_thickness, top_z)]
+    for rings in (flight, landing):
+        for ring in rings:
+            for vertex in ring:
+                vector(vertex, "stair vertex")
+    return {"Flight": flight, "UpperLanding": landing}
+
+
 def profile_vertices(piece):
     """Sample a closed planar cubic Bezier perimeter; no code or topology escapes."""
     segments=piece['segments']; samples=piece.get('samples',8)
@@ -144,13 +180,17 @@ def validate_parts(arguments):
                 raise ValueError("Piece requires a documented kind.")
             required = {"box": {"origin", "size"}, "polygon": {"vertices", "extrude"},
                         "cylinder": {"origin", "radius", "height"}, "profile":{"segments","extrude"},
-                        "window_bay": {"origin", "size", "opening", "frame_width_mm", "frame_depth_mm", "recess_mm"}}.get(kind)
+                        "window_bay": {"origin", "size", "opening", "frame_width_mm", "frame_depth_mm", "recess_mm"},
+                        "stair_flight": {"origin", "top_z_mm", "width_mm", "risers", "going_mm", "flight_thickness_mm",
+                                         "landing_depth_mm", "landing_thickness_mm"}}.get(kind)
             optional={"kind", "color", "alpha", "repeat", "step", "rotation_deg", "smooth"}
             if kind=='profile':optional.add('samples')
             if kind == "window_bay":
                 optional = (optional - {"alpha", "smooth"}) | {"frame_color", "glass_color", "glass_alpha", "glass_thickness_mm"}
+            if kind == "stair_flight":
+                optional -= {"repeat", "step", "smooth"}
             if required is None or not required.issubset(piece) or set(piece) - (required | optional):
-                raise ValueError("Piece must use a documented box, polygon, cylinder, profile or window_bay schema.")
+                raise ValueError("Piece must use a documented box, polygon, cylinder, profile, window_bay or stair_flight schema.")
             if type(piece.get('smooth',False)) is not bool:raise ValueError('smooth must be boolean.')
             if kind=='profile':
                 piece['vertices']=profile_vertices(piece)
@@ -183,6 +223,9 @@ def validate_parts(arguments):
             if kind == "window_bay":
                 validate_window_bay(piece, repeat, step, rotation)
                 bay_count += 1
+            if kind == "stair_flight":
+                piece["stair_profiles"] = stair_flight_profiles(piece)
+                count += 2 * piece["risers"]
             count += repeat
     if count > 3000:
         raise ValueError("At most 3000 pieces per operation.")
@@ -202,7 +245,7 @@ parts.each do |part|
   raise 'Part name must resolve to one existing group' if matches.size > 1 || (matches.first && !matches.first.is_a?(Sketchup::Group))
   group = matches.first
   if group
-    if part['pieces'].any? { |piece| piece['kind'] == 'window_bay' }
+    if part['pieces'].any? { |piece| ['window_bay', 'stair_flight'].include?(piece['kind']) }
       axes = group.transformation
       x, y, z = [axes.xaxis, axes.yaxis, axes.zaxis]
       unless [x, y, z].all? { |axis| (axis.length - 1.0).abs < 1e-6 } && x.cross(y).dot(z) > 1.0 - 1e-6
@@ -225,6 +268,7 @@ parts.each do |part|
       ent = child.entities
     end
     origin = piece.fetch('origin', [0,0,0])
+    material_groups = [child]
     case piece['kind']
     when 'box'
       x,y,z = origin.map { |n| n.mm }
@@ -246,6 +290,20 @@ parts.each do |part|
       face = ent.add_face(edges)
       face.reverse! if face.normal.z < 0
       face.pushpull(piece['height'].mm)
+    when 'stair_flight'
+      material_groups = piece.fetch('stair_profiles').map do |label, rings|
+        solid = ent.add_group
+        solid.name = label
+        low, high = rings.map { |ring| ring.map { |vertex| vertex.map { |n| n.mm } } }
+        faces = solid.entities
+        raise 'Degenerate stair cap' unless faces.add_face(low.reverse) && faces.add_face(high)
+        low.each_index do |i|
+          j = (i+1) % low.length
+          raise 'Degenerate stair side' unless faces.add_face(low[i], low[j], high[j], high[i])
+        end
+        raise 'Stair part must form a closed native solid' unless solid.manifold?
+        solid
+      end
     end
     unless window_bay
       rgb = piece.fetch('color', [190,180,160])
@@ -257,7 +315,9 @@ parts.each do |part|
         material.color = Sketchup::Color.new(*rgb)
         material.alpha = alpha
       end
-      ent.grep(Sketchup::Face).each { |f| f.material = material; f.back_material = material }
+      material_groups.each do |material_group|
+        material_group.entities.grep(Sketchup::Face).each { |f| f.material = material; f.back_material = material }
+      end
       if piece.fetch('smooth',false)
         ent.grep(Sketchup::Edge).each do |edge|
           faces = edge.faces
@@ -303,8 +363,14 @@ def tool_specs(writing=True, planning=False):
             "window_bay (SketchUp 2022+ API): origin at the outer lower left, size[width,thickness,height] along +X,+Y,+Z, "
             "opening[offset_from_left,sill,width,height], frame_width_mm, frame_depth_mm, recess_mm. "
             "Use for a straight opaque wall with one fully enclosed rectangular window; it creates separate solid Wall, Frame and Glass. "
-            "Optional frame_color, glass_color (RGB), glass_alpha and glass_thickness_mm (default 6); only ordinary pieces support alpha and smooth. "
-            "All pieces optionally color[RGB], rotation_deg about origin Z, repeat[1..100], step[3] along part axes. "
+            "Optional frame_color, glass_color (RGB), glass_alpha and glass_thickness_mm (default 6). "
+            "stair_flight: origin[3] at the first riser on the lower walking level, travels +X and width +Y, "
+            "top_z_mm (exact upper walking level in part axes), width_mm, risers (integer 2..32), going_mm, "
+            "flight_thickness_mm, landing_depth_mm and landing_thickness_mm (at least rise + 1 mm for vertical bearing contact). "
+            "Makes editable Flight and UpperLanding closed solids. The landing's front forms the last riser at (risers-1)*going_mm from origin. "
+            "Does not cut a slab opening, build rails, or certify headroom. Use one piece per approved straight flight. "
+            "All pieces optionally color[RGB] and rotation_deg about origin Z. Other kinds allow repeat[1..100] and step[3] along part axes. "
+            "alpha and smooth apply to box, polygon, cylinder and profile; stair_flight supports alpha only. "
             "Check one bay before repeating. Window bay repeats share native component definitions and must not overlap. "
             "Keep terraces, roof, slabs and entrance separate. Max three successful writes per part per task. "
             "Returns actual commit, KEEP and checkpoint evidence. No code accepted."

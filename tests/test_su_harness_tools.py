@@ -132,3 +132,40 @@ def test_window_bay_definition_limit_matches_native_method_ledger():
     args['parts'][0]['pieces'] *= 129
     with pytest.raises(ValueError, match='method ledger'):
         compile_parts(args)
+
+
+def straight_stair(**changes):
+    return {'parts': [{'name': 'EastStair', 'pieces': [{
+        'kind': 'stair_flight', 'origin': [1000, 2000, 100], 'top_z_mm': 3200,
+        'width_mm': 1350, 'risers': 18, 'going_mm': 265, 'flight_thickness_mm': 170,
+        'landing_depth_mm': 1400, 'landing_thickness_mm': 230, **changes,
+    }]}]}
+
+
+def test_straight_flight_and_landing_use_one_level_and_full_width_bearing_face():
+    args = straight_stair()
+    presets = validate_parts(args)[0]['pieces'][0]['stair_profiles']
+    near, far = presets['Flight']
+    landing_low, landing_high = presets['UpperLanding']
+    rise = 3100 / 18
+    assert [point[2] for point in near[1:-1:2]] == pytest.approx([100 + i * rise for i in range(1, 18)])
+    assert near[-2] == pytest.approx([5505, 2000, 3200 - rise])
+    assert far[-2] == pytest.approx([5505, 3350, 3200 - rise])
+    assert all(point[2] == 3200 for point in landing_high)
+    assert (landing_low[0], landing_low[-1]) == ([5505, 2000, 2970], [5505, 3350, 2970])
+    assert near[-1][2] < landing_low[0][2] < near[-2][2]
+    assert 'stair_profiles' not in args['parts'][0]['pieces'][0]
+    source = compile_parts(args)
+    stair_source = source.split("when 'stair_flight'", 1)[1]
+    assert 'solid.manifold?' in stair_source and 'pushpull' not in stair_source
+    assert validate_project_ruby_source('harness_building', source) == source
+
+
+@pytest.mark.parametrize('change', [
+    {'risers': 1}, {'risers': 18.0}, {'risers': 33}, {'top_z_mm': 110},
+    {'landing_thickness_mm': 170}, {'going_mm': 10000}, {'width_mm': 0},
+    {'repeat': 2}, {'stair_profiles': []},
+])
+def test_straight_flight_rejects_invalid_or_untrusted_geometry(change):
+    with pytest.raises(ValueError):
+        compile_parts(straight_stair(**change))
