@@ -1,0 +1,959 @@
+{
+  "schema_version": 1,
+  "source_mode": "single_view_inference",
+  "dimensions_mm": {
+    "overall_width": 64800,
+    "overall_depth": 21600,
+    "level_height": 3100,
+    "floor_count": 18
+  },
+  "views": {
+    "front": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "原图沿街退台主立面，局部凹格与玻璃/实墙混合；靠右转角只作问题复核。"
+      ],
+      "notes": [
+        "保持现有非目标部分。",
+        "数量未知不编造统计；局部候选另列。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "原图未见；沿用现模协调设计，本次不改。"
+      ],
+      "notes": [
+        "保持现有非目标部分。",
+        "数量未知不编造统计；局部候选另列。"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "左楼高低关系可见，最左端面受透视遮挡，细部未知，本次不改。"
+      ],
+      "notes": [
+        "保持现有非目标部分。",
+        "数量未知不编造统计；局部候选另列。"
+      ]
+    },
+    "right": {
+      "provenance": "mixed",
+      "opening_count": null,
+      "door_count": null,
+      "features": [
+        "原图塔楼右端面有局部凹阳台；本次局部修正重点，具体缺陷格对应待现模核对。"
+      ],
+      "notes": [
+        "保持现有非目标部分。",
+        "数量未知不编造统计；局部候选另列。"
+      ]
+    }
+  },
+  "roof": {
+    "provenance": "mixed",
+    "type": "平屋顶与多级退台屋面",
+    "parapet": "沿用既有低边缘、栏杆及后侧女儿墙",
+    "divisions": [
+      "塔楼",
+      "退台翼",
+      "左高楼",
+      "左沿街低楼",
+      "简化右邻楼"
+    ],
+    "notes": [
+      "原图只展示边缘与种植，完整屋面布局为推测。",
+      "本次屋面几何保持。"
+    ]
+  },
+  "global_features": [
+    "浅米色凸出格架与内退围护。",
+    "凹阳台需可读的完整空腔，保留非目标窗墙。",
+    "普通楼板不得穿出外饰面；在实际侧后转角检查50mm内收。"
+  ],
+  "user_confirmed": [
+    "首版含左侧连楼、露台绿化、街道路口和轨道；右邻楼保留简化体块。",
+    "尺寸按图片比例估算，室内不细分。",
+    "本次仅把塔楼右侧横缝状阳台修成有明显凹深的阳台，补侧墙、顶板和玻璃栏杆。",
+    "保留现有层数、米色格架和其他部分，修完先停。",
+    "最新请求：主体形体和立面保持，外部环境与邻楼移除，保留建筑自身绿化。"
+  ],
+  "inferred": [
+    "绝对尺寸、凹深、墙厚及栏杆节点均无源图标注。",
+    "不可见后面及左端面属于协调设计，不是源图还原。"
+  ],
+  "module_verification": {
+    "status": "native_revision8_readback",
+    "coordinate_system": "mm；X沿主立面向右，Y向建筑后部，Z向上；塔楼前左角(0,0,0)",
+    "bounds": {
+      "x_min": 14400,
+      "x_max": 18000,
+      "y_min": 0,
+      "y_max": 3600,
+      "z_min": 4200,
+      "z_max": 7300
+    },
+    "wall_planes": {
+      "front_y": 0,
+      "right_x": 18000,
+      "rear_y": 14400
+    },
+    "wall_thickness_mm": 200,
+    "wall_solid_ranges": {
+      "front_y": [
+        0,
+        200
+      ],
+      "right_x": [
+        17800,
+        18000
+      ]
+    },
+    "slab_thickness_mm": 220,
+    "slab_edges": {
+      "front_y": 50,
+      "right_x": 17950,
+      "rear_y": 14350
+    },
+    "slab_edge_inset_mm": 50,
+    "frame_outer_planes": {
+      "front_y": -300,
+      "right_x": 18300
+    },
+    "glazing_planes": {
+      "front_y": 100,
+      "right_x": 17900
+    },
+    "actual_native_bounds_mm": {
+      "sample_slab": {
+        "min": [
+          50,
+          50,
+          3980
+        ],
+        "max": [
+          17950,
+          14350,
+          4200
+        ]
+      },
+      "upper_slab": {
+        "min": [
+          50,
+          50,
+          53580
+        ],
+        "max": [
+          17950,
+          14350,
+          53800
+        ]
+      },
+      "sample_wall": {
+        "min": [
+          14400,
+          0,
+          4200
+        ],
+        "max": [
+          18000,
+          200,
+          7300
+        ]
+      }
+    },
+    "provenance": "observed",
+    "source_refs": [
+      "notes/execution_log.md",
+      "notes/facade_schedule.json (prior r4 record)",
+      "scripts/module.rb"
+    ],
+    "notes": [
+      "Current slab corner measurements: X50..17950, Y50..14350, thickness220. Front/side/rear slab edges remain50mm inside finish planes.",
+      "L11 and L09 loggias: deck depth1980, rear door atY2000, returns200, guard1100. Dimensions are estimates, not source measurements.",
+      "Representative six native AABB joint proxies have zero signed gap; hidden mesh contact and source detail remain unverified."
+    ]
+  },
+  "design_scope": [
+    {
+      "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+      "requested_state": "仅将塔楼右侧仍呈横缝的既有阳台改为完整凹阳台：后退门窗，补齐两侧墙、相接底板和顶板、玻璃栏杆及扶手；保留现有楼层、米色格架和其余几何。"
+    }
+  ],
+  "local_balcony_schedule": {
+    "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+    "status": "local_correction_complete_independently_reviewed_revision8",
+    "side_candidates": [
+      {
+        "floor_index_k": 4,
+        "side_bay_index_j": 1,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L04",
+          "LOGGIA_1_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 7,
+        "side_bay_index_j": 3,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L07",
+          "LOGGIA_3_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 8,
+        "side_bay_index_j": 0,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L08",
+          "LOGGIA_0_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 11,
+        "side_bay_index_j": 2,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "LOGGIA_2_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 15,
+        "side_bay_index_j": 1,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L15",
+          "LOGGIA_1_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 5,
+        "side_bay_index_j": 3,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L05",
+          "LOGGIA_3_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 8,
+        "side_bay_index_j": 3,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L08",
+          "LOGGIA_3_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 11,
+        "side_bay_index_j": 3,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "LOGGIA_3_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      },
+      {
+        "floor_index_k": 14,
+        "side_bay_index_j": 3,
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L14",
+          "LOGGIA_3_DEPTH"
+        ],
+        "status": "native_depth_verified_preserved"
+      }
+    ],
+    "front_right_candidates": [
+      {
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        "status": "locally_corrected_revision8"
+      },
+      {
+        "target_path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        "status": "locally_corrected_revision8"
+      }
+    ],
+    "proposed_parameters_mm": {
+      "recess_depth": 2000,
+      "return_wall_thickness": 200,
+      "guard_height": 1100
+    },
+    "notes": [
+      "候选列表来自既有脚本，不代表原图可测数量或全量修改许可。",
+      "不照旧脚本模数公式新增阳台，只处理原图支持且本轮核定的既有问题格。",
+      "本轮侧墙/顶板接缝、栏杆支承与植物净空均待真实几何检查。"
+    ]
+  },
+  "current_local_request": {
+    "scope": "tower_bay_rhythm_and_recessed_left_terrace_connections",
+    "approval": "latest_user_direct_execute",
+    "baseline_revision": 11,
+    "target_paths": [
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L00"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L01"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L02"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L03"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L04"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L05"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L06"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L07"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L08"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L09"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L10"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L11"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L12"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L13"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L14"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L15"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L16"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L17"
+      ],
+      [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0"
+      ],
+      [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_1"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "MODULE_PROTOTYPE",
+        "FRAME"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "MODULE_PROTOTYPE",
+        "GLAZING"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION",
+        "BALCONY_INSTANCES"
+      ]
+    ],
+    "notes": [
+      "保留18层主塔、各低翼既有层数与总体位置；只保留相连主体及自身绿化。",
+      "只原图为目标；另两张已直接检查，为旧模型缺陷定位。",
+      "原图顶部正面约6跨、右侧约5跨，可信度中高；位置/进深无实测，未见背面保持现状。"
+    ]
+  },
+  "tower_bay_correction": {
+    "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+    "front_bays": 6,
+    "right_bays": 5,
+    "front_pitch_mm": 3000,
+    "right_pitch_mm": 2880,
+    "dimensions_provenance": "inferred from retained envelope",
+    "storeys": 18,
+    "baseline_front_bays": 5,
+    "baseline_right_bays": 4,
+    "depth": "existing ~2m loggia returns retained as assemblies; width adapted to corrected axes"
+  },
+  "local_correction_current": {
+    "baseline_revision": 13,
+    "front_bays": 6,
+    "side_bays": 5,
+    "storeys": 18,
+    "front_ops": [
+      {
+        "k": 3,
+        "j": 0,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L03"
+        ],
+        "gl": "FRONT_GLAZING_0",
+        "mu": "FRONT_MULLION_0",
+        "other": [
+          [
+            "FRONT_BALUSTRADE_0"
+          ],
+          [
+            "FRONT_RAIL_0"
+          ]
+        ]
+      },
+      {
+        "k": 5,
+        "j": 1,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L05"
+        ],
+        "gl": "FRONT_GLAZING_1",
+        "mu": "FRONT_MULLION_1",
+        "other": [
+          [
+            "FRONT_BALUSTRADE_1"
+          ],
+          [
+            "FRONT_RAIL_1"
+          ]
+        ]
+      },
+      {
+        "k": 7,
+        "j": 3,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L07"
+        ],
+        "gl": "FRONT_GLAZING_2",
+        "mu": "FRONT_MULLION_2",
+        "other": [
+          [
+            "FRONT_OPAQUE_2"
+          ],
+          [
+            "FRONT_BALUSTRADE_2"
+          ],
+          [
+            "FRONT_RAIL_2"
+          ]
+        ]
+      },
+      {
+        "k": 9,
+        "j": 4,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09"
+        ],
+        "gl": "FRONT_GLAZING_3",
+        "mu": "FRONT_MULLION_3",
+        "other": [
+          [
+            "FRONT_BALUSTRADE_3"
+          ],
+          [
+            "FRONT_RAIL_3"
+          ]
+        ]
+      },
+      {
+        "k": 11,
+        "j": 5,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11"
+        ],
+        "gl": "FRONT_GLAZING_4",
+        "mu": "FRONT_MULLION_4",
+        "other": [
+          [
+            "FRONT_BALUSTRADE_4"
+          ],
+          [
+            "FRONT_RAIL_4"
+          ]
+        ]
+      },
+      {
+        "k": 6,
+        "j": 5,
+        "kind": "corner",
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L06"
+        ],
+        "gl": "FRONT_GLAZING_4",
+        "mu": "FRONT_MULLION_4",
+        "other": []
+      },
+      {
+        "k": 11,
+        "j": 1,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11"
+        ],
+        "gl": "FRONT_GLAZING_1",
+        "mu": "FRONT_MULLION_1",
+        "other": []
+      },
+      {
+        "k": 13,
+        "j": 3,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L13"
+        ],
+        "gl": "FRONT_GLAZING_2",
+        "mu": "FRONT_MULLION_2",
+        "other": []
+      },
+      {
+        "k": 14,
+        "j": 5,
+        "kind": "corner",
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L14"
+        ],
+        "gl": "FRONT_GLAZING_4",
+        "mu": "FRONT_MULLION_4",
+        "other": []
+      }
+    ],
+    "side_ops": [
+      {
+        "k": 4,
+        "j": 1,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L04"
+        ],
+        "gl": "RIGHT_GLASS_1",
+        "mu": "RIGHT_MULLION_1",
+        "other": [
+          "SIDE_BALUSTRADE_1",
+          "SIDE_RAIL_1",
+          "LOGGIA_1_DEPTH"
+        ]
+      },
+      {
+        "k": 5,
+        "j": 4,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L05"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": [
+          "SIDE_OPAQUE_true_3",
+          "LOGGIA_3_DEPTH"
+        ]
+      },
+      {
+        "k": 7,
+        "j": 4,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L07"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": [
+          "SIDE_BALUSTRADE_3",
+          "SIDE_RAIL_3",
+          "LOGGIA_3_DEPTH"
+        ]
+      },
+      {
+        "k": 8,
+        "j": 0,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L08"
+        ],
+        "gl": "RIGHT_GLASS_0",
+        "mu": "RIGHT_MULLION_0",
+        "other": [
+          "SIDE_BALUSTRADE_0",
+          "SIDE_RAIL_0",
+          "LOGGIA_0_DEPTH"
+        ]
+      },
+      {
+        "k": 8,
+        "j": 4,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L08"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": [
+          "LOGGIA_3_DEPTH"
+        ]
+      },
+      {
+        "k": 11,
+        "j": 3,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11"
+        ],
+        "gl": "RIGHT_GLASS_2",
+        "mu": "RIGHT_MULLION_2",
+        "other": [
+          "SIDE_BALUSTRADE_2",
+          "SIDE_RAIL_2",
+          "LOGGIA_2_DEPTH"
+        ]
+      },
+      {
+        "k": 11,
+        "j": 4,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": [
+          "SIDE_OPAQUE_true_3",
+          "LOGGIA_3_DEPTH"
+        ]
+      },
+      {
+        "k": 14,
+        "j": 4,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L14"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": [
+          "LOGGIA_3_DEPTH"
+        ]
+      },
+      {
+        "k": 15,
+        "j": 1,
+        "kind": false,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L15"
+        ],
+        "gl": "RIGHT_GLASS_1",
+        "mu": "RIGHT_MULLION_1",
+        "other": [
+          "SIDE_BALUSTRADE_1",
+          "SIDE_RAIL_1",
+          "LOGGIA_1_DEPTH"
+        ]
+      },
+      {
+        "k": 16,
+        "j": 4,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L16"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": []
+      },
+      {
+        "k": 15,
+        "j": 4,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L15"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": []
+      },
+      {
+        "k": 13,
+        "j": 4,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L13"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": []
+      },
+      {
+        "k": 12,
+        "j": 4,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L12"
+        ],
+        "gl": "RIGHT_GLASS_3",
+        "mu": "RIGHT_MULLION_3",
+        "other": []
+      },
+      {
+        "k": 14,
+        "j": 3,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L14"
+        ],
+        "gl": "RIGHT_GLASS_2",
+        "mu": "RIGHT_MULLION_2",
+        "other": []
+      },
+      {
+        "k": 8,
+        "j": 3,
+        "kind": true,
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L08"
+        ],
+        "gl": "RIGHT_GLASS_2",
+        "mu": "RIGHT_MULLION_2",
+        "other": []
+      },
+      {
+        "k": 6,
+        "j": 0,
+        "kind": "corner",
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L06"
+        ],
+        "gl": "RIGHT_GLASS_0",
+        "mu": "RIGHT_MULLION_0",
+        "other": []
+      },
+      {
+        "k": 14,
+        "j": 0,
+        "kind": "corner",
+        "path": [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L14"
+        ],
+        "gl": "RIGHT_GLASS_0",
+        "mu": "RIGHT_MULLION_0",
+        "other": [
+          "SIDE_OPAQUE_true_0"
+        ]
+      }
+    ],
+    "band": "only existing beam/column faces recolored; geometry unchanged",
+    "opening_dimensions_mm": {
+      "ordinary_front_width": 2670,
+      "ordinary_side_width": 2550,
+      "typical_front_depth": 1980,
+      "typical_side_depth": 1950,
+      "corner_width": 2785,
+      "corner_depth": 2665,
+      "return": 200,
+      "guard": 1100
+    },
+    "registration_confidence": "medium; source has one view only; concealed facades untouched",
+    "as_built_revision": 22,
+    "status": "geometry_complete_current_review_requested"
+  }
+}

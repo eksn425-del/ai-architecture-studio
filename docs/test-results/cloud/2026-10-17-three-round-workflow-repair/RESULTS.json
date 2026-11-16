@@ -1,0 +1,50 @@
+{
+  "baseline_commit": "9a44706e7e4730944db218d363fe6a44c7a6eed0",
+  "patch_sha256": "1961e7abab8e6a335f605d5518e81a202a6cfcbc488bc902e406d832a22b14f0",
+  "full_suite": {
+    "passed": 659,
+    "skipped": 15,
+    "warnings": 1,
+    "seconds": 63.96,
+    "warning": "Starlette TestClient/httpx deprecation"
+  },
+  "node_ui_suite": {
+    "passed": 42,
+    "native_browser": "NOT_VERIFIED_CONNECTION_REFUSED"
+  },
+  "native_blender": {
+    "provider": "deterministic assistant and Critic-envelope simulation",
+    "rounds": 3,
+    "native_save_reopen": [
+      "PASS",
+      "PASS",
+      "PASS"
+    ],
+    "objects": [
+      10,
+      10,
+      11
+    ],
+    "railing_segments": 8,
+    "bars_per_segment": 3,
+    "rail_bounds_positions_preserved": true,
+    "window_height_before_m": 2.74,
+    "window_height_after_m": 2.192,
+    "fixed_lower_edge_m": 1,
+    "upper_infill_m": 0.548,
+    "keep_protected": true,
+    "wrong_hash_before_tools_rejected": true,
+    "autonomous_vision_quality": "NOT_TESTED",
+    "original_su_case": "NOT_RERUN"
+  },
+  "code_review": "No outstanding actionable findings; final test-only stronger railing fixture passed",
+  "unverified_report_items": [
+    "Original SU image/model visual fidelity",
+    "Four malformed argument raw payloads unavailable; no confirmed schema defect",
+    "Ambiguous script safety-token rejection without raw input",
+    "Fresh native GUI behavior: normal test URL connection refused"
+  ],
+  "external_model_calls": 0,
+  "private_assets_published": false,
+  "main_changed": false
+}

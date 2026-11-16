@@ -1,0 +1,509 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "single_view_inference",
+  "primary_source": "inputs/reference/4e52d9a057-source-target.png",
+  "sources": [
+    {
+      "path": "inputs/reference/4e52d9a057-source-target.png",
+      "kind": "exterior_image",
+      "role": "SOURCE TARGET",
+      "provenance": "observed",
+      "notes": [
+        "唯一原始建筑目标，单张街角透视。左前路缘和前景铺装圆鼻可见，轨道接地；圆角尺寸和全场地边界未知。"
+      ]
+    },
+    {
+      "path": "inputs/reference/3b597b9df4-06-round1-orbit-balcony-defects.png",
+      "kind": "exterior_image",
+      "role": "ISSUE LOCATION",
+      "provenance": "observed",
+      "notes": [
+        "历史r6阳台缺陷，不能复制为目标；已修阳台全部保留。"
+      ]
+    },
+    {
+      "path": "inputs/reference/53116483e2-09-round2-orbit-street-defects.png",
+      "kind": "exterior_image",
+      "role": "ISSUE LOCATION",
+      "provenance": "observed",
+      "notes": [
+        "历史r8街道缺陷定位；界面内小截图只辅助定位，不替代原建筑目标。"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "原图沿街退台主立面，局部凹格与玻璃/实墙混合；靠右转角只作问题复核。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "原图未见；沿用现模协调设计，本次不改。"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "左楼高低关系可见，最左端面受透视遮挡，细部未知，本次不改。"
+      ]
+    },
+    "right": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "原图塔楼右端面有局部凹阳台；本次局部修正重点，具体缺陷格对应待现模核对。"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "只见平屋顶和分级露台边缘，完整平面未知；本次保持。"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "唯一原建筑透视视角；与历史模型角度不同，禁止逐像素迁移阳台位置。"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "无平面；室内不细分。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "未提供CAD或尺寸标注。"
+    ]
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "不推定户型、楼梯或核心筒原貌。"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "标准层高",
+      "value_mm": 3100,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    },
+    {
+      "name": "首层层高",
+      "value_mm": 4200,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    },
+    {
+      "name": "塔楼高度",
+      "value_mm": 56900,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    },
+    {
+      "name": "格架跨距",
+      "value_mm": 3600,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "沿用首版比例估算并保持现模值；不是源图标注或本轮测量。"
+      ]
+    }
+  ],
+  "hard_constraints": [
+    "保留现有18层、正面6跨/侧面5跨、总体位置和相连左翼的形体。",
+    "仅修正下部格架配色及塔楼原图可见的凹口/实墙位置。",
+    "不添加道路、邻楼或其他外部环境。",
+    "屋顶、退台和左侧口袋绿化保留；五组既有阳台植物随对应凹口调整。",
+    "完成本轮要求后停止供用户检查。"
+  ],
+  "assumptions": [
+    "真实深度未知，暂按1800–2000mm估算；200mm墙厚、1100mm栏杆均为建模参数。",
+    "未见侧后面沿用协调设计，不作为原图复原；本次不改。",
+    "候选清单不代表全部有缺陷；需逐格确认。",
+    "前立面靠右转角与右端面必须按同一格架和坐标对应，不能凭截图左右位置混同。"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "do_not_infer",
+    "preserve_circulation": true
+  },
+  "user_confirmed": [
+    "首版含左侧连楼、露台绿化、街道路口和轨道；右邻楼保留简化体块。",
+    "尺寸按图片比例估算，室内不细分。",
+    "本次仅把塔楼右侧横缝状阳台修成有明显凹深的阳台，补侧墙、顶板和玻璃栏杆。",
+    "保留现有层数、米色格架和其他部分，修完先停。",
+    "最新请求覆盖历史环境保留：移除邻楼、道路、轨道、架空线、街树等，仅保留相连主体及建筑自身绿化，主体形体立面保持现状。",
+    "最新请求授权修正主体分跨节奏、左侧退台凹入和连接，覆盖上一轮主体立面完全KEEP；层数及总体位置继续KEEP。"
+  ],
+  "observed": [
+    "原图高塔向左逐级退台，连接高低两段低楼；平屋面及种植边缘。",
+    "原图浅米色凸格架、内退玻璃与实墙混合，局部凹阳台有侧壁/上部遮阴。",
+    "历史截图及保存的r6图有若干阳台呈横缝；不据此认定所有阳台都无进深。"
+  ],
+  "design_scope": [
+    {
+      "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+      "requested_state": "恢复下部浅色主格架，核对并修正原图可辨的凹阳台和实墙格；保留现有18层、6/5分跨、总体位置及左侧连楼，不添加外部环境。完成后从原图方向与侧后检查并停下。"
+    }
+  ],
+  "source_comparison": {
+    "source_target_view_count": 1,
+    "issue_location_view_count": 2,
+    "all_attached_images_inspected": true,
+    "cross_view_contradiction": false,
+    "notes": [
+      "原图与模型截图摄像机不同、主体地标一致；缺陷属于模型对源图的偏差，不是两份目标图互相冲突。",
+      "无任务书、场地文件或URL；本次属于源图局部修正，不作场地或功能适配。"
+    ]
+  },
+  "current_model_evidence": {
+    "revision": 22,
+    "root_pid": 19,
+    "source_refs": [
+      "notes/facade_execution.md",
+      "notes/facade_batches_verified.json"
+    ],
+    "quality_status": "geometry_complete_current_independent_review_requested",
+    "notes": [
+      "Native root remains BUILDING, MODULE_FRONT_WALL, VEGETATION only.",
+      "All floor/roof envelopes and six-front/five-side tower subdivisions remain unchanged.",
+      "Current QA verdict is host-owned qa/visual_review.json; no saved/reopened-file verification is claimed."
+    ]
+  },
+  "model_verification": {
+    "identity_verified": true,
+    "blank_disposable_verified": true,
+    "geometry_written": true,
+    "notes": [
+      "Same independent model blank-disposable-20261022-173456; root PID19. Native revision and persistent IDs checked after each write.",
+      "Capture-time GUID changes were followed by native same-root/revision readback and failed-camera repair.",
+      "Save/reopen not independently verified."
+    ]
+  },
+  "plan_turn": {
+    "geometry_written_this_turn": true,
+    "scope_approval": "latest_user_direct_execute",
+    "native_readback_this_turn": true
+  },
+  "module_verification": {
+    "status": "native_current_slab_corner_readback; ordinary 50mm offsets retained",
+    "coordinate_system": "mm；X沿主立面向右，Y向建筑后部，Z向上；塔楼前左角(0,0,0)",
+    "bounds": {
+      "x_min": 14400,
+      "x_max": 18000,
+      "y_min": 0,
+      "y_max": 3600,
+      "z_min": 4200,
+      "z_max": 7300
+    },
+    "wall_planes": {
+      "front_y": 0,
+      "right_x": 18000,
+      "rear_y": 14400
+    },
+    "wall_thickness_mm": 200,
+    "wall_solid_ranges": {
+      "front_y": [
+        0,
+        200
+      ],
+      "right_x": [
+        17800,
+        18000
+      ]
+    },
+    "slab_thickness_mm": 220,
+    "slab_edges": {
+      "front_y": 50,
+      "right_x": 17950,
+      "rear_y": 14350
+    },
+    "slab_edge_inset_mm": 50,
+    "frame_outer_planes": {
+      "front_y": -300,
+      "right_x": 18300
+    },
+    "glazing_planes": {
+      "front_y": 100,
+      "right_x": 17900
+    },
+    "actual_native_bounds_mm": {
+      "sample_slab": {
+        "min": [
+          50,
+          50,
+          3980
+        ],
+        "max": [
+          17950,
+          14350,
+          4200
+        ]
+      },
+      "upper_slab": {
+        "min": [
+          50,
+          50,
+          53580
+        ],
+        "max": [
+          17950,
+          14350,
+          53800
+        ]
+      },
+      "sample_wall": {
+        "min": [
+          14400,
+          0,
+          4200
+        ],
+        "max": [
+          18000,
+          200,
+          7300
+        ]
+      }
+    },
+    "provenance": "observed",
+    "source_refs": [
+      "notes/execution_log.md",
+      "notes/facade_schedule.json (prior r4 record)",
+      "scripts/module.rb"
+    ],
+    "notes": [
+      "Native FLOOR_06/FLOOR_07/FLOOR_14 and MODULE_PROTOTYPE/SLAB measured X50..17950,Y50..14350,220mm thick before local edits; all MASSING/SLAB kept unchanged.",
+      "L06/L14 floor-to-guard parent-local AABB gap0. Cross-parent rail/soffit checks remain unverified by the bounded relation tool; no solid/walkability or hidden-joint PASS.",
+      "Corner/typical recess dimensions are estimates and not original-image measurements."
+    ]
+  },
+  "environment_scope": {
+    "provenance": "user_confirmed",
+    "state": "external_geometry_removed_revision11",
+    "target_paths": [
+      [
+        "CONTEXT"
+      ],
+      [
+        "ENVIRONMENT"
+      ],
+      [
+        "VEGETATION",
+        "STREET_INSTANCES"
+      ]
+    ],
+    "preserve_paths": [
+      [
+        "BUILDING"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION",
+        "ROOF_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "TERRACE_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "BALCONY_INSTANCES"
+      ],
+      [
+        "VEGETATION",
+        "LEFT_POCKET_INSTANCES"
+      ]
+    ],
+    "notes": [
+      "本轮为主体展示范围调整；源图环境仍属源图事实，但不再属于交付范围。"
+    ]
+  },
+  "execution_turn": {
+    "revision": 22,
+    "root_pid": 19,
+    "model_name": "blank-disposable-20261022-173456",
+    "geometry_written": true,
+    "scope_approved": true,
+    "native_identity_verified": true,
+    "source_measurement": false,
+    "save_reopen_verified": false,
+    "depth_provenance": "inferred; native modeled dimensions only",
+    "typical_front_depth_mm": 1980,
+    "typical_side_depth_mm": 1950,
+    "shared_corner_depth_mm": 2665,
+    "shared_corner_width_mm": 2785,
+    "existing_balcony_plant_groups_relocated": 5
+  },
+  "street_correction": {
+    "provenance": "user_confirmed",
+    "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+    "target_paths": [
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "BUILDING_SIDEWALK"
+      ],
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "FAR_CORNER_PAVEMENT"
+      ],
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "FOREGROUND_PAVEMENT"
+      ],
+      [
+        "ENVIRONMENT",
+        "CURBS",
+        "CURB_FRONT"
+      ],
+      [
+        "ENVIRONMENT",
+        "TRACKS"
+      ],
+      [
+        "ENVIRONMENT",
+        "CONTACT_WIRES"
+      ]
+    ],
+    "preserve_paths": [
+      [
+        "BUILDING"
+      ],
+      [
+        "CONTEXT"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION"
+      ],
+      [
+        "ENVIRONMENT",
+        "INTERSECTION"
+      ]
+    ],
+    "observed": [
+      "原图路缘有圆弧转角；轨道位于地表。"
+    ],
+    "inferred": [
+      "路缘半径4500/5000mm；线端按既有场地边界内收1800mm。"
+    ],
+    "native_before": {
+      "revision": 8,
+      "road_top_mm": -180,
+      "rail_top_mm": 75,
+      "site_x_min_mm": -66000,
+      "site_x_max_mm": 60000
+    }
+  },
+  "current_local_request": {
+    "approval": "latest_user_direct_execute",
+    "baseline_revision": 13,
+    "current_revision": 22,
+    "scope": "pale_lower_primary_frame_and_identifiable_tower_infill_recess_positions",
+    "scope_record": "notes/facade_batches_verified.json",
+    "preserved": "massing/floors/roofs; all grid geometry; low-wing terrace geometry and planting; unseen rear design; off-site context remains absent"
+  },
+  "source_rhythm_observation": {
+    "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+    "tower_front_bays": 6,
+    "tower_right_bays": 5,
+    "confidence": "medium_high",
+    "storeys": "keep existing 18; source reading approximately 18, medium",
+    "setback_direction": "lower toward negative X, low-wing outdoor spaces recessed toward positive Y and negative X",
+    "ratios": "tower 18 x 14.4 m and 56.9 m high retained; lower connected volumes 7/6/5/4 storey sequence retained; dimensions inferred",
+    "terrace": "rooms/side returns partly enclose planted outdoor pockets; no source-visible exterior stairs",
+    "unseen": "rear openings and internal circulation unknown; no new stairs inferred"
+  },
+  "local_facade_correction": {
+    "baseline_revision": 13,
+    "root_pid": 19,
+    "source": "inputs/reference/4e52d9a057-source-target.png",
+    "all_three_attachments_directly_inspected": true,
+    "source_target_count": 1,
+    "historical_issue_images_count": 2,
+    "source_observed": [
+      "米色突出梁柱围绕凹入玻璃和浅色实墙；下部局部阴影不应解释成连续黑色格架。",
+      "低位转角种植凹口、较高转角凹口以及右端多处透空/阴影凹口可辨。",
+      "各凹口由相邻梁柱的同层斜线对应，不能只按图中像素高度横向平移。",
+      "屋顶平、退台向左降低，左翼相连；本轮均保持。",
+      "未见可确定的外部楼梯，原图无法证明背面和内部节点。"
+    ],
+    "confidence": {
+      "pale_grid": "high",
+      "lower_corner_pocket": "high",
+      "front_side_registration": "medium",
+      "exact_depth": "inferred",
+      "rear": "unseen"
+    },
+    "level_mapping_note": "层/跨编号按保留模型的0起始索引登记；单透视向现有18层框架配准为估算，不宣称原图有测量标注。",
+    "common_coordinates_mm": {
+      "front_finish_y": 0,
+      "right_finish_x": 18000,
+      "rear_finish_y": 14400,
+      "front_frame_y": -300,
+      "right_frame_x": 18300,
+      "front_glass_y": 100,
+      "right_glass_x": 17900,
+      "wall_thickness": 200,
+      "slab_front_y": 50,
+      "slab_right_x": 17950,
+      "slab_rear_y": 14350,
+      "slab_thickness": 220
+    },
+    "native_sample": "r13 L06 faces and slab corners reused from actual current native readback; new local recesses terminate under next 220mm slab at z+2880; ordinary floors remain 50mm inside exterior finish.",
+    "corner_pocket": "Connected shared corner enclosure/ceiling/floor inside existing front infill leaf; matching right infill cleared to avoid a blocking perpendicular wall. Extent about2.7m is inferred for whole corner bay.",
+    "qa_required": [
+      "six current host-certified views",
+      "source-direction overall",
+      "source-direction tower detail",
+      "side/rear inspection",
+      "independent review"
+    ],
+    "as_built_revision": 22,
+    "status": "geometry_complete_current_review_requested"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "project_id": "architecture-project-16c07",
+  "model_revision": {
+    "terraced_apartment": 10
+  },
+  "controller_score": 78,
+  "scores": {
+    "silhouette_and_setbacks": 23,
+    "height_and_volume_registration": 18,
+    "facade_grid_and_glass_depth": 16,
+    "terraces_roof_entrance_details": 7,
+    "street_and_context": 7,
+    "native_editability_and_integrity": 7
+  },
+  "completion": "normal; two scoped environment writes, full building/balcony/vegetation KEEP; stopped for review",
+  "global_independent_critic": "NEEDS_FIX",
+  "remaining": [
+    "tower front/side bays and local loggia correspondence",
+    "low-wing terrace morphology",
+    "neighbor window grouping",
+    "hidden joints not certified",
+    "strict native bit equality and blank replay not passed"
+  ],
+  "native_inspection": {
+    "declared_precision_status": "PASS_WITH_DECLARED_PRECISION",
+    "raw_strict_status": "FAIL",
+    "bound_to_download_raw_status": "PASS",
+    "pre_product_save_capture": "NOT_RUN",
+    "blank_program_replay": "NOT_RUN"
+  },
+  "limitations": [
+    "subjective controller score, no statutory certification",
+    "different round scopes, no controlled cost A/B",
+    "current case after product checkpoint, not historic pre-save evidence"
+  ]
+}

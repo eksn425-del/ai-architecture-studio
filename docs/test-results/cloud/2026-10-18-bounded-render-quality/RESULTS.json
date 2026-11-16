@@ -1,0 +1,34 @@
+{
+  "baseline": "f6859a1171df17c0c8c2eefceec9309039440b9f",
+  "patch_sha256": "a47db37c6d2a1fbfa08af47d2cfeb9bcceab1c73334469cb9e32fa11e22ec0a9",
+  "full_suite": {
+    "passed": 977,
+    "skipped": 19,
+    "warnings": 1,
+    "seconds": 97.17
+  },
+  "native_render_quality": {
+    "800_and_1600_png": true,
+    "model_sha_unchanged": true,
+    "explicit_denoise_unavailable_fails_honestly": true
+  },
+  "case_provider": "controlled_assistant",
+  "external_model_calls": 0,
+  "gui": "NOT_RUN_existing_environment_boundary",
+  "source_fidelity": "PARTIAL",
+  "urban_context": "INFERRED",
+  "independent_review": {
+    "status": "CLEARED",
+    "focused_passed": 28,
+    "seconds": 26.99,
+    "patch_hash_verified": true,
+    "visual_acceptance_claim": false
+  },
+  "publication_full_suite": {
+    "passed": 977,
+    "skipped": 19,
+    "warnings": 1,
+    "seconds": 58.94
+  },
+  "publication_branch": "trial/render-quality-phase3-20261018"
+}

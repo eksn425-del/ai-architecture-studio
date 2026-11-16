@@ -1,0 +1,15 @@
+{"event": "turn_input", "model": "openai/deepseek-v4.1-flash", "tool_profile": "reconstruction_coding", "workflow_mode": "image_reconstruction", "reference_categories": ["reference", "site", "brief"], "reference_files": ["inputs/reference/93051aa427-building-source.png"], "input_types": ["text", "image_url"], "tool_names": ["workspace_read", "workspace_search", "workspace_write"]}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 23, "redundant_images_removed": 3, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 69304, "context_chars_after": 69304}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 36625}
+{"event": "provider_stream_progress", "chunks_received": 792, "elapsed_ms": 51625}
+{"event": "provider_stream_progress", "chunks_received": 2984, "elapsed_ms": 66671}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 66719, "input_tokens": 27397, "output_tokens": 5031}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 25, "redundant_images_removed": 3, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 72668, "context_chars_after": 72668}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 17703}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 24375, "input_tokens": 32461, "output_tokens": 1536}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 27, "redundant_images_removed": 3, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 76662, "context_chars_after": 76662}
+{"event": "provider_failed", "model": "openai/deepseek-v4.1-flash", "detail": "The read operation timed out"}

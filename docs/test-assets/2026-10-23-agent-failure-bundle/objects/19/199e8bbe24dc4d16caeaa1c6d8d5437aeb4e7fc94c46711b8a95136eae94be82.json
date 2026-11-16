@@ -1,0 +1,33 @@
+{
+  "project_id": "architecture-project-16c07",
+  "model_revision": {
+    "terraced_apartment": 6
+  },
+  "source_sha256": "69f59b2ce2c8bdba74ff100c44a1d7da8af39dfa19013cf934c7bc8ebd869183",
+  "controller_score": 72,
+  "scores": {
+    "silhouette_and_setbacks": 23,
+    "height_and_volume_registration": 18,
+    "facade_grid_and_glass_depth": 13,
+    "terraces_roof_entrance_details": 6,
+    "street_and_context": 5,
+    "native_editability_and_integrity": 7
+  },
+  "limitations": [
+    "Subjective controller rubric, not independent source-fidelity certification",
+    "Native whole-document reopen and edit/reopen not performed yet",
+    "No building-code compliance claim",
+    "Single original image cannot establish unseen elevations or metric dimensions"
+  ],
+  "independent_critic": "NEEDS_FIX",
+  "lifecycle": "stopped_via_real_product_after_first_draft_overrun; committed_model_saved",
+  "high_impact_gaps": [
+    "Several tower recesses read as narrow horizontal slots rather than deep usable balconies",
+    "Low-wing planted terraces do not fully match original spatial organization",
+    "Neighbor upper/lower window grouping differs",
+    "Intersection and rails are schematic; camera perspective differs"
+  ],
+  "next_feedback_scope": "Tower recessed balcony bays only, preserve storeys/grid/other assemblies",
+  "native_orbit": "Actual SU toolbar Orbit and drag performed; screenshot ui/06-round1-orbit-balcony-defects.png",
+  "frozen_evidence": "round-1"
+}

@@ -1,0 +1,82 @@
+{
+  "snapshot_date": "2026-10-20",
+  "mode": "OFFLINE_ESTIMATE_NOT_BILLING_OR_QUALITY_PROOF",
+  "campaign_budget_cny": "300",
+  "qualification_allowance_cny": "50",
+  "contingency_cny": "50",
+  "gift_cost_ceiling_per_user_cny": "5",
+  "maximum_invites_financial_only": 40,
+  "unused_cny": "0",
+  "planning_usd_cny_not_live_exchange_rate": "7.5",
+  "excludes": [
+    "monthly hosting/storage/SMS/payment/tax",
+    "render/GPU",
+    "unknown usage and price changes"
+  ],
+  "assumptions": [
+    "Input charged entirely as cache misses; no promotional credits assumed.",
+    "Workloads are aggregate tokens across requests, not a single context window.",
+    "New providers tokenize/reason/retry differently; equal token assumptions do not imply equal quality.",
+    "Historical workload excludes additional Critic usage; failed calls/QA must count in actual settlement.",
+    "Invite count is a funded quota calculation, not a capacity or completed-model promise.",
+    "Hard quota reservation/settlement and signup/tenant isolation are not implemented by this calculator."
+  ],
+  "rates_per_million": {
+    "qwen3.8-flash-beijing": {
+      "currency": "CNY",
+      "input": "0.8",
+      "output": "2.7",
+      "source": "https://help.aliyun.com/zh/model-studio/model-pricing"
+    },
+    "deepseek-flash-peak": {
+      "currency": "USD",
+      "input": "0.30",
+      "output": "1.20",
+      "source": "https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    "deepseek-flash-offpeak": {
+      "currency": "USD",
+      "input": "0.15",
+      "output": "0.60",
+      "source": "https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    "bai-gpt-6.1-sol-standard": {
+      "currency": "USD",
+      "input": "2",
+      "output": "10",
+      "source": "https://docs.b.ai/llmservice/pricing-and-usage/"
+    }
+  },
+  "workloads": {
+    "small_edit_assumption": {
+      "input_tokens": 200000,
+      "output_tokens": 12000,
+      "estimated_cny": {
+        "qwen3.8-flash-beijing": "0.1924",
+        "deepseek-flash-peak": "0.5580",
+        "deepseek-flash-offpeak": "0.2790",
+        "bai-gpt-6.1-sol-standard": "3.9000"
+      }
+    },
+    "building_assumption": {
+      "input_tokens": 2000000,
+      "output_tokens": 60000,
+      "estimated_cny": {
+        "qwen3.8-flash-beijing": "1.7620",
+        "deepseek-flash-peak": "5.0400",
+        "deepseek-flash-offpeak": "2.5200",
+        "bai-gpt-6.1-sol-standard": "34.5000"
+      }
+    },
+    "historic_red_house_builder_only": {
+      "input_tokens": 10299507,
+      "output_tokens": 73288,
+      "estimated_cny": {
+        "qwen3.8-flash-beijing": "8.4375",
+        "deepseek-flash-peak": "23.8335",
+        "deepseek-flash-offpeak": "11.9167",
+        "bai-gpt-6.1-sol-standard": "159.9892"
+      }
+    }
+  }
+}

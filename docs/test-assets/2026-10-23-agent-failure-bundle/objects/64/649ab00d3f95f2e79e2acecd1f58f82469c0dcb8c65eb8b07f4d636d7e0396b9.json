@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "single_view_inference",
+  "primary_source": "inputs/reference/93051aa427-building-source.png",
+  "sources": [
+    {
+      "id": "src_street_01",
+      "path": "inputs/reference/93051aa427-building-source.png",
+      "kind": "exterior_image",
+      "provenance": "observed",
+      "role": "SOURCE TARGET 正立面街景仰视照片（单张，非拼图）；含两侧低层老房、行道树、汽车、行人，均为环境不属本楼",
+      "notes": [
+        "唯一外观证据；下部楼层被树冠部分遮挡，层数/洞口计数取用户确认为准",
+        "可见：混凝土外框网格、左侧逐层凹阳台+玻璃栏板、中右开间整面玻璃+窗帘、首层左侧玻璃入口+中右灰色瓦楞卷帘、屋顶女儿墙+密排金属栏杆+种植"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/93051aa427-building-source.png"
+      ],
+      "notes": [
+        "3 开间：左凹阳台（玻璃栏板、绿植、室内门洞）+ 中/右整面玻璃（窗帘、简化室内）",
+        "首层：左侧玻璃入口（树影反射、可见行人与室内窗帘），中/右侧一整片灰色横向瓦楞金属卷帘，两者之间为混凝土柱",
+        "仰视透视：下部楼层洞口计数受树冠与透视遮挡，仅作低置信参考"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "未出现在任何来源中：按同框格延续，每层2窄窗+首层次入口，无阳台"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "照片仅露极窄左边缘：推断每层1凹阳台+1窗，延续阳台侧墙返边与楼板带"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "照片仅露极窄右边缘：推断同框格，每层2竖长窗，无阳台"
+      ]
+    },
+    "roof": {
+      "provenance": "inferred",
+      "source_refs": [
+        "inputs/reference/93051aa427-building-source.png"
+      ],
+      "notes": [
+        "自下仰视可见女儿墙与密排竖向金属栏杆及露台植被；屋面本身不可见，平屋面与种植槽布置为推断"
+      ]
+    },
+    "oblique": {
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "无独立斜视来源；照片为街道仰视透视，仅用作主视角比对"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": []
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": []
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "仅通过玻璃可见简化桌椅/灯具/植物，按外观遮挡简化，不作完整室内还原"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "front_width",
+      "value_mm": 10800,
+      "provenance": "user_confirmed",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "用户修正：计划中的 15 m 过宽，改为总宽 10.8 m，保持窄高比例"
+    },
+    {
+      "name": "floor_count",
+      "value_mm": 10,
+      "provenance": "user_confirmed",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "首层 + 9 标准层；开间数 3 亦为用户确认"
+    },
+    {
+      "name": "estimated_overall_depth",
+      "value_mm": 11000,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "未见侧立面，按窄塔楼常规进深"
+    },
+    {
+      "name": "estimated_storey_height",
+      "value_mm": 3100,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "标准层结构层高"
+    },
+    {
+      "name": "estimated_ground_level_height",
+      "value_mm": 3800,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "卷帘通高的基座层"
+    },
+    {
+      "name": "estimated_balcony_recess_depth",
+      "value_mm": 1500,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "按阳台顶板阴影与侧返墙深度推算"
+    },
+    {
+      "name": "parapet_height",
+      "value_mm": 1100,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/93051aa427-building-source.png",
+      "note": "照片可见女儿墙顶线与栏杆起点，高度为比例估算"
+    }
+  ],
+  "hard_constraints": [
+    "总层数 10 层 = 首层 + 9 个标准层（用户确认）",
+    "正立面 3 个开间（用户确认）",
+    "正立面总宽 10 800 mm，保持窄高比例（用户确认，纠正早前 15 m 估算）",
+    "首层左侧为入口、右侧为卷帘（用户确认）",
+    "只还原主楼：不建两侧老房、街道、车辆、行人、周边树木（用户确认）",
+    "必须包含门窗、栏杆、屋顶绿化（用户确认）",
+    "侧面与背面按可见结构合理推测，不另设问卷（用户确认）",
+    "左上开间为真实凹进阳台（洞口贯穿外框），不得用贴面或玻璃假面替代",
+    "中右开间为整面玻璃，玻璃后需可见窗帘/简化室内，不得做成实体墙",
+    "屋顶为平屋面 + 混凝土女儿墙 + 密排竖向金属栏杆",
+    "绿化组件位于建筑体积之外，不与楼板/女儿墙穿插"
+  ],
+  "assumptions": [
+    "无实测尺寸：除总宽 10 800 与 10 层/3 开间外，其余尺寸为按窄高比例的估算值，非真实测量",
+    "标准层高 3.1 m、首层 3.8 m，总高至女儿墙 32.8 m、至栏杆顶 33.3 m",
+    "正立面开间净宽 3200/3100/2900，边柱 450、中柱 350，板带高 600、出挑 60",
+    "首层分界：入口玻璃 5400 + 中柱 350 + 卷帘 4150，两端柱 450",
+    "背面每层 2 窄窗 + 首层次入口；右面每层 2 窗；左面每层 1 阳台 + 1 窗",
+    "屋顶种植槽沿女儿墙内侧连续布置，乔木 1 株置于左前角",
+    "层数与洞口计数在树冠遮挡区不可判定，以用户确认层数为准"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  }
+}

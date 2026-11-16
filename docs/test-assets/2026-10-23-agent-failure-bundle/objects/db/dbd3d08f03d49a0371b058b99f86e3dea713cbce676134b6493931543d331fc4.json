@@ -1,0 +1,23 @@
+{
+  "project_id": "deepseek-20261021",
+  "model": "deepseek-v4.1-flash",
+  "provider": "B.AI",
+  "source_sha256": "37c5e3120a7d533dcdd64a3c2269bab9724c4c4c7e2f6abcad2de1bd5a8b5643",
+  "inference_successful_responses": 8,
+  "unknown_requests": 2,
+  "input_tokens_known": 123093,
+  "output_tokens_known": 11540,
+  "known_peak_upper_usd": "0.0507759",
+  "reserved_total_usd": "0.7585647",
+  "limit_usd": "1",
+  "native_model_writes": 0,
+  "native_quality": "NOT_RUN",
+  "reason": "Initial nonstream timeout; recovered stream completed workspace tool cycles, then another provider read timeout; conservative next-call reservation crosses ceiling.",
+  "workspace_files": [
+    "notes\\construction_strategy.json",
+    "notes\\facade_schedule.json",
+    "notes\\reconstruction_card.md",
+    "notes\\reconstruction_evidence.json"
+  ],
+  "recorded_at": "2026-10-21T07:42:01.984200+00:00"
+}

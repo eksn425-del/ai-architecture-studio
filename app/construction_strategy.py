@@ -13,6 +13,7 @@ owned by the guarded ProjectRuby writer and real readback.
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from .oss_method_catalog import BY_ID as OSS_METHODS
 from typing import Any
@@ -130,14 +131,14 @@ def _owned_paths(value: Any, label: str) -> list[list[str]]:
 def validate_construction_strategy_payload(value: Any) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError("construction strategy root must be an object.")
-    if value.get("schema_version") != 1:
+    if type(value.get("schema_version")) is not int or value.get("schema_version") != 1:
         raise ValueError("construction strategy schema_version must be 1.")
 
     stage_order = value.get("stage_order", list(CONSTRUCTION_STAGE_ORDER))
     if stage_order != list(CONSTRUCTION_STAGE_ORDER):
         raise ValueError("construction strategy stage_order must use the supported five-stage sequence.")
     current_stage = value.get("current_stage", "pending")
-    if current_stage not in {"pending", *CONSTRUCTION_STAGE_ORDER}:
+    if not isinstance(current_stage, str) or current_stage not in {"pending", *CONSTRUCTION_STAGE_ORDER}:
         raise ValueError("construction strategy current_stage is invalid.")
 
     raw_parameters = value.get("shared_parameters", {})
@@ -151,13 +152,14 @@ def validate_construction_strategy_payload(value: Any) -> dict[str, Any]:
             raise ValueError(f"construction strategy parameter {key!r} must be an object.")
         units = item.get("units", "text")
         provenance = item.get("provenance", "pending")
-        if units not in PARAMETER_UNITS:
+        if not isinstance(units, str) or units not in PARAMETER_UNITS:
             raise ValueError(f"construction strategy parameter {key!r} has invalid units.")
-        if provenance not in CONSTRUCTION_PROVENANCE:
+        if not isinstance(provenance, str) or provenance not in CONSTRUCTION_PROVENANCE:
             raise ValueError(f"construction strategy parameter {key!r} has invalid provenance.")
         raw_value = item.get("value")
         if units in {"mm", "degrees", "count", "ratio"} and raw_value is not None:
-            if isinstance(raw_value, bool) or not isinstance(raw_value, (int, float)):
+            if (isinstance(raw_value, bool) or not isinstance(raw_value, (int, float))
+                    or isinstance(raw_value, float) and not math.isfinite(raw_value)):
                 raise ValueError(f"construction strategy parameter {key!r} must use a numeric value.")
             if units == "count" and (int(raw_value) != raw_value or raw_value < 0):
                 raise ValueError(f"construction strategy count parameter {key!r} must be a nonnegative integer.")
@@ -192,13 +194,13 @@ def validate_construction_strategy_payload(value: Any) -> dict[str, Any]:
         role = item.get("role")
         method = item.get("method")
         status = item.get("status", "pending")
-        if stage not in CONSTRUCTION_STAGE_ORDER:
+        if not isinstance(stage, str) or stage not in CONSTRUCTION_STAGE_ORDER:
             raise ValueError(f"construction strategy system {system_id!r} has invalid stage.")
-        if role not in CONSTRUCTION_ROLES:
+        if not isinstance(role, str) or role not in CONSTRUCTION_ROLES:
             raise ValueError(f"construction strategy system {system_id!r} has invalid role.")
-        if method not in CONSTRUCTION_METHODS:
+        if not isinstance(method, str) or method not in CONSTRUCTION_METHODS:
             raise ValueError(f"construction strategy system {system_id!r} has invalid method.")
-        if status not in CONSTRUCTION_STATUS:
+        if not isinstance(status, str) or status not in CONSTRUCTION_STATUS:
             raise ValueError(f"construction strategy system {system_id!r} has invalid status.")
         # Backward compatible with previously persisted plans. New plans should
         # explicitly choose a concrete implementation, not just a vague type.

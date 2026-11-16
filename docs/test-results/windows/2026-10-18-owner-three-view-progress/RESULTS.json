@@ -1,0 +1,273 @@
+{
+  "status": "IN_PROGRESS",
+  "snapshot_time_utc": "2026-10-17T16:52:42.488601+00:00",
+  "snapshot_time_shanghai": "2026-10-18T00:52:42.488601+08:00",
+  "code_commit": "85777300596e0adc18e6c30b4f773a7002dc27d8",
+  "repository_head_at_start": "a62e2a6201db5c6219b26e94969eea6f264604ec",
+  "branch": "codex/su-fresh-staged-fix-20261017",
+  "project_id": "architecture-project",
+  "project_name": "全新手动测试 · 分组修复版",
+  "source_count": 3,
+  "sources": [
+    {
+      "path": "inputs/reference/902ee97082-image.png",
+      "bytes": 1947481,
+      "sha256": "4f26df8009db4517a6854c93160003a8c4880da35af0b88d88dccffdf36a2a51"
+    },
+    {
+      "path": "inputs/reference/a1cd197f44-image.png",
+      "bytes": 1638198,
+      "sha256": "6cc82c10e408358b53403675b40340a52603b15020725fe52b17fc7fa2b72067"
+    },
+    {
+      "path": "inputs/reference/c1f9e873c7-image.png",
+      "bytes": 834668,
+      "sha256": "1c817cc63e9f37c3286dec50332240a766a56eea6279c7f6bc7d3c75550d9fc6"
+    }
+  ],
+  "latest_runtime_revision": 5,
+  "session_revision": 3,
+  "last_completed_reply": {
+    "at": "2026-10-17T15:56:30+00:00",
+    "agent_action": "execute",
+    "input_tokens": 3759012,
+    "output_tokens": 20631,
+    "latency_ms": 821937,
+    "tool_call_count": 69,
+    "failed_tool_calls": 2,
+    "geometry_committed": true,
+    "checkpoint_saved": true,
+    "execution_status": "committed"
+  },
+  "latest_critic_quality_status": "needs_fix",
+  "latest_critic_model_revisions": {
+    "reconstruct_building": 5
+  },
+  "postcommit_verifications": [
+    {
+      "file": "reconstruct_building-r1-14f7ed1a.verification.json",
+      "verified": true,
+      "revision": 1,
+      "root_pid": 19,
+      "bounds_mm": {
+        "min": [
+          -1100,
+          -40,
+          -170
+        ],
+        "max": [
+          11000,
+          16000,
+          33500
+        ],
+        "size": [
+          12100,
+          16040,
+          33670
+        ]
+      }
+    },
+    {
+      "file": "reconstruct_building-r2-5a69b0c2.verification.json",
+      "verified": true,
+      "revision": 2,
+      "root_pid": 19,
+      "bounds_mm": {
+        "min": [
+          -1112,
+          -40,
+          -170
+        ],
+        "max": [
+          11012,
+          16012,
+          33500
+        ],
+        "size": [
+          12124,
+          16052,
+          33670
+        ]
+      }
+    },
+    {
+      "file": "reconstruct_building-r3-00c78621.verification.json",
+      "verified": true,
+      "revision": 3,
+      "root_pid": 19,
+      "bounds_mm": {
+        "min": [
+          -1112,
+          -40,
+          -170
+        ],
+        "max": [
+          11012,
+          16012,
+          33500
+        ],
+        "size": [
+          12124,
+          16052,
+          33670
+        ]
+      }
+    },
+    {
+      "file": "reconstruct_building-r4-86c5e10e.verification.json",
+      "verified": true,
+      "revision": 4,
+      "root_pid": 19,
+      "bounds_mm": {
+        "min": [
+          -1116,
+          -40,
+          -170
+        ],
+        "max": [
+          11007,
+          16016,
+          33500
+        ],
+        "size": [
+          12123,
+          16056,
+          33670
+        ]
+      }
+    },
+    {
+      "file": "reconstruct_building-r5-8c477368.verification.json",
+      "verified": true,
+      "revision": 5,
+      "root_pid": 19,
+      "bounds_mm": {
+        "min": [
+          -1116,
+          -40,
+          -170
+        ],
+        "max": [
+          11007,
+          16016,
+          33500
+        ],
+        "size": [
+          12123,
+          16056,
+          33670
+        ]
+      }
+    }
+  ],
+  "latest_scope_guard": {
+    "status": "passed",
+    "guard": "deep_exact_paths_v2",
+    "allowed_path_count": 47,
+    "allowed_creation_paths": null,
+    "protected_deep_geometry_and_loose_entities": true
+  },
+  "latest_keep_guard": {
+    "armed": true,
+    "passed": true,
+    "path_count": 36
+  },
+  "completed_website_turns": [
+    {
+      "at": "2026-10-17T15:27:23+00:00",
+      "agent_action": "plan",
+      "input_tokens": 310318,
+      "output_tokens": 6746,
+      "latency_ms": 247078,
+      "tool_call_count": 5,
+      "failed_tool_calls": 1,
+      "geometry_committed": false,
+      "checkpoint_saved": false,
+      "execution_status": "read_only"
+    },
+    {
+      "at": "2026-10-17T15:39:46+00:00",
+      "agent_action": "plan",
+      "input_tokens": 279745,
+      "output_tokens": 1072,
+      "latency_ms": 575500,
+      "tool_call_count": 2,
+      "failed_tool_calls": 0,
+      "geometry_committed": false,
+      "checkpoint_saved": false,
+      "execution_status": "read_only"
+    },
+    {
+      "at": "2026-10-17T15:56:30+00:00",
+      "agent_action": "execute",
+      "input_tokens": 3759012,
+      "output_tokens": 20631,
+      "latency_ms": 821937,
+      "tool_call_count": 69,
+      "failed_tool_calls": 2,
+      "geometry_committed": true,
+      "checkpoint_saved": true,
+      "execution_status": "committed"
+    }
+  ],
+  "completed_website_totals": {
+    "input_tokens": 4349075,
+    "output_tokens": 28449,
+    "latency_ms": 1644515,
+    "tool_call_count": 76,
+    "failed_tool_calls": 3
+  },
+  "active_turn_lower_bound_telemetry": [
+    {
+      "id": "c46204957e4b4589a66b60dbb3d1fe77",
+      "role": "builder_or_planner",
+      "finished": false,
+      "input_tokens": 3207912,
+      "output_tokens": 17759,
+      "tools_observed": 57,
+      "tool_failures_observed": 2
+    }
+  ],
+  "completed_critic_totals": {
+    "calls": 5,
+    "input_tokens": 190291,
+    "output_tokens": 5491
+  },
+  "actual_model_identity": {
+    "responses": 9,
+    "all_gpt_6_1_sol_medium": true,
+    "provider": "codex-app-server"
+  },
+  "billing_usd": null,
+  "tester_inference_calls": 0,
+  "tester_model_writes": 0,
+  "tester_new_tests": 0,
+  "save_state": "last completed website turn records checkpoint_saved=true; active turn not final",
+  "web_download": "NOT_VERIFIED",
+  "native_reopen": "NOT_VERIFIED",
+  "deep_three_stage_consistency": "NOT_RUN",
+  "visual_fidelity_acceptance": "NOT_PASS_latest_Critic_needs_fix",
+  "new_absent_leaf_guard_native_positive_regression": "NOT_DEMONSTRATED_latest_receipt_is_legacy_existing_path_guard",
+  "snapshot_atomic": false,
+  "private_evidence_path": "E:/K AI 产品建模网站/runtime/owner-three-view-checkpoint-20261018",
+  "private_files": 177,
+  "unstable_files": [],
+  "models_private": [
+    {
+      "path": "outputs/model/blank-disposable-20261017-232806.skp",
+      "bytes": 2433463,
+      "sha256": "b3e9c662cf94d0e7763b4a223d7f810f3e6c5cef049da72cfedfed9ef6aa1175"
+    },
+    {
+      "path": "outputs/model/fast-assembly-agent.skp",
+      "bytes": 2433466,
+      "sha256": "053dc8b9e1b5310abaffe65e34f765129c3b8e5fc895c4b1ef15e68ddfa872da"
+    },
+    {
+      "path": "outputs/model/previous-agent-checkpoint.skp",
+      "bytes": 2437537,
+      "sha256": "3beaac9f1d07e4d1497412062d90aab1fdaf58f338334d51d495722b085ad705"
+    }
+  ],
+  "originals_models_images_logs_public": false
+}

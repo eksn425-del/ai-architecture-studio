@@ -10,6 +10,7 @@ from typing import Any
 
 from .agent_tools import AgentToolSurface
 from .context_compaction import (
+    DEFAULT_COMPACTION_THRESHOLD_CHARS,
     build_reconstruction_checkpoint,
     compact_active_reconstruction_context,
 )
@@ -31,6 +32,10 @@ from .workflow_context import WorkflowMode, ToolProfile, workflow_reference_cate
 def requires_responses_tools(model: str) -> bool:
     # Official GPT-6 docs: Chat Completions supports conversation, not tools.
     return model.removeprefix("openai/") in {"gpt-6.1-sol", "gpt-6-astra"}
+
+
+class ProviderContractRejected(NativeAgentUnavailable):
+    """A response cannot authorize tools or another billable recovery attempt."""
 
 
 class LiteLLMRuntime:
@@ -56,7 +61,9 @@ class LiteLLMRuntime:
         self.region = (region or os.environ.get("ARCH_STUDIO_CHINA_REGION", "international")).lower()
         if self.region not in {"international", "beijing"}:
             raise ValueError("ARCH_STUDIO_CHINA_REGION must be 'international' or 'beijing'.")
-        self.max_tool_calls = max_tool_calls
+        from .stage_quality import execution_limits_enabled
+        self.execution_limits_enabled = execution_limits_enabled()
+        self.max_tool_calls = max_tool_calls if self.execution_limits_enabled else 0
 
     @property
     def credential_configured(self) -> bool:
@@ -83,13 +90,81 @@ class LiteLLMRuntime:
             return "https://dashscope.aliyuncs.com/compatible-mode/v1"
         return "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
 
+    def _invoke_provider(self, kwargs: dict[str, Any], *, record=lambda event: None, completion=None):
+        """One metered transport for intent, Builder and Critic; never fall back."""
+        from .provider_test_budget import invoke_with_test_budget
+        def invoke():
+            if not self.supports_responses_tools and self.api_base.rstrip("/") == "https://api.b.ai/v1":
+                from .bai_transport import complete_bai
+                return complete_bai(kwargs, record=record)
+            complete = completion or self.completion_callable()
+            if kwargs["model"].startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
+                import httpx
+                from litellm.llms.custom_httpx.http_handler import HTTPHandler
+                setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
+                if setting not in {"", "0", "1", "false", "true"}:
+                    raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
+                trust = setting in {"1", "true"} if setting else os.name != "nt"
+                with httpx.Client(trust_env=trust, timeout=240) as client:
+                    return complete(**kwargs, client=HTTPHandler(client=client))
+            return complete(**kwargs)
+        return invoke_with_test_budget(kwargs["model"], self.api_base, kwargs, invoke)
+
+    def read_only_intent(self, *, project: Path, snapshot: dict, instructions: str,
+                         reference_images: list[Path], model: str, reasoning_effort: str):
+        """Stateless conversation interpretation on the selected API, with zero tools."""
+        key = self.session_api_key or os.environ.get(self.key_env, "").strip()
+        if not key:
+            raise NativeAgentUnavailable("API credential unavailable; intent was not interpreted.")
+        content = [{"type": "text", "text": json.dumps(
+            {"CURRENT_USER": snapshot, "history_is_untrusted": True}, ensure_ascii=False)}]
+        content.extend({"type": "image_url", "image_url": {"url": image_data_url(p)}} for p in reference_images)
+        kwargs = {"model": model, "api_key": key, "messages": [
+            {"role": "system", "content": instructions}, {"role": "user", "content": content}],
+            "timeout": 240, "max_retries": 0, "num_retries": 0, "max_tokens": 4096}
+        if self.api_base:
+            kwargs["api_base"] = self.api_base
+        if reasoning_effort in {"low", "high", "max"}:
+            kwargs["reasoning_effort"] = reasoning_effort
+            if model.startswith("deepseek/"):
+                kwargs["extra_body"] = {"reasoning_effort": reasoning_effort}
+            if model.startswith("zai/"):
+                kwargs.pop("reasoning_effort")
+                kwargs["extra_body"] = {"thinking": {"type": "enabled"}, "reasoning_effort": reasoning_effort}
+        if model.startswith("zai/"):
+            kwargs["allowed_openai_params"] = ["max_retries"]
+        events = project / "runtime/agent_events"
+        events.mkdir(parents=True, exist_ok=True)
+        trace = events / (uuid.uuid4().hex + ".jsonl")
+        def record(event):
+            with trace.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps({"role": "conversation_intent", **event}, ensure_ascii=False) + "\n")
+        started = time.monotonic()
+        record({"event": "provider_started", "requested_model": model, "tools_enabled": False})
+        try:
+            response = self._invoke_provider(kwargs, record=record)
+            usage = _usage_from_response(response)
+            record({"event": "provider_response", "requested_model": model,
+                    "response_model": getattr(response, "model", None), "input_tokens": usage[0],
+                    "output_tokens": usage[1], "latency_ms": round((time.monotonic() - started) * 1000)})
+            _validate_provider_response(response, model, usage)
+            message = _response_message(response)
+            if message.get("tool_calls"):
+                raise ValueError("Read-only intent returned tools; no execution permission was issued.")
+            return AgentTurnResult(thread_id="", reply=_message_content(message), status="completed",
+                tool_calls=[], model_name=model, provider_name=self.provider_name,
+                reasoning_effort=reasoning_effort, input_tokens=usage[0], output_tokens=usage[1])
+        except Exception as error:
+            record({"event": "provider_failed", "error_type": type(error).__name__})
+            raise NativeAgentUnavailable("API 意图理解未完成，未授权建模：" + str(error).replace(key, "[credential hidden]")[:600]) from None
+
     def respond(self, *, project_dir: Path, thread_id: str | None, prompt: str,
                 mcp_enabled: bool, developer_instructions: str,
                 model_path: Path | None = None, model_guid: str = "",
                 ruby_enabled: bool = True, ruby_state: dict[str, dict[str, Any]] | None = None,
                 architecture_skill_context: str = "", model: str | None = None,
                 reasoning_effort: str | None = None, workflow_mode: WorkflowMode = "architecture_design",
-                tool_profile: ToolProfile = "full") -> AgentTurnResult:
+                tool_profile: ToolProfile = "full", cancel_requested=None) -> AgentTurnResult:
         if requires_responses_tools(model or self.model) and not self.supports_responses_tools:
             raise NativeAgentUnavailable("当前 API 建模适配器使用 Chat Completions；GPT-6.1 Sol / Astra 的工具调用需要 Responses API。尚未开放此 API 建模路线，没有发送请求或自动切换模型。")
         api_key = self.session_api_key or os.environ.get(self.key_env, "").strip()
@@ -164,6 +239,9 @@ class LiteLLMRuntime:
                             if block.get("type") == "text":
                                 block["text"] = block.get("text", "").replace(skill, "")
             messages = [messages[0], *saved["messages"], messages[1]]
+        # A crash after a native write must never turn into an automatic replay.
+        # Check the complete journal before active-context filtering/compaction.
+        seen_call_ids = _completed_tool_history(messages)
         tools = [_to_litellm_tool(tool) for tool in tool_context.dynamic_tools]
         evidence_dir = project_dir / "runtime" / "agent_events"
         evidence_dir.mkdir(parents=True, exist_ok=True)
@@ -174,19 +252,13 @@ class LiteLLMRuntime:
 
         def invoke_completion(request_kwargs: dict[str, Any]):
             """Use the same configured transport for Builder and read-only Critic."""
-            if selected_model.startswith("deepseek/") and self.api_base.rstrip("/") == "https://api.deepseek.com":
-                import httpx
-                from litellm.llms.custom_httpx.http_handler import HTTPHandler
-                proxy_setting = os.environ.get("ARCH_STUDIO_API_TRUST_ENV", "").strip().lower()
-                if proxy_setting not in {"", "0", "1", "false", "true"}:
-                    raise ValueError("ARCH_STUDIO_API_TRUST_ENV must be 0/1 or false/true.")
-                trust_env = proxy_setting in {"1", "true"} if proxy_setting else os.name != "nt"
-                with httpx.Client(trust_env=trust_env, timeout=240) as direct_client:
-                    return completion(**request_kwargs, client=HTTPHandler(client=direct_client))
-            return completion(**request_kwargs)
+            return self._invoke_provider(request_kwargs, record=record, completion=completion)
 
         def run_dedicated_visual_critic(review_arguments: dict[str, Any]) -> tuple[str, tuple[int | None, int | None]]:
             """Critique trusted current views in a clean context, separate from the Builder."""
+            nonlocal input_tokens, output_tokens
+            if cancel_requested and cancel_requested():
+                raise NativeAgentUnavailable("本轮已请求停止，未启动下一次质量检查。")
             if not isinstance(ruby_state, dict):
                 raise ValueError("Dedicated visual critic requires current writer state.")
             views = review_arguments.get("views")
@@ -284,6 +356,17 @@ class LiteLLMRuntime:
                 })
                 raise RuntimeError(f"Dedicated visual critic request failed: {safe_error}") from None
             usage = _usage_from_response(response)
+            # Rejected review responses can still be billable. Keep known usage
+            # in the interrupted result as well as the separate Critic receipt.
+            input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
+            output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
+            try:
+                _validate_provider_response(response, selected_model, usage)
+            except ProviderContractRejected:
+                record({"event": "visual_critic_contract_rejected", "model": selected_model,
+                        "input_tokens": usage[0], "output_tokens": usage[1],
+                        "latency_ms": round((time.monotonic() - critic_started) * 1000)})
+                raise
             text = _message_content(_response_message(response))
             critique = parse_visual_critique_response(text)
             record({
@@ -310,6 +393,7 @@ class LiteLLMRuntime:
         tool_call_count = 0
         failed_tool_calls = 0
         modeling_failure_streak = 0
+        workspace_write_failures: dict[str, int] = {}
         last_reply = ""
         quality_gate_nudges = 0
         max_quality_gate_nudges = 6
@@ -330,6 +414,8 @@ class LiteLLMRuntime:
             return error
 
         while True:
+            if cancel_requested and cancel_requested():
+                raise interrupted("本轮已按要求停止；已有模型和用量已保留。")
             request_messages = _current_visual_context(messages)
             compaction = {
                 "compacted": False,
@@ -342,6 +428,9 @@ class LiteLLMRuntime:
                 request_messages, compaction = compact_active_reconstruction_context(
                     request_messages,
                     checkpoint,
+                    threshold_chars=60_000 if self.api_base.rstrip("/") == "https://api.b.ai/v1"
+                    else DEFAULT_COMPACTION_THRESHOLD_CHARS,
+                    compact_current_turn=True,
                 )
             kwargs: dict[str, Any] = {
                 "model": selected_model,
@@ -394,6 +483,11 @@ class LiteLLMRuntime:
                     "input_tokens": usage[0], "output_tokens": usage[1]})
             input_tokens = (input_tokens or 0) + usage[0] if usage[0] is not None else input_tokens
             output_tokens = (output_tokens or 0) + usage[1] if usage[1] is not None else output_tokens
+            try:
+                _validate_provider_response(response, selected_model, usage)
+            except NativeAgentUnavailable as error:
+                record({"event": "provider_contract_rejected", "error_type": "response_contract"})
+                raise interrupted(str(error)) from None
             message = _response_message(response)
             raw_tool_calls = message.get("tool_calls") or []
             last_reply = _message_content(message)
@@ -413,20 +507,15 @@ class LiteLLMRuntime:
                     if not isinstance(review, dict) and quality_gate_nudges < max_quality_gate_nudges:
                         gate_prompt = (
                             "HOST QUALITY GATE: You have committed geometry but have not submitted a CURRENT six-view review. "
-                            "Do not finish yet and do not write geometry again. Capture six distinct current-revision views "
+                            "Do not finish yet and do not write geometry again. Use sketchup_capture_review_views ONCE to capture all six distinct current-revision views "
                             "(front, rear, left, right, roof, oblique), compare them against the attached source evidence, "
                             "then call sketchup_submit_visual_review with the actual returned output paths. "
                             "If a source perspective/interior/detail image needs a direct camera match, include validated evidence_pairs too. "
                             "Use NEEDS_FIX plus at most three high-impact issues and a KEEP list."
                         )
-                    elif isinstance(review, dict) and review.get("needs_fix") is True and writes < write_limit and quality_gate_nudges < max_quality_gate_nudges:
-                        gate_prompt = (
-                            "HOST QUALITY GATE: The current validated review says NEEDS_FIX: YES and writer budget remains. "
-                            "Apply ONE targeted correction pass to the named affected groups only. First inspect the exact named "
-                            "groups that correspond to the reviewer KEEP list, then call the writer with update_mode=edit and those "
-                            "paths in preserve_paths so the host can prove they did not move/change. Recapture all six current views "
-                            "and submit a new visual review. Do not use a full-root replace during a post-review correction."
-                        )
+                    # A genuine final review with remaining issues is reported
+                    # honestly below. Do not manufacture a fresh user instruction
+                    # to keep spending on another cosmetic pass after Builder ends.
                     if gate_prompt:
                         messages.append({
                             "role": "assistant",
@@ -452,12 +541,26 @@ class LiteLLMRuntime:
                     elif review.get("needs_fix") is True:
                         last_reply = (
                             (last_reply + "\n\n") if last_reply else ""
-                        ) + "当前六视图审查仍为 NEEDS_FIX；本轮修正预算已用完或质量门已停止继续写入，剩余问题按 PARTIAL 保留。"
+                        ) + "当前六视图审查仍有未解决问题，剩余问题已保留，尚不能判定还原质量通过。"
                 break
-            if tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
+            if self.max_tool_calls and tool_call_count + len(raw_tool_calls) > self.max_tool_calls:
                 raise interrupted(
                     f"LiteLLM tool loop reached the configured {self.max_tool_calls}-call limit."
                 )
+            # Validate the WHOLE batch before executing its first tool. Missing,
+            # repeated or malformed IDs/arguments cannot partially apply a batch.
+            try:
+                parsed_calls = [_tool_call_parts(call) for call in raw_tool_calls]
+                batch_ids = [call[0] for call in parsed_calls]
+                if len(set(batch_ids)) != len(batch_ids) or seen_call_ids.intersection(batch_ids):
+                    raise NativeAgentUnavailable("Provider repeated a tool call ID; execution blocked.")
+                allowed = {str(tool.get("name", "")) for tool in tool_context.dynamic_tools}
+                if any(name not in allowed for _, name, _ in parsed_calls):
+                    raise NativeAgentUnavailable("Provider requested tools outside this turn's allowlist; batch blocked.")
+            except NativeAgentUnavailable as error:
+                record({"event": "provider_contract_rejected", "error_type": "tool_batch"})
+                raise interrupted(str(error)) from None
+            seen_call_ids.update(batch_ids)
             assistant_message = {
                 "role": "assistant",
                 "content": message.get("content"),
@@ -469,19 +572,29 @@ class LiteLLMRuntime:
             if message.get("reasoning_content") is not None:
                 assistant_message["reasoning_content"] = message["reasoning_content"]
             messages.append(assistant_message)
+            # Persist intent BEFORE dispatch. If a process or disk fails after
+            # the effect, the unresolved journal blocks automatic continuation.
+            save_history()
             pending_visual_readbacks = []
-            for call in raw_tool_calls:
+            for call_index, (call_id, name, arguments) in enumerate(parsed_calls):
+                if cancel_requested and cancel_requested():
+                    for pending_id, _, _ in parsed_calls[call_index:]:
+                        messages.append({'role': 'tool', 'tool_call_id': pending_id,
+                            'content': '{"success":false,"cancelled_before_dispatch":true}'})
+                    save_history()
+                    raise interrupted("本轮已按要求停止；未执行剩余工具，已有模型和用量已保留。")
                 if hasattr(self, "before_tool_execution"):
                     try:
                         self.before_tool_execution()
                     except NativeAgentUnavailable as error:
                         raise interrupted(str(error)) from None
-                call_id, name, arguments = _tool_call_parts(call)
                 tool_call_count += 1
                 tool_calls.append({"server": "kongxing_sketchup", "tool": name})
                 record({"event": "tool_started", "tool": name})
                 allowed = {str(tool.get("name", "")) for tool in tool_context.dynamic_tools}
                 try:
+                    if self.execution_limits_enabled and any(count >= 3 for count in workspace_write_failures.values()):
+                        raise ValueError("方案文件连续校验失败，本批剩余工具未执行；请先修复方案。")
                     if name not in allowed:
                         raise MCPCallError("The agent requested a tool outside this turn's Kongxing MCP allowlist.")
                     if (
@@ -490,8 +603,6 @@ class LiteLLMRuntime:
                         and tool_profile == "reconstruction_coding"
                     ):
                         critic_text, critic_usage = run_dedicated_visual_critic(arguments)
-                        input_tokens = (input_tokens or 0) + critic_usage[0] if critic_usage[0] is not None else input_tokens
-                        output_tokens = (output_tokens or 0) + critic_usage[1] if critic_usage[1] is not None else output_tokens
                         arguments = dict(arguments)
                         arguments["critique"] = critic_text
                         arguments["_reviewer"] = {
@@ -502,6 +613,9 @@ class LiteLLMRuntime:
                     output = tool_context.dispatch(name, arguments)
                     if output.get("success") is False or output.get("isError") is True:
                         failed_tool_calls += 1
+                except ProviderContractRejected as error:
+                    record({"event": "provider_contract_rejected", "error_type": "critic_response_contract"})
+                    raise interrupted(str(error)) from None
                 except (ConnectorUnavailable, MCPCallError, OSError, ValueError, RuntimeError) as error:
                     failed_tool_calls += 1
                     output = {"success": False, "contentItems": [{"type": "inputText", "text": str(error)}]}
@@ -513,6 +627,10 @@ class LiteLLMRuntime:
                 record(event)
                 if name == "sketchup_run_workspace_ruby":
                     modeling_failure_streak = 0 if succeeded else modeling_failure_streak + 1
+                if name in {"workspace_write", "workspace_update_strategy"}:
+                    path_key = "notes/construction_strategy.json" if name == "workspace_update_strategy" else arguments.get("relative_path")
+                    path_key = path_key if isinstance(path_key, str) else "<invalid-path>"
+                    workspace_write_failures[path_key] = 0 if succeeded else workspace_write_failures.get(path_key, 0) + 1
                 messages.append({"role": "tool", "tool_call_id": call_id, "content": text_result})
                 # Durably record each completed call. If a process dies mid-batch,
                 # Responses detects unresolved IDs and refuses unsafe replay.
@@ -528,7 +646,11 @@ class LiteLLMRuntime:
             # Checkpoint complete function-call exchanges, including failed attempts.
             # Repeated full-script generation must not silently spend the whole call budget.
             save_history()
-            if modeling_failure_streak >= 3:
+            if self.execution_limits_enabled and any(count >= 3 for count in workspace_write_failures.values()):
+                record({"event": "workspace_retry_budget_exhausted"})
+                raise interrupted("同一方案文件连续 3 次校验失败，本轮已停止继续调用。"
+                                  "现有文件与完整记录已保留；请先修复方案约定后继续。")
+            if self.execution_limits_enabled and modeling_failure_streak >= 3:
                 record({"event": "retry_budget_exhausted", "failed_modeling_calls": modeling_failure_streak})
                 raise interrupted(
                     "建模脚本连续 3 次执行失败，本轮已停止重试以避免重复消耗。"
@@ -659,6 +781,8 @@ def _response_message(response: Any) -> dict[str, Any]:
         message = response.choices[0].message
     except (AttributeError, IndexError, TypeError) as error:
         raise NativeAgentUnavailable("LiteLLM returned no chat-completion message.") from error
+    if message is None:
+        raise NativeAgentUnavailable("LiteLLM returned no chat-completion message.")
     if isinstance(message, dict):
         return message
     if hasattr(message, "model_dump"):
@@ -682,17 +806,23 @@ def _message_content(message: dict[str, Any]) -> str:
 
 def _tool_call_parts(call: Any) -> tuple[str, str, dict[str, Any]]:
     if isinstance(call, dict):
-        call_id = str(call.get("id") or uuid.uuid4().hex)
+        call_id = call.get("id")
         function = call.get("function") or {}
     else:
-        call_id = str(getattr(call, "id", "") or uuid.uuid4().hex)
+        call_id = getattr(call, "id", None)
         function = getattr(call, "function", None)
         if function is None:
             function = {}
         elif not isinstance(function, dict) and hasattr(function, "model_dump"):
             function = function.model_dump()
-    name = str(function.get("name", ""))
-    raw_arguments = function.get("arguments", "{}")
+    if not isinstance(call_id, str) or not call_id.strip():
+        raise NativeAgentUnavailable("Provider omitted a valid tool call ID; execution blocked.")
+    if not isinstance(function, dict):
+        raise NativeAgentUnavailable("Provider returned a malformed tool function; execution blocked.")
+    name = function.get("name")
+    if not isinstance(name, str) or not name.strip():
+        raise NativeAgentUnavailable("Provider omitted a valid tool name; execution blocked.")
+    raw_arguments = function.get("arguments")
     if isinstance(raw_arguments, dict):
         arguments = raw_arguments
     else:
@@ -703,6 +833,63 @@ def _tool_call_parts(call: Any) -> tuple[str, str, dict[str, Any]]:
     if not isinstance(arguments, dict):
         raise NativeAgentUnavailable(f"LiteLLM returned non-object arguments for tool {name or '[unnamed]'}.")
     return call_id, name, arguments
+
+
+def _completed_tool_history(messages: list[dict[str, Any]]) -> set[str]:
+    """Validate the durable journal, not a lossy provider-context checkpoint."""
+    seen: set[str] = set()
+    pending: set[str] = set()
+    for message in messages:
+        role = message.get("role")
+        if role == "tool":
+            call_id = message.get("tool_call_id")
+            if not isinstance(call_id, str) or call_id not in pending:
+                raise NativeAgentUnavailable("Provider history contains an orphan tool result; inspect the journal before recovery.")
+            pending.remove(call_id)
+            continue
+        if pending:
+            raise NativeAgentUnavailable("上一轮有工具结果未确认；请先核对当前模型与执行回执，本轮不会自动重发工具。")
+        if role == "assistant":
+            for call in message.get("tool_calls") or []:
+                call_id, _, _ = _tool_call_parts(call)
+                if call_id in seen:
+                    raise NativeAgentUnavailable("Provider history contains repeated tool IDs; automatic replay blocked.")
+                seen.add(call_id)
+                pending.add(call_id)
+    if pending:
+        raise NativeAgentUnavailable("上一轮有工具结果未确认；请先核对当前模型与执行回执，本轮不会自动重发工具。")
+    return seen
+
+
+def _validate_provider_response(response: Any, selected_model: str,
+                                usage: tuple[int | None, int | None]) -> None:
+    """Require attributable, metered output before Builder tools or Critic QA.
+
+    The returned ID is a provider claim, not proof of the served model weights.
+    Only transport namespace prefixes are normalized; snapshots/aliases do not
+    silently inherit another model's native acceptance.
+    """
+    actual = getattr(response, "model", None)
+    if isinstance(response, dict):
+        actual = response.get("model")
+    prefixes = ("deepseek/", "dashscope/", "zai/", "openai/", "openrouter/")
+    def wire_name(value: str) -> str:
+        for prefix in prefixes:
+            if value.startswith(prefix):
+                return value[len(prefix):]
+        return value
+    if not isinstance(actual, str) or wire_name(actual) != wire_name(selected_model):
+        raise ProviderContractRejected("供应商返回的模型标识缺失或与所选模型不符；已停止，不会自动切换模型或执行工具。")
+    if any(type(value) is not int or value < 0 for value in usage):
+        raise ProviderContractRejected("供应商未返回有效用量；已停止后续调用和工具，请核对供应商账单。")
+    try:
+        _response_message(response)
+        choice = response.choices[0]
+    except (AttributeError, IndexError, TypeError, NativeAgentUnavailable) as error:
+        raise ProviderContractRejected("供应商返回的消息不完整；本次输出不会执行工具。") from error
+    finish = choice.get("finish_reason") if isinstance(choice, dict) else getattr(choice, "finish_reason", None)
+    if finish is not None and (not isinstance(finish, str) or finish not in {"stop", "tool_calls"}):
+        raise ProviderContractRejected("供应商输出被截断、过滤或未完成；本次输出不会执行工具。")
 
 
 def _tool_result_parts(output: dict[str, Any]) -> tuple[str, list[str]]:
@@ -735,6 +922,6 @@ def _usage_from_response(response: Any) -> tuple[int | None, int | None]:
     input_count = usage.get("prompt_tokens", usage.get("input_tokens"))
     output_count = usage.get("completion_tokens", usage.get("output_tokens"))
     return (
-        input_count if isinstance(input_count, int) and input_count >= 0 else None,
-        output_count if isinstance(output_count, int) and output_count >= 0 else None,
+        input_count if type(input_count) is int and input_count >= 0 else None,
+        output_count if type(output_count) is int and output_count >= 0 else None,
     )

@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "current_stage": "finish",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "storey_height": {
+      "value": 3100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "ground_height": {
+      "value": 4200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_height": {
+      "value": 56900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "bay_width": {
+      "value": 3000,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "source six front bays within retained 18000mm envelope"
+    },
+    "tower_width": {
+      "value": 18000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_depth": {
+      "value": 14400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "wall_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "slab_thickness": {
+      "value": 220,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "slab_inset": {
+      "value": 50,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "frame_projection": {
+      "value": 300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "glazing_recess": {
+      "value": 100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "沿用已建模型的首版估算；本轮不改变基准。"
+    },
+    "tower_floors": {
+      "value": 18,
+      "units": "count",
+      "provenance": "user_confirmed",
+      "source": "沿用现模18层；用户要求保留既有层数，非确认原建筑实测层数。"
+    },
+    "balcony_depth": {
+      "value": 2000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "balcony_back_right_x": {
+      "value": 16000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "balcony_return_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "railing_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "局部构造暂定；r5已有约2m几何，须检查真实开口和遮挡，不能仅按参数认定合格。"
+    },
+    "scope": {
+      "value": "tower visible 6/5 grid and recessed low-wing terrace connections",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "latest direct execution request"
+    },
+    "environment_scope": {
+      "value": "CONTEXT、ENVIRONMENT、VEGETATION/STREET_INSTANCES仅清空几何",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "原生命名组核对与最新请求"
+    },
+    "curb_radius": {
+      "value": 4500,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "foreground_radius": {
+      "value": 5000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "endpoint_inset": {
+      "value": 1800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "rail_vertical_delta": {
+      "value": -255,
+      "units": "mm",
+      "provenance": "observed",
+      "source": "原图圆弧形态结合现模读回；标高差由原生边界计算"
+    },
+    "side_bay_width": {
+      "value": 2880,
+      "units": "mm",
+      "provenance": "inferred",
+      "source": "source five right bays within retained 14400mm depth"
+    }
+  },
+  "systems": [
+    {
+      "id": "tower_rhythm_sample",
+      "stage": "representative_module",
+      "role": "repetition",
+      "method": "custom_owned_ruby",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified SAIE straight-wall/opening helpers cannot transform retained multi-plane infill/loggia assemblies or edit nested terrace slab/guard profiles in place; new return walls belong to exact existing pocket leaves, whereas supplied SAIE creates root-level walls. ADAI explicitly disabled. Custom owned Ruby preserves semantic row/pocket PIDs.",
+      "status": "verified",
+      "depends_on": [
+        "bay_width",
+        "side_bay_width",
+        "storey_height",
+        "wall_thickness",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L16"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "First verify one row, then replicate only after current independent review.",
+        "Keep rear row children untouched; preserve floor/roof/left-wing groups with native checks."
+      ]
+    },
+    {
+      "id": "tower_rhythm_replication",
+      "stage": "replication",
+      "role": "opening_system",
+      "method": "custom_owned_ruby",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified SAIE straight-wall/opening helpers cannot transform retained multi-plane infill/loggia assemblies or edit nested terrace slab/guard profiles in place; new return walls belong to exact existing pocket leaves, whereas supplied SAIE creates root-level walls. ADAI explicitly disabled. Custom owned Ruby preserves semantic row/pocket PIDs.",
+      "status": "built",
+      "depends_on": [
+        "bay_width",
+        "side_bay_width",
+        "storey_height",
+        "wall_thickness",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L00"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L01"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L02"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L03"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L04"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L05"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L06"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L07"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L08"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L10"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L12"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L13"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L14"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L15"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L16"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L17"
+        ],
+        [
+          "MODULE_FRONT_WALL"
+        ],
+        [
+          "VEGETATION",
+          "BALCONY_INSTANCES"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "First verify one row, then replicate only after current independent review.",
+        "Keep rear row children untouched; preserve floor/roof/left-wing groups with native checks."
+      ]
+    },
+    {
+      "id": "left_recess_connections",
+      "stage": "variants",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "Verified SAIE straight-wall/opening helpers cannot transform retained multi-plane infill/loggia assemblies or edit nested terrace slab/guard profiles in place; new return walls belong to exact existing pocket leaves, whereas supplied SAIE creates root-level walls. ADAI explicitly disabled. Custom owned Ruby preserves semantic row/pocket PIDs.",
+      "status": "verified",
+      "depends_on": [
+        "bay_width",
+        "side_bay_width",
+        "storey_height",
+        "wall_thickness",
+        "slab_thickness"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_0"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_1"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "First verify one row, then replicate only after current independent review.",
+        "Keep rear row children untouched; preserve floor/roof/left-wing groups with native checks."
+      ]
+    }
+  ],
+  "notes": [
+    "r12 representative row and r13 remaining rows/pockets committed in the same root PID19.",
+    "Current r13 independent critic confirms consistent 6/5 tower grid and improved integrated terrace pockets; former tray complaint no longer supported.",
+    "Overall NEEDS_FIX remains: source-facing recess/infill locations, particularly lower planted near-corner pocket. Outside completed two-item milestone; stop for user review.",
+    "The empty former prototype FRAME/GLAZING leaves are retired; SLAB retained. Native deep scope and 256 KEEP checks passed.",
+    "No new save/reopen verification was performed by this agent."
+  ],
+  "current_local_request": {
+    "scope": "tower_bay_rhythm_and_recessed_left_terrace_connections",
+    "approval": "latest_user_direct_execute",
+    "baseline_revision": 11,
+    "target_paths": [
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L00"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L01"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L02"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L03"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L04"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L05"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L06"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L07"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L08"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L09"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L10"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L11"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L12"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L13"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L14"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L15"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L16"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "FACADE",
+        "TOWER_L17"
+      ],
+      [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0"
+      ],
+      [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_1"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "MODULE_PROTOTYPE",
+        "FRAME"
+      ],
+      [
+        "BUILDING",
+        "TOWER",
+        "MODULE_PROTOTYPE",
+        "GLAZING"
+      ],
+      [
+        "MODULE_FRONT_WALL"
+      ],
+      [
+        "VEGETATION",
+        "BALCONY_INSTANCES"
+      ]
+    ],
+    "notes": [
+      "保留18层主塔、各低翼既有层数与总体位置；只保留相连主体及自身绿化。",
+      "只原图为目标；另两张已直接检查，为旧模型缺陷定位。",
+      "原图顶部正面约6跨、右侧约5跨，可信度中高；位置/进深无实测，未见背面保持现状。"
+    ]
+  }
+}

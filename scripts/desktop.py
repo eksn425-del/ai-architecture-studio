@@ -73,7 +73,7 @@ def main() -> None:
             if time.monotonic() > deadline:
                 raise RuntimeError("K Studio local service could not start.")
             time.sleep(0.1)
-    webview.create_window("K Studio · AI 建模", f"http://127.0.0.1:{port}/", width=1280, height=850, min_size=(760, 600))
+    webview.create_window("K Studio · AI 建模", f"http://127.0.0.1:{port}/", width=1280, height=850, min_size=(760, 600), text_select=True)
     try:
         webview.start(gui="edgechromium")
     finally:

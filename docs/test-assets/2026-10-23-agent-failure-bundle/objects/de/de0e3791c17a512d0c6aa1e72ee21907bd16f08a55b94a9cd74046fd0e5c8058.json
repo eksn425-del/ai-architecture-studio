@@ -1,0 +1,287 @@
+{
+  "mode": "offline_code_diagnosis_no_new_inference",
+  "project_files": 41,
+  "budget_rows_before": 24,
+  "budget_sha_before": "de8621a0d4db7a60958f17ed488b31c766671425c0a85fea6f76258a2cf3b4a5",
+  "provider_response_count": 18,
+  "provider_responses": [
+    {
+      "input_tokens": 7325,
+      "output_tokens": 1068,
+      "latency_ms": 32218,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 27397,
+      "output_tokens": 5031,
+      "latency_ms": 66719,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 32461,
+      "output_tokens": 1536,
+      "latency_ms": 24375,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 20490,
+      "output_tokens": 209,
+      "latency_ms": 15875,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 24257,
+      "output_tokens": 2817,
+      "latency_ms": 54031,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 27254,
+      "output_tokens": 1963,
+      "latency_ms": 142156,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 29515,
+      "output_tokens": 1659,
+      "latency_ms": 20297,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 31262,
+      "output_tokens": 4048,
+      "latency_ms": 40703,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 35342,
+      "output_tokens": 3449,
+      "latency_ms": 27719,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 38827,
+      "output_tokens": 3496,
+      "latency_ms": 33218,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 42360,
+      "output_tokens": 3342,
+      "latency_ms": 25907,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 11716,
+      "output_tokens": 93,
+      "latency_ms": 67625,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 12546,
+      "output_tokens": 90,
+      "latency_ms": 20750,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 13575,
+      "output_tokens": 82,
+      "latency_ms": 47907,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 14502,
+      "output_tokens": 59,
+      "latency_ms": 27062,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 15753,
+      "output_tokens": 7219,
+      "latency_ms": 79312,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 23006,
+      "output_tokens": 1629,
+      "latency_ms": 43984,
+      "response_model": "deepseek-v4.1-flash"
+    },
+    {
+      "input_tokens": 24670,
+      "output_tokens": 1300,
+      "latency_ms": 45157,
+      "response_model": "deepseek-v4.1-flash"
+    }
+  ],
+  "failed_tools": [
+    {
+      "tool": "workspace_write",
+      "error": "{\"success\": false, \"text\": \"construction strategy parameter 'origin_mm' has invalid provenance.\"}"
+    },
+    {
+      "tool": "workspace_write",
+      "error": "{\"success\": false, \"text\": \"construction strategy text parameter 'origin_mm' must use a string value.\"}"
+    },
+    {
+      "tool": "workspace_write",
+      "error": "{\"success\": false, \"text\": \"construction strategy text parameter 'front_width_mm' must use a string value.\"}"
+    },
+    {
+      "tool": "workspace_write",
+      "error": "{\"success\": false, \"text\": \"construction strategy system 'level_slabs' has invalid role.\"}"
+    }
+  ],
+  "context_requests": [
+    {
+      "context_chars_before": 27917,
+      "context_chars_after": 27917,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 69304,
+      "context_chars_after": 69304,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 72668,
+      "context_chars_after": 72668,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 76662,
+      "context_chars_after": 76662,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 34561,
+      "context_chars_after": 34561,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 88415,
+      "context_chars_after": 62971,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 96514,
+      "context_chars_after": 71070,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 100118,
+      "context_chars_after": 74906,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 106338,
+      "context_chars_after": 81667,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 110637,
+      "context_chars_after": 86141,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 122150,
+      "context_chars_after": 97654,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 133673,
+      "context_chars_after": 109177,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 145134,
+      "context_chars_after": 120638,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 156637,
+      "context_chars_after": 132141,
+      "context_compacted": true,
+      "context_messages_dropped": 22
+    },
+    {
+      "context_chars_before": 39378,
+      "context_chars_after": 39378,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 42715,
+      "context_chars_after": 42715,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 45854,
+      "context_chars_after": 45854,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 49305,
+      "context_chars_after": 49305,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 53469,
+      "context_chars_after": 53469,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 56678,
+      "context_chars_after": 56678,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 62078,
+      "context_chars_after": 62078,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 65662,
+      "context_chars_after": 65662,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 81721,
+      "context_chars_after": 81721,
+      "context_compacted": false,
+      "context_messages_dropped": 0
+    },
+    {
+      "context_chars_before": 162238,
+      "context_chars_after": 69520,
+      "context_compacted": true,
+      "context_messages_dropped": 39
+    }
+  ],
+  "strategy_full_rewrite_content_chars": [
+    8488,
+    8492,
+    8431,
+    8425
+  ]
+}

@@ -1,3 +1,27 @@
+## OWNER PUBLICATION 2026-10-23 — current failure investigation
+
+Owner explicitly requests all records of the current three-round stepped-apartment and its r11–r22 follow-up, plus related DeepSeek failure/cost evidence, on GitHub for web-side analysis. Publish complete sanitized test files/images/native models/scripts/tool and usage histories on the existing isolated release-prep branch. This supersedes earlier withholding for these current experiments only. Preserve original local records unchanged. Never publish API keys, passwords, tokens, cookies, credential containers or unrelated projects accidentally present in upgrade backups. No new modeling, paid inference, main merge or deployment is authorized by this archival request. Entry: docs/test-results/windows/2026-10-23-failure-publication/README.md.
+
+---
+
+## 2026-10-20 — Agent/provider and low-budget mainland pilot review
+
+Owner requests ongoing product improvement informed by actual SU/Blender tests. [Product/API/cost review](docs/PRODUCT_AGENT_AND_PILOT_REVIEW_2026-10-20.md) and [actual offline checks](docs/test-results/windows/2026-10-20-agent-product-audit/README.md). One-time testing/gift budget is 300–1000 CNY, separate from monthly hosting; this is not new provider spend approval. Candidate adds strict API response/batch identity, durable pre-dispatch intent and incomplete-history recovery block, preserved historical user constraints, project workspace literal search, and an offline campaign calculator. Real provider native quality, cloud auth/tenant quota/jobs/pairing remain NOT_RUN/not delivered. No stopped native case, owner model, active video service or production model/provider was changed. Next needs securely configured provider test accounts and specific approved spend/acceptance, never keys in chat/GitHub.
+
+For video work only, keep new media/environments/cache/renders under the E-drive source project's outputs/video-storage; run that project's scripts/video-workspace.ps1 first. This code worktree is not a destination for new video media. Preserve original models, credential stores and historical authorizations; no publication/deployment/modeling follows from a storage request.
+
+---
+
+## 2026-10-19 — Mainland release preparation; local candidate only
+
+Owner requests an audit across this chat and “K Studio 宣传片”, product consolidation and mainland-first launch preparation. [Issue audit](docs/RELEASE_ISSUE_AUDIT_2026-10-19.md), [deployment/DB/API/scale plan](docs/RELEASE_PREPARATION_CN_2026-10-19.md), [actual regression evidence](docs/test-results/windows/2026-10-19-release-preparation/README.md). Isolated `codex/release-prep-20261019` includes explicit copy ownership and rejected-review diagnostics, persistent public activity, receipt-failure lock release, one-process local runtime lease and honest release-readiness endpoint. Native identity/approval/KEEP unchanged. Existing originals, stopped copies, promo assets and active services are untouched. Cloud auth/tenant PostgreSQL/atomic credits/durable queue/remote pairing/payments are NOT implemented; public paid launch remains BLOCKED. No new native modeling, paid API call, model/provider change, main merge or public deployment; do not resume closed cases from historical instructions below.
+
+---
+
+## OWNER SOFTWARE VERSION POLICY 2026-10-18
+
+Respect the user's installed software/version for SketchUp and future modeling integrations. Do not impose a historically tested year or silently switch versions. Separate discovery, bridge reachability, capabilities and native validation; untested versions remain unverified. Follow [software version policy](docs/SOFTWARE_VERSION_POLICY.md). This does not reopen old geometry tasks or authorize software installation/upgrades.
+
 ## CASE CLOSED 2026-10-17 — owner basic-building and simple-site scope completed at r20
 
 The owner's narrowed closeout is COMPLETE: actual StudioSol6.1Medium same eight/project/root20606 r20, six path pieces/four green beds/four schematic trees; all existing building/originalground protected. Real website save/browserdownload/SU24bound and download reopen three-stage declaredprecisionPASS; rawstrictdoubleFAIL/sourceNEEDS_FIX and strictreplay/providerNOT_RUN preserved. [Final evidence/model](docs/test-results/windows/2026-10-17-final-basic-building-and-site/README.md). Native scoped site controls and six paired cameras recorded; originalr4immutable. Host native verification is separately labeled, original model reply/history intact. Current geometry authorization CLOSED. END this case; do not resume any older refinement/readiness task without a NEW owner instruction. No commercial-readiness/full-source-PASS claim.

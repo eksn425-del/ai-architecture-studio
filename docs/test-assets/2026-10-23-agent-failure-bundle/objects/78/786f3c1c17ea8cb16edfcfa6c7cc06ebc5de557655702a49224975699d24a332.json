@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "single_view_inference",
+  "primary_source": "inputs/reference/4e52d9a057-source-target.png",
+  "sources": [
+    {
+      "path": "inputs/reference/4e52d9a057-source-target.png",
+      "kind": "exterior_image",
+      "role": "SOURCE TARGET；唯一单幅街角透视",
+      "provenance": "observed",
+      "notes": [
+        "直接查看整幅原图；1080×1200；1幅单视图，无分图",
+        "同时显示长向退台立面、右端短立面及部分露台边沿；不是独立多视角证据"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "以长向沿街退台立面为front，仅斜视覆盖，不是正投影",
+        "浅米格架、内退玻璃与实墙、底层柱廊、左高低两翼"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "未见背面；沿既有层线和模数协调补全，无源图测量"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "左端远处被透视及树木遮挡，端墙主体未知"
+      ]
+    },
+    "right": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "塔楼短向立面有格架、局部凹阳台；仅见朝街一侧，后转角未知"
+      ]
+    },
+    "roof": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "可见平屋顶轮廓、退台边沿和种植，屋面全平面不可见"
+      ]
+    },
+    "oblique": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/4e52d9a057-source-target.png"
+      ],
+      "notes": [
+        "唯一真实原始视角；无跨视角矛盾可验证"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "无平面，内部核心筒位置推测；不划分户型"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "未提供CAD或尺寸"
+    ]
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "用户确认不细分室内；仅外观、楼板、必要遮挡及交通预留"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "标准层高比例基准",
+      "value_mm": 3100,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "人为建模尺度；图片没有真实标尺"
+      ]
+    },
+    {
+      "name": "首层高度",
+      "value_mm": 4200,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png"
+    },
+    {
+      "name": "主塔总高",
+      "value_mm": 56900,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "notes": [
+        "18层假设，4200+17×3100；角点像素约666,294至666,840；不能按像素直接推断真实高度"
+      ]
+    },
+    {
+      "name": "格架跨距",
+      "value_mm": 3600,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png"
+    }
+  ],
+  "hard_constraints": [
+    "用户确认右邻楼保留简化体块",
+    "用户确认室内不细分",
+    "用户要求左连楼、露台绿化、路口、轨道及按比例估算",
+    "单一原图可见高塔、非等阶退台、左高低两翼不得被统一箱体取代"
+  ],
+  "assumptions": [
+    "主塔18层，识读范围约17–19层；层跨数需原视角校准",
+    "左高楼7层、沿街翼4层、邻楼9层为估算",
+    "所有绝对尺寸与隐藏进深为推测，无实测",
+    "背侧立面与核心筒为协调补全，不能作为原貌证据",
+    "无外置楼梯证据，不增设外梯",
+    "环境仅按用户已授权的画面范围，不含车辆、人群与后方楼群"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "do_not_infer",
+    "preserve_circulation": true
+  },
+  "user_confirmed": [
+    "保留右侧邻楼简化体块",
+    "室内不用细分",
+    "按图片比例估算",
+    "2026-10-22 user approved execution"
+  ],
+  "observed": [
+    "平屋顶高塔向左多级降低",
+    "两段不同高度左连楼与绿化露台",
+    "立体浅米色格架、内退窗和局部开敞凹阳台",
+    "前景钢轨、枕木/道床、路口、路缘和上空接触线"
+  ],
+  "model_verification": {
+    "identity_verified": true,
+    "blank_disposable_verified": true,
+    "geometry_written": true,
+    "notes": [
+      "Native owned root PID19; same disposable model revisions1-6 committed with post-write readback. Revision6 current six canonical views and three source/detail comparisons submitted for independent review. Save/reopen not confirmed."
+    ]
+  }
+}

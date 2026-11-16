@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-20",
+  "candidate_branch": "codex/release-prep-20261019",
+  "base_commit": "35124f65d7efc741e8f3120df814a990dd0de7ca",
+  "scope": "offline product/API fault injection; no real native owner-model writes or paid inference",
+  "focused": {
+    "tests": 171,
+    "passed": 171,
+    "failed": 0,
+    "skipped": 0,
+    "failing_ids": []
+  },
+  "full_windows": {
+    "tests": 1092,
+    "passed": 1054,
+    "failed": 22,
+    "skipped": 16,
+    "failing_ids": [
+      "tests/test_blender_backend.py::test_timeout_preserves_last_committed_state",
+      "tests/test_blender_backend.py::test_symlink_workspace_rejected",
+      "tests/test_blender_backend.py::test_plan_failure_invalidates_old_plan_and_reconnect_is_idempotent",
+      "tests/test_blender_backend.py::test_readonly_turn_cannot_dispatch_blender_write",
+      "tests/test_blender_backend.py::test_failed_provider_after_commit_recovers_native_artifact",
+      "tests/test_blender_backend.py::test_real_mesh_material_edit_preserves_roof",
+      "tests/test_blender_backend.py::test_blender_progress_reports_committed_geometry_without_claiming_quality",
+      "tests/test_blender_backend.py::test_safe_named_delete_preserves_other_objects_and_history",
+      "tests/test_contextual_turn.py::test_external_plan_symlink_rejected_before_interpreter[False]",
+      "tests/test_contextual_turn.py::test_external_plan_symlink_rejected_before_interpreter[True]",
+      "tests/test_imported_research.py::test_upload_reaches_actual_conversation_provider_without_write_tools",
+      "tests/test_imported_research.py::test_reject_link",
+      "tests/test_imported_research.py::test_bad_note_blocks_provider_and_unknown_image_role_still_blocks",
+      "tests/test_native_terminal_host.py::test_blender_host_interrupted_preserves_real_revision_truth[False]",
+      "tests/test_native_terminal_host.py::test_blender_host_interrupted_preserves_real_revision_truth[True]",
+      "tests/test_research_tool_context.py::test_no_policy_preserves_toolless_planning",
+      "tests/test_research_tool_context.py::test_explicit_policy_exposes_only_research_and_untrusted_output_cannot_grant_write",
+      "tests/test_research_tool_context.py::test_policy_and_receipt_symlinks_are_rejected[policy]",
+      "tests/test_research_tool_context.py::test_policy_and_receipt_symlinks_are_rejected[state]",
+      "tests/test_research_tool_context.py::test_policy_and_receipt_symlinks_are_rejected[receipt]",
+      "tests/test_research_tool_context.py::test_policy_and_receipt_symlinks_are_rejected[runtime]",
+      "tests/test_stage_quality.py::test_real_blender_budget_identical_no_progress_and_retained_candidate"
+    ]
+  },
+  "comparison_to_previous_environment_failure_ids": {
+    "previous_failed": 22,
+    "new_failing_ids": [],
+    "note": "Failure IDs compared; dependency/skip counts differ. Not a fresh rerun of baseline and not an all-green suite."
+  },
+  "live_provider_quality": "NOT_RUN",
+  "public_paid_launch": "BLOCKED",
+  "production_changed": false,
+  "tests_use": "simulated providers and synthetic fixtures, not autonomous image quality evidence"
+}

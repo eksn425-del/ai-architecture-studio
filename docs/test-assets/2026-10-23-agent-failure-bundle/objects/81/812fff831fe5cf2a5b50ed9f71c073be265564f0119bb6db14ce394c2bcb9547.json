@@ -1,0 +1,907 @@
+{
+  "schema_version": 1,
+  "project_id": "architecture-project-964f3",
+  "expected_revision": 2,
+  "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-964f3\\outputs\\model\\blank-disposable-20261022-001816.skp",
+  "guid_before": "99f64c75-ca90-4a5a-9f3a-58d6f3ddb806",
+  "status": "committed",
+  "at": "2026-10-22T03:30:13Z",
+  "scenes_before": {
+    "available": true,
+    "pages": []
+  },
+  "owned_before": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -7000.0,
+        -9000.0,
+        -250.0
+      ],
+      "max": [
+        20200.0,
+        21000.0,
+        26790.0
+      ],
+      "size": [
+        27200.0,
+        30000.0,
+        27040.0
+      ]
+    },
+    "objects_total": 12,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 34,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -7000.0,
+            -9000.0,
+            -150.0
+          ],
+          "max": [
+            20200.0,
+            21000.0,
+            0.0
+          ],
+          "size": [
+            27200.0,
+            30000.0,
+            150.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 36,
+        "name": "LEVELS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250.0,
+            250.0,
+            -250.0
+          ],
+          "max": [
+            12950.0,
+            11750.0,
+            24350.0
+          ],
+          "size": [
+            12700.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 38,
+        "name": "FACADE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            13140.0,
+            11945.0,
+            24320.0
+          ],
+          "size": [
+            13140.0,
+            11945.0,
+            24320.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 42,
+        "name": "MODULES",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            450.0,
+            105.0,
+            3600.0
+          ],
+          "max": [
+            12730.0,
+            1830.0,
+            24350.0
+          ],
+          "size": [
+            12280.0,
+            1725.0,
+            20750.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 44,
+        "name": "ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            24350.0
+          ],
+          "max": [
+            13200.0,
+            12000.0,
+            26790.0
+          ],
+          "size": [
+            13200.0,
+            12000.0,
+            2440.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 46,
+        "name": "INTERIOR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5650.0,
+            620.0,
+            3750.0
+          ],
+          "max": [
+            12650.0,
+            1700.0,
+            24100.0
+          ],
+          "size": [
+            7000.0,
+            1080.0,
+            20350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1142,
+        "name": "WALL_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            3350.0
+          ],
+          "max": [
+            13200.0,
+            250.0,
+            24600.0
+          ],
+          "size": [
+            13200.0,
+            250.0,
+            21250.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 4873,
+        "name": "GROUND_GARAGE_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4650.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            250.0,
+            3350.0
+          ],
+          "size": [
+            8550.0,
+            250.0,
+            3350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 5059,
+        "name": "GROUND_ENTRY_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            450.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            5100.0,
+            250.0,
+            3350.0
+          ],
+          "size": [
+            4650.0,
+            250.0,
+            3350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 6822,
+        "name": "WALL_REAR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            11750.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            12000.0,
+            24600.0
+          ],
+          "size": [
+            13200.0,
+            250.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 12383,
+        "name": "WALL_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            250.0,
+            0.0
+          ],
+          "max": [
+            250.0,
+            11750.0,
+            24600.0
+          ],
+          "size": [
+            250.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 15524,
+        "name": "WALL_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            12950.0,
+            250.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            11750.0,
+            24600.0
+          ],
+          "size": [
+            250.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      }
+    ]
+  },
+  "owned_precommit": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -7000.0,
+        -9000.0,
+        -250.0
+      ],
+      "max": [
+        20200.0,
+        21000.0,
+        26790.0
+      ],
+      "size": [
+        27200.0,
+        30000.0,
+        27040.0
+      ]
+    },
+    "objects_total": 12,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 34,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -7000.0,
+            -9000.0,
+            -150.0
+          ],
+          "max": [
+            20200.0,
+            21000.0,
+            0.0
+          ],
+          "size": [
+            27200.0,
+            30000.0,
+            150.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 36,
+        "name": "LEVELS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250.0,
+            250.0,
+            -250.0
+          ],
+          "max": [
+            12950.0,
+            11750.0,
+            24350.0
+          ],
+          "size": [
+            12700.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 38,
+        "name": "FACADE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            13140.0,
+            11945.0,
+            24320.0
+          ],
+          "size": [
+            13140.0,
+            11945.0,
+            24320.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 42,
+        "name": "MODULES",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            450.0,
+            105.0,
+            3600.0
+          ],
+          "max": [
+            12730.0,
+            1830.0,
+            24350.0
+          ],
+          "size": [
+            12280.0,
+            1725.0,
+            20750.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 44,
+        "name": "ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            24350.0
+          ],
+          "max": [
+            13200.0,
+            12000.0,
+            26790.0
+          ],
+          "size": [
+            13200.0,
+            12000.0,
+            2440.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 46,
+        "name": "INTERIOR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5650.0,
+            620.0,
+            3750.0
+          ],
+          "max": [
+            12650.0,
+            1700.0,
+            24100.0
+          ],
+          "size": [
+            7000.0,
+            1080.0,
+            20350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1142,
+        "name": "WALL_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            3350.0
+          ],
+          "max": [
+            13200.0,
+            250.0,
+            24600.0
+          ],
+          "size": [
+            13200.0,
+            250.0,
+            21250.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 4873,
+        "name": "GROUND_GARAGE_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4650.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            250.0,
+            3350.0
+          ],
+          "size": [
+            8550.0,
+            250.0,
+            3350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 5059,
+        "name": "GROUND_ENTRY_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            450.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            5100.0,
+            250.0,
+            3350.0
+          ],
+          "size": [
+            4650.0,
+            250.0,
+            3350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 6822,
+        "name": "WALL_REAR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            11750.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            12000.0,
+            24600.0
+          ],
+          "size": [
+            13200.0,
+            250.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 12383,
+        "name": "WALL_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            250.0,
+            0.0
+          ],
+          "max": [
+            250.0,
+            11750.0,
+            24600.0
+          ],
+          "size": [
+            250.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 15524,
+        "name": "WALL_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            12950.0,
+            250.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            11750.0,
+            24600.0
+          ],
+          "size": [
+            250.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      }
+    ]
+  },
+  "revision": 3,
+  "root_pid": 19,
+  "owned_after": {
+    "api_units": "inch",
+    "bounds_units": "mm",
+    "axes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "root_bounds_frame": "model",
+    "object_bounds_frame": "owned-root-local",
+    "bounds_mm": {
+      "min": [
+        -7000.0,
+        -9000.0,
+        -250.0
+      ],
+      "max": [
+        20200.0,
+        21000.0,
+        26790.0
+      ],
+      "size": [
+        27200.0,
+        30000.0,
+        27040.0
+      ]
+    },
+    "objects_total": 12,
+    "truncated": false,
+    "objects": [
+      {
+        "persistent_id": 34,
+        "name": "SITE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            -7000.0,
+            -9000.0,
+            -150.0
+          ],
+          "max": [
+            20200.0,
+            21000.0,
+            0.0
+          ],
+          "size": [
+            27200.0,
+            30000.0,
+            150.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 36,
+        "name": "LEVELS",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            250.0,
+            250.0,
+            -250.0
+          ],
+          "max": [
+            12950.0,
+            11750.0,
+            24350.0
+          ],
+          "size": [
+            12700.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 38,
+        "name": "FACADE",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            13140.0,
+            11945.0,
+            24320.0
+          ],
+          "size": [
+            13140.0,
+            11945.0,
+            24320.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 42,
+        "name": "MODULES",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            450.0,
+            105.0,
+            3600.0
+          ],
+          "max": [
+            12730.0,
+            1830.0,
+            24350.0
+          ],
+          "size": [
+            12280.0,
+            1725.0,
+            20750.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 44,
+        "name": "ROOF",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            24350.0
+          ],
+          "max": [
+            13200.0,
+            12000.0,
+            26790.0
+          ],
+          "size": [
+            13200.0,
+            12000.0,
+            2440.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 46,
+        "name": "INTERIOR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            5650.0,
+            620.0,
+            3750.0
+          ],
+          "max": [
+            12650.0,
+            1700.0,
+            24100.0
+          ],
+          "size": [
+            7000.0,
+            1080.0,
+            20350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 1142,
+        "name": "WALL_FRONT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            0.0,
+            3350.0
+          ],
+          "max": [
+            13200.0,
+            250.0,
+            24600.0
+          ],
+          "size": [
+            13200.0,
+            250.0,
+            21250.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 4873,
+        "name": "GROUND_GARAGE_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            4650.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            250.0,
+            3350.0
+          ],
+          "size": [
+            8550.0,
+            250.0,
+            3350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 5059,
+        "name": "GROUND_ENTRY_WALL",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            450.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            5100.0,
+            250.0,
+            3350.0
+          ],
+          "size": [
+            4650.0,
+            250.0,
+            3350.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 6822,
+        "name": "WALL_REAR",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            11750.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            12000.0,
+            24600.0
+          ],
+          "size": [
+            13200.0,
+            250.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 12383,
+        "name": "WALL_LEFT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            0.0,
+            250.0,
+            0.0
+          ],
+          "max": [
+            250.0,
+            11750.0,
+            24600.0
+          ],
+          "size": [
+            250.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      },
+      {
+        "persistent_id": 15524,
+        "name": "WALL_RIGHT",
+        "locked": false,
+        "bounds_mm": {
+          "min": [
+            12950.0,
+            250.0,
+            0.0
+          ],
+          "max": [
+            13200.0,
+            11750.0,
+            24600.0
+          ],
+          "size": [
+            250.0,
+            11500.0,
+            24600.0
+          ]
+        }
+      }
+    ]
+  },
+  "scenes_after": {
+    "available": true,
+    "pages": []
+  }
+}

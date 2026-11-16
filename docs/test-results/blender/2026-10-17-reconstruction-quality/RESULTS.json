@@ -1,0 +1,37 @@
+{
+  "baseline_commit": "965eb67",
+  "reconstructed_iteration": true,
+  "tests": {
+    "passed": 606,
+    "skipped": 15,
+    "warnings": 1,
+    "seconds": 116.98
+  },
+  "provider": "assistant-authored deterministic simulation",
+  "native_save_reopen": "PASS",
+  "reference_unique_count": 1,
+  "first_turn_autonomous_quality": "NOT_TESTED",
+  "new_browser_click_acceptance": "NOT_RUN_THIS_RECONSTRUCTION",
+  "quality_status": "unverified",
+  "visual_fidelity": "PARTIAL",
+  "scoped_checks": {
+    "clearance_zones_clear": 6,
+    "perimeter_corners_closed": 4,
+    "roof_contacts_max_error_m": 2e-06,
+    "repaired_front_connections": 3,
+    "garden_preserved_geometry_objects": 581
+  },
+  "limitations": [
+    "Unknown rear/interior are proposed design",
+    "Box-based schematic furniture and foliage",
+    "No building-code or full navigation certification",
+    "CPU render noise remains possible",
+    "No SketchUp parity claim",
+    "Original missing-workspace latest model was not recovered; reconstructed from preserved checkpoint"
+  ],
+  "bounded_subprocess_seconds": {
+    "render": 600,
+    "build": 240,
+    "reopen": 240
+  }
+}

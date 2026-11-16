@@ -19,7 +19,8 @@ AI Architecture Studio intentionally composes existing open-source building bloc
 
 - pywebview 6.2.1 (`r0x0r/pywebview`): BSD license; adopted as a thin native WebView shell around the existing FastAPI/frontend, without copying competitor UI source.
 - PyInstaller 6.x: GPL with its distribution exception; build tooling for the local executable, not a new Agent runtime. Upstream license/exception must accompany redistributed build tooling where applicable.
-- The generated local package does not include SketchUp, proprietary competitor assets, private project inputs, Codex credentials or the machine's Kongxing installation. Connector/plugin distribution and clean-machine acceptance remain separate release gates.
+- Default desktop builds do not include SketchUp, private project inputs, credentials or the machine's Kongxing installation. An explicit `-IncludeLocalConnectorTrial` build may include the separately prepared **private local trial** connector bundle. That bundle is not committed here; legacy connector source redistribution provenance and clean-machine/native compatibility remain unresolved public-release gates. No public redistribution license is inferred from an installed local copy.
+- The private connector bundle includes a Node.js runtime and its complete version-matched license/third-party notices, retrieved from the official Node.js source tag (`https://github.com/nodejs/node/blob/v24.19.0/LICENSE` for the current local trial). It does not copy Codex binaries, authentication, account data or API credentials.
 
 ## SketchUp Architect Skill
 

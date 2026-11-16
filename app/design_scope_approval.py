@@ -1,0 +1,195 @@
+"""Host-only displayed-plan and current-reference approval binding.
+
+No functions in this module are exposed as Builder tools. The conversation host
+must capture after successful planning and call approval only for an explicit
+user approval action, never an inferred auto/execution request.
+"""
+import hashlib
+import json
+import uuid
+from pathlib import Path
+from .reference_roles import (parse_design_scope, record_approved_design_scope,
+    load_approved_design_scope, reference_manifest, manifest_fingerprint, canonical_plan_text, current_model_revisions)
+
+
+def _path(project, name):
+    p = project / 'runtime' / name
+    if p.is_symlink() or p.parent.is_symlink():
+        raise ValueError('Unsafe approval state path.')
+    return p
+
+
+def _save(project, name, value):
+    p = _path(project, name);p.parent.mkdir(parents=True, exist_ok=True)
+    temp = p.with_suffix('.tmp')
+    if temp.is_symlink():raise ValueError('Unsafe approval temporary path.')
+    temp.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
+    temp.replace(p)
+
+
+def current_reference_fingerprint(project: Path) -> str:
+    context_path = project / 'state/project_context.json'
+    if context_path.is_symlink():raise ValueError('Unsafe project context.')
+    context = json.loads(context_path.read_text(encoding="utf-8")) if context_path.exists() else {}
+    paths = []
+    for ref in context.get('references', []):
+        if ref.get('type') != 'image':continue
+        relative = ref.get('source', '')
+        if not relative.startswith('inputs/reference/'):continue
+        p = project / relative
+        if p.is_symlink() or not p.resolve().is_relative_to(project.resolve()):
+            raise ValueError('Unsafe reference path.')
+        if not p.is_file():raise ValueError('Reference image missing; approval invalid.')
+        paths.append(p)
+    return manifest_fingerprint(reference_manifest(project, paths))
+
+
+def _invalidate(project, reason):
+    scope = load_approved_design_scope(project)
+    if scope and (scope.get('features') or scope.get('valid', True)):
+        # Preserve audit history and version; do not silently reset approval epoch.
+        log = _path(project, 'design_scope_invalidations.jsonl')
+        log.parent.mkdir(parents=True, exist_ok=True)
+        with log.open('a', encoding='utf-8') as stream:
+            stream.write(json.dumps({'reason':reason,'previous_scope':scope}, ensure_ascii=False)+'\n')
+        _save(project, 'approved_design_scope.json', {**scope,'features':[], 'valid':False,'invalidation_reason':reason})
+
+
+def invalidate_stale_design_scope(project_dir: Path) -> bool:
+    scope = load_approved_design_scope(project_dir)
+    if not scope or not scope.get('features'):return False
+    try:
+        current = current_reference_fingerprint(project_dir)
+    except (ValueError, OSError):
+        _invalidate(project_dir, 'references_unavailable')
+        raise
+    if scope.get('reference_manifest_fingerprint') != current:
+        _invalidate(project_dir, 'reference_or_role_changed')
+        return True
+    return False
+
+
+def current_execution_instruction(project_dir: Path) -> dict:
+    """Expose exact host-granted current input to QA, without granting scope override.
+
+    Builder notes, old conversation entries and its own claim of approval cannot
+    supply this context. Existing feature-specific approval rules stay intact.
+    """
+    context_path = project_dir / 'state/project_context.json'
+    journal = _path(project_dir, 'contextual_intent.jsonl')
+    if context_path.is_symlink() or not context_path.is_file() or not journal.is_file():
+        return {}
+    context = json.loads(context_path.read_text(encoding='utf-8'))
+    users = [m for m in context.get('conversation', []) if m.get('role') == 'user']
+    if not users:
+        return {}
+    message = users[-1]
+    message_id = message.get('metadata', {}).get('evidence_turn_id')
+    if not message_id:
+        return {}
+    receipt = None
+    for line in journal.read_text(encoding='utf-8').splitlines():
+        try:
+            row = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(row, dict) and row.get('user_message_id') == message_id:
+            receipt = row
+    if (not receipt or receipt.get('execution_granted') is not True
+            or receipt.get('action') != 'execute'
+            or str(receipt.get('user_message', '')).strip() != message.get('content', '').strip()
+            or receipt.get('reference_fingerprint') != current_reference_fingerprint(project_dir)):
+        return {}
+    return {'user_message_id': message_id, 'user_message': receipt['user_message'],
+            'host_action': 'execute', 'starting_model_revisions': receipt.get('model_revisions', {}),
+            'reference_fingerprint': receipt['reference_fingerprint'],
+            'feature_scope_override': False}
+
+
+def capture_pending_design_plan(project_dir: Path, plan_text: str, *, is_followup: bool) -> dict:
+    plan_text = canonical_plan_text(plan_text)
+    _invalidate(project_dir, 'new_plan_pending')
+    features = parse_design_scope(plan_text) if is_followup else []
+    snapshot = {'pending_plan_id':uuid.uuid4().hex,'project_identity':str(project_dir.resolve()),'model_revisions':current_model_revisions(project_dir),'consumed':False,'plan_sha256':hashlib.sha256(plan_text.encode()).hexdigest(),
+                'features':features, 'is_followup':bool(is_followup),
+                'reference_manifest_fingerprint':current_reference_fingerprint(project_dir)}
+    _save(project_dir, 'pending_design_scope.json', snapshot)
+    return snapshot
+
+
+def approve_pending_design_plan(project_dir: Path, approval_message_id: str,
+                                plan_text: str, approved_plan_sha256: str) -> dict:
+    plan_text = canonical_plan_text(plan_text)
+    path = _path(project_dir, 'pending_design_scope.json')
+    if not path.exists():
+        raise ValueError('Plan has no host snapshot; refresh and review the plan first.')
+    snapshot = json.loads(path.read_text(encoding="utf-8"))
+    digest = hashlib.sha256(plan_text.encode()).hexdigest()
+    if snapshot.get('model_revisions',{}) != current_model_revisions(project_dir):
+        _invalidate(project_dir,'model_changed_since_plan')
+        raise ValueError('Model changed since this plan was displayed; refresh the plan.')
+    if digest != snapshot.get('plan_sha256') or approved_plan_sha256 != digest or not approval_message_id:
+        _invalidate(project_dir, 'plan_approval_mismatch')
+        raise ValueError('Approve the unchanged displayed plan; stale or missing approval hash.')
+    if current_reference_fingerprint(project_dir) != snapshot.get('reference_manifest_fingerprint'):
+        _invalidate(project_dir, 'reference_or_role_changed')
+        raise ValueError('Reference images or roles changed after planning; refresh the plan.')
+    if not snapshot.get('is_followup') or not snapshot.get('features'):
+        _invalidate(project_dir, 'initial_or_unscoped_plan')
+        return {}  # Initial approval never authorizes overriding historical intent.
+    if parse_design_scope(plan_text) != snapshot['features']:
+        raise ValueError('Displayed feature scope changed.')
+    scope = record_approved_design_scope(project_dir, approval_message_id, plan_text, snapshot['features'])
+    if scope.get('valid') is False:
+        raise ValueError('This approval was invalidated; approve a fresh plan.')
+    scope = {**scope,'reference_manifest_fingerprint':snapshot['reference_manifest_fingerprint'],'valid':True}
+    _save(project_dir, 'approved_design_scope.json', scope)
+    return scope
+
+
+def consume_pending_design_plan(project_dir: Path, pending_plan_id: str) -> None:
+    path=_path(project_dir,'pending_design_scope.json')
+    snapshot=json.loads(path.read_text(encoding='utf-8'))
+    if not pending_plan_id or snapshot.get('pending_plan_id')!=pending_plan_id or snapshot.get('consumed'):
+        raise ValueError('This pending plan was already consumed or replaced.')
+    snapshot['consumed']=True
+    _save(project_dir,'pending_design_scope.json',snapshot)
+    _save(project_dir,'relation_execution_epoch.json',{'pending_plan_id':pending_plan_id})
+
+
+def restore_rejected_start_plan(project_dir: Path, pending_plan_id: str, *, error: str,
+                                thread_id: str, tool_call_count: int) -> bool:
+    """Restore eligibility for NEW user approval only after proven pre-thread rejection."""
+    if (error != 'Codex thread/start failed: Invalid request: dynamic tools must use either canonical or legacy format consistently'
+            or thread_id or type(tool_call_count) is not int or tool_call_count != 0):
+        return False
+    snapshot = json.loads(_path(project_dir, 'pending_design_scope.json').read_text(encoding='utf-8'))
+    card = project_dir / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    if (not pending_plan_id or snapshot.get('pending_plan_id') != pending_plan_id
+            or not snapshot.get('consumed') or snapshot.get('project_identity') != str(project_dir.resolve())
+            or snapshot.get('model_revisions') != current_model_revisions(project_dir)
+            or snapshot.get('reference_manifest_fingerprint') != current_reference_fingerprint(project_dir)
+            or snapshot.get('plan_sha256') != hashlib.sha256(canonical_plan_text(card.read_text(encoding='utf-8')).encode()).hexdigest()):
+        return False
+    snapshot['consumed'] = False
+    snapshot['startup_recovery'] = 'protocol_rejected_before_thread_start_requires_new_approval'
+    _save(project_dir, 'pending_design_scope.json', snapshot)
+    return True
+
+
+def renew_empty_model_plan(project_dir: Path, pending_plan_id: str) -> dict:
+    """Fresh approval identity only. Caller must prove the live bound model is empty."""
+    snapshot = json.loads(_path(project_dir, 'pending_design_scope.json').read_text(encoding='utf-8'))
+    card = project_dir / 'runtime/agent_workspace/notes/reconstruction_card.md'
+    text = canonical_plan_text(card.read_text(encoding='utf-8'))
+    if (not pending_plan_id or snapshot.get('pending_plan_id') != pending_plan_id
+            or not snapshot.get('consumed') or snapshot.get('is_followup')
+            or snapshot.get('project_identity') != str(project_dir.resolve())
+            or snapshot.get('model_revisions') or current_model_revisions(project_dir)
+            or snapshot.get('reference_manifest_fingerprint') != current_reference_fingerprint(project_dir)
+            or snapshot.get('plan_sha256') != hashlib.sha256(text.encode()).hexdigest()):
+        raise ValueError('无法恢复：项目、方案、图片或模型版本已变化，请重新检查当前方案。')
+    history = _path(project_dir, 'plan_retry_history.jsonl')
+    with history.open('a', encoding='utf-8') as stream:
+        stream.write(json.dumps({'reason': 'verified_empty_model_new_approval', 'previous': snapshot}, ensure_ascii=False) + '\n')
+    return capture_pending_design_plan(project_dir, text, is_followup=False)

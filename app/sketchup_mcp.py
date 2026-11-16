@@ -35,6 +35,14 @@ def _toml_load(path: Path) -> dict[str, Any]:
 
 def _resolve_server() -> tuple[list[str], dict[str, str], str | None]:
     standalone = os.environ.get("ARCH_STUDIO_MCP_CONFIG", "")
+    if not standalone:
+        from .connector_setup import managed_config_path
+        try:
+            managed = managed_config_path()
+            if managed.is_file() or managed.is_symlink():
+                standalone = str(managed)
+        except ValueError:
+            pass
     if standalone:
         try:
             server = json.loads(Path(standalone).read_text(encoding="utf-8"))
@@ -72,6 +80,12 @@ def _generated_script_dir() -> Path:
     configured = os.environ.get("ARCHFLOW_GENERATED_SCRIPT_DIR")
     if configured:
         return Path(configured).expanduser()
+    try:
+        _, connector_env, _ = _resolve_server()
+        if connector_env.get("ARCHFLOW_GENERATED_SCRIPT_DIR"):
+            return Path(connector_env["ARCHFLOW_GENERATED_SCRIPT_DIR"]).expanduser()
+    except ConnectorUnavailable:
+        pass
     program_data = os.environ.get("PROGRAMDATA")
     if program_data:
         return Path(program_data) / "archflow-mcp" / "generated_scripts"

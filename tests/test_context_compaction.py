@@ -143,10 +143,11 @@ def test_compaction_drops_only_completed_history_and_preserves_current_turn():
     ]
     compacted, meta = compact_active_reconstruction_context(messages, checkpoint)
     assert meta["compacted"] is True
-    assert meta["dropped_messages"] == 2
-    assert len(compacted) == 6
+    assert meta["dropped_messages"] == 1
+    assert len(compacted) == 7
     assert "ACTIVE RECONSTRUCTION CHECKPOINT" in compacted[0]["content"]
-    assert compacted[1]["content"][0]["text"] == "current request"
+    assert compacted[1] == messages[1]
+    assert compacted[2]["content"][0]["text"] == "current request"
     assert compacted[-1]["content"][0]["text"].startswith("Visual readback")
     assert meta["after_chars"] < meta["before_chars"]
 
@@ -218,7 +219,9 @@ def test_active_visual_filter_keeps_newest_source_copy_for_compaction():
         "ACTIVE RECONSTRUCTION CHECKPOINT\ncurrent source facts",
         threshold_chars=1000,
     )
-    assert meta["compacted"] is True
+    # The large text here is an OWNER request; it must survive. The checkpoint
+    # would expand this particular fixture, so leave the filtered request intact.
+    assert meta["compacted"] is False
     assert any(
         isinstance(block, dict) and block.get("type") == "image_url"
         for block in compacted[-1]["content"]

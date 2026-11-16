@@ -54,6 +54,13 @@ CAPABILITY_MATRIX = (
         "Small pre-paid test with real model identity, function/tool/image/thinking/caching/usage checks and no hidden substitution.",
     ),
     ProviderReadiness(
+        "b-ai", "B.AI DeepSeek real product test", "third_party_gateway",
+        "deepseek-v4.1-flash", "live_image_recognition_with_errors", "Chat Completions SSE / functions",
+        "live_planning_failed_native_not_run",
+        "2026-10-21: 18 product responses, workspace tool cycles, five timeouts; repeated strategy validation failed before native modeling. API-only intent and typed plan updates are offline fixes awaiting a live rerun.",
+        "Preserve the USD2 liability ledger; require a live same-project build/edit/native-delivery test before promoting this route. Never substitute Codex inference.",
+    ),
+    ProviderReadiness(
         "openrouter", "OpenRouter gateway", "third_party_gateway",
         "openai/gpt-6.1-sol", "provider_documented_not_product_verified", "Responses-compatible advertised",
         "candidate_not_verified",
@@ -76,10 +83,17 @@ CAPABILITY_MATRIX = (
     ),
     ProviderReadiness(
         "deepseek-official", "DeepSeek official API", "independent_api",
-        "deepseek/deepseek-flash", "live_tested_for_basic_chat_and_tool_contract", "LiteLLM Chat Completions",
+        "deepseek/deepseek-flash", "historical_basic_chat_tools_current_version_unverified", "LiteLLM Chat Completions",
         "adapter_available_quality_unverified",
-        "UI default exists, but a working connector is not a proven source-faithful building deliverable.",
+        "Historical basic chat/tool checks do not qualify the current rolling Flash version, vision or native source fidelity.",
         "Do not label it high-fidelity without native new-user evidence.",
+    ),
+    ProviderReadiness(
+        "aliyun-bailian", "Aliyun Bailian official API", "independent_api",
+        "dashscope/qwen3.8-flash", "official_documentation_only", "LiteLLM Chat Completions candidate",
+        "candidate_not_verified",
+        "Official vision/tools documentation and Beijing pricing checked on 2026-10-20; current K Studio native quality not tested.",
+        "Benchmark images, reasoning/tool continuation, exact model, usage and native delivery before selecting this route. No automatic switch.",
     ),
 )
 

@@ -1,0 +1,560 @@
+{
+  "schema_version": 3,
+  "advisory": true,
+  "fidelity_mode": "single_view_inference",
+  "reconstruction_evidence": {
+    "schema_version": 1,
+    "fidelity_mode": "single_view_inference",
+    "primary_source": "inputs/reference/4e52d9a057-source-target.png",
+    "sources": [
+      {
+        "path": "inputs/reference/4e52d9a057-source-target.png",
+        "kind": "exterior_image",
+        "role": "SOURCE TARGET；唯一单幅街角透视",
+        "provenance": "observed",
+        "notes": [
+          "直接查看整幅原图；1080×1200；1幅单视图，无分图",
+          "同时显示长向退台立面、右端短立面及部分露台边沿；不是独立多视角证据"
+        ]
+      }
+    ],
+    "exterior_views": {
+      "front": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "以长向沿街退台立面为front，仅斜视覆盖，不是正投影",
+          "浅米格架、内退玻璃与实墙、底层柱廊、左高低两翼"
+        ]
+      },
+      "rear": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "未见背面；沿既有层线和模数协调补全，无源图测量"
+        ]
+      },
+      "left": {
+        "provenance": "inferred",
+        "source_refs": [],
+        "notes": [
+          "左端远处被透视及树木遮挡，端墙主体未知"
+        ]
+      },
+      "right": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "塔楼短向立面有格架、局部凹阳台；仅见朝街一侧，后转角未知"
+        ]
+      },
+      "roof": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "可见平屋顶轮廓、退台边沿和种植，屋面全平面不可见"
+        ]
+      },
+      "oblique": {
+        "provenance": "observed",
+        "source_refs": [
+          "inputs/reference/4e52d9a057-source-target.png"
+        ],
+        "notes": [
+          "唯一真实原始视角；无跨视角矛盾可验证"
+        ]
+      }
+    },
+    "floorplan": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "levels": [],
+      "notes": [
+        "无平面，内部核心筒位置推测；不划分户型"
+      ]
+    },
+    "cad": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供CAD或尺寸"
+      ]
+    },
+    "interior": {
+      "provided": false,
+      "provenance": "pending",
+      "source_refs": [],
+      "spaces": [],
+      "notes": [
+        "用户确认不细分室内；仅外观、楼板、必要遮挡及交通预留"
+      ]
+    },
+    "scale_anchors": [
+      {
+        "name": "标准层高比例基准",
+        "value_mm": 3100,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "notes": [
+          "人为建模尺度；图片没有真实标尺"
+        ]
+      },
+      {
+        "name": "首层高度",
+        "value_mm": 4200,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png"
+      },
+      {
+        "name": "主塔总高",
+        "value_mm": 56900,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "notes": [
+          "18层假设，4200+17×3100；角点像素约666,294至666,840；不能按像素直接推断真实高度"
+        ]
+      },
+      {
+        "name": "格架跨距",
+        "value_mm": 3600,
+        "provenance": "inferred",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png"
+      }
+    ],
+    "hard_constraints": [
+      "用户确认右邻楼保留简化体块",
+      "用户确认室内不细分",
+      "用户要求左连楼、露台绿化、路口、轨道及按比例估算",
+      "单一原图可见高塔、非等阶退台、左高低两翼不得被统一箱体取代"
+    ],
+    "assumptions": [
+      "主塔18层，识读范围约17–19层；层跨数需原视角校准",
+      "左高楼7层、沿街翼4层、邻楼9层为估算",
+      "所有绝对尺寸与隐藏进深为推测，无实测",
+      "背侧立面与核心筒为协调补全，不能作为原貌证据",
+      "无外置楼梯证据，不增设外梯",
+      "环境仅按用户已授权的画面范围，不含车辆、人群与后方楼群"
+    ],
+    "inference_policy": {
+      "unseen_exterior": "infer_coherent",
+      "unseen_interior": "do_not_infer",
+      "preserve_circulation": true
+    },
+    "user_confirmed": [
+      "保留右侧邻楼简化体块",
+      "室内不用细分",
+      "按图片比例估算",
+      "2026-10-22 user approved execution"
+    ],
+    "observed": [
+      "平屋顶高塔向左多级降低",
+      "两段不同高度左连楼与绿化露台",
+      "立体浅米色格架、内退窗和局部开敞凹阳台",
+      "前景钢轨、枕木/道床、路口、路缘和上空接触线"
+    ],
+    "model_verification": {
+      "identity_verified": true,
+      "blank_disposable_verified": true,
+      "geometry_written": true,
+      "notes": [
+        "Native owned root PID19; same disposable model revisions1-6 committed with post-write readback. Revision6 current six canonical views and three source/detail comparisons submitted for independent review. Save/reopen not confirmed."
+      ]
+    }
+  },
+  "reviewer": {
+    "reference_manifest": [
+      {
+        "source": "inputs/reference/4e52d9a057-source-target.png",
+        "role": "target_building",
+        "turn_id": "message:aefd9a3c58334ee0beecb5fd39759342",
+        "model_revisions": {},
+        "sha256": "ddca0a6a1ca0876f1e46f4d70d9bd3ed5a1a8339fdac6055776f1032cdaf425b"
+      }
+    ],
+    "reference_manifest_fingerprint": "084c5a60b8062c9dd53e61d3c7afe3bb810f68dc166ac4730a529f639e7f73a8",
+    "review_requirements": [
+      {
+        "feature_id": "terraced_apartment/visible_facades/grid_and_glazing",
+        "relation": "unchanged",
+        "prior_requirement_id": "a27fae8bd2308cdaeb75d6b6",
+        "desired_state": "Articulate the source-visible tower and stepped-wing elevations with a pale projecting structural grid, recessed glazing, aligned floor and bay divisions, transparent street-level frontage and the darker lower facade zone.",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "model_revisions": {
+          "terraced_apartment": 6
+        },
+        "evidence": "CURRENT 8–9 retains projecting pale members, glazing reveals and the darker lower zone. Several source-visible outdoor bays still read as short horizontal slots or pale infill rather than substantial recessed spaces. Patch only those bays; concealed connections and street-level transparency remain unverified.",
+        "status": "active",
+        "design_scope_version": 0,
+        "requirement_id": "606cd527e42e646378c4bf12"
+      },
+      {
+        "feature_id": "terraced_apartment/stepped_wing/terrace_assemblies",
+        "relation": "unchanged",
+        "prior_requirement_id": "a50c6057bbe2c87f1576b152",
+        "desired_state": "Form the source-visible setback terraces with connected surfaces, perimeter edges, recessed outdoor bays and planting zones, including those above the low wing; keep terrace slabs clear of adjoining enclosure walls.",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "model_revisions": {
+          "terraced_apartment": 6
+        },
+        "evidence": "CURRENT 9–10 establishes substantial layered edges, guards and planting. The upper low-wing assemblies still appear as projecting trays against continuous glazing rather than SOURCE's staggered planted recesses. Correct terrace depth and adjoining enclosure locally. Exact hidden roof geometry and slab-to-wall connections cannot be verified.",
+        "status": "active",
+        "design_scope_version": 0,
+        "requirement_id": "7b571a100efb3be5804f1710"
+      },
+      {
+        "feature_id": "terraced_apartment/right_neighbor/visible_envelope",
+        "relation": "unchanged",
+        "prior_requirement_id": "4ac415c0655e14a26c607b16",
+        "desired_state": "Add the source-visible neighboring building's repeated punched window rows, darker ground-floor openings and distinct vegetated far-right end-wall zone while preserving its position beside the tower.",
+        "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+        "model_revisions": {
+          "terraced_apartment": 6
+        },
+        "evidence": "CURRENT 8–9 improves the small upper row and taller opening proportions, while retaining dark ground openings and the vegetated end wall. Six separate repeated rows below the upper row still differ from SOURCE's fewer, taller vertically subdivided window groups. Perspective limits exact widths but does not explain this row hierarchy.",
+        "status": "active",
+        "design_scope_version": 0,
+        "requirement_id": "5fcdec4b365816eedb3e7559"
+      }
+    ],
+    "requirement_resolutions": [],
+    "approved_design_scope": {},
+    "mode": "dedicated_read_only",
+    "runtime": "codex-native",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "latency_ms": 105860,
+    "input_tokens": 33994,
+    "output_tokens": 2081,
+    "tool_call_count": 0,
+    "failed_tool_calls": 0,
+    "fresh_context": true,
+    "sandbox": "readOnly",
+    "writer_tools": []
+  },
+  "quality_status": "needs_fix",
+  "needs_fix": true,
+  "assessment": "SOURCE shows one street-level oblique view: a gridded tower stepping down toward a connected low left wing, planted terraces and recessed outdoor bays, a darker lower facade zone, and a right neighbor with punched windows and a vegetated end wall. Street tracks establish the foreground orientation. CURRENT preserves these principal landmarks, but source-visible recess depth, low-wing terrace configuration and neighboring window-row organization remain mismatched. Rear elevations, complete roof layouts and concealed connections are unobserved in SOURCE; no dimensions are confirmed. The supplied captures establish no definite slab penetration or floating rail.",
+  "issues": [
+    {
+      "priority": 1,
+      "view": "source-matched",
+      "problem": "SOURCE’s outdoor openings occupy substantial recessed bays within the structural grid. CURRENT 8–9 still shows several as short horizontal slots or pale panels surrounded by glazing, flattening the tower elevations.",
+      "action": "Locally recess the affected bay infill and connect its floor, side returns and overhead enclosure. Retain the existing projecting grid members and glazing reveals elsewhere."
+    },
+    {
+      "priority": 2,
+      "view": "source-matched",
+      "problem": "CURRENT 9–10 improves terrace edges and guards, but the upper assemblies read as projecting balcony trays against continuous glazing. SOURCE shows staggered planted recesses integrated into the stepped wing.",
+      "action": "Adjust the existing terrace depths and adjoining enclosure locally to form those recessed outdoor spaces. Preserve the improved perimeter edges where compatible; do not extrapolate the unseen roof plan."
+    },
+    {
+      "priority": 3,
+      "view": "source-matched",
+      "problem": "CURRENT now has the small upper window row, but below it repeats six separate rows of tall rectangles. SOURCE shows fewer, taller vertically subdivided window groups, producing a different floor and opening rhythm.",
+      "action": "Regroup the existing lower openings into the source-visible taller assemblies with internal vertical articulation. Preserve the small upper row, dark ground openings and vegetated end wall."
+    }
+  ],
+  "keep": [
+    "Projecting pale structural members and existing glazing reveals.",
+    "Darker lower facade grid zone.",
+    "Right neighbor’s dark ground openings and vegetated far-right end wall."
+  ],
+  "model_revisions": {
+    "terraced_apartment": 6
+  },
+  "views": {
+    "front": {
+      "path": "outputs/renders/agent-view-front-90148536c8.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 6
+      },
+      "canonical_view": "front",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -3.0,
+          -355.4,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "rear": {
+      "path": "outputs/renders/agent-view-rear-2f19adf897.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 6
+      },
+      "canonical_view": "rear",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -3.0,
+          326.9,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "left": {
+      "path": "outputs/renders/agent-view-left-e94241a349.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 6
+      },
+      "canonical_view": "left",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -368.4,
+          -14.25,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "right": {
+      "path": "outputs/renders/agent-view-right-038140d975.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 6
+      },
+      "canonical_view": "right",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          362.4,
+          -14.25,
+          31.066080000000003
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "roof": {
+      "path": "outputs/renders/agent-view-roof-540e4d0149.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 6
+      },
+      "canonical_view": "roof",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          -3.0,
+          -14.25,
+          362.604
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          29.852
+        ],
+        "up_m": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "oblique": {
+      "path": "outputs/renders/agent-view-oblique-cf7c878f88.png",
+      "width": 1500,
+      "height": 950,
+      "model_revisions": {
+        "terraced_apartment": 6
+      },
+      "canonical_view": "oblique",
+      "canonical_script_id": "terraced_apartment",
+      "camera": {
+        "eye_m": [
+          295.87199999999996,
+          -288.87199999999996,
+          205.356
+        ],
+        "target_m": [
+          -3.0,
+          -14.25,
+          31.066080000000003
+        ],
+        "up_m": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "evidence_pairs": [
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-72504801f6.png",
+      "label": "当前原图方向整体：主塔、退台、连楼、邻楼、街轨",
+      "model_revisions": {
+        "terraced_apartment": 6
+      }
+    },
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-38939b336f.png",
+      "label": "当前整体空间、露台层次及街轨",
+      "model_revisions": {
+        "terraced_apartment": 6
+      }
+    },
+    {
+      "source_ref": "inputs/reference/4e52d9a057-source-target.png",
+      "current_view": "outputs/renders/agent-view-c11b11f341.png",
+      "label": "当前左侧连楼连续种植边带与7/6/5/4层次",
+      "model_revisions": {
+        "terraced_apartment": 6
+      }
+    }
+  ],
+  "source_view_coverage": {
+    "required": false,
+    "mode": "single_view_inference",
+    "observed_sources": [],
+    "paired_sources": []
+  },
+  "writer_verifications": {
+    "terraced_apartment": {
+      "schema_version": 1,
+      "verified": true,
+      "source": "post_commit_owned_root_readback",
+      "checks": [
+        {
+          "check": "transaction_status",
+          "expected": "committed",
+          "actual": "committed"
+        },
+        {
+          "check": "root_persistent_id",
+          "expected": 19,
+          "actual": 19
+        },
+        {
+          "check": "revision",
+          "expected": 6,
+          "actual": 6
+        },
+        {
+          "check": "objects_total",
+          "expected": 5,
+          "actual": 5
+        },
+        {
+          "check": "bounds_mm",
+          "expected": {
+            "min": [
+              -66000.0,
+              -53000.0,
+              -500.0
+            ],
+            "max": [
+              60000.0,
+              24500.0,
+              60204.0
+            ],
+            "size": [
+              126000.0,
+              77500.0,
+              60704.0
+            ]
+          },
+          "actual": {
+            "min": [
+              -66000,
+              -53000,
+              -500
+            ],
+            "max": [
+              60000,
+              24500,
+              60204
+            ],
+            "size": [
+              126000,
+              77500,
+              60704
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "source_images": [
+    "inputs/reference/4e52d9a057-source-target.png"
+  ],
+  "evidence_sha256": {
+    "inputs/reference/4e52d9a057-source-target.png": "ddca0a6a1ca0876f1e46f4d70d9bd3ed5a1a8339fdac6055776f1032cdaf425b",
+    "outputs/renders/agent-view-38939b336f.evidence.json": "ba0ab6940b8100e1c9eda1d4a50b8aa84ed9d8ab22c2f1e7bcf24e6297bda618",
+    "outputs/renders/agent-view-38939b336f.png": "3c7a122f7b312f6a114711ca390adc5da323b724cb9bd133bd258d3c3dce0d05",
+    "outputs/renders/agent-view-72504801f6.evidence.json": "f9178b916351ab858d2a4914c086def4a5f4722318dabefb1415d9d0f1f897ae",
+    "outputs/renders/agent-view-72504801f6.png": "730b01dac226531ec4714e9d35f0e8fb9bb92aec0ea988bbfe37871f19046429",
+    "outputs/renders/agent-view-c11b11f341.evidence.json": "5d67e623853b4e7dcf94d882ef4b80b8f8c7799c7d6262511c61bd0830534713",
+    "outputs/renders/agent-view-c11b11f341.png": "55ebe8c3bc6cd713794a21608c599cd7783da48c39bbf98e66f9716522e6ada9",
+    "outputs/renders/agent-view-front-90148536c8.evidence.json": "e9ec1a3b9482eb926f1331fea9d4a66718e749958e55b2b7dc5dc0820839b1af",
+    "outputs/renders/agent-view-front-90148536c8.png": "94f49873770ea8cfdd39a7821796b54cd7de3c831295e3878f82298dfc8567f3",
+    "outputs/renders/agent-view-left-e94241a349.evidence.json": "893334a5b3dea809ffe219061c0a012a2fcb5a6e56c44c5f0cccd658857a8638",
+    "outputs/renders/agent-view-left-e94241a349.png": "2698e2427bb7588eba132438f63de55e16fee7344eae0fe48be89821825da1e0",
+    "outputs/renders/agent-view-oblique-cf7c878f88.evidence.json": "b43db6ba8e0762cc699fc674aa6f7fced857f7f56528ee32f70b3b3e30f9f1af",
+    "outputs/renders/agent-view-oblique-cf7c878f88.png": "86ee8660eaf3aaaf7719f541a57f765c04f57d2aa82d134d5625b9d193c90824",
+    "outputs/renders/agent-view-rear-2f19adf897.evidence.json": "9880913d6a36cce785a6eb7eb73a290aded48fa16f3d4580d3dedbffbcfaf002",
+    "outputs/renders/agent-view-rear-2f19adf897.png": "912ca24b1b4199a0251f28e7465ce86467dd0eb62fece5b847b8e8d67997ede2",
+    "outputs/renders/agent-view-right-038140d975.evidence.json": "4d429e7aff2e8bfc8de8a2cd24986e4fa17df8aff3d09893bd38c83da0ca9989",
+    "outputs/renders/agent-view-right-038140d975.png": "c93951bdd44c4d43cb1db31199d53ff5921ca573db68be8577587b987dc67502",
+    "outputs/renders/agent-view-roof-540e4d0149.evidence.json": "611d75df2681295b094c471795cad79c70cef3a69d5999a77a101d6fc0aa68a4",
+    "outputs/renders/agent-view-roof-540e4d0149.png": "b442bcc325bc71fba21a729b5dcc05a84a459fa49c8d1876af25c2a8529262fc",
+    "runtime/agent_workspace/notes/reconstruction_evidence.json": "cfce1c65d7b51aa6d76e28d906317bfa7de4d1b6337d892faf8d7bcdf5b8f891"
+  }
+}

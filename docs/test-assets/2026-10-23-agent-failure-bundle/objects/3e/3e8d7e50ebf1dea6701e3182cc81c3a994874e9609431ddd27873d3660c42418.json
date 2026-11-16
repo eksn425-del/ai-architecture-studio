@@ -1,0 +1,222 @@
+{
+  "backend": "sketchup",
+  "model_identity": {
+    "project_id": "architecture-project-16c07",
+    "script_id": "terraced_apartment",
+    "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-16c07\\outputs\\model\\blank-disposable-20261022-173456.skp",
+    "model_guid": "d304b289-1cc6-458a-b5e2-4941184865ab",
+    "root_pid": 19
+  },
+  "revision": 13,
+  "provenance": {
+    "source": "ProjectRubyExecutor.inspect_owned(paths)",
+    "read_only": true,
+    "bounds_units": "mm",
+    "bounds_frame": "parent-local",
+    "inspection_sha256": "b6d3b0e9d1f61502170009c73ec4750645cb0c2112e5a4b54b96100e2b431817",
+    "native_paths": [
+      {
+        "path": [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_0",
+          "DECK"
+        ],
+        "persistent_id": 230114,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "16050528e5087dfea8632925e4e32d4bf3cca76664b83c950d90ee3a4618daf0"
+      },
+      {
+        "path": [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_0",
+          "CONNECTED_LEFT_RETURN"
+        ],
+        "persistent_id": 230178,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "ec7b19affb03baf7e2ac6985c3d545aea4b5d036e22305549551d91518ccf855"
+      },
+      {
+        "path": [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_0",
+          "RECESS_RIGHT_RETURN"
+        ],
+        "persistent_id": 230274,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "b1834d4ef137a1714d7464052e1c5b89cf881487d0a033112aaff323c9302209"
+      },
+      {
+        "path": [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_0",
+          "RECESSED_FRONT_GUARD"
+        ],
+        "persistent_id": 230754,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "56ca6aab8337713fc83227c90d12396c316d69be30e7a6ec7bc8459c6bf2659f"
+      },
+      {
+        "path": [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF",
+          "PLANTED_POCKETS",
+          "POCKET_0",
+          "RECESSED_FRONT_HANDRAIL"
+        ],
+        "persistent_id": 230786,
+        "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+        "deep_geometry_material_sha256": "95133c67136de04c012ba83be7a88904b987a17a9f8c82caa8203118a110871b"
+      }
+    ]
+  },
+  "inventory_complete": false,
+  "inventory_scope": "selected_owned_paths_only_not_whole_document",
+  "automatic_geometry_changes": false,
+  "navigation_verified": false,
+  "actual_walkability": "unverified",
+  "building_code_compliance": false,
+  "connections": [
+    {
+      "a": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"DECK\"]",
+      "b": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"CONNECTED_LEFT_RETURN\"]",
+      "axis": 2,
+      "tolerance_m": 0.003,
+      "actual_walkability": "unverified",
+      "signed_gap_m": 0.0,
+      "aabb_overlap_volume_m3": 0.0,
+      "bounds_status": "contact",
+      "exact_for_boxes": false,
+      "mesh_surface_verification_required": true,
+      "frame_id": "sketchup:parent:[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\"]",
+      "metric_frame_verified": false,
+      "status": "unverified",
+      "reason": "bounds_only_or_unverified_frame_transform",
+      "a_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "DECK"
+      ],
+      "b_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "CONNECTED_LEFT_RETURN"
+      ]
+    },
+    {
+      "a": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"DECK\"]",
+      "b": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"RECESS_RIGHT_RETURN\"]",
+      "axis": 2,
+      "tolerance_m": 0.003,
+      "actual_walkability": "unverified",
+      "signed_gap_m": 0.0,
+      "aabb_overlap_volume_m3": 0.0,
+      "bounds_status": "contact",
+      "exact_for_boxes": false,
+      "mesh_surface_verification_required": true,
+      "frame_id": "sketchup:parent:[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\"]",
+      "metric_frame_verified": false,
+      "status": "unverified",
+      "reason": "bounds_only_or_unverified_frame_transform",
+      "a_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "DECK"
+      ],
+      "b_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "RECESS_RIGHT_RETURN"
+      ]
+    },
+    {
+      "a": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"DECK\"]",
+      "b": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"RECESSED_FRONT_GUARD\"]",
+      "axis": 2,
+      "tolerance_m": 0.003,
+      "actual_walkability": "unverified",
+      "signed_gap_m": 0.0,
+      "aabb_overlap_volume_m3": 0.0,
+      "bounds_status": "contact",
+      "exact_for_boxes": false,
+      "mesh_surface_verification_required": true,
+      "frame_id": "sketchup:parent:[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\"]",
+      "metric_frame_verified": false,
+      "status": "unverified",
+      "reason": "bounds_only_or_unverified_frame_transform",
+      "a_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "DECK"
+      ],
+      "b_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "RECESSED_FRONT_GUARD"
+      ]
+    },
+    {
+      "a": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"RECESSED_FRONT_GUARD\"]",
+      "b": "[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\",\"RECESSED_FRONT_HANDRAIL\"]",
+      "axis": 2,
+      "tolerance_m": 0.003,
+      "actual_walkability": "unverified",
+      "signed_gap_m": 0.0,
+      "aabb_overlap_volume_m3": 0.0,
+      "bounds_status": "contact",
+      "exact_for_boxes": false,
+      "mesh_surface_verification_required": true,
+      "frame_id": "sketchup:parent:[\"BUILDING\",\"LEFT_STREET\",\"ROOF\",\"PLANTED_POCKETS\",\"POCKET_0\"]",
+      "metric_frame_verified": false,
+      "status": "unverified",
+      "reason": "bounds_only_or_unverified_frame_transform",
+      "a_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "RECESSED_FRONT_GUARD"
+      ],
+      "b_path": [
+        "BUILDING",
+        "LEFT_STREET",
+        "ROOF",
+        "PLANTED_POCKETS",
+        "POCKET_0",
+        "RECESSED_FRONT_HANDRAIL"
+      ]
+    }
+  ],
+  "note": "Parent-local native AABB contact proxy only; no exact solid, ancestor transform, world metric, saved-file, source-fidelity or walking-route pass is established."
+}

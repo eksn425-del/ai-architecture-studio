@@ -71,5 +71,53 @@ dialog{border:1px solid var(--line);border-radius:15px;width:min(440px,calc(100%
 .plan-in-chat{width:min(840px,100%);margin:0 auto;padding:0 24px;flex-shrink:0}
 .plan-in-chat .parameter-plan{display:block;position:static;width:100%;max-width:100%;margin:0;padding:8px 12px;border:1px solid var(--line);border-radius:10px}
 .plan-in-chat .parameter-plan[hidden]{display:none}
+/* Persistent public execution summaries stay in the existing chat scroll surface. */
+.conversation-history{overflow-anchor:none;overscroll-behavior:contain}
+.activity-message{position:static;border-left:2px solid #b9cbb4;padding:3px 0 5px 18px!important;margin:12px 0 24px;max-width:800px}
+.activity-message ol{margin:0;padding:0 0 0 19px;color:#566d5a;font-size:13px;line-height:1.9}
+.activity-message li{padding:4px 0 4px 5px}
+.activity-message li::marker{color:#87a47c}
+.activity-message .activity-warning{color:#876224}
+.activity-message[data-running="true"] li:last-child{color:#284c37;font-weight:600}
+#latest-activity{font-size:12px;margin-left:auto;flex-shrink:0}
 .plan-in-chat .parameter-plan[open] #parameter-plan-content{position:static;bottom:auto;right:auto;width:100%;max-width:100%;max-height:38vh;overflow:auto;padding:12px 2px;box-shadow:none;border:0;border-radius:0;z-index:auto}
 @media(max-width:650px){.plan-in-chat{padding:0 12px}}
+
+#reference-role-review { max-height: 100px; overflow-y: auto; }
+.reference-role-item { display: flex; align-items: center; gap: 8px; margin: 3px 0; font-size: 12px; }
+.reference-role-item > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.reference-role-item > select { flex-shrink: 0; max-width: 150px; }
+
+/* Contextual controls: one primary approval, secondary details stay accessible. */
+.task-details { width:min(840px,100%);margin:0 auto;flex-shrink:0;padding:6px 24px; }
+.task-details > summary { cursor:pointer;font-size:12px;color:var(--muted);padding:5px 0; }
+.task-details .plan-in-chat { width:100%;padding:0; }
+.task-details .workflow-progress { width:100%;margin:4px 0; }
+.task-details .workflow-progress[open] #workflow-checklist { position:static;box-shadow:none;max-height:25vh; }
+.task-details #revise-reconstruction-plan { margin:8px 10px 8px 0; }
+.model-controls { position:relative;font-size:11px;flex-shrink:0; }
+.model-controls > summary { cursor:pointer; }
+.model-controls > div { position:absolute;bottom:25px;left:0;z-index:12;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;width:260px;box-shadow:0 6px 20px #17332122; }
+.model-controls #model-settings-toggle { position:static;margin-top:10px; }
+.composer-toolbar { gap:9px;flex-wrap:wrap; }
+.composer-toolbar > label[for="reference-role"] { font-size:11px; }
+@media(max-width:650px) { .task-details { padding:4px 12px; }.composer-toolbar { gap:7px; }.model-controls > div { width:230px; }.composer-foot { flex-wrap:wrap; } }
+@media(max-width:650px) { .composer-toolbar .skill-tag { display:inline;white-space:normal;border-left:0;padding-left:0; } }
+
+/* Submitted references stay outside the pending composer and remain optional to review. */
+.submitted-reference-history { width:min(840px,100%);margin:0 auto;padding:4px 24px;flex-shrink:0; }
+.submitted-reference-history > summary { cursor:pointer;font-size:12px;color:var(--muted);padding:5px 0; }
+#submitted-reference-roles { max-height:180px;overflow-y:auto; }
+.reference-ambiguity { margin:4px 10px;font-size:12px;color:#8a5a22; }
+#reference-role-review:not([hidden]) { padding:4px 10px; }
+.reference-role-item small { white-space:normal;overflow-wrap:anywhere; }
+@media(max-width:650px) { .submitted-reference-history { padding:4px 12px; } }
+
+.turn-cancel-controls { display:flex;align-items:center;gap:10px;padding:0 10px; }
+.turn-cancel-controls p { margin:4px 0;font-size:12px;color:var(--muted); }
+@media(max-width:650px) { .turn-cancel-controls { align-items:flex-start;flex-direction:column;gap:2px; } }
+
+.native-turn-event { margin:4px 10px;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted); }
+/* Keep dictation beside Send without adding another composer row. */
+#conversation-voice{margin-left:auto;flex-shrink:0;width:34px;height:34px;padding:0;font-size:18px;line-height:1}
+#conversation-voice + .send-button{margin-left:0}

@@ -1,0 +1,79 @@
+{
+  "missing_path_error": "{\n  \"code\": \"GENERATED_SCRIPT_ERROR\",\n  \"message\": \"Generated SketchUp script failed.\",\n  \"message_zh\": \"Generated SketchUp script failed.\",\n  \"details\": {\n    \"class\": \"RuntimeError\",\n    \"message\": \"Owned child name must match exactly one group or component: path=[\\\"BUILDING\\\",\\\"TOWER\\\",\\\"FACADE\\\",\\\"TOWER_L01\\\",\\\"REAR_GLAZING_4\\\"], matches=0; inspect this parent before retrying\",\n    \"backtrace\": [\n      \"C:/Users/LOCAL_USER/.codex/worktrees/release-prep-20261019/K AI 产品建模网站/app/adopted_sketchup_helpers.rb:75:in `block in named_owned_group'\",\n      \"C:/Users/LOCAL_USER/.codex/worktrees/release-prep-20261019/K AI 产品建模网站/app/adopted_sketchup_helpers.rb:68:in `each'\",\n      \"C:/Users/LOCAL_USER/.codex/worktrees/release-prep-20261019/K AI 产品建模网站/app/adopted_sketchup_helpers.rb:68:in `each_with_index'\",\n      \"C:/Users/LOCAL_USER/.codex/worktrees/release-prep-20261019/K AI 产品建模网站/app/adopted_sketchup_helpers.rb:68:in `named_owned_group'\",\n      \"C:/Users/LOCAL_USER/.codex/worktrees/release-prep-20261019/K AI 产品建模网站/app/adopted_sketchup_helpers.rb:143:in `inspect_named_owned_group'\",\n      \"C:/ProgramData/archflow-mcp/generated_scripts/studio-owned-inspection-13c354b8294440088a4d5bcf047fd9fb.rb:11:in `<main>'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `eval'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:293:in `block in eval_project_file'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:401:in `with_operation'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:291:in `eval_project_file'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/geometry_tools.rb:47:in `dispatch'\",\n      \"C:/Users/LOCAL_USER/AppData/Roaming/SketchUp/SketchUp 2024/SketchUp/Plugins/kongxing_ai_sketchup/bridge.rb:155:in `block in handle_payload'\"\n    ]\n  }\n}",
+  "relation": {
+    "backend": "sketchup",
+    "model_identity": {
+      "project_id": "architecture-project-16c07",
+      "script_id": "terraced_apartment",
+      "model_path": "E:\\K AI 产品建模网站\\runtime\\projects\\architecture-project-16c07\\outputs\\model\\blank-disposable-20261022-173456.skp",
+      "model_guid": "03890a27-e98c-45f9-81f0-a715b26a78ab",
+      "root_pid": 19
+    },
+    "revision": 13,
+    "provenance": {
+      "source": "ProjectRubyExecutor.inspect_owned(paths)",
+      "read_only": true,
+      "bounds_units": "mm",
+      "bounds_frame": "parent-local",
+      "inspection_sha256": "a309380d7efaa9cf67521ffbdbc74ba88ede7afa2aeb377a4decf6d5729bd1bb",
+      "native_paths": [
+        {
+          "path": [
+            "BUILDING",
+            "TOWER",
+            "MASSING"
+          ],
+          "persistent_id": 27,
+          "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+          "deep_geometry_material_sha256": "81b9dc595942a3ab17d5e686856efdf2ee85a2b6ff3f9060c2bbda335e89db26"
+        },
+        {
+          "path": [
+            "BUILDING",
+            "TOWER",
+            "ROOF"
+          ],
+          "persistent_id": 93429,
+          "deep_fingerprint_collector": "KStudioNativeDeepFingerprint/1",
+          "deep_geometry_material_sha256": "d2818cf2f409d37ece0057ffc5e133c5a40737219c83f7ead468666e3b1f95da"
+        }
+      ]
+    },
+    "inventory_complete": false,
+    "inventory_scope": "selected_owned_paths_only_not_whole_document",
+    "automatic_geometry_changes": false,
+    "navigation_verified": false,
+    "actual_walkability": "unverified",
+    "building_code_compliance": false,
+    "connections": [
+      {
+        "a": "[\"BUILDING\",\"TOWER\",\"MASSING\"]",
+        "b": "[\"BUILDING\",\"TOWER\",\"ROOF\"]",
+        "axis": 2,
+        "tolerance_m": 0.001,
+        "actual_walkability": "unverified",
+        "signed_gap_m": -0.21999999999999886,
+        "aabb_overlap_volume_m3": 56.3133999999997,
+        "bounds_status": "penetration",
+        "exact_for_boxes": false,
+        "mesh_surface_verification_required": true,
+        "frame_id": "sketchup:parent:[\"BUILDING\",\"TOWER\"]",
+        "metric_frame_verified": false,
+        "status": "unverified",
+        "reason": "bounds_only_or_unverified_frame_transform",
+        "a_path": [
+          "BUILDING",
+          "TOWER",
+          "MASSING"
+        ],
+        "b_path": [
+          "BUILDING",
+          "TOWER",
+          "ROOF"
+        ]
+      }
+    ],
+    "note": "Parent-local native AABB contact proxy only; no exact solid, ancestor transform, world metric, saved-file, source-fidelity or walking-route pass is established."
+  },
+  "native_writes": 0
+}

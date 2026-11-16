@@ -1,0 +1,29 @@
+{
+  "builder_successful_requests": 81,
+  "critic_successful_requests": 6,
+  "provider_failed_requests": 1,
+  "reported_input_tokens": 15335789,
+  "reported_output_tokens": 200222,
+  "tools": {
+    "sketchup_health": 1,
+    "workspace_read": 2,
+    "workspace_write": 11,
+    "sketchup_run_workspace_ruby": 10,
+    "sketchup_capture_canonical_view": 36,
+    "sketchup_set_camera": 3,
+    "sketchup_export_view_image": 3,
+    "sketchup_submit_visual_review": 7,
+    "sketchup_inspect_owned": 4,
+    "sketchup_get_model_context": 1
+  },
+  "committed_revisions": 6,
+  "failed_tools": 5,
+  "forced_refinement_nudges": 4,
+  "first_builder_input_tokens": 25037,
+  "last_builder_input_tokens": 276829,
+  "peak_builder_input_tokens": 288651,
+  "terminal_error": "provider Insufficient Balance",
+  "owner_reported_cost_cny": 10,
+  "billing_reconciled": false,
+  "paid_calls_in_audit": 0
+}

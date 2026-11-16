@@ -1,0 +1,2447 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "source": "keep_path_expected_actual_readback",
+  "paths": [
+    "BUILDING/LEFT_STREET/MASSING",
+    "BUILDING/LEFT_STREET/ROOF",
+    "BUILDING/LEFT_UPPER/MASSING",
+    "BUILDING/LEFT_UPPER/ROOF",
+    "BUILDING/STEPPED_WING/MASSING",
+    "BUILDING/STEPPED_WING/TERRACES",
+    "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+    "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+    "BUILDING/TOWER/MASSING",
+    "BUILDING/TOWER/MODULE_PROTOTYPE",
+    "BUILDING/TOWER/ROOF",
+    "MODULE_FRONT_WALL",
+    "VEGETATION/LEFT_POCKET_INSTANCES",
+    "VEGETATION/ROOF_INSTANCES",
+    "VEGETATION/TERRACE_INSTANCES"
+  ],
+  "checks": [
+    {
+      "path": "BUILDING/LEFT_STREET/MASSING",
+      "check": "persistent_id",
+      "expected": 245,
+      "actual": 245
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/MASSING",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/MASSING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -32350.0,
+          50.0,
+          -220.0
+        ],
+        "max": [
+          -21650.0,
+          10750.0,
+          13500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -32350.0,
+          50.0,
+          -220.0
+        ],
+        "max": [
+          -21650.0,
+          10750.0,
+          13500.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/MASSING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "42cdc8d5cb472ffb63f221569690e0f09f7022caa7d6074e177191c8db194007",
+      "actual": "42cdc8d5cb472ffb63f221569690e0f09f7022caa7d6074e177191c8db194007"
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/MASSING",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/ROOF",
+      "check": "persistent_id",
+      "expected": 94009,
+      "actual": 94009
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/ROOF",
+      "check": "objects_total",
+      "expected": 10,
+      "actual": 10
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/ROOF",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -32700.0,
+          -300.0,
+          13280.0
+        ],
+        "max": [
+          -21490.0,
+          11100.0,
+          20795.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -32700.0,
+          -300.0,
+          13280.0
+        ],
+        "max": [
+          -21490.0,
+          11100.0,
+          20795.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/ROOF",
+      "check": "deep_geometry_material_sha256",
+      "expected": "ab38961687ab61388971594bdda7b0bdc4a9e073ddbdf700f29268ed0525c38b",
+      "actual": "ab38961687ab61388971594bdda7b0bdc4a9e073ddbdf700f29268ed0525c38b"
+    },
+    {
+      "path": "BUILDING/LEFT_STREET/ROOF",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/MASSING",
+      "check": "persistent_id",
+      "expected": 205,
+      "actual": 205
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/MASSING",
+      "check": "objects_total",
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/MASSING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -46750.0,
+          3650.0,
+          -220.0
+        ],
+        "max": [
+          -32450.0,
+          21550.0,
+          22800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -46750.0,
+          3650.0,
+          -220.0
+        ],
+        "max": [
+          -32450.0,
+          21550.0,
+          22800.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/MASSING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "27ec973b9a59eada9ac1396a8f0c4565f3b0b01ca29fe3929b7045fbefdb5d51",
+      "actual": "27ec973b9a59eada9ac1396a8f0c4565f3b0b01ca29fe3929b7045fbefdb5d51"
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/MASSING",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/ROOF",
+      "check": "persistent_id",
+      "expected": 93719,
+      "actual": 93719
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/ROOF",
+      "check": "objects_total",
+      "expected": 9,
+      "actual": 9
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/ROOF",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -47100.0,
+          3300.0,
+          22580.0
+        ],
+        "max": [
+          -32290.0,
+          21900.0,
+          23845.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -47100.0,
+          3300.0,
+          22580.0
+        ],
+        "max": [
+          -32290.0,
+          21900.0,
+          23845.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/ROOF",
+      "check": "deep_geometry_material_sha256",
+      "expected": "378eece1f88e2eda745fbdfe76af97b8aa95a31803207ca80e7295624c2fc2d6",
+      "actual": "378eece1f88e2eda745fbdfe76af97b8aa95a31803207ca80e7295624c2fc2d6"
+    },
+    {
+      "path": "BUILDING/LEFT_UPPER/ROOF",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/MASSING",
+      "check": "persistent_id",
+      "expected": 69,
+      "actual": 69
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/MASSING",
+      "check": "objects_total",
+      "expected": 13,
+      "actual": 13
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/MASSING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -21550.0,
+          50.0,
+          -220.0
+        ],
+        "max": [
+          0.0,
+          14350.0,
+          38300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -21550.0,
+          50.0,
+          -220.0
+        ],
+        "max": [
+          0.0,
+          14350.0,
+          38300.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/MASSING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0e5762173fccfd3a34f7cd08414a9c0996b612920b6f852a12912f39e633965f",
+      "actual": "0e5762173fccfd3a34f7cd08414a9c0996b612920b6f852a12912f39e633965f"
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/MASSING",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/TERRACES",
+      "check": "persistent_id",
+      "expected": 94299,
+      "actual": 94299
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/TERRACES",
+      "check": "objects_total",
+      "expected": 5,
+      "actual": 5
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/TERRACES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -21900.0,
+          -300.0,
+          13280.0
+        ],
+        "max": [
+          110.0,
+          14700.0,
+          42445.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -21900.0,
+          -300.0,
+          13280.0
+        ],
+        "max": [
+          110.0,
+          14700.0,
+          42445.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/TERRACES",
+      "check": "deep_geometry_material_sha256",
+      "expected": "f62edd37b502b7316e91a0c8a6d863d5be6eb4bc0195ed69760ef3fea8a3c609",
+      "actual": "f62edd37b502b7316e91a0c8a6d863d5be6eb4bc0195ed69760ef3fea8a3c609"
+    },
+    {
+      "path": "BUILDING/STEPPED_WING/TERRACES",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 2565,
+      "actual": 2565
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          220.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          3940.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          220.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          3940.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "32ba1481796f039527bf1323217ea197372e6f3414cab0881cd3aeb64a99e4cb",
+      "actual": "32ba1481796f039527bf1323217ea197372e6f3414cab0881cd3aeb64a99e4cb"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 214432,
+      "actual": 214432
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 28,
+      "actual": 28
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          0.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          4200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          0.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          4200.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4e77429e75bb8ba625114063eb398a69660bb1f64aad7c98b831aa28d716cf36",
+      "actual": "4e77429e75bb8ba625114063eb398a69660bb1f64aad7c98b831aa28d716cf36"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L00/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 4263,
+      "actual": 4263
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          4420.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          7040.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          4420.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          7040.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "2b8652a97f7b2b4e55e9e47cef017081ac69ba8d2052bb28934c4efe8f182af4",
+      "actual": "2b8652a97f7b2b4e55e9e47cef017081ac69ba8d2052bb28934c4efe8f182af4"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 215330,
+      "actual": 215330
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 32,
+      "actual": 32
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          4200.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          7300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          4200.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          7300.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "8c391dda14d567acaa006c510308d75aed137b45bef59a4ebd1052d81382ee19",
+      "actual": "8c391dda14d567acaa006c510308d75aed137b45bef59a4ebd1052d81382ee19"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L01/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 5673,
+      "actual": 5673
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          7520.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          10140.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          7520.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          10140.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4d9d0344f7a897bf5d08a8d6534290d791af2bab7314c54133d4ffe67fb407f8",
+      "actual": "4d9d0344f7a897bf5d08a8d6534290d791af2bab7314c54133d4ffe67fb407f8"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L02/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 7499,
+      "actual": 7499
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          10620.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          13240.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          10620.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          13240.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "1a7ec9497545dbae4118f12faa6c0f03b2d693a39af38b22daceb88746b36c8b",
+      "actual": "1a7ec9497545dbae4118f12faa6c0f03b2d693a39af38b22daceb88746b36c8b"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L03/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 9229,
+      "actual": 9229
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          13720.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          16340.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          13720.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          16340.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "1a9d442f1a6ea27ceb28f3805e1f8e824a0dc6b29e94d10e420999fba3b4291c",
+      "actual": "1a9d442f1a6ea27ceb28f3805e1f8e824a0dc6b29e94d10e420999fba3b4291c"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L04/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 11023,
+      "actual": 11023
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          16820.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          19440.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          16820.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          19440.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "1d3e3ced91c4ff470c3b546e44aa3e0fa675585c4ee1ab33ac7403e08c6ccc49",
+      "actual": "1d3e3ced91c4ff470c3b546e44aa3e0fa675585c4ee1ab33ac7403e08c6ccc49"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 219114,
+      "actual": 219114
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          16600.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          19700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          16600.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          19700.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "8d4c44f4458dc42b1b10fc5b0169db3dd2d9cc17e773d61a83cabd3f4eb73d28",
+      "actual": "8d4c44f4458dc42b1b10fc5b0169db3dd2d9cc17e773d61a83cabd3f4eb73d28"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L05/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 12881,
+      "actual": 12881
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          19920.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          22540.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          19920.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          22540.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "cfff7409e2b815d3c0b6c1a1fce7e0d794a685845d706b46fad14d5f151d999d",
+      "actual": "cfff7409e2b815d3c0b6c1a1fce7e0d794a685845d706b46fad14d5f151d999d"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 220044,
+      "actual": 220044
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          19700.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          22800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          19700.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          22800.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "da75cd82987d8f07a92a88065db3bc4232b35bc5b5735561b711265c72f9efb6",
+      "actual": "da75cd82987d8f07a92a88065db3bc4232b35bc5b5735561b711265c72f9efb6"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L06/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 14611,
+      "actual": 14611
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          23020.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          25640.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          23020.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          25640.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "664b4243b5e322b9fb8ab3b3f98b22c3708f62355f5a0711270cde1918ce5a48",
+      "actual": "664b4243b5e322b9fb8ab3b3f98b22c3708f62355f5a0711270cde1918ce5a48"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 220974,
+      "actual": 220974
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 28,
+      "actual": 28
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          22800.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          25900.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          22800.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          25900.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "e70ab7b1c18ab5473b57e70a140c83bb6e0397d7042b36d18e21836bd84e9837",
+      "actual": "e70ab7b1c18ab5473b57e70a140c83bb6e0397d7042b36d18e21836bd84e9837"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L07/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 16501,
+      "actual": 16501
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          26120.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          28740.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          26120.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          28740.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "dfb1ac1276efc45c2159ee4af230c90bcccbc9462f256cb246d7013427eaaaeb",
+      "actual": "dfb1ac1276efc45c2159ee4af230c90bcccbc9462f256cb246d7013427eaaaeb"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 221872,
+      "actual": 221872
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 28,
+      "actual": 28
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          25900.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          29000.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          25900.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          29000.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "c4707107f3120fd27ea6eca7792b94baa338742d23531c559bc9773b2addb52e",
+      "actual": "c4707107f3120fd27ea6eca7792b94baa338742d23531c559bc9773b2addb52e"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L08/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 18295,
+      "actual": 18295
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          29220.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          31840.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          29220.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          31840.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0a329100a26dadee1fcb173bcf1c13a731d8efb74612d910264669f4ccca85cc",
+      "actual": "0a329100a26dadee1fcb173bcf1c13a731d8efb74612d910264669f4ccca85cc"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 222770,
+      "actual": 222770
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          29000.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          32100.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          29000.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          32100.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "0ec026655b3e63feb387c5dc5fbda8c2065c51477f193caa16bb6499d8d833cc",
+      "actual": "0ec026655b3e63feb387c5dc5fbda8c2065c51477f193caa16bb6499d8d833cc"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L09/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 20089,
+      "actual": 20089
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          32320.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          34940.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          32320.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          34940.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "b5c35c133d6c531d4edef090af866f707b74205241a4478ed49faab883543bb4",
+      "actual": "b5c35c133d6c531d4edef090af866f707b74205241a4478ed49faab883543bb4"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 223700,
+      "actual": 223700
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          32100.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          35200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          32100.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          35200.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "50950db9d2ee3c9a34321bf79700e86403ec28321138aab02479810cae6b9fc2",
+      "actual": "50950db9d2ee3c9a34321bf79700e86403ec28321138aab02479810cae6b9fc2"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L10/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 21851,
+      "actual": 21851
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          35420.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          38040.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          35420.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          38040.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "a6b7232005b966908aa65084a0953ac2e242a3482428af392fd2450aebe844f2",
+      "actual": "a6b7232005b966908aa65084a0953ac2e242a3482428af392fd2450aebe844f2"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 224630,
+      "actual": 224630
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 28,
+      "actual": 28
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          35200.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          38300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          35200.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          38300.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "731a858c0d64b64b7818dc81d368919da1078f57baaca7af045400b66fc16f08",
+      "actual": "731a858c0d64b64b7818dc81d368919da1078f57baaca7af045400b66fc16f08"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L11/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 23709,
+      "actual": 23709
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          38520.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          41140.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          38520.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          41140.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "2a49a8521716d560254960fd6bcc474134ff66d0b64b4088b1458f35dfb2a933",
+      "actual": "2a49a8521716d560254960fd6bcc474134ff66d0b64b4088b1458f35dfb2a933"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 225528,
+      "actual": 225528
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 28,
+      "actual": 28
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          38300.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          41400.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          38300.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          41400.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "aec24a0cb7a708773cf0b33133af12e30543bb7996963dcb8e4a77c240575263",
+      "actual": "aec24a0cb7a708773cf0b33133af12e30543bb7996963dcb8e4a77c240575263"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L12/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 25471,
+      "actual": 25471
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          41620.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          44240.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          41620.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          44240.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "08856bf65bd31cb48b07ccfd4d2230c4c2f2c35ad4af37df60b054444c7d346a",
+      "actual": "08856bf65bd31cb48b07ccfd4d2230c4c2f2c35ad4af37df60b054444c7d346a"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 226426,
+      "actual": 226426
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          41400.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          44500.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          41400.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          44500.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "7bc8067579ea04afe6a4ea1aada1931ee0374e015bcdb8c8c4a1d715e2d2637c",
+      "actual": "7bc8067579ea04afe6a4ea1aada1931ee0374e015bcdb8c8c4a1d715e2d2637c"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L13/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 27233,
+      "actual": 27233
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          44720.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          47340.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          44720.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          47340.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "41ce2c48abdfcee9b07671ba29edc821e7074515761800b0aa3204efff2aa4ac",
+      "actual": "41ce2c48abdfcee9b07671ba29edc821e7074515761800b0aa3204efff2aa4ac"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 227356,
+      "actual": 227356
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          44500.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          47600.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          44500.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          47600.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "9e9ba0a9f6a366b06f362c8f25f08ca9423a01eef62423a09f189c49c29aab62",
+      "actual": "9e9ba0a9f6a366b06f362c8f25f08ca9423a01eef62423a09f189c49c29aab62"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L14/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 28995,
+      "actual": 28995
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          47820.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          50440.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          47820.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          50440.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "ad95601006c068f6c04f9c0a3d51acb0029cc4b9f844a9f12d500dded7add84d",
+      "actual": "ad95601006c068f6c04f9c0a3d51acb0029cc4b9f844a9f12d500dded7add84d"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 228286,
+      "actual": 228286
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 28,
+      "actual": 28
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          47600.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          50700.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          47600.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          50700.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "e77abcfc6a333aad6d2f2863a41039922dd1d141fdaa27d4f9e694932bbdcd9d",
+      "actual": "e77abcfc6a333aad6d2f2863a41039922dd1d141fdaa27d4f9e694932bbdcd9d"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L15/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 30821,
+      "actual": 30821
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          50920.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          53540.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          50920.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          53540.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "8fa7851a80f1da9c263a74f5fccadaa278dcde63cbd0f7d60849817aea2d8e25",
+      "actual": "8fa7851a80f1da9c263a74f5fccadaa278dcde63cbd0f7d60849817aea2d8e25"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 213502,
+      "actual": 213502
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          50700.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          53800.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          50700.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          53800.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "f3841a4cecce373df7ee230264752fd4cf11c112e5a65edc6f6d6f925d68d8d9",
+      "actual": "f3841a4cecce373df7ee230264752fd4cf11c112e5a65edc6f6d6f925d68d8d9"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L16/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+      "check": "persistent_id",
+      "expected": 32519,
+      "actual": 32519
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          160.0,
+          14300.0,
+          54020.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          56640.0
+        ]
+      },
+      "actual": {
+        "min": [
+          160.0,
+          14300.0,
+          54020.0
+        ],
+        "max": [
+          3440.0,
+          14326.0,
+          56640.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+      "check": "deep_geometry_material_sha256",
+      "expected": "a0f74934dd506e596611ed8bc0230fff665290c2f0755966724273f2be417976",
+      "actual": "a0f74934dd506e596611ed8bc0230fff665290c2f0755966724273f2be417976"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/REAR_GLAZING_0",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+      "check": "persistent_id",
+      "expected": 229184,
+      "actual": 229184
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+      "check": "objects_total",
+      "expected": 29,
+      "actual": 29
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -165.0,
+          -300.0,
+          53800.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          56900.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -165.0,
+          -300.0,
+          53800.0
+        ],
+        "max": [
+          18300.0,
+          14565.0,
+          56900.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_geometry_material_sha256",
+      "expected": "3e9c46c9099d1ba7318df778ee102b1750a65ea43c9667f30176bd1d3811d451",
+      "actual": "3e9c46c9099d1ba7318df778ee102b1750a65ea43c9667f30176bd1d3811d451"
+    },
+    {
+      "path": "BUILDING/TOWER/FACADE/TOWER_L17/SOURCE_VISIBLE_GRID_6X5",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/MASSING",
+      "check": "persistent_id",
+      "expected": 27,
+      "actual": 27
+    },
+    {
+      "path": "BUILDING/TOWER/MASSING",
+      "check": "objects_total",
+      "expected": 18,
+      "actual": 18
+    },
+    {
+      "path": "BUILDING/TOWER/MASSING",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          50.0,
+          50.0,
+          -220.0
+        ],
+        "max": [
+          17950.0,
+          14350.0,
+          56900.0
+        ]
+      },
+      "actual": {
+        "min": [
+          50.0,
+          50.0,
+          -220.0
+        ],
+        "max": [
+          17950.0,
+          14350.0,
+          56900.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/MASSING",
+      "check": "deep_geometry_material_sha256",
+      "expected": "81b9dc595942a3ab17d5e686856efdf2ee85a2b6ff3f9060c2bbda335e89db26",
+      "actual": "81b9dc595942a3ab17d5e686856efdf2ee85a2b6ff3f9060c2bbda335e89db26"
+    },
+    {
+      "path": "BUILDING/TOWER/MASSING",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/MODULE_PROTOTYPE",
+      "check": "persistent_id",
+      "expected": 372,
+      "actual": 372
+    },
+    {
+      "path": "BUILDING/TOWER/MODULE_PROTOTYPE",
+      "check": "objects_total",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "path": "BUILDING/TOWER/MODULE_PROTOTYPE",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          50.0,
+          50.0,
+          3980.0
+        ],
+        "max": [
+          17950.0,
+          14350.0,
+          4200.0
+        ]
+      },
+      "actual": {
+        "min": [
+          50.0,
+          50.0,
+          3980.0
+        ],
+        "max": [
+          17950.0,
+          14350.0,
+          4200.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/MODULE_PROTOTYPE",
+      "check": "deep_geometry_material_sha256",
+      "expected": "5b1d2314925bc30df6bae2f5539182b36dfe315b1f7b0f75f13d225a61b8632f",
+      "actual": "5b1d2314925bc30df6bae2f5539182b36dfe315b1f7b0f75f13d225a61b8632f"
+    },
+    {
+      "path": "BUILDING/TOWER/MODULE_PROTOTYPE",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "BUILDING/TOWER/ROOF",
+      "check": "persistent_id",
+      "expected": 93429,
+      "actual": 93429
+    },
+    {
+      "path": "BUILDING/TOWER/ROOF",
+      "check": "objects_total",
+      "expected": 9,
+      "actual": 9
+    },
+    {
+      "path": "BUILDING/TOWER/ROOF",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -300.0,
+          -300.0,
+          56680.0
+        ],
+        "max": [
+          18110.0,
+          14700.0,
+          57945.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -300.0,
+          -300.0,
+          56680.0
+        ],
+        "max": [
+          18110.0,
+          14700.0,
+          57945.0
+        ]
+      }
+    },
+    {
+      "path": "BUILDING/TOWER/ROOF",
+      "check": "deep_geometry_material_sha256",
+      "expected": "d2818cf2f409d37ece0057ffc5e133c5a40737219c83f7ead468666e3b1f95da",
+      "actual": "d2818cf2f409d37ece0057ffc5e133c5a40737219c83f7ead468666e3b1f95da"
+    },
+    {
+      "path": "BUILDING/TOWER/ROOF",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "MODULE_FRONT_WALL",
+      "check": "persistent_id",
+      "expected": 732,
+      "actual": 732
+    },
+    {
+      "path": "MODULE_FRONT_WALL",
+      "check": "objects_total",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "path": "MODULE_FRONT_WALL",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          15000.0,
+          0.0,
+          4200.0
+        ],
+        "max": [
+          18000.0,
+          200.0,
+          7300.0
+        ]
+      },
+      "actual": {
+        "min": [
+          15000.0,
+          0.0,
+          4200.0
+        ],
+        "max": [
+          18000.0,
+          200.0,
+          7300.0
+        ]
+      }
+    },
+    {
+      "path": "MODULE_FRONT_WALL",
+      "check": "deep_geometry_material_sha256",
+      "expected": "70f41ab7aa624950d437908f50472c86766c4f5e19eed9571cec88cc3df5c4a6",
+      "actual": "70f41ab7aa624950d437908f50472c86766c4f5e19eed9571cec88cc3df5c4a6"
+    },
+    {
+      "path": "MODULE_FRONT_WALL",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "VEGETATION/LEFT_POCKET_INSTANCES",
+      "check": "persistent_id",
+      "expected": 200004,
+      "actual": 200004
+    },
+    {
+      "path": "VEGETATION/LEFT_POCKET_INSTANCES",
+      "check": "objects_total",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "path": "VEGETATION/LEFT_POCKET_INSTANCES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -32230.0,
+          3000.0,
+          13500.0
+        ],
+        "max": [
+          -22700.0,
+          6550.0,
+          22699.9
+        ]
+      },
+      "actual": {
+        "min": [
+          -32230.0,
+          3000.0,
+          13500.0
+        ],
+        "max": [
+          -22700.0,
+          6550.0,
+          22699.9
+        ]
+      }
+    },
+    {
+      "path": "VEGETATION/LEFT_POCKET_INSTANCES",
+      "check": "deep_geometry_material_sha256",
+      "expected": "bce45bf6e8e5cb490919b1284e0419fc9a4c3fc7b0bc3acf5fd0b123b7d27b53",
+      "actual": "bce45bf6e8e5cb490919b1284e0419fc9a4c3fc7b0bc3acf5fd0b123b7d27b53"
+    },
+    {
+      "path": "VEGETATION/LEFT_POCKET_INSTANCES",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "VEGETATION/ROOF_INSTANCES",
+      "check": "persistent_id",
+      "expected": 101227,
+      "actual": 101227
+    },
+    {
+      "path": "VEGETATION/ROOF_INSTANCES",
+      "check": "objects_total",
+      "expected": 26,
+      "actual": 26
+    },
+    {
+      "path": "VEGETATION/ROOF_INSTANCES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -46200.0,
+          516.9,
+          13500.0
+        ],
+        "max": [
+          16800.0,
+          5550.0,
+          60204.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -46200.0,
+          516.9,
+          13500.0
+        ],
+        "max": [
+          16800.0,
+          5550.0,
+          60204.0
+        ]
+      }
+    },
+    {
+      "path": "VEGETATION/ROOF_INSTANCES",
+      "check": "deep_geometry_material_sha256",
+      "expected": "4e860b758adbe82c474c317902d6589c1d3281183302d57c2c4721761ac08b1b",
+      "actual": "4e860b758adbe82c474c317902d6589c1d3281183302d57c2c4721761ac08b1b"
+    },
+    {
+      "path": "VEGETATION/ROOF_INSTANCES",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    },
+    {
+      "path": "VEGETATION/TERRACE_INSTANCES",
+      "check": "persistent_id",
+      "expected": 101229,
+      "actual": 101229
+    },
+    {
+      "path": "VEGETATION/TERRACE_INSTANCES",
+      "check": "objects_total",
+      "expected": 40,
+      "actual": 40
+    },
+    {
+      "path": "VEGETATION/TERRACE_INSTANCES",
+      "check": "bounds_mm",
+      "expected": {
+        "min": [
+          -21300.0,
+          300.0,
+          13500.0
+        ],
+        "max": [
+          -1300.0,
+          12000.0,
+          44400.0
+        ]
+      },
+      "actual": {
+        "min": [
+          -21300.0,
+          300.0,
+          13500.0
+        ],
+        "max": [
+          -1300.0,
+          12000.0,
+          44400.0
+        ]
+      }
+    },
+    {
+      "path": "VEGETATION/TERRACE_INSTANCES",
+      "check": "deep_geometry_material_sha256",
+      "expected": "e069eef54a4896e2fba970e5a2e78d54ffdc935383341064fd792bdaee8e7617",
+      "actual": "e069eef54a4896e2fba970e5a2e78d54ffdc935383341064fd792bdaee8e7617"
+    },
+    {
+      "path": "VEGETATION/TERRACE_INSTANCES",
+      "check": "deep_fingerprint_collector",
+      "expected": "KStudioNativeDeepFingerprint/1",
+      "actual": "KStudioNativeDeepFingerprint/1"
+    }
+  ]
+}

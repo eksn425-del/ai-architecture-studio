@@ -1,0 +1,47 @@
+{"event": "turn_input", "model": "openai/deepseek-v4.1-flash", "tool_profile": "reconstruction_coding", "workflow_mode": "image_reconstruction", "reference_categories": ["reference", "site", "brief"], "reference_files": ["inputs/reference/93051aa427-building-source.png"], "input_types": ["text", "image_url"], "tool_names": ["workspace_read", "workspace_search", "workspace_write"]}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 7, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 88415, "context_chars_after": 62971}
+{"event": "provider_stream_progress", "chunks_received": 16, "elapsed_ms": 15032}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 15875, "input_tokens": 20490, "output_tokens": 209}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 10, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 96514, "context_chars_after": 71070}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 37843}
+{"event": "provider_stream_progress", "chunks_received": 2164, "elapsed_ms": 52890}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 54031, "input_tokens": 24257, "output_tokens": 2817}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 12, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 100118, "context_chars_after": 74906}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 133859}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 142156, "input_tokens": 27254, "output_tokens": 1963}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 14, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 106338, "context_chars_after": 81667}
+{"event": "provider_stream_progress", "chunks_received": 244, "elapsed_ms": 15047}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 20297, "input_tokens": 29515, "output_tokens": 1659}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 16, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 110637, "context_chars_after": 86141}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 17219}
+{"event": "provider_stream_progress", "chunks_received": 2096, "elapsed_ms": 32235}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 40703, "input_tokens": 31262, "output_tokens": 4048}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": false, "image_count": 0, "error": "{\"success\": false, \"text\": \"construction strategy parameter 'origin_mm' has invalid provenance.\"}"}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 18, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 122150, "context_chars_after": 97654}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 15579}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 27719, "input_tokens": 35342, "output_tokens": 3449}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": false, "image_count": 0, "error": "{\"success\": false, \"text\": \"construction strategy text parameter 'origin_mm' must use a string value.\"}"}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 20, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 133673, "context_chars_after": 109177}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 19594}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 33218, "input_tokens": 38827, "output_tokens": 3496}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": false, "image_count": 0, "error": "{\"success\": false, \"text\": \"construction strategy text parameter 'front_width_mm' must use a string value.\"}"}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 22, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 145134, "context_chars_after": 120638}
+{"event": "provider_stream_progress", "chunks_received": 260, "elapsed_ms": 15016}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "low", "latency_ms": 25907, "input_tokens": 42360, "output_tokens": 3342}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": false, "image_count": 0, "error": "{\"success\": false, \"text\": \"construction strategy system 'level_slabs' has invalid role.\"}"}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "low", "context_messages": 24, "redundant_images_removed": 5, "context_compacted": true, "context_messages_dropped": 22, "context_chars_before": 156637, "context_chars_after": 132141}
+{"event": "provider_failed", "model": "openai/deepseek-v4.1-flash", "detail": "The read operation timed out"}

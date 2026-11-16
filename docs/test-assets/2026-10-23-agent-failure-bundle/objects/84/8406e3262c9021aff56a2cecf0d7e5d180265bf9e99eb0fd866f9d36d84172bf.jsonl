@@ -1,0 +1,47 @@
+{"event": "turn_input", "model": "openai/deepseek-v4.1-flash", "tool_profile": "reconstruction_coding", "workflow_mode": "image_reconstruction", "reference_categories": ["reference", "site", "brief"], "reference_files": ["inputs/reference/93051aa427-building-source.png"], "input_types": ["text", "image_url"], "tool_names": ["workspace_read", "workspace_search", "workspace_write"]}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 5, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 39378, "context_chars_after": 39378}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 67265}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 67625, "input_tokens": 11716, "output_tokens": 93}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 8, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 42715, "context_chars_after": 42715}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 20421}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 20750, "input_tokens": 12546, "output_tokens": 90}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 11, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 45854, "context_chars_after": 45854}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 47609}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 47907, "input_tokens": 13575, "output_tokens": 82}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 14, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 49305, "context_chars_after": 49305}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 26875}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 27062, "input_tokens": 14502, "output_tokens": 59}
+{"event": "tool_started", "tool": "workspace_read"}
+{"event": "tool_result", "tool": "workspace_read", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 16, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 53469, "context_chars_after": 53469}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 25875}
+{"event": "provider_stream_progress", "chunks_received": 772, "elapsed_ms": 40938}
+{"event": "provider_stream_progress", "chunks_received": 1552, "elapsed_ms": 55969}
+{"event": "provider_stream_progress", "chunks_received": 2832, "elapsed_ms": 71000}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 79312, "input_tokens": 15753, "output_tokens": 7219}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 18, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 56678, "context_chars_after": 56678}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 35828}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 43984, "input_tokens": 23006, "output_tokens": 1629}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 20, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 62078, "context_chars_after": 62078}
+{"event": "provider_stream_progress", "chunks_received": 1, "elapsed_ms": 38531}
+{"event": "provider_response", "requested_model": "openai/deepseek-v4.1-flash", "response_model": "deepseek-v4.1-flash", "reasoning_effort": "provider-default", "latency_ms": 45157, "input_tokens": 24670, "output_tokens": 1300}
+{"event": "tool_started", "tool": "workspace_write"}
+{"event": "tool_result", "tool": "workspace_write", "success": true, "image_count": 0}
+{"event": "provider_started", "requested_model": "openai/deepseek-v4.1-flash", "reasoning_effort": "provider-default", "context_messages": 22, "redundant_images_removed": 2, "context_compacted": false, "context_messages_dropped": 0, "context_chars_before": 65662, "context_chars_after": 65662}
+{"event": "provider_failed", "model": "openai/deepseek-v4.1-flash", "detail": "The read operation timed out"}

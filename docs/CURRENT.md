@@ -1,3 +1,141 @@
+## 2026-10-23 — Owner requests full sanitized failure publication
+
+[Chinese failure handoff](test-results/windows/2026-10-23-failure-publication/README.md) and [complete content-addressed bundle](test-assets/2026-10-23-agent-failure-bundle/README.md). Owner now authorizes current-case originals/images/SKP/scripts/logs and associated DeepSeek records for web analysis, superseding previous withholding for these experiments only. Credential material and unrelated backup projects are excluded with an index. Archive only: no new geometry, inference, video, main merge or deployment. Original local failures and qualified/unverified verdicts remain unchanged.
+
+---
+
+## 2026-10-23 — Follow-up r22 completed PARTIAL; cost FAIL
+
+[Item-by-item audit](test-results/windows/2026-10-23-agent-reliability/README.md). Real same-case Sol6.1/high ended naturally at r22:9 commits,233 tools,8 failures,14.62M new input. Source fidelity NEEDS_FIX and CNY5 target unverified. Preserve r13/r22 and private raw evidence. Current work is delivery verification and installing offline-tested progress/diagnostic/current-user-review fixes, not further geometry. Latest Critic current-instruction change still needs live acceptance. No paid calls/video/cloud/main merge.
+
+---
+
+## 2026-10-23 — Owner requests item-by-item follow-through
+
+Owner explicitly resumes unresolved work on the current stepped-apartment case, retaining subject-only scope and actual local Sol6.1/high. [Follow-up](test-results/windows/2026-10-23-agent-reliability/README.md). Preserve r13 and all old cases. Fix observed diagnostics/efficiency causes first, then verify through the same real website; no new full build, paid-provider calls, video or cloud deployment. New evidence must not inherit r10 reopen or withdrawn quality scores.
+
+---
+
+## 2026-10-22 — Owner REJECTS r10 source quality; subject-only scope
+
+[Owner verdict, request coverage and completed bounded correction](test-results/windows/2026-10-22-owner-rejection/README.md). The owner rejects the schematic road/occluding neighbor and the primary building quality. Prior72/76/78 controller scores are historical and WITHDRAWN as acceptance evidence; whole-source result FAIL. All30 requested/reported native thread identities through r13 are Sol6.1/high. Real website cleanup r11 removed actual context/road/street vegetation with building/own planting deep KEEP. Same-chat r12 representative row then r13 replication corrected tower6/5 bays and two low-wing recessed connections; independent Critic confirms the scoped improvement, global source fidelity remains NEEDS_FIX for loggia/infill positions. Default product behavior is connected subject only, without leading optional-context questions; source anchors precede replication. Preserve r10/r11/r13 and failures. Product save/browser download SHA captured; r13 native GUI reopen NOT_RUN because foreground use interrupted attempts, no inherited r10 PASS. Total local usage36,671,999input/189,571output, observed-cache referenceUSD9.126031, not a paid invoice or CNY5 acceptance. Stop this bounded correction for owner review; no further geometry/full rebuild/paid API/media publication/main merge/cloud. Video remains deferred.
+
+---
+
+## 2026-10-22 — NEW owner image, three real Sol High rounds completed PARTIAL
+
+[Actual three-round results and repairs](test-results/windows/2026-10-22-sol-high-three-rounds/README.md). Different new stepped-tower image, real website gpt-6.1-sol/high: r6 first draft stopped after over-refinement; r8 balcony correction and r10 street correction completed normally through the same project. Subjective scores72/76/78, global source fidelity still NEEDS_FIX. Defect screenshot direct-edit lifecycle and duplicate-message repair verified live. Real browser download and SU2024 native bound/download reopens completed: complete geometry matches under the existing declared precision contract, raw full-double pre-save comparison FAIL retained; bound-reopened versus download-reopened raw PASS. Historical pre-product-checkpoint evidence and strict blank replay remain NOT_RUN. 23,889,973 input/140,258 output, observed-cache reference USD6.312689, not a bill/CNY5 acceptance. All649 old SKP and API credential container unchanged. Test finished; do not start more geometry automatically. No paid API/cloud/public source-media authorization; video explicitly deferred. Raw evidence remains on E.
+
+---
+
+## 2026-10-22 — Apartment cost audit and background history repair
+
+[Actual latest test analysis](test-results/windows/2026-10-22-agent-efficiency/README.md):87 successful model responses,78 tools,15335789input/200222output,6 native revisions; provider balance exhaustion interrupted current r6, quality remains needs_fix. Fix within-turn context growth, six-view LLM orchestration, unsolicited host refinement nudges, disabled history browsing and missing API stop. Owner local count limits remain off. Offline context replay is87.2% smaller by text characters, not an invoice or live quality/cost PASS. No paid inference/native writes by this repair; frozen private sources/models/history retained.
+
+---
+
+## 2026-10-22 — Owner removes local execution count caps
+
+[Diagnosis and evidence](test-results/windows/2026-10-22-local-execution-limits/README.md). Current API responds; three-failure loop cutoff stopped the apartment run, not account quota. Owner explicitly overrides earlier local test ceilings: persist execution_limits=off, leave historical usage/ledger unchanged. Remove tool/failure/geometry count caps while keeping model/KEEP/source checks and actual nonconvergence protection. Empty-model retry restores fresh approval eligibility only after native read-only proof. No automatic paid rerun, geometry repair, main merge or cloud deployment.
+
+---
+
+## 2026-10-22 — First-message 500 regression and local voice hotfix
+
+[Evidence and limitations](test-results/windows/2026-10-22-voice-api-hotfix/README.md). Fix missing user_message_id before inference; replace system dictation with app PCM/local Vosk. Paid/native acceptance remains pending; preserve owner API configuration, USD2 ledger and models.
+
+---
+
+## 2026-10-21 — Owner onboarding and initial API preflight repair
+
+[Evidence and limits](test-results/windows/2026-10-21-onboarding-repair/README.md). Fix text selection, simplified BYOK, user-triggered dictation, connector download/manual candidate selection, and redundant first read-only intent inference. Actual apartment timeout was awaiting response headers for ~242s/zero chunks; upstream cause remains unproven. 200 Python +104 UI checks pass, two environment symlink cases excluded honestly. No new paid calls/native writes; USD2 ledger and originals preserved. Local connector bundle only; public rights/clean-PC/other-version/native API acceptance pending.
+
+---
+
+## 2026-10-21 — Incomplete-stream follow-up; owner declines new paid calls
+
+Owner asks to continue repair. USD2/no new paid inference remains binding. SSE heartbeat/unterminated-line traffic could bypass old bounds; checks now apply before line buffering, and terminal validation errors produce phase telemetry. Four pre-fix reproductions; final 66 focused offline checks pass. [Follow-up evidence and limitations](test-results/windows/2026-10-21-api-compatibility-repair/README.md). This does not establish the cause of historical gateway timeouts or certify real modeling. Original failed case, ledger, models and source remain preserved. No automatic retries, new paid calls, native writes, main merge or cloud deployment.
+
+---
+
+## 2026-10-21 — Third-party API orchestration repair; live native acceptance pending
+
+Owner challenges API reliability and asks for root-cause fixes before cloud deployment. [Diagnosis, fixes and remaining acceptance](test-results/windows/2026-10-21-api-compatibility-repair/README.md). Actual B.AI case reached image/workspace tools but four 8.4k strategy rewrites failed schema and active context grew to132141chars; five network/response stalls remain unattributed. Candidate adds selected-API read-only contextual intent under unchanged host approval/identity gates, version-bound typed strategy updates and atomic workspace writes, phased SSE telemetry, and an explicit advanced OpenAI-compatible configuration entry. No hidden Codex substitution or relaxed writer/KEEP checks. Offline mock HTTP exercises the real SSE/tool/journal/typed-plan chain; this is not paid/native quality acceptance. USD2 ledger and all unknown reservations remain; no new paid/native call, original/case change, main merge or cloud deployment. Product remains internal beta, external-provider native acceptance pending.
+
+---
+
+## 2026-10-21 — Owner USD2 API test reached boundary; no native build
+
+[Final B.AI evidence](test-results/windows/2026-10-21-bai-deepseek/README.md). Owner explicitly raised total ceiling from USD1 to USD2; all reservations retained. Same real product/project/reference: 18 product responses + 1 isolated text diagnostic, 5 timeouts, 432294known input/39144output; known peak upper USD0.1766610 plus unresolved reservations = USD1.9461330. Next request reservation is blocked by the USD2 ceiling. Native build/edit/KEEP/save/reopen NOT_RUN, all647 original SKP hashes unchanged. Strategy validation failed four times before any native write; history preserved. Candidate now exposes reasoning effort, uses earlier B.AI active-history compaction, returns full strategy repair guidance and stops after three failures on the same file. Final61 focused checks PASS; offline improvements do not retroactively make the failed live plan PASS. Key/raw/account files private; no hidden provider switch, cloud/main deployment or commercial-readiness claim. Continue paid inference only with a new explicit budget decision or verified settlement of unknown liabilities, not by clearing history.
+
+---
+
+## 2026-10-21 — B.AI real API test paused at conservative budget boundary
+
+[Actual outcome and limitations](test-results/windows/2026-10-21-bai-deepseek/README.md): real product UI, same reference, separate `deepseek-20261021`; 8 actual successful exact-model responses/123093input/11540output, 2 retained timeouts, partial planning only. Known upper USD0.0507759 + two unknown-request reservations = USD0.7585647; next reservation exceeds initial USD1 ceiling. Owner asked whether to raise total ceiling to USD2; pending answer, no further inference. SSE enabled genuine workspace tool cycles but later timed out; native build/edit/delivery NOT_RUN. All647 existing SKP hashes unchanged. Failure warnings remain inside chat, read-timeout/budget guidance fixed; 47 focused checks PASS. Key/actual account data/raw case remain private local; no hidden Codex fallback, cloud/main deployment or native quality claim.
+
+---
+
+## 2026-10-21 — B.AI real first call and retained planning timeout
+
+Real website `deepseek-20261021`: same-image natural Chinese request reached B.AI `deepseek-v4.1-flash`, returned actual model/usage (7325 input/1068 output, 32218ms). Recognition found balcony/grid/roof features but undercounted floors; owner-style ten-floor clarification then timed out after 240s before any tool/native write. Original history and USD0.3538944 unknown-request reservation retained. The new B.AI-only SSE transport waits for terminal completion, exact model and actual usage before releasing any tool output; no inferred usage or automatic retry. Fragmented tool/reasoning handling, disconnect, truncation, model mismatch and durable reservation checks pass offline; real recovery still pending. Cloud and original projects unchanged.
+
+---
+
+## 2026-10-21 — Owner-authorized B.AI DeepSeek same-image API test
+
+Owner supplied a B.AI credential and explicitly requests a real K Studio user-flow test of `deepseek-v4.1-flash` on the same narrow residential reference. Credential entered through masked local UI and DPAPI only; never commit it, original images/models or account details. Official DeepSeek authentication rejection was an endpoint mismatch, not evidence of a bad B.AI Key. B.AI `/models` and `/balance` read-only authentication succeeded through the existing local proxy; direct access timed out. No inference/native result yet. Candidate adds explicit B.AI provider selection, cross-host credential separation and an opt-in durable local test ceiling covering Builder/Critic calls. Test profile is API-only, no hidden Codex inference fallback; same preserved runtime and separate new project. Initial ceiling USD1 at documented peak standard upper rates; preserve unknown-call reservations and stop at the boundary. Cloud deployment remains last/out of scope; historical closed cases remain closed. Full raw evidence remains in the E-drive owner-authorized provider-test output folder.
+
+---
+
+## 2026-10-21 — Owner acceptance and real competitor comparison
+
+[Engineering report](test-results/windows/2026-10-21-owner-acceptance/README.md). Owner's 验收 project frozen locally; original SKP unchanged. Actual competitor UI same-image build, scoped environment edit, no-progress interruption and one successful recovery recorded separately. Candidate adds compact conversation/composer, grouped activity with complete receipts, immutable inline plans, recent project ordering, precise scoped-negation handling, clearer connector discovery/installation and read-only release checking. 1064 local passes/22 existing environmental failures/16 skips; 99 Node checks and real-browser read-only fixture pass. 2019–2026 compatibility is candidate only; provider API/native geometry quality and public SaaS not certified. Raw private sources/models/competitor artifacts stay local, no new paid API purchase or main merge/deployment. Historical closed cases stay closed.
+
+---
+
+## 2026-10-20 — Agent/API reliability and one-time pilot budget
+
+Latest owner asks product-manager/engineering evaluation and continued product fixes alongside the separate promo work. [Current judgment, provider prices, mainland deployment and 300-CNY gift plan](PRODUCT_AGENT_AND_PILOT_REVIEW_2026-10-20.md); [actual offline tests and retained failures](test-results/windows/2026-10-20-agent-product-audit/README.md). Candidate branch/PR22 continues; live89d54d0/main and stopped native cases unchanged. Strict API identity/metering/batch/journal recovery, preserved old user constraints, bounded project note search and an offline cost calculator are delivered in this candidate only. Real independent-provider model quality, cloud tenant auth/credits/jobs/device pairing remain unverified/not implemented. Owner confirms 300–1000 CNY is one-time tests/gifts, hosting separate; next needs secure provider test accounts plus exact approved spend. Do not inherit simulated Blender or promotional Raffles footage as autonomous product PASS.
+
+---
+
+## 2026-10-19 — Mainland release preparation; local candidate only
+
+Owner requests an audit across this chat and “K Studio 宣传片”, product consolidation and mainland-first launch preparation. [Issue audit](RELEASE_ISSUE_AUDIT_2026-10-19.md), [deployment/DB/API/scale plan](RELEASE_PREPARATION_CN_2026-10-19.md), [actual regression evidence](test-results/windows/2026-10-19-release-preparation/README.md). Isolated `codex/release-prep-20261019` includes explicit copy ownership and rejected-review diagnostics, persistent public activity, receipt-failure lock release, one-process local runtime lease and honest release-readiness endpoint. Native identity/approval/KEEP unchanged. Existing originals, stopped copies, promo assets and active services are untouched. Cloud auth/tenant PostgreSQL/atomic credits/durable queue/remote pairing/payments are NOT implemented; public paid launch remains BLOCKED. No new native modeling, paid API call, model/provider change, main merge or public deployment; do not resume closed cases from historical instructions below.
+
+---
+
+## 2026-10-18 — Conversation scroll, natural image understanding, local owner recording
+
+Owner requested execution status inside the scrollable dialogue and removal of image-purpose forms. Isolated `codex/chatflow-recording-20261018` based on actual local987a30b implements one chat scroll surface, preserves reading position, removes selectors, sends fresh image pixels to the existing native read-only interpreter and turns ambiguity into no-write conversation. [Evidence and boundaries](test-results/windows/2026-10-18-chatflow-and-capture/README.md).89NodePASS;67contextualPythonPASS/2Windows-symlink-environmentFAIL;107approval/reference/progressPASS;43finalfocusedPASS. Actual browser desktop/mobile layout verified with controlled progress, no inference/native quality claim.
+
+Owner project 剧院设计/dce61 is r3/root19 with a new saved plan awaiting owner approval for back/site/roof. No geometry or approval by recorder. Local exact-window dual capture began17:27:19; original app tracks, timestamps, source snapshots and historical model output are private local promotional material, not a public release or a full-generation video. Never relabel idle capture or historical snapshots as a new build. Preserve shared runtime/provider/SKP; actual idle-only local8803 rollout verified: r3, unconsumed plan and two SKP hashes unchanged; desktop shows corrected UI. Two bounded recordings stopped;45s labeled development edit saved locally. Incidental Blender-connect pointer misclick returned409 with backend unchanged; raw failure retained. Old r20 stays closed; no main merge/deploy or automatic raw upload.
+
+---
+
+## 2026-10-18 — Local connector onboarding, visible progress, pre-start tool protocol fix
+
+Owner manual project 剧院设计/dce61 remains preserved. Real first approval failed before thread/start because mixed canonical/legacy dynamic tool registrations; local normalization reproduced FAIL then PASS using actual App Server thread/start only, with no inference/native writes. Consumed-plan eligibility restored against immutable evidence; NEW owner approval required. Added prominent truthful run activity and private local connector installer wizard; existing legacy connector preserved. [Evidence and limitations](test-results/windows/2026-10-18-ui-atelier/README.md).69PythonPASS/1SKIP +108NodePASS; protocol42PASS/2Windows-symlink-permissionFAIL retained. Public package/new-machine/native modeling acceptance NOT_RUN; no main merge/deploy/raw publication. Old service stop blocked by automatic review; use separately verified new local service. Older geometry instructions remain closed.
+
+---
+## 2026-10-18 — Respect installed software versions; local UI follow-up
+
+Owner requires SketchUp and future modeling integrations to use the user's installed version, with explicit selection and no silent upgrade/downgrade/substitution. See [software version policy](SOFTWARE_VERSION_POLICY.md) and [local UI/launcher evidence](test-results/windows/2026-10-18-ui-atelier/README.md). Connection instructions no longer require SU2024; the launcher no longer defaults to 2024/2022. Actual running executable and matching bridge remain required; ambiguity is surfaced. Offline selection15PASS, existing component/launcher10PASS, frontend95PASS; other-version native compatibility NOT_RUN. No new modeling/inference, installation, main merge or deployment. Older geometry/acceptance conclusions below remain historical evidence.
+
+---
+## 2026-10-18 — Owner three-view manual build: IN_PROGRESS checkpoint, not acceptance
+
+[Latest actual process/results](test-results/windows/2026-10-18-owner-three-view-progress/README.md), frozen00:52:42Asia/Shanghai. Same fresh8800 projectarchitecture-project/reconstruct_building/root19, THREE owner-uploaded views (different from prior single-photo apartment and closed eight-source/r20). Last completed site reply/save isr3; active follow-up has native commit records throughr5 and latest independentCriticr5 needs_fix. Sessionr3 versus runtime5 is recorded during active work, not falsely labelled final save equality/bug. “我批准” routedplan with no write; later normal approval executed. Two active `load` source rejections retained, cause not assumed. Current task still active/no final reply at cut. Completed website4,349,075in/28,449out/76tools3fail; active telemetry lower bound3,207,912in/17,759out/57toolstarts2fail;5Critics190,291in/5,491out separate. Native download/reopen not verified, deep3stage/strict replayNOT_RUN. Per-file live snapshot is PRIVATE/non-atomic; only sanitized docs and SHA indexes public. No product/model changes or new inference by recorder, no restart/cancel/main merge/deployment. Continue owner manual work without interruption; this checkpoint does not resume oldr20 or grant a fresh auto-test.
+
+---
+
+## 2026-10-17 — Owner staged-group block fixed locally; fresh manual workbench prepared
+
+Owner's separate single-image apartment trial (default session demo-cultural-center, apartment_reconstruction r3/root19) stopped at `Missing scope path RESIDENTIAL_MODULES`; subsequent mixed question/finish instruction was clarify-only. Exact absent leaves now use verified transaction-local graph protection, without widening active host policies. Original local e14960d integrated onto latest trial762b519 as8577730. [Actual diagnosis, failures, usage and checks](test-results/windows/2026-10-17-owner-staged-group-block/README.md): SU-focused178PASS/2optionalRubySKIP; Ruby offline contracts PASS; broader selection219PASS/10environmentalFAIL/4SKIP retained. Actual post-fix SU continuation/native delivery/source-quality NOT_RUN. New isolated8800 empty website session is for OWNER MANUAL testing, no inference/approval/geometry issued by tester. Original files/8799 project and raw evidence remain private/local; publish sanitized code/report on isolated branch and link Issue20 only. Old eight-source/r20 stays closed; no main merge, deployment or automatic three-round test.
+
+---
+
 ## CLOSED 2026-10-17 — basic building and simple surroundings completed, final r20
 
 **Owner-directed case closeout COMPLETE.** Owner says current development is sufficient; retain basic doors/windows/stairs/walls/columns, add simple surroundings, upload records and finish. No further refinement or old customer-readiness milestones. [Final actual evidence/model](test-results/windows/2026-10-17-final-basic-building-and-site/README.md), [prior19building/native evidence](test-results/windows/2026-10-17-r19-basic-building-closeout/README.md). Same original8wholeimages/order/projectarchitecture-project-4f0e4/root20606, original4unchanged; actual real Studio ordinaryChinese/Sol6.1Medium, outercontroller unchanged.

@@ -1,0 +1,31 @@
+{
+  "project_id": "architecture-project-16c07",
+  "model_revision": {
+    "terraced_apartment": 8
+  },
+  "controller_score": 76,
+  "scores": {
+    "silhouette_and_setbacks": 23,
+    "height_and_volume_registration": 18,
+    "facade_grid_and_glass_depth": 16,
+    "terraces_roof_entrance_details": 7,
+    "street_and_context": 5,
+    "native_editability_and_integrity": 7
+  },
+  "completion": "normal; same model; two confirmed defective balcony bays corrected; other approved assemblies protected",
+  "independent_critic": "NEEDS_FIX globally; two target bays now show depth, side returns, overhead enclosure and glass balustrades",
+  "remaining": [
+    "tower facade uses 5/4 bays versus source-visible approximately 6/5",
+    "low-wing terrace morphology remains simplified",
+    "neighbor window grouping differs",
+    "street corner/rails schematic"
+  ],
+  "limitations": [
+    "Controller score is subjective, not building-code certification",
+    "No whole-document native reopen yet",
+    "Round two is a smaller task than initial construction; no controlled cost A/B claim"
+  ],
+  "frozen_evidence": "round-2",
+  "closeup": "round-2/project/outputs/renders/agent-view-97da2d777e.png",
+  "next_feedback_scope": "Environment street corner and rails only; preserve all building, balconies and vegetation"
+}

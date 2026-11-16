@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "fidelity_mode": "single_view_inference",
+  "primary_source": "inputs/reference/6649b42845-image.png",
+  "sources": [
+    {
+      "kind": "exterior_image",
+      "path": "inputs/reference/6649b42845-image.png",
+      "provenance": "observed",
+      "notes": [
+        "单张正立面人眼高度透视，整张图为单一视图、无分幅、无文字标注。",
+        "地标：画面左侧二层奶油色邻楼与黑色老式轿车，右侧粉色老邻楼与白色小车，前景两棵落叶行道树。以此确认这是街道正面，不是侧/背立面。",
+        "可见：清水混凝土三柱两跨网格、7 个住宅层、左跨逐层内凹阳台、右跨通高玻璃窗、首层卷帘车库门与入口、屋顶女儿墙与 2200 高金属格栅围屏、露台绿植。",
+        "不可见：左右侧立面、背面、屋顶面、平面、室内；均无 CAD/尺寸标注。"
+      ]
+    }
+  ],
+  "exterior_views": {
+    "front": {
+      "provenance": "observed",
+      "source_refs": [
+        "inputs/reference/6649b42845-image.png"
+      ],
+      "notes": [
+        "面板：整张图（唯一视图）。1 个阳台洞＋2 扇通高窗/层 × 7 层 = 21 个上层洞口；首层 2 樘门（卷帘 6000×2700、入户 1200×2400）。",
+        "洞口/玻璃/栏板/卷帘逐层可数，高置信；单层凹深与门窗精确宽度为按比例估算。",
+        "正面柱网：柱垛 450，左跨 4650，右跨 7200（估算），见 facade_schedule.json。"
+      ]
+    },
+    "rear": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "无原图。按正面柱网与层高连贯延续：每层 4 扇 1800×1800 窗，首层 1 樘后门；低置信计数，仅作合理推测。"
+      ]
+    },
+    "left": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "无原图。清水混凝土实墙，每层 2 扇 1500×1800 窗，首层 1 个小窗；推断值。"
+      ]
+    },
+    "right": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "无原图。与左侧对称处理：每层 2 扇 1500×1800 窗，首层 1 个小窗；推断值。"
+      ]
+    },
+    "roof": {
+      "provenance": "inferred",
+      "source_refs": [],
+      "notes": [
+        "女儿墙带与 2200 高竖向金属格栅围屏在正面可直接观察到；屋顶面材质、后部楼梯间为推断，低置信。",
+        "平屋面开放露台，无上人以上屋面；露台左侧有攀架绿化与种植槽。"
+      ]
+    },
+    "oblique": {
+      "provenance": "pending",
+      "source_refs": [],
+      "notes": [
+        "未提供斜视图；后续仅生成模型斜视 QA 视图，不作为原始证据。"
+      ]
+    }
+  },
+  "floorplan": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "levels": [],
+    "notes": [
+      "无平面图；每层一户、核心筒靠后部中央为推断，非证据。"
+    ]
+  },
+  "cad": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "notes": [
+      "无 CAD/DWG/尺寸标注；全部尺寸为比例估算，不得当作实测。"
+    ]
+  },
+  "interior": {
+    "provided": false,
+    "provenance": "pending",
+    "source_refs": [],
+    "spaces": [],
+    "notes": [
+      "无室内照片；玻璃后可见米色窗帘与浅色家具面，仅作面片示意。"
+    ]
+  },
+  "scale_anchors": [
+    {
+      "name": "正立面总宽（按比例估算）",
+      "value_mm": 13200,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/6649b42845-image.png"
+    },
+    {
+      "name": "标准层高（7 层等距网格）",
+      "value_mm": 3000,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/6649b42845-image.png"
+    },
+    {
+      "name": "车库卷帘门宽（首层比例基准）",
+      "value_mm": 6000,
+      "provenance": "inferred",
+      "source_ref": "inputs/reference/6649b42845-image.png"
+    }
+  ],
+  "hard_constraints": [
+    "建筑主体为窄板式独立体量：正立面宽约 13200、总高约 24600（至屋面板），宽高比须与原图一致。",
+    "正立面必须是清水混凝土三柱两跨网格：三处竖向柱垛 450 宽，左跨凹阳台 4650，右跨玻璃跨 7200。",
+    "左跨 7 个住宅层逐层内凹阳台，凹深 1500，前缘通长玻璃栏板 1100 高；不得做成平齐玻璃幕墙。",
+    "右跨每层两扇通高玻璃窗（3500×2400，窗台 100），中间 200 宽竖框；玻璃后可见米色窗帘。",
+    "首层右跨为深灰横向肋卷帘车库门（约 6000×2700），左跨为深色墙面与内凹入口。",
+    "顶部为混凝土女儿墙 700 加 2200 高细密竖向金属格栅围屏，屋面为开放露台，无屋顶覆盖。",
+    "环境（街道、车辆、行道树、左右邻楼）不在还原范围，仅可作背景说明。",
+    "所有尺寸为比例估算；不可将估算值标注为实测或原图复原的侧背面。"
+  ],
+  "assumptions": [
+    "总进深取 12000，使每层约 150 ㎡ 一户，前起居后卧室、核心筒靠后部中央。",
+    "侧立面、背面、屋顶面及室内为连贯推断；观测面不得被推断修改。",
+    "侧窗 1500×1800 每层 2 扇、背窗 1800×1800 每层 4 扇为低置信推断计数。",
+    "首层左跨入户门 1200×2400 位于内凹处；卷帘门与首层地面齐平。",
+    "绿色植物以简化体块/半透明面表示，种植槽位于阳台栏板内侧与露台左侧。",
+    "屋面后部楼梯间低于围屏顶且退后 ≥5 m，避免改变正面轮廓。"
+  ],
+  "inference_policy": {
+    "unseen_exterior": "infer_coherent",
+    "unseen_interior": "infer_plausible",
+    "preserve_circulation": true
+  }
+}

@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "source": "committed_owned_root_named_path_readback",
+  "script_id": "terraced_apartment",
+  "revision": 10,
+  "root_pid": 19,
+  "full_readback": true,
+  "current_stage": "finish",
+  "systems": [
+    {
+      "system_id": "right_balcony_sample",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "right_balcony_confirmed_peers",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "right_corner_location_check",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "balcony_joint_finish",
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "present_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_GLAZING_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_MULLION_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_BALUSTRADE_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L11",
+          "FRONT_RAIL_4"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_GLAZING_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_MULLION_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_BALUSTRADE_3"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE",
+          "TOWER_L09",
+          "FRONT_RAIL_3"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "street_corner_tracks_endpoints",
+      "target_paths": [
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "BUILDING_SIDEWALK"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "FAR_CORNER_PAVEMENT"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "FOREGROUND_PAVEMENT"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "CURB_FRONT"
+        ],
+        [
+          "ENVIRONMENT",
+          "TRACKS"
+        ],
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "BUILDING_SIDEWALK"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "FAR_CORNER_PAVEMENT"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "FOREGROUND_PAVEMENT"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS",
+          "CURB_FRONT"
+        ],
+        [
+          "ENVIRONMENT",
+          "TRACKS"
+        ],
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    },
+    {
+      "system_id": "street_wire_finish",
+      "target_paths": [
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "present_paths": [
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "missing_paths": [],
+      "result": "geometry_present_not_visually_verified",
+      "new_status": "built"
+    }
+  ],
+  "visual_verification": "NOT_RUN"
+}

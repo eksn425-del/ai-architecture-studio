@@ -1,0 +1,114 @@
+{
+  "overall": "LOCAL_CODE_FIX_READY_FOR_OWNER_MANUAL_RETEST",
+  "original_owner_build": "PARTIAL_NOT_ACCEPTED",
+  "base_commit": "dba75b176b8dcbf3007c6747ddafbf32de331062",
+  "upstream_integrated": "762b5196126fb09e7e3a7811a6e486f9647a9a91",
+  "original_local_fix": "e14960d927e5fd1c7f1387a7988890875608d226",
+  "integrated_code_commit": "85777300596e0adc18e6c30b4f773a7002dc27d8",
+  "branch": "codex/su-fresh-staged-fix-20261017",
+  "failure": "Missing scope path RESIDENTIAL_MODULES",
+  "secondary_failure": "Mixed explanation question + explicit completion request routed to clarify",
+  "owner_project": "demo-cultural-center",
+  "script_id": "apartment_reconstruction",
+  "revision": 3,
+  "root_pid": 19,
+  "saved_model_sha256": "4f92e52bd038996f3b87d1d9b889a07cb1c577515f89f1e9b3fb7e21a98721fd",
+  "saved_original_model_unchanged": true,
+  "private_case_files": 108,
+  "geometry_scope_contract": "deep_exact_paths_graph_v1 for verified absent-leaf creation; existing tighter host policy never enlarged",
+  "focused_windows_checks": {
+    "passed": 178,
+    "skipped": 2,
+    "failed": 0,
+    "skips": "Optional system Ruby wrappers; contracts ran separately in CRuby WASM"
+  },
+  "broader_windows_selection": {
+    "passed": 219,
+    "skipped": 4,
+    "failed": 10,
+    "missing_blender_failures": 5,
+    "windows_symlink_privilege_failures": 5
+  },
+  "ruby_contracts": "PASS_OFFLINE_COLLECTOR_FIXTURE; existing contracts and new positive + 15 negative checks",
+  "new_native_creation_retest": "NOT_RUN",
+  "native_save_download_reopen_after_fix": "NOT_RUN",
+  "source_visual_quality_after_fix": "NOT_VERIFIED",
+  "fresh_site": {
+    "entry": "http://127.0.0.1:8800/",
+    "port": 8800,
+    "server_pid": 35324,
+    "project_id": "architecture-project",
+    "project_name": "全新手动测试 · 分组修复版",
+    "conversation_count": 0,
+    "reference_count": 0,
+    "model_count": 0,
+    "page_loaded": true,
+    "frontend_matches_checkout": true,
+    "su_project_binding": "NOT_CONNECTED; owner will connect own new project"
+  },
+  "model_configuration": {
+    "provider": "codex-app-server",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "actual_owner_case_identity_verified": true,
+    "fresh_inference_executed": false
+  },
+  "owner_historical_usage": {
+    "turns": [
+      {
+        "at": "2026-10-17T13:59:10+00:00",
+        "agent_action": "clarify",
+        "input_tokens": 75148,
+        "output_tokens": 711,
+        "latency_ms": 34547,
+        "tool_call_count": 2,
+        "failed_tool_calls": 0
+      },
+      {
+        "at": "2026-10-17T14:09:25+00:00",
+        "agent_action": "plan",
+        "input_tokens": 406023,
+        "output_tokens": 11334,
+        "latency_ms": 240235,
+        "tool_call_count": 12,
+        "failed_tool_calls": 2
+      },
+      {
+        "at": "2026-10-17T14:24:41+00:00",
+        "agent_action": "execute",
+        "input_tokens": 2469439,
+        "output_tokens": 13879,
+        "latency_ms": 406859,
+        "tool_call_count": 55,
+        "failed_tool_calls": 4
+      },
+      {
+        "at": "2026-10-17T14:33:09+00:00",
+        "agent_action": "clarify",
+        "input_tokens": 119292,
+        "output_tokens": 535,
+        "latency_ms": 35188,
+        "tool_call_count": 3,
+        "failed_tool_calls": 0
+      }
+    ],
+    "totals": {
+      "input_tokens": 3069902,
+      "output_tokens": 26459,
+      "latency_ms": 716829,
+      "tool_call_count": 72,
+      "failed_tool_calls": 6
+    },
+    "independent_critic": {
+      "input_tokens": 90986,
+      "output_tokens": 3035,
+      "calls": 3,
+      "latency_ms": null
+    },
+    "billing_usd": null
+  },
+  "new_inference_calls": 0,
+  "tester_model_writes": 0,
+  "raw_materials_uploaded": false,
+  "main_modified": false
+}

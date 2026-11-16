@@ -1,0 +1,529 @@
+{
+  "schema_version": 1,
+  "current_stage": "finish",
+  "stage_order": [
+    "primary_form",
+    "representative_module",
+    "replication",
+    "variants",
+    "finish"
+  ],
+  "shared_parameters": {
+    "storey_height": {
+      "value": 3100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "ground_height": {
+      "value": 4200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "tower_height": {
+      "value": 56900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "bay_width": {
+      "value": 3600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "tower_width": {
+      "value": 18000,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "tower_depth": {
+      "value": 14400,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "overall_width": {
+      "value": 64800,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "overall_depth": {
+      "value": 21600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "wall_thickness": {
+      "value": 200,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "slab_thickness": {
+      "value": 220,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "slab_inset": {
+      "value": 50,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "frame_projection": {
+      "value": 300,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "glazing_recess": {
+      "value": 100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "railing_height": {
+      "value": 1100,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "planter_height": {
+      "value": 600,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "circulation_clearance": {
+      "value": 900,
+      "units": "mm",
+      "provenance": "estimated",
+      "source": "单图比例建模初值；不是源图实测"
+    },
+    "tower_floors": {
+      "value": 18,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "tower_front_bays": {
+      "value": 5,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "tower_side_bays": {
+      "value": 4,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "terrace_low_floors": {
+      "value": 6,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "terrace_mid_low_floors": {
+      "value": 8,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "terrace_mid_high_floors": {
+      "value": 10,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "terrace_high_floors": {
+      "value": 13,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "left_upper_floors": {
+      "value": 7,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "left_street_floors": {
+      "value": 4,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "neighbor_floors": {
+      "value": 9,
+      "units": "count",
+      "provenance": "estimated",
+      "source": "单幅透视估算；与原视角核对后统一调整"
+    },
+    "include_right_neighbor": {
+      "value": "简化体块保留",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "用户本轮明确确认"
+    },
+    "interior_scope": {
+      "value": "不细分户型，仅楼板及必要遮挡和交通预留",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "用户本轮明确确认"
+    },
+    "environment_scope": {
+      "value": "画面范围的路口、轨道、接触线及必要绿化；无车辆人群",
+      "units": "text",
+      "provenance": "user_confirmed",
+      "source": "用户原始请求包含露台绿化、街道路口和轨道"
+    },
+    "roof_form": {
+      "value": "平屋顶与不等阶露台",
+      "units": "text",
+      "provenance": "observed",
+      "source": "唯一源图轮廓"
+    }
+  },
+  "systems": [
+    {
+      "id": "primary_envelope",
+      "stage": "primary_form",
+      "role": "shell",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "storey_height",
+        "ground_height",
+        "tower_floors",
+        "tower_width",
+        "tower_depth",
+        "overall_width",
+        "overall_depth",
+        "roof_form"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "roof",
+        "oblique"
+      ],
+      "notes": [
+        "先锁轮廓、各低层附件及实虚，不先复制窗格或放植物",
+        "以上路径均相对宿主指定专有根，未声明根已存在"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    },
+    {
+      "id": "representative_wall",
+      "stage": "representative_module",
+      "role": "opening_system",
+      "method": "continuous_wall_with_openings",
+      "status": "verified",
+      "depends_on": [
+        "bay_width",
+        "storey_height",
+        "wall_thickness",
+        "glazing_recess"
+      ],
+      "target_paths": [
+        [
+          "MODULE_FRONT_WALL"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "前墙Y=0..200；右墙X=17800..18000；检查真实洞口及转角相接",
+        "只有已验证模块才可复制，未声称helper已调用"
+      ],
+      "method_id": "saie.wall_with_openings",
+      "selection_reason": "源图标准矩形窗格适合连续墙真实开洞；使用schema已提供的具体编号，执行前确认注入签名可用。"
+    },
+    {
+      "id": "representative_slab_frame",
+      "stage": "representative_module",
+      "role": "facade_detail",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "bay_width",
+        "slab_thickness",
+        "slab_inset",
+        "frame_projection",
+        "glazing_recess"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "SLAB"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "FRAME"
+        ],
+        [
+          "BUILDING",
+          "TOWER",
+          "MODULE_PROTOTYPE",
+          "GLAZING"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "rear",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "实测前板边Y=50、右板边X=17950、后板边Y=14350的设计目标；记录实际读回后才可通过",
+        "外凸框架独立，普通楼板不得穿透饰面"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    },
+    {
+      "id": "module_repetition",
+      "stage": "replication",
+      "role": "repetition",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "tower_floors",
+        "tower_front_bays",
+        "tower_side_bays",
+        "bay_width",
+        "storey_height"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER",
+          "FACADE"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "FACADE"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "rear",
+        "left",
+        "oblique"
+      ],
+      "notes": [
+        "按所属楼体独立裁切，不穿过退台面；逐层逐跨唯一语义ID"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    },
+    {
+      "id": "terraces_roofs",
+      "stage": "variants",
+      "role": "roof",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "terrace_low_floors",
+        "terrace_mid_low_floors",
+        "terrace_mid_high_floors",
+        "terrace_high_floors",
+        "slab_thickness",
+        "railing_height",
+        "planter_height",
+        "circulation_clearance"
+      ],
+      "target_paths": [
+        [
+          "BUILDING",
+          "TOWER",
+          "ROOF"
+        ],
+        [
+          "BUILDING",
+          "STEPPED_WING",
+          "TERRACES"
+        ],
+        [
+          "BUILDING",
+          "LEFT_UPPER",
+          "ROOF"
+        ],
+        [
+          "BUILDING",
+          "LEFT_STREET",
+          "ROOF"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "分别组织露台板、花池、栏杆和首层变体；没有证据的贯通大洞不增设",
+        "无可识别外梯；如后续增补楼梯，需验证梯段—平台—楼板洞口—扶手连续性"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    },
+    {
+      "id": "neighbor",
+      "stage": "primary_form",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "neighbor_floors",
+        "storey_height",
+        "include_right_neighbor"
+      ],
+      "target_paths": [
+        [
+          "CONTEXT",
+          "RIGHT_NEIGHBOR"
+        ]
+      ],
+      "verification_views": [
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "仅简化体量与主要浅米/深绿分区，不与主塔并为同一实体"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    },
+    {
+      "id": "vegetation",
+      "stage": "finish",
+      "role": "site",
+      "method": "prototype_instance",
+      "status": "built",
+      "depends_on": [
+        "planter_height",
+        "circulation_clearance"
+      ],
+      "target_paths": [
+        [
+          "VEGETATION",
+          "ROOF_INSTANCES"
+        ],
+        [
+          "VEGETATION",
+          "TERRACE_INSTANCES"
+        ],
+        [
+          "VEGETATION",
+          "STREET_INSTANCES"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "front",
+        "right",
+        "oblique"
+      ],
+      "notes": [
+        "可复用植被独立保存，模板不占建筑体积；实例依据实际花池定位",
+        "摆放后检查枝叶与墙/窗/栏杆碰撞及门口净距；仅源图必要密度"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    },
+    {
+      "id": "street_rail",
+      "stage": "finish",
+      "role": "site",
+      "method": "custom_owned_ruby",
+      "status": "built",
+      "depends_on": [
+        "environment_scope"
+      ],
+      "target_paths": [
+        [
+          "ENVIRONMENT",
+          "INTERSECTION"
+        ],
+        [
+          "ENVIRONMENT",
+          "CURBS"
+        ],
+        [
+          "ENVIRONMENT",
+          "TRACKS"
+        ],
+        [
+          "ENVIRONMENT",
+          "CONTACT_WIRES"
+        ]
+      ],
+      "verification_views": [
+        "roof",
+        "front",
+        "oblique"
+      ],
+      "notes": [
+        "路网与建筑分开；轨距、线位、路宽均为推测，按前景比例拟合",
+        "不加入车辆、人群、密植和未授权城市街区"
+      ],
+      "method_id": "kstudio.custom_owned_ruby",
+      "selection_reason": "ADAI明确禁用；现有具体编号仅矩形开洞墙，无法覆盖本系统。拟采用自有参数脚本，具体方法编号待正式目录绑定，不猜造、不执行。"
+    }
+  ],
+  "notes": [
+    "本轮仅计划，无几何写入；所有status=pending",
+    "具体method_id仅采用schema原文saie.wall_with_openings；其他null表示尚未获得正式编号，禁止猜造或执行，不表示已选用OSS",
+    "target_paths为相对宿主专有根的精确名称段数组；执行前确认根身份",
+    "外饰面及板墙窗共享同一坐标；先读回实际侧后板边再复制",
+    "只在宿主验证的空白临时模型根下修改；先建空父组，直接在父entities内建子组；兄弟语义ID唯一",
+    "每次写入后重新审查源图与六向模型视图及独立复核，未通过不得宣称完成",
+    "r2 native slab bounds x50..17950 y50..14350 z3980..4200; sample wall 200mm with actual opening; inset temporary body removed in replication. Source-angle high step width adjusted to2700mm; low4storey link retained."
+  ]
+}

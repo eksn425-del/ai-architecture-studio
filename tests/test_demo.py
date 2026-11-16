@@ -520,7 +520,12 @@ class DisconnectedFakeSketchUp(FakeSketchUp):
 def test_native_conversation_gates_sketchup_tools_until_same_disposable_model(tmp_path: Path):
     runtime = tmp_path / "runtime"
     sketchup = DisconnectedFakeSketchUp()
-    native = FakeNativeAgent()
+    class CommittedNativeFixture(FakeNativeAgent):
+        def respond(self, **kwargs):
+            if kwargs["mcp_enabled"]:
+                kwargs["ruby_state"]["fixture"] = {"revision": kwargs["ruby_state"].get("fixture", {}).get("revision", 0) + 1, "root_pid": 1}
+            return super().respond(**kwargs)
+    native = CommittedNativeFixture()
     blank_path = runtime / "projects" / "demo-cultural-center" / "outputs" / "model" / "blank-disposable-test.skp"
 
     def launch(project_id, runtime_root, existing_model_path=None):

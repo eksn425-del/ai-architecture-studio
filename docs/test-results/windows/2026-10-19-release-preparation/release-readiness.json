@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "deployment_mode": "local_single_user",
+  "paid_multi_user_release_ready": false,
+  "project_storage": "local_json_files",
+  "local_service_lease": "os_advisory_lock_at_application_lifespan",
+  "existing_uninstrumented_services": "must_be_stopped_before_adoption",
+  "cloud_capabilities": {
+    "tenant_auth_and_authorization": "not_implemented",
+    "postgres_atomic_credit_ledger": "not_implemented",
+    "durable_job_queue_and_recovery": "not_implemented",
+    "authenticated_remote_connector_pairing": "not_implemented",
+    "private_object_storage": "not_implemented",
+    "payment_webhook_idempotency": "not_implemented"
+  },
+  "release_evidence_required": [
+    "approved_provider_real_image_tool_loop_and_cancel",
+    "native_source_fidelity_local_edit_keep_save_download_reopen",
+    "tenant_isolation_and_quota_race_tests",
+    "mainland_network_load_and_failure_drills",
+    "backup_restore_and_release_rollback_drills",
+    "commercial_privacy_licensing_and_mainland_launch_review"
+  ]
+}
